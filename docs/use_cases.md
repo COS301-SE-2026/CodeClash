@@ -35,7 +35,7 @@ Vew submitted report
     TUCBW: User selects the report they want to view
     TUCEW: User can see the details of the report
 
-Review submitted reports
+Review all submitted reports
     Actor: User
     TUCBW: User opens 'Reports page'
     TUCEW: User can see all submitted reports
@@ -89,22 +89,22 @@ Delete report
 
 # Manager
 
-Create system question
+Create question
     Actor: Manager
     TUCBW: Manager selects 'create question' button on questions page
     TUCEW: Manager saves or cancels the new question
 
-View system question
+View question
     Actor: Manager
     TUCBW: Manager selects a question to view
     TUCEW: Manager can see the details of that question
 
-Edit system question
+Edit question
     Actor: Manager
     TUCBW: Manager selects question to edit
     TUCEW: Manager saves or cancels the changes
 
-Delete system question
+Delete question
     Actor: Manager
     TUCBW: Manager selects question to delete
     TUCEW: Manager confirms or cancels deletion
@@ -123,6 +123,11 @@ Ban player
     Actor: Manager
     TUCBW: Manager selects player to be banned
     TUCEW: Manager confirms or cancels banning
+
+Unban player
+    Actor: Manager
+    TUCBW: Manager selects a banned player to be unbanned
+    TUCEW: Manager saves player state change
 
 View game engagement 
     Actor: Manager
