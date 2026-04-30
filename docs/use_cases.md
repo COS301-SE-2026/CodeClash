@@ -1,3 +1,5 @@
+# User
+
 Register an account
     Actor: User
     TUCBW: User accesses the registration page
@@ -13,15 +15,37 @@ Edit profile information
     TUCBW: User selects 'edit' button on profile page
     TUCEW: User saves edits
 
-View Elo and ranking
-    Actor: Player
-    TUCBW: Player selects 'Elo and ranking' on their profile
-    TUCEW: ELo and ranking page loads and player can see their information
-
 View match history
     Actor: User
     TUCBW: User selects 'history' button on a game 
     TUCEW: User can see the game history 
+
+View game leaderboard
+    Actor: User
+    TUCBW: User selects the leaderboard button on a game
+    TUCEW: User can see the top 5 players of that game
+
+View game results
+    Actor: User
+    TUCBW: User selects the result button of a game
+    TUCEW: User can see the result for the matches of that game
+
+Vew submitted report 
+    Actor: User
+    TUCBW: User selects the report they want to view
+    TUCEW: User can see the details of the report
+
+Review submitted reports
+    Actor: User
+    TUCBW: User opens 'Reports page'
+    TUCEW: User can see all submitted reports
+
+# Player
+
+View Elo and ranking
+    Actor: Player
+    TUCBW: Player selects 'Elo and ranking' on their profile
+    TUCEW: ELo and ranking page loads and player can see their information
 
 Select game mode
     Actor: Player
@@ -43,16 +67,6 @@ Invite friends
     TUCBW: Player selects friends to play a specific game
     TUCEW: Player receives a notification that the selected friends have received their request
 
-View game leaderboard
-    Actor: User
-    TUCBW: User selects the leaderboard button on a game
-    TUCEW: User can see the top 5 players of that game
-
-View game results
-    Actor: User
-    TUCBW: User selects the result button of a game
-    TUCEW: User can see the result for the matches of that game
-
 Create cheating report 
     Actor: Player
     TUCBW: Player selects the 'create report' button on a game page
@@ -63,11 +77,6 @@ Create question error report
     TUCBW: Player selects 'create report' button on question page
     TUCEW: Player submits or cancel report
 
-Vew  report 
-    Actor: User
-    TUCBW: User selects the report they want to view
-    TUCEW: User can see the details of the report
-
 Edit report 
     Actor: Player 
     TUCBW: Player selects the 'edit' button on a report
@@ -77,6 +86,8 @@ Delete report
     Actor: Player
     TUCBW: Player selects the 'delete' button on a report
     TUCEW: Players confirms or cancels deletion
+
+# Manager
 
 Create system question
     Actor: Manager
@@ -112,11 +123,6 @@ Ban player
     Actor: Manager
     TUCBW: Manager selects player to be banned
     TUCEW: Manager confirms or cancels banning
-
-Review submitted reports
-    Actor: User
-    TUCBW: User opens 'Reports page'
-    TUCEW: User can see details of submitted reports
 
 View game engagement 
     Actor: Manager
