@@ -62,6 +62,11 @@ Submit solution
     TUCBW: player begins typing their solution
     TUCEW: player clicks the 'submit' button
 
+View programming solution output
+    Actor: Player
+    TUCBW: Player clicks the 'submit' button on their programming question
+    TUCEW: Player can veiw the output of test cases run with their solution
+
 Invite friends
     Actor: Player 
     TUCBW: Player selects friends to play a specific game
@@ -86,6 +91,31 @@ Delete report
     Actor: Player
     TUCBW: Player selects the 'delete' button on a report
     TUCEW: Players confirms or cancels deletion
+
+Create a cheating appeald
+    Actor: Player
+    TUCBW: Player selects 'appeal' on a cheating report
+    TUCEW: Player submits or cancel the appeal
+
+Edit appeal
+    Actor: Player
+    TUCBW: Player selects the 'edit' button on an appeal
+    TUCEW: Player saves or cancels changes
+
+Delete appeal
+    Actor: Player
+    TUCBW: Player selects the 'delete' button on an appeal
+    TUCEW: Player confirms or cancels deletion
+
+Earn achievements
+    Actor: Player
+    TUCBW: Player completes games and meets achievement criteria
+    TUCEW: Player is notified of achievements earned
+
+View achievements
+    Actor: Player
+    TUCBW: Player selects 'achievements' on their profile
+    TUCEW: Players can see their earned achievements
 
 # Manager
 
