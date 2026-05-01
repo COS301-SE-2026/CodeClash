@@ -30,6 +30,10 @@ As a player, I want to view my game history so I can see how I played in past ga
 
 As a player, I want to be able to submit appeals so I can argue against cheating allegations
 
+As a player, I want to earn achievements so I can be motivated to play more games
+
+As a player, I want view my achievements so I can track my progress
+
 # Managers
 
 As a manager, I want to add new questions to the question pool so I can ensure the game remains varied and engaging 
