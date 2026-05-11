@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@monaco-editor/react": "^4.7.0",
+    "aws-amplify": "^6.17.0",
     "dompurify": "^3.4.2",
     "monaco-editor": "^0.53.0"
   }
