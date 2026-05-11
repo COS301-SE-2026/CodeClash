@@ -13,13 +13,14 @@ services:
       - ./backend:/app
       - /app/node_modules
 
-  frontend:
-    build: ./frontend
-    ports:
-      - "5173:5173"
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
+  # frontend:
+  #   build: ./frontend
+  #   ports:
+  #     - "5173:5173"
+  #   volumes:
+  #     - ./frontend:/app
+  #     - /app/node_modules
+  #TODO IMPORTANT return this when we want to containerise the front end for deployment
 
   db:
     image: postgres:15-alpine
