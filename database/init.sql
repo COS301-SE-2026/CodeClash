@@ -24,3 +24,14 @@ CREATE TABLE IF NOT EXISTS math_problems (
   equation VARCHAR(20) NOT NULL,
   solution_formula VARCHAR(20) NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS programming_problems (
+  problem_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  difficulty_level ENUM('Easy', 'Medium', 'Difficult') NOT NULL,
+  title VARCHAR(20) NOT NULL,
+  description VARCHAR(40) NOT NULL,
+  time_limit TIME(2) NOT NULL,
+  function_signature VARCHAR(25) NOT NULL,
+  supported_languages ENUM('java', 'c++') NOT NULL
+  // java, c++
+);
