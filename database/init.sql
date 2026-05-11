@@ -14,3 +14,13 @@ CREATE TABLE IF NOT EXISTS elo_ratings (
   rating INTEGER DEFAULT 600,
   updated_at TIMESTAMP DEFAULT NOW()
 );
+
+CREATE TABLE IF NOT EXISTS math_problems (
+  problem_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  difficulty_level ENUM('Easy', 'Medium', 'Difficult') NOT NULL,
+  title VARCHAR(20) NOT NULL,
+  description VARCHAR(40) NOT NULL,
+  time_limit TIME(2) NOT NULL,
+  equation VARCHAR(20) NOT NULL,
+  solution_formula VARCHAR(20) NOT NULL
+);
