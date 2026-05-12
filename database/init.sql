@@ -23,7 +23,10 @@ CREATE TABLE IF NOT EXISTS elo_ratings (
   user_id UUID REFERENCES users(user_id),
   game_mode VARCHAR(20) NOT NULL,
   rating INTEGER DEFAULT 600,
-  updated_at TIMESTAMP DEFAULT NOW()
+  updated_at TIMESTAMP DEFAULT NOW(),
+  CONSTRAINT math_category_check CHECK (
+        (SELECT type FROM problems WHERE id = problem_id) = 'math'
+    )
 );
 
 
@@ -46,5 +49,8 @@ CREATE TABLE IF NOT EXISTS programming_problems (
   description VARCHAR(40) NOT NULL,
   time_limit TIME(2) NOT NULL,
   function_signature VARCHAR(25) NOT NULL,
-  supported_languages ENUM('java', 'c++') NOT NULL
+  supported_languages ENUM('java', 'c++') NOT NULL,
+  CONSTRAINT programming_category_check CHECK (
+        (SELECT type FROM problems WHERE id = problem_id) = 'programming'
+    )
 );
