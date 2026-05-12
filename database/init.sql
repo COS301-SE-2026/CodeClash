@@ -30,8 +30,6 @@ CREATE TABLE IF NOT EXISTS elo_ratings (
 );
 
 
-//virtual table with category enum variable math or programming and then children tables have category=math or programming
-
 CREATE TABLE IF NOT EXISTS math_problems (
   problem_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   difficulty_level ENUM('Easy', 'Medium', 'Difficult') NOT NULL,
