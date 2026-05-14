@@ -1,16 +1,24 @@
 import redis from "../../redis-client"
+import UserDto from "./matchmaking.dto";
 
-function matchmaking (){
+const elo_difference = 100;   // this can be changed later
 
-    redis.set('User', 0, (err,result)=>{
-        if(err){
-            console.error("Error setting key: ", err);
-        }
-        else{
-            
-        }
-    })
+
+// adds player to queue
+async function enqueue(user: UserDto) {
+    await redis.rpoplpush("Player_Queue", JSON.stringify(user));
+}
+
+function dequeue(user: UserDto): UserDto {
+
+    // return {
+
+    // };
+}
+
+function match(user: UserDto) {
+
 }
 
 
-export default matchmaking
+//export default matchmaking

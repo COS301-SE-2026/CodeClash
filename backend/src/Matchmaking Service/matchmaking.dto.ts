@@ -11,3 +11,6 @@ class UserDto{
     this.joined_at = Date.now();
 }
 }
+
+
+export default UserDto;
