@@ -1,56 +1,40 @@
-import request from 'supertest'
-import app from '../../src/app'
+import { request, app, expectNotFound, expectValidationError, expectEmptyArray, expectArrayResponse, expectPaginated, expectShape } from '../helpers/test-utils'
+
+const achievementProps = ['achievement_id', 'name', 'description', 'condition']
 
 describe('Achievements API', () => {
   describe('GET /achievements', () => {
     test('returns 200 with full achievement catalog', async () => {
       const res = await request(app).get('/achievements')
       expect(res.status).toBe(200)
-      expect(Array.isArray(res.body)).toBe(true)
       expect(res.body.length).toBeGreaterThanOrEqual(1)
-      res.body.forEach((a: any) => {
-        expect(a).toHaveProperty('achievement_id')
-        expect(a).toHaveProperty('name')
-        expect(a).toHaveProperty('description')
-        expect(a).toHaveProperty('condition')
-      })
+      res.body.forEach((a: any) => expectShape(a, achievementProps))
     })
 
     test('includes "First Blood" achievement in catalog', async () => {
       const res = await request(app).get('/achievements')
       expect(res.status).toBe(200)
-      const names = res.body.map((a: any) => a.name)
-      expect(names).toContain('First Blood')
+      expect(res.body.map((a: any) => a.name)).toContain('First Blood')
     })
 
     test('returns 200 with limit applied', async () => {
-      const res = await request(app).get('/achievements?limit=2')
-      expect(res.status).toBe(200)
-      expect(res.body.length).toBeLessThanOrEqual(2)
+      expectPaginated(await request(app).get('/achievements?limit=2'), 2)
     })
 
     test('returns 200 with offset applied', async () => {
-      const res = await request(app).get('/achievements?offset=1')
-      expect(res.status).toBe(200)
-      expect(Array.isArray(res.body)).toBe(true)
+      expectArrayResponse(await request(app).get('/achievements?offset=1'))
     })
 
     test('returns 200 with limit and offset combined', async () => {
-      const res = await request(app).get('/achievements?limit=1&offset=1')
-      expect(res.status).toBe(200)
-      expect(res.body.length).toBeLessThanOrEqual(1)
+      expectPaginated(await request(app).get('/achievements?limit=1&offset=1'), 1)
     })
 
     test('returns 400 for negative limit', async () => {
-      const res = await request(app).get('/achievements?limit=-1')
-      expect(res.status).toBe(400)
-      expect(res.body.error.code).toBe('VALIDATION_ERROR')
+      expectValidationError(await request(app).get('/achievements?limit=-1'))
     })
 
     test('returns 400 for non-integer offset', async () => {
-      const res = await request(app).get('/achievements?offset=abc')
-      expect(res.status).toBe(400)
-      expect(res.body.error.code).toBe('VALIDATION_ERROR')
+      expectValidationError(await request(app).get('/achievements?offset=abc'))
     })
   })
 
@@ -58,22 +42,16 @@ describe('Achievements API', () => {
     test('returns 200 with achievement details', async () => {
       const res = await request(app).get('/achievements/1')
       expect(res.status).toBe(200)
-      expect(res.body).toHaveProperty('achievement_id', 1)
-      expect(res.body).toHaveProperty('name')
-      expect(res.body).toHaveProperty('description')
-      expect(res.body).toHaveProperty('condition')
+      expectShape(res.body, achievementProps)
+      expect(res.body.achievement_id).toBe(1)
     })
 
     test('returns 404 for non-existent achievement', async () => {
-      const res = await request(app).get('/achievements/999')
-      expect(res.status).toBe(404)
-      expect(res.body.error.code).toBe('NOT_FOUND')
+      expectNotFound(await request(app).get('/achievements/999'))
     })
 
     test('returns 400 for non-integer achievement_id', async () => {
-      const res = await request(app).get('/achievements/abc')
-      expect(res.status).toBe(400)
-      expect(res.body.error.code).toBe('VALIDATION_ERROR')
+      expectValidationError(await request(app).get('/achievements/abc'))
     })
   })
 
@@ -83,13 +61,10 @@ describe('Achievements API', () => {
       expect(res.status).toBe(200)
       expect(Array.isArray(res.body)).toBe(true)
       res.body.forEach((ua: any) => {
-        expect(ua).toHaveProperty('user_achievement_id')
-        expect(ua).toHaveProperty('user_id', 42)
-        expect(ua).toHaveProperty('achievement_id')
-        expect(ua).toHaveProperty('unlocked_at')
+        expectShape(ua, ['user_achievement_id', 'user_id', 'achievement_id', 'unlocked_at'])
         expect(ua).toHaveProperty('achievement')
-        expect(ua.achievement).toHaveProperty('name')
-        expect(ua.achievement).toHaveProperty('description')
+        expect(ua.user_id).toBe(42)
+        expectShape(ua.achievement, ['name', 'description'])
       })
     })
 
@@ -103,21 +78,15 @@ describe('Achievements API', () => {
     })
 
     test('returns 200 with empty array for user with no achievements', async () => {
-      const res = await request(app).get('/users/1/achievements')
-      expect(res.status).toBe(200)
-      expect(res.body).toEqual([])
+      expectEmptyArray(await request(app).get('/users/1/achievements'))
     })
 
     test('returns 404 for non-existent user', async () => {
-      const res = await request(app).get('/users/99999/achievements')
-      expect(res.status).toBe(404)
-      expect(res.body.error.code).toBe('NOT_FOUND')
+      expectNotFound(await request(app).get('/users/99999/achievements'))
     })
 
     test('returns 400 for invalid user_id', async () => {
-      const res = await request(app).get('/users/abc/achievements')
-      expect(res.status).toBe(400)
-      expect(res.body.error.code).toBe('VALIDATION_ERROR')
+      expectValidationError(await request(app).get('/users/abc/achievements'))
     })
   })
 })
