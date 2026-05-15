@@ -1,6 +1,5 @@
-import { request, app, expectNotFound, expectValidationError, expectEmptyArray, expectArrayShape } from '../helpers/test-utils'
-
-const eloProps = ['elo_id', 'user_id', 'game_mode', 'rating', 'updated_at']
+import request from 'supertest'
+import app from '../../src/app'
 
 describe('ELO Ratings API', () => {
   describe('GET /users/:user_id/elo', () => {
@@ -8,28 +7,38 @@ describe('ELO Ratings API', () => {
       const res = await request(app).get('/users/42/elo')
       expect(res.status).toBe(200)
       expect(Array.isArray(res.body)).toBe(true)
-      expectArrayShape(res.body, eloProps)
       res.body.forEach((entry: any) => {
-        expect(entry.user_id).toBe(42)
+        expect(entry).toHaveProperty('elo_id')
+        expect(entry).toHaveProperty('user_id', 42)
+        expect(entry).toHaveProperty('game_mode')
+        expect(entry).toHaveProperty('rating')
+        expect(entry).toHaveProperty('updated_at')
       })
     })
 
     test('returns array with multiple game modes if user has played them', async () => {
       const res = await request(app).get('/users/42/elo')
       expect(res.status).toBe(200)
-      expect(res.body.length).toBeGreaterThanOrEqual(1)
+      const modes = res.body.map((e: any) => e.game_mode)
+      expect(modes.length).toBeGreaterThanOrEqual(1)
     })
 
     test('returns 200 with empty array for user with no ELO history', async () => {
-      expectEmptyArray(await request(app).get('/users/1/elo'))
+      const res = await request(app).get('/users/1/elo')
+      expect(res.status).toBe(200)
+      expect(res.body).toEqual([])
     })
 
     test('returns 404 for non-existent user', async () => {
-      expectNotFound(await request(app).get('/users/99999/elo'))
+      const res = await request(app).get('/users/99999/elo')
+      expect(res.status).toBe(404)
+      expect(res.body.error.code).toBe('NOT_FOUND')
     })
 
     test('returns 400 for invalid user_id', async () => {
-      expectValidationError(await request(app).get('/users/abc/elo'))
+      const res = await request(app).get('/users/abc/elo')
+      expect(res.status).toBe(400)
+      expect(res.body.error.code).toBe('VALIDATION_ERROR')
     })
   })
 
@@ -58,15 +67,21 @@ describe('ELO Ratings API', () => {
     })
 
     test('returns 404 for non-existent game mode for user', async () => {
-      expectNotFound(await request(app).get('/users/42/elo/unknown_mode'))
+      const res = await request(app).get('/users/42/elo/unknown_mode')
+      expect(res.status).toBe(404)
+      expect(res.body.error.code).toBe('NOT_FOUND')
     })
 
     test('returns 404 for non-existent user', async () => {
-      expectNotFound(await request(app).get('/users/99999/elo/blitz'))
+      const res = await request(app).get('/users/99999/elo/blitz')
+      expect(res.status).toBe(404)
+      expect(res.body.error.code).toBe('NOT_FOUND')
     })
 
     test('returns 400 for invalid user_id', async () => {
-      expectValidationError(await request(app).get('/users/abc/elo/blitz'))
+      const res = await request(app).get('/users/abc/elo/blitz')
+      expect(res.status).toBe(400)
+      expect(res.body.error.code).toBe('VALIDATION_ERROR')
     })
   })
 })

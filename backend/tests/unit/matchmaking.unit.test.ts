@@ -1,101 +1,136 @@
-import { request, app, userAuth, expectNotFound, expectValidationError, expectUnauthorized, expectArrayResponse } from '../helpers/test-utils'
-
-const queueProps = ['queue_id', 'user_id', 'game_mode', 'joined_at', 'status']
+import request from 'supertest'
+import app from '../../src/app'
 
 describe('Matchmaking API', () => {
-  describe('GET /matchmaking/queue', () => {
-    test('returns 200 with current queue', async () => {
-      const res = await request(app).get('/matchmaking/queue')
-      expect(res.status).toBe(200)
-      expect(Array.isArray(res.body)).toBe(true)
-      res.body.forEach((entry: any) => expect(entry).toHaveProperty('user_id'))
-    })
-
-    test('returns 200 with status filter', async () => {
-      const res = await request(app).get('/matchmaking/queue?status=waiting')
-      expect(res.status).toBe(200)
-      res.body.forEach((entry: any) => {
-        expect(entry.status).toBe('waiting')
-      })
-    })
-
-    test('returns 200 with game_mode filter', async () => {
-      const res = await request(app).get('/matchmaking/queue?game_mode=blitz')
-      expect(res.status).toBe(200)
-      res.body.forEach((entry: any) => {
-        expect(entry.game_mode).toBe('blitz')
-      })
-    })
-
-    test('returns 200 with empty array for unknown game_mode', async () => {
-      const res = await request(app).get('/matchmaking/queue?game_mode=unknown')
-      expect(res.status).toBe(200)
-      expect(res.body).toEqual([])
-    })
-
-    test('returns 200 with combined filters', async () => {
-      const res = await request(app).get('/matchmaking/queue?status=waiting&game_mode=blitz')
-      expect(res.status).toBe(200)
-      res.body.forEach((entry: any) => {
-        expect(entry.status).toBe('waiting')
-        expect(entry.game_mode).toBe('blitz')
-      })
-    })
-  })
-
   describe('POST /matchmaking/join', () => {
-    test('returns 201 when user joins queue', async () => {
+    test('returns 201 when user joins queue with valid game_mode', async () => {
       const res = await request(app)
         .post('/matchmaking/join')
-        .set('Authorization', userAuth)
-        .send({ game_mode: 'blitz' })
+        .set('Authorization', 'Bearer valid-jwt')
+        .send({ game_mode: 'ranked' })
       expect(res.status).toBe(201)
       expect(res.body).toHaveProperty('queue_id')
-      expect(res.body.status).toBe('waiting')
-      expect(res.body.user_id).toBe(42)
+      expect(res.body).toHaveProperty('user_id', 42)
+      expect(res.body).toHaveProperty('game_mode', 'ranked')
+      expect(res.body).toHaveProperty('elo_rating')
+      expect(res.body).toHaveProperty('joined_at')
     })
 
-    test('returns 201 with optional elo_range filter', async () => {
+    test('returns 201 for "blitz" game mode', async () => {
       const res = await request(app)
         .post('/matchmaking/join')
-        .set('Authorization', userAuth)
-        .send({ game_mode: 'ranked', elo_range: { min: 1300, max: 1600 } })
+        .set('Authorization', 'Bearer valid-jwt')
+        .send({ game_mode: 'blitz' })
       expect(res.status).toBe(201)
-      expect(res.body.game_mode).toBe('ranked')
+      expect(res.body.game_mode).toBe('blitz')
     })
 
-    test('returns 401 without auth', async () => {
-      expectUnauthorized(
-        await request(app).post('/matchmaking/join').send({ game_mode: 'blitz' })
-      )
+    test('returns 201 for "math" game mode', async () => {
+      const res = await request(app)
+        .post('/matchmaking/join')
+        .set('Authorization', 'Bearer valid-jwt')
+        .send({ game_mode: 'math' })
+      expect(res.status).toBe(201)
+      expect(res.body.game_mode).toBe('math')
     })
 
-    test('returns 400 for missing game_mode', async () => {
-      expectValidationError(
-        await request(app).post('/matchmaking/join').set('Authorization', userAuth).send({})
-      )
+    test('returns 401 without auth token', async () => {
+      const res = await request(app)
+        .post('/matchmaking/join')
+        .send({ game_mode: 'ranked' })
+      expect(res.status).toBe(401)
+      expect(res.body.error.code).toBe('UNAUTHORIZED')
     })
 
-    test('returns 400 for empty game_mode', async () => {
-      expectValidationError(
-        await request(app)
-          .post('/matchmaking/join')
-          .set('Authorization', userAuth)
-          .send({ game_mode: '' })
-      )
+    test('returns 400 when game_mode is missing', async () => {
+      const res = await request(app)
+        .post('/matchmaking/join')
+        .set('Authorization', 'Bearer valid-jwt')
+        .send({})
+      expect(res.status).toBe(400)
+      expect(res.body.error.code).toBe('VALIDATION_ERROR')
+    })
+
+    test('returns 400 for invalid game_mode', async () => {
+      const res = await request(app)
+        .post('/matchmaking/join')
+        .set('Authorization', 'Bearer valid-jwt')
+        .send({ game_mode: '' })
+      expect(res.status).toBe(400)
+      expect(res.body.error.code).toBe('VALIDATION_ERROR')
+    })
+
+    test('returns 409 if user is already in queue', async () => {
+      await request(app)
+        .post('/matchmaking/join')
+        .set('Authorization', 'Bearer valid-jwt')
+        .send({ game_mode: 'ranked' })
+
+      const res2 = await request(app)
+        .post('/matchmaking/join')
+        .set('Authorization', 'Bearer valid-jwt')
+        .send({ game_mode: 'ranked' })
+      expect(res2.status).toBe(409)
+      expect(res2.body.error.code).toBe('CONFLICT')
     })
   })
 
-  describe('DELETE /matchmaking/cancel', () => {
-    test('returns 204 when user cancels queue', async () => {
+  describe('DELETE /matchmaking/leave', () => {
+    test('returns 204 when leaving queue while queued', async () => {
+      await request(app)
+        .post('/matchmaking/join')
+        .set('Authorization', 'Bearer valid-jwt')
+        .send({ game_mode: 'ranked' })
+
       const res = await request(app)
-        .delete('/matchmaking/cancel')
-        .set('Authorization', userAuth)
+        .delete('/matchmaking/leave')
+        .set('Authorization', 'Bearer valid-jwt')
       expect(res.status).toBe(204)
     })
 
-    test('returns 401 without auth', async () => {
-      expectUnauthorized(await request(app).delete('/matchmaking/cancel'))
+    test('returns 204 when not in queue (safe to call)', async () => {
+      const res = await request(app)
+        .delete('/matchmaking/leave')
+        .set('Authorization', 'Bearer valid-jwt')
+      expect(res.status).toBe(204)
+    })
+
+    test('returns 401 without auth token', async () => {
+      const res = await request(app).delete('/matchmaking/leave')
+      expect(res.status).toBe(401)
+      expect(res.body.error.code).toBe('UNAUTHORIZED')
+    })
+  })
+
+  describe('GET /matchmaking/status', () => {
+    test('returns 200 with queue entry when user is in queue', async () => {
+      await request(app)
+        .post('/matchmaking/join')
+        .set('Authorization', 'Bearer valid-jwt')
+        .send({ game_mode: 'ranked' })
+
+      const res = await request(app)
+        .get('/matchmaking/status')
+        .set('Authorization', 'Bearer valid-jwt')
+      expect(res.status).toBe(200)
+      expect(res.body).toHaveProperty('queue_id')
+      expect(res.body).toHaveProperty('game_mode', 'ranked')
+      expect(res.body).toHaveProperty('elo_rating')
+      expect(res.body).toHaveProperty('joined_at')
+    })
+
+    test('returns 404 when user is not in queue', async () => {
+      const res = await request(app)
+        .get('/matchmaking/status')
+        .set('Authorization', 'Bearer valid-jwt')
+      expect(res.status).toBe(404)
+      expect(res.body.error.code).toBe('NOT_FOUND')
+    })
+
+    test('returns 401 without auth token', async () => {
+      const res = await request(app).get('/matchmaking/status')
+      expect(res.status).toBe(401)
+      expect(res.body.error.code).toBe('UNAUTHORIZED')
     })
   })
 })
