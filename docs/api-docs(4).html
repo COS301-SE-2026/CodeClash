@@ -346,7 +346,7 @@ fetch(<span class="s">'/v1/matches'</span>, {
   </div>
 
   <div class="endpoint">
-    <div class="endpoint-header" onclick="toggle(this)">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
       <span class="method-badge get">GET</span>
       <span class="endpoint-path">/users/<span class="param">{user_id}</span></span>
       <span class="endpoint-desc">Get user profile</span>
@@ -378,7 +378,7 @@ fetch(<span class="s">'/v1/matches'</span>, {
   </div>
 
   <div class="endpoint">
-    <div class="endpoint-header" onclick="toggle(this)">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
       <span class="method-badge put">PUT</span>
       <span class="endpoint-path">/users/<span class="param">{user_id}</span></span>
       <span class="endpoint-desc">Update user profile</span>
@@ -413,7 +413,7 @@ fetch(<span class="s">'/v1/matches'</span>, {
   </div>
 
   <div class="endpoint">
-    <div class="endpoint-header" onclick="toggle(this)">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
       <span class="method-badge delete">DELETE</span>
       <span class="endpoint-path">/users/<span class="param">{user_id}</span></span>
       <span class="endpoint-desc">Delete user account</span>
@@ -435,7 +435,7 @@ fetch(<span class="s">'/v1/matches'</span>, {
   </div>
 
   <div class="endpoint">
-    <div class="endpoint-header" onclick="toggle(this)">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
       <span class="method-badge get">GET</span>
       <span class="endpoint-path">/users/<span class="param">{user_id}</span>/elo</span>
       <span class="endpoint-desc">Get all ELO ratings</span>
@@ -470,7 +470,7 @@ fetch(<span class="s">'/v1/matches'</span>, {
   </div>
 
   <div class="endpoint">
-    <div class="endpoint-header" onclick="toggle(this)">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
       <span class="method-badge get">GET</span>
       <span class="endpoint-path">/users/<span class="param">{user_id}</span>/elo/<span class="param">{game_mode}</span></span>
       <span class="endpoint-desc">Get ELO for game mode</span>
@@ -504,7 +504,7 @@ fetch(<span class="s">'/v1/matches'</span>, {
   </div>
 
   <div class="endpoint">
-    <div class="endpoint-header" onclick="toggle(this)">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
       <span class="method-badge get">GET</span>
       <span class="endpoint-path">/achievements</span>
       <span class="endpoint-desc">List all achievements</span>
@@ -539,7 +539,7 @@ fetch(<span class="s">'/v1/matches'</span>, {
   </div>
 
   <div class="endpoint">
-    <div class="endpoint-header" onclick="toggle(this)">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
       <span class="method-badge get">GET</span>
       <span class="endpoint-path">/achievements/<span class="param">{achievement_id}</span></span>
       <span class="endpoint-desc">Get achievement details</span>
@@ -550,7 +550,7 @@ fetch(<span class="s">'/v1/matches'</span>, {
   </div>
 
   <div class="endpoint">
-    <div class="endpoint-header" onclick="toggle(this)">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
       <span class="method-badge get">GET</span>
       <span class="endpoint-path">/users/<span class="param">{user_id}</span>/achievements</span>
       <span class="endpoint-desc">Get user's achievements</span>
@@ -589,7 +589,7 @@ fetch(<span class="s">'/v1/matches'</span>, {
   </div>
 
   <div class="endpoint">
-    <div class="endpoint-header" onclick="toggle(this)">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
       <span class="method-badge post">POST</span>
       <span class="endpoint-path">/matchmaking/join</span>
       <span class="endpoint-desc">Join matchmaking queue</span>
@@ -623,7 +623,7 @@ fetch(<span class="s">'/v1/matches'</span>, {
   </div>
 
   <div class="endpoint">
-    <div class="endpoint-header" onclick="toggle(this)">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
       <span class="method-badge delete">DELETE</span>
       <span class="endpoint-path">/matchmaking/leave</span>
       <span class="endpoint-desc">Leave queue</span>
@@ -635,7 +635,7 @@ fetch(<span class="s">'/v1/matches'</span>, {
   </div>
 
   <div class="endpoint">
-    <div class="endpoint-header" onclick="toggle(this)">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
       <span class="method-badge get">GET</span>
       <span class="endpoint-path">/matchmaking/status</span>
       <span class="endpoint-desc">Get queue status</span>
@@ -669,7 +669,7 @@ fetch(<span class="s">'/v1/matches'</span>, {
   </div>
 
   <div class="endpoint">
-    <div class="endpoint-header" onclick="toggle(this)">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
       <span class="method-badge get">GET</span>
       <span class="endpoint-path">/matches</span>
       <span class="endpoint-desc">List matches</span>
@@ -707,7 +707,7 @@ fetch(<span class="s">'/v1/matches'</span>, {
   </div>
 
   <div class="endpoint">
-    <div class="endpoint-header" onclick="toggle(this)">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
       <span class="method-badge get">GET</span>
       <span class="endpoint-path">/matches/<span class="param">{match_id}</span></span>
       <span class="endpoint-desc">Get match details</span>
@@ -730,7 +730,7 @@ fetch(<span class="s">'/v1/matches'</span>, {
   </div>
 
   <div class="endpoint">
-    <div class="endpoint-header" onclick="toggle(this)">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
       <span class="method-badge get">GET</span>
       <span class="endpoint-path">/matches/<span class="param">{match_id}</span>/rounds</span>
       <span class="endpoint-desc">Get rounds for a match</span>
@@ -766,7 +766,7 @@ fetch(<span class="s">'/v1/matches'</span>, {
   </div>
 
   <div class="endpoint">
-    <div class="endpoint-header" onclick="toggle(this)">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
       <span class="method-badge get">GET</span>
       <span class="endpoint-path">/rounds/<span class="param">{round_id}</span></span>
       <span class="endpoint-desc">Get round details</span>
@@ -800,7 +800,7 @@ fetch(<span class="s">'/v1/matches'</span>, {
   </div>
 
   <div class="endpoint">
-    <div class="endpoint-header" onclick="toggle(this)">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
       <span class="method-badge get">GET</span>
       <span class="endpoint-path">/problems</span>
       <span class="endpoint-desc">List problems</span>
@@ -839,7 +839,7 @@ fetch(<span class="s">'/v1/matches'</span>, {
   </div>
 
   <div class="endpoint">
-    <div class="endpoint-header" onclick="toggle(this)">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
       <span class="method-badge get">GET</span>
       <span class="endpoint-path">/problems/<span class="param">{problem_id}</span></span>
       <span class="endpoint-desc">Get problem details</span>
@@ -882,7 +882,7 @@ fetch(<span class="s">'/v1/matches'</span>, {
   </div>
 
   <div class="endpoint">
-    <div class="endpoint-header" onclick="toggle(this)">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
       <span class="method-badge post">POST</span>
       <span class="endpoint-path">/problems</span>
       <span class="endpoint-desc">Create a problem</span>
@@ -945,7 +945,7 @@ fetch(<span class="s">'/v1/matches'</span>, {
   </div>
 
   <div class="endpoint">
-    <div class="endpoint-header" onclick="toggle(this)">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
       <span class="method-badge put">PUT</span>
       <span class="endpoint-path">/problems/<span class="param">{problem_id}</span></span>
       <span class="endpoint-desc">Update a problem</span>
@@ -957,7 +957,7 @@ fetch(<span class="s">'/v1/matches'</span>, {
   </div>
 
   <div class="endpoint">
-    <div class="endpoint-header" onclick="toggle(this)">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
       <span class="method-badge delete">DELETE</span>
       <span class="endpoint-path">/problems/<span class="param">{problem_id}</span></span>
       <span class="endpoint-desc">Delete a problem</span>
@@ -979,7 +979,7 @@ fetch(<span class="s">'/v1/matches'</span>, {
   </div>
 
   <div class="endpoint">
-    <div class="endpoint-header" onclick="toggle(this)">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
       <span class="method-badge get">GET</span>
       <span class="endpoint-path">/problems/<span class="param">{problem_id}</span>/testcases</span>
       <span class="endpoint-desc">List test cases</span>
@@ -1004,7 +1004,7 @@ fetch(<span class="s">'/v1/matches'</span>, {
   </div>
 
   <div class="endpoint">
-    <div class="endpoint-header" onclick="toggle(this)">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
       <span class="method-badge post">POST</span>
       <span class="endpoint-path">/problems/<span class="param">{problem_id}</span>/testcases</span>
       <span class="endpoint-desc">Add a test case</span>
@@ -1038,7 +1038,7 @@ fetch(<span class="s">'/v1/matches'</span>, {
   </div>
 
   <div class="endpoint">
-    <div class="endpoint-header" onclick="toggle(this)">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
       <span class="method-badge put">PUT</span>
       <span class="endpoint-path">/testcases/<span class="param">{testcase_id}</span></span>
       <span class="endpoint-desc">Update a test case</span>
@@ -1050,7 +1050,7 @@ fetch(<span class="s">'/v1/matches'</span>, {
   </div>
 
   <div class="endpoint">
-    <div class="endpoint-header" onclick="toggle(this)">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
       <span class="method-badge delete">DELETE</span>
       <span class="endpoint-path">/testcases/<span class="param">{testcase_id}</span></span>
       <span class="endpoint-desc">Delete a test case</span>
@@ -1072,7 +1072,7 @@ fetch(<span class="s">'/v1/matches'</span>, {
   </div>
 
   <div class="endpoint">
-    <div class="endpoint-header" onclick="toggle(this)">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
       <span class="method-badge post">POST</span>
       <span class="endpoint-path">/submissions</span>
       <span class="endpoint-desc">Submit a solution</span>
@@ -1109,7 +1109,7 @@ fetch(<span class="s">'/v1/matches'</span>, {
   </div>
 
   <div class="endpoint">
-    <div class="endpoint-header" onclick="toggle(this)">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
       <span class="method-badge get">GET</span>
       <span class="endpoint-path">/submissions/<span class="param">{submission_id}</span></span>
       <span class="endpoint-desc">Get submission details</span>
@@ -1136,7 +1136,7 @@ fetch(<span class="s">'/v1/matches'</span>, {
   </div>
 
   <div class="endpoint">
-    <div class="endpoint-header" onclick="toggle(this)">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
       <span class="method-badge get">GET</span>
       <span class="endpoint-path">/users/<span class="param">{user_id}</span>/submissions</span>
       <span class="endpoint-desc">List user submissions</span>
@@ -1168,7 +1168,7 @@ fetch(<span class="s">'/v1/matches'</span>, {
   </div>
 
   <div class="endpoint">
-    <div class="endpoint-header" onclick="toggle(this)">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
       <span class="method-badge get">GET</span>
       <span class="endpoint-path">/submissions/<span class="param">{submission_id}</span>/result</span>
       <span class="endpoint-desc">Get execution result</span>

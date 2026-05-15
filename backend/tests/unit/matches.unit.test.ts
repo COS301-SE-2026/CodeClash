@@ -1,4 +1,4 @@
-import { request, app, userAuth, expectNotFound, expectValidationError, expectUnauthorized, expectArrayShape, expectShape } from '../helpers/test-utils'
+import { request, app, userAuth, expectNotFound, expectValidationError, expectUnauthorized, expectArrayShape, expectShape, matchActionTests } from '../helpers/test-utils'
 
 const matchProps = ['match_id', 'player1', 'player2', 'status', 'started_at']
 
@@ -102,63 +102,6 @@ describe('Matches API', () => {
     })
   })
 
-  describe('PUT /matches/:match_id/accept', () => {
-    test('returns 200 when invited player accepts match', async () => {
-      const res = await request(app)
-        .put('/matches/1/accept')
-        .set('Authorization', userAuth)
-      expect(res.status).toBe(200)
-      expect(res.body.status).toBe('accepted')
-    })
-
-    test('returns 401 without auth', async () => {
-      expectUnauthorized(await request(app).put('/matches/1/accept'))
-    })
-
-    test('returns 404 for non-existent match', async () => {
-      expectNotFound(
-        await request(app)
-          .put('/matches/99999/accept')
-          .set('Authorization', userAuth)
-      )
-    })
-
-    test('returns 400 for non-integer match_id', async () => {
-      expectValidationError(
-        await request(app)
-          .put('/matches/abc/accept')
-          .set('Authorization', userAuth)
-      )
-    })
-  })
-
-  describe('PUT /matches/:match_id/decline', () => {
-    test('returns 200 when invited player declines match', async () => {
-      const res = await request(app)
-        .put('/matches/1/decline')
-        .set('Authorization', userAuth)
-      expect(res.status).toBe(200)
-      expect(res.body.status).toBe('declined')
-    })
-
-    test('returns 401 without auth', async () => {
-      expectUnauthorized(await request(app).put('/matches/1/decline'))
-    })
-
-    test('returns 404 for non-existent match', async () => {
-      expectNotFound(
-        await request(app)
-          .put('/matches/99999/decline')
-          .set('Authorization', userAuth)
-      )
-    })
-
-    test('returns 400 for non-integer match_id', async () => {
-      expectValidationError(
-        await request(app)
-          .put('/matches/abc/decline')
-          .set('Authorization', userAuth)
-      )
-    })
-  })
+  matchActionTests('accept', 'accepted')
+  matchActionTests('decline', 'declined')
 })

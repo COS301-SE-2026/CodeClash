@@ -1,4 +1,4 @@
-import { request, app, userAuth, adminAuth, expectNotFound, expectValidationError, expectUnauthorized, expectForbidden, expectConflict, expectUnprocessable, expectArrayResponse, expectShape } from '../helpers/test-utils'
+import { request, app, userAuth, adminAuth, expectNotFound, expectValidationError, expectUnauthorized, expectForbidden, expectConflict, expectArrayResponse, expectShape, paginationValidationTests, adminGuardTests } from '../helpers/test-utils'
 
 const problemProps = ['problem_id', 'title', 'difficulty', 'problem_type']
 
@@ -41,23 +41,7 @@ describe('Problems API', () => {
       expect(res.body).toEqual([])
     })
 
-    test('returns 200 with limit applied', async () => {
-      const res = await request(app).get('/problems?limit=3')
-      expect(res.status).toBe(200)
-      expect(res.body.length).toBeLessThanOrEqual(3)
-    })
-
-    test('returns 200 with offset applied', async () => {
-      expectArrayResponse(await request(app).get('/problems?offset=2'))
-    })
-
-    test('returns 400 for negative limit', async () => {
-      expectValidationError(await request(app).get('/problems?limit=-1'))
-    })
-
-    test('returns 400 for non-integer offset', async () => {
-      expectValidationError(await request(app).get('/problems?offset=abc'))
-    })
+    paginationValidationTests('/problems')
   })
 
   describe('GET /problems/:problem_id', () => {
@@ -114,18 +98,7 @@ describe('Problems API', () => {
       expect(res.body.title).toBe('New Challenge')
     })
 
-    test('returns 403 when regular user creates problem', async () => {
-      expectForbidden(
-        await request(app)
-          .post('/problems')
-          .set('Authorization', userAuth)
-          .send(newProblem)
-      )
-    })
-
-    test('returns 401 without auth', async () => {
-      expectUnauthorized(await request(app).post('/problems').send(newProblem))
-    })
+    adminGuardTests('post', '/problems', newProblem)
 
     test('returns 400 for missing required fields', async () => {
       expectValidationError(
@@ -167,20 +140,7 @@ describe('Problems API', () => {
       expect(res.body.title).toBe('Updated Title')
     })
 
-    test('returns 403 when regular user updates problem', async () => {
-      expectForbidden(
-        await request(app)
-          .put('/problems/1')
-          .set('Authorization', userAuth)
-          .send(updateData)
-      )
-    })
-
-    test('returns 401 without auth', async () => {
-      expectUnauthorized(
-        await request(app).put('/problems/1').send(updateData)
-      )
-    })
+    adminGuardTests('put', '/problems/1', updateData)
 
     test('returns 404 for non-existent problem', async () => {
       expectNotFound(
@@ -218,15 +178,7 @@ describe('Problems API', () => {
       expect(res.status).toBe(204)
     })
 
-    test('returns 403 when regular user deletes problem', async () => {
-      expectForbidden(
-        await request(app).delete('/problems/1').set('Authorization', userAuth)
-      )
-    })
-
-    test('returns 401 without auth', async () => {
-      expectUnauthorized(await request(app).delete('/problems/1'))
-    })
+    adminGuardTests('delete', '/problems/1')
 
     test('returns 404 for non-existent problem', async () => {
       expectNotFound(

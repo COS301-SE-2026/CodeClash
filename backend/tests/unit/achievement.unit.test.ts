@@ -1,4 +1,4 @@
-import { request, app, expectNotFound, expectValidationError, expectEmptyArray, expectArrayResponse, expectPaginated, expectShape } from '../helpers/test-utils'
+import { request, app, expectNotFound, expectValidationError, expectEmptyArray, expectArrayResponse, expectPaginated, expectShape, paginationValidationTests, userSubResourceTests } from '../helpers/test-utils'
 
 const achievementProps = ['achievement_id', 'name', 'description', 'condition']
 
@@ -17,25 +17,7 @@ describe('Achievements API', () => {
       expect(res.body.map((a: any) => a.name)).toContain('First Blood')
     })
 
-    test('returns 200 with limit applied', async () => {
-      expectPaginated(await request(app).get('/achievements?limit=2'), 2)
-    })
-
-    test('returns 200 with offset applied', async () => {
-      expectArrayResponse(await request(app).get('/achievements?offset=1'))
-    })
-
-    test('returns 200 with limit and offset combined', async () => {
-      expectPaginated(await request(app).get('/achievements?limit=1&offset=1'), 1)
-    })
-
-    test('returns 400 for negative limit', async () => {
-      expectValidationError(await request(app).get('/achievements?limit=-1'))
-    })
-
-    test('returns 400 for non-integer offset', async () => {
-      expectValidationError(await request(app).get('/achievements?offset=abc'))
-    })
+    paginationValidationTests('/achievements')
   })
 
   describe('GET /achievements/:achievement_id', () => {
