@@ -29,12 +29,15 @@ The pages are currently using state-based routing, so they are live at the same 
 
 ## Navigation Flow
 
-Welcome page
-  ├── Sign in  →  SignIn page
-  │                 └── ← Back  →  Welcome
-  │                 └── Sign up →  SignUp page
-  └── Sign up  →  SignUp page
-                    └── ← Back  →  Welcome
+- Welcome page
+  - Sign in → SignIn page
+  - Sign up → SignUp page
+- SignIn page
+  - ← Back → Welcome page
+  - Sign up → SignUp page
+- SignUp page
+  - ← Back → Welcome page
+
 
 ## Fonts
 
