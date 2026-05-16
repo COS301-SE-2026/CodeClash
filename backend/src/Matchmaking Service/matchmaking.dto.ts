@@ -4,6 +4,7 @@ class UserDto{
     elo: number;
     joined_at: number;
     game_mode: string;
+    match_attempt: number = 0;
 
 
     constructor(id: number, elo: number,game_mode: string) {

@@ -23,13 +23,17 @@ async function dequeue(user_id: number, queue: string): Promise<number> {
     return await redis.zrem(queue, user_id);
 }
 
+
+// finds a match for a the passed in user
 async function matchmaking(user: UserDto) {
 
     if (user.game_mode != "math" && user.game_mode != "prog")
         throw "Unknown game mode"
 
-    const elo_range_lower = Math.min(user.elo - elo_difference);
-    const elo_range_upper = user.elo + elo_difference;
+    const range = elo_difference * user.match_attempt;
+
+    const elo_range_lower = Math.min(0, user.elo - range);
+    const elo_range_upper = user.elo + range;
 
     // finds all players in the queue within the elo range
     const elo_range = await redis.zrangebyscore(user.game_mode, elo_range_lower, elo_range_upper);
@@ -47,7 +51,15 @@ async function matchmaking(user: UserDto) {
     players.sort((a, b) => Number(a.join) - Number(b.join));
 
     if (players.length == 0) {
-        enqueue(user, user.game_mode);
+
+        const waiting = await redis.zscore(user.game_mode, user.id);
+
+        if (!waiting)   //user isn't already in the queue
+            enqueue(user, user.game_mode);
+        else {
+            ++user.match_attempt;
+        }
+
         return null;
     }
     else {
