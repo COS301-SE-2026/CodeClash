@@ -2,7 +2,7 @@
 
 We're using a React + TypeScript frontend built with vite.
 
-## Tech Stacke
+## Tech Stack
 
 ## Tech Stack
 
@@ -15,9 +15,9 @@ We're using a React + TypeScript frontend built with vite.
 
 ## Installation
 
-cd frontend
-npm install
-npm install react-router-dom
+- cd frontend
+- npm install
+- npm install react-router-dom
 
 ## Running the App
 
