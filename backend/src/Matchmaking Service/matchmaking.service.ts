@@ -11,17 +11,22 @@ async function enqueue(user: UserDto, queue: string): Promise<boolean> {
     // add user to the queue
     await redis.zadd(queue, user.elo, user.id);
 
-    // store their joined_at time in a hash
-    await redis.hset(`user:${user.id}`, "user_joined_at", user.joined_at);
+    // store their joined_at time and game mode in a hash
+    await redis.hset(`user:${user.id}`, "user_joined_at", user.joined_at, "user_game_mode", user.game_mode);
     return true;
 }
 
 // remove player from the queue
-async function dequeue(user_id: number, queue: string): Promise<number> {
-    if (queue != "math" && queue != "prog") return -1;
+async function dequeue(user_id: number, queue: string): Promise<boolean> {
+    if (queue != "math" && queue != "prog") return false;
 
-    await redis.hdel(`user:${user_id}`);
-    return await redis.zrem(queue, user_id);
+    const rem_joined_hash = await redis.hdel(`user:${user_id}`);
+    const rem_user = await redis.zrem(queue, user_id);
+
+    if (rem_joined_hash || rem_user == 0)
+        return false;
+
+    return true;
 }
 
 
@@ -36,21 +41,22 @@ async function matchmaking(user: UserDto) {
     const elo_range_lower = Math.min(0, user.elo - range);
     const elo_range_upper = user.elo + range;
 
+
     // finds all players in the queue within the elo range
     const elo_range = await redis.zrangebyscore(user.game_mode, elo_range_lower, elo_range_upper);
 
     // get joined_at times for all users in the elo_range
     const result = await Promise.all(
         elo_range.map(async (user_id) => {
-            const join = await redis.hget(`user:${user_id}`, "user_joined_at");
-            return { user_id, join };
+            const [join, game_mode] = await redis.hmget(`user:${user_id}`, "user_joined_at", "user_game_mode");
+            return { user_id, join, game_mode };
         })
     );
 
     // remove null join values
-    const players = result.filter(u => u.join !== null);
+    let players = result.filter(u => u.join !== null);
+    // sort by joined times - ascending
     players.sort((a, b) => Number(a.join) - Number(b.join));
-
     if (players.length == 0) {
 
         const waiting = await redis.zscore(user.game_mode, user.id.toString());
@@ -77,9 +83,17 @@ async function matchmaking(user: UserDto) {
         await redis.hdel(`user:${user.id}`);
         await redis.hdel(`user:${match.user_id}`);
 
-        return { player1: user.id, player2: match.user_id };
+        return { player_2_id: user.id, player_1_id: Number(match.user_id) };
     }
 }
 
+async function math_queue_length(): Promise<number> {
+    return await redis.zcard('math');
+}
 
-export {matchmaking, dequeue};
+async function prog_queue_length(): Promise<number> {
+    return await redis.zcard('prog');
+}
+
+
+export { matchmaking, dequeue, enqueue, math_queue_length, prog_queue_length };

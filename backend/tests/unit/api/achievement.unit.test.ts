@@ -1,4 +1,5 @@
-import { request, app, expectNotFound, expectValidationError, expectEmptyArray, expectArrayResponse, expectPaginated, expectShape, paginationValidationTests, userSubResourceTests } from '../helpers/test-utils'
+import { request, app, expectNotFound, expectValidationError, expectEmptyArray, expectShape, paginationValidationTests} from '../helpers/test-utils'
+import { describe, test, expect } from 'vitest';
 
 const achievementProps = ['achievement_id', 'name', 'description', 'condition']
 
