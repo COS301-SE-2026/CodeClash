@@ -25,19 +25,6 @@ const Found = () => {
        </div>
 
         <div className="info-button">
-          {/* <div className="big-row-info">
-           <div className="row-info">
-          <div className="info-button-text-grey">Match Type</div>
-          <div className="info-button-text-black">Ranked</div>
-           <div className="info-button-text-grey">Time Limit</div>
-          <div className="info-button-text-black">15 minutes</div>
-          </div>
-          <div className="row-info">
-          <div className="info-button-text-grey">Difficulty</div>
-          <div className="info-button-text-black">Medium</div>
-           <div className="info-button-text-grey">Number of Questions</div>
-          <div className="info-button-text-black">5</div>
-          </div> */}
           <div className="match-details-grid">
           <div className="grid-row">
             <div className="info-button-text-grey">Match Type</div>
@@ -53,9 +40,11 @@ const Found = () => {
           </div>
         </div>
           
-          
-          
         </div>
+
+        <div className="row-button">
+          <button className="cancel-button">Decline Match</button>
+          </div>
 
 
       </div>

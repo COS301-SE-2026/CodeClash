@@ -63,6 +63,14 @@
   margin-top: 10px;
 }
 
+.row-button {
+  display: flex;
+  flex-direction: row; 
+  gap: 100px;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
 
 .purple-circle {
   width: 300px;
@@ -247,6 +255,26 @@
   .grid-label {
     margin-top: 10px;
   }
+}
+
+.cancel-button {
+  background: #EF4444;
+  width: 512px;
+  height: 71px;
+  border: 1px solid #0F172A;
+  font-family: 'Baloo Bhai 2', cursive;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400; 
+  color: #0F172A;
+  padding: 10px 30px;
+  border-radius: 30px;
+  
+}
+
+.cancel-button:hover {
+  background: rgba(180, 23, 23, 0.842);
+  transform: scale(1.1);
 }
 
 
