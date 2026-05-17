@@ -7,10 +7,80 @@ CREATE TABLE IF NOT EXISTS users (
   created_at TIMESTAMP DEFAULT NOW()
 );
 
+CREATE TABLE IF NOT EXISTS match_problems(
+  match_problems_id PRIMARY KEY DEFAULT gen_random_uuid(),
+  question1 UUID REFERENCES problems(id) NOT NULL,
+  question2 UUID REFERENCES problems(id) NOT NULL,
+  question3 UUID REFERENCES problems(id) NOT NULL, --every match has a minimum of 3 questions, i.e. difficult mode
+  question4 UUID REFERENCES problems(id),
+  question5 UUID REFERENCES problems(id)
+);
+
+CREATE TABLE IF NOT EXISTS matches(
+  match_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  player1_id UUID REFERENCES users(user_id),
+  player2_id UUID REFERENCES users(user_id),
+  match_problems_id UUID REFERENCES match_problems(match_problems_id),
+  mode VARCHAR(10) CHECK (mode IN ('ranked', 'casual')) NOT NULL,
+  queue_start TIMESTAMP DEFAULT NOW() NOT NULL,
+  match_start TIMESTAMP,
+  status VARCHAR(20) CHECK (status IN ('waiting', 'in_progress', 'completed', 'abandoned')) DEFAULT 'waiting'
+);
+
+CREATE TABLE IF NOT EXISTS match_log(
+  log_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  match_id UUID REFERENCES matches(match_id),
+  winner_id UUID REFERENCES users(user_id),
+  loser_id UUID REFERENCES users(user_id),
+  elo_gained INTEGER, --can be null incase it's a casual match
+  elo_lost INTEGER
+);
+
+CREATE TYPE problem_category AS ENUM ('math', 'programming');
+
+CREATE TABLE IF NOT EXISTS problems (
+  id SERIAL PRIMARY KEY,
+  type problem_category NOT NULL,
+  difficulty_level ENUM('Easy', 'Medium', 'Difficult') NOT NULL,
+  title VARCHAR(20) NOT NULL,
+  description VARCHAR(40) NOT NULL,
+  time_limit TIME(2) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS elo_ratings (
   elo_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID REFERENCES users(user_id),
-  game_mode VARCHAR(20) NOT NULL,
   rating INTEGER DEFAULT 600,
-  updated_at TIMESTAMP DEFAULT NOW()
+  updated_at TIMESTAMP DEFAULT NOW(),
+ 
+);
+
+
+CREATE TABLE IF NOT EXISTS math_problems (
+  id SERIAL PRIMARY KEY,
+  problem_id INT NOT NULL REFERENCES problems(id) ON DELETE CASCADE,
+  --equation VARCHAR(20) NOT NULL,
+  solution_formula VARCHAR(20) NOT NULL,
+   CONSTRAINT math_category_check CHECK (
+        (SELECT type FROM problems WHERE id = problem_id) = 'math'
+    )
+);
+
+CREATE TABLE IF NOT EXISTS programming_problems (
+  id SERIAL PRIMARY KEY,
+  problem_id INT NOT NULL REFERENCES problems(id) ON DELETE CASCADE,
+  --function_signature VARCHAR(25) NOT NULL,
+  supported_languages ENUM('java', 'c++') NOT NULL,
+  CONSTRAINT programming_category_check CHECK (
+        (SELECT type FROM problems WHERE id = problem_id) = 'programming'
+    )
+);
+
+CREATE TABLE IF NOT EXISTS elo_history (
+  history_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(user_id),
+  match_id UUID REFERENCES matches(match_id),
+  old_rating INTEGER,
+  new_rating INTEGER,
+  changed_at TIMESTAMP DEFAULT NOW()
 );

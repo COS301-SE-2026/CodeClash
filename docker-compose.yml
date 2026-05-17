@@ -13,13 +13,14 @@ services:
       - ./backend:/app
       - /app/node_modules
 
-  frontend:
-    build: ./frontend
-    ports:
-      - "5173:5173"
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
+  # frontend:
+  #   build: ./frontend
+  #   ports:
+  #     - "5173:5173"
+  #   volumes:
+  #     - ./frontend:/app
+  #     - /app/node_modules
+  #TODO IMPORTANT return this when we want to containerise the front end for deployment
 
   db:
     image: postgres:15-alpine
@@ -33,11 +34,23 @@ services:
       - postgres_data:/var/lib/postgresql/data
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
 
-  judge0:
-    image: judge0/judge0:latest
+  # judge0:
+  #   image: judge0/judge0:latest
+  #   ports:
+  #     - "2358:2358"
+  #   privileged: true
+  #TODO IMPORTANT return this when we want to start implementing code execution
+
+
+  redis:
+    image: redis:8.6.3-alpine
+    container_name: codeclash-redis
     ports:
-      - "2358:2358"
-    privileged: true
+      - '6379:6379'
+    volumes:
+      - redis-data:/data
+    command: --requirepass ${REDIS_PASS} --appendonly yes
+    restart: unless-stopped
 
   redis:
     image: redis:8.6.3-alpine
