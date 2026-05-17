@@ -44,6 +44,7 @@ const Found = () => {
 
         <div className="row-button">
           <button className="cancel-button">Decline Match</button>
+          <button className="approve-button">Accept Match</button>
           </div>
 
 

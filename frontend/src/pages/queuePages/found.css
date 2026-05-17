@@ -69,6 +69,7 @@
   gap: 100px;
   align-items: center;
   margin-bottom: 30px;
+  margin-top: 30px;
 }
 
 
@@ -259,8 +260,8 @@
 
 .cancel-button {
   background: #EF4444;
-  width: 512px;
-  height: 71px;
+  width: 323px;
+  height: 72px;
   border: 1px solid #0F172A;
   font-family: 'Baloo Bhai 2', cursive;
   font-size: 32px;
@@ -277,5 +278,24 @@
   transform: scale(1.1);
 }
 
+.approve-button {
+  background: #22C55E;
+  width: 323px;
+  height: 72px;
+  border: 1px solid #0F172A;
+  font-family: 'Baloo Bhai 2', cursive;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400; 
+  color: #0F172A;
+  padding: 10px 30px;
+  border-radius: 30px;
+  
+}
+
+.approve-button:hover {
+  background: rgba(6, 116, 20, 0.842);
+  transform: scale(1.1);
+}
 
 
