@@ -123,14 +123,14 @@ const Dashboard: React.FC<DashboardProps> = ({
         <div className="bottom-row">
           <div className="stat-cards-col">
             <div className="stat-card">
-              <img src={trophyIcon} alt="Rank" className="stat-icon" />
+              <img src={trophyIcon} alt="Rank" className="stat-trophy-icon" />
               <div className="stat-value">#{currentRank}</div>
               <div className="stat-label">Current Rank</div>
               <div className="stat-sub">Top {rankTopPercent}%</div>
             </div>
 
             <div className="stat-card">
-              <img src={streakIcon} alt="Win Streak" className="stat-icon" />
+              <img src={streakIcon} alt="Win Streak" className="stat-fire-icon" />
               <div className="stat-value">{winStreak}</div>
               <div className="stat-label">Win Streak</div>
               <div className="stat-sub">Personal best: {personalBest}</div>

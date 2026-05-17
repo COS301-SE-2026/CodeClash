@@ -140,6 +140,7 @@ body {
   background-color: #a78bfa;
   border: 1px solid #0f172a;
   flex-shrink: 0;
+  mix-blend-mode: multiply;
 }
 
 .play-cards-row {
@@ -238,11 +239,20 @@ body {
   gap: 4px;
 }
 
-.stat-icon {
+.stat-fire-icon {
   width: 39px;
   height: 39px;
   object-fit: contain;
   margin-bottom: 6px;
+  mix-blend-mode: multiply;
+}
+
+.stat-trophy-icon {
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+  margin-bottom: 6px;
+  mix-blend-mode: multiply;
 }
 
 .stat-value {
@@ -380,6 +390,7 @@ body {
   width: 222px;
   height: 222px;
   object-fit: contain;
+  mix-blend-mode: multiply;
 }
 
 .badge-placeholder {
