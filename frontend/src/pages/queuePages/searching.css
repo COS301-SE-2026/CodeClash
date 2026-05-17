@@ -106,4 +106,27 @@
   margin-bottom: 30px;
 }
 
+.cancel-button {
+  background: #EF4444;
+  width: 323px;
+  height: 69px;
+  border: 1px solid #0F172A;
+  font-family: 'Baloo Bhai 2', cursive;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400; 
+  color: #0F172A;
+  padding: 10px 30px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  
+}
+
+.cancel-button:hover {
+  background: rgba(180, 23, 23, 0.842);
+  transform: scale(1.1);
+}
+
 
