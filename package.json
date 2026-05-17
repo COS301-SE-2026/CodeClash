@@ -16,5 +16,8 @@
     "@types/redis": "^4.0.10",
     "jsdom": "^29.1.1",
     "vitest": "^4.1.6"
+  },
+  "dependencies": {
+    "jest": "^30.4.2"
   }
 }

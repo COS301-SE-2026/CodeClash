@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CodeDuels API Reference</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --bg2: #161b27;
+    --bg3: #1e2536;
+    --border: #2a3248;
+    --text: #e2e8f0;
+    --muted: #7c8bad;
+    --accent: #5b7cf6;
+    --accent2: #7c5bf6;
+    --green: #22c55e;
+    --amber: #f59e0b;
+    --red: #ef4444;
+    --teal: #14b8a6;
+    --pink: #ec4899;
+    --cyan: #06b6d4;
+    --mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+    --sans: 'Inter', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 14px; line-height: 1.6; display: flex; min-height: 100vh; }
+
+  /* Sidebar */
+  aside {
+    width: 260px; min-width: 260px; background: var(--bg2);
+    border-right: 1px solid var(--border);
+    position: sticky; top: 0; height: 100vh;
+    overflow-y: auto; padding: 0 0 2rem 0; flex-shrink: 0;
+  }
+  aside::-webkit-scrollbar { width: 4px; }
+  aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+  .logo {
+    padding: 1.25rem 1.25rem 1rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: .75rem;
+  }
+  .logo h1 { font-size: 16px; font-weight: 700; color: var(--text); letter-spacing: -.3px; }
+  .logo p { font-size: 11px; color: var(--muted); margin-top: 2px; font-family: var(--mono); }
+  .nav-section { padding: .25rem 0; }
+  .nav-section-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 1.2px;
+    color: var(--muted); text-transform: uppercase;
+    padding: .6rem 1.25rem .3rem;
+  }
+  .nav-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: .38rem 1.25rem; cursor: pointer;
+    color: var(--muted); font-size: 13px;
+    transition: all .15s; border-left: 2px solid transparent;
+    text-decoration: none;
+  }
+  .nav-item:hover { color: var(--text); background: var(--bg3); }
+  .nav-item.active { color: var(--accent); border-left-color: var(--accent); background: rgba(91,124,246,.07); }
+  .method-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .dot-get { background: var(--green); }
+  .dot-post { background: var(--cyan); }
+  .dot-put { background: var(--amber); }
+  .dot-patch { background: var(--pink); }
+  .dot-delete { background: var(--red); }
+
+  /* Main content */
+  main { flex: 1; padding: 2.5rem 3rem; max-width: 900px; }
+
+  /* Section headers */
+  .section-header {
+    margin-bottom: 2rem; padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-header h2 {
+    font-size: 22px; font-weight: 700; color: var(--text);
+    display: flex; align-items: center; gap: .6rem;
+  }
+  .section-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+  .section-header p { color: var(--muted); margin-top: .4rem; font-size: 14px; }
+
+  /* Endpoint card */
+  .endpoint {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 10px; margin-bottom: 1.25rem; overflow: hidden;
+  }
+  .endpoint-header {
+    display: flex; align-items: center; gap: .75rem;
+    padding: .9rem 1.25rem; cursor: pointer;
+    transition: background .15s;
+  }
+  .endpoint-header:hover { background: var(--bg3); }
+  .method-badge {
+    font-family: var(--mono); font-size: 11px; font-weight: 700;
+    padding: 3px 8px; border-radius: 5px; min-width: 52px;
+    text-align: center; letter-spacing: .5px;
+  }
+  .get { background: rgba(34,197,94,.12); color: #4ade80; border: 1px solid rgba(34,197,94,.25); }
+  .post { background: rgba(6,182,212,.12); color: #22d3ee; border: 1px solid rgba(6,182,212,.25); }
+  .put { background: rgba(245,158,11,.12); color: #fbbf24; border: 1px solid rgba(245,158,11,.25); }
+  .patch { background: rgba(236,72,153,.12); color: #f472b6; border: 1px solid rgba(236,72,153,.25); }
+  .delete { background: rgba(239,68,68,.12); color: #f87171; border: 1px solid rgba(239,68,68,.25); }
+  .endpoint-path {
+    font-family: var(--mono); font-size: 13px; color: var(--text); flex: 1;
+  }
+  .endpoint-path .param { color: var(--accent); }
+  .endpoint-desc { font-size: 12px; color: var(--muted); margin-left: auto; }
+  .auth-badge {
+    font-size: 10px; padding: 2px 7px; border-radius: 4px;
+    background: rgba(245,158,11,.1); color: var(--amber);
+    border: 1px solid rgba(245,158,11,.2); font-weight: 600;
+    white-space: nowrap;
+  }
+  .admin-badge {
+    font-size: 10px; padding: 2px 7px; border-radius: 4px;
+    background: rgba(236,72,153,.1); color: var(--pink);
+    border: 1px solid rgba(236,72,153,.2); font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* Endpoint body (collapsible) */
+  .endpoint-body { padding: 0 1.25rem 1.25rem; display: none; }
+  .endpoint-body.open { display: block; }
+  .endpoint-body > p { color: var(--muted); font-size: 13px; margin: .75rem 0 1rem; }
+
+  .body-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 700px) { .body-grid { grid-template-columns: 1fr; } }
+
+  .param-table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin-top: .5rem; }
+  .param-table th {
+    text-align: left; padding: 5px 10px; background: var(--bg3);
+    color: var(--muted); font-weight: 600; letter-spacing: .3px;
+    border-bottom: 1px solid var(--border);
+  }
+  .param-table td { padding: 6px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .param-table tr:last-child td { border-bottom: none; }
+  .param-name { font-family: var(--mono); color: var(--accent); }
+  .param-type { font-family: var(--mono); color: var(--teal); font-size: 11px; }
+  .param-req { color: var(--red); font-size: 11px; font-weight: 600; }
+  .param-opt { color: var(--muted); font-size: 11px; }
+
+  .code-block {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 7px; overflow: hidden; margin-top: .5rem;
+  }
+  .code-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 6px 12px; background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+  }
+  .code-header span { font-size: 11px; color: var(--muted); font-family: var(--mono); }
+  .copy-btn {
+    font-size: 10px; color: var(--muted); background: none; border: none;
+    cursor: pointer; padding: 2px 6px; border-radius: 4px;
+    transition: all .15s;
+  }
+  .copy-btn:hover { color: var(--text); background: var(--border); }
+  .code-block pre {
+    padding: 1rem; font-family: var(--mono); font-size: 11.5px;
+    line-height: 1.7; overflow-x: auto; color: #cdd6f4;
+  }
+  .s { color: #a6e3a1; }
+  .n { color: #89b4fa; }
+  .v { color: #f38ba8; }
+  .k { color: #cba6f7; }
+  .c { color: #6c7086; }
+  .num { color: #fab387; }
+
+  /* Section spacer */
+  .section { margin-bottom: 3rem; scroll-margin-top: 2rem; }
+
+  /* Overview section */
+  .overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+  .info-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1rem 1.25rem;
+  }
+  .info-card h4 { font-size: 12px; color: var(--muted); font-weight: 600; letter-spacing: .5px; text-transform: uppercase; margin-bottom: .5rem; }
+  .info-card p { font-size: 13px; color: var(--text); font-family: var(--mono); }
+  .response-codes { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+  .rc {
+    font-size: 11px; padding: 3px 9px; border-radius: 5px; font-family: var(--mono);
+    font-weight: 600;
+  }
+  .rc-2 { background: rgba(34,197,94,.12); color: #4ade80; }
+  .rc-4 { background: rgba(239,68,68,.12); color: #f87171; }
+  .rc-5 { background: rgba(245,158,11,.12); color: #fbbf24; }
+
+  .divider { height: 1px; background: var(--border); margin: 2rem 0; }
+  .sub-label {
+    font-size: 11px; font-weight: 700; letter-spacing: .8px;
+    color: var(--muted); text-transform: uppercase; margin-bottom: .5rem;
+  }
+</style>
+</head>
+<body>
+
+<aside>
+  <div class="logo">
+    <h1>CodeDuels API</h1>
+    <p>v1.0 · REST · JSON</p>
+  </div>
+
+  <nav>
+    <div class="nav-section">
+      <div class="nav-section-label">Introduction</div>
+      <a class="nav-item" href="#overview">Overview</a>
+      <a class="nav-item" href="#authentication">Auth Flow</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-label">Resources</div>
+      <a class="nav-item" href="#users">Users</a>
+      <a class="nav-item" href="#elo">ELO Ratings</a>
+      <a class="nav-item" href="#achievements">Achievements</a>
+      <a class="nav-item" href="#matchmaking">Matchmaking</a>
+      <a class="nav-item" href="#matches">Matches</a>
+      <a class="nav-item" href="#rounds">Rounds</a>
+      <a class="nav-item" href="#problems">Problems</a>
+      <a class="nav-item" href="#testcases">Test Cases</a>
+      <a class="nav-item" href="#submissions">Submissions</a>
+      <a class="nav-item" href="#execution">Execution Results</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-label">Reference</div>
+      <a class="nav-item" href="#errors">Error Codes</a>
+      <a class="nav-item" href="#models">Data Models</a>
+    </div>
+  </nav>
+</aside>
+
+<main>
+
+<!-- OVERVIEW -->
+<section class="section" id="overview">
+  <div class="section-header">
+    <h2>Overview</h2>
+    <p>The CodeDuels REST API powers a real-time competitive programming platform where users battle head-to-head on coding and math challenges.</p>
+  </div>
+  <div class="overview-grid">
+    <div class="info-card">
+      <h4>Base URL</h4>
+      <p>https://api.codeduels.io/v1</p>
+    </div>
+    <div class="info-card">
+      <h4>Content Type</h4>
+      <p>application/json</p>
+    </div>
+    <div class="info-card">
+      <h4>Authentication</h4>
+      <p>Cognito JWT via Amplify SDK</p>
+    </div>
+    <div class="info-card">
+      <h4>Rate Limit</h4>
+      <p>300 req / min per user</p>
+    </div>
+  </div>
+  <div class="sub-label">Standard response codes</div>
+  <div class="response-codes">
+    <span class="rc rc-2">200 OK</span>
+    <span class="rc rc-2">201 Created</span>
+    <span class="rc rc-2">204 No Content</span>
+    <span class="rc rc-4">400 Bad Request</span>
+    <span class="rc rc-4">401 Unauthorized</span>
+    <span class="rc rc-4">403 Forbidden</span>
+    <span class="rc rc-4">404 Not Found</span>
+    <span class="rc rc-4">409 Conflict</span>
+    <span class="rc rc-4">422 Unprocessable</span>
+    <span class="rc rc-5">500 Server Error</span>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- AUTH FLOW -->
+<section class="section" id="authentication">
+  <div class="section-header">
+    <h2>Auth Flow</h2>
+    <p>Authentication is handled entirely by <strong>AWS Amplify + Cognito</strong> on the client. This backend has no auth endpoints — it only validates the JWT Cognito issues.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.25rem;">
+    <div class="info-card">
+      <h4>What Amplify handles (client-side only)</h4>
+      <p style="font-size:13px;color:var(--muted);margin-top:.4rem;line-height:1.7;">
+        Sign up &middot; Confirm email &middot; Sign in &middot; Sign out &middot; Token refresh &middot; Forgot password &middot; MFA
+      </p>
+      <p style="font-size:12px;color:var(--muted);margin-top:.6rem;">All via <code>@aws-amplify/auth</code> SDK. Your backend never sees these calls.</p>
+    </div>
+    <div class="info-card">
+      <h4>What every protected request looks like</h4>
+      <div class="code-block" style="margin-top:.5rem;">
+        <pre style="padding:.75rem;font-size:11px;"><span class="c">// Amplify fetches & auto-refreshes the token</span>
+<span class="k">const</span> { tokens } = <span class="k">await</span> fetchAuthSession();
+<span class="k">const</span> jwt = tokens.idToken.toString();
+
+fetch(<span class="s">'/v1/matches'</span>, {
+  headers: {
+    <span class="n">'Authorization'</span>: <span class="s">`Bearer ${jwt}`</span>
+  }
+});</pre>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.1rem 1.25rem;">
+    <div class="sub-label" style="margin-bottom:.75rem;">How your backend validates the token</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;">
+      <div style="background:var(--bg3);border-radius:7px;padding:.75rem 1rem;">
+        <p style="font-size:12px;font-weight:600;color:var(--accent);margin-bottom:.3rem;">1 &mdash; Receive request</p>
+        <p style="font-size:12px;color:var(--muted);">Extract the <code>Authorization: Bearer &lt;token&gt;</code> header on every protected route.</p>
+      </div>
+      <div style="background:var(--bg3);border-radius:7px;padding:.75rem 1rem;">
+        <p style="font-size:12px;font-weight:600;color:var(--accent);margin-bottom:.3rem;">2 &mdash; Verify JWT</p>
+        <p style="font-size:12px;color:var(--muted);">Validate signature against your Cognito User Pool's JWKS endpoint. Reject if expired or tampered.</p>
+      </div>
+      <div style="background:var(--bg3);border-radius:7px;padding:.75rem 1rem;">
+        <p style="font-size:12px;font-weight:600;color:var(--accent);margin-bottom:.3rem;">3 &mdash; Resolve user</p>
+        <p style="font-size:12px;color:var(--muted);">Read the <code>sub</code> claim from the token. Look up the matching row in your <code>User</code> table by that value.</p>
+      </div>
+    </div>
+    <p style="font-size:12px;color:var(--muted);margin-top:.85rem;">
+      JWKS URL pattern: <code style="color:var(--teal);">https://cognito-idp.{region}.amazonaws.com/{userPoolId}/.well-known/jwks.json</code>
+    </p>
+  </div>
+
+  <div style="margin-top:1rem;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1rem 1.25rem;">
+    <div class="sub-label" style="margin-bottom:.5rem;">User record creation on signup</div>
+    <p style="font-size:13px;color:var(--muted);">
+      Because registration happens in Cognito, your <code>User</code> table is populated via a <strong style="color:var(--text);font-weight:500;">Cognito post-confirmation Lambda trigger</strong> — not an API call. When Cognito confirms a new user, it fires the trigger, which inserts a row into your database using the <code>sub</code> as the primary key. The <code>username</code> and <code>email</code> are passed as trigger event attributes.
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- USERS -->
+<section class="section" id="users">
+  <div class="section-header">
+    <h2>Users</h2>
+    <p>Manage user accounts and retrieve profile data. Auth attributes (email, password) live in Cognito — your <code>User</code> table holds game-specific data only. The <code>user_id</code> field corresponds to the Cognito <code>sub</code> claim.</p>
+  </div>
+
+  <div class="endpoint">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
+      <span class="method-badge get">GET</span>
+      <span class="endpoint-path">/users/<span class="param">{user_id}</span></span>
+      <span class="endpoint-desc">Get user profile</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Returns public profile details for the specified user, including username, join date and stats.</p>
+      <div class="body-grid">
+        <div>
+          <div class="sub-label">Path parameters</div>
+          <table class="param-table">
+            <tr><th>Param</th><th>Type</th><th></th></tr>
+            <tr><td class="param-name">user_id</td><td class="param-type">integer</td><td class="param-req">required</td></tr>
+          </table>
+        </div>
+        <div>
+          <div class="sub-label">Response 200</div>
+          <div class="code-block">
+            <div class="code-header"><span>json</span></div>
+            <pre>{
+  <span class="n">"user_id"</span>: <span class="num">42</span>,
+  <span class="n">"username"</span>: <span class="s">"striker99"</span>,
+  <span class="n">"email"</span>: <span class="s">"user@example.com"</span>,
+  <span class="n">"created_at"</span>: <span class="s">"2025-01-15T08:30:00Z"</span>
+}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
+      <span class="method-badge put">PUT</span>
+      <span class="endpoint-path">/users/<span class="param">{user_id}</span></span>
+      <span class="endpoint-desc">Update user profile</span>
+      <span class="auth-badge">Auth</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Updates the authenticated user's profile. Users may only update their own account.</p>
+      <div class="body-grid">
+        <div>
+          <div class="sub-label">Request body (partial)</div>
+          <table class="param-table">
+            <tr><th>Field</th><th>Type</th><th></th></tr>
+            <tr><td class="param-name">username</td><td class="param-type">string</td><td class="param-opt">optional</td></tr>
+            <tr><td class="param-name">email</td><td class="param-type">string</td><td class="param-opt">optional</td></tr>
+            <tr><td class="param-name">password</td><td class="param-type">string</td><td class="param-opt">optional</td></tr>
+          </table>
+        </div>
+        <div>
+          <div class="sub-label">Response 200</div>
+          <div class="code-block">
+            <div class="code-header"><span>json</span></div>
+            <pre>{
+  <span class="n">"user_id"</span>: <span class="num">42</span>,
+  <span class="n">"username"</span>: <span class="s">"striker_v2"</span>,
+  <span class="n">"email"</span>: <span class="s">"new@example.com"</span>,
+  <span class="n">"created_at"</span>: <span class="s">"2025-01-15T08:30:00Z"</span>
+}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
+      <span class="method-badge delete">DELETE</span>
+      <span class="endpoint-path">/users/<span class="param">{user_id}</span></span>
+      <span class="endpoint-desc">Delete user account</span>
+      <span class="auth-badge">Auth</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Permanently deletes the authenticated user's account and all associated data. Returns <code>204 No Content</code>. This action is irreversible.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ELO RATINGS -->
+<section class="section" id="elo">
+  <div class="section-header">
+    <h2>ELO Ratings</h2>
+    <p>Read per-user ELO ratings across different game modes. Ratings are updated automatically after each match.</p>
+  </div>
+
+  <div class="endpoint">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
+      <span class="method-badge get">GET</span>
+      <span class="endpoint-path">/users/<span class="param">{user_id}</span>/elo</span>
+      <span class="endpoint-desc">Get all ELO ratings</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Returns an array of ELO ratings for the user across all game modes they have played.</p>
+      <div class="body-grid">
+        <div>
+          <div class="sub-label">Path parameters</div>
+          <table class="param-table">
+            <tr><th>Param</th><th>Type</th><th></th></tr>
+            <tr><td class="param-name">user_id</td><td class="param-type">integer</td><td class="param-req">required</td></tr>
+          </table>
+        </div>
+        <div>
+          <div class="sub-label">Response 200</div>
+          <div class="code-block">
+            <div class="code-header"><span>json</span></div>
+            <pre>[
+  {
+    <span class="n">"elo_id"</span>: <span class="num">5</span>,
+    <span class="n">"user_id"</span>: <span class="num">42</span>,
+    <span class="n">"game_mode"</span>: <span class="s">"blitz"</span>,
+    <span class="n">"rating"</span>: <span class="num">1420</span>,
+    <span class="n">"updated_at"</span>: <span class="s">"2025-04-10T18:00:00Z"</span>
+  }
+]</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
+      <span class="method-badge get">GET</span>
+      <span class="endpoint-path">/users/<span class="param">{user_id}</span>/elo/<span class="param">{game_mode}</span></span>
+      <span class="endpoint-desc">Get ELO for game mode</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Returns the ELO rating for a specific game mode (e.g. <code>blitz</code>, <code>ranked</code>, <code>math</code>).</p>
+      <div style="max-width: 380px">
+        <div class="sub-label">Response 200</div>
+        <div class="code-block">
+          <div class="code-header"><span>json</span></div>
+          <pre>{
+  <span class="n">"elo_id"</span>: <span class="num">5</span>,
+  <span class="n">"user_id"</span>: <span class="num">42</span>,
+  <span class="n">"game_mode"</span>: <span class="s">"blitz"</span>,
+  <span class="n">"rating"</span>: <span class="num">1420</span>,
+  <span class="n">"updated_at"</span>: <span class="s">"2025-04-10T18:00:00Z"</span>
+}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ACHIEVEMENTS -->
+<section class="section" id="achievements">
+  <div class="section-header">
+    <h2>Achievements</h2>
+    <p>Browse the global achievement catalog and track user progress.</p>
+  </div>
+
+  <div class="endpoint">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
+      <span class="method-badge get">GET</span>
+      <span class="endpoint-path">/achievements</span>
+      <span class="endpoint-desc">List all achievements</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Returns the complete catalog of achievements available on the platform.</p>
+      <div class="body-grid">
+        <div>
+          <div class="sub-label">Query parameters</div>
+          <table class="param-table">
+            <tr><th>Param</th><th>Type</th><th></th></tr>
+            <tr><td class="param-name">limit</td><td class="param-type">integer</td><td class="param-opt">optional</td></tr>
+            <tr><td class="param-name">offset</td><td class="param-type">integer</td><td class="param-opt">optional</td></tr>
+          </table>
+        </div>
+        <div>
+          <div class="sub-label">Response 200</div>
+          <div class="code-block">
+            <div class="code-header"><span>json</span></div>
+            <pre>[
+  {
+    <span class="n">"achievement_id"</span>: <span class="num">1</span>,
+    <span class="n">"name"</span>: <span class="s">"First Blood"</span>,
+    <span class="n">"description"</span>: <span class="s">"Win your first match"</span>,
+    <span class="n">"condition"</span>: <span class="s">"matches_won >= 1"</span>
+  }
+]</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
+      <span class="method-badge get">GET</span>
+      <span class="endpoint-path">/achievements/<span class="param">{achievement_id}</span></span>
+      <span class="endpoint-desc">Get achievement details</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Returns details for a single achievement including its unlock condition.</p>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
+      <span class="method-badge get">GET</span>
+      <span class="endpoint-path">/users/<span class="param">{user_id}</span>/achievements</span>
+      <span class="endpoint-desc">Get user's achievements</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Returns a list of achievements unlocked by the given user, including unlock timestamps.</p>
+      <div style="max-width: 420px">
+        <div class="sub-label">Response 200</div>
+        <div class="code-block">
+          <div class="code-header"><span>json</span></div>
+          <pre>[
+  {
+    <span class="n">"user_achievement_id"</span>: <span class="num">12</span>,
+    <span class="n">"user_id"</span>: <span class="num">42</span>,
+    <span class="n">"achievement_id"</span>: <span class="num">1</span>,
+    <span class="n">"unlocked_at"</span>: <span class="s">"2025-02-20T09:15:00Z"</span>,
+    <span class="n">"achievement"</span>: {
+      <span class="n">"name"</span>: <span class="s">"First Blood"</span>,
+      <span class="n">"description"</span>: <span class="s">"Win your first match"</span>
+    }
+  }
+]</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- MATCHMAKING -->
+<section class="section" id="matchmaking">
+  <div class="section-header">
+    <h2>Matchmaking</h2>
+    <p>Join the ELO-based matchmaking queue. When two compatible opponents are found, a match is automatically created.</p>
+  </div>
+
+  <div class="endpoint">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
+      <span class="method-badge post">POST</span>
+      <span class="endpoint-path">/matchmaking/join</span>
+      <span class="endpoint-desc">Join matchmaking queue</span>
+      <span class="auth-badge">Auth</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Adds the authenticated user to the matchmaking queue for the specified game mode. The user's current ELO for that mode is read and stored in the queue entry.</p>
+      <div class="body-grid">
+        <div>
+          <div class="sub-label">Request body</div>
+          <table class="param-table">
+            <tr><th>Field</th><th>Type</th><th></th></tr>
+            <tr><td class="param-name">game_mode</td><td class="param-type">string</td><td class="param-req">required</td></tr>
+          </table>
+        </div>
+        <div>
+          <div class="sub-label">Response 201</div>
+          <div class="code-block">
+            <div class="code-header"><span>json</span></div>
+            <pre>{
+  <span class="n">"queue_id"</span>: <span class="num">88</span>,
+  <span class="n">"user_id"</span>: <span class="num">42</span>,
+  <span class="n">"game_mode"</span>: <span class="s">"ranked"</span>,
+  <span class="n">"elo_rating"</span>: <span class="num">1420</span>,
+  <span class="n">"joined_at"</span>: <span class="s">"2025-04-15T10:00:00Z"</span>
+}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
+      <span class="method-badge delete">DELETE</span>
+      <span class="endpoint-path">/matchmaking/leave</span>
+      <span class="endpoint-desc">Leave queue</span>
+      <span class="auth-badge">Auth</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Removes the authenticated user from the active matchmaking queue. Returns <code>204 No Content</code>. Safe to call even if not currently in queue.</p>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
+      <span class="method-badge get">GET</span>
+      <span class="endpoint-path">/matchmaking/status</span>
+      <span class="endpoint-desc">Get queue status</span>
+      <span class="auth-badge">Auth</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Returns the current queue entry for the authenticated user, or <code>404</code> if not in queue.</p>
+      <div style="max-width: 360px">
+        <div class="sub-label">Response 200</div>
+        <div class="code-block">
+          <div class="code-header"><span>json</span></div>
+          <pre>{
+  <span class="n">"queue_id"</span>: <span class="num">88</span>,
+  <span class="n">"game_mode"</span>: <span class="s">"ranked"</span>,
+  <span class="n">"elo_rating"</span>: <span class="num">1420</span>,
+  <span class="n">"joined_at"</span>: <span class="s">"2025-04-15T10:00:00Z"</span>
+}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- MATCHES -->
+<section class="section" id="matches">
+  <div class="section-header">
+    <h2>Matches</h2>
+    <p>Matches are created by the matchmaking system. Each match has a game mode, status, winner, and one or more rounds.</p>
+  </div>
+
+  <div class="endpoint">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
+      <span class="method-badge get">GET</span>
+      <span class="endpoint-path">/matches</span>
+      <span class="endpoint-desc">List matches</span>
+      <span class="auth-badge">Auth</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Returns a paginated list of matches for the authenticated user. Optionally filter by status or game mode.</p>
+      <div class="body-grid">
+        <div>
+          <div class="sub-label">Query parameters</div>
+          <table class="param-table">
+            <tr><th>Param</th><th>Type</th><th></th></tr>
+            <tr><td class="param-name">status</td><td class="param-type">string</td><td class="param-opt">optional</td></tr>
+            <tr><td class="param-name">game_mode</td><td class="param-type">string</td><td class="param-opt">optional</td></tr>
+            <tr><td class="param-name">limit</td><td class="param-type">integer</td><td class="param-opt">optional</td></tr>
+            <tr><td class="param-name">offset</td><td class="param-type">integer</td><td class="param-opt">optional</td></tr>
+          </table>
+        </div>
+        <div>
+          <div class="sub-label">Response 200</div>
+          <div class="code-block">
+            <div class="code-header"><span>json</span></div>
+            <pre>[
+  {
+    <span class="n">"match_id"</span>: <span class="num">301</span>,
+    <span class="n">"game_mode"</span>: <span class="s">"ranked"</span>,
+    <span class="n">"status"</span>: <span class="s">"completed"</span>,
+    <span class="n">"winner_id"</span>: <span class="num">42</span>
+  }
+]</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
+      <span class="method-badge get">GET</span>
+      <span class="endpoint-path">/matches/<span class="param">{match_id}</span></span>
+      <span class="endpoint-desc">Get match details</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Returns full details for a single match including its current status and winner.</p>
+      <div style="max-width: 380px">
+        <div class="sub-label">Response 200</div>
+        <div class="code-block">
+          <div class="code-header"><span>json</span></div>
+          <pre>{
+  <span class="n">"match_id"</span>: <span class="num">301</span>,
+  <span class="n">"game_mode"</span>: <span class="s">"ranked"</span>,
+  <span class="n">"status"</span>: <span class="s">"completed"</span>,
+  <span class="n">"winner_id"</span>: <span class="num">42</span>
+}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
+      <span class="method-badge get">GET</span>
+      <span class="endpoint-path">/matches/<span class="param">{match_id}</span>/rounds</span>
+      <span class="endpoint-desc">Get rounds for a match</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Returns all rounds belonging to a match, ordered by round start time.</p>
+      <div style="max-width: 420px">
+        <div class="sub-label">Response 200</div>
+        <div class="code-block">
+          <div class="code-header"><span>json</span></div>
+          <pre>[
+  {
+    <span class="n">"round_id"</span>: <span class="num">7</span>,
+    <span class="n">"match_id"</span>: <span class="num">301</span>,
+    <span class="n">"problem_id"</span>: <span class="num">15</span>,
+    <span class="n">"start_time"</span>: <span class="s">"2025-04-15T10:05:00Z"</span>,
+    <span class="n">"end_time"</span>: <span class="s">"2025-04-15T10:20:00Z"</span>
+  }
+]</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ROUNDS -->
+<section class="section" id="rounds">
+  <div class="section-header">
+    <h2>Rounds</h2>
+    <p>A round ties together a match, a problem, and a time window. Each round records when it started and ended.</p>
+  </div>
+
+  <div class="endpoint">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
+      <span class="method-badge get">GET</span>
+      <span class="endpoint-path">/rounds/<span class="param">{round_id}</span></span>
+      <span class="endpoint-desc">Get round details</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Returns details for a single round including the associated problem and timing data.</p>
+      <div style="max-width: 420px">
+        <div class="sub-label">Response 200</div>
+        <div class="code-block">
+          <div class="code-header"><span>json</span></div>
+          <pre>{
+  <span class="n">"round_id"</span>: <span class="num">7</span>,
+  <span class="n">"match_id"</span>: <span class="num">301</span>,
+  <span class="n">"problem_id"</span>: <span class="num">15</span>,
+  <span class="n">"start_time"</span>: <span class="s">"2025-04-15T10:05:00Z"</span>,
+  <span class="n">"end_time"</span>: <span class="s">"2025-04-15T10:20:00Z"</span>
+}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROBLEMS -->
+<section class="section" id="problems">
+  <div class="section-header">
+    <h2>Problems</h2>
+    <p><code>problems</code> is a virtual base type — it is never stored directly. A <code>problem_category</code> enum (<code>math</code> | <code>programming</code>) determines which concrete table the record lives in: <code>math_problems</code> or <code>programming_problems</code>. The API resolves the correct table transparently and returns a unified shape.</p>
+  </div>
+
+  <div class="endpoint">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
+      <span class="method-badge get">GET</span>
+      <span class="endpoint-path">/problems</span>
+      <span class="endpoint-desc">List problems</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Returns a paginated list of problems across both concrete tables. Filter by <code>problem_category</code>, difficulty, or topic category.</p>
+      <div class="body-grid">
+        <div>
+          <div class="sub-label">Query parameters</div>
+          <table class="param-table">
+            <tr><th>Param</th><th>Type</th><th></th></tr>
+            <tr><td class="param-name">problem_category</td><td class="param-type">enum</td><td class="param-opt">math | programming</td></tr>
+            <tr><td class="param-name">difficulty_level</td><td class="param-type">string</td><td class="param-opt">optional</td></tr>
+            <tr><td class="param-name">category</td><td class="param-type">string</td><td class="param-opt">optional</td></tr>
+            <tr><td class="param-name">limit</td><td class="param-type">integer</td><td class="param-opt">optional</td></tr>
+            <tr><td class="param-name">offset</td><td class="param-type">integer</td><td class="param-opt">optional</td></tr>
+          </table>
+        </div>
+        <div>
+          <div class="sub-label">Response 200</div>
+          <div class="code-block">
+            <div class="code-header"><span>json</span></div>
+            <pre>[
+  {
+    <span class="n">"problem_id"</span>: <span class="num">15</span>,
+    <span class="n">"problem_category"</span>: <span class="s">"programming"</span>,
+    <span class="n">"difficulty_level"</span>: <span class="s">"medium"</span>,
+    <span class="n">"title"</span>: <span class="s">"Shortest Path"</span>,
+    <span class="n">"time_limit"</span>: <span class="num">2000</span>
+  }
+]</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
+      <span class="method-badge get">GET</span>
+      <span class="endpoint-path">/problems/<span class="param">{problem_id}</span></span>
+      <span class="endpoint-desc">Get problem details</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Returns the full problem. The shape differs based on <code>problem_category</code> — <code>programming_problems</code> include <code>supported_languages</code>; <code>math_problems</code> include <code>solution_formula</code>.</p>
+      <div class="body-grid">
+        <div>
+          <div class="sub-label">Response 200 — programming_problems</div>
+          <div class="code-block">
+            <div class="code-header"><span>json</span></div>
+            <pre>{
+  <span class="n">"problem_id"</span>: <span class="num">15</span>,
+  <span class="n">"problem_category"</span>: <span class="s">"programming"</span>,
+  <span class="n">"difficulty_level"</span>: <span class="s">"medium"</span>,
+  <span class="n">"title"</span>: <span class="s">"Shortest Path"</span>,
+  <span class="n">"description"</span>: <span class="s">"Given a directed graph..."</span>,
+  <span class="n">"time_limit"</span>: <span class="num">2000</span>,
+  <span class="n">"supported_languages"</span>: [<span class="s">"java"</span>, <span class="s">"c++"</span>]
+}</pre>
+          </div>
+        </div>
+        <div>
+          <div class="sub-label">Response 200 — math_problems</div>
+          <div class="code-block">
+            <div class="code-header"><span>json</span></div>
+            <pre>{
+  <span class="n">"problem_id"</span>: <span class="num">22</span>,
+  <span class="n">"problem_category"</span>: <span class="s">"math"</span>,
+  <span class="n">"difficulty_level"</span>: <span class="s">"hard"</span>,
+  <span class="n">"title"</span>: <span class="s">"Integral Bounds"</span>,
+  <span class="n">"description"</span>: <span class="s">"Evaluate the integral..."</span>,
+  <span class="n">"time_limit"</span>: <span class="num">3000</span>,
+  <span class="n">"solution_formula"</span>: <span class="s">"1/3"</span>
+}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
+      <span class="method-badge post">POST</span>
+      <span class="endpoint-path">/problems</span>
+      <span class="endpoint-desc">Create a problem</span>
+      <span class="admin-badge">Admin</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Creates a new problem. The value of <code>problem_category</code> determines which concrete table the record is inserted into. Provide the corresponding type-specific fields accordingly.</p>
+      <div class="body-grid">
+        <div>
+          <div class="sub-label">Request body — shared fields</div>
+          <table class="param-table">
+            <tr><th>Field</th><th>Type</th><th></th></tr>
+            <tr><td class="param-name">problem_category</td><td class="param-type">enum</td><td class="param-req">math | programming</td></tr>
+            <tr><td class="param-name">title</td><td class="param-type">string</td><td class="param-req">required</td></tr>
+            <tr><td class="param-name">description</td><td class="param-type">string</td><td class="param-req">required</td></tr>
+            <tr><td class="param-name">difficulty_level</td><td class="param-type">string</td><td class="param-req">required</td></tr>
+            <tr><td class="param-name">time_limit</td><td class="param-type">integer</td><td class="param-req">required</td></tr>
+          </table>
+          <div class="sub-label" style="margin-top:1rem;">programming_problems only</div>
+          <table class="param-table">
+            <tr><th>Field</th><th>Type</th><th></th></tr>
+            <tr><td class="param-name">supported_languages</td><td class="param-type">enum[]</td><td class="param-req">java | c++</td></tr>
+          </table>
+          <div class="sub-label" style="margin-top:1rem;">math_problems only</div>
+          <table class="param-table">
+            <tr><th>Field</th><th>Type</th><th></th></tr>
+            <tr><td class="param-name">solution_formula</td><td class="param-type">string</td><td class="param-req">required</td></tr>
+          </table>
+        </div>
+        <div>
+          <div class="sub-label">Response 201 — programming_problems</div>
+          <div class="code-block">
+            <div class="code-header"><span>json</span></div>
+            <pre>{
+  <span class="n">"problem_id"</span>: <span class="num">15</span>,
+  <span class="n">"problem_category"</span>: <span class="s">"programming"</span>,
+  <span class="n">"title"</span>: <span class="s">"Shortest Path"</span>,
+  <span class="n">"difficulty_level"</span>: <span class="s">"medium"</span>,
+  <span class="n">"description"</span>: <span class="s">"Given a directed graph..."</span>,
+  <span class="n">"time_limit"</span>: <span class="num">2000</span>,
+  <span class="n">"supported_languages"</span>: [<span class="s">"java"</span>, <span class="s">"c++"</span>]
+}</pre>
+          </div>
+          <div class="sub-label" style="margin-top:1rem;">Response 201 — math_problems</div>
+          <div class="code-block">
+            <div class="code-header"><span>json</span></div>
+            <pre>{
+  <span class="n">"problem_id"</span>: <span class="num">22</span>,
+  <span class="n">"problem_category"</span>: <span class="s">"math"</span>,
+  <span class="n">"title"</span>: <span class="s">"Integral Bounds"</span>,
+  <span class="n">"difficulty_level"</span>: <span class="s">"hard"</span>,
+  <span class="n">"description"</span>: <span class="s">"Evaluate the integral..."</span>,
+  <span class="n">"time_limit"</span>: <span class="num">3000</span>,
+  <span class="n">"solution_formula"</span>: <span class="s">"1/3"</span>
+}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
+      <span class="method-badge put">PUT</span>
+      <span class="endpoint-path">/problems/<span class="param">{problem_id}</span></span>
+      <span class="endpoint-desc">Update a problem</span>
+      <span class="admin-badge">Admin</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Updates fields on an existing problem. Partial updates are supported. <code>problem_category</code> cannot be changed after creation.</p>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
+      <span class="method-badge delete">DELETE</span>
+      <span class="endpoint-path">/problems/<span class="param">{problem_id}</span></span>
+      <span class="endpoint-desc">Delete a problem</span>
+      <span class="admin-badge">Admin</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Permanently deletes the problem and all associated test cases. Returns <code>204 No Content</code>. Will fail with <code>409</code> if the problem is referenced by active rounds.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TEST CASES -->
+<section class="section" id="testcases">
+  <div class="section-header">
+    <h2>Test Cases</h2>
+    <p>Each problem has one or more test cases. Test case inputs and expected outputs are used by the execution engine to grade submissions.</p>
+  </div>
+
+  <div class="endpoint">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
+      <span class="method-badge get">GET</span>
+      <span class="endpoint-path">/problems/<span class="param">{problem_id}</span>/testcases</span>
+      <span class="endpoint-desc">List test cases</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Returns all test cases for the given problem. <code>expected_output</code> may be redacted for non-admin callers.</p>
+      <div style="max-width: 420px">
+        <div class="sub-label">Response 200</div>
+        <div class="code-block">
+          <div class="code-header"><span>json</span></div>
+          <pre>[
+  {
+    <span class="n">"testcase_id"</span>: <span class="num">91</span>,
+    <span class="n">"problem_id"</span>: <span class="num">15</span>,
+    <span class="n">"input"</span>: <span class="s">"4\n1 2\n2 3\n3 4"</span>,
+    <span class="n">"expected_output"</span>: <span class="s">"3"</span>
+  }
+]</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
+      <span class="method-badge post">POST</span>
+      <span class="endpoint-path">/problems/<span class="param">{problem_id}</span>/testcases</span>
+      <span class="endpoint-desc">Add a test case</span>
+      <span class="admin-badge">Admin</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Creates a new test case for the problem. Both <code>input</code> and <code>expected_output</code> are required.</p>
+      <div class="body-grid">
+        <div>
+          <div class="sub-label">Request body</div>
+          <table class="param-table">
+            <tr><th>Field</th><th>Type</th><th></th></tr>
+            <tr><td class="param-name">input</td><td class="param-type">string</td><td class="param-req">required</td></tr>
+            <tr><td class="param-name">expected_output</td><td class="param-type">string</td><td class="param-req">required</td></tr>
+          </table>
+        </div>
+        <div>
+          <div class="sub-label">Response 201</div>
+          <div class="code-block">
+            <div class="code-header"><span>json</span></div>
+            <pre>{
+  <span class="n">"testcase_id"</span>: <span class="num">92</span>,
+  <span class="n">"problem_id"</span>: <span class="num">15</span>,
+  <span class="n">"input"</span>: <span class="s">"5\n1 3\n3 5"</span>,
+  <span class="n">"expected_output"</span>: <span class="s">"2"</span>
+}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
+      <span class="method-badge put">PUT</span>
+      <span class="endpoint-path">/testcases/<span class="param">{testcase_id}</span></span>
+      <span class="endpoint-desc">Update a test case</span>
+      <span class="admin-badge">Admin</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Updates <code>input</code> or <code>expected_output</code> on an existing test case.</p>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
+      <span class="method-badge delete">DELETE</span>
+      <span class="endpoint-path">/testcases/<span class="param">{testcase_id}</span></span>
+      <span class="endpoint-desc">Delete a test case</span>
+      <span class="admin-badge">Admin</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Permanently removes the test case. Returns <code>204 No Content</code>.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SUBMISSIONS -->
+<section class="section" id="submissions">
+  <div class="section-header">
+    <h2>Submissions</h2>
+    <p>Users submit code or answers during a round. Each submission is immediately queued for execution and an <code>ExecutionResult</code> is linked once complete.</p>
+  </div>
+
+  <div class="endpoint">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
+      <span class="method-badge post">POST</span>
+      <span class="endpoint-path">/submissions</span>
+      <span class="endpoint-desc">Submit a solution</span>
+      <span class="auth-badge">Auth</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Submits a solution to a problem within an active round. The submission is queued for asynchronous execution. Poll <code>/submissions/{id}/result</code> for the execution outcome.</p>
+      <div class="body-grid">
+        <div>
+          <div class="sub-label">Request body</div>
+          <table class="param-table">
+            <tr><th>Field</th><th>Type</th><th></th></tr>
+            <tr><td class="param-name">round_id</td><td class="param-type">integer</td><td class="param-req">required</td></tr>
+            <tr><td class="param-name">code</td><td class="param-type">string</td><td class="param-req">required</td></tr>
+            <tr><td class="param-name">language</td><td class="param-type">enum</td><td class="param-req">java | c++</td></tr>
+          </table>
+        </div>
+        <div>
+          <div class="sub-label">Response 201</div>
+          <div class="code-block">
+            <div class="code-header"><span>json</span></div>
+            <pre>{
+  <span class="n">"submission_id"</span>: <span class="num">550</span>,
+  <span class="n">"user_id"</span>: <span class="num">42</span>,
+  <span class="n">"round_id"</span>: <span class="num">7</span>,
+  <span class="n">"language"</span>: <span class="s">"java"</span>,
+  <span class="n">"status"</span>: <span class="s">"pending"</span>,
+  <span class="n">"submitted_at"</span>: <span class="s">"2025-04-15T10:10:00Z"</span>
+}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
+      <span class="method-badge get">GET</span>
+      <span class="endpoint-path">/submissions/<span class="param">{submission_id}</span></span>
+      <span class="endpoint-desc">Get submission details</span>
+      <span class="auth-badge">Auth</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Returns the submission object. <code>status</code> will be one of <code>pending</code>, <code>running</code>, <code>accepted</code>, <code>wrong_answer</code>, <code>time_limit_exceeded</code>, or <code>runtime_error</code>.</p>
+      <div style="max-width:420px">
+        <div class="sub-label">Response 200</div>
+        <div class="code-block">
+          <div class="code-header"><span>json</span></div>
+          <pre>{
+  <span class="n">"submission_id"</span>: <span class="num">550</span>,
+  <span class="n">"user_id"</span>: <span class="num">42</span>,
+  <span class="n">"round_id"</span>: <span class="num">7</span>,
+  <span class="n">"code"</span>: <span class="s">"def solve(n, edges):..."</span>,
+  <span class="n">"language"</span>: <span class="s">"python"</span>,
+  <span class="n">"status"</span>: <span class="s">"accepted"</span>,
+  <span class="n">"submitted_at"</span>: <span class="s">"2025-04-15T10:10:00Z"</span>
+}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
+      <span class="method-badge get">GET</span>
+      <span class="endpoint-path">/users/<span class="param">{user_id}</span>/submissions</span>
+      <span class="endpoint-desc">List user submissions</span>
+      <span class="auth-badge">Auth</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Returns a paginated list of all submissions by the specified user, newest first.</p>
+      <div>
+        <div class="sub-label">Query parameters</div>
+        <table class="param-table" style="max-width:420px">
+          <tr><th>Param</th><th>Type</th><th></th></tr>
+          <tr><td class="param-name">status</td><td class="param-type">string</td><td class="param-opt">optional</td></tr>
+          <tr><td class="param-name">language</td><td class="param-type">string</td><td class="param-opt">optional</td></tr>
+          <tr><td class="param-name">limit</td><td class="param-type">integer</td><td class="param-opt">optional</td></tr>
+          <tr><td class="param-name">offset</td><td class="param-type">integer</td><td class="param-opt">optional</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXECUTION RESULTS -->
+<section class="section" id="execution">
+  <div class="section-header">
+    <h2>Execution Results</h2>
+    <p>After a submission is processed, an <code>ExecutionResult</code> is created with pass/fail counts, execution time, and memory usage.</p>
+  </div>
+
+  <div class="endpoint">
+    <div class="endpoint-header" onclick="toggle(this)" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(this)" tabindex="0" role="button">
+      <span class="method-badge get">GET</span>
+      <span class="endpoint-path">/submissions/<span class="param">{submission_id}</span>/result</span>
+      <span class="endpoint-desc">Get execution result</span>
+      <span class="auth-badge">Auth</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Returns the execution result for a submission. Returns <code>404</code> if execution has not yet completed — poll until available.</p>
+      <div style="max-width:420px">
+        <div class="sub-label">Response 200</div>
+        <div class="code-block">
+          <div class="code-header"><span>json</span></div>
+          <pre>{
+  <span class="n">"result_id"</span>: <span class="num">210</span>,
+  <span class="n">"submission_id"</span>: <span class="num">550</span>,
+  <span class="n">"passed_cases"</span>: <span class="num">8</span>,
+  <span class="n">"total_cases"</span>: <span class="num">10</span>,
+  <span class="n">"execution_time"</span>: <span class="num">134</span>,
+  <span class="n">"memory_used"</span>: <span class="num">20480</span>
+}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ERROR CODES -->
+<section class="section" id="errors">
+  <div class="section-header">
+    <h2>Error Codes</h2>
+    <p>All errors return a consistent JSON body with a machine-readable <code>code</code> field.</p>
+  </div>
+  <div style="max-width:520px">
+    <div class="code-block">
+      <div class="code-header"><span>Error envelope</span></div>
+      <pre>{
+  <span class="n">"error"</span>: {
+    <span class="n">"code"</span>: <span class="s">"VALIDATION_ERROR"</span>,
+    <span class="n">"message"</span>: <span class="s">"email is not a valid email address"</span>,
+    <span class="n">"field"</span>: <span class="s">"email"</span>
+  }
+}</pre>
+    </div>
+  </div>
+  <br>
+  <table class="param-table" style="max-width:680px">
+    <tr><th>HTTP</th><th>Code</th><th>Description</th></tr>
+    <tr><td class="param-type">400</td><td class="param-name">VALIDATION_ERROR</td><td style="color:var(--muted)">Request body failed validation</td></tr>
+    <tr><td class="param-type">401</td><td class="param-name">UNAUTHORIZED</td><td style="color:var(--muted)">Missing or invalid bearer token</td></tr>
+    <tr><td class="param-type">403</td><td class="param-name">FORBIDDEN</td><td style="color:var(--muted)">Token valid but lacks permission</td></tr>
+    <tr><td class="param-type">404</td><td class="param-name">NOT_FOUND</td><td style="color:var(--muted)">Resource does not exist</td></tr>
+    <tr><td class="param-type">409</td><td class="param-name">CONFLICT</td><td style="color:var(--muted)">Resource state conflict (e.g. duplicate username)</td></tr>
+    <tr><td class="param-type">422</td><td class="param-name">UNPROCESSABLE</td><td style="color:var(--muted)">Semantically invalid request</td></tr>
+    <tr><td class="param-type">429</td><td class="param-name">RATE_LIMITED</td><td style="color:var(--muted)">Too many requests — back off and retry</td></tr>
+    <tr><td class="param-type">500</td><td class="param-name">INTERNAL_ERROR</td><td style="color:var(--muted)">Unexpected server error</td></tr>
+  </table>
+</section>
+
+<div class="divider"></div>
+
+<!-- DATA MODELS -->
+<section class="section" id="models">
+  <div class="section-header">
+    <h2>Data Models</h2>
+    <p>Quick reference for all entity shapes returned by the API.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+
+    <div class="info-card">
+      <h4>User</h4>
+      <div class="code-block" style="margin-top:.5rem">
+        <pre style="padding:.75rem;font-size:11px"><span class="n">user_id</span>: <span class="param-type">integer</span>
+<span class="n">username</span>: <span class="param-type">string</span>
+<span class="n">email</span>: <span class="param-type">string</span>
+<span class="n">created_at</span>: <span class="param-type">datetime</span></pre>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <h4>EloRating</h4>
+      <div class="code-block" style="margin-top:.5rem">
+        <pre style="padding:.75rem;font-size:11px"><span class="n">elo_id</span>: <span class="param-type">integer</span>
+<span class="n">user_id</span>: <span class="param-type">integer</span>
+<span class="n">game_mode</span>: <span class="param-type">string</span>
+<span class="n">rating</span>: <span class="param-type">integer</span>
+<span class="n">updated_at</span>: <span class="param-type">datetime</span></pre>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <h4>Match</h4>
+      <div class="code-block" style="margin-top:.5rem">
+        <pre style="padding:.75rem;font-size:11px"><span class="n">match_id</span>: <span class="param-type">integer</span>
+<span class="n">game_mode</span>: <span class="param-type">string</span>
+<span class="n">status</span>: <span class="param-type">string</span>
+<span class="n">winner_id</span>: <span class="param-type">integer | null</span></pre>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <h4>Round</h4>
+      <div class="code-block" style="margin-top:.5rem">
+        <pre style="padding:.75rem;font-size:11px"><span class="n">round_id</span>: <span class="param-type">integer</span>
+<span class="n">match_id</span>: <span class="param-type">integer</span>
+<span class="n">problem_id</span>: <span class="param-type">integer</span>
+<span class="n">start_time</span>: <span class="param-type">datetime</span>
+<span class="n">end_time</span>: <span class="param-type">datetime</span></pre>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <h4>Problem (base)</h4>
+      <div class="code-block" style="margin-top:.5rem">
+        <pre style="padding:.75rem;font-size:11px"><span class="n">problem_id</span>: <span class="param-type">integer</span>
+<span class="n">type</span>: <span class="param-type">string</span>
+<span class="n">difficulty_level</span>: <span class="param-type">string</span>
+<span class="n">title</span>: <span class="param-type">string</span>
+<span class="n">description</span>: <span class="param-type">string</span>
+<span class="n">time_limit</span>: <span class="param-type">integer (ms)</span></pre>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <h4>Submission</h4>
+      <div class="code-block" style="margin-top:.5rem">
+        <pre style="padding:.75rem;font-size:11px"><span class="n">submission_id</span>: <span class="param-type">integer</span>
+<span class="n">user_id</span>: <span class="param-type">integer</span>
+<span class="n">round_id</span>: <span class="param-type">integer</span>
+<span class="n">code</span>: <span class="param-type">string</span>
+<span class="n">language</span>: <span class="param-type">string</span>
+<span class="n">status</span>: <span class="param-type">string</span>
+<span class="n">submitted_at</span>: <span class="param-type">datetime</span></pre>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <h4>ExecutionResult</h4>
+      <div class="code-block" style="margin-top:.5rem">
+        <pre style="padding:.75rem;font-size:11px"><span class="n">result_id</span>: <span class="param-type">integer</span>
+<span class="n">submission_id</span>: <span class="param-type">integer</span>
+<span class="n">passed_cases</span>: <span class="param-type">integer</span>
+<span class="n">total_cases</span>: <span class="param-type">integer</span>
+<span class="n">execution_time</span>: <span class="param-type">integer (ms)</span>
+<span class="n">memory_used</span>: <span class="param-type">integer (bytes)</span></pre>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <h4>Achievement</h4>
+      <div class="code-block" style="margin-top:.5rem">
+        <pre style="padding:.75rem;font-size:11px"><span class="n">achievement_id</span>: <span class="param-type">integer</span>
+<span class="n">name</span>: <span class="param-type">string</span>
+<span class="n">description</span>: <span class="param-type">string</span>
+<span class="n">condition</span>: <span class="param-type">string</span></pre>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<script>
+function toggle(header) {
+  const body = header.nextElementSibling;
+  body.classList.toggle('open');
+}
+
+function copyCode(btn) {
+  const pre = btn.closest('.code-block').querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(() => {
+    btn.textContent = 'copied!';
+    setTimeout(() => btn.textContent = 'copy', 1500);
+  });
+}
+
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+  });
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      document.querySelectorAll('.nav-item').forEach(i => {
+        i.classList.toggle('active', i.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, { threshold: .2 });
+document.querySelectorAll('.section').forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
