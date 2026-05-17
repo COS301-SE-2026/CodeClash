@@ -145,3 +145,25 @@ export const getMatchLog = async (req: Request, res: Response): Promise<void> =>
         res.status(500).json({ message: 'Internal server error' });
     }
 };
+
+//POST
+//Creates a match log for a casual match as there is no elo update
+export const createMatchLog = async (req: Request, res: Response): Promise<void> => {
+    const { match_id, winner_id, loser_id } = req.body;
+
+    try {
+        // Insert match log
+        const logResult = await pool.query(
+            `INSERT INTO match_log (match_id, winner_id, loser_id)
+             VALUES ($1, $2, $3)
+             RETURNING *`,
+            [match_id, winner_id, loser_id]
+        );
+
+
+        res.status(201).json(logResult.rows[0]);
+    } catch (error) {
+        console.error('Error creating match log:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
