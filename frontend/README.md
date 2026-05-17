@@ -4,8 +4,6 @@ We're using a React + TypeScript frontend built with vite.
 
 ## Tech Stack
 
-## Tech Stack
-
 | Tool             | Purpose                |
 |------------------|------------------------|
 | React            | UI framework           |
@@ -29,19 +27,11 @@ The pages are currently using state-based routing, so they are live at the same 
 
 ## Navigation Flow
 
-- Welcome page
-  - Sign in → SignIn page
-  - Sign up → SignUp page
-- SignIn page
-  - ← Back → Welcome page
-  - Sign up → SignUp page
-- SignUp page
-  - ← Back → Welcome page
 
 
 ## Fonts
 
-"Baloo Bhai 2" font is loaded via Goggle Fonts in each of the CSS files. This requires an internet connection when running.
+"Baloo Bhai 2" font is loaded via Google Fonts in each of the CSS files. This requires an internet connection when running.
 
 ## Notes
 
