@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400;600;700;800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Baloo Bhai 2', cursive;
+  background-color: #f8fafc;
+  min-height: 100vh;
+}
+
+.profile-page {
+  width: 1440px;
+  min-height: 1024px;
+  background-color: #f8fafc;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.back-button {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  width: 91px;
+  height: 31px;
+  background-color: #ffffff;
+  border: 1px solid #0f172a;
+  border-radius: 6px;
+  font-family: 'Baloo Bhai 2', cursive;
+  font-size: 16px;
+  font-weight: 400;
+  color: #0f172a;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease;
+}
+
+.back-button:hover {
+  background-color: #f1f5f9;
+}
+
+.profile-card {
+  width: 500px;
+  background-color: #ffffff;
+  border: 1px solid #0f172a;
+  border-radius: 20px;
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.profile-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background-color: #a78bfa;
+  border: 1px solid #0f172a;
+}
+
+.profile-name {
+  font-family: 'Baloo Bhai 2', cursive;
+  font-weight: 700;
+  font-size: 32px;
+  color: #0f172a;
+  text-align: center;
+}
+
+.profile-email {
+  font-family: 'Baloo Bhai 2', cursive;
+  font-size: 18px;
+  color: #64748b;
+  text-align: center;
+  margin-top: -12px;
+}
+
+.profile-level {
+  font-family: 'Baloo Bhai 2', cursive;
+  font-size: 16px;
+  color: #a78bfa;
+}
+
+.profile-divider {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(15, 23, 42, 0.12);
+}
+
+.profile-info-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-info-label {
+  font-family: 'Baloo Bhai 2', cursive;
+  font-size: 18px;
+  color: #64748b;
+}
+
+.profile-info-value {
+  font-family: 'Baloo Bhai 2', cursive;
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.logout-button {
+  width: 100%;
+  height: 60px;
+  background-color: #3b82f6;
+  border: 2px solid #0f172a;
+  border-radius: 8px;
+  font-family: 'Baloo Bhai 2', cursive;
+  font-size: 24px;
+  font-weight: 600;
+  color: #0f172a;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8px;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.logout-button:hover {
+  background-color: #2563eb;
+  transform: translateY(-1px);
+}
+
+.logout-button:active {
+  background-color: #1d4ed8;
+  transform: translateY(0);
+}
