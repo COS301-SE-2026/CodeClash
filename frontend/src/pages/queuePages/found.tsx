@@ -15,15 +15,48 @@ const Found = () => {
        </div>
        </div>
 
-       <div className="timer-section">
-          <div className="timer-icon"></div>
-          <span className="timer-text">0:00</span>
+       <div className="row-elo">
+        <div className="elo-button">
+          <div className="elo-button-text">570 ELO</div>
+        </div>
+        <div className="elo-button">
+          <div className="elo-button-text">500 ELO</div>
+        </div>
+       </div>
+
+        <div className="info-button">
+          {/* <div className="big-row-info">
+           <div className="row-info">
+          <div className="info-button-text-grey">Match Type</div>
+          <div className="info-button-text-black">Ranked</div>
+           <div className="info-button-text-grey">Time Limit</div>
+          <div className="info-button-text-black">15 minutes</div>
+          </div>
+          <div className="row-info">
+          <div className="info-button-text-grey">Difficulty</div>
+          <div className="info-button-text-black">Medium</div>
+           <div className="info-button-text-grey">Number of Questions</div>
+          <div className="info-button-text-black">5</div>
+          </div> */}
+          <div className="match-details-grid">
+          <div className="grid-row">
+            <div className="info-button-text-grey">Match Type</div>
+            <div className="info-button-text-black">Ranked</div>
+            <div className="info-button-text-grey">Time Limit</div>
+            <div className="info-button-text-black">15 minutes</div>
+          </div>
+          <div className="grid-row">
+            <div className="info-button-text-grey">Difficulty</div>
+            <div className="info-button-text-black">Medium</div>
+            <div className="info-button-text-grey">Number of Questions</div>
+            <div className="info-button-text-black">5</div>
+          </div>
+        </div>
+          
+          
+          
         </div>
 
-         <div className="searching-text">Searching for Opponent...</div>
-        <div className="under-searching-text">Finding a player with similar Elo</div>
-
-        <button className="elo-button">Cancel Queue</button>
 
       </div>
     </div>
