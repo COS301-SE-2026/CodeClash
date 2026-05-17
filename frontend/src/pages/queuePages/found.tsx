@@ -23,7 +23,7 @@ const Found = () => {
          <div className="searching-text">Searching for Opponent...</div>
         <div className="under-searching-text">Finding a player with similar Elo</div>
 
-        <button className="cancel-button">Cancel Queue</button>
+        <button className="elo-button">Cancel Queue</button>
 
       </div>
     </div>
