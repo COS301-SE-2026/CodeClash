@@ -4,11 +4,12 @@ import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 import './styles/global.css'
 import Searching from './pages/queuePages/searching' 
+import Found from './pages/queuePages/found' 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
-    <Searching/>
+    <Found/>
     </BrowserRouter>
   </React.StrictMode>
 )
