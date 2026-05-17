@@ -270,6 +270,9 @@
   color: #0F172A;
   padding: 10px 30px;
   border-radius: 30px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   
 }
 
@@ -290,11 +293,14 @@
   color: #0F172A;
   padding: 10px 30px;
   border-radius: 30px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   
 }
 
 .approve-button:hover {
-  background: rgba(6, 116, 20, 0.842);
+  background: rgba(15, 95, 46, 0.842);
   transform: scale(1.1);
 }
 
