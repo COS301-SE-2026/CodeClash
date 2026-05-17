@@ -1,0 +1,405 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400;600;700;800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Baloo Bhai 2', cursive;
+  background-color: #f8fafc;
+  min-height: 100vh;
+}
+
+.dashboard-page {
+  width: 1440px;
+  min-height: 1024px;
+  background-color: #f8fafc;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  width: 100%;
+  height: 100px;
+  background-color: #f8fafc;
+  border-bottom: 1px solid #0f172a;
+  display: flex;
+  align-items: center;
+  padding: 0 32px;
+  gap: 16px;
+}
+
+.header-logo {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+}
+
+.header-title {
+  font-family: 'Baloo Bhai 2', cursive;
+  font-weight: 700;
+  font-size: 48px;
+  color: #0f172a;
+  flex: 1;
+}
+
+.header-user {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.user-name {
+  font-family: 'Baskerville', 'Libre Baskerville', Georgia, serif;
+  font-size: 24px;
+  color: #0f172a;
+}
+
+.xp-bar-wrapper {
+  width: 186px;
+  height: 11px;
+  background-color: #ffffff;
+  border: 1px solid #0f172a;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.xp-bar-fill {
+  height: 100%;
+  width: 60%;
+  background-color: #3b82f6;
+  border-right: 1px solid #0f172a;
+}
+
+.player-level {
+  font-family: 'Baloo Bhai 2', cursive;
+  font-size: 13px;
+  color: #0f172a;
+}
+
+.navbar {
+  width: 100%;
+  height: 52px;
+  background-color: #f8fafc;
+  border-bottom: 1px solid #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 48px;
+}
+
+.nav-item {
+  font-family: 'Baskerville', 'Libre Baskerville', Georgia, serif;
+  font-size: 24px;
+  color: #64748b;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px 0;
+  position: relative;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.nav-item:hover {
+  color: #0f172a;
+}
+
+.nav-item.active {
+  color: #0f172a;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 28px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}
+
+.profile-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.profile-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #a78bfa;
+  border: 1px solid #0f172a;
+  flex-shrink: 0;
+}
+
+.play-cards-row {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  width: 100%;
+}
+
+.play-card {
+  width: 601px;
+  height: 324px;
+  border: 1px solid #0f172a;
+  border-radius: 20px;
+  padding: 36px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.play-card.casual {
+  background: linear-gradient(135deg, #a78bfa 70%, rgba(167, 139, 250, 0.3) 100%);
+}
+
+.play-card.ranked {
+  background: linear-gradient(135deg, #3b82f6 70%, rgba(59, 130, 246, 0.3) 100%);
+}
+
+.play-card-title {
+  font-family: 'Baskerville', 'Libre Baskerville', Georgia, serif;
+  font-size: 40px;
+  color: #0f172a;
+}
+
+.play-card-desc {
+  font-family: 'Baloo Bhai 2', cursive;
+  font-size: 20px;
+  color: #0f172a;
+  margin-top: 8px;
+}
+
+.play-now-button {
+  width: 490px;
+  height: 63px;
+  border: 1px solid #0f172a;
+  border-radius: 10px;
+  font-family: 'Baloo Bhai 2', cursive;
+  font-size: 32px;
+  font-weight: 600;
+  color: #0f172a;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+  align-self: center;
+}
+
+.play-now-button:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+.play-card.casual .play-now-button {
+  background-color: #a78bfa;
+}
+
+.play-card.ranked .play-now-button {
+  background-color: #3b82f6;
+}
+
+.bottom-row {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+}
+
+.stat-cards-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.stat-card {
+  width: 227px;
+  height: 180px;
+  border: 1px solid #0f172a;
+  border-radius: 14px;
+  background: radial-gradient(circle at 60% 40%, #d9d9d9 0%, rgba(217, 217, 217, 0.3) 100%);
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+
+.stat-icon {
+  width: 39px;
+  height: 39px;
+  object-fit: contain;
+  margin-bottom: 6px;
+}
+
+.stat-value {
+  font-family: 'Baloo Bhai 2', cursive;
+  font-weight: 700;
+  font-size: 38px;
+  color: #0f172a;
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: 'Baloo Bhai 2', cursive;
+  font-size: 24px;
+  color: #64748b;
+}
+
+.stat-sub {
+  font-family: 'Baloo Bhai 2', cursive;
+  font-size: 20px;
+  color: #a78bfa;
+}
+
+.skill-progress-card {
+  width: 763px;
+  height: 377px;
+  border: 1px solid #0f172a;
+  border-radius: 14px;
+  background: radial-gradient(circle at 60% 40%, #d9d9d9 0%, rgba(217, 217, 217, 0.3) 100%);
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.skill-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.skill-progress-title {
+  font-family: 'Baskerville', 'Libre Baskerville', Georgia, serif;
+  font-size: 28px;
+  color: #0f172a;
+}
+
+.all-skills-button {
+  height: 31px;
+  padding: 0 14px;
+  background-color: #ffffff;
+  border: 1px solid #0f172a;
+  border-radius: 6px;
+  font-family: 'Baloo Bhai 2', cursive;
+  font-size: 16px;
+  color: #0f172a;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.15s ease;
+}
+
+.all-skills-button:hover {
+  background-color: #f1f5f9;
+}
+
+.skill-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.skill-label-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.skill-name {
+  font-family: 'Baloo Bhai 2', cursive;
+  font-size: 20px;
+  color: #0f172a;
+}
+
+.skill-level-badge {
+  height: 20px;
+  padding: 0 8px;
+  border: 1px solid #0f172a;
+  border-radius: 4px;
+  background-color: #3b82f6;
+  font-family: 'Baloo Bhai 2', cursive;
+  font-size: 12px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+}
+
+.skill-bar-track {
+  width: 100%;
+  height: 26px;
+  background-color: #ffffff;
+  border: 1px solid #0f172a;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.skill-bar-fill {
+  height: 100%;
+  background-color: rgba(59, 130, 246, 0.6);
+  border-right: 1px solid #0f172a;
+}
+
+.recently-earned-card {
+  width: 227px;
+  height: 377px;
+  border: 1px solid #0f172a;
+  border-radius: 14px;
+  background: radial-gradient(circle at 60% 40%, #d9d9d9 0%, rgba(217, 217, 217, 0.3) 100%);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.recently-earned-title {
+  font-family: 'Baskerville', 'Libre Baskerville', Georgia, serif;
+  font-size: 26px;
+  color: #0f172a;
+  text-align: center;
+}
+
+.badge-image {
+  width: 222px;
+  height: 222px;
+  object-fit: contain;
+}
+
+.badge-placeholder {
+  width: 222px;
+  height: 222px;
+  border: 1px dashed #94a3b8;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Baloo Bhai 2', cursive;
+  font-size: 13px;
+  color: #94a3b8;
+  text-align: center;
+}
+
+.badge-name {
+  font-family: 'Baloo Bhai 2', cursive;
+  font-size: 22px;
+  color: #a78bfa;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
