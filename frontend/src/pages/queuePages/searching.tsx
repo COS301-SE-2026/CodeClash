@@ -11,6 +11,12 @@ const Searching = () => {
     <div className="page-container">
       <div className="searching-section">
        <div className="purple-circle"></div>
+
+       <div className="timer-section">
+          <div className="timer-icon"></div>
+          <span className="timer-text">0:04</span>
+        </div>
+
       </div>
     </div>
   );

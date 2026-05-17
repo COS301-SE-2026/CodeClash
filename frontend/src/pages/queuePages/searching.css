@@ -64,3 +64,28 @@
   }
 }
 
+.timer-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.timer-icon {
+  width: 80px;
+  height: 80px;
+  background-image: url('../../assets/timer.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.timer-text {
+    font-size: 80px;
+    font-family: "Gloock", serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #0F172A;
+}
+
+
