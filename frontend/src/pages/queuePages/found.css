@@ -56,6 +56,23 @@
   padding: 40px 20px;
 }
 
+.blue-circle {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #3B82F6,#737373);
+  border: 10px solid #3B82F6;
+  margin: 0 auto 30px auto;
+  position: relative;
+  animation: pulse 2s infinite;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 40px 20px;
+}
+
 @keyframes pulse {
   0% {
     transform: scale(1);

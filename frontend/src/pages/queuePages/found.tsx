@@ -10,7 +10,7 @@ const Found = () => {
         <div className="searching-text">User 1</div>
        </div>
        <div className="vs-text">vs</div>
-       <div className="purple-circle">
+       <div className="blue-circle">
         <div className="searching-text">User 2</div>
        </div>
        </div>
