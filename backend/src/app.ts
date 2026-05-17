@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express'
 import cors from 'cors'
-import eloRoutes from './routes/elo.routes';
+import eloRoutes from './routes/api.routes';
 
 const app = express();
 app.disable('x-powered-by');    //so express version isn't included in responses
