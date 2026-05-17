@@ -10,12 +10,18 @@ const Searching = () => {
   return (
     <div className="page-container">
       <div className="searching-section">
-       <div className="purple-circle"></div>
+       <div className="purple-circle">
+        <div className="searching-text">User 1</div>
+       </div>
 
        <div className="timer-section">
           <div className="timer-icon"></div>
           <span className="timer-text">0:04</span>
         </div>
+
+         <div className="searching-text">Searching for Opponent...</div>
+        <div className="under-searching-text">Finding a player with similar Elo</div>
+
 
       </div>
     </div>

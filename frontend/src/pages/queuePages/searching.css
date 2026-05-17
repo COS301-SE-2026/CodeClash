@@ -88,4 +88,22 @@
     color: #0F172A;
 }
 
+.searching-text {
+    font-family: 'Baloo Bhai 2', cursive;
+    font-size: 48px;
+    color: #0F172A;
+    margin-bottom: 10px;
+    font-weight: 700;
+    font-style: bold;
+}
+
+.under-searching-text {
+  font-family: 'Baloo Bhai 2', cursive;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  color: #0F172A;
+  margin-bottom: 30px;
+}
+
 
