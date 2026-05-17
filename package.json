@@ -16,8 +16,5 @@
     "@types/redis": "^4.0.10",
     "jsdom": "^29.1.1",
     "vitest": "^4.1.6"
-  },
-  "dependencies": {
-    "ioredis": "^5.10.1"
   }
 }

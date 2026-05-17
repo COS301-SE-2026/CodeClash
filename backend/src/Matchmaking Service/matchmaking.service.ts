@@ -20,6 +20,7 @@ async function enqueue(user: UserDto, queue: string): Promise<boolean> {
 async function dequeue(user_id: number, queue: string): Promise<number> {
     if (queue != "math" && queue != "prog") return -1;
 
+    await redis.hdel(`user:${user_id}`);
     return await redis.zrem(queue, user_id);
 }
 
@@ -52,7 +53,7 @@ async function matchmaking(user: UserDto) {
 
     if (players.length == 0) {
 
-        const waiting = await redis.zscore(user.game_mode, user.id);
+        const waiting = await redis.zscore(user.game_mode, user.id.toString());
 
         if (!waiting)   //user isn't already in the queue
             enqueue(user, user.game_mode);
@@ -65,10 +66,20 @@ async function matchmaking(user: UserDto) {
     else {
         const match = players[0];
 
-        if (!match) return null;    // typescript cautious
+        if (!match) return null;
+
+        // found a match
+        // remove players from queue
+        await redis.zrem(user.game_mode, user.id);
+        await redis.zrem(user.game_mode, match.user_id);
+
+        //remove joined_at hash
+        await redis.hdel(`user:${user.id}`);
+        await redis.hdel(`user:${match.user_id}`);
+
         return { player1: user.id, player2: match.user_id };
     }
 }
 
 
-//export default matchmaking
+export {matchmaking, dequeue};
