@@ -9,7 +9,7 @@ import Found from './pages/queuePages/found'
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
-    <Found/>
+    <App/>
     </BrowserRouter>
   </React.StrictMode>
 )
