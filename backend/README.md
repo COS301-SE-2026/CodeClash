@@ -105,6 +105,31 @@ To run tests with coverage:
 npm test -- --coverage
 ```
 
+
+##PG-Admin
+
+1. make sure the docker is running 
+2. open: 
+   ```
+     http://localhost:5151
+   ```
+3. login using pgadmin email and password and 
+4. right click on 'Servers" 
+5. navigate to Register > Server 
+6. in the 'General' tab 
+    ```
+    Name: postgres
+    ```
+7. in the 'Connection' tab 
+    ```
+    Host: db
+    Maintenance database:  postgres db (from env)
+    Username: postgres user (from env)
+    Password: postgres password (from env)
+    ``` 
+8. 'Save'
+
+
 ## Project Structure
 
 ```
@@ -130,14 +155,14 @@ All API endpoints are prefixed with `/api`. A full list of service contracts is 
 
 ## Tech Stack
 
-| Concern | Technology |
-|---|---|
-| Runtime | Node.js v18 |
-| Framework | Express |
-| Database | PostgreSQL 15 |
-| Code Execution | Judge0 |
-| Testing | Jest |
-| Containerisation | Docker |
+| Concern          | Technology    |
+| ---------------- | ------------- |
+| Runtime          | Node.js v18   |
+| Framework        | Express       |
+| Database         | PostgreSQL 15 |
+| Code Execution   | Judge0        |
+| Testing          | Jest          |
+| Containerisation | Docker        |
 
 ## Common Issues
 
