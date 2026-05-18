@@ -7,6 +7,7 @@ import MathFieldTest from './pages/MathFieldTest';
 type Page = 'welcome' | 'signin' | 'signup' | 'mathfieldtest';
 
 const App: React.FC = () => {
+  //const [page, setPage] = useState<Page>('mathfieldtest');
   const [page, setPage] = useState<Page>('welcome');
   return (
     <>

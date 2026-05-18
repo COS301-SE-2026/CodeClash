@@ -17,14 +17,19 @@ const VirtualKeyboard = ({ mathfieldRef }: VirtualKeyboardProps) => {
     // Set keyboard policy to manual so we control when it shows
     mf.mathVirtualKeyboardPolicy = 'manual';
 
-    const handleFocusIn = () => {
-      window.mathVirtualKeyboard.show();
-    };
+    // const handleFocusIn = () => {
+    //   window.mathVirtualKeyboard.show();
+    // };
 
-    const handleFocusOut = () => {
-      window.mathVirtualKeyboard.hide();
-    };
+    // const handleFocusOut = () => {
+    //   window.mathVirtualKeyboard.hide();
+    // };
+    // Tell MathLive to attach the keyboard to a specific container
+    window.mathVirtualKeyboard.container = document.body;
 
+    const handleFocusIn = () => window.mathVirtualKeyboard.show();
+    const handleFocusOut = () => window.mathVirtualKeyboard.hide();
+    
     mf.addEventListener('focusin', handleFocusIn);
     mf.addEventListener('focusout', handleFocusOut);
 
