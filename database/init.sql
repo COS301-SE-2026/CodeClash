@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS matches(
   mode VARCHAR(10) CHECK (mode IN ('ranked', 'casual')) NOT NULL,
   queue_start TIMESTAMP DEFAULT NOW() NOT NULL,
   match_start TIMESTAMP,
-  status VARCHAR(20) CHECK (status IN ('waiting', 'starting','in_progress', 'completed', 'abandoned')) DEFAULT 'waiting'
+  status VARCHAR(20) CHECK (status IN ('waiting', 'starting','in_progress', 'completed', 'abandoned')) DEFAULT 'waiting' --TODO check is there a function to set a found match status to starting?
 );
 
 CREATE TABLE IF NOT EXISTS match_log(
