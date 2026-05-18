@@ -16,6 +16,8 @@ We're using a React + TypeScript frontend built with vite.
 - cd frontend
 - npm install
 - npm install react-router-dom
+- npm install -D tailwindcss postcss autoprefixer 
+- npx tailwindcss init -p //double check this - throwing error
 
 ## Running the App
 
@@ -27,7 +29,7 @@ The pages are currently using state-based routing, so they are live at the same 
 
 ## Navigation Flow
 
-
+![Diagram](../docs/UserFlow_Diagram.png)
 
 ## Fonts
 

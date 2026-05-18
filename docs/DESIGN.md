@@ -98,8 +98,8 @@ All borders use `#0F172A` at the weight specified unless otherwise noted.
 
 ## 2. Wireframes
 
-The wireframes provide a representations of each key screen. They illustrate component placement, navigation flow, and interaction points. Annotations explain behaviour and design intent.
-**These wireframes can be found as a figma file in the same folder**
+- The wireframes provide a representations of each key screen. They illustrate component placement, navigation flow, and interaction points. Annotations explain behaviour and design intent.
+- **These wireframes can be found as a figma file in the same folder.**
 
 ## Screen 1 — Welcome Page
 
@@ -226,3 +226,4 @@ The Profile page gives users a summary of their account information and statisti
 
 ## 3. Navigation Flow
 
+![Diagram](UserFlow_Diagram.png)
