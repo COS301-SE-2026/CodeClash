@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './SignUp.css';
+import '../styles/SignUp.css';
 import shieldImage from '../assets/LightMode_Shield.png';
 import googleIcon from '../assets/Google_Icon.png';
 import appleIcon from '../assets/Apple_Icon.png';
