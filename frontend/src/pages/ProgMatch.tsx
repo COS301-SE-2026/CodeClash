@@ -1,15 +1,17 @@
 import type React from "react"
-import LifeBar from "../components/Match/LifeBar";
+import { Editor } from "@monaco-editor/react";
 
+interface ProgMatchProps{
+    language: string;
+}
 
-const ProgMatch: React.FC = () => {
+const ProgMatch: React.FC<ProgMatchProps> = ({language}) => {
 
     return (
         <div>
-            <LifeBar></LifeBar>
+            <Editor height='90vh' defaultLanguage={language} defaultValue="// Your Answer Here"></Editor>
         </div >
     )
 }
-
 
 export default ProgMatch;
