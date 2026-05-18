@@ -1,13 +1,12 @@
 // intercepts redis import in the matchmaking services so the tests use a mock redis
 
-import { vi } from 'vitest';
+import { vi, describe, test, expect } from 'vitest';
 
 vi.mock("../../../redis-client", () => {
     const Redis_Mock = require('ioredis-mock')
     return { default: new Redis_Mock.default() };
 });
 
-import { describe, test, expect } from 'vitest';
 import { dequeue, enqueue, matchmaking, math_queue_length, prog_queue_length } from "../../../src/Matchmaking Service/matchmaking.service";
 import UserDto from "../../../src/Matchmaking Service/matchmaking.dto";
 import redis from "../../../redis-client";
@@ -25,7 +24,7 @@ async function clearQueues() {
     await redis.del('math');
     await redis.del('prog');
 
-    let cursor = '0';
+    let cursor;
 
     do {
         const [upd_cursor, hash_keys] = await redis.scan(0, 'MATCH', 'user:*');

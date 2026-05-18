@@ -34,7 +34,7 @@ async function dequeue(user_id: number, queue: string): Promise<boolean> {
 async function matchmaking(user: UserDto) {
 
     if (user.game_mode != "math" && user.game_mode != "prog")
-        throw "Unknown game mode"
+        throw new Error("Unknown game mode");
 
     const range = elo_difference * user.match_attempt;
 
@@ -61,10 +61,10 @@ async function matchmaking(user: UserDto) {
 
         const waiting = await redis.zscore(user.game_mode, user.id.toString());
 
-        if (!waiting)   //user isn't already in the queue
-            enqueue(user, user.game_mode);
-        else {
+        if (waiting)   //user isn't already in the queue
             ++user.match_attempt;
+        else {
+            enqueue(user, user.game_mode);
         }
 
         return null;
