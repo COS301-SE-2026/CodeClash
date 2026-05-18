@@ -4,6 +4,7 @@
 import "mathlive";
 import { MathfieldElement} from "mathlive";
 import { useState, useRef } from "react";
+import VirtualKeyboard from './VirtualKeyboard';
 
 //Extending JSX to react mathfield as a valid element
 declare module 'react' {
@@ -45,6 +46,7 @@ const MathField = ({ onValueChange }: MathFieldProps) => {
       >
         {value}
       </math-field>
+      <VirtualKeyboard mathfieldRef={mathfieldRef} />
     </div>
   );
 };
