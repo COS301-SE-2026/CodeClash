@@ -105,15 +105,14 @@ To run tests with coverage:
 npm test -- --coverage
 ```
 
-
-##PG-Admin
+## PG-Admin
 
 1. make sure the docker is running 
 2. open: 
    ```
      http://localhost:5151
    ```
-3. login using pgadmin email and password and 
+3. login using pgadmin email and password
 4. right click on 'Servers" 
 5. navigate to Register > Server 
 6. in the 'General' tab 
