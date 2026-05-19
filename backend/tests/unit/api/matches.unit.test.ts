@@ -1,4 +1,4 @@
-import { request, app, userAuth, expectNotFound, expectValidationError, expectUnauthorized, expectArrayShape, expectShape, matchActionTests } from '../helpers/test-utils'
+import { request, app, userAuth, expectUnauthorized, expectArrayShape, expectShape, matchActionTests, idValidationTests } from '../helpers/test-utils'
 import { describe, test, expect } from 'vitest';
 
 const matchProps = ['match_id', 'player1', 'player2', 'status', 'started_at']
@@ -35,13 +35,7 @@ describe('Matches API', () => {
       expect(res.body.match_id).toBe(1)
     })
 
-    test('returns 404 for non-existent match', async () => {
-      expectNotFound(await request(app).get('/matches/99999'))
-    })
-
-    test('returns 400 for non-integer match_id', async () => {
-      expectValidationError(await request(app).get('/matches/abc'))
-    })
+    idValidationTests('/matches')
   })
 
   describe('GET /users/:user_id/matches', () => {
@@ -60,13 +54,7 @@ describe('Matches API', () => {
       expect(res.body).toEqual([])
     })
 
-    test('returns 404 for non-existent user', async () => {
-      expectNotFound(await request(app).get('/users/99999/matches'))
-    })
-
-    test('returns 400 for invalid user_id', async () => {
-      expectValidationError(await request(app).get('/users/abc/matches'))
-    })
+    idValidationTests('/users', '99999', '/matches')
   })
 
   describe('POST /matches', () => {

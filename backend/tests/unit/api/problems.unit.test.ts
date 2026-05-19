@@ -1,4 +1,4 @@
-import { request, app, adminAuth, expectNotFound, expectValidationError, expectConflict,expectShape, paginationValidationTests, adminGuardTests } from '../helpers/test-utils'
+import { request, app, adminAuth, expectNotFound, expectValidationError, expectConflict, expectShape, paginationValidationTests, adminGuardTests, idValidationTests } from '../helpers/test-utils'
 import { describe, test, expect } from 'vitest';
 
 const problemProps = ['problem_id', 'title', 'difficulty', 'problem_type']
@@ -53,13 +53,7 @@ describe('Problems API', () => {
       expect(res.body.problem_id).toBe(1)
     })
 
-    test('returns 404 for non-existent problem', async () => {
-      expectNotFound(await request(app).get('/problems/99999'))
-    })
-
-    test('returns 400 for non-integer problem_id', async () => {
-      expectValidationError(await request(app).get('/problems/abc'))
-    })
+    idValidationTests('/problems')
   })
 
   describe('GET /problems/:problem_id/test-cases', () => {
@@ -205,8 +199,6 @@ describe('Problems API', () => {
       expect(res.body.matches_played).toBe(0)
     })
 
-    test('returns 404 for non-existent user', async () => {
-      expectNotFound(await request(app).get('/users/99999/statistics'))
-    })
+    idValidationTests('/users', '99999', '/statistics')
   })
 })
