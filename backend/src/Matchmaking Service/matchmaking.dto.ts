@@ -20,6 +20,24 @@ class UserDto{
 export default UserDto;
 
 
+
+export interface MatchDto {
+  match_id: string;
+ 
+  player1_id: number;
+  player2_id: number;
+ 
+  game_mode: "math" | "prog";
+ 
+  difficulty: "Easy" | "Medium" | "Difficult";
+ 
+  time_limit: number;
+}
+ 
+
+
+
+
  
 
 
