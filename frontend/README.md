@@ -18,7 +18,6 @@ We're using a React + TypeScript frontend built with vite.
     - npm install
     - npm install react-router-dom
     - npm install -D tailwindcss postcss autoprefixer 
-    - npx tailwindcss init -p //double check this - throwing error
 - For component testing:
     - npm install -D vitest @vitest/coverage-v8 @testing-library/react @testing-library/jest-dom @testing-library/user-event jsdom
 
