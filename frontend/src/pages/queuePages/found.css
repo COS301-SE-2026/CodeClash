@@ -245,18 +245,6 @@
   margin-bottom: 0;
 }
 
-/* below is for it to work on mobile but i will clean it up when we get there*/
-@media (max-width: 600px) {
-  .grid-row {
-    grid-template-columns: 1fr;
-    gap: 5px;
-    margin-bottom: 20px;
-  }
-  
-  .grid-label {
-    margin-top: 10px;
-  }
-}
 
 .cancel-button {
   background: #EF4444;
