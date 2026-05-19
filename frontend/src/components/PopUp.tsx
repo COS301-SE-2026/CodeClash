@@ -1,4 +1,4 @@
-/* The backbutton can be used for the following: 
+/* The popup can be used for the following: 
     Topic selection popup for Ranked Play.
 
 This is how it would be called and rendered in its necessary files:
@@ -25,7 +25,13 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose, onSelectTopic }) => {
 
   return (
     <div
+      role="button"
+      tabIndex={0}
+      aria-label="Close popup"
       onClick={onClose}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === 'Escape' || e.key === ' ') onClose();
+      }}
       style={{
         position: 'absolute',
         inset: 0,
@@ -35,11 +41,14 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose, onSelectTopic }) => {
         justifyContent: 'center',
         backgroundColor: 'rgba(15, 23, 42, 0.5)',
         borderRadius: 'inherit',
+        cursor: 'default',
       }}
     >
 
       <div
+        role="presentation"
         onClick={(e) => e.stopPropagation()}
+        onKeyDown={(e) => e.stopPropagation()}
         style={{
           position: 'relative',
           backgroundColor: '#ffffff',
