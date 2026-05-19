@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Editor } from "@monaco-editor/react";
-import LifeBar from "../components/Match/LifeBar";
+import { Progress } from "@/components/ui/progress";
 
 interface ProgMatchProps {
     language: string;
@@ -9,24 +9,37 @@ interface ProgMatchProps {
 
 const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
 
-    const [input, setInput] = useState("");
+    const [input, set_input] = useState("");
+    const [player_1_progress, set_player_1_progress] = useState(0);
+     const [player_2_progress, set_player_2_progress] = useState(0);
+
     function handleChange(value: any) {
-        setInput(value);
+        set_input(value);
         console.log(value);
-
-
     }
 
-
     return (
-        <div className=" flex flex-col ">
-            <LifeBar
-                life={30}
-                user_name="User 1"
-            ></LifeBar>
+        <div className="fixed inset-0 flex flex-col w-[95%] mx-auto m-2">
+            {/* header */}
+            <div className="flex w-full justify-between items-center border-b-1 m-2 p-4">
 
-           
+                {/* Player 1 Progress */}
+                <div className="w-[40%]">
+                    <Progress className=" w-full h-10"
+                        value={40}
+                        progress_colour="var(--primary)"
+                    ></Progress>
+                </div>
 
+                {/* Clock */}
+                <div>Clock</div>
+
+                {/* Player 2 Progress */}
+                <div className="w-[40%]">
+                    <Progress className=" w-full h-10" value={80} progress_colour="var(--secondary)"></Progress>
+                </div>
+
+            </div>
             <div className="flex flex-row flex-1 w-full h-full justify-between items-center">
                 <div className="flex flex-col items-center">
                     {/* User and question difficulty */}
@@ -51,7 +64,7 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
                     </div >
 
                     <Editor
-                        height="40vh"
+                        height="60vh"
                         width="70vh"
                         defaultLanguage={language}
                         defaultValue="// Your code here"

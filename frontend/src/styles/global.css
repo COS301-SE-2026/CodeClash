@@ -4,10 +4,12 @@
 /* text is the text colour */
 
 @theme inline {
+  /* radius */
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  /* colours */
   --color-background: var(--background);
   --color-text: var(--text);
   --color-card: var(--card);
@@ -18,19 +20,24 @@
   --color-primary-text: var(--primary-text);
   --color-secondary: var(--secondary);
   --color-secondary-text: var(--secondary-text);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
   --color-muted: var(--muted);
-  --color-muted-text: var(--muted-text);
+  
+  /* accents */
   --color-accent: var(--accent);
   --color-accent-text: var(--accent-text);
   --color-destructive: var(--destructive);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  /* charts */
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+  /* sidebar */
   --color-sidebar: var(--sidebar);
   --color-sidebar-text: var(--sidebar-text);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -39,34 +46,33 @@
   --color-sidebar-accent-text: var(--sidebar-accent-text);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  /* font  */
   --font-family: var(--font);
-  --font-family-heading-1: var(--heading-1);
-  --font-family-heading-2: var(--heading-2);
-  --font-family-heading-3: var(--heading-3);
-  --font-family-heading-4: var(--heading-4);
+  --font-family-heading-1: var(--heading);
+  /* text size */
   --text-sm: var(--font-size-sm);
   --text-md: var(--font-size-md);
   --text-l: var(--font-size-l);
 }
 
-:root{
-  --background: #f8fafc ;
+:root {
+  --background: #d7d9dc;
   --text: #0000;
-  --card: ;
-  --card-text: ;
-  --font: 'Inter',sans;
-  --heading-1: ;
-  --heading-2: ;
-  --heading-3: ;
-  --heading-4: ;
-  
+  --font: 'Inter', sans;
+  --heading:'Inter',sans-serif ;
+  --primary: #3B82F6;
+  --secondary: #A78BFA;
+  --muted: #b5b8bd;
+  --primary-text: #0f182a;
+  --seconday-text: #64748b;
+
+
 }
 
 @layer base {
-  * {
+  * {}
 
-  }
-  body{
-
+  body {
+    background-color: var(--background);
   }
 }

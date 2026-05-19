@@ -10,8 +10,8 @@ body {
   font-family: 'Baloo Bhai 2', cursive;
   background-color: #f8fafc;
   min-height: 100vh;
-  /* display: flex;
-  align-items: center;
+  display: flex;
+  /* align-items: center;
   justify-content: center; */
 }
 
