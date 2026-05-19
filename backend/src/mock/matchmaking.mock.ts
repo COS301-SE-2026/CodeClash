@@ -19,4 +19,26 @@ export const MOCK_USERS: MockUser[] = [
 export function getMockUser(id: number): MockUser | undefined {
   return MOCK_USERS.find((u) => u.id === id);
 }
+
+
+//we just put the same user in the queue twice so regardless of if programming or math is chosen in demo, immediate match is found
+export const MOCK_QUEUE_OPPONENT_MATH: UserDto = {
+  id: 2,
+  elo: 1080,
+  game_mode: "math",
+  joined_at: Date.now(),
+  match_attempt: 1,
+};
+ 
+export const MOCK_QUEUE_OPPONENT_PROG: UserDto = {
+  id: 2,
+  elo: 1080,
+  game_mode: "programming",
+  joined_at: Date.now(),
+  match_attempt: 1,
+};
+ 
+// the logged-in user running the application we simulate on the frontend side. - comesfrom auth session
+export const MOCK_CURRENT_USER: MockUser = MOCK_USERS[0]!;
+
  
