@@ -19,10 +19,33 @@ class UserDto{
 export default UserDto;
 
 
-export interface MatchStatusEvent {
-  status: 'searching' | 'found' | 'notFound';
-  match_id?: string;
-  player1_id?: string;
-  player2_id?: string;
+export interface GameCategory {
+  difficulty: 'EASY' | 'MEDIUM' | 'HARD';
+  timeLimit: 5 | 10 | 15;    //i lowk forgot the time options, this may need to be changed
+}
+
+export interface MatchRequestDto {
+  userId: string;
+  categories: GameCategory;
+  ranked: MatchRanked;
+}
+
+export enum MatchStatus {
+  SEARCHING = 'SEARCHING',
+  FOUND = 'FOUND',
+  NOT_FOUND = 'NOT_FOUND'
+}
+
+export enum MatchRanked{
+  RANKED = 'RANKED',
+  UNRANKED = 'UNRANKED',
+}
+
+export interface QueueTicket {
+  ticketId: string;
+  request: MatchRequestDto;
+  status: MatchStatus;
+  opponentId?: string;
+  matchId?: string;
 }
 
