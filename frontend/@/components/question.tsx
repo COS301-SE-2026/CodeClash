@@ -8,12 +8,16 @@ function Question({
     children,
     difficulty,
     title,
+    question,
+    description,
     ...props
 }: React.ComponentProps<"div"> & {
     size?: "default" | "sm",
     children?: React.ReactNode,
     difficulty: string,
     title: string,
+    question: string,
+    description?: string
 }) {
     return (
         <div className={cn("flex flex-col justify-between bg-white rounded-2xl", className)}>
@@ -31,24 +35,22 @@ function Question({
                     >{difficulty}</Badge>
                 </div>
 
-                <div className="p-5">
-                    {/* This will be replaced by a question ui component  */}
-                    <h1 className="text-6xl font-semibold"> &lt; / &gt; {title}</h1>
-                    <p>Players will have to write or evaluate some code</p>
+                <div className="m-5 flex flex-col justify-evenly">
 
-                    <div>
-                        Some questions will have given code and ask players to provide the correct output. <br></br>
-                        Other question will give a small scenario and ask players to write the code that will solve some problem
+                    <h1 className="text-5xl font-semibold"> &lt; / &gt; {title}</h1>
+                    <p className="text-xl text-muted-text">{question}</p>
+
+                    <div>{description}
                     </div>
 
                 </div >
-
-
-
-
             </div>
 
-            {children}
+            <div className="m-7 rounded-xl overflow-hidden">
+                {children}
+            </div>
+
+
         </div>
     )
 }

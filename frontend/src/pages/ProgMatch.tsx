@@ -41,8 +41,8 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
     }
 
     return (
-        <div className="flex">
-            <div className="flex flex-col w-[90%] mx-auto m-2">
+        <div className="flex flex-row p-2 justify-between">
+            <div className="flex flex-col w-[70%] m-2">
                 {/* header */}
                 <div className="flex w-full justify-between items-center  m-2 p-4 rounded-3xl">
 
@@ -80,15 +80,15 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
                 </div>
 
                 {/* Question */}
-
                 <Question
                     className="relative z-0"
                     difficulty="Easy"
                     title="Array Sum"
+                    question="What will be the output of this code?"
                 >
                     <Editor
-                        height="60vh"
-                        width="70vh"
+                        height="40vh"
+                        width="110vh"
                         defaultLanguage={language}
                         defaultValue="// Your code here"
                         onChange={handleChange}
@@ -107,16 +107,18 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
                                     },
                                 ],
                                 colors: {
-                                    'editor.background': '#a7a7a7',
+                                    'editor.background': '#c4c4c4',
                                 }
                             });
-                            monaco.editor.setTheme('default')
+                            monaco.editor.setTheme('default');
+                            editor.updateOptions({
+                            })
                         }}
 
                     />
                 </Question>
             </div >
-            <div className="bg-green-600">
+            <div className="bg-white">
                 <div>Progress bar</div>
             </div>
 

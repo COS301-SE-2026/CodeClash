@@ -20,6 +20,7 @@
   --color-primary-text: var(--primary-text);
   --color-secondary: var(--secondary);
   --color-secondary-text: var(--secondary-text);
+  --color-muted-text: var(--muted-text);
   --color-success: var(--success);
   --color-danger: var(--danger);
   --color-muted: var(--muted);
@@ -65,6 +66,7 @@
   --muted: #dadde3;
   --primary-text: #0f182a;
   --seconday-text: #64748b;
+  --muted-text: #293c59;
 
 }
 
