@@ -1,0 +1,1423 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>CodeClash API Reference</title>
+        <style>
+            :root {
+                --bg: #f8fafc;
+                --bg2: #ffffff;
+                --bg3: #f1f5f9;
+                --border: #e2e8f0;
+                --text: #0f172a;
+                --muted: #64748b;
+                --accent: #4f46e5;
+                --accent2: #7c3aed;
+                --green: #16a34a;
+                --amber: #d97706;
+                --red: #dc2626;
+                --teal: #0d9488;
+                --pink: #db2777;
+                --cyan: #0891b2;
+                --mono: "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
+                --sans: "Inter", system-ui, sans-serif;
+            }
+            * { box-sizing: border-box; margin: 0; padding: 0; }
+            html { scroll-behavior: smooth; }
+            body {
+                background: var(--bg);
+                color: var(--text);
+                font-family: var(--sans);
+                font-size: 14px;
+                line-height: 1.6;
+                display: flex;
+                min-height: 100vh;
+            }
+
+            /* Sidebar */
+            aside {
+                width: 260px;
+                min-width: 260px;
+                background: var(--bg2);
+                border-right: 1px solid var(--border);
+                position: sticky;
+                top: 0;
+                height: 100vh;
+                overflow-y: auto;
+                padding: 0 0 2rem 0;
+                flex-shrink: 0;
+                box-shadow: 1px 0 0 var(--border);
+            }
+            aside::-webkit-scrollbar { width: 4px; }
+            aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+            .logo {
+                padding: 1.25rem 1.25rem 1rem;
+                border-bottom: 1px solid var(--border);
+                margin-bottom: 0.75rem;
+            }
+            .logo h1 { font-size: 16px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+            .logo p { font-size: 11px; color: var(--muted); margin-top: 2px; font-family: var(--mono); }
+            .nav-section { padding: 0.25rem 0; }
+            .nav-section-label {
+                font-size: 10px;
+                font-weight: 700;
+                letter-spacing: 1.2px;
+                color: var(--muted);
+                text-transform: uppercase;
+                padding: 0.6rem 1.25rem 0.3rem;
+            }
+            .nav-item {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 0.38rem 1.25rem;
+                cursor: pointer;
+                color: var(--muted);
+                font-size: 13px;
+                transition: all 0.15s;
+                border-left: 2px solid transparent;
+                text-decoration: none;
+            }
+            .nav-item:hover { color: var(--text); background: var(--bg3); }
+            .nav-item.active {
+                color: var(--accent);
+                border-left-color: var(--accent);
+                background: rgba(79, 70, 229, 0.06);
+            }
+            .method-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+            .dot-get { background: var(--green); }
+            .dot-post { background: var(--cyan); }
+            .dot-put { background: var(--amber); }
+            .dot-patch { background: var(--pink); }
+            .dot-delete { background: var(--red); }
+
+            /* Main */
+            main { flex: 1; padding: 2.5rem 3rem; max-width: 900px; }
+
+            .section-header {
+                margin-bottom: 2rem;
+                padding-bottom: 1rem;
+                border-bottom: 1px solid var(--border);
+            }
+            .section-header h2 {
+                font-size: 22px;
+                font-weight: 700;
+                color: var(--text);
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+            }
+            .section-header p { color: var(--muted); margin-top: 0.4rem; font-size: 14px; }
+
+            .endpoint {
+                background: var(--bg2);
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                margin-bottom: 1.25rem;
+                overflow: hidden;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            }
+            .endpoint-header {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                padding: 0.9rem 1.25rem;
+                cursor: pointer;
+                transition: background 0.15s;
+            }
+            .endpoint-header:hover { background: var(--bg3); }
+            .method-badge {
+                font-family: var(--mono);
+                font-size: 11px;
+                font-weight: 700;
+                padding: 3px 8px;
+                border-radius: 5px;
+                min-width: 52px;
+                text-align: center;
+                letter-spacing: 0.5px;
+            }
+            .get { background: rgba(22,163,74,0.1); color: #15803d; border: 1px solid rgba(22,163,74,0.25); }
+            .post { background: rgba(8,145,178,0.1); color: #0e7490; border: 1px solid rgba(8,145,178,0.25); }
+            .put { background: rgba(217,119,6,0.1); color: #b45309; border: 1px solid rgba(217,119,6,0.25); }
+            .patch { background: rgba(219,39,119,0.1); color: #be185d; border: 1px solid rgba(219,39,119,0.25); }
+            .delete { background: rgba(220,38,38,0.1); color: #b91c1c; border: 1px solid rgba(220,38,38,0.25); }
+
+            .endpoint-path { font-family: var(--mono); font-size: 13px; color: var(--text); flex: 1; }
+            .endpoint-path .param { color: var(--accent); }
+            .endpoint-desc { font-size: 12px; color: var(--muted); margin-left: auto; }
+            .auth-badge {
+                font-size: 10px; padding: 2px 7px; border-radius: 4px;
+                background: rgba(217,119,6,0.08); color: var(--amber);
+                border: 1px solid rgba(217,119,6,0.2); font-weight: 600; white-space: nowrap;
+            }
+            .admin-badge {
+                font-size: 10px; padding: 2px 7px; border-radius: 4px;
+                background: rgba(219,39,119,0.08); color: var(--pink);
+                border: 1px solid rgba(219,39,119,0.2); font-weight: 600; white-space: nowrap;
+            }
+
+            .endpoint-body { padding: 0 1.25rem 1.25rem; display: none; }
+            .endpoint-body.open { display: block; }
+            .endpoint-body > p { color: var(--muted); font-size: 13px; margin: 0.75rem 0 1rem; }
+
+            .body-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+            @media (max-width: 700px) { .body-grid { grid-template-columns: 1fr; } }
+
+            .param-table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin-top: 0.5rem; }
+            .param-table th {
+                text-align: left; padding: 5px 10px;
+                background: var(--bg3); color: var(--muted);
+                font-weight: 600; letter-spacing: 0.3px;
+                border-bottom: 1px solid var(--border);
+            }
+            .param-table td { padding: 6px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+            .param-table tr:last-child td { border-bottom: none; }
+            .param-name { font-family: var(--mono); color: var(--accent); }
+            .param-type { font-family: var(--mono); color: var(--teal); font-size: 11px; }
+            .param-req { color: var(--red); font-size: 11px; font-weight: 600; }
+            .param-opt { color: var(--muted); font-size: 11px; }
+
+            .code-block {
+                background: #f8fafc;
+                border: 1px solid var(--border);
+                border-radius: 7px;
+                overflow: hidden;
+                margin-top: 0.5rem;
+            }
+            .code-header {
+                display: flex; align-items: center; justify-content: space-between;
+                padding: 6px 12px;
+                background: var(--bg3);
+                border-bottom: 1px solid var(--border);
+            }
+            .code-header span { font-size: 11px; color: var(--muted); font-family: var(--mono); }
+            .copy-btn {
+                font-size: 10px; color: var(--muted); background: none;
+                border: none; cursor: pointer; padding: 2px 6px;
+                border-radius: 4px; transition: all 0.15s;
+            }
+            .copy-btn:hover { color: var(--text); background: var(--border); }
+            .code-block pre {
+                padding: 1rem; font-family: var(--mono);
+                font-size: 11.5px; line-height: 1.7;
+                overflow-x: auto; color: #1e293b;
+            }
+            .s { color: #16a34a; }
+            .n { color: #4f46e5; }
+            .v { color: #dc2626; }
+            .k { color: #7c3aed; }
+            .c { color: #94a3b8; }
+            .num { color: #d97706; }
+
+            .section { margin-bottom: 3rem; scroll-margin-top: 2rem; }
+
+            .overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+            .info-card {
+                background: var(--bg2);
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                padding: 1rem 1.25rem;
+            }
+            .info-card h4 {
+                font-size: 12px; color: var(--muted); font-weight: 600;
+                letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 0.5rem;
+            }
+            .info-card p { font-size: 13px; color: var(--text); font-family: var(--mono); }
+            .response-codes { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+            .rc { font-size: 11px; padding: 3px 9px; border-radius: 5px; font-family: var(--mono); font-weight: 600; }
+            .rc-2 { background: rgba(22,163,74,0.1); color: #15803d; }
+            .rc-4 { background: rgba(220,38,38,0.1); color: #b91c1c; }
+            .rc-5 { background: rgba(217,119,6,0.1); color: #b45309; }
+
+            .divider { height: 1px; background: var(--border); margin: 2rem 0; }
+            .sub-label {
+                font-size: 11px; font-weight: 700; letter-spacing: 0.8px;
+                color: var(--muted); text-transform: uppercase; margin-bottom: 0.5rem;
+            }
+        </style>
+    </head>
+    <body>
+        <aside>
+            <div class="logo">
+                <h1>CodeClash API</h1>
+                <p>v1.0 · REST · JSON</p>
+            </div>
+            <nav>
+                <div class="nav-section">
+                    <div class="nav-section-label">Introduction</div>
+                    <a class="nav-item" href="#overview">Overview</a>
+                    <a class="nav-item" href="#authentication">Auth Flow</a>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-label">Resources</div>
+                    <a class="nav-item" href="#users">Users</a>
+                    <a class="nav-item" href="#elo">ELO Ratings</a>
+                    <a class="nav-item" href="#achievements">Achievements</a>
+                    <a class="nav-item" href="#matches">Matches</a>
+                    <a class="nav-item" href="#problems">Problems</a>
+                    <a class="nav-item" href="#testcases">Test Cases</a>
+                    <a class="nav-item" href="#submissions">Submissions</a>
+                    <a class="nav-item" href="#execution">Execution Results</a>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-label">Reference</div>
+                    <a class="nav-item" href="#errors">Error Codes</a>
+                    <a class="nav-item" href="#models">Data Models</a>
+                </div>
+            </nav>
+        </aside>
+
+        <main>
+            <!-- OVERVIEW -->
+            <section class="section" id="overview">
+                <div class="section-header">
+                    <h2>Overview</h2>
+                    <p>Base URL and general conventions for the CodeClash REST API.</p>
+                </div>
+                <div class="overview-grid">
+                    <div class="info-card">
+                        <h4>Base URL</h4>
+                        <p>http://localhost:3000/api</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Content Type</h4>
+                        <p>application/json</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Auth Header</h4>
+                        <p>Authorization: Bearer &lt;token&gt;</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Response Codes</h4>
+                        <div class="response-codes">
+                            <span class="rc rc-2">200 OK</span>
+                            <span class="rc rc-2">201 Created</span>
+                            <span class="rc rc-4">400 Bad Request</span>
+                            <span class="rc rc-4">401 Unauthorized</span>
+                            <span class="rc rc-4">404 Not Found</span>
+                            <span class="rc rc-4">409 Conflict</span>
+                            <span class="rc rc-5">500 Server Error</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <!-- AUTH -->
+            <section class="section" id="authentication">
+                <div class="section-header">
+                    <h2>Auth Flow</h2>
+                    <p>CodeClash uses JWT bearer tokens. Register or login to receive a token, then include it in the Authorization header for protected endpoints.</p>
+                </div>
+
+                <!-- Register -->
+                <div class="endpoint">
+                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                        <span class="method-badge post">POST</span>
+                        <span class="endpoint-path">/auth/register</span>
+                        <span class="endpoint-desc">Register a new user</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Creates a new user account and returns a JWT token.</p>
+                        <div class="body-grid">
+                            <div>
+                                <div class="sub-label">Request body</div>
+                                <table class="param-table">
+                                    <tr><th>Field</th><th>Type</th><th></th></tr>
+                                    <tr><td class="param-name">username</td><td class="param-type">string</td><td class="param-req">required</td></tr>
+                                    <tr><td class="param-name">email</td><td class="param-type">string</td><td class="param-req">required</td></tr>
+                                    <tr><td class="param-name">password</td><td class="param-type">string</td><td class="param-req">required</td></tr>
+                                </table>
+                            </div>
+                            <div>
+                                <div class="sub-label">Response 201</div>
+                                <div class="code-block">
+                                    <div class="code-header"><span>json</span></div>
+                                    <pre>{
+  <span class="n">"message"</span>: <span class="s">"User registered successfully"</span>,
+  <span class="n">"user"</span>: {
+    <span class="n">"user_id"</span>: <span class="s">"uuid"</span>,
+    <span class="n">"username"</span>: <span class="s">"player1"</span>,
+    <span class="n">"email"</span>: <span class="s">"player1@email.com"</span>
+  }
+}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Login -->
+                <div class="endpoint">
+                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                        <span class="method-badge post">POST</span>
+                        <span class="endpoint-path">/auth/login</span>
+                        <span class="endpoint-desc">Login and get token</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Authenticates a user and returns a JWT token valid for 24 hours.</p>
+                        <div class="body-grid">
+                            <div>
+                                <div class="sub-label">Request body</div>
+                                <table class="param-table">
+                                    <tr><th>Field</th><th>Type</th><th></th></tr>
+                                    <tr><td class="param-name">email</td><td class="param-type">string</td><td class="param-req">required</td></tr>
+                                    <tr><td class="param-name">password</td><td class="param-type">string</td><td class="param-req">required</td></tr>
+                                </table>
+                            </div>
+                            <div>
+                                <div class="sub-label">Response 200</div>
+                                <div class="code-block">
+                                    <div class="code-header"><span>json</span></div>
+                                    <pre>{
+  <span class="n">"message"</span>: <span class="s">"Login successful"</span>,
+  <span class="n">"token"</span>: <span class="s">"eyJhbGci..."</span>
+}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <!-- USERS -->
+            <section class="section" id="users">
+                <div class="section-header">
+                    <h2>Users</h2>
+                    <p>User profile management endpoints.</p>
+                </div>
+
+                <div class="endpoint">
+                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                        <span class="method-badge get">GET</span>
+                        <span class="endpoint-path">/users/<span class="param">{user_id}</span></span>
+                        <span class="endpoint-desc">Get user profile</span>
+                        <span class="auth-badge">Auth</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Returns the public profile for a given user.</p>
+                        <div style="max-width: 380px">
+                            <div class="sub-label">Response 200</div>
+                            <div class="code-block">
+                                <div class="code-header"><span>json</span></div>
+                                <pre>{
+  <span class="n">"user_id"</span>: <span class="s">"uuid"</span>,
+  <span class="n">"username"</span>: <span class="s">"player1"</span>,
+  <span class="n">"email"</span>: <span class="s">"player1@email.com"</span>,
+  <span class="n">"created_at"</span>: <span class="s">"2026-04-20T10:00:00Z"</span>
+}</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                        <span class="method-badge put">PUT</span>
+                        <span class="endpoint-path">/users/<span class="param">{user_id}</span></span>
+                        <span class="endpoint-desc">Update user profile</span>
+                        <span class="auth-badge">Auth</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Updates username or email for the authenticated user.</p>
+                        <div class="body-grid">
+                            <div>
+                                <div class="sub-label">Request body</div>
+                                <table class="param-table">
+                                    <tr><th>Field</th><th>Type</th><th></th></tr>
+                                    <tr><td class="param-name">username</td><td class="param-type">string</td><td class="param-opt">optional</td></tr>
+                                    <tr><td class="param-name">email</td><td class="param-type">string</td><td class="param-opt">optional</td></tr>
+                                </table>
+                            </div>
+                            <div>
+                                <div class="sub-label">Response 200</div>
+                                <div class="code-block">
+                                    <div class="code-header"><span>json</span></div>
+                                    <pre>{
+  <span class="n">"message"</span>: <span class="s">"Profile updated"</span>,
+  <span class="n">"user"</span>: {
+    <span class="n">"user_id"</span>: <span class="s">"uuid"</span>,
+    <span class="n">"username"</span>: <span class="s">"newname"</span>
+  }
+}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                        <span class="method-badge delete">DELETE</span>
+                        <span class="endpoint-path">/users/<span class="param">{user_id}</span></span>
+                        <span class="endpoint-desc">Delete user account</span>
+                        <span class="auth-badge">Auth</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Permanently deletes the authenticated user's account.</p>
+                        <div style="max-width: 380px">
+                            <div class="sub-label">Response 200</div>
+                            <div class="code-block">
+                                <div class="code-header"><span>json</span></div>
+                                <pre>{ <span class="n">"message"</span>: <span class="s">"Account deleted"</span> }</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <!-- ELO -->
+            <section class="section" id="elo">
+                <div class="section-header">
+                    <h2>ELO Ratings</h2>
+                    <p>Manage and query ELO ratings. Ratings start at 600 and are updated automatically after each ranked match using the standard Elo formula with K=32.</p>
+                </div>
+
+                <!-- GET elo by user -->
+                <div class="endpoint">
+                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                        <span class="method-badge get">GET</span>
+                        <span class="endpoint-path">/elo/<span class="param">{user_id}</span></span>
+                        <span class="endpoint-desc">Get user's current ELO</span>
+                        <span class="auth-badge">Auth</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Returns the current ELO rating for a user.</p>
+                        <div class="body-grid">
+                            <div>
+                                <div class="sub-label">Path parameters</div>
+                                <table class="param-table">
+                                    <tr><th>Param</th><th>Type</th><th></th></tr>
+                                    <tr><td class="param-name">user_id</td><td class="param-type">UUID</td><td class="param-req">required</td></tr>
+                                </table>
+                            </div>
+                            <div>
+                                <div class="sub-label">Response 200</div>
+                                <div class="code-block">
+                                    <div class="code-header"><span>json</span></div>
+                                    <pre>{
+  <span class="n">"elo_id"</span>: <span class="s">"uuid"</span>,
+  <span class="n">"user_id"</span>: <span class="s">"uuid"</span>,
+  <span class="n">"username"</span>: <span class="s">"player1"</span>,
+  <span class="n">"rating"</span>: <span class="num">616</span>,
+  <span class="n">"updated_at"</span>: <span class="s">"2026-05-01T12:00:00Z"</span>
+}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GET elo history -->
+                <div class="endpoint">
+                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                        <span class="method-badge get">GET</span>
+                        <span class="endpoint-path">/elo/<span class="param">{user_id}</span>/history</span>
+                        <span class="endpoint-desc">Get ELO history</span>
+                        <span class="auth-badge">Auth</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Returns full ELO change history for a user, ordered by most recent first.</p>
+                        <div class="body-grid">
+                            <div>
+                                <div class="sub-label">Path parameters</div>
+                                <table class="param-table">
+                                    <tr><th>Param</th><th>Type</th><th></th></tr>
+                                    <tr><td class="param-name">user_id</td><td class="param-type">UUID</td><td class="param-req">required</td></tr>
+                                </table>
+                            </div>
+                            <div>
+                                <div class="sub-label">Response 200</div>
+                                <div class="code-block">
+                                    <div class="code-header"><span>json</span></div>
+                                    <pre>[
+  {
+    <span class="n">"history_id"</span>: <span class="s">"uuid"</span>,
+    <span class="n">"user_id"</span>: <span class="s">"uuid"</span>,
+    <span class="n">"match_id"</span>: <span class="s">"uuid"</span>,
+    <span class="n">"old_rating"</span>: <span class="num">600</span>,
+    <span class="n">"new_rating"</span>: <span class="num">616</span>,
+    <span class="n">"change"</span>: <span class="num">16</span>,
+    <span class="n">"changed_at"</span>: <span class="s">"2026-05-01T12:00:00Z"</span>
+  }
+]</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- POST update elo -->
+                <div class="endpoint">
+                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                        <span class="method-badge post">POST</span>
+                        <span class="endpoint-path">/elo/update</span>
+                        <span class="endpoint-desc">Update ELO after ranked match</span>
+                        <span class="auth-badge">Auth</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Updates ELO ratings for both players after a ranked match. Uses the standard Elo formula (K=32). Only applies to ranked matches — returns 400 for casual matches. Wrapped in a database transaction.</p>
+                        <div class="body-grid">
+                            <div>
+                                <div class="sub-label">Request body</div>
+                                <table class="param-table">
+                                    <tr><th>Field</th><th>Type</th><th></th></tr>
+                                    <tr><td class="param-name">match_id</td><td class="param-type">UUID</td><td class="param-req">required</td></tr>
+                                    <tr><td class="param-name">winner_id</td><td class="param-type">UUID</td><td class="param-req">required</td></tr>
+                                    <tr><td class="param-name">loser_id</td><td class="param-type">UUID</td><td class="param-req">required</td></tr>
+                                </table>
+                            </div>
+                            <div>
+                                <div class="sub-label">Response 200</div>
+                                <div class="code-block">
+                                    <div class="code-header"><span>json</span></div>
+                                    <pre>{
+  <span class="n">"message"</span>: <span class="s">"Elo ratings updated"</span>,
+  <span class="n">"winner"</span>: {
+    <span class="n">"user_id"</span>: <span class="s">"uuid"</span>,
+    <span class="n">"old_rating"</span>: <span class="num">600</span>,
+    <span class="n">"new_rating"</span>: <span class="num">616</span>,
+    <span class="n">"elo_gained"</span>: <span class="num">16</span>
+  },
+  <span class="n">"loser"</span>: {
+    <span class="n">"user_id"</span>: <span class="s">"uuid"</span>,
+    <span class="n">"old_rating"</span>: <span class="num">600</span>,
+    <span class="n">"new_rating"</span>: <span class="num">584</span>,
+    <span class="n">"elo_lost"</span>: <span class="num">16</span>
+  }
+}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GET leaderboard -->
+                <div class="endpoint">
+                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                        <span class="method-badge get">GET</span>
+                        <span class="endpoint-path">/elo/leaderboard</span>
+                        <span class="endpoint-desc">Get top 10 players</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Returns the top 10 players ranked by ELO rating, with their rank position included.</p>
+                        <div style="max-width: 420px">
+                            <div class="sub-label">Response 200</div>
+                            <div class="code-block">
+                                <div class="code-header"><span>json</span></div>
+                                <pre>[
+  {
+    <span class="n">"user_id"</span>: <span class="s">"uuid"</span>,
+    <span class="n">"username"</span>: <span class="s">"player1"</span>,
+    <span class="n">"rating"</span>: <span class="num">820</span>,
+    <span class="n">"updated_at"</span>: <span class="s">"2026-05-01T12:00:00Z"</span>,
+    <span class="n">"rank"</span>: <span class="num">1</span>
+  }
+]</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <!-- ACHIEVEMENTS -->
+            <section class="section" id="achievements">
+                <div class="section-header">
+                    <h2>Achievements</h2>
+                    <p>Achievement definitions and user unlock tracking.</p>
+                </div>
+
+                <div class="endpoint">
+                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                        <span class="method-badge get">GET</span>
+                        <span class="endpoint-path">/achievements</span>
+                        <span class="endpoint-desc">List all achievements</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Returns all defined achievements in the system.</p>
+                        <div style="max-width: 420px">
+                            <div class="sub-label">Response 200</div>
+                            <div class="code-block">
+                                <div class="code-header"><span>json</span></div>
+                                <pre>[
+  {
+    <span class="n">"achievement_id"</span>: <span class="s">"uuid"</span>,
+    <span class="n">"name"</span>: <span class="s">"10 Win Streak"</span>,
+    <span class="n">"description"</span>: <span class="s">"Win 10 matches in a row"</span>,
+    <span class="n">"condition"</span>: <span class="s">"win_streak_10"</span>
+  }
+]</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                        <span class="method-badge get">GET</span>
+                        <span class="endpoint-path">/users/<span class="param">{user_id}</span>/achievements</span>
+                        <span class="endpoint-desc">Get user achievements</span>
+                        <span class="auth-badge">Auth</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Returns all achievements unlocked by a specific user.</p>
+                        <div style="max-width: 420px">
+                            <div class="sub-label">Response 200</div>
+                            <div class="code-block">
+                                <div class="code-header"><span>json</span></div>
+                                <pre>[
+  {
+    <span class="n">"achievement_id"</span>: <span class="s">"uuid"</span>,
+    <span class="n">"name"</span>: <span class="s">"10 Win Streak"</span>,
+    <span class="n">"unlocked_at"</span>: <span class="s">"2026-05-01T12:00:00Z"</span>
+  }
+]</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                        <span class="method-badge post">POST</span>
+                        <span class="endpoint-path">/users/<span class="param">{user_id}</span>/achievements/<span class="param">{achievement_id}</span></span>
+                        <span class="endpoint-desc">Unlock achievement</span>
+                        <span class="auth-badge">Auth</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Marks an achievement as unlocked for a user. Called internally after milestone conditions are met.</p>
+                        <div style="max-width: 380px">
+                            <div class="sub-label">Response 201</div>
+                            <div class="code-block">
+                                <div class="code-header"><span>json</span></div>
+                                <pre>{ <span class="n">"message"</span>: <span class="s">"Achievement unlocked"</span> }</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <!-- MATCHES -->
+            <section class="section" id="matches">
+                <div class="section-header">
+                    <h2>Matches</h2>
+                    <p>Matches are created by the matchmaking system in the frontend. Each match links exactly two players, belongs to a game mode, and tracks status from waiting through to completed.</p>
+                </div>
+
+                <!-- GET all matches for user -->
+                <div class="endpoint">
+                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                        <span class="method-badge get">GET</span>
+                        <span class="endpoint-path">/matches</span>
+                        <span class="endpoint-desc">List matches</span>
+                        <span class="auth-badge">Auth</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Returns a paginated list of matches for the authenticated user. Optionally filter by status or mode.</p>
+                        <div class="body-grid">
+                            <div>
+                                <div class="sub-label">Query parameters</div>
+                                <table class="param-table">
+                                    <tr><th>Param</th><th>Type</th><th></th></tr>
+                                    <tr><td class="param-name">status</td><td class="param-type">string</td><td class="param-opt">optional</td></tr>
+                                    <tr><td class="param-name">mode</td><td class="param-type">string</td><td class="param-opt">optional</td></tr>
+                                    <tr><td class="param-name">limit</td><td class="param-type">integer</td><td class="param-opt">optional</td></tr>
+                                    <tr><td class="param-name">offset</td><td class="param-type">integer</td><td class="param-opt">optional</td></tr>
+                                </table>
+                            </div>
+                            <div>
+                                <div class="sub-label">Response 200</div>
+                                <div class="code-block">
+                                    <div class="code-header"><span>json</span></div>
+                                    <pre>[
+  {
+    <span class="n">"match_id"</span>: <span class="s">"uuid"</span>,
+    <span class="n">"player1_id"</span>: <span class="s">"uuid"</span>,
+    <span class="n">"player2_id"</span>: <span class="s">"uuid"</span>,
+    <span class="n">"mode"</span>: <span class="s">"ranked"</span>,
+    <span class="n">"status"</span>: <span class="s">"completed"</span>,
+    <span class="n">"match_start"</span>: <span class="s">"2026-05-01T12:00:00Z"</span>
+  }
+]</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GET single match -->
+                <div class="endpoint">
+                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                        <span class="method-badge get">GET</span>
+                        <span class="endpoint-path">/matches/<span class="param">{match_id}</span></span>
+                        <span class="endpoint-desc">Get match details</span>
+                        <span class="auth-badge">Auth</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Returns full details for a single match including players, problems, status, and log.</p>
+                        <div style="max-width: 420px">
+                            <div class="sub-label">Response 200</div>
+                            <div class="code-block">
+                                <div class="code-header"><span>json</span></div>
+                                <pre>{
+  <span class="n">"match_id"</span>: <span class="s">"uuid"</span>,
+  <span class="n">"player1_id"</span>: <span class="s">"uuid"</span>,
+  <span class="n">"player2_id"</span>: <span class="s">"uuid"</span>,
+  <span class="n">"match_problems_id"</span>: <span class="s">"uuid"</span>,
+  <span class="n">"mode"</span>: <span class="s">"ranked"</span>,
+  <span class="n">"status"</span>: <span class="s">"in_progress"</span>,
+  <span class="n">"queue_start"</span>: <span class="s">"2026-05-01T11:58:00Z"</span>,
+  <span class="n">"match_start"</span>: <span class="s">"2026-05-01T12:00:00Z"</span>
+}</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- POST create match -->
+                <div class="endpoint">
+                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                        <span class="method-badge post">POST</span>
+                        <span class="endpoint-path">/matches</span>
+                        <span class="endpoint-desc">Create a match</span>
+                        <span class="auth-badge">Auth</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Creates a new match between two players. Called internally by the matchmaking system once two players are paired.</p>
+                        <div class="body-grid">
+                            <div>
+                                <div class="sub-label">Request body</div>
+                                <table class="param-table">
+                                    <tr><th>Field</th><th>Type</th><th></th></tr>
+                                    <tr><td class="param-name">player1_id</td><td class="param-type">UUID</td><td class="param-req">required</td></tr>
+                                    <tr><td class="param-name">player2_id</td><td class="param-type">UUID</td><td class="param-req">required</td></tr>
+                                    <tr><td class="param-name">mode</td><td class="param-type">string</td><td class="param-req">required</td></tr>
+                                    <tr><td class="param-name">match_problems_id</td><td class="param-type">UUID</td><td class="param-opt">optional</td></tr>
+                                </table>
+                            </div>
+                            <div>
+                                <div class="sub-label">Response 201</div>
+                                <div class="code-block">
+                                    <div class="code-header"><span>json</span></div>
+                                    <pre>{
+  <span class="n">"message"</span>: <span class="s">"Match created"</span>,
+  <span class="n">"match_id"</span>: <span class="s">"uuid"</span>,
+  <span class="n">"status"</span>: <span class="s">"waiting"</span>
+}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PATCH match status -->
+                <div class="endpoint">
+                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                        <span class="method-badge patch">PATCH</span>
+                        <span class="endpoint-path">/matches/<span class="param">{match_id}</span>/status</span>
+                        <span class="endpoint-desc">Update match status</span>
+                        <span class="auth-badge">Auth</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Updates the status of a match. Valid transitions: waiting → in_progress → completed | abandoned.</p>
+                        <div class="body-grid">
+                            <div>
+                                <div class="sub-label">Request body</div>
+                                <table class="param-table">
+                                    <tr><th>Field</th><th>Type</th><th></th></tr>
+                                    <tr><td class="param-name">status</td><td class="param-type">string</td><td class="param-req">required</td></tr>
+                                </table>
+                                <p style="font-size:11px;color:var(--muted);margin-top:0.5rem;">status: <code>waiting</code> | <code>in_progress</code> | <code>completed</code> | <code>abandoned</code></p>
+                            </div>
+                            <div>
+                                <div class="sub-label">Response 200</div>
+                                <div class="code-block">
+                                    <div class="code-header"><span>json</span></div>
+                                    <pre>{
+  <span class="n">"message"</span>: <span class="s">"Match status updated"</span>,
+  <span class="n">"match_id"</span>: <span class="s">"uuid"</span>,
+  <span class="n">"status"</span>: <span class="s">"in_progress"</span>
+}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GET match log -->
+                <div class="endpoint">
+                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                        <span class="method-badge get">GET</span>
+                        <span class="endpoint-path">/matches/<span class="param">{match_id}</span>/log</span>
+                        <span class="endpoint-desc">Get match log</span>
+                        <span class="auth-badge">Auth</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Returns the match log including winner, loser, and ELO changes. ELO values are null for casual matches.</p>
+                        <div style="max-width: 420px">
+                            <div class="sub-label">Response 200</div>
+                            <div class="code-block">
+                                <div class="code-header"><span>json</span></div>
+                                <pre>{
+  <span class="n">"log_id"</span>: <span class="s">"uuid"</span>,
+  <span class="n">"match_id"</span>: <span class="s">"uuid"</span>,
+  <span class="n">"winner_id"</span>: <span class="s">"uuid"</span>,
+  <span class="n">"loser_id"</span>: <span class="s">"uuid"</span>,
+  <span class="n">"elo_gained"</span>: <span class="num">16</span>,
+  <span class="n">"elo_lost"</span>: <span class="num">16</span>
+}</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <!-- PROBLEMS -->
+            <section class="section" id="problems">
+                <div class="section-header">
+                    <h2>Problems</h2>
+                    <p>Problem bank for both math and programming battle types. Problems inherit from a base type with specialised fields per category.</p>
+                </div>
+
+                <div class="endpoint">
+                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                        <span class="method-badge get">GET</span>
+                        <span class="endpoint-path">/problems</span>
+                        <span class="endpoint-desc">List problems</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Returns all problems. Filter by type or difficulty.</p>
+                        <div class="body-grid">
+                            <div>
+                                <div class="sub-label">Query parameters</div>
+                                <table class="param-table">
+                                    <tr><th>Param</th><th>Type</th><th></th></tr>
+                                    <tr><td class="param-name">type</td><td class="param-type">string</td><td class="param-opt">optional</td></tr>
+                                    <tr><td class="param-name">difficulty</td><td class="param-type">string</td><td class="param-opt">optional</td></tr>
+                                </table>
+                                <p style="font-size:11px;color:var(--muted);margin-top:0.5rem;">type: <code>math</code> | <code>programming</code><br/>difficulty: <code>Easy</code> | <code>Medium</code> | <code>Difficult</code></p>
+                            </div>
+                            <div>
+                                <div class="sub-label">Response 200</div>
+                                <div class="code-block">
+                                    <div class="code-header"><span>json</span></div>
+                                    <pre>[
+  {
+    <span class="n">"id"</span>: <span class="num">1</span>,
+    <span class="n">"type"</span>: <span class="s">"math"</span>,
+    <span class="n">"difficulty_level"</span>: <span class="s">"Easy"</span>,
+    <span class="n">"title"</span>: <span class="s">"Basic Algebra"</span>,
+    <span class="n">"description"</span>: <span class="s">"Solve for x"</span>,
+    <span class="n">"time_limit"</span>: <span class="s">"00:02:00"</span>
+  }
+]</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                        <span class="method-badge get">GET</span>
+                        <span class="endpoint-path">/problems/<span class="param">{id}</span></span>
+                        <span class="endpoint-desc">Get problem details</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Returns full details for a single problem including type-specific fields.</p>
+                        <div style="max-width: 420px">
+                            <div class="sub-label">Response 200</div>
+                            <div class="code-block">
+                                <div class="code-header"><span>json</span></div>
+                                <pre>{
+  <span class="n">"id"</span>: <span class="num">1</span>,
+  <span class="n">"type"</span>: <span class="s">"programming"</span>,
+  <span class="n">"difficulty_level"</span>: <span class="s">"Medium"</span>,
+  <span class="n">"title"</span>: <span class="s">"Fibonacci"</span>,
+  <span class="n">"description"</span>: <span class="s">"Return nth Fibonacci"</span>,
+  <span class="n">"time_limit"</span>: <span class="s">"00:05:00"</span>,
+  <span class="n">"supported_languages"</span>: <span class="s">"java"</span>
+}</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                        <span class="method-badge post">POST</span>
+                        <span class="endpoint-path">/problems</span>
+                        <span class="endpoint-desc">Create a problem</span>
+                        <span class="admin-badge">Admin</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Creates a new problem. Requires admin privileges.</p>
+                        <div class="body-grid">
+                            <div>
+                                <div class="sub-label">Request body</div>
+                                <table class="param-table">
+                                    <tr><th>Field</th><th>Type</th><th></th></tr>
+                                    <tr><td class="param-name">type</td><td class="param-type">string</td><td class="param-req">required</td></tr>
+                                    <tr><td class="param-name">difficulty_level</td><td class="param-type">string</td><td class="param-req">required</td></tr>
+                                    <tr><td class="param-name">title</td><td class="param-type">string</td><td class="param-req">required</td></tr>
+                                    <tr><td class="param-name">description</td><td class="param-type">string</td><td class="param-req">required</td></tr>
+                                    <tr><td class="param-name">time_limit</td><td class="param-type">string</td><td class="param-req">required</td></tr>
+                                    <tr><td class="param-name">solution_formula</td><td class="param-type">string</td><td class="param-opt">math only</td></tr>
+                                    <tr><td class="param-name">supported_languages</td><td class="param-type">string</td><td class="param-opt">prog only</td></tr>
+                                </table>
+                            </div>
+                            <div>
+                                <div class="sub-label">Response 201</div>
+                                <div class="code-block">
+                                    <div class="code-header"><span>json</span></div>
+                                    <pre>{
+  <span class="n">"message"</span>: <span class="s">"Problem created"</span>,
+  <span class="n">"id"</span>: <span class="num">5</span>
+}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                        <span class="method-badge put">PUT</span>
+                        <span class="endpoint-path">/problems/<span class="param">{id}</span></span>
+                        <span class="endpoint-desc">Update a problem</span>
+                        <span class="admin-badge">Admin</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Updates an existing problem. Requires admin privileges.</p>
+                        <div style="max-width: 380px">
+                            <div class="sub-label">Response 200</div>
+                            <div class="code-block">
+                                <div class="code-header"><span>json</span></div>
+                                <pre>{ <span class="n">"message"</span>: <span class="s">"Problem updated"</span> }</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                        <span class="method-badge delete">DELETE</span>
+                        <span class="endpoint-path">/problems/<span class="param">{id}</span></span>
+                        <span class="endpoint-desc">Delete a problem</span>
+                        <span class="admin-badge">Admin</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Deletes a problem and cascades to related math/programming problem records.</p>
+                        <div style="max-width: 380px">
+                            <div class="sub-label">Response 200</div>
+                            <div class="code-block">
+                                <div class="code-header"><span>json</span></div>
+                                <pre>{ <span class="n">"message"</span>: <span class="s">"Problem deleted"</span> }</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <!-- TEST CASES -->
+            <section class="section" id="testcases">
+                <div class="section-header">
+                    <h2>Test Cases</h2>
+                    <p>Test cases are attached to programming problems and used by the Judge0 execution engine to evaluate submitted code.</p>
+                </div>
+
+                <div class="endpoint">
+                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                        <span class="method-badge get">GET</span>
+                        <span class="endpoint-path">/problems/<span class="param">{problem_id}</span>/testcases</span>
+                        <span class="endpoint-desc">List test cases</span>
+                        <span class="auth-badge">Auth</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Returns all test cases for a given programming problem.</p>
+                        <div style="max-width: 420px">
+                            <div class="sub-label">Response 200</div>
+                            <div class="code-block">
+                                <div class="code-header"><span>json</span></div>
+                                <pre>[
+  {
+    <span class="n">"testcase_id"</span>: <span class="s">"uuid"</span>,
+    <span class="n">"problem_id"</span>: <span class="num">1</span>,
+    <span class="n">"input"</span>: <span class="s">"10"</span>,
+    <span class="n">"expected_output"</span>: <span class="s">"55"</span>
+  }
+]</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                        <span class="method-badge post">POST</span>
+                        <span class="endpoint-path">/problems/<span class="param">{problem_id}</span>/testcases</span>
+                        <span class="endpoint-desc">Add a test case</span>
+                        <span class="admin-badge">Admin</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Adds a new test case to a programming problem.</p>
+                        <div class="body-grid">
+                            <div>
+                                <div class="sub-label">Request body</div>
+                                <table class="param-table">
+                                    <tr><th>Field</th><th>Type</th><th></th></tr>
+                                    <tr><td class="param-name">input</td><td class="param-type">string</td><td class="param-req">required</td></tr>
+                                    <tr><td class="param-name">expected_output</td><td class="param-type">string</td><td class="param-req">required</td></tr>
+                                </table>
+                            </div>
+                            <div>
+                                <div class="sub-label">Response 201</div>
+                                <div class="code-block">
+                                    <div class="code-header"><span>json</span></div>
+                                    <pre>{ <span class="n">"message"</span>: <span class="s">"Test case added"</span> }</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                        <span class="method-badge put">PUT</span>
+                        <span class="endpoint-path">/problems/<span class="param">{problem_id}</span>/testcases/<span class="param">{testcase_id}</span></span>
+                        <span class="endpoint-desc">Update a test case</span>
+                        <span class="admin-badge">Admin</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Updates the input or expected output of an existing test case.</p>
+                        <div style="max-width: 380px">
+                            <div class="sub-label">Response 200</div>
+                            <div class="code-block">
+                                <div class="code-header"><span>json</span></div>
+                                <pre>{ <span class="n">"message"</span>: <span class="s">"Test case updated"</span> }</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                        <span class="method-badge delete">DELETE</span>
+                        <span class="endpoint-path">/problems/<span class="param">{problem_id}</span>/testcases/<span class="param">{testcase_id}</span></span>
+                        <span class="endpoint-desc">Delete a test case</span>
+                        <span class="admin-badge">Admin</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Removes a test case from a problem.</p>
+                        <div style="max-width: 380px">
+                            <div class="sub-label">Response 200</div>
+                            <div class="code-block">
+                                <div class="code-header"><span>json</span></div>
+                                <pre>{ <span class="n">"message"</span>: <span class="s">"Test case deleted"</span> }</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <!-- SUBMISSIONS -->
+            <section class="section" id="submissions">
+                <div class="section-header">
+                    <h2>Submissions</h2>
+                    <p>Code and math answer submissions made by players during a match. Submissions are evaluated by the Judge0 execution engine.</p>
+                </div>
+
+                <div class="endpoint">
+                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                        <span class="method-badge post">POST</span>
+                        <span class="endpoint-path">/submissions</span>
+                        <span class="endpoint-desc">Submit a solution</span>
+                        <span class="auth-badge">Auth</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Submits a user's code or math answer for evaluation. Triggers Judge0 execution for programming submissions.</p>
+                        <div class="body-grid">
+                            <div>
+                                <div class="sub-label">Request body</div>
+                                <table class="param-table">
+                                    <tr><th>Field</th><th>Type</th><th></th></tr>
+                                    <tr><td class="param-name">match_id</td><td class="param-type">UUID</td><td class="param-req">required</td></tr>
+                                    <tr><td class="param-name">problem_id</td><td class="param-type">integer</td><td class="param-req">required</td></tr>
+                                    <tr><td class="param-name">code</td><td class="param-type">string</td><td class="param-req">required</td></tr>
+                                    <tr><td class="param-name">language</td><td class="param-type">string</td><td class="param-req">required</td></tr>
+                                </table>
+                            </div>
+                            <div>
+                                <div class="sub-label">Response 201</div>
+                                <div class="code-block">
+                                    <div class="code-header"><span>json</span></div>
+                                    <pre>{
+  <span class="n">"submission_id"</span>: <span class="s">"uuid"</span>,
+  <span class="n">"status"</span>: <span class="s">"Pending"</span>,
+  <span class="n">"submitted_at"</span>: <span class="s">"2026-05-01T12:05:00Z"</span>
+}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                        <span class="method-badge get">GET</span>
+                        <span class="endpoint-path">/submissions/<span class="param">{submission_id}</span></span>
+                        <span class="endpoint-desc">Get submission status</span>
+                        <span class="auth-badge">Auth</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Returns the current status of a submission. Poll this after submitting to check if execution has completed.</p>
+                        <div style="max-width: 420px">
+                            <div class="sub-label">Response 200</div>
+                            <div class="code-block">
+                                <div class="code-header"><span>json</span></div>
+                                <pre>{
+  <span class="n">"submission_id"</span>: <span class="s">"uuid"</span>,
+  <span class="n">"status"</span>: <span class="s">"Correct"</span>,
+  <span class="n">"submitted_at"</span>: <span class="s">"2026-05-01T12:05:00Z"</span>
+}</pre>
+                            </div>
+                        </div>
+                        <p style="margin-top:0.5rem;">status: <code>Pending</code> | <code>Correct</code> | <code>Incorrect</code> | <code>Error</code></p>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                        <span class="method-badge get">GET</span>
+                        <span class="endpoint-path">/users/<span class="param">{user_id}</span>/submissions</span>
+                        <span class="endpoint-desc">List user submissions</span>
+                        <span class="auth-badge">Auth</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Returns all submissions made by a user, ordered by most recent first.</p>
+                        <div style="max-width: 420px">
+                            <div class="sub-label">Response 200</div>
+                            <div class="code-block">
+                                <div class="code-header"><span>json</span></div>
+                                <pre>[
+  {
+    <span class="n">"submission_id"</span>: <span class="s">"uuid"</span>,
+    <span class="n">"match_id"</span>: <span class="s">"uuid"</span>,
+    <span class="n">"status"</span>: <span class="s">"Correct"</span>,
+    <span class="n">"submitted_at"</span>: <span class="s">"2026-05-01T12:05:00Z"</span>
+  }
+]</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <!-- EXECUTION -->
+            <section class="section" id="execution">
+                <div class="section-header">
+                    <h2>Execution Results</h2>
+                    <p>Detailed results from the Judge0 code execution engine, including pass/fail counts, execution time, and memory usage.</p>
+                </div>
+
+                <div class="endpoint">
+                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                        <span class="method-badge get">GET</span>
+                        <span class="endpoint-path">/submissions/<span class="param">{submission_id}</span>/result</span>
+                        <span class="endpoint-desc">Get execution result</span>
+                        <span class="auth-badge">Auth</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Returns the full execution result for a submission once Judge0 has completed evaluation.</p>
+                        <div style="max-width: 420px">
+                            <div class="sub-label">Response 200</div>
+                            <div class="code-block">
+                                <div class="code-header"><span>json</span></div>
+                                <pre>{
+  <span class="n">"result_id"</span>: <span class="s">"uuid"</span>,
+  <span class="n">"submission_id"</span>: <span class="s">"uuid"</span>,
+  <span class="n">"passed_cases"</span>: <span class="num">5</span>,
+  <span class="n">"total_cases"</span>: <span class="num">5</span>,
+  <span class="n">"execution_time"</span>: <span class="num">142</span>,
+  <span class="n">"memory_used"</span>: <span class="num">20480</span>
+}</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <!-- ERRORS -->
+            <section class="section" id="errors">
+                <div class="section-header">
+                    <h2>Error Codes</h2>
+                    <p>All errors return a consistent JSON body with a machine-readable <code>message</code> field.</p>
+                </div>
+                <div style="max-width: 520px">
+                    <div class="code-block">
+                        <div class="code-header"><span>Error envelope</span></div>
+                        <pre>{
+  <span class="n">"message"</span>: <span class="s">"Elo is only updated for ranked matches"</span>
+}</pre>
+                    </div>
+                </div>
+                <br />
+                <table class="param-table" style="max-width: 680px">
+                    <tr><th>HTTP</th><th>When</th></tr>
+                    <tr><td class="param-type">400</td><td style="color:var(--muted)">Missing or invalid request body fields</td></tr>
+                    <tr><td class="param-type">401</td><td style="color:var(--muted)">Missing or invalid bearer token</td></tr>
+                    <tr><td class="param-type">403</td><td style="color:var(--muted)">Token valid but insufficient permissions</td></tr>
+                    <tr><td class="param-type">404</td><td style="color:var(--muted)">Resource not found</td></tr>
+                    <tr><td class="param-type">409</td><td style="color:var(--muted)">Conflict — e.g. duplicate username or email</td></tr>
+                    <tr><td class="param-type">500</td><td style="color:var(--muted)">Internal server error — check server logs</td></tr>
+                </table>
+            </section>
+
+            <div class="divider"></div>
+
+            <!-- DATA MODELS -->
+            <section class="section" id="models">
+                <div class="section-header">
+                    <h2>Data Models</h2>
+                    <p>Quick reference for all entity shapes returned by the API.</p>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+                    <div class="info-card">
+                        <h4>User</h4>
+                        <div class="code-block" style="margin-top:0.5rem;">
+                            <pre style="padding:0.75rem;font-size:11px"><span class="n">user_id</span>: <span class="param-type">UUID</span>
+<span class="n">username</span>: <span class="param-type">string</span>
+<span class="n">email</span>: <span class="param-type">string</span>
+<span class="n">created_at</span>: <span class="param-type">datetime</span></pre>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <h4>EloRating</h4>
+                        <div class="code-block" style="margin-top:0.5rem;">
+                            <pre style="padding:0.75rem;font-size:11px"><span class="n">elo_id</span>: <span class="param-type">UUID</span>
+<span class="n">user_id</span>: <span class="param-type">UUID</span>
+<span class="n">rating</span>: <span class="param-type">integer</span>
+<span class="n">updated_at</span>: <span class="param-type">datetime</span></pre>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <h4>EloHistory</h4>
+                        <div class="code-block" style="margin-top:0.5rem;">
+                            <pre style="padding:0.75rem;font-size:11px"><span class="n">history_id</span>: <span class="param-type">UUID</span>
+<span class="n">user_id</span>: <span class="param-type">UUID</span>
+<span class="n">match_id</span>: <span class="param-type">UUID</span>
+<span class="n">old_rating</span>: <span class="param-type">integer</span>
+<span class="n">new_rating</span>: <span class="param-type">integer</span>
+<span class="n">changed_at</span>: <span class="param-type">datetime</span></pre>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <h4>Match</h4>
+                        <div class="code-block" style="margin-top:0.5rem;">
+                            <pre style="padding:0.75rem;font-size:11px"><span class="n">match_id</span>: <span class="param-type">UUID</span>
+<span class="n">player1_id</span>: <span class="param-type">UUID</span>
+<span class="n">player2_id</span>: <span class="param-type">UUID</span>
+<span class="n">mode</span>: <span class="param-type">ranked | casual</span>
+<span class="n">status</span>: <span class="param-type">string</span>
+<span class="n">match_start</span>: <span class="param-type">datetime</span></pre>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <h4>MatchLog</h4>
+                        <div class="code-block" style="margin-top:0.5rem;">
+                            <pre style="padding:0.75rem;font-size:11px"><span class="n">log_id</span>: <span class="param-type">UUID</span>
+<span class="n">match_id</span>: <span class="param-type">UUID</span>
+<span class="n">winner_id</span>: <span class="param-type">UUID</span>
+<span class="n">loser_id</span>: <span class="param-type">UUID</span>
+<span class="n">elo_gained</span>: <span class="param-type">integer | null</span>
+<span class="n">elo_lost</span>: <span class="param-type">integer | null</span></pre>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <h4>Problem (base)</h4>
+                        <div class="code-block" style="margin-top:0.5rem;">
+                            <pre style="padding:0.75rem;font-size:11px"><span class="n">id</span>: <span class="param-type">integer</span>
+<span class="n">type</span>: <span class="param-type">math | programming</span>
+<span class="n">difficulty_level</span>: <span class="param-type">string</span>
+<span class="n">title</span>: <span class="param-type">string</span>
+<span class="n">description</span>: <span class="param-type">string</span>
+<span class="n">time_limit</span>: <span class="param-type">time</span></pre>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <h4>Submission</h4>
+                        <div class="code-block" style="margin-top:0.5rem;">
+                            <pre style="padding:0.75rem;font-size:11px"><span class="n">submission_id</span>: <span class="param-type">UUID</span>
+<span class="n">user_id</span>: <span class="param-type">UUID</span>
+<span class="n">match_id</span>: <span class="param-type">UUID</span>
+<span class="n">code</span>: <span class="param-type">string</span>
+<span class="n">language</span>: <span class="param-type">string</span>
+<span class="n">status</span>: <span class="param-type">string</span>
+<span class="n">submitted_at</span>: <span class="param-type">datetime</span></pre>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <h4>ExecutionResult</h4>
+                        <div class="code-block" style="margin-top:0.5rem;">
+                            <pre style="padding:0.75rem;font-size:11px"><span class="n">result_id</span>: <span class="param-type">UUID</span>
+<span class="n">submission_id</span>: <span class="param-type">UUID</span>
+<span class="n">passed_cases</span>: <span class="param-type">integer</span>
+<span class="n">total_cases</span>: <span class="param-type">integer</span>
+<span class="n">execution_time</span>: <span class="param-type">integer (ms)</span>
+<span class="n">memory_used</span>: <span class="param-type">integer (bytes)</span></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <script>
+            function toggle(header) {
+                const body = header.nextElementSibling;
+                body.classList.toggle("open");
+            }
+
+            document.querySelectorAll(".nav-item").forEach((item) => {
+                item.addEventListener("click", () => {
+                    document.querySelectorAll(".nav-item").forEach((i) => i.classList.remove("active"));
+                    item.classList.add("active");
+                });
+            });
+
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((e) => {
+                        if (e.isIntersecting) {
+                            const id = e.target.id;
+                            document.querySelectorAll(".nav-item").forEach((i) => {
+                                i.classList.toggle("active", i.getAttribute("href") === "#" + id);
+                            });
+                        }
+                    });
+                },
+                { threshold: 0.2 }
+            );
+            document.querySelectorAll(".section").forEach((s) => observer.observe(s));
+        </script>
+    </body>
+</html>
