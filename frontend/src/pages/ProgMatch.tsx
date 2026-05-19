@@ -5,6 +5,9 @@ import { Badge } from "@/components/ui/badge";
 import { useTimer } from "react-timer-hook";
 import { Question } from "@/components/question";
 import { Sidebar, SidebarProvider } from "@/components/ui/sidebar";
+import blue_avatar from '../assets/blue_avatar.jpeg'
+import puprle_avatar from '../assets/purple_avatar.jpeg'
+import door from '../assets/door.png'
 
 interface ProgMatchProps {
     language: string;
@@ -45,19 +48,21 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
         <div className="fixed inset-0 flex flex-row p-2 justify-between">
             <div className="flex flex-col w-[80%] m-2 justify-evenly">
                 {/* header */}
-                <div className="flex w-full justify-between items-center m-2 p-4">
+                <div className="flex w-full h-[20%] justify-between items-center m-2 p-4">
 
                     {/* Player 1 Progress */}
-                    <div className="w-[40%] flex flex-col items-start justify-between h-full ">
+                    <div className="w-[40%] flex flex-col items-start h-[60%] justify-center self-end ">
                         <Progress className=" w-full h-7 shadow-[0_4px_6px_rgba(0,0,0,0.3)]"
                             value={player_1_progress}
                             progress_colour="var(--primary)"
                         ></Progress>
-                        <Badge className="bg-white badge-font" >
-                            <img></img>
-                            User 1
+                        <div className="flex w-[50%] h-[60%] items-center m-2">
+                            <img src={blue_avatar} alt="user one avatar" className="h-[120%] flex items-center"></img>
+                            <Badge className="bg-white badge-font" >
+                                User 1
+                            </Badge>
+                        </div>
 
-                        </Badge>
                     </div>
 
                     {/* Clock */}
@@ -68,14 +73,16 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
                     </div>
 
                     {/* Player 2 Progress */}
-                    <div className="w-[40%] flex flex-col items-end justify-between h-full">
-                        <Progress className=" w-full h-7 scale-x-[-1]"
+                    <div className="w-[40%] flex flex-col items-end h-[60%] justify-center self-end ">
+                        <Progress className=" w-full h-7 scale-x-[-1] shadow-[0_4px_6px_rgba(0,0,0,0.3)]"
                             value={player_2_progress}
                             progress_colour="var(--primary)"></Progress>
-                        <Badge className="bg-white badge-font" >
-                            <img></img>
-                            User 2
-                        </Badge>
+                        <div className="flex w-[50%] h-[60%] items-center justify-end m-2">
+                            <Badge className="bg-white badge-font" >
+                                User 2
+                            </Badge>
+                            <img src={puprle_avatar} alt="user one avatar" className="h-[120%] flex items-center "></img>
+                        </div>
                     </div>
 
                 </div>
