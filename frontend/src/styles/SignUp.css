@@ -6,14 +6,14 @@
   box-sizing: border-box;
 } */
 
-body {
+/* body {
   font-family: 'Baloo Bhai 2', cursive;
   background-color: #f8fafc;
   min-height: 100vh;
   /* display: flex;
   align-items: center;
-  justify-content: center; */
-}
+  justify-content: center; 
+} */
 
 .page-wrapper {
   width: 1440px;
