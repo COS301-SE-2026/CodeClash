@@ -13,9 +13,10 @@
     "coverage": "vitest --coverage"
   },
   "dependencies": {
+    "aws-amplify": "^6.17.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
-    "react-router-dom": "^7.15.0"
+    "react-router-dom": "^7.15.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
