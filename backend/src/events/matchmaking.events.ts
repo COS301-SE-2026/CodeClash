@@ -1,23 +1,12 @@
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
+import UserDto, { MatchDto } from "../Matchmaking Service/matchmaking.dto";
+ 
 
-// below event emitter for matchmaking events (singleton, should i change implementation?)
-export const matchmakingEvents = new EventEmitter();
-
-export enum MatchmakingEvent {
-  USER_ENQUEUED = 'user:enqueued',
-  MATCH_FOUND = 'match:found',
-  MATCH_NOT_FOUND = 'match:not_found',
-  SEARCH_TIMEOUT = 'search:timeout',
+export interface MatchmakingEvents {
+  "player:joined": (user: UserDto) => void; //player entered queue
+  "player:left": (userId: number, queue: string) => void; 
+  "match:searching": (user: UserDto) => void; //matchmaking function ran but found no opponent yet
+  "match:found": (player1Id: number, player2Id: number) => void; //two players were found to be paired of r a match
+  "match:created": (match: MatchDto) => void; 
 }
-
-export interface MatchFoundPayload {
-  userId: number;
-  opponentId: number;
-  matchId: string;
-  game_mode: 'math' | 'programming';
-}
-
-export interface MatchNotFoundPayload {
-  userId: number;
-  reason: 'no_compatible_player' | 'timeout';
-}
+ 
