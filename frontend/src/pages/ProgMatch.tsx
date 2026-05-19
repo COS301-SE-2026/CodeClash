@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Editor } from "@monaco-editor/react";
+import LifeBar from "../components/Match/LifeBar";
 
 interface ProgMatchProps {
     language: string;
@@ -18,8 +19,13 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
 
 
     return (
-        <div className="fixed inset-0 flex flex-col ">
-            <div className="bg-gray-300 text-center h-20">Life Bars will go here</div>
+        <div className=" flex flex-col ">
+            <LifeBar
+                life={30}
+                user_name="User 1"
+            ></LifeBar>
+
+           
 
             <div className="flex flex-row flex-1 w-full h-full justify-between items-center">
                 <div className="flex flex-col items-center">
@@ -50,7 +56,7 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
                         defaultLanguage={language}
                         defaultValue="// Your code here"
                         onChange={handleChange}
-                        onMount={(editor, monaco) => {
+                        onMount={(editor: any, monaco: any) => {
                             monaco.editor.defineTheme('default', {
                                 base: 'vs',
                                 'inherits': true,
