@@ -35,7 +35,16 @@ export interface MatchDto {
 }
  
 
-
+export function resolveDifficulty(elo: number): "Easy" | "Medium" | "Difficult"{
+  if (elo <= 500){ 
+    return "Easy"
+}
+  else if (elo <= 1000) {
+    return "Medium"
+}
+  return "Difficult";
+}
+ 
 
 
  
