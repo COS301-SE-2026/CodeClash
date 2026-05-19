@@ -1,6 +1,6 @@
-import { request, app, userAuth, expectNotFound, expectValidationError, expectUnauthorized, expectArrayResponse } from '../helpers/test-utils'
-
-const queueProps = ['queue_id', 'user_id', 'game_mode', 'joined_at', 'status']
+import { request, app, userAuth, expectValidationError, expectUnauthorized} from '../helpers/test-utils'
+import { describe, test, expect } from 'vitest';
+//const queueProps = ['queue_id', 'user_id', 'game_mode', 'joined_at', 'status']
 
 describe('Matchmaking API', () => {
   describe('GET /matchmaking/queue', () => {

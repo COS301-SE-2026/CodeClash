@@ -1,4 +1,5 @@
-import { request, app, expectNotFound, expectValidationError, expectEmptyArray, expectArrayResponse, expectPaginated, expectShape, paginationValidationTests, userSubResourceTests } from '../helpers/test-utils'
+import { request, app, expectEmptyArray, expectShape, paginationValidationTests, idValidationTests } from '../helpers/test-utils'
+import { describe, test, expect } from 'vitest';
 
 const achievementProps = ['achievement_id', 'name', 'description', 'condition']
 
@@ -28,13 +29,7 @@ describe('Achievements API', () => {
       expect(res.body.achievement_id).toBe(1)
     })
 
-    test('returns 404 for non-existent achievement', async () => {
-      expectNotFound(await request(app).get('/achievements/999'))
-    })
-
-    test('returns 400 for non-integer achievement_id', async () => {
-      expectValidationError(await request(app).get('/achievements/abc'))
-    })
+    idValidationTests('/achievements', '999')
   })
 
   describe('GET /users/:user_id/achievements', () => {
@@ -63,12 +58,6 @@ describe('Achievements API', () => {
       expectEmptyArray(await request(app).get('/users/1/achievements'))
     })
 
-    test('returns 404 for non-existent user', async () => {
-      expectNotFound(await request(app).get('/users/99999/achievements'))
-    })
-
-    test('returns 400 for invalid user_id', async () => {
-      expectValidationError(await request(app).get('/users/abc/achievements'))
-    })
+    idValidationTests('/users', '99999', '/achievements')
   })
 })

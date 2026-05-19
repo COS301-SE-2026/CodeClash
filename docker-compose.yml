@@ -10,8 +10,6 @@ services:
     volumes:
       - ./backend:/app
       - /app/node_modules
-    networks: 
-      - pgnetwork
 
   # frontend:
   #   build: ./frontend
@@ -24,7 +22,6 @@ services:
 
   db:
     image: postgres:15-alpine
-    container_name: postgres
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASS}
@@ -34,24 +31,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
-    networks:
-      - pgnetwork
 
-  pgadmin:
-    image: dpage/pgadmin4:9.15
-    container_name: pgadmin
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASS}
-      PGADMIN_LISTEN_PORT: ${PGADMIN_PORT}
-    ports:
-      - "${PGADMIN_PORT}:5151"
-    volumes:
-      - pgadmin_data:/var/lib/pgadmin
-    depends_on:
-      - db
-    networks:
-      - pgnetwork
   # judge0:
   #   image: judge0/judge0:latest
   #   ports:
@@ -59,9 +39,28 @@ services:
   #   privileged: true
   #TODO IMPORTANT return this when we want to start implementing code execution
 
+
+  redis:
+    image: redis:8.6.3-alpine
+    container_name: codeclash-redis
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis-data:/data
+    command: --requirepass ${REDIS_PASS} --appendonly yes
+    restart: unless-stopped
+
+  redis:
+    image: redis:8.6.3-alpine
+    container_name: codeclash-redis
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis-data:/data
+    command: --requirepass ${REDIS_PASS} --appendonly yes
+    restart: unless-stopped
+
 volumes:
   postgres_data:
-  pgadmin_data: 
-
-networks:
-  pgnetwork:
+  redis-data:
+    driver: local
