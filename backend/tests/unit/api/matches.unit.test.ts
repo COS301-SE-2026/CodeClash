@@ -1,4 +1,5 @@
 import { request, app, userAuth, expectNotFound, expectValidationError, expectUnauthorized, expectArrayShape, expectShape, matchActionTests } from '../helpers/test-utils'
+import { describe, test, expect } from 'vitest';
 
 const matchProps = ['match_id', 'player1', 'player2', 'status', 'started_at']
 

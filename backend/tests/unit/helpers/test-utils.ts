@@ -1,5 +1,6 @@
 import request from 'supertest'
-import app from '../../src/app'
+import app from '../../../src/app'
+import { describe, test, expect } from 'vitest';
 
 export { request, app }
 

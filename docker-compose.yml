@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   backend:
     build: ./backend
@@ -25,9 +23,9 @@ services:
   db:
     image: postgres:15-alpine
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: codeclash
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASS}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5432:5432"
     volumes:
@@ -41,5 +39,28 @@ services:
   #   privileged: true
   #TODO IMPORTANT return this when we want to start implementing code execution
 
+
+  redis:
+    image: redis:8.6.3-alpine
+    container_name: codeclash-redis
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis-data:/data
+    command: --requirepass ${REDIS_PASS} --appendonly yes
+    restart: unless-stopped
+
+  redis:
+    image: redis:8.6.3-alpine
+    container_name: codeclash-redis
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis-data:/data
+    command: --requirepass ${REDIS_PASS} --appendonly yes
+    restart: unless-stopped
+
 volumes:
   postgres_data:
+  redis-data:
+    driver: local

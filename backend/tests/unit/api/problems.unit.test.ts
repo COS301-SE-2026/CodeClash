@@ -1,4 +1,5 @@
-import { request, app, userAuth, adminAuth, expectNotFound, expectValidationError, expectUnauthorized, expectForbidden, expectConflict, expectArrayResponse, expectShape, paginationValidationTests, adminGuardTests } from '../helpers/test-utils'
+import { request, app, adminAuth, expectNotFound, expectValidationError, expectConflict,expectShape, paginationValidationTests, adminGuardTests } from '../helpers/test-utils'
+import { describe, test, expect } from 'vitest';
 
 const problemProps = ['problem_id', 'title', 'difficulty', 'problem_type']
 
