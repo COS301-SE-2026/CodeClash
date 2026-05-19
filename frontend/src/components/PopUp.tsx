@@ -43,12 +43,13 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose, onSelectTopic }) => {
     }}
     >
 
-      <div
-        role="dialog"
-        aria-modal="true"
+      <dialog
+        open
         aria-label="Choose a topic"
         onClick={(e) => e.stopPropagation()}
-        onKeyDown={(e) => e.stopPropagation()}
+        onKeyDown={(e) => {
+          if (e.key == 'Escape') onClose();
+        }}
         style={{
           position: 'relative',
           backgroundColor: '#ffffff',
@@ -199,7 +200,7 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose, onSelectTopic }) => {
           Cancel
         </button>
 
-      </div>
+      </dialog>
     </div>
   );
 };
