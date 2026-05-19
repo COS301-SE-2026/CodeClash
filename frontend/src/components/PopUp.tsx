@@ -25,28 +25,28 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose, onSelectTopic }) => {
 
   return (
     <div
-      role="button"
-      tabIndex={0}
-      aria-label="Close popup"
+      aria-hidden="true"
       onClick={onClose}
       onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === 'Escape' || e.key === ' ') onClose();
+        if (e.key == 'Escape') onClose()
       }}
-      style={{
-        position: 'absolute',
-        inset: 0,
-        zIndex: 50,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'rgba(15, 23, 42, 0.5)',
-        borderRadius: 'inherit',
-        cursor: 'default',
-      }}
+    style={{
+      position: 'absolute',
+      inset: 0,
+      zIndex: 50,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: 'rgba(15, 23, 42, 0.5)',
+      borderRadius: 'inherit',
+      cursor: 'default',
+    }}
     >
 
       <div
-        role="presentation"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Choose a topic"
         onClick={(e) => e.stopPropagation()}
         onKeyDown={(e) => e.stopPropagation()}
         style={{
@@ -130,7 +130,7 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose, onSelectTopic }) => {
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = 'rgba(167,139,250,0.08)';
-              e.currentTarget.style.borderColor = '#7c3aed';
+              e.currentTarget.style.borderColor = '#5f5980';
               e.currentTarget.style.transform = 'translateY(-4px)';
             }}
             onMouseLeave={(e) => {
@@ -139,8 +139,8 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose, onSelectTopic }) => {
               e.currentTarget.style.transform = 'translateY(0)';
             }}
           >
-            <span style={{ fontSize: 48, lineHeight: 1 }}>+ -</span>
-            Math
+          <span style={{ fontSize: 48, lineHeight: 1 }}>+ -</span>
+          <span>Math</span>
           </button>
 
           <button
@@ -155,7 +155,7 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose, onSelectTopic }) => {
               justifyContent: 'center',
               gap: 10,
               backgroundColor: '#ffffff',
-              border: '2px solid #3b82f6',
+              border: '2px solid #0e34a0',
               borderRadius: 14,
               fontFamily: '"Baloo Bhai 2", cursive',
               fontWeight: 600,
@@ -171,14 +171,13 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose, onSelectTopic }) => {
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.backgroundColor = '#ffffff';
-              e.currentTarget.style.borderColor = '#3b82f6';
+              e.currentTarget.style.borderColor = '#0e34a0';
               e.currentTarget.style.transform = 'translateY(0)';
             }}
           >
-            <span style={{ fontSize: 48, lineHeight: 1, fontFamily: 'monospace' }}>&lt;/&gt;</span>
-            Programming
+          <span style={{ fontSize: 48, lineHeight: 1, fontFamily: 'monospace' }}>&lt;/&gt;</span>
+          <span>Programming</span>
           </button>
-
         </div>
 
         <button
