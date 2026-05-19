@@ -288,7 +288,7 @@
 }
 
 .approve-button:hover {
-  background: rgba(15, 95, 46, 0.842);
+  background: rgba(20, 143, 67, 0.842);;
   transform: scale(1.1);
 }
 

@@ -85,6 +85,7 @@
     font-size: 48px;
     font-family: 'Baloo Bhai 2', cursive;
     font-weight: 700;
+    margin-bottom: 10px;
     font-style: normal;
     color: #EF4444;
 }
@@ -103,7 +104,7 @@
     font-family: 'Baloo Bhai 2', cursive;
     font-size: 32px;
     color: #0F172A;
-    margin-bottom: 10px;
+    margin-bottom: 70px;
     font-weight: 700;
     font-style: bold;
 }
@@ -202,8 +203,8 @@
 
 
 .cancel-button {
-  background: #EF4444;
-  width: 323px;
+  background: #FFFFFF;
+  width: 350px;
   height: 72px;
   border: 1px solid #0F172A;
   font-family: 'Baloo Bhai 2', cursive;
@@ -220,13 +221,13 @@
 }
 
 .cancel-button:hover {
-  background: rgba(180, 23, 23, 0.842);
+  background: rgba(134, 134, 134, 0.842);
   transform: scale(1.1);
 }
 
 .approve-button {
   background: #22C55E;
-  width: 323px;
+  width: 350px;
   height: 72px;
   border: 1px solid #0F172A;
   font-family: 'Baloo Bhai 2', cursive;
@@ -243,7 +244,7 @@
 }
 
 .approve-button:hover {
-  background: rgba(15, 95, 46, 0.842);
+  background: rgba(20, 143, 67, 0.842);
   transform: scale(1.1);
 }
 
