@@ -44,6 +44,18 @@ export function resolveDifficulty(elo: number): "Easy" | "Medium" | "Difficult"{
 }
   return "Difficult";
 }
+
+
+export function resolveTimeLimit(difficulty: "Easy" | "Medium" | "Difficult"): number {
+  const map: Record<"Easy" | "Medium" | "Difficult", number> = {
+    Easy: 5,
+    Medium: 10,
+    Difficult: 50,
+  };
+  return map[difficulty];
+}
+ 
+
  
 
 
