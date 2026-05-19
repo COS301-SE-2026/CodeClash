@@ -26,11 +26,11 @@ We're using a React + TypeScript frontend built with vite.
 - The App:
     - npm run dev
 - The testing:
-    - npm test # runs all tests once 
-    - npm run test:watch # watch mode re-runs on file save
-    - npm run test:coverage # run with coverage report
+    - npm test (runs all tests once)
+    - npm run test:watch (watch mode re-runs on file save)
+    - npm run test:coverage (run with coverage report)
 - Individual files for testing:
-    - npx vitest run src/components/tests/<FileName>.test.tsx
+    - npx vitest run src/components/tests/FileName.test.tsx (FileName is the name of the file to test)
 
 ## Page URL's
 
