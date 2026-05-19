@@ -78,7 +78,20 @@ const Dashboard: React.FC<DashboardProps> = ({
       categories: { difficulty: selectedDifficulty, timeLimit: selectedTime }
     };
 
-   
+    try {
+      const res = await fetch('http://localhost:5173/api/matchmaking/join', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dto)
+      });
+      const data = await res.json();
+      setTicket(data);
+      setPage('searching');
+    } catch (err) {
+      console.error('Failed to join queue', err);
+    } finally {
+      setLoading(false);
+    }
   };
 
 

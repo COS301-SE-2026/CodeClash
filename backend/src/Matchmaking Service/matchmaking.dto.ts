@@ -19,33 +19,32 @@ class UserDto{
 export default UserDto;
 
 
-export interface GameCategory {
-  difficulty: 'EASY' | 'MEDIUM' | 'HARD';
-  timeLimit: 5 | 10 | 15;    //i lowk forgot the time options, this may need to be changed
+export interface GameSelectionDto {
+  userId: number;
+  elo: number;
+  type: 'math' | 'programming';
+  game_mode: 'ranked' | 'casual';
+  difficulty: 'Easy' | 'Medium' | 'Difficult';
+  time_limit: 30 | 60 | 120; 
+
+  //below is not necessary for now but i will leave it here as a reminder for it to be involved in future
+//   match_attempt: number; // for ELO range expansion
+//   joined_at: number; // timestamp
 }
 
-export interface MatchRequestDto {
-  userId: string;
-  categories: GameCategory;
-  ranked: MatchRanked;
+
+export interface MatchResultDto {
+  success: boolean;
+  match_id?: string;
+  opponent_id?: number;
+  message: 'match_found' | 'no_match' | 'still_searching';
 }
 
-export enum MatchStatus {
-  SEARCHING = 'SEARCHING',
-  FOUND = 'FOUND',
-  NOT_FOUND = 'NOT_FOUND'
-}
 
-export enum MatchRanked{
-  RANKED = 'RANKED',
-  UNRANKED = 'UNRANKED',
-}
-
-export interface QueueTicket {
-  ticketId: string;
-  request: MatchRequestDto;
-  status: MatchStatus;
-  opponentId?: string;
-  matchId?: string;
+export interface QueueStatusDto {
+  status: 'searching' | 'found' | 'noFound';
+  match_id?: string;
+  opponent_id?: number;
+  queue_position?: number;
 }
 
