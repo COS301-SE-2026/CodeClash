@@ -125,6 +125,13 @@
                 padding: 0.9rem 1.25rem;
                 cursor: pointer;
                 transition: background 0.15s;
+                width: 100%;
+                background: none;
+                border: none;
+                text-align: left;
+                font-family: var(--sans);
+                font-size: 14px;
+                color: var(--text);
             }
             .endpoint-header:hover { background: var(--bg3); }
             .method-badge {
@@ -137,11 +144,11 @@
                 text-align: center;
                 letter-spacing: 0.5px;
             }
-            .get { background: rgba(22,163,74,0.1); color: #15803d; border: 1px solid rgba(22,163,74,0.25); }
-            .post { background: rgba(8,145,178,0.1); color: #0e7490; border: 1px solid rgba(8,145,178,0.25); }
-            .put { background: rgba(217,119,6,0.1); color: #b45309; border: 1px solid rgba(217,119,6,0.25); }
-            .patch { background: rgba(219,39,119,0.1); color: #be185d; border: 1px solid rgba(219,39,119,0.25); }
-            .delete { background: rgba(220,38,38,0.1); color: #b91c1c; border: 1px solid rgba(220,38,38,0.25); }
+            .get { background: #dcfce7; color: #14532d; border: 1px solid #86efac; }
+            .post { background: #e0f2fe; color: #0c4a6e; border: 1px solid #7dd3fc; }
+            .put { background: #fef3c7; color: #78350f; border: 1px solid #fcd34d; }
+            .patch { background: #fce7f3; color: #831843; border: 1px solid #f9a8d4; }
+            .delete { background: #fee2e2; color: #7f1d1d; border: 1px solid #fca5a5; }
 
             .endpoint-path { font-family: var(--mono); font-size: 13px; color: var(--text); flex: 1; }
             .endpoint-path .param { color: var(--accent); }
@@ -226,9 +233,9 @@
             .info-card p { font-size: 13px; color: var(--text); font-family: var(--mono); }
             .response-codes { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
             .rc { font-size: 11px; padding: 3px 9px; border-radius: 5px; font-family: var(--mono); font-weight: 600; }
-            .rc-2 { background: rgba(22,163,74,0.1); color: #15803d; }
-            .rc-4 { background: rgba(220,38,38,0.1); color: #b91c1c; }
-            .rc-5 { background: rgba(217,119,6,0.1); color: #b45309; }
+            .rc-2 { background: #dcfce7; color: #14532d; }
+            .rc-4 { background: #fee2e2; color: #7f1d1d; }
+            .rc-5 { background: #fef3c7; color: #78350f; }
 
             .divider { height: 1px; background: var(--border); margin: 2rem 0; }
             .sub-label {
@@ -314,11 +321,11 @@
 
                 <!-- Register -->
                 <div class="endpoint">
-                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                    <button class="endpoint-header" onclick="toggle(this)" type="button">
                         <span class="method-badge post">POST</span>
                         <span class="endpoint-path">/auth/register</span>
                         <span class="endpoint-desc">Register a new user</span>
-                    </div>
+                    </button>
                     <div class="endpoint-body">
                         <p>Creates a new user account and returns a JWT token.</p>
                         <div class="body-grid">
@@ -351,11 +358,11 @@
 
                 <!-- Login -->
                 <div class="endpoint">
-                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                    <button class="endpoint-header" onclick="toggle(this)" type="button">
                         <span class="method-badge post">POST</span>
                         <span class="endpoint-path">/auth/login</span>
                         <span class="endpoint-desc">Login and get token</span>
-                    </div>
+                    </button>
                     <div class="endpoint-body">
                         <p>Authenticates a user and returns a JWT token valid for 24 hours.</p>
                         <div class="body-grid">
@@ -392,12 +399,12 @@
                 </div>
 
                 <div class="endpoint">
-                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                    <button class="endpoint-header" onclick="toggle(this)" type="button">
                         <span class="method-badge get">GET</span>
                         <span class="endpoint-path">/users/<span class="param">{user_id}</span></span>
                         <span class="endpoint-desc">Get user profile</span>
                         <span class="auth-badge">Auth</span>
-                    </div>
+                    </button>
                     <div class="endpoint-body">
                         <p>Returns the public profile for a given user.</p>
                         <div style="max-width: 380px">
@@ -416,12 +423,12 @@
                 </div>
 
                 <div class="endpoint">
-                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                    <button class="endpoint-header" onclick="toggle(this)" type="button">
                         <span class="method-badge put">PUT</span>
                         <span class="endpoint-path">/users/<span class="param">{user_id}</span></span>
                         <span class="endpoint-desc">Update user profile</span>
                         <span class="auth-badge">Auth</span>
-                    </div>
+                    </button>
                     <div class="endpoint-body">
                         <p>Updates username or email for the authenticated user.</p>
                         <div class="body-grid">
@@ -451,12 +458,12 @@
                 </div>
 
                 <div class="endpoint">
-                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                    <button class="endpoint-header" onclick="toggle(this)" type="button">
                         <span class="method-badge delete">DELETE</span>
                         <span class="endpoint-path">/users/<span class="param">{user_id}</span></span>
                         <span class="endpoint-desc">Delete user account</span>
                         <span class="auth-badge">Auth</span>
-                    </div>
+                    </button>
                     <div class="endpoint-body">
                         <p>Permanently deletes the authenticated user's account.</p>
                         <div style="max-width: 380px">
@@ -481,12 +488,12 @@
 
                 <!-- GET elo by user -->
                 <div class="endpoint">
-                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                    <button class="endpoint-header" onclick="toggle(this)" type="button">
                         <span class="method-badge get">GET</span>
                         <span class="endpoint-path">/elo/<span class="param">{user_id}</span></span>
                         <span class="endpoint-desc">Get user's current ELO</span>
                         <span class="auth-badge">Auth</span>
-                    </div>
+                    </button>
                     <div class="endpoint-body">
                         <p>Returns the current ELO rating for a user.</p>
                         <div class="body-grid">
@@ -516,12 +523,12 @@
 
                 <!-- GET elo history -->
                 <div class="endpoint">
-                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                    <button class="endpoint-header" onclick="toggle(this)" type="button">
                         <span class="method-badge get">GET</span>
                         <span class="endpoint-path">/elo/<span class="param">{user_id}</span>/history</span>
                         <span class="endpoint-desc">Get ELO history</span>
                         <span class="auth-badge">Auth</span>
-                    </div>
+                    </button>
                     <div class="endpoint-body">
                         <p>Returns full ELO change history for a user, ordered by most recent first.</p>
                         <div class="body-grid">
@@ -555,12 +562,12 @@
 
                 <!-- POST update elo -->
                 <div class="endpoint">
-                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                    <button class="endpoint-header" onclick="toggle(this)" type="button">
                         <span class="method-badge post">POST</span>
                         <span class="endpoint-path">/elo/update</span>
                         <span class="endpoint-desc">Update ELO after ranked match</span>
                         <span class="auth-badge">Auth</span>
-                    </div>
+                    </button>
                     <div class="endpoint-body">
                         <p>Updates ELO ratings for both players after a ranked match. Uses the standard Elo formula (K=32). Only applies to ranked matches — returns 400 for casual matches. Wrapped in a database transaction.</p>
                         <div class="body-grid">
@@ -600,11 +607,11 @@
 
                 <!-- GET leaderboard -->
                 <div class="endpoint">
-                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                    <button class="endpoint-header" onclick="toggle(this)" type="button">
                         <span class="method-badge get">GET</span>
                         <span class="endpoint-path">/elo/leaderboard</span>
                         <span class="endpoint-desc">Get top 10 players</span>
-                    </div>
+                    </button>
                     <div class="endpoint-body">
                         <p>Returns the top 10 players ranked by ELO rating, with their rank position included.</p>
                         <div style="max-width: 420px">
@@ -636,11 +643,11 @@
                 </div>
 
                 <div class="endpoint">
-                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                    <button class="endpoint-header" onclick="toggle(this)" type="button">
                         <span class="method-badge get">GET</span>
                         <span class="endpoint-path">/achievements</span>
                         <span class="endpoint-desc">List all achievements</span>
-                    </div>
+                    </button>
                     <div class="endpoint-body">
                         <p>Returns all defined achievements in the system.</p>
                         <div style="max-width: 420px">
@@ -661,12 +668,12 @@
                 </div>
 
                 <div class="endpoint">
-                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                    <button class="endpoint-header" onclick="toggle(this)" type="button">
                         <span class="method-badge get">GET</span>
                         <span class="endpoint-path">/users/<span class="param">{user_id}</span>/achievements</span>
                         <span class="endpoint-desc">Get user achievements</span>
                         <span class="auth-badge">Auth</span>
-                    </div>
+                    </button>
                     <div class="endpoint-body">
                         <p>Returns all achievements unlocked by a specific user.</p>
                         <div style="max-width: 420px">
@@ -686,12 +693,12 @@
                 </div>
 
                 <div class="endpoint">
-                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                    <button class="endpoint-header" onclick="toggle(this)" type="button">
                         <span class="method-badge post">POST</span>
                         <span class="endpoint-path">/users/<span class="param">{user_id}</span>/achievements/<span class="param">{achievement_id}</span></span>
                         <span class="endpoint-desc">Unlock achievement</span>
                         <span class="auth-badge">Auth</span>
-                    </div>
+                    </button>
                     <div class="endpoint-body">
                         <p>Marks an achievement as unlocked for a user. Called internally after milestone conditions are met.</p>
                         <div style="max-width: 380px">
@@ -716,12 +723,12 @@
 
                 <!-- GET all matches for user -->
                 <div class="endpoint">
-                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                    <button class="endpoint-header" onclick="toggle(this)" type="button">
                         <span class="method-badge get">GET</span>
                         <span class="endpoint-path">/matches</span>
                         <span class="endpoint-desc">List matches</span>
                         <span class="auth-badge">Auth</span>
-                    </div>
+                    </button>
                     <div class="endpoint-body">
                         <p>Returns a paginated list of matches for the authenticated user. Optionally filter by status or mode.</p>
                         <div class="body-grid">
@@ -757,12 +764,12 @@
 
                 <!-- GET single match -->
                 <div class="endpoint">
-                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                    <button class="endpoint-header" onclick="toggle(this)" type="button">
                         <span class="method-badge get">GET</span>
                         <span class="endpoint-path">/matches/<span class="param">{match_id}</span></span>
                         <span class="endpoint-desc">Get match details</span>
                         <span class="auth-badge">Auth</span>
-                    </div>
+                    </button>
                     <div class="endpoint-body">
                         <p>Returns full details for a single match including players, problems, status, and log.</p>
                         <div style="max-width: 420px">
@@ -786,12 +793,12 @@
 
                 <!-- POST create match -->
                 <div class="endpoint">
-                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                    <button class="endpoint-header" onclick="toggle(this)" type="button">
                         <span class="method-badge post">POST</span>
                         <span class="endpoint-path">/matches</span>
                         <span class="endpoint-desc">Create a match</span>
                         <span class="auth-badge">Auth</span>
-                    </div>
+                    </button>
                     <div class="endpoint-body">
                         <p>Creates a new match between two players. Called internally by the matchmaking system once two players are paired.</p>
                         <div class="body-grid">
@@ -822,12 +829,12 @@
 
                 <!-- PATCH match status -->
                 <div class="endpoint">
-                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                    <button class="endpoint-header" onclick="toggle(this)" type="button">
                         <span class="method-badge patch">PATCH</span>
                         <span class="endpoint-path">/matches/<span class="param">{match_id}</span>/status</span>
                         <span class="endpoint-desc">Update match status</span>
                         <span class="auth-badge">Auth</span>
-                    </div>
+                    </button>
                     <div class="endpoint-body">
                         <p>Updates the status of a match. Valid transitions: waiting → in_progress → completed | abandoned.</p>
                         <div class="body-grid">
@@ -856,12 +863,12 @@
 
                 <!-- GET match log -->
                 <div class="endpoint">
-                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                    <button class="endpoint-header" onclick="toggle(this)" type="button">
                         <span class="method-badge get">GET</span>
                         <span class="endpoint-path">/matches/<span class="param">{match_id}</span>/log</span>
                         <span class="endpoint-desc">Get match log</span>
                         <span class="auth-badge">Auth</span>
-                    </div>
+                    </button>
                     <div class="endpoint-body">
                         <p>Returns the match log including winner, loser, and ELO changes. ELO values are null for casual matches.</p>
                         <div style="max-width: 420px">
@@ -892,11 +899,11 @@
                 </div>
 
                 <div class="endpoint">
-                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                    <button class="endpoint-header" onclick="toggle(this)" type="button">
                         <span class="method-badge get">GET</span>
                         <span class="endpoint-path">/problems</span>
                         <span class="endpoint-desc">List problems</span>
-                    </div>
+                    </button>
                     <div class="endpoint-body">
                         <p>Returns all problems. Filter by type or difficulty.</p>
                         <div class="body-grid">
@@ -930,11 +937,11 @@
                 </div>
 
                 <div class="endpoint">
-                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                    <button class="endpoint-header" onclick="toggle(this)" type="button">
                         <span class="method-badge get">GET</span>
                         <span class="endpoint-path">/problems/<span class="param">{id}</span></span>
                         <span class="endpoint-desc">Get problem details</span>
-                    </div>
+                    </button>
                     <div class="endpoint-body">
                         <p>Returns full details for a single problem including type-specific fields.</p>
                         <div style="max-width: 420px">
@@ -956,12 +963,12 @@
                 </div>
 
                 <div class="endpoint">
-                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                    <button class="endpoint-header" onclick="toggle(this)" type="button">
                         <span class="method-badge post">POST</span>
                         <span class="endpoint-path">/problems</span>
                         <span class="endpoint-desc">Create a problem</span>
                         <span class="admin-badge">Admin</span>
-                    </div>
+                    </button>
                     <div class="endpoint-body">
                         <p>Creates a new problem. Requires admin privileges.</p>
                         <div class="body-grid">
@@ -993,12 +1000,12 @@
                 </div>
 
                 <div class="endpoint">
-                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                    <button class="endpoint-header" onclick="toggle(this)" type="button">
                         <span class="method-badge put">PUT</span>
                         <span class="endpoint-path">/problems/<span class="param">{id}</span></span>
                         <span class="endpoint-desc">Update a problem</span>
                         <span class="admin-badge">Admin</span>
-                    </div>
+                    </button>
                     <div class="endpoint-body">
                         <p>Updates an existing problem. Requires admin privileges.</p>
                         <div style="max-width: 380px">
@@ -1012,12 +1019,12 @@
                 </div>
 
                 <div class="endpoint">
-                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                    <button class="endpoint-header" onclick="toggle(this)" type="button">
                         <span class="method-badge delete">DELETE</span>
                         <span class="endpoint-path">/problems/<span class="param">{id}</span></span>
                         <span class="endpoint-desc">Delete a problem</span>
                         <span class="admin-badge">Admin</span>
-                    </div>
+                    </button>
                     <div class="endpoint-body">
                         <p>Deletes a problem and cascades to related math/programming problem records.</p>
                         <div style="max-width: 380px">
@@ -1041,12 +1048,12 @@
                 </div>
 
                 <div class="endpoint">
-                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                    <button class="endpoint-header" onclick="toggle(this)" type="button">
                         <span class="method-badge get">GET</span>
                         <span class="endpoint-path">/problems/<span class="param">{problem_id}</span>/testcases</span>
                         <span class="endpoint-desc">List test cases</span>
                         <span class="auth-badge">Auth</span>
-                    </div>
+                    </button>
                     <div class="endpoint-body">
                         <p>Returns all test cases for a given programming problem.</p>
                         <div style="max-width: 420px">
@@ -1067,12 +1074,12 @@
                 </div>
 
                 <div class="endpoint">
-                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                    <button class="endpoint-header" onclick="toggle(this)" type="button">
                         <span class="method-badge post">POST</span>
                         <span class="endpoint-path">/problems/<span class="param">{problem_id}</span>/testcases</span>
                         <span class="endpoint-desc">Add a test case</span>
                         <span class="admin-badge">Admin</span>
-                    </div>
+                    </button>
                     <div class="endpoint-body">
                         <p>Adds a new test case to a programming problem.</p>
                         <div class="body-grid">
@@ -1096,12 +1103,12 @@
                 </div>
 
                 <div class="endpoint">
-                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                    <button class="endpoint-header" onclick="toggle(this)" type="button">
                         <span class="method-badge put">PUT</span>
                         <span class="endpoint-path">/problems/<span class="param">{problem_id}</span>/testcases/<span class="param">{testcase_id}</span></span>
                         <span class="endpoint-desc">Update a test case</span>
                         <span class="admin-badge">Admin</span>
-                    </div>
+                    </button>
                     <div class="endpoint-body">
                         <p>Updates the input or expected output of an existing test case.</p>
                         <div style="max-width: 380px">
@@ -1115,12 +1122,12 @@
                 </div>
 
                 <div class="endpoint">
-                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                    <button class="endpoint-header" onclick="toggle(this)" type="button">
                         <span class="method-badge delete">DELETE</span>
                         <span class="endpoint-path">/problems/<span class="param">{problem_id}</span>/testcases/<span class="param">{testcase_id}</span></span>
                         <span class="endpoint-desc">Delete a test case</span>
                         <span class="admin-badge">Admin</span>
-                    </div>
+                    </button>
                     <div class="endpoint-body">
                         <p>Removes a test case from a problem.</p>
                         <div style="max-width: 380px">
@@ -1144,12 +1151,12 @@
                 </div>
 
                 <div class="endpoint">
-                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                    <button class="endpoint-header" onclick="toggle(this)" type="button">
                         <span class="method-badge post">POST</span>
                         <span class="endpoint-path">/submissions</span>
                         <span class="endpoint-desc">Submit a solution</span>
                         <span class="auth-badge">Auth</span>
-                    </div>
+                    </button>
                     <div class="endpoint-body">
                         <p>Submits a user's code or math answer for evaluation. Triggers Judge0 execution for programming submissions.</p>
                         <div class="body-grid">
@@ -1179,12 +1186,12 @@
                 </div>
 
                 <div class="endpoint">
-                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                    <button class="endpoint-header" onclick="toggle(this)" type="button">
                         <span class="method-badge get">GET</span>
                         <span class="endpoint-path">/submissions/<span class="param">{submission_id}</span></span>
                         <span class="endpoint-desc">Get submission status</span>
                         <span class="auth-badge">Auth</span>
-                    </div>
+                    </button>
                     <div class="endpoint-body">
                         <p>Returns the current status of a submission. Poll this after submitting to check if execution has completed.</p>
                         <div style="max-width: 420px">
@@ -1203,12 +1210,12 @@
                 </div>
 
                 <div class="endpoint">
-                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                    <button class="endpoint-header" onclick="toggle(this)" type="button">
                         <span class="method-badge get">GET</span>
                         <span class="endpoint-path">/users/<span class="param">{user_id}</span>/submissions</span>
                         <span class="endpoint-desc">List user submissions</span>
                         <span class="auth-badge">Auth</span>
-                    </div>
+                    </button>
                     <div class="endpoint-body">
                         <p>Returns all submissions made by a user, ordered by most recent first.</p>
                         <div style="max-width: 420px">
@@ -1239,12 +1246,12 @@
                 </div>
 
                 <div class="endpoint">
-                    <div class="endpoint-header" onclick="toggle(this)" tabindex="0" role="button">
+                    <button class="endpoint-header" onclick="toggle(this)" type="button">
                         <span class="method-badge get">GET</span>
                         <span class="endpoint-path">/submissions/<span class="param">{submission_id}</span>/result</span>
                         <span class="endpoint-desc">Get execution result</span>
                         <span class="auth-badge">Auth</span>
-                    </div>
+                    </button>
                     <div class="endpoint-body">
                         <p>Returns the full execution result for a submission once Judge0 has completed evaluation.</p>
                         <div style="max-width: 420px">
