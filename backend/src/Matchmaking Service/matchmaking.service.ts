@@ -1,5 +1,8 @@
 import redis from "../../redis-client"
 import UserDto from "./matchmaking.dto";
+import { matchmakingEvents, MatchmakingEvent, MatchFoundPayload, MatchNotFoundPayload } from '../events/matchmaking.events';
+import { GameSelectionDto, MatchResultDto } from '../dtos/matchmaking.dto';
+import { v4 as uuidv4 } from 'uuid';
 
 const elo_difference = 100;   // this can be changed later
 
