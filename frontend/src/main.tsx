@@ -5,11 +5,12 @@ import App from './App'
 import './styles/global.css'
 import Searching from './pages/queuePages/searching' 
 import Found from './pages/queuePages/found' 
+import NotFound from './pages/queuePages/notFound';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
-    <Found/>
+    <NotFound/>
     </BrowserRouter>
   </React.StrictMode>
 )
