@@ -49,6 +49,7 @@
   /* font  */
   --font-family: var(--font);
   --font-family-heading-1: var(--heading);
+  --font-badge: var(--badge-font);
   /* text size */
   --text-sm: var(--font-size-sm);
   --text-md: var(--font-size-md);
@@ -59,13 +60,15 @@
   --background: #d7d9dc;
   --text: #0000;
   --font: 'Inter', sans;
+  --badge-font: 'Inter',sans;
+  --badge-font-size: 0.1rem;
+  --badge-font-weight: 700;
   --heading:'Inter',sans-serif ;
   --primary: #3B82F6;
   --secondary: #A78BFA;
   --muted: #b5b8bd;
   --primary-text: #0f182a;
   --seconday-text: #64748b;
-
 
 }
 

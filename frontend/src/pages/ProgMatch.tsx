@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Editor } from "@monaco-editor/react";
 import { Progress } from "@/components/ui/progress";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { useTimer } from "react-timer-hook";
 
 interface ProgMatchProps {
     language: string;
@@ -9,34 +12,63 @@ interface ProgMatchProps {
 
 const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
 
+    // LifeBar 
     const [input, set_input] = useState("");
     const [player_1_progress, set_player_1_progress] = useState(0);
-     const [player_2_progress, set_player_2_progress] = useState(0);
+    const [player_2_progress, set_player_2_progress] = useState(0);
 
     function handleChange(value: any) {
         set_input(value);
         console.log(value);
     }
 
+
+    // Countdown
+    const [duration, set_duration] = useState<number>(5);
+
+    const expiryTime = () => {
+        const time = new Date();
+        time.setSeconds(time.getSeconds() + (duration * 60));
+        return time;
+    }
+
+    const { seconds, minutes } = useTimer({ expiryTimestamp: expiryTime() });
+
+
     return (
         <div className="fixed inset-0 flex flex-col w-[95%] mx-auto m-2">
             {/* header */}
-            <div className="flex w-full justify-between items-center border-b-1 m-2 p-4">
+            <div className="flex w-full justify-between items-center shadow-[0_9px_32px_rgba(0,0,0,0.2)] m-2 p-4 rounded-3xl">
 
                 {/* Player 1 Progress */}
-                <div className="w-[40%]">
+                <div className="w-[40%] flex flex-col items-start justify-between h-full">
                     <Progress className=" w-full h-10"
-                        value={40}
+                        value={100}
                         progress_colour="var(--primary)"
                     ></Progress>
+                    <Badge className="bg-white badge-font" >
+                        <img></img>
+                        User 1
+
+                    </Badge>
                 </div>
 
                 {/* Clock */}
-                <div>Clock</div>
+                <div className="w-[15%]">
+                    <Card className="h-20 flex items-center justify-center text-4xl">
+                        <span>
+                            {String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}
+                        </span>
+                    </Card>
+                </div>
 
                 {/* Player 2 Progress */}
-                <div className="w-[40%]">
-                    <Progress className=" w-full h-10" value={80} progress_colour="var(--secondary)"></Progress>
+                <div className="w-[40%] flex flex-col items-end justify-between h-full">
+                    <Progress className=" w-full h-10 scale-x-[-1]" value={100} progress_colour="var(--secondary)"></Progress>
+                    <Badge className="bg-white badge-font" >
+                        <img></img>
+                        User 2
+                    </Badge>
                 </div>
 
             </div>
