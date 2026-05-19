@@ -5,10 +5,12 @@ import trophyIcon from '../assets/Trophy_Icon.png';
 import streakIcon from '../assets/Streak_Icon.png';            
 import badgeIcon from '../assets/Badge_Icon.png';    
 import profileIcon from '../assets/Profile_Icon.png';   
+import { useState, useEffect } from 'react';
 
 type NavPage = 'Dashboard' | 'Friends' | 'Leaderboard' | 'Tournaments' | 'Badges' | 'Game Guide' | 'Settings';
 
 interface DashboardProps {
+  userId?: string;
   userName?: string;
   xpPercent?: number;           
   currentRank?: number;
@@ -21,6 +23,8 @@ interface DashboardProps {
   onRankedPlay?: () => void;
   onAllSkills?: () => void;
   onProfileClick?: () => void;
+  setPage: (page: string) => void;
+  setTicket: (ticket: { ticketId: string }) => void;
 }
 
 interface Skill {
@@ -40,7 +44,9 @@ const NAV_ITEMS: NavPage[] = [
 ];
 
 const Dashboard: React.FC<DashboardProps> = ({
-  userName = 'User Name',
+  setTicket,
+  userId,
+  userName,
   xpPercent = 60,
   currentRank = 522,
   rankTopPercent = 10,
@@ -59,6 +65,22 @@ const Dashboard: React.FC<DashboardProps> = ({
     setActivePage(page);
     onNavChange?.(page);
   };
+
+  const [selectedDifficulty, setSelectedDifficulty] = useState<'EASY'|'MEDIUM'|'HARD'>('MEDIUM');
+  const [selectedTime, setSelectedTime] = useState<5|10|15>(10);
+  const [loading, setLoading] = useState(false);
+
+  const handleCreateMatch = async () => {
+    setLoading(true);
+    const dto = {
+      userId,
+      username: userName,
+      categories: { difficulty: selectedDifficulty, timeLimit: selectedTime }
+    };
+
+   
+  };
+
 
   return (
     <div className="dashboard-page">
