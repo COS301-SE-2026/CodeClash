@@ -14,14 +14,22 @@ We're using a React + TypeScript frontend built with vite.
 ## Installation
 
 - cd frontend
-- npm install
-- npm install react-router-dom
-- npm install -D tailwindcss postcss autoprefixer 
-- npx tailwindcss init -p //double check this - throwing error
+- For the pages: 
+    - npm install
+    - npm install react-router-dom
+    - npm install -D tailwindcss postcss autoprefixer 
+- For component testing:
+    - npm install -D vitest @vitest/coverage-v8 @testing-library/react @testing-library/jest-dom @testing-library/user-event jsdom
 
-## Running the App
-
-npm run dev
+## Running
+- The App:
+    - npm run dev
+- The testing:
+    - npm test (runs all tests once)
+    - npm run test:watch (watch mode re-runs on file save)
+    - npm run test:coverage (run with coverage report)
+- Individual files for testing:
+    - npx vitest run src/components/tests/FileName.test.tsx (FileName is the name of the file to test)
 
 ## Page URL's
 

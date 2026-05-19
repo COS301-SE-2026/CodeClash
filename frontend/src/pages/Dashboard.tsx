@@ -4,7 +4,8 @@ import logoImage from '../assets/LightMode_Logo.png';
 import trophyIcon from '../assets/Trophy_Icon.png';              
 import streakIcon from '../assets/Streak_Icon.png';            
 import badgeIcon from '../assets/Badge_Icon.png';    
-import profileIcon from '../assets/Profile_Icon.png';   
+import profileIcon from '../assets/Profile_Icon.png';  
+import PopUp from '../components/PopUp'; 
 import { useState, useEffect } from 'react';
 
 type NavPage = 'Dashboard' | 'Friends' | 'Leaderboard' | 'Tournaments' | 'Badges' | 'Game Guide' | 'Settings';
@@ -20,7 +21,7 @@ interface DashboardProps {
   badgeName?: string;
   onNavChange?: (page: NavPage) => void;
   onCasualPlay?: () => void;
-  onRankedPlay?: () => void;
+  onRankedPlay?: (topic: 'math' | 'programming') => void;
   onAllSkills?: () => void;
   onProfileClick?: () => void;
   setPage: (page: string) => void;
@@ -57,9 +58,10 @@ const Dashboard: React.FC<DashboardProps> = ({
   onCasualPlay,
   onRankedPlay,
   onAllSkills,
-  onProfileClick
+  onProfileClick,
 }) => {
   const [activePage, setActivePage] = React.useState<NavPage>('Dashboard');
+  const [showTopicPopup, setShowTopicPopup] = React.useState(false);
 
   const handleNav = (page: NavPage) => {
     setActivePage(page);
@@ -97,25 +99,35 @@ const Dashboard: React.FC<DashboardProps> = ({
 
   return (
     <div className="dashboard-page">
+
+      <PopUp
+        isOpen={showTopicPopup}
+        onClose={() => setShowTopicPopup(false)}
+        onSelectTopic={(topic) => {
+          setShowTopicPopup(false);
+          onRankedPlay?.(topic);
+        }}
+      />
+
       <header className="header">
         <img src={logoImage} alt="CodeClash logo" className="header-logo" />
         <h1 className="header-title">CodeClash</h1>
         <div className="header-user">
-        <div className="profile-row">
+          <div className="profile-row">
             <img
-            src={profileIcon}
-            alt="Profile"
-            className="profile-circle"
-            onClick={onProfileClick}
+              src={profileIcon}
+              alt="Profile"
+              className="profile-circle"
+              onClick={onProfileClick}
             />
             <div className="user-details">
-            <span className="user-name">{userName}</span>
-            <div className="xp-bar-wrapper">
+              <span className="user-name">{userName}</span>
+              <div className="xp-bar-wrapper">
                 <div className="xp-bar-fill" style={{ width: `${xpPercent}%` }} />
+              </div>
+              <span className="player-level">Intermediate Player</span>
             </div>
-            <span className="player-level">Intermediate Player</span>
-            </div>
-        </div>
+          </div>
         </div>
       </header>
 
@@ -134,6 +146,7 @@ const Dashboard: React.FC<DashboardProps> = ({
 
       <main className="dashboard-content">
         <div className="play-cards-row">
+
           <div className="play-card casual">
             <div>
               <div className="play-card-title">Casual Play</div>
@@ -149,10 +162,15 @@ const Dashboard: React.FC<DashboardProps> = ({
               <div className="play-card-title">Ranked Play</div>
               <div className="play-card-desc">Compete for glory and climb the leaderboard</div>
             </div>
-            <button className="play-now-button" type="button" onClick={onRankedPlay}>
+            <button
+              className="play-now-button"
+              type="button"
+              onClick={() => setShowTopicPopup(true)}
+            >
               Play Now &gt;
             </button>
           </div>
+
         </div>
 
         <div className="bottom-row">
