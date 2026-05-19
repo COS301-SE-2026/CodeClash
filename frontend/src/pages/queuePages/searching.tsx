@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { enqueue, matchmaking, dequeue } from "../../../../backend/src/Matchmaking Service/matchmaking.service.ts";
+import { useCurrentUser } from "../services/useCurrentUser";
+import type { MatchDto, GameMode } from "../types/matchmaking.types";
 import './searching.css';
 
 interface SearchingProps {
