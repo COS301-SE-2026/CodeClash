@@ -1,6 +1,6 @@
 # CodeClash Frontend
 
-We're using a React + TypeScript frontend built with vite.
+We're using a React + TypeScript frontend built with Vite.
 
 ## Tech Stack
 
