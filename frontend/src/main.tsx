@@ -5,13 +5,13 @@ import App from './App'
 import { AuthProvider } from './context/AuthContext'
 import './amplify-config'
 import './styles/global.css'
+import Searching from './pages/queuePages/searching' 
+import Found from './pages/queuePages/found' 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
-      <AuthProvider>
-        <App/>
-      </AuthProvider>
+    <Found/>
     </BrowserRouter>
-  </React.StrictMode>,
+  </React.StrictMode>
 )
