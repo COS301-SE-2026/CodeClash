@@ -17,3 +17,12 @@ class UserDto{
 
 
 export default UserDto;
+
+
+export interface MatchStatusEvent {
+  status: 'searching' | 'found' | 'notFound';
+  match_id?: string;
+  player1_id?: string;
+  player2_id?: string;
+}
+
