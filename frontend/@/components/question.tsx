@@ -46,7 +46,7 @@ function Question({
                 </div >
             </div>
 
-            <div className="m-7 rounded-xl overflow-hidden">
+            <div className="m-7 rounded-xl overflow-hidden w-[90%]">
                 {children}
             </div>
 

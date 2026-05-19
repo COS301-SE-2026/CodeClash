@@ -4,6 +4,7 @@ import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { useTimer } from "react-timer-hook";
 import { Question } from "@/components/question";
+import { Sidebar, SidebarProvider } from "@/components/ui/sidebar";
 
 interface ProgMatchProps {
     language: string;
@@ -41,10 +42,10 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
     }
 
     return (
-        <div className="flex flex-row p-2 justify-between">
-            <div className="flex flex-col w-[70%] m-2">
+        <div className="fixed inset-0 flex flex-row p-2 justify-between">
+            <div className="flex flex-col w-[80%] m-2 justify-evenly">
                 {/* header */}
-                <div className="flex w-full justify-between items-center  m-2 p-4 rounded-3xl">
+                <div className="flex w-full justify-between items-center m-2 p-4">
 
                     {/* Player 1 Progress */}
                     <div className="w-[40%] flex flex-col items-start justify-between h-full ">
@@ -118,8 +119,11 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
                     />
                 </Question>
             </div >
-            <div className="bg-white">
-                <div>Progress bar</div>
+            <div className="bg-white m-4">
+                <SidebarProvider>
+                    <Sidebar side='right'></Sidebar>
+                </SidebarProvider>
+
             </div>
 
         </div>
