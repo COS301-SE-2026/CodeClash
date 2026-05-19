@@ -10,3 +10,31 @@ export interface MatchmakingEvents {
   "match:created": (match: MatchDto) => void; 
 }
  
+
+class MatchmakingEventBus extends EventEmitter {
+  emit<K extends keyof MatchmakingEvents>( //extends keyof means that only one of the parameters of Matchmaking events
+    event: K,
+    ...args: Parameters<MatchmakingEvents[K]>
+  ): boolean {
+    return super.emit(event, ...args);
+  }
+ 
+  on<K extends keyof MatchmakingEvents>(
+    event: K,
+    listener: MatchmakingEvents[K]
+  ): this {
+    return super.on(event, listener as (...args: unknown[]) => void);
+  }
+ 
+  once<K extends keyof MatchmakingEvents>(
+    event: K,
+    listener: MatchmakingEvents[K]
+  ): this {
+    return super.once(event, listener as (...args: unknown[]) => void);
+  }
+}
+ 
+
+const matchmakingBus = new MatchmakingEventBus();
+ 
+export default matchmakingBus;
