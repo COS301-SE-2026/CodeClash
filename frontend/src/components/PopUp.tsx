@@ -25,11 +25,7 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose, onSelectTopic }) => {
 
   return (
     <div
-      aria-hidden="true"
       onClick={onClose}
-      onKeyDown={(e) => {
-        if (e.key == 'Escape') onClose()
-      }}
     style={{
       position: 'absolute',
       inset: 0,
