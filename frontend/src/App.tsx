@@ -6,11 +6,19 @@ import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 import Searching from './pages/queuePages/searching';
 import Found from './pages/queuePages/found';
+import { useAuth } from './context/AuthContext';
 
 type Page = 'welcome' | 'signin' | 'signup' | 'dashboard' | 'profile' | 'searching' | 'found';
 
 const App: React.FC = () => {
+  const { isAuthenticated, isLoading } = useAuth();
   const [page, setPage] = useState<Page>('welcome');
+
+  if (isLoading) return null;
+
+  if (isAuthenticated) {
+    return <Dashboard />;
+  }
 
   return (
     <>
@@ -59,6 +67,7 @@ const App: React.FC = () => {
         <Found
           onDecline={() => setPage('dashboard')}
           onAccept={() => console.log('match accepted — wire to match page when ready')}
+          onSignIn={() => setPage('signin')}
         />
       )}
     </>

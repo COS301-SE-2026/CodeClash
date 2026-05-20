@@ -6,6 +6,7 @@ import streakIcon from '../assets/Streak_Icon.png';
 import badgeIcon from '../assets/Badge_Icon.png';    
 import profileIcon from '../assets/Profile_Icon.png';  
 import PopUp from '../components/PopUp'; 
+import { useAuth } from '../context/AuthContext'
 
 type NavPage = 'Dashboard' | 'Friends' | 'Leaderboard' | 'Tournaments' | 'Badges' | 'Game Guide' | 'Settings';
 
