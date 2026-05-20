@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
+import { RouterProvider } from 'react-router-dom'
+import { router } from './routes'
 import App from './App'
 import { AuthProvider } from './context/AuthContext'
 import './amplify-config'
@@ -10,8 +11,7 @@ import Found from './pages/queuePages/found'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter>
-    <Found/>
-    </BrowserRouter>
-  </React.StrictMode>
+    <RouterProvider router={router}>
+    </RouterProvider>
+  </React.StrictMode>,
 )
