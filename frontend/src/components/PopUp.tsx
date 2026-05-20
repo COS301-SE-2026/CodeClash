@@ -120,7 +120,13 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose, onSelectTopic }) => {
   if (!isOpen) return null;
 
   return (
-    <div onClick={onClose} style={overlayStyle}>
+    <div
+      onClick={onClose}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onClose(); }}
+      role="button"
+      tabIndex={-1}
+      style={overlayStyle}
+    >
       <dialog
         open
         aria-label="Choose a topic"
