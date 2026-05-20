@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400;600;700;800&display=swap');
 
-/* * {
-  margin: 0; */
-  /* padding: 0;
-  box-sizing: border-box; 
-}*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
   font-family: 'Baloo Bhai 2', cursive;
@@ -12,6 +12,7 @@ body {
   min-height: 100vh;
 }
 
+/* ─── PAGE ─────────────────────────────────────────────────────────────────── */
 .dashboard-page {
   width: 1440px;
   min-height: 1024px;
@@ -19,13 +20,13 @@ body {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  position: relative;
 }
 
+/* ─── HEADER ───────────────────────────────────────────────────────────────── */
 .header {
   width: 100%;
   height: 100px;
-  background-color: #f8fafc;
+  background-color: #ffffff;
   border-bottom: 1px solid #0f172a;
   display: flex;
   align-items: center;
@@ -34,9 +35,10 @@ body {
 }
 
 .header-logo {
-  width: 100px;
-  height: 100px;
+  width: 124px;
+  height: 124px;
   object-fit: contain;
+  /* pulls slightly out of header to overlap nav, matching design */
   position: relative;
   z-index: 2;
 }
@@ -49,10 +51,11 @@ body {
   flex: 1;
 }
 
+/* User info block */
 .header-user {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end;
   gap: 4px;
 }
 
@@ -84,10 +87,11 @@ body {
   color: #0f172a;
 }
 
+/* ─── NAV BAR ──────────────────────────────────────────────────────────────── */
 .navbar {
   width: 100%;
   height: 52px;
-  background-color: #f8fafc;
+  background-color: #ffffff;
   border-bottom: 1px solid #0f172a;
   display: flex;
   align-items: center;
@@ -118,37 +122,20 @@ body {
   text-underline-offset: 4px;
 }
 
+/* ─── MAIN CONTENT ─────────────────────────────────────────────────────────── */
 .dashboard-content {
   flex: 1;
   padding: 28px 40px;
   display: flex;
   flex-direction: column;
   gap: 24px;
-  align-items: center;
 }
 
-.profile-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-}
-
-.profile-circle {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background-color: #a78bfa;
-  border: 1px solid #0f172a;
-  flex-shrink: 0;
-  mix-blend-mode: multiply;
-}
-
+/* ─── PLAY CARDS ROW ───────────────────────────────────────────────────────── */
 .play-cards-row {
   display: flex;
   gap: 32px;
   justify-content: center;
-  width: 100%;
 }
 
 .play-card {
@@ -213,14 +200,14 @@ body {
   background-color: #3b82f6;
 }
 
+/* ─── BOTTOM ROW ───────────────────────────────────────────────────────────── */
 .bottom-row {
   display: flex;
   gap: 20px;
   align-items: flex-start;
-  justify-content: center;
-  width: 100%;
 }
 
+/* ─── STAT CARDS (left column) ─────────────────────────────────────────────── */
 .stat-cards-col {
   display: flex;
   flex-direction: column;
@@ -240,20 +227,11 @@ body {
   gap: 4px;
 }
 
-.stat-fire-icon {
+.stat-icon {
   width: 39px;
   height: 39px;
   object-fit: contain;
   margin-bottom: 6px;
-  mix-blend-mode: multiply;
-}
-
-.stat-trophy-icon {
-  width: 35px;
-  height: 35px;
-  object-fit: contain;
-  margin-bottom: 6px;
-  mix-blend-mode: multiply;
 }
 
 .stat-value {
@@ -276,6 +254,7 @@ body {
   color: #a78bfa;
 }
 
+/* ─── SKILL PROGRESS ───────────────────────────────────────────────────────── */
 .skill-progress-card {
   width: 763px;
   height: 377px;
@@ -320,6 +299,7 @@ body {
   background-color: #f1f5f9;
 }
 
+/* Individual skill row */
 .skill-row {
   display: flex;
   flex-direction: column;
@@ -352,6 +332,7 @@ body {
   align-items: center;
 }
 
+/* Progress bar track */
 .skill-bar-track {
   width: 100%;
   height: 26px;
@@ -367,6 +348,7 @@ body {
   border-right: 1px solid #0f172a;
 }
 
+/* ─── RECENTLY EARNED ──────────────────────────────────────────────────────── */
 .recently-earned-card {
   width: 227px;
   height: 377px;
@@ -391,9 +373,9 @@ body {
   width: 222px;
   height: 222px;
   object-fit: contain;
-  mix-blend-mode: multiply;
 }
 
+/* placeholder if no image yet */
 .badge-placeholder {
   width: 222px;
   height: 222px;

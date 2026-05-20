@@ -1,0 +1,258 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400;600;700;800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Baloo Bhai 2', cursive;
+  background-color: #d2d2d2;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-wrapper {
+  width: 1440px;
+  height: 1024px;
+  background-color: #d2d2d2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.back-button {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  width: 91px;
+  height: 31px;
+  background-color: #ffffff;
+  border: 1px solid #0f172a;
+  border-radius: 6px;
+  font-family: 'Baloo Bhai 2', cursive;
+  font-size: 16px;
+  font-weight: 400;
+  color: #0f172a;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: background-color 0.15s ease;
+}
+
+.back-button:hover {
+  background-color: #f1f5f9;
+}
+
+.shield-bg {
+  position: absolute;
+  width: 1208px;
+  height: 1208px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.10;
+  pointer-events: none;
+  z-index: 0;
+  object-fit: contain;
+}
+
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 560px;
+  position: relative;
+  z-index: 1;
+}
+
+.signup-heading {
+  font-family: 'Baloo Bhai 2', cursive;
+  font-weight: 700;
+  font-size: 64px;
+  color: #0f172a;
+  line-height: 1.1;
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.input-field {
+  width: 500px;
+  height: 60px;
+  background-color: #ffffff;
+  border: 1px solid #0f172a;
+  border-radius: 8px;
+  padding: 0 20px;
+  font-family: 'Baloo Bhai 2', cursive;
+  font-size: 24px;
+  font-weight: 400;
+  color: rgba(15, 23, 42, 0.6); /* #0f172a at 60% */
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-field::placeholder {
+  color: rgba(15, 23, 42, 0.6);
+}
+
+.input-field:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+  color: #0f172a;
+}
+
+.terms-row {
+  width: 500px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.terms-checkbox {
+  width: 31px;
+  height: 31px;
+  min-width: 31px;
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: #ffffff;
+  border: 1px solid #0f172a;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: background-color 0.15s ease;
+}
+
+.terms-checkbox:checked {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+}
+
+.terms-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 16px;
+  border: 2px solid #ffffff;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg) translate(-1px, -2px);
+}
+
+.terms-label {
+  font-family: 'Baloo Bhai 2', cursive;
+  font-size: 16px;
+  font-weight: 400;
+  color: #0f172a;
+  cursor: pointer;
+}
+
+.terms-label a {
+  color: #0f172a;
+  text-decoration: underline;
+}
+
+.signup-button {
+  width: 500px;
+  height: 60px;
+  background-color: #0e34a0;
+  border: none;
+  border-radius: 20px;
+  font-family: 'Baloo Bhai 2', cursive;
+  font-size: 32px;
+  font-weight: 200;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+  margin-bottom: 24px;
+  filter: drop-shadow(4px 4px 5px rgba(0, 0, 0, 0.3));
+}
+
+.signup-button:hover {
+  background-color: #2563eb;
+  transform: translateY(-1px);
+}
+
+.signup-button:active {
+  background-color: #1d4ed8;
+  transform: translateY(0);
+}
+
+.or-divider {
+  width: 500px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.or-line {
+  flex: none;
+  width: 218px;
+  height: 1px;
+  background-color: rgba(15, 23, 42, 0.1); 
+}
+
+.or-text {
+  font-family: 'Baloo Bhai 2', cursive;
+  font-size: 16px;
+  font-weight: 400;
+  color: #0f172a;
+  white-space: nowrap;
+}
+
+.social-button {
+  width: 500px;
+  height: 60px;
+  border: 1px solid #0f172a;
+  border-radius: 8px;
+  font-family: 'Baloo Bhai 2', cursive;
+  font-size: 24px;
+  font-weight: 600;
+  color: #0f172a;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+}
+
+.social-button:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.social-button:active {
+  transform: translateY(0);
+}
+
+.social-button.google {
+  background-color: #a78bfa;
+}
+
+.social-button.apple {
+  background-color: #3b82f6;
+}
+
+.icon-google {
+  width: 28px;
+  height: 28px;
+}
+
+.icon-apple {
+  width: 28px;
+  height: 28px;
+}
