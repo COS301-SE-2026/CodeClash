@@ -53,10 +53,13 @@
   --text-sm: var(--font-size-sm);
   --text-md: var(--font-size-md);
   --text-l: var(--font-size-l);
+
+  /* shadows */
+  --shadow-badge: var(--badge-shadow);
 }
 
 :root {
-  --background: #dbdde1;
+  --background: #eaebee;
   --text: #0000;
   --font: 'Inter', sans-serif;
   --badge-font-size: 0.1rem;
@@ -67,6 +70,7 @@
   --primary-text: #0f182a;
   --seconday-text: #64748b;
   --muted-text: #293c59;
+  --badge-shadow: 0 4px 6px rgba(0,0,0,0.3);
 
 }
 
@@ -78,4 +82,7 @@
     background-color: var(--background);
   }
 
+  .badge{
+    box-shadow: var(--badge-shadow);
+  }
 }

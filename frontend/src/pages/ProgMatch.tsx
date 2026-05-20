@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Editor } from "@monaco-editor/react";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { useTimer } from "react-timer-hook";
 import { Question } from "@/components/question";
-import { Sidebar, SidebarProvider } from "@/components/ui/sidebar";
+import { Sidebar, SidebarContent, SidebarProvider } from "@/components/ui/sidebar";
 import blue_avatar from '../assets/blue_avatar.jpeg'
 import puprle_avatar from '../assets/purple_avatar.jpeg'
-import door from '../assets/door.png'
+
+import type { QuestionDTO, MatchDTO } from "src/types/question.dto";
+import { mock_questions } from "../mocks/prog-questions.mock";
+import { MatchProgress } from "@/components/match-progress";
 
 interface ProgMatchProps {
     language: string;
+    match: MatchDTO;
 }
 
 
@@ -38,6 +42,15 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
     const { seconds, minutes } = useTimer({ expiryTimestamp: expiryTime() });
 
 
+    // questions
+    const [questions, set_questions] = useState<QuestionDTO[]>();
+
+    // initialise questions
+    useEffect(() => {
+        set_questions(mock_questions);
+    }, [])
+
+
     // Data sent to backend - NOT CONNECTED RIGHT NOW
 
     function submit() {
@@ -45,10 +58,10 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
     }
 
     return (
-        <div className="fixed inset-0 flex flex-row p-2 justify-between">
-            <div className="flex flex-col w-[80%] m-2 justify-evenly">
+        <div className="fixed inset-0 flex flex-row p-2 ">
+            <div className="flex flex-col w-[80%] m-2 justify-between ">
                 {/* header */}
-                <div className="flex w-full h-[20%] justify-between items-center m-2 p-4">
+                <div className="flex w-full h-[20%] justify-between items-center m-1 p-2">
 
                     {/* Player 1 Progress */}
                     <div className="w-[40%] flex flex-col items-start h-[60%] justify-center self-end ">
@@ -95,7 +108,7 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
                     question="What will be the output of this code?"
                 >
                     <Editor
-                        height="40vh"
+                        height="50vh"
                         width="110vh"
                         defaultLanguage={language}
                         defaultValue="// Your code here"
@@ -126,12 +139,8 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
                     />
                 </Question>
             </div >
-            <div className="bg-white m-4">
-                <SidebarProvider>
-                    <Sidebar side='right'></Sidebar>
-                </SidebarProvider>
-
-            </div>
+           
+           <MatchProgress></MatchProgress>
 
         </div>
     )
