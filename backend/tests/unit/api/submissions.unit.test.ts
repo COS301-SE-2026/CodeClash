@@ -1,285 +1,201 @@
-import request from 'supertest'
-import app from '../../src/app'
+import { request, app, userAuth, expectNotFound, expectValidationError, expectUnauthorized, expectForbidden, expectArrayResponse, expectShape } from '../helpers/test-utils'
 
-describe('Submissions API', () => {
-  describe('POST /submissions', () => {
-    const validBody = {
-      round_id: 7,
-      code: 'def solve(n, edges): pass',
-      language: 'java',
-    }
+const submissionProps = ['submission_id', 'user_id', 'problem_id', 'status', 'submitted_at']
 
-    test('returns 201 with pending submission', async () => {
+describe('Submissions / Execution Results API', () => {
+  describe('GET /submissions', () => {
+    test('returns 200 with all submissions for authenticated user', async () => {
       const res = await request(app)
-        .post('/submissions')
-        .set('Authorization', 'Bearer valid-jwt')
-        .send(validBody)
-      expect(res.status).toBe(201)
-      expect(res.body).toHaveProperty('submission_id', 550)
-      expect(res.body).toHaveProperty('user_id', 42)
-      expect(res.body).toHaveProperty('round_id', 7)
-      expect(res.body).toHaveProperty('language', 'java')
-      expect(res.body).toHaveProperty('status', 'pending')
-      expect(res.body).toHaveProperty('submitted_at')
-    })
-
-    test('returns 201 with language "c++"', async () => {
-      const res = await request(app)
-        .post('/submissions')
-        .set('Authorization', 'Bearer valid-jwt')
-        .send({ ...validBody, language: 'c++' })
-      expect(res.status).toBe(201)
-      expect(res.body.language).toBe('c++')
-    })
-
-    test('returns 401 without auth token', async () => {
-      const res = await request(app)
-        .post('/submissions')
-        .send(validBody)
-      expect(res.status).toBe(401)
-      expect(res.body.error.code).toBe('UNAUTHORIZED')
-    })
-
-    test('returns 400 when round_id is missing', async () => {
-      const res = await request(app)
-        .post('/submissions')
-        .set('Authorization', 'Bearer valid-jwt')
-        .send({ code: 'def solve(): pass', language: 'java' })
-      expect(res.status).toBe(400)
-      expect(res.body.error.code).toBe('VALIDATION_ERROR')
-    })
-
-    test('returns 400 when code is missing', async () => {
-      const res = await request(app)
-        .post('/submissions')
-        .set('Authorization', 'Bearer valid-jwt')
-        .send({ round_id: 7, language: 'java' })
-      expect(res.status).toBe(400)
-      expect(res.body.error.code).toBe('VALIDATION_ERROR')
-    })
-
-    test('returns 400 when language is missing', async () => {
-      const res = await request(app)
-        .post('/submissions')
-        .set('Authorization', 'Bearer valid-jwt')
-        .send({ round_id: 7, code: 'def solve(): pass' })
-      expect(res.status).toBe(400)
-      expect(res.body.error.code).toBe('VALIDATION_ERROR')
-    })
-
-    test('returns 400 for unsupported language', async () => {
-      const res = await request(app)
-        .post('/submissions')
-        .set('Authorization', 'Bearer valid-jwt')
-        .send({ round_id: 7, code: 'print(1)', language: 'python' })
-      expect(res.status).toBe(400)
-      expect(res.body.error.code).toBe('VALIDATION_ERROR')
-    })
-
-    test('returns 400 for empty code', async () => {
-      const res = await request(app)
-        .post('/submissions')
-        .set('Authorization', 'Bearer valid-jwt')
-        .send({ round_id: 7, code: '', language: 'java' })
-      expect(res.status).toBe(400)
-      expect(res.body.error.code).toBe('VALIDATION_ERROR')
-    })
-
-    test('returns 422 for non-existent round', async () => {
-      const res = await request(app)
-        .post('/submissions')
-        .set('Authorization', 'Bearer valid-jwt')
-        .send({ round_id: 999, code: 'def solve(): pass', language: 'java' })
-      expect(res.status).toBe(422)
-      expect(res.body.error.code).toBe('UNPROCESSABLE')
-    })
-  })
-
-  describe('GET /submissions/:submission_id', () => {
-    test('returns 200 with full submission details', async () => {
-      const res = await request(app)
-        .get('/submissions/550')
-        .set('Authorization', 'Bearer valid-jwt')
-      expect(res.status).toBe(200)
-      expect(res.body).toHaveProperty('submission_id', 550)
-      expect(res.body).toHaveProperty('user_id', 42)
-      expect(res.body).toHaveProperty('round_id', 7)
-      expect(res.body).toHaveProperty('code')
-      expect(res.body).toHaveProperty('language')
-      expect(res.body).toHaveProperty('status')
-      expect(res.body).toHaveProperty('submitted_at')
-    })
-
-    test('status can be "pending"', async () => {
-      const res = await request(app)
-        .get('/submissions/550')
-        .set('Authorization', 'Bearer valid-jwt')
-      expect(res.status).toBe(200)
-      expect(['pending', 'running', 'accepted', 'wrong_answer', 'time_limit_exceeded', 'runtime_error']).toContain(res.body.status)
-    })
-
-    test('status can be "accepted"', async () => {
-      const res = await request(app)
-        .get('/submissions/551')
-        .set('Authorization', 'Bearer valid-jwt')
-      expect(res.status).toBe(200)
-      expect(res.body.status).toBe('accepted')
-    })
-
-    test('returns 401 without auth token', async () => {
-      const res = await request(app).get('/submissions/550')
-      expect(res.status).toBe(401)
-      expect(res.body.error.code).toBe('UNAUTHORIZED')
-    })
-
-    test('returns 403 if submission belongs to another user', async () => {
-      const res = await request(app)
-        .get('/submissions/550')
-        .set('Authorization', 'Bearer other-user-jwt')
-      expect(res.status).toBe(403)
-      expect(res.body.error.code).toBe('FORBIDDEN')
-    })
-
-    test('returns 404 for non-existent submission', async () => {
-      const res = await request(app)
-        .get('/submissions/999')
-        .set('Authorization', 'Bearer valid-jwt')
-      expect(res.status).toBe(404)
-      expect(res.body.error.code).toBe('NOT_FOUND')
-    })
-  })
-
-  describe('GET /users/:user_id/submissions', () => {
-    test('returns 200 with paginated submission list, newest first', async () => {
-      const res = await request(app)
-        .get('/users/42/submissions')
-        .set('Authorization', 'Bearer valid-jwt')
+        .get('/submissions')
+        .set('Authorization', userAuth)
       expect(res.status).toBe(200)
       expect(Array.isArray(res.body)).toBe(true)
-      if (res.body.length > 1) {
-        const prev = new Date(res.body[0].submitted_at).getTime()
-        for (let i = 1; i < res.body.length; i++) {
-          const curr = new Date(res.body[i].submitted_at).getTime()
-          expect(prev).toBeGreaterThanOrEqual(curr)
-        }
-      }
+      res.body.forEach((s: any) => {
+        expect(s.user_id).toBe(42)
+      })
     })
 
-    test('returns 200 filtered by status', async () => {
+    test('returns 200 with problem_id filter', async () => {
       const res = await request(app)
-        .get('/users/42/submissions?status=accepted')
-        .set('Authorization', 'Bearer valid-jwt')
+        .get('/submissions?problem_id=1')
+        .set('Authorization', userAuth)
+      expect(res.status).toBe(200)
+      res.body.forEach((s: any) => {
+        expect(s.problem_id).toBe(1)
+      })
+    })
+
+    test('returns 200 with status filter', async () => {
+      const res = await request(app)
+        .get('/submissions?status=accepted')
+        .set('Authorization', userAuth)
       expect(res.status).toBe(200)
       res.body.forEach((s: any) => {
         expect(s.status).toBe('accepted')
       })
     })
 
-    test('returns 200 filtered by language', async () => {
+    test('returns 200 with combined filters', async () => {
       const res = await request(app)
-        .get('/users/42/submissions?language=java')
-        .set('Authorization', 'Bearer valid-jwt')
+        .get('/submissions?problem_id=1&status=accepted')
+        .set('Authorization', userAuth)
       expect(res.status).toBe(200)
       res.body.forEach((s: any) => {
-        expect(s.language).toBe('java')
+        expect(s.problem_id).toBe(1)
+        expect(s.status).toBe('accepted')
       })
     })
 
-    test('returns 200 with limit applied', async () => {
+    test('returns 401 without auth', async () => {
+      expectUnauthorized(await request(app).get('/submissions'))
+    })
+  })
+
+  describe('GET /submissions/:submission_id', () => {
+    test('returns 200 with submission details', async () => {
       const res = await request(app)
-        .get('/users/42/submissions?limit=5')
-        .set('Authorization', 'Bearer valid-jwt')
+        .get('/submissions/1')
+        .set('Authorization', userAuth)
       expect(res.status).toBe(200)
-      expect(res.body.length).toBeLessThanOrEqual(5)
+      expectShape(res.body, [...submissionProps, 'language', 'code_length'])
+      expect(res.body.submission_id).toBe(1)
     })
 
-    test('returns 401 without auth token', async () => {
-      const res = await request(app).get('/users/42/submissions')
-      expect(res.status).toBe(401)
-      expect(res.body.error.code).toBe('UNAUTHORIZED')
+    test('returns 403 when submission belongs to different user', async () => {
+      expectForbidden(
+        await request(app).get('/submissions/1').set('Authorization', 'Bearer other-user-jwt')
+      )
     })
 
-    test('returns 403 when listing another user submissions', async () => {
+    test('returns 401 without auth', async () => {
+      expectUnauthorized(await request(app).get('/submissions/1'))
+    })
+
+    test('returns 404 for non-existent submission', async () => {
+      expectNotFound(
+        await request(app).get('/submissions/99999').set('Authorization', userAuth)
+      )
+    })
+
+    test('returns 400 for non-integer submission_id', async () => {
+      expectValidationError(
+        await request(app).get('/submissions/abc').set('Authorization', userAuth)
+      )
+    })
+  })
+
+  describe('POST /submissions', () => {
+    const validSubmission = {
+      problem_id: 1,
+      language: 'python',
+      code: 'print("hello")',
+    }
+
+    test('returns 201 when user submits code', async () => {
       const res = await request(app)
-        .get('/users/1/submissions')
-        .set('Authorization', 'Bearer valid-jwt')
-      expect(res.status).toBe(403)
-      expect(res.body.error.code).toBe('FORBIDDEN')
+        .post('/submissions')
+        .set('Authorization', userAuth)
+        .send(validSubmission)
+      expect(res.status).toBe(201)
+      expect(res.body).toHaveProperty('submission_id')
+      expect(res.body.status).toBe('pending')
     })
 
-    test('returns 404 for non-existent user', async () => {
+    test('returns 401 without auth', async () => {
+      expectUnauthorized(
+        await request(app).post('/submissions').send(validSubmission)
+      )
+    })
+
+    test('returns 400 for missing required fields', async () => {
+      expectValidationError(
+        await request(app)
+          .post('/submissions')
+          .set('Authorization', userAuth)
+          .send({})
+      )
+    })
+
+    test('returns 400 for empty language field', async () => {
+      expectValidationError(
+        await request(app)
+          .post('/submissions')
+          .set('Authorization', userAuth)
+          .send({ ...validSubmission, language: '' })
+      )
+    })
+
+    test('returns 400 for non-existent problem_id', async () => {
+      expectValidationError(
+        await request(app)
+          .post('/submissions')
+          .set('Authorization', userAuth)
+          .send({ ...validSubmission, problem_id: 99999 })
+      )
+    })
+
+    test('returns 201 for long code submission', async () => {
       const res = await request(app)
-        .get('/users/99999/submissions')
-        .set('Authorization', 'Bearer valid-jwt')
-      expect(res.status).toBe(404)
-      expect(res.body.error.code).toBe('NOT_FOUND')
+        .post('/submissions')
+        .set('Authorization', userAuth)
+        .send({
+          problem_id: 1,
+          language: 'javascript',
+          code: 'x'.repeat(10000),
+        })
+      expect(res.status).toBe(201)
+    })
+
+    test('returns 400 for unsupported language', async () => {
+      expectValidationError(
+        await request(app)
+          .post('/submissions')
+          .set('Authorization', userAuth)
+          .send({ ...validSubmission, language: 'brainfuck' })
+      )
     })
   })
 
   describe('GET /submissions/:submission_id/result', () => {
-    test('returns 200 with execution result when processing is complete', async () => {
+    test('returns 200 with execution result', async () => {
       const res = await request(app)
-        .get('/submissions/550/result')
-        .set('Authorization', 'Bearer valid-jwt')
+        .get('/submissions/1/result')
+        .set('Authorization', userAuth)
       expect(res.status).toBe(200)
-      expect(res.body).toHaveProperty('result_id', 210)
-      expect(res.body).toHaveProperty('submission_id', 550)
-      expect(res.body).toHaveProperty('passed_cases')
-      expect(res.body).toHaveProperty('total_cases')
-      expect(res.body).toHaveProperty('execution_time')
-      expect(res.body).toHaveProperty('memory_used')
+      expectShape(res.body, ['submission_id', 'status', 'passed', 'total', 'execution_time'])
     })
 
-    test('passed_cases and total_cases are integers', async () => {
+    test('returns 200 with detailed test case results', async () => {
       const res = await request(app)
-        .get('/submissions/550/result')
-        .set('Authorization', 'Bearer valid-jwt')
-      expect(Number.isInteger(res.body.passed_cases)).toBe(true)
-      expect(Number.isInteger(res.body.total_cases)).toBe(true)
+        .get('/submissions/1/result')
+        .set('Authorization', userAuth)
+      expect(res.status).toBe(200)
+      if (res.body.test_cases) {
+        res.body.test_cases.forEach((tc: any) => {
+          expect(tc).toHaveProperty('test_case_id')
+          expect(tc).toHaveProperty('passed')
+        })
+      }
     })
 
-    test('execution_time is in milliseconds', async () => {
-      const res = await request(app)
-        .get('/submissions/550/result')
-        .set('Authorization', 'Bearer valid-jwt')
-      expect(res.body.execution_time).toBeGreaterThanOrEqual(0)
+    test('returns 403 when result belongs to different user', async () => {
+      expectForbidden(
+        await request(app)
+          .get('/submissions/1/result')
+          .set('Authorization', 'Bearer other-user-jwt')
+      )
     })
 
-    test('memory_used is in bytes', async () => {
-      const res = await request(app)
-        .get('/submissions/550/result')
-        .set('Authorization', 'Bearer valid-jwt')
-      expect(res.body.memory_used).toBeGreaterThanOrEqual(0)
-    })
-
-    test('returns 404 if execution not yet completed', async () => {
-      const res = await request(app)
-        .get('/submissions/551/result')
-        .set('Authorization', 'Bearer valid-jwt')
-      expect(res.status).toBe(404)
-      expect(res.body.error.code).toBe('NOT_FOUND')
-    })
-
-    test('returns 401 without auth token', async () => {
-      const res = await request(app).get('/submissions/550/result')
-      expect(res.status).toBe(401)
-      expect(res.body.error.code).toBe('UNAUTHORIZED')
-    })
-
-    test('returns 403 if submission belongs to another user', async () => {
-      const res = await request(app)
-        .get('/submissions/550/result')
-        .set('Authorization', 'Bearer other-user-jwt')
-      expect(res.status).toBe(403)
-      expect(res.body.error.code).toBe('FORBIDDEN')
+    test('returns 401 without auth', async () => {
+      expectUnauthorized(await request(app).get('/submissions/1/result'))
     })
 
     test('returns 404 for non-existent submission', async () => {
-      const res = await request(app)
-        .get('/submissions/999/result')
-        .set('Authorization', 'Bearer valid-jwt')
-      expect(res.status).toBe(404)
-      expect(res.body.error.code).toBe('NOT_FOUND')
+      expectNotFound(
+        await request(app)
+          .get('/submissions/99999/result')
+          .set('Authorization', userAuth)
+      )
     })
   })
 })
