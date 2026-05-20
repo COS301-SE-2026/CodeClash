@@ -162,6 +162,7 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
                     title={title}
                     question={question}
                     description={description}
+                    number={q_index + 1}
                 >
                     <div className="flex justify-center w-[95%]">
                         <Editor

@@ -10,6 +10,7 @@ function Question({
     title,
     question,
     description,
+    number,
     ...props
 }: React.ComponentProps<"div"> & {
     size?: "default" | "sm",
@@ -17,7 +18,8 @@ function Question({
     difficulty: string,
     title: string,
     question: string,
-    description?: string
+    description?: string,
+    number: number,
 }) {
     return (
         <div className={cn("flex flex-col justify-between bg-white rounded-2xl", className)}>
@@ -29,7 +31,7 @@ function Question({
             <div className="flex flex-col p-2">
 
                 <div className="flex justify-between w-full">
-                    <p className="font-bold text-2xl">Question #</p>
+                    <p className="font-bold text-2xl">Question {number}</p>
                     <Badge className="w-[10%] h-[70%] text-white text-xl"
                         variant={"secondary"}
                     >{difficulty}</Badge>
