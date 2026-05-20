@@ -1,6 +1,12 @@
+import type React from 'react';
 import './found.css';
 
-const Found = () => {
+interface FoundProps {
+  onDecline?: () => void;
+  onAccept?: () => void;
+}
+
+const Found: React.FC<FoundProps> = ({onDecline, onAccept}) => {
   return (
     <div className="page-container">
       <div className="searching-section">
@@ -43,8 +49,8 @@ const Found = () => {
         </div>
 
         <div className="row-button">
-          <button className="cancel-button">Decline Match</button>
-          <button className="approve-button">Accept Match</button>
+          <button className="cancel-button" onClick={onDecline}>Decline Match</button>
+          <button className="approve-button" onClick={onAccept}>Accept Match</button>
           </div>
 
 
