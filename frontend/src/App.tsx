@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import Welcome from './pages/Welcome';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import MathFieldTest from './pages/MathFieldTest';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 import Searching from './pages/queuePages/searching';
 import Found from './pages/queuePages/found';
 import { useAuth } from './context/AuthContext';
+  //const [page, setPage] = useState<Page>('mathfieldtest');
 
-type Page = 'welcome' | 'signin' | 'signup' | 'dashboard' | 'profile' | 'searching' | 'found';
+type Page = 'welcome' | 'signin' | 'signup' | 'dashboard' | 'profile' | 'searching' | 'found' | 'mathfieldtest';
 
 const App: React.FC = () => {
   const { isAuthenticated, isLoading } = useAuth();
@@ -22,6 +24,7 @@ const App: React.FC = () => {
 
   return (
     <>
+      {page === 'mathfieldtest' && <MathFieldTest />}
       {page === 'welcome' && (
         <Welcome
           onSignIn={() => setPage('signin')}
