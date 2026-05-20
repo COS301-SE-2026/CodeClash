@@ -9,13 +9,15 @@ interface SignInProps {
   onBack?: () => void;
   onGoogleSignIn?: () => void;
   onAppleSignIn?: () => void;
-  onSignUp?: () => void;
+  onSignIn?: () => void;
+  onSignUp?:() => void;
 }
 
 const SignIn: React.FC<SignInProps> = ({
   onBack,
   onGoogleSignIn,
   onAppleSignIn,
+  onSignIn,
   onSignUp,
 }) => {
   const { signIn, error, clearError, isLoading } = useAuth();

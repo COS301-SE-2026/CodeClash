@@ -9,14 +9,14 @@ interface SignUpProps {
   onBack?: () => void;
   onGoogleSignUp?: () => void;
   onAppleSignUp?: () => void;
-  onSignIn?: () => void;
+  onSignUp?: () => void;
 }
 
 const SignUp: React.FC<SignUpProps> = ({
   onBack,
   onGoogleSignUp,
   onAppleSignUp,
-  onSignIn,
+  onSignUp,
 }) => {
   const {
     signUp,
@@ -98,7 +98,7 @@ const SignUp: React.FC<SignUpProps> = ({
     }
     try {
       await confirmSignUp(username.trim(), confirmationCode.trim());
-      onSignIn?.();
+      onSignUp?.();
     } catch {
       // error set by context
     }

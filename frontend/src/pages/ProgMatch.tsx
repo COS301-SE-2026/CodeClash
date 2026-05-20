@@ -113,8 +113,8 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
 
 
     return (
-        <div className="fixed inset-0 flex flex-row p-2 ">
-            <div className="flex flex-col w-[80%] m-2 justify-between ">
+        <div className="fixed inset-0 flex flex-rowjustify-evenly">
+            <div className="flex flex-col w-[80%] m-2 justify-between">
                 {/* header */}
                 <div className="flex w-full h-[20%] justify-between items-center m-1 p-2">
 
