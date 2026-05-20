@@ -20,12 +20,15 @@ interface ProgMatchProps {
 const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
 
     // LifeBar 
-    const [input, set_input] = useState("");
+
     const [player_1_life, set_player_1_life] = useState(90);
     const [player_2_life, set_player_2_life] = useState(100);
 
     function handleChange(value: any) {
-        set_input(value);
+        const answered = [...input]
+        answered[q_index] = value;
+
+        set_input(answered);
     }
 
 
@@ -69,7 +72,7 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
         if (typeof questions !== 'undefined') {
 
             if (q_idx >= question.length)
-                setDone(true);
+                set_player_1_done(true);
             else if (q_idx < 0)
                 return
             else {
@@ -81,9 +84,8 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
                 set_description(q.description ?? "");
 
                 // clear editor
-                editorRef.current?.setValue(default_value)
-                set_input('');
-
+                editorRef.current?.setValue(input[q_idx] ?? default_value)
+                
             }
 
 
@@ -93,7 +95,8 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
     // match progress
     const [player_1_progress, set_player_1_progress] = useState(0);
     const [player_2_progress, set_player_2_progress] = useState(0);
-    const [done, setDone] = useState(false);
+    const [player_1_done, set_player_1_done] = useState(false);
+    const [player_2_done, set_player_2_done] = useState(false);
 
     useEffect(() => {
         set_player_1_progress((q_index / (questions?.length ?? 1)) * 100)
@@ -105,9 +108,9 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
         // answered all questions 
     }
 
+    // user input 
+    const [input, set_input] = useState<string[]>(Array(questions?.length ?? 0));
 
-    console.log(q_index);
-    console.log(player_1_progress);
 
     return (
         <div className="fixed inset-0 flex flex-row p-2 ">
@@ -195,7 +198,7 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
                     </div>
                     <div className="mt-5  flex justify-center w-[95%]">
                         {q_index > 0 && <Button active={true} className="w-[15%] absolute left-5" variant={'outline'} onClick={() => updateQuestion(q_index - 1)}>Back</Button>}
-                        <Button active={input.trim().length > 0 && input.trim() !== '// Your code here'} className="w-[20%] flex self-center" onClick={() => updateQuestion(q_index + 1)}>Submit</Button>
+                        <Button active={(input[q_index]?.trim().length ?? 0) > 0 && input[q_index]?.trim() !== '// Your code here'} className="w-[20%] flex self-center" onClick={() => updateQuestion(q_index + 1)}>Submit</Button>
                     </div>
 
                 </Question>
@@ -207,7 +210,8 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
                 opponent={puprle_avatar}
                 progress={q_index}
                 opponent_progress={player_2_progress}
-                done={done}
+                done={player_1_done}
+                opponent_done={player_2_done}
             ></MatchProgress>
 
         </div>
