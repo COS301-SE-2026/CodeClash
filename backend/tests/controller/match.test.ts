@@ -47,7 +47,7 @@ describe('getMatches', () => {
     await getMatches(req, res);
 
     expect(res.status).toHaveBeenCalledWith(200);
-    expect(res.json).toHaveBeenCalledWith(rows[0]);
+    expect(res.json).toHaveBeenCalledWith(rows);
   });
 
   it('applies status filter when provided', async () => {

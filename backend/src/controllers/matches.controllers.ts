@@ -34,7 +34,7 @@ export const getMatches = async (req: Request, res: Response): Promise<void> => 
         [...values, parseInt(limit as string), parseInt(offset as string)]
         );
 
-        res.status(200).json(result.rows[0]);
+        res.status(200).json(result.rows);
     } catch(error){
         console.error('Error fetching matches:', error);
         res.status(500).json({ message: 'Internal server error' });

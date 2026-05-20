@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express'
 import cors from 'cors'
-import eloRoutes from './routes/elo.routes';
+import eloRoutes from './routes/api.routes';
+import matchRoutes from './routes/api.routes';
 
 const app = express();
 app.disable('x-powered-by');    //so express version isn't included in responses
@@ -8,7 +9,7 @@ app.disable('x-powered-by');    //so express version isn't included in responses
 app.use(cors({origin: process.env.FRONTEND_URL || 'http://localhost:5173'}));
 app.use(express.json());
 app.use('/api/elo', eloRoutes);
-app.use('/api/elo', eloRoutes);
+app.use('/api/match', matchRoutes);
 
 app.get('/health', (req: Request, res: Response) => {
     res.json({ status: 'ok'});
