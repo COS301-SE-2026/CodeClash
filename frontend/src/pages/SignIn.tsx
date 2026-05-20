@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "../styles/SignIn.css";
-import shieldImage from "../assets/LightMode_Shield.png";
+import "./SignIn.css";
+//import shieldImage from "../assets/LightMode_Shield.png";
 import googleIcon from "../assets/Google_Icon.png";
 import appleIcon from "../assets/Apple_Icon.png";
 import { useAuth } from "../context/AuthContext";
@@ -9,15 +9,13 @@ interface SignInProps {
   onBack?: () => void;
   onGoogleSignIn?: () => void;
   onAppleSignIn?: () => void;
-  onSignIn?: () => void;
-  onSignUp?:() => void;
+  onSignUp?: () => void;
 }
 
 const SignIn: React.FC<SignInProps> = ({
   onBack,
   onGoogleSignIn,
   onAppleSignIn,
-  onSignIn,
   onSignUp,
 }) => {
   const { signIn, error, clearError, isLoading } = useAuth();
@@ -53,8 +51,6 @@ const SignIn: React.FC<SignInProps> = ({
       <button className="back-button" onClick={onBack} type="button">
         ← Back
       </button>
-
-      <img src={shieldImage} alt="C" className="shield-bg" aria-hidden="true" />
 
       <div className="SignIn-container">
         <h1 className="SignIn-heading">Let's sign you in</h1>
