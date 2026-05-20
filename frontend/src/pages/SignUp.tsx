@@ -1,22 +1,22 @@
-import React, { useState } from "react";
-import "./SignUp.css";
-import shieldImage from "../assets/LightMode_Shield.png";
-import googleIcon from "../assets/Google_Icon.png";
-import appleIcon from "../assets/Apple_Icon.png";
+import React, { useState } from 'react';
+import '../styles/SignUp.css';
+import shieldImage from '../assets/LightMode_Shield.png';
+import googleIcon from '../assets/Google_Icon.png';
+import appleIcon from '../assets/Apple_Icon.png';
 import { useAuth } from "../context/AuthContext";
 
 interface SignUpProps {
   onBack?: () => void;
   onGoogleSignUp?: () => void;
   onAppleSignUp?: () => void;
-  onSignIn?: () => void;
+  onSignUp?: () => void;
 }
 
 const SignUp: React.FC<SignUpProps> = ({
   onBack,
   onGoogleSignUp,
   onAppleSignUp,
-  onSignIn,
+  onSignUp,
 }) => {
   const {
     signUp,
@@ -98,7 +98,7 @@ const SignUp: React.FC<SignUpProps> = ({
     }
     try {
       await confirmSignUp(username.trim(), confirmationCode.trim());
-      onSignIn?.();
+      onSignUp?.();
     } catch {
       // error set by context
     }

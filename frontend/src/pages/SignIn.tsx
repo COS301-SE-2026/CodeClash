@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./SignIn.css";
+import "../styles/SignIn.css";
 import shieldImage from "../assets/LightMode_Shield.png";
 import googleIcon from "../assets/Google_Icon.png";
 import appleIcon from "../assets/Apple_Icon.png";
@@ -9,13 +9,15 @@ interface SignInProps {
   onBack?: () => void;
   onGoogleSignIn?: () => void;
   onAppleSignIn?: () => void;
-  onSignUp?: () => void;
+  onSignIn?: () => void;
+  onSignUp?:() => void;
 }
 
 const SignIn: React.FC<SignInProps> = ({
   onBack,
   onGoogleSignIn,
   onAppleSignIn,
+  onSignIn,
   onSignUp,
 }) => {
   const { signIn, error, clearError, isLoading } = useAuth();

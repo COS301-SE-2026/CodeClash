@@ -1,13 +1,97 @@
 @import "tailwindcss";
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+
+/* text is the text colour */
+
+@theme inline {
+  /* radius */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  /* colours */
+  --color-background: var(--background);
+  --color-text: var(--text);
+  --color-card: var(--card);
+  --color-card-text: var(--card-text);
+  --color-popover: var(--popover);
+  --color-popover-text: var(--popover-text);
+  --color-primary: var(--primary);
+  --color-primary-text: var(--primary-text);
+  --color-secondary: var(--secondary);
+  --color-secondary-text: var(--secondary-text);
+  --color-muted-text: var(--muted-text);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
+  --color-muted: var(--muted);
+  
+  /* accents */
+  --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  /* charts */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  /* sidebar */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-text: var(--sidebar-text);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-text: var(--sidebar-primary-text);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-text: var(--sidebar-accent-text);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  /* font  */
+  --font-body: var(--font);
+  /* text size */
+  --text-sm: var(--font-size-sm);
+  --text-md: var(--font-size-md);
+  --text-l: var(--font-size-l);
+
+  /* shadows */
+  --shadow-badge: var(--badge-shadow);
 }
 
-body {
-  font-family: 'Baloo Bhai 2', cursive;
+:root {
+  --background: #eaebee;
+  --text: #0000;
+  --font: 'Inter', sans-serif;
+  --badge-font-size: 0.1rem;
+  --badge-font-weight: 700;
+  --primary: #051735;
+  --secondary: #806bc0;
+  --muted: #dadde3;
+  --primary-text: #0f182a;
+  --seconday-text: #64748b;
+  --muted-text: #293c59;
+  --badge-shadow: 0 4px 6px rgba(0,0,0,0.3);
+
+}
+
+@layer base {
+  * {
+  }
+
+  body {
+    background-color: var(--background);
+  }
+
+  .badge{
+    box-shadow: var(--badge-shadow);
+  }
+} 
+
+.error-message {
+  color: #ef4444;
+  font-size: 0.875rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
 }
 
 .error-message {
