@@ -47,7 +47,7 @@ body {
 }
 
 .back-button:hover {
-  background-color: #f1f5f9;
+  background-color: #5F5980;
 }
 
 .shield-bg {
@@ -87,7 +87,7 @@ body {
   width: 500px;
   height: 60px;
   background-color: #ffffff;
-  border: 1px solid #0f172a;
+  border: 0.5px solid #0f172a;
   border-radius: 20px;
   padding: 0 20px;
   font-family: 'Baloo Bhai 2', cursive;
@@ -215,8 +215,7 @@ body {
 .social-button {
   width: 500px;
   height: 60px;
-  border: 1px solid #0f172a;
-  border-radius: 8px;
+  border-radius: 20px;
   font-family: 'Baloo Bhai 2', cursive;
   font-size: 24px;
   font-weight: 600;
@@ -227,6 +226,7 @@ body {
   justify-content: center;
   gap: 12px;
   transition: opacity 0.2s ease, transform 0.15s ease;
+  filter: drop-shadow(4px 4px 5px rgba(0, 0, 0, 0.3));
 }
 
 .social-button:hover {
@@ -239,11 +239,12 @@ body {
 }
 
 .social-button.google {
-  background-color: #a78bfa;
+  background-color: #ffffff;
 }
 
 .social-button.apple {
-  background-color: #3b82f6;
+  background-color: #16213d;
+  color: #ffffff;
 }
 
 .icon-google {

@@ -30,22 +30,22 @@ body {
   left: 40px;
   width: 91px;
   height: 31px;
-  background-color: #ffffff;
-  border: 1px solid #0f172a;
-  border-radius: 6px;
+  background-color: #5f5980;
+  border-radius: 20px;
   font-family: 'Baloo Bhai 2', cursive;
   font-size: 16px;
   font-weight: 400;
-  color: #0f172a;
+  color: #ffffff;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 4px;
   transition: background-color 0.15s ease;
 }
 
 .back-button:hover {
-  background-color: #f1f5f9;
+  background-color: #5F5980;
 }
 
 .profile-card {
