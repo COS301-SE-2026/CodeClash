@@ -4,7 +4,6 @@ import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { useTimer } from "react-timer-hook";
 import { Question } from "@/components/question";
-import { Sidebar, SidebarContent, SidebarProvider } from "@/components/ui/sidebar";
 import blue_avatar from '../assets/blue_avatar.jpeg'
 import puprle_avatar from '../assets/purple_avatar.jpeg'
 
@@ -22,8 +21,8 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
 
     // LifeBar 
     const [input, set_input] = useState("");
-    const [player_1_progress, set_player_1_progress] = useState(90);
-    const [player_2_progress, set_player_2_progress] = useState(100);
+    const [player_1_life, set_player_1_life] = useState(90);
+    const [player_2_life, set_player_2_life] = useState(100);
 
     function handleChange(value: any) {
         set_input(value);
@@ -51,6 +50,12 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
     }, [])
 
 
+
+    // match progress
+    const [player_1_progress, set_player_1_progress] = useState(1);
+    const [player_2_progress, set_player_2_progress] = useState(1);
+
+
     // Data sent to backend - NOT CONNECTED RIGHT NOW
 
     function submit() {
@@ -66,7 +71,7 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
                     {/* Player 1 Progress */}
                     <div className="w-[40%] flex flex-col items-start h-[60%] justify-center self-end ">
                         <Progress className=" w-full h-7 shadow-[0_4px_6px_rgba(0,0,0,0.3)]"
-                            value={player_1_progress}
+                            value={player_1_life}
                             progress_colour="var(--primary)"
                         ></Progress>
                         <div className="flex w-[50%] h-[60%] items-center m-2">
@@ -88,7 +93,7 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
                     {/* Player 2 Progress */}
                     <div className="w-[40%] flex flex-col items-end h-[60%] justify-center self-end ">
                         <Progress className=" w-full h-7 scale-x-[-1] shadow-[0_4px_6px_rgba(0,0,0,0.3)]"
-                            value={player_2_progress}
+                            value={player_2_life}
                             progress_colour="var(--primary)"></Progress>
                         <div className="flex w-[50%] h-[60%] items-center justify-end m-2">
                             <Badge className="bg-white badge-font" >
@@ -139,8 +144,14 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
                     />
                 </Question>
             </div >
-           
-           <MatchProgress></MatchProgress>
+
+            <MatchProgress
+                questions={questions ?? []}
+                avatar={blue_avatar}
+                opponent={puprle_avatar}
+                progress={player_1_progress}
+                opponent_progress={player_2_progress}
+            ></MatchProgress>
 
         </div>
     )
