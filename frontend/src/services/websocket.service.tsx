@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const web_socket = (url: string) => {
+const WebSocketService = (url: string) => {
     const [socket, set_socket] = useState<WebSocket | null>(null);
     const [messages, set_messages] = useState<string[]>([]);
 
@@ -42,4 +42,4 @@ const web_socket = (url: string) => {
     return { messages, send_message };
 }
 
-export default web_socket;
+export default WebSocketService;
