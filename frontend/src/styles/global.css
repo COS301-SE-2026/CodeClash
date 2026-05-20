@@ -24,7 +24,7 @@
   --color-success: var(--success);
   --color-danger: var(--danger);
   --color-muted: var(--muted);
-  
+
   /* accents */
   --color-accent: var(--accent);
   --color-accent-text: var(--accent-text);
@@ -49,10 +49,14 @@
   --color-sidebar-ring: var(--sidebar-ring);
   /* font  */
   --font-body: var(--font);
+  --font-heading: var(--heading);
+  --font-heading-weight: var(--heading-weight);
+  --font-heading-size: var(--heading-size);
   /* text size */
   --text-sm: var(--font-size-sm);
   --text-md: var(--font-size-md);
   --text-l: var(--font-size-l);
+  --text-xl: var(--font-size-xl);
 
   /* shadows */
   --shadow-badge: var(--badge-shadow);
@@ -62,27 +66,42 @@
   --background: #eaebee;
   --text: #0000;
   --font: 'Inter', sans-serif;
+  --heading: 'Baloo Bhai 2', cursive;
+  --heading-weight: 600;
+  --heading-size: 4rem;
   --badge-font-size: 0.1rem;
   --badge-font-weight: 700;
   --primary: #051735;
   --secondary: #806bc0;
   --muted: #dadde3;
-  --primary-text: #0f182a;
+  --primary-text: #ffffff;
   --seconday-text: #64748b;
   --muted-text: #293c59;
-  --badge-shadow: 0 4px 6px rgba(0,0,0,0.3);
-
+  --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --font-size-sm: 1.3rem;
+  --font-size-md: 2rem;
+  --font-size-l: 2.3rem;
+  --font-size-xl: 3rem;
 }
 
 @layer base {
-  * {
-  }
+  * {}
 
   body {
-    background-color: var(--background);
+    background-color: pink;
   }
 
-  .badge{
+  .badge {
     box-shadow: var(--badge-shadow);
+  }
+
+  .heading {
+    font-family: var(--heading);
+    font-weight: var(--heading-weight);
+    font-size: var(--heading-size);
+  }
+
+  .font-family {
+    font-family: 'Baloo Bhai 2', cursive;
   }
 }

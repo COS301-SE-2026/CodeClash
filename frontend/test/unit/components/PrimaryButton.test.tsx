@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import PrimaryButton from '../PrimaryButton';
+import PrimaryButton from '../../../src/components/PrimaryButton';
 
 describe('PrimaryButton', () => {
 
