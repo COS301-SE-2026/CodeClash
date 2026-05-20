@@ -84,6 +84,9 @@ const Dashboard: React.FC<DashboardProps> = ({
               alt="Profile"
               className="profile-circle"
               onClick={onProfileClick}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onProfileClick?.(); }}
+              role="button"
+              tabIndex={0}
             />
             <div className="user-details">
               <span className="user-name">{userName}</span>
