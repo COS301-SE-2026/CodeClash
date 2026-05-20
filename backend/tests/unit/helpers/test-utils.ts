@@ -1,5 +1,6 @@
 import request from 'supertest'
-import app from '../../src/app'
+import app from '../../../src/app'
+import { describe, test, expect } from 'vitest';
 
 export { request, app }
 
@@ -180,5 +181,14 @@ export const adminGuardTests = (method: 'post' | 'put' | 'delete', path: string,
   })
   test('returns 401 without auth', async () => {
     expectUnauthorized(await request(app)[method](path).send(body))
+  })
+}
+
+export const idValidationTests = (path: string, notFoundId = '99999', suffix = '') => {
+  test('returns 404 for non-existent resource', async () => {
+    expectNotFound(await request(app).get(`${path}/${notFoundId}${suffix}`))
+  })
+  test('returns 400 for non-integer id', async () => {
+    expectValidationError(await request(app).get(`${path}/abc${suffix}`))
   })
 }
