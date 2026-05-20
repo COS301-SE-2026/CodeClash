@@ -1,7 +1,7 @@
 
 import type { QuestionDTO, MatchDTO } from "src/types/question.dto";
 import door from '../../src/assets/door.png'
-import { Button } from "./ui/button";
+import { Badge } from "./ui/badge";
 import React from "react";
 
 function MatchProgress({
@@ -13,6 +13,7 @@ function MatchProgress({
     opponent,
     progress,
     opponent_progress,
+    done,
     ...props
 }: React.ComponentProps<"div"> & {
     size?: "default" | "sm",
@@ -22,10 +23,11 @@ function MatchProgress({
     opponent: string,
     progress: number,
     opponent_progress: number,
+    done:boolean,
 }) {
     return (
-        <div className="relative bg-white flex flex-col rounded-3xl w-[15%] h-[90%] m-auto">
-            <Button className="bg-white badge-font shadow-badge self-center m-4 w-[40%] h-[5%] relative z-10 " >Sumbit</Button>
+        <div className="relative bg-white flex flex-col rounded-3xl w-[15%] h-[98%] m-auto">
+            <Badge className="bg-white badge-font shadow-badge self-center m-4 w-[40%] h-[5%] relative z-10 ">Finish</Badge>
 
             <div className="absolute top-5 self-center bg-black h-[75%] w-[2%] z-0"></div>
             <div className="grid grid-cols-3 flex-1 gap-2 items-center relative z-10">

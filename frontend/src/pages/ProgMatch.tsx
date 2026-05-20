@@ -6,10 +6,10 @@ import { useTimer } from "react-timer-hook";
 import { Question } from "@/components/question";
 import blue_avatar from '../assets/blue_avatar.jpeg'
 import puprle_avatar from '../assets/purple_avatar.jpeg'
-
 import type { QuestionDTO, MatchDTO } from "src/types/question.dto";
 import { mock_questions } from "../mocks/prog-questions.mock";
 import { MatchProgress } from "@/components/match-progress";
+import { Button } from "@/components/ui/button";
 
 interface ProgMatchProps {
     language: string;
@@ -43,23 +43,54 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
 
     // questions
     const [questions, set_questions] = useState<QuestionDTO[]>();
+    const [q_index, set_q_index] = useState(0);
+    const [difficulty, set_difficulty] = useState<'easy' | 'medium' | 'hard'>('easy');
+    const [title, set_title] = useState("");
+    const [question, set_question] = useState("");
+    const [description, set_description] = useState("");
 
     // initialise questions
     useEffect(() => {
         set_questions(mock_questions);
+
+        const q_1 = mock_questions[0];
+        set_q_index(0);
+        set_difficulty(q_1.difficulty);
+        set_title(q_1.title);
+        set_question(q_1.question);
+        set_description(q_1.description ?? "");
+
     }, [])
 
+    function setQuestion(q_idx: number) {
+        if (typeof questions !== 'undefined') {
 
+            if (q_idx >= question.length)
+                setDone(true);
+            else if(q_idx < 0)
+                return 
+            else {
+                const q = questions[q_idx];
+                set_q_index(q_idx);
+                set_difficulty(q.difficulty);
+                set_title(q.title);
+                set_question(q.question);
+                set_description(q.description ?? "");
+            }
+
+        
+        }
+    }
 
     // match progress
     const [player_1_progress, set_player_1_progress] = useState(1);
     const [player_2_progress, set_player_2_progress] = useState(1);
-
+    const [done, setDone] = useState(false);
 
     // Data sent to backend - NOT CONNECTED RIGHT NOW
-
     function submit() {
-        console.log(input);
+
+        // answered all questions 
     }
 
     return (
@@ -107,41 +138,48 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
 
                 {/* Question */}
                 <Question
-                    className="relative z-0"
-                    difficulty="Easy"
-                    title="Array Sum"
-                    question="What will be the output of this code?"
+                    className="relative z-0 "
+                    difficulty={difficulty}
+                    title={title}
+                    question={question}
+                    description={description}
                 >
-                    <Editor
-                        height="50vh"
-                        width="110vh"
-                        defaultLanguage={language}
-                        defaultValue="// Your code here"
-                        onChange={handleChange}
-                        onMount={(editor: any, monaco: any) => {
-                            monaco.editor.defineTheme('default', {
-                                base: 'vs',
-                                'inherits': true,
-                                rules: [
-                                    {
-                                        token: "identifier",
-                                        foreground: '#9CDCFE'
-                                    },
-                                    {
-                                        token: "type",
-                                        foreground: "#1AAFB0"
-                                    },
-                                ],
-                                colors: {
-                                    'editor.background': '#c4c4c4',
-                                }
-                            });
-                            monaco.editor.setTheme('default');
-                            editor.updateOptions({
-                            })
-                        }}
+                    <div className="flex justify-center w-[95%]">
+                        <Editor
+                            height="40vh"
+                            width="100%"
+                            defaultLanguage={language}
+                            defaultValue="// Your code here"
+                            onChange={handleChange}
+                            onMount={(editor: any, monaco: any) => {
+                                monaco.editor.defineTheme('default', {
+                                    base: 'vs',
+                                    'inherits': true,
+                                    rules: [
+                                        {
+                                            token: "identifier",
+                                            foreground: '#9CDCFE'
+                                        },
+                                        {
+                                            token: "type",
+                                            foreground: "#1AAFB0"
+                                        },
+                                    ],
+                                    colors: {
+                                        'editor.background': '#c4c4c4',
+                                    }
+                                });
+                                monaco.editor.setTheme('default');
+                                editor.updateOptions({
+                                })
+                            }}
 
-                    />
+                        />
+                    </div>
+                    <div className="mt-5  flex justify-center w-[95%]">
+                        <Button active={done} className="w-[20%] flex self-center" onClick={()=> setQuestion(q_index + 1)}>Submit</Button>
+                    </div>
+
                 </Question>
             </div >
 
@@ -151,6 +189,7 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
                 opponent={puprle_avatar}
                 progress={player_1_progress}
                 opponent_progress={player_2_progress}
+                done={done}
             ></MatchProgress>
 
         </div>

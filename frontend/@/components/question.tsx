@@ -38,18 +38,18 @@ function Question({
                 <div className="m-5 flex flex-col justify-evenly">
 
                     <h1 className="text-5xl font-semibold"> &lt; / &gt; {title}</h1>
-                    <p className="text-xl text-muted-text">{question}</p>
+                    <p className="text-xl text-muted-text m-1">{question}</p>
 
-                    <div>{description}
+                    <div className="whitespace-pre-wrap">
+                        {description}
                     </div>
 
                 </div >
             </div>
 
-            <div className="m-7 rounded-xl overflow-hidden w-[90%]">
+            <div className="ml-8 mb-2 rounded-xl overflow-hidden w-[100%]">
                 {children}
             </div>
-
 
         </div>
     )
