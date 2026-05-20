@@ -248,9 +248,11 @@
 .icon-google {
   width: 28px;
   height: 28px;
+  mix-blend-mode: multiply;
 }
 
 .icon-apple {
   width: 28px;
   height: 28px;
+  mix-blend-mode: multiply;
 }
