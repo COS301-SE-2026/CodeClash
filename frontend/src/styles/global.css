@@ -85,4 +85,18 @@
   .badge{
     box-shadow: var(--badge-shadow);
   }
+} 
+
+.error-message {
+  color: #ef4444;
+  font-size: 0.875rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.error-message {
+  color: #ef4444;
+  font-size: 0.875rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
 }

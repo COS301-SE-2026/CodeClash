@@ -14,9 +14,11 @@
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.8",
+    "aws-amplify": "^6.17.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^1.16.0",
+    "mathlive": "^0.109.2",
     "radix-ui": "^1.4.3",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",

@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS problems (
 );
 
 CREATE TABLE IF NOT EXISTS match_problems(
-  match_problems_id  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  match_problems_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   question1 UUID REFERENCES problems(id) NOT NULL,
   question2 UUID REFERENCES problems(id) NOT NULL,
   question3 UUID REFERENCES problems(id) NOT NULL, --every match has a minimum of 3 questions, i.e. difficult mode
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS matches(
   mode VARCHAR(10) CHECK (mode IN ('ranked', 'casual')) NOT NULL,
   queue_start TIMESTAMP DEFAULT NOW() NOT NULL,
   match_start TIMESTAMP,
-  status VARCHAR(20) CHECK (status IN ('waiting', 'in_progress', 'completed', 'abandoned')) DEFAULT 'waiting'
+  status VARCHAR(20) CHECK (status IN ('waiting', 'starting','in_progress', 'completed', 'abandoned')) DEFAULT 'waiting' --TODO check is there a function to set a found match status to starting?
 );
 
 CREATE TABLE IF NOT EXISTS match_log(
@@ -55,6 +55,7 @@ CREATE TABLE IF NOT EXISTS elo_ratings (
   user_id UUID REFERENCES users(user_id),
   rating INTEGER DEFAULT 600,
   updated_at TIMESTAMP DEFAULT NOW()
+ 
 );
 
 

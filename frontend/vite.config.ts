@@ -12,8 +12,8 @@ export default defineConfig({
   },
   test: {
     globals: true,
-    environment: 'jsdom',
-    setupFiles: './test/setup.ts'
+    environment: "jsdom",
+    setupFiles: "./test/setup.ts",
   },
   optimizeDeps:{
     exclude: ['@monaco-aditor/react'],
