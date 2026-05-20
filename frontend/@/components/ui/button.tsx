@@ -58,7 +58,7 @@ function Button({
       data-slot="button"
       data-variant={variant}
       data-size={size}
-      disabled={active}
+      disabled={!active}
       className={cn(buttonVariants({ variant, size, className}), "transform hover:scale-110 transition duration-200 ease-in-out")}
       {...props}
     />

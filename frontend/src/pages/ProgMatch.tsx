@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Editor } from "@monaco-editor/react";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
@@ -40,6 +40,9 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
 
     const { seconds, minutes } = useTimer({ expiryTimestamp: expiryTime() });
 
+    //code editor
+    const editorRef = useRef<any>(null);
+    const default_value = "// Your code here";
 
     // questions
     const [questions, set_questions] = useState<QuestionDTO[]>();
@@ -62,13 +65,13 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
 
     }, [])
 
-    function setQuestion(q_idx: number) {
+    function updateQuestion(q_idx: number) {
         if (typeof questions !== 'undefined') {
 
             if (q_idx >= question.length)
                 setDone(true);
-            else if(q_idx < 0)
-                return 
+            else if (q_idx < 0)
+                return
             else {
                 const q = questions[q_idx];
                 set_q_index(q_idx);
@@ -76,22 +79,35 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
                 set_title(q.title);
                 set_question(q.question);
                 set_description(q.description ?? "");
+
+                // clear editor
+                editorRef.current?.setValue(default_value)
+                set_input('');
+
             }
 
-        
+
         }
     }
 
     // match progress
-    const [player_1_progress, set_player_1_progress] = useState(1);
-    const [player_2_progress, set_player_2_progress] = useState(1);
+    const [player_1_progress, set_player_1_progress] = useState(0);
+    const [player_2_progress, set_player_2_progress] = useState(0);
     const [done, setDone] = useState(false);
+
+    useEffect(() => {
+        set_player_1_progress((q_index / (questions?.length ?? 1)) * 100)
+    }, [q_index])
 
     // Data sent to backend - NOT CONNECTED RIGHT NOW
     function submit() {
 
         // answered all questions 
     }
+
+
+    console.log(q_index);
+    console.log(player_1_progress);
 
     return (
         <div className="fixed inset-0 flex flex-row p-2 ">
@@ -149,9 +165,10 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
                             height="40vh"
                             width="100%"
                             defaultLanguage={language}
-                            defaultValue="// Your code here"
+                            defaultValue={default_value}
                             onChange={handleChange}
                             onMount={(editor: any, monaco: any) => {
+                                editorRef.current = editor
                                 monaco.editor.defineTheme('default', {
                                     base: 'vs',
                                     'inherits': true,
@@ -177,7 +194,8 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
                         />
                     </div>
                     <div className="mt-5  flex justify-center w-[95%]">
-                        <Button active={done} className="w-[20%] flex self-center" onClick={()=> setQuestion(q_index + 1)}>Submit</Button>
+                        {q_index > 0 && <Button active={true} className="w-[15%] absolute left-5" variant={'outline'} onClick={() => updateQuestion(q_index - 1)}>Back</Button>}
+                        <Button active={input.trim().length > 0 && input.trim() !== '// Your code here'} className="w-[20%] flex self-center" onClick={() => updateQuestion(q_index + 1)}>Submit</Button>
                     </div>
 
                 </Question>
@@ -187,7 +205,7 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
                 questions={questions ?? []}
                 avatar={blue_avatar}
                 opponent={puprle_avatar}
-                progress={player_1_progress}
+                progress={q_index}
                 opponent_progress={player_2_progress}
                 done={done}
             ></MatchProgress>
