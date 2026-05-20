@@ -1,5 +1,7 @@
-import request from 'supertest'
-import app from '../../src/app'
+import { request, app, expectNotFound, expectValidationError, expectEmptyArray, expectArrayShape } from '../helpers/test-utils'
+import { describe, test, expect } from 'vitest';
+
+const eloProps = ['elo_id', 'user_id', 'game_mode', 'rating', 'updated_at']
 
 describe('ELO Ratings API', () => {
   describe('GET /users/:user_id/elo', () => {

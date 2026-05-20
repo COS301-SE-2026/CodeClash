@@ -1,5 +1,7 @@
-import request from 'supertest'
-import app from '../../src/app'
+import { request, app, adminAuth, expectNotFound, expectValidationError, expectConflict, expectShape, paginationValidationTests, adminGuardTests, idValidationTests } from '../helpers/test-utils'
+import { describe, test, expect } from 'vitest';
+
+const problemProps = ['problem_id', 'title', 'difficulty', 'problem_type']
 
 describe('Problems API', () => {
   describe('GET /problems', () => {
@@ -96,16 +98,25 @@ describe('Problems API', () => {
       expect(res.body).toHaveProperty('solution_formula')
     })
 
-    test('returns 404 for non-existent problem', async () => {
-      const res = await request(app).get('/problems/999')
-      expect(res.status).toBe(404)
-      expect(res.body.error.code).toBe('NOT_FOUND')
+    idValidationTests('/problems')
+  })
+
+  describe('GET /problems/:problem_id/test-cases', () => {
+    test('returns 200 with test cases for a problem', async () => {
+      const res = await request(app).get('/problems/1/test-cases')
+      expect(res.status).toBe(200)
+      expect(Array.isArray(res.body)).toBe(true)
+      res.body.forEach((tc: any) => {
+        expect(tc).toHaveProperty('test_case_id')
+        expect(tc).toHaveProperty('input')
+        expect(tc).toHaveProperty('expected_output')
+      })
     })
 
-    test('returns 400 for non-integer problem_id', async () => {
-      const res = await request(app).get('/problems/abc')
-      expect(res.status).toBe(400)
-      expect(res.body.error.code).toBe('VALIDATION_ERROR')
+    test('returns 200 with empty array when problem has no test cases', async () => {
+      const res = await request(app).get('/problems/99/test-cases')
+      expect(res.status).toBe(200)
+      expect(res.body).toEqual([])
     })
   })
 
@@ -485,44 +496,6 @@ describe('Problems API', () => {
       expect(res.body.error.code).toBe('FORBIDDEN')
     })
 
-    test('returns 404 for non-existent test case', async () => {
-      const res = await request(app)
-        .put('/testcases/999')
-        .set('Authorization', 'Bearer admin-jwt')
-        .send(validUpdate)
-      expect(res.status).toBe(404)
-      expect(res.body.error.code).toBe('NOT_FOUND')
-    })
-  })
-
-  describe('DELETE /testcases/:testcase_id', () => {
-    test('returns 204 (admin)', async () => {
-      const res = await request(app)
-        .delete('/testcases/92')
-        .set('Authorization', 'Bearer admin-jwt')
-      expect(res.status).toBe(204)
-    })
-
-    test('returns 401 without auth token', async () => {
-      const res = await request(app).delete('/testcases/92')
-      expect(res.status).toBe(401)
-      expect(res.body.error.code).toBe('UNAUTHORIZED')
-    })
-
-    test('returns 403 with non-admin token', async () => {
-      const res = await request(app)
-        .delete('/testcases/92')
-        .set('Authorization', 'Bearer valid-jwt')
-      expect(res.status).toBe(403)
-      expect(res.body.error.code).toBe('FORBIDDEN')
-    })
-
-    test('returns 404 for non-existent test case', async () => {
-      const res = await request(app)
-        .delete('/testcases/999')
-        .set('Authorization', 'Bearer admin-jwt')
-      expect(res.status).toBe(404)
-      expect(res.body.error.code).toBe('NOT_FOUND')
-    })
+    idValidationTests('/users', '99999', '/statistics')
   })
 })

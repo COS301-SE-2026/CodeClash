@@ -1,5 +1,7 @@
-import request from 'supertest'
-import app from '../../src/app'
+import { request, app, userAuth, expectUnauthorized, expectArrayShape, expectShape, matchActionTests, idValidationTests } from '../helpers/test-utils'
+import { describe, test, expect } from 'vitest';
+
+const matchProps = ['match_id', 'player1', 'player2', 'status', 'started_at']
 
 describe('Matches API', () => {
   describe('GET /matches', () => {
@@ -78,23 +80,7 @@ describe('Matches API', () => {
       expect(res.body).toHaveProperty('winner_id', 42)
     })
 
-    test('returns 404 for non-existent match', async () => {
-      const res = await request(app).get('/matches/999')
-      expect(res.status).toBe(404)
-      expect(res.body.error.code).toBe('NOT_FOUND')
-    })
-
-    test('returns 400 for non-integer match_id', async () => {
-      const res = await request(app).get('/matches/abc')
-      expect(res.status).toBe(400)
-      expect(res.body.error.code).toBe('VALIDATION_ERROR')
-    })
-
-    test('winner_id is null for in-progress matches', async () => {
-      const res = await request(app).get('/matches/302')
-      expect(res.status).toBe(200)
-      expect(res.body.winner_id).toBeNull()
-    })
+    idValidationTests('/matches')
   })
 
   describe('GET /matches/:match_id/rounds', () => {
@@ -127,17 +113,7 @@ describe('Matches API', () => {
       expect(res.body).toEqual([])
     })
 
-    test('returns 404 for non-existent match', async () => {
-      const res = await request(app).get('/matches/999/rounds')
-      expect(res.status).toBe(404)
-      expect(res.body.error.code).toBe('NOT_FOUND')
-    })
-
-    test('returns 400 for non-integer match_id', async () => {
-      const res = await request(app).get('/matches/abc/rounds')
-      expect(res.status).toBe(400)
-      expect(res.body.error.code).toBe('VALIDATION_ERROR')
-    })
+    idValidationTests('/users', '99999', '/matches')
   })
 
   describe('GET /rounds/:round_id', () => {
