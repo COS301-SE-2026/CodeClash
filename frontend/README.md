@@ -17,7 +17,7 @@ We're using a React + TypeScript frontend built with Vite.
 - For the pages: 
     - npm install
     - npm install react-router-dom
-    - npm install -D tailwindcss postcss autoprefixer 
+    - npm install -D @tailwindcss/vite tailwindcss
 - For component testing:
     - npm install -D vitest @vitest/coverage-v8 @testing-library/react @testing-library/jest-dom @testing-library/user-event jsdom
 
