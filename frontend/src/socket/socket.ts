@@ -77,3 +77,18 @@ export function subscribe(fn: (msg: ServerMessage) => void): () => void {
   listeners.add(fn);
   return () => listeners.delete(fn);
 }
+
+
+//Ensure the connection is open
+export function connect(): void {
+  getSocket();
+}
+
+
+
+
+// Close the connection
+export function disconnect(): void {
+  socket?.close();
+  socket = null;
+}
