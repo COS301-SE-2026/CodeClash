@@ -85,6 +85,10 @@ const SignIn: React.FC<SignInProps> = ({
           {isLoading ? "Signing in..." : "Sign in"}
         </button>
 
+        <div className="new-user-row">
+          <span className="new-user-text">Forgot Password?</span>
+        </div>
+
         <div className="or-divider">
           <div className="or-line" />
           <span className="or-text">or</span>
