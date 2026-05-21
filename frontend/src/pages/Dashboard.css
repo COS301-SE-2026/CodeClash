@@ -310,16 +310,15 @@ html, body, #root {
 
 .play-cards-row {
   display: grid;
-  grid-template-columns: 574px 574px;
+  grid-template-columns: 1fr 1fr;
   gap: var(--gap);
-  height: 200px;
+  height: 230px;
   flex-shrink: 0;
 }
 
 .mid-row {
   display: grid;
-  
-  grid-template-columns: 140px 497px 497px;
+  grid-template-columns: 1fr 1fr;
   gap: var(--gap);
   height: 250px;
   flex-shrink: 0;
@@ -333,13 +332,14 @@ html, body, #root {
 .play-card {
   background: var(--card-bg);
   border-radius: var(--radius);
-  padding: 24px 28px;
+  padding: 24px 28px 24px 28px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: space-between;
-  gap: 16px;
+  gap: 8px;
   height: 100%;
-  overflow: hidden;
+  overflow: visible;
+  position: relative;
 }
 .play-card-text { flex: 1; min-width: 0; }
 .play-card-title {
@@ -358,22 +358,16 @@ html, body, #root {
   opacity: 0.65;
 }
 .play-card-image {
-  height: 110px;
+  position: absolute;
+  top: -20px;
+  right: -10px;
+  height: 160px;
   width: auto;
   object-fit: contain;
-  flex-shrink: 0;
+  pointer-events: none;
+  mix-blend-mode: multiply;
 }
-.play-card-image-placeholder {
-  width: 100px;
-  height: 100px;
-  flex-shrink: 0;
-  background: rgba(14,52,160,0.05);
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 48px;
-}
+
 .play-now-button {
   background: var(--btn-blue);
   color: #fff;
@@ -384,71 +378,12 @@ html, body, #root {
   font-size: 20px;
   font-weight: 700;
   cursor: pointer;
-  white-space: nowrap;
-  flex-shrink: 0;
-  align-self: flex-end;
+  width: 100%;
   transition: background var(--ease), transform 0.12s;
+  filter: drop-shadow(4px 4px 5px rgba(0, 0, 0, 0.3));
 }
 .play-now-button:hover  { background: #0a2880; transform: translateY(-1px); }
 .play-now-button:active { transform: translateY(0); }
-
-.stat-cards-col {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap);
-  height: 100%;
-  
-  min-width: 0;
-  margin-right: 0;
-}
-
-.stat-card {
-  background: var(--card-bg);
-  border-radius: var(--radius);
-  padding: 12px 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-  gap: 4px;
-  overflow: hidden;
-  min-height: 0;
-  min-width: 0;
-}
-.stat-icon-placeholder {
-  font-size: 28px;
-  line-height: 1;
-}
-.stat-icon {
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
-}
-.stat-value {
-  font-family: var(--font);
-  font-size: 24px;
-  font-weight: 800;
-  color: var(--text-dark);
-  line-height: 1;
-  white-space: nowrap;
-}
-.stat-label {
-  font-family: var(--font);
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--text-dark);
-  opacity: 0.6;
-  text-align: center;
-  white-space: nowrap;
-}
-.stat-sub {
-  font-family: var(--font);
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--btn-blue);
-  white-space: nowrap;
-}
 
 .skill-progress-card {
   background: var(--card-bg);
