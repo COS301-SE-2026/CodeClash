@@ -4,7 +4,7 @@
     "target": "es2023",
     "lib": ["ES2023", "DOM"],
     "module": "esnext",
-    "types": ["vite/client"],
+    "types": ["vite/client","node","@testing-library/jest-dom"],
     "skipLibCheck": true,
 
     /* Bundler mode */
@@ -20,6 +20,14 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
+
+    /* shadcn */
+    "ignoreDeprecations": "6.0",
+    "baseUrl": ".",
+    "paths": {
+      "@/*":["./@/*"]
+    }
+
   },
-  "include": ["src", "amplify-config.ts"],
+  "include": ["src", "@", "amplify-config.ts", "test/unit/PrimaryButton.test.tsx"],
 }

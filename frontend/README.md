@@ -4,8 +4,6 @@ We're using a React + TypeScript frontend built with Vite.
 
 ## Tech Stack
 
-## Tech Stack
-
 | Tool             | Purpose                |
 |------------------|------------------------|
 | React            | UI framework           |
@@ -16,12 +14,38 @@ We're using a React + TypeScript frontend built with Vite.
 ## Installation
 
 - cd frontend
-- npm install
-- npm install react-router-dom
+- For the pages: 
+    - npm install
+    - npm install react-router-dom
+    - npm install -D @tailwindcss/vite tailwindcss
+- For component testing:
+    - npm install -D vitest @vitest/coverage-v8 @testing-library/react @testing-library/jest-dom @testing-library/user-event jsdom
 
-## Running the App
+## Running
 
-npm run dev
+from the root
+
+### The App
+
+````
+npm run frontend   // to run the frontend only
+npm run backend    // to run the backend only 
+npm run dev        // to run both frontend and backend
+````
+
+### Testing 
+
+Frontend
+````
+npm run test:frontend               //test only
+npm run test:frontend:coverage      //test and coverage
+
+
+To run tests on an individual file 
+
+````
+npx vitest run src/components/tests/<FileName.test.tsx>
+````
 
 ## Page URL's
 
@@ -29,19 +53,11 @@ The pages are currently using state-based routing, so they are live at the same 
 
 ## Navigation Flow
 
-- Welcome page
-  - Sign in → SignIn page
-  - Sign up → SignUp page
-- SignIn page
-  - ← Back → Welcome page
-  - Sign up → SignUp page
-- SignUp page
-  - ← Back → Welcome page
-
+![Diagram](../docs/UserFlow_Diagram.png)
 
 ## Fonts
 
-"Baloo Bhai 2" font is loaded via Goggle Fonts in each of the CSS files. This requires an internet connection when running.
+"Baloo Bhai 2" font is loaded via Google Fonts in each of the CSS files. This requires an internet connection when running.
 
 ## Notes
 

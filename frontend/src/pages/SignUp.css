@@ -8,7 +8,7 @@
 
 body {
   font-family: 'Baloo Bhai 2', cursive;
-  background-color: #f8fafc;
+  background-color: #d2d2d2;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -18,7 +18,7 @@ body {
 .page-wrapper {
   width: 1440px;
   height: 1024px;
-  background-color: #f8fafc;
+  background-color: #d2d2d2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,13 +32,12 @@ body {
   left: 40px;
   width: 91px;
   height: 31px;
-  background-color: #ffffff;
-  border: 1px solid #0f172a;
-  border-radius: 6px;
+  background-color: #5f5980;
+  border-radius: 20px;
   font-family: 'Baloo Bhai 2', cursive;
   font-size: 16px;
   font-weight: 400;
-  color: #0f172a;
+  color: #ffffff;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -48,7 +47,7 @@ body {
 }
 
 .back-button:hover {
-  background-color: #f1f5f9;
+  background-color: #5F5980;
 }
 
 .shield-bg {
@@ -88,8 +87,8 @@ body {
   width: 500px;
   height: 60px;
   background-color: #ffffff;
-  border: 1px solid #0f172a;
-  border-radius: 8px;
+  border: 0.5px solid #0f172a;
+  border-radius: 20px;
   padding: 0 20px;
   font-family: 'Baloo Bhai 2', cursive;
   font-size: 24px;
@@ -165,18 +164,20 @@ body {
 .signup-button {
   width: 500px;
   height: 60px;
-  background-color: #3b82f6;
-  border: 2px solid #0f172a;
-  border-radius: 8px;
+  background-color: #0e34a0;
+  border: none;
+  border-radius: 20px;
   font-family: 'Baloo Bhai 2', cursive;
   font-size: 32px;
-  font-weight: 600;
-  color: #0f172a;
+  font-weight: 200;
+  color: #ffffff;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: background-color 0.2s ease, transform 0.15s ease;
+  margin-bottom: 24px;
+  filter: drop-shadow(4px 4px 5px rgba(0, 0, 0, 0.3));
 }
 
 .signup-button:hover {
@@ -200,12 +201,12 @@ body {
   flex: none;
   width: 218px;
   height: 1px;
-  background-color: rgba(15, 23, 42, 0.1); 
+  background-color: #0f172a; 
 }
 
 .or-text {
   font-family: 'Baloo Bhai 2', cursive;
-  font-size: 16px;
+  font-size: 32px;
   font-weight: 400;
   color: #0f172a;
   white-space: nowrap;
@@ -214,8 +215,7 @@ body {
 .social-button {
   width: 500px;
   height: 60px;
-  border: 1px solid #0f172a;
-  border-radius: 8px;
+  border-radius: 20px;
   font-family: 'Baloo Bhai 2', cursive;
   font-size: 24px;
   font-weight: 600;
@@ -226,6 +226,7 @@ body {
   justify-content: center;
   gap: 12px;
   transition: opacity 0.2s ease, transform 0.15s ease;
+  filter: drop-shadow(4px 4px 5px rgba(0, 0, 0, 0.3));
 }
 
 .social-button:hover {
@@ -238,11 +239,12 @@ body {
 }
 
 .social-button.google {
-  background-color: #a78bfa;
+  background-color: #ffffff;
 }
 
 .social-button.apple {
-  background-color: #3b82f6;
+  background-color: #16213d;
+  color: #ffffff;
 }
 
 .icon-google {

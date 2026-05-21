@@ -11,6 +11,7 @@ CodeClash is a competitive mathematics and coding collaboration platform designe
 ## Table of Contents
 
 - [Tech Stack](#tech-stack)
+- [Badges](#badges)
 - [Demo Videos](#demo-videos)
 - [Documentation](#documentation)
 - [Project Board](#project-board)
@@ -28,6 +29,16 @@ CodeClash is a competitive mathematics and coding collaboration platform designe
 ![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)
 ![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)
+
+# Badges
+
+![Codecov](https://img.shields.io/codecov/c/github/COS301-SE-2026/CodeClash)
+
+[![CI Pipeline](https://github.com/COS301-SE-2026/CodeClash/actions/workflows/ci.yml/badge.svg)](https://github.com/COS301-SE-2026/CodeClash/actions/workflows/ci.yml)
+
+![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/COS301-SE-2026/CodeClash)
+
+![Uptime Robot status](https://img.shields.io/uptimerobot/status/m803126150-7510a0783dc1e5771477834e)
 
 ## Demo Videos
 
@@ -70,7 +81,11 @@ We have the project board to keep track of the teams progress during the develop
 [GitHub Project Board](https://github.com/orgs/COS301-SE-2026/projects/33)
 
 ## GitHub Repo Structure
-Our repo follows a monorepo structure, with a main branch carrying the most recent, working code. Dev branches off of that which is our working branch. Each feature is then branched off of and merged into dev as the project develops.
+This project uses the Git Flow branching strategy. 
+
+Branches are named accoriding to the features they implement or the issues they address, as well as the name of the team member working on the branch. 
+
+Once a feature complete or an issue is addressed, branches are merged back into Dev. From there Dev is merged into main.
 
 ```
 CodeClash/

@@ -93,17 +93,14 @@ You should see:
 { "status": "ok" }
 ```
 
-## Running Tests
+## Testing
 
-From the backend folder:
-```bash
-npm test
-```
+Backend 
+````
+npm run test:backend                //tests only
+npm run test:backend:converag       //test and converage
+````
 
-To run tests with coverage:
-```bash
-npm test -- --coverage
-```
 
 ## PG-Admin
 

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./SignUp.css";
-import shieldImage from "../assets/LightMode_Shield.png";
 import googleIcon from "../assets/Google_Icon.png";
 import appleIcon from "../assets/Apple_Icon.png";
 import { useAuth } from "../context/AuthContext";
@@ -128,12 +127,6 @@ const SignUp: React.FC<SignUpProps> = ({
         >
           ← Back
         </button>
-        <img
-          src={shieldImage}
-          alt="C"
-          className="shield-bg"
-          aria-hidden="true"
-        />
         <div className="signup-container">
           <h1 className="signup-heading">Verify your email</h1>
           <p style={{ marginBottom: "1rem" }}>Enter the code sent to {email}</p>
@@ -190,8 +183,6 @@ const SignUp: React.FC<SignUpProps> = ({
       <button className="back-button" onClick={onBack} type="button">
         ← Back
       </button>
-
-      <img src={shieldImage} alt="C" className="shield-bg" aria-hidden="true" />
 
       <div className="signup-container">
         <h1 className="signup-heading">Sign Up</h1>

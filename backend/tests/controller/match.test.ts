@@ -1,3 +1,5 @@
+import { vi, Mocked, describe, it, expect, afterEach } from 'vitest'
+
 import { Request, Response } from 'express';
 import {
   getMatches,
@@ -9,36 +11,38 @@ import {
 } from '../../src/controllers/matches.controllers';
 import pool from '../../src/config/db';
 
-jest.mock('../../src/config/db', () => ({
-  query: jest.fn(),
+vi.mock('../../src/config/db', () => ({
+  default: {
+    query: vi.fn(),
+  }
 }));
 
-const mockPool = pool as jest.Mocked<typeof pool>;
+const mockPool = pool as Mocked<typeof pool>;
 
 const mockReq = (overrides: Partial<Request> = {}): Request =>
-  ({
-    params: {},
-    body: {},
-    query: {},
-    ...overrides,
-  } as unknown as Request);
+({
+  params: {},
+  body: {},
+  query: {},
+  ...overrides,
+} as unknown as Request);
 
 const mockRes = (): Response => {
   const res = {} as Response;
-  res.status = jest.fn().mockReturnValue(res);
-  res.json = jest.fn().mockReturnValue(res);
+  res.status = vi.fn().mockReturnValue(res);
+  res.json = vi.fn().mockReturnValue(res);
   return res;
 };
 
 // ─── getMatches ────────
 
 describe('getMatches', () => {
-  afterEach(() => jest.clearAllMocks());
+  afterEach(() => vi.clearAllMocks());
 
   it('returns 200 with match rows when no filters provided', async () => {
     const rows = [
       { match_id: 'uuid-1', mode: 'ranked', status: 'completed', queue_start: new Date(), match_start: new Date() },
-      { match_id: 'uuid-2', mode: 'casual', status: 'waiting',   queue_start: new Date(), match_start: null },
+      { match_id: 'uuid-2', mode: 'casual', status: 'waiting', queue_start: new Date(), match_start: null },
     ];
     mockPool.query.mockResolvedValueOnce({ rows } as any);
 
@@ -115,7 +119,7 @@ describe('getMatches', () => {
 // ─── getMatchById ──────
 
 describe('getMatchById', () => {
-  afterEach(() => jest.clearAllMocks());
+  afterEach(() => vi.clearAllMocks());
 
   it('returns 200 with match data when match exists', async () => {
     const row = { match_id: 'uuid-1', mode: 'ranked', status: 'completed' };
@@ -166,7 +170,7 @@ describe('getMatchById', () => {
 // ─── createMatch ───────
 
 describe('createMatch', () => {
-  afterEach(() => jest.clearAllMocks());
+  afterEach(() => vi.clearAllMocks());
 
   it('returns 201 with created match on success', async () => {
     const row = {
@@ -218,7 +222,7 @@ describe('createMatch', () => {
 // ─── updateMatchStatus ─
 
 describe('updateMatchStatus', () => {
-  afterEach(() => jest.clearAllMocks());
+  afterEach(() => vi.clearAllMocks());
 
   it('returns 200 with updated match on success', async () => {
     const row = { match_id: 'uuid-1', status: 'in_progress', match_start: new Date() };
@@ -269,7 +273,7 @@ describe('updateMatchStatus', () => {
 // ─── getMatchLog ───────
 
 describe('getMatchLog', () => {
-  afterEach(() => jest.clearAllMocks());
+  afterEach(() => vi.clearAllMocks());
 
   it('returns 200 with log data when log exists', async () => {
     const row = {
@@ -316,7 +320,7 @@ describe('getMatchLog', () => {
 // ─── createMatchLog ────
 
 describe('createMatchLog', () => {
-  afterEach(() => jest.clearAllMocks());
+  afterEach(() => vi.clearAllMocks());
 
   it('returns 201 with created log on success', async () => {
     const row = { log_id: 'log-new', match_id: 'uuid-1', winner_id: 'p1', loser_id: 'p2' };

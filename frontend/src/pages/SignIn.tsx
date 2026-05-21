@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./SignIn.css";
-import shieldImage from "../assets/LightMode_Shield.png";
 import googleIcon from "../assets/Google_Icon.png";
 import appleIcon from "../assets/Apple_Icon.png";
 import { useAuth } from "../context/AuthContext";
@@ -52,8 +51,6 @@ const SignIn: React.FC<SignInProps> = ({
         ← Back
       </button>
 
-      <img src={shieldImage} alt="C" className="shield-bg" aria-hidden="true" />
-
       <div className="SignIn-container">
         <h1 className="SignIn-heading">Let's sign you in</h1>
         <p className="welcome-back">Welcome back!</p>
@@ -87,6 +84,10 @@ const SignIn: React.FC<SignInProps> = ({
         <button className="signin-button" type="button" onClick={handleSubmit} disabled={isLoading}>
           {isLoading ? "Signing in..." : "Sign in"}
         </button>
+
+        <div className="new-user-row">
+          <span className="new-user-text">Forgot Password?</span>
+        </div>
 
         <div className="or-divider">
           <div className="or-line" />
