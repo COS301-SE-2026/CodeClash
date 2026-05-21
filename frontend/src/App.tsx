@@ -25,14 +25,14 @@ type Page =
   | 'prog-match';
 
 const App: React.FC = () => {
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading, signOut } = useAuth();
 
   const [page, setPage] = useState<Page>('welcome');
   const [queueType, setQueueType] = useState<QueueType>(null);
 
   if (isLoading) return null;
 
-  if (isAuthenticated && page === 'welcome') {
+  if (isAuthenticated && (page === 'welcome' || page === 'signin' || page === 'signup')) {
     return (
       <Dashboard
         onProfileClick={() => setPage('profile')}
@@ -107,7 +107,7 @@ const App: React.FC = () => {
       {page === 'profile' && (
         <Profile
           onBack={() => setPage('dashboard')}
-          onLogout={() => setPage('welcome')}
+          onLogout={async () => { await signOut(); setPage('welcome'); }}
         />
       )}
 
