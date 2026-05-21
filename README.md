@@ -14,6 +14,11 @@ CodeClash is a competitive mathematics and coding collaboration platform designe
 - [Team Profiles](#team-profiles)
 - [Contact Us](#contact-us)
 
+
+# Badges
+
+
+    
 ## Demo Videos
 
 - Demo 1: Linked to Google Drive link
