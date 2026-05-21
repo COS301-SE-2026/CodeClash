@@ -30,10 +30,10 @@ jobs:
       - name: Install dependencies (requires package.json)
         run: npm ci
       - name: Backend dependencies
-        run: nmp ci
+        run: npm ci
         working-directory: backend
       - name: Frontend dependencies
-        run: nmp ci
+        run: npm ci
         working-directory: frontend
 
   test:
@@ -47,10 +47,10 @@ jobs:
     - name: Install dependencies (requires package.json)
       run: npm ci
     - name: Backend dependencies
-      run: nmp ci
+      run: npm ci
       working-directory: backend
     - name: Frontend dependencies
-      run: nmp ci
+      run: npm ci
       working-directory: frontend
    
     - name: Test and coverage backend
@@ -72,12 +72,12 @@ jobs:
     - name: Install dependencies (requires package.json)
       run: npm ci
     - name: Backend dependencies
-      run: nmp ci
+      run: npm ci
       working-directory: backend
     - name: Frontend dependencies
-      run: nmp ci
+      run: npm ci
       working-directory: frontend
-      
+
     - name: Test and coverage backend
       run: npm run test:backend:coverage
 
