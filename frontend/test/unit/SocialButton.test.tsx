@@ -20,4 +20,14 @@ describe('SocialButton', () => {
     render(<SocialButton provider="google" icon={mockIcon}>Sign up with Google</SocialButton>);
     expect(screen.getByRole('button')).toHaveAttribute('type', 'button');
   });
+
+  it('applies purple background for google provider', () => {
+    render(<SocialButton provider="google" icon={mockIcon}>Sign up with Google</SocialButton>);
+    expect(screen.getByRole('button').className).toContain('bg-[#a78bfa]');
+  });
+
+  it('applies blue background for apple provider', () => {
+    render(<SocialButton provider="apple" icon={mockIcon}>Sign up with Apple</SocialButton>);
+    expect(screen.getByRole('button').className).toContain('bg-[#3b82f6]');
+  });
 });
