@@ -59,34 +59,8 @@ jobs:
     - name: Test and coverage frontend
       run: npm run test:frontend:coverage
 
-  sonarqube: 
-    name: SonarCloud Scan
-    runs-on: ubuntu-latest
-    needs: test
-
-    steps:
-    - uses: actions/checkout@v4
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v5
       with:
-        fetch-depth: 0
-
-    - name: Install dependencies (requires package.json)
-      run: npm ci
-    - name: Backend dependencies
-      run: npm ci
-      working-directory: backend
-    - name: Frontend dependencies
-      run: npm ci
-      working-directory: frontend
-
-    - name: Test and coverage backend
-      run: npm run test:backend:coverage
-
-    - name: Test and coverage frontend
-      run: npm run test:frontend:coverage 
-      
-    - name: SonarQube Scan  
-      uses: SonarSource/sonarcloud-github-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
+        token: ${{ secrets.CODECOV_TOKEN }}
 

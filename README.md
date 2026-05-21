@@ -17,10 +17,6 @@ CodeClash is a competitive mathematics and coding collaboration platform designe
 
 # Badges
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2026_CodeClash&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=COS301-SE-2026_CodeClash)
-
-
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2026_CodeClash&metric=coverage)](https://sonarcloud.io/summary/new_code?id=COS301-SE-2026_CodeClash)
 
     
 ## Demo Videos
