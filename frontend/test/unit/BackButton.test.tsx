@@ -5,9 +5,9 @@ import BackButton from '../../@/components/shared/BackButton';
 describe('BackButton click Test', () => {
     it('execute onClick function', () => {
         const click = vi.fn();
-        render(<BackButton onClick={click} data-tesid='back-button-test'></BackButton>)
+        render(<BackButton onClick={click}></BackButton>)
 
-        fireEvent.click(screen.getByTestId('back-button-test'))
+        fireEvent.click(screen.getByRole('button'))
         expect(click).toHaveBeenCalled();
     })
 })
