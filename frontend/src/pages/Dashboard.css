@@ -560,12 +560,13 @@ html, body, #root {
   table-layout: fixed;
   flex: 1;
 }
+
 .match-table thead th {
   font-size: 12px;
   font-weight: 800;
   color: var(--text-dark);
   opacity: 0.45;
-  text-align: left;
+  text-align: center;
   padding: 0 10px 8px 10px;
   border-bottom: 1.5px solid #ebebeb;
   text-transform: uppercase;
@@ -582,6 +583,7 @@ html, body, #root {
   padding: 0 10px;
   border-bottom: 1px solid #f3f3f3;
   vertical-align: middle;
+  text-align: center;
 }
 .match-table tbody tr:last-child td { border-bottom: none; }
 .result-win  { color: #16a34a; font-weight: 800; }
