@@ -14,6 +14,7 @@ import casualplayImage from '../assets/CasualPlay_Image.png'
 import medalImage from '../assets/RecentlyEarned_Image.png'
 import agentIcon from '../assets/AIAgent_Icon.png'
 import notificationIcon from '../assets/Notification_Icon.png'
+import searchIcon from '../assets/Search_Icon.png'
 
 import PopUp from '../components/PopUp';
 
@@ -154,7 +155,10 @@ const Dashboard: React.FC<DashboardProps> = ({
       </aside>
 
       <header className="header">
+        <div className="header-search-wrapper">
+          <img src={searchIcon} width="16" height="16" alt="" />
         <input className="header-search" type="text" placeholder="Search..." aria-label="Search" />
+      </div>
         <div className="header-spacer" />
         <div className="header-icons">
           <button className="header-icon-btn" type="button" aria-label="Notifications">
