@@ -178,3 +178,11 @@ seed();
   matchmakingBus.on("match:searching", (u) => console.log(`[event] match:searching  id=${u.id} attempt=${u.match_attempt}`));
   matchmakingBus.on("match:found", (p1, p2) => console.log(`[event] match:found  ${p1} vs ${p2}`));
   matchmakingBus.on("match:created", (m) => console.log(`[event] match:created  id=${m.match_id} diff=${m.difficulty} time=${m.time_limit}s`));
+
+
+  //Helpers
+function send(ws: WebSocket, msg: ServerMessage) {
+  if (ws.readyState === WebSocket.OPEN) {
+    ws.send(JSON.stringify(msg));
+  }
+}
