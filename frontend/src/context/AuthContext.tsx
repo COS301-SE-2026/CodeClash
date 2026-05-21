@@ -48,7 +48,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const signIn = useCallback(async (email: string, password: string) => {
     setError(null)
     try {
-     const amp =  await amplifySignIn({ username: email, password })
+     await amplifySignIn({ username: email, password })
 
       const cognitoUser = await getCurrentUser()
 
