@@ -37,4 +37,11 @@ describe('SocialButton', () => {
     expect(img).toBeInTheDocument();
     expect(img).toHaveAttribute('src', mockIcon);
   });
+
+   it('applies correct size classes', () => {
+    render(<SocialButton provider="google" icon={mockIcon}>Sign up with Google</SocialButton>);
+    const btn = screen.getByRole('button');
+    expect(btn.className).toContain('w-[500px]');
+    expect(btn.className).toContain('h-[60px]');
+  });
 });
