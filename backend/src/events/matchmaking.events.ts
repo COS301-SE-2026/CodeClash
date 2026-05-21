@@ -29,4 +29,12 @@ class MatchmakingEventBus extends EventEmitter {
     return super.on(event, listener as (...args: unknown[]) => void);
   }
 
+  once<K extends keyof MatchmakingEvents>(
+    event: K,
+    listener: MatchmakingEvents[K]
+  ): this {
+    return super.once(event, listener as (...args: unknown[]) => void);
+  }
+
+
 }
