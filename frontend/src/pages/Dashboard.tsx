@@ -54,7 +54,6 @@ const NAV_ITEMS: { page: NavPage; icon: any; alt: string }[] = [
 const SKILLS = [
   { name: 'Arrays & Strings',      level: 6, progress: 6 },
   { name: 'Integrals & Derivates', level: 3, progress: 3 },
-  { name: 'Recursion',             level: 5, progress: 8 },
 ];
 
 const MATCHES = [
@@ -243,12 +242,12 @@ const Dashboard: React.FC<DashboardProps> = ({
             <div className="match-history-title">Match History</div>
             <table className="match-table">
               <colgroup>
-                <col style={{ width: '14%' }} />
                 <col style={{ width: '17%' }} />
-                <col style={{ width: '17%' }} />
-                <col style={{ width: '13%' }} />
-                <col style={{ width: '13%' }} />
-                <col style={{ width: '26%' }} />
+                <col style={{ width: '19%' }} />
+                <col style={{ width: '19%' }} />
+                <col style={{ width: '15%' }} />
+                <col style={{ width: '15%' }} />
+                <col style={{ width: '20%' }} />
               </colgroup>
               <thead>
                 <tr>
@@ -267,10 +266,10 @@ const Dashboard: React.FC<DashboardProps> = ({
                     <td>{m.opponent}</td>
                     <td>{m.topic}</td>
                     <td>{m.speed}</td>
-                    <td className={m.result === 'Win' ? 'result-win' : 'result-lose'}>
+                    <td style={{ color: m.result === 'Win' ? '#16213D' : '#16213d', fontWeight: m.result === 'Win' ? 800 : 600 }}>
                       {m.result}
                     </td>
-                    <td className={m.elo >= 0 ? 'elo-pos' : 'elo-neg'}>
+                    <td style={{ color: m.elo >= 0 ? '#22c55e' : '#ef4444', fontWeight: 800 }}>
                       {m.elo >= 0 ? '+' : ''}{m.elo}
                     </td>
                   </tr>
