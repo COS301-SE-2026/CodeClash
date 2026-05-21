@@ -29,8 +29,8 @@ function MatchProgress({
   return (
     <div className="relative bg-white flex flex-col rounded-3xl w-[15%] h-[98%] m-auto">
       <Badge
-        className={`bg-white badge-font shadow-badge self-center m-4 w-[40%] h-[5%] relative z-10 transition-transform duration-300 ${done ? "scale-110" : "scale-1"}`}
-      >
+        className={`bg-white badge-font shadow-badge self-center m-4 w-[40%] h-[5%] relative z-10 
+          transition-transform duration-300 ${done ? "scale-110" : "scale-1"}`}>
         Finish
       </Badge>
 
