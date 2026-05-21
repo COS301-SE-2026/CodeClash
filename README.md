@@ -1,6 +1,6 @@
 # CodeClash
 
-![Project Logo](assets/logo.png)
+![Project Logo](frontend/src/assets/logo.jpeg)
 
 ## Description
 
