@@ -109,6 +109,7 @@ const Dashboard: React.FC<DashboardProps> = ({
       <aside className="sidebar">
         <div className="sidebar-top">
           <img src={logoImage} alt="CodeClash" className="sidebar-logo" />
+          <span className="sidebar-wordmark">CodeClash</span>
           <button
             className="collapse-btn"
             type="button"

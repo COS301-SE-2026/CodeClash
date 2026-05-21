@@ -95,6 +95,20 @@ html, body, #root {
   flex-shrink: 0;
 }
 
+.sidebar-wordmark {
+  font-family: var(--font);
+  font-size: 24px;
+  font-weight: 800;
+  color: #ffffff;
+  white-space: nowrap;
+  flex: 1;
+  overflow: hidden;
+  max-width: 160px;
+  transition: max-width var(--ease), opacity var(--ease);
+  opacity: 1;
+  margin-left: 10px;;
+}
+
 .collapse-btn {
   background: none;
   border: none;
