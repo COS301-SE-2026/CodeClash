@@ -418,8 +418,11 @@ html, body, #root {
   font-weight: 700;
   cursor: pointer;
   transition: background var(--ease);
+  filter: drop-shadow(4px 4px 5px rgba(0, 0, 0, 0.3));
 }
-.all-skills-button:hover { background: #4a4470; }
+.all-skills-button:hover { 
+  background: #4a4470; 
+}
 
 .skills-body {
   display: flex;
@@ -445,24 +448,25 @@ html, body, #root {
   color: var(--text-dark);
 }
 .skill-level-badge {
-  background: var(--btn-blue);
+  background: #4a4470;
   color: #fff;
   font-family: var(--font);
   font-size: 11px;
   font-weight: 800;
   padding: 2px 8px;
   border-radius: 6px;
+  filter: drop-shadow(4px 4px 5px rgba(0, 0, 0, 0.3));
 }
 .skill-bar-track {
   width: 100%;
-  height: 9px;
+  height: 25px;
   background: #e0e0e0;
   border-radius: 99px;
   overflow: hidden;
 }
 .skill-bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--btn-blue), #5f5980);
+  background: #16213D;
   border-radius: 99px;
   transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
 }
@@ -500,6 +504,7 @@ html, body, #root {
   font-weight: 700;
   cursor: pointer;
   transition: background var(--ease);
+  filter: drop-shadow(4px 4px 5px rgba(0, 0, 0, 0.3));
 }
 .all-badges-btn:hover { background: #4a4470; }
 .badges-row {
@@ -514,21 +519,13 @@ html, body, #root {
   align-items: center;
   gap: 10px;
 }
+
 .badge-image {
-  width: 64px;
-  height: 64px;
+  width: 112px;
+  height: 112px;
   object-fit: contain;
 }
-.badge-image-placeholder {
-  width: 64px;
-  height: 64px;
-  background: rgba(14,52,160,0.06);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 32px;
-}
+
 .badge-name {
   font-family: var(--font);
   font-size: 12px;
