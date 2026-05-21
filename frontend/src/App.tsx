@@ -26,7 +26,7 @@ type Page =
 const App: React.FC = () => {
   const { isAuthenticated, isLoading, signOut } = useAuth();
 
-  const [page, setPage] = useState<Page>('welcome');
+  const [page, setPage] = useState<Page>('prog-match');
   const [queueType, setQueueType] = useState<QueueType>(null);
 
   if (isLoading) return null;
@@ -57,10 +57,10 @@ const App: React.FC = () => {
   return (
     <>
       {page === 'prog-match' && (
-        <ProgMatch language="java" match={mock_match} />
+        <ProgMatch language="java" match={mock_match} back={() => setPage('dashboard')} />
       )}
 
-      {page === 'mathfieldtest' && <MathFieldTest />}
+      {page === 'mathfieldtest' && <MathFieldTest back={() => setPage('dashboard')} />}
 
       {page === 'welcome' && (
         <Welcome
