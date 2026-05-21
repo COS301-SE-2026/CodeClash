@@ -10,4 +10,9 @@ describe('SocialButton', () => {
     render(<SocialButton provider="google" icon={mockIcon}>Sign up with Google</SocialButton>);
     expect(screen.getByRole('button', { name: /sign up with google/i })).toBeInTheDocument();
   });
+
+  it('renders as a <button> element', () => {
+    render(<SocialButton provider="google" icon={mockIcon}>Sign up with Google</SocialButton>);
+    expect(screen.getByRole('button')).toBeInTheDocument();
+  });
 });
