@@ -8,8 +8,8 @@
     "dev": "npm run frontend && npm run backend",
     "test:backend":"cd backend && npx vitest run",
     "test:backend:coverage": "cd backend && npx vitest run --coverage",
-    "test:frontend":"npm test --prefix frontend",
-    "test:frontend:coverage":"npm test --coverage --frontend"
+    "test:frontend":"cd frontend && npx vitest run",
+    "test:frontend:coverage":"cd frontend && npx vitest run --coverage"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.9.1",
