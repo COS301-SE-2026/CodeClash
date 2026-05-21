@@ -10,7 +10,6 @@ import Found from './pages/queuePages/found';
 import ProgMatch from './pages/ProgMatch';
 import { useAuth } from './context/AuthContext';
 import { mock_match } from './mocks/prog-match.mock';
-
 type QueueType = 'math' | 'programming' | null;
 
 type Page =
@@ -25,7 +24,7 @@ type Page =
   | 'prog-match';
 
 const App: React.FC = () => {
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading,signOut } = useAuth();
 
   const [page, setPage] = useState<Page>('welcome');
   const [queueType, setQueueType] = useState<QueueType>(null);
@@ -74,13 +73,14 @@ const App: React.FC = () => {
         <SignIn
           onBack={() => setPage('welcome')}
           onSignUp={() => setPage('signup')}
+          onSignIn={() => setPage('dashboard')}
         />
       )}
 
       {page === 'signup' && (
         <SignUp
           onBack={() => setPage('welcome')}
-          onSignIn={()=> setPage('dashboard')}
+          onSignIn={() => setPage('dashboard')}
         />
       )}
 
@@ -108,7 +108,12 @@ const App: React.FC = () => {
       {page === 'profile' && (
         <Profile
           onBack={() => setPage('dashboard')}
-          onLogout={() => setPage('welcome')}
+          onLogout={() => {
+            
+            signOut(); 
+            setPage('welcome')
+
+          }}
         />
       )}
 
