@@ -19,7 +19,8 @@ CodeClash is a competitive mathematics and coding collaboration platform designe
 
 [![CI Pipeline](https://github.com/COS301-SE-2026/CodeClash/actions/workflows/ci.yml/badge.svg)](https://github.com/COS301-SE-2026/CodeClash/actions/workflows/ci.yml)
 
-![GitHub Issues or Pull Requests](https://img.shields.io/github/:variant/:user/:repo)
+![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/https%3A%2F%2Fgithub.com%2FSwe-yy/https%3A%2F%2Fgithub.com%2FCOS301-SE-2026%2FCodeClash)
+
 
 ![Uptime Robot status](https://img.shields.io/uptimerobot/status/803126150)
 
