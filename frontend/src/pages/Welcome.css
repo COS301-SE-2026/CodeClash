@@ -1,24 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400;600;700;800&display=swap');
-/* 
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-} */
+}
 
 body {
   font-family: 'Baloo Bhai 2', cursive;
-  /* background-color: #f1f5f9; */
+  background-color: #d2d2d2;
   min-height: 100vh;
-  /* display: flex;
+  display: flex;
   align-items: center;
-  justify-content: center; */
+  justify-content: center;
 }
 
 .page-wrapper {
   width: 1440px;
   height: 1024px;
-  background-color: #f8fafc;
+  background-color: #d2d2d2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -63,19 +63,20 @@ body {
 .signin-button {
   width: 500px;
   height: 60px;
-  background-color: #3b82f6;
+  background-color: #0e34a0;
   border: none;
-  border-radius: 8px;
+  border-radius: 20px;
   font-family: 'Baloo Bhai 2', cursive;
   font-size: 32px;
-  font-weight: 600;
-  color: #0f172a;
+  font-weight: 200;
+  color: #ffffff;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: background-color 0.2s ease, transform 0.15s ease;
   margin-bottom: 24px;
+  filter: drop-shadow(4px 4px 5px rgba(0, 0, 0, 0.3));
 }
 
 .signin-button:hover {
