@@ -52,3 +52,21 @@ function getSocket(): WebSocket {
 }
 
 
+
+
+
+
+// Below allows user to "communicate" with redis queue (which is a TCP server) - code below allows an almost API-like functionality
+
+
+export function send(msg: ClientMessage): void {
+  const ws = getSocket();
+
+
+  if (ws.readyState === WebSocket.CONNECTING) {
+ 
+    ws.addEventListener("open", () => ws.send(JSON.stringify(msg)), { once: true });
+  } else {
+    ws.send(JSON.stringify(msg));
+  }
+}
