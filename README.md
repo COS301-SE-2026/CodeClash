@@ -24,6 +24,13 @@ CodeClash is a competitive mathematics and coding collaboration platform designe
 ![Uptime Robot status](https://img.shields.io/uptimerobot/status/m803126150-7510a0783dc1e5771477834e)
 
 
+# Branching Strategy
+
+This project uses the Git Flow branching strategy. 
+
+Branches are named accoriding to the features they implement or the issues they address, as well as the name of the team member working on the branch. 
+
+Once a feature complete or an issue is addressed, branches are merged back into Dev. From there Dev is merged into main.
 
 
 ## Demo Videos
