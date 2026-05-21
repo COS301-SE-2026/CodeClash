@@ -27,7 +27,7 @@ type Page =
 const App: React.FC = () => {
   const { isAuthenticated, isLoading } = useAuth();
 
-  const [page, setPage] = useState<Page>('dashboard');
+  const [page, setPage] = useState<Page>('welcome');
   const [queueType, setQueueType] = useState<QueueType>(null);
 
   if (isLoading) return null;
@@ -74,16 +74,12 @@ const App: React.FC = () => {
         <SignIn
           onBack={() => setPage('welcome')}
           onSignUp={() => setPage('signup')}
-          onSignIn={() => {
-            setPage('dashboard');
-          }}
         />
       )}
 
       {page === 'signup' && (
         <SignUp
           onBack={() => setPage('welcome')}
-          onSignUp={() => setPage('signin')}
         />
       )}
 
