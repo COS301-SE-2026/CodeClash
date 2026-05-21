@@ -1,6 +1,6 @@
 # CodeClash
 
-![Project Logo](assets/logo.png)
+![Project Logo](frontend/src/assets/logo.jpeg)
 
 ## Description
 
@@ -17,8 +17,24 @@ CodeClash is a competitive mathematics and coding collaboration platform designe
 
 # Badges
 
+![Codecov](https://img.shields.io/codecov/c/github/COS301-SE-2026/CodeClash)
 
-    
+[![CI Pipeline](https://github.com/COS301-SE-2026/CodeClash/actions/workflows/ci.yml/badge.svg)](https://github.com/COS301-SE-2026/CodeClash/actions/workflows/ci.yml)
+
+![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/COS301-SE-2026/CodeClash)
+
+![Uptime Robot status](https://img.shields.io/uptimerobot/status/m803126150-7510a0783dc1e5771477834e)
+
+
+# Branching Strategy
+
+This project uses the Git Flow branching strategy. 
+
+Branches are named accoriding to the features they implement or the issues they address, as well as the name of the team member working on the branch. 
+
+Once a feature complete or an issue is addressed, branches are merged back into Dev. From there Dev is merged into main.
+
+
 ## Demo Videos
 
 - Demo 1: Linked to Google Drive link
