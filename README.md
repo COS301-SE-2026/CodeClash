@@ -23,7 +23,7 @@ CodeClash is a competitive mathematics and coding collaboration platform designe
 <details>
 <summary>Demo 1</summary>
 
-- [Software Requirements Specification](SRSdoc) Everything we need must be a singular SRS Document
+- [Software Requirements Specification](SRSdoc)
 - [API doc](docs/api-docs(3).html)
 
 </details>
@@ -58,14 +58,14 @@ We have the project board to keep track of the teams progress during the develop
 
 | Name | Role | Bio |
 | --- | --- | --- |
-| ![Member Photo](docs/assets/team/member1.jpg) Nosandiso Mzoneli | Team Lead, Backend Engineer {LinkdIn} | {Bio} |
-| ![Member Photo](docs/assets/team/member1.jpg) Taskeen Abdoola | {Insert Role} {LinkdIn}| {Bio} |
-| ![Member Photo](docs/assets/team/member3.jpg) Morgan Calaca | {Insert Role} {LinkdIn}| {Bio} |
-| ![Member Photo](docs/assets/team/member4.jpg) Swelihle Makhathini | {Insert Role} {LinkdIn}| {Bio} |
-| ![Member Photo](docs/assets/team/member4.jpg) Ntuthuko Mbatha | {Insert Role} {LinkdIn}| {Bio} |
+| <img src="docs/assets/team/Nosandiso%20Mzoneli.jpeg" width="100" height="100" style="object-fit:cover;border-radius:50%"> **Nosandiso Mzoneli** | Team Lead, Backend Engineer [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/nosandiso-mzoneli-646a4823b) | {Bio} |
+| <img src="docs/assets/team/member1.jpeg" width="100" height="100" style="object-fit:cover;border-radius:50%"> **Taskeen Abdoola** | UI/UX Engineer [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/taskeen-abdoola-25776b300) | {Bio} |
+| <img src="docs/assets/team/Morgan%20Calaca.jpeg" width="100" height="100" style="object-fit:cover;border-radius:50%"> **Morgan Calaca** | {Insert Role} [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/morgan-calaca-494b9a401) | {Bio} |
+| <img src="docs/assets/team/member4.jpg" width="100" height="100" style="object-fit:cover;border-radius:50%"> **Swelihle Makhathini** | {Insert Role} [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/swelihle-makhathini) | Computer Science student with experience in full-stack development, including API development and frameworks like Angular and React. I enjoy learning new technologies and adapting to different environments to tackle complex problems. Beyond the technical side, I bring strong communication skills and a collaborative mindset, shaped by group projects and an entrepreneurship module that taught me to think practically about problem-solving and iterative development.|
+| <img src="docs/assets/team/member4.jpg" width="100" height="100" style="object-fit:cover;border-radius:50%"> **Ntuthuko Mbatha** | {Insert Role} [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/me?trk=p_mwlite_feed-secondary_nav) | {Bio} |
 
 
 ## Contact Us
 
-- Email:quantdevs@gmail.com
+- Email: quantdevs@gmail.com
 - Discord: {?}
