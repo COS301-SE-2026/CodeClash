@@ -10,7 +10,6 @@ import Found from './pages/queuePages/found';
 import ProgMatch from './pages/ProgMatch';
 import { useAuth } from './context/AuthContext';
 import { mock_match } from './mocks/prog-match.mock';
-
 type QueueType = 'math' | 'programming' | null;
 
 type Page =
@@ -74,12 +73,14 @@ const App: React.FC = () => {
         <SignIn
           onBack={() => setPage('welcome')}
           onSignUp={() => setPage('signup')}
+          onSignIn={() => setPage('dashboard')}
         />
       )}
 
       {page === 'signup' && (
         <SignUp
           onBack={() => setPage('welcome')}
+          onSignIn={() => setPage('dashboard')}
         />
       )}
 

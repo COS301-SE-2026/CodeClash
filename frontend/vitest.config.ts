@@ -19,6 +19,7 @@ export default defineConfig({
     },
 
     globals: true,
+    exclude: ['@/components/ui/**', '@/hooks/**', '**/node_modules/**'],  // exclude shadcn ui components
   },
   resolve: {
     alias: {

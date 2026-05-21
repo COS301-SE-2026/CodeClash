@@ -46,10 +46,17 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const clearError = useCallback(() => setError(null), [])
 
   const signIn = useCallback(async (email: string, password: string) => {
+    console.log("logging in user: ", email);
     setError(null)
     try {
-      await amplifySignIn({ username: email, password })
+     const amp =  await amplifySignIn({ username: email, password })
+
+     console.log(amp);
+
       const cognitoUser = await getCurrentUser()
+
+      console.log(cognitoUser);
+      
       setUser({
         username: cognitoUser.username,
         userId: cognitoUser.userId,

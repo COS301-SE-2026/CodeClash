@@ -4,10 +4,11 @@ import appleIcon from "../assets/Apple_Icon.png";
 import { useAuth } from "../context/AuthContext";
 
 interface SignInProps {
-  onBack?: () => void;
+  onBack: () => void;
   onGoogleSignIn?: () => void;
   onAppleSignIn?: () => void;
-  onSignUp?: () => void;
+  onSignUp: () => void;
+  onSignIn: () => void;
 }
 
 const SignIn: React.FC<SignInProps> = ({
@@ -15,6 +16,7 @@ const SignIn: React.FC<SignInProps> = ({
   onGoogleSignIn,
   onAppleSignIn,
   onSignUp,
+  onSignIn,
 }) => {
   const { signIn, error, clearError, isLoading } = useAuth();
   const [email, setEmail] = useState("");
@@ -33,6 +35,7 @@ const SignIn: React.FC<SignInProps> = ({
     if (!validate()) return;
     try {
       await signIn(email.trim(), password);
+      onSignIn();
     } catch {
       // error is set by context
     }

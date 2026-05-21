@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { Badge } from "../ui/badge";
+=======
+import * as React from "react"
+import { cn } from "@/lib/utils"
+import { Badge } from "../ui/badge"
+>>>>>>> 5eefd1a5d3c0095bbe1836c95e652169dfdaf9e2
 
 function Question({
   className,

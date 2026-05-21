@@ -1,5 +1,9 @@
 import type { QuestionDTO, MatchDTO } from "src/types/question.dto";
+<<<<<<< HEAD
 import door from "../../../src/assets/door.png";
+=======
+import door from '../../../src/assets/door.png'
+>>>>>>> 5eefd1a5d3c0095bbe1836c95e652169dfdaf9e2
 import { Badge } from "../ui/badge";
 import React from "react";
 
