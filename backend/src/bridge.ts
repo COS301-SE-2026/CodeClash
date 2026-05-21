@@ -61,6 +61,14 @@ seed();
 
 
 
+      // const userDto = {
+      //   id: userRecord.id,
+      //   elo: userRecord.elo,
+      //   game_mode: gameMode,
+      //   joined_at: Date.now(),
+      //   match_attempt: 1,
+      // };
+
 
 
 
@@ -94,6 +102,13 @@ seed();
 
 
 
+
+
+
+
+
+
+
       const match = buildMatchDto("1",
         result.player_1_id, p1?.elo ?? userRecord.elo,
         result.player_2_id, p2?.elo ?? userRecord.elo,
@@ -102,12 +117,15 @@ seed();
 
 
 
+
       matchmakingBus.emit("match:found", result.player_1_id, result.player_2_id);
       matchmakingBus.emit("match:created", match);
 
 
 
+
       console.log(`[bridge] MATCHED  ${result.player_1_id} vs ${result.player_2_id}  diff=${match.difficulty}`);
+
 
 
 
@@ -117,10 +135,12 @@ seed();
 
 
 
+
       const matchMsg: ServerMessage = { type: "MATCHED", match };
       if (p1ws) send(p1ws, matchMsg);
       if (p2ws) send(p2ws, matchMsg);
     }
+
 
 
 
@@ -132,10 +152,24 @@ seed();
 
 
 
+
+      
       connections.delete(userId);
       connectedUserId = null;
       console.log(`[bridge] LEAVE  userId=${userId}`);
     }
   });
 
+  
 
+
+
+  // clean up if the browser tab closes
+  ws.on("close", async () => {
+      if (connectedUserId !== null){
+      await dequeue(connectedUserId, "math").catch(() => {});
+      await dequeue(connectedUserId, "prog").catch(() => {});
+      connections.delete(connectedUserId);
+      console.log(`[bridge] disconnected  userId=${connectedUserId}`);
+    }
+  });
