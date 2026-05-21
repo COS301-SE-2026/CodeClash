@@ -15,7 +15,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
+  
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -29,16 +29,37 @@ jobs:
 
       - name: Install dependencies (requires package.json)
         run: npm ci
+      - name: Backend dependencies
+        run: npm ci
+        working-directory: backend
+      - name: Frontend dependencies
+        run: npm ci
+        working-directory: frontend
 
   test:
     runs-on: ubuntu-latest
-    container:
-      image: node:20-alpine
+    # container:
+    #   image: node:20-alpine
 
     steps:
     - uses: actions/checkout@v4
-    
-    - name: Run the Tests
-      run: npm test --if-present || true
 
-      
+    - name: Install dependencies (requires package.json)
+      run: npm ci
+    - name: Backend dependencies
+      run: npm ci
+      working-directory: backend
+    - name: Frontend dependencies
+      run: npm ci
+      working-directory: frontend
+   
+    - name: Test and coverage backend
+      run: npm run test:backend:coverage
+
+    - name: Test and coverage frontend
+      run: npm run test:frontend:coverage
+
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@75cd11691c0faa626561e295848008c8a7dddffe
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
