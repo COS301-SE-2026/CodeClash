@@ -30,4 +30,11 @@ describe('SocialButton', () => {
     render(<SocialButton provider="apple" icon={mockIcon}>Sign up with Apple</SocialButton>);
     expect(screen.getByRole('button').className).toContain('bg-[#3b82f6]');
   });
+
+  it('renders the icon image', () => {
+    render(<SocialButton provider="google" icon={mockIcon}>Sign up with Google</SocialButton>);
+    const img = screen.getByRole('img');
+    expect(img).toBeInTheDocument();
+    expect(img).toHaveAttribute('src', mockIcon);
+  });
 });
