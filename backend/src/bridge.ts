@@ -3,7 +3,7 @@ import { matchmaking, enqueue, dequeue } from "./Matchmaking Service/matchmaking
 import matchmakingBus from "./events/matchmaking.events";
 import { getMockUser, MOCK_QUEUE_OPPONENT_MATH, MOCK_QUEUE_OPPONENT_PROG } from "./mock/matchmaking.mock";
 import { buildMatchDto } from "./Matchmaking Service/matchmaking.dto";
-import type { ClientMessage, ServerMessage } from "./Matchmaking Service/matchmaking.dto";
+import type { UserDto, ClientMessage, ServerMessage } from "./Matchmaking Service/matchmaking.dto";
 
 
 const PORT = 3001;
@@ -29,4 +29,113 @@ async function seed() {
 
 
 seed();
+
+
+
+  ws.on("message", async (raw) => {
+    let msg: ClientMessage;
+
+
+
+    try {
+      msg = JSON.parse(raw.toString()) as ClientMessage;
+    } catch {
+      send(ws, { type: "ERROR", message: "Invalid message format" });
+      return;
+    }
+
+
+    // if a player joins the queue:
+    if (msg.type === "JOIN") {
+      const { userId, gameMode } = msg;
+      connectedUserId = userId;
+      connections.set(userId, ws);
+
+
+
+      const userRecord = getMockUser(userId);
+      if (!userRecord) {
+        send(ws, { type: "ERROR", message: `User ${userId} not found` });
+        return;
+      }
+
+
+
+
+
+
+      matchmakingBus.emit("player:joined", userDto);
+      console.log(`[bridge] JOIN  userId=${userId} gameMode=${gameMode} elo=${userRecord.elo}`);
+
+
+
+
+      // if a player is in queue already, the player joining is paired with them, if queue is empty, joining player is added
+      const result = await matchmaking(userDto);
+
+
+
+
+      if (!result) {
+        // No opponent yet
+        send(ws, { type: "WAITING" });
+        matchmakingBus.emit("match:searching", userDto);
+        return;
+      }
+
+
+
+
+      //Match found
+      const p1 = getMockUser(result.player_1_id);
+      const p2 = getMockUser(result.player_2_id);
+
+
+
+
+
+      const match = buildMatchDto("1",
+        result.player_1_id, p1?.elo ?? userRecord.elo,
+        result.player_2_id, p2?.elo ?? userRecord.elo,
+        gameMode
+      );
+
+
+
+      matchmakingBus.emit("match:found", result.player_1_id, result.player_2_id);
+      matchmakingBus.emit("match:created", match);
+
+
+
+      console.log(`[bridge] MATCHED  ${result.player_1_id} vs ${result.player_2_id}  diff=${match.difficulty}`);
+
+
+
+      // both players will received MATCHED as a console message when real players are in queue (not now for demo)
+      const p1ws = connections.get(result.player_1_id);
+      const p2ws = connections.get(result.player_2_id);
+
+
+
+      const matchMsg: ServerMessage = { type: "MATCHED", match };
+      if (p1ws) send(p1ws, matchMsg);
+      if (p2ws) send(p2ws, matchMsg);
+    }
+
+
+
+   
+    if (msg.type === "LEAVE") {
+      const { userId } = msg;
+      await dequeue(userId, "math").catch(() => {});
+      await dequeue(userId, "prog").catch(() => {});
+
+
+
+      connections.delete(userId);
+      connectedUserId = null;
+      console.log(`[bridge] LEAVE  userId=${userId}`);
+    }
+  });
+
 
