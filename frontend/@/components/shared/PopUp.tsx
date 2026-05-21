@@ -126,6 +126,7 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose, onSelectTopic }) => {
       role="button"
       tabIndex={-1}
       style={overlayStyle}
+      aria-label='outer-div'
     >
       <dialog
         open
@@ -172,6 +173,7 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose, onSelectTopic }) => {
             <button
               key={t.topic}
               type="button"
+              aria-label='topic-button'
               onClick={() => onSelectTopic(t.topic)}
               style={{ ...topicBtnBaseStyle, border: `2px solid ${t.borderColor}` }}
               onMouseEnter={(e) => {
