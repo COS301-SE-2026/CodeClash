@@ -312,7 +312,7 @@ html, body, #root {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--gap);
-  height: 230px;
+  height: 300px;
   flex-shrink: 0;
 }
 
@@ -320,12 +320,12 @@ html, body, #root {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--gap);
-  height: 250px;
+  height: 280px;
   flex-shrink: 0;
 }
 
 .history-row {
-  height: 250px;
+  height: 280px;
   flex-shrink: 0;
 }
 
@@ -344,17 +344,18 @@ html, body, #root {
 .play-card-text { flex: 1; min-width: 0; }
 .play-card-title {
   font-family: var(--font);
-  font-size: 34px;
+  font-size: 40px;
   font-weight: 800;
   color: var(--text-dark);
+  margin-top: 50px;
   line-height: 1.1;
 }
 .play-card-desc {
   font-family: var(--font);
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 500;
   color: var(--text-dark);
-  margin-top: 5px;
+  margin-top: 30px;
   opacity: 0.65;
 }
 .play-card-image {
@@ -403,7 +404,7 @@ html, body, #root {
 }
 .skill-progress-title {
   font-family: var(--font);
-  font-size: 20px;
+  font-size: 32px;
   font-weight: 800;
   color: var(--text-dark);
 }
@@ -489,7 +490,7 @@ html, body, #root {
 }
 .recently-earned-title {
   font-family: var(--font);
-  font-size: 20px;
+  font-size: 32px;
   font-weight: 800;
   color: var(--text-dark);
 }
@@ -547,7 +548,7 @@ html, body, #root {
 }
 .match-history-title {
   font-family: var(--font);
-  font-size: 20px;
+  font-size: 32px;
   font-weight: 800;
   color: var(--text-dark);
   flex-shrink: 0;
