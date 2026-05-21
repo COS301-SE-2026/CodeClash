@@ -36,5 +36,10 @@ class MatchmakingEventBus extends EventEmitter {
     return super.once(event, listener as (...args: unknown[]) => void);
   }
 
-
 }
+
+
+
+const matchmakingBus = new MatchmakingEventBus();
+ 
+export default matchmakingBus;
