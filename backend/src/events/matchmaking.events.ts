@@ -22,4 +22,11 @@ class MatchmakingEventBus extends EventEmitter {
   ): boolean {
     return super.emit(event, ...args);
   }
+  on<K extends keyof MatchmakingEvents>(
+    event: K,
+    listener: MatchmakingEvents[K]
+  ): this {
+    return super.on(event, listener as (...args: unknown[]) => void);
+  }
+
 }
