@@ -1,4 +1,4 @@
-import MathField from './components/MathField.tsx'; 
+import MathField from '../../@/components/features/MathField.tsx'; 
 import { useState } from 'react';
 
 const MathFieldTest = () => {

@@ -1,18 +1,22 @@
+import { vi, Mock, describe, beforeEach, it, expect, afterAll } from 'vitest'
+
 import request from 'supertest';
 import app from '../../src/app';
 import pool from '../../src/config/db';
 
 // Mock the database so tests don't need a real PostgreSQL connection
-jest.mock('../../src/config/db', () => ({
-  query: jest.fn(),
-  connect: jest.fn(),
+vi.mock('../../src/config/db', () => ({
+  default: {
+    query: vi.fn(),
+    connect: vi.fn(),
+  }
 }));
 
 describe('Elo Endpoints', () => {
 
   // Reseting mocks before each test
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   // Close pool after all tests finish
@@ -25,7 +29,7 @@ describe('Elo Endpoints', () => {
 
     it('should return elo rating for a valid user', async () => {
       // Arrange: mock what the database would return
-      (pool.query as jest.Mock).mockResolvedValueOnce({
+      (pool.query as Mock).mockResolvedValueOnce({
         rows: [{
           elo_id: 'some-uuid',
           user_id: 'user-uuid',
@@ -46,7 +50,7 @@ describe('Elo Endpoints', () => {
     });
 
     it('should return 404 if user has no elo rating', async () => {
-      (pool.query as jest.Mock).mockResolvedValueOnce({ rows: [] });
+      (pool.query as Mock).mockResolvedValueOnce({ rows: [] });
 
       const response = await request(app)
         .get('/api/elo/nonexistent-uuid');
@@ -56,7 +60,7 @@ describe('Elo Endpoints', () => {
     });
 
     it('should return 500 if database throws an error', async () => {
-      (pool.query as jest.Mock).mockRejectedValueOnce(new Error('DB error'));
+      (pool.query as Mock).mockRejectedValueOnce(new Error('DB error'));
 
       const response = await request(app)
         .get('/api/elo/user-uuid');
@@ -67,12 +71,12 @@ describe('Elo Endpoints', () => {
 
   });
 
-  
+
   // GET /api/elo/:user_id/history -----------
   describe('GET /api/elo/:user_id/history', () => {
 
     it('should return elo history for a valid user', async () => {
-      (pool.query as jest.Mock).mockResolvedValueOnce({
+      (pool.query as Mock).mockResolvedValueOnce({
         rows: [
           {
             history_id: 'history-uuid',
@@ -96,7 +100,7 @@ describe('Elo Endpoints', () => {
     });
 
     it('should return 404 if no history found', async () => {
-      (pool.query as jest.Mock).mockResolvedValueOnce({ rows: [] });
+      (pool.query as Mock).mockResolvedValueOnce({ rows: [] });
 
       const response = await request(app)
         .get('/api/elo/user-uuid/history');
@@ -112,11 +116,11 @@ describe('Elo Endpoints', () => {
     it('should update elo ratings after a ranked match', async () => {
       // connect() returns a client with query, release
       const mockClient = {
-        query: jest.fn(),
-        release: jest.fn(),
+        query: vi.fn(),
+        release: vi.fn(),
       };
 
-      (pool.connect as jest.Mock).mockResolvedValueOnce(mockClient);
+      (pool.connect as Mock).mockResolvedValueOnce(mockClient);
 
       // Mock each query in order:
       // 1. BEGIN
@@ -167,11 +171,11 @@ describe('Elo Endpoints', () => {
 
     it('should return 400 if match is casual not ranked', async () => {
       const mockClient = {
-        query: jest.fn(),
-        release: jest.fn(),
+        query: vi.fn(),
+        release: vi.fn(),
       };
 
-      (pool.connect as jest.Mock).mockResolvedValueOnce(mockClient);
+      (pool.connect as Mock).mockResolvedValueOnce(mockClient);
 
       mockClient.query
         .mockResolvedValueOnce({})                                         // BEGIN
@@ -191,11 +195,11 @@ describe('Elo Endpoints', () => {
 
     it('should return 500 and rollback if database throws', async () => {
       const mockClient = {
-        query: jest.fn(),
-        release: jest.fn(),
+        query: vi.fn(),
+        release: vi.fn(),
       };
 
-      (pool.connect as jest.Mock).mockResolvedValueOnce(mockClient);
+      (pool.connect as Mock).mockResolvedValueOnce(mockClient);
 
       mockClient.query
         .mockResolvedValueOnce({})                                         // BEGIN
@@ -219,7 +223,7 @@ describe('Elo Endpoints', () => {
   describe('GET /api/elo/leaderboard', () => {
 
     it('should return top 10 players', async () => {
-      (pool.query as jest.Mock).mockResolvedValueOnce({
+      (pool.query as Mock).mockResolvedValueOnce({
         rows: Array(10).fill({
           user_id: 'some-uuid',
           username: 'testuser',
@@ -237,7 +241,7 @@ describe('Elo Endpoints', () => {
     });
 
     it('should return 500 if database throws', async () => {
-      (pool.query as jest.Mock).mockRejectedValueOnce(new Error('DB error'));
+      (pool.query as Mock).mockRejectedValueOnce(new Error('DB error'));
 
       const response = await request(app)
         .get('/api/elo/leaderboard');
