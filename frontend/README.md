@@ -44,7 +44,7 @@ npm run test:frontend:coverage      //test and coverage
 To run tests on an individual file 
 
 ````
-npx vitest run src/components/tests/<FileName.test.tsx>
+npx vitest run test/unit/<FileName.test.tsx>
 ````
 
 ## Page URL's
