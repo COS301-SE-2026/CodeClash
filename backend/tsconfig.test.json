@@ -5,5 +5,5 @@
     "types": ["node", "vitest"],
     "ignoreDeprecations": "6.0"
   },
-  "include": ["tests/**/*.ts", "src/**/*.ts"]
+  "include": ["tests/**/*.ts", "src/**/*.ts"],
 }

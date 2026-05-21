@@ -10,7 +10,8 @@
   "scripts": {
     "start": "node src/server.ts",
     "dev": "nodemon src/server.ts",
-    "test": "vitest"
+    "test": "vitest",
+    "coverage":"vitest run --coverage"
   },
   "keywords": [],
   "author": "",
