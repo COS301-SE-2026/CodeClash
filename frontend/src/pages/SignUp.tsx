@@ -5,10 +5,10 @@ import appleIcon from "../assets/Apple_Icon.png";
 import { useAuth } from "../context/AuthContext";
 
 interface SignUpProps {
-  onBack?: () => void;
+  onBack: () => void;
   onGoogleSignUp?: () => void;
   onAppleSignUp?: () => void;
-  onSignIn?: () => void;
+  onSignIn: () => void;
 }
 
 const SignUp: React.FC<SignUpProps> = ({

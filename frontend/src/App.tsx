@@ -80,6 +80,7 @@ const App: React.FC = () => {
       {page === 'signup' && (
         <SignUp
           onBack={() => setPage('welcome')}
+          onSignIn={()=> setPage('dashboard')}
         />
       )}
 
