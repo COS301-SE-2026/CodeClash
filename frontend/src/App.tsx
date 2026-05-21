@@ -58,10 +58,10 @@ const App: React.FC = () => {
   return (
     <>
       {page === 'prog-match' && (
-        <ProgMatch language="java" match={mock_match} />
+        <ProgMatch language="java" match={mock_match} back={() => setPage('dashboard')} />
       )}
 
-      {page === 'mathfieldtest' && <MathFieldTest />}
+      {page === 'mathfieldtest' && <MathFieldTest back={() => setPage('dashboard')} />}
 
       {page === 'welcome' && (
         <Welcome
