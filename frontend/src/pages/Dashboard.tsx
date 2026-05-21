@@ -15,11 +15,7 @@ import agentIcon from "../assets/AIAgent_Icon.png";
 import notificationIcon from "../assets/Notification_Icon.png";
 import searchIcon from "../assets/Search_Icon.png";
 
-<<<<<<< HEAD
 import PopUp from "@/components/shared/PopUp";
-=======
-import PopUp from '@/components/shared/PopUp';
->>>>>>> 5eefd1a5d3c0095bbe1836c95e652169dfdaf9e2
 
 type NavPage =
   | "Dashboard"
@@ -125,18 +121,40 @@ const Dashboard: React.FC<DashboardProps> = ({
         }}
       />
 
-      <aside className={`${collapsed ? "w-[70px]" : "w-[246px]"} flex flex-col bg-[#5f5980] text-white transition-all duration-200 flex-shrink-0`}>
+      <aside
+        className={`${collapsed ? "w-[70px]" : "w-[246px]"} flex flex-col bg-[#5f5980] text-white transition-all duration-200 flex-shrink-0`}
+      >
         <div className="flex items-center justify-between px-4 h-16 border-b border-white/12 flex-shrink-0">
-          <img src={logoImage} alt="CodeClash" className="w-[34px] h-[34px] object-contain flex-shrink-0" />
-          {!collapsed && <span className="font-['Baloo_Bhai_2'] text-2xl font-[800] text-white whitespace-nowrap flex-1 overflow-hidden ml-[10px]">CodeClash</span>}
+          <img
+            src={logoImage}
+            alt="CodeClash"
+            className="w-[34px] h-[34px] object-contain flex-shrink-0"
+          />
+          {!collapsed && (
+            <span className="font-['Baloo_Bhai_2'] text-2xl font-[800] text-white whitespace-nowrap flex-1 overflow-hidden ml-[10px]">
+              CodeClash
+            </span>
+          )}
           <button
             className="p-[5px] rounded-[7px] hover:bg-white/14 flex items-center justify-center flex-shrink-0 bg-transparent border-none cursor-pointer text-white"
             type="button"
             onClick={() => setCollapsed((c) => !c)}
             aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
-            <svg width="14" height="14" viewBox="0 0 18 18" fill="none" className={`transition-transform duration-200 ${collapsed ? "rotate-180" : ""}`}>
-              <path d="M11 3.5L5.5 9L11 14.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 18 18"
+              fill="none"
+              className={`transition-transform duration-200 ${collapsed ? "rotate-180" : ""}`}
+            >
+              <path
+                d="M11 3.5L5.5 9L11 14.5"
+                stroke="white"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </button>
         </div>
@@ -153,8 +171,18 @@ const Dashboard: React.FC<DashboardProps> = ({
               }}
               title={collapsed ? page : undefined}
             >
-              <img src={icon} alt="" className="w-[22px] h-[22px] object-contain flex-shrink-0" />
-              {!collapsed && <span className={`overflow-hidden transition-all duration-200 ${collapsed ? "max-w-0 opacity-0" : "max-w-[160px] opacity-100"}`}>{page}</span>}
+              <img
+                src={icon}
+                alt=""
+                className="w-[22px] h-[22px] object-contain flex-shrink-0"
+              />
+              {!collapsed && (
+                <span
+                  className={`overflow-hidden transition-all duration-200 ${collapsed ? "max-w-0 opacity-0" : "max-w-[160px] opacity-100"}`}
+                >
+                  {page}
+                </span>
+              )}
             </button>
           ))}
         </nav>
@@ -168,11 +196,21 @@ const Dashboard: React.FC<DashboardProps> = ({
             if (e.key === "Enter" || e.key === " ") onProfileClick?.();
           }}
         >
-          <img src={profileIcon} alt="Profile" className="w-[38px] h-[38px] rounded-full border-2 border-white/35 object-cover flex-shrink-0" />
+          <img
+            src={profileIcon}
+            alt="Profile"
+            className="w-[38px] h-[38px] rounded-full border-2 border-white/35 object-cover flex-shrink-0"
+          />
           {!collapsed && (
-            <div className={`overflow-hidden transition-all duration-200 ${collapsed ? "max-w-0 opacity-0" : "max-w-[160px] opacity-100"}`}>
-              <div className="font-['Baloo_Bhai_2'] text-sm font-bold text-white leading-[1.2] truncate">{userName}</div>
-              <div className="font-['Baloo_Bhai_2'] text-[11px] font-semibold text-white/55 truncate">Intermediate Player</div>
+            <div
+              className={`overflow-hidden transition-all duration-200 ${collapsed ? "max-w-0 opacity-0" : "max-w-[160px] opacity-100"}`}
+            >
+              <div className="font-['Baloo_Bhai_2'] text-sm font-bold text-white leading-[1.2] truncate">
+                {userName}
+              </div>
+              <div className="font-['Baloo_Bhai_2'] text-[11px] font-semibold text-white/55 truncate">
+                Intermediate Player
+              </div>
             </div>
           )}
         </div>
@@ -181,15 +219,34 @@ const Dashboard: React.FC<DashboardProps> = ({
       <div className="flex-1 flex flex-col min-w-0">
         <header className="flex items-center px-[22px] h-16 bg-[#5f5980] gap-3">
           <div className="flex items-center gap-2 px-[15px] bg-white/14 rounded-[20px] w-[230px]">
-            <img src={searchIcon} width="50" height="50" alt="" className="mix-blend-multiply" />
-            <input className="flex-1 bg-transparent border-none py-2 px-[15px] outline-none font-['Baloo_Bhai_2'] text-sm text-white placeholder:text-white/30" type="text" placeholder="Search..." aria-label="Search" />
+            <img
+              src={searchIcon}
+              width="50"
+              height="50"
+              alt=""
+              className="mix-blend-multiply"
+            />
+            <input
+              className="flex-1 bg-transparent border-none py-2 px-[15px] outline-none font-['Baloo_Bhai_2'] text-sm text-white placeholder:text-white/30"
+              type="text"
+              placeholder="Search..."
+              aria-label="Search"
+            />
           </div>
           <div className="flex-1" />
           <div className="flex items-center gap-2">
-            <button className="flex items-center justify-center p-[7px] rounded-[8px] hover:bg-white/14 mix-blend-multiply" type="button" aria-label="Notifications">
+            <button
+              className="flex items-center justify-center p-[7px] rounded-[8px] hover:bg-white/14 mix-blend-multiply"
+              type="button"
+              aria-label="Notifications"
+            >
               <img src={notificationIcon} width="20" height="20" alt="" />
             </button>
-            <button className="flex items-center justify-center p-[7px] rounded-[8px] hover:bg-white/14 mix-blend-multiply" type="button" aria-label="Account">
+            <button
+              className="flex items-center justify-center p-[7px] rounded-[8px] hover:bg-white/14 mix-blend-multiply"
+              type="button"
+              aria-label="Account"
+            >
               <img src={agentIcon} width="20" height="20" alt="" />
             </button>
           </div>
@@ -199,22 +256,46 @@ const Dashboard: React.FC<DashboardProps> = ({
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
             <div className="relative bg-white rounded-[20px] p-6 flex flex-col justify-between min-h-[260px] overflow-visible">
               <div className="flex-1 min-w-0">
-                <div className="font-['Baloo_Bhai_2'] text-[40px] font-[800] text-[#16213d] leading-[1.1] mt-[50px]">Casual Play</div>
-                <div className="font-['Baloo_Bhai_2'] text-[20px] font-[500] text-[#16213d] mt-[30px] opacity-65">Practice your skills without affecting your rank</div>
+                <div className="font-['Baloo_Bhai_2'] text-[40px] font-[800] text-[#16213d] leading-[1.1] mt-[50px]">
+                  Casual Play
+                </div>
+                <div className="font-['Baloo_Bhai_2'] text-[20px] font-[500] text-[#16213d] mt-[30px] opacity-65">
+                  Practice your skills without affecting your rank
+                </div>
               </div>
-              <img src={casualplayImage} alt="" className="absolute top-[-20px] right-[-10px] h-[160px] w-auto object-contain pointer-events-none mix-blend-multiply" />
-              <button className="w-full h-14 bg-[#0e34a0] text-white border-none rounded-[20px] font-['Baloo_Bhai_2'] text-[20px] font-bold cursor-pointer transition-all duration-200 hover:bg-[#0a2880] hover:-translate-y-px active:translate-y-0 mt-4 [filter:drop-shadow(4px_4px_5px_rgba(0,0,0,0.3))]" type="button" onClick={onCasualPlay}>
+              <img
+                src={casualplayImage}
+                alt=""
+                className="absolute top-[-20px] right-[-10px] h-[160px] w-auto object-contain pointer-events-none mix-blend-multiply"
+              />
+              <button
+                className="w-full h-14 bg-[#0e34a0] text-white border-none rounded-[20px] font-['Baloo_Bhai_2'] text-[20px] font-bold cursor-pointer transition-all duration-200 hover:bg-[#0a2880] hover:-translate-y-px active:translate-y-0 mt-4 [filter:drop-shadow(4px_4px_5px_rgba(0,0,0,0.3))]"
+                type="button"
+                onClick={onCasualPlay}
+              >
                 Play Now &gt;
               </button>
             </div>
 
             <div className="relative bg-white rounded-[20px] p-6 flex flex-col justify-between min-h-[260px] overflow-visible">
               <div className="flex-1 min-w-0">
-                <div className="font-['Baloo_Bhai_2'] text-[40px] font-[800] text-[#16213d] leading-[1.1] mt-[50px]">Ranked Play</div>
-                <div className="font-['Baloo_Bhai_2'] text-[20px] font-[500] text-[#16213d] mt-[30px] opacity-65">Compete for glory and climb the leaderboard</div>
+                <div className="font-['Baloo_Bhai_2'] text-[40px] font-[800] text-[#16213d] leading-[1.1] mt-[50px]">
+                  Ranked Play
+                </div>
+                <div className="font-['Baloo_Bhai_2'] text-[20px] font-[500] text-[#16213d] mt-[30px] opacity-65">
+                  Compete for glory and climb the leaderboard
+                </div>
               </div>
-              <img src={rankedplayImage} alt="" className="absolute top-[-20px] right-[-10px] h-[160px] w-auto object-contain pointer-events-none mix-blend-multiply" />
-              <button className="w-full h-14 bg-[#0e34a0] text-white border-none rounded-[20px] font-['Baloo_Bhai_2'] text-[20px] font-bold cursor-pointer transition-all duration-200 hover:bg-[#0a2880] hover:-translate-y-px active:translate-y-0 mt-4 [filter:drop-shadow(4px_4px_5px_rgba(0,0,0,0.3))]" type="button" onClick={() => setShowTopicPopup(true)}>
+              <img
+                src={rankedplayImage}
+                alt=""
+                className="absolute top-[-20px] right-[-10px] h-[160px] w-auto object-contain pointer-events-none mix-blend-multiply"
+              />
+              <button
+                className="w-full h-14 bg-[#0e34a0] text-white border-none rounded-[20px] font-['Baloo_Bhai_2'] text-[20px] font-bold cursor-pointer transition-all duration-200 hover:bg-[#0a2880] hover:-translate-y-px active:translate-y-0 mt-4 [filter:drop-shadow(4px_4px_5px_rgba(0,0,0,0.3))]"
+                type="button"
+                onClick={() => setShowTopicPopup(true)}
+              >
                 Play Now &gt;
               </button>
             </div>
@@ -223,8 +304,14 @@ const Dashboard: React.FC<DashboardProps> = ({
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-5 [filter:drop-shadow(4px_4px_5px_rgba(0,0,0,0.3))]">
             <div className="bg-white rounded-[20px] p-5 flex flex-col overflow-hidden">
               <div className="flex items-center justify-between flex-shrink-0 mb-1">
-                <span className="font-['Baloo_Bhai_2'] text-[32px] font-[800] text-[#16213d]">Skills Progress</span>
-                <button className="bg-[#5f5980] text-white border-none rounded-[10px] px-[13px] py-[5px] font-['Baloo_Bhai_2'] text-xs font-bold cursor-pointer transition-colors duration-200 hover:bg-[#4a4470] [filter:drop-shadow(4px_4px_5px_rgba(0,0,0,0.3))]" type="button" onClick={onAllSkills}>
+                <span className="font-['Baloo_Bhai_2'] text-[32px] font-[800] text-[#16213d]">
+                  Skills Progress
+                </span>
+                <button
+                  className="bg-[#5f5980] text-white border-none rounded-[10px] px-[13px] py-[5px] font-['Baloo_Bhai_2'] text-xs font-bold cursor-pointer transition-colors duration-200 hover:bg-[#4a4470] [filter:drop-shadow(4px_4px_5px_rgba(0,0,0,0.3))]"
+                  type="button"
+                  onClick={onAllSkills}
+                >
                   All Skills &gt;
                 </button>
               </div>
@@ -232,11 +319,18 @@ const Dashboard: React.FC<DashboardProps> = ({
                 {SKILLS.map((skill) => (
                   <div key={skill.name} className="flex flex-col gap-[6px]">
                     <div className="flex items-center justify-between">
-                      <span className="font-['Baloo_Bhai_2'] text-sm font-bold text-[#16213d]">{skill.name}</span>
-                      <span className="bg-[#4a4470] text-white font-['Baloo_Bhai_2'] text-[11px] font-[800] px-2 py-[2px] rounded-[6px] [filter:drop-shadow(4px_4px_5px_rgba(0,0,0,0.3))]">LV {skill.level}</span>
+                      <span className="font-['Baloo_Bhai_2'] text-sm font-bold text-[#16213d]">
+                        {skill.name}
+                      </span>
+                      <span className="bg-[#4a4470] text-white font-['Baloo_Bhai_2'] text-[11px] font-[800] px-2 py-[2px] rounded-[6px] [filter:drop-shadow(4px_4px_5px_rgba(0,0,0,0.3))]">
+                        LV {skill.level}
+                      </span>
                     </div>
                     <div className="w-full h-[25px] bg-[#e0e0e0] rounded-[99px] overflow-hidden">
-                      <div className="h-full bg-[#16213D] rounded-[99px]" style={{ width: `${(skill.progress / 10) * 100}%` }} />
+                      <div
+                        className="h-full bg-[#16213D] rounded-[99px]"
+                        style={{ width: `${(skill.progress / 10) * 100}%` }}
+                      />
                     </div>
                   </div>
                 ))}
@@ -245,16 +339,31 @@ const Dashboard: React.FC<DashboardProps> = ({
 
             <div className="bg-white rounded-[20px] p-5 flex flex-col overflow-hidden">
               <div className="flex items-center justify-between flex-shrink-0 mb-1">
-                <span className="font-['Baloo_Bhai_2'] text-[32px] font-[800] text-[#16213d]">Recently Earned</span>
-                <button className="bg-[#5f5980] text-white border-none rounded-[10px] px-[13px] py-[5px] font-['Baloo_Bhai_2'] text-xs font-bold cursor-pointer transition-colors duration-200 hover:bg-[#4a4470] [filter:drop-shadow(4px_4px_5px_rgba(0,0,0,0.3))]" type="button" onClick={onAllBadges}>
+                <span className="font-['Baloo_Bhai_2'] text-[32px] font-[800] text-[#16213d]">
+                  Recently Earned
+                </span>
+                <button
+                  className="bg-[#5f5980] text-white border-none rounded-[10px] px-[13px] py-[5px] font-['Baloo_Bhai_2'] text-xs font-bold cursor-pointer transition-colors duration-200 hover:bg-[#4a4470] [filter:drop-shadow(4px_4px_5px_rgba(0,0,0,0.3))]"
+                  type="button"
+                  onClick={onAllBadges}
+                >
                   All Badges &gt;
                 </button>
               </div>
               <div className="flex items-center justify-evenly flex-1">
                 {BADGES.map((badge) => (
-                  <div key={badge.name} className="flex flex-col items-center gap-[10px]">
-                    <img src={badge.icon} alt={badge.name} className="w-[112px] h-[112px] object-contain" />
-                    <div className="font-['Baloo_Bhai_2'] text-[12px] font-[800] text-[#16213d] text-center uppercase tracking-[0.04em]">{badge.name}</div>
+                  <div
+                    key={badge.name}
+                    className="flex flex-col items-center gap-[10px]"
+                  >
+                    <img
+                      src={badge.icon}
+                      alt={badge.name}
+                      className="w-[112px] h-[112px] object-contain"
+                    />
+                    <div className="font-['Baloo_Bhai_2'] text-[12px] font-[800] text-[#16213d] text-center uppercase tracking-[0.04em]">
+                      {badge.name}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -262,7 +371,9 @@ const Dashboard: React.FC<DashboardProps> = ({
           </div>
 
           <div className="bg-white rounded-[20px] p-5 flex flex-col overflow-hidden [filter:drop-shadow(4px_4px_5px_rgba(0,0,0,0.3))]">
-            <div className="font-['Baloo_Bhai_2'] text-[32px] font-[800] text-[#16213d] flex-shrink-0 mb-2">Match History</div>
+            <div className="font-['Baloo_Bhai_2'] text-[32px] font-[800] text-[#16213d] flex-shrink-0 mb-2">
+              Match History
+            </div>
             <div className="overflow-x-auto flex-1">
               <table className="w-full border-collapse font-['Baloo_Bhai_2'] table-fixed">
                 <colgroup>
@@ -275,24 +386,54 @@ const Dashboard: React.FC<DashboardProps> = ({
                 </colgroup>
                 <thead>
                   <tr className="border-b-[1.5px] border-[#ebebeb]">
-                    <th className="text-center py-2 px-[10px] pb-2 text-[12px] font-[800] text-[#16213d]/45 uppercase tracking-[0.05em]">Date</th>
-                    <th className="text-center py-2 px-[10px] pb-2 text-[12px] font-[800] text-[#16213d]/45 uppercase tracking-[0.05em]">Opponent</th>
-                    <th className="text-center py-2 px-[10px] pb-2 text-[12px] font-[800] text-[#16213d]/45 uppercase tracking-[0.05em]">Topic</th>
-                    <th className="text-center py-2 px-[10px] pb-2 text-[12px] font-[800] text-[#16213d]/45 uppercase tracking-[0.05em]">Speed</th>
-                    <th className="text-center py-2 px-[10px] pb-2 text-[12px] font-[800] text-[#16213d]/45 uppercase tracking-[0.05em]">Result</th>
-                    <th className="text-center py-2 px-[10px] pb-2 text-[12px] font-[800] text-[#16213d]/45 uppercase tracking-[0.05em]">Effect on Elo</th>
+                    <th className="text-center py-2 px-[10px] pb-2 text-[12px] font-[800] text-[#16213d]/45 uppercase tracking-[0.05em]">
+                      Date
+                    </th>
+                    <th className="text-center py-2 px-[10px] pb-2 text-[12px] font-[800] text-[#16213d]/45 uppercase tracking-[0.05em]">
+                      Opponent
+                    </th>
+                    <th className="text-center py-2 px-[10px] pb-2 text-[12px] font-[800] text-[#16213d]/45 uppercase tracking-[0.05em]">
+                      Topic
+                    </th>
+                    <th className="text-center py-2 px-[10px] pb-2 text-[12px] font-[800] text-[#16213d]/45 uppercase tracking-[0.05em]">
+                      Speed
+                    </th>
+                    <th className="text-center py-2 px-[10px] pb-2 text-[12px] font-[800] text-[#16213d]/45 uppercase tracking-[0.05em]">
+                      Result
+                    </th>
+                    <th className="text-center py-2 px-[10px] pb-2 text-[12px] font-[800] text-[#16213d]/45 uppercase tracking-[0.05em]">
+                      Effect on Elo
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {MATCHES.map((m, i) => (
-                    <tr key={i} className="h-[42px] border-b border-[#f3f3f3] last:border-none">
-                      <td className="text-center px-[10px] text-sm font-semibold text-[#16213d]">{m.date}</td>
-                      <td className="text-center px-[10px] text-sm font-semibold text-[#16213d]">{m.opponent}</td>
-                      <td className="text-center px-[10px] text-sm font-semibold text-[#16213d]">{m.topic}</td>
-                      <td className="text-center px-[10px] text-sm font-semibold text-[#16213d]">{m.speed}</td>
-                      <td className={`text-center px-[10px] text-sm font-[800] ${m.result === "Win" ? "text-green-600" : "text-red-600"}`}>{m.result}</td>
-                      <td className={`text-center px-[10px] text-sm font-[800] ${m.elo >= 0 ? "text-green-600" : "text-red-600"}`}>
-                        {m.elo >= 0 ? "+" : ""}{m.elo}
+                    <tr
+                      key={i}
+                      className="h-[42px] border-b border-[#f3f3f3] last:border-none"
+                    >
+                      <td className="text-center px-[10px] text-sm font-semibold text-[#16213d]">
+                        {m.date}
+                      </td>
+                      <td className="text-center px-[10px] text-sm font-semibold text-[#16213d]">
+                        {m.opponent}
+                      </td>
+                      <td className="text-center px-[10px] text-sm font-semibold text-[#16213d]">
+                        {m.topic}
+                      </td>
+                      <td className="text-center px-[10px] text-sm font-semibold text-[#16213d]">
+                        {m.speed}
+                      </td>
+                      <td
+                        className={`text-center px-[10px] text-sm font-[800] ${m.result === "Win" ? "text-green-600" : "text-red-600"}`}
+                      >
+                        {m.result}
+                      </td>
+                      <td
+                        className={`text-center px-[10px] text-sm font-[800] ${m.elo >= 0 ? "text-green-600" : "text-red-600"}`}
+                      >
+                        {m.elo >= 0 ? "+" : ""}
+                        {m.elo}
                       </td>
                     </tr>
                   ))}
