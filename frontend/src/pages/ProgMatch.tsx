@@ -126,7 +126,7 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language, back }) => {
                     <div className="w-[40%] flex flex-col items-start h-[60%] justify-center self-end ">
                         <Progress className=" w-full h-7 shadow-[0_4px_6px_rgba(0,0,0,0.3)]"
                             value={player_1_life}
-                            progress_colour="var(--primary)"
+                            progress_colour="#5f5980"
                         ></Progress>
                         <div className="flex w-[50%] h-[60%] items-center m-2">
                             <img src={blue_avatar} alt="user one avatar" className="h-[120%] flex items-center"></img>
@@ -148,7 +148,7 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language, back }) => {
                     <div className="w-[40%] flex flex-col items-end h-[60%] justify-center self-end ">
                         <Progress className=" w-full h-7 scale-x-[-1] shadow-[0_4px_6px_rgba(0,0,0,0.3)]"
                             value={player_2_life}
-                            progress_colour="var(--primary)"></Progress>
+                            progress_colour="#5f5980"></Progress>
                         <div className="flex w-[50%] h-[60%] items-center justify-end m-2">
                             <Badge className="bg-white badge-font" >
                                 User 2
