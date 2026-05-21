@@ -15,4 +15,9 @@ describe('SocialButton', () => {
     render(<SocialButton provider="google" icon={mockIcon}>Sign up with Google</SocialButton>);
     expect(screen.getByRole('button')).toBeInTheDocument();
   });
+
+   it('always has type="button"', () => {
+    render(<SocialButton provider="google" icon={mockIcon}>Sign up with Google</SocialButton>);
+    expect(screen.getByRole('button')).toHaveAttribute('type', 'button');
+  });
 });
