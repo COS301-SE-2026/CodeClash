@@ -15,3 +15,11 @@ export const MOCK_USERS: MockUser[] = [
   { id: 4, username: "swey", elo: 1200 },
   { id: 5, username: "taskeen", elo: 1250  },  
 ];
+
+
+
+export function getMockUser(id: number): MockUser | undefined {
+  return MOCK_USERS.find((u) => u.id === id);
+}
+
+
