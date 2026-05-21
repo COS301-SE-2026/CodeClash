@@ -70,3 +70,10 @@ export function send(msg: ClientMessage): void {
     ws.send(JSON.stringify(msg));
   }
 }
+
+
+// Subscribe to messages from the bridge. Returns an unsubscribe function.
+export function subscribe(fn: (msg: ServerMessage) => void): () => void {
+  listeners.add(fn);
+  return () => listeners.delete(fn);
+}
