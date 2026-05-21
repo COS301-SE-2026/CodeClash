@@ -16,6 +16,7 @@ CodeClash is a competitive mathematics and coding collaboration platform designe
 - [Documentation](#documentation)
 - [Project Board](#project-board)
 - [GitHub Repo Structure](#github-repo-structure)
+- [Branching Strategy](#branching-strategy)
 - [Team Profiles](#team-profiles)
 - [Contact Us](#contact-us)
 
@@ -80,12 +81,8 @@ We have the project board to keep track of the teams progress during the develop
 
 [GitHub Project Board](https://github.com/orgs/COS301-SE-2026/projects/33)
 
-## GitHub Repo Structure
-This project uses the Git Flow branching strategy. 
-
-Branches are named accoriding to the features they implement or the issues they address, as well as the name of the team member working on the branch. 
-
-Once a feature complete or an issue is addressed, branches are merged back into Dev. From there Dev is merged into main.
+## Github Repo Structure
+Our repo uses a monorepo structure. We have a main branch that contains the most recently working code. A dev branch branches off of main that contains the most recent developments in the project. Every other feature or hotfix gets branches off of and merged into dev before dev is merged into main, finally.
 
 ```
 CodeClash/
@@ -98,6 +95,14 @@ CodeClash/
 ├── .env.example
 └── README.md
 ```
+
+## Branching Strategy
+This project uses the Git Flow branching strategy. 
+
+Branches are named according to the features they implement or the issues they address, as well as the name of the team member working on the branch. 
+
+Once a feature complete or an issue is addressed, branches are merged back into Dev. From there Dev is merged into main.
+
 ## Team Profiles
 
 | Name | Role | Bio |
