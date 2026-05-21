@@ -17,19 +17,35 @@ We're using a React + TypeScript frontend built with Vite.
 - For the pages: 
     - npm install
     - npm install react-router-dom
-    - npm install -D tailwindcss postcss autoprefixer 
+    - npm install -D @tailwindcss/vite tailwindcss
 - For component testing:
     - npm install -D vitest @vitest/coverage-v8 @testing-library/react @testing-library/jest-dom @testing-library/user-event jsdom
 
 ## Running
-- The App:
-    - npm run dev
-- The testing:
-    - npm test (runs all tests once)
-    - npm run test:watch (watch mode re-runs on file save)
-    - npm run test:coverage (run with coverage report)
-- Individual files for testing:
-    - npx vitest run src/components/tests/FileName.test.tsx (FileName is the name of the file to test)
+
+from the root
+
+### The App
+
+````
+npm run frontend   // to run the frontend only
+npm run backend    // to run the backend only 
+npm run dev        // to run both frontend and backend
+````
+
+### Testing 
+
+Frontend
+````
+npm run test:frontend               //test only
+npm run test:frontend:coverage      //test and coverage
+
+
+To run tests on an individual file 
+
+````
+npx vitest run src/components/tests/<FileName.test.tsx>
+````
 
 ## Page URL's
 
