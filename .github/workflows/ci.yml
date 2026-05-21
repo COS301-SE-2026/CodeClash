@@ -60,7 +60,6 @@ jobs:
       run: npm run test:frontend:coverage
 
     - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@v5
+      uses: codecov/codecov-action@75cd11691c0faa626561e295848008c8a7dddffe
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-
