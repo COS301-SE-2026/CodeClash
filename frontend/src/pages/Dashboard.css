@@ -1,399 +1,675 @@
 @import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400;600;700;800&display=swap');
 
-* {
+*, *::before, *::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
-body {
-  font-family: 'Baloo Bhai 2', cursive;
-  background-color: #f8fafc;
-  min-height: 100vh;
+:root {
+  --sidebar-w:     246px;
+  --sidebar-w-col: 70px;
+  --header-h:      64px;
+  --gap:           20px;
+  --pad:           16px;
+  --radius:        20px;
+  --ease:          0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  --font:          'Baloo Bhai 2', sans-serif;
+  --bg:            #d2d2d2;
+  --sidebar-bg:    #5f5980;
+  --card-bg:       #ffffff;
+  --btn-blue:      #0e34a0;
+  --text-dark:     #16213d;
 }
 
-/* ─── PAGE ─────────────────────────────────────────────────────────────────── */
-.dashboard-page {
-  width: 1440px;
-  min-height: 1024px;
-  background-color: #f8fafc;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-}
-
-/* ─── HEADER ───────────────────────────────────────────────────────────────── */
-.header {
+html, body, #root {
+  height: 100%;
   width: 100%;
-  height: 100px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #0f172a;
-  display: flex;
-  align-items: center;
-  padding: 0 32px;
-  gap: 16px;
-}
-
-.header-logo {
-  width: 124px;
-  height: 124px;
-  object-fit: contain;
-  /* pulls slightly out of header to overlap nav, matching design */
-  position: relative;
-  z-index: 2;
-}
-
-.header-title {
-  font-family: 'Baloo Bhai 2', cursive;
-  font-weight: 700;
-  font-size: 48px;
-  color: #0f172a;
-  flex: 1;
-}
-
-/* User info block */
-.header-user {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 4px;
-}
-
-.user-name {
-  font-family: 'Baskerville', 'Libre Baskerville', Georgia, serif;
-  font-size: 24px;
-  color: #0f172a;
-}
-
-.xp-bar-wrapper {
-  width: 186px;
-  height: 11px;
-  background-color: #ffffff;
-  border: 1px solid #0f172a;
-  border-radius: 3px;
   overflow: hidden;
 }
 
-.xp-bar-fill {
+.dashboard-page {
+  display: grid;
+  grid-template-rows: var(--header-h) 1fr;
+  grid-template-columns: var(--sidebar-w) 1fr;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar main";
+  width:  1440px;
+  height: 1024px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform-origin: top left;
+  background: var(--bg);
+  font-family: var(--font);
+  transition: grid-template-columns var(--ease);
+}
+
+.dashboard-page.collapsed {
+  grid-template-columns: var(--sidebar-w-col) 1fr;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  background: var(--sidebar-bg);
+  width: var(--sidebar-w);
   height: 100%;
-  width: 60%;
-  background-color: #3b82f6;
-  border-right: 1px solid #0f172a;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  transition: width var(--ease);
 }
 
-.player-level {
-  font-family: 'Baloo Bhai 2', cursive;
-  font-size: 13px;
-  color: #0f172a;
+.dashboard-page.collapsed .sidebar {
+  width: var(--sidebar-w-col);
 }
 
-/* ─── NAV BAR ──────────────────────────────────────────────────────────────── */
-.navbar {
-  width: 100%;
-  height: 52px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #0f172a;
+.sidebar-top {
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  padding: 0 48px;
+  justify-content: space-between;
+  height: var(--header-h);
+  padding: 0 16px;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+
+.sidebar-logo-placeholder {
+  width: 34px;
+  height: 34px;
+  background: rgba(255,255,255,0.22);
+  border-radius: 8px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  font-weight: 800;
+  color: white;
+}
+.sidebar-logo {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.collapse-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 7px;
+  flex-shrink: 0;
+  transition: background var(--ease);
+}
+.collapse-btn:hover { background: rgba(255,255,255,0.14); }
+.collapse-btn svg   { transition: transform var(--ease); }
+.dashboard-page.collapsed .collapse-btn svg { transform: rotate(180deg); }
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 0;
+  gap: 2px;
+  flex: 1;
+  overflow: hidden;
 }
 
 .nav-item {
-  font-family: 'Baskerville', 'Libre Baskerville', Georgia, serif;
-  font-size: 24px;
-  color: #64748b;
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 18px;
   background: none;
   border: none;
-  padding: 4px 0;
-  position: relative;
-  text-decoration: none;
-  transition: color 0.15s ease;
-}
-
-.nav-item:hover {
-  color: #0f172a;
-}
-
-.nav-item.active {
-  color: #0f172a;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-
-/* ─── MAIN CONTENT ─────────────────────────────────────────────────────────── */
-.dashboard-content {
-  flex: 1;
-  padding: 28px 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-/* ─── PLAY CARDS ROW ───────────────────────────────────────────────────────── */
-.play-cards-row {
-  display: flex;
-  gap: 32px;
-  justify-content: center;
-}
-
-.play-card {
-  width: 601px;
-  height: 324px;
-  border: 1px solid #0f172a;
-  border-radius: 20px;
-  padding: 36px 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.play-card.casual {
-  background: linear-gradient(135deg, #a78bfa 70%, rgba(167, 139, 250, 0.3) 100%);
-}
-
-.play-card.ranked {
-  background: linear-gradient(135deg, #3b82f6 70%, rgba(59, 130, 246, 0.3) 100%);
-}
-
-.play-card-title {
-  font-family: 'Baskerville', 'Libre Baskerville', Georgia, serif;
-  font-size: 40px;
-  color: #0f172a;
-}
-
-.play-card-desc {
-  font-family: 'Baloo Bhai 2', cursive;
-  font-size: 20px;
-  color: #0f172a;
-  margin-top: 8px;
-}
-
-.play-now-button {
-  width: 490px;
-  height: 63px;
-  border: 1px solid #0f172a;
-  border-radius: 10px;
-  font-family: 'Baloo Bhai 2', cursive;
-  font-size: 32px;
-  font-weight: 600;
-  color: #0f172a;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.2s ease, transform 0.15s ease;
-  align-self: center;
-}
-
-.play-now-button:hover {
-  opacity: 0.85;
-  transform: translateY(-1px);
-}
-
-.play-card.casual .play-now-button {
-  background-color: #a78bfa;
-}
-
-.play-card.ranked .play-now-button {
-  background-color: #3b82f6;
-}
-
-/* ─── BOTTOM ROW ───────────────────────────────────────────────────────────── */
-.bottom-row {
-  display: flex;
-  gap: 20px;
-  align-items: flex-start;
-}
-
-/* ─── STAT CARDS (left column) ─────────────────────────────────────────────── */
-.stat-cards-col {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.stat-card {
-  width: 227px;
-  height: 180px;
-  border: 1px solid #0f172a;
-  border-radius: 14px;
-  background: radial-gradient(circle at 60% 40%, #d9d9d9 0%, rgba(217, 217, 217, 0.3) 100%);
-  padding: 20px 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 4px;
-}
-
-.stat-icon {
-  width: 39px;
-  height: 39px;
-  object-fit: contain;
-  margin-bottom: 6px;
-}
-
-.stat-value {
-  font-family: 'Baloo Bhai 2', cursive;
-  font-weight: 700;
-  font-size: 38px;
-  color: #0f172a;
-  line-height: 1;
-}
-
-.stat-label {
-  font-family: 'Baloo Bhai 2', cursive;
-  font-size: 24px;
-  color: #64748b;
-}
-
-.stat-sub {
-  font-family: 'Baloo Bhai 2', cursive;
-  font-size: 20px;
-  color: #a78bfa;
-}
-
-/* ─── SKILL PROGRESS ───────────────────────────────────────────────────────── */
-.skill-progress-card {
-  width: 763px;
-  height: 377px;
-  border: 1px solid #0f172a;
-  border-radius: 14px;
-  background: radial-gradient(circle at 60% 40%, #d9d9d9 0%, rgba(217, 217, 217, 0.3) 100%);
-  padding: 24px 28px;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.skill-progress-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.skill-progress-title {
-  font-family: 'Baskerville', 'Libre Baskerville', Georgia, serif;
-  font-size: 28px;
-  color: #0f172a;
-}
-
-.all-skills-button {
-  height: 31px;
-  padding: 0 14px;
-  background-color: #ffffff;
-  border: 1px solid #0f172a;
-  border-radius: 6px;
-  font-family: 'Baloo Bhai 2', cursive;
+  font-family: var(--font);
   font-size: 16px;
-  color: #0f172a;
-  cursor: pointer;
+  font-weight: 600;
+  color: #ffffff;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  border-radius: 10px;
+  margin: 0 8px;
+  transition: background var(--ease), color var(--ease);
+}
+.nav-item:hover  { background: rgba(255,255,255,0.11); color: #fff; }
+.nav-item.active { background: rgba(255,255,255,0.2);  color: #fff; }
+
+.nav-icon-placeholder {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
-  transition: background-color 0.15s ease;
+  justify-content: center;
+  font-size: 17px;
+  mix-blend-mode: multiply;
 }
 
-.all-skills-button:hover {
-  background-color: #f1f5f9;
+.nav-label {
+  overflow: hidden;
+  max-width: 160px;
+  transition: max-width var(--ease), opacity var(--ease);
+  opacity: 1;
 }
+.dashboard-page.collapsed .nav-label { max-width: 0; opacity: 0; }
 
-/* Individual skill row */
-.skill-row {
+.sidebar-profile {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-bottom: 18px;
+  align-items: center;
+  gap: 11px;
+  padding: 16px 18px;
+  border-top: 1px solid rgba(255,255,255,0.12);
+  cursor: pointer;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.profile-circle-placeholder {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: white;
+  flex-shrink: 0;
+}
+.profile-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.35);
+  flex-shrink: 0;
+}
+.sidebar-user-info {
+  overflow: hidden;
+  max-width: 160px;
+  transition: max-width var(--ease), opacity var(--ease);
+  opacity: 1;
+}
+.dashboard-page.collapsed .sidebar-user-info { max-width: 0; opacity: 0; }
+.sidebar-user-name {
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.sidebar-user-level {
+  font-family: var(--font);
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.55);
+  white-space: nowrap;
 }
 
-.skill-label-row {
+.header {
+  grid-area: header;
+  background: var(--sidebar-bg);
+  display: flex;
+  align-items: center;
+  padding: 0 22px;
+  gap: 12px;
+  height: var(--header-h);
+}
+.header-search {
+  width: 230px;
+  background: rgba(255,255,255,0.14);
+  border: none;
+  border-radius: 12px;
+  padding: 8px 15px;
+  font-family: var(--font);
+  font-size: 14px;
+  color: #fff;
+  outline: none;
+  transition: background var(--ease);
+}
+.header-search::placeholder { color: rgba(255,255,255,0.45); }
+.header-search:focus         { background: rgba(255,255,255,0.2); }
+.header-spacer { flex: 1; }
+.header-icons {
   display: flex;
   align-items: center;
   gap: 8px;
 }
-
-.skill-name {
-  font-family: 'Baloo Bhai 2', cursive;
-  font-size: 20px;
-  color: #0f172a;
-}
-
-.skill-level-badge {
-  height: 20px;
-  padding: 0 8px;
-  border: 1px solid #0f172a;
-  border-radius: 4px;
-  background-color: #3b82f6;
-  font-family: 'Baloo Bhai 2', cursive;
-  font-size: 12px;
-  color: #ffffff;
+.header-icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #fff;
   display: flex;
   align-items: center;
+  padding: 7px;
+  border-radius: 8px;
+  transition: background var(--ease);
+  mix-blend-mode: multiply;
 }
-
-/* Progress bar track */
-.skill-bar-track {
-  width: 100%;
-  height: 26px;
-  background-color: #ffffff;
-  border: 1px solid #0f172a;
-  border-radius: 4px;
-  overflow: hidden;
+.header-icon-btn:hover { background: rgba(255,255,255,0.14); }
+.header-user {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-left: 6px;
 }
-
-.skill-bar-fill {
-  height: 100%;
-  background-color: rgba(59, 130, 246, 0.6);
-  border-right: 1px solid #0f172a;
-}
-
-/* ─── RECENTLY EARNED ──────────────────────────────────────────────────────── */
-.recently-earned-card {
-  width: 227px;
-  height: 377px;
-  border: 1px solid #0f172a;
-  border-radius: 14px;
-  background: radial-gradient(circle at 60% 40%, #d9d9d9 0%, rgba(217, 217, 217, 0.3) 100%);
-  padding: 20px;
+.header-user-details {
   display: flex;
   flex-direction: column;
+  gap: 3px;
+}
+.header-user-name {
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+}
+.xp-bar-wrapper {
+  width: 100px;
+  height: 5px;
+  background: rgba(255,255,255,0.24);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.xp-bar-fill {
+  height: 100%;
+  background: #ffd700;
+  border-radius: 99px;
+  transition: width 0.6s ease;
+}
+.header-user-level {
+  font-family: var(--font);
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.55);
+  line-height: 1;
+}
+
+.dashboard-content {
+  grid-area: main;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  padding: var(--pad);
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.play-cards-row {
+  display: grid;
+  grid-template-columns: 574px 574px;
+  gap: var(--gap);
+  height: 200px;
+  flex-shrink: 0;
+}
+
+.mid-row {
+  display: grid;
+  
+  grid-template-columns: 140px 497px 497px;
+  gap: var(--gap);
+  height: 250px;
+  flex-shrink: 0;
+}
+
+.history-row {
+  height: 250px;
+  flex-shrink: 0;
+}
+
+.play-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: space-between;
+  gap: 16px;
+  height: 100%;
+  overflow: hidden;
 }
-
-.recently-earned-title {
-  font-family: 'Baskerville', 'Libre Baskerville', Georgia, serif;
-  font-size: 26px;
-  color: #0f172a;
-  text-align: center;
+.play-card-text { flex: 1; min-width: 0; }
+.play-card-title {
+  font-family: var(--font);
+  font-size: 34px;
+  font-weight: 800;
+  color: var(--text-dark);
+  line-height: 1.1;
 }
-
-.badge-image {
-  width: 222px;
-  height: 222px;
+.play-card-desc {
+  font-family: var(--font);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-dark);
+  margin-top: 5px;
+  opacity: 0.65;
+}
+.play-card-image {
+  height: 110px;
+  width: auto;
   object-fit: contain;
+  flex-shrink: 0;
 }
-
-/* placeholder if no image yet */
-.badge-placeholder {
-  width: 222px;
-  height: 222px;
-  border: 1px dashed #94a3b8;
-  border-radius: 8px;
+.play-card-image-placeholder {
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+  background: rgba(14,52,160,0.05);
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Baloo Bhai 2', cursive;
-  font-size: 13px;
-  color: #94a3b8;
-  text-align: center;
+  font-size: 48px;
+}
+.play-now-button {
+  background: var(--btn-blue);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  padding: 13px 28px;
+  font-family: var(--font);
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  align-self: flex-end;
+  transition: background var(--ease), transform 0.12s;
+}
+.play-now-button:hover  { background: #0a2880; transform: translateY(-1px); }
+.play-now-button:active { transform: translateY(0); }
+
+.stat-cards-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  height: 100%;
+  
+  min-width: 0;
+  margin-right: 0;
 }
 
-.badge-name {
-  font-family: 'Baloo Bhai 2', cursive;
-  font-size: 22px;
-  color: #a78bfa;
+.stat-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 4px;
+  overflow: hidden;
+  min-height: 0;
+  min-width: 0;
+}
+.stat-icon-placeholder {
+  font-size: 28px;
+  line-height: 1;
+}
+.stat-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+.stat-value {
+  font-family: var(--font);
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-dark);
+  line-height: 1;
+  white-space: nowrap;
+}
+.stat-label {
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-dark);
+  opacity: 0.6;
   text-align: center;
+  white-space: nowrap;
+}
+.stat-sub {
+  font-family: var(--font);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--btn-blue);
+  white-space: nowrap;
+}
+
+.skill-progress-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+.skill-progress-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  margin-bottom: 4px;
+}
+.skill-progress-title {
+  font-family: var(--font);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-dark);
+}
+.all-skills-button {
+  background: var(--sidebar-bg);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 5px 13px;
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background var(--ease);
+}
+.all-skills-button:hover { background: #4a4470; }
+
+.skills-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-evenly;
+  min-height: 0;
+}
+.skill-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.skill-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.skill-name {
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+.skill-level-badge {
+  background: var(--btn-blue);
+  color: #fff;
+  font-family: var(--font);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+.skill-bar-track {
+  width: 100%;
+  height: 9px;
+  background: #e0e0e0;
+  border-radius: 99px;
+  overflow: hidden;
+}
+.skill-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--btn-blue), #5f5980);
+  border-radius: 99px;
+  transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
+}
+
+.recently-earned-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+.recently-earned-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  margin-bottom: 4px;
+}
+.recently-earned-title {
+  font-family: var(--font);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-dark);
+}
+.all-badges-btn {
+  background: var(--sidebar-bg);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 5px 13px;
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background var(--ease);
+}
+.all-badges-btn:hover { background: #4a4470; }
+.badges-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex: 1;
+}
+.badge-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.badge-image {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+.badge-image-placeholder {
+  width: 64px;
+  height: 64px;
+  background: rgba(14,52,160,0.06);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+}
+.badge-name {
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--text-dark);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.match-history-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+.match-history-title {
+  font-family: var(--font);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-dark);
+  flex-shrink: 0;
+  margin-bottom: 8px;
+}
+.match-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font);
+  table-layout: fixed;
+  flex: 1;
+}
+.match-table thead th {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--text-dark);
+  opacity: 0.45;
+  text-align: left;
+  padding: 0 10px 8px 10px;
+  border-bottom: 1.5px solid #ebebeb;
+  text-transform: uppercase;
   letter-spacing: 0.05em;
+}
+
+.match-table tbody tr {
+  height: 42px;
+}
+.match-table tbody td {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-dark);
+  padding: 0 10px;
+  border-bottom: 1px solid #f3f3f3;
+  vertical-align: middle;
+}
+.match-table tbody tr:last-child td { border-bottom: none; }
+.result-win  { color: #16a34a; font-weight: 800; }
+.result-lose { color: #dc2626; font-weight: 800; }
+.elo-pos     { color: #16a34a; font-weight: 800; }
+.elo-neg     { color: #dc2626; font-weight: 800; }
+
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.42);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.popup-card {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 32px;
+  min-width: 300px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.18);
 }
