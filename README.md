@@ -1,6 +1,8 @@
 # CodeClash
 
-<img src="docs/assets/logo.jpeg" width="300">
+<p align="center">
+  <img src="docs/assets/logo.jpeg" width="300">
+</p>
 
 ## Description
 
@@ -68,8 +70,19 @@ We have the project board to keep track of the teams progress during the develop
 [GitHub Project Board](https://github.com/orgs/COS301-SE-2026/projects/33)
 
 ## GitHub Repo Structure
-Our repo follows a monorepo structure
+Our repo follows a monorepo structure, with a main branch carrying the most recent, working code. Dev branches off of that which is our working branch. Each feature is then branched off of and merged into dev as the project develops.
 
+```
+CodeClash/
+├── .github/          # CI/CD workflows and PR templates
+├── backend/          # Node.js/Express API, controllers, services and tests
+├── database/         # PostgreSQL init scripts and schema
+├── docs/             # Architecture diagrams, requirements and API documentation
+├── frontend/         # React/Vite client application
+├── docker-compose.yml
+├── .env.example
+└── README.md
+```
 ## Team Profiles
 
 | Name | Role | Bio |
@@ -83,4 +96,4 @@ Our repo follows a monorepo structure
 
 ## Contact Us
 
-- Email:quantdevs@gmail.com
+- Email: quantdevs@gmail.com
