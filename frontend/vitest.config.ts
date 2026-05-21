@@ -16,7 +16,6 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'lcov'],
       include: ['src/components/**/*.tsx'],
-      exclude: ['src/components/tests/**'],
     },
 
     globals: true,
