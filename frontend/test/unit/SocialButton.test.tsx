@@ -44,4 +44,11 @@ describe('SocialButton', () => {
     expect(btn.className).toContain('w-[500px]');
     expect(btn.className).toContain('h-[60px]');
   });
+
+    it('calls onClick when clicked', () => {
+    const handler = vi.fn();
+    render(<SocialButton provider="google" icon={mockIcon} onClick={handler}>Sign up with Google</SocialButton>);
+    fireEvent.click(screen.getByRole('button'));
+    expect(handler).toHaveBeenCalledTimes(1);
+  });
 });
