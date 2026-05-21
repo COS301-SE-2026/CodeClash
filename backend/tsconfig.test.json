@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "module": "commonjs",
-    "types": ["node", "jest"],
+    "types": ["node", "vitest"],
     "ignoreDeprecations": "6.0"
   },
   "include": ["tests/**/*.ts", "src/**/*.ts"]
