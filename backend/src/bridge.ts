@@ -173,3 +173,8 @@ seed();
       console.log(`[bridge] disconnected  userId=${connectedUserId}`);
     }
   });
+
+  matchmakingBus.on("player:joined", (u) => console.log(`[event] player:joined  id=${u.id}`));
+  matchmakingBus.on("match:searching", (u) => console.log(`[event] match:searching  id=${u.id} attempt=${u.match_attempt}`));
+  matchmakingBus.on("match:found", (p1, p2) => console.log(`[event] match:found  ${p1} vs ${p2}`));
+  matchmakingBus.on("match:created", (m) => console.log(`[event] match:created  id=${m.match_id} diff=${m.difficulty} time=${m.time_limit}s`));
