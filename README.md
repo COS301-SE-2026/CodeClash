@@ -49,7 +49,7 @@ CodeClash is a competitive mathematics and coding collaboration platform designe
 <details>
 <summary>Demo 1</summary>
 
-- [Software Requirements Specification](SRSdoc) Everything we need must be a singular SRS Document
+- [Software Requirements Specification](https://github.com/COS301-SE-2026/CodeClash/wiki/Software-Requirements-Specifications)
 - [API doc](docs/api-docs.html)
 
 </details>
