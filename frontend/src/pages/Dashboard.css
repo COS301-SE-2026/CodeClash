@@ -337,11 +337,13 @@ html, body, #root {
   gap: var(--gap);
   height: 285px;
   flex-shrink: 0;
+  filter: drop-shadow(4px 4px 5px rgba(0, 0, 0, 0.3));
 }
 
 .history-row {
   height: 285px;
   flex-shrink: 0;
+  filter: drop-shadow(4px 4px 5px rgba(0, 0, 0, 0.3));
 }
 
 .play-card {
