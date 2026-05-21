@@ -6,11 +6,17 @@ import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 import Searching from './pages/queuePages/searching';
 import Found from './pages/queuePages/found';
+import type { MatchData, GameMode } from '../../backend/src/Matchmaking Service/matchmaking.dto';  
+
 
 type Page = 'welcome' | 'signin' | 'signup' | 'dashboard' | 'profile' | 'searching' | 'found';
 
+
 const App: React.FC = () => {
   const [page, setPage] = useState<Page>('welcome');
+  const [currentMatch, setCurrentMatch] = useState<MatchData | null>(null);
+  const [gameMode, setGameMode] = useState<GameMode>('math');  
+
 
   return (
     <>
@@ -38,9 +44,12 @@ const App: React.FC = () => {
           onProfileClick={() => setPage('profile')}
           onRankedPlay={(topic) => {
             console.log('Topic selected:', topic);
+            setGameMode(topic === 'programming' ? 'programming' : 'math');
             setPage('searching');
           }}
-          onCasualPlay={() => setPage('searching')}
+          onCasualPlay={() => {
+            setGameMode('math');   //change later but for now, being able to choose isn't an option
+            setPage('searching')}}
         />
       )}
       {page === 'profile' && (
@@ -52,7 +61,11 @@ const App: React.FC = () => {
       {page === 'searching' && (
         <Searching
           onCancel={() => setPage('dashboard')}
-          onFound={() => setPage('found')}
+          gameMode={gameMode}
+          onFound={(match) => {
+            setCurrentMatch(match);
+            setPage('found')}
+          }
         />
       )}
       {page === 'found' && (
@@ -64,5 +77,6 @@ const App: React.FC = () => {
     </>
   );
 };
+
 
 export default App;

@@ -1,30 +1,55 @@
 import React, { useEffect, useState } from 'react';
-import { enqueue, matchmaking, dequeue } from "../../../../backend/src/Matchmaking Service/matchmaking.service.ts";
-import { useCurrentUser } from "../services/useCurrentUser";
-import type { MatchDto, GameMode } from "../types/matchmaking.types";
+import { useMatchmaking } from "../../socket/useMatchmaking";
+import { useCurrentUser } from "../../../../backend/src/currentUser";
+import type { MatchData, GameMode } from "../../../../backend/src/Matchmaking Service/matchmaking.dto";
 import './searching.css';
 
+
 interface SearchingProps {
+  gameMode: GameMode;
   onCancel?: () => void;
-  onFound?: () => void;
+  onFound?: (match: MatchData) => void;
 }
 
-const Searching: React.FC<SearchingProps> = ({ onCancel, onFound }) => {
+
+const Searching: React.FC<SearchingProps> = ({ gameMode, onCancel, onFound }) => {
+  const currentUser = useCurrentUser();
+
+
+  const { cancel } = useMatchmaking({
+    userId: currentUser.id,
+    gameMode,
+    onMatched: (match) => onFound?.(match),
+  });
+
+
+  const handleCancel = () => {
+    cancel();
+    onCancel!();
+  };
+
+
   const [seconds, setSeconds] = useState(0);
+
 
   useEffect(() => {
     const id = setInterval(() => setSeconds((s) => s + 1), 1000);
     return () => clearInterval(id);
   }, []);
 
+
   //Go to found after 5 seconds
-  useEffect(() => {
-    const id = setTimeout(() => onFound?.(), 5000);
-    return () => clearTimeout(id);
-  }, [onFound]);
+  // useEffect(() => {
+  //   const id = setTimeout(() => onFound?.(), 5000);
+  //   return () => clearTimeout(id);
+  // }, [onFound]);
+
+
+
 
   const mins = String(Math.floor(seconds / 60)).padStart(1, '0');
   const secs = String(seconds % 60).padStart(2, '0');
+
 
   return (
     <div className="page-container">
@@ -44,4 +69,5 @@ const Searching: React.FC<SearchingProps> = ({ onCancel, onFound }) => {
   );
 };
 
-export default Searching;
+
+export default Searching; 

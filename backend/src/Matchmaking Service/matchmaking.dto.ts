@@ -75,6 +75,35 @@ export function buildMatchDto(
 }
 
 
+//everything below is where the logic for the communication between the websocket and frontend is
+
+export type GameMode = "math" | "programming";
+export type Difficulty = "Easy" | "Medium" | "Difficult";
+
+
+export type ClientMessage =
+  | { type: "JOIN";  userId: number; gameMode: GameMode }
+  | { type: "LEAVE"; userId: number }
+  | { type: "CLEAR_QUEUE"; userId: number; gameMode: GameMode };
+
+
+export interface MatchData {
+  match_id: string;
+  player1_id: number;
+  player2_id: number;
+  game_mode: GameMode;
+  difficulty: Difficulty;
+  time_limit: number;
+}
+
+export type ServerMessage =
+  | { type: "WAITING" }
+  | { type: "MATCHED"; match: MatchData }
+  | { type: "ERROR"; message: string }
+  | { type: "QUEUE_CLEARED" }
+  | { type: "NO_PLAYERS" };
+
+
 
 
 
