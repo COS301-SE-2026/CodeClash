@@ -26,7 +26,7 @@ type Page =
 const App: React.FC = () => {
   const { isAuthenticated, isLoading, signOut } = useAuth();
 
-  const [page, setPage] = useState<Page>('prog-match');
+  const [page, setPage] = useState<Page>('welcome');
   const [queueType, setQueueType] = useState<QueueType>(null);
 
   if (isLoading) return null;
