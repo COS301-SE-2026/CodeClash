@@ -12,7 +12,7 @@ describe("PopUp", () => {
         >
         </PopUp>)
 
-        expect(screen.getByLabelText('outer-div')).toBeInTheDocument();
+        expect(screen.getByRole('button',{name: 'outer-div'})).toBeInTheDocument();
     })
 
     it('Check that popup closes', ()=>{
@@ -23,7 +23,7 @@ describe("PopUp", () => {
         >
         </PopUp>)
 
-        expect(screen.getByLabelText('outer-div')).toBeNull();
+        expect(screen.queryByRole('button',{name: 'outer-div'})).toBeNull();
     })
 
     it('Checks onClose is working', ()=>{
@@ -35,7 +35,7 @@ describe("PopUp", () => {
         >
         </PopUp>)
 
-        fireEvent.click(screen.getByLabelText('outer-div'))
+        fireEvent.click(screen.getByRole('button',{name: 'outer-div'}))
         expect(click).toHaveBeenCalled();
     })
 
@@ -48,7 +48,7 @@ describe("PopUp", () => {
         >
         </PopUp>)
 
-        fireEvent.keyDown(screen.getByLabelText('outer-div'), {key: 'Enter'})
+        fireEvent.keyDown(screen.getByRole('button',{name: 'outer-div'}), {key: 'Enter'})
         expect(enter).toHaveBeenCalled();
     })
 
@@ -60,7 +60,7 @@ describe("PopUp", () => {
             onSelectTopic={vi.fn()}
         ></PopUp>)
 
-        fireEvent.keyDown(screen.getByLabelText('outer-div'), {key: 'Escape'})
+        fireEvent.keyDown(screen.getByLabelText('Choose a topic'), {key: 'Escape'})
         expect(esc).toHaveBeenCalled()
     })
 
@@ -84,6 +84,19 @@ describe("PopUp", () => {
         onSelectTopic={maths}
         ></PopUp>)
 
-        fireEvent.click(screen.getByLabelText('topic-button'))
+        fireEvent.click(screen.getByRole('button',{name: 'topic-math'}))
+        expect(maths).toHaveBeenCalled();
+    })
+
+    it("Checks cancel button closes", ()=>{
+        const cancel = vi.fn()
+        render(<PopUp
+        isOpen={true}
+        onClose={cancel}
+        onSelectTopic={vi.fn()}
+        ></PopUp>)
+
+        fireEvent.click(screen.getByRole('button', {name: 'cancel-button'}))
+        expect(cancel).toHaveBeenCalled();
     })
 })
