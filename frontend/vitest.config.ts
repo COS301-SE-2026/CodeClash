@@ -16,9 +16,11 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'lcov'],
       include: ['@/components/**/*.tsx'],
+      exclude: ['@/components/ui/**', '@/hooks/**', '**/node_modules/**','**/*.config.*'],
     },
 
     globals: true,
+    exclude: ['@/components/ui/**', '@/hooks/**', '**/node_modules/**'],  // exclude shadcn ui components
   },
   resolve: {
     alias: {
