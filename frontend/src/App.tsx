@@ -10,7 +10,6 @@ import Found from './pages/queuePages/found';
 import ProgMatch from './pages/ProgMatch';
 import { useAuth } from './context/AuthContext';
 import { mock_match } from './mocks/prog-match.mock';
-
 type QueueType = 'math' | 'programming' | null;
 
 type Page =
@@ -25,14 +24,14 @@ type Page =
   | 'prog-match';
 
 const App: React.FC = () => {
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading, signOut } = useAuth();
 
   const [page, setPage] = useState<Page>('welcome');
   const [queueType, setQueueType] = useState<QueueType>(null);
 
   if (isLoading) return null;
 
-  if (isAuthenticated && page === 'welcome') {
+  if (isAuthenticated && (page === 'welcome' || page === 'signin' || page === 'signup')) {
     return (
       <Dashboard
         onProfileClick={() => setPage('profile')}
@@ -58,10 +57,10 @@ const App: React.FC = () => {
   return (
     <>
       {page === 'prog-match' && (
-        <ProgMatch language="java" match={mock_match} />
+        <ProgMatch language="java" match={mock_match} back={() => setPage('dashboard')} />
       )}
 
-      {page === 'mathfieldtest' && <MathFieldTest />}
+      {page === 'mathfieldtest' && <MathFieldTest back={() => setPage('dashboard')} />}
 
       {page === 'welcome' && (
         <Welcome
@@ -74,12 +73,14 @@ const App: React.FC = () => {
         <SignIn
           onBack={() => setPage('welcome')}
           onSignUp={() => setPage('signup')}
+          onSignIn={() => setPage('dashboard')}
         />
       )}
 
       {page === 'signup' && (
         <SignUp
           onBack={() => setPage('welcome')}
+          onSignIn={() => setPage('dashboard')}
         />
       )}
 
@@ -107,7 +108,7 @@ const App: React.FC = () => {
       {page === 'profile' && (
         <Profile
           onBack={() => setPage('dashboard')}
-          onLogout={() => setPage('welcome')}
+          onLogout={async () => { await signOut(); setPage('welcome'); }}
         />
       )}
 
