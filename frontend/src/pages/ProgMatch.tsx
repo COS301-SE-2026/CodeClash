@@ -67,7 +67,7 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language, back }) => {
 
   function updateQuestion(q_idx: number) {
     if (typeof questions !== "undefined") {
-      if (q_idx >= question.length) {set_player_1_done(true);  set_q_index(questions.length - 1);}
+      if (q_idx >= questions.length) {set_player_1_done(true);  set_q_index(questions.length - 1);}
       else if (q_idx < 0) return;
       else {
         const q = questions[q_idx];
