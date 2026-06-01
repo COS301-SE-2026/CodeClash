@@ -1,0 +1,14 @@
+README.md
+  h_94c952a9e14c58 111,113,120
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "9bcfbf56640070d1791c2f266c5b6a8961ae21d5",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
