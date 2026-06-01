@@ -108,21 +108,20 @@ Once a feature complete or an issue is addressed, branches are merged back into 
 ## Git AI
 
 To install
-```
+````
 curl -sSL https://usegitai.com/install.sh | bash
-```
+````
 
 for stats on your contribution vs ai 
 ````
 git ai stats 
 
 git ai stats --json   // for json formatting
-`````
+````
 
 Using the commit hash 
-`````
+````
 git ai stats <commit hash>  // to check a specific commit 
-
 git ai stats <commit hash> --json
 ````
 
