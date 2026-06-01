@@ -117,8 +117,9 @@ for stats on your contribution vs ai
 git ai stats 
 
 git ai stats --json   // for json formatting
-
 `````
+
+Using the commit hash 
 `````
 git ai stats <commit hash>  // to check a specific commit 
 
@@ -126,7 +127,6 @@ git ai stats <commit hash> --json
 ````
 
 To see authors 
-
 ````
 git ai blame <file path>
 ````
