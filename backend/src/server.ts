@@ -16,8 +16,18 @@ const wss = new WebSocketServer({noServer : true}) //makes websocket not create 
 
 wss.on("connection", async (ws : WebSocket, req) =>{
 
-    const url = new URL(req.url!, `http://${req.headers.host}`);
-    const token = url.searchParams.get("token");
+    try{
+        const url = new URL(req.url!, `http://${req.headers.host}`);
+        const token = url.searchParams.get("token");
+
+        if(!token){
+            ws.close(4000, "No token found");
+            return;
+        }
+    }
+
+    
+
 
 
 }
