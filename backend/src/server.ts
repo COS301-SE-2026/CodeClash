@@ -20,9 +20,19 @@ const wss = new WebSocketServer({ noServer : true}); //makes websocket not creat
   });
 
   export interface authPayload{
-    userId: number;
+    userId: string;
     username: string;
   }
+
+  export const verifyToken = async (token: string): Promise<authPayload> => {
+    
+    const payload = await verifier.verify(token);
+
+    return{
+      userId: payload.sub,
+      username: (payload["cognito:username"] as string),
+    };
+  };
 
 
 // app.listen(PORT, () => {
