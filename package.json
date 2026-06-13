@@ -2,10 +2,14 @@
   "name": "CodeClash-CI",
   "version": "1.0.0",
   "scripts": {
-    "test": "jest",
+    "test": "vitest",
     "frontend": "npm run dev --prefix frontend",
     "backend": "npm run dev --prefix backend",
-    "dev": "npm run frontend && npm run backend"
+    "dev": "npm run frontend && npm run backend",
+    "test:backend":"cd backend && npx vitest run",
+    "test:backend:coverage": "cd backend && npx vitest run --coverage",
+    "test:frontend":"cd frontend && npx vitest run",
+    "test:frontend:coverage":"cd frontend && npx vitest run --coverage"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.9.1",
@@ -15,7 +19,10 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^25.7.0",
     "@types/redis": "^4.0.10",
+    "autoprefixer": "^10.5.0",
     "jsdom": "^29.1.1",
+    "postcss": "^8.5.14",
+    "tailwindcss": "^4.3.0",
     "vitest": "^4.1.6"
   },
   "dependencies": {
