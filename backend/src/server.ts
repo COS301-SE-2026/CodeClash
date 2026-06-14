@@ -1,30 +1,31 @@
-import app from './app'
-import WebSocketServer from 'ws'
+import app from './app';
+import express from 'express';
+import { createServer } from 'http';
+import { WebSocketServer } from 'ws';
+import { fetchAuthSession } from 'aws-amplify/auth'
 
 const PORT = process.env.PORT || 3000;
-const WEBSOCKET_PORT = Number(process.env.WEBSOCKET_PORT) || 7000;
-
-// WebSocket
-const socketserver = new WebSocketServer.Server({ port: WEBSOCKET_PORT });
-socketserver.on('connection', (socket) => {
-  socket.on('message', (data) => {
-    // we will have to decide on a data format so that we can parse this and dispatch 
-
-    // we will also decide on response codes/types
-    socket.send("response");
-  });
-
-  socket.on('error', (error) => {
-    // will need error handling
-  });
-
-  socket.on('open', () => {
-    socket.send("ready");
-  })
-})
 
 
-// REST API
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+export const WSServer = () => {
+
+    const server = createServer(app);
+
+    const wss = new WebSocketServer({ noServer: true }) //makes websocket not create its own http server but just use server created above
+
+    wss.on("connection", async (ws: WebSocket, req: any) => {
+
+        try {
+            const url = new URL(req.url!, `http://${req.headers.host}`);
+            const token = url.searchParams.get("token");
+
+            if (!token) {
+                ws.close(4000, "No token found");
+                return;
+            }
+        }
+        finally { }
+    }
+
+    )
+}
