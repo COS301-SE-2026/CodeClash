@@ -7,8 +7,8 @@ vi.mock("../../../redis-client", () => {
     return { default: new Redis_Mock.default() };
 });
 
-import { dequeue, enqueue, matchmaking, math_queue_length, prog_queue_length } from "../../../src/Matchmaking Service/matchmaking.service";
-import UserDto from "../../../src/Matchmaking Service/matchmaking.dto";
+import { dequeue, enqueue, matchmaking, math_queue_length, prog_queue_length } from "../../../src/services/matchmaking.service";
+import UserDto from "../../../src/dtos/matchmaking.dto";
 import redis from "../../../redis-client";
 
 

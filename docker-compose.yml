@@ -47,17 +47,8 @@ services:
       - '6379:6379'
     volumes:
       - redis-data:/data
-    command: --requirepass ${REDIS_PASS} --appendonly yes
-    restart: unless-stopped
-
-  redis:
-    image: redis:8.6.3-alpine
-    container_name: codeclash-redis
-    ports:
-      - '6379:6379'
-    volumes:
-      - redis-data:/data
-    command: --requirepass ${REDIS_PASS} --appendonly yes
+      - ./backend/src/config/redis.conf:/etc/redis/redis.conf
+    command: ["redis-server","/etc/redis/redis.conf"]
     restart: unless-stopped
 
 volumes:
