@@ -1,12 +1,17 @@
+// websocket client
+
+import { WebSocket } from "ws";
+
+
 import { useEffect, useState } from "react";
 
-const WebSocketService = (url: string) => {
+const WebSocketService = () => {
     const [socket, set_socket] = useState<WebSocket | null>(null);
     const [messages, set_messages] = useState<string[]>([]);
 
     useEffect(() => {
         //create socket
-        const new_socket = new WebSocket(url);
+        const new_socket = new WebSocket(process.env.WEBSOCKET_URL!);
         set_socket(new_socket);
 
         //open the socket
@@ -17,6 +22,7 @@ const WebSocketService = (url: string) => {
 
         // message event
         new_socket.onmessage = (event) => {
+            console.log(event.data);
             set_messages((prev_messages) => [...prev_messages, event.data as string])  //store messages
         };
 
@@ -27,7 +33,7 @@ const WebSocketService = (url: string) => {
         return () => {
             new_socket.close();
         }
-    }, [url]);
+    },[]);
 
 
     const send_message = (message: string) => {
