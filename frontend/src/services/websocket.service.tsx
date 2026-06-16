@@ -1,7 +1,6 @@
 // websocket client
 
-import { WebSocket } from "ws";
-
+//import { WebSocket } from "ws";
 
 import { useEffect, useState } from "react";
 
@@ -11,7 +10,7 @@ const WebSocketService = () => {
 
     useEffect(() => {
         //create socket
-        const new_socket = new WebSocket(process.env.WEBSOCKET_URL!);
+        const new_socket = new WebSocket(import.meta.env.VITE_WEBSOCKET_URL);
         set_socket(new_socket);
 
         //open the socket
@@ -31,6 +30,8 @@ const WebSocketService = () => {
         };
 
         return () => {
+
+            if(new_socket.readyState !== WebSocket.CLOSED)
             new_socket.close();
         }
     },[]);

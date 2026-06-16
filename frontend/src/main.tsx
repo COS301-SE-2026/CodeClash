@@ -11,11 +11,11 @@ import './styles/global.css'
 import { BrowserRouter } from 'react-router-dom'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+ // <React.StrictMode>
 
     <AuthProvider>
       <BrowserRouter><App /></BrowserRouter>
     </AuthProvider>
 
-  </React.StrictMode>
+  //</React.StrictMode>
 )

@@ -10,6 +10,8 @@ import Found from './pages/queuePages/found';
 import ProgMatch from './pages/ProgMatch';
 import { useAuth } from './context/AuthContext';
 import { mock_match } from './mocks/prog-match.mock';
+import WebSocketService from './services/websocket.service';
+
 type QueueType = 'math' | 'programming' | null;
 
 type Page =
@@ -23,7 +25,9 @@ type Page =
   | 'mathfieldtest'
   | 'prog-match';
 
+  
 const App: React.FC = () => {
+
   const { isAuthenticated, isLoading, signOut } = useAuth();
 
   const [page, setPage] = useState<Page>('welcome');
@@ -133,6 +137,7 @@ const App: React.FC = () => {
       )}
     </>
   );
+
 };
 
 export default App;

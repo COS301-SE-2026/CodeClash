@@ -1,7 +1,7 @@
 import app from './app';
 import express from 'express';
 import { createServer } from 'http';
-import { WebSocketServer } from 'ws';
+import { WebSocketServer,WebSocket } from 'ws';
 import 'dotenv/config'
 
 // parse env var to int 
@@ -20,6 +20,10 @@ export const WSServer = () => {
         host: '0.0.0.0',
         port: WEBSOCKET_PORT
     });
+
+    wss.on('headers', (headers)=>{
+        headers.push('Access-Control-Allow_Origin: *'); //frontend is refusing to connect, trying to debug
+    })
 
     wss.on('listening', () => {
         console.log(`Server listening on Port ${WEBSOCKET_PORT}`)
@@ -41,17 +45,21 @@ export const WSServer = () => {
 
 
         // Message handling
-        ws.onmessage = (event) => {
+        ws.on('message', (event) => {
             // TODO: parse event data
 
-            console.log(event.data);
-        }
+            console.log(event);
+        })
     }
 
     )
 
     wss.on('error', (err) => {
         console.error('WSS Error:',err);
+    })
+
+    wss.on('close',()=>{
+        console.log("Client disconnected")
     })
 }
 

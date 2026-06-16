@@ -20,5 +20,10 @@ export default defineConfig({
   },
   optimizeDeps:{
     exclude: ['@monaco-aditor/react'],
+  },
+  server: {
+    proxy: {
+      '/ws': 'ws://localhost:3030',
+    }
   }
 })
