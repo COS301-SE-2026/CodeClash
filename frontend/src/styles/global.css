@@ -9,6 +9,7 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
   /* colours */
   --color-background: var(--background);
   --color-text: var(--text);
@@ -25,6 +26,18 @@
   --color-danger: var(--danger);
   --color-muted: var(--muted);
 
+  /* Pink */
+  --color-pink-100: #ED5A90;
+  --color-pink-200: #E93577;
+  --color-pink-300: #DC1860;
+  --color-pink-400: #B91551;
+  --color-pink-500: #931040;
+  --color-pink-600: #6E0C30;
+  --color-pink-700: #530A24;
+  --color-pink-800: #490820;
+  --color-pink-900: #250410;
+
+
   /* accents */
   --color-accent: var(--accent);
   --color-accent-text: var(--accent-text);
@@ -32,12 +45,14 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+
   /* charts */
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+
   /* sidebar */
   --color-sidebar: var(--sidebar);
   --color-sidebar-text: var(--sidebar-text);
@@ -47,11 +62,13 @@
   --color-sidebar-accent-text: var(--sidebar-accent-text);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
   /* font  */
   --font-body: var(--font);
   --font-heading: var(--heading);
   --font-heading-weight: var(--heading-weight);
   --font-heading-size: var(--heading-size);
+
   /* text size */
   --text-sm: var(--font-size-sm);
   --text-md: var(--font-size-md);
@@ -63,6 +80,10 @@
 }
 
 :root {
+   --primary: #530a23;
+  --secondary: #FFEFE0;
+  --primary-text: #FCECDD;
+  --seconday-text: #9D2644;
   --background: #eaebee;
   --text: #0000;
   --font: 'Inter', sans-serif;
@@ -71,12 +92,7 @@
   --heading-size: 4rem;
   --badge-font-size: 0.1rem;
   --badge-font-weight: 700;
-  --primary: #051735;
-  --secondary: #806bc0;
-  --muted: #dadde3;
-  --primary-text: #ffffff;
-  --seconday-text: #64748b;
-  --muted-text: #293c59;
+ 
   --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   --font-size-sm: 1.3rem;
   --font-size-md: 2rem;
