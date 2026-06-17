@@ -1,0 +1,22 @@
+frontend/src/App.tsx
+  h_94c952a9e14c58 13-14,28,30,140
+frontend/src/services/websocket.service.tsx
+  h_94c952a9e14c58 3,13,33-34
+backend/src/server.ts
+  h_94c952a9e14c58 4,24-27,48,52,60-63
+frontend/src/main.tsx
+  h_94c952a9e14c58 14,20
+frontend/vite.config.ts
+  h_94c952a9e14c58 23-27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "9afa83ee02b9a0b0c5c830386e3cf150f31dca00",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

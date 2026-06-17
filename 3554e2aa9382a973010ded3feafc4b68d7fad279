@@ -1,0 +1,26 @@
+backend/src/server.ts
+  h_94c952a9e14c58 5,7-8,11,14,16,18-22,24-26,28-31,33-36,38-40,42-47,52-55,57-58
+backend/tests/unit/matchmaking/matchmaking.service.test.ts
+  h_94c952a9e14c58 10-11
+backend/src/services/matchmaking.service.ts
+  h_94c952a9e14c58 1-99
+backend/index.ts
+  h_94c952a9e14c58 1
+backend/package.json
+  h_94c952a9e14c58 6,51
+docker-compose.yml
+  h_94c952a9e14c58 50-51
+backend/src/config/redis.conf
+  h_94c952a9e14c58 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "3554e2aa9382a973010ded3feafc4b68d7fad279",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

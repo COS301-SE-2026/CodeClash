@@ -1,0 +1,14 @@
+frontend/src/services/websocket.service.tsx
+  h_94c952a9e14c58 1-5,14,25,36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.7",
+  "base_commit_sha": "cb3e748ce41e34d924450e236d750139c02fcf5d",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
