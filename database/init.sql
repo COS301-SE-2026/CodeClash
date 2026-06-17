@@ -136,7 +136,26 @@ CREATE TABLE IF NOT EXISTS test_cases (
   expected_output TEXT NOT NULL
 );
 
+CREATE TYPE powerup_type AS ENUM ('add_time_opponent', 'reduce_type_self', 'add_bug_opponent'); --more could be added
+-- manually add different levels of the same powerup ??
 CREATE TABLE IF NOT EXISTS power_ups (
+  powerup_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  type powerup_id NOT NULL,
+  description VARCHAR(100) NOT NULL
+);
 
+CREATE TABLE IF NOT EXISTS match_powerups (
+  match_powerup UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  match_id UUID REFERENCES matches(match_id),
+  user_id UUID UUID REFERENCES users(user_id),
+  powerup_id UUID UUID REFERENCES powerups(powerup_id),
+  used_at TIMESTAMP DEFAULT NOW()
+);
 
+CREATE TABLE IF NOT EXISTS friendships (
+ 
+);
+
+CREATE TABLE IF NOT EXISTS friend_invites (
+ 
 );
