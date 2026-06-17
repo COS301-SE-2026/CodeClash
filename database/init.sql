@@ -126,12 +126,14 @@ CREATE TABLE IF NOT EXISTS execution_results (
   total_cases INTEGER,
   execution_time INTEGER, -- in milliseconds
   memory_used INTEGER,
-  error_message TEXT 
+  error_message TEXT -- will be null if successful
 );
 
 CREATE TABLE IF NOT EXISTS test_cases (
-
-
+  testcase_is UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  problem_id UUID REFERENCES problem_id(id) ON DELETE CASCADE,
+  input TEXT NOT NULL,
+  expected_output TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS power_ups (
