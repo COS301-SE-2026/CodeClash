@@ -1,8 +1,7 @@
---very generic tables that can be changed later, just trying not to keep the file empty
-
 CREATE TYPE problem_category AS ENUM ('math', 'programming');
 CREATE TYPE difficulty_level AS ENUM('Easy','Medium','Difficult');
 CREATE TYPE supported_languages AS ENUM('java','c++');
+CREATE TYPE submission_type AS ENUM('math','programming');
 
 CREATE TABLE IF NOT EXISTS users (
   user_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -80,4 +79,62 @@ CREATE TABLE IF NOT EXISTS elo_history (
   old_rating INTEGER,
   new_rating INTEGER,
   changed_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS achievements (
+  achievement_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  achievement_name VARCHAR(30) NOT NULL,
+  description VARCHAR(70) NOT NULL
+);
+
+--virtual table for m to n players to achievements
+CREATE TABLE IF NOT EXISTS player_achievements (
+  user_id UUID REFERENCES users(user_id),
+  achievement_id UUID REFERENCES achievements(achievement_id),
+  PRIMARY KEY (user_id, achievement_id)
+);
+
+CREATE TYPE submission_results AS ENUM ('Pending', 'Correct', 'Incorrect', 'Error');
+
+CREATE TABLE IF NOT EXISTS submissions (
+  submission_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(user_id),
+  match_id UUID REFERENCES matches(match_id),
+  problem_id UUID REFERENCES problems(id),
+  submission_type submission_type NOT NULL,
+  -- programming fields
+  code TEXT NOT NULL,
+  language supported_languages,
+  -- Maths fields
+  answer TEXT,
+  status submission_results DEFAULT 'Pending',
+  submitted_at TIMESTAMP DEFAULT NOW(),
+  -- enforcing programming fields cannot be null if thats the submission type
+  CONSTRAINT programming_fields_reqiured CHECK(
+    submission_type != 'programming' OR (code IS NOT NULL AND language IS NOT NULL)
+  ),
+  -- enforcing maths fields cannot be null if thats the submission type
+  CONSTRAINT math_fields_reqiured CHECK(
+    submission_type != 'math' OR answer IS NOT NULL
+  )
+);
+
+CREATE TABLE IF NOT EXISTS execution_results (
+  result_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  submission_id UUID REFERENCES submissions(submission_id),
+  passed_cases INTEGER,
+  total_cases INTEGER,
+  execution_time INTEGER, -- in milliseconds
+  memory_used INTEGER,
+  error_message TEXT 
+);
+
+CREATE TABLE IF NOT EXISTS test_cases (
+
+
+);
+
+CREATE TABLE IF NOT EXISTS power_ups (
+
+
 );
