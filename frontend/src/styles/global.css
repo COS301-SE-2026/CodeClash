@@ -49,7 +49,7 @@
 
   /* Buttons */
   --color-button-primary: var(--button-primary);
-  --colour-button-secondary: var(--button-secondary);
+  --color-button-secondary: var(--button-secondary);
   --color-button-text-primary: var(--button-text-primary);
   --color-button-text-secondary: var(--button-text-secondary)
 
@@ -117,8 +117,10 @@
   --font: 'Roboto',sans-serif;
   --font-logo: 'Baloo Bhai 2', sans-serif;
   --heading: 'Baloo Bhai 2', sans-serif;
-  --heading-weight: 600;
+
+  --heading-weight: 700;
   --heading-size: 4rem;
+  
   --badge-font-size: 0.1rem;
   --badge-font-weight: 700;
  
@@ -132,10 +134,6 @@
 @layer base {
   * {}
 
-  body {
-    background-color: pink;
-  }
-
   .badge {
     box-shadow: var(--badge-shadow);
   }
@@ -144,9 +142,5 @@
     font-family: var(--heading);
     font-weight: var(--heading-weight);
     font-size: var(--heading-size);
-  }
-
-  .font-family {
-    font-family: 'Baloo Bhai 2', cursive;
   }
 }
