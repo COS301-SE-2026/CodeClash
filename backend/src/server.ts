@@ -21,10 +21,6 @@ export const WSServer = () => {
         port: WEBSOCKET_PORT
     });
 
-    wss.on('headers', (headers)=>{
-        headers.push('Access-Control-Allow_Origin: *'); //frontend is refusing to connect, trying to debug
-    })
-
     wss.on('listening', () => {
         console.log(`Server listening on Port ${WEBSOCKET_PORT}`)
     })
@@ -48,7 +44,7 @@ export const WSServer = () => {
         ws.on('message', (event) => {
             // TODO: parse event data
 
-            console.log(event);
+            console.log(event.toString());
         })
     }
 

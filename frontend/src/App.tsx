@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Welcome from './pages/Welcome';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
@@ -25,8 +25,17 @@ type Page =
   | 'mathfieldtest'
   | 'prog-match';
 
-  
+
 const App: React.FC = () => {
+
+  const { messages, send_message, connected } = WebSocketService();
+
+  useEffect(() => {
+
+    if (connected)
+      send_message("Hello this is a test");
+  }, [connected])
+
 
   const { isAuthenticated, isLoading, signOut } = useAuth();
 

@@ -18,12 +18,16 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: "./test/setup.ts",
   },
-  optimizeDeps:{
+  optimizeDeps: {
     exclude: ['@monaco-aditor/react'],
   },
   server: {
     proxy: {
-      '/ws': 'ws://localhost:3030',
+      '/ws': {
+        target: 'ws://localhost:3030',
+        ws: true,
+        rewriteWsOrigin: true,
+      }
     }
   }
 })

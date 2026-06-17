@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 const WebSocketService = () => {
     const [socket, set_socket] = useState<WebSocket | null>(null);
     const [messages, set_messages] = useState<string[]>([]);
+    const [connected, set_connected] = useState(false);
 
     useEffect(() => {
         //create socket
@@ -16,7 +17,8 @@ const WebSocketService = () => {
         //open the socket
         new_socket.onopen = () => {
             console.log("Connection established");
-
+            console.log("SOCKET OPEN!!")
+            set_connected(true);
         };
 
         // message event
@@ -38,6 +40,8 @@ const WebSocketService = () => {
 
 
     const send_message = (message: string) => {
+        console.log(message);
+
         if (socket && socket.readyState === WebSocket.OPEN) {
             socket.send(message);
         }
@@ -46,7 +50,7 @@ const WebSocketService = () => {
         }
     };
 
-    return { messages, send_message };
+    return { messages, send_message , connected};
 }
 
 export default WebSocketService;
