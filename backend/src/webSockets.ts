@@ -8,3 +8,6 @@ export const registerConnection = (ws : WebSocket, userId : string) =>
 
 export const removeConnection = (ws : WebSocket) =>
     clientList.delete(ws);
+
+export const getClient = (ws : WebSocket) =>
+    clientList.get(ws);
