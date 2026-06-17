@@ -5,6 +5,9 @@ const redisClient = createClient({url : process.env.FRONTEND_URL || 'http://loca
 
 redisClient.on("error", (err) => console.error("Error with Redis Client: ", err));
 
+redisClient.connect();
+
+export default redisClient;
 // redis instance
 // const redis = new Redis();
 
