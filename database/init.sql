@@ -152,10 +152,20 @@ CREATE TABLE IF NOT EXISTS match_powerups (
   used_at TIMESTAMP DEFAULT NOW()
 );
 
+CREATE TYPE friendship_status AS ENUM ('pending', 'accepted', 'declined', 'blocked');
 CREATE TABLE IF NOT EXISTS friendships (
- 
+ friendship_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+ requester_id UUID REFERENCES users(user_id),
+ receiver_id UUID REFERENCES users(user_id),
+ status friendship_status DEFAULT 'pending',
+ created_at TIMESTAMP DEFAULT NOW(),
+ updated_at TIMESTAMP DEFAULT NOW()
 );
 
 CREATE TABLE IF NOT EXISTS friend_invites (
- 
+  invite_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  sender_id REFERENCES users(user_id),
+  invite_code VARCHAR(50) UNIQUE NOT NULL.
+  expires_at TIMESTAMP NOT NULL,
+  created_at TIMESTAMP DEFAULT NOW()
 );
