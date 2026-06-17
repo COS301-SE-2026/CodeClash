@@ -1,14 +1,15 @@
-// import Redis from "ioredis";
-import {createClient} from "redis";
+import Redis from "ioredis";
+// import {createClient} from "redis";
 
-const redisClient = createClient({url : process.env.FRONTEND_URL || 'http://localhost:5173'}); //i am not sure if this is the correct url, must come back
+// const redisClient = createClient({url : process.env.FRONTEND_URL || 'http://localhost:5173'}); //i am not sure if this is the correct url, must come back
 
-redisClient.on("error", (err) => console.error("Error with Redis Client: ", err));
+// redisClient.on("error", (err) => console.error("Error with Redis Client: ", err));
 
-redisClient.connect();
+// redisClient.connect();
 
-export default redisClient;
-// redis instance
-// const redis = new Redis();
+// export default redisClient;
 
-// export default redis;
+//redis instance
+const redis = new Redis();
+
+export default redis;

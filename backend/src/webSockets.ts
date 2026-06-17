@@ -11,3 +11,5 @@ export const removeConnection = (ws : WebSocket) =>
 
 export const getClient = (ws : WebSocket) =>
     clientList.get(ws);
+
+export default clientList;
