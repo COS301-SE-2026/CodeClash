@@ -1,5 +1,15 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
+/* Font imports */
+
+/* Roboto */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Baloo Bhai 2 */
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400..800&display=swap');
+/************************/
 
 /* text is the text colour */
 
@@ -37,6 +47,12 @@
   --color-pink-800: #490820;
   --color-pink-900: #250410;
 
+  /* Buttons */
+  --color-button-primary: var(--button-primary);
+  --colour-button-secondary: var(--button-secondary);
+  --color-button-text-primary: var(--button-text-primary);
+  --color-button-text-secondary: var(--button-text-secondary)
+
 
   /* accents */
   --color-accent: var(--accent);
@@ -68,6 +84,7 @@
   --font-heading: var(--heading);
   --font-heading-weight: var(--heading-weight);
   --font-heading-size: var(--heading-size);
+  --font-logo: var(--font-logo);
 
   /* text size */
   --text-sm: var(--font-size-sm);
@@ -80,14 +97,26 @@
 }
 
 :root {
-   --primary: #530a23;
+
+  /* colours */
+  --primary: #530a23;
   --secondary: #FFEFE0;
   --primary-text: #FCECDD;
-  --seconday-text: #9D2644;
-  --background: #eaebee;
-  --text: #0000;
-  --font: 'Inter', sans-serif;
-  --heading: 'Baloo Bhai 2', cursive;
+  --seconday-text: #530A24;
+
+  /* buttons */
+  --button-primary: #C0395A;
+  --button-secondary: #FFEFE0;
+  --button-text-primary: #FFFF;
+  --button-text-secondary: #9D2644;
+
+
+  --text: #FFFF;
+
+  /* fonts */
+  --font: 'Roboto',sans-serif;
+  --font-logo: 'Baloo Bhai 2', sans-serif;
+  --heading: 'Baloo Bhai 2', sans-serif;
   --heading-weight: 600;
   --heading-size: 4rem;
   --badge-font-size: 0.1rem;
