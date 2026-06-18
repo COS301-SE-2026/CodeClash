@@ -94,6 +94,7 @@
 
 :root {
 
+  --background: radial-gradient(circle at 38%, #530A24 100%);
   /* colours */
   --primary: #530a23;
   --secondary: #FFEFE0;
