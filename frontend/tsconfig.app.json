@@ -29,5 +29,5 @@
     }
 
   },
-  "include": ["src", "@", "amplify-config.ts", "test/unit/PrimaryButton.test.tsx"],
+  "include": ["src", "@", "amplify-config.ts", "test/unit/components/PrimaryButton.test.tsx"],
 }

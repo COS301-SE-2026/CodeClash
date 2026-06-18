@@ -15,6 +15,7 @@ body {
   justify-content: center;
 }
 
+<<<<<<< HEAD:frontend/src/pages/Welcome.css
 .page-wrapper {
   width: 1440px;
   height: 1024px;
@@ -101,6 +102,8 @@ body {
   font-weight: 400;
   color: #0f172a;
 }
+=======
+>>>>>>> 227b981e8af2298c13214e8fb235ba60fcef39e3:frontend/src/styles/Welcome.css
 
 .signup-link {
   font-family: 'Baloo Bhai 2', cursive;
