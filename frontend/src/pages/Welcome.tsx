@@ -1,5 +1,5 @@
 import React from 'react';
-import logoImage from '../assets/LightMode_Logo.png';
+import helloRobot from '../assets/HelloRobot_Pink.png';
 
 interface WelcomeProps {
   onSignIn?: () => void;
@@ -8,13 +8,20 @@ interface WelcomeProps {
 
 const Welcome: React.FC<WelcomeProps> = ({ onSignIn, onSignUp }) => {
   return (
-    <div className="bg-background flex items-center justify-center min-h-screen overflow-hidden ">
-      <div className=" flex flex-col items-center fustify-center gap-0 w-[90%]">
-        <div className="w-[100%] h-[100%] flex items-center justify-center ">
-          <img src={logoImage} alt="CodeClash logo" className="w-[40%] h-[40%] object-contain rounded-xl " />
+    <div className="bg-background min-h-screen w-full flex items-center overflow-hidden px-[8%]">
+
+      {/* For the left column */}
+      <div className=" flex flex-col justify-center gap-6 w-1/2">
+
+        <div className="flex flex-col gap-1">
+          <span className="text-text text-sm font-semibold">Welcome to</span>
+          <h1 className="font-heading text-[length:--heading-size] font-[number:--heading-weight] text-text leading-tight">
+            CodeClash Gaming
+            </h1>
+            <p className="text-text text-sm font-light">Code. Calculate. Conquer.</p>
         </div>
 
-        <h1 className="heading">Welcome to CodeClash Gaming</h1>
+        
 
         <button
           className="
