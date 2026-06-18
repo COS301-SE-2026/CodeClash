@@ -21,21 +21,15 @@ const Welcome: React.FC<WelcomeProps> = ({ onSignIn, onSignUp }) => {
             <p className="text-text text-sm font-light">Code. Calculate. Conquer.</p>
         </div>
 
-        
-
-        <button
-          className="
-            w-[30%] h-[60%] rounded-xl flex items-center justify-center
-            bg-primary text-primary-text
-            font-family text-md font-semibold  
-            tranform hover:scale-110 transition duration-200 ease-in-out
-            active:bg-[#1d4ed8]
-          "
-          onClick={onSignIn}
-          type="button"
-        >
-          Sign in
-        </button>
+      {/*For the button*/}
+      <button
+        className="
+          w-[60%] rounded-xl bg-button-primary text-button-text-primary text-md font-extrabold "
+        onClick={onSignIn}
+        type="button"
+      >
+        Sign in
+      </button>
 
         <div className="flex items-center gap-3 m-2">
           <span className="font-family text-sm">Are you a new user?</span>
