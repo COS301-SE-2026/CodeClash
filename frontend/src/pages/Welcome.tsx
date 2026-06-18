@@ -24,25 +24,33 @@ const Welcome: React.FC<WelcomeProps> = ({ onSignIn, onSignUp }) => {
       {/*For the button*/}
       <button
         className="
-          w-[60%] rounded-xl bg-button-primary text-button-text-primary text-md font-extrabold "
+          w-[60%] rounded-xl bg-button-primary text-button-text-primary text-md font-extrabold py-4
+          hover:scale-105 transition duration-200 ease-in-out"
         onClick={onSignIn}
         type="button"
       >
-        Sign in
+        Sign up
       </button>
 
-        <div className="flex items-center gap-3 m-2">
-          <span className="font-family text-sm">Are you a new user?</span>
-          <button
-            className="font-family text-sm font-semibold"
-            onClick={onSignUp}
-            type="button"
-          >
-            Sign up
-          </button>
-        </div>
+      <div className="flex flex-col items-start gap-1">
+        <span className="text-text text-sm">Already have an account?</span>
+        <button 
+          className="
+          text-text text-sm font-semibold underline"
+          onClick={onSignIn}
+          type="button"
+        >
+          Sign in
+        </button>
+      </div>
 
       </div>
+
+      {/* For the right column (robot)*/}
+      <div className="w-1/2 flex items-center justify-center">    
+        <img src={helloRobot} alt="CodeClash Robot Avatar" className="w-[85%] h-auto object-contain"/>
+      </div>
+      
     </div>
   );
 };
