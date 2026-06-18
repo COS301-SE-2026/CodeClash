@@ -112,11 +112,13 @@
 
   /* fonts */
   --font: 'Roboto',sans-serif;
-  --font-logo: 'Baloo Bhai 2', sans-serif;
-  --heading: 'Baloo Bhai 2', sans-serif;
+  --font-logo: 'Roboto', sans-serif;
+  --heading: 'Roboto', sans-serif;
 
-  --heading-weight: 700;
+  --heading-weight: 800;
+  --heading-sub-weight: 400;
   --heading-size: 4rem;
+  --heading-big-size: 6rem;
   
   --badge-font-size: 0.1rem;
   --badge-font-weight: 700;
@@ -124,8 +126,9 @@
   --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   --font-size-sm: 1.3rem;
   --font-size-md: 2rem;
-  --font-size-l: 2.3rem;
+  --font-size-l: 2.5rem;
   --font-size-xl: 3rem;
+  --font-weight: 500;
 }
 
 @layer base {
@@ -138,8 +141,30 @@
   }
 
   .heading {
+    color: var(--primary-text);
     font-family: var(--heading);
     font-weight: var(--heading-weight);
     font-size: var(--heading-size);
+  }
+
+  .heading-big {
+    color: var(--primary-text);
+    font-family: var(--heading);
+    font-weight: var(--badge-font-weight);
+    font-size: var(--heading-big-size);
+  }  
+
+  .heading-sub {
+    color: var(--primary-text);
+    font-family: var(--heading);
+    font-weight: var(--heading-sub-weight);
+    font-size: var(--font-size-l);
+  }
+
+  body, p, span {
+    color: var(--primary-text);
+    font-family: var(--heading);
+    font-weight: var(--font-weight);
+    font-size: var(--font-size-md); 
   }
 }
