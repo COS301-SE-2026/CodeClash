@@ -2,14 +2,10 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-/* Font imports */
+/* Font import */
 
 /* Roboto */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-
-/* Baloo Bhai 2 */
-@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400..800&display=swap');
-/************************/
 
 /* text is the text colour */
 
@@ -132,7 +128,9 @@
 }
 
 @layer base {
-  * {}
+  * {
+    font-family: var(--font);
+  }
 
   .badge {
     box-shadow: var(--badge-shadow);
