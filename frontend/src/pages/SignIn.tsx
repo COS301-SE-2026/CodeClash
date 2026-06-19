@@ -1,28 +1,23 @@
 import React, { useState } from "react";
-import shieldImage from "../assets/LightMode_Shield.png";
 import googleIcon from "../assets/Google_Icon.png";
 import appleIcon from "../assets/Apple_Icon.png";
 import { useAuth } from "../context/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
 
 interface SignInProps {
-  onBack: () => void;
   onGoogleSignIn?: () => void;
   onAppleSignIn?: () => void;
-  onSignUp: () => void;
-  onSignIn: () => void;
 }
 
 const SignIn: React.FC<SignInProps> = ({
-  onBack,
   onGoogleSignIn,
-  onAppleSignIn,
-  onSignUp,
-  onSignIn,
+  onAppleSignIn
 }) => {
   const { signIn, error, clearError, isLoading } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [localError, setLocalError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const validate = (): boolean => {
     if (!email.trim()) { setLocalError("Email is required"); return false }
@@ -36,7 +31,7 @@ const SignIn: React.FC<SignInProps> = ({
     if (!validate()) return;
     try {
       await signIn(email.trim(), password);
-      onSignIn();
+      navigate("/dashboard")
     } catch {
       // error is set by context
     }
@@ -50,13 +45,14 @@ const SignIn: React.FC<SignInProps> = ({
 
   return (
     <div className="w-full min-h-screen bg-[#d2d2d2] flex items-center justify-center overflow-hidden relative">
-      <button
+      <Link
         className="absolute top-10 left-10 w-[91px] h-[31px] bg-[#5f5980] rounded-[20px] font-['Baloo_Bhai_2'] text-base font-normal text-white cursor-pointer flex items-center justify-center gap-1 transition-colors duration-150 hover:bg-[#5F5980]"
-        onClick={onBack}
         type="button"
+
+        to='/welcome'
       >
         ← Back
-      </button>
+      </Link>
 
       <div className="flex flex-col items-center gap-4 w-full max-w-[560px] relative z-10">
         <h1 className="font-['Baloo_Bhai_2'] font-bold text-[2.5rem] sm:text-[3rem] lg:text-[4rem] text-[#0f172a] leading-[1.1] text-center">
@@ -133,13 +129,14 @@ const SignIn: React.FC<SignInProps> = ({
 
         <div className="flex flex-col items-center gap-0.5">
           <span className="font-['Baloo_Bhai_2'] text-2xl text-[#0f172a]">Are you a new user?</span>
-          <button
+          <Link
             className="font-['Baloo_Bhai_2'] text-2xl text-[#0f172a] underline cursor-pointer bg-transparent border-none p-0 transition-colors duration-150 hover:text-[#3b82f6]"
             type="button"
-            onClick={onSignUp}
+            
+            to='/sign-up'
           >
             Sign up
-          </button>
+          </Link>
         </div>
       </div>
     </div>

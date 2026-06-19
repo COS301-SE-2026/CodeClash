@@ -10,16 +10,20 @@ import type { QuestionDTO, MatchDTO } from "src/types/question.dto";
 import { mock_questions } from "../mocks/prog-questions.mock";
 import { MatchProgress } from "@/components/features/match-progress";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 interface ProgMatchProps {
   language: string;
   match: MatchDTO;
-  back: () => void;
 }
 
-const ProgMatch: React.FC<ProgMatchProps> = ({ language, back }) => {
+const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
   const [player_1_life, set_player_1_life] = useState(90);
   const [player_2_life, set_player_2_life] = useState(100);
+
+  const setMatch = () => {
+
+  }
 
   function handleChange(value: any) {
     const answered = [...input];
@@ -67,7 +71,7 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language, back }) => {
 
   function updateQuestion(q_idx: number) {
     if (typeof questions !== "undefined") {
-      if (q_idx >= questions.length) {set_player_1_done(true);  set_q_index(questions.length - 1);}
+      if (q_idx >= questions.length) { set_player_1_done(true); set_q_index(questions.length - 1); }
       else if (q_idx < 0) return;
       else {
         const q = questions[q_idx];
@@ -104,14 +108,13 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language, back }) => {
   return (
     <div className="fixed inset-0 flex flex-rowjustify-evenly">
       <div className="flex flex-col w-[80%] m-2 justify-between">
-        <Button
-          active={true}
-          onClick={back}
+        <Link
           className="w-[15%] absolute left-5"
-          variant={"outline"}
+
+          to='/dashboard'
         >
           Exit
-        </Button>
+        </Link>
         {/* header */}
         <div className="flex w-full h-[20%] justify-between items-center m-1 p-2">
           {/* Player 1 Progress */}

@@ -2,19 +2,17 @@ import React, { useState } from "react";
 import googleIcon from "../assets/Google_Icon.png";
 import appleIcon from "../assets/Apple_Icon.png";
 import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface SignUpProps {
-  onBack: () => void;
   onGoogleSignUp?: () => void;
   onAppleSignUp?: () => void;
-  onSignIn: () => void;
 }
 
 const SignUp: React.FC<SignUpProps> = ({
-  onBack,
   onGoogleSignUp,
   onAppleSignUp,
-  onSignIn,
 }) => {
   const {
     signUp,
@@ -35,6 +33,7 @@ const SignUp: React.FC<SignUpProps> = ({
   const [needsConfirmation, setNeedsConfirmation] = useState(false);
   const [confirmationCode, setConfirmationCode] = useState("");
   const [resendMessage, setResendMessage] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const validate = (): boolean => {
     if (!username.trim()) {
@@ -96,7 +95,7 @@ const SignUp: React.FC<SignUpProps> = ({
     }
     try {
       await confirmSignUp(username.trim(), confirmationCode.trim());
-      onSignIn?.();
+      navigate("/dashboard")
     } catch {
       // error set by context
     }
@@ -167,13 +166,14 @@ const SignUp: React.FC<SignUpProps> = ({
 
   return (
     <div className="w-full min-h-screen bg-[#d2d2d2] flex items-center justify-center overflow-hidden relative">
-      <button
+      <Link
         className="absolute top-10 left-10 w-[91px] h-[31px] bg-[#5f5980] rounded-[20px] font-['Baloo_Bhai_2'] text-base font-normal text-white cursor-pointer flex items-center justify-center gap-1 transition-colors duration-150 hover:bg-[#5F5980]"
-        onClick={onBack}
         type="button"
+
+        to='/dashboard'
       >
         ← Back
-      </button>
+      </Link>
 
       <div className="flex flex-col items-center gap-4 w-full max-w-[560px] relative z-10">
         <h1 className="font-['Baloo_Bhai_2'] font-bold text-[2.5rem] sm:text-[3rem] lg:text-[4rem] text-[#0f172a] leading-[1.1] text-center mb-1">Sign Up</h1>
