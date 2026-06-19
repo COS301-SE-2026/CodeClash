@@ -3,59 +3,78 @@ import {
     SidebarContent,
     SidebarFooter,
     SidebarGroup,
-    SidebarHeader
+    SidebarHeader,
+    SidebarMenu,
+    SidebarMenuItem,
+    SidebarMenuButton,
+    SidebarGroupLabel,
+    SidebarRail
 } from '@/components/ui/sidebar'
+import type React from 'react'
 import { Link } from 'react-router-dom'
+
+
+const navItems = [
+
+    {
+        label: 'Section1',
+        items: [
+            { to: '/dashboard', label: 'Dashboard' },
+            { to: '/game-guide', label: 'Game Guide' },
+        ]
+
+    },
+
+    {
+        label: 'Section2',
+        items: [
+            { to: '/tournaments', label: 'Tournaments' },
+            { to: '/Leaderboard', label: 'Leaderboard' },
+            { to: '/badges', label: 'Badges' }
+        ]
+    },
+    {
+        label: 'Section3',
+        items: [
+            { to: '/friends', label: 'Friends' }
+        ]
+    }
+]
+
+const AppSidebarGroups = () => {
+    return (
+        <>
+            {navItems.map((group) => (
+                <SidebarGroup key={group.label}>
+                    <SidebarMenu>
+                        {group.items.map((item) => (
+                            <SidebarMenuItem key={item.to}>
+                                <SidebarMenuButton asChild>
+                                    <Link to={item.to}>
+                                        <span>{item.label}</span>
+                                    </Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                        ))}
+                    </SidebarMenu>
+                </SidebarGroup>
+            ))}
+        </>
+    )
+}
 
 export function AppSidebar() {
     return (
-        <Sidebar>
+        <Sidebar collapsible='icon' className='bg-black text-white'>
             <SidebarHeader>CODECLASH</SidebarHeader>
             <SidebarContent>
-
-                {/* Section 1 */}
-                <SidebarGroup>
-                    <Link to='/dashboard'>
-                        <img />
-                        Dashboard
-                    </Link>
-                    <Link to='/game-guide'>
-                        <img />
-                        Game Guide
-                    </Link>
-                </SidebarGroup>
-
-                {/* Section 2 */}
-                <SidebarGroup>
-                    <Link to='/tournaments'>
-                        <img />
-                        Tournamnets
-                    </Link>
-                    <Link to='/leaderboard'>
-                        <img />
-                        LeaderBoard
-                    </Link>
-                    <Link to='/badges'>
-                        <img />Badges
-                    </Link>
-                </SidebarGroup>
-
-                {/* Section c */}
-                <SidebarGroup>
-                    <Link to='/friends'>
-                        <div>
-                            <img/>
-                            Friends
-                        </div>
-
-                        <div>Most Played Friends List</div>
-
-                    </Link>
-                </SidebarGroup>
+                <AppSidebarGroups></AppSidebarGroups>
             </SidebarContent>
+
             <SidebarFooter>
                 <Link to='/settings'>Settings</Link>
             </SidebarFooter>
+            <SidebarRail className='bg-black' />
         </Sidebar>
     )
 }

@@ -1,7 +1,8 @@
-import { Sidebar } from "@/components/ui/sidebar";
-import React, { useState } from "react";
 
-
+import searchIcon from '../assets/Icons/Search.png'
+import aiIcon from '../assets/Icons/AI.png';
+import profileIcon from '../assets/Icons/Profile.png';
+import backgroundImg from '../assets/Background/dashboard.png'
 
 const Dashboard = () => {
 
@@ -9,20 +10,32 @@ const Dashboard = () => {
   return (
     <>
 
-      {/* // Header */}
-      <div></div>
+      <div style={{ backgroundImage: `url(${backgroundImg})` }} className='w-full bg-yellow-400 bg-cover bg-center'>
+        {/* // Header */}
+        <div className=' w-full bg-pink-300 flex justify-between'>
 
+          {/* Search bar */}
+          <div className='flex items-center'>
+            <img src={searchIcon} alt='search' />
+            <p>Search...</p>
+          </div>
 
-      {/* // Body */}
-      <div>
+          {/* AI and Profile */}
 
-        {/* Sidebar */}
-        <Sidebar>
-        </Sidebar>
+          <div>
+            <img src={aiIcon} alt='AI' />
+            <img src={profileIcon} alt='Profile' />
 
-        {/* Main Content */}
+          </div>
+
+        </div>
+
+        {/* // Body */}
+        <div className='bg-pink-700'>
+          hello
+          {/* Main Content */}
+        </div>
       </div>
-
     </>
   )
 

@@ -4,12 +4,10 @@ import { Outlet } from "react-router-dom";
 
 export default function Layout() {
     return (
-        <SidebarProvider>
+        <SidebarProvider className="bg-black">
             <AppSidebar />
-            <main>
-                <SidebarTrigger />
+                <SidebarTrigger className="text-white" />
                 <Outlet />
-            </main>
         </SidebarProvider>
     )
 }

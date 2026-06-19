@@ -1,5 +1,5 @@
 import React from 'react';
-import logoImage from '../assets/LightMode_Logo.png';
+import logoImage from '../assets/Logo/robot_logo.png';
 import { Link } from 'react-router-dom';
 
 const Welcome: React.FC = () => {
