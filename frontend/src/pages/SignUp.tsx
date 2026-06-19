@@ -170,7 +170,7 @@ const SignUp: React.FC<SignUpProps> = ({
         className="absolute top-10 left-10 w-[91px] h-[31px] bg-[#5f5980] rounded-[20px] font-['Baloo_Bhai_2'] text-base font-normal text-white cursor-pointer flex items-center justify-center gap-1 transition-colors duration-150 hover:bg-[#5F5980]"
         type="button"
 
-        to='/dashboard'
+        to='/welcome'
       >
         ← Back
       </Link>
