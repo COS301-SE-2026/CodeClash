@@ -1,0 +1,26 @@
+frontend/src/pages/Welcome.tsx
+  h_94c952a9e14c58 2
+frontend/src/pages/SignIn.tsx
+  h_94c952a9e14c58 2-3
+frontend/@/components/Sidebar.tsx
+  h_94c952a9e14c58 6-11,13,17,19-24,26,28-42,44-59,61-65,68,71,73,77
+frontend/src/layout.tsx
+  h_94c952a9e14c58 7,9
+frontend/src/pages/ProgMatch.tsx
+  h_94c952a9e14c58 7-8,109
+frontend/src/pages/SignUp.tsx
+  h_94c952a9e14c58 2-3
+frontend/src/pages/Dashboard.tsx
+  h_94c952a9e14c58 2-5,13,15,17-21,23,25-27,34-35,37-38
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "1e5b6074406070ce6f7b9494d455459828d9b041",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
