@@ -9,17 +9,18 @@ export default defineConfig({
     environment: 'jsdom',
 
     //runs setupTests.ts before every test file 
-    setupFiles: ['./src/setupTests.ts'],
+    setupFiles: ['./setupTests.ts'],
 
     //collect coverage 
     coverage: {
       provider: 'v8',
       reporter: ['text', 'lcov'],
-      include: ['src/components/**/*.tsx'],
-      exclude: ['src/components/tests/**'],
+      include: ['@/components/**/*.tsx'],
+      exclude: ['@/components/ui/**', '@/hooks/**', '**/node_modules/**','**/*.config.*'],
     },
 
     globals: true,
+    exclude: ['@/components/ui/**', '@/hooks/**', '**/node_modules/**'],  // exclude shadcn ui components
   },
   resolve: {
     alias: {

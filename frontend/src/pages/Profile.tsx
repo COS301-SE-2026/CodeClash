@@ -1,6 +1,5 @@
 import React from 'react';
 import './Profile.css';
-
 interface ProfileProps {
   userName?: string;
   email?: string;

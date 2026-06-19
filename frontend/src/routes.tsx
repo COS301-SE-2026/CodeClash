@@ -26,16 +26,16 @@ let router = createBrowserRouter([
         path: '/sign-up',
         Component: SignUp
     },
-    {   // routes that need users to be logged in for access
-        element: <ProtectedRoute />,
-        children: [
-            {
-                path: '/prog-match',
-                Component: ProgMatch
-            }
-        ]
+    // {   // routes that need users to be logged in for access
+    //     element: <ProtectedRoute />,
+    //     children: [
+    //         {
+    //             path: '/prog-match',
+    //             Component: ProgMatch
+    //         }
+    //     ]
 
-    }
+    // }
 ])
 
 export { router }
