@@ -48,8 +48,8 @@ async function matchmaking(user: UserDto) {
     // get joined_at times for all users in the elo_range
     const result = await Promise.all(
         elo_range.map(async (user_id) => {
-            const [join, game_mode] = await redis.hmget(`user:${user_id}`, "user_joined_at", "user_game_mode");
-            return { user_id, join, game_mode };
+            const [join] = await redis.hmget(`user:${user_id}`, "user_joined_at");
+            return { user_id, join};
         })
     );
 

@@ -1,7 +1,8 @@
 import app from './app';
 import express from 'express';
 import { createServer } from 'http';
-import { WebSocketServer,WebSocket } from 'ws';
+import { WebSocketServer, WebSocket } from 'ws';
+import { verifyToken } from './verifyToken'
 import 'dotenv/config'
 
 // parse env var to int 
@@ -27,36 +28,45 @@ export const WSServer = () => {
 
     // checking auth on connection
     wss.on("connection", async (ws: WebSocket) => {
-        // const url = new URL(req.url!, `http://${req.headers.host}`);
-        // const token = url.searchParams.get("token");
 
-        // if (!token) {
-        //     ws.close(4000, "No token found");
-        //     return;
-        // }
+        try {
+            const url = new URL(req.url!, `http://${req.headers.host}`);
+            const token = url.searchParams.get("token");
 
-        console.log("Client connected")
+            if (!token) {
+                ws.close(4000, "No token found");
+                return;
+            }
 
-        // TODO: implement token verification
+            if (!token) {
+                ws.close(4000, "No token found");
+                return;
+            }
 
+            const userId = (await verifyToken(token)).userId;
+            const username = (await verifyToken(token)).username;
+        }
+        catch (err) {
+            console.error('Error verifying JWT: ', err);
+        }
 
-        // Message handling
         ws.on('message', (event) => {
             // TODO: parse event data
 
             console.log(event.toString());
         })
-    }
-
-    )
-
-    wss.on('error', (err) => {
-        console.error('WSS Error:',err);
     })
 
-    wss.on('close',()=>{
+    wss.on('error', (err) => {
+        console.error('WSS Error:', err);
+    })
+
+    wss.on('close', () => {
         console.log("Client disconnected")
     })
 }
 
-WSServer(); // calling server to start it 
+WSServer();
+
+
+

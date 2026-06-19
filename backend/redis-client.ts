@@ -1,6 +1,6 @@
 import Redis from "ioredis";
 
-// redis instance
+//redis instance
 const redis = new Redis();
 
 export default redis;
