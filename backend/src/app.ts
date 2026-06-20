@@ -84,20 +84,28 @@ export const authenticate = async (req: Request | IncomingMessage, res: Response
   
   
   try {
+
     const decoded = jwt.decode(token, { complete: true })
+
     if (!decoded || typeof decoded === 'string' || !decoded.header.kid) {
       if(res){
         (res as Response).status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Invalid token' } })
           return
         }
-      }
-
-    const keys = await getJwks()
-    const key = keys.find((k: any) => k.kid === decoded.header.kid)
-    if (!key) {
-      res.status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Invalid token key' } })
-      return
     }
+
+    else{
+
+      const keys = await getJwks()
+      const key = keys.find((k: any) => k.kid === decoded.header.kid)
+      if (!key) {
+        if(res){
+          (res as Response).status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Invalid token key' } })
+          }
+        return
+
+        }
+    
     const pem = jwkToPem(key)
     const payload = jwt.verify(token, pem, {
       algorithms: ['RS256'],
@@ -105,9 +113,11 @@ export const authenticate = async (req: Request | IncomingMessage, res: Response
     }) as JwtPayload
     req.user = { sub: payload.sub!, email: payload.email }
     next()
+  }
   } catch {
     res.status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Token verification failed' } })
   }
+
 }
 
 export default app;
