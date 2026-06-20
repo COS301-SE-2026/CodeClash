@@ -75,8 +75,10 @@ export const authenticate = async (req: Request | IncomingMessage, res: Response
     token = url.searchParams.get('token')
   }
 
-  if(!token){
-
+  if(token === null){
+    if(res !== null){
+      
+    }
   }
   
   
