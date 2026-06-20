@@ -1,7 +1,7 @@
 import app from './app';
 import express from 'express';
 import {createServer, Server, IncomingMessage} from 'http';
-import {WebSocketServer} from 'ws';
+import {WebSocket, WebSocketServer} from 'ws';
 import {fetchAuthSession} from 'aws-amplify/auth'
 import {authenticate, CognitoUser} from './app'
 
@@ -32,6 +32,10 @@ server.on('upgrade', async(req: IncomingMessage, socket, head) => {
         }
 
         req.cognitoUser = user
+
+        wss.handleUpgrade(req, socket, head, (ws) => {
+            wss.emit('connection', ws, req)
+        })
 
     }
 
