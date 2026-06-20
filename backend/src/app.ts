@@ -113,9 +113,12 @@ export const authenticate = async (req: Request | IncomingMessage, res: Response
     }) as JwtPayload
 
     const cognitoUser : CognitoUser = { sub: payload.sub!, email: payload.email }
-    
-    req.user = { sub: payload.sub!, email: payload.email }
-    next()
+
+    if(res !== null){
+      //for express - attach to req and call next - whenever value of res is known, the case is to be used by express!
+      (req as Request).user = cognitoUser
+      next?.()
+    }
   }
   } catch {
     res.status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Token verification failed' } })
