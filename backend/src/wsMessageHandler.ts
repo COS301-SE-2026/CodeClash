@@ -44,7 +44,14 @@ export const handleMessage = async(ws: WebSocket, data: string, client: UserDto)
     }
 }
 
-//below logic is just a shortform version of being able to disconnect a user's web socket connection that can be included in server.ts (i'm lazy and this works)
-export const handleDisconnect = async (userId: string) => {
+//below logic is just a shortform version of being able to disconnect a user's web socket connection that 
+// can be included in server.ts (i'm lazy and this works) 
+// - there is already the "connection" implementation in server.ts for a web socket connection 
+// if you are wondering why there is no handleConnect function
+export const handleDisconnect = async (user: UserDto) => {
+
+    await dequeue(user.id, user.game_mode);
+    removeConnection(user);
+
 
 }
