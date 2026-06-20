@@ -56,15 +56,16 @@ function jwkToPem(jwk: any): string {
   return `-----BEGIN PUBLIC KEY-----\n${pemBody}\n-----END PUBLIC KEY-----`
 }
 
-export const authenticate = async (req: Request, res: Response, next: NextFunction): Promise<CognitoUser | null> => {
+export const authenticate = async (req: Request | IncomingMessage, res: Response | null, next: NextFunction): Promise<CognitoUser | null> => {
   
   let token: string | null = null
-  const header = req.headers.authorization
-  if (!header?.startsWith('Bearer ')) {
-    res.status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Missing or invalid Authorization header' } })
-    return
-  }
-  const token = header.slice(7)
+      //below is rest route, THIS IS USED FOR EXPRESS
+    const header = req.headers.authorization
+    if (!header?.startsWith('Bearer ')) {
+      res.status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Missing or invalid Authorization header' } })
+      return
+    }
+  token = header.slice(7)
   try {
     const decoded = jwt.decode(token, { complete: true })
     if (!decoded || typeof decoded === 'string' || !decoded.header.kid) {
