@@ -119,6 +119,10 @@ export const authenticate = async (req: Request | IncomingMessage, res: Response
       (req as Request).user = cognitoUser
       next?.()
     }
+    else{
+      //for websockets - return user to wherever it is called - res is not known, hence for websockets
+      return cognitoUser
+    }
   }
   } catch {
     res.status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Token verification failed' } })
