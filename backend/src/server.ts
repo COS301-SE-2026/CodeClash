@@ -20,6 +20,10 @@ const server = createServer(app);
 
 const wss = new WebSocketServer({noServer : true}) //makes websocket not create its own http server but just use server created above
 
+//'upgrade' first, represents when the client initially wants to start a connection to the server, 
+// sends an http request to the server with an upgrade header included in the request that informs the server
+// that a websocket connection wants to be established, after a response and a completed handshake
+// the initial http connection is "upgraded" to now be a websocket connection, below handles this process
 server.on('upgrade', async(req: IncomingMessage, socket, head) => {
     
     try{
@@ -27,7 +31,7 @@ server.on('upgrade', async(req: IncomingMessage, socket, head) => {
         const user = await authenticate(req, null, null) as CognitoUser
 
         if(!user){
-            socket.write('HTTP/1.1 401 Unauthorised\r\n\r\n');
+            socket.write('HTTP/1.1 404 User Not Found\r\n\r\n');
             socket.destroy();
         }
 
@@ -38,6 +42,13 @@ server.on('upgrade', async(req: IncomingMessage, socket, head) => {
         })
 
     }
+    catch{
+        socket.write('HTTP/1.1 401 Unauthorised\r\n\r\n');
+        socket.destroy();
+    }
+})
+
+
 
 
 }
