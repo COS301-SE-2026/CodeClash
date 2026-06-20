@@ -17,7 +17,7 @@ app.get('/health', (req: Request, res: Response) => {
     res.json({ status: 'ok'});
 });
 
-interface CognitoUser {
+export interface CognitoUser {
   sub: string
   email?: string
 }
