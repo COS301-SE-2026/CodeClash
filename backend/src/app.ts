@@ -111,6 +111,9 @@ export const authenticate = async (req: Request | IncomingMessage, res: Response
       algorithms: ['RS256'],
       issuer: `https://cognito-idp.${process.env.COGNITO_REGION}.amazonaws.com/${process.env.COGNITO_USER_POOL_ID}`,
     }) as JwtPayload
+
+    const cognitoUser : CognitoUser = { sub: payload.sub!, email: payload.email }
+    
     req.user = { sub: payload.sub!, email: payload.email }
     next()
   }
