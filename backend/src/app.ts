@@ -86,9 +86,12 @@ export const authenticate = async (req: Request | IncomingMessage, res: Response
   try {
     const decoded = jwt.decode(token, { complete: true })
     if (!decoded || typeof decoded === 'string' || !decoded.header.kid) {
-      res.status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Invalid token' } })
-      return
-    }
+      if(res){
+        (res as Response).status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Invalid token' } })
+          return
+        }
+      }
+
     const keys = await getJwks()
     const key = keys.find((k: any) => k.kid === decoded.header.kid)
     if (!key) {
