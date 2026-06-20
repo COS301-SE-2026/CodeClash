@@ -3,6 +3,7 @@ import searchIcon from '../assets/Icons/Search.png'
 import aiIcon from '../assets/Icons/AI.png';
 import profileIcon from '../assets/Icons/Profile.png';
 import backgroundImg from '../assets/Background/dashboard.png'
+import GlassCard from '@/components/shared/GlassCard'
 
 const Dashboard = () => {
 
@@ -21,19 +22,18 @@ const Dashboard = () => {
           </div>
 
           {/* AI and Profile */}
-          <div className='flex items-center w-[10%] h-full justify-evenly'>
-            <img src={aiIcon} alt='AI' className=' h-[80%]'/>
-            <img src={profileIcon} alt='Profile' className=' h-[80%]'/>
+          <div className='flex items-center w-[15%] h-full justify-evenly'>
+            <img src={aiIcon} alt='AI' className=' h-[65%]'/>
+            <img src={profileIcon} alt='Profile' className=' h-[65%]'/>
 
           </div>
 
         </div>
 
         {/* // Body */}
-        <div className='bg-black/30 w-[90%] h-[90%] m-5 rounded-2xl '>
-          hello
-          {/* Main Content */}
-        </div>
+        <GlassCard>
+
+        </GlassCard>
       </div>
     </>
   )
