@@ -20,11 +20,19 @@ const server = createServer(app);
 
 const wss = new WebSocketServer({noServer : true}) //makes websocket not create its own http server but just use server created above
 
-server.on('upgrade', async(req: IncomingMessage, socket, head)) => {
+server.on('upgrade', async(req: IncomingMessage, socket, head) => {
     
     try{
 
-        
+        const user = await authenticate(req, null, null) as CognitoUser
+
+        if(!user){
+            socket.write('HTTP/1.1 401 Unauthorised\r\n\r\n');
+            socket.destroy();
+        }
+
+        req.cognitoUser = user
+
     }
 
 

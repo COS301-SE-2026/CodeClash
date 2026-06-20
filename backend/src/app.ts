@@ -57,7 +57,7 @@ function jwkToPem(jwk: any): string {
   return `-----BEGIN PUBLIC KEY-----\n${pemBody}\n-----END PUBLIC KEY-----`
 }
 
-export const authenticate = async (req: Request | IncomingMessage, res: Response | null, next: NextFunction): Promise<CognitoUser | void> => {
+export const authenticate = async (req: Request | IncomingMessage, res: Response | null, next: NextFunction | null): Promise<CognitoUser | void> => {
   
   let token: string | null = null
 
