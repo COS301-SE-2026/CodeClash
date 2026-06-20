@@ -5,6 +5,7 @@ import {WebSocket, WebSocketServer} from 'ws';
 import {fetchAuthSession} from 'aws-amplify/auth'
 import {authenticate, CognitoUser} from './app'
 import {registerConnection, removeConnection, getConnection} from './wsClients'
+import UserDto from './Matchmaking Service/matchmaking.dto';
 
 declare module 'http' {
     interface IncomingMessage{
@@ -29,7 +30,7 @@ server.on('upgrade', async(req: IncomingMessage, socket, head) => {
     
     try{
 
-        const user = await authenticate(req, null, null) as CognitoUser
+        const user = await authenticate(req, null, null) as UserDto
 
         if(!user){
             socket.write('HTTP/1.1 404 User Not Found\r\n\r\n');
@@ -56,7 +57,7 @@ wss.on('connection', (ws: WebSocket, req: IncomingMessage) => {
 
     //below code logic to destroy any existing connections for this user for example, if there are duplicate tabs of the app under the same user
 
-    const isExisting = getConnection(user.sub)
+    const isExisting = getConnection(user)
     if(isExisting){
         isExisting.ws.close(1000,'Replaced by new connection')
     }

@@ -4,6 +4,7 @@ import eloRoutes from './routes/api.routes';
 import matchRoutes from './routes/api.routes';
 import jwt, { type JwtPayload } from 'jsonwebtoken'
 import {IncomingMessage} from 'http'
+import UserDto from './Matchmaking Service/matchmaking.dto';
 
 const app = express();
 app.disable('x-powered-by');
@@ -57,7 +58,7 @@ function jwkToPem(jwk: any): string {
   return `-----BEGIN PUBLIC KEY-----\n${pemBody}\n-----END PUBLIC KEY-----`
 }
 
-export const authenticate = async (req: Request | IncomingMessage, res: Response | null, next: NextFunction | null): Promise<CognitoUser | void> => {
+export const authenticate = async (req: Request | IncomingMessage, res: Response | null, next: NextFunction | null): Promise<UserDto | void> => {
   
   let token: string | null = null
 
@@ -114,6 +115,7 @@ export const authenticate = async (req: Request | IncomingMessage, res: Response
     }) as JwtPayload
 
     const cognitoUser : CognitoUser = { sub: payload.sub!, email: payload.email }
+    const user = new UserDto(payload.id, payload.elo, payload.game_mode)
 
     if(res !== null){
       //for express - attach to req and call next - whenever value of res is known, the case is to be used by express!
@@ -122,7 +124,7 @@ export const authenticate = async (req: Request | IncomingMessage, res: Response
     }
     else{
       //for websockets - return user to wherever it is called - res is not known, hence for websockets
-      return cognitoUser
+      return user
     }
   }
   } catch {
