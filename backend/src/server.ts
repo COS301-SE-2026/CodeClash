@@ -4,8 +4,9 @@ import {createServer, Server, IncomingMessage} from 'http';
 import {WebSocket, WebSocketServer} from 'ws';
 import {fetchAuthSession} from 'aws-amplify/auth'
 import {authenticate} from './app'
-import {registerConnection, removeConnection, getConnection} from './wsClients'
+import clientList, {registerConnection, removeConnection, getConnection} from './wsClients'
 import UserDto from './Matchmaking Service/matchmaking.dto';
+import { handleMessage, handleDisconnect } from './wsMessageHandler';
 
 declare module 'http' {
     interface IncomingMessage{
@@ -72,6 +73,8 @@ wss.on('connection', (ws: WebSocket, req: IncomingMessage) => {
         elo: user.elo,
         joinedAt: user.joined_at
     }))
+
+    ws.on('message', (data) => handleMessage(ws, data.toString(), user));
     
 
 
