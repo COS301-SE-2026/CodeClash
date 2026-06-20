@@ -3,6 +3,7 @@ import UserDto from "./Matchmaking Service/matchmaking.dto";
 import {dequeue, enqueue, math_queue_length, prog_queue_length} from "./Matchmaking Service/matchmaking.service"
 import { removeConnection } from "./wsClients";
 
+
 export const handleMessage = async(ws: WebSocket, data: string, client: UserDto) => {
     let message: any;
 
@@ -41,4 +42,9 @@ export const handleMessage = async(ws: WebSocket, data: string, client: UserDto)
             ws.send(JSON.stringify({type: "ERROR", message: 'User has invalid game_mode provided to it'}))
         }
     }
+}
+
+//below logic is just a shortform version of being able to disconnect a user's web socket connection that can be included in server.ts (i'm lazy and this works)
+export const handleDisconnect = async (userId: string) => {
+
 }
