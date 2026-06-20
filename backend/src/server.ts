@@ -76,12 +76,13 @@ wss.on('connection', (ws: WebSocket, req: IncomingMessage) => {
 
     ws.on('message', (data) => handleMessage(ws, data.toString(), user));
     ws.on('close', () => handleDisconnect(user));
+    ws.on('error', () => handleDisconnect(user));
     
 
 
 })
 
-
+return wss;
 
 }
 
