@@ -125,7 +125,9 @@ export const authenticate = async (req: Request | IncomingMessage, res: Response
     }
   }
   } catch {
-    res.status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Token verification failed' } })
+    if(res){
+    (res as Response).status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Token verification failed' } })
+    }
   }
 
 }
