@@ -59,6 +59,8 @@ function jwkToPem(jwk: any): string {
 export const authenticate = async (req: Request | IncomingMessage, res: Response | null, next: NextFunction): Promise<CognitoUser | null> => {
   
   let token: string | null = null
+
+  if(res !== null){
       //below is rest route, THIS IS USED FOR EXPRESS
     const header = req.headers.authorization
     if (!header?.startsWith('Bearer ')) {
@@ -66,6 +68,13 @@ export const authenticate = async (req: Request | IncomingMessage, res: Response
       return
     }
   token = header.slice(7)
+  }
+  else{
+    const url = new URL(req.url!, `http://${req.headers.host}`)
+  }
+  
+  
+  
   try {
     const decoded = jwt.decode(token, { complete: true })
     if (!decoded || typeof decoded === 'string' || !decoded.header.kid) {
