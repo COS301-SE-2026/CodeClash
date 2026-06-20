@@ -30,7 +30,11 @@ export const handleMessage = async(ws: WebSocket, data: string, client: UserDto)
     }
     else if(message.type === "LEAVE_QUEUE"){
         if(client.game_mode === "math"){
-            await dequeue(client.id, client.game_mode)
+            await dequeue(client.id, client.game_mode);
+            ws.send(JSON.stringify({type: "DEQUEUED"}));
+        }
+        else if(client.game_mode === "prog"){
+            await dequeue(client.id, client.game_mode);
             ws.send(JSON.stringify({type: "DEQUEUED"}));
         }
     }
