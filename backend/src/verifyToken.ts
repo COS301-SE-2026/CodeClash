@@ -9,7 +9,7 @@ import {CognitoJwtVerifier} from 'aws-jwt-verify'
 const verifier = CognitoJwtVerifier.create({
     userPoolId: `${process.env.COGNITO_USER_POOL_ID}`,
     tokenUse: "id",
-    clientId: `${process.env.COGNITO_CLIENT_ID}`,
+    clientId: `${process.env.COGNITO_CLIENT_ID}`, //client ID of app, not a userId
   });
 
 

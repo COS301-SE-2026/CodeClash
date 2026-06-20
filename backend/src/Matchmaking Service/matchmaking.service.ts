@@ -1,6 +1,6 @@
 import redis from "../../redis-client"
 import UserDto from "./matchmaking.dto";
-import clientList from "../webSockets"
+import clientList from "../wsClients"
 
 const elo_difference = 100;   // this can be changed later
 
