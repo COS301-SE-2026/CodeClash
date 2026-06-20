@@ -48,6 +48,11 @@ server.on('upgrade', async(req: IncomingMessage, socket, head) => {
     }
 })
 
+//now the actual websocket connection must be created
+
+wss.on('connection', (ws: WebSocket, req: IncomingMessage) => {
+    
+})
 
 
 
