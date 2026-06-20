@@ -1,16 +1,17 @@
-import redisClient from "../../redis-client"
-//import UserDto from "./matchmaking.dto";
-import w
+import redis from "../../redis-client"
+import UserDto from "./matchmaking.dto";
+import clientList from "../webSockets"
 
 const elo_difference = 100;   // this can be changed later
 
 
 // adds player to queue
-async function enqueue(queue: string): Promise<boolean> {
+async function enqueue(user : UserDto, queue: string): Promise<boolean> {
+
     if (queue != "math" && queue != "prog") return false;
 
     // add user to the queue
-    await redisClient.zadd(queue, user.elo, user.id);
+    await redis.zadd(queue, user.elo, user.id);
 
     // store their joined_at time and game mode in a hash
     await redis.hset(`user:${user.id}`, "user_joined_at", user.joined_at, "user_game_mode", user.game_mode);
