@@ -77,8 +77,9 @@ export const authenticate = async (req: Request | IncomingMessage, res: Response
 
   if(token === null){
     if(res !== null){
-      
+      (res as Response).status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Missing token'}})
     }
+    return
   }
   
   
