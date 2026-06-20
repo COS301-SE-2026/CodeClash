@@ -57,6 +57,8 @@ function jwkToPem(jwk: any): string {
 }
 
 export const authenticate = async (req: Request, res: Response, next: NextFunction): Promise<CognitoUser | null> => {
+  
+  let token: string | null = null
   const header = req.headers.authorization
   if (!header?.startsWith('Bearer ')) {
     res.status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Missing or invalid Authorization header' } })
