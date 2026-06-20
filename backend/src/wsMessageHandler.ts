@@ -15,12 +15,17 @@ export const handleMessage = async(ws: WebSocket, data: string, client: UserDto)
     }
 
     if(message.type === "JOIN_QUEUE"){
-        await enqueue(client, client.game_mode);
+
         if(client.game_mode === "math"){
+            await enqueue(client, client.game_mode);
             ws.send(JSON.stringify({type: "QUEUED", position: `${math_queue_length}`}))
         }
         else if(client.game_mode === "prog"){
+            await enqueue(client, client.game_mode);
             ws.send(JSON.stringify({type: "QUEUED", position: `${prog_queue_length}`}))
+        }
+        else{
+            ws.send(JSON.stringify({type: 'ERROR', message: 'User has invalid queue option provided to it'}))
         }
     }
 }
