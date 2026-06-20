@@ -70,7 +70,9 @@ export const authenticate = async (req: Request | IncomingMessage, res: Response
   token = header.slice(7)
   }
   else{
+    //below is used when working with WebSockets, it is Node http
     const url = new URL(req.url!, `http://${req.headers.host}`)
+    token = url.searchParams.get('token')
   }
   
   
