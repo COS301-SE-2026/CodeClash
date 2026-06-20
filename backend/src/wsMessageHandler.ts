@@ -25,7 +25,13 @@ export const handleMessage = async(ws: WebSocket, data: string, client: UserDto)
             ws.send(JSON.stringify({type: "QUEUED", position: `${prog_queue_length}`}))
         }
         else{
-            ws.send(JSON.stringify({type: 'ERROR', message: 'User has invalid queue option provided to it'}))
+            ws.send(JSON.stringify({type: "ERROR", message: 'User has invalid queue option provided to it'}))
+        }
+    }
+    else if(message.type === "LEAVE_QUEUE"){
+        if(client.game_mode === "math"){
+            await dequeue(client.id, client.game_mode)
+            ws.send(JSON.stringify({type: "DEQUEUED"}));
         }
     }
 }
