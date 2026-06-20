@@ -1,6 +1,7 @@
 import WebSocket from "ws";
+import UserDto from "./Matchmaking Service/matchmaking.dto";
 
-const clientList = new Map<WebSocket, string>();
+const clientList = new Map<WebSocket, UserDto>();
 
 
 export const registerConnection = (ws : WebSocket, userId : string) =>
