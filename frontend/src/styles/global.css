@@ -1,7 +1,3 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
-
 /* Font imports */
 
 /* Roboto */
@@ -10,6 +6,13 @@
 /* Baloo Bhai 2 */
 @import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400..800&display=swap');
 /************************/
+
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+
+
 
 /* text is the text colour */
 
@@ -52,10 +55,8 @@
   --color-button-secondary: var(--button-secondary);
   --color-button-text-primary: var(--button-text-primary);
   --color-button-text-secondary: var(--button-text-secondary)
-
-
-  /* accents */
-  --color-accent: var(--accent);
+    /* accents */
+    --color-accent: var(--accent);
   --color-accent-text: var(--accent-text);
   --color-destructive: var(--destructive);
   --color-border: var(--border);
@@ -85,6 +86,7 @@
   --font-heading-weight: var(--heading-weight);
   --font-heading-size: var(--heading-size);
   --font-logo: var(--font-logo);
+  --font-weight-light: 100;
 
   /* text size */
   --text-sm: var(--font-size-sm);
@@ -94,6 +96,7 @@
 
   /* shadows */
   --shadow-badge: var(--badge-shadow);
+
 }
 
 :root {
@@ -114,19 +117,19 @@
   --text: #FFFF;
 
   /* fonts */
-  --font: 'Roboto',sans-serif;
+  --font: 'Roboto', sans-serif;
   --font-logo: 'Baloo Bhai 2', sans-serif;
   --heading: 'Baloo Bhai 2', sans-serif;
 
   --heading-weight: 700;
   --heading-size: 4rem;
-  
+
   --badge-font-size: 0.1rem;
   --badge-font-weight: 700;
- 
+
   --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   --font-size-sm: 1.3rem;
-  --font-size-md: 2rem;
+  --font-size-md: 1.9rem;
   --font-size-l: 2.3rem;
   --font-size-xl: 3rem;
 }

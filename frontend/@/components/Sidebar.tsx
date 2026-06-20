@@ -66,7 +66,7 @@ const AppSidebarGroups = () => {
 export function AppSidebar() {
     return (
         <Sidebar collapsible='icon' className='bg-black text-white'>
-            <SidebarHeader>CODECLASH</SidebarHeader>
+            <SidebarHeader className='text-l font-semibold'>CODECLASH</SidebarHeader>
             <SidebarContent>
                 <AppSidebarGroups></AppSidebarGroups>
             </SidebarContent>
