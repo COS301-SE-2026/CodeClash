@@ -61,10 +61,10 @@ export const authenticate = async (req: Request | IncomingMessage, res: Response
   let token: string | null = null
 
   if(res !== null){
-      //below is rest route, THIS IS USED FOR EXPRESS
-    const header = req.headers.authorization
+      //below is rest route, THIS IS USED FOR EXPRESS, ALLOWS NTU'S ORIGINAL CODE TO WORK AS INTENDED, WE ONLY NEED TO KEEP THIS ORIGINAL CODE IF WE HAVE REST API ROUTES THAT EXIST OUTSIDE WEBSOCKET FLOW WHICH I DON'T BELIEVE WE WILL ALLOW 
+    const header = (req as Request).headers.authorization
     if (!header?.startsWith('Bearer ')) {
-      res.status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Missing or invalid Authorization header' } })
+      (res as Response) .status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Missing or invalid Authorization header' } })
       return
     }
   token = header.slice(7)
@@ -74,7 +74,6 @@ export const authenticate = async (req: Request | IncomingMessage, res: Response
     const url = new URL(req.url!, `http://${req.headers.host}`)
     token = url.searchParams.get('token')
   }
-  
   
   
   try {
