@@ -4,6 +4,7 @@ import {createServer, Server, IncomingMessage} from 'http';
 import {WebSocket, WebSocketServer} from 'ws';
 import {fetchAuthSession} from 'aws-amplify/auth'
 import {authenticate, CognitoUser} from './app'
+import {registerConnection, removeConnection, getConnection} from './wsClients'
 
 declare module 'http' {
     interface IncomingMessage{
@@ -51,7 +52,17 @@ server.on('upgrade', async(req: IncomingMessage, socket, head) => {
 //now the actual websocket connection must be created
 
 wss.on('connection', (ws: WebSocket, req: IncomingMessage) => {
+    const user = req.cognitoUser! //has to be guaranteed due to upgrade above which terminates the connection if user is not authenticated
+
+    //below code logic to destroy any existing connections for this user for example, if there are duplicate tabs of the app under the same user
+
+    const isExisting = getConnection(user.sub)
+    if(isExisting){
+        isExisting.ws.close(1000,'Replaced by new connection')
+    }
     
+
+
 })
 
 
@@ -88,4 +99,4 @@ wss.on('connection', (ws: WebSocket, req: IncomingMessage) => {
 
 
 // )
-}
+//}
