@@ -28,15 +28,6 @@ type Page =
 
 const App: React.FC = () => {
 
-  const { messages, send_message, connected } = WebSocketService();
-
-  useEffect(() => {
-
-    if (connected)
-      send_message("Hello this is a test");
-  }, [connected])
-
-
   const { isAuthenticated, isLoading, signOut } = useAuth();
 
   const [page, setPage] = useState<Page>('welcome');
