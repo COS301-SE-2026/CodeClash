@@ -93,6 +93,8 @@
   --text-md: var(--font-size-md);
   --text-l: var(--font-size-l);
   --text-xl: var(--font-size-xl);
+  --text-2xl: var(--font-size-2xl);
+  --text-3xl: var(--font-size-3xl);
 
   /* shadows */
   --shadow-badge: var(--badge-shadow);
@@ -132,6 +134,8 @@
   --font-size-md: 1.9rem;
   --font-size-l: 2.3rem;
   --font-size-xl: 3rem;
+  --font-size-2xl: 3.3rem;
+  --font-size-3xl: 3.6rem;
 }
 
 @layer base {

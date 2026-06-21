@@ -7,10 +7,8 @@ import {
     SidebarMenu,
     SidebarMenuItem,
     SidebarMenuButton,
-    SidebarGroupLabel,
     SidebarRail
 } from '@/components/ui/sidebar'
-import type React from 'react'
 import { Link } from 'react-router-dom'
 
 

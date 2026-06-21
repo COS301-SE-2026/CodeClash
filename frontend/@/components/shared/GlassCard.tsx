@@ -1,10 +1,17 @@
+import type React from "react"
 import { Card } from "../ui/card"
 
-const GlassCard = () => {
+
+interface GlassCardProps {
+    children?: React.ReactNode
+    className?: string
+}
+const GlassCard = ({children, className}: GlassCardProps) => {
     return (
-        <Card className='bg-black/5 w-[90%] h-[90%] m-5 rounded-2xl backdrop-blur-sm border border-white/20'>
-            hello
-            {/* Main Content */}
+        <Card className={`bg-black/5 rounded-2xl backdrop-blur-sm border border-white/30
+        ${className}
+        `}>
+            {children}
         </Card>
     )
 }
