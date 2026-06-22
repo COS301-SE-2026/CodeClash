@@ -592,7 +592,12 @@ function SidebarMenuSkeleton({
 }) {
   // Random width between 50 to 90%.
   const [width] = React.useState(() => {
-    return `${Math.floor(Math.random() * 40) + 50}%`
+
+    // sonar cloud secure pseudorandom number generator 
+    const crypto = window.crypto;
+    var array = new Uint32Array(1);
+
+    return `${Math.floor(crypto.getRandomValues(array)[0] * 40) + 50}%`
   })
 
   return (
