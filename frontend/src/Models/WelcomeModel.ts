@@ -18,3 +18,19 @@ export interface WelcomeActions {
     onSignUp?: () => void;
 }
 
+export const welcomeContent: WelcomeContent = {
+    eyebrow: {
+        text: 'Welcome to',
+        style: {className: 'heading'},
+    },
+
+    title: {
+        text: 'CodeClash Gaming',
+        style: {className: 'heading-big'},
+    },
+
+    tagline: {
+        text: 'Code. Calculate. Conquer.',
+        style: {className: 'heading-sub'},
+    },
+};
