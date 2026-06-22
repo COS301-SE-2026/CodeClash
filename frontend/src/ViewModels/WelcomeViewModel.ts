@@ -1,16 +1,11 @@
 import { useCallback } from "react";
+import { welcomeContent } from '../Models/WelcomeModel';
+import type { WelcomeContent, WelcomeActions } from "../Models/WelcomeModel";
 
-interface WelcomeViewModelProps {
-    onSignIn?: () => void;
-    onSignUp?: () => void;
-}
+interface WelcomeViewModelProps extends WelcomeActions {}
 
 interface WelcomeViewModel {
-    heroText: {
-        eyebrow: string; 
-        title: string;
-        tagline: string;
-    };
+    content: WelcomeContent;
     handleSignIn: () => void;
     handleSignUp: () => void;
 }
@@ -30,11 +25,7 @@ export function WelcomeViewModelFunction (
     }, [onSignUp]);
 
     return {
-        heroText: {
-            eyebrow: 'Welcome to',
-            title: 'CodeClash Gaming',
-            tagline: 'Code. Calculate. Conquer.',
-        },
+        content: welcomeContent,
         handleSignIn,
         handleSignUp,
     };
