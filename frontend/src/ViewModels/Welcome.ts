@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 
-interface WelcomeProps {
+interface WelcomeViewModelProps {
     onSignIn?: () => void;
     onSignUp?: () => void;
 }
@@ -15,9 +15,9 @@ interface WelcomeViewModel {
     handleSignUp: () => void;
 }
 
-export function Welcome (
+export function WelcomeViewModelFunction (
     { onSignIn, onSignUp, }: 
-    WelcomeProps): WelcomeViewModel {
+    WelcomeViewModelProps): WelcomeViewModel {
 
     const handleSignIn = useCallback(() => 
     {
