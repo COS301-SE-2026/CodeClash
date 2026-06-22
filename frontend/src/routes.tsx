@@ -1,5 +1,5 @@
 import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
-import Welcome from "./pages/Welcome";
+import Welcome from "./Views/Welcome";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import ProgMatch from "./pages/ProgMatch";

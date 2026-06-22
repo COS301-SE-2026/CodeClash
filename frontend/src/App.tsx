@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Welcome from './pages/Welcome';
+import Welcome from './Views/Welcome';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import MathFieldTest from './pages/MathFieldTest';
