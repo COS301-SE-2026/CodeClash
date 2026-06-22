@@ -37,7 +37,7 @@ const Welcome: React.FC<WelcomeProps> = ({ onSignIn, onSignUp }) => {
         className="
           w-[60%] rounded-xl bg-button-primary text-button-text-primary text-md font-extrabold py-4
           hover:scale-105 transition duration-200 ease-in-out"
-        onClick={onSignUp}
+        onClick={handleSignUp}
         type="button"
       >
         Sign up
@@ -48,7 +48,7 @@ const Welcome: React.FC<WelcomeProps> = ({ onSignIn, onSignUp }) => {
         <button 
           className="
           text-text text-sm font-semibold underline"
-          onClick={onSignIn}
+          onClick={handleSignIn}
           type="button"
         >
           Sign in
