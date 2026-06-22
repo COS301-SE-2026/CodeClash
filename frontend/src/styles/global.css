@@ -95,6 +95,8 @@
 :root {
 
   --background: radial-gradient(circle at 38%, #530A24 100%);
+  --radius: 20px;
+
   /* colours */
   --primary: #530a23;
   --secondary: #FFEFE0;
@@ -115,7 +117,7 @@
   --font-logo: 'Roboto', sans-serif;
   --heading: 'Roboto', sans-serif;
 
-  --heading-weight: 800;
+  --heading-weight: 700;
   --heading-sub-weight: 400;
   --heading-size: 4rem;
   --heading-big-size: 6rem;
@@ -152,6 +154,7 @@
     font-family: var(--heading);
     font-weight: var(--badge-font-weight);
     font-size: var(--heading-big-size);
+    white-space: nowrap;
   }  
 
   .heading-sub {
