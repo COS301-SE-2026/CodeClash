@@ -153,6 +153,7 @@ CREATE TABLE IF NOT EXISTS match_powerups (
 );
 
 CREATE TYPE friendship_status AS ENUM ('pending', 'accepted', 'declined', 'blocked');
+
 CREATE TABLE IF NOT EXISTS friendships (
  friendship_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
  requester_id UUID REFERENCES users(user_id),
