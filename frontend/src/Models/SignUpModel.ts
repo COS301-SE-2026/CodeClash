@@ -3,6 +3,7 @@ export interface SignUpForm {
     firstName: string;
     lastName: string;
     email: string; 
+    phoneNumber: string;
     password: string;
     acceptedTerms: boolean;
 }
@@ -35,6 +36,7 @@ export const formData: SignUpForm = {
     firstName: '',
     lastName: '',
     email: '',
+    phoneNumber: '',
     password: '',
     acceptedTerms: false,
 };
@@ -44,6 +46,7 @@ export function validateSignUpForm(data: SignUpForm): string | null {
     if (!data.firstName.trim()) return 'First name is required';
     if (!data.lastName.trim()) return 'Last name is required';
     if(!data.email.trim()) return 'Email is required';
+    if (!data.phoneNumber.trim()) return 'Phone number is required';
     if (!data.password || data.password.length < 8) return 'Passowrd must be atleast 8 characters';
     if (!data.acceptedTerms) return 'Please accept the terms and conditions';
     return null;
