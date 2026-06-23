@@ -13,8 +13,18 @@ interface SignUpViewModel {
     displayError: string | null;
     resendMessage: string | null;
     isLoading: boolean;
+
+    setField: (field: keyof SignUpForm, value: string | boolean) => void;
+    setConfirmationCode: (code: string) => void;
+    handleSubmit: () => Promise<void>;
+    handleConfirm: () => Promise<void>;
+    handleResend: () => Promise<void>;
+    handleBack: () => void;
 }
 
-export function SignUpViewModelFunction {
+export function SignUpViewModelFunction (
+    {onSignIn, onBack, }:
+    SignUpViewModelProps): SignUpViewModel {
 
-}
+        const { signUp, confirmSignUp, resendSignUpCode, error, clearError, isLoading } = useAuth();
+    }
