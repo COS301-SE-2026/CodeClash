@@ -14,6 +14,15 @@ export interface SignUpContent {
     confirmTagline: (email: string) => string;
 }
 
+export interface SignUpActions {
+    onSignIn?: () => void;
+    onBack?: () => void;
+}
+
+export interface SignUpRoutes {
+    termsAndCOnditions: '/terms',
+}
+
 export const signUpContent: SignUpContent = {
     title: 'Create Your Account',
     tagline: 'Build your skills. Earn your rank.',
