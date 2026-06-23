@@ -27,4 +27,15 @@ export function SignUpViewModelFunction (
     SignUpViewModelProps): SignUpViewModel {
 
         const { signUp, confirmSignUp, resendSignUpCode, error, clearError, isLoading } = useAuth();
+
+        const [form, setForm] = useState<SignUpForm>(formData);
+        const [confirmationCode, setConfirmationCode] = useState('');
+        const [needsConfirmation, setNeedsConfirmation] = useState(false);
+        const [localError, setLocalError] = useState<string | null>(null);
+        const [resendMessage, setResendMessage] = useState<string | null>(null);
+
+        const setField = useCallback ((field: keyof SignUpForm, value: string | boolean) =>
+        {
+            setForm(prev => ({ ...prev, [field]: value})); //...prev will keep all exisiting values untouched and allow changes only to a specific field
+        }, []);
     }
