@@ -38,4 +38,40 @@ export function SignUpViewModelFunction (
         {
             setForm(prev => ({ ...prev, [field]: value})); //...prev will keep all exisiting values untouched and allow changes only to a specific field
         }, []);
+
+        const handleSubmit = useCallback(async () =>
+        {
+            clearError();
+            setLocalError(null);
+            const validationError = validateSignUpForm(form);
+            if (validationError) {
+                setLocalError(validationError);
+                return;
+            }
+            try {
+                await signUp ({
+                    username: form.username.trim(),
+                    firstName: form.firstName,
+                    lastName: form.lastName,
+                    email: form.email.trim(),
+                    phoneNumber: form.phoneNumber.trim(),
+                    password: form.password,
+                });
+                setNeedsConfirmation(true);
+            } catch {}
+        }, [form, signUp, clearError]);
+
+        return {
+            content: signUpContent,
+            form,
+            confirmationCode,
+            needsConfirmation,
+            displayError: localError ?? error,
+            resendMessage,
+            isLoading,
+
+            setField,
+            setConfirmationCode,
+            handleSubmit,
+        };
     }
