@@ -16,9 +16,9 @@ const Dashboard = () => {
   return (
     <>
 
-      <div style={{ backgroundImage: `url(${backgroundImg})` }} className='w-full bg-cover bg-center flex flex-col items-center justify-between'>
+      <div style={{ backgroundImage: `url(${backgroundImg})` }} className='w-full bg-cover bg-center flex flex-col items-center'>
         {/* // Header */}
-        <div className=' w-full bg-black/80 flex justify-between items-center h-[10%] pl-5'>
+        <div className=' w-full bg-black/80 flex justify-between items-center h-[10%] pl-5 mb-20'>
 
           {/* Search bar */}
           <div className='flex items-center bg-pink-800/30 w-[35%] text-white h-[50%] rounded-3xl'>
@@ -36,7 +36,7 @@ const Dashboard = () => {
         </div>
 
         {/* // Body */}
-        <GlassCard className='flex flex-row text-white items-center pl-5 pr-5 h-[75%] w-[97%]  border  mb-25'>
+        <GlassCard className='flex flex-row text-white items-center pl-5 pr-5 h-[60%] w-[97%]  border  mb-25'>
 
           {/* First Column */}
           <div className='flex flex-col h-[90%] w-[30%] justify-between ml-5 mr-5'>

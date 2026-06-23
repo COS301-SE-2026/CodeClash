@@ -89,12 +89,12 @@
   --font-weight-light: 100;
 
   /* text size */
-  --text-sm: var(--font-size-sm);
-  --text-md: var(--font-size-md);
-  --text-l: var(--font-size-l);
-  --text-xl: var(--font-size-xl);
-  --text-2xl: var(--font-size-2xl);
-  --text-3xl: var(--font-size-3xl);
+  --text-sm: 1.3rem;
+  --text-md: 1.9rem;
+  --text-l: 2.3rem;
+  --text-xl: 3rem;
+  --text-2xl: 3.3rem;
+  --text-3xl: 3.6rem;
 
   /* shadows */
   --shadow-badge: var(--badge-shadow);
@@ -130,12 +130,7 @@
   --badge-font-weight: 700;
 
   --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  --font-size-sm: 1.3rem;
-  --font-size-md: 1.9rem;
-  --font-size-l: 2.3rem;
-  --font-size-xl: 3rem;
-  --font-size-2xl: 3.3rem;
-  --font-size-3xl: 3.6rem;
+  
 }
 
 @layer base {
