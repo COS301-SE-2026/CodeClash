@@ -23,11 +23,16 @@
     "@types/node": "^25.7.0",
     "@types/react": "^19.2.15",
     "@types/redis": "^4.0.10",
+    "@eslint/js": "^10.0.0",
     "autoprefixer": "^10.5.0",
     "jsdom": "^29.1.1",
     "postcss": "^8.5.14",
     "tailwindcss": "^4.3.0",
-    "vitest": "^4.1.6"
+    "vitest": "^4.1.6",
+    "husky": "^9.0.0",
+    "lint-staged": "^15.0.0",
+    "globals": "^17.0.0",
+    "typescript-eslint": "^8.0.0"
   },
   "dependencies": {
     "jest": "^30.4.2"
