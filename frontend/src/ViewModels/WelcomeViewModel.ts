@@ -1,8 +1,11 @@
 import { useCallback } from "react";
 import { welcomeContent } from '../Models/WelcomeModel';
-import type { WelcomeContent, WelcomeActions } from "../Models/WelcomeModel";
+import type { WelcomeContent } from "../Models/WelcomeModel";
 
-interface WelcomeViewModelProps extends WelcomeActions {}
+export interface WelcomeViewModelProps {
+    onSignIn?: () => void;
+    onSignUp?: () => void;
+}
 
 interface WelcomeViewModel {
     content: WelcomeContent;

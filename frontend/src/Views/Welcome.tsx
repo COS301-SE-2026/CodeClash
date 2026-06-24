@@ -3,11 +3,9 @@ import helloRobot from '../assets/HelloRobot_Pink.png';
 import symbolBackground from '../assets/SymbolBackground.png';
 
 import { WelcomeViewModelFunction } from '../ViewModels/WelcomeViewModel.ts';
+import type { WelcomeViewModelProps } from '../ViewModels/WelcomeViewModel.ts';
 
-interface WelcomeProps {
-  onSignIn?: () => void;
-  onSignUp?: () => void;
-}
+interface WelcomeProps extends WelcomeViewModelProps{}
 
 const Welcome: React.FC<WelcomeProps> = ({ onSignIn, onSignUp }) => {
   const { content, handleSignIn, handleSignUp} = WelcomeViewModelFunction ({

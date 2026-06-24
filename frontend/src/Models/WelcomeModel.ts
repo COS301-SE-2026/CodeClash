@@ -13,11 +13,6 @@ export interface WelcomeContent {
     tagline: WelcomeText;
 }
 
-export interface WelcomeActions {
-    onSignIn?: () => void;
-    onSignUp?: () => void;
-}
-
 export const welcomeContent: WelcomeContent = {
     eyebrow: {
         text: 'Welcome to',
