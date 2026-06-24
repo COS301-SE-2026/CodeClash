@@ -1,9 +1,12 @@
 import { useCallback, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { signUpContent, formData, validateSignUpForm } from "../Models/SignUpModel";
-import type { SignUpContent, SignUpForm, SignUpActions } from "../Models/SignUpModel";
+import type { SignUpContent, SignUpForm } from "../Models/SignUpModel";
 
-interface SignUpViewModelProps extends SignUpActions {}
+export interface SignUpViewModelProps {
+    onSignIn?: () => void;
+    onBack?: () => void;
+}
 
 interface SignUpViewModel {
     content: SignUpContent;
@@ -49,7 +52,7 @@ export function SignUpViewModelFunction (
                 return;
             }
             try {
-                await signUp ({
+                await signUp ({ //If the form validation is passed, call Amplify's signUp with the values for the form
                     username: form.username.trim(),
                     firstName: form.firstName,
                     lastName: form.lastName,
@@ -57,9 +60,15 @@ export function SignUpViewModelFunction (
                     phoneNumber: form.phoneNumber.trim(),
                     password: form.password,
                 });
-                setNeedsConfirmation(true);
-            } catch {}
+                setNeedsConfirmation(true); //If signUp succeeds, set UI to confirmation code screen
+            } catch {} //If Amplify throws an error, AuthContext will catch it and out it in error
         }, [form, signUp, clearError]);
+
+        const handleConfirm = useCallback(async () =>
+        {
+            clearError();
+            setLocalError(null);
+        })
 
         return {
             content: signUpContent,

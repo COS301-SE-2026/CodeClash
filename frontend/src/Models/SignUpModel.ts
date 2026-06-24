@@ -15,11 +15,6 @@ export interface SignUpContent {
     confirmTagline: (email: string) => string;
 }
 
-export interface SignUpActions {
-    onSignIn?: () => void;
-    onBack?: () => void;
-}
-
 export interface SignUpRoutes {
     termsAndCOnditions: '/terms',
 }
