@@ -9,7 +9,10 @@
     "test:backend": "cd backend && npx vitest run",
     "test:backend:coverage": "cd backend && npx vitest run --coverage",
     "test:frontend": "cd frontend && npx vitest run",
-    "test:frontend:coverage": "cd frontend && npx vitest run --coverage"
+    "test:frontend:coverage": "cd frontend && npx vitest run --coverage",
+    "lint": "npm run lint --prefix frontend && npm run lint --prefix backend",
+    "lint:staged": "lint-staged",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.9.1",
