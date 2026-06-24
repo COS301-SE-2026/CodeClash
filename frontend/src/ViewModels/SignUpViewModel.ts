@@ -22,7 +22,9 @@ interface SignUpViewModel {
     handleSubmit: () => Promise<void>;
     handleConfirm: () => Promise<void>;
     handleResend: () => Promise<void>;
-    handleBack: () => void;
+    handleBack: () => void; //This leaves signup page completely and goes back to welcome page
+    handleConfirmBack: () => void; //This is to go back to the form from the confirmation screen
+    handleSignIn: () => void;
 }
 
 export function SignUpViewModelFunction (
@@ -89,6 +91,11 @@ export function SignUpViewModelFunction (
             } catch {}
         }, [form.username, resendSignUpCode, clearError]); //Dependancy array
 
+        const handleConfirmBack = useCallback(() =>
+        {
+            setNeedsConfirmation(false); //Swap UI back to signup form
+        }, []);
+
         return {
             content: signUpContent,
             form,
@@ -103,5 +110,8 @@ export function SignUpViewModelFunction (
             handleSubmit,
             handleConfirm,
             handleResend,
+            handleBack: () => onBack?.(),
+            handleSignIn: () => onSignIn?.(),
+            handleConfirmBack,
         };
     }
