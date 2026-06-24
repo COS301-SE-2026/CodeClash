@@ -61,14 +61,22 @@ export function SignUpViewModelFunction (
                     password: form.password,
                 });
                 setNeedsConfirmation(true); //If signUp succeeds, set UI to confirmation code screen
-            } catch {} //If Amplify throws an error, AuthContext will catch it and out it in error
-        }, [form, signUp, clearError]);
+            } catch {} //If Amplify throws an error, AuthContext will catch it and put it in error
+        }, [form, signUp, clearError]); //Dependency array
 
         const handleConfirm = useCallback(async () =>
         {
             clearError();
             setLocalError(null);
-        })
+            if (!confirmationCode.trim()) {
+                setLocalError('Confirmation code is required'); //If the code is empty then give the user an error message and stop
+                return;
+            }
+            try {
+                await confirmSignUp (form.username.trim(), confirmationCode.trim()); //If the validation is passed, Amplify will be called
+                onSignIn?.(); //If confirmation is successful, go to the SignIn page if it exists
+            } catch {}
+        }, [confirmationCode, form.username, confirmSignUp, clearError, onSignIn]); //Dependency array
 
         return {
             content: signUpContent,
@@ -82,5 +90,6 @@ export function SignUpViewModelFunction (
             setField,
             setConfirmationCode,
             handleSubmit,
+            handleConfirm,
         };
     }
