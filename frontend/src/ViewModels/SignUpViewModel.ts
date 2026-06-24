@@ -69,7 +69,7 @@ export function SignUpViewModelFunction (
             clearError();
             setLocalError(null);
             if (!confirmationCode.trim()) {
-                setLocalError('Confirmation code is required'); //If the code is empty then give the user an error message and stop
+                setLocalError('Confirmation code is required.'); //If the code is empty then give the user an error message and stop
                 return;
             }
             try {
@@ -77,6 +77,17 @@ export function SignUpViewModelFunction (
                 onSignIn?.(); //If confirmation is successful, go to the SignIn page if it exists
             } catch {}
         }, [confirmationCode, form.username, confirmSignUp, clearError, onSignIn]); //Dependency array
+
+        const handleResend = useCallback(async () =>
+        {
+            clearError();
+            setLocalError(null);
+            setResendMessage(null); //Clear any previous message for code sent, to show that is being resent
+            try {
+                await resendSignUpCode(form.username.trim()); //Amplify called to send a confirmation code. The user is id'd by username.
+                setResendMessage('Code has been sent! Check your email.'); //If code has been sent, set the success message.
+            } catch {}
+        }, [form.username, resendSignUpCode, clearError]); //Dependancy array
 
         return {
             content: signUpContent,
@@ -91,5 +102,6 @@ export function SignUpViewModelFunction (
             setConfirmationCode,
             handleSubmit,
             handleConfirm,
+            handleResend,
         };
     }
