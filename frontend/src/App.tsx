@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Welcome from './Views/Welcome';
 import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
+import SignUp from './Views/SignUp';
 import MathFieldTest from './pages/MathFieldTest';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
