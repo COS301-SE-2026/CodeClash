@@ -47,6 +47,28 @@ const SignUp: React.FC<SignUpProps> = (props) => {
                     {resendMessage && (
                         <p className= "text-success text-center"> {resendMessage} </p>
                     )}
+
+                    <input className= {fieldClass}
+                        type= "text"
+                        placeholder= "Confirmation code"
+                        value= {confirmationCode}
+                        onChange={(e) => setConfirmationCode(e.target.value)}
+                        disabled= {isLoading}
+                    />
+
+                    <button className= {buttonPrimaryClass}
+                        type= "button"
+                        onClick={handleConfirm}
+                        disabled= {isLoading} >
+                        {isLoading ? 'Verifying..' : 'Confirm'}
+                    </button>
+
+                    <button className= "heading-sub underline hover:opacity-80"
+                        type="button"
+                        onClick={handleResend}
+                        disabled={isLoading} >
+                        Resend code
+                    </button>
                 </div>
             </div>
         );
