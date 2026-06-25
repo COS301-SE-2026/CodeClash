@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { SignUpViewModelFunction } from '../ViewModels/SignUpViewModel.ts';
-import { SignUpRoutes } from '../Models/SignUpModel.ts';
-import type { SignUpViewModelProps } from '../ViewModels/SignUpViewModel.ts';
+import type { SignUpViewModelProps, SignUpRoutes } from '../ViewModels/SignUpViewModel.ts';
 
 interface SignUpProps extends SignUpViewModelProps {};
 
