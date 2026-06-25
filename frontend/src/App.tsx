@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import Welcome from './pages/Welcome';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
-import MathFieldTest from './pages/MathFieldTest';
-import Dashboard from './pages/Dashboard';
-import Profile from './pages/Profile';
-import Searching from './pages/queuePages/searching';
-import Found from './pages/queuePages/found';
-import ProgMatch from './pages/ProgMatch';
+
 import { useAuth } from './context/AuthContext';
 import { mock_match } from './mocks/prog-match.mock';
+import Dashboard from './pages/Dashboard';
+import MathFieldTest from './pages/MathFieldTest';
+import Profile from './pages/Profile';
+import ProgMatch from './pages/ProgMatch';
+import Found from './pages/queuePages/found';
+import Searching from './pages/queuePages/searching';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
+import Welcome from './pages/Welcome';
 type QueueType = 'math' | 'programming' | null;
 
 type Page =

@@ -1,9 +1,9 @@
 //This file defines a mathfield object that can be imported into the match screens
 //Tutorial taken from https://mathlive.io/mathfield/guides/getting-started/
 
-import "mathlive";
 import { MathfieldElement} from "mathlive";
 import { useState, useRef } from "react";
+
 import VirtualKeyboard from './VirtualKeyboard';
 
 //Extending JSX to react mathfield as a valid element

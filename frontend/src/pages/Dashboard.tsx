@@ -1,19 +1,20 @@
 import React from "react";
-import logoImage from "../assets/LightMode_Logo.png";
+
+import agentIcon from "../assets/AIAgent_Icon.png";
+import badgesIcon from "../assets/Badges_Icon.png";
+import casualplayImage from "../assets/CasualPlay_Image.png";
 import dashboardIcon from "../assets/Dashboard_Icon.png";
 import friendsIcon from "../assets/Friends_Icon.png";
-import leaderboardIcon from "../assets/Leaderboard_Icon.png";
-import tournamentsIcon from "../assets/Tournaments_Icon.png";
-import badgesIcon from "../assets/Badges_Icon.png";
 import gameguideIcon from "../assets/GameGuide_Icon.png";
-import settingsIcon from "../assets/Settings_Icon.png";
+import leaderboardIcon from "../assets/Leaderboard_Icon.png";
+import logoImage from "../assets/LightMode_Logo.png";
+import notificationIcon from "../assets/Notification_Icon.png";
 import profileIcon from "../assets/Profile_Icon.png";
 import rankedplayImage from "../assets/RankedPlay_Image.png";
-import casualplayImage from "../assets/CasualPlay_Image.png";
 import medalImage from "../assets/RecentlyEarned_Image.png";
-import agentIcon from "../assets/AIAgent_Icon.png";
-import notificationIcon from "../assets/Notification_Icon.png";
 import searchIcon from "../assets/Search_Icon.png";
+import settingsIcon from "../assets/Settings_Icon.png";
+import tournamentsIcon from "../assets/Tournaments_Icon.png";
 
 import PopUp from "@/components/shared/PopUp";
 

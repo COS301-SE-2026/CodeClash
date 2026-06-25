@@ -1,8 +1,9 @@
 import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
-import Welcome from "./pages/Welcome";
+
+import ProgMatch from "./pages/ProgMatch";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-import ProgMatch from "./pages/ProgMatch";
+import Welcome from "./pages/Welcome";
 
 
 const ProtectedRoute = () => {
@@ -12,7 +13,7 @@ const ProtectedRoute = () => {
     return auth ? <Outlet /> : <Navigate to='/sign-in' />
 }
 
-let router = createBrowserRouter([
+const router = createBrowserRouter([
     {
         path: '/',
         Component: Welcome,

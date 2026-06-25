@@ -1,15 +1,17 @@
-import React, { useState, useEffect, useRef } from "react";
 import { Editor } from "@monaco-editor/react";
-import { Progress } from "@/components/ui/progress";
-import { Badge } from "@/components/ui/badge";
+import React, { useState, useEffect, useRef } from "react";
 import { useTimer } from "react-timer-hook";
-import { Question } from "@/components/features/question";
+import type { QuestionDTO, MatchDTO } from "src/types/question.dto";
+
 import blue_avatar from "../assets/blue_avatar.jpeg";
 import puprle_avatar from "../assets/purple_avatar.jpeg";
-import type { QuestionDTO, MatchDTO } from "src/types/question.dto";
 import { mock_questions } from "../mocks/prog-questions.mock";
+
 import { MatchProgress } from "@/components/features/match-progress";
+import { Question } from "@/components/features/question";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
 
 interface ProgMatchProps {
   language: string;
