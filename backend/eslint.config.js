@@ -1,19 +1,19 @@
-import base from "../eslint.config.base.js"
-import { defineConfig, gloablgnores } from "eslint/config"
+import base from "../eslint.config.base.js";
+import { defineConfig, globalIgnores } from "eslint/config";
 
 export default defineConfig([
   ...base,
-  globalgnores(["node_modules, "dist", "coverage"]),
+  globalIgnores(["node_modules", "dist", "coverage"]),
   {
     files: ["**/*.ts"],
     rules: {
-        "no-console" : "off",
-      },
+      "no-console": "off",
+    },
   },
-    {
-      files: ["**/*.test.ts", "**/*.spec.ts"],
-      rules: {
-        "@typescript-eslint/no-explicit-any": "off",
-      },
+  {
+    files: ["**/*.test.ts", "**/*.spec.ts"],
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+    },
   },
 ]);
