@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { SignUpViewModelFunction } from '../ViewModels/SignUpViewModel.ts';
-import type { SignUpViewModelProps, SignUpRoutes } from '../ViewModels/SignUpViewModel.ts';
+import type { SignUpViewModelProps } from '../ViewModels/SignUpViewModel.ts';
 
 interface SignUpProps extends SignUpViewModelProps {};
 
@@ -27,6 +27,30 @@ const SignUp: React.FC<SignUpProps> = (props) => {
         handleConfirmBack,
     } = SignUpViewModelFunction(props);
 
+    if (needsConfirmation) {
+        return (
+            <div className= "relative w-full min-h-screen flex items-center justify-center overflow-hidden"
+                style= {{background: 'var(--background)'}} >
+                <button className= "absolute top-10 left-10 bg-primary radius-lg px-4 py-2 heading-sub hover:opacity-80"
+                    onClick={handleConfirmBack}
+                    type="button" >
+                    ← Back
+                </button>
+
+                <div className= "relative z-10 flex flex-col items-center gap-4 w-full max-w-[560px]" >
+                    <h1 className= "heading-big text-center"> {content.confirmTitle} </h1>
+                    <p> {content.confirmTagline(form.email)} </p>2
+
+                    {displayError && (
+                        <p className= "text-danger text-center"> {displayError} </p>
+                    )}
+                    {resendMessage && (
+                        <p className= "text-success text-center"> {resendMessage} </p>
+                    )}
+                </div>
+            </div>
+        );
+    }
 
 };
 
