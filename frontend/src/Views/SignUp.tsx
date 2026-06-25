@@ -1,4 +1,5 @@
 import React from 'react';
+import ufoImage from '../assets/RedUFO.png';
 
 import { SignUpViewModelFunction } from '../ViewModels/SignUpViewModel.ts';
 import type { SignUpViewModelProps } from '../ViewModels/SignUpViewModel.ts';
@@ -29,7 +30,7 @@ const SignUp: React.FC<SignUpProps> = (props) => {
 
     if (needsConfirmation) {
         return (
-            <div className= "relative w-full min-h-screen flex items-center justify-center overflow-hidden"
+            <div className= "relative w-full min-h-screen flex items-center justify-center overflow-x-hidden"
                 style= {{background: 'var(--background)'}} >
                 <button className= "absolute top-10 left-10 bg-primary rounded-lg px-4 py-2 heading-sub hover:opacity-80"
                     onClick={handleConfirmBack}
@@ -83,7 +84,14 @@ const SignUp: React.FC<SignUpProps> = (props) => {
                 ← Back
             </button>
 
-            <div className="relative z-10 flex flex-col items-center gap-4 w-full max-w-[560px]" >
+            <div className="relative z-10 flex flex-col items-center w-full max-w-[560px]" >
+                
+                {/*UFO image*/}
+                <div className= "relative w-full flex flex-col items-center">
+                    <img src= {ufoImage} alt="UFO" className="w-[480px] h-auto object-contain" />
+                </div>
+
+                <div className= "relative z-20 flex flex-col items-center gap-4 w-full -mt-10">
                 <h1 className= "heading text-center"> {content.title} </h1>
                 <p className= "heading-sub mb-4"> {content.tagline} </p>
 
@@ -160,7 +168,7 @@ const SignUp: React.FC<SignUpProps> = (props) => {
                     disabled= {isLoading} >
                     {isLoading ? 'Signing up..' : 'Sign up'}
                 </button>
-
+                </div>
             </div>
         </div>
     )
