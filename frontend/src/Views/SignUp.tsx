@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { SignUpViewModelFunction, } from '../ViewModels/SignUpViewModel.ts';
+import { SignUpViewModelFunction } from '../ViewModels/SignUpViewModel.ts';
 import type { SignUpViewModelProps } from '../ViewModels/SignUpViewModel.ts';
 
 interface SignUpProps extends SignUpViewModelProps {};
 
-const fieldClass = "w-[500px] max-w-[90vw] h-[60px] bg-white rounded-lg px-5 border-[0.5px] border-primary outline-none transition-all duration-200 focus:border-pink-400 focus:shadow-[0_0_0_3px_rgba(185,21,81,0.15)] disabled:opacity-50 text-primary font-medium placeholder:text-primary/60 focus:text-primary";
+const fieldClass = "fields w-[500px] max-w-[90vw] h-[60px] bg-white rounded-lg px-5 border-[0.5px] border-primary outline-none transition-all duration-200 focus:border-pink-400 focus:shadow-[0_0_0_3px_rgba(185,21,81,0.15)] disabled:opacity-50 text-primary font-medium placeholder:text-primary/60 focus:text-primary";
 const buttonPrimaryClass = "w-[500px] max-w-[90vw] h-[60px] rounded-lg font-bold cursor-pointer flex items-center justify-center transition-all duration-200 hover:-translate-y-px active:translate-y-0 disabled:opacity-50 bg-button-primary text-button-text-primary shadow-badge";
 
 const SignUp: React.FC<SignUpProps> = (props) => {
@@ -98,6 +98,42 @@ const SignUp: React.FC<SignUpProps> = (props) => {
                     onChange={(e) => setField('firstName', e.target.value)} 
                     disabled= {isLoading}
                 />
+                <input className= {fieldClass}
+                    type="text"
+                    placeholder="Last name"
+                    value= {form.lastName}
+                    onChange={(e) => setField('lastName', e.target.value)}
+                    disabled={isLoading}
+                />
+                <input className= {fieldClass}
+                    type="text"
+                    placeholder="Username"
+                    value= {form.username}
+                    onChange={(e) => setField('username', e.target.value)}
+                    disabled={isLoading}
+                />
+                <input className= {fieldClass}
+                    type="email"
+                    placeholder="Email address"
+                    value= {form.email}
+                    onChange={(e) => setField('email', e.target.value)}
+                    disabled={isLoading}
+                />
+                <input className= {fieldClass}
+                    type="tel"
+                    placeholder="Phone number"
+                    value= {form.phoneNumber}
+                    onChange={(e) => setField('phoneNumber', e.target.value)}
+                    disabled={isLoading}
+                />
+                <input className= {fieldClass}
+                    type="password"
+                    placeholder="Password"
+                    value= {form.password}
+                    onChange={(e) => setField('password', e.target.value)}
+                    disabled={isLoading}
+                />
+                
 
                 <div className="w-[500px] max-w-[90vw] flex items-center gap-3" >
                     <input className= "w-8 h-8 rounded-sm cursor-pointer accent-button-primary"
@@ -107,12 +143,24 @@ const SignUp: React.FC<SignUpProps> = (props) => {
                         onChange={(e) => setField('acceptedTerms', e.target.checked)} 
                         disabled={isLoading}
                     />
-                    <label className= "cursor-pointer" htmlFor="acceptTerms">
+                    <label className= "cursor-pointer" htmlFor="acceptTerms" style={{fontSize: 'var(--font-size-sm'}}>
                         Accept{' '}
-                            className= "underline hover:opacity-80"
-                            {/*href= {SignUpRoutes.termsAndConditions}*/} {/*Need to figure out the routing here*/} 
+                        <a
+                            className= "underline hover:opacity-80 "
+                            /*href= {SignUpRoutes.termsAndConditions}*/ /*Need to figure out the routing here*/
+                        >
+                        Terms &amp; Conditions
+                        </a>
                     </label>
                 </div>
+
+                <button className={buttonPrimaryClass}
+                    type="button"
+                    onClick={handleSubmit}
+                    disabled= {isLoading} >
+                    {isLoading ? 'Signing up..' : 'Sign up'}
+                </button>
+
             </div>
         </div>
     )
