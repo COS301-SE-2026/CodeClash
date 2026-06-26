@@ -1,0 +1,90 @@
+name: Lint
+
+on:
+  pull_request:
+    branches: [dev, main]
+
+jobs:
+  changes:
+    name: Detect Changes
+    runs-on: ubuntu-latest
+    outputs:
+      backend: ${{ steps.filter.outputs.backend }}
+      frontend: ${{ steps.filter.outputs.frontend }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            backend:
+              - 'backend/**/*.ts'
+            frontend:
+              - 'frontend/**/*.ts'
+              - 'frontend/**/*.tsx'
+
+  lint-backend:
+    name: Lint backend
+    needs: changes
+    if: ${{ needs.changes.outputs.backend == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Required so changed-files can diff against the base branch
+
+      - name: Get changed backend files
+        id: changed
+        uses: tj-actions/changed-files@v44
+        with:
+          files: backend/**/*.ts
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install dependencies
+        working-directory: backend
+        run: npm ci
+
+      - name: Run ESLint on changed files only
+        if: steps.changed.outputs.any_changed == 'true'
+        working-directory: backend
+        run: npx eslint --max-warnings 0 ${{ steps.changed.outputs.all_changed_files }}
+
+  lint-frontend:
+    name: Lint frontend
+    needs: changes
+    if: ${{ needs.changes.outputs.frontend == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Required so changed-files can diff against the base branch
+
+      - name: Get changed frontend files
+        id: changed
+        uses: tj-actions/changed-files@v44
+        with:
+          files: |
+            frontend/**/*.ts
+            frontend/**/*.tsx
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Run ESLint on changed files only
+        if: steps.changed.outputs.any_changed == 'true'
+        working-directory: frontend
+        run: npx eslint --max-warnings 0 ${{ steps.changed.outputs.all_changed_files }}
