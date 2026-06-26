@@ -92,14 +92,15 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language, back }) => {
   }
 
   // match progress
-  const [player_1_progress, set_player_1_progress] = useState(0);
+  // const [player_1_progress, set_player_1_progress] = useState(0);
   const [player_2_progress, set_player_2_progress] = useState(0);
   const [player_1_done, set_player_1_done] = useState(false);
   const [player_2_done, set_player_2_done] = useState(false);
+  const player_1_progress = (q_index / (questions?.length ?? 1)) * 100;
 
-  useEffect(() => {
-    set_player_1_progress((q_index / (questions?.length ?? 1)) * 100);
-  }, [q_index]);
+  // useEffect(() => {
+  //   set_player_1_progress((q_index / (questions?.length ?? 1)) * 100);
+  // }, [q_index]);
 
   // Data sent to backend - NOT CONNECTED RIGHT NOW
   function submit() {
