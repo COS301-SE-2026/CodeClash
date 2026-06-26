@@ -1,0 +1,28 @@
+frontend/src/styles/global.css
+  h_94c952a9e14c58 96-97,137-138
+frontend/@/components/ui/card.tsx
+  h_94c952a9e14c58 15
+frontend/dto/BadgeDTO.tsx
+  h_94c952a9e14c58 1-8
+frontend/tsconfig.app.json
+  h_94c952a9e14c58 32
+frontend/@/components/features/Badge.tsx
+  h_94c952a9e14c58 1-10
+frontend/@/components/shared/GlassCard.tsx
+  h_94c952a9e14c58 1,4-9,11-14
+frontend/src/pages/Dashboard.tsx
+  h_94c952a9e14c58 7-11,19,21,31-32,39-48,50-94,96-105,107-165
+frontend/dto/DashboardDTO.tsx
+  h_94c952a9e14c58 1-13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "655d32e3eb775dfbe1014562481b6b8b3ad1dab3",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
