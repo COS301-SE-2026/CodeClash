@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import appleIcon from "../assets/Apple_Icon.png";
 import googleIcon from "../assets/Google_Icon.png";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/useAuth";
 
 interface SignUpProps {
   onBack: () => void;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { useAuth } from './context/AuthContext';
+import { useAuth } from './context/useAuth';
 import { mock_match } from './mocks/prog-match.mock';
 import Dashboard from './pages/Dashboard';
 import MathFieldTest from './pages/MathFieldTest';

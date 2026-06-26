@@ -1,26 +1,6 @@
 import { signIn as amplifySignIn, signUp as amplifySignUp, signOut as amplifySignOut, getCurrentUser, confirmSignUp as amplifyConfirmSignUp, resendSignUpCode as amplifyResendSignUpCode } from 'aws-amplify/auth'
-import React, { createContext, useContext, useEffect, useState, useCallback, type ReactNode } from 'react'
-
-interface AuthUser {
-  username: string
-  email?: string
-  userId: string
-}
-
-interface AuthContextValue {
-  user: AuthUser | null
-  isAuthenticated: boolean
-  isLoading: boolean
-  error: string | null
-  signIn: (email: string, password: string) => Promise<void>
-  signUp: (data: { username: string; firstName: string; lastName: string; email: string; phoneNumber: string; password: string }) => Promise<void>
-  signOut: () => Promise<void>
-  confirmSignUp: (username: string, code: string) => Promise<void>
-  resendSignUpCode: (username: string) => Promise<void>
-  clearError: () => void
-}
-
-const AuthContext = createContext<AuthContextValue | null>(null)
+import React, { useEffect, useState, useCallback, type ReactNode } from 'react'
+import { AuthContext, type AuthContextValue, type AuthUser } from './AuthContextValue'
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<AuthUser | null>(null)
@@ -135,8 +115,4 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   )
 }
 
-export const useAuth = (): AuthContextValue => {
-  const ctx = useContext(AuthContext)
-  if (!ctx) throw new Error('useAuth must be used within an AuthProvider')
-  return ctx
-}
+
