@@ -4,6 +4,7 @@ import lightBeam from '../assets/SignUpBeam.png';
 
 import { SignUpViewModelFunction } from '../ViewModels/SignUpViewModel.ts';
 import type { SignUpViewModelProps } from '../ViewModels/SignUpViewModel.ts';
+import { SignUpRoutes } from '../Models/SignUpModel.ts';
 
 interface SignUpProps extends SignUpViewModelProps {};
 
@@ -88,14 +89,14 @@ const SignUp: React.FC<SignUpProps> = (props) => {
             <div className="relative z-10 flex flex-col items-center w-full max-w-[560px]" >
                 
                 {/*UFO image*/}
-                <div className= "relative w-full flex flex-col items-center">
+                <div className= "relative w-full flex flex-col items-center -mt-17">
                     <img src= {ufoImage} alt="UFO" className="w-[480px] h-auto object-contain z-30" />
                     <img src ={lightBeam} alt="" className= "absolute top-[40%] w-full h-full pointer-events-none z-10" style={{objectFit: 'cover', transform: 'scaleX(2.5) scaleY(3)', transformOrigin: 'top center',}} />
                 </div>
 
-                <div className= "relative z-20 flex flex-col items-center gap-4 w-full -mt-10">
-                <h1 className= "heading text-center"> {content.title} </h1>
-                <p className= "heading-sub mb-4"> {content.tagline} </p>
+                <div className= "relative z-20 flex flex-col items-center gap-4 w-full -mt-25 mb-8">
+                <h1 className= "heading text-center -mb-2"> {content.title} </h1>
+                <p className= "heading-sub mb-2"> {content.tagline} </p>
 
                 {displayError && (
                     <p className="text-danger text-center"> {displayError} </p>
@@ -157,7 +158,8 @@ const SignUp: React.FC<SignUpProps> = (props) => {
                         Accept{' '}
                         <a
                             className= "underline hover:opacity-80 "
-                            /*href= {SignUpRoutes.termsAndConditions}*/ /*Need to figure out the routing here*/
+                            href= {SignUpRoutes.termsAndConditions} /*Need to figure out the routing here*/
+                            target= "_blank"
                         >
                         Terms &amp; Conditions
                         </a>
