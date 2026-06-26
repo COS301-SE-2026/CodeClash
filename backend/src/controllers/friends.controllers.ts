@@ -5,7 +5,6 @@
 
 import { Request, Response } from 'express';
 import pool from '../config/db';
-import { resourceLimits } from 'node:worker_threads';
 
 //GET api/friends/{user_id}
 //Returns the friends of a specific user
@@ -107,7 +106,7 @@ export const sendFriendRequest = async (req: Request, res: Response): Promise<vo
     }
 };
 
-//POST
+//PATCH
 //Accept or Reject friend request
 export const respondToFriendRequest = async (req: Request, res: Response): Promise<void> => {
     const { friendship_id } = req.body;
