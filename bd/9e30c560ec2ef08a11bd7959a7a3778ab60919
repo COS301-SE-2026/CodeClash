@@ -1,0 +1,16 @@
+frontend/src/pages/Profile.css
+  h_b13c5d77534129 53,72,74-75
+frontend/src/styles/global.css
+  h_b13c5d77534129 104
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.3",
+  "base_commit_sha": "bd9e30c560ec2ef08a11bd7959a7a3778ab60919",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
