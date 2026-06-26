@@ -19,12 +19,13 @@
     "aws-amplify": "^6.17.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "lib-utils": "^0.0.4",
     "lucide-react": "^1.16.0",
     "mathlive": "^0.109.2",
     "radix-ui": "^1.4.3",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
-    "react-router-dom": "^7.15.1",
+    "react-router-dom": "^7.18.0",
     "react-timer-hook": "^4.0.5",
     "shadcn": "^4.7.0",
     "tailwind-merge": "^3.6.0",
@@ -41,7 +42,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
-    "@vitest/coverage-v8": "^4.1.7",
+    "@vitest/coverage-v8": "^4.1.9",
     "autoprefixer": "^10.5.0",
     "eslint": "^10.3.0",
     "eslint-plugin-react-hooks": "^7.1.1",
@@ -53,6 +54,6 @@
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.59.2",
     "vite": "^8.0.12",
-    "vitest": "^4.1.7"
+    "vitest": "^4.1.9"
   }
 }

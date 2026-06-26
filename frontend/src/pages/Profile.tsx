@@ -1,5 +1,7 @@
 import React from 'react';
 import './Profile.css';
+import '../styles/global.css'
+
 interface ProfileProps {
   userName?: string;
   email?: string;
