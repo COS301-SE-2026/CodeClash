@@ -50,7 +50,7 @@ body {
 
 .profile-card {
   width: 500px;
-  background-color: #ffffff;
+  background-color: var(--secondary);
   border: 1px solid #0f172a;
   border-radius: 20px;
   padding: 48px 40px;
@@ -69,10 +69,10 @@ body {
 }
 
 .profile-name {
-  font-family: 'Baloo Bhai 2', cursive;
+  font-family: var(--font);
   font-weight: 700;
-  font-size: 32px;
-  color: #0f172a;
+  font-size: 40px;
+  color: var(--secondary-text);
   text-align: center;
 }
 
