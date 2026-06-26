@@ -14,7 +14,7 @@ interface ProfileProps {
 const Profile: React.FC<ProfileProps> = ({
   userName = 'User Name',
   email = 'user@codeclash.com',
-  playerLevel = 'Intermediate Player',
+  playerLevel = 'Level 32 - Mercury',
   currentRank = 522,
   winStreak = 5,
   onBack,
@@ -32,9 +32,9 @@ const Profile: React.FC<ProfileProps> = ({
         <div className="profile-avatar" />
 
         <div className="profile-name">{userName}</div>
-        <div className="profile-email">{email}</div>
         <div className="profile-level">{playerLevel}</div>
-
+        <div className="profile-email">{email}</div>
+        
         <div className="profile-divider" />
 
         <div className="profile-info-row">
