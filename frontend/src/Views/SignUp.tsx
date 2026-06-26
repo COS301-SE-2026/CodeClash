@@ -1,5 +1,6 @@
 import React from 'react';
 import ufoImage from '../assets/RedUFO.png';
+import lightBeam from '../assets/SignUpBeam.png';
 
 import { SignUpViewModelFunction } from '../ViewModels/SignUpViewModel.ts';
 import type { SignUpViewModelProps } from '../ViewModels/SignUpViewModel.ts';
@@ -88,7 +89,8 @@ const SignUp: React.FC<SignUpProps> = (props) => {
                 
                 {/*UFO image*/}
                 <div className= "relative w-full flex flex-col items-center">
-                    <img src= {ufoImage} alt="UFO" className="w-[480px] h-auto object-contain" />
+                    <img src= {ufoImage} alt="UFO" className="w-[480px] h-auto object-contain z-30" />
+                    <img src ={lightBeam} alt="" className= "absolute top-[40%] w-full h-full pointer-events-none z-10" style={{objectFit: 'cover', transform: 'scaleX(2.5) scaleY(3)', transformOrigin: 'top center',}} />
                 </div>
 
                 <div className= "relative z-20 flex flex-col items-center gap-4 w-full -mt-10">
