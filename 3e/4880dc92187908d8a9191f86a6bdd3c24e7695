@@ -1,0 +1,16 @@
+backend/src/verifyToken.ts
+  h_b13c5d77534129 1-36
+backend/src/webSockets.ts
+  h_b13c5d77534129 1-3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "3e4880dc92187908d8a9191f86a6bdd3c24e7695",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

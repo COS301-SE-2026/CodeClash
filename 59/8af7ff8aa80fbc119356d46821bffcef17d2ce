@@ -1,0 +1,16 @@
+frontend/src/pages/SignUp.tsx
+  h_94c952a9e14c58 173
+frontend/src/pages/Welcome.tsx
+  h_94c952a9e14c58 3,21,24-25,28,32,35-36,39
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "598af7ff8aa80fbc119356d46821bffcef17d2ce",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

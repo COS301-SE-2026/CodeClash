@@ -1,0 +1,14 @@
+backend/redis-client.ts
+  h_b13c5d77534129 6-7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "99112fe66ecada23e13e4ec80e7da1fb83fc38a0",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

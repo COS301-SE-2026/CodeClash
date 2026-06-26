@@ -1,0 +1,18 @@
+frontend/@/components/ui/card.tsx
+  h_94c952a9e14c58 3
+frontend/src/pages/Dashboard.tsx
+  h_94c952a9e14c58 6,25-27,34-36
+frontend/@/components/shared/GlassCard.tsx
+  h_94c952a9e14c58 1-12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "1b033446785933c15b5bed5789998449ce4a04cf",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

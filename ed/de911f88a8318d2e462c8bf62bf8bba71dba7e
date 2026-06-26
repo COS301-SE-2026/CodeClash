@@ -1,0 +1,20 @@
+frontend/src/pages/Dashboard.tsx
+  h_94c952a9e14c58 19,21,39
+frontend/src/styles/global.css
+  h_94c952a9e14c58 92-97,133
+frontend/@/components/ui/sidebar.tsx
+  h_94c952a9e14c58 31,265,273,291,407
+frontend/@/components/Sidebar.tsx
+  h_94c952a9e14c58 14-20,28-29,37-39,45,57-61,76-80,89
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "edde911f88a8318d2e462c8bf62bf8bba71dba7e",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
