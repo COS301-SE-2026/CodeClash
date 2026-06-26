@@ -11,7 +11,8 @@ import {
   getFriendRequests,
   addFriendInvite,
   sendFriendRequest,
-  respondToFriendRequest
+  respondToFriendRequest,
+  removeFriend
 } from '../controllers/friends.controllers';
 
 const router = Router();
@@ -32,8 +33,9 @@ router.post('/elo/update', updateEloAfterMatch);
 //friends routes
 router.get('/friends/requests/:user_id', getFriendRequests);
 router.get('/friends/:user_id', getFriendsById);
-router.post('/friends', addFriendInvite);
-router.post('/friends', sendFriendRequest);
-router.post('/friends', respondToFriendRequest);
+router.post('/friends/invite', addFriendInvite);
+router.post('/friends/request', sendFriendRequest);
+router.patch('/friends/request/:friendship_id', respondToFriendRequest);
+router.delete('/friends/:friendship_id', removeFriend);
 
 export default router;

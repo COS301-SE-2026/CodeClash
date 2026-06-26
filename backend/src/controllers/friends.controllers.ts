@@ -5,6 +5,7 @@
 
 import { Request, Response } from 'express';
 import pool from '../config/db';
+import { resourceLimits } from 'node:worker_threads';
 
 //GET api/friends/{user_id}
 //Returns the friends of a specific user
@@ -123,9 +124,33 @@ export const respondToFriendRequest = async (req: Request, res: Response): Promi
         
         res.status(201).json(result.rows[0]);
     }catch(error){
-        console.error('Error sending friend request:', error);
+        console.error('Error responding to friend request:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
 };
 
 //DELETE
+//Deletes a friend
+export const removeFriend = async (req: Request, res: Response): Promise<void> => {
+    const { friendship_id } = req.params;
+    
+
+    try{
+        const result = await pool.query(
+            `DELETE FROM friendships 
+            WHERE friendship_id = $1
+            RETURNING *`,
+            [friendship_id]
+        );
+        
+        if(result.rows.length === 0){
+            res.status(404).json({message: "Friendship not found"});
+            return;
+        }
+
+        res.status(200).json({message: "Friendship removed sucessfully"});
+    }catch(error){
+        console.error('Error removing friend:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
