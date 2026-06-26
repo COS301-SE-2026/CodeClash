@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400;600;700;800&display=swap');
-@import "../styles/global.css"
+@import "../styles/global.css";
 /* * {
   margin: 0;
   padding: 0;
@@ -8,14 +8,14 @@
 
 body {
   font-family: 'Baloo Bhai 2', cursive;
-  background-color: #d2d2d2;
+  background-color: var(--secondary);
   min-height: 100vh;
 }
 
 .profile-page {
   width: 1440px;
   min-height: 1024px;
-  background-color: #d2d2d2;
+  background-color: var(--secondary);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
