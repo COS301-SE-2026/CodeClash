@@ -46,31 +46,37 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language, back }) => {
   const default_value = "// Your code here";
 
   // questions
-  const [questions, set_questions] = useState<QuestionDTO[]>();
+  const [questions, set_questions] = useState<QuestionDTO[]>(mock_questions); // loading in the questions, the use of useEffect only is necessitated with dynamic external stuff, so because linter isnt seeing that, its not happy, so it causes the error, which makes sense
   const [q_index, set_q_index] = useState(0);
   const [difficulty, set_difficulty] = useState<"easy" | "medium" | "hard">(
-    "easy",
+    mock_questions[0].difficulty, // just calling the first element in this array, which is easy
   );
-  const [title, set_title] = useState("");
-  const [question, set_question] = useState("");
-  const [description, set_description] = useState("");
+  const [title, set_title] = useState(mock_questions[0].title);
+  const [question, set_question] = useState(mock_questions[0].question);
+  const [description, set_description] = useState(
+    mock_questions[0].description ?? "",
+  );
 
   // initialise questions
-  useEffect(() => {
-    set_questions(mock_questions);
+  // useEffect(() => {
+  //   set_questions(mock_questions);
 
-    const q_1 = mock_questions[0];
-    set_q_index(0);
-    set_difficulty(q_1.difficulty);
-    set_title(q_1.title);
-    set_question(q_1.question);
-    set_description(q_1.description ?? "");
-  }, []);
+  //   const q_1 = mock_questions[0];
+  //   set_q_index(0);
+  //   set_difficulty(q_1.difficulty);
+  //   set_title(q_1.title);
+  //   set_question(q_1.question);
+  //   set_description(q_1.description ?? "");
+  // }, []);
+  //
+  //  commented out the use effect init stuff, its mock data,
 
   function updateQuestion(q_idx: number) {
     if (typeof questions !== "undefined") {
-      if (q_idx >= questions.length) {set_player_1_done(true);  set_q_index(questions.length - 1);}
-      else if (q_idx < 0) return;
+      if (q_idx >= questions.length) {
+        set_player_1_done(true);
+        set_q_index(questions.length - 1);
+      } else if (q_idx < 0) return;
       else {
         const q = questions[q_idx];
         set_q_index(q_idx);
