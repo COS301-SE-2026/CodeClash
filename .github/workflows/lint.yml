@@ -87,4 +87,4 @@ jobs:
       - name: Run ESLint on changed files only
         if: steps.changed.outputs.any_changed == 'true'
         working-directory: frontend
-        run: npx eslint --max-warnings 0 ${{ steps.changed.outputs.all_changed_files }}
+        run: npx eslint --config frontend/eslint.config.js --max-warnings 0 ${{ steps.changed.outputs.all_changed_files }}
