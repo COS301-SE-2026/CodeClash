@@ -1,11 +1,13 @@
 import redis from "../../redis-client"
 import UserDto from "./matchmaking.dto";
+import clientList from "../wsClients"
 
 const elo_difference = 100;   // this can be changed later
 
 
 // adds player to queue
-async function enqueue(user: UserDto, queue: string): Promise<boolean> {
+async function enqueue(user : UserDto, queue: string): Promise<boolean> {
+
     if (queue != "math" && queue != "prog") return false;
 
     // add user to the queue
