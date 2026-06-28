@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import googleIcon from "../assets/Google_Icon.png";
-import appleIcon from "../assets/Apple_Icon.png";
 import { useAuth } from "../context/AuthContext";
 
 interface SignInProps {
