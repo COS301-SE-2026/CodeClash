@@ -1,57 +1,43 @@
 import WebSocket from "ws";
 import UserDto from "./dtos/matchmaking.dto";
-import {dequeue, enqueue, math_queue_length, prog_queue_length} from "./services/matchmaking.service"
+import { dequeue, enqueue, math_queue_length, prog_queue_length } from "./services/matchmaking.service"
 import { removeConnection } from "./wsClients";
 
 
-export const handleMessage = async(ws: WebSocket, data: string, client: UserDto) => {
+export const handleMessage = async (ws: WebSocket, data: string, client: UserDto) => {
     let message: any;
 
-    try{
+    try {
         message = JSON.parse(data);
     }
-    catch{
-        ws.send(JSON.stringify({type: 'ERROR', message: 'Invalid JSON Data'}));
+    catch {
+        ws.send(JSON.stringify({ type: 'ERROR', message: 'Invalid JSON Data' }));
         return;
     }
 
-    if(message.type === "JOIN_QUEUE"){
+    const type = message.type;
 
-        if(client.game_mode === "math"){
+    switch (type) {
+        case 'JOIN':
             await enqueue(client, client.game_mode);
-            ws.send(JSON.stringify({type: "QUEUED", position: `${math_queue_length}`}))
-        }
-        else if(client.game_mode === "prog"){
-            await enqueue(client, client.game_mode);
-            ws.send(JSON.stringify({type: "QUEUED", position: `${prog_queue_length}`}))
-        }
-        else{
-            ws.send(JSON.stringify({type: "ERROR", message: 'User has invalid game_mode provided to it'}))
-        }
-    }
-    else if(message.type === "LEAVE_QUEUE"){
-        if(client.game_mode === "math"){
+            ws.send(JSON.stringify({ type: 'QUEUED' }))
+            break;
+        case 'LEAVE':
             await dequeue(client.id, client.game_mode);
-            ws.send(JSON.stringify({type: "DEQUEUED"}));
-        }
-        else if(client.game_mode === "prog"){
-            await dequeue(client.id, client.game_mode);
-            ws.send(JSON.stringify({type: "DEQUEUED"}));
-        }
-        else{
-            ws.send(JSON.stringify({type: "ERROR", message: 'User has invalid game_mode provided to it'}))
-        }
+            ws.send(JSON.stringify({ type: "DEQUEUED" }));
+            break;
+        default:
+            ws.send(JSON.stringify({ type: "ERROR", message: 'Invalid Game Mode' }))
     }
 }
 
-//below logic is just a shortform version of being able to disconnect a user's web socket connection that 
-// can be included in server.ts (i'm lazy and this works) 
-// - there is already the "connection" implementation in server.ts for a web socket connection 
-// if you are wondering why there is no handleConnect function
-export const handleDisconnect = async (user: UserDto) => {
-
+export const handleDisconnect = async (ws: WebSocket, user: UserDto) => {
     await dequeue(user.id, user.game_mode);
     removeConnection(user);
+    ws.send(JSON.stringify({ type: 'DEQUEUED' }));
+}
 
 
+export const handleError = async (ws: WebSocket, user: UserDto, err: Error) => {
+    ws.send(JSON.stringify({ type: 'ERROR', message: err.message }))
 }

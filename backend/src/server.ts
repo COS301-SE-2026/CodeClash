@@ -3,8 +3,8 @@ import { createServer, IncomingMessage } from 'http';
 import { WebSocket, WebSocketServer } from 'ws';
 import { authenticate } from './app'
 import UserDto from './dtos/matchmaking.dto';
-import { handleMessage, handleDisconnect } from './wsMessageHandler';
-import { getConnection,removeConnection } from './wsClients';
+import { handleMessage, handleDisconnect, handleError } from './wsMessageHandler';
+import { getConnection, removeConnection } from './wsClients';
 
 declare module 'http' {
     interface IncomingMessage {
@@ -65,12 +65,9 @@ export const WSServer = () => {
         }))
 
         ws.on('message', (data) => handleMessage(ws, data.toString(), user));
-        ws.on('close', () => handleDisconnect(user));
-        ws.on('error', () => handleDisconnect(user));
+        ws.on('close', () => handleDisconnect(ws, user));
+        ws.on('error', (err) => handleError(ws, user, err));
     })
-
-
-
 
     return wss;
 }
