@@ -7,7 +7,6 @@ import { Question } from "@/components/features/question";
 import blue_avatar from "../assets/Avatar/blue_avatar.jpeg";
 import puprle_avatar from "../assets/Avatar/purple_avatar.jpeg";
 import type { QuestionDTO, MatchDTO } from "src/types/question.dto";
-import { mock_questions } from "../mocks/prog-questions.mock";
 import { MatchProgress } from "@/components/features/match-progress";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -59,14 +58,14 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
 
   // initialise questions
   useEffect(() => {
-    set_questions(mock_questions);
+    //   set_questions(mock_questions);
 
-    const q_1 = mock_questions[0];
-    set_q_index(0);
-    set_difficulty(q_1.difficulty);
-    set_title(q_1.title);
-    set_question(q_1.question);
-    set_description(q_1.description ?? "");
+    //   const q_1 = mock_questions[0];
+    //   set_q_index(0);
+    //   set_difficulty(q_1.difficulty);
+    //   set_title(q_1.title);
+    //   set_question(q_1.question);
+    //   set_description(q_1.description ?? "");
   }, []);
 
   function updateQuestion(q_idx: number) {

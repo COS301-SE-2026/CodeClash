@@ -89,6 +89,7 @@
   --font-weight-light: 100;
 
   /* text size */
+  --text-xsm: 1rem;
   --text-sm: 1.3rem;
   --text-md: 1.9rem;
   --text-l: 2.3rem;

@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/sidebar'
 import { Link } from 'react-router-dom'
 
-import pink_astronaut from '../../src/assets/Logo/pink_astronaut.png'
+import pink_astronaut from '../../src/assets/Robots/pink_celebrate.png'
 import dashboard_icon from '../../src/assets/Icons/dashboard.png'
 import leaderboard_icon from '../../src/assets/Icons/leaderboard.png'
 import game_guide_icon from '../../src/assets/Icons/game_guide.png'

@@ -1,6 +1,6 @@
 import type React from "react";
 import { Route, Routes } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./Views/Dashboard";
 import Layout from "./layout";
 import Welcome from "./pages/Welcome";
 import SignIn from "./pages/SignIn";
