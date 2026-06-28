@@ -15,6 +15,14 @@ import {
   removeFriend
 } from '../controllers/friends.controllers';
 
+import{
+  createSubmission,
+  getSubmissionsByMatch,
+  getSubmissionsByUser,
+  getSubmissionById,
+  updateSubmissionStatus,
+  createExecutionResult
+}from '../controllers/submissions.controllers'
 const router = Router();
 
 // Match routes
@@ -26,16 +34,24 @@ router.get('/matches/:match_id/log', getMatchLog);
 
 //elo routes
 router.get('/elo/leaderboard', getLeaderboard);
+router.post('/elo/update', updateEloAfterMatch);
 router.get('/elo/:user_id', getUserElo);
 router.get('/elo/:user_id/history', getEloHistory);
-router.post('/elo/update', updateEloAfterMatch);
 
 //friends routes
 router.get('/friends/requests/:user_id', getFriendRequests);
-router.get('/friends/:user_id', getFriendsById);
 router.post('/friends/invite', addFriendInvite);
 router.post('/friends/request', sendFriendRequest);
 router.patch('/friends/request/:friendship_id', respondToFriendRequest);
+router.get('/friends/:user_id', getFriendsById);
 router.delete('/friends/:friendship_id', removeFriend);
+
+//submissions
+router.post('/submissions', createSubmission);
+router.get('/submissions/match/:match_id', getSubmissionsByMatch);
+router.get('/submissions/user/:user_id', getSubmissionsByUser);
+router.get('/submissions/:submission_id', getSubmissionById);
+router.patch('/submissions/:submission_id/status', updateSubmissionStatus);
+router.post('/submissions/:submission_id/result', createExecutionResult);
 
 export default router;
