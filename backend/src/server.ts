@@ -1,72 +1,76 @@
 import app from './app';
-import express from 'express';
-import { createServer } from 'http';
-import { WebSocketServer, WebSocket } from 'ws';
-import { verifyToken } from './verifyToken'
-import 'dotenv/config'
+import { createServer, IncomingMessage } from 'http';
+import { WebSocket, WebSocketServer } from 'ws';
+import { authenticate } from './app'
+import UserDto from './dtos/matchmaking.dto';
+import { handleMessage, handleDisconnect } from './wsMessageHandler';
+import { getConnection,removeConnection } from './wsClients';
 
-// parse env var to int 
-const WEBSOCKET_PORT = process.env.WEBSOCKET_PORT ? parseInt(process.env.WEBSOCKET_PORT, 10) : 3000;
-
-
-console.log(WEBSOCKET_PORT);
-export const WSServer = () => {
-
-    // const server = createServer(app);f
-
-    // const wss = new WebSocketServer({ noServer: true })
-
-    // create websocket server on listening on WEBSOCKET_PORT
-    const wss = new WebSocketServer({
-        host: '0.0.0.0',
-        port: WEBSOCKET_PORT
-    });
-
-    wss.on('listening', () => {
-        console.log(`Server listening on Port ${WEBSOCKET_PORT}`)
-    })
-
-    // checking auth on connection
-    wss.on("connection", async (ws: WebSocket) => {
-
-        try {
-            const url = new URL(req.url!, `http://${req.headers.host}`);
-            const token = url.searchParams.get("token");
-
-            if (!token) {
-                ws.close(4000, "No token found");
-                return;
-            }
-
-            if (!token) {
-                ws.close(4000, "No token found");
-                return;
-            }
-
-            const userId = (await verifyToken(token)).userId;
-            const username = (await verifyToken(token)).username;
-        }
-        catch (err) {
-            console.error('Error verifying JWT: ', err);
-        }
-
-        ws.on('message', (event) => {
-            // TODO: parse event data
-
-            console.log(event.toString());
-        })
-    })
-
-    wss.on('error', (err) => {
-        console.error('WSS Error:', err);
-    })
-
-    wss.on('close', () => {
-        console.log("Client disconnected")
-    })
+declare module 'http' {
+    interface IncomingMessage {
+        userDto?: UserDto //this lets us attach the user to the sent request
+    }
 }
 
-WSServer();
+export const WSServer = () => {
+
+    const server = createServer(app);
+    const wss = new WebSocketServer({ noServer: true })
+
+    // authorise before handshake confirmed
+    server.on('upgrade', async (req: IncomingMessage, socket, head) => {
+        try {
+            const user = await authenticate(req, null, null) as UserDto
+
+            if (!user) {
+                socket.write('HTTP/1.1 404 User Not Found\r\n\r\n');
+                socket.destroy();
+                return;
+            }
+
+            // allow connection upgrade
+            req.userDto = user;
+            wss.handleUpgrade(req, socket, head, (ws) => {
+                wss.emit('connection', ws, req)
+            })
+
+        }
+        catch {
+            socket.write('HTTP/1.1 401 Unauthorised\r\n\r\n');
+            socket.destroy();
+        }
+    })
+
+    //now the actual websocket connection must be created
+    wss.on('connection', (ws: WebSocket, req: IncomingMessage) => {
+
+        const user = req.userDto!;
+
+        const isExisting = getConnection(user)
+
+        // if the user already has a connection replace it with a new one
+        if (isExisting) {
+            isExisting.close(1000, 'Replaced by new connection');
+            removeConnection(user);
+        }
+
+        console.log(`WS Connection for User: ${user.id}`);
+
+        // send confirmation to client
+        ws.send(JSON.stringify({
+            type: 'SESSION_OPEN',
+            id: user.id,
+            elo: user.elo,
+            joinedAt: user.joined_at
+        }))
+
+        ws.on('message', (data) => handleMessage(ws, data.toString(), user));
+        ws.on('close', () => handleDisconnect(user));
+        ws.on('error', () => handleDisconnect(user));
+    })
 
 
 
+
+    return wss;
+}

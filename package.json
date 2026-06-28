@@ -6,10 +6,10 @@
     "frontend": "npm run dev --prefix frontend",
     "backend": "npm run dev --prefix backend",
     "dev": "npm run frontend && npm run backend",
-    "test:backend":"cd backend && npx vitest run",
+    "test:backend": "cd backend && npx vitest run",
     "test:backend:coverage": "cd backend && npx vitest run --coverage",
-    "test:frontend":"cd frontend && npx vitest run",
-    "test:frontend:coverage":"cd frontend && npx vitest run --coverage"
+    "test:frontend": "cd frontend && npx vitest run",
+    "test:frontend:coverage": "cd frontend && npx vitest run --coverage"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.9.1",
@@ -26,6 +26,7 @@
     "vitest": "^4.1.6"
   },
   "dependencies": {
-    "jest": "^30.4.2"
+    "jest": "^30.4.2",
+    "ws": "^8.21.0"
   }
 }
