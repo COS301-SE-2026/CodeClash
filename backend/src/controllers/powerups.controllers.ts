@@ -22,7 +22,7 @@ export const getPowerups = async (req: Request, res: Response): Promise<void> =>
     }
 };
 
-//GET powerups/:match_id
+//GET powerups/match/:match_id
 //Get all powerups used in a match
 export const getMatchPowerups = async (req: Request, res: Response): Promise<void> => {
     const { match_id } = req.params;
@@ -52,70 +52,97 @@ export const getMatchPowerups = async (req: Request, res: Response): Promise<voi
     }
 };
 
+//POST powerups/use
 //Record a powerup being used in a match
-export const ... = async (req: Request, res: Response): Promise<void> => {
-    const { ... } = req.params;
+export const usePowerup = async (req: Request, res: Response): Promise<void> => {
+    const { match_id, user_id, powerup_id } = req.body;
 
     try {
         const result = await pool.query(
-            
+            `INSERT INTO match_powerups (match_id, user_id, powerup_id)
+            VALUES ($1, $2, $3)
+            RETURN *`,
+            [match_id, user_id, powerup_id]
         );
 
-        res.status(200).json(result.rows);
+        res.status(201).json(result.rows[0]);
 
     } catch (error) {
-        console.error('Error ...:', error);
+        console.error('Error adding used powerup to database:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
 };
 
+//GET /achievements
 // Get all achievements
-export const ... = async (req: Request, res: Response): Promise<void> => {
-    const { ... } = req.params;
+export const getAchievements = async (req: Request, res: Response): Promise<void> => {
 
     try {
         const result = await pool.query(
-            
+            `SELECT
+                achievement_id,
+                achievement_name,
+                description,
+            FROM achievements
+                `
         );
 
         res.status(200).json(result.rows);
 
     } catch (error) {
-        console.error('Error ...:', error);
+        console.error('Error fetching achievements:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
 };
 
+//GET achievements/user/:user_id
 //Get all achievements earned by a user
-export const ... = async (req: Request, res: Response): Promise<void> => {
-    const { ... } = req.params;
+export const getUserAchievements = async (req: Request, res: Response): Promise<void> => {
+    const { user_id } = req.params;
 
     try {
         const result = await pool.query(
-            
+            `SELECT
+                u.username,
+                a.achievement_id,
+                a.achievement_name,
+                a.description,
+            FROM achievements a
+            JOIN player_achievemnts pa ON pa.achievement_id = a.achievement_id
+            WHERE pa.user_id = $1`,
+            [user_id]
         );
 
         res.status(200).json(result.rows);
 
     } catch (error) {
-        console.error('Error ...:', error);
+        console.error('Error fetching user achievements:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
 };
 
+//POST achievements/award
 //Award an achievement
-export const ... = async (req: Request, res: Response): Promise<void> => {
-    const { ... } = req.params;
+export const awardAchievement = async (req: Request, res: Response): Promise<void> => {
+    const { user_id, achievement_id } = req.params;
 
     try {
         const result = await pool.query(
-            
+            `INSERT INTO player_achievements (user_id, achievement_id)
+            VALUES ($1, $2)
+            ON CONFLICT (user_id, achievement_id) DO NOTHING
+            RETURNING *`,
+            [user_id, achievement_id]
         );
 
-        res.status(200).json(result.rows);
+        if(result.rows.length === 0){
+            res.status(409).json({message: 'User already has this achievement'});
+            return;
+        }
+        res.status(201).json(result.rows[0]);
 
     } catch (error) {
-        console.error('Error ...:', error);
+        console.error('Error awarding achievement:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
 };

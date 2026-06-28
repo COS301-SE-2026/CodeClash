@@ -23,6 +23,15 @@ import{
   updateSubmissionStatus,
   createExecutionResult
 }from '../controllers/submissions.controllers'
+
+import{
+  getPowerups,
+  getMatchPowerups,
+  usePowerup,
+  getAchievements,
+  awardAchievement,
+  getUserAchievements
+} from '../controllers/powerups.controllers'
 const router = Router();
 
 // Match routes
@@ -53,5 +62,15 @@ router.get('/submissions/user/:user_id', getSubmissionsByUser);
 router.get('/submissions/:submission_id', getSubmissionById);
 router.patch('/submissions/:submission_id/status', updateSubmissionStatus);
 router.post('/submissions/:submission_id/result', createExecutionResult);
+
+// powerups
+router.get('/powerups', getPowerups);
+router.get('/powerups/match/:match_id', getMatchPowerups);
+router.post('/powerups/use', usePowerup);
+
+// achievements
+router.get('/achievements', getAchievements);
+router.get('/achievements/user/:user_id', getUserAchievements);
+router.post('/submissions/award', awardAchievement);
 
 export default router;

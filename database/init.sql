@@ -148,7 +148,7 @@ CREATE TABLE IF NOT EXISTS match_powerups (
   match_powerup_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   match_id UUID REFERENCES matches(match_id),
   user_id UUID REFERENCES users(user_id),
-  powerup_id UUID REFERENCES power_ups(powerup_id),
+  powerup_id UUID REFERENCES powerups(powerup_id),
   used_at TIMESTAMP DEFAULT NOW()
 );
 
