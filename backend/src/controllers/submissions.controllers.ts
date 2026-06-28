@@ -5,7 +5,6 @@
 
 import { Request, Response } from 'express';
 import pool from '../config/db';
-import { resourceLimits } from 'node:worker_threads';
 
 //POST
 export const createSubmission = async (req: Request, res: Response): Promise<void> => {
