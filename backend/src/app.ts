@@ -2,6 +2,8 @@ import express, { Request, Response, NextFunction } from 'express'
 import cors from 'cors'
 import eloRoutes from './routes/api.routes';
 import matchRoutes from './routes/api.routes';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './config/swagger';
 import jwt, { type JwtPayload } from 'jsonwebtoken'
 
 const app = express();
@@ -11,6 +13,7 @@ app.use(cors({origin: process.env.FRONTEND_URL || 'http://localhost:5173'}));
 app.use(express.json());
 app.use('/api/elo', eloRoutes);
 app.use('/api/match', matchRoutes);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.get('/health', (req: Request, res: Response) => {
     res.json({ status: 'ok'});
