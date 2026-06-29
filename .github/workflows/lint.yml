@@ -40,20 +40,32 @@ jobs:
           files: backend/**/*.ts
 
       - name: Set up Node
+        if: steps.changed.outputs.any_changed == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: "22"
           cache: "npm"
-          cache-dependency-path: backend/package-lock.json
+          cache-dependency-path: |
+              package-lock.json
+              backend/package-lock.json
 
-      - name: Install dependencies
+      - name: Install root dependencies
+        if: steps.changed.outputs.any_changed == 'true'
+        run: npm ci
+
+      - name: Install backend dependencies
+        if: steps.changed.outputs.any_changed == 'true'
         working-directory: backend
         run: npm ci
 
       - name: Run ESLint on changed files only
         if: steps.changed.outputs.any_changed == 'true'
         working-directory: backend
-        run: npx eslint --max-warnings 0 ${{ steps.changed.outputs.all_changed_files }}
+        run: |
+          files="${{ steps.changed.outputs.all_changed_files }}"
+          stripped=$(echo "$files" | sed 's|backend/||g')
+          npx eslint --max-warnings 0 $stripped
+
 
   lint-frontend:
     name: Lint frontend
@@ -74,13 +86,21 @@ jobs:
             frontend/**/*.tsx
 
       - name: Set up Node
+        if: steps.changed.outputs.any_changed == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: "22"
           cache: "npm"
-          cache-dependency-path: frontend/package-lock.json
+          cache-dependency-path: |
+            package-lock.json
+            frontend/package-lock.json
 
-      - name: Install dependencies
+      - name: Install root dependencies
+        if: steps.changed.outputs.any_changed == 'true'
+        run: npm ci
+
+      - name: install frontend dependencies
+        if: steps.changed.outputs.any_changed == 'true'
         working-directory: frontend
         run: npm ci
 
