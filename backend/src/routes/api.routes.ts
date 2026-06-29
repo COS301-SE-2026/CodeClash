@@ -1,5 +1,11 @@
 import { Router } from 'express';
-import { getMatches, getMatchById, createMatch, updateMatchStatus, getMatchLog } from '../controllers/matches.controllers';
+import { 
+  getMatches, 
+  getMatchById, 
+  createMatch, 
+  updateMatchStatus, 
+  getMatchLog 
+} from '../controllers/matches.controllers';
 import {
   getUserElo,
   getEloHistory,

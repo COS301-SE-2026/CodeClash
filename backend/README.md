@@ -125,6 +125,17 @@ npm run test:backend:converag       //test and converage
     ``` 
 8. 'Save'
 
+## Swagger API Docs
+These are the instructions to generate Swagger UI for our API endpoints (in development)
+
+1. Install dependencies by running (if running without docker):
+    ```bash
+    cd backend
+    npm install
+    ```
+2. Ensure docker/backend is running. If running with docker then just compose up build.
+3. Visit: [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
+
 
 ## Project Structure
 
