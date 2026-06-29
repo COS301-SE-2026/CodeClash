@@ -23,9 +23,10 @@ const Profile: React.FC<ProfileProps> = ({
   return (
     <div className="profile-page">
 
-      <button className="back-button" onClick={onBack} type="button">
+      <div className="back-button" 
+      onClick={onBack}>
         ← Back
-      </button>
+      </div>
 
       <div className="profile-card">
 
@@ -34,8 +35,6 @@ const Profile: React.FC<ProfileProps> = ({
         <div className="profile-name">{userName}</div>
         <div className="profile-level">{playerLevel}</div>
         <div className="profile-email">{email}</div>
-        
-        <div className="profile-divider" />
 
         <div className="profile-info-row">
           <span className="profile-info-label">Current Rank</span>
@@ -47,7 +46,6 @@ const Profile: React.FC<ProfileProps> = ({
           <span className="profile-info-value">{winStreak}</span>
         </div>
 
-        <div className="profile-divider" />
 
         <button
           className="logout-button"
