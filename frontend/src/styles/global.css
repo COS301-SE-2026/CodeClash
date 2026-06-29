@@ -1,4 +1,8 @@
-/* Font imports */
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/* Font import */
 
 /* Roboto */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
@@ -104,6 +108,9 @@
 
 :root {
 
+  --background: radial-gradient(circle at 38%, #530A24 100%);
+  --radius: 20px;
+
   /* colours */
   --primary: #530a23;
   --secondary: #FFEFE0;
@@ -120,30 +127,67 @@
   --text: #FFFF;
 
   /* fonts */
-  --font: 'Roboto', sans-serif;
-  --font-logo: 'Baloo Bhai 2', sans-serif;
-  --heading: 'Baloo Bhai 2', sans-serif;
+  --font: 'Roboto',sans-serif;
+  --font-logo: 'Roboto', sans-serif;
+  --heading: 'Roboto', sans-serif;
 
   --heading-weight: 700;
+  --heading-sub-weight: 400;
   --heading-size: 4rem;
-
+  --heading-big-size: 6rem;
+  
   --badge-font-size: 0.1rem;
   --badge-font-weight: 700;
 
   --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  
+  --font-size-sm: 1.3rem;
+  --font-size-md: 2rem;
+  --font-size-l: 2.5rem;
+  --font-size-xl: 3rem;
+  --font-weight: 500;
 }
 
 @layer base {
-  * {}
+  * {
+    font-family: var(--font);
+  }
 
   .badge {
     box-shadow: var(--badge-shadow);
   }
 
   .heading {
+    color: var(--primary-text);
     font-family: var(--heading);
     font-weight: var(--heading-weight);
     font-size: var(--heading-size);
+    white-space: nowrap;
+  }
+
+  .heading-big {
+    color: var(--primary-text);
+    font-family: var(--heading);
+    font-weight: var(--badge-font-weight);
+    font-size: var(--heading-big-size);
+    white-space: nowrap;
+  }  
+
+  .heading-sub {
+    color: var(--primary-text);
+    font-family: var(--heading);
+    font-weight: var(--heading-sub-weight);
+    font-size: var(--font-size-l);
+    white-space: nowrap;
+  }
+
+  body, p, span {
+    color: var(--primary-text);
+    font-family: var(--heading);
+    font-weight: var(--font-weight);
+    font-size: var(--font-size-md); 
+  }
+
+  .fields {
+    font-size: var(--font-size-sm);
   }
 }
