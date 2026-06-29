@@ -153,7 +153,7 @@ const SignUp: React.FC<SignUpProps> = (props) => {
                         <label className="cursor-pointer" htmlFor="acceptTerms" style={{ fontSize: 'var(--font-size-sm' }}>
                             Accept{' '}
                             <Link
-                                className="underline hover:opacity-80 "
+                                className="underline hover:text-primary-text"
                                 to='/terms'
                                 target="_blank"
                             >

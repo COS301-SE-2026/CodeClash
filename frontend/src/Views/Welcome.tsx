@@ -8,7 +8,7 @@ import type { WelcomeViewModelProps } from '../ViewModels/WelcomeViewModel.ts';
 interface WelcomeProps extends WelcomeViewModelProps { }
 
 const Welcome: React.FC<WelcomeProps> = ({ onSignIn, onSignUp }) => {
-  const { content, handleSignIn, handleSignUp } = WelcomeViewModelFunction({
+  const { content} = WelcomeViewModelFunction({
     onSignIn,
     onSignUp,
   });
@@ -42,10 +42,9 @@ const Welcome: React.FC<WelcomeProps> = ({ onSignIn, onSignUp }) => {
         </Link>
 
         <div className="flex flex-col items-center gap-1 w-[60%]">
-          <span className="body">Already have an account?</span>
+          <span className="text-primary-text text-sm font-heading">Already have an account?</span>
           <Link
-            className="
-          body underline"
+            className=" text-primary-text text-sm underline"
             to="/sign-in"
           >
             Sign in

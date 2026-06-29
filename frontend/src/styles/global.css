@@ -173,15 +173,6 @@
     white-space: nowrap;
   }
 
-  body,
-  p,
-  span {
-    color: var(--primary-text);
-    font-family: var(--heading);
-    font-weight: var(--font-weight);
-    font-size: var(--font-size-md);
-  }
-
   .fields {
     font-size: var(--font-size-sm);
   }
