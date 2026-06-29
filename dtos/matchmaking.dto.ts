@@ -1,5 +1,5 @@
 
-class UserDto{
+class MatchmakingUserDTO{
     id: number;
     elo: number;
     joined_at: number;
@@ -16,4 +16,4 @@ class UserDto{
 }
 
 
-export default UserDto;
+export default MatchmakingUserDTO;

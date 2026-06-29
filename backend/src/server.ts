@@ -2,7 +2,7 @@ import app from './app';
 import { createServer, IncomingMessage } from 'http';
 import { WebSocket, WebSocketServer } from 'ws';
 import { authenticate } from './app'
-import UserDto from './dtos/matchmaking.dto';
+import UserDto from '../../dtos/matchmaking.dto';
 import { handleMessage, handleDisconnect, handleError } from './wsMessageHandler';
 import { getConnection, removeConnection } from './wsClients';
 

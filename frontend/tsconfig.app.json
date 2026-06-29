@@ -25,9 +25,10 @@
     "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "paths": {
-      "@/*":["./@/*"]
+      "@/*":["./@/*"],
+      "root/*":["../*"]
     }
 
   },
-  "include": ["src", "@", "amplify-config.ts", "test/unit/PrimaryButton.test.tsx"],
+  "include": ["src", "@", "amplify-config.ts", "root"],
 }

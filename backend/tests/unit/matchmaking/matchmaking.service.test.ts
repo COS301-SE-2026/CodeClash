@@ -8,7 +8,7 @@ vi.mock("../../../redis-client", () => {
 });
 
 import { dequeue, enqueue, matchmaking, math_queue_length, prog_queue_length } from "../../../src/services/matchmaking.service";
-import UserDto from "../../../src/dtos/matchmaking.dto";
+import UserDto from "../../../../dtos/matchmaking.dto";
 import redis from "../../../redis-client";
 
 

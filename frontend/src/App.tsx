@@ -5,12 +5,12 @@ import SignUp from './pages/SignUp';
 import MathFieldTest from './pages/MathFieldTest';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
-import Searching from './pages/queuePages/searching';
+import Searching from './View/searching';
 import Found from './pages/queuePages/found';
 import ProgMatch from './pages/ProgMatch';
 import { useAuth } from './context/AuthContext';
 import { mock_match } from './mocks/prog-match.mock';
-import WebSocketService from './services/websocket.service';
+import WebSocketService from './ViewModel/websocket.service';
 
 type QueueType = 'math' | 'programming' | null;
 

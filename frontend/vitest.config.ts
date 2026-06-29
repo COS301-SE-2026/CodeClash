@@ -2,6 +2,8 @@ import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 import path from 'node:path';
 
+console.log(path.dirname)
+
 export default defineConfig({
   plugins: [react()],
   test: {
@@ -16,7 +18,7 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'lcov'],
       include: ['@/components/**/*.tsx'],
-      exclude: ['@/components/ui/**', '@/hooks/**', '**/node_modules/**','**/*.config.*'],
+      exclude: ['@/components/ui/**', '@/hooks/**', '**/node_modules/**', '**/*.config.*'],
     },
 
     globals: true,
@@ -24,7 +26,8 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': path.resolve(__dirname, './'),
+      'root': path.resolve('../')
     },
   },
 });

@@ -4,7 +4,7 @@ import eloRoutes from './routes/api.routes';
 import matchRoutes from './routes/api.routes';
 import jwt, { type JwtPayload } from 'jsonwebtoken'
 import { IncomingMessage } from 'http'
-import UserDto from './dtos/matchmaking.dto';
+import UserDto from '../../dtos/matchmaking.dto';
 
 const app = express();
 app.disable('x-powered-by');

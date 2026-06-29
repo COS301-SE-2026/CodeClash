@@ -1,12 +1,10 @@
 import redis from "../../redis-client"
-import UserDto from "./matchmaking.dto";
-import clientList from "../wsClients"
+import MatchmakingUserDTO from "root/dtos/matchmaking.dto";
 
 const elo_difference = 100;   // this can be changed later
 
-
 // adds player to queue
-async function enqueue(user: UserDto, queue: string): Promise<boolean> {
+async function enqueue(user: MatchmakingUserDTO, queue: string): Promise<boolean> {
     if (queue != "math" && queue != "prog") return false;
 
     // add user to the queue
@@ -32,7 +30,7 @@ async function dequeue(user_id: number, queue: string): Promise<boolean> {
 
 
 // finds a match for a the passed in user
-async function matchmaking(user: UserDto) {
+async function matchmaking(user: MatchmakingUserDTO) {
 
     if (user.game_mode != "math" && user.game_mode != "prog")
         throw new Error("Unknown game mode");

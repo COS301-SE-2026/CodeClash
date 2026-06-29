@@ -15,7 +15,7 @@ import agentIcon from "../assets/AIAgent_Icon.png";
 import notificationIcon from "../assets/Notification_Icon.png";
 import searchIcon from "../assets/Search_Icon.png";
 
-import PopUp from "@/components/shared/PopUp";
+import PopUp from "./PopUp";
 
 type NavPage =
   | "Dashboard"

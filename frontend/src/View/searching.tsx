@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './searching.css';
 
 interface SearchingProps {
   onCancel?: () => void;

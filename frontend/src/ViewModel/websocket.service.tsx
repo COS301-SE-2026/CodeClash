@@ -1,7 +1,5 @@
 // websocket client
-
-//import { WebSocket } from "ws";
-
+import MatchmakingUserDTO from 'root/dtos/matchmaking.dto';
 import { useEffect, useState } from "react";
 
 const WebSocketService = () => {
@@ -17,13 +15,13 @@ const WebSocketService = () => {
         //open the socket
         new_socket.onopen = () => {
             console.log("Connection established");
-            console.log("SOCKET OPEN!!")
             set_connected(true);
         };
 
         // message event
         new_socket.onmessage = (event) => {
             console.log(event.data);
+            dispatcher(event.data, new_socket);
             set_messages((prev_messages) => [...prev_messages, event.data as string])  //store messages
         };
 
@@ -33,10 +31,10 @@ const WebSocketService = () => {
 
         return () => {
 
-            if(new_socket.readyState !== WebSocket.CLOSED)
-            new_socket.close();
+            if (new_socket.readyState !== WebSocket.CLOSED)
+                new_socket.close();
         }
-    },[]);
+    }, []);
 
 
     const send_message = (message: string) => {
@@ -50,7 +48,39 @@ const WebSocketService = () => {
         }
     };
 
-    return { messages, send_message , connected};
+    return { messages, send_message, connected };
+}
+
+
+
+const dispatcher = (data: string, ws: WebSocket) => {
+    var message;
+
+    try {
+        message = JSON.parse(data);
+    }
+    catch {
+        return JSON.stringify({ type: 'ERROR', message: 'Error parsing data' })
+    }
+
+
+    const type = message.type;
+
+    switch (type) {
+        case 'ENQUEUE':
+            const user = new MatchmakingUserDTO(message.id, message.elo, message.game_mode)
+            ws.send(JSON.stringify({
+                type: type,
+                user: user
+            }))
+            break;
+        case 'DEQUEUE':
+            ws.send(JSON.stringify({
+                type: type,
+                id: message.id
+            }))
+            break;
+    }
 }
 
 export default WebSocketService;
