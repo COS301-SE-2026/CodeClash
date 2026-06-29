@@ -21,7 +21,7 @@ export const welcomeContent: WelcomeContent = {
 
     title: {
         text: 'CodeClash Gaming',
-        style: {className: 'heading-big'},
+        style: {className: 'text-xl'},
     },
 
     tagline: {

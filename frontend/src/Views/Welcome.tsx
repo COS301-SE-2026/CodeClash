@@ -26,7 +26,7 @@ const Welcome: React.FC<WelcomeProps> = ({ onSignIn, onSignUp }) => {
 
         <div className="flex flex-col gap-1">
           <span className={content.eyebrow.style.className}>{content.eyebrow.text}</span>
-          <h1 className={content.title.style.className}>{content.title.text}</h1>
+          <h1 className='text-2xl font-semibold text-primary-text'>{content.title.text}</h1>
           <p className={content.tagline.style.className}>{content.tagline.text}</p>
         </div>
 

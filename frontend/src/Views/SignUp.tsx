@@ -8,7 +8,7 @@ import type { SignUpViewModelProps } from '../ViewModels/SignUpViewModel.ts';
 interface SignUpProps extends SignUpViewModelProps { };
 
 const fieldClass = "fields w-[100%] max-w-[90vw] h-[3rem] bg-white rounded-lg px-[2%] border-[0.5px] border-primary outline-none transition-all duration-200 focus:border-pink-400 focus:shadow-[0_0_0_3px_rgba(185,21,81,0.15)] disabled:opacity-50 text-primary font-medium placeholder:text-primary/60 focus:text-primary";
-const buttonPrimaryClass = "w-[100%] max-w-[90vw] h-[3rem] rounded-lg font-bold cursor-pointer flex items-center justify-center transition-all duration-200 hover:-translate-y-px active:translate-y-0 disabled:opacity-50 bg-button-primary text-button-text-primary shadow-badge";
+const buttonPrimaryClass = "w-[100%] max-w-[90vw] h-[3rem] text-[1.5rem] rounded-lg font-bold cursor-pointer flex items-center justify-center transition-all duration-200 hover:-translate-y-px active:translate-y-0 disabled:opacity-50 bg-button-primary text-button-text-primary shadow-badge";
 
 const SignUp: React.FC<SignUpProps> = (props) => {
     const { //this is to destructure the elements that the viewmodel returns, so that the view can access them
@@ -150,10 +150,10 @@ const SignUp: React.FC<SignUpProps> = (props) => {
                             onChange={(e) => setField('acceptedTerms', e.target.checked)}
                             disabled={isLoading}
                         />
-                        <label className="cursor-pointer" htmlFor="acceptTerms" style={{ fontSize: 'var(--font-size-sm' }}>
+                        <label className="cursor-pointer text-primary-text" htmlFor="acceptTerms" style={{ fontSize: 'var(--font-size-sm' }}>
                             Accept{' '}
                             <Link
-                                className="underline hover:text-primary-text"
+                                className="underline text-primary-text hover:text-[#FF6299]"
                                 to='/terms'
                                 target="_blank"
                             >
