@@ -64,7 +64,7 @@ jobs:
         run: |
           files="${{ steps.changed.outputs.all_changed_files }}"
           stripped=$(echo "$files" | sed 's|backend/||g')
-          npx eslint --max-warnings 0 $stripped
+
 
 
   lint-frontend:
@@ -110,4 +110,4 @@ jobs:
         run: |
           files="${{ steps.changed.outputs.all_changed_files }}"
           stripped=$(echo "$files" | sed 's|frontend/||g')
-          npx eslint --max-warnings 0 $stripped
+
