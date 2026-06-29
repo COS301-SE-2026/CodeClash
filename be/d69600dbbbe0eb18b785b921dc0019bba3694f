@@ -1,0 +1,44 @@
+backend/src/wsClients.ts
+  h_94c952a9e14c58 2
+backend/src/services/matchmaking.service.ts
+  h_94c952a9e14c58 2,7,33
+frontend/src/App.tsx
+  h_94c952a9e14c58 8,13
+backend/vitest.config.ts
+  h_94c952a9e14c58 2,15-20
+backend/src/wsMessageHandler.ts
+  h_94c952a9e14c58 2
+frontend/src/ViewModel/websocket.service.tsx
+  h_94c952a9e14c58 2,24,34-35,37,51-83
+backend/tests/unit/matchmaking/matchmaking.service.test.ts
+  h_94c952a9e14c58 11
+frontend/vitest.config.ts
+  h_94c952a9e14c58 5-6,29-30
+frontend/tsconfig.app.json
+  h_94c952a9e14c58 28-29,33
+backend/src/server.ts
+  h_94c952a9e14c58 5
+frontend/src/View/searching.tsx
+  h_94c952a9e14c58 1-43
+backend/tsconfig.json
+  h_94c952a9e14c58 20-31
+frontend/vite.config.ts
+  h_94c952a9e14c58 14
+dtos/matchmaking.dto.ts
+  h_94c952a9e14c58 1-19
+backend/src/app.ts
+  h_94c952a9e14c58 7
+frontend/src/pages/Dashboard.tsx
+  h_94c952a9e14c58 18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.3",
+  "base_commit_sha": "bed69600dbbbe0eb18b785b921dc0019bba3694f",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
