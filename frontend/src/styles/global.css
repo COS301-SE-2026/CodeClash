@@ -11,13 +11,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400..800&display=swap');
 /************************/
 
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
-
-
-
-
 /* text is the text colour */
 
 @theme inline {
