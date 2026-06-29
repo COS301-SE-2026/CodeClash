@@ -2,16 +2,14 @@ import type React from "react";
 import { Route, Routes } from "react-router-dom";
 import Dashboard from "./Views/Dashboard";
 import Layout from "./layout";
-import Welcome from "./pages/Welcome";
+import Welcome from "./Views/Welcome";
 import SignIn from "./pages/SignIn";
-import SignUp from "./pages/SignUp";
+import SignUp from "./Views/SignUp";
 import Profile from "./pages/Profile";
 import Searching from "./pages/queuePages/searching";
 import Found from "./pages/queuePages/found";
 import MathMatch from "./pages/MathMatch";
 import ProgMatch from "./pages/ProgMatch";
-
-
 
 const App: React.FC = () => {
     return (
@@ -38,6 +36,5 @@ const App: React.FC = () => {
         </Routes>
     )
 }
-
 
 export default App;
