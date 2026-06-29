@@ -4,22 +4,25 @@ import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { useTimer } from "react-timer-hook";
 import { Question } from "@/components/features/question";
-import blue_avatar from "../assets/blue_avatar.jpeg";
-import puprle_avatar from "../assets/purple_avatar.jpeg";
+import blue_avatar from "../assets/Avatar/blue_avatar.jpeg";
+import puprle_avatar from "../assets/Avatar/purple_avatar.jpeg";
 import type { QuestionDTO, MatchDTO } from "src/types/question.dto";
-import { mock_questions } from "../mocks/prog-questions.mock";
 import { MatchProgress } from "@/components/features/match-progress";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 interface ProgMatchProps {
   language: string;
   match: MatchDTO;
-  back: () => void;
 }
 
-const ProgMatch: React.FC<ProgMatchProps> = ({ language, back }) => {
+const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
   const [player_1_life, set_player_1_life] = useState(90);
   const [player_2_life, set_player_2_life] = useState(100);
+
+  const setMatch = () => {
+
+  }
 
   function handleChange(value: any) {
     const answered = [...input];
@@ -55,19 +58,19 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language, back }) => {
 
   // initialise questions
   useEffect(() => {
-    set_questions(mock_questions);
+    //   set_questions(mock_questions);
 
-    const q_1 = mock_questions[0];
-    set_q_index(0);
-    set_difficulty(q_1.difficulty);
-    set_title(q_1.title);
-    set_question(q_1.question);
-    set_description(q_1.description ?? "");
+    //   const q_1 = mock_questions[0];
+    //   set_q_index(0);
+    //   set_difficulty(q_1.difficulty);
+    //   set_title(q_1.title);
+    //   set_question(q_1.question);
+    //   set_description(q_1.description ?? "");
   }, []);
 
   function updateQuestion(q_idx: number) {
     if (typeof questions !== "undefined") {
-      if (q_idx >= questions.length) {set_player_1_done(true);  set_q_index(questions.length - 1);}
+      if (q_idx >= questions.length) { set_player_1_done(true); set_q_index(questions.length - 1); }
       else if (q_idx < 0) return;
       else {
         const q = questions[q_idx];
@@ -102,16 +105,15 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language, back }) => {
   const [input, set_input] = useState<string[]>(Array(questions?.length ?? 0));
 
   return (
-    <div className="fixed inset-0 flex flex-rowjustify-evenly">
+    <div className="fixed inset-0 flex flex-row justify-evenly">
       <div className="flex flex-col w-[80%] m-2 justify-between">
-        <Button
-          active={true}
-          onClick={back}
+        <Link
           className="w-[15%] absolute left-5"
-          variant={"outline"}
+
+          to='/dashboard'
         >
           Exit
-        </Button>
+        </Link>
         {/* header */}
         <div className="flex w-full h-[20%] justify-between items-center m-1 p-2">
           {/* Player 1 Progress */}
