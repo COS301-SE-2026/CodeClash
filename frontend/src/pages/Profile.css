@@ -83,8 +83,14 @@ body {
 
 .profile-gameguide{
   font-family: var(--font);
-  font-weight:400
+  font-weight: 400;
+  font-size: 24px;
+  color: var(--secondary-text);
+  text-align: center;
+  text-decoration: underline;
 }
+
+
 
 .profile-level {
   font-family: var(--font);
