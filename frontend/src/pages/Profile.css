@@ -44,21 +44,24 @@ body {
 .profile-card {
   width: 500px;
   background-color: var(--secondary);
-  border: 1px solid #0f172a;
   border-radius: 20px;
   padding: 48px 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25));
 }
 
 .profile-avatar {
+  background-image: url(../assets/Profile_Icon.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  object-fit: cover;
   width: 96px;
   height: 96px;
   border-radius: 50%;
-  background-color: #5f5980;
-  filter: drop-shadow(4px 4px 5px rgba(0, 0, 0, 0.3));
+  justify-content: center;
 }
 
 .profile-name {
@@ -67,14 +70,20 @@ body {
   font-size: 40px;
   color: var(--secondary-text);
   text-align: center;
+  justify-content: center;
 }
 
-.profile-email {
-  font-family: 'Baloo Bhai 2', cursive;
-  font-size: 18px;
-  color: #64748b;
+.profile-streak {
+  font-family: var(--font);
+  font-weight: 400;
+  font-size: 24px;
+  color: var(--secondary-text);
   text-align: center;
-  margin-top: -12px;
+}
+
+.profile-gameguide{
+  font-family: var(--font);
+  font-weight:400
 }
 
 .profile-level {
@@ -113,7 +122,7 @@ body {
 .logout-button {
   width: 100%;
   height: 60px;
-  background-color: #0E34A0;
+  background-color: var(--button-primary);
   border-radius: 20px;
   font-family: 'Baloo Bhai 2', cursive;
   font-size: 24px;
@@ -129,7 +138,7 @@ body {
 }
 
 .logout-button:hover {
-  background-color: #2563eb;
+  background-color: var(--primary);
   transform: translateY(-1px);
 }
 
@@ -137,3 +146,4 @@ body {
   background-color: #1d4ed8;
   transform: translateY(0);
 }
+

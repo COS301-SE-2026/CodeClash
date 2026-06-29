@@ -16,7 +16,7 @@ const Profile: React.FC<ProfileProps> = ({
   email = 'user@codeclash.com',
   playerLevel = 'Level 32 - Mercury',
   currentRank = 522,
-  winStreak = 5,
+  winStreak = 63,
   onBack,
   onLogout,
 }) => {
@@ -34,12 +34,8 @@ const Profile: React.FC<ProfileProps> = ({
 
         <div className="profile-name">{userName}</div>
         <div className="profile-level">{playerLevel}</div>
-        <div className="profile-email">{email}</div>
-
-        <div className="profile-info-row">
-          <span className="profile-info-label">Current Rank</span>
-          <span className="profile-info-value">#{currentRank}</span>
-        </div>
+        <div className="profile-streak">Current Streak - {winStreak}</div>
+        <div className
 
         <div className="profile-info-row">
           <span className="profile-info-label">Win Streak</span>
