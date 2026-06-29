@@ -55,13 +55,14 @@ body {
 
 .profile-avatar {
   background-image: url(../assets/Profile_Icon.png);
-  background-position: center;
   background-repeat: no-repeat;
+  background-size: 200% 200%;
+  background-position: -43px -43px;
   object-fit: cover;
-  width: 96px;
-  height: 96px;
+  width: 86px;
+  height: 86px;
   border-radius: 50%;
-  justify-content: center;
+  /* border: 5px solid black; */
 }
 
 .profile-name {
@@ -79,6 +80,7 @@ body {
   font-size: 24px;
   color: var(--secondary-text);
   text-align: center;
+  margin-top: 15px;
 }
 
 .profile-gameguide{
@@ -88,15 +90,24 @@ body {
   color: var(--secondary-text);
   text-align: center;
   text-decoration: underline;
+  margin-top: 20px;
 }
 
-
+.profile-settings{
+  font-family: var(--font);
+  font-weight: 400;
+  font-size: 24px;
+  color: var(--secondary-text);
+  text-align: center;
+  text-decoration: underline;
+}
 
 .profile-level {
   font-family: var(--font);
   font-weight: 500;
-  font-size: 24px;
+  font-size: 23px;
   color: var(--secondary-text);
+  margin-top: -5px;
 }
 
 .profile-divider {

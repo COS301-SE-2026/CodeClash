@@ -36,7 +36,7 @@ const Profile: React.FC<ProfileProps> = ({
         <div className="profile-level">{playerLevel}</div>
         <div className="profile-streak">Current Streak - {winStreak}</div>
         <div className="profile-gameguide">Game Guide</div>
-        <
+        <div className="profile-settings">Settings</div>
 
 
         <button
