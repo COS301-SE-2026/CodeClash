@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import googleIcon from "../assets/Icons/Google_Icon.png";
-import appleIcon from "../assets/Icons/Apple_Icon.png";
 import { useAuth } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 

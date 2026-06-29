@@ -43,7 +43,7 @@ CodeClash is a competitive mathematics and coding collaboration platform designe
 
 ## Demo Videos
 
-- Demo 1: Linked to Google Drive link
+- [Demo 1](https://drive.google.com/file/d/1jSZ5YmmdEsPccR-M5zBKY4wCI998dGdX/view?usp=sharing)
 
 ## Documentation
 
