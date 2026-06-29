@@ -1,15 +1,16 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
-
 /* Font import */
-
 /* Roboto */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
 /* Baloo Bhai 2 */
 @import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400..800&display=swap');
 /************************/
+
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+
 
 /* text is the text colour */
 
@@ -120,15 +121,14 @@
   --text: #FFFF;
 
   /* fonts */
-  --font: 'Roboto',sans-serif;
-  --font-logo: 'Roboto', sans-serif;
-  --heading: 'Roboto', sans-serif;
+  --font: 'Roboto', sans-serif;
+  --font-logo: 'Baloo Bhai 2', sans-serif;
+  --heading: 'Baloo Bhai 2', sans-serif;
 
   --heading-weight: 700;
   --heading-sub-weight: 400;
-  --heading-size: 4rem;
-  --heading-big-size: 6rem;
-  
+  --heading-size: 3rem;
+
   --badge-font-size: 0.1rem;
   --badge-font-weight: 700;
 
@@ -163,21 +163,14 @@
     font-weight: var(--badge-font-weight);
     font-size: var(--heading-big-size);
     white-space: nowrap;
-  }  
+  }
 
   .heading-sub {
     color: var(--primary-text);
     font-family: var(--heading);
     font-weight: var(--heading-sub-weight);
-    font-size: var(--font-size-l);
+    font-size: var(--font-size-md);
     white-space: nowrap;
-  }
-
-  body, p, span {
-    color: var(--primary-text);
-    font-family: var(--heading);
-    font-weight: var(--font-weight);
-    font-size: var(--font-size-md); 
   }
 
   .fields {

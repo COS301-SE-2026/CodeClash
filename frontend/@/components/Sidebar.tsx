@@ -58,7 +58,7 @@ const AppSidebarGroups = () => {
                                 <SidebarMenuButton asChild className='w-[100%]'>
                                     <Link to={item.to} className='w-[100%]' >
                                         <img src={item.img} alt={item.label} className='w-[2rem]' />
-                                        <span className='group-data-[state=collapsed]:hidden'>{item.label}</span>
+                                        <span className='group-data-[state=collapsed]:hidden text-sm'>{item.label}</span>
                                     </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
@@ -84,7 +84,7 @@ export function AppSidebar() {
             </SidebarContent>
 
             <SidebarFooter>
-                <Link to='/settings'>Settings</Link>
+                <Link to='/settings' className='text-sm'>Settings</Link>
             </SidebarFooter>
             <SidebarRail className='hidden' />
         </Sidebar>
