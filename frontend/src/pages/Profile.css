@@ -34,7 +34,8 @@ body {
   font-family: var(--font);
   font-size: 32px;
   font-weight: 600;
-  border-radius: 30px;
+  border-radius: 35px;
+  text-align: center;
 }
 
 .back-button:hover {
@@ -42,7 +43,7 @@ body {
 }
 
 .profile-card {
-  width: 500px;
+  width: 558px;
   background-color: var(--secondary);
   border-radius: 20px;
   padding: 48px 40px;
