@@ -1,0 +1,24 @@
+backend/src/services/matchmaking.service.ts
+  h_94c952a9e14c58 2-3
+backend/src/app.ts
+  h_94c952a9e14c58 6-7,21,61-67,69-83,86-87,89,91,93-94,96,98-110,116-127,131-133,135
+backend/src/verifyToken.ts
+  h_94c952a9e14c58 7
+backend/src/wsClients.ts
+  h_94c952a9e14c58 1-16
+backend/src/wsMessageHandler.ts
+  h_94c952a9e14c58 1-57
+backend/src/server.ts
+  h_94c952a9e14c58 2-13,20-21,23,25-27,31-35,38-40,42,44-45,47,49-55,57-69,75-76
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.3",
+  "base_commit_sha": "bafc33f0456d7b118a51c421f2e50126748a4d6b",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

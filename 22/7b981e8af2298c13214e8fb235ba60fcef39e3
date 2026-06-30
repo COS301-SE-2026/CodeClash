@@ -1,0 +1,14 @@
+frontend/src/styles/global.css
+  h_94c952a9e14c58 52,120-121,123
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "227b981e8af2298c13214e8fb235ba60fcef39e3",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+frontend/src/services/matchmaking.service.tsx
+  h_94c952a9e14c58 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "657e737b9d3dc4619bd91157c54d17cbe751484a",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

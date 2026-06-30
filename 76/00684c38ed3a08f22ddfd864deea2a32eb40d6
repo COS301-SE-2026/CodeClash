@@ -1,0 +1,24 @@
+frontend/@/components/shared/GlassCard.tsx
+  h_94c952a9e14c58 11
+frontend/@/components/Sidebar.tsx
+  h_94c952a9e14c58 14
+frontend/src/styles/global.css
+  h_94c952a9e14c58 92
+frontend/src/App.tsx
+  h_94c952a9e14c58 3
+frontend/src/pages/ProgMatch.tsx
+  h_94c952a9e14c58 61,63-68
+frontend/src/Views/Dashboard.tsx
+  h_94c952a9e14c58 2,6-7,16-24,26-29,31,33,35-64,66-69,72-77,80-83,86-90,93-105,107,109-114,116,119-123,126-129,131,133-138,140-141,143-148,150-153,156-158
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.3",
+  "base_commit_sha": "7600684c38ed3a08f22ddfd864deea2a32eb40d6",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
