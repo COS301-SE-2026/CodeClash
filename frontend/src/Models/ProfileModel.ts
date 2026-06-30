@@ -1,3 +1,5 @@
+import { fetchUserAttributes, getCurrentUser } from "aws-amplify/auth";
+
 export interface ProfileDetails{
     avatarUrl: string;
     username: string;
@@ -19,5 +21,7 @@ export const ProfileData : ProfileDetails = {
 }
 
 export class ProfileServices {
-    static async getProfile(userId: string): Promise<ProfileDetails>
+    static async getProfile(userId: string): Promise<ProfileDetails> {
+
+    }
 }
