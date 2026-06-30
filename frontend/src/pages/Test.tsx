@@ -14,6 +14,11 @@ const Test: React.FC = () => {
                         Choose a Topic
                     </h1>
                     <h2 className="text-2xl font-[var(--heading)] text-[var(--secondary-text)] text-center justify-center mt-5">What would you like to be challenged on?</h2>
+                
+                <div className="grid grid-flow-col grid-cols-2 gap-4">
+                    <div className="bg-[var(--secondary)] rounded-3xl text-center text-[var(--secondary-text)] shadow-lg row-span-2">Math</div>
+                    <div className="bg-[var(--secondary)] rounded-3xl text-center text-[var(--secondary-text)] shadow-lg row-span-2">Programming</div>
+                </div>
                 </div>
             </div>
         </div>
