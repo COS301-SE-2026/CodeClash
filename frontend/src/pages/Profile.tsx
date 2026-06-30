@@ -28,7 +28,7 @@ const Profile: React.FC<ProfileProps> = ({
         ← Back
       </div>
 
-      <div className="profile-card">
+      <div className="w-[558px] bg-secondary rounded-[20px] px-10 py-12 flex flex-col items-center gap-5 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
 
         <div className="profile-avatar" />
 
