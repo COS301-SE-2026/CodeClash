@@ -28,4 +28,31 @@ export function SignInViewModelFunction(
         {
             setForm(prev => ({...prev, [field]: value}));
         }, []);
+
+        const handleSubmit = useCallback(async () => 
+        {
+            clearError();
+            setLocalError(null);
+            const validationError = validateSignInForm(form);
+            if (validationError) {
+                setLocalError(validationError);
+                return;
+            }
+            try {
+                await signIn ( //If validation is passed, Amplifys sign in will be called
+                    form.email.trim(), 
+                    form.password,
+                );
+                onSignInSuccess?.();
+            } catch {}
+        }, [form, signIn, clearError, onSignInSuccess]); //Dependency array
+
+        return {
+            content: signInContent,
+            form,
+            displayError: localError ?? error,
+            isLoading,
+            setField,
+            handleSubmit,
+        };
     }
