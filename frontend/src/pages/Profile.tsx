@@ -21,7 +21,7 @@ const Profile: React.FC<ProfileProps> = ({
   onLogout,
 }) => {
   return (
-    <div className="profile-page">
+    <div className="relative w-full min-h-[1024px] bg-secondary mx-auto flex flex-col items-center justify-center">
 
       <div className="back-button" 
       onClick={onBack}>

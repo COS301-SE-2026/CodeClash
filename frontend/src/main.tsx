@@ -4,18 +4,14 @@ import App from './App'
 import { AuthProvider } from './context/AuthContext'
 import './amplify-config'
 import './styles/global.css'
-import { Popup } from './pages/Popup'
-import Test from './pages/Test'
-import Profile from './pages/Profile';
+import Profile from './pages/Profile'
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <AuthProvider>
-      {/* <Profile/> */}
       {/* <App/>  */}
-      {/* <Popup/> */}
-      <Test/>
+      <Profile/>
     </AuthProvider>
   </React.StrictMode>,
 )
