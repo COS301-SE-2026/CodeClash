@@ -1,8 +1,8 @@
 export interface ProfileDetails{
-    avatarUrl?: string;
+    avatarUrl: string;
     username: string;
-    playerLevel: string;
-    currentStreak: string;
+    playerLevel: number;
+    currentStreak: number;
 }
 
 
@@ -11,6 +11,10 @@ export interface ProfileRoutes{
     settings: '/settings';
 }
 
-export const profileData : ProfileDetails{
-    
+export const ProfileData : ProfileDetails = {
+    avatarUrl: '../assets/Profile_Icon.png',
+    username: '',
+    playerLevel: 0,
+    currentStreak: 0,
+
 }
