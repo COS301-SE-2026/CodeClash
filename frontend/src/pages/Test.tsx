@@ -9,7 +9,7 @@ const Test: React.FC = () => {
             <div className="relative w-xl">
                 {/* <img src='./robot.png' alt="robot" className="relative w-full z-0 inset-0"></img> */}
 
-                <div className="bg-[var(--secondary)] w-full border rounded-3xl pt-12 pb-8 text-center shadow-lg absolute -top-9 h-120">
+                <div className="bg-[var(--secondary)] w-full border rounded-3xl pt-12 pb-8 text-center shadow-lg absolute -top-9 h-124">
                     <h1 className="text-6xl font-[var(--heading)] text-[var(--secondary-text)] font-extrabold ">
                         Choose a Topic
                     </h1>
@@ -25,6 +25,7 @@ const Test: React.FC = () => {
                         <h2 className="text-3.3xl text-[var(--secondary-text)] font-[var(--heading)] font-bold mt-3">Programming</h2>
                     </div>
                 </div>
+                <div className="text-3.3xl text-black font-[var(--heading)] font-extrabold underline mt-5">Cancel</div>
                 </div>
             </div>
         </div>
