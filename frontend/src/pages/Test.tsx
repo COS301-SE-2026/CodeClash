@@ -8,7 +8,7 @@ interface PopupProps{
 }
 
 
-const Test: React.FC = () => {
+const Test: React.FC<PopupProps> = ({onMath, onProg, onCancel}) => {
 
     return(
         <div className="min-h-screen w-full bg-[var(--secondary)] flex items-center justify-center p-6 bg-[url(./robot.png)] bg-center bg-no-repeat bg-size-[auto_800px]">
@@ -24,14 +24,14 @@ const Test: React.FC = () => {
                 <div className="grid grid-flow-col grid-cols-2 gap-4 ml-8 mr-8 mt-16 h-45">
                     <div className="bg-[var(--secondary)] rounded-3xl text-center text-[var(--secondary-text)] shadow-lg mr-2">
                         <h1 className="text-3.3xl text-[var(--secondary-text)] font-[var(--heading)] font-bold mt-5">+ -</h1>
-                        <h2 className="text-3.3xl text-[var(--secondary-text)] font-[var(--heading)] font-bold mt-3">Math</h2>
+                        <h2 className="text-3.3xl text-[var(--secondary-text)] font-[var(--heading)] font-bold mt-3" onClick={onMath}>Math</h2>
                         </div>
                     <div className="bg-[var(--secondary)] rounded-3xl text-center text-[var(--secondary-text)] shadow-lg ml-2">
                         <h1 className="text-3.3xl text-[var(--secondary-text)] font-[var(--heading)] font-bold mt-5">{"</>"}</h1>
-                        <h2 className="text-3.3xl text-[var(--secondary-text)] font-[var(--heading)] font-bold mt-3">Programming</h2>
+                        <h2 className="text-3.3xl text-[var(--secondary-text)] font-[var(--heading)] font-bold mt-3" onClick={onProg}>Programming</h2>
                     </div>
                 </div>
-                <div className="text-3.3xl text-black font-[var(--heading)] font-extrabold underline mt-5">Cancel</div>
+                <div className="text-3.3xl text-black font-[var(--heading)] font-extrabold underline mt-5" onClick={onCancel}>Cancel</div>
                 </div>
             </div>
         </div>
