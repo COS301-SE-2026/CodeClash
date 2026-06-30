@@ -32,8 +32,8 @@ const Profile: React.FC<ProfileProps> = ({
 
         <div className="w-[86px] h-[86px] rounded-full bg-no-repeat" style={{backgroundImage: 'url(./Profile_Icon.png)', backgroundSize: '200% 200%', backgroundPosition: '-43px -43px'}} />
 
-        <div className="profile-name">{userName}</div>
-        <div className="profile-level">{playerLevel}</div>
+        <div className="text-secondary-text font-bold text-[40px] text-center">{userName}</div>
+        <div className="text-secondary-text font-medium text-[23px]-mt-1">{playerLevel}</div>
         <div className="profile-streak">Current Streak - {winStreak}</div>
         <div className="profile-gameguide">Game Guide</div>
         <div className="profile-settings">Settings</div>
