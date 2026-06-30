@@ -28,8 +28,8 @@ export class ProfileServices {
         return{
             avatarUrl: (await userAttributes).picture ?? '../assets/Profile_Icon.png',
             username: (await userAttributes).name ?? "",
-            playerLevel: (await userA)
-
+            playerLevel: 0, //AFTER ADDING A LEVEL ATTRIBUTE TO THE AWS COGNITO USER POOL, COME BACK HERE AND CHANGE THIS!!!
+            currentStreak: 0 //AFTER ADDING A STREAK ATTRIBUTE TO THE AWS COGNITO USER POOL, COME BACK HERE AND CHANGE THIS!!!
         };
     }
 }
