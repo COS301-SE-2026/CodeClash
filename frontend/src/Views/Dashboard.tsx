@@ -10,8 +10,17 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
+import Popup from './PopUp';
+
+// View Model
+import { useShowPopUp } from '../ViewModels/DashboardViewModel';
 
 const Dashboard = () => {
+  const { isOpen, openPopUp, closePopUp } = useShowPopUp();
+
+
+
+
   return (
     <div style={{ backgroundImage: `url(${backgroundImg})` }} className='w-full h-[20] h-screen bg-cover bg-center flex flex-col items-center'>
       {/* Header */}
@@ -56,7 +65,10 @@ const Dashboard = () => {
             </CardHeader>
             <CardContent className='flex'>
               <CardAction className='flex flex-col w-[100%] h-[6rem] justify-between'>
-                <Button className='h-[45%] bg-pink-300 text-sm font-semibold'>  Ranked Play </Button>
+                <Button className='h-[45%] bg-pink-300 text-sm font-semibold'
+                  onClick={openPopUp}
+                > Ranked Play </Button>
+                {isOpen && <Popup isOpen={isOpen} onClose={()=>{}} onSelectTopic={()=>{}} ></Popup>}
                 <Button variant={'secondary'} className='h-[45%] bg-secondary text-primary text-sm font-semibold hover:bg-[#C0AF9C]'> Casual Play </Button>
               </CardAction>
             </CardContent>
@@ -120,7 +132,7 @@ const Dashboard = () => {
               {/* loop through progress measures - how is this progress calculated? */}
               <div className='w-[90%] h-[30%]'>
                 <p className='text-xsm'>Metric Title</p>
-                <Progress className=" w-[100%] h-[60%] shadow-[0_4px_6px_rgba(0,0,0,0.3)] bg-[#E4BBCA]"  progress_colour='#DC1860'></Progress>
+                <Progress className=" w-[100%] h-[60%] shadow-[0_4px_6px_rgba(0,0,0,0.3)] bg-[#E4BBCA]" progress_colour='#DC1860'></Progress>
               </div>
 
               <div className='w-[90%] h-[30%] m-2'>

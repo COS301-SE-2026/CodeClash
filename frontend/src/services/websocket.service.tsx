@@ -29,26 +29,13 @@ const WebSocketService = () => {
             console.log('Connection Closed');
         };
 
-        return () => {
 
-            if (new_socket.readyState !== WebSocket.CLOSED)
-                new_socket.close();
-        }
+        if (new_socket.readyState !== WebSocket.CLOSED)
+            new_socket.close();
+
     }, []);
 
-
-    const send_message = (message: string) => {
-        console.log(message);
-
-        if (socket && socket.readyState === WebSocket.OPEN) {
-            socket.send(message);
-        }
-        else {
-            console.log("TODO: implement error handling");
-        }
-    };
-
-    return { messages, send_message, connected };
+    return { socket };
 }
 
 
