@@ -1,6 +1,12 @@
 import '../styles/global.css'
 import React from "react"
 
+interface PopupProps{
+    onMath? : () => void;
+    onProg? : () => void;
+    onCancel? : () => void;
+}
+
 
 const Test: React.FC = () => {
 
