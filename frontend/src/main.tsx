@@ -5,6 +5,8 @@ import { AuthProvider } from './context/AuthContext'
 import './amplify-config'
 import './styles/global.css'
 import { Popup } from './pages/Popup'
+import Test from './pages/Test'
+import Profile from './pages/Profile';
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -12,7 +14,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <AuthProvider>
       {/* <Profile/> */}
       {/* <App/>  */}
-      <Popup/>
+      {/* <Popup/> */}
+      <Test/>
     </AuthProvider>
   </React.StrictMode>,
 )
