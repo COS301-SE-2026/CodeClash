@@ -4,7 +4,8 @@ import {
   getUserElo,
   getEloHistory,
   updateEloAfterMatch,
-  getLeaderboard
+  getLeaderboard,
+  setUserElo
 } from '../controllers/elo.controllers';
 
 const router = Router();
@@ -21,5 +22,6 @@ router.get('/leaderboard', getLeaderboard);
 router.post('/elo', getUserElo),
 router.post('/elo-history',getEloHistory)
 router.post('/update', updateEloAfterMatch);
+router.post('/elo',setUserElo);
 
 export default router;

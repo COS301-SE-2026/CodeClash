@@ -29,10 +29,6 @@ const WebSocketService = () => {
             console.log('Connection Closed');
         };
 
-
-        if (new_socket.readyState !== WebSocket.CLOSED)
-            new_socket.close();
-
     }, []);
 
     return { socket };

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import pool from '../config/db';
+import { pool } from '../config/db';
 
 // GET /api/elo/:user_id
 // Get current elo rating for a user
@@ -20,7 +20,7 @@ export const getUserElo = async (req: Request, res: Response): Promise<void> => 
       return;
     }
 
-    res.status(200).json({elo: result.rows[0]});
+    res.status(200).json({ elo: result.rows[0] });
 
   } catch (error) {
     console.error('Error fetching elo rating:', error);
@@ -189,6 +189,36 @@ export const updateEloAfterMatch = async (req: Request, res: Response): Promise<
     client.release();
   }
 };
+
+// POST /api/elo
+// sets user elo 
+export const setUserElo = async (req: Request, res: Response): Promise<void> => {
+  const { user_id } = req.body;
+  const client = await pool.connect();
+
+
+  try {
+    await client.query('BEGIN');
+
+    await client.query(
+      `INSERT INTO elo_ratings (user_id)
+    VALUES ($1)
+    ON CONFLICT DO NOTHING`,
+      [user_id]
+    )
+
+    await client.query('COMMIT');
+
+    res.status(200).json({ message: 'successfully set elo' })
+
+  } catch (error) {
+    await client.query('ROLLBACK');
+    console.error('Error setting elo');
+    res.status(500).json({ message: 'Internal Server Error' })
+  } finally {
+    client.release();
+  }
+}
 
 // GET /api/elo/leaderboard
 // Get top 10 players by elo rating

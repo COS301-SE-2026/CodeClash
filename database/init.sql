@@ -53,9 +53,7 @@ CREATE TABLE IF NOT EXISTS match_log(
 CREATE TABLE IF NOT EXISTS elo_ratings (
   elo_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID REFERENCES users(user_id),
-  rating INTEGER DEFAULT 600,
-  updated_at TIMESTAMP DEFAULT NOW()
- 
+  rating INTEGER DEFAULT 600, 
 );
 
 
@@ -77,7 +75,6 @@ CREATE TABLE IF NOT EXISTS elo_history (
   history_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID REFERENCES users(user_id),
   match_id UUID REFERENCES matches(match_id),
-  old_rating INTEGER,
   new_rating INTEGER,
   changed_at TIMESTAMP DEFAULT NOW()
 );

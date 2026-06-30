@@ -5,6 +5,10 @@ import matchRoutes from './routes/api.routes';
 import jwt, { type JwtPayload } from 'jsonwebtoken'
 import { IncomingMessage } from 'http'
 import UserDto from '../../dtos/matchmaking.dto';
+import dotenv from 'dotenv/config'
+import { initDB } from './config/db';
+
+initDB();
 
 const app = express();
 app.listen(3000)

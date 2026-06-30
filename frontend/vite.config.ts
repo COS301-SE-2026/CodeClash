@@ -22,13 +22,4 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['@monaco-aditor/react'],
   },
-  server: {
-    proxy: {
-      '/ws': {
-        target: 'ws://localhost:3030',
-        ws: true,
-        rewriteWsOrigin: true,
-      }
-    }
-  }
 })
