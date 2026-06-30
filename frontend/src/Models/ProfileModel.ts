@@ -22,6 +22,14 @@ export const ProfileData : ProfileDetails = {
 
 export class ProfileServices {
     static async getProfile(userId: string): Promise<ProfileDetails> {
+        const user = getCurrentUser();
+        const userAttributes = fetchUserAttributes();
 
+        return{
+            avatarUrl: (await userAttributes).picture ?? '../assets/Profile_Icon.png',
+            username: (await userAttributes).name ?? "",
+            playerLevel: (await userA)
+
+        };
     }
 }
