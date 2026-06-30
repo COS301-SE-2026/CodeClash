@@ -13,11 +13,15 @@ const Test: React.FC = () => {
                     <h1 className="text-6xl font-[var(--heading)] text-[var(--secondary-text)] font-extrabold ">
                         Choose a Topic
                     </h1>
-                    <h2 className="text-2xl font-[var(--heading)] text-[var(--secondary-text)] text-center justify-center mt-5">What would you like to be challenged on?</h2>
+                    <h2 className="text-2xl font-[var(--heading)] font-medium text-[var(--secondary-text)] text-center justify-center mt-5">What would you like to be challenged on?</h2>
                 
-                <div className="grid grid-flow-col grid-cols-2 gap-4">
-                    <div className="bg-[var(--secondary)] rounded-3xl text-center text-[var(--secondary-text)] shadow-lg row-span-2">Math</div>
-                    <div className="bg-[var(--secondary)] rounded-3xl text-center text-[var(--secondary-text)] shadow-lg row-span-2">Programming</div>
+                <div className="grid grid-flow-col grid-cols-2 gap-4 ml-8 mr-8 mt-16 h-45">
+                    <div className="bg-[var(--secondary)] rounded-3xl text-center text-[var(--secondary-text)] shadow-lg mr-2">
+                        <h1 className="text-4xl text-[var(--secondary-text)] font-[var(--heading)] font-bold mt-5">+ -</h1>
+                        </div>
+                    <div className="bg-[var(--secondary)] rounded-3xl text-center text-[var(--secondary-text)] shadow-lg ml-2">
+                        <h1 className="text-4xl text-[var(--secondary-text)] font-[var(--heading)] font-bold mt-5">{"</>"}</h1>
+                    </div>
                 </div>
                 </div>
             </div>
