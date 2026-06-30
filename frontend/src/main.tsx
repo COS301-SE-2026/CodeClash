@@ -10,8 +10,8 @@ import Profile from './pages/Profile'
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <AuthProvider>
-      <Profile/>
-      {/* <App/>  */}
+      {/* <Profile/> */}
+      <App/> 
     </AuthProvider>
   </React.StrictMode>,
 )
