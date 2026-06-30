@@ -21,8 +21,7 @@ export const ProfileData : ProfileDetails = {
 }
 
 export class ProfileServices {
-    static async getProfile(userId: string): Promise<ProfileDetails> {
-        const user = getCurrentUser();
+    static async getProfile(): Promise<ProfileDetails> {
         const userAttributes = fetchUserAttributes();
 
         return{

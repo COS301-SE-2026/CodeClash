@@ -4,7 +4,7 @@ import App from './App'
 import { AuthProvider } from './context/AuthContext'
 import './amplify-config'
 import './styles/global.css'
-import Profile from './Views/Profile'
+import Profile from './pages/Profile'
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
