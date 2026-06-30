@@ -16,3 +16,16 @@ interface SignInViewModel {
     handleSubmit: () => Promise<void>;
 }
 
+export function SignInViewModelFunction(
+    {onSignInSuccess,}:
+    SignInViewModelProps): SignInViewModel {
+        const { signIn, error, clearError, isLoading} = useAuth();
+
+        const [form, setForm] = useState<SignInForm>(formData);
+        const [localError, setLocalError] = useState<string | null>(null);
+
+        const setField = useCallback((field: keyof SignInForm, value:string) => 
+        {
+            setForm(prev => ({...prev, [field]: value}));
+        }, []);
+    }
