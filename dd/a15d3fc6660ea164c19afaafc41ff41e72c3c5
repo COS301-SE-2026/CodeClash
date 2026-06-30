@@ -1,0 +1,18 @@
+frontend/src/App.tsx
+  h_94c952a9e14c58 1-12,17-39
+frontend/src/main.tsx
+  h_94c952a9e14c58 9
+docker-compose.yml
+  h_94c952a9e14c58 13-14,36-37,55,58-73,76,79-81
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.3",
+  "base_commit_sha": "dda15d3fc6660ea164c19afaafc41ff41e72c3c5",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

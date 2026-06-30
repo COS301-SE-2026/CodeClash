@@ -1,0 +1,16 @@
+backend/src/server.ts
+  h_94c952a9e14c58 73,77-80
+backend/src/app.ts
+  h_94c952a9e14c58 10,23-25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.5",
+  "base_commit_sha": "471db3b59d0758ec2acb8917218dfe6e59cc9cc7",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

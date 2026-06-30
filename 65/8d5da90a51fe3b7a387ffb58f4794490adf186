@@ -1,0 +1,26 @@
+frontend/src/ViewModels/DashboardViewModel.ts
+  h_94c952a9e14c58 1-10
+frontend/src/Models/PopUpModel.ts
+  h_94c952a9e14c58 1-3
+frontend/src/ViewModels/PopUpViewModel.ts
+  h_94c952a9e14c58 1-82
+frontend/src/Views/PopUp.tsx
+  h_94c952a9e14c58 1-226
+frontend/src/App.tsx
+  h_94c952a9e14c58 9,26
+frontend/src/services/websocket.service.tsx
+  h_94c952a9e14c58 1-73
+frontend/src/Views/Dashboard.tsx
+  h_94c952a9e14c58 13-16,19-23,69,71
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.5",
+  "base_commit_sha": "658d5da90a51fe3b7a387ffb58f4794490adf186",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
