@@ -10,3 +10,7 @@ export interface ProfileRoutes{
     gameGuide: '/gameGuide'; //need to verify eventually when routes are done
     settings: '/settings';
 }
+
+export const profileData : ProfileDetails{
+    
+}

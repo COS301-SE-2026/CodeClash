@@ -4,7 +4,7 @@ import SignIn from './pages/SignIn';
 import SignUp from './Views/SignUp';
 import MathFieldTest from './pages/MathFieldTest';
 import Dashboard from './pages/Dashboard';
-import Profile from './pages/Profile';
+import Profile from './Views/Profile';
 import Searching from './pages/queuePages/searching';
 import Found from './pages/queuePages/found';
 import ProgMatch from './pages/ProgMatch';
