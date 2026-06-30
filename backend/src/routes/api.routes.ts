@@ -18,8 +18,8 @@ router.get('/matches/:match_id/log', getMatchLog);
 
 //elo routes
 router.get('/leaderboard', getLeaderboard);
-router.get('/:user_id', getUserElo);
-router.get('/:user_id/history', getEloHistory);
+router.post('/elo', getUserElo),
+router.post('/elo-history',getEloHistory)
 router.post('/update', updateEloAfterMatch);
 
 export default router;

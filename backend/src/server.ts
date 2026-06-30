@@ -67,7 +67,12 @@ export const WSServer = () => {
         ws.on('message', (data) => handleMessage(ws, data.toString(), user));
         ws.on('close', () => handleDisconnect(ws, user));
         ws.on('error', (err) => handleError(ws, user, err));
-    })
+    });
+
+    const PORT = process.env.WS_PORT || 3030;
+    server.listen(PORT, () => {
+        console.log('WS server listening')
+    });
 
     return wss;
 }

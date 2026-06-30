@@ -4,18 +4,13 @@ import pool from '../config/db';
 // GET /api/elo/:user_id
 // Get current elo rating for a user
 export const getUserElo = async (req: Request, res: Response): Promise<void> => {
-  const { user_id } = req.params;
+  const { user_id } = req.body;
 
   try {
     const result = await pool.query(
       `SELECT 
-        e.elo_id,
-        e.user_id,
-        u.username,
-        e.rating,
-        e.updated_at
+        e.rating
        FROM elo_ratings e
-       JOIN users u ON u.user_id = e.user_id
        WHERE e.user_id = $1`,
       [user_id]
     );
@@ -25,7 +20,7 @@ export const getUserElo = async (req: Request, res: Response): Promise<void> => 
       return;
     }
 
-    res.status(200).json(result.rows[0]);
+    res.status(200).json({elo: result.rows[0]});
 
   } catch (error) {
     console.error('Error fetching elo rating:', error);
@@ -36,7 +31,7 @@ export const getUserElo = async (req: Request, res: Response): Promise<void> => 
 // GET /api/elo/:user_id/history
 // Get full elo history for a user
 export const getEloHistory = async (req: Request, res: Response): Promise<void> => {
-  const { user_id } = req.params;
+  const { user_id } = req.body;
 
   try {
     const result = await pool.query(
