@@ -5,7 +5,6 @@ export interface ProfileDetails{
     currentStreak: number;
 }
 
-
 export interface ProfileRoutes{
     gameGuide: '/gameGuide'; //need to verify eventually when routes are done
     settings: '/settings';
@@ -17,4 +16,8 @@ export const ProfileData : ProfileDetails = {
     playerLevel: 0,
     currentStreak: 0,
 
+}
+
+export class ProfileServices {
+    static async getProfile(userId: string): Promise<ProfileDetails>
 }
