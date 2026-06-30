@@ -30,7 +30,7 @@ const Profile: React.FC<ProfileProps> = ({
 
       <div className="w-[558px] bg-secondary rounded-[20px] px-10 py-12 flex flex-col items-center gap-5 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
 
-        <div className="profile-avatar" />
+        <div className="w-[86px] h-[86px] rounded-full bg-no-repeat" style={{backgroundImage: 'url(./Profile_Icon.png)', backgroundSize: '200% 200%', backgroundPosition: '-43px -43px'}} />
 
         <div className="profile-name">{userName}</div>
         <div className="profile-level">{playerLevel}</div>
