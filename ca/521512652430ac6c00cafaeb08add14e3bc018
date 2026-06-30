@@ -1,0 +1,19 @@
+frontend/@/components/ui/badge-variants.ts
+  s_624439c5f5c6d2::t_011c61da4ca510 26-27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.3",
+  "base_commit_sha": "ca521512652430ac6c00cafaeb08add14e3bc018",
+  "prompts": {},
+  "sessions": {
+    "s_624439c5f5c6d2": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_100080caaffe7XcWBarwqMfRah",
+        "model": "big-pickle"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
