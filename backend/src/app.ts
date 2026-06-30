@@ -7,6 +7,7 @@ import { IncomingMessage } from 'http'
 import UserDto from '../../dtos/matchmaking.dto';
 
 const app = express();
+app.listen(3000)
 app.disable('x-powered-by');
 
 app.use(cors({ origin: process.env.FRONTEND_URL || 'http://localhost:5173' }));
@@ -18,6 +19,9 @@ app.get('/health', (req: Request, res: Response) => {
   res.json({ status: 'ok' });
 });
 
+
+
+//  AWS COGNITO SETUP
 
 export interface CognitoUser {
   sub: string

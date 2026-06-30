@@ -70,9 +70,11 @@ export const WSServer = () => {
     });
 
     const PORT = process.env.WS_PORT || 3030;
-    server.listen(PORT, () => {
-        console.log('WS server listening')
-    });
+    server.listen(PORT);
 
     return wss;
 }
+
+
+// bootstrap server
+WSServer();
