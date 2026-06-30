@@ -1,0 +1,24 @@
+backend/src/controllers/elo.controllers.ts
+  h_94c952a9e14c58 7,23,34
+backend/redis-client.ts
+  h_94c952a9e14c58 2,5
+backend/src/app.ts
+  h_94c952a9e14c58 21
+backend/index.ts
+  h_94c952a9e14c58 1-6
+backend/src/server.ts
+  h_94c952a9e14c58 70-75
+backend/src/routes/api.routes.ts
+  h_94c952a9e14c58 21-22
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.5",
+  "base_commit_sha": "ea44380dd7e6a42cd8d53150c1b5118714603a9d",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
