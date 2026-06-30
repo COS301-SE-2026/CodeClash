@@ -5,6 +5,7 @@ import type { SignInForm, SignInContent } from "../Models/SignInModel";
 
 export interface SignInViewModelProps {
     onSignInSuccess: () => void;
+    onBack: () => void;
 }
 
 interface SignInViewModel {
