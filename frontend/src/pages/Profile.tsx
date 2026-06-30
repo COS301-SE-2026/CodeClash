@@ -34,8 +34,8 @@ const Profile: React.FC<ProfileProps> = ({
 
         <div className="text-secondary-text font-bold text-[40px] text-center">{userName}</div>
         <div className="text-secondary-text font-medium text-[23px]-mt-1">{playerLevel}</div>
-        <div className="profile-streak">Current Streak - {winStreak}</div>
-        <div className="profile-gameguide">Game Guide</div>
+        <div className="text-secondary-text font-normal text-[24px] text-center mt-[15px]">Current Streak - {winStreak}</div>
+        <div className="text-secondary-text font-normal text-[24px] text-center underline mt-5 cursor-pointer">Game Guide</div>
         <div className="profile-settings">Settings</div>
 
 
