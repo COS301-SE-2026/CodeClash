@@ -1,6 +1,6 @@
 import WebSocket from "ws";
-import MatchmakingUserDTO from "./dtos/matchmaking.dto";
-import { dequeue, enqueue, math_queue_length, prog_queue_length } from "./services/matchmaking.service"
+import MatchmakingUserDTO from "../../dtos/matchmaking.dto";
+import { dequeue, enqueue, math_queue_length, prog_queue_length } from "../matchmaking.service"
 import { removeConnection } from "./wsClients";
 
 

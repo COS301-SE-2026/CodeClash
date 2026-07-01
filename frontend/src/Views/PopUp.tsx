@@ -8,10 +8,10 @@ import WebSocketService from '../services/websocket.service';
 const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
-  console.log("setting selectTopic");
+  // console.log("setting selectTopic");
   const selectTopic = useSelectTopic();
 
-  console.log("setting Socket");
+  // console.log("setting Socket");
   const socket = WebSocketService();
 
   return (

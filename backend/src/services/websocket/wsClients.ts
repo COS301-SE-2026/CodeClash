@@ -1,5 +1,5 @@
 import WebSocket from "ws";
-import MatchmakingUserDTO from "./dtos/matchmaking.dto";
+import MatchmakingUserDTO from "../../dtos/matchmaking.dto";
 
 const clientList = new Map<MatchmakingUserDTO, WebSocket>();
 

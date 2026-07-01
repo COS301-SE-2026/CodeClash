@@ -11,7 +11,6 @@ import { initDB } from './config/db';
 initDB();
 
 const app = express();
-app.listen(3000)
 app.disable('x-powered-by');
 
 app.use(cors({ origin: process.env.FRONTEND_URL || 'http://localhost:5173' }));
