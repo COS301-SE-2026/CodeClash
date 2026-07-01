@@ -13,7 +13,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <AuthProvider>
     <BrowserRouter>
       {/* <App /> */}
-      <Popup/>
+      <Profile/>
     </BrowserRouter>
   </AuthProvider>
 

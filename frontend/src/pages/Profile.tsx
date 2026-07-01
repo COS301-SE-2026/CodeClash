@@ -22,7 +22,7 @@ const Profile: React.FC<ProfileProps> = ({
   return (
     <div className="relative w-full min-h-[1024px] bg-secondary mx-auto flex flex-col items-center justify-center">
 
-      <div className="absolute top-[59px] left-[125px] w-[150px] h-[50px] text-secondary-text font-semibold text-32px rounded-[35px] text-center flex items-center justify-center cursor-pointer hover:bg-[#ecd0db48] transition-colors" 
+      <div className="absolute top-[59px] left-[125px] w-[150px] h-[50px] text-secondary-text font-semibold text-[32px] rounded-[35px] text-center flex items-center justify-center cursor-pointer hover:bg-[#ecd0db48] transition-colors" 
       onClick={onBack}>
         ← Back
       </div>
@@ -32,7 +32,7 @@ const Profile: React.FC<ProfileProps> = ({
         <div className="w-[86px] h-[86px] rounded-full bg-no-repeat" style={{backgroundImage: 'url(./Profile_Icon.png)', backgroundSize: '200% 200%', backgroundPosition: '-43px -43px'}} />
 
         <div className="text-secondary-text font-bold text-[40px] text-center">{userName}</div>
-        <div className="text-secondary-text font-medium text-[23px]-mt-1">{playerLevel}</div>
+        <div className="text-secondary-text font-medium text-[24px] -mt-1">{playerLevel}</div>
         <div className="text-secondary-text font-normal text-[24px] text-center mt-[15px]">Current Streak - {winStreak}</div>
         <div className="text-secondary-text font-normal text-[24px] text-center underline mt-5 cursor-pointer">Game Guide</div>
         <div className="text-secondary-text font-normal text-[24px] text-center underline cursor-pointer">Settings</div>
