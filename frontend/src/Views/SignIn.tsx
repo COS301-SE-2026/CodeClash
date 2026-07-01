@@ -55,11 +55,15 @@ const SignIn: React.FC<SignInProps> = (props) => {
                         disabled={isLoading}
                     />
 
-                    <button className="text-primary-text text-sm underline hover:opacity-80"
-                        type="button"
-                    >
-                        Forgot password?
-                    </button>
+                    <label className="cursor-pointer text-primary-text" htmlFor="acceptTerms" style={{ fontSize: 'var(--font-size-sm' }}>
+                        <Link
+                            className="underline text-primary-text hover:text-[#FF6299]"
+                            to='/forgot-password'
+                            target="_blank"
+                        >
+                            Forgot password?
+                        </Link>
+                    </label>
 
                     <button className={buttonPrimaryClass}
                         type="button"
