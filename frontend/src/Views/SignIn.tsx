@@ -1,6 +1,6 @@
 import React from "react";
 import planetEarth from '../assets/Planets/Earth.png';
-import lightBeam from '../assets/Background/SignInBeam.png';
+import lightBeam from '../assets/Background/SignUpBeam.png';
 import { Link } from "react-router-dom";
 import { SignInViewModelFunction } from "../ViewModels/SignInViewModel";
 import type { SignInViewModelProps } from "../ViewModels/SignInViewModel";
@@ -32,9 +32,9 @@ const SignIn: React.FC<SignInProps> = (props) => {
             <div className="relative z-10 flex flex-col items-center" >
 
                 {/*Planet and Beam*/}
-                <div className="relative w-full flex flex-col items-center -mt-17">
+                <div className="relative w-full flex flex-col items-center">
+                    <img src={lightBeam} alt="" className="absolute bottom-[40%] w-full h-full pointer-events-none z-10" style={{ objectFit: 'cover', transform: 'scaleX(2.5) scaleY(3) rotate(180deg)', transformOrigin: 'bottom center', }} />
                     <img src={planetEarth} alt="UFO" className="w-[480px] h-auto object-contain z-30" />
-                    <img src={lightBeam} alt="" className="absolute inset-0 w-full h-full pointer-events-none z-10" style={{ objectFit: 'cover', transform: 'scaleX(2.5) scaleY(3)', transformOrigin: 'top center', }} />
                 </div>
 
                 <div className="relative z-20 flex flex-col items-center gap-4 w-full -mt-[12%] mb-[2%]">
@@ -44,6 +44,29 @@ const SignIn: React.FC<SignInProps> = (props) => {
                     {displayError && (
                         <p className="text-danger text-center"> {displayError} </p>
                     )}
+
+                    <input className={fieldClass}
+                        type="email"
+                        placeholder="Email address"
+                        value={form.email}
+                        onChange={(e) => setField('email', e.target.value)}
+                        disabled={isLoading}
+                    />
+
+                    <input className={fieldClass}
+                        type="password"
+                        placeholder="Password"
+                        value={form.password}
+                        onChange={(e) => setField('password', e.target.value)}
+                        disabled={isLoading}
+                    />
+
+                    <button className={buttonPrimaryClass}
+                        type="button"
+                        onClick={handleSubmit}
+                        disabled={isLoading} >
+                        {isLoading ? 'Signing in..' : 'Sign in'}
+                    </button>
                 </div>
             </div>
         </div>
