@@ -1,0 +1,34 @@
+backend/src/controllers/elo.controllers.ts
+  h_94c952a9e14c58 197-198,201
+backend/src/services/matchmaking.service.ts
+  h_94c952a9e14c58 2
+backend/src/wsMessageHandler.ts
+  h_94c952a9e14c58 2
+backend/src/app.ts
+  h_94c952a9e14c58 7,10,70,127
+backend/src/wsClients.ts
+  h_94c952a9e14c58 2
+backend/Dockerfile
+  h_94c952a9e14c58 12
+backend/package.json
+  h_94c952a9e14c58 11
+backend/src/server.ts
+  h_94c952a9e14c58 5,11,23
+backend/index.ts
+  h_94c952a9e14c58 3-4
+backend/tsconfig.json
+  h_94c952a9e14c58 6
+backend/src/config/db.ts
+  h_94c952a9e14c58 3,24-25,28-32,35-40,42,49,56,61-71,73-75,78-79,84
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.8",
+  "base_commit_sha": "fe2cc4bf6bb15e6507fbbf2ca1b0b2b2abbae906",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
