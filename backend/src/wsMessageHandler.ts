@@ -1,10 +1,10 @@
 import WebSocket from "ws";
-import UserDto from "../../frontend/src/dtos/matchmaking.dto";
+import MatchmakingUserDTO from "./dtos/matchmaking.dto";
 import { dequeue, enqueue, math_queue_length, prog_queue_length } from "./services/matchmaking.service"
 import { removeConnection } from "./wsClients";
 
 
-export const handleMessage = async (ws: WebSocket, data: string, client: UserDto) => {
+export const handleMessage = async (ws: WebSocket, data: string, client: MatchmakingUserDTO) => {
     let message: any;
 
     try {
@@ -31,13 +31,13 @@ export const handleMessage = async (ws: WebSocket, data: string, client: UserDto
     }
 }
 
-export const handleDisconnect = async (ws: WebSocket, user: UserDto) => {
+export const handleDisconnect = async (ws: WebSocket, user: MatchmakingUserDTO) => {
     await dequeue(user.id, user.game_mode);
     removeConnection(user);
     ws.send(JSON.stringify({ type: 'DEQUEUED' }));
 }
 
 
-export const handleError = async (ws: WebSocket, user: UserDto, err: Error) => {
+export const handleError = async (ws: WebSocket, user: MatchmakingUserDTO, err: Error) => {
     ws.send(JSON.stringify({ type: 'ERROR', message: err.message }))
 }
