@@ -31,12 +31,6 @@ const SignIn: React.FC<SignInProps> = (props) => {
 
             <div className="relative z-10 flex flex-col items-center" >
 
-                {/*Planet and Beam*/}
-                <div className="relative w-full flex flex-col items-center">
-                    <img src={lightBeam} alt="" className="absolute bottom-[40%] w-full h-full pointer-events-none z-10" style={{ objectFit: 'cover', transform: 'scaleX(2.5) scaleY(3) rotate(180deg)', transformOrigin: 'bottom center', }} />
-                    <img src={planetEarth} alt="UFO" className="w-[480px] h-auto object-contain z-30" />
-                </div>
-
                 <div className="relative z-20 flex flex-col items-center gap-4 w-full -mt-[12%] mb-[2%]">
                     <h1 className="heading text-center -mb-2"> {content.title} </h1>
                     <p className="heading-sub mb-2"> {content.tagline} </p>
@@ -67,10 +61,26 @@ const SignIn: React.FC<SignInProps> = (props) => {
                         disabled={isLoading} >
                         {isLoading ? 'Signing in..' : 'Sign in'}
                     </button>
+
+                    <div className = "flex flex-col items-center gap-1">
+                        <span className="text-primary-text text-sm font-heading">Are you a new user?</span>
+                        <Link
+                            className=" text-primary-text text-sm underline"
+                            to="/sign-up"
+                        >
+                            Sign up
+                        </Link>
+                    </div>
+
+                    {/*Planet and Beam*/}
+                    <div className="relative w-full flex flex-col items-center">
+                        <img src={lightBeam} alt="" className="absolute bottom-[40%] w-full h-full pointer-events-none z-10" style={{ objectFit: 'cover', transform: 'scaleX(2.5) scaleY(3) rotate(180deg)', transformOrigin: 'bottom center', }} />
+                        <img src={planetEarth} alt="UFO" className="w-[480px] h-auto object-contain z-30" />
+                    </div>
                 </div>
             </div>
         </div>
-    )
+    );
 };
 
 export default SignIn;
