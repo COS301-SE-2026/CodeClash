@@ -2,13 +2,13 @@ import app from './app';
 import { createServer, IncomingMessage } from 'http';
 import { WebSocket, WebSocketServer } from 'ws';
 import { authenticate } from './app'
-import UserDto from '../../dtos/matchmaking.dto';
+import MatchmakingUserDTO from './dtos/matchmaking.dto';
 import { handleMessage, handleDisconnect, handleError } from './wsMessageHandler';
 import { getConnection, removeConnection } from './wsClients';
 
 declare module 'http' {
     interface IncomingMessage {
-        userDto?: UserDto //this lets us attach the user to the sent request
+        userDto?: MatchmakingUserDTO //this lets us attach the user to the sent request
     }
 }
 
@@ -20,7 +20,7 @@ export const WSServer = () => {
     // authorise before handshake confirmed
     server.on('upgrade', async (req: IncomingMessage, socket, head) => {
         try {
-            const user = await authenticate(req, null, null) as UserDto
+            const user = await authenticate(req, null, null) as MatchmakingUserDTO
 
             if (!user) {
                 socket.write('HTTP/1.1 404 User Not Found\r\n\r\n');
@@ -74,7 +74,3 @@ export const WSServer = () => {
 
     return wss;
 }
-
-
-// bootstrap server
-WSServer();

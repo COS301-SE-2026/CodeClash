@@ -194,8 +194,11 @@ export const updateEloAfterMatch = async (req: Request, res: Response): Promise<
 // sets user elo 
 export const setUserElo = async (req: Request, res: Response): Promise<void> => {
   const { user_id } = req.body;
+
+  console.log("setting user elo")
   const client = await pool.connect();
 
+  console.log("pool connected")
 
   try {
     await client.query('BEGIN');

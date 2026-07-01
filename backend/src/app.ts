@@ -4,9 +4,9 @@ import eloRoutes from './routes/api.routes';
 import matchRoutes from './routes/api.routes';
 import jwt, { type JwtPayload } from 'jsonwebtoken'
 import { IncomingMessage } from 'http'
-import UserDto from '../../dtos/matchmaking.dto';
-import dotenv from 'dotenv/config'
+import MatchmakingUserDTO from './dtos/matchmaking.dto';
 import { initDB } from './config/db';
+
 
 initDB();
 
@@ -67,7 +67,7 @@ function jwkToPem(jwk: any): string {
   return `-----BEGIN PUBLIC KEY-----\n${pemBody}\n-----END PUBLIC KEY-----`
 }
 
-export const authenticate = async (req: Request | IncomingMessage, res: Response | null, next: NextFunction | null): Promise<UserDto | void> => {
+export const authenticate = async (req: Request | IncomingMessage, res: Response | null, next: NextFunction | null): Promise<MatchmakingUserDTO | void> => {
 
   let token: string | null = null
 
@@ -124,7 +124,7 @@ export const authenticate = async (req: Request | IncomingMessage, res: Response
       }) as JwtPayload
 
       const cognitoUser: CognitoUser = { sub: payload.sub!, email: payload.email }
-      const user = new UserDto(payload.id, payload.elo, payload.game_mode)
+      const user = new MatchmakingUserDTO(payload.id, payload.elo, payload.game_mode)
 
       if (res !== null) {
         //for express - attach to req and call next - whenever value of res is known, the case is to be used by express!
