@@ -31,26 +31,24 @@ export function useSelectTopic() {
         try {
             console.log('sending axios')
 
-            axios.get('http://localhost:3000/elo', {
-                headers: { Authorization: `Bearer ${token}` }
-            })
-                .then((res) => {
-                    if (res.status === 200)
-                        setElo(res.data.elo)
-                    else {
-                        console.log(`Error: ${res.status}`)
-                        console.log(`${res.data}`);
-                    }
-                })
+            // axios.get('http://localhost:3000/elo', {
+            //     headers: { Authorization: `Bearer ${token}` }
+            // })
+            //     .then((res) => {
+            //         if (res.status === 200)
+            //             setElo(res.data.elo)
+            //         else {
+            //             console.log(`Error: ${res.status}`)
+            //             console.log(`${res.data}`);
+            //         }
+            //     })
 
-                console.log('after axios')
+            console.log('after axios')
         }
         catch {
             console.log('Error sending request')
         }
     }, [])
-
-    console.log("after use effect")
 
     const selectTopic = (selected_topic: string, socket: WebSocket | null) => {
         setTopic(selected_topic);
@@ -64,13 +62,14 @@ export function useSelectTopic() {
 
         try {
             // send request to add user to matchmaking queue
-            socket?.send(data);
+            // socket?.send(data);
+            console.log("SENDING DATA THROUGH SOCKET");
         }
         catch {
 
         }
 
-        navigation('/searching');
+        // navigation('/searching');
     }
     return selectTopic;
 }

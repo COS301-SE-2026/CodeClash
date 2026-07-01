@@ -1,5 +1,5 @@
 // websocket client
-import MatchmakingUserDTO from 'root/dtos/matchmaking.dto';
+import MatchmakingUserDTO from '../dtos/matchmaking.dto';
 import { useEffect, useState } from "react";
 
 const WebSocketService = () => {

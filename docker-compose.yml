@@ -3,6 +3,7 @@ services:
     build: ./backend
     ports:
       - "3000:3000"
+      - "3030:3030"
     environment:
       - DATABASE_URL=postgresql://postgres:password@db:5432/codeclash
     depends_on:
