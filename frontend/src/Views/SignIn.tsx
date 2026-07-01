@@ -1,6 +1,6 @@
 import React from "react";
 import planetEarth from '../assets/Planets/Earth.png';
-import lightBeam from '../assets/Background/SignUpBeam.png';
+import lightBeam from '../assets/Background/SignInBeam.png';
 import { Link } from "react-router-dom";
 import { SignInViewModelFunction } from "../ViewModels/SignInViewModel";
 import type { SignInViewModelProps } from "../ViewModels/SignInViewModel";
@@ -31,9 +31,9 @@ const SignIn: React.FC<SignInProps> = (props) => {
 
             <div className="relative z-10 flex flex-col items-center" >
 
-                <div className="relative z-20 flex flex-col items-center gap-4 w-full -mt-[12%] mb-[2%]">
-                    <h1 className="heading text-center -mb-2"> {content.title} </h1>
-                    <p className="heading-sub mb-2"> {content.tagline} </p>
+                <div className="relative z-20 flex flex-col items-center gap-6 w-full max-w-[520px] mt-[50%] mb-[2%]">
+                    <h1 className="heading text-center -mb-4"> {content.title} </h1>
+                    <p className="heading-sub text-center mb-4"> {content.tagline} </p>
 
                     {displayError && (
                         <p className="text-danger text-center"> {displayError} </p>
@@ -55,6 +55,12 @@ const SignIn: React.FC<SignInProps> = (props) => {
                         disabled={isLoading}
                     />
 
+                    <button className="text-primary-text text-sm underline hover:opacity-80"
+                        type="button"
+                    >
+                        Forgot password?
+                    </button>
+
                     <button className={buttonPrimaryClass}
                         type="button"
                         onClick={handleSubmit}
@@ -71,12 +77,12 @@ const SignIn: React.FC<SignInProps> = (props) => {
                             Sign up
                         </Link>
                     </div>
-
-                    {/*Planet and Beam*/}
-                    <div className="relative w-full flex flex-col items-center">
-                        <img src={lightBeam} alt="" className="absolute bottom-[40%] w-full h-full pointer-events-none z-10" style={{ objectFit: 'cover', transform: 'scaleX(2.5) scaleY(3) rotate(180deg)', transformOrigin: 'bottom center', }} />
-                        <img src={planetEarth} alt="UFO" className="w-[480px] h-auto object-contain z-30" />
-                    </div>
+                </div>
+                
+                {/*Planet and Beam*/}
+                <div className="relative w-full flex flex-col items-center mt-6">
+                    <img src={lightBeam} alt="" className="absolute bottom-[35%] w-full h-full pointer-events-none z-10" style={{ objectFit: 'cover', transform: 'scaleX(2.5) scaleY(4)', transformOrigin: 'bottom center', }} />
+                    <img src={planetEarth} alt="UFO" className="relative w-[600px] h-auto object-contain z-30 mt-8" />
                 </div>
             </div>
         </div>
