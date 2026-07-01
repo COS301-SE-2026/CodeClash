@@ -9,11 +9,11 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-white hover:bg-primary/80",
+        default: "bg-primary text-primary-foreground hover:bg-primary/80",
         outline:
-          "border-border bg-background hover:bg-muted hover:text-foreground  aria-expanded:bg-muted aria-expanded:text-foreground dark:bg-transparent dark:hover:bg-input/30",
+          "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:bg-transparent dark:hover:bg-input/30",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
+          "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
         ghost:
           "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50",
         destructive:
@@ -44,12 +44,10 @@ function Button({
   variant = "default",
   size = "default",
   asChild = false,
-  active,
   ...props
 }: React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
-    asChild?: boolean,
-    active: boolean
+    asChild?: boolean
   }) {
   const Comp = asChild ? Slot.Root : "button"
 
@@ -58,8 +56,7 @@ function Button({
       data-slot="button"
       data-variant={variant}
       data-size={size}
-      disabled={!active}
-      className={cn(buttonVariants({ variant, size, className}), "transform hover:scale-110 transition duration-200 ease-in-out")}
+      className={cn(buttonVariants({ variant, size, className }))}
       {...props}
     />
   )

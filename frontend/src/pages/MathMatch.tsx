@@ -1,14 +1,14 @@
 import MathField from '../../@/components/features/MathField.tsx';
 import { useState } from 'react';
-import { Button } from '@/components/ui/button.tsx';
+import { Link } from 'react-router-dom';
 
-const MathFieldTest = ({ back }: { back: () => void }) => {
+const MathMatch= () => {
   const [currentValue, setCurrentValue] = useState<string>('');
 
   return (
     <div style={{ padding: '2rem', maxWidth: '800px', margin: '0 auto' }}>
       <h1>MathField Test Page</h1>
-      <Button active={true} onClick={back} className="w-[15%] absolute left-5" variant={'outline'} >Exit</Button>
+      <Link to='/dashboard'>Back</Link>
       <h2>Math Input:</h2>
       <MathField onValueChange={(val) => setCurrentValue(val)} />
 
@@ -24,4 +24,4 @@ const MathFieldTest = ({ back }: { back: () => void }) => {
   );
 };
 
-export default MathFieldTest;
+export default MathMatch;
