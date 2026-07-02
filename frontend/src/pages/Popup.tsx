@@ -87,7 +87,15 @@ const Popup: React.FC<PopupProps> = ({onMath, onProg, onCancel}) => {
                     </div>
                 </div>
                 <div className="text-[32px] text-black font-[var(--heading)] font-extrabold underline mt-5" 
-                    onClick={onCancel}>Cancel</div>
+                    onClick={onCancel}
+                    tabIndex={0}
+                    onKeyDown={(e) =>{
+                        const shift = e.shiftKey;
+                        if(shift && e.key === 'Esc'){
+                            onCancel?.();
+                        }
+                    }}
+                    >Cancel</div>
                 </div>
             </div>
         </div>
