@@ -1,5 +1,5 @@
 import '../styles/global.css'
-import React from "react"
+import React, { useEffect } from "react"
 
 interface PopupProps{
     onMath? : () => void;
@@ -9,7 +9,14 @@ interface PopupProps{
 
 
 const Popup: React.FC<PopupProps> = ({onMath, onProg, onCancel}) => {
-
+    useEffect(() => {
+        const math = (e: KeyboardEvent) => {
+            const alt = e.altKey;
+            if (alt && e.key === 'L'){
+                onMath?.();
+            }
+        }
+    })
     return(
         <div className="min-h-screen w-full bg-[var(--secondary)] flex items-center justify-center p-6 bg-[url(./robot.png)] bg-center bg-no-repeat bg-size-[auto_800px]">
             <div className="relative w-xl">
@@ -22,11 +29,19 @@ const Popup: React.FC<PopupProps> = ({onMath, onProg, onCancel}) => {
                     <h2 className="text-[24px] font-[var(--heading)] font-medium text-[var(--secondary-text)] text-center justify-center mt-2">What would you like to be challenged on?</h2>
                 
                 <div className="grid grid-flow-col grid-cols-2 gap-4 ml-8 mr-8 mt-15 h-45">
-                    <div className="bg-[var(--secondary)] rounded-3xl text-center text-[var(--secondary-text)] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mr-2 transition-all duration-200 hover:bg-rose-200 hover:-translate-y-px active-translate-y-0" onClick={onMath}>
+                    <div className="bg-[var(--secondary)] rounded-3xl text-center text-[var(--secondary-text)] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mr-2 transition-all duration-200 hover:bg-rose-200 hover:-translate-y-px active:translate-y-0" 
+                        onClick={onMath}
+                        onKeyDown={(e) => {
+                            const alt = e.altKey;
+                            if(alt && e.key === 'L'){
+                                onMath?.();
+                            }
+                        }}
+                        >
                         <h1 className="text-[32px] text-[var(--secondary-text)] font-[var(--heading)] font-bold mt-5">+ -</h1>
                         <h2 className="text-[32px] text-[var(--secondary-text)] font-[var(--heading)] font-bold mt-3">Math</h2>
                         </div>
-                    <div className="bg-[var(--secondary)] rounded-3xl text-center text-[var(--secondary-text)] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] ml-2 transition-all duration-200 hover:bg-rose-200 hover:-translate-y-px active-translate-y-0" onClick={onProg}>
+                    <div className="bg-[var(--secondary)] rounded-3xl text-center text-[var(--secondary-text)] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] ml-2 transition-all duration-200 hover:bg-rose-200 hover:-translate-y-px active:translate-y-0" onClick={onProg}>
                         <h1 className="text-[32px] text-[var(--secondary-text)] font-[var(--heading)] font-bold mt-5">{"</>"}</h1>
                         <h2 className="text-[32px] text-[var(--secondary-text)] font-[var(--heading)] font-bold mt-3">Programming</h2>
                     </div>
