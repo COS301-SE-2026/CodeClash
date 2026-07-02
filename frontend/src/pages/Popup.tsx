@@ -74,7 +74,14 @@ const Popup: React.FC<PopupProps> = ({onMath, onProg, onCancel}) => {
                         <h2 className="text-[32px] text-[var(--secondary-text)] font-[var(--heading)] font-bold mt-3">Math</h2>
                         </div>
                     <div className="bg-[var(--secondary)] rounded-3xl text-center text-[var(--secondary-text)] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] ml-2 transition-all duration-200 hover:bg-rose-200 hover:-translate-y-px active:translate-y-0" 
-                        onClick={onProg}>
+                        onClick={onProg}
+                        tabIndex={0}
+                        onKeyDown={(e) => {
+                            const shift = e.shiftKey;
+                            if(shift && e.key === 'R'){
+                                onProg?.();
+                            }
+                        }}>
                         <h1 className="text-[32px] text-[var(--secondary-text)] font-[var(--heading)] font-bold mt-5">{"</>"}</h1>
                         <h2 className="text-[32px] text-[var(--secondary-text)] font-[var(--heading)] font-bold mt-3">Programming</h2>
                     </div>
