@@ -8,13 +8,16 @@ import { validToken, accessDenied, getEmail } from '../services/auth.service';
 export const getUserElo = async (req: Request, res: Response): Promise<void> => {
   const token = req.headers.authorization?.split(' ')[1];
 
-  const user = validToken(token!);
+  const user = await validToken(token!);
   if (!user) {
     res.status(404).json(accessDenied);
     return;
   }
 
-  const email = getEmail();
+  console.log("user ", user);
+  const email = await getEmail(user.user_Id);
+
+  console.log("Email ",email)
 
   if (email === null) {
     res.status(404).json(accessDenied);
@@ -32,7 +35,7 @@ export const getUserElo = async (req: Request, res: Response): Promise<void> => 
     );
 
     if (result.rows.length === 0) {
-      res.status(404).json({ message: 'Elo rating not found for this user' });
+      res.status(404).json({ message: `Elo rating not found for this user: ${email}` });
       return;
     }
 

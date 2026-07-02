@@ -1,43 +1,51 @@
-import { io } from 'socket.io-client'
+import { io, Socket } from 'socket.io-client'
 import { fetchAuthSession } from 'aws-amplify/auth';
 import MatchmakingUserDTO from '../dtos/matchmaking.dto';
 
 const env = import.meta.env;
-const session = await fetchAuthSession()
-const token = session.tokens?.accessToken
+let socket: Socket | null = null;
 
-const options = {
-    withCredentials: true,
-    auth: {
-        token: token?.toString()
+export async function createSocket() {
+    const session = await fetchAuthSession()
+    const token = session.tokens?.accessToken
+
+    const options = {
+        auth: {
+            token: token?.toString()
+        }
     }
-}
 
-const socket = io(env.VITE_WEBSOCKET_URL, options)
+    socket = io(env.VITE_WEBSOCKET_URL, options)
+    return socket
+}
 /// websocket handlers for server responses 
 
 // starts chain to spin up a match
-function handleMatched(){}
+function handleMatched(socket: Socket) {
+    socket.on("users_matched", (data) => {
+        console.log("Users have been matched")
+    })
+}
 
 // handles question submissions during a game
-function handleSubmit(){}
+function handleSubmit() { }
 
 // handles game finalisation and conclusion
-function handleGameEnd(){}
+function handleGameEnd() { }
 
 
 
 /// websocket functions for the app
-export function joinMatchQueue(user: MatchmakingUserDTO){
-    socket.emit("join_match_queue",JSON.stringify({
-        data: user
-    }))
+export function joinMatchQueue(data: MatchmakingUserDTO) {
+    socket?.emit("join_match_queue", data)
+
+    console.log("sent")
 }
 
-export function submitQuestion(){}
+export function submitQuestion() { }
 
-export function finishGame(){}
+export function finishGame() { }
 
-export function quitGame(){}
+export function quitGame() { }
 
 

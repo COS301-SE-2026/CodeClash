@@ -33,7 +33,7 @@ export const cognito_identity_client = new CognitoIdentityProviderClient({
   }
 });
 
-export async function getEmail() {
+export async function getEmail(user_id:string) {
 
   try {
 
@@ -42,7 +42,7 @@ export async function getEmail() {
 
     const command = new AdminGetUserCommand({
       UserPoolId: process.env.COGNITO_USER_POOL_ID,
-      Username: process.env.COGNITO_CLIENT_ID
+      Username: user_id
     });
 
     const response = await client.send(command)
@@ -52,7 +52,8 @@ export async function getEmail() {
     return email;
 
   }
-  catch {
+  catch (err) {
+    console.log("get email error: ", err);
     return null;
   }
 }

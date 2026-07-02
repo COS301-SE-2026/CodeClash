@@ -1,6 +1,13 @@
 services:
   backend:
     build: ./backend
+    develop:
+      watch:
+        - action: sync
+          path: ./backend/src/
+          target: /app/src
+        - action: rebuild
+          path: ./backend/package.json
     ports:
       - "3000:3000"
     environment:

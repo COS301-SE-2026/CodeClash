@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from 'axios'
 import { fetchAuthSession } from "aws-amplify/auth";
 import { useNavigate } from "react-router-dom";
+import { joinMatchQueue } from "../services/websocket.service";
+import MatchmakingUserDTO from "../dtos/matchmaking.dto";
 
 
 const getUserToken = async () => {
@@ -45,26 +47,17 @@ export function useSelectTopic() {
         }
     }, [])
 
+    console.log("Elo: ", elo);
+
     const selectTopic = (selected_topic: string) => {
         setTopic(selected_topic);
 
-        const data = JSON.stringify({
-            type: 'ENQUEUE',
-            game_mode: topic,
-            id: token,
-            elo: elo
-        })
+        const data = new MatchmakingUserDTO(elo, selected_topic)
 
-        try {
-            // send request to add user to matchmaking queue
-            // socket?.send(data);
-            console.log("SENDING DATA THROUGH SOCKET");
-            navigation('/searching');
-        }
-        catch {
+        joinMatchQueue(data)
+        console.log("SENDING DATA THROUGH SOCKET");
 
-        }
-
+       // navigation('/searching');
 
     }
     return selectTopic;
