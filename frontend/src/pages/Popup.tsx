@@ -43,7 +43,11 @@ const Popup: React.FC<PopupProps> = ({onMath, onProg, onCancel}) => {
                 onCancel?.();
             }
         }
-    })
+
+        window.addEventListener('keydown', cancel);
+
+        return () => window.removeEventListener('keydown', cancel);
+    }, [onCancel]);
 
     return(
         <div className="min-h-screen w-full bg-[var(--secondary)] flex items-center justify-center p-6 bg-[url(./robot.png)] bg-center bg-no-repeat bg-size-[auto_800px]">
