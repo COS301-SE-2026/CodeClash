@@ -14,7 +14,7 @@ const getUserToken = async () => {
 export function useSelectTopic() {
     const navigation = useNavigate();
 
-    console.log('useSelectTopic');
+   // console.log('useSelectTopic');
 
     const token = getUserToken.toString();
 
@@ -29,7 +29,7 @@ export function useSelectTopic() {
     useEffect(() => {
 
         try {
-            console.log('sending axios')
+            //console.log('sending axios')
 
             // axios.get('http://localhost:3000/elo', {
             //     headers: { Authorization: `Bearer ${token}` }
@@ -43,7 +43,7 @@ export function useSelectTopic() {
             //         }
             //     })
 
-            console.log('after axios')
+           // console.log('after axios')
         }
         catch {
             console.log('Error sending request')
