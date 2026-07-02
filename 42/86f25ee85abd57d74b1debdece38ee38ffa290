@@ -1,0 +1,20 @@
+frontend/src/Views/Welcome.tsx
+  h_94c952a9e14c58 7
+frontend/src/ViewModels/WelcomeViewModel.ts
+  h_94c952a9e14c58 3
+backend/src/verifyToken.ts
+  h_94c952a9e14c58 1
+backend/src/server.ts
+  h_94c952a9e14c58 43
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.8",
+  "base_commit_sha": "4286f25ee85abd57d74b1debdece38ee38ffa290",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
