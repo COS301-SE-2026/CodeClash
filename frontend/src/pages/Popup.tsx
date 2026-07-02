@@ -15,8 +15,12 @@ const Popup: React.FC<PopupProps> = ({onMath, onProg, onCancel}) => {
             if (alt && e.key === 'L'){
                 onMath?.();
             }
-        }
-    })
+        };
+
+        window.addEventListener('keydown', math);
+        
+        return () => window.removeEventListener('keydown', math);
+    }, [onMath])
     return(
         <div className="min-h-screen w-full bg-[var(--secondary)] flex items-center justify-center p-6 bg-[url(./robot.png)] bg-center bg-no-repeat bg-size-[auto_800px]">
             <div className="relative w-xl">
