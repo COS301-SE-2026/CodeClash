@@ -11,7 +11,6 @@ import { initDB } from './config/db';
 initDB();
 
 const app = express();
-app.listen(3000)
 app.disable('x-powered-by');
 
 app.use(cors({ origin: process.env.FRONTEND_URL || 'http://localhost:5173' }));
@@ -65,83 +64,6 @@ function jwkToPem(jwk: any): string {
   const exponentB64 = base64UrlEncode(exponent)
   const pemBody = `MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA${modulusB64}${exponentB64}`
   return `-----BEGIN PUBLIC KEY-----\n${pemBody}\n-----END PUBLIC KEY-----`
-}
-
-export const authenticate = async (req: Request | IncomingMessage, res: Response | null, next: NextFunction | null): Promise<MatchmakingUserDTO | void> => {
-
-  let token: string | null = null
-
-  if (res !== null) {
-    //below is rest route, THIS IS USED FOR EXPRESS, ALLOWS NTU'S ORIGINAL CODE TO WORK AS INTENDED, WE WILL USE THIS CODE FOR A LOT OF THE REST API ROUTES TO FETCH CERTAIN THINGS (SIMPLE FETCHES WON'T NEED WEBSOCKETS, THAT WOULD BE EXCESSIVE)
-    const header = (req as Request).headers.authorization
-    if (!header?.startsWith('Bearer ')) {
-      (res as Response).status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Missing or invalid Authorization header' } })
-      return
-    }
-    token = header.slice(7)
-  }
-  else {
-    //below is used when working with WebSockets, it is Node http
-    const url = new URL(req.url!, `http://${req.headers.host}`)
-    token = url.searchParams.get('token')
-  }
-
-  if (token === null) {
-    if (res !== null) {
-      (res as Response).status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Missing token' } })
-    }
-    return
-  }
-
-
-  try {
-
-    const decoded = jwt.decode(token, { complete: true })
-
-    if (!decoded || typeof decoded === 'string' || !decoded.header.kid) {
-      if (res) {
-        (res as Response).status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Invalid token' } })
-        return
-      }
-    }
-
-    else {
-
-      const keys = await getJwks()
-      const key = keys.find((k: any) => k.kid === decoded.header.kid)
-      if (!key) {
-        if (res) {
-          (res as Response).status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Invalid token key' } })
-        }
-        return
-
-      }
-
-      const pem = jwkToPem(key)
-      const payload = jwt.verify(token, pem, {
-        algorithms: ['RS256'],
-        issuer: `https://cognito-idp.${process.env.COGNITO_REGION}.amazonaws.com/${process.env.COGNITO_USER_POOL_ID}`,
-      }) as JwtPayload
-
-      const cognitoUser: CognitoUser = { sub: payload.sub!, email: payload.email }
-      const user = new MatchmakingUserDTO(payload.id, payload.elo, payload.game_mode)
-
-      if (res !== null) {
-        //for express - attach to req and call next - whenever value of res is known, the case is to be used by express!
-        (req as Request).user = cognitoUser
-        next?.()
-      }
-      else {
-        //for websockets - return user to wherever it is called - res is not known, hence for websockets
-        return user
-      }
-    }
-  } catch {
-    if (res) {
-      (res as Response).status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Token verification failed' } })
-    }
-  }
-
 }
 
 export default app;

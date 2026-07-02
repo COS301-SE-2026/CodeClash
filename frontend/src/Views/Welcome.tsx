@@ -3,15 +3,9 @@ import helloRobot from '../assets/HelloRobot_Pink.png';
 import symbolBackground from '../assets/SymbolBackground.png';
 import { Link } from 'react-router-dom';
 import { WelcomeViewModelFunction } from '../ViewModels/WelcomeViewModel.ts';
-import type { WelcomeViewModelProps } from '../ViewModels/WelcomeViewModel.ts';
 
-interface WelcomeProps extends WelcomeViewModelProps { }
-
-const Welcome: React.FC<WelcomeProps> = ({ onSignIn, onSignUp }) => {
-  const { content} = WelcomeViewModelFunction({
-    onSignIn,
-    onSignUp,
-  });
+const Welcome: React.FC = () => {
+  const { content} = WelcomeViewModelFunction();
 
   return (
     <div className="min-h-screen w-full flex items-center overflow-hidden px-[8%]"

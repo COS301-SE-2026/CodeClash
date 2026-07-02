@@ -1,76 +1,47 @@
-import app from './app';
-import { createServer, IncomingMessage } from 'http';
-import { WebSocket, WebSocketServer } from 'ws';
-import { authenticate } from './app'
-import MatchmakingUserDTO from './dtos/matchmaking.dto';
-import { handleMessage, handleDisconnect, handleError } from './wsMessageHandler';
-import { getConnection, removeConnection } from './wsClients';
+import { createServer } from 'node:http';
+import { Server } from 'socket.io'
+import { validToken } from './verifyToken';
+import app from '../../app';
 
-declare module 'http' {
-    interface IncomingMessage {
-        userDto?: MatchmakingUserDTO //this lets us attach the user to the sent request
-    }
+import dotnev from 'dotenv'
+dotnev.config()
+
+const options = {
+    cors: {
+        origin: [process.env.FRONTEND_URL!]
+    },
 }
 
-export const WSServer = () => {
+const httpServer = createServer(app)     // can update to https
 
-    const server = createServer(app);
-    const wss = new WebSocketServer({ noServer: true })
+const io = new Server(httpServer, options);
 
-    // authorise before handshake confirmed
-    server.on('upgrade', async (req: IncomingMessage, socket, head) => {
-        try {
-            const user = await authenticate(req, null, null) as MatchmakingUserDTO
+// middleware -fires before the connection
+io.use(async (socket, next) => {
+    const token = socket.handshake.auth.token;
 
-            if (!user) {
-                socket.write('HTTP/1.1 404 User Not Found\r\n\r\n');
-                socket.destroy();
-                return;
-            }
+    if (!token) return next(new Error("Authenticaion error: No token provided"));
 
-            // allow connection upgrade
-            req.userDto = user;
-            wss.handleUpgrade(req, socket, head, (ws) => {
-                wss.emit('connection', ws, req)
-            })
+    const valid = await validToken(token)
+    if (valid) {
+        socket.data.user_id = valid.id;
+        next();
+    }
+    else next(new Error("Authentication error: Invalid token"));
+})
 
-        }
-        catch {
-            socket.write('HTTP/1.1 401 Unauthorised\r\n\r\n');
-            socket.destroy();
-        }
+
+io.on("connection", (socket) => {
+    socket.on('join_match_queue', (data) => {
+        //adds users to a room 
+        socket.join(data.game_mode)
     })
 
-    //now the actual websocket connection must be created
-    wss.on('connection', (ws: WebSocket, req: IncomingMessage) => {
+    socket.on('leave_mach_queue', (data) => {
 
-        const user = req.userDto!;
+    })
+})
 
-        const isExisting = getConnection(user)
+httpServer.listen(3000);
 
-        // if the user already has a connection replace it with a new one
-        if (isExisting) {
-            isExisting.close(1000, 'Replaced by new connection');
-            removeConnection(user);
-        }
-
-        console.log(`WS Connection for User: ${user.id}`);
-
-        // send confirmation to client
-        ws.send(JSON.stringify({
-            type: 'SESSION_OPEN',
-            id: user.id,
-            elo: user.elo,
-            joinedAt: user.joined_at
-        }))
-
-        ws.on('message', (data) => handleMessage(ws, data.toString(), user));
-        ws.on('close', () => handleDisconnect(ws, user));
-        ws.on('error', (err) => handleError(ws, user, err));
-    });
-
-    const PORT = process.env.WS_PORT || 3030;
-    server.listen(PORT);
-
-    return wss;
-}
+export default httpServer
