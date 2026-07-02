@@ -2,13 +2,16 @@ import { createServer } from 'node:http';
 import { Server } from 'socket.io'
 import { validToken } from './services/auth.service';
 import app from './app';
+import { matchmaking } from './services/matchmaking.service';
 
 import dotnev from 'dotenv'
+import MatchmakingUserDTO from './dtos/matchmaking.dto';
 dotnev.config()
 
 const options = {
     cors: {
-        origin: [process.env.FRONTEND_URL!]
+        origin: [process.env.FRONTEND_URL!],
+        credentials: true
     },
 }
 
@@ -34,7 +37,31 @@ io.use(async (socket, next) => {
 io.on("connection", (socket) => {
     socket.on('join_match_queue', (data) => {
         //adds users to a room 
-        socket.join(data.game_mode)
+
+        const user = new MatchmakingUserDTO(socket.data.user_id, data.elo, data.game_mode);
+        var match = null;
+
+        do {
+            match = matchmaking(user);
+        }
+        while (match == null)
+
+        match.then((result) => {
+            const player_1 = result?.player_1_id.toString();
+            const player_2 = result?.player_2_id.toString();
+
+            io.to(player_1!).emit('matched');
+            io.to(player_2!).emit('matched');
+
+            const pair = {
+                player_1: player_1,
+                player_2: player_2
+            }
+
+            socket.emit('users_matched',pair);
+        })
+
+
     })
 
     socket.on('leave_mach_queue', (data) => {
@@ -42,7 +69,7 @@ io.on("connection", (socket) => {
     })
 })
 
-httpServer.listen(3000, ()=>{
+httpServer.listen(3000, () => {
     console.log("Server listening")
 });
 

@@ -29,7 +29,7 @@ async function dequeue(user_id: number, queue: string): Promise<boolean> {
 }
 
 
-// finds a match for a the passed in user
+// finds a match for the passed in user
 async function matchmaking(user: MatchmakingUserDTO) {
 
     if (user.game_mode != "math" && user.game_mode != "prog")
@@ -54,13 +54,15 @@ async function matchmaking(user: MatchmakingUserDTO) {
 
     // remove null join values
     let players = result.filter(u => u.join !== null);
+
     // sort by joined times - ascending
     players.sort((a, b) => Number(a.join) - Number(b.join));
+
     if (players.length == 0) {
 
         const waiting = await redis.zscore(user.game_mode, user.id.toString());
 
-        if (waiting)   //user isn't already in the queue
+        if (waiting)   //user is already in the queue
             ++user.match_attempt;
         else {
             enqueue(user, user.game_mode);
@@ -82,7 +84,7 @@ async function matchmaking(user: MatchmakingUserDTO) {
         await redis.hdel(`user:${user.id}`);
         await redis.hdel(`user:${match.user_id}`);
 
-        return { player_2_id: user.id, player_1_id: Number(match.user_id) };
+        return { player_1_id: user.id, player_2_id: Number(match.user_id) };
     }
 }
 
