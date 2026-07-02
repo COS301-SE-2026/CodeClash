@@ -26,9 +26,12 @@ const Profile: React.FC<ProfileProps> = ({
       if(shift && e.key === 'Esc'){
         onBack?.();
       }
-      
-    }
-  })
+    };
+
+    window.addEventListener('keydown', back);
+
+    return () => window.removeEventListener('keydown', back);
+  }, [onBack]);
 
   return (
     <div className="relative w-full min-h-[1024px] bg-secondary mx-auto flex flex-col items-center justify-center">
