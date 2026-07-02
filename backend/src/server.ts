@@ -1,7 +1,7 @@
 import { createServer } from 'node:http';
 import { Server } from 'socket.io'
 import { validToken } from './verifyToken';
-import app from '../../app';
+import app from './app';
 
 import dotnev from 'dotenv'
 dotnev.config()
@@ -24,7 +24,7 @@ io.use(async (socket, next) => {
 
     const valid = await validToken(token)
     if (valid) {
-        socket.data.user_id = valid.id;
+        socket.data.user_id = valid.userId;
         next();
     }
     else next(new Error("Authentication error: Invalid token"));

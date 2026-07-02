@@ -1,8 +1,4 @@
-import app from './app';
-import express from 'express';
-import {createServer} from 'http';
-import {WebSocketServer} from 'ws';
-import {fetchAuthSession} from 'aws-amplify/auth'
+
 import {CognitoJwtVerifier} from 'aws-jwt-verify'
 
 
@@ -13,24 +9,11 @@ const verifier = CognitoJwtVerifier.create({
   });
 
 
-export interface authPayload{
-    userId: string;
-    username: string;
-  }
-
-
-  export const verifyToken = async (token: string): Promise<authPayload> => {
+  export const validToken = async (token: string)=> {
     
     const payload = await verifier.verify(token);
 
     return{
-      userId: (payload.sub as string),
-      username: (payload["cognito:username"] as string),
+      userId: (payload.sub as string)
     };
   };
-
-
-
-// app.listen(PORT, () => {
-//   console.log(`Server running on port ${PORT}`);
-// });
