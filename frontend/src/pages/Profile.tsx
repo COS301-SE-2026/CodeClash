@@ -33,6 +33,16 @@ const Profile: React.FC<ProfileProps> = ({
     return () => window.removeEventListener('keydown', back);
   }, [onBack]);
 
+  useEffect(() => {
+    const logout = (e: KeyboardEvent) => {
+      const alt = e.altKey;
+      if(alt && e.key === 'Esc'){
+        onBack?.();
+      }
+    };
+    
+  })
+
   return (
     <div className="relative w-full min-h-[1024px] bg-secondary mx-auto flex flex-col items-center justify-center">
 
