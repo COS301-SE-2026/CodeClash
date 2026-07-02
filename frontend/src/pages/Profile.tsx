@@ -23,7 +23,12 @@ const Profile: React.FC<ProfileProps> = ({
     <div className="relative w-full min-h-[1024px] bg-secondary mx-auto flex flex-col items-center justify-center">
 
       <div className="absolute top-[59px] left-[125px] w-[150px] h-[50px] text-secondary-text font-semibold text-[32px] rounded-[35px] text-center flex items-center justify-center cursor-pointer hover:bg-[#ecd0db48] transition-colors" 
-      onClick={onBack}>
+      onClick={onBack} onKeyDown={(e) => {
+        const shift = e.shiftKey;
+        if(shift && e.key === 'Esc'){
+          onBack;
+        }
+      }}>
         ← Back
       </div>
 

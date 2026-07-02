@@ -1,4 +1,5 @@
-import { fetchUserAttributes, getCurrentUser } from "aws-amplify/auth";
+import { fetchUserAttributes } from "aws-amplify/auth";
+// import { getCurrentUser } from "aws-amplify/auth"
 
 export interface ProfileDetails{
     avatarUrl: string;

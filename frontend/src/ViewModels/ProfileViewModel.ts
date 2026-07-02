@@ -1,6 +1,6 @@
-import { useCallback, useState } from "react";
-import { ProfileData } from "../Models/ProfileModel";
-import type { ProfileDetails } from "../Models/ProfileModel";
+// import { useCallback, useState } from "react";
+// import { ProfileData } from "../Models/ProfileModel";
+// import type { ProfileDetails } from "../Models/ProfileModel";
 
 export interface ProfileViewModelProps{
     onBack? : () => void;
