@@ -40,8 +40,11 @@ const Profile: React.FC<ProfileProps> = ({
         onBack?.();
       }
     };
-    
-  })
+
+    window.addEventListener('keydown', logout);
+
+    return () => window.removeEventListener('keydown', logout);
+  }, [onLogout]);
 
   return (
     <div className="relative w-full min-h-[1024px] bg-secondary mx-auto flex flex-col items-center justify-center">
