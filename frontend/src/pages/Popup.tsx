@@ -30,11 +30,20 @@ const Popup: React.FC<PopupProps> = ({onMath, onProg, onCancel}) => {
             }
 
         };
-        
+
         window.addEventListener('keydown', prog);
         
         return () => window.removeEventListener('keydown', prog);
     }, [onProg]);
+
+    useEffect(() => {
+        const cancel = (e: KeyboardEvent) => {
+            const shift = e.shiftKey;
+            if(shift && e.key === 'Esc'){
+                onCancel?.();
+            }
+        }
+    })
 
     return(
         <div className="min-h-screen w-full bg-[var(--secondary)] flex items-center justify-center p-6 bg-[url(./robot.png)] bg-center bg-no-repeat bg-size-[auto_800px]">
@@ -59,7 +68,8 @@ const Popup: React.FC<PopupProps> = ({onMath, onProg, onCancel}) => {
                         <h2 className="text-[32px] text-[var(--secondary-text)] font-[var(--heading)] font-bold mt-3">Programming</h2>
                     </div>
                 </div>
-                <div className="text-[32px] text-black font-[var(--heading)] font-extrabold underline mt-5" onClick={onCancel}>Cancel</div>
+                <div className="text-[32px] text-black font-[var(--heading)] font-extrabold underline mt-5" 
+                    onClick={onCancel}>Cancel</div>
                 </div>
             </div>
         </div>
