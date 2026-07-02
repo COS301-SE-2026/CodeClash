@@ -1,0 +1,16 @@
+backend/src/verifyToken.ts
+  h_94c952a9e14c58 1,12,17
+backend/src/server.ts
+  h_94c952a9e14c58 4,27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.8",
+  "base_commit_sha": "8455c9f4f5b7c94bfb400e0559895f6664e890a2",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
