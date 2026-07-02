@@ -66,7 +66,7 @@ const Popup: React.FC<PopupProps> = ({onMath, onProg, onCancel}) => {
                         tabIndex={0}
                         onKeyDown={(e) => {
                             const shift = e.shiftKey;
-                            if(shiftkey && e.key === 'L'){
+                            if(shift && e.key === 'L'){
                                 onMath?.();
                             }
                         }}>
