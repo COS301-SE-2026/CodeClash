@@ -21,6 +21,7 @@ const Popup: React.FC<PopupProps> = ({onMath, onProg, onCancel}) => {
 
         return () => window.removeEventListener('keydown', math);
     }, [onMath]);
+
     useEffect(() => {
         const prog = (e: KeyboardEvent) => {
             const alt = e.altKey;
@@ -29,7 +30,12 @@ const Popup: React.FC<PopupProps> = ({onMath, onProg, onCancel}) => {
             }
 
         };
-    })
+        
+        window.addEventListener('keydown', prog);
+        
+        return () => window.removeEventListener('keydown', prog);
+    }, [onProg]);
+
     return(
         <div className="min-h-screen w-full bg-[var(--secondary)] flex items-center justify-center p-6 bg-[url(./robot.png)] bg-center bg-no-repeat bg-size-[auto_800px]">
             <div className="relative w-xl">
