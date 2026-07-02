@@ -24,8 +24,11 @@ const Popup: React.FC<PopupProps> = ({onMath, onProg, onCancel}) => {
     useEffect(() => {
         const prog = (e: KeyboardEvent) => {
             const alt = e.altKey;
-            
-        }
+            if(alt && e.key === 'R'){
+                onProg?.();
+            }
+
+        };
     })
     return(
         <div className="min-h-screen w-full bg-[var(--secondary)] flex items-center justify-center p-6 bg-[url(./robot.png)] bg-center bg-no-repeat bg-size-[auto_800px]">
