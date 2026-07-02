@@ -6,25 +6,26 @@ import { useNavigate } from "react-router-dom";
 
 const getUserToken = async () => {
     const session = await fetchAuthSession();
-    const idToken = session.tokens?.idToken;
+    const idToken = session.tokens?.idToken?.toString();
 
     return idToken || null;
 }
 
 export function useSelectTopic() {
     const navigation = useNavigate();
-
-    const token = getUserToken.toString();
-
-    if (token == null) {
-        // handle error
-    }
-
     const [topic, setTopic] = useState('');
     const [elo, setElo] = useState(0);
+    const [token, setToken] = useState<string | null>(null);
 
 
     useEffect(() => {
+        getUserToken().then(t => setToken(t))
+    }, [])
+
+
+    useEffect(() => {
+        if (!token) { return; }
+
 
         try {
             axios.get('http://localhost:3000/api/elo/elo-get', {

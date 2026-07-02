@@ -1,12 +1,20 @@
 import React from 'react';
 import { type PopupProps, TOPICS } from '../Models/PopUpModel';
 import { useSelectTopic } from '../ViewModels/PopUpViewModel';
-
+import { useNavigate } from 'react-router-dom';
 
 const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   const selectTopic = useSelectTopic();
+  const nav = useNavigate();
+  const selecthandler = (t: string) => {
+    if (selectTopic == null || t == null)
+      nav('/error')
+    else {
+      selectTopic(t)
+    }
+  }
 
 
   return (
@@ -49,7 +57,7 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
               key={t.topic}
               type="button"
               aria-label={`topic-${t.topic}`}
-              onClick={() => selectTopic(t.topic)}
+              onClick={() => selecthandler(t.topic)}
             >
               {t.icon}
               <span>{t.label}</span>
