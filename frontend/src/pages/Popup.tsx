@@ -9,45 +9,45 @@ interface PopupProps{
 
 
 const Popup: React.FC<PopupProps> = ({onMath, onProg, onCancel}) => {
-    useEffect(() => {
-        const math = (e: KeyboardEvent) => {
-            const alt = e.altKey;
-            if (alt && e.key === 'L'){
-                onMath?.();
-            }
-        };
+    // useEffect(() => {
+    //     const math = (e: KeyboardEvent) => {
+    //         const alt = e.altKey;
+    //         if (alt && e.key === 'L'){
+    //             onMath?.();
+    //         }
+    //     };
 
-        window.addEventListener('keydown', math);
+    //     window.addEventListener('keydown', math);
 
-        return () => window.removeEventListener('keydown', math);
-    }, [onMath]);
+    //     return () => window.removeEventListener('keydown', math);
+    // }, [onMath]);
 
-    useEffect(() => {
-        const prog = (e: KeyboardEvent) => {
-            const alt = e.altKey;
-            if(alt && e.key === 'R'){
-                onProg?.();
-            }
+    // useEffect(() => {
+    //     const prog = (e: KeyboardEvent) => {
+    //         const alt = e.altKey;
+    //         if(alt && e.key === 'R'){
+    //             onProg?.();
+    //         }
 
-        };
+    //     };
 
-        window.addEventListener('keydown', prog);
+    //     window.addEventListener('keydown', prog);
         
-        return () => window.removeEventListener('keydown', prog);
-    }, [onProg]);
+    //     return () => window.removeEventListener('keydown', prog);
+    // }, [onProg]);
 
-    useEffect(() => {
-        const cancel = (e: KeyboardEvent) => {
-            const shift = e.shiftKey;
-            if(shift && e.key === 'Esc'){
-                onCancel?.();
-            }
-        }
+    // useEffect(() => {
+    //     const cancel = (e: KeyboardEvent) => {
+    //         const shift = e.shiftKey;
+    //         if(shift && e.key === 'Esc'){
+    //             onCancel?.();
+    //         }
+    //     }
 
-        window.addEventListener('keydown', cancel);
+    //     window.addEventListener('keydown', cancel);
 
-        return () => window.removeEventListener('keydown', cancel);
-    }, [onCancel]);
+    //     return () => window.removeEventListener('keydown', cancel);
+    // }, [onCancel]);
 
     return(
         <div className="min-h-screen w-full bg-[var(--secondary)] flex items-center justify-center p-6 bg-[url(./robot.png)] bg-center bg-no-repeat bg-size-[auto_800px]">
@@ -62,7 +62,14 @@ const Popup: React.FC<PopupProps> = ({onMath, onProg, onCancel}) => {
                 
                 <div className="grid grid-flow-col grid-cols-2 gap-4 ml-8 mr-8 mt-15 h-45">
                     <div className="bg-[var(--secondary)] rounded-3xl text-center text-[var(--secondary-text)] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mr-2 transition-all duration-200 hover:bg-rose-200 hover:-translate-y-px active:translate-y-0" 
-                        onClick={onMath}>
+                        onClick={onMath}
+                        tabIndex={0}
+                        onKeyDown={(e) => {
+                            const shift = e.shiftKey;
+                            if(shiftkey && e.key === 'L'){
+                                onMath?.();
+                            }
+                        }}>
                         <h1 className="text-[32px] text-[var(--secondary-text)] font-[var(--heading)] font-bold mt-5">+ -</h1>
                         <h2 className="text-[32px] text-[var(--secondary-text)] font-[var(--heading)] font-bold mt-3">Math</h2>
                         </div>
