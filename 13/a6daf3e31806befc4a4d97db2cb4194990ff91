@@ -1,0 +1,22 @@
+docker-compose.yml
+  h_94c952a9e14c58 6
+frontend/src/ViewModels/PopUpViewModel.ts
+  h_94c952a9e14c58 34-44,65-66,72
+frontend/src/Views/PopUp.tsx
+  h_94c952a9e14c58 10-11,13-14
+frontend/src/services/websocket.service.tsx
+  h_94c952a9e14c58 2
+database/init.sql
+  h_94c952a9e14c58 55
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.8",
+  "base_commit_sha": "13a6daf3e31806befc4a4d97db2cb4194990ff91",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
