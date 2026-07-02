@@ -1,7 +1,7 @@
 import { Pool } from 'pg';
 import dotenv from 'dotenv';
-import { CognitoIdentityProviderClient, ListUsersCommand, ListUsersCommandInput } from '@aws-sdk/client-cognito-identity-provider';
-import axios from 'axios';
+import { ListUsersCommand, ListUsersCommandInput } from '@aws-sdk/client-cognito-identity-provider';
+import { cognito_identity_client } from '../services/auth.service';
 
 dotenv.config();
 
@@ -24,17 +24,11 @@ async function fetchCognitoUsers() {
   let paginationToken: string | undefined = undefined;
   let input: ListUsersCommandInput;
 
-  const client = new CognitoIdentityProviderClient({
-    region: process.env.COGNITO_REGION!,
-    credentials: {
-      accessKeyId: process.env.AWS_ACCESS_KEY!,
-      secretAccessKey: process.env.AWS_SECRET_KEY!
-    }
-  });
+  const client = cognito_identity_client;
 
   do {
     input = {
-      "AttributesToGet": ['sub'],
+      "AttributesToGet": ['name', 'email'],
       "PaginationToken": paginationToken,
       "UserPoolId": process.env.COGNITO_USER_POOL_ID
     }
@@ -59,20 +53,30 @@ async function initDB() {
     const users = await fetchCognitoUsers();
 
     for (const user of users) {
-      const user_id = user.Attributes!.find(attr => attr.Name === 'sub')?.Value
+      const user_name = user.Attributes!.find(attr => attr.Name === 'name')?.Value;
+      const email = user.Attributes!.find(attr => attr.Name === 'email')?.Value;
 
-    //  await client.query(
-    //     `INSERT INTO elo_ratings (user_id)
-    //     VALUES ($1)
-    //     ON CONFLICT(user_id) DO NOTHING`,
-    //     [user_id]
-    //   )
+      await client.query(
+        `INSERT INTO users (username,email)
+        VALUES ($1,$2)
+        ON CONFLICT (email) DO NOTHING`,
+        [user_name, email]
+      );
 
-    console.log("Initialising user elo rating to 600");
+      const ids = await client.query(`SELECT user_id FROM users`);
+
+      for (const row of ids.rows) {
+        await client.query(
+          `INSERT INTO elo_ratings (user_id)
+        VALUES ($1)
+        ON CONFLICT(user_id) DO NOTHING`,
+          [row.user_id]
+        )
+      }
     }
   } catch (error) {
     await client.query('ROLLBACK');
-    console.error('Error setting elo');
+    console.error('Error setting elo: ', error);
   }
   finally {
     client.query('COMMIT');

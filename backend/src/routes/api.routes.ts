@@ -19,9 +19,9 @@ router.get('/matches/:match_id/log', getMatchLog);
 
 //elo routes
 router.get('/leaderboard', getLeaderboard);
-router.post('/elo', getUserElo),
-router.post('/elo-history',getEloHistory)
+router.get('/elo-get', getUserElo),
+  router.post('/elo-history', getEloHistory)
 router.post('/update', updateEloAfterMatch);
-router.post('/elo',setUserElo);
+router.post('/elo-set', setUserElo);
 
 export default router;

@@ -2,9 +2,6 @@ import express, { Request, Response, NextFunction } from 'express'
 import cors from 'cors'
 import eloRoutes from './routes/api.routes';
 import matchRoutes from './routes/api.routes';
-import jwt, { type JwtPayload } from 'jsonwebtoken'
-import { IncomingMessage } from 'http'
-import MatchmakingUserDTO from './dtos/matchmaking.dto';
 import { initDB } from './config/db';
 
 

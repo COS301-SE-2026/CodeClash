@@ -1,18 +1,34 @@
 import { Request, Response } from 'express';
 import { pool } from '../config/db';
+import { validToken, accessDenied, getEmail } from '../services/auth.service';
+
 
 // GET /api/elo/:user_id
 // Get current elo rating for a user
 export const getUserElo = async (req: Request, res: Response): Promise<void> => {
-  const { user_id } = req.body;
+  const token = req.headers.authorization?.split(' ')[1];
+
+  const user = validToken(token!);
+  if (!user) {
+    res.status(404).json(accessDenied);
+    return;
+  }
+
+  const email = getEmail();
+
+  if (email === null) {
+    res.status(404).json(accessDenied);
+    return;
+  }
 
   try {
     const result = await pool.query(
       `SELECT 
         e.rating
        FROM elo_ratings e
-       WHERE e.user_id = $1`,
-      [user_id]
+       JOIN users u ON e.user_id = u.user_id
+       WHERE u.email = $1`,
+      [email]
     );
 
     if (result.rows.length === 0) {

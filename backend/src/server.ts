@@ -1,6 +1,6 @@
 import { createServer } from 'node:http';
 import { Server } from 'socket.io'
-import { validToken } from './verifyToken';
+import { validToken } from './services/auth.service';
 import app from './app';
 
 import dotnev from 'dotenv'
@@ -24,7 +24,7 @@ io.use(async (socket, next) => {
 
     const valid = await validToken(token)
     if (valid) {
-        socket.data.user_id = valid.userId;
+        socket.data.user_id = valid.user_Id;
         next();
     }
     else next(new Error("Authentication error: Invalid token"));
@@ -42,6 +42,8 @@ io.on("connection", (socket) => {
     })
 })
 
-httpServer.listen(3000);
+httpServer.listen(3000, ()=>{
+    console.log("Server listening")
+});
 
 export default httpServer
