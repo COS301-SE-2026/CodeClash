@@ -1,0 +1,19 @@
+frontend/test/MathField.test.tsx
+  s_6ae428f566955b::t_45263fbb13d637 1-20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "c5c8fd8ec79c94fedd36ef066d6bdf99f1bd62d1",
+  "prompts": {},
+  "sessions": {
+    "s_6ae428f566955b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f1e27-5fb9-7022-8dbe-5a0eeab4cd62",
+        "model": "unknown"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
