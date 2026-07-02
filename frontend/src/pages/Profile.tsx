@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 interface ProfileProps {
   userName?: string;
@@ -19,6 +19,17 @@ const Profile: React.FC<ProfileProps> = ({
   onBack,
   onLogout,
 }) => {
+
+  useEffect(() => {
+    const back = (e: KeyboardEvent) => {
+      const shift = e.shiftKey;
+      if(shift && e.key === 'Esc'){
+        onBack?.();
+      }
+      
+    }
+  })
+
   return (
     <div className="relative w-full min-h-[1024px] bg-secondary mx-auto flex flex-col items-center justify-center">
 
