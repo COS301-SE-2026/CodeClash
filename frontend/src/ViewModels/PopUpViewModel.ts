@@ -14,8 +14,6 @@ const getUserToken = async () => {
 export function useSelectTopic() {
     const navigation = useNavigate();
 
-   // console.log('useSelectTopic');
-
     const token = getUserToken.toString();
 
     if (token == null) {
@@ -29,28 +27,24 @@ export function useSelectTopic() {
     useEffect(() => {
 
         try {
-            //console.log('sending axios')
-
-            // axios.get('http://localhost:3000/elo', {
-            //     headers: { Authorization: `Bearer ${token}` }
-            // })
-            //     .then((res) => {
-            //         if (res.status === 200)
-            //             setElo(res.data.elo)
-            //         else {
-            //             console.log(`Error: ${res.status}`)
-            //             console.log(`${res.data}`);
-            //         }
-            //     })
-
-           // console.log('after axios')
+            axios.get('http://localhost:3000/api/elo/elo-get', {
+                headers: { Authorization: `Bearer ${token}` }
+            })
+                .then((res) => {
+                    if (res.status === 200)
+                        setElo(res.data.elo)
+                    else {
+                        console.log(`Error: ${res.status}`)
+                        console.log(`${res.data}`);
+                    }
+                })
         }
         catch {
             console.log('Error sending request')
         }
     }, [])
 
-    const selectTopic = (selected_topic: string, socket: WebSocket | null) => {
+    const selectTopic = (selected_topic: string) => {
         setTopic(selected_topic);
 
         const data = JSON.stringify({
@@ -64,12 +58,13 @@ export function useSelectTopic() {
             // send request to add user to matchmaking queue
             // socket?.send(data);
             console.log("SENDING DATA THROUGH SOCKET");
+            navigation('/searching');
         }
         catch {
 
         }
 
-        // navigation('/searching');
+
     }
     return selectTopic;
 }

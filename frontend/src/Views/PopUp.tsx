@@ -1,18 +1,13 @@
 import React from 'react';
 import { type PopupProps, TOPICS } from '../Models/PopUpModel';
 import { useSelectTopic } from '../ViewModels/PopUpViewModel';
-import WebSocketService from '../services/websocket.service';
-
 
 
 const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
-  // console.log("setting selectTopic");
   const selectTopic = useSelectTopic();
 
-  // console.log("setting Socket");
-  const socket = WebSocketService();
 
   return (
     <div
@@ -54,7 +49,7 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
               key={t.topic}
               type="button"
               aria-label={`topic-${t.topic}`}
-              onClick={() => selectTopic(t.topic, socket.socket)}
+              onClick={() => selectTopic(t.topic)}
             >
               {t.icon}
               <span>{t.label}</span>
