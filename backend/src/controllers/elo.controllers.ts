@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { pool } from '../config/db';
-import { validToken, accessDenied, getEmail } from '../services/auth.service';
+import { validToken, accessDenied} from '../services/auth.service';
 
 
 // GET /api/elo/:user_id
@@ -15,9 +15,7 @@ export const getUserElo = async (req: Request, res: Response): Promise<void> => 
   }
 
   console.log("user ", user);
-  const email = await getEmail(user.user_Id);
-
-  console.log("Email ",email)
+  const email = user.email;
 
   if (email === null) {
     res.status(404).json(accessDenied);

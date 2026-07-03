@@ -19,8 +19,10 @@ export const validToken = async (token: string) => {
 
   const payload = await verifier.verify(token);
 
+
   return {
-    user_Id: payload.sub
+    user_Id: payload.sub,
+    email: payload.email
   };
 };
 
@@ -32,33 +34,6 @@ export const cognito_identity_client = new CognitoIdentityProviderClient({
     secretAccessKey: process.env.AWS_SECRET_KEY!
   }
 });
-
-export async function getEmail(user_id:string) {
-
-  try {
-
-
-    const client = cognito_identity_client;
-
-    const command = new AdminGetUserCommand({
-      UserPoolId: process.env.COGNITO_USER_POOL_ID,
-      Username: user_id
-    });
-
-    const response = await client.send(command)
-
-    const email = response.UserAttributes?.find(attr => attr.Name === 'email')?.Value;
-
-    return email;
-
-  }
-  catch (err) {
-    console.log("get email error: ", err);
-    return null;
-  }
-}
-
-
 
 // Responses 
 
