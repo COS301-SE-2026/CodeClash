@@ -3,7 +3,7 @@ import { fetchAuthSession } from 'aws-amplify/auth';
 import MatchmakingUserDTO from '../dtos/matchmaking.dto';
 
 const env = import.meta.env;
-let socket: Socket | null = null;
+let socket: Promise<Socket> = createSocket();
 
 export async function createSocket() {
     const session = await fetchAuthSession()
@@ -15,31 +15,25 @@ export async function createSocket() {
         }
     }
 
-    socket = io(env.VITE_WEBSOCKET_URL, options)
-    return socket
-}
-/// websocket handlers for server responses 
+    console.log(token)
+    const conn = io(env.VITE_WEBSOCKET_URL, options);
 
-// starts chain to spin up a match
-function handleMatched(socket: Socket) {
-    socket.on("users_matched", (data) => {
+    conn.on("connect_error", (err)=>{
+        console.error(`Error connecting to socket: ${err}`);
+    })
+
+    // starts chain to spin up a match
+    conn.on("users_matched", (data) => {
         console.log("Users have been matched")
     })
+
+    return conn;
 }
 
-// handles question submissions during a game
-function handleSubmit() { }
-
-// handles game finalisation and conclusion
-function handleGameEnd() { }
-
-
-
 /// websocket functions for the app
-export function joinMatchQueue(data: MatchmakingUserDTO) {
-    socket?.emit("join_match_queue", data)
-
-    console.log("sent")
+export async function joinMatchQueue(data: MatchmakingUserDTO) {
+    const s = await socket;
+    s.emit("join_match_queue", data)
 }
 
 export function submitQuestion() { }

@@ -14,7 +14,6 @@ export const getUserElo = async (req: Request, res: Response): Promise<void> => 
     return;
   }
 
-  console.log("user ", user);
   const email = user.email;
 
   if (email === null) {

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from 'axios'
 import { fetchAuthSession } from "aws-amplify/auth";
 import { useNavigate } from "react-router-dom";
-import { joinMatchQueue } from "../services/websocket.service";
+import { createSocket, joinMatchQueue } from "../services/websocket.service";
 import MatchmakingUserDTO from "../dtos/matchmaking.dto";
 
 
@@ -19,45 +19,41 @@ export function useSelectTopic() {
     const [elo, setElo] = useState(0);
     const [token, setToken] = useState<string | null>(null);
 
-
     useEffect(() => {
         getUserToken().then(t => setToken(t))
     }, [])
 
-
     useEffect(() => {
         if (!token) { return; }
 
-
         try {
+
             axios.get('http://localhost:3000/api/elo/elo-get', {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {
+
                     if (res.status === 200)
-                        setElo(res.data.elo)
+                        setElo(res.data.elo.rating)
                     else {
-                        console.log(`Error: ${res.status}`)
-                        console.log(`${res.data}`);
+                        console.error(`Error: ${res.status}`)
+                        console.error(`${res.data}`);
                     }
                 })
         }
         catch {
-            console.log('Error sending request')
+            console.error('Error sending request')
         }
-    }, [])
+    }, [token])
 
-    console.log("Elo: ", elo);
-
-    const selectTopic = (selected_topic: string) => {
+    const selectTopic = async (selected_topic: string) => {
         setTopic(selected_topic);
-
+        
         const data = new MatchmakingUserDTO(elo, selected_topic)
 
         joinMatchQueue(data)
-        console.log("SENDING DATA THROUGH SOCKET");
 
-       // navigation('/searching');
+        // navigation('/searching');
 
     }
     return selectTopic;
