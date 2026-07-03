@@ -1,0 +1,18 @@
+frontend/src/ViewModels/PopUpViewModel.ts
+  h_94c952a9e14c58 5,30,35,37,39-40,45,47,49,51
+backend/src/server.ts
+  h_94c952a9e14c58 11,23,26,44
+frontend/src/services/websocket.service.tsx
+  h_94c952a9e14c58 6,18-19,21-22,25-28,30,34-36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "ccb036be2d75ed24580ceba88c40d75eabea2067",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
