@@ -1,6 +1,6 @@
 import React from 'react';
 import ufoImage from '../assets/RedUFO.png';
-import lightBeam from '../assets/SignUpBeam.png';
+import lightBeam from '../assets/Background/SignUpBeam.png';
 import { Link } from 'react-router-dom';
 import { SignUpViewModelFunction } from '../ViewModels/SignUpViewModel.ts';
 import type { SignUpViewModelProps } from '../ViewModels/SignUpViewModel.ts';
