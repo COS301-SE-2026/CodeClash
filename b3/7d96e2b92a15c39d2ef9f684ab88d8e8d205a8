@@ -1,0 +1,16 @@
+backend/src/services/auth.service.ts
+  h_94c952a9e14c58 24-25
+backend/src/controllers/elo.controllers.ts
+  h_94c952a9e14c58 18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "b37d96e2b92a15c39d2ef9f684ab88d8e8d205a8",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
