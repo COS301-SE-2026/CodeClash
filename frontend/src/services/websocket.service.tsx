@@ -1,10 +1,11 @@
 import { io, Socket } from 'socket.io-client'
 import { fetchAuthSession } from 'aws-amplify/auth';
 import MatchmakingUserDTO from '../dtos/matchmaking.dto';
+import { useSearch } from 'src/ViewModels/SearchingViewModel';
 
 const env = import.meta.env;
 
-export async function createSocket() {
+export async function createSocket(): Promise<Socket> {
     const session = await fetchAuthSession()
     const token = session.tokens?.idToken
 
@@ -22,12 +23,14 @@ export async function createSocket() {
 
     // starts chain to spin up a match
     conn.on("users_matched", (data) => {
-        console.log("Users have been matched: ", data)
+        const found = useSearch();
+        setTimeout(() => found(true), 2000);
     })
 
     conn.on("match_error", () => {
         console.error("Error matching users");
     })
+
 
     return conn;
 }

@@ -40,7 +40,6 @@ const Dashboard = () => {
             <img src={profileIcon} alt='Profile' className=' h-[100%]' />
           </Link>
 
-
         </div>
 
       </div>
@@ -72,7 +71,7 @@ const Dashboard = () => {
                 <Button className='h-[45%] bg-pink-300 text-sm font-semibold'
                   onClick={openPopUp}
                 > Ranked Play </Button>
-                {isOpen && <Popup isOpen={isOpen} onClose={() => { }}  ></Popup>}
+                {isOpen && <Popup isOpen={isOpen} onClose={closePopUp}  ></Popup>}
                 <Button variant={'secondary'} className='h-[45%] bg-secondary text-primary text-sm font-semibold hover:bg-[#C0AF9C]'> Casual Play </Button>
               </CardAction>
             </CardContent>

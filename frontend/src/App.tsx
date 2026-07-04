@@ -6,7 +6,7 @@ import Welcome from "./Views/Welcome";
 import SignIn from "./Views/SignIn";
 import SignUp from "./Views/SignUp";
 import Profile from "./Views/Profile";
-import Searching from "./Views/searching";
+import Searching from "./Views/Searching";
 import Found from "./pages/queuePages/found";
 import MathMatch from "./pages/MathMatch";
 import ProgMatch from "./pages/ProgMatch";
