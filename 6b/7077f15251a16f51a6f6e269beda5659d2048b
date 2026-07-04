@@ -1,0 +1,24 @@
+frontend/src/Views/Dashboard.tsx
+  h_94c952a9e14c58 18,22
+frontend/vite.config.ts
+  h_94c952a9e14c58 14-15
+frontend/src/Views/Profile.tsx
+  h_94c952a9e14c58 9,18
+frontend/vitest.config.ts
+  h_94c952a9e14c58 29-31
+frontend/src/ViewModels/Shared.ViewModel.ts
+  h_94c952a9e14c58 4,40-52,59,66-67,69,72,75,78-80,82-85
+frontend/tsconfig.app.json
+  h_94c952a9e14c58 28-29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "6b7077f15251a16f51a6f6e269beda5659d2048b",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
