@@ -1,6 +1,6 @@
 import React from 'react';
-import helloRobot from '../assets/HelloRobot_Pink.png';
-import symbolBackground from '../assets/SymbolBackground.png';
+import helloRobot from '../assets/Robots/HelloRobot_Pink.png';
+import symbolBackground from '../assets/Background/SymbolBackground.png';
 import { Link } from 'react-router-dom';
 import { WelcomeViewModelFunction } from '../ViewModels/WelcomeViewModel.ts';
 

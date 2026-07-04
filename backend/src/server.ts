@@ -8,7 +8,6 @@ import MatchmakingUserDTO from './dtos/matchmaking.dto';
 import dotnev from 'dotenv'
 dotnev.config()
 
-console.log("server.ts")
 const options = {
     cors: {
         origin: [process.env.FRONTEND_URL!],
@@ -23,7 +22,6 @@ const io = new Server(httpServer, options);
 
 // middleware -fires before the connection
 io.use(async (socket, next) => {
-    console.log("io.use");
     const token = socket.handshake.auth.token;
 
     if (!token) return next(new Error("Authenticaion error: No token provided"));
