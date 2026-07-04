@@ -26,7 +26,11 @@ const Dashboard = () => {
         {/* AI and Profile */}
         <div className='flex items-center w-[15%] h-full justify-evenly'>
           <img src={aiIcon} alt='AI' className=' h-[55%]' />
-          <img src={profileIcon} alt='Profile' className=' h-[55%]' />
+
+          <Link to="/profile" className="h-[55%]"> 
+          <img src={profileIcon} alt='Profile' className=' h-[100%]' />
+          </Link>
+         
 
         </div>
 

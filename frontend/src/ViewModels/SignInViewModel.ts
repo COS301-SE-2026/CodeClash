@@ -2,28 +2,14 @@ import { useCallback, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { signInContent, formData, validateSignInForm } from "../Models/SignInModel";
 import type { SignInForm, SignInContent } from "../Models/SignInModel";
+import { useNavigate } from "react-router-dom";
 
-export interface SignInViewModelProps {
-    onSignInSuccess: () => void;
-    onBack: () => void;
-}
-
-interface SignInViewModel {
-    content: SignInContent;
-    form: SignInForm;
-    displayError: string | null;
-    isLoading: boolean;
-    setField: (field: keyof SignInForm, value: string) => void;
-    handleSubmit: () => Promise<void>;
-}
-
-export function SignInViewModelFunction(
-    {onSignInSuccess,}:
-    SignInViewModelProps): SignInViewModel {
+export function SignInViewModelFunction() {
         const { signIn, error, clearError, isLoading} = useAuth();
 
         const [form, setForm] = useState<SignInForm>(formData);
         const [localError, setLocalError] = useState<string | null>(null);
+        const nav = useNavigate();
 
         const setField = useCallback((field: keyof SignInForm, value:string) => 
         {
@@ -44,9 +30,9 @@ export function SignInViewModelFunction(
                     form.email.trim(), 
                     form.password,
                 );
-                onSignInSuccess?.();
+                nav('/dashboard')
             } catch {}
-        }, [form, signIn, clearError, onSignInSuccess]); //Dependency array
+        }, [form, signIn, clearError]); //Dependency array
 
         return {
             content: signInContent,
