@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
+import { Badge } from '@/components/ui/badge';
 import Popup from './PopUp';
 
 // View Model
@@ -35,7 +36,11 @@ const Dashboard = () => {
         {/* AI and Profile */}
         <div className='flex items-center w-[15%] h-full justify-evenly'>
           <img src={aiIcon} alt='AI' className=' h-[55%]' />
-          <img src={profileIcon} alt='Profile' className=' h-[55%]' />
+
+          <Link to="/profile" className="h-[55%]">
+            <img src={profileIcon} alt='Profile' className=' h-[100%]' />
+          </Link>
+
 
         </div>
 
@@ -99,7 +104,11 @@ const Dashboard = () => {
           <div>
             <div className='flex justify-between mt-2 text-[1rem]'>
               <p className='font-semibold'>RECENTLY EARNED</p>
-              <Link to='/badges' className='underline'>SEE ALL</Link>
+              <Link to='/badges' className='underline'>
+                <Badge variant={'link'} className='text-xsm bg-secondary/30 py-3'>
+                  SEE ALL
+                </Badge>
+              </Link>
             </div>
 
             <div className='flex flex-row justify-evenly bg-[#070400] rounded-[30px] items-center p-2'>
@@ -125,7 +134,12 @@ const Dashboard = () => {
                 <p>SKILL PROGRESS - </p>
                 <p>&nbsp;MATH</p>
               </div>
-              <Link to='/badges' className='text-[1rem] underline'>SEE ALL</Link>
+              <Link to='/stats' className='underline'>
+                <Badge variant={'link'} className='text-xsm bg-secondary/30 py-3'>
+                  SEE ALL
+                </Badge>
+
+              </Link>
             </div>
 
             <div className='flex flex-col justify-evenly bg-[#070400] rounded-[30px] items-center h-[7.5rem]'>
@@ -149,7 +163,12 @@ const Dashboard = () => {
                 <p>SKILL PROGRESS - </p>
                 <p>&nbsp;PROGRAMMING</p>
               </div>
-              <Link to='/badges' className='text-[1rem] underline'>SEE ALL</Link>
+              <Link to='/stats' className='underline'>
+                <Badge variant={'link'} className='text-xsm bg-secondary/30 py-3'>
+                  SEE ALL
+                </Badge>
+
+              </Link>
             </div>
 
             <div className='flex flex-col justify-evenly bg-[#070400] rounded-[30px] items-center h-[7.5rem]'>
