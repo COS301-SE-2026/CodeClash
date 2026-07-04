@@ -81,6 +81,89 @@ export const getUsername = async (req: Request, res: Response) => {
 
 
 // GET /api/user/current-streak
+export const getCurrentStreak = async (req: Request, res: Response) => {
+    const token = req.headers.authorization?.split(' ')[1];
+
+    if (!token) {
+        res.status(404).json(accessDenied('Missing or Invalid Token'));
+        return;
+    }
+
+    const validate = await validToken(token)
+
+    if (!validate) {
+        res.status(404).json(accessDenied('Missing or Invalid Token'));
+        return;
+    }
+
+    const email = validate.email;
+
+    if (email === null) {
+        res.status(404).json(accessDenied('User not Found'));
+        return;
+    }
+
+
+    try {
+        const result = await pool.query(
+            `SELECT current_streak FROM users
+            WHERE users.email = $1`,
+            [email]
+        );
+
+        if (result.rowCount === 0) {
+            res.status(404).json({ message: 'User Not Found' });
+            return;
+        }
+
+        res.status(200).json({ current_streak: result.rows[0] });
+
+    } catch (error) {
+        console.error('Error fetching current streak: ', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+}
 
 //GET /api/user/winning-streak
+export const getWinningStreak = async (req: Request, res: Response) => {
+    const token = req.headers.authorization?.split(' ')[1];
 
+    if (!token) {
+        res.status(404).json(accessDenied('Missing or Invalid Token'));
+        return;
+    }
+
+    const validate = await validToken(token)
+
+    if (!validate) {
+        res.status(404).json(accessDenied('Missing or Invalid Token'));
+        return;
+    }
+
+    const email = validate.email;
+
+    if (email === null) {
+        res.status(404).json(accessDenied('User not Found'));
+        return;
+    }
+
+
+    try {
+        const result = await pool.query(
+            `SELECT winning_streak FROM users
+            WHERE users.email = $1`,
+            [email]
+        );
+
+        if (result.rowCount === 0) {
+            res.status(404).json({ message: 'User Not Found' });
+            return;
+        }
+
+        res.status(200).json({ winning_streak: result.rows[0] });
+
+    } catch (error) {
+        console.error('Error fetching winning streak: ', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+}

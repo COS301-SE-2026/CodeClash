@@ -23,7 +23,7 @@ export const getUserElo = async (req: Request, res: Response): Promise<void> => 
   const email = user.email;
 
   if (email === null) {
-    res.status(404).json(accessDenied);
+    res.status(404).json(accessDenied('User not Found'));
     return;
   }
 
@@ -38,7 +38,7 @@ export const getUserElo = async (req: Request, res: Response): Promise<void> => 
     );
 
     if (result.rows.length === 0) {
-      res.status(404).json({ message: `Elo rating not found for this user: ${email}` });
+      res.status(404).json({ message: `User Not Found` });
       return;
     }
 
