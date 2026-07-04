@@ -96,7 +96,6 @@ const Dashboard = () => {
                 <Badge variant={'link'} className='text-xsm bg-secondary/30 py-3'>
                   SEE ALL
                 </Badge>
-
               </Link>
             </div>
 
@@ -123,9 +122,12 @@ const Dashboard = () => {
                 <p>SKILL PROGRESS - </p>
                 <p>&nbsp;MATH</p>
               </div>
-              <Badge variant={'link'} className='text-xsm bg-secondary/30 py-3'>
-                SEE ALL
-              </Badge>
+              <Link to='/stats' className='underline'>
+                <Badge variant={'link'} className='text-xsm bg-secondary/30 py-3'>
+                  SEE ALL
+                </Badge>
+
+              </Link>
             </div>
 
             <div className='flex flex-col justify-evenly bg-[#070400] rounded-[30px] items-center h-[7.5rem]'>
@@ -149,9 +151,12 @@ const Dashboard = () => {
                 <p>SKILL PROGRESS - </p>
                 <p>&nbsp;PROGRAMMING</p>
               </div>
-              <Badge variant={'link'} className='text-xsm bg-secondary/30 py-3'>
-                SEE ALL
-              </Badge>
+              <Link to='/stats' className='underline'>
+                <Badge variant={'link'} className='text-xsm bg-secondary/30 py-3'>
+                  SEE ALL
+                </Badge>
+
+              </Link>
             </div>
 
             <div className='flex flex-col justify-evenly bg-[#070400] rounded-[30px] items-center h-[7.5rem]'>
