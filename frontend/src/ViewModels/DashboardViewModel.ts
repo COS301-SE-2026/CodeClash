@@ -11,8 +11,3 @@ export function useShowPopUp() {
 }
 
 
-export function useUserInfo() {
-    const { user } = useAuth();
-
-    return { username: user?.username }
-}

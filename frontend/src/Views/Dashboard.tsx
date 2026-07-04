@@ -14,11 +14,12 @@ import { Badge } from '@/components/ui/badge';
 import Popup from './PopUp';
 
 // View Model
-import { useShowPopUp, useUserInfo } from '../ViewModels/DashboardViewModel';
+import { useShowPopUp} from '../ViewModels/DashboardViewModel';
+import { useUser } from '../ViewModels/Shared.ViewModel';
 
 const Dashboard = () => {
   const { isOpen, openPopUp, closePopUp } = useShowPopUp();
-  const { username } = useUserInfo();
+  const { username } = useUser();
 
   return (
     <div style={{ backgroundImage: `url(${backgroundImg})` }} className='w-full h-[20] h-screen bg-cover bg-center flex flex-col items-center'>

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { fetchAuthSession } from "aws-amplify/auth";
+import { useAuth } from "src/context/AuthContext";
 
 export const getUserToken = async () => {
     const session = await fetchAuthSession();
@@ -9,9 +10,6 @@ export const getUserToken = async () => {
     return idToken || null;
 }
 
-export async function getUsername(token: string | null) {
-    if (!token) { throw new Error('Missing or Invalid Token') }
-}
 
 export async function getUserElo(token: string | null) {
     if (!token) { throw new Error('Missing or Invalid Token') }
@@ -39,27 +37,50 @@ export async function getUserElo(token: string | null) {
 
 }
 
+export function useUsername() {
+    const { user } = useAuth();
+    const [username, setUsername] = useState('');
+
+    useEffect(() => {
+        if (user)
+            setUsername(user.username);
+    })
+
+    return { username };
+}
+
+
 export function useUser() {
     const [username, setUsername] = useState('');
     const [elo, setElo] = useState(0);
     const [current_streak, setCurrentStreak] = useState(0);
     const [winning_streak, setWinning_streak] = useState(0);
     const [token, setToken] = useState<string | null>(null);
+    const { user } = useAuth();
+
 
 
     useEffect(() => {
         getUserToken().then(t => setToken(t))
+
+        if (user)
+            setUsername(user.username);
+
+        getUserInfo()
+
+
     }, [])
-
-
 
 
     const getUserInfo = async () => {
 
 
+        // axios.get('http://localhost:3000/api/eo/elo-get', {
 
-        axios.get('http://localhost:3000/api/eo/elo-get', {
-
-        })
+        // })
     }
+
+
+
+    return { username }
 }

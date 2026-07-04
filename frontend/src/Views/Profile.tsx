@@ -6,16 +6,16 @@ import { Link } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import placeholder from '../assets/Avatar/placeholder.png'
 import { Button } from '@/components/ui/button';
+import { useUsername } from 'src/ViewModels/Shared.ViewModel';
 
 const Profile: React.FC<ProfileProps> = ({
-  username = 'User Name',
-  email = 'user@codeclash.com',
   player_level = 'Level 32 - Mercury',
   current_streak = 522,
   prev_page = "/dashboard"
 }) => {
 
   const onLogout = useLogOut();
+  const { username } = useUsername();
 
   return (
     <div className="w-full min-h-screen bg-secondary flex flex-col items-center justify-center text-secondary-text">
@@ -42,7 +42,7 @@ const Profile: React.FC<ProfileProps> = ({
         <div className="profile-divider" />
 
         <Button
-        variant={"default"}
+          variant={"default"}
           type="button"
           onClick={onLogout}
           className="w-[70%] py-5"

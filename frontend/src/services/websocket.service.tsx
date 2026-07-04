@@ -14,7 +14,6 @@ export async function createSocket() {
         }
     }
 
-    console.log(token?.toString());
     const conn = io(env.VITE_WEBSOCKET_URL, options);
 
     conn.on("connect_error", (err) => {
