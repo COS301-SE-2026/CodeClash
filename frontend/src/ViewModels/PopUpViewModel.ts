@@ -1,17 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from 'axios'
-import { fetchAuthSession } from "aws-amplify/auth";
 import { useNavigate } from "react-router-dom";
 import { createSocket, joinMatchQueue } from "../services/websocket.service";
 import MatchmakingUserDTO from "../dtos/matchmaking.dto";
+import { getUserToken } from "./Shared.ViewModel";
 
 
-const getUserToken = async () => {
-    const session = await fetchAuthSession();
-    const idToken = session.tokens?.idToken?.toString();
-
-    return idToken || null;
-}
 
 export function useSelectTopic() {
     const navigation = useNavigate();
@@ -47,11 +41,12 @@ export function useSelectTopic() {
     }, [token])
 
     const selectTopic = async (selected_topic: string) => {
+        const socket = await createSocket()
         setTopic(selected_topic);
-        
+
         const data = new MatchmakingUserDTO(elo, selected_topic)
 
-        joinMatchQueue(data)
+        joinMatchQueue(socket, data)
 
         // navigation('/searching');
 

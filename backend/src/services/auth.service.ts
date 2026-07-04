@@ -37,4 +37,6 @@ export const cognito_identity_client = new CognitoIdentityProviderClient({
 
 // Responses 
 
-export const accessDenied = { message: "Access Denied" };
+export const accessDenied = (error: string) => {
+  return { message: `Access Denied: ${error}` }
+};

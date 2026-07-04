@@ -1,16 +1,22 @@
 import { Request, Response } from 'express';
 import { pool } from '../config/db';
-import { validToken, accessDenied} from '../services/auth.service';
+import { validToken, accessDenied } from '../services/auth.service';
 
 
-// GET /api/elo/:user_id
+// GET /api/elo/
 // Get current elo rating for a user
 export const getUserElo = async (req: Request, res: Response): Promise<void> => {
   const token = req.headers.authorization?.split(' ')[1];
 
-  const user = await validToken(token!);
+  if (!token) { 
+    res.status(404).json(accessDenied('Missing or Invalid Token')); 
+    return;
+  }
+
+  const user = await validToken(token);
+
   if (!user) {
-    res.status(404).json(accessDenied);
+    res.status(404).json(accessDenied('Missing or Invalid Token'));
     return;
   }
 

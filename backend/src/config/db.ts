@@ -1,7 +1,6 @@
 import { Pool } from 'pg';
 import dotenv from 'dotenv';
-import { ListUsersCommand, ListUsersCommandInput } from '@aws-sdk/client-cognito-identity-provider';
-import { cognito_identity_client } from '../services/auth.service';
+import {fetchAllCognitoUsers} from '../controllers/user.controllers'
 
 dotenv.config();
 
@@ -19,38 +18,14 @@ pool.on('error', (err) => {
 });
 
 // add user elo to the system 
-async function fetchCognitoUsers() {
-  let users = [];
-  let paginationToken: string | undefined = undefined;
-  let input: ListUsersCommandInput;
 
-  const client = cognito_identity_client;
-
-  do {
-    input = {
-      "AttributesToGet": ['name', 'email'],
-      "PaginationToken": paginationToken,
-      "UserPoolId": process.env.COGNITO_USER_POOL_ID
-    }
-
-    const command = new ListUsersCommand(input);
-
-    const response = await client.send(command);
-    users.push(...response.Users || []);
-
-    paginationToken = response.PaginationToken;
-  }
-  while (paginationToken !== undefined)
-
-  return users;
-}
 
 async function initDB() {
   const client = await pool.connect();
   client.query('BEGIN');
 
   try {
-    const users = await fetchCognitoUsers();
+    const users = await fetchAllCognitoUsers(['name','email']);
 
     for (const user of users) {
       const user_name = user.Attributes!.find(attr => attr.Name === 'name')?.Value;

@@ -3,7 +3,6 @@ import { fetchAuthSession } from 'aws-amplify/auth';
 import MatchmakingUserDTO from '../dtos/matchmaking.dto';
 
 const env = import.meta.env;
-let socket: Promise<Socket> = createSocket();
 
 export async function createSocket() {
     const session = await fetchAuthSession()
@@ -31,9 +30,8 @@ export async function createSocket() {
 }
 
 /// websocket functions for the app
-export async function joinMatchQueue(data: MatchmakingUserDTO) {
-    const s = await socket;
-    s.emit("join_match_queue", data)
+export async function joinMatchQueue(socket:Socket, data: MatchmakingUserDTO) {
+    socket.emit("join_match_queue", data)
 }
 
 export function submitQuestion() { }
