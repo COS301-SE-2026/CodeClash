@@ -14,13 +14,11 @@ import { Badge } from '@/components/ui/badge';
 import Popup from './PopUp';
 
 // View Model
-import { useShowPopUp } from '../ViewModels/DashboardViewModel';
+import { useShowPopUp, useUserInfo } from '../ViewModels/DashboardViewModel';
 
 const Dashboard = () => {
   const { isOpen, openPopUp, closePopUp } = useShowPopUp();
-
-
-
+  const { username } = useUserInfo();
 
   return (
     <div style={{ backgroundImage: `url(${backgroundImg})` }} className='w-full h-[20] h-screen bg-cover bg-center flex flex-col items-center'>
@@ -56,7 +54,7 @@ const Dashboard = () => {
             <CardContent className='flex '>
               <div className='flex flex-col'>
                 <p className='text-sm'>Level #</p>
-                <p className='text-l'>username</p>
+                <p className='text-l'>{username}</p>
               </div>
               <img alt='avatar' src={robot} className='absolute h-[47%] left-[12%]' />
             </CardContent>

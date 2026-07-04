@@ -11,7 +11,7 @@ async function enqueue(user: MatchmakingUserDTO, queue: string): Promise<boolean
     await redis.zadd(queue, user.elo, user.id);
 
     // store their joined_at time and game mode in a hash
-    await redis.hset(`user:${user.id}`, "user_joined_at", user.joined_at, "user_game_mode", user.game_mode);
+    await redis.hset(`user:${user.id}`, "user_joined_at", user.joined_at);
     return true;
 }
 
@@ -44,19 +44,24 @@ async function matchmaking(user: MatchmakingUserDTO) {
     // finds all players in the queue within the elo range
     const elo_range = await redis.zrangebyscore(user.game_mode, elo_range_lower, elo_range_upper);
 
+
+    console.log("QUEUE: ", elo_range);
     // get joined_at times for all users in the elo_range
     const result = await Promise.all(
         elo_range.map(async (user_id) => {
             const [join] = await redis.hmget(`user:${user_id}`, "user_joined_at");
-            return { user_id, join};
+            return { user_id, join };
         })
     );
+
 
     // remove null join values
     let players = result.filter(u => u.join !== null);
 
     // sort by joined times - ascending
     players.sort((a, b) => Number(a.join) - Number(b.join));
+
+    console.log("Final list ", players);
 
     if (players.length == 0) {
 
@@ -68,10 +73,13 @@ async function matchmaking(user: MatchmakingUserDTO) {
             enqueue(user, user.game_mode);
         }
 
+        console.log("No match found, adding player to queue");
         return null;
     }
     else {
+        console.log("Match found for  ", user.id)
         const match = players[0];
+        console.log("Match = ", match?.user_id);
 
         if (!match) return null;
 
@@ -81,10 +89,10 @@ async function matchmaking(user: MatchmakingUserDTO) {
         await redis.zrem(user.game_mode, match.user_id);
 
         //remove joined_at hash
-        await redis.hdel(`user:${user.id}`);
-        await redis.hdel(`user:${match.user_id}`);
+        await redis.hdel(`user:${user.id}`, "user_joined_at");
+        await redis.hdel(`user:${match.user_id}`, "user_joined_at");
 
-        return { player_1_id: user.id, player_2_id: Number(match.user_id) };
+        return { player_1_id: user.id, player_2_id: match.user_id };
     }
 }
 

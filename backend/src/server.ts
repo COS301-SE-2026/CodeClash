@@ -36,32 +36,34 @@ io.use(async (socket, next) => {
 
 
 io.on("connection", (socket) => {
-    socket.on('join_match_queue', (data) => {
+    socket.on('join_match_queue', async (data) => {
         //adds users to a room 
 
         console.log("matching user for a game")
         const user = new MatchmakingUserDTO(socket.data.user_id, data.elo, data.game_mode);
         var match = null;
 
-        do {
-            match = matchmaking(user);
+
+        match = await matchmaking(user);
+
+        if (!match)
+            return;
+
+
+        const player_1 = match.player_1_id.toString();
+        const player_2 = match.player_2_id.toString();
+
+        io.to(player_1!).emit('matched');
+        io.to(player_2!).emit('matched');
+
+        const pair = {
+            player_1: player_1,
+            player_2: player_2
         }
-        while (match == null)
 
-        match.then((result) => {
-            const player_1 = result?.player_1_id.toString();
-            const player_2 = result?.player_2_id.toString();
+        console.log("matched user")
+        socket.emit('users_matched', pair);
 
-            io.to(player_1!).emit('matched');
-            io.to(player_2!).emit('matched');
-
-            const pair = {
-                player_1: player_1,
-                player_2: player_2
-            }
-
-            socket.emit('users_matched',pair);
-        })
 
 
     })

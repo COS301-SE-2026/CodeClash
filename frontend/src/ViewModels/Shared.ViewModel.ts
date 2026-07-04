@@ -10,44 +10,33 @@ export const getUserToken = async () => {
 }
 
 export async function getUsername(token: string | null) {
-    const [username, setUsername] = useState('');
-
-    useEffect(() => {
-        if (!token) return;
-
-        try {
-
-        } catch { }
-    })
+    if (!token) { throw new Error('Missing or Invalid Token') }
 }
 
 export async function getUserElo(token: string | null) {
-    const [elo, setElo] = useState(0);
+    if (!token) { throw new Error('Missing or Invalid Token') }
 
-    useEffect(() => {
-        if (!token) { return; }
+    try {
 
-        try {
+        axios.get('http://localhost:3000/api/user/elo-get', {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+            .then((res) => {
 
-            axios.get('http://localhost:3000/api/user/elo-get', {
-                headers: { Authorization: `Bearer ${token}` }
+                if (res.status === 200)
+                    return res.data.elo.rating
+                else {
+                    console.error(`Error: ${res.status}`)
+                    console.error(`${res.data}`);
+                    return null;
+                }
             })
-                .then((res) => {
+    }
+    catch (error) {
+        console.error(`Error getting user elo: ${error}`)
+    }
 
-                    if (res.status === 200)
-                        setElo(res.data.elo.rating)
-                    else {
-                        console.error(`Error: ${res.status}`)
-                        console.error(`${res.data}`);
-                    }
-                })
-        }
-        catch (error) {
-            console.error(`Error getting user elo: ${error}`)
-        }
-    }, [token])
 
-    return elo;
 }
 
 export function useUser() {

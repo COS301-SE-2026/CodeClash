@@ -2,11 +2,7 @@ import { useCallback, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { signUpContent, formData, validateSignUpForm } from "../Models/SignUpModel";
 import type { SignUpContent, SignUpForm } from "../Models/SignUpModel";
-
-export interface SignUpViewModelProps {
-    onSignIn?: () => void;
-    onBack?: () => void;
-}
+import { useNavigate } from "react-router-dom";
 
 interface SignUpViewModel {
     content: SignUpContent;
@@ -24,9 +20,7 @@ interface SignUpViewModel {
     handleResend: () => Promise<void>;
 }
 
-export function SignUpViewModelFunction (
-    {onSignIn, onBack, }:
-    SignUpViewModelProps): SignUpViewModel {
+export function SignUpViewModelFunction (): SignUpViewModel {
 
         const { signUp, confirmSignUp, resendSignUpCode, error, clearError, isLoading } = useAuth();
 
@@ -35,6 +29,7 @@ export function SignUpViewModelFunction (
         const [needsConfirmation, setNeedsConfirmation] = useState(false);
         const [localError, setLocalError] = useState<string | null>(null);
         const [resendMessage, setResendMessage] = useState<string | null>(null);
+        const nav = useNavigate();
 
         const setField = useCallback ((field: keyof SignUpForm, value: string | boolean) =>
         {
@@ -73,9 +68,9 @@ export function SignUpViewModelFunction (
             }
             try {
                 await confirmSignUp (form.username.trim(), confirmationCode.trim()); //If the validation is passed, Amplify will be called
-                onSignIn?.(); //If confirmation is successful, go to the SignIn page if it exists
+                nav('/dashboard')
             } catch {}
-        }, [confirmationCode, form.username, confirmSignUp, clearError, onSignIn]); //Dependency array
+        }, [confirmationCode, form.username, confirmSignUp, clearError]); //Dependency array
 
         const handleResend = useCallback(async () =>
         {
