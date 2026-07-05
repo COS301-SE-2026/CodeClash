@@ -21,11 +21,6 @@ export async function createSocket(): Promise<Socket> {
         console.error(`Error connecting to socket: ${err}`);
     })
 
-    // starts chain to spin up a match
-    conn.on("users_matched", (data) => {
-        const found = useSearch();
-        setTimeout(() => found(true), 2000);
-    })
 
     conn.on("match_error", () => {
         console.error("Error matching users");

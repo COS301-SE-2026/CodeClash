@@ -69,7 +69,7 @@ export function useUser() {
         getUserInfo()
 
 
-    }, [])
+    }, [user])
 
 
     const getUserInfo = async () => {

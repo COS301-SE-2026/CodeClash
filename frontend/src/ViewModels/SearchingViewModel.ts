@@ -1,23 +1,38 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useSocket } from "src/context/SocketContext";
 
-
-
 export function useSearch() {
+
     const [found, setFound] = useState(false);
-    const nav = useNavigate();
     const { socket } = useSocket();
 
+    useEffect(() => {
+        console.log("use search")
+
+        console.log("Socket: ", socket)
+        if (socket) {
+
+            socket.on("users_matched", () => {
+                console.log("Users matched")
+                handleMatched()
+            })
+
+            return () => {
+                console.log("returning")
+                socket.off("users_matched", () => handleMatched())
+            }
+        }
+    }, [socket])
 
     const matched = (match: boolean) => {
         setFound(match);
-
-        if (match)
-            nav('/found')
-
-        else return found;
     }
 
-    return matched;
+    const handleMatched = () => {
+        console.log("Calling handleMatched")
+        matched(true)
+    };
+
+
+    return { matched, found };
 }

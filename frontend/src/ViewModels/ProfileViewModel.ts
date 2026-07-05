@@ -5,7 +5,6 @@ export function useLogOut() {
     const { user, error, signOut } = useAuth();
     const nav = useNavigate();
 
-
     const logout = async () => {
 
         try {

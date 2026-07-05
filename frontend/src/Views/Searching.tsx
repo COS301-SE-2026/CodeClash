@@ -1,16 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSearch } from 'src/ViewModels/SearchingViewModel';
+import { useNavigate } from 'react-router-dom';
 
 const Searching: React.FC = () => {
   const [seconds, setSeconds] = useState(0);
-  const found = useSearch();
+  const { found } = useSearch();
+  const nav = useNavigate();
 
+  // timer
   useEffect(() => {
-
     const id = setInterval(() => setSeconds((s) => s + 1), 1000);
     return () => clearInterval(id);
   }, []);
+
+
+  // found
+  useEffect(() => {
+    console.log("searching use efect")
+    console.log("Found: ", found)
+    if (found) {
+      nav('/found')
+    }
+
+  }, [found])
 
 
   const mins = String(Math.floor(seconds / 60)).padStart(1, '0');

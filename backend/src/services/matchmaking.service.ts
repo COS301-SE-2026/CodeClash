@@ -76,6 +76,9 @@ async function matchmaking(user: MatchmakingUserDTO) {
         console.log("No match found, adding player to queue");
         return null;
     }
+    else if (players[0]!.user_id == user.id.toString()) {
+        return null;
+    }
     else {
         console.log("Match found for  ", user.id)
         const match = players[0];

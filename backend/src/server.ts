@@ -40,6 +40,8 @@ io.on("connection", (socket) => {
         //adds users to a room 
 
         console.log("matching user for a game")
+        socket.join(socket.data.user_id)
+        
         const user = new MatchmakingUserDTO(socket.data.user_id, data.elo, data.game_mode);
         var match = null;
 
@@ -53,8 +55,7 @@ io.on("connection", (socket) => {
         const player_1 = match.player_1_id.toString();
         const player_2 = match.player_2_id.toString();
 
-        io.to(player_1!).emit('matched');
-        io.to(player_2!).emit('matched');
+        
 
         const pair = {
             player_1: player_1,
@@ -64,7 +65,8 @@ io.on("connection", (socket) => {
         console.log("matched user")
         socket.emit('users_matched', pair);
 
-
+        io.to(player_1!).emit('users_matched',pair);
+        io.to(player_2!).emit('users_matched',pair);
 
     })
 
