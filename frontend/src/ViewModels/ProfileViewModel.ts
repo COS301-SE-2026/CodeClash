@@ -1,7 +1,6 @@
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-
 export function useLogOut() {
     const { user, error, signOut } = useAuth();
     const nav = useNavigate();
@@ -20,4 +19,15 @@ export function useLogOut() {
     }
 
     return logout
+}
+
+export function useEdit() {
+    const edit = async () => { }
+
+    return edit;
+}
+
+export async function getProfile() {
+
+
 }
