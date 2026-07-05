@@ -109,7 +109,7 @@
   --primary: #530a23;
   --secondary: #FFEFE0;
   --primary-text: #FCECDD;
-  --secondary-text: ;
+  --secondary-text: #530a23;
 
   /* buttons */
   --button-primary: #C0395A;
@@ -176,4 +176,37 @@
   .fields {
     font-size: var(--font-size-sm);
   }
+
+  .primary-back-button {
+    position: absolute;
+    top: 15px;
+    left: 40px;
+    border-radius: 5px;
+    padding: 4px 2px;
+    color: var(--primary-text);
+    font-family: var(--heading);
+    font-weight: var(--heading-sub-weight);
+    font-size: var(--font-size-md);
+    white-space: nowrap;
+    transition: transform 0.3s ease;
+  }
+
+  .secondary-back-button {
+    position: absolute;
+    top: 15px;
+    left: 40px;
+    border-radius: 5px;
+    padding: 4px 2px;
+    color: var(--secondary-text);
+    font-family: var(--heading);
+    font-weight: var(--heading-sub-weight);
+    font-size: var(--font-size-md);
+    white-space: nowrap;
+    transition: transform 0.3s ease;
+  }
+
+  .primary-back-button:hover, .secondary-back-button:hover {
+    transform: scale(1.2);
+  }
+
 }
