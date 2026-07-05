@@ -1,7 +1,7 @@
 import { signIn as amplifySignIn, signUp as amplifySignUp, signOut as amplifySignOut, getCurrentUser, confirmSignUp as amplifyConfirmSignUp, resendSignUpCode as amplifyResendSignUpCode } from 'aws-amplify/auth'
 import React, { useEffect, useState, useCallback, type ReactNode } from 'react'
 
-import { AuthContext, type AuthContextValue, type AuthUser } from './AuthContextValue'
+import {type AuthContextValue, type AuthUser } from './AuthContextValue'
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<AuthUser | null>(null)
