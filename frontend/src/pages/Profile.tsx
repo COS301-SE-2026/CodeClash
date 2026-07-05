@@ -47,9 +47,9 @@ const Profile: React.FC<ProfileProps> = ({
         <div className="text-secondary-text font-normal text-[24px] text-center underline mt-5 cursor-pointer">Game Guide</div>
         <div className="text-secondary-text font-normal text-[24px] text-center underline cursor-pointer">Settings</div>
 
-        <div className="grid grid-flow-col grid-cols-2 gap-4 ml-8 mr-8 mt-15 h-20">
+        <div className="grid grid-flow-col grid-cols-2 gap-18 -ml-1 mr-5 mt-13 h-20">
         <button
-          className="w-full h-[60px] bg-button-primary text-white rounded-[20px] text-[24px] font-semibold flex items-center justify-center mt-2 cursor-pointer drop-shadow-[4px_4px_5px_rgba(0,0,0,0.3)] transition-all duration-200 hover:bg-primary hover:-translate-y-px active:translate-y-0 active:bg-[#1d4ed8]"
+          className="w-[217px] h-[52px] bg-button-primary text-white rounded-[20px] text-[24px] font-semibold flex items-center justify-center mt-2 cursor-pointer drop-shadow-[0px_4px_4px_rgba(0,0,0,0.3)] transition-all duration-200 hover:bg-primary hover:-translate-y-px active:translate-y-0 active:bg-[#1d4ed8]"
           type="button"
           onClick={onLogout}
           tabIndex={0}
@@ -64,7 +64,7 @@ const Profile: React.FC<ProfileProps> = ({
           Log Out
         </button>
         <button
-          className="w-full h-[60px] bg-button-primary text-white rounded-[20px] text-[24px] font-semibold flex items-center justify-center mt-2 cursor-pointer drop-shadow-[4px_4px_5px_rgba(0,0,0,0.3)] transition-all duration-200 hover:bg-primary hover:-translate-y-px active:translate-y-0 active:bg-[#1d4ed8]"
+          className="w-[217px] h-[52px] bg-button-primary text-white rounded-[20px] text-[24px] font-semibold flex items-center justify-center mt-2 cursor-pointer drop-shadow-[0px_4px_4px_rgba(0,0,0,0.3)] transition-all duration-200 hover:bg-primary hover:-translate-y-px active:translate-y-0 active:bg-[#1d4ed8]"
           type="button"
           onClick={onEdit}
           tabIndex={0}
@@ -75,7 +75,7 @@ const Profile: React.FC<ProfileProps> = ({
             }
           }}
         >
-
+          Edit
         </button>
         </div>
       </div>
