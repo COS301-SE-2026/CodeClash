@@ -20,6 +20,7 @@ const Profile: React.FC<ProfileProps> = ({
   winStreak = 63,
   onBack,
   onLogout,
+  onEdit,
 }) => {
   return (
     <div className="relative w-full min-h-[1024px] bg-secondary mx-auto flex flex-col items-center justify-center">
@@ -61,6 +62,14 @@ const Profile: React.FC<ProfileProps> = ({
         }
         >
           Log Out
+        </button>
+        <button
+          className="w-full h-[60px] bg-button-primary text-white rounded-[20px] text-[24px] font-semibold flex items-center justify-center mt-2 cursor-pointer drop-shadow-[4px_4px_5px_rgba(0,0,0,0.3)] transition-all duration-200 hover:bg-primary hover:-translate-y-px active:translate-y-0 active:bg-[#1d4ed8]"
+          type="button"
+          onClick={onEdit}
+          tabIndex={0}
+        >
+
         </button>
         </div>
       </div>
