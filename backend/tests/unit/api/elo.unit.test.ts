@@ -1,5 +1,6 @@
-import { request, app, expectNotFound, expectValidationError, expectEmptyArray, expectArrayShape } from '../helpers/test-utils'
 import { describe, test, expect } from 'vitest';
+
+import { request, app, expectNotFound, expectValidationError, expectEmptyArray, expectArrayShape } from '../helpers/test-utils'
 
 const eloProps = ['elo_id', 'user_id', 'game_mode', 'rating', 'updated_at']
 
