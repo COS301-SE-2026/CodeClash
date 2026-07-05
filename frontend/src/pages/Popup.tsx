@@ -1,5 +1,6 @@
 import '../styles/global.css'
 import React, { useEffect } from "react"
+import robot from '../assets/Robots/arms_up.png'
 
 interface PopupProps{
     onMath? : () => void;
@@ -9,48 +10,9 @@ interface PopupProps{
 
 
 const Popup: React.FC<PopupProps> = ({onMath, onProg, onCancel}) => {
-    // useEffect(() => {
-    //     const math = (e: KeyboardEvent) => {
-    //         const alt = e.altKey;
-    //         if (alt && e.key === 'L'){
-    //             onMath?.();
-    //         }
-    //     };
-
-    //     window.addEventListener('keydown', math);
-
-    //     return () => window.removeEventListener('keydown', math);
-    // }, [onMath]);
-
-    // useEffect(() => {
-    //     const prog = (e: KeyboardEvent) => {
-    //         const alt = e.altKey;
-    //         if(alt && e.key === 'R'){
-    //             onProg?.();
-    //         }
-
-    //     };
-
-    //     window.addEventListener('keydown', prog);
-        
-    //     return () => window.removeEventListener('keydown', prog);
-    // }, [onProg]);
-
-    // useEffect(() => {
-    //     const cancel = (e: KeyboardEvent) => {
-    //         const shift = e.shiftKey;
-    //         if(shift && e.key === 'Esc'){
-    //             onCancel?.();
-    //         }
-    //     }
-
-    //     window.addEventListener('keydown', cancel);
-
-    //     return () => window.removeEventListener('keydown', cancel);
-    // }, [onCancel]);
 
     return(
-        <div className="min-h-screen w-full bg-[var(--secondary)] flex items-center justify-center p-6 bg-[url(./robot.png)] bg-center bg-no-repeat bg-size-[auto_800px]">
+        <div style={{backgroundImage: `url(${robot})`}} className="min-h-screen w-full bg-[var(--secondary)] flex items-center justify-center p-6 bg-center bg-no-repeat bg-size-[auto_800px]">
             <div className="relative w-xl">
                 {/* <img src='./robot.png' alt="robot" className="relative w-full z-0 inset-0"></img> */}
 
