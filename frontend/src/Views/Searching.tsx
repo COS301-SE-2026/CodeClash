@@ -17,8 +17,6 @@ const Searching: React.FC = () => {
 
   // found
   useEffect(() => {
-    console.log("searching use efect")
-    console.log("Found: ", found)
     if (found) {
       nav('/found')
     }

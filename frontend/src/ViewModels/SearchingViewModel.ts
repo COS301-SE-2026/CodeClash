@@ -7,18 +7,13 @@ export function useSearch() {
     const { socket } = useSocket();
 
     useEffect(() => {
-        console.log("use search")
-
-        console.log("Socket: ", socket)
         if (socket) {
 
             socket.on("users_matched", () => {
-                console.log("Users matched")
                 handleMatched()
             })
 
             return () => {
-                console.log("returning")
                 socket.off("users_matched", () => handleMatched())
             }
         }
@@ -29,7 +24,6 @@ export function useSearch() {
     }
 
     const handleMatched = () => {
-        console.log("Calling handleMatched")
         matched(true)
     };
 

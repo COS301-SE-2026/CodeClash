@@ -44,8 +44,6 @@ async function matchmaking(user: MatchmakingUserDTO) {
     // finds all players in the queue within the elo range
     const elo_range = await redis.zrangebyscore(user.game_mode, elo_range_lower, elo_range_upper);
 
-
-    console.log("QUEUE: ", elo_range);
     // get joined_at times for all users in the elo_range
     const result = await Promise.all(
         elo_range.map(async (user_id) => {
@@ -61,8 +59,6 @@ async function matchmaking(user: MatchmakingUserDTO) {
     // sort by joined times - ascending
     players.sort((a, b) => Number(a.join) - Number(b.join));
 
-    console.log("Final list ", players);
-
     if (players.length == 0) {
 
         const waiting = await redis.zscore(user.game_mode, user.id.toString());
@@ -73,16 +69,13 @@ async function matchmaking(user: MatchmakingUserDTO) {
             enqueue(user, user.game_mode);
         }
 
-        console.log("No match found, adding player to queue");
         return null;
     }
     else if (players[0]!.user_id == user.id.toString()) {
         return null;
     }
     else {
-        console.log("Match found for  ", user.id)
         const match = players[0];
-        console.log("Match = ", match?.user_id);
 
         if (!match) return null;
 
