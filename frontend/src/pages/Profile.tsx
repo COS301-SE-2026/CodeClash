@@ -68,6 +68,12 @@ const Profile: React.FC<ProfileProps> = ({
           type="button"
           onClick={onEdit}
           tabIndex={0}
+          onKeyDown={(e) => {
+            const alt = e.altKey;
+            if(alt && e.key === 'Enter'){
+              onEdit?.();
+            }
+          }}
         >
 
         </button>
