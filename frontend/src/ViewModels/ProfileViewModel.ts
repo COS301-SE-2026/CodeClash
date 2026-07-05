@@ -1,24 +1,23 @@
-// import { useCallback, useState } from "react";
-// import { ProfileData } from "../Models/ProfileModel";
-// import type { ProfileDetails } from "../Models/ProfileModel";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
-export interface ProfileViewModelProps{
-    onBack? : () => void;
+
+export function useLogOut() {
+    const { user, error, signOut } = useAuth();
+    const nav = useNavigate();
+
+
+    const logout = async () => {
+
+        try {
+
+            console.log(`logging user out: ${user}`)
+            await signOut();
+            nav('/welcome');
+        } catch (err) {
+            console.log(`Error logging out: ${err}`)
+        }
+    }
+
+    return logout
 }
-
-// interface ProfileViewModel{
-//     details: ProfileDetails;
-//     isLoading: boolean;
-//     displayError: string | null;
-    
-//     handleBack: () => void; //takes user to dashboard
-
-// }
-
-
-// export function ProfileViewModelFunction(userId: string){
-
-//     const [details, setDetails] = useState<ProfileDetails>(ProfileData);
-//     const [isLoading, setIsLoading] = useState(true);
-//     const [error, setError] = useState<string | null>(null);
-// }

@@ -1,3 +1,6 @@
+
+
+
 import { fetchUserAttributes } from "aws-amplify/auth";
 // import { getCurrentUser } from "aws-amplify/auth"
 
@@ -8,10 +11,6 @@ export interface ProfileDetails{
     currentStreak: number;
 }
 
-export interface ProfileRoutes{
-    gameGuide: '/gameGuide'; //need to verify eventually when routes are done
-    settings: '/settings';
-}
 
 export const ProfileData : ProfileDetails = {
     avatarUrl: '../assets/Profile_Icon.png',
