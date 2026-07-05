@@ -1,0 +1,30 @@
+frontend/src/Views/SignIn.tsx
+  h_94c952a9e14c58 24
+frontend/src/App.tsx
+  h_94c952a9e14c58 8,25
+frontend/src/Models/ProfileModel.ts
+  h_94c952a9e14c58 1-11
+frontend/src/ViewModels/ProfileViewModel.ts
+  h_94c952a9e14c58 1-23
+frontend/@/components/ui/button.tsx
+  h_94c952a9e14c58 12
+frontend/src/ViewModels/SignInViewModel.ts
+  h_94c952a9e14c58 5,7,12,33
+frontend/src/Views/Dashboard.tsx
+  h_94c952a9e14c58 29-33
+frontend/src/Views/Profile.tsx
+  h_94c952a9e14c58 1-58
+frontend/src/styles/global.css
+  h_94c952a9e14c58 112,179-211
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "9b640c23bb30c880ce08164620f39d36d146d829",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

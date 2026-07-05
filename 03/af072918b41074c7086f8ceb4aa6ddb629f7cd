@@ -1,0 +1,28 @@
+frontend/src/services/websocket.service.tsx
+  h_94c952a9e14c58 9,17,26,29-30
+frontend/src/Views/Dashboard.tsx
+  h_94c952a9e14c58 17,21,57
+backend/src/server.ts
+  h_94c952a9e14c58 39,47-50,53-54,56-57,59-62,64
+frontend/src/Views/SignUp.tsx
+  h_94c952a9e14c58 11
+frontend/src/ViewModels/Shared.ViewModel.ts
+  h_94c952a9e14c58 13,17,19,25,27,31
+backend/src/services/matchmaking.service.ts
+  h_94c952a9e14c58 47-48,57,64-65,76,80,82,92-93,95
+frontend/src/ViewModels/SignUpViewModel.ts
+  h_94c952a9e14c58 5,32,71,73
+frontend/src/ViewModels/DashboardViewModel.ts
+  h_94c952a9e14c58 2,12-17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "03af072918b41074c7086f8ceb4aa6ddb629f7cd",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

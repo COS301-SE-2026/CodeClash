@@ -1,0 +1,16 @@
+backend/src/controllers/elo.controllers.ts
+  h_94c952a9e14c58 26,41
+backend/src/controllers/user.controllers.ts
+  h_94c952a9e14c58 84-125,128-129,131-149,151-169
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "471f847cd07e8c06883cd661f51262c4b3a9870c",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

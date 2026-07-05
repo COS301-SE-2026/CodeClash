@@ -1,0 +1,26 @@
+backend/src/config/db.ts
+  h_94c952a9e14c58 3,28
+frontend/src/ViewModels/Shared.ViewModel.ts
+  h_94c952a9e14c58 1-76
+backend/src/controllers/elo.controllers.ts
+  h_94c952a9e14c58 11-15,17,19
+backend/src/services/auth.service.ts
+  h_94c952a9e14c58 40-42
+backend/src/controllers/user.controllers.ts
+  h_94c952a9e14c58 1-17,20-86
+frontend/src/services/websocket.service.tsx
+  h_94c952a9e14c58 33-34
+frontend/src/ViewModels/PopUpViewModel.ts
+  h_94c952a9e14c58 6,44,46,49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "1d3a8db029aaff62ff91b183470144b0c7a368b6",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

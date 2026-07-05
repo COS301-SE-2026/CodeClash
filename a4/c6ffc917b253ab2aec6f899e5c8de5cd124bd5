@@ -1,0 +1,14 @@
+frontend/src/ViewModels/SharedViewModel.ts
+  h_94c952a9e14c58 1-21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "a4c6ffc917b253ab2aec6f899e5c8de5cd124bd5",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
