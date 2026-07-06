@@ -1,5 +1,6 @@
-import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from '@testing-library/react';
+import { describe, it, expect, vi } from "vitest";
+
 import BackButton from '../../@/components/shared/BackButton';
 
 describe('BackButton click Test', () => {

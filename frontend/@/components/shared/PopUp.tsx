@@ -1,4 +1,4 @@
-/* The popup can be used for the following: 
+/* The popup can be used for the following:
     Topic selection popup for Ranked Play.
 
 This is how it would be called and rendered in its necessary files:
@@ -10,9 +10,9 @@ This is how it would be called and rendered in its necessary files:
     />
 */
 
-import React from 'react';
+import React from "react";
 
-type Topic = 'math' | 'programming';
+type Topic = "math" | "programming";
 
 /* istanbul ignore next */
 interface PopupProps {
@@ -34,61 +34,65 @@ interface TopicConfig {
 /* istanbul ignore next */
 const TOPICS: TopicConfig[] = [
   {
-    topic: 'math',
-    label: 'Math',
+    topic: "math",
+    label: "Math",
     icon: <span style={{ fontSize: 48, lineHeight: 1 }}>+ -</span>,
-    borderColor: '#5f5980',
-    hoverBg: 'rgba(167,139,250,0.08)',
-    hoverBorder: '#5f5980',
+    borderColor: "#5f5980",
+    hoverBg: "rgba(167,139,250,0.08)",
+    hoverBorder: "#5f5980",
   },
   {
-    topic: 'programming',
-    label: 'Programming',
-    icon: <span style={{ fontSize: 48, lineHeight: 1, fontFamily: 'monospace' }}>&lt;/&gt;</span>,
-    borderColor: '#0e34a0',
-    hoverBg: 'rgba(59,130,246,0.08)',
-    hoverBorder: '#1d4ed8',
+    topic: "programming",
+    label: "Programming",
+    icon: (
+      <span style={{ fontSize: 48, lineHeight: 1, fontFamily: "monospace" }}>
+        &lt;/&gt;
+      </span>
+    ),
+    borderColor: "#0e34a0",
+    hoverBg: "rgba(59,130,246,0.08)",
+    hoverBorder: "#1d4ed8",
   },
 ];
 
 /* istanbul ignore next */
 const overlayStyle: React.CSSProperties = {
-  position: 'absolute',
+  position: "absolute",
   inset: 0,
   zIndex: 50,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  backgroundColor: 'rgba(15, 23, 42, 0.5)',
-  borderRadius: 'inherit',
-  cursor: 'default',
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  backgroundColor: "rgba(15, 23, 42, 0.5)",
+  borderRadius: "inherit",
+  cursor: "default",
 };
 
 /* istanbul ignore next */
 const dialogStyle: React.CSSProperties = {
-  position: 'relative',
-  backgroundColor: '#ffffff',
-  border: '1px solid #0f172a',
+  position: "relative",
+  backgroundColor: "#ffffff",
+  border: "1px solid #0f172a",
   borderRadius: 20,
   width: 560,
-  padding: '48px 40px 36px',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
+  padding: "48px 40px 36px",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
   gap: 28,
-  boxShadow: '0 20px 60px rgba(15, 23, 42, 0.18)',
+  boxShadow: "0 20px 60px rgba(15, 23, 42, 0.18)",
 };
 
 /* istanbul ignore next */
 const closeBtnStyle: React.CSSProperties = {
-  position: 'absolute',
+  position: "absolute",
   top: 16,
   right: 20,
-  background: 'none',
-  border: 'none',
+  background: "none",
+  border: "none",
   fontSize: 22,
-  color: '#64748b',
-  cursor: 'pointer',
+  color: "#64748b",
+  cursor: "pointer",
   lineHeight: 1,
   padding: 4,
 };
@@ -97,30 +101,30 @@ const closeBtnStyle: React.CSSProperties = {
 const topicBtnBaseStyle: React.CSSProperties = {
   width: 190,
   height: 160,
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
   gap: 10,
-  backgroundColor: '#ffffff',
+  backgroundColor: "#ffffff",
   borderRadius: 20,
   fontFamily: '"Baloo Bhai 2", cursive',
   fontWeight: 600,
   fontSize: 28,
-  color: '#0f172a',
-  cursor: 'pointer',
-  transition: 'all 0.18s ease',
+  color: "#0f172a",
+  cursor: "pointer",
+  transition: "all 0.18s ease",
 };
 
 /* istanbul ignore next */
 const cancelBtnStyle: React.CSSProperties = {
-  background: 'none',
-  border: 'none',
+  background: "none",
+  border: "none",
   fontFamily: '"Baloo Bhai 2", cursive',
   fontSize: 16,
-  color: '#64748b',
-  textDecoration: 'underline',
-  cursor: 'pointer',
+  color: "#64748b",
+  textDecoration: "underline",
+  cursor: "pointer",
   padding: 0,
 };
 
@@ -130,18 +134,20 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose, onSelectTopic }) => {
   return (
     <div
       onClick={onClose}
-      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onClose(); }}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") onClose();
+      }}
       role="button"
       tabIndex={-1}
       style={overlayStyle}
-      aria-label='outer-div'
+      aria-label="outer-div"
     >
       <dialog
         open
         aria-label="Choose a topic"
         onClick={(e) => e.stopPropagation()}
         onKeyDown={(e) => {
-          if (e.key == 'Escape') onClose();
+          if (e.key === "Escape") onClose();
         }}
         style={dialogStyle}
       >
@@ -150,54 +156,61 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose, onSelectTopic }) => {
           onClick={onClose}
           style={closeBtnStyle}
           /* istanbul ignore next */
-          onMouseEnter={(e) => (e.currentTarget.style.color = '#0f172a')}
+          onMouseEnter={(e) => (e.currentTarget.style.color = "#0f172a")}
           /* istanbul ignore next */
-          onMouseLeave={(e) => (e.currentTarget.style.color = '#64748b')}
+          onMouseLeave={(e) => (e.currentTarget.style.color = "#64748b")}
         >
           X
         </button>
 
-        <div style={{ textAlign: 'center' }}>
-          <h2 style={{
-            fontFamily: '"Baloo Bhai 2", cursive',
-            fontWeight: 700,
-            fontSize: 40,
-            color: '#0f172a',
-            margin: '0 0 6px',
-            lineHeight: 1.1,
-          }}>
+        <div style={{ textAlign: "center" }}>
+          <h2
+            style={{
+              fontFamily: '"Baloo Bhai 2", cursive',
+              fontWeight: 700,
+              fontSize: 40,
+              color: "#0f172a",
+              margin: "0 0 6px",
+              lineHeight: 1.1,
+            }}
+          >
             Choose a Topic
           </h2>
-          <p style={{
-            fontFamily: '"Baloo Bhai 2", cursive',
-            fontSize: 20,
-            color: '#64748b',
-            margin: 0,
-          }}>
+          <p
+            style={{
+              fontFamily: '"Baloo Bhai 2", cursive',
+              fontSize: 20,
+              color: "#64748b",
+              margin: 0,
+            }}
+          >
             What would you like to be challenged on?
           </p>
         </div>
 
-        <div style={{ display: 'flex', gap: 24 }}>
+        <div style={{ display: "flex", gap: 24 }}>
           {TOPICS.map((t) => (
             <button
               key={t.topic}
               type="button"
-              aria-label= {`topic-${t.topic}`}
+              aria-label={`topic-${t.topic}`}
               onClick={() => onSelectTopic(t.topic)}
               /* istanbul ignore next */
-              style={{ ...topicBtnBaseStyle, border: `2px solid ${t.borderColor}` }}
+              style={{
+                ...topicBtnBaseStyle,
+                border: `2px solid ${t.borderColor}`,
+              }}
               /* istanbul ignore next */
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = t.hoverBg;
                 e.currentTarget.style.borderColor = t.hoverBorder;
-                e.currentTarget.style.transform = 'translateY(-4px)';
+                e.currentTarget.style.transform = "translateY(-4px)";
               }}
               /* istanbul ignore next */
               onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = '#ffffff';
+                e.currentTarget.style.backgroundColor = "#ffffff";
                 e.currentTarget.style.borderColor = t.borderColor;
-                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.transform = "translateY(0)";
               }}
             >
               {t.icon}
@@ -211,10 +224,10 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose, onSelectTopic }) => {
           onClick={onClose}
           style={cancelBtnStyle}
           /* istanbul ignore next */
-          onMouseEnter={(e) => (e.currentTarget.style.color = '#0f172a')}
+          onMouseEnter={(e) => (e.currentTarget.style.color = "#0f172a")}
           /* istanbul ignore next */
-          onMouseLeave={(e) => (e.currentTarget.style.color = '#64748b')}
-          aria-label='cancel-button'
+          onMouseLeave={(e) => (e.currentTarget.style.color = "#64748b")}
+          aria-label="cancel-button"
         >
           Cancel
         </button>

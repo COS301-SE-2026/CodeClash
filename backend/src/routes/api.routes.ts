@@ -1,11 +1,12 @@
 import { Router } from 'express';
-import { getMatches, getMatchById, createMatch, updateMatchStatus, getMatchLog } from '../controllers/matches.controllers';
+
 import {
   getUserElo,
   getEloHistory,
   updateEloAfterMatch,
   getLeaderboard
 } from '../controllers/elo.controllers';
+import { getMatches, getMatchById, createMatch, updateMatchStatus, getMatchLog } from '../controllers/matches.controllers';
 
 const router = Router();
 

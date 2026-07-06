@@ -1,4 +1,5 @@
 import React from 'react';
+
 import logoImage from '../assets/LightMode_Logo.png';
 
 interface WelcomeProps {
