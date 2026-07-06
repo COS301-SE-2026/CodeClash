@@ -1,0 +1,32 @@
+frontend/src/main.tsx
+  h_94c952a9e14c58 7
+frontend/src/Models/ProfileModel.ts
+  h_94c952a9e14c58 2,5-9,13,16-20
+frontend/src/Views/Profile.tsx
+  h_94c952a9e14c58 2,7,14,19-20,25-31,36,38,41-42,44,47-50,52-62,64-78
+frontend/vite.config.ts
+  h_94c952a9e14c58 11
+frontend/src/styles/global.css
+  h_94c952a9e14c58 202,211-214
+frontend/src/Views/Popup.tsx
+  h_94c952a9e14c58 4-5,7,9-12,14-15,18-42,45-46,48-53
+frontend/@/components/ui/button.tsx
+  h_94c952a9e14c58 12,14,16
+frontend/tsconfig.app.json
+  h_94c952a9e14c58 28-29
+frontend/src/ViewModels/ProfileViewModel.ts
+  h_94c952a9e14c58 22-33
+frontend/src/Views/Dashboard.tsx
+  h_94c952a9e14c58 64
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "e85faa6f332a6687ca63587733853a0a462c68c5",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+frontend/src/ViewModels/SignUpViewModel.ts
+  h_94c952a9e14c58 5,33,72
+frontend/src/Views/SignUp.tsx
+  h_94c952a9e14c58 25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "d82ab86717d89ad75371773c3a4fc3ee84b05385",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

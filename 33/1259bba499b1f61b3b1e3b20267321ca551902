@@ -1,0 +1,20 @@
+backend/src/services/matchmaking.service.ts
+  h_94c952a9e14c58 32,57,60,65,87
+backend/src/entities/entities.ts
+  h_94c952a9e14c58 1-15
+backend/src/server.ts
+  h_94c952a9e14c58 5,8,13-14,40-64
+backend/tests/unit/matchmaking/matchmaking.service.test.ts
+  h_94c952a9e14c58 11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "331259bba499b1f61b3b1e3b20267321ca551902",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

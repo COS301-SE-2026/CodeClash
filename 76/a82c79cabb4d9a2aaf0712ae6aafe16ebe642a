@@ -1,0 +1,22 @@
+frontend/src/services/websocket.service.tsx
+  h_94c952a9e14c58 1,6,8,11,15,19-20,24-27,39-42
+frontend/src/ViewModels/PopUpViewModel.ts
+  h_94c952a9e14c58 5-6,50-51,55,57,60
+backend/src/controllers/elo.controllers.ts
+  h_94c952a9e14c58 11,17-18,20,38
+backend/src/services/auth.service.ts
+  h_94c952a9e14c58 36,45,55-56
+docker-compose.yml
+  h_94c952a9e14c58 4-10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "76a82c79cabb4d9a2aaf0712ae6aafe16ebe642a",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

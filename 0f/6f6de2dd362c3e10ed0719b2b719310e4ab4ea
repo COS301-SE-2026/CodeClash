@@ -1,0 +1,22 @@
+frontend/src/ViewModels/SearchingViewModel.ts
+  h_94c952a9e14c58 1,5,9-25,31-34,37
+frontend/src/ViewModels/Shared.ViewModel.ts
+  h_94c952a9e14c58 72
+frontend/src/Views/Searching.tsx
+  h_94c952a9e14c58 4,8-9,11,18-28
+backend/src/services/matchmaking.service.ts
+  h_94c952a9e14c58 79-81
+backend/src/server.ts
+  h_94c952a9e14c58 43-44,58,68-69
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "0f6f6de2dd362c3e10ed0719b2b719310e4ab4ea",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

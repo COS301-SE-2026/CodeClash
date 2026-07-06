@@ -1,0 +1,64 @@
+backend/src/config/db.ts
+  s_6ae428f566955b::t_205e5615293800 2
+backend/src/controllers/matches.controllers.ts
+  s_6ae428f566955b::t_205e5615293800 2
+"backend/src/Matchmaking Service/matchmaking.service.ts"
+  s_6ae428f566955b::t_205e5615293800 2,58
+backend/tests/unit/api/matchmaking.unit.test.ts
+  s_6ae428f566955b::t_205e5615293800 2-3
+backend/tests/unit/matchmaking/matchmaking.service.test.ts
+  s_6ae428f566955b::t_205e5615293800 11-12,95-96,98
+backend/tests/unit/helpers/test-utils.ts
+  s_6ae428f566955b::t_205e5615293800 4
+  s_6ae428f566955b::t_583987da8957f7 5
+frontend/@/components/ui/button.tsx
+  s_6ae428f566955b::t_4bfc0d48f8f5c4 7
+  s_6ae428f566955b::t_526c702a70cc96 8
+frontend/@/components/ui/badge.tsx
+  s_6ae428f566955b::t_4bfc0d48f8f5c4 6
+  s_6ae428f566955b::t_b4f45f85763c04 7
+backend/src/routes/api.routes.ts
+  s_6ae428f566955b::t_205e5615293800 2,9
+backend/tests/controller/elo.test.ts
+  s_6ae428f566955b::t_205e5615293800 1
+frontend/src/context/useAuth.ts
+  s_6ae428f566955b::t_4bfc0d48f8f5c4 2
+backend/tests/unit/api/matches.unit.test.ts
+  s_6ae428f566955b::t_205e5615293800 3
+  s_6ae428f566955b::t_3ffa13f76f5f79 4
+backend/tests/unit/api/problems.unit.test.ts
+  s_6ae428f566955b::t_205e5615293800 3
+  s_6ae428f566955b::t_4390110cda50ef 4
+backend/src/controllers/elo.controllers.ts
+  s_6ae428f566955b::t_205e5615293800 2
+backend/tests/unit/api/elo.unit.test.ts
+  s_6ae428f566955b::t_205e5615293800 3
+  s_6ae428f566955b::t_d9c2fec066bbb4 4
+backend/src/app.ts
+  s_6ae428f566955b::t_205e5615293800 2-4,7
+backend/tests/controller/match.test.ts
+  s_6ae428f566955b::t_205e5615293800 1,4
+frontend/src/routes.tsx
+  s_6ae428f566955b::t_4bfc0d48f8f5c4 5
+backend/tests/unit/api/achievement.unit.test.ts
+  s_6ae428f566955b::t_205e5615293800 3
+  s_6ae428f566955b::t_26b5b61f1cc3bb 4
+frontend/src/context/AuthContext.tsx
+  s_6ae428f566955b::t_4bfc0d48f8f5c4 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "dfa5faa525cbf071d8edc27e1003649b36d00934",
+  "prompts": {},
+  "sessions": {
+    "s_6ae428f566955b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f1e27-5fb9-7022-8dbe-5a0eeab4cd62",
+        "model": "gpt-5.4"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
