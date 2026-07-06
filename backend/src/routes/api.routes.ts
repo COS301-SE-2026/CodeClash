@@ -138,6 +138,15 @@ router.post('/powerups/use', usePowerup);
 // achievements
 router.get('/achievements', getAchievements);
 router.get('/achievements/user/:user_id', getUserAchievements);
+
+/** 
+ * @swagger
+ * /api/endpoint:
+ * post:
+ * summary: Awards the player with an achievement
+ * tags: [Achievements]
+ * parameters: 
+*/
 router.post('/submissions/award', awardAchievement);
 
 export default router;
