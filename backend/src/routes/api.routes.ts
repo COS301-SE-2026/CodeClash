@@ -137,6 +137,28 @@ router.post('/powerups/use', usePowerup);
 
 // achievements
 router.get('/achievements', getAchievements);
+
+/**
+ * @swagger
+ * /api/endpoint:
+ * get:
+ * summary: Gets achievements of a user (by id)
+ * tags: [Achievements]
+ * parameters: 
+ * - in: path
+ *   name: user_id
+ *   required: true
+ *   schema:
+ *   type: string
+ *   description: The id assigned to a user
+ * responses:
+ *  200:
+ *   description: Achievements of specified user retrieved
+ *  404:
+ *   description: User not found 
+ *  500:
+ *   description: Internal Server Error
+ */
 router.get('/achievements/user/:user_id', getUserAchievements);
 
 /** 
