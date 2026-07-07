@@ -59,6 +59,7 @@ async function matchmaking(user: MatchmakingUserDTO) {
     // sort by joined times - ascending
     players.sort((a, b) => Number(a.join) - Number(b.join));
 
+    console.log("Players found: ", players);
 
     if (players.length == 0) {
 

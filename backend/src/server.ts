@@ -38,7 +38,7 @@ io.use(async (socket, next) => {
 io.on("connection", (socket) => {
     socket.on('join_match_queue', async (data) => {
         //adds users to a room 
-        socket.join(socket.data.user_id)
+        await socket.join(socket.data.user_id)
 
         const user = new MatchmakingUserDTO(socket.data.user_id, data.elo, data.game_mode);
         var match = null;
@@ -63,7 +63,7 @@ io.on("connection", (socket) => {
 
     })
 
-    socket.on('leave_mach_queue', (data) => {
+    socket.on('leave_match_queue', (data) => {
 
     })
 })
