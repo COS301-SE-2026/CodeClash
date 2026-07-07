@@ -1,0 +1,16 @@
+frontend/src/Views/Popup.tsx
+  h_94c952a9e14c58 7-12,14-22,25-27,29-30,33,35-36,43,48,55,61,69,71
+frontend/src/Views/Dashboard.tsx
+  h_94c952a9e14c58 13,63,201-202
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "8684179c91419016e877641212fe8e5d26e4072c",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
