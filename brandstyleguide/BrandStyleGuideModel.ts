@@ -37,3 +37,32 @@ export interface ChangelogEntries { //This will show what changed from Demo 1 an
     changes: string[];
     rationale: string;
 }
+
+export interface BrandStyleGuideContent {
+    meta: {
+        version: string;
+        date: string;
+        project: string;
+        team: string;
+    };
+
+    colors: ColorToken[];
+    typography: TypographyToken[];
+
+    tokens: {
+        color: DesignToken[];
+        radius: DesignToken[];
+        typography: DesignToken[];
+        shadow: DesignToken[];
+        breakpoints: DesignToken[];
+    };
+
+    components: ComponentSpecs[];
+    chanelog: ChangelogEntries[];
+    accessibilityRules: string[];
+    
+    logoRules: {
+        permitted: string[];
+        forbidden: string[];
+    };
+}
