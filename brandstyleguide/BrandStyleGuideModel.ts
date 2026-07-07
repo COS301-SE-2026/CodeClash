@@ -107,6 +107,16 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
     },
 
     {
+        name: 'Button Secondary Text',
+        hex: '#9D2644',
+        rgb: '157, 38, 68',
+        hsl: '345deg, 61%, 38%',
+        usage: 'Secondary button labels, link accents',
+        wcag: 'AA on #FFEFE0 (4.8:1)',
+        on: 'light'
+    },
+
+    {
         name: 'Text Primary',
         hex: '#FCECDD',
         rgb: '252, 236, 221',
@@ -127,7 +137,23 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
     },
 
     {
-        
-    }
+        name: 'Success',
+        hex: '#4CAF50',
+        rgb: '76, 175, 80',
+        hsl: '122deg, 39%, 49%',
+        usage: 'Success states, confirmations, positive feedback',
+        wcag: 'AA on dark (4.5:1)',
+        on: 'light',
+    },
+
+    {
+        name: 'Danger',
+        hex: '#E53935',
+        rgb: '229, 57, 53',
+        hsl: '1deg, 77%, 55%',
+        usage: 'Destructive actions, errors, validation fails',
+        wcag: 'AA on white (4.5:1)',
+        on: 'light',
+    },
     ]
 }
