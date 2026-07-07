@@ -1,0 +1,20 @@
+frontend/package.json
+  h_94c952a9e14c58 25,31,50,62
+frontend/src/Views/Profile.tsx
+  h_94c952a9e14c58 2,8,13,18-19,25-31,36,38,41-42,44,47,52-59,64-78
+frontend/src/main.tsx
+  h_94c952a9e14c58 9
+package.json
+  h_94c952a9e14c58 44,46-47
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "383e9151793375cf8a273e83f1d8e335fa9b4e1d",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
