@@ -1,9 +1,10 @@
 import request from 'supertest'
-import app from '../../../src/app'
 import { describe, test, expect } from 'vitest';
 import { fetchAuthSession, JWT, signIn, signOut } from "aws-amplify/auth";
 import dotenv from "dotenv"
 dotenv.config();
+
+import app from '../../../src/app'
 
 export { request, app }
 

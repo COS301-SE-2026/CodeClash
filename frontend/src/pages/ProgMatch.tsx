@@ -1,15 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
 import { Editor } from "@monaco-editor/react";
-import { Progress } from "@/components/ui/progress";
-import { Badge } from "@/components/ui/badge";
+import React, { useState, useEffect, useRef } from "react";
 import { useTimer } from "react-timer-hook";
 import { Question } from "@/components/features/question";
 import blue_avatar from "../assets/Avatar/blue_avatar.jpeg";
 import puprle_avatar from "../assets/Avatar/purple_avatar.jpeg";
 import type { QuestionDTO, MatchDTO } from "src/types/question.dto";
 import { MatchProgress } from "@/components/features/match-progress";
+import { Question } from "@/components/features/question";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { Progress } from "@/components/ui/progress";
 
 interface ProgMatchProps {
   language: string;
@@ -47,14 +48,16 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
   const default_value = "// Your code here";
 
   // questions
-  const [questions, set_questions] = useState<QuestionDTO[]>();
+  const [questions, set_questions] = useState<QuestionDTO[]>(mock_questions); // loading in the questions, the use of useEffect only is necessitated with dynamic external stuff, so because linter isnt seeing that, its not happy, so it causes the error, which makes sense
   const [q_index, set_q_index] = useState(0);
   const [difficulty, set_difficulty] = useState<"easy" | "medium" | "hard">(
-    "easy",
+    mock_questions[0].difficulty, // just calling the first element in this array, which is easy
   );
-  const [title, set_title] = useState("");
-  const [question, set_question] = useState("");
-  const [description, set_description] = useState("");
+  const [title, set_title] = useState(mock_questions[0].title);
+  const [question, set_question] = useState(mock_questions[0].question);
+  const [description, set_description] = useState(
+    mock_questions[0].description ?? "",
+  );
 
   // initialise questions
   useEffect(() => {
@@ -87,14 +90,15 @@ const ProgMatch: React.FC<ProgMatchProps> = ({ language }) => {
   }
 
   // match progress
-  const [player_1_progress, set_player_1_progress] = useState(0);
+  // const [player_1_progress, set_player_1_progress] = useState(0);
   const [player_2_progress, set_player_2_progress] = useState(0);
   const [player_1_done, set_player_1_done] = useState(false);
   const [player_2_done, set_player_2_done] = useState(false);
+  const player_1_progress = (q_index / (questions?.length ?? 1)) * 100;
 
-  useEffect(() => {
-    set_player_1_progress((q_index / (questions?.length ?? 1)) * 100);
-  }, [q_index]);
+  // useEffect(() => {
+  //   set_player_1_progress((q_index / (questions?.length ?? 1)) * 100);
+  // }, [q_index]);
 
   // Data sent to backend - NOT CONNECTED RIGHT NOW
   function submit() {

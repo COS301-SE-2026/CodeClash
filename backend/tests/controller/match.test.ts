@@ -1,6 +1,7 @@
+import { Request, Response } from 'express';
 import { vi, Mocked, describe, it, expect, afterEach } from 'vitest'
 
-import { Request, Response } from 'express';
+import pool from '../../src/config/db';
 import {
   getMatches,
   getMatchById,

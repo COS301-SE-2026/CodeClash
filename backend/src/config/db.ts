@@ -1,6 +1,6 @@
-import { Pool } from 'pg';
 import dotenv from 'dotenv';
 import { fetchAllCognitoUsers } from '../controllers/user.controllers'
+import { Pool } from 'pg';
 
 dotenv.config();
 
