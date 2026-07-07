@@ -14,7 +14,7 @@ export interface TypographyToken { //This will show typography and scales as tex
     name: string;
     cssVar: string;
     size: string;
-    weight: string;
+    weight: number;
     sample: string;
     usage: string;
 }
@@ -155,5 +155,70 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
         wcag: 'AA on white (4.5:1)',
         on: 'light',
     },
-    ]
+    ],
+
+    typography: [
+    {
+        name: 'Heading Big',
+        cssVar: '--heading-big-size',
+        size: '5rem',
+        weight: 700,
+        sample: 'CodeClash Gaming',
+        usage: 'Display titles - .heading-big class',
+    },
+
+    {
+        name: 'Heading',
+        cssVar: '--heading-size',
+        size: '3rem',
+        weight: 700,
+        sample: 'Welcome Back, Challenger',
+        usage: 'Page headings, section titles - .heading class',
+    },
+
+    {
+        name: 'Heading Sub',
+        cssVar: '--font-size-md',
+        size: '1.9rem',
+        weight: 400,
+        sample: 'Build your skills. Earn your rank.',
+        usage: 'Subheadings, taglines, back buttons - .heading-sub class',
+    },
+
+    {
+        name: 'Body-Large',
+        cssVar: '--font-size-l',
+        size: '2.3rem',
+        weight: 500,
+        sample: '',
+        usage: 'Large body text, prominent labels', 
+    },
+
+    {
+        name: 'Body-Medium',
+        cssVar: '--font-size-md',
+        size: '1.9rem',
+        weight: 500,
+        sample: '',
+        usage: 'General body text, paragraphs',
+    },
+
+    {
+        name: 'Small',
+        cssVar: '--font-size-sm',
+        size: '1.3rem',
+        weight: 400,
+        sample: 'Already have an account?',
+        usage: 'Captions, helper texts, form labels - .fields class',
+    },
+
+    {
+        name: 'Extra Small',
+        cssVar: '--font-size-xsm',
+        size: '0.9rem',
+        weight: 400,
+        sample: 'Select a game mode and start competing',
+        usage: 'Statistics, small UI labels - text-xsm',
+    },
+    ],
 }
