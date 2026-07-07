@@ -243,7 +243,7 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
     ],
 
     tokens: {
-        color: [
+        color: [ //ColorTokens shows the design view for designers to see visual identity, this will be used by developers as the code view. So its "how to use this color" rather than "what does the color look like"
         {
             token: '--primary',
             value: '#530A24',
