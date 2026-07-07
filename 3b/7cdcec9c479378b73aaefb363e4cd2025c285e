@@ -1,0 +1,16 @@
+backend/tests/setup.ts
+  h_94c952a9e14c58 1-7
+backend/src/config/amplify-config.ts
+  h_94c952a9e14c58 1-23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "3b7cdcec9c479378b73aaefb363e4cd2025c285e",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
