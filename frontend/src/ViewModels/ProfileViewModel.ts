@@ -18,14 +18,3 @@ export function useLogOut() {
 
     return logout
 }
-
-export function useEdit() {
-    const edit = async () => { }
-
-    return edit;
-}
-
-export async function getProfile() {
-
-
-}
