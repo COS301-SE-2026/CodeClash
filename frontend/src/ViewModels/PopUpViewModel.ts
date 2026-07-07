@@ -3,12 +3,12 @@ import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import { joinMatchQueue } from "../services/websocket.service";
 import MatchmakingUserDTO from "../dtos/matchmaking.dto";
-import { getUserToken } from "./Shared.ViewModel";
-import { useSocket } from "src/context/SocketContext";
+import { getUserToken, getUserElo } from "./Shared.ViewModel";
+import { useSocket } from "src/context/hooks/useSocket";
 
 
 
-export function useSelectTopic() {
+export  function useSelectTopic() {
     const navigation = useNavigate();
     const [topic, setTopic] = useState('');
     const [elo, setElo] = useState(0);
@@ -24,18 +24,11 @@ export function useSelectTopic() {
 
         try {
 
-            axios.get('http://localhost:3000/api/elo/elo-get', {
-                headers: { Authorization: `Bearer ${token}` }
-            })
-                .then((res) => {
+            const getElo = async () => {
+                const user_elo = await getUserElo(token);
+            }
 
-                    if (res.status === 200)
-                        setElo(res.data.elo.rating)
-                    else {
-                        console.error(`Error: ${res.status}`)
-                        console.error(`${res.data}`);
-                    }
-                })
+            getElo();
         }
         catch {
             console.error('Error sending request')

@@ -1,4 +1,3 @@
-
 import searchIcon from '../assets/Icons/Search.png';
 import aiIcon from '../assets/Icons/AI.png';
 import profileIcon from '../assets/Icons/Profile.png';
@@ -13,13 +12,29 @@ import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import Popup from './PopUp';
 
+
 // View Model
-import { useShowPopUp} from '../ViewModels/DashboardViewModel';
-import { useUser } from '../ViewModels/Shared.ViewModel';
+import { useShowPopUp } from '../ViewModels/DashboardViewModel';
+import { useUser, getUserElo, getUserToken } from '../ViewModels/Shared.ViewModel';
+import { useEffect, useState } from 'react';
 
 const Dashboard = () => {
   const { isOpen, openPopUp, closePopUp } = useShowPopUp();
   const { username } = useUser();
+  const [elo, setElo] = useState<number | null>(null);
+
+  useEffect(() => {
+
+    const getElo = async () => {
+      const token = await getUserToken();
+      const user_elo = await getUserElo(token);
+
+      setElo(user_elo);
+    }
+
+    getElo();
+
+  }, [elo])
 
   return (
     <div style={{ backgroundImage: `url(${backgroundImg})` }} className='w-full h-[20] h-screen bg-cover bg-center flex flex-col items-center'>
@@ -81,7 +96,7 @@ const Dashboard = () => {
         {/* Elo Score */}
         <div className='flex flex-col w-[35%] items-center'>
           <p className='text-3xl font-semibold'>SKILL SCORE</p>
-          <p className='text-l'>###ELO</p>
+          <p className='text-l'>{elo} &nbsp; ELO</p>
         </div>
 
         {/* Stats */}

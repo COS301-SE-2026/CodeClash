@@ -3,16 +3,15 @@ import { describe, test, expect } from 'vitest';
 
 const eloProps = ['elo_id', 'user_id', 'game_mode', 'rating', 'updated_at']
 
+
 describe('ELO Ratings API', () => {
-  describe('GET /users/:user_id/elo', () => {
+  describe('GET /api/elo/elo-get', () => {
     test('returns 200 with array of ELO ratings for user', async () => {
-      const res = await request(app).get('/users/42/elo')
-      expect(res.status).toBe(200)
-      expect(Array.isArray(res.body)).toBe(true)
-      expectArrayShape(res.body, eloProps)
-      res.body.forEach((entry: any) => {
-        expect(entry.user_id).toBe(42)
-      })
+      const res = await request(app).get('/api/elo/elo-get')
+      expect(res.status).toBe(200);
+      expect(res.body).toHaveProperty('rating')
+      expect(typeof res.body.rating).toBe('number')
+
     })
 
     test('returns array with multiple game modes if user has played them', async () => {

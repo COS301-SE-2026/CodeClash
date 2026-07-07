@@ -9,7 +9,7 @@ import {
   getMatchLog,
   createMatchLog,
 } from '../../src/controllers/matches.controllers';
-import pool from '../../src/config/db';
+import { pool } from '../../src/config/db';
 
 vi.mock('../../src/config/db', () => ({
   default: {

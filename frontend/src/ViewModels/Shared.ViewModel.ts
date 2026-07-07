@@ -11,27 +11,30 @@ export const getUserToken = async () => {
 }
 
 
-export async function getUserElo(token: string | null) {
+export async function getUserElo(token: string | null): Promise<number | null> {
     if (!token) { throw new Error('Missing or Invalid Token') }
 
     try {
-
-        axios.get('http://localhost:3000/api/user/elo-get', {
+        const getElo = await axios.get('http://localhost:3000/api/elo/elo-get', {
             headers: { Authorization: `Bearer ${token}` }
         })
             .then((res) => {
 
-                if (res.status === 200)
-                    return res.data.elo.rating
+                if (res.status === 200) {
+                    return res.data.rating
+                }
                 else {
                     console.error(`Error: ${res.status}`)
                     console.error(`${res.data}`);
-                    return null;
                 }
             })
+
+
+        return getElo;
     }
     catch (error) {
         console.error(`Error getting user elo: ${error}`)
+        return null;
     }
 
 

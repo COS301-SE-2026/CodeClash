@@ -3,12 +3,12 @@ import type { Socket } from 'socket.io-client'
 import { createSocket } from 'src/services/websocket.service'
 
 
-interface SocketContextValue {
+export interface SocketContextValue {
     socket: Socket | null
     isConnected: boolean
 }
 
-const SocketContext = createContext<SocketContextValue | null>(null);
+export const SocketContext = createContext<SocketContextValue | null>(null);
 
 export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [socket, setSocket] = useState<Socket | null>(null);
@@ -48,11 +48,5 @@ export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     )
 }
 
-export const useSocket = (): SocketContextValue => {
-    const context = useContext(SocketContext);
-
-    if (!context) throw new Error("useSocket must be used within a SocketProvider")
-    return context
-}
 
 

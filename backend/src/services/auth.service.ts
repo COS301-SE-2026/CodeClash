@@ -13,7 +13,7 @@ const verifier = CognitoJwtVerifier.create({
 });
 
 
-export const validToken = async (token: string) => {
+export const validToken = async (token: string | undefined) => {
   if (token === undefined)
     return null;
 
@@ -40,3 +40,7 @@ export const cognito_identity_client = new CognitoIdentityProviderClient({
 export const accessDenied = (error: string) => {
   return { message: `Access Denied: ${error}` }
 };
+
+export const unauthorised = (error: string) => {
+  return { message: `Unauthorised: ${error}` }
+}

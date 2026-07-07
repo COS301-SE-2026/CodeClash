@@ -1,12 +1,11 @@
 import { io, Socket } from 'socket.io-client'
 import { fetchAuthSession } from 'aws-amplify/auth';
 import MatchmakingUserDTO from '../dtos/matchmaking.dto';
-import { useSearch } from 'src/ViewModels/SearchingViewModel';
 
 const env = import.meta.env;
 
 export async function createSocket(): Promise<Socket> {
-    const session = await fetchAuthSession()
+    const session = await fetchAuthSession({forceRefresh: true})
     const token = session.tokens?.idToken
 
     

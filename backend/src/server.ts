@@ -52,14 +52,18 @@ io.on("connection", (socket) => {
         const player_1 = match.player_1_id.toString();
         const player_2 = match.player_2_id.toString();
 
-        
+
         const pair = {
             player_1: player_1,
             player_2: player_2
         }
 
-        io.to(player_1!).emit('users_matched',pair);
-        io.to(player_2!).emit('users_matched',pair);
+        console.log("Emitting to ", player_1);
+
+        io.to(player_1!).emit('users_matched', pair);
+
+        console.log("Emitting to ", player_2);
+        io.to(player_2!).emit('users_matched', pair);
 
     })
 

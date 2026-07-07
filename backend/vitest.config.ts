@@ -11,11 +11,12 @@ export default defineConfig({
             reporter: ['text', 'lcov'],
             include: ['src/**'],
             exclude: ['src/tests/**', '**/config/**']
-        }
+        },
+        setupFiles: ['./tests/setup.ts']
     },
     resolve: {
         alias: {
-            'root': path.resolve('../')
+            'root': path.resolve('..')
         },
     },
 })

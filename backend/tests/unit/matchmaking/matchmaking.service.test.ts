@@ -110,8 +110,9 @@ describe('Ideal Users', () => {
 
             const add_p_2 = await matchmaking(player_2);
             math_length = await math_queue_length();
+         
 
-            expect(add_p_2).toEqual({ player_2_id, player_1_id });    // should match players 1 and 2
+            expect(add_p_2).toEqual({ player_1_id: player_2_id, player_2_id: player_1_id.toString() });    // should match players 1 and 2
             expect(math_length).toBe(0);    // player 1 should be removed from the queue
             expect(prog_length).toBe(0);
 

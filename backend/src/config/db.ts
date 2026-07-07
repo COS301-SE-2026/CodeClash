@@ -1,11 +1,15 @@
 import { Pool } from 'pg';
 import dotenv from 'dotenv';
-import {fetchAllCognitoUsers} from '../controllers/user.controllers'
+import { fetchAllCognitoUsers } from '../controllers/user.controllers'
 
 dotenv.config();
 
+const db_url = (process.env.NODE_ENV == 'test') ?
+  process.env.DATABASE_TEST_URL
+  : process.env.DATABASE_URL;
+
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL
+  connectionString: db_url
 });
 
 pool.on('connect', () => {
@@ -25,7 +29,7 @@ async function initDB() {
   client.query('BEGIN');
 
   try {
-    const users = await fetchAllCognitoUsers(['name','email']);
+    const users = await fetchAllCognitoUsers(['name', 'email']);
 
     for (const user of users) {
       const user_name = user.Attributes!.find(attr => attr.Name === 'name')?.Value;
