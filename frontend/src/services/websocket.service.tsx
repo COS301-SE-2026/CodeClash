@@ -8,8 +8,6 @@ export async function createSocket(): Promise<Socket> {
     const session = await fetchAuthSession({forceRefresh: true})
     const token = session.tokens?.idToken
 
-    
-
     const options = {
         auth: {
             token: token?.toString()

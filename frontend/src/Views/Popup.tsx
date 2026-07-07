@@ -1,8 +1,6 @@
 import '../styles/global.css'
 import React from "react"
-import robot from '../assets/Robots/arms_up.png'
 import { Card } from '@/components/ui/card'
-import { Link } from 'react-router-dom';
 
 import { type PopupProps } from '../Models/PopUpModel';
 import { useSelectTopic } from '../ViewModels/PopUpViewModel';
@@ -23,7 +21,7 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
 
     return (
         <div className="fixed inset-0 z-50  bg-black/50 flex items-center justify-center  ">
-            <img src={robot} alt='robot-background' className='absolute h-[80%] top-0' />
+            {/* <img src={robot} alt='robot-background' className='absolute h-[80%] top-0' /> */}
             <div className="relative w-[50%] h-[4rem] top-[-6rem] ">
 
                 <Card className="bg-secondary h-[35rem] w-[100%] rounded-3xl  text-center flex items-center absolute">

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import { joinMatchQueue } from "../services/websocket.service";
 import MatchmakingUserDTO from "../dtos/matchmaking.dto";

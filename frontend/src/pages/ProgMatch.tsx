@@ -6,7 +6,6 @@ import blue_avatar from "../assets/Avatar/blue_avatar.jpeg";
 import puprle_avatar from "../assets/Avatar/purple_avatar.jpeg";
 import type { QuestionDTO, MatchDTO } from "src/types/question.dto";
 import { MatchProgress } from "@/components/features/match-progress";
-import { Question } from "@/components/features/question";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";

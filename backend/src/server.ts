@@ -58,11 +58,7 @@ io.on("connection", (socket) => {
             player_2: player_2
         }
 
-        console.log("Emitting to ", player_1);
-
         io.to(player_1!).emit('users_matched', pair);
-
-        console.log("Emitting to ", player_2);
         io.to(player_2!).emit('users_matched', pair);
 
     })
