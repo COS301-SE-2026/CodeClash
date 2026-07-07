@@ -66,7 +66,6 @@ async function matchmaking(user: MatchmakingUserDTO) {
         if (waiting)   //user is already in the queue
             ++user.match_attempt;
         else {
-            console.log("Adding player to queue")
             enqueue(user, user.game_mode);
         }
 
@@ -78,7 +77,6 @@ async function matchmaking(user: MatchmakingUserDTO) {
     else {
 
         const match = players[0];
-        console.log("Found match: ", match)
 
         if (!match) return null;
 

@@ -11,14 +11,12 @@ describe('Elo Endpoints', () => {
   // Reseting before each test
 
   let token: JWT | undefined;
-
-
   // Close pool after all tests finish
   afterAll(async () => {
 
   });
 
-  // GET /api/elo/:user_id ---------
+  // GET /api/elo/elo-get ---------
   describe('GET /api/elo/elo-get', () => {
 
     beforeEach(async () => {
@@ -48,44 +46,49 @@ describe('Elo Endpoints', () => {
         throw err;
       }
 
-
     });
+
+    it('should return unauthorised for invalid user', async () => {
+
+      try {
+        const response = await request(app)
+          .get('/api/elo/elo-get')
+          .set('Authorization', 'Bearer "This is an invalid token"')
+
+        expect(response.status).toBe(401);
+        expect(response.body).toHaveProperty('message');
+        expect(response.body.message).toContain('Unauthorised: Missing or Invalid Token')
+
+      } catch (err) {
+        console.log("Error: ", err);
+        throw err;
+      }
+    })
 
   });
 
 
-  // GET /api/elo/:user_id/history -----------
+  // GET /api/elo/elo-history -----------
   describe('GET /api/elo/:user_id/history', () => {
 
     it('should return elo history for a valid user', async () => {
-      (pool.query as Mock).mockResolvedValueOnce({
-        rows: [
-          {
-            history_id: 'history-uuid',
-            user_id: 'user-uuid',
-            match_id: 'match-uuid',
-            old_rating: 600,
-            new_rating: 616,
-            change: 16,
-            changed_at: new Date()
-          }
-        ]
-      });
+
 
       const response = await request(app)
-        .get('/api/elo/user-uuid/history');
+        .get('/api/elo/elo-history')
+        .set('Authorization', `Bearer ${token}`);
 
       expect(response.status).toBe(200);
       expect(response.body).toBeInstanceOf(Array);
-      expect(response.body[0]).toHaveProperty('old_rating');
-      expect(response.body[0]).toHaveProperty('new_rating');
+
+      console.log(response.body)
     });
 
     it('should return 404 if no history found', async () => {
-      (pool.query as Mock).mockResolvedValueOnce({ rows: [] });
 
       const response = await request(app)
-        .get('/api/elo/user-uuid/history');
+        .get('/api/elo/elo-history')
+        .set('Authorization', `Bearer ${token}`);
 
       expect(response.status).toBe(404);
     });

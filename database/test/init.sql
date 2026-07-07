@@ -74,5 +74,6 @@ CREATE TABLE IF NOT EXISTS elo_history (
   user_id UUID REFERENCES users(user_id),
   match_id UUID REFERENCES matches(match_id),
   new_rating INTEGER,
+  change INTEGER,
   changed_at TIMESTAMP DEFAULT NOW()
 );

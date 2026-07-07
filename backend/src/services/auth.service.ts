@@ -17,13 +17,18 @@ export const validToken = async (token: string | undefined) => {
   if (token === undefined)
     return null;
 
-  const payload = await verifier.verify(token);
+  try {
+    const payload = await verifier.verify(token);
+    return {
+      user_Id: payload.sub,
+      email: payload.email
+    };
+  }
+  catch {
+    return null
+  }
 
 
-  return {
-    user_Id: payload.sub,
-    email: payload.email
-  };
 };
 
 

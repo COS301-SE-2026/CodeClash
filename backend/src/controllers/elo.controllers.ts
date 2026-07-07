@@ -43,22 +43,30 @@ export const getUserElo = async (req: Request, res: Response): Promise<void> => 
 // GET /api/elo/:user_id/history
 // Get full elo history for a user
 export const getEloHistory = async (req: Request, res: Response): Promise<void> => {
-  const { user_id } = req.body;
+  const token = req.headers.authorization?.split(' ')[1];
+
+  const user = await validToken(token);
+
+
+  if (!user) {
+    res.status(401).json(unauthorised('Missing or Invalid Token'));
+    return;
+  }
+
+  const email = user.email;
 
   try {
     const result = await pool.query(
       `SELECT 
-        eh.history_id,
-        eh.user_id,
         eh.match_id,
-        eh.old_rating,
         eh.new_rating,
-        eh.new_rating - eh.old_rating AS change,
+        eh.change,
         eh.changed_at
        FROM elo_history eh
-       WHERE eh.user_id = $1
+       JOIN users u ON eh.user_id = u.user_id
+       WHERE u.email = $1
        ORDER BY eh.changed_at DESC`,
-      [user_id]
+      [email]
     );
 
     if (result.rows.length === 0) {

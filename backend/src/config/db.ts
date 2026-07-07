@@ -52,6 +52,8 @@ async function initDB() {
           [row.user_id]
         )
       }
+
+  
     }
   } catch (error) {
     await client.query('ROLLBACK');
