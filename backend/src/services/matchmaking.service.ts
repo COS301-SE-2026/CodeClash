@@ -59,6 +59,7 @@ async function matchmaking(user: MatchmakingUserDTO) {
     // sort by joined times - ascending
     players.sort((a, b) => Number(a.join) - Number(b.join));
 
+
     if (players.length == 0) {
 
         const waiting = await redis.zscore(user.game_mode, user.id.toString());
