@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { useAuth } from "../context/hooks/useAuth";
+import { useAuth } from "../context/AuthContext";
 import { signUpContent, formData, validateSignUpForm } from "../Models/SignUpModel";
 import type { SignUpContent, SignUpForm } from "../Models/SignUpModel";
 import { useNavigate } from "react-router-dom";

@@ -1,6 +1,7 @@
 import { Editor } from "@monaco-editor/react";
 import React, { useState, useEffect, useRef } from "react";
 import { useTimer } from "react-timer-hook";
+import { Question } from "@/components/features/question";
 import blue_avatar from "../assets/Avatar/blue_avatar.jpeg";
 import puprle_avatar from "../assets/Avatar/purple_avatar.jpeg";
 import type { QuestionDTO, MatchDTO } from "src/types/question.dto";

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { fetchAuthSession } from "aws-amplify/auth";
-import { useAuth } from "src/context/hooks/useAuth";
+import { useAuth } from "src/context/AuthContext";
 
 export const getUserToken = async () => {
     const session = await fetchAuthSession();
