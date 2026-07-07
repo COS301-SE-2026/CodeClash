@@ -87,11 +87,21 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
     },
 
     {
+        name: 'Secondary',
+        hex: '#FFEFE0',
+        rgb: '255, 239, 224',
+        hsl: '30deg, 100%, 94%',
+        usage: 'Soft card surfaces, light backgrounds',
+        wcag: 'AAA on #530A24 (10.2:1)',
+        on: 'dark',
+    },
+
+    {
         name: 'Button Primary',
         hex: '#C0395A',
         rgb: '192, 57, 90',
         hsl: '346deg, 54%, 49%',
-        usage: 'Primary buttons, interactive actions',
+        usage: 'Primary buttons',
         wcag: 'AA on #FFFFF (4.6:1)',
         on: 'light',
     },
@@ -101,10 +111,20 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
         hex: '#FFEFE0',
         rgb: '255, 239, 224',
         hsl: '30deg, 100%, 94%',
-        usage: 'Secondary buttons, soft card surfaces',
+        usage: 'Secondary buttons',
         wcag: 'AAA on #530A24 (10.2:1)',
         on: 'dark',
     },
+
+    {
+        name: 'Button Primary Text',
+        hex: '#FFFFFF',
+        rgb: '255, 255, 255',
+        hsl: '0deg, 0%, 100%',
+        usage: 'Primary button labels',
+        wcag: 'AA on #C0395A (4.6:1)',
+        on: 'dark',
+    }
 
     {
         name: 'Button Secondary Text',
@@ -221,4 +241,86 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
         usage: 'Statistics, small UI labels - text-xsm',
     },
     ],
+
+    tokens: {
+        color: [
+        {
+            token: '--primary',
+            value: '#530A24',
+            description: 'Page background, primary surfaces',
+        },
+
+        {
+            token: '--secondary',
+            value: '#FFEFE0',
+            description: 'Secondary buttons, soft card surfaces',
+        },
+
+        {
+            token: '--primary-text',
+            value: '#FCECDD',
+            description: 'Primary text on all dark backgrounds',
+        },
+
+        {
+            token: '--secondary-text',
+            value: '#530A24',
+            description: 'Text on light/secondary surfaces',
+        },
+
+        {
+            token: '--button-primary',
+            value: '#C0395A',
+            description: 'Primary buttons'
+        },
+
+        {
+            token: '--button-secondary',
+            value: '#FFEFE0',
+            description: 'Secondary buttons',
+        },
+
+        {
+            token: '--button-text-primary',
+            value: '#FFFFFF',
+            description: 'Text on primary buttons',
+        },
+
+        {
+            token: '--button-text-secondary',
+            value: '#9D2644',
+            description: 'Text on secondary buttons',
+        },
+
+        {
+            token: '--success',
+            value: '#4CAF50',
+            description: 'Success states, confirmations, positive feedback',
+        },
+
+        {
+            token: '--danger',
+            value: '#E53935',
+            description: 'Destructive actions, errors, validation fails',
+        },
+
+        {
+            token: '--text',
+            value: '#FFFFFF',
+            description: 'White text fallback',
+        },
+
+        {
+            token: '--muted',
+            value: 'rgba(252, 236, 221, 0.5)',
+            description: 'Muted surface overlay',
+        },
+
+        {
+            token: '--muted-text',
+            value: 'rgba(252, 236, 221, 0.5)',
+            description: 'Muted text on dark backgrounds',
+        },
+        ],
+    },
 }
