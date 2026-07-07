@@ -6,7 +6,6 @@ import './amplify-config'
 import './styles/global.css'
 import { BrowserRouter } from 'react-router-dom'
 import { SocketProvider } from './context/SocketContext'
-import Popup from './Views/Popup'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   // <React.StrictMode>

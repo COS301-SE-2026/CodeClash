@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
-import Popup from './PopUp';
+import Popup from './Popup'
 
 
 // View Model
@@ -60,7 +60,7 @@ const Dashboard = () => {
       </div>
 
       {/* // Body */}
-      <GlassCard className='flex flex-row text-white items-center pl-5 pr-5 w-[97%] border h-[78%]'>
+      <GlassCard className=' flex flex-row text-white items-center justify-center pl-5 pr-5 w-[97%] border h-[78%]'>
 
         {/* First Column */}
         <div className='flex flex-col  w-[35%] justify-between ml-5 mr-5 h-[90%]'>
@@ -86,7 +86,6 @@ const Dashboard = () => {
                 <Button className='h-[45%] bg-pink-300 text-sm font-semibold'
                   onClick={openPopUp}
                 > Ranked Play </Button>
-                {isOpen && <Popup isOpen={isOpen} onClose={closePopUp}  ></Popup>}
                 <Button variant={'secondary'} className='h-[45%] bg-secondary text-primary text-sm font-semibold hover:bg-[#C0AF9C]'> Casual Play </Button>
               </CardAction>
             </CardContent>
@@ -199,6 +198,8 @@ const Dashboard = () => {
           </div>
         </div>
       </GlassCard>
+
+      {isOpen && <Popup isOpen={isOpen} onClose={closePopUp} ></Popup>}
     </div>
   )
 
