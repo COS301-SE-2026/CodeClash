@@ -236,8 +236,9 @@ export const setUserElo = async (req: Request, res: Response): Promise<void> => 
 
   } catch (error) {
     await client.query('ROLLBACK');
-    console.error('Error setting elo');
+    console.error('Error setting elo',error);
     res.status(500).json({ message: 'Internal Server Error' })
+    
   } finally {
     client.release();
   }

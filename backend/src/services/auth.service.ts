@@ -12,7 +12,7 @@ const verifier = CognitoJwtVerifier.create({
   clientId: `${process.env.COGNITO_CLIENT_ID}`, //client ID of app, not a userId
 });
 
-const STATS = new Array('current_streak', 'winning_streak');
+const STATS = new Set(['current_streak', 'winning_streak']);
 
 
 export const validToken = async (token: string | undefined) => {
@@ -60,7 +60,7 @@ export async function getEmail(req: Request, res: Response) {
 }
 
 export function validStat(stat: string) {
-  return STATS.includes(stat);
+  return STATS.has(stat);
 }
 
 export const cognito_identity_client = new CognitoIdentityProviderClient({

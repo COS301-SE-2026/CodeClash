@@ -41,7 +41,7 @@ io.on("connection", (socket) => {
         await socket.join(socket.data.user_id)
 
         const user = new MatchmakingUserDTO(socket.data.user_id, data.elo, data.game_mode);
-        var match = null;
+        let match = null;
 
         match = await matchmaking(user);
 
