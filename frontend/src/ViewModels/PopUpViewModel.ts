@@ -8,12 +8,10 @@ import { joinMatchQueue } from "../services/websocket.service";
 import { getUserToken, getUserElo } from "./SharedViewModel";
 
 
-
-
 export function useSelectTopic() {
     const navigation = useNavigate();
     const [topic, setTopic] = useState('');
-    const [elo, setElo] = useState<number | null>(0);
+    const [elo, setElo] = useState<number>(0);
     const [token, setToken] = useState<string | null>(null);
     const { socket } = useSocket();
 
@@ -38,7 +36,7 @@ export function useSelectTopic() {
 
         if (!socket) throw new Error("500 Internal Server Error");
 
-        const data = new MatchmakingUserDTO((elo ? elo : 0), topic)
+        const data = new MatchmakingUserDTO(elo, topic)
 
         joinMatchQueue(socket, data)
         navigation('/searching');

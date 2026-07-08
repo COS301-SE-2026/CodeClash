@@ -35,10 +35,3 @@ export async function joinMatchQueue(socket: Socket, data: MatchmakingUserDTO) {
     socket.emit("join_match_queue", data)
 }
 
-export function submitQuestion() { }
-
-export function finishGame() { }
-
-export function quitGame() { }
-
-

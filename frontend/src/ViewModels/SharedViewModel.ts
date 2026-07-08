@@ -11,7 +11,7 @@ export const getUserToken = async () => {
 }
 
 
-export async function getUserElo(token: string | null): Promise<number | null> {
+export async function getUserElo(token: string | null): Promise<number> {
     if (!token) { throw new Error('Missing or Invalid Token') }
 
     try {
@@ -26,6 +26,7 @@ export async function getUserElo(token: string | null): Promise<number | null> {
                 else {
                     console.error(`Error: ${res.status}`)
                     console.error(`${res.data}`);
+                    return 0
                 }
             })
 
@@ -34,7 +35,7 @@ export async function getUserElo(token: string | null): Promise<number | null> {
     }
     catch (error) {
         console.error(`Error getting user elo: ${error}`)
-        return null;
+        return -1;
     }
 
 

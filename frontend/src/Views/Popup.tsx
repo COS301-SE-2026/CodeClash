@@ -61,6 +61,12 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
                     </div>
                     <div className="text-[2.3rem] text-black heading font-extrabold underline mt-[4%] rounded-3xl hover:bg-primary hover:text-secondary hover:font-normal w-[80%] "
                         onClick={onClose}
+
+                        onKeyDown={(e) => {
+                            if (e.key === 'Esc') {
+                                onClose();
+                            }
+                        }}
                     >Cancel
                     </div>
                 </Card>

@@ -1,8 +1,3 @@
-export interface authPayload {
-    userId: string;
-}
-
-
 type Topic = 'math' | 'prog';
 
 export interface PopupProps {

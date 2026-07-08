@@ -139,7 +139,7 @@ const Dashboard = () => {
                   Description of why badge was awarded
                 </div>
               </div>
-              <img src={brainIcon} alt='badge image' className='text-black h-[6rem]' />
+              <img src={brainIcon} alt='badge' className='text-black h-[6rem]' />
             </div>
           </div>
 
