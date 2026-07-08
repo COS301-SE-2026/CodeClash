@@ -2,7 +2,7 @@ import { createServer } from 'node:http';
 import { Server } from 'socket.io'
 import { validToken } from './services/auth.service';
 import app from './app';
-import { matchmaking } from './services/matchmaking.service';
+import { dequeue, matchmaking } from './services/matchmaking.service';
 import MatchmakingUserDTO from './dtos/matchmaking.dto';
 
 import dotnev from 'dotenv'
@@ -16,9 +16,8 @@ const options = {
 }
 
 const httpServer = createServer(app)     // can update to https
-
 const io = new Server(httpServer, options);
-
+const PAIRS = new Map<string, {}>();
 
 // middleware -fires before the connection
 io.use(async (socket, next) => {
@@ -39,6 +38,7 @@ io.on("connection", (socket) => {
     socket.on('join_match_queue', async (data) => {
         //adds users to a room 
         await socket.join(socket.data.user_id)
+        socket.data.game_mode = data.game_mode
 
         const user = new MatchmakingUserDTO(socket.data.user_id, data.elo, data.game_mode);
         let match = null;
@@ -53,19 +53,36 @@ io.on("connection", (socket) => {
         const player_2 = match.player_2_id.toString();
 
 
+        const pair_id = player_1.concat("-").concat(player_2);
         const pair = {
             player_1: player_1,
-            player_2: player_2
+            player_2: player_2,
+            pair_id: pair_id,
+            game_mode: data.game_mode
         }
+
+        PAIRS.set(pair_id, pair);
 
         io.to(player_1!).emit('users_matched', pair);
         io.to(player_2!).emit('users_matched', pair);
 
+    });
+
+    socket.on('leave_match_queue', async () => {
+        const remove = await dequeue(socket.data.user_id, socket.data.game_mode);
+
+        if (remove) {
+            io.to(socket.data.user_id).emit('user_dequeued');
+        }
+        else
+            io.to(socket.data.user_id).emit('dequeue-failed');
+
+    });
+
+    socket.on('match_accepted', async () => {
+
     })
 
-    socket.on('leave_match_queue', (data) => {
-
-    })
 })
 
 httpServer.listen(3000, () => {

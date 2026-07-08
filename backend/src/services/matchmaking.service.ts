@@ -19,10 +19,10 @@ async function enqueue(user: MatchmakingUserDTO, queue: string): Promise<boolean
 async function dequeue(user_id: number, queue: string): Promise<boolean> {
     if (queue != "math" && queue != "prog") return false;
 
-    const rem_joined_hash = await redis.hdel(`user:${user_id}`);
+    const rem_joined_hash = await redis.hdel(`user:${user_id}`,'user_joined_at');
     const rem_user = await redis.zrem(queue, user_id);
 
-    if (rem_joined_hash || rem_user == 0)
+    if (rem_joined_hash == 0 || rem_user == 0)
         return false;
 
     return true;

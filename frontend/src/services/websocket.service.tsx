@@ -36,7 +36,17 @@ export async function createSocket(): Promise<Socket> {
 }
 
 /// websocket functions for the app
-export async function joinMatchQueue(socket: Socket, data: MatchmakingUserDTO) {
-    socket.emit("join_match_queue", data)
+export function joinMatchQueue(socket: Socket, data: MatchmakingUserDTO) {
+    socket.emit("join_match_queue", data);
 }
+
+export function leaveMatchQueue(socket: Socket) {
+    socket.emit("leave_match_queue");
+}
+
+export function matchAccepted(socket: Socket) {
+    socket.emit("match_accepted")
+}
+
+
 
