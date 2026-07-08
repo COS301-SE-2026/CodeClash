@@ -1,13 +1,6 @@
 services:
   backend:
     build: ./backend
-    develop:
-      watch:
-        - action: sync
-          path: ./backend/src/
-          target: /app/src
-        - action: rebuild
-          path: ./backend/package.json
     ports:
       - "3000:3000"
     environment:
@@ -39,7 +32,7 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./database/dev/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - pgnetwork
 
@@ -52,7 +45,7 @@ services:
     ports:
       - "4432:5432"
     volumes:
-      - ./database/test/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - pgnetwork
 
