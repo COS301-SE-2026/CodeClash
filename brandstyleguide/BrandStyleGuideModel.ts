@@ -506,4 +506,64 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
         notes: 'shadcn Progress component with custom progress_colour prop for fill',
     },
     ],
+
+    chanelog: [
+    {
+        category: 'Colors',
+        changes: [
+            'New color palette',
+            'Fixed --button-text-primary from #FFFF to #FFFFFF',
+            'Defined --success #4CAF50 and --danger #E53935',
+            'Added --muted and --muted-text for overlays and faded text usage',
+            'Removed grey fallback, now --background will always resolve to maroon',
+        ],
+        rationale: 'Several color tokens were invalid or undefined, causing inconsistencies and unwanted fallbacks. The entire color palette was also changed.',
+    },
+
+    {
+        category: 'Typography',
+        changes: [
+            '--heading corrected from Baloo Bhai 2 to Roboto',
+            '--font-logo kept as Baloo Bhai 2 for logo display only',
+            '--heading-big-size added and defined as 5rem',
+            '--font-size-xsm added as 1rem',
+            '--badge-font-size corrected from 0.1rem (invisible) to 0.75rem',
+        ],
+        rationale: 'Demo 1 had undefined variables and mismatches. All the tokens now match what the actual component uses.',
+    },
+
+    {
+        category: 'Styling Architecture',
+        changes: [
+            'Migrated from per-file CSS to a single global.css with Tailwind v4',
+            'All styling now done via Tailwind utility classes directly in TSX components',
+            'global.css serves as the single source of truth for all design tokens via CSS custom properties',
+            '@theme inline block maps all CSS variables to Tailwind utilities',
+            '@layer base defines shared utility classes eg .heading, .heading-big, .heading-sub',
+        ],
+        rationale: 'Per-file CSS caused token drift where the same color or spacing value would be hardcoded differently. Centralizing into global.css with Tailwind v4 ensures every component pulls from the same source and makes global changes easier.'
+    },
+
+    {
+        category: 'Architecture',
+        changes: [
+            'Adopted MVVM - Model, View Model and View seperation',
+            'Validation logic extracted to pure functions in Models',
+            'Auth state managed via AuthContext, and navigation via react-router-dom',
+            'Dashboard uses Layout wrapper with AppSidebar via SidebarProvider',
+        ],
+        rationale: 'Clean seperation of concerns improves testability and makes changes easier, and safer.',
+    },
+
+    {
+        category: 'Pages and Visual Design',
+        changes: [
+            'Complete visual redesign from Demo 1',
+            'New Robots in Space theme implemented across the App',
+            'Dark maroon radial gradient established as the core, default background identity',
+            'Theme related assets introduced such as UFO, planets, new robot mascot, symbol background texture, light beam effects',
+        ],
+        rationale: 'Demo 1 screens had no visual identity, Demo 2 now fully establishes a cosmos theme that runs consistently across the App.',
+    },
+    ],
 }
