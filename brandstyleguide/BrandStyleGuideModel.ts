@@ -47,6 +47,7 @@ export interface BrandStyleGuideContent {
     };
 
     colors: ColorToken[];
+    pinkColors: Record<string,string>;
     typography: TypographyToken[];
 
     tokens: {
@@ -58,7 +59,7 @@ export interface BrandStyleGuideContent {
     };
 
     components: ComponentSpecs[];
-    chanelog: ChangelogEntries[];
+    changelog: ChangelogEntries[];
     accessibilityRules: string[];
 
     logoRules: {
@@ -176,6 +177,18 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
         on: 'light',
     },
     ],
+
+    pinkColors: {
+        '100': '#ED5A90',
+        '200': '#E93577',
+        '300': '#DC1860',
+        '400': '#B91551',
+        '500': '#931040',
+        '600': '#6E0C30',
+        '700': '#530A24',
+        '800': '#490820',
+        '900': '#250410',
+    },
 
     typography: [
     {
@@ -399,7 +412,7 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
         },
 
         {
-            token: ' --font-size-xsm',
+            token: '--font-size-xsm',
             value: '1rem',
             description: 'Extra small - text-xsm',
         },
@@ -460,7 +473,7 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
     {
         name: 'Button Primary',
         vars: ['Default', 'Hover', 'Active', 'Disabled', 'Loading'],
-        classes: ['big-button-primary', 'text-button-text-primary', 'rounded-lg', 'shadow-badge', 'font-bold'],
+        classes: ['bg-button-primary', 'text-button-text-primary', 'rounded-lg', 'shadow-badge', 'font-bold'],
         notes: 'w-[100%] on auth pages, fixed width on dashboard. h-[3rem], font-size 1.5rem, hover: -translate-y-px',
     },
 
@@ -507,11 +520,11 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
     },
     ],
 
-    chanelog: [
+    changelog: [
     {
         category: 'Colors',
         changes: [
-            'New color palette',
+            'New color palette - pinkColors documented as named Tailwind tokens',
             'Fixed --button-text-primary from #FFFF to #FFFFFF',
             'Defined --success #4CAF50 and --danger #E53935',
             'Added --muted and --muted-text for overlays and faded text usage',
@@ -566,4 +579,26 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
         rationale: 'Demo 1 screens had no visual identity, Demo 2 now fully establishes a cosmos theme that runs consistently across the App.',
     },
     ],
-}
+
+    accessibilityRules: [ //Need to add more here
+        'Conformance target: WCAG 2.2 AA minimum, AAA achieved for all body text pairings',
+        'All form inputs have visible labels or aria-label attributes',
+        'Buttons use type="button" explicitly to prevent unintended form submissions',
+        'Logical reading order top-to-bottom, left-to-right',
+    ],
+
+    logoRules: {
+        permitted: [
+            'Scale proportionally maintaining aspect ratio',
+            'Use on approved dark #530A24 or light #FFEFE0 backgrounds',
+        ],
+
+        forbidden: [
+            'Stretch or distort the logo in any dimension',
+            'Visual effects such as shadowns, glows or outlines',
+            'Color outside of the approved palette',
+            'Place on clashing background',
+            'Rotate, skew or transform',
+        ],
+    },
+};
