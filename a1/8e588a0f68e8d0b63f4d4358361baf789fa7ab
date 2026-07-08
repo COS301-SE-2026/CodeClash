@@ -1,0 +1,20 @@
+frontend/src/Views/Popup.tsx
+  h_94c952a9e14c58 64-69
+frontend/src/ViewModels/PopUpViewModel.ts
+  h_94c952a9e14c58 14
+frontend/src/ViewModels/SharedViewModel.ts
+  h_94c952a9e14c58 14,29,38
+frontend/src/Views/Dashboard.tsx
+  h_94c952a9e14c58 142
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "a18e588a0f68e8d0b63f4d4358361baf789fa7ab",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
