@@ -54,7 +54,7 @@ export interface BrandStyleGuideContent {
         radius: DesignToken[];
         typography: DesignToken[];
         shadow: DesignToken[];
-        breakpoints: DesignToken[];
+        //breakpoints: DesignToken[]; <- are we catering for other sized devices - desktop, tablet?
     };
 
     components: ComponentSpecs[];
@@ -438,6 +438,20 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
             token: '--font-size-3xl',
             value: '3.6rem',
             description: '3X large',
+        },
+        ],
+
+        shadow: [
+        {
+            token: '--badge-shadow',
+            value: '0 4px 6px rgba(0, 0, 0, 0.3)',
+            description: 'Buttons, badges - .badge-shadow',
+        },
+
+        {
+            token: '--card-shadow',
+            value: '0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25)',
+            description: 'Cards and elevated surfaces - .card-shadow',
         },
         ],
     },

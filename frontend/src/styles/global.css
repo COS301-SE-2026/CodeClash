@@ -219,6 +219,10 @@
     transform: scale(1.2);
   }
 
+  .badge-shadow {
+    box-shadow: var(--badge-shadow);
+  }
+
   .card-shadow {
     box-shadow: var(--card-shadow);
   }
