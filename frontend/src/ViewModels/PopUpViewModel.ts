@@ -36,7 +36,8 @@ export function useSelectTopic() {
 
         if (!socket) throw new Error("500 Internal Server Error");
 
-        const data = new MatchmakingUserDTO(elo, topic)
+        console.log("Topic: ", topic)
+        const data = new MatchmakingUserDTO(elo, selected_topic)
 
         joinMatchQueue(socket, data)
         navigation('/searching');

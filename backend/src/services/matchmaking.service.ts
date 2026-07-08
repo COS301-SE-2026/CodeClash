@@ -31,7 +31,7 @@ async function dequeue(user_id: number, queue: string): Promise<boolean> {
 
 // finds a match for the passed in user
 async function matchmaking(user: MatchmakingUserDTO) {
-
+    console.log(user)
     if (user.game_mode != "math" && user.game_mode != "prog")
         throw new Error("Unknown game mode");
 
