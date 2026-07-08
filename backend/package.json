@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "node src/server.ts",
-    "dev": "nodemon src/server.ts",
+    "dev": "nodemon --exec ts-node src/server.ts",
     "test": "vitest",
     "coverage": "vitest run --coverage"
   },
@@ -40,9 +40,11 @@
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^25.7.0",
+    "@types/pg": "^8.20.0",
     "@types/supertest": "^7.2.0",
     "@vitest/coverage-v8": "^4.1.7",
     "ioredis-mock": "^8.13.1",
+    "nodemon": "^3.1.14",
     "supertest": "^7.2.2",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.3",
