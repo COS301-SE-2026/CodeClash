@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { vi, Mocked, describe, it, expect, afterEach } from 'vitest'
 
-import pool from '../../src/config/db';
+import {pool }from '../../src/config/db';
 import {
   getMatches,
   getMatchById,
@@ -10,7 +10,6 @@ import {
   getMatchLog,
   createMatchLog,
 } from '../../src/controllers/matches.controllers';
-import { pool } from '../../src/config/db';
 
 vi.mock('../../src/config/db', () => ({
   default: {
