@@ -62,7 +62,9 @@ export function useUser() {
     useEffect(() => {
 
         getUserToken().then(t => setToken(t))
-        getUserElo(token).then(e=> setElo(e))
+
+        if (token)
+            getUserElo(token).then(e => setElo(e))
 
 
     }, [token])
