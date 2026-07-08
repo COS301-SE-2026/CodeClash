@@ -124,7 +124,7 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
         usage: 'Primary button labels',
         wcag: 'AA on #C0395A (4.6:1)',
         on: 'dark',
-    }
+    },
 
     {
         name: 'Button Secondary Text',
@@ -235,7 +235,7 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
     {
         name: 'Extra Small',
         cssVar: '--font-size-xsm',
-        size: '0.9rem',
+        size: '1rem',
         weight: 400,
         sample: 'Select a game mode and start competing',
         usage: 'Statistics, small UI labels - text-xsm',
@@ -320,6 +320,124 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
             token: '--muted-text',
             value: 'rgba(252, 236, 221, 0.5)',
             description: 'Muted text on dark backgrounds',
+        },
+        ],
+
+        radius: [
+        {
+            token: '--radius-sm',
+            value: 'calc(var(--radius) - 4px)',
+            description: '16px - small elements',
+        },
+
+        {
+            token: '--radius-md',
+            value: 'calc(var(--radius) - 2px)',
+            description: '18px - medium elements',
+        },
+
+        {
+            token: '--radius-lg',
+            value: 'var(--radius)',
+            description: '20px - standard inputs and buttons',
+        },
+
+        {
+            token: '--radius-xl',
+            value: 'calc(var(--radius) + 4px)',
+            description: '24px - large elements',
+        },
+        ],
+
+        typography: [
+        {
+            token: '--font',
+            value: "'Roboto', sans-serif",
+            description: 'Primary font - body, headings',
+        },
+
+        {
+            token: '--font-logo',
+            value: "'Baloo Bhai 2', sans-serif",
+            description: 'Logo display',
+        },
+
+        {
+            token: '--heading',
+            value: "'Roboto', sans-serif",
+            description: 'Heading font',
+        },
+
+        {
+            token: '--heading-weight',
+            value: '700',
+            description: 'Bold - .heading and .heading-big',
+        },
+
+        {
+            token: '--font-weight',
+            value: '500',
+            description: 'Medium - default body font'
+        },
+
+        {
+            token: '--heading-sub-weight',
+            value: '400',
+            description: 'Regular - .heading-sub',
+        },
+
+        {
+            token: '--heading-size',
+            value: '3rem',
+            description: 'Standard heading - .heading',
+        },
+
+        {
+            token: '--heading-big-size',
+            value: '5rem',
+            description: 'Display heading - .heading-big',
+        },
+
+        {
+            token: ' --font-size-xsm',
+            value: '1rem',
+            description: 'Extra small - text-xsm',
+        },
+
+        {
+            token: '--font-size-sm',
+            value: '1.3rem',
+            description: 'Small - .fields, captions',
+        },
+
+        {
+            token: '--font-size-md',
+            value: '1.9rem',
+            description: 'Medium - .heading-sub, body text',
+        },
+
+        {
+            token: '--font-size-l',
+            value: '2.3rem',
+            description: 'Large - prominent body text',
+        },
+
+        {
+            token: '--font-size-xl',
+            value: '3rem',
+            description: 'Extra large',
+        },
+
+        {
+            token: '--font-size-2xl',
+            value: '3.3rem',
+            description: '2X large',
+        },
+
+        {
+            token: '--font-size-3xl',
+            value: '3.6rem',
+            description: '3X large',
         },
         ],
     },
