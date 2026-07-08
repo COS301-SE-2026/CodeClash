@@ -1,17 +1,49 @@
 import request from 'supertest'
-import app from '../../../src/app'
 import { describe, test, expect } from 'vitest';
+import { fetchAuthSession, JWT, signIn, signOut } from "aws-amplify/auth";
+import dotenv from "dotenv"
+dotenv.config();
+
+import app from '../../../src/app'
 
 export { request, app }
 
-export const auth = (token: string) => `Bearer ${token}`
+export const auth = (token: JWT | undefined) => `Bearer ${token}`
 
-export const userAuth = auth('valid-jwt')
-export const adminAuth = auth('admin-jwt')
-export const otherUserAuth = auth('other-user-jwt')
 
-export const setAuth = (token: string) => (req: any) =>
+export async function login() {
+  try {
+    await signIn({ username: process.env.INTEGRATION_TEST_USER!, password: process.env.INTEGRATION_TEST_PASS! })
+  }
+  catch (error) {
+    console.log(`Error signing user in: ${error}`)
+  }
+
+}
+
+export async function getToken() {
+  const session = await fetchAuthSession();
+  const token = session.tokens?.idToken
+
+  return token;
+}
+
+export async function logout() {
+  try {
+    await signOut();
+  }
+  catch (error) {
+    console.log(`Error signing user out: ${error}`)
+  }
+}
+
+export const userAuth = auth(await getToken())
+// export const adminAuth = auth('admin-jwt')
+// export const otherUserAuth = auth('other-user-jwt')
+
+export const setAuth = (token: JWT | undefined) => (req: any) =>
   req.set('Authorization', `Bearer ${token}`)
+
 
 export const expectUnauthorized = (res: any) => {
   expect(res.status).toBe(401)

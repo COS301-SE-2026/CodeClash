@@ -21,13 +21,14 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
 
-    /* shadcn */
     "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "paths": {
-      "@/*":["./@/*"]
+      "@/*":["./@/*"],
+      "root/*":["../*"],
+      "src/*": ["./src/*"]
     }
 
   },
-  "include": ["src", "@", "amplify-config.ts", "test/unit/PrimaryButton.test.tsx"],
+  "include": ["src", "@", "src/amplify-config.ts", "root", "src/context/Auth/AuthContext.tsx"],
 }

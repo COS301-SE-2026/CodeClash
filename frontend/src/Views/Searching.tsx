@@ -1,0 +1,47 @@
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate  } from 'react-router-dom';
+import { useSearch } from 'src/ViewModels/SearchingViewModel';
+
+const Searching: React.FC = () => {
+  const [seconds, setSeconds] = useState(0);
+  const { found } = useSearch();
+  const nav = useNavigate();
+
+  // timer
+  useEffect(() => {
+    const id = setInterval(() => setSeconds((s) => s + 1), 1000);
+    return () => clearInterval(id);
+  }, []);
+
+
+  // found
+  useEffect(() => {
+    if (found) {
+      nav('/found')
+    }
+
+  }, [found,nav])
+
+
+  const mins = String(Math.floor(seconds / 60)).padStart(1, '0');
+  const secs = String(seconds % 60).padStart(2, '0');
+
+  return (
+    <div className="page-container">
+      <div className="searching-section">
+        <div className="purple-circle">
+          <div className="searching-text">User 1</div>
+        </div>
+        <div className="timer-section">
+          <div className="timer-icon"></div>
+          <span className="timer-text">{mins}:{secs}</span>
+        </div>
+        <div className="searching-text">Searching for Opponent...</div>
+        <div className="under-searching-text">Finding a player with similar Elo</div>
+        <Link className="cancel-button" to="/dashboard">Cancel Queue</Link>
+      </div>
+    </div>
+  );
+};
+
+export default Searching;

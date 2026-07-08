@@ -1,109 +1,94 @@
-import { vi, Mock, describe, beforeEach, it, expect, afterAll } from 'vitest'
-
+import { vi, Mock, describe, beforeEach, it, expect, afterAll, afterEach } from 'vitest'
 import request from 'supertest';
 import app from '../../src/app';
-import pool from '../../src/config/db';
+import { pool } from '../../src/config/db';
+import { getToken, login, logout } from '../unit/helpers/test-utils';
+import { JWT } from '@aws-amplify/auth';
+import '../../src/config/amplify-config'
 
-// Mock the database so tests don't need a real PostgreSQL connection
-vi.mock('../../src/config/db', () => ({
-  default: {
-    query: vi.fn(),
-    connect: vi.fn(),
-  }
-}));
 
 describe('Elo Endpoints', () => {
+  // Reseting before each test
 
-  // Reseting mocks before each test
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
+  let token: JWT | undefined;
   // Close pool after all tests finish
   afterAll(async () => {
-    await pool.end?.();
+
   });
 
-  // GET /api/elo/:user_id ---------
-  describe('GET /api/elo/:user_id', () => {
+  // GET /api/elo/elo-get ---------
+  describe('GET /api/elo/elo-get', () => {
+
+    beforeEach(async () => {
+      await login();
+      token = await getToken();
+    });
+
+
+    afterEach(async () => {
+      await logout();
+    })
 
     it('should return elo rating for a valid user', async () => {
-      // Arrange: mock what the database would return
-      (pool.query as Mock).mockResolvedValueOnce({
-        rows: [{
-          elo_id: 'some-uuid',
-          user_id: 'user-uuid',
-          username: 'testuser',
-          rating: 600,
-          updated_at: new Date()
-        }]
-      });
-
       // Act: make the request
-      const response = await request(app)
-        .get('/api/elo/user-uuid');
+      try {
+        const response = await request(app)
+          .get('/api/elo/elo-get')
+          .set('Authorization', `Bearer ${token}`);
 
-      // Assert: check the response
-      expect(response.status).toBe(200);
-      expect(response.body).toHaveProperty('rating');
-      expect(response.body.rating).toBe(600);
+
+        // Assert: check the response
+        expect(response.status).toBe(200);
+        expect(response.body).toHaveProperty('rating');
+        expect(response.body.rating).toBe(600);
+      } catch (err) {
+        console.log("Error: ", err);
+        throw err;
+      }
+
     });
 
-    it('should return 404 if user has no elo rating', async () => {
-      (pool.query as Mock).mockResolvedValueOnce({ rows: [] });
+    it('should return unauthorised for invalid user', async () => {
 
-      const response = await request(app)
-        .get('/api/elo/nonexistent-uuid');
+      try {
+        const response = await request(app)
+          .get('/api/elo/elo-get')
+          .set('Authorization', 'Bearer "This is an invalid token"')
 
-      expect(response.status).toBe(404);
-      expect(response.body).toHaveProperty('message', 'Elo rating not found for this user');
-    });
+        expect(response.status).toBe(401);
+        expect(response.body).toHaveProperty('message');
+        expect(response.body.message).toContain('Unauthorised: Missing or Invalid Token')
 
-    it('should return 500 if database throws an error', async () => {
-      (pool.query as Mock).mockRejectedValueOnce(new Error('DB error'));
-
-      const response = await request(app)
-        .get('/api/elo/user-uuid');
-
-      expect(response.status).toBe(500);
-      expect(response.body).toHaveProperty('message', 'Internal server error');
-    });
+      } catch (err) {
+        console.log("Error: ", err);
+        throw err;
+      }
+    })
 
   });
 
 
-  // GET /api/elo/:user_id/history -----------
+  // GET /api/elo/elo-history -----------
   describe('GET /api/elo/:user_id/history', () => {
 
     it('should return elo history for a valid user', async () => {
-      (pool.query as Mock).mockResolvedValueOnce({
-        rows: [
-          {
-            history_id: 'history-uuid',
-            user_id: 'user-uuid',
-            match_id: 'match-uuid',
-            old_rating: 600,
-            new_rating: 616,
-            change: 16,
-            changed_at: new Date()
-          }
-        ]
-      });
+
 
       const response = await request(app)
-        .get('/api/elo/user-uuid/history');
+        .get('/api/elo/elo-history')
+        .set('Authorization', `Bearer ${token}`);
 
       expect(response.status).toBe(200);
       expect(response.body).toBeInstanceOf(Array);
-      expect(response.body[0]).toHaveProperty('old_rating');
-      expect(response.body[0]).toHaveProperty('new_rating');
+
+      console.log(response.body)
     });
 
     it('should return 404 if no history found', async () => {
-      (pool.query as Mock).mockResolvedValueOnce({ rows: [] });
 
       const response = await request(app)
-        .get('/api/elo/user-uuid/history');
+        .get('/api/elo/elo-history')
+        .set('Authorization', `Bearer ${token}`);
 
       expect(response.status).toBe(404);
     });

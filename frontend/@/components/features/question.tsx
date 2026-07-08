@@ -1,19 +1,18 @@
 import * as React from "react";
-import { cn } from "@/lib/utils";
+
 import { Badge } from "../ui/badge";
+
+import { cn } from "@/lib/utils";
 
 function Question({
   className,
-  size = "default",
   children,
   difficulty,
   title,
   question,
   description,
-  number,
-  ...props
+  number
 }: React.ComponentProps<"div"> & {
-  size?: "default" | "sm";
   children?: React.ReactNode;
   difficulty: string;
   title: string;

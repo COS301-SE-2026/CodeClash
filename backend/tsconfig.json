@@ -2,7 +2,10 @@
   "compilerOptions": {
     "module": "nodenext",
     "target": "esnext",
-    "types": ["node", "jest"],
+    "types": [
+      "ts-node",
+      "jest"
+    ],
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
@@ -14,5 +17,16 @@
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
-  }
+    "ignoreDeprecations": "6.0",
+    "baseUrl": ".",
+    "paths": {
+      "root/*": [
+        "../*"
+      ]
+    }
+  },
+  "include": [
+    "src",
+    "root"
+  ],
 }
