@@ -11,15 +11,14 @@ export function useSearch() {
     }, [setFound])
 
     const handleMatched = useCallback(() => {
+        console.log("searching view model: users matched")
         matched(true)
     }, [matched]);
 
     useEffect(() => {
         if (socket) {
 
-            socket.on("users_matched", () => {
-                handleMatched()
-            })
+            socket.on("users_matched", () => {handleMatched()})
 
             return () => {
                 socket.off("users_matched", () => handleMatched())

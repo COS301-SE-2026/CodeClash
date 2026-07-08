@@ -6,7 +6,7 @@ import MatchmakingUserDTO from '../dtos/matchmaking.dto';
 const env = import.meta.env;
 
 export async function createSocket(): Promise<Socket> {
-    const session = await fetchAuthSession({forceRefresh: true})
+    const session = await fetchAuthSession({ forceRefresh: true })
     const token = session.tokens?.idToken
 
     const options = {
@@ -24,6 +24,11 @@ export async function createSocket(): Promise<Socket> {
 
     conn.on("match_error", () => {
         console.error("Error matching users");
+    })
+
+
+    conn.on("users_matched", () => {
+        console.log("websocket matched")
     })
 
 

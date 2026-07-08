@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import Layout from "./layout";
 import MathMatch from "./pages/MathMatch";
 import ProgMatch from "./pages/ProgMatch";
-import Found from "./pages/queuePages/found";
+import Found from "./Views/Found";
 import Dashboard from "./Views/Dashboard";
 import Profile from "./Views/Profile";
 import Searching from "./Views/Searching";
