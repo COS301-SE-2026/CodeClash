@@ -1,0 +1,18 @@
+backend/src/services/auth.service.ts
+  h_94c952a9e14c58 4,15,37-65
+backend/src/controllers/user.controllers.ts
+  h_94c952a9e14c58 3,82-85,87-88,94,104,106-107
+backend/src/config/amplify-config.ts
+  h_94c952a9e14c58 10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "bbcaecd32cf3e2149de2d7a1e6e1993f04ae183f",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
