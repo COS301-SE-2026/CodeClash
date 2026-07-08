@@ -1,11 +1,13 @@
 import path from 'path'
-import dotenv from 'dotenv'
-
-dotenv.config();
 
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
+import dotenv from 'dotenv'
 import { defineConfig } from 'vitest/config'
+dotenv.config();
+
+
+
 
 
 export default defineConfig({
@@ -14,7 +16,7 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "./@"),
       "root": path.resolve(__dirname, "../",),
-      "src":path.resolve(__dirname,"./src")
+      "src": path.resolve(__dirname, "./src")
     },
   },
   test: {

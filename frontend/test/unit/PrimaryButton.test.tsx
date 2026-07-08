@@ -86,5 +86,4 @@ describe('PrimaryButton', () => {
     render(<PrimaryButton className="mt-4">Sign in</PrimaryButton>);
     expect(screen.getByRole('button').className).toContain('mt-4');
   });
->>>>>>>> af8fae5e1fbe43d4d521fb842abb641c0fce6945:frontend/test/unit/PrimaryButton.test.tsx
 });

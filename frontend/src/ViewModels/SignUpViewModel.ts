@@ -1,8 +1,9 @@
 import { useCallback, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { useAuth } from "../context/hooks/useAuth";
 import { signUpContent, formData, validateSignUpForm } from "../Models/SignUpModel";
 import type { SignUpContent, SignUpForm } from "../Models/SignUpModel";
-import { useNavigate } from "react-router-dom";
 
 interface SignUpViewModel {
     content: SignUpContent;
@@ -55,7 +56,9 @@ export function SignUpViewModelFunction (): SignUpViewModel {
                     password: form.password,
                 });
                 setNeedsConfirmation(true); //If signUp succeeds, set UI to confirmation code screen
-            } catch {} //If Amplify throws an error, AuthContext will catch it and put it in error
+            } catch {
+                console.error("Sign up error")
+            } //If Amplify throws an error, AuthContext will catch it and put it in error
         }, [form, signUp, clearError]); //Dependency array
 
         const handleConfirm = useCallback(async () =>
@@ -69,8 +72,10 @@ export function SignUpViewModelFunction (): SignUpViewModel {
             try {
                 await confirmSignUp (form.username.trim(), confirmationCode.trim()); //If the validation is passed, Amplify will be called
                 nav('/dashboard')
-            } catch {}
-        }, [confirmationCode, form.username, confirmSignUp, clearError]); //Dependency array
+            } catch {
+                console.error("Sign up confirmation error")
+            }
+        }, [confirmationCode, form.username, confirmSignUp, clearError,nav]); //Dependency array
 
         const handleResend = useCallback(async () =>
         {
@@ -80,13 +85,10 @@ export function SignUpViewModelFunction (): SignUpViewModel {
             try {
                 await resendSignUpCode(form.username.trim()); //Amplify called to send a confirmation code. The user is id'd by username.
                 setResendMessage('Code has been sent! Check your email.'); //If code has been sent, set the success message.
-            } catch {}
+            } catch {
+                console.error("Error resending code")
+            }
         }, [form.username, resendSignUpCode, clearError]); //Dependancy array
-
-        const handleConfirmBack = useCallback(() =>
-        {
-            setNeedsConfirmation(false); //Swap UI back to signup form
-        }, []);
 
         return {
             content: signUpContent,

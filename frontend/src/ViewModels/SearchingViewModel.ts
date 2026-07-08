@@ -1,10 +1,18 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSocket } from "src/context/hooks/useSocket";
 
 export function useSearch() {
 
     const [found, setFound] = useState(false);
     const { socket } = useSocket();
+
+    const matched = useCallback((match: boolean) => {
+        setFound(match);
+    }, [setFound])
+
+    const handleMatched = useCallback(() => {
+        matched(true)
+    }, [matched]);
 
     useEffect(() => {
         if (socket) {
@@ -17,15 +25,7 @@ export function useSearch() {
                 socket.off("users_matched", () => handleMatched())
             }
         }
-    }, [socket])
-
-    const matched = (match: boolean) => {
-        setFound(match);
-    }
-
-    const handleMatched = () => {
-        matched(true)
-    };
+    }, [socket, handleMatched])
 
 
     return { matched, found };

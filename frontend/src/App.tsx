@@ -1,15 +1,16 @@
 import type React from "react";
 import { Route, Routes } from "react-router-dom";
-import Dashboard from "./Views/Dashboard";
+
 import Layout from "./layout";
-import Welcome from "./Views/Welcome";
-import SignIn from "./Views/SignIn";
-import SignUp from "./Views/SignUp";
-import Profile from "./Views/Profile";
-import Searching from "./Views/Searching";
-import Found from "./pages/queuePages/found";
 import MathMatch from "./pages/MathMatch";
 import ProgMatch from "./pages/ProgMatch";
+import Found from "./pages/queuePages/found";
+import Dashboard from "./Views/Dashboard";
+import Profile from "./Views/Profile";
+import Searching from "./Views/Searching";
+import SignIn from "./Views/SignIn";
+import SignUp from "./Views/SignUp";
+import Welcome from "./Views/Welcome";
 
 
 const App: React.FC = () => {
@@ -23,7 +24,7 @@ const App: React.FC = () => {
             <Route path='/searching' element={<Searching/>}/>
             <Route path='/found' element={<Found/>}/>
             <Route path='/math-match' element={<MathMatch/>}/>
-            {/* <Route path='/prog-match' element={<ProgMatch language="javascript"/>}/> */}
+            <Route path='/prog-match' element={<ProgMatch language="javascript"/>}/>
 
             {/* Pages with sidebar inside the app */}
             <Route element={<Layout />}>

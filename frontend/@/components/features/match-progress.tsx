@@ -4,31 +4,26 @@ import type { QuestionDTO } from "src/types/question.dto";
 import door from "../../../src/assets/door.png";
 import { Badge } from "../ui/badge";
 
+import { cn } from "@/lib/utils";
+
 function MatchProgress({
   className,
-  size = "default",
-  children,
   questions,
   avatar,
   opponent,
   progress,
   opponent_progress,
-  done,
-  opponent_done,
-  ...props
+  done
 }: React.ComponentProps<"div"> & {
-  size?: "default" | "sm";
-  children?: React.ReactNode;
   questions: QuestionDTO[];
   avatar: string;
   opponent: string;
   progress: number;
   opponent_progress: number;
   done: boolean;
-  opponent_done: boolean;
 }) {
   return (
-    <div className="relative bg-white flex flex-col rounded-3xl w-[15%] h-[98%] m-auto">
+    <div className={cn("relative bg-white flex flex-col rounded-3xl w-[15%] h-[98%] m-auto", className)}>
       <Badge
         className={`bg-white badge-font shadow-badge self-center m-4 w-[40%] h-[5%] relative z-10 transition-transform duration-300 ${done ? "scale-110" : "scale-1"}`}
       >

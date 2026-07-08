@@ -1,8 +1,9 @@
-import { useAuth } from "../context/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
+import { useAuth } from "../context/hooks/useAuth";
+
 export function useLogOut() {
-    const { user, error, signOut } = useAuth();
+    const { signOut } = useAuth();
     const nav = useNavigate();
 
     const logout = async () => {
@@ -12,7 +13,7 @@ export function useLogOut() {
             await signOut();
             nav('/welcome');
         } catch (err) {
-            console.log(`Error logging out: ${err}`)
+            console.error(`Error logging out: ${err}`)
         }
     }
 

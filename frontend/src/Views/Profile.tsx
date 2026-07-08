@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useUsername } from 'src/ViewModels/SharedViewModel';
 
+import placeholder from '../assets/Avatar/placeholder.png'
 import { type ProfileProps } from '../Models/ProfileModel';
 import { useLogOut } from '../ViewModels/ProfileViewModel';
-import { Link } from 'react-router-dom';
-import { Card } from '@/components/ui/card';
-import placeholder from '../assets/Avatar/placeholder.png'
+
 import { Button } from '@/components/ui/button';
-import { useUsername } from 'src/ViewModels/Shared.ViewModel';
+import { Card } from '@/components/ui/card';
+
+
+
 
 const Profile: React.FC<ProfileProps> = ({
   player_level = 'Level 32 - Mercury',
@@ -15,7 +19,7 @@ const Profile: React.FC<ProfileProps> = ({
 }) => {
 
   const onLogout = useLogOut();
-  const { username } = useUsername();
+  const username = useUsername();
 
   return (
     <div className="w-full min-h-screen bg-secondary flex flex-col items-center justify-center text-secondary-text">

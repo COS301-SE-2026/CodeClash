@@ -1,7 +1,8 @@
 import React from "react";
-import planetEarth from '../assets/Planets/Earth.png';
-import lightBeam from '../assets/Background/SignInBeam.png';
 import { Link } from "react-router-dom";
+
+import lightBeam from '../assets/Background/SignInBeam.png';
+import planetEarth from '../assets/Planets/Earth.png';
 import { SignInViewModelFunction } from "../ViewModels/SignInViewModel";
 
 

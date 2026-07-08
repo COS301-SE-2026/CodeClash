@@ -1,22 +1,26 @@
-import searchIcon from '../assets/Icons/Search.png';
-import aiIcon from '../assets/Icons/AI.png';
-import profileIcon from '../assets/Icons/Profile.png';
-import backgroundImg from '../assets/Background/dashboard.png'
-import robot from '../assets/Robots/Pink_fighting.png'
-import brainIcon from '../assets/Icons/Brain.png';
-import GlassCard from '@/components/shared/GlassCard'
-import { Button } from '@/components/ui/button';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+
+import backgroundImg from '../assets/Background/dashboard.png'
+import aiIcon from '../assets/Icons/AI.png';
+import brainIcon from '../assets/Icons/Brain.png';
+import profileIcon from '../assets/Icons/Profile.png';
+import searchIcon from '../assets/Icons/Search.png';
+import robot from '../assets/Robots/Pink_fighting.png'
+import { useShowPopUp } from '../ViewModels/DashboardViewModel';
+import { useUser, getUserElo, getUserToken } from '../ViewModels/SharedViewModel';
+
+import Popup from './Popup'
+
+import GlassCard from '@/components/shared/GlassCard'
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { Badge } from '@/components/ui/badge';
-import Popup from './Popup'
 
 
 // View Model
-import { useShowPopUp } from '../ViewModels/DashboardViewModel';
-import { useUser, getUserElo, getUserToken } from '../ViewModels/Shared.ViewModel';
-import { useEffect, useState } from 'react';
+
 
 const Dashboard = () => {
   const { isOpen, openPopUp, closePopUp } = useShowPopUp();

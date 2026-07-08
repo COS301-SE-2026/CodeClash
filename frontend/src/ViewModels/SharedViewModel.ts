@@ -1,6 +1,6 @@
+import { fetchAuthSession } from "aws-amplify/auth";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { fetchAuthSession } from "aws-amplify/auth";
 import { useAuth } from "src/context/hooks/useAuth";
 
 export const getUserToken = async () => {
@@ -42,48 +42,29 @@ export async function getUserElo(token: string | null): Promise<number | null> {
 
 export function useUsername() {
     const { user } = useAuth();
-    const [username, setUsername] = useState('');
 
-    useEffect(() => {
-        if (user)
-            setUsername(user.username);
-    })
+    const username = user ? user.username : "";
 
-    return { username };
+    return username;
 }
 
 
 export function useUser() {
-    const [username, setUsername] = useState('');
-    const [elo, setElo] = useState(0);
-    const [current_streak, setCurrentStreak] = useState(0);
-    const [winning_streak, setWinning_streak] = useState(0);
+    const [elo, setElo] = useState<number | null>(0);
+    // const [current_streak, setCurrentStreak] = useState(0);
+    // const [winning_streak, setWinning_streak] = useState(0);
     const [token, setToken] = useState<string | null>(null);
-    const { user } = useAuth();
+    const username = useUsername();
 
 
 
     useEffect(() => {
+
         getUserToken().then(t => setToken(t))
-
-        if (user)
-            setUsername(user.username);
-
-        getUserInfo()
+        getUserElo(token).then(e=> setElo(e))
 
 
-    }, [user])
+    }, [token])
 
-
-    const getUserInfo = async () => {
-
-
-        // axios.get('http://localhost:3000/api/eo/elo-get', {
-
-        // })
-    }
-
-
-
-    return { username }
+    return { username, elo }
 }

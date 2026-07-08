@@ -1,14 +1,9 @@
-import React, { createContext, useContext, useEffect, useState, useCallback, type ReactNode } from 'react'
+import React, { useEffect, useState,  type ReactNode } from 'react'
 import type { Socket } from 'socket.io-client'
 import { createSocket } from 'src/services/websocket.service'
 
+import { SocketContext } from './SocketContextValue'
 
-export interface SocketContextValue {
-    socket: Socket | null
-    isConnected: boolean
-}
-
-export const SocketContext = createContext<SocketContextValue | null>(null);
 
 export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [socket, setSocket] = useState<Socket | null>(null);

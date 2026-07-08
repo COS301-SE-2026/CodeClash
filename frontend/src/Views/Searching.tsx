@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate  } from 'react-router-dom';
 import { useSearch } from 'src/ViewModels/SearchingViewModel';
-import { useNavigate } from 'react-router-dom';
 
 const Searching: React.FC = () => {
   const [seconds, setSeconds] = useState(0);
@@ -21,7 +20,7 @@ const Searching: React.FC = () => {
       nav('/found')
     }
 
-  }, [found])
+  }, [found,nav])
 
 
   const mins = String(Math.floor(seconds / 60)).padStart(1, '0');

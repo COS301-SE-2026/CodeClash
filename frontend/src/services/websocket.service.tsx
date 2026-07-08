@@ -1,5 +1,6 @@
-import { io, Socket } from 'socket.io-client'
 import { fetchAuthSession } from 'aws-amplify/auth';
+import { io, Socket } from 'socket.io-client'
+
 import MatchmakingUserDTO from '../dtos/matchmaking.dto';
 
 const env = import.meta.env;

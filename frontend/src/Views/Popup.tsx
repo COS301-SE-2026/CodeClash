@@ -1,23 +1,26 @@
 import '../styles/global.css'
 import React from "react"
-import { Card } from '@/components/ui/card'
+import { useNavigate } from 'react-router-dom';
+
 import robot from '../assets/Robots/arms_up.png'
 import { type PopupProps } from '../Models/PopUpModel';
 import { useSelectTopic } from '../ViewModels/PopUpViewModel';
-import { useNavigate } from 'react-router-dom';
+
+import { Card } from '@/components/ui/card'
+
 
 const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
-    if (!isOpen) return null;
-
     const selectTopic = useSelectTopic();
     const nav = useNavigate();
     const selecthandler = (t: string) => {
-        if (selectTopic == null || t == null)
+        if (selectTopic === null || t === null)
             nav('/error')
         else {
             selectTopic(t)
         }
     }
+
+    if (!isOpen) return null;
 
     return (
         <div className="fixed inset-0 z-50  bg-black/50 flex items-center justify-center  ">
@@ -35,7 +38,7 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
                             onKeyDown={(e) => {
                                 const shift = e.shiftKey;
                                 if (shift && e.key === 'L') {
-
+                                    selecthandler('math')
                                 }
                             }}
                             onClick={() => selecthandler('math')}
@@ -47,7 +50,7 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
                             onKeyDown={(e) => {
                                 const shift = e.shiftKey;
                                 if (shift && e.key === 'R') {
-
+                                    selecthandler('prog')
                                 }
                             }}
                             onClick={() => selecthandler('prog')}
@@ -57,13 +60,6 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
                         </Card>
                     </div>
                     <div className="text-[2.3rem] text-black heading font-extrabold underline mt-[4%] rounded-3xl hover:bg-primary hover:text-secondary hover:font-normal w-[80%] "
-                        onKeyDown={(e) => {
-                            const shift = e.shiftKey;
-                            if (shift && e.key === 'Esc') {
-
-                            }
-                        }}
-
                         onClick={onClose}
                     >Cancel
                     </div>

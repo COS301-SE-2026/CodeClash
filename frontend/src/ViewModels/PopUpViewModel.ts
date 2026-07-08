@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { joinMatchQueue } from "../services/websocket.service";
-import MatchmakingUserDTO from "../dtos/matchmaking.dto";
-import { getUserToken, getUserElo } from "./Shared.ViewModel";
 import { useSocket } from "src/context/hooks/useSocket";
 
+import MatchmakingUserDTO from "../dtos/matchmaking.dto";
+import { joinMatchQueue } from "../services/websocket.service";
+
+import { getUserToken, getUserElo } from "./SharedViewModel";
 
 
-export  function useSelectTopic() {
+
+
+export function useSelectTopic() {
     const navigation = useNavigate();
     const [topic, setTopic] = useState('');
-    const [elo, setElo] = useState(0);
+    const [elo, setElo] = useState<number | null>(0);
     const [token, setToken] = useState<string | null>(null);
     const { socket } = useSocket();
 
@@ -21,17 +24,13 @@ export  function useSelectTopic() {
     useEffect(() => {
         if (!token) { return; }
 
-        try {
-
-            const getElo = async () => {
-                const user_elo = await getUserElo(token);
-            }
-
-            getElo();
+        const getElo = async () => {
+            const user_elo = await getUserElo(token);
+            setElo(user_elo);
         }
-        catch {
-            console.error('Error sending request')
-        }
+
+        getElo();
+
     }, [token])
 
     const selectTopic = async (selected_topic: string) => {
@@ -39,7 +38,7 @@ export  function useSelectTopic() {
 
         if (!socket) throw new Error("500 Internal Server Error");
 
-        const data = new MatchmakingUserDTO(elo, selected_topic)
+        const data = new MatchmakingUserDTO((elo ? elo : 0), topic)
 
         joinMatchQueue(socket, data)
         navigation('/searching');
