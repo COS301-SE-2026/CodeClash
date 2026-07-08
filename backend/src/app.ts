@@ -1,6 +1,5 @@
 import cors from 'cors'
-import express, { Request, Response, NextFunction } from 'express'
-import jwt, { type JwtPayload } from 'jsonwebtoken'
+import express, { Request, Response } from 'express'
 
 import eloRoutes from './routes/api.routes';
 import matchRoutes from './routes/api.routes';

@@ -7,7 +7,7 @@ const userPoolId = process.env.COGNITO_USER_POOL_ID;
 const clientId = process.env.COGNITO_CLIENT_ID;
 
 if (!userPoolId || !clientId) {
-  throw new Error("Missing or Invalid cognito credentials")
+  console.error("Missing or Invalid cognito credentials")
 }
 
 
