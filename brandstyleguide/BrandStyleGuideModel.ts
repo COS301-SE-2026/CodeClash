@@ -25,10 +25,10 @@ export interface DesignToken { //This defines the structure of the tokens, its n
     description: string;
 }
 
-export interface ComponentSpecs { //This will show variants and states of components
+export interface ComponentSpecs { //This will show variants and classes of components
     name: string;
     vars: string[];
-    states: string[];
+    classes: string[];
     notes: string;
 }
 
@@ -455,4 +455,55 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
         },
         ],
     },
+
+    components: [
+    {
+        name: 'Button Primary',
+        vars: ['Default', 'Hover', 'Active', 'Disabled', 'Loading'],
+        classes: ['big-button-primary', 'text-button-text-primary', 'rounded-lg', 'shadow-badge', 'font-bold'],
+        notes: 'w-[100%] on auth pages, fixed width on dashboard. h-[3rem], font-size 1.5rem, hover: -translate-y-px',
+    },
+
+    {
+        name: 'Button Secondary',
+        vars: ['Default', 'Hover', 'Underline'],
+        classes: ['text-primary-text', 'underline', 'font-semibold', 'bg-transparent'],
+        notes: 'Used for inline links',
+    },
+
+    {
+        name: 'Back Button',
+        vars: ['Primary', 'Secondary'],
+        classes: ['.primary-back-button', '.secondary-back-button', 'absolute top-[15px] left-[40px]'],
+        notes: 'Primary uses primary-text color, secondary uses secondary-text color',
+    },
+
+    {
+        name: 'Input Field',
+        vars: ['Default', 'Focus', 'Disbaled', 'Error'],
+        classes: ['.fields', 'bg-white', 'rounded-lg', 'border-primary', 'h-[3rem]'],
+        notes: 'font-size var(--font-size-sm) via .fields',
+    },
+
+    {
+        name: 'Checkbox',
+        vars: ['Unchecked', 'Checked', 'Disabled'],
+        classes: ['accent-button-primary', 'w-8 h-8', 'rounded-sm'],
+        notes: 'Paired with Terms & Conditions label using font-size-sm',
+    },
+
+    {
+        name: 'Glass Card',
+        vars: ['Default', 'Bordered'],
+        classes: ['ClassCard component', 'bg-black/80', 'border', 'rounded'],
+        notes: 'Custom shadcn component at @/components/shared/GlassCard',
+    },
+
+    {
+        name: 'Progress Bar',
+        vars: ['Default', 'Colored'],
+        classes: ['Progress component', 'bg-[#E4BBCA]', 'shadow-badge', 'h-[60%]'],
+        notes: 'shadcn Progress component with custom progress_colour prop for fill',
+    },
+    ],
 }
