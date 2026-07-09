@@ -335,6 +335,25 @@ router.get('/elo/:user_id', getUserElo);
 router.get('/elo/:user_id/history', getEloHistory);
 
 //friends routes
+/**
+ * @swagger
+ * /api/friends/:user_id
+ *  get:
+ *    summary: Returns all the friends of a user
+ *    tags: [Friends]
+ *    parameters:
+ *      - in: path
+ *        name: user_id
+ *        required: true
+ *        schema:
+ *          type: string
+ *          format: uuid
+ *    responses:
+ *      200:
+ *        description: Returned user's friends successfully
+ *      500:
+ *        description: Internal server error
+ */
 router.get('/friends/requests/:user_id', getFriendRequests);
 router.post('/friends/invite', addFriendInvite);
 router.post('/friends/request', sendFriendRequest);
