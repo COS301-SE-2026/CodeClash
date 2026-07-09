@@ -240,9 +240,98 @@ router.get('/matches/:match_id/log', getMatchLog);
 router.post('/matches/:match_id/log', createMatchLog);
 
 //elo routes
+/**
+ * @swagger
+ * /api/elo/leaderboard
+ *  get:
+ *    summary: Returns the top 10 players by elo rating
+ *    reponses:
+ *      200:
+ *        description:  Returned the leaderboard successfully
+ *      500:
+ *        description: Internal server error
+ */
 router.get('/elo/leaderboard', getLeaderboard);
+/**
+ * @swagger
+ * /api/elo/update:
+ *  post:
+ *    summary: Update elo ratings for both players after a ranked match
+ *    tags: [Elo]
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            required:
+ *              - match_id
+ *              - winner_id
+ *              - loser_id
+ *            properties:
+ *              match_id:
+ *                type: string
+ *                format: uuid
+ *              winner_id:
+ *                type: string
+ *                format: uuid
+ *              loser_id:
+ *                type: string
+ *                format: uuid
+ *    responses:
+ *      200:
+ *        description: Elo ratings updated successfully
+ *      400:
+ *        description: Missing required fields or match is not ranked
+ *      404:
+ *        description: Match or player elo rating not found
+ *       500:
+ *         description: Internal server error
+ */
 router.post('/elo/update', updateEloAfterMatch);
+/**
+ * @swagger
+ * /api/elo/{user_id}
+ *  get:
+ *    summary: Get current elo rating for a user
+ *    tags: [Elo]
+ *    parameters:
+ *      - in: path
+ *        name: user_id
+ *        required: true
+ *        schema:
+ *          type: string
+ *          format: uuid
+ *    responses:
+ *      200:
+ *        description: Elo rating for use returned successfully
+ *      404:
+ *        description: Elo rating for user not found
+ *      500:
+ *        description: Internal server error
+ */
 router.get('/elo/:user_id', getUserElo);
+/**
+ * @swagger
+ * /api/elo/{user_id}/history
+ *  get:
+ *    summary: Get elo rating history for a user
+ *    tags: [Elo]
+ *    parameters:
+ *      - in: path
+ *        name: user_id
+ *        required: true
+ *        schema:
+ *          type: string
+ *          format: uuid
+ *    responses:
+ *      200:
+ *        description: Elo rating history for use returned successfully
+ *      404:
+ *        description: Elo rating history for user not found
+ *      500:
+ *        description: Internal server error
+ */
 router.get('/elo/:user_id/history', getEloHistory);
 
 //friends routes
