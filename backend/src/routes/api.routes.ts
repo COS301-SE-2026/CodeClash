@@ -337,6 +337,35 @@ router.get('/elo/:user_id/history', getEloHistory);
 //friends routes
 /**
  * @swagger
+ * /api/friends/requests/{user_id}
+ *  get:
+ *    summary: Returns the requests a user has sent/received
+ *    tags: [Friends]
+ *    parameters:
+ *      - in: path
+ *        name: user_id
+ *        required: true
+ *        schema:
+ *          type: string
+ *          format: uuid
+ *      - in: query
+ *        name: type
+ *        required: true
+ *        schema:
+ *          type: string
+ *          default: received
+ *    responses:
+ *      200:
+ *        description: Returned all user's friend requests successfully
+ *      500:
+ *        description: Internal server error
+ */
+router.get('/friends/requests/:user_id', getFriendRequests);
+router.post('/friends/invite', addFriendInvite);
+router.post('/friends/request', sendFriendRequest);
+router.patch('/friends/request/:friendship_id', respondToFriendRequest);
+/**
+ * @swagger
  * /api/friends/:user_id
  *  get:
  *    summary: Returns all the friends of a user
@@ -354,10 +383,6 @@ router.get('/elo/:user_id/history', getEloHistory);
  *      500:
  *        description: Internal server error
  */
-router.get('/friends/requests/:user_id', getFriendRequests);
-router.post('/friends/invite', addFriendInvite);
-router.post('/friends/request', sendFriendRequest);
-router.patch('/friends/request/:friendship_id', respondToFriendRequest);
 router.get('/friends/:user_id', getFriendsById);
 router.delete('/friends/:friendship_id', removeFriend);
 
