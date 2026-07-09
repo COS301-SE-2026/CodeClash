@@ -64,8 +64,21 @@ export function BrandStyleGuideViewModelFunction(): BrandStyleGuideViewModel {
         return () => window.removeEventListener('scroll', handler); //remove the listener when the scrolling stops otherwise the listener will keep on activating, wasting memory
     }, []); //empty dependency array
 
+    const sectionScroll = useCallback((id: SectionId) => {
+        document.getElementById(id)?.scrollIntoView({behavior: 'smooth'}); //WHen a section is clicked in the nav bar, the browser will scroll until the el is visible (if it exists). 'smooth' makes sure the broswer doesnt jump
+    }, []); //empty dependancy array
+
+    const clipboardCopy = useCallback((text: string, key: string) => {
+        navigator.clipboard.writeText(text); //copies text to the users clipboard and updates setCopied
+        setCopied(key);
+        setTimeout(() => setCopied(null), 1500); //auto reset the state after a delay
+    }, []); //empty dependancy array
+
     return {
         content: brandStyleGuideContent,
         active,
-    }
+        copied,
+        sectionScroll,
+        clipboardCopy,
+    };
 }
