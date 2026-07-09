@@ -13,7 +13,7 @@ const IntroSection: React.FC<Props> = ({content}) => {
         <section id="intro" className="mb-20 scroll-mt-20 pt-8">
             <div className="mb-12">
                 <p className="text-xs font-semibold text-[#530A24] uppercase mb-3">
-                    {content.meta.project} - {content.meta.team} //will display CODECLASH - QUANTDEVS in the maroon (can change)
+                    {content.meta.project} - {content.meta.team} {/*will display CODECLASH - QUANTDEVS in the maroon (can change)*/}
                 </p>
                 <h1 className="text-3xl font-black text-gray-900 mb-4">
                     Brand Style Guide
@@ -30,7 +30,7 @@ const IntroSection: React.FC<Props> = ({content}) => {
                 </div>
             </div>
             <div className="pt-8"/>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4"> //some branding
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4"> {/*some branding*/}
                 {[
                     {
                         label: 'Lable',
