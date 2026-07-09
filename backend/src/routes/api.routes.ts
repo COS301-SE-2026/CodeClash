@@ -182,7 +182,7 @@ router.post('/matches', createMatch);
 router.patch('/matches/:match_id/status', updateMatchStatus);
 /** 
  * @swagger
- * /api/matches/{match_id}/log
+ * /api/matches/{match_id}/log:
  *  get:
  *    summary: Returns the history of a completed match
  *    tags: [Matches]
@@ -204,7 +204,7 @@ router.patch('/matches/:match_id/status', updateMatchStatus);
 router.get('/matches/:match_id/log', getMatchLog);
 /**
  * @swagger
- * /api/matches/{match_id}/log
+ * /api/matches/{match_id}/log:
  *  post:
  *    summary: Creates a match log for a casual match
  *    tags: [Matches]
@@ -242,7 +242,7 @@ router.post('/matches/:match_id/log', createMatchLog);
 //elo routes
 /**
  * @swagger
- * /api/elo/leaderboard
+ * /api/elo/leaderboard:
  *  get:
  *    summary: Returns the top 10 players by elo rating
  *    reponses:
@@ -291,7 +291,7 @@ router.get('/elo/leaderboard', getLeaderboard);
 router.post('/elo/update', updateEloAfterMatch);
 /**
  * @swagger
- * /api/elo/{user_id}
+ * /api/elo/{user_id}:
  *  get:
  *    summary: Get current elo rating for a user
  *    tags: [Elo]
@@ -313,7 +313,7 @@ router.post('/elo/update', updateEloAfterMatch);
 router.get('/elo/:user_id', getUserElo);
 /**
  * @swagger
- * /api/elo/{user_id}/history
+ * /api/elo/{user_id}/history:
  *  get:
  *    summary: Get elo rating history for a user
  *    tags: [Elo]
@@ -337,7 +337,7 @@ router.get('/elo/:user_id/history', getEloHistory);
 //friends routes
 /**
  * @swagger
- * /api/friends/requests/{user_id}
+ * /api/friends/requests/{user_id}:
  *  get:
  *    summary: Returns the requests a user has sent/received
  *    tags: [Friends]
@@ -361,6 +361,37 @@ router.get('/elo/:user_id/history', getEloHistory);
  *        description: Internal server error
  */
 router.get('/friends/requests/:user_id', getFriendRequests);
+/**
+ * @swagger
+ * /api/friends/invite:
+ *  post:
+ *    summary: Adds the play invite request to the database
+ *    tags: [Friends]
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            required:
+ *              - sender_id
+ *              - invite_code
+ *              - expires_at
+ *            properties:
+ *              sender_id:
+ *                type: string
+ *                format: uuid
+ *              invite_code:
+ *                type: string
+ *              expires_at:
+ *                type: string
+ *                format: date-time
+ *    responses:
+ *      201:
+ *        description: Added the play invite successfully
+ *      500:
+ *        description: Internal server error
+ */
 router.post('/friends/invite', addFriendInvite);
 router.post('/friends/request', sendFriendRequest);
 router.patch('/friends/request/:friendship_id', respondToFriendRequest);
