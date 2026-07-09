@@ -232,7 +232,7 @@ router.get('/matches/:match_id/log', getMatchLog);
  *                type: string
  *                format: uuid
  *    responses:
- *      200:
+ *      201:
  *        description: Match log created successfully
  *      500:
  *        description: Internal server error
@@ -245,6 +245,7 @@ router.post('/matches/:match_id/log', createMatchLog);
  * /api/elo/leaderboard:
  *  get:
  *    summary: Returns the top 10 players by elo rating
+ *    tags: [Elo]
  *    reponses:
  *      200:
  *        description:  Returned the leaderboard successfully
@@ -285,7 +286,7 @@ router.get('/elo/leaderboard', getLeaderboard);
  *        description: Missing required fields or match is not ranked
  *      404:
  *        description: Match or player elo rating not found
- *       500:
+ *      500:
  *         description: Internal server error
  */
 router.post('/elo/update', updateEloAfterMatch);
@@ -397,7 +398,7 @@ router.post('/friends/request', sendFriendRequest);
 router.patch('/friends/request/:friendship_id', respondToFriendRequest);
 /**
  * @swagger
- * /api/friends/:user_id
+ * /api/friends/{user_id}:
  *  get:
  *    summary: Returns all the friends of a user
  *    tags: [Friends]
