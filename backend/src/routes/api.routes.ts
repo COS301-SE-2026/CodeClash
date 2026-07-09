@@ -4,7 +4,8 @@ import {
   getMatchById, 
   createMatch, 
   updateMatchStatus, 
-  getMatchLog 
+  getMatchLog,
+  createMatchLog
 } from '../controllers/matches.controllers';
 import {
   getUserElo,
@@ -89,7 +90,7 @@ router.get('/matches', getMatches);
 *  @swagger
 *  /api/matches/{match_id}:
 *    get:
-*      summary: Get s single match by its id
+*      summary: Gets single match by its id
 *      tags: [Matches]
 *      parameters: 
 *        - in: path
@@ -144,8 +145,99 @@ router.get('/matches/:match_id', getMatchById);
  *          
  */
 router.post('/matches', createMatch);
+/**
+ * @swagger
+ * /api/matches/{match_id}/status:
+ *  patch:
+ *    summary: Updates the status of a match; sets match_start at the beginning of a match
+ *    tags: [Matches]
+ *    parameters:
+ *      - in: path
+ *        name: match_id
+ *        required: true
+ *        schema:
+ *          type: string
+ *          format: uuid
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            required: 
+ *              - status
+ *            properties:
+ *              status:
+ *                type: string
+ *                enum: [waiting, starting, in_progress, completed, abandonded]
+ *    responses:
+ *      200:
+ *        description: Match status updated successfully
+ *      404:
+ *        description: Match not found to update status
+ *      500:
+ *        description: Internal server error
+ *      
+ */
 router.patch('/matches/:match_id/status', updateMatchStatus);
+/** 
+ * @swagger
+ * /api/matches/{match_id}/log
+ *  get:
+ *    summary: Returns the history of a completed match
+ *    tags: [Matches]
+ *    parameters:
+ *      - in: path
+ *        name: match_id
+ *        required: true
+ *        schema:
+ *          type: string
+ *          format: uuid
+ *    responses:
+ *      200:
+ *        description: Match log returned successfully
+ *      404:
+ *        description: Match not found
+ *      500:
+ *        description: Internal server error
+*/
 router.get('/matches/:match_id/log', getMatchLog);
+/**
+ * @swagger
+ * /api/matches/{match_id}/log
+ *  post:
+ *    summary: Creates a match log for a casual match
+ *    tags: [Matches]
+ *    parameters:
+ *      - in: path
+ *        name: match_id
+ *        required: true
+ *        schema:
+ *          type: string
+ *          format: uuid
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            required:
+ *              - winner_id
+ *              - loser_id
+ *            properties:
+ *              winner_id:
+ *                type: string
+ *                format: uuid
+ *              loser_id:
+ *                type: string
+ *                format: uuid
+ *    responses:
+ *      200:
+ *        description: Match log created successfully
+ *      500:
+ *        description: Internal server error
+ */
+router.post('/matches/:match_id/log', createMatchLog);
 
 //elo routes
 router.get('/elo/leaderboard', getLeaderboard);
