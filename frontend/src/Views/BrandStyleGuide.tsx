@@ -20,6 +20,16 @@ const BrandStyleGuide: React.FC = () => {
                         <span className="font-bold text-sm text-gray-900">Brand Style Guide</span>
                         <span className="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full font-medium">v{content.meta.version}</span>
                     </div>
+                    <div className="hidden md:flex items-center gap-1">
+                        {navSections.map(section => (
+                            <button key={section.id} onClick={() => sectionScroll(section.id)}
+                            className= {
+                                `px-3 py-1.5 rounded-md text-xs font-medium transition-all duration-150 cursor-pointer border-none ${active === section.id} ? 'bg-[#530a23] text-[#FCECDD]' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-100 bg-transparent'}`
+                            }>
+                                {section.label}
+                            </button>
+                        ))}
+                    </div>
                 </div>    
             </nav>
         </div>
