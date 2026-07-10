@@ -29,35 +29,13 @@ const MatchSearching = () => {
                 'radial-gradient(circle at top, rgba(79, 16, 38, 0.96) 0%, rgba(27, 6, 14, 0.98) 44%, rgba(10, 2, 6, 1) 100%)',
             }}
           />
-  
-          {/*<img
-            src={symbolBackground}
-            alt=""
-            className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-20"
-          />*/}
-  
-          {/*<div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-between overflow-hidden">
-            <img
-              src={planetEarth}
-              alt=""
-              className="w-[28rem] max-w-none translate-x-[-28%] translate-y-[40%] opacity-35 md:w-[40rem] lg:w-[48rem]"
-            />
-            <img
-              src={planetEarth}
-              alt=""
-              className="w-[28rem] max-w-none translate-x-[28%] translate-y-[40%] opacity-35 md:w-[40rem] lg:w-[48rem]"
-              style={{ transform: 'scaleX(-1)' }}
-        />
 
-        
-          </div>*/}
           <img
             src={mercuryBackground}
             alt=""
-            className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-55"
+            className="pointer-events-none absolute inset-0 h-full w-full object-cover object-[center_65%] opacity-55"
           />
-      
-  
+          
           <div className="relative z-10 flex min-h-screen flex-col items-center justify-between px-6 py-8 md:px-10 md:py-10">
             <div className="w-full text-center">
               <p
