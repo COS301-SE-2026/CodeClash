@@ -1,12 +1,12 @@
-import symbolBackground from '../assets/symbol-background.png';
+import symbolBackground from '../assets/Background/SymbolBackground.png';
 // import { MatchSearchingViewModel } from '@/ViewModels/MatchSearchingViewModel';
-import { robot } from '../assets/robot.png';
+import robot from '../assets/Robots/Pink_fighting.png';
 // import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { planetEarth } from '../assets/planet-earth.png';
-import { MatchSearchingViewModelFunction } from 'src/ViewModels/MatchSearchingViewModel';
+import planetEarth from '../assets/Planets/Earth.png';
+import { MatchSearchingViewModelFunction } from '../ViewModels/MatchSearchingViewModel';
 
-const headingFont = { fontFamily: 'var(--heading' };
+const headingFont = { fontFamily: 'var(--heading)' };
 
 const MatchSearching = () => {
   // const navigate = useNavigate();
