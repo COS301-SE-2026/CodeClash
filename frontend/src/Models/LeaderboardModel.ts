@@ -11,7 +11,9 @@ export interface LeaderboardUserProps{
 }
 
 export const LeaderboardUserData : LeaderboardUserProps = {
-    
+    avatarUrl: '../assets/Icons/profile_black.png',
+    username: '',
+    elo: 0,
 }
 
 
