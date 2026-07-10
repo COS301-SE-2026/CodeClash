@@ -42,7 +42,7 @@ const Leaderboard = (
     // </div>
     <div className="w-full min-h-screen bg-[#C0395A]">
         <Link to="/dashboard" className="text-[#530A24] font-[var(--font)] text-[32px] font-semibold ml-5">← Back</Link>
-        <h1 className></h1>
+        <h1 className="text-[64px] text-[#FFDBE4] text-center mt-3 mr-160 font-[var(--font)] font-semibold drop-shadow-[4px_4px_0px_rgba(0,0,0,0.25)]">Leader Board</h1>
     </div>
     );
 }
