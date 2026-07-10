@@ -7,6 +7,7 @@ import '../styles/global.css'
 import {Link} from 'react-router-dom'
 import { type LeaderboardProps } from 'src/Models/LeaderboardModel';
 import { LeaderboardUserData } from 'src/Models/LeaderboardModel'
+import light from '../assets/light.png'
 
 
 // const Leaderboard: React.FC<LeaderboardProps> = (
@@ -29,13 +30,17 @@ const Leaderboard = (
 ) => {
     
     return(
-    <div className="w-full min-h-screen bg-[#C0395A]">
-    <div className="w-2/3 min-h-screen bg-[#C0395A] flex justify-start">
+    // <div className="w-full min-h-screen bg-[#C0395A]">
+    // <div className="w-2/3 bg-[#C0395A]">
     
-        <h1 className="mt-13 ml-80 text-[64px] text-[#FFDBE4] font-heading font-heading-weight drop-shadow-[4px_4px_0px_rgba(0,0,0,0.25)] ">Leader Board</h1>
-    
-    </div>
-    </div>
+    // <h1 className="mt-13 ml-80 text-[64px] text-[#FFDBE4] font-[var(--font)] font-heading-weight drop-shadow-[4px_4px_0px_rgba(0,0,0,0.25)]">Leader Board</h1>
+    // <div className="grid grid-flow-col grid-cols-3 gap-6">
+    //     <div className="ml-5 w-[239px] h-[304px] rounded-[20px] bg-[#FAC8D0] border-4 border-[#F4A0B2] drop-shadow-[10px_10px_6px_rgba(0,0,0,0.25)]"></div>
+    //     <div style={{backgroundImage: `url(${winner})`}} className="w-[524px] h-[524px] bg-cover bg-center bg-no-repeat"></div>
+    // </div>
+    // </div>
+    // </div>
+    <div className="w-full min-h-screen bg-[#C0395A]"></div>
     );
 }
 
