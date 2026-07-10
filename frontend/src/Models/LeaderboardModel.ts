@@ -10,6 +10,10 @@ export interface LeaderboardUserProps{
     elo: number;
 }
 
+export const LeaderboardUserData : LeaderboardUserProps = {
+    
+}
+
 
 export interface LeaderboardProps{
     league: string;
@@ -29,6 +33,7 @@ export interface LeaderboardProps{
 
 export const LeaderboardData : LeaderboardProps = {
     league: 'earth',
+    prev_page:
 
 
 }
