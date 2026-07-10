@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+
 import pool from '../config/db';
 
 // GET /api/elo/:user_id
