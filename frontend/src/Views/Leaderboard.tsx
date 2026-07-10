@@ -45,7 +45,13 @@ const Leaderboard = (
         <h1 className="text-[64px] text-[#FFDBE4] text-center mt-3 mr-160 font-[var(--font)] font-semibold drop-shadow-[4px_4px_0px_rgba(0,0,0,0.25)]">Leader Board</h1>
         
         <div className="flex justify-between items-start gap-10">
-            <div className="w-2/3 flex flex-col gap-6"></div>
+            <div className="w-2/3 flex flex-col gap-6">
+            <div className="grid grid-cols-3 gap-6 items-end">
+            <div className="w-[239px] h-[304px] rounded-[20px] bg-[#FAC8D0] border-4 border-[#F4A0B2] drop-shadow-[10px_10px_6px_rgba(0,0,0,0.25)] flex flex-col items-center justify-center"></div>
+            <div style={{backgroundImage: `url(${winner})`}} className="w-[524px] h-[524px] bg-cover bg-center bg-no-repeat flex flex-col items-center justify-center"></div>
+            <div className="w-[239px] h-[304px] rounded-[20px] bg-[#FAC8D0] border-4 border-[#F4A0B2] drop-shadow-[-10px_10px_6px_rgba(0,0,0,0.25)] flex flex-col items-center justify-center"></div>
+            </div>
+            </div>
         </div>
     </div>
     );
