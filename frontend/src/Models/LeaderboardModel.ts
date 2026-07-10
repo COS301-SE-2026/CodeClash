@@ -5,15 +5,18 @@
 // TO REPRESENT A USER, THE USEERDTO IS NOT PRESEENT IN THIS BRANCH YET HENCE I AM USING A FILLER CLASS
 
 export interface LeaderboardUserProps{
-    
+    avatarUrl: string;
+    username: string;
+    elo: number;
 }
 
 
 export interface LeaderboardProps{
     league: string;
-    firstAvatarUrl: string;
-    secondAvatarUrl: string;
-    thirdAvatarUrl: string;
-    fourthAvatarUrl: string;
+    firstUser: LeaderboardUserProps;
+    secondUser: LeaderboardUserProps;
+    thirdUser: LeaderboardUserProps;
+    fourthUser: LeaderboardUserProps;
+    fifthUser: LeaderboardUserProps;
 
 }
