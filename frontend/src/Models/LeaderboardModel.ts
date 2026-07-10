@@ -13,10 +13,16 @@ export interface LeaderboardUserProps{
 
 export interface LeaderboardProps{
     league: string;
+    prev_page: string;
     firstUser: LeaderboardUserProps;
     secondUser: LeaderboardUserProps;
     thirdUser: LeaderboardUserProps;
     fourthUser: LeaderboardUserProps;
     fifthUser: LeaderboardUserProps;
+    sixthUser: LeaderboardUserProps;
+    sevthUser: LeaderboardUserProps;
+    eigthUser: LeaderboardUserProps;
+    ninthUser: LeaderboardUserProps;
+    tenthUser: LeaderboardUserProps;
 
 }
