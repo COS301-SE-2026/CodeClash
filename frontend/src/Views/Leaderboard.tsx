@@ -1,4 +1,4 @@
-import profile from '../assets/Icons/Profile.png';
+import profile from '../assets/Icons/profile_black.png';
 import shadow from '../assets/shadow.png';
 import winner from '../assets/Icons/winner.png';
 import planet from '../assets/Planets/Earth.png';
@@ -47,7 +47,9 @@ const Leaderboard = (
         <div className="flex justify-between items-start gap-10">
             <div className="w-2/3 flex flex-col gap-6">
             <div className="grid grid-cols-3 gap-9 items-end">
-            <div className="ml-10 mb-40 w-[239px] h-[304px] rounded-[20px] bg-[#FAC8D0] border-4 border-[#F4A0B2] drop-shadow-[10px_10px_6px_rgba(0,0,0,0.25)] flex flex-col items-center justify-center"></div>
+            <div className="ml-10 mb-40 w-[239px] h-[304px] rounded-[20px] bg-[#FAC8D0] border-4 border-[#F4A0B2] drop-shadow-[10px_10px_6px_rgba(0,0,0,0.25)] flex flex-col items-center justify-center">
+                <div style={{backgroundImage: `url(${profile})`}} className="w-[90px] h-[90px] bg-no-repeat rounded-full object-cover bg-size-[auto_180px] bg-[right_-45px_top_-45px] -mt-60"></div>
+            </div>
             <div style={{backgroundImage: `url(${winner})`}} className="w-[524px] h-[524px] mt-2 -ml-49 bg-cover bg-center bg-no-repeat flex flex-col items-center justify-center"></div>
             <div className="-ml-35 mb-40 w-[239px] h-[304px] rounded-[20px] bg-[#FAC8D0] border-4 border-[#F4A0B2] drop-shadow-[-10px_10px_6px_rgba(0,0,0,0.25)] flex flex-col items-center justify-center"></div>
             </div>
