@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSocket } from "src/context/hooks/useSocket";
+import { useSocket } from "src/context/Socket/hooks/useSocket";
 
 import MatchmakingUserDTO from "../dtos/matchmaking.dto";
 import { joinMatchQueue } from "../services/websocket.service";

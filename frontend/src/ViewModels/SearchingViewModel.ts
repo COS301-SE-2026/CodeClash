@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { useSocket } from "src/context/hooks/useSocket";
+import { useSocket } from "src/context/Socket/hooks/useSocket";
 
 export function useSearch() {
 

@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useAuth } from "../context/hooks/useAuth";
+import { useAuth } from "../context/Auth/hooks/useAuth";
 import { signInContent, formData, validateSignInForm } from "../Models/SignInModel";
 import type { SignInForm} from "../Models/SignInModel";
 

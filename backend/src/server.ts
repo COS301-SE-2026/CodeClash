@@ -17,7 +17,7 @@ const options = {
 
 const httpServer = createServer(app)     // can update to https
 const io = new Server(httpServer, options);
-const PAIRS = new Map<string, {}>();
+const PAIRS = new Map<string, Map<string, boolean>>();
 
 // middleware -fires before the connection
 io.use(async (socket, next) => {
@@ -54,6 +54,7 @@ io.on("connection", (socket) => {
 
 
         const pair_id = player_1.concat("-").concat(player_2);
+
         const pair = {
             player_1: player_1,
             player_2: player_2,
@@ -61,7 +62,8 @@ io.on("connection", (socket) => {
             game_mode: data.game_mode
         }
 
-        PAIRS.set(pair_id, pair);
+
+        PAIRS.set(pair_id, new Map([[player_1, false], [player_2, false]]));
 
         io.to(player_1!).emit('users_matched', pair);
         io.to(player_2!).emit('users_matched', pair);
@@ -79,9 +81,29 @@ io.on("connection", (socket) => {
 
     });
 
-    socket.on('match_accepted', async () => {
+    socket.on('match_accepted', async (pair_id) => {
+        PAIRS.get(pair_id)?.set(socket.data.user_id, true);
 
-    })
+        const pair = PAIRS.get(pair_id);
+        const bothAccepted = pair ? [...pair.values()].every(bool => bool) : false;
+
+        if (bothAccepted) {
+            // call the game service to create the game
+        }
+        else {
+            // waiting for the other player to accept
+        }
+
+    });
+
+    socket.on('match_declined', (pair_id) => {
+        const pair = PAIRS.get(pair_id);
+        const players = pair ? [...pair.keys()] : null; //get ids of paird players 
+
+        if(players){
+            
+        }
+    });
 
 })
 

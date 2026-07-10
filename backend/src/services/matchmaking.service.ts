@@ -10,7 +10,7 @@ async function enqueue(user: MatchmakingUserDTO, queue: string): Promise<boolean
     // add user to the queue
     await redis.zadd(queue, user.elo, user.id);
 
-    // store their joined_at time and game mode in a hash
+    // store their joined_at time in a hash
     await redis.hset(`user:${user.id}`, "user_joined_at", user.joined_at);
     return true;
 }

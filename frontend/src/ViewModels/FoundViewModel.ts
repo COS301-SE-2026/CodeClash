@@ -1,18 +1,21 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
-import { useSocket } from "src/context/hooks/useSocket"
-import { leaveMatchQueue, matchAccepted } from "src/services/websocket.service"
+import { useMatchmakingSocket } from "src/context/Socket/hooks/useMatchmakingSocket";
+import { useSocket } from "src/context/Socket/hooks/useSocket"
+import { matchAccepted, matchDeclined } from "src/services/websocket.service"
 
 
 export function useFound() {
-    const { socket, game_mode } = useSocket()
-    const path = game_mode.concat("-match");
+    const { socket } = useSocket()
+    const {game_mode, pair_id} = useMatchmakingSocket();
+    const [path, setPath] = useState('');
     const nav = useNavigate();
     const [loading, setLoading] = useState(false);
 
     const decline = () => {
-        if (socket)
-            leaveMatchQueue(socket);
+        if (socket) {
+            matchDeclined(socket, pair_id);
+        }
     }
 
     const gameReady = () => {
@@ -21,9 +24,9 @@ export function useFound() {
     }
 
     const accept = () => {
-        console.log("Match accepted")
         if (socket) {
-            matchAccepted(socket);
+            setPath(game_mode.concat("-match"));
+            matchAccepted(socket, pair_id);
             setLoading(true);
         }
     }
