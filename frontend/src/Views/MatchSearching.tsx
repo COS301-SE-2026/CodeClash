@@ -1,0 +1,138 @@
+import symbolBackground from '../assets/symbol-background.png';
+// import { MatchSearchingViewModel } from '@/ViewModels/MatchSearchingViewModel';
+import { robot } from '../assets/robot.png';
+// import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { planetEarth } from '../assets/planet-earth.png';
+import { MatchSearchingViewModelFunction } from 'src/ViewModels/MatchSearchingViewModel';
+
+const headingFont = { fontFamily: 'var(--heading' };
+
+const MatchSearching = () => {
+  // const navigate = useNavigate();
+  const { formattedTime, content, players, handleCancel } = MatchSearchingViewModelFunction();
+
+  const leftPlayer = players.find((player) => player.side === 'left');
+  const rightPlayer = players.find((player) => player.side === 'right');
+
+  // const leftPlayerName = leftPlayer?.username;
+  // const rightPlayerName = rightPlayer?.username;
+  
+
+  return (
+        <div className="relative min-h-screen overflow-hidden bg-[#14050C] text-white">
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(circle at top, rgba(79, 16, 38, 0.96) 0%, rgba(27, 6, 14, 0.98) 44%, rgba(10, 2, 6, 1) 100%)',
+            }}
+          />
+  
+          <img
+            src={symbolBackground}
+            alt=""
+            className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-20"
+          />
+  
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-between overflow-hidden">
+            <img
+              src={planetEarth}
+              alt=""
+              className="w-[28rem] max-w-none translate-x-[-28%] translate-y-[40%] opacity-35 md:w-[40rem] lg:w-[48rem]"
+            />
+            <img
+              src={planetEarth}
+              alt=""
+              className="w-[28rem] max-w-none translate-x-[28%] translate-y-[40%] opacity-35 md:w-[40rem] lg:w-[48rem]"
+              style={{ transform: 'scaleX(-1)' }}
+            />
+          </div>
+  
+          <div className="relative z-10 flex min-h-screen flex-col items-center justify-between px-6 py-8 md:px-10 md:py-10">
+            <div className="w-full text-center">
+              <p
+                className="text-[4rem] font-extrabold leading-none text-[#FCECDD] md:text-[5.5rem] lg:text-[6.5rem]"
+                style={headingFont}
+              >
+                {formattedTime}
+              </p>
+              <h1
+                className="mt-3 text-[2.25rem] font-bold leading-none text-[#FCECDD] md:text-[3.5rem] lg:text-[4.25rem]"
+                style={headingFont}
+              >
+                {content.title}
+              </h1>
+            </div>
+  
+            <div className="grid w-full max-w-7xl grid-cols-1 items-end gap-8 md:grid-cols-[1fr_auto_1fr] md:gap-10 lg:gap-16">
+              <div className="flex flex-col items-center md:items-start">
+                <img
+                  src={robot}
+                  alt={`${leftPlayer?.username ?? 'Player'} avatar`}
+                  className="w-[13rem] drop-shadow-2xl md:w-[18rem] lg:w-[22rem]"
+                />
+                <div className="mt-4 text-center md:text-left">
+                  <p
+                    className="text-[2.75rem] font-bold leading-none text-white md:text-[3.5rem]"
+                    style={headingFont}
+                  >
+                    {leftPlayer?.username}
+                  </p>
+                  <p
+                    className="mt-3 text-[2.5rem] font-bold leading-none text-white md:text-[3rem]"
+                    style={headingFont}
+                  >
+                    {leftPlayer?.elo.toLocaleString()} ELO
+                  </p>
+                </div>
+              </div>
+  
+              <div className="flex items-center justify-center pb-6 md:pb-24">
+                <span
+                  className="text-[4.5rem] font-extrabold leading-none text-[#FCECDD] md:text-[6rem] lg:text-[7rem]"
+                  style={headingFont}
+                >
+                  {content.matchupLabel}
+                </span>
+              </div>
+  
+              <div className="flex flex-col items-center md:items-end">
+                <img
+                  src={robot}
+                  alt={`${rightPlayer?.username ?? 'Opponent'} avatar`}
+                  className="w-[13rem] drop-shadow-2xl md:w-[18rem] lg:w-[22rem]"
+                  style={{ transform: 'scaleX(-1)' }}
+                />
+                <div className="mt-4 text-center md:text-right">
+                  <p
+                    className="text-[2.75rem] font-bold leading-none text-white md:text-[3.5rem]"
+                    style={headingFont}
+                  >
+                    {rightPlayer?.username}
+                  </p>
+                  <p
+                    className="mt-3 text-[2.5rem] font-bold leading-none text-white md:text-[3rem]"
+                    style={headingFont}
+                  >
+                    {rightPlayer?.elo.toLocaleString()} ELO
+                  </p>
+                </div>
+              </div>
+            </div>
+  
+            <div className="flex w-full justify-center pt-6 md:pt-10">
+              <Button
+                type="button"
+                onClick={handleCancel}
+                className="h-auto min-w-[18rem] rounded-[1.75rem] bg-button-primary px-10 py-4 text-[1.9rem] font-bold text-white hover:scale-100 hover:bg-[#B13A5B] md:min-w-[28rem]"
+              >
+                {content.cancelLabel}
+              </Button>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+export default MatchSearching;
