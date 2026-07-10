@@ -136,13 +136,21 @@ router.get('/powerups/match/:match_id', getMatchPowerups);
 router.post('/powerups/use', usePowerup);
 
 // achievements
+
+/**
+ * @swagger
+ * /api/endpoint:
+ * get:
+ * summary: Gets all achievements
+ * 
+ */
 router.get('/achievements', getAchievements);
 
 /**
  * @swagger
  * /api/endpoint:
  * get:
- * summary: Gets achievements of a user (by id)
+ * summary: Gets all achievements earned by a user
  * tags: [Achievements]
  * parameters: 
  * - in: path
