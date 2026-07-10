@@ -32,8 +32,16 @@ const BrandStyleGuide: React.FC = () => {
                     </div>
                 </div>    
             </nav>
+
+            <div className = "max-w-[860px] mx-auto px-6 pt-24 pb-24">
+                <IntroSection content = {content}/>
+
+                <footer className="mt-24 pt-8 border-t border-gray-100 text.center">
+                    <p className="text-gray-400 text-xs">{content.meta.project} - Brand Style Guide - {content.meta.team}</p>
+                </footer>
+            </div>
         </div>
-    )
-}
+    );
+};
 
 export default BrandStyleGuide;
