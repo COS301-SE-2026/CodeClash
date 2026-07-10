@@ -1,13 +1,13 @@
-import profile from '../assets/Icons/Profile.png'
-import shadow from '../assets/shadow.png'
-import winner from '../assets/Icons/winner.png'
-import planet from '../assets/Planets/Earth.png'
-import background from '../assets/Background/leaderboard_background.png'
-import '../styles/global.css'
-import {Link} from 'react-router-dom'
+import profile from '../assets/Icons/Profile.png';
+import shadow from '../assets/shadow.png';
+import winner from '../assets/Icons/winner.png';
+import planet from '../assets/Planets/Earth.png';
+import background from '../assets/Background/leaderboard_background.png';
+import '../styles/global.css';
+import {Link} from 'react-router-dom';
 import { type LeaderboardProps } from 'src/Models/LeaderboardModel';
-import { LeaderboardUserData } from 'src/Models/LeaderboardModel'
-import light from '../assets/light.png'
+import { LeaderboardUserData } from 'src/Models/LeaderboardModel';
+import light from '../assets/light.png';
 
 
 // const Leaderboard: React.FC<LeaderboardProps> = (
@@ -40,7 +40,10 @@ const Leaderboard = (
     // </div>
     // </div>
     // </div>
-    <div className="w-full min-h-screen bg-[#C0395A]"></div>
+    <div className="w-full min-h-screen bg-[#C0395A]">
+        <Link to="/dashboard" className="text-[#530A24] font-[var(--font)] text-[32px] font-semibold ml-5">← Back</Link>
+        <h1 className></h1>
+    </div>
     );
 }
 
