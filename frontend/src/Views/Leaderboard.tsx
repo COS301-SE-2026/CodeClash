@@ -31,9 +31,9 @@ const Leaderboard = (
     return(
     <div className="w-full min-h-screen bg-[#C0395A]">
     <div className="w-2/3 min-h-screen bg-[#C0395A] flex justify-start">
-    <div>
-        <h1 className="text-[64px] text-[#FFDBE4] font-heading font-heading-weight drop-shadow-[4px_4px_0px_rgba(0,0,0,0.25)] ">Leader Board</h1>
-    </div>
+    
+        <h1 className="mt-13 ml-80 text-[64px] text-[#FFDBE4] font-heading font-heading-weight drop-shadow-[4px_4px_0px_rgba(0,0,0,0.25)] ">Leader Board</h1>
+    
     </div>
     </div>
     );
