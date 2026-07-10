@@ -33,9 +33,3 @@ export interface LeaderboardProps{
 
 }
 
-export const LeaderboardData : LeaderboardProps = {
-    league: 'earth',
-    prev_page:
-
-
-}
