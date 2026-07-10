@@ -26,3 +26,9 @@ export interface LeaderboardProps{
     tenthUser: LeaderboardUserProps;
 
 }
+
+export const LeaderboardData : LeaderboardProps = {
+    league: 'earth',
+
+
+}
