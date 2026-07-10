@@ -1,6 +1,7 @@
 import symbolBackground from '../assets/Background/SymbolBackground.png';
 // import { MatchSearchingViewModel } from '@/ViewModels/MatchSearchingViewModel';
 import robot from '../assets/Robots/Pink_fighting.png';
+import mercuryBackground from '../assets/Planets/double-mercury-background.png';
 // import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import planetEarth from '../assets/Planets/Earth.png';
@@ -29,13 +30,13 @@ const MatchSearching = () => {
             }}
           />
   
-          <img
+          {/*<img
             src={symbolBackground}
             alt=""
             className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-20"
-          />
+          />*/}
   
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-between overflow-hidden">
+          {/*<div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-between overflow-hidden">
             <img
               src={planetEarth}
               alt=""
@@ -46,8 +47,16 @@ const MatchSearching = () => {
               alt=""
               className="w-[28rem] max-w-none translate-x-[28%] translate-y-[40%] opacity-35 md:w-[40rem] lg:w-[48rem]"
               style={{ transform: 'scaleX(-1)' }}
-            />
-          </div>
+        />
+
+        
+          </div>*/}
+          <img
+            src={mercuryBackground}
+            alt=""
+            className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-55"
+          />
+      
   
           <div className="relative z-10 flex min-h-screen flex-col items-center justify-between px-6 py-8 md:px-10 md:py-10">
             <div className="w-full text-center">
