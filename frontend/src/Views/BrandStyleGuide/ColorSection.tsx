@@ -22,9 +22,23 @@ const ColorSection: React.FC<Props> = ({content, clipboardCopy, copied}) => {
                         <div className="w-12 h-12 rounded-lg flex-shrink-0 border border-gray-100"
                             style={{background: color.hex}}
                         />
+
+                        <div className="flex-1 min-w-0">
+                            <div className="felx items-center justify-between gap-2 mb-1">
+                                <p className="text-sm font-semibold text-gray-900">{color.name}</p>
+                                <code className="text-xs text-gray-400 font-mono">
+                                    {copied === color.name ? 'Copied!': color.hex}
+                                </code>
+                            </div>
+                            <p className="text-xs text-gray-400 font-mono mb-1">RGB {color.rgb}, HSL {color.hsl}</p>
+                            <p className="text-xs text-gray-500 mb-1">{color.usage}</p>
+                            <p className="text-xs text-[#530A24] font-medium">WCAG {color.wcag}</p>
+                        </div>
                     </div>
                 ))}
             </div>
         </SharedLayout>
-    )
-}
+    );
+};
+
+export default ColorSection;

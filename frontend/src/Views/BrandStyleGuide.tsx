@@ -3,6 +3,7 @@
 import React from "react";
 import { BrandStyleGuideViewModelFunction, navSections } from "../ViewModels/BrandStyleGuideViewModel";
 import IntroSection from "./BrandStyleGuide/IntroductionSection";
+import ColorSection from "./BrandStyleGuide/ColorSection";
 
 const BrandStyleGuide: React.FC = () => {
     const {
@@ -35,6 +36,7 @@ const BrandStyleGuide: React.FC = () => {
 
             <div className = "max-w-[860px] mx-auto px-6 pt-24 pb-24">
                 <IntroSection content = {content}/>
+                <ColorSection content = {content}/>
 
                 <footer className="mt-24 pt-8 border-t border-gray-100 text.center">
                     <p className="text-gray-400 text-sm">{content.meta.project} - Brand Style Guide - {content.meta.team}</p>
