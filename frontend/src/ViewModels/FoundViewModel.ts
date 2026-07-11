@@ -7,7 +7,7 @@ import { matchAccepted, matchDeclined } from "src/context/Socket/hooks/useMatchm
 
 export function useFound() {
     const { socket } = useSocket()
-    const {game_mode, pair_id} = useMatchmakingSocket();
+    const { game_mode, pair_id } = useMatchmakingSocket();
     const [path, setPath] = useState('');
     const nav = useNavigate();
     const [loading, setLoading] = useState(false);
@@ -15,12 +15,18 @@ export function useFound() {
     const decline = () => {
         if (socket) {
             matchDeclined(socket, pair_id);
+            setLoading(true);
         }
     }
 
     const gameReady = () => {
         setLoading(false);
         nav(path);
+    }
+
+    const gameDecline = () => {
+        setLoading(false);
+        nav('/dashboard')
     }
 
     const accept = () => {
@@ -35,9 +41,12 @@ export function useFound() {
         if (socket) {
             socket.on("game_ready", gameReady);
 
+            socket.on("decline_done", gameDecline);
+
 
             return () => {
-                socket.off("game_ready", gameReady)
+                socket.off("game_ready", gameReady);
+                socket.off("decline_done", gameDecline);
             }
         }
     }, [socket])

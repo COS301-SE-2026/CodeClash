@@ -100,8 +100,17 @@ io.on("connection", (socket) => {
         const pair = PAIRS.get(pair_id);
         const players = pair ? [...pair.keys()] : null; //get ids of paird players 
 
-        if(players){
-            
+        PAIRS.delete(pair_id);
+
+        if (players) {
+            for (const player of players) {
+                if (player === socket.data.user_id) {
+                    io.to(player).emit("decline_done");
+                }
+                else {
+                    io.to(player).emit("join_match_queue");
+                }
+            }
         }
     });
 
