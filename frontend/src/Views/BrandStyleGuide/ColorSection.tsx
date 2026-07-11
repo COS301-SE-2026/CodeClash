@@ -37,6 +37,27 @@ const ColorSection: React.FC<Props> = ({content, clipboardCopy, copied}) => {
                     </div>
                 ))}
             </div>
+
+            <div className="mb-2">
+                <p className="text-xs font-semibold text-gray-400 uppercase tracking widest mb-3">Pink Colors - Full Ramp</p>
+                <div className="flex rounded-xl overflow-hidden border border-gray-100">
+                    {Object.entries(content.pinkColors).map(([stop, hex]) => (
+                        <div key={stop} onClick={() => clipboardCopy(hex, `pink-${stop}`)}
+                            className= "flex-1 cursor-pointer group" style={{background: hex}}>
+                            <div className="h-16 flex items-end justify-center pb-1.5">
+                                <span className="text-[10px] text-white/60 font-mono opacity-0 group-hover:opacity-100 transition-opacity">{stop}</span>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                <div className="flex mt-1">
+                    {Object.values(content.pinkColors).map((hex,i) => (
+                        <div key={i} className="flex-1 text-center">
+                            <p className="text-[9px] text-gray-900">{hex}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
         </SharedLayout>
     );
 };
