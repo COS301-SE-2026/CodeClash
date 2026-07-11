@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useSocket } from "./useSocket"
+import MatchmakingUserDTO from '../../../dtos/matchmaking.dto';
+import { Socket } from "socket.io-client";
 
 
 export const useMatchmakingSocket = () => {
@@ -30,4 +32,21 @@ export const useMatchmakingSocket = () => {
 
 
     return { isConnected, game_mode, pair_id };
+}
+
+/// websocket functions for the app
+export function joinMatchQueue(socket: Socket, data: MatchmakingUserDTO) {
+    socket.emit("join_match_queue", data);
+}
+
+export function leaveMatchQueue(socket: Socket) {
+    socket.emit("leave_match_queue");
+}
+
+export function matchAccepted(socket: Socket, pair_id: string) {
+    socket.emit("match_accepted", pair_id)
+}
+
+export function matchDeclined(socket: Socket, pair_id: string) {
+    socket.emit("match_declined", pair_id);
 }

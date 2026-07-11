@@ -1,12 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 import symbolBackground from '../assets/Background/SymbolBackground.png';
 import helloRobot from '../assets/Robots/HelloRobot_Pink.png';
-import { WelcomeViewModelFunction } from '../ViewModels/WelcomeViewModel.ts';
 
 const Welcome: React.FC = () => {
-  const { content} = WelcomeViewModelFunction();
 
   return (
     <div className="min-h-screen w-full flex items-center overflow-hidden px-[8%]"
@@ -20,9 +17,9 @@ const Welcome: React.FC = () => {
       <div className=" flex flex-col justify-center gap-6 w-1/2 z-10">
 
         <div className="flex flex-col gap-1">
-          <span className={content.eyebrow.style.className}>{content.eyebrow.text}</span>
-          <h1 className='text-2xl font-semibold text-primary-text'>{content.title.text}</h1>
-          <p className={content.tagline.style.className}>{content.tagline.text}</p>
+          <span className="heading">Welcome to</span>
+          <h1 className='text-2xl font-semibold text-primary-text'>CodeClash Gaming</h1>
+          <p className="heading-sub">Code.Calculate.Conquer.</p>
         </div>
 
         {/*For the button*/}

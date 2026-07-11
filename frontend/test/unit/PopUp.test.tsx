@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from "vitest";
 
-import PopUp from '../../@/components/shared/PopUp'
+import PopUp from '../../src/Views/Popup'
 
 
 describe("PopUp", () => {

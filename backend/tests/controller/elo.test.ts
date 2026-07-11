@@ -2,7 +2,7 @@ import { vi, Mock, describe, beforeEach, it, expect, afterAll, afterEach } from 
 import request from 'supertest';
 import app from '../../src/app';
 import { pool } from '../../src/config/db';
-import { getToken, login, logout } from '../unit/helpers/test-utils';
+import { getToken, login, logout } from 'root/testing/test-utils';
 import { JWT } from '@aws-amplify/auth';
 import '../../src/config/amplify-config'
 

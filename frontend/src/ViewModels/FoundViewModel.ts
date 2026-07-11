@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { useMatchmakingSocket } from "src/context/Socket/hooks/useMatchmakingSocket";
 import { useSocket } from "src/context/Socket/hooks/useSocket"
-import { matchAccepted, matchDeclined } from "src/services/websocket.service"
+import { matchAccepted, matchDeclined } from "src/context/Socket/hooks/useMatchmakingSocket"
 
 
 export function useFound() {
