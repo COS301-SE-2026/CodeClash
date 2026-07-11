@@ -1,0 +1,18 @@
+backend/src/server.ts
+  h_94c952a9e14c58 103-104,106-113
+frontend/src/ViewModels/FoundViewModel.ts
+  h_94c952a9e14c58 18,27-31,44-45,48-49
+frontend/test/unit/ViewModels/FoundViewModel.test.tsx
+  h_94c952a9e14c58 1-62
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.12",
+  "base_commit_sha": "e007f48e02e7f31586d6eeb40493a09031c8264e",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
