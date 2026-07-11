@@ -21,11 +21,49 @@ const TypographySection: React.FC<Props> = ({content}) => {
                             <code className="text-xs text-gray-500">{t.size}/w{t.weight}</code>
                             <code className="text-xs text-[#530A24]">{t.cssVar}</code>
                         </div>
+                        <p className="text-gray-900 leading-tight" 
+                            style = {{fontFamily: 'Roboto, sans-serif', fontSize: `clamp(1rem, ${parseFloat(t.size) * 0.5}vw, ${t.size})`, fontWeight: t.weight,}}>{t.sample}
+                        </p>
+                        <p className="text-xs text-gray-400 mt-2">{t.usage}</p>
+                    </div>
+                ))}
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {[
+                    {
+                        label: 'Font Family',
+                        value: "'Roboto', sans-serif",
+                    },
+                    {
+                        label: 'Source',
+                        value: 'Google Fonts',
+                    },
+                    {
+                        label: 'Licence',
+                        value: 'SIL Open Font License (OFL) v1.1 and the Apache License 2.0'
+                    },
+                    {
+                        label: 'Weights',
+                        value: '400, 500, 600, 700, 800',
+                    },
+                    {
+                        label: 'Line Height',
+                        value: '1.6 - 1.7',
+                    },
+                    {
+                        label: 'Letter Spacing',
+                        value: '0.01rem (headings)',
+                    },
+                ].map(item => (
+                    <div key={item.label} className="border border-gray-100 rounded-lg p-4">
+                        <p className="text-xs text-gray-400 uppercase tracking-widest mb-1">{item.label}</p>
+                        <p className="text-sm font-semibold text-gray-900">{item.value}</p>
                     </div>
                 ))}
             </div>
         </SharedLayout>
-    )
-}
+    );
+};
 
 export default TypographySection;
