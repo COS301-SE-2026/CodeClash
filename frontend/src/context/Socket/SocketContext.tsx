@@ -7,12 +7,14 @@ import { SocketContext } from './SocketContextValue'
 export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [socket, setSocket] = useState<Socket | null>(null);
     const [isConnected, setIsConnected] = useState(false);
-    
 
     useEffect(() => {
         createSocket().then((conn) => {
             if (conn) {
                 setSocket(conn);
+            }
+            else{
+                console.error("Error Creating Socket Connection");
             }
         })
 
@@ -27,8 +29,6 @@ export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) 
             socket.on('disconnect', () => {
                 setIsConnected(false);
             })
-
-           
         }
     }, [socket])
 

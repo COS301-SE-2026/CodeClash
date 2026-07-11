@@ -17,6 +17,7 @@ export async function createSocket(): Promise<Socket> {
 
     const conn = io(env.VITE_WEBSOCKET_URL, options);
 
+
     conn.on("connect_error", (err) => {
         console.error(`Error connecting to socket: ${err}`);
     })

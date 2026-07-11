@@ -18,7 +18,7 @@ export function useSearch() {
     useEffect(() => {
         if (socket) {
 
-            socket.on("users_matched", () => {handleMatched()})
+            socket.on("users_matched", () => handleMatched())
 
             return () => {
                 socket.off("users_matched", () => handleMatched())

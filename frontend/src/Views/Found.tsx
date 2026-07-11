@@ -1,5 +1,4 @@
 import type React from 'react';
-import './found.css';
 import { useFound } from 'src/ViewModels/FoundViewModel';
 import { useUser } from 'src/ViewModels/SharedViewModel';
 
