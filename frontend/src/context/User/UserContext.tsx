@@ -5,7 +5,7 @@ import { fetchAuthSession } from "aws-amplify/auth";
 import { useAuth } from "../Auth/hooks/useAuth";
 
 
-const url = 'http://localhost3000/api/';
+const url = 'http://localhost:3000/api/';
 
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [username, setUsername] = useState('');
@@ -24,7 +24,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             setError(`Error Getting User Token`);
     }
 
-    const getElo = async (token: string | null) => {
+    const getElo = async (token: string | undefined) => {
         if (!token) {
             throw new Error('Missing or Invalid Token');
         }
@@ -57,11 +57,15 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         else setError(`Error Getting Username`)
     }
 
-    
 
     useEffect(() => {
+        getToken();
+    }, [token])
 
-    })
+    useEffect(() => {
+        getElo(token);
+        getUsername();
+    },[token])
 
 
 
@@ -75,7 +79,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 token
             }}
         >
-
+            {children}
         </UserContext.Provider>
     )
 }
