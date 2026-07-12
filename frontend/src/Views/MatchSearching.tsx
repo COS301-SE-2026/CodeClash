@@ -4,7 +4,7 @@ import robot from '../assets/Robots/Pink_fighting.png';
 import mercuryBackground from '../assets/Planets/double-mercury-background.png';
 // import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import planetEarth from '../assets/Planets/Earth.png';
+// import planetEarth from '../assets/Planets/Earth.png';
 import { MatchSearchingViewModelFunction } from '../ViewModels/MatchSearchingViewModel';
 
 const headingFont = { fontFamily: 'var(--heading)' };
@@ -14,7 +14,7 @@ const MatchSearching = () => {
   const { formattedTime, content, players, handleCancel } = MatchSearchingViewModelFunction();
 
   const leftPlayer = players.find((player) => player.side === 'left');
-  const rightPlayer = players.find((player) => player.side === 'right');
+  // const rightPlayer = players.find((player) => player.side === 'right');
 
   // const leftPlayerName = leftPlayer?.username;
   // const rightPlayerName = rightPlayer?.username;
