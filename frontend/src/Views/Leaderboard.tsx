@@ -40,7 +40,7 @@ const Leaderboard = (
     // </div>
     // </div>
     // </div>
-    <div className="w-full min-h-screen bg-[#C0395A]">
+    <div style={{backgroundImage: `url(${shadow})`}} className="w-full min-h-screen bg-[#C0395A] bg-no-repeat object-cover bg-size-[auto_150px] bg-[19%_60%]">
         <Link to="/dashboard" className="text-[#530A24] font-[var(--font)] text-[32px] font-semibold ml-5">← Back</Link>
         <h1 className="text-[60px] text-[#FFDBE4] text-center -mt-1 mr-230 font-[var(--font)] font-semibold drop-shadow-[4px_4px_0px_rgba(0,0,0,0.25)]">Leader Board</h1>
         
