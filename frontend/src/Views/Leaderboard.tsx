@@ -83,10 +83,14 @@ const Leaderboard = (
             <div style={{backgroundImage: `url(${background})`}} className=" absolute left-10 -bottom-60.5 w-[935px] h-[350px] rounded-[20px] bg-no-repeat bg-cover bg-center bg-size-[auto_700px]">
                 <div className="grid grid-rows-5 gap-1 items-end">
                     <div className="mt-4.25 ml-8 h-[47px] w-[870px] rounded-[20px] bg-blend-normal bg-[#FFEFE0] backdrop-blur-lg">
-                        <div style={{backgroundImage: `url(${profile})`}} className="mt-0.75 w-[42px] h-[42px] bg-no-repeat rounded-full object-cover bg-size-[auto_85px] bg-[right_-21.5px_top_-22px]"></div>
+                        <div style={{backgroundImage: `url(${profile})`}} className="mt-0.75 w-[42px] h-[42px] bg-no-repeat rounded-full object-cover bg-size-[auto_85px] bg-[right_-21.5px_top_-21.5px]"></div>
                     </div>
-                    <div className="mt-4 ml-8 h-[47px] w-[870px] rounded-[20px] bg-blend-normal bg-[#FFEFE0] backdrop-blur-lg"></div>
-                    <div className="mt-4 ml-8 h-[47px] w-[870px] rounded-[20px] bg-blend-normal bg-[#FFEFE0] backdrop-blur-lg"></div>
+                    <div className="mt-4 ml-8 h-[47px] w-[870px] rounded-[20px] bg-blend-normal bg-[#FFEFE0] backdrop-blur-lg">
+                        <div style={{backgroundImage: `url(${profile})`}} className="mt-0.5 w-[42px] h-[42px] bg-no-repeat rounded-full object-cover bg-size-[auto_85px] bg-[right_-21.5px_top_-21.5px]"></div>
+                    </div>
+                    <div className="mt-4 ml-8 h-[47px] w-[870px] rounded-[20px] bg-blend-normal bg-[#FFEFE0] backdrop-blur-lg">
+                        <div style={{backgroundImage: `url(${profile})`}} className="mt-0.5 w-[42px] h-[42px] bg-no-repeat rounded-full object-cover bg-size-[auto_85px] bg-[right_-21.5px_top_-21.5px]"></div>
+                    </div>
                     <div className="mt-4 ml-8 h-[47px] w-[870px] rounded-[20px] bg-blend-normal bg-[#FFEFE0] backdrop-blur-lg"></div>
                     <div className="mt-4 ml-8 h-[47px] w-[870px] rounded-[20px] bg-blend-normal bg-[#FFEFE0] backdrop-blur-lg"></div>
                 </div>
