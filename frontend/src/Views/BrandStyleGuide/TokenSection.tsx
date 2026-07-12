@@ -43,6 +43,9 @@ const TokenSection: React.FC<Props> = ({ content, clipboardCopy, copied}) => {
             id = "tokens" eyebrow = "04 - Design Tokens" title = "Token System" description="All tokens are CSs custom properies defined in global.css. The @theme inline block maps them to Tailwind utilities. Click any row to copy the token reference.">
             
             <TokenTable title = "Color Tokens" rows = {content.tokens.color} clipboardCopy={clipboardCopy} copied = {copied} />
+            <TokenTable title = "Radius Tokens" rows = {content.tokens.radius} clipboardCopy={clipboardCopy} copied = {copied} />
+            <TokenTable title = "Typography Tokens" rows = {content.tokens.typography} clipboardCopy={clipboardCopy} copied = {copied} />
+            <TokenTable title = "Shadow Tokens" rows = {content.tokens.shadow} clipboardCopy={clipboardCopy} copied = {copied} />
         </SharedLayout>
     );
 };
