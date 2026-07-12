@@ -85,26 +85,22 @@ const MatchSearching = () => {
               </div>
   
               <div className="flex flex-col items-center md:items-end">
-                <img
-                  src={robot}
-                  alt={`${rightPlayer?.username ?? 'Opponent'} avatar`}
-                  className="w-[13rem] drop-shadow-2xl md:w-[18rem] lg:w-[22rem]"
-                  style={{ transform: 'scaleX(-1)' }}
-                />
-                <div className="mt-4 text-center md:text-right">
-                  <p
-                    className="text-[2.75rem] font-bold leading-none text-white md:text-[3.5rem]"
-                    style={headingFont}
-                  >
-                    {rightPlayer?.username}
-                  </p>
-                  <p
-                    className="mt-3 text-[2.5rem] font-bold leading-none text-white md:text-[3rem]"
-                    style={headingFont}
-                  >
-                    {rightPlayer?.elo.toLocaleString()} ELO
-                  </p>
-                </div>
+                                <div
+                                  className="flex h-[13rem] w-[13rem] items-center justify-center gap-3 md:h-[18rem] md:w-[18rem] lg:h-[22rem] lg:w-[22rem]"
+                                  role="status"
+                                  aria-label="Searching for opponent"
+                                >
+                                  <span className="h-4 w-4 rounded-full bg-[#FCECDD] animate-pulse" />
+                                  <span
+                                    className="h-4 w-4 rounded-full bg-[#FCECDD] animate-pulse"
+                                    style={{ animationDelay: '150ms' }}
+                                  />
+                                  <span
+                                    className="h-4 w-4 rounded-full bg-[#FCECDD] animate-pulse"
+                                    style={{ animationDelay: '300ms' }}
+                                  />
+                                </div>
+                              </div>
               </div>
             </div>
   
@@ -118,7 +114,7 @@ const MatchSearching = () => {
               </Button>
             </div>
           </div>
-        </div>
+        // </div>
       );
     };
 
