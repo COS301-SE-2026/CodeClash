@@ -66,7 +66,10 @@ const Leaderboard = (
                 <div className="text-[32px] text-[#C0395A] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
                 <div className="text-[32px] text-[#C0395A] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">ELO</div>
             </div>
-            <div className="mb-40 -mt-40 ml-10 w-[239px] h-[77px] rounded-[20px] bg-[#FAC8D0] border-4 border-[#F4A0B2] drop-shadow-[10px_10px_6px_rgba(0,0,0,0.25)]"></div>
+            <div className="mb-40 -mt-40 ml-10 w-[239px] h-[77px] rounded-[20px] bg-[#FAC8D0] border-4 border-[#F4A0B2] drop-shadow-[10px_10px_6px_rgba(0,0,0,0.25)]">
+                <div style={{backgroundImage: `url(${profile})`}} className="w-[60px] h-[60px] bg-no-repeat"></div>
+            </div>
+            <div className="mb-40 -mt-40 ml-75 w-[239px] h-[77px] rounded-[20px] bg-[#FAC8D0] border-4 border-[#F4A0B2] drop-shadow-[10px_10px_6px_rgba(0,0,0,0.25)]"></div>
             </div>
             <div style={{backgroundImage: `url(${light})`}} className="absolute -top-35 -left-5 w-[1100px] h-[1000px] bg-no-repeat bg-cover bg-center bg-size-[auto_1000px]"></div>
             <div style={{backgroundImage: `url(${background})`}} className=" absolute left-10 -bottom-60.5 w-[935px] h-[350px] rounded-[20px] bg-no-repeat bg-cover bg-center bg-size-[auto_800px]"></div>
