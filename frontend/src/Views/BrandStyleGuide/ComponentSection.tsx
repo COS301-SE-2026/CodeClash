@@ -29,6 +29,27 @@ const ComponentSection: React.FC<Props> = ({content}) => {
                         <div className="bg-gray-50 p-8 flex items-center justify-center gap-4 flex-wrap border-b border-gray-100 min-h-[120px]">
                             <ComponentPreview name = {c.name} />
                         </div>
+
+                        <div className="p-5">
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div>
+                                    <p className="text-xs text-gray-400 uppercase tracking-widest mb-2">Variants</p>
+                                    {c.vars.map(v => (
+                                        <span key = {v} className="inline-block text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded mr-1 mb-1">{v}</span>
+                                    ))}
+                                </div>
+                                <div>
+                                    <p className="text-xs text-gray-400 uppercase tracking-widest mb-2">Classes & Tokens</p>
+                                    {c.classes.map(s => (
+                                        <span key = {s} className="inline-block text-xs bg-[#FFF0F3] text-[#C0395A] px-2 py-0.5 rounded mr-1 mb-1">{s}</span>
+                                    ))}
+                                </div>
+                                <div>
+                                    <p className="text-xs text-gray-500 uppercase tracking-widest mb-2">Notes</p>
+                                    <p className="text-xs text-gray-500 leading-relaxed">{c.notes}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 );
             })()}
@@ -43,6 +64,22 @@ const ComponentPreview: React.FC<{name:string}> = ({name}) => {
             <button className= "bg-[#C0395A] text-white rounded-[20px] px-8 py-3 font-bold text-sm cursor-pointer shadow-md -translate-y-0.5 opacity-90">Hover</button>
             <button disabled className= "bg-[#C0395A] text-white rounded-[20px] px-8 py-3 font-bold text-sm opacity-40 cursor-not-allowed">Disabled</button>
             <button className= "bg-[#C0395A] text-white rounded-[20px] px-8 py-3 font-bold text-sm opacity-75 cursor-wait">Loading..</button>
+        </>
+    );
+
+    if (name === 'Button Secondary') return (
+        <>
+            <button className = "text-[#530a23] font-semibold text-sm underline bg-transparent border-none cursor-pointer">Sign in</button>
+            <button className = "text-[#C0395A] font-semibold text-sm underline bg-transparent border-none cursor-pointer">Hover</button>
+        </>
+    );
+
+    if (name === 'Back Button') return (
+        <>
+            <div className="flex gap-4">
+                <button className="text-[#FCECDD] rounded-[20px] px-5 py-2 text-sm font-medium cursor-pointer hover:opacity-80 transition-opacity">← Back</button>
+                <button className="text-[#530a23] rounded-[20px] px-5 py-2 text-sm font-medium cursor-pointer hover:scale-110 transition-transform">← Back</button>
+            </div>
         </>
     );
 };
