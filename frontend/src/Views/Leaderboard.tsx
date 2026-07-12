@@ -45,7 +45,7 @@ const Leaderboard = (
         <h1 className="text-[60px] text-[#FFDBE4] text-center -mt-1 mr-230 font-[var(--font)] font-semibold drop-shadow-[4px_4px_0px_rgba(0,0,0,0.25)]">Leader Board</h1>
         
         <div className="flex justify-between items-start gap-10">
-            <div className="w-2/3 flex flex-col gap-6">
+            <div className="relative w-2/3 flex flex-col gap-6">
             <div className="grid grid-cols-3 gap-9 items-end">
             <div className="ml-10 mb-40 w-[239px] h-[304px] rounded-[20px] bg-[#FAC8D0] border-4 border-[#F4A0B2] drop-shadow-[10px_10px_6px_rgba(0,0,0,0.25)] flex flex-col items-center justify-center">
                 <div style={{backgroundImage: `url(${profile})`}} className="w-[90px] h-[90px] bg-no-repeat rounded-full object-cover bg-size-[auto_180px] bg-[right_-45px_top_-45px] -mt-60">
@@ -67,6 +67,7 @@ const Leaderboard = (
                 <div className="text-[32px] text-[#C0395A] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">ELO</div>
             </div>
             </div>
+            <div style={{backgroundImage: `url(${light})`}} className="absolute -top-35 -left-5 w-[1100px] h-[1000px] bg-no-repeat bg-cover bg-center bg-size-[auto_1000px]">text</div>
             </div>
         </div>
     </div>
