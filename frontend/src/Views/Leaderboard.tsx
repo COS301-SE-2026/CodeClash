@@ -48,7 +48,9 @@ const Leaderboard = (
             <div className="w-2/3 flex flex-col gap-6">
             <div className="grid grid-cols-3 gap-9 items-end">
             <div className="ml-10 mb-40 w-[239px] h-[304px] rounded-[20px] bg-[#FAC8D0] border-4 border-[#F4A0B2] drop-shadow-[10px_10px_6px_rgba(0,0,0,0.25)] flex flex-col items-center justify-center">
-                <div style={{backgroundImage: `url(${profile})`}} className="w-[90px] h-[90px] bg-no-repeat rounded-full object-cover bg-size-[auto_180px] bg-[right_-45px_top_-45px] -mt-60"></div>
+                <div style={{backgroundImage: `url(${profile})`}} className="w-[90px] h-[90px] bg-no-repeat rounded-full object-cover bg-size-[auto_180px] bg-[right_-45px_top_-45px] -mt-60">
+                <div className="text-[64px] text-[#CECBC2] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mt-22">2</div>
+                </div>
             </div>
             <div style={{backgroundImage: `url(${winner})`}} className="w-[524px] h-[524px] mt-2 -ml-49 bg-cover bg-center bg-no-repeat flex flex-col items-center justify-center">
                 <div style={{backgroundImage: `url(${profile})`}} className="w-[120px] h-[120px] bg-no-repeat rounded-full object-cover bg-size-[auto_240px] bg-[right_-60px_top_-60px] -mt-30"></div>
