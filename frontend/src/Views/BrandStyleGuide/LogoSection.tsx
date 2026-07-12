@@ -21,6 +21,12 @@ const LogoSection: React.FC<Props> = ({content}) => {
                         text: '#FCECDD',
                         description: 'Main (default) usage',
                     },
+                    {
+                        label: 'Primary - Light', //Should i say 'Secondary - Dark' instead?
+                        bg: '#FFEFE0',
+                        text: '#530a23',
+                        description: 'Light surfaces',
+                    },
                 ].map(v => (
                     <div key ={v.label} className="rounded-xl p-5 flex flex-col items-center justify-center border border-gray-100"
                     style = {{background: v.bg}}>
@@ -35,6 +41,21 @@ const LogoSection: React.FC<Props> = ({content}) => {
                         </p>
                     </div>
                 ))}
+            </div>
+
+            <div className="grif grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                <div className="border border-gray-100 rounded-xl p-5">
+                    <p className="text-sm font-semibold text-green-600 uppercase tracking-widest mb-3">Permitted</p>
+                    {content.logoRules.permitted.map(rule => (
+                        <p key = {rule} className="text-sm text-gray-600 mb-0 leading-relaxed">- {rule}</p>
+                    ))}
+                </div>
+                <div className="border border-gray-100 rounded-xl p-5">
+                    <p className="text-sm font-semibold text-red-600 uppercase tracking-widest mb-3">Forbidden</p>
+                    {content.logoRules.forbidden.map(rule => (
+                        <p key = {rule} className="text-sm text-gray-600 mb-0 leading-relaxed">- {rule}</p>
+                    ))}
+                </div>
             </div>
         </SharedLayout>
     );
