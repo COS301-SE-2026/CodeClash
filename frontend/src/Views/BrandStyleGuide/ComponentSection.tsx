@@ -75,13 +75,54 @@ const ComponentPreview: React.FC<{name:string}> = ({name}) => {
     );
 
     if (name === 'Back Button') return (
-        <>
-            <div className="flex gap-4">
-                <button className="text-[#FCECDD] rounded-[20px] px-5 py-2 text-sm font-medium cursor-pointer hover:opacity-80 transition-opacity">← Back</button>
-                <button className="text-[#530a23] rounded-[20px] px-5 py-2 text-sm font-medium cursor-pointer hover:scale-110 transition-transform">← Back</button>
-            </div>
-        </>
+        <div className="flex gap-4">
+            <button className="text-[#FCECDD] rounded-[20px] px-5 py-2 text-sm font-medium cursor-pointer hover:opacity-80 transition-opacity">← Back</button>
+            <button className="text-[#530a23] rounded-[20px] px-5 py-2 text-sm font-medium cursor-pointer hover:scale-110 transition-transform">← Back</button>
+        </div>
     );
+
+    if (name === 'Input Field') return (
+        <div className="flex flex-col gap-3 w-full max-w-[320px]">
+            <input placeholder="Default input" className="h-12 bg-white border border-gray-300 rounded-[20px] px-4 text-sm text-gray-900 outline-none"/>
+            <input placeholder="Focus State" className="h-12 bg-white border-2 border-gray-300 rounded-[20px] px-4 text-sm text-gray-900 outline-none shadow[0_0_0_3px_rgba(185, 21, 81,0.15)]"/>
+            <input placeholder="Disabled" disabled className="h-12 bg-white border border-gray-300 rounded-[20px] px-4 text-sm text-gray-400 opacity-50"/>
+        </div>
+    );
+
+    if (name === 'Checkbox') return (
+        <div className="flex items0center gap-3">
+            <input type="checkbox" className="w-6 h-6 cursor-pointer"/>
+            <label className="text-sm text-gray-600 cursor-pointer">
+                Accept <span className="underline text=[#530a23]">Terms & Conditions</span>
+            </label>
+        </div>
+    );
+
+    if (name === 'Glass Card') return (
+        <div className="bg-black/80 border border-white/20 rounded-xl p-6 text-white text-sm w-ful max-w-[280px]">
+            <p className="font-semibold mb-1">Glass Card</p>
+            <p className="text-white/60 text-xs">Used on dashboard for elevated content areas</p>
+        </div>
+    );
+
+    if (name === 'Progress Bar') return (
+        <div className="w-full max-w-[280px] flex flex-col gap-3">
+            <div>
+                <p className = "text-xs text-gray-500 mb-1">Metric Title</p>
+                <div className = "h-3 bg-[#e4bbca] rounded-full shadow-md overflow-hidden">
+                    <div className="h-full bg-[#dc1860] rounded-full w-[65%]"/>
+                </div>
+            </div>
+            <div>
+                <p className="text-xs text-gray-500 mb-1">Metric Title</p>
+                <div className= "h-3 bg-[#e4bbca] rounded-full shadow-md overflow-hidden">
+                    <div className="h-full bg-[#dc1860] rounded-full w-[40%]"/>
+                </div>
+            </div>
+        </div>
+    );
+
+    return <p className="text-sm text-gray-400">Preview not available</p>;
 };
 
 export default ComponentSection;
