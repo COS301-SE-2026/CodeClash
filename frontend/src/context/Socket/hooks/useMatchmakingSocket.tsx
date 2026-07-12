@@ -10,9 +10,8 @@ export const useMatchmakingSocket = () => {
     const [pair_id, setPairId] = useState('');
 
 
-    const handleMatched = useCallback((game_mode: string, pair_id: string) => {
-
-        setGameMode(game_mode);
+    const handleMatched = useCallback((mode: string, pair_id: string) => {
+        setGameMode(mode);
         setPairId(pair_id);
 
     }, [])

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
-import { useMatchmakingSocket } from "src/context/Socket/hooks/useMatchmakingSocket";
+import { joinMatchQueue, useMatchmakingSocket } from "src/context/Socket/hooks/useMatchmakingSocket";
 import { useSocket } from "src/context/Socket/hooks/useSocket"
 import { matchAccepted, matchDeclined } from "src/context/Socket/hooks/useMatchmakingSocket"
+import type MatchmakingUserDTO from "src/dtos/matchmaking.dto";
 
 
 export function useFound() {
@@ -24,9 +25,18 @@ export function useFound() {
         nav(path);
     }
 
-    const gameDecline = () => {
+    // handler for user that declined the game
+    const declineGame = () => {
         setLoading(false);
         nav('/dashboard')
+    }
+
+    // handler for user that was declined
+    const gameDeclined = () => {
+        setLoading(false);
+
+        const data = new MatchmakingUserDTO()
+        joinMatchQueue(socket,)
     }
 
     const accept = () => {
@@ -35,21 +45,25 @@ export function useFound() {
             matchAccepted(socket, pair_id);
             setLoading(true);
         }
+
     }
 
     useEffect(() => {
         if (socket) {
             socket.on("game_ready", gameReady);
 
-            socket.on("decline_done", gameDecline);
+            socket.on("decline_done", declineGame);
+
+            socket.on("game_declined", gameDeclined);
 
 
             return () => {
                 socket.off("game_ready", gameReady);
-                socket.off("decline_done", gameDecline);
+                socket.off("decline_done", declineGame);
+                socket.off("game_declined", gameDeclined);
             }
         }
-    }, [socket])
+    }, [socket, path])
 
     return { decline, accept, loading }
 }

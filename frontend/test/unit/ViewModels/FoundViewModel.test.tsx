@@ -14,14 +14,19 @@ vi.mock('react-router-dom', () => ({
     useNavigate: () => mock_nav,
 }))
 
+const handlers = new Map<string, Function>();
+
 describe("Testing found view model", () => {
 
 
     const mock_socket = {
-        on: vi.fn(),
+        on: vi.fn((event: string, callback: Function) => {
+            handlers.set(event, callback);
+        }),
         off: vi.fn(),
         emit: vi.fn()
     }
+
 
     vi.mocked(useSocket).mockReturnValue({ socket: mock_socket } as any);
     vi.mocked(useMatchmakingSocket).mockReturnValue({
@@ -44,19 +49,30 @@ describe("Testing found view model", () => {
         const { result } = renderHook(() => useFound());
 
         act(() => {
-            result.current.accept();
-        });
-
+            result.current.accept()
+        })
         expect(matchAccepted).toHaveBeenCalledWith(mock_socket, '12345ABCDE');
         expect(result.current.loading).toBe(true);
     })
 
     it("Test gameReady navigation", () => {
+        const { result } = renderHook(() => useFound())
 
+        act(() => {
+            result.current.accept()
+        })
+
+        act(() => {
+            handlers.get("game_ready")!();
+        })
+
+        expect(result.current.loading).toBe(false);
+        expect(mock_nav).toHaveBeenCalledWith('prog-match');
     })
 
     it("Tests gameDecline navigation for the declining user", () => {
 
+        
     })
 
 })
