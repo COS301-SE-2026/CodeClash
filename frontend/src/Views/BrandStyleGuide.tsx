@@ -6,6 +6,7 @@ import IntroSection from "./BrandStyleGuide/IntroductionSection";
 import ColorSection from "./BrandStyleGuide/ColorSection";
 import TypographySection from "./BrandStyleGuide/TypographySection";
 import LogoSection from "./BrandStyleGuide/LogoSection";
+import TokenSection from "./BrandStyleGuide/TokenSection";
 
 const BrandStyleGuide: React.FC = () => {
     const {
@@ -41,6 +42,7 @@ const BrandStyleGuide: React.FC = () => {
                 <ColorSection content = {content} clipboardCopy={clipboardCopy} copied={copied}/>
                 <TypographySection content = {content}/>
                 <LogoSection content={content}/>
+                <TokenSection content = {content} clipboardCopy={clipboardCopy} copied = {copied} />
 
                 <footer className="mt-24 pt-8 border-t border-gray-100 text.center">
                     <p className="text-gray-400 text-sm">{content.meta.project} - Brand Style Guide - {content.meta.team}</p>
