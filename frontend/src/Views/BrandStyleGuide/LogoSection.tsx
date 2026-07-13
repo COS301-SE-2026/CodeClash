@@ -11,8 +11,9 @@ interface Props {
 const LogoSection: React.FC<Props> = ({content}) => {
     return (
         <SharedLayout 
-            id = "logo" eyebrow = "03 - Logo and Iconography" title="Logo System" description="The CodeClash wordmark uses Roboto font in black. Clear space of atleast 1x the logo height must be maintained on all sides of wordmark.">
-            
+            id = "logo" eyebrow = "03 - Logo and Iconography" title="Logo System" description="The CodeClash wordmark, icon systems, and asset guidelines. UI icons use Lucide React and thematic assets use custom PNGs.">
+
+            <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">Logo Variants</p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
                 {[
                     {
@@ -54,6 +55,39 @@ const LogoSection: React.FC<Props> = ({content}) => {
                     <p className="text-sm font-semibold text-red-600 uppercase tracking-widest mb-3">Forbidden</p>
                     {content.logoRules.forbidden.map(rule => (
                         <p key = {rule} className="text-sm text-gray-600 mb-0 leading-relaxed">- {rule}</p>
+                    ))}
+                </div>
+            </div>
+
+            {/*For UI, the Lucide React */}
+            <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">UI Icons - Lucide React</p>
+            <div className="border border-gray-100 rounded-xl p-5 mb-4">
+                <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                    All UI icons use{' '}
+                    <strong className="text-gray-900">Lucide React</strong> - outline style, consistent 2px stroke weight.
+                    Install via{' '}
+                    <code className="text-[#530a23] bg-gray-50 px-1.5 py-0.5 rounded text-xs">npm install lucide-react</code>
+                </p>
+
+                <div className="flex gap-3 flex-wrap mb-5">
+                    {[
+                        {
+                            size: '16px/w-4 h-4',
+                            use: 'Inline/labels',
+                        },
+                        {
+                            size: '20px/w-5 h-5',
+                            use: 'Buttons/nav',
+                        },
+                        {
+                            size: '24px/w-6 h-6',
+                            use: 'Standalone/decorative',
+                        }
+                    ].map (item => (
+                        <div key = {item.size} className="border border-gray-100 rounded-lg px-4 py-2">
+                            <p className="text-xs font-semibold text-[#530a23]">{item.size}</p>
+                            <p className="text-xs font-gray-400">{item.use}</p>
+                        </div>
                     ))}
                 </div>
             </div>
