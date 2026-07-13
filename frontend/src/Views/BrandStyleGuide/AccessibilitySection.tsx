@@ -119,6 +119,16 @@ const AccessibilitySection: React.FC<Props> = ({content}) => {
                     </div>
                 ))}
             </div>
+
+            {/*Rules */}
+            <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">Accessibility Rules</p>
+            <div className="border border-gray-100 rounded-xl overflow-hidden mb-8">
+                {content.accessibilityRules.map((rule, i, arr) => (
+                    <div key={rule} className= {`flex gap-3 px-4 py-3 ${i < arr.length- 1 ? 'border-b border-gray-50' : ''}`}>
+                        <p className="text-gray-600 text-sm leading relaxed">- {rule}</p>
+                    </div>
+                ))}
+            </div>
         </SharedLayout>
     );
 };
