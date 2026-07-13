@@ -1,8 +1,7 @@
 import cors from 'cors'
 import express, { Request, Response } from 'express'
 
-import eloRoutes from './routes/api.routes';
-import matchRoutes from './routes/api.routes';
+import routes from './routes/api.routes';
 import { initDB } from './config/db';
 
 
@@ -13,8 +12,9 @@ app.disable('x-powered-by');
 
 app.use(cors({ origin: process.env.FRONTEND_URL || 'http://localhost:5173' }));
 app.use(express.json());
-app.use('/api/elo', eloRoutes);
-app.use('/api/match', matchRoutes);
+app.use('/api/elo', routes);
+app.use('/api/match', routes);
+app.use('/api/user',routes);
 
 app.get('/health', (req: Request, res: Response) => {
   res.json({ status: 'ok' });

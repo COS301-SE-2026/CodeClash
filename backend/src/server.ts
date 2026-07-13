@@ -108,7 +108,7 @@ io.on("connection", (socket) => {
                     io.to(player).emit("decline_done");
                 }
                 else {
-                    io.to(player).emit("join_match_queue");
+                    io.to(player).emit("game_declined");
                 }
             }
         }

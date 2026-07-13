@@ -36,10 +36,10 @@ async function initDB() {
       const email = user.Attributes!.find(attr => attr.Name === 'email')?.Value;
 
       await client.query(
-        `INSERT INTO users (username,email)
-        VALUES ($1,$2)
+        `INSERT INTO users (username,email,avatar_id)
+        VALUES ($1,$2,$3)
         ON CONFLICT (email) DO NOTHING`,
-        [user_name, email]
+        [user_name, email, 0]
       );
 
       const ids = await client.query(`SELECT user_id FROM users`);
@@ -53,7 +53,7 @@ async function initDB() {
         )
       }
 
-  
+
     }
   } catch (error) {
     await client.query('ROLLBACK');

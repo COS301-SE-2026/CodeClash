@@ -81,9 +81,11 @@ export const getUsername = async (req: Request, res: Response) => {
 
 /// GET api/user/:stat
 export const getUserStat = async (req: Request, res: Response) => {
+    console.log("User controller get stats")
     const email = await getEmail(req, res);
     const { stat } = req.params;
 
+    console.log(`Stat: ${stat}`)
     if (typeof stat !== 'string' || !validStat(stat)) {
         res.status(404).json({ message: 'User Stat not found' });
         return;
@@ -108,3 +110,4 @@ export const getUserStat = async (req: Request, res: Response) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 }
+

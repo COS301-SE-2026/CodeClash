@@ -1,7 +1,7 @@
 import request from 'supertest'
 import { describe, test, expect } from 'vitest';
 import { JWT } from "aws-amplify/auth";
-import { getToken } from "root/testing/test-utils"
+import { getToken } from "test/test-utils"
 import dotenv from "dotenv"
 dotenv.config();
 

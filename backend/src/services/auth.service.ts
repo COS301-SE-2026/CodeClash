@@ -12,7 +12,7 @@ const verifier = CognitoJwtVerifier.create({
   clientId: `${process.env.COGNITO_CLIENT_ID}`, //client ID of app, not a userId
 });
 
-const STATS = new Set(['current_streak', 'winning_streak']);
+const STATS = new Set(['current_streak', 'winning_streak','avatar_id']);
 
 
 export const validToken = async (token: string | undefined) => {

@@ -7,7 +7,8 @@ CREATE TYPE supported_languages AS ENUM('java','c++');
 CREATE TABLE IF NOT EXISTS users (
   user_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   username VARCHAR(50) UNIQUE NOT NULL,
-  email VARCHAR(100) UNIQUE NOT NULL
+  email VARCHAR(100) UNIQUE NOT NULL,
+  avatar_id Integer
 );
 
 CREATE TABLE IF NOT EXISTS problems (
