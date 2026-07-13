@@ -7,6 +7,7 @@ import SignIn from "./Views/SignIn";
 import SignUp from "./Views/SignUp";
 import Profile from "./Views/Profile";
 import MatchSearching from "./Views/MatchSearching";
+import MatchFound from "./Views/MatchFound";
 import Searching from "./pages/queuePages/searching";
 import Found from "./pages/queuePages/found";
 import MathMatch from "./pages/MathMatch";
@@ -21,6 +22,7 @@ const App: React.FC = () => {
             <Route path='/sign-up' element={<SignUp/>}/>
             <Route path='/profile' element={<Profile/>}/>
             <Route path='/match-searching' element={<MatchSearching/>}/>
+            <Route path='/match-found' element={<MatchFound/>}/>
             <Route path='/searching' element={<Searching/>}/>
             <Route path='/found' element={<Found/>}/>
             <Route path='/math-match' element={<MathMatch/>}/>
