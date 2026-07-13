@@ -9,6 +9,7 @@ import LogoSection from "./BrandStyleGuide/LogoSection";
 import TokenSection from "./BrandStyleGuide/TokenSection";
 import ComponentSection from "./BrandStyleGuide/ComponentSection";
 import LayoutSection from "./BrandStyleGuide/LayoutSection";
+import AccessibilitySection from "./BrandStyleGuide/AccessibilitySection";
 
 const BrandStyleGuide: React.FC = () => {
     const {
@@ -47,6 +48,7 @@ const BrandStyleGuide: React.FC = () => {
                 <TokenSection content = {content} clipboardCopy={clipboardCopy} copied = {copied} />
                 <ComponentSection content={content}/>
                 <LayoutSection content = {content}/>
+                <AccessibilitySection content = {content} />
 
                 <footer className="mt-24 pt-8 border-t border-gray-100 text.center">
                     <p className="text-gray-400 text-sm">{content.meta.project} - Brand Style Guide - {content.meta.team}</p>
