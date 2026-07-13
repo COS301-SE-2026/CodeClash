@@ -111,11 +111,11 @@ const Leaderboard = (
                         <div className="-ml-110 -mt-10 text-[24px] text-[#C0395A] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
                         <div className="ml-75 -mt-9 text-[24px] text-[#C0395A] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">ELO</div>
                         <div className="ml-190 -mt-10.5 text-[32px] text-[#C0395A] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">10</div>
-
                     </div>
                 </div>
             </div>
             </div>
+            <div style={{backgroundImage: `url(${planet})`}} className="w-[500px] h-[500px] bg-no-repeat object-cover bg-size-[auto_500px] bg-[right_-180px_top_-5px] mr-30"></div>
         </div>
     </div>
     );
