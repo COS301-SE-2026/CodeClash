@@ -80,6 +80,56 @@ const LayoutSection: React.FC<Props> = ({content}) => {
                     ))}
                 </div>
             </div>
+
+            <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">Spacing Scale</p>
+            <div className="border border-gray-100 rounded-xl overflow-hidden">
+                {[
+                    {
+                        name: 'xs',
+                        value: '0.25rem',
+                        px: '4px',
+                        example: 'Icon gaps',
+                    },
+                    {
+                        name: 'sm',
+                        value: '0.5rem',
+                        px: '8px',
+                        example: 'Tight padding',
+                    },
+                    {
+                        name: 'md',
+                        value: '1rem',
+                        px: '16px',
+                        example: 'Component padding',
+                    },
+                    {
+                        name: 'lg',
+                        value: '1.5rem',
+                        px: '24px',
+                        example: 'Card padding, section gaps',
+                    },
+                    {
+                        name: 'xl',
+                        value: '2rem',
+                        px: '32px',
+                        example: 'Page padding, large gaps',
+                    },
+                    {
+                        name: 'xxl',
+                        value: '3rem',
+                        px: '48px',
+                        example: 'Section margins',
+                    },
+                ].map((s, i, arr) => (
+                    <div key = {s.name} className= {`flex items-center gap-4 px-4 py-3 ${i< arr.length -1 ? 'border-b border-gray-50' : ''}`}>
+                        <code className="text-xs text-gray-400 w-8 flex-shrink-0">{s.name}</code>
+                        <div className="bg-[#530a23] rounded h-3 flex-shrink-0" style = {{width: s.px}}/>
+                        <code className="text-xs text-gray-500 w-16 flex-shrink-0">{s.value}</code>
+                        <code className="text-xs text-gray-300 w-10 flex-shrink-0">{s.px}</code>
+                        <p className="text-xs text-gray-400">{s.example}</p>
+                    </div>
+                ))}
+            </div>
         </SharedLayout>
     );
 };
