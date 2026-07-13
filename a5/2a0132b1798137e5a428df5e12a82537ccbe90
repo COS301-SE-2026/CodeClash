@@ -1,0 +1,30 @@
+backend/src/routes/api.routes.ts
+  h_94c952a9e14c58 11,29-31
+database/init.sql
+  h_94c952a9e14c58 10-11
+backend/src/server.ts
+  h_94c952a9e14c58 111
+backend/src/app.ts
+  h_94c952a9e14c58 4,15-17
+backend/tests/unit/helpers/test-utils.ts
+  h_94c952a9e14c58 4
+backend/src/config/db.ts
+  h_94c952a9e14c58 39-40,42,56
+backend/src/services/auth.service.ts
+  h_94c952a9e14c58 15
+backend/src/controllers/user.controllers.ts
+  h_94c952a9e14c58 84,88,113
+backend/tests/controller/elo.test.ts
+  h_94c952a9e14c58 5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.13",
+  "base_commit_sha": "a52a0132b1798137e5a428df5e12a82537ccbe90",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
