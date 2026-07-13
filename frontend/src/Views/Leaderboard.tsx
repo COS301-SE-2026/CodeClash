@@ -115,7 +115,9 @@ const Leaderboard = (
                 </div>
             </div>
             </div>
-            <div style={{backgroundImage: `url(${planet})`}} className="w-[500px] h-[500px] bg-no-repeat object-cover bg-size-[auto_500px] bg-[right_-180px_top_-5px] mr-30"></div>
+            <div style={{backgroundImage: `url(${planet})`}} className="w-[500px] h-[500px] bg-no-repeat object-cover bg-size-[auto_500px] bg-[right_-180px_top_-5px] mr-20">
+            <div className="mt-130 text-[60px] text-[#F9A4B9] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">League</div>
+            </div>
         </div>
     </div>
     );
