@@ -132,6 +132,52 @@ const LogoSection: React.FC<Props> = ({content}) => {
                     ))}
                 </div>
             </div>
+
+            {/*The PNGs for the thematic stuff */}
+            <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">Thematic Assets - Custom PNGs</p>
+            <div className="border border-gray-100 rounded-xl p-5">
+                <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                    Thematic assets that define the robots in space identity. These are not interchangeable with the UI icons. Located in {' '}
+                    <code className = "text-[#530a23] bg-gray-50 px-1.5 py-0.5 rounded text-xs">src/assets/</code>
+                </p>
+                
+                {/*A list of the custom PNGs*/}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-5">
+                    {[
+                        {
+                            folder: 'assets/Robots/',
+                            files: 'HelloRobot_Pink, Pink_fighting, Pink_celebrate, arms_up',
+                            use: 'Welcome page mascot, dashboard avatar, match screens',
+                        },
+                        {
+                            folder: 'assets/Planets/',
+                            files: 'Earth',
+                            use: 'SignIn page - bottom beam source',
+                        },
+                        {
+                            folder: 'assets/Background/',
+                            files: 'dashboard, SignInBeam, SignUpBeam, SymbolBackground',
+                            use: 'Page backgrounds and light beam effects',
+                        },
+                        {
+                            folder: 'assets/Avatar/', //This will get removed/replaced cause its the old match screen. I also left out assets/Logo/ cause its old
+                            files: 'blue_avatar, placeholder, purple_avatar',
+                            use: 'The match screen avatars',
+                        },
+                        {
+                            folder: 'assets/Decor/',
+                            files: 'door, RedUFO',
+                            use: 'Thematic decor',
+                        },
+                    ].map(asset => (
+                        <div key = {asset.folder} className="bg-gray-50 rounded-lg p-4">
+                            <code className="text-xs text-[#530a23] block mb-1">{asset.folder}</code>
+                            <p className="text-xs text-gray-700 font-medium mb-1">{asset.files}</p>
+                            <p className="text-xs text-gray-400">{asset.use}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
         </SharedLayout>
     );
 };
