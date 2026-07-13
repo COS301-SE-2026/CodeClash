@@ -1,0 +1,14 @@
+frontend/src/Views/Guidebook.tsx
+  h_b13c5d77534129 19-20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.12",
+  "base_commit_sha": "b57d2c1bfdbcd02cb9e571de100b95a18729dcc5",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
