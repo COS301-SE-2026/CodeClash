@@ -32,6 +32,54 @@ const LayoutSection: React.FC<Props> = ({content}) => {
                     </div>
                 ))}
             </div>
+
+            {/*The sidebar */}
+            <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">Sidebar Navigation</p>
+            <div className="border border-gray-100 rounded-xl p-5 mb-10">
+                <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                    The sidebar is implemented via shadcn's{' '}
+                    <code className="text-[#530a23] bg-gray-50 px-1.5 py-0.5 rounded text-xs">SidebarProvider</code>{' '}
+                    and{' '}
+                    <code className="text-[#530a23] bg-gray-50 px-1.5 py-0.5 rounded text-xs">AppSidebar</code>{' '}
+                    component. It wraps all authenticated routes via the{' '}
+                    <code className="text-[#530a23] bg-gray-50 px-1.5 py-0.5 rounded text-xs">Layout</code>{' '}
+                    component in
+                    <code className="text-[#530a23] bg-gray-50 px-1.5 py-0.5 rounded text-xs">layout.tsx</code>
+                </p>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    {[
+                        {
+                            route: '/dashboard',
+                            label: 'Dasboard',
+                        },
+                        {
+                            route: '/game-guide',
+                            label: 'Game Guide',
+                        },
+                        {
+                            route: '/tournaments',
+                            label: 'Tournaments',
+                        },
+                        {
+                            route: '/leaderboard',
+                            label: 'Leaderboard',
+                        },
+                        {
+                            route: '/badges',
+                            label: 'Badges',
+                        },
+                        {
+                            route: '/friends',
+                            label: 'Friends'
+                        }
+                    ].map(item => (
+                        <div key = {item.route} className="bg-gray-50 rounded-lg px-4 py-2">
+                            <p className="text-xs font-semibold text-gray-700">{item.label}</p>
+                            <code className="text-xs text-[#530a23]">{item.route}</code>
+                        </div>
+                    ))}
+                </div>
+            </div>
         </SharedLayout>
     );
 };
