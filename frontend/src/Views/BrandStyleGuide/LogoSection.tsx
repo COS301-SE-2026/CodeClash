@@ -90,6 +90,47 @@ const LogoSection: React.FC<Props> = ({content}) => {
                         </div>
                     ))}
                 </div>
+
+                <div className="bg-gray-50 rounded-xl p-5 flex flex-wrap gap-6 items-center mb-5">
+                    {[
+                        {
+                            label: 'Search',
+                            svg: '',
+                        },
+                        {
+                            label: 'User',
+                            svg: '',
+                        },
+                        {
+                            label: 'Trophy',
+                            svg: '',
+                        },
+                        {
+                            label: 'Settings',
+                            svg: '',
+                        },
+                    ].map(icon => (
+                        <div key = {icon.label} className="flex flex-col items-center gap-1.5">
+                            <svg>
+                                //Still need to find and switch to svg so will come back here
+                            </svg>
+                            <span className="text-xs text-gray-400">{icon.label}</span> 
+                        </div>
+                    ))}
+                </div>
+                
+                {/*Rules for the Lucide React*/}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {[
+                        'Always use outline style - never filled',
+                        'Color via Tailwind text',
+                        'Stroke weight: 2px default',
+                        'If using filled, never mix filled and outline in the same context',
+                        'Import individually: import { Search } from "lucide-react";'
+                    ].map(rule => (
+                        <p key = {rule} className="text-xs text-gray-500 leading-relaxed">- {rule}</p>
+                    ))}
+                </div>
             </div>
         </SharedLayout>
     );
