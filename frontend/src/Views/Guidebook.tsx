@@ -13,13 +13,13 @@ return(
         <div className="relative w-1/2 flex flex-col">
         <div className="grid grid-cols-2 grid-rows-4 gap-5 items-end">
             <div className="w-[160px] h-[160px] rounded-[20px] bg-[#FFD3DF] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] font-[var(--font-guidebook)] ml-25 mt-10">1</div>
-            <div className="w-[550px] h-[91px] bg-[#FFEFE0] opacity-[94%] rounded-[20px] border-[#F4A0B2] border-4 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-7.5 -ml-40"></div>
-            <div className="w-[160px] h-[160px] rounded-[20px] bg-[#FFD3DF] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] ml-25 -mt-5"></div>
-            <div className="w-[550px] h-[91px] bg-[#FFEFE0] opacity-[94%] rounded-[20px] border-[#F4A0B2] border-4 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-7.5 -ml-40"></div>
-            <div className="w-[160px] h-[160px] rounded-[20px] bg-[#FFD3DF] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] ml-25 -mt-5"></div>
-            <div className="w-[550px] h-[91px] bg-[#FFEFE0] opacity-[94%] rounded-[20px] border-[#F4A0B2] border-4 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-7.5 -ml-40"></div>
-            <div className="w-[160px] h-[160px] rounded-[20px] bg-[#FFD3DF] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] ml-25 -mt-5"></div>
-            <div className="w-[550px] h-[91px] bg-[#FFEFE0] opacity-[94%] rounded-[20px] border-[#F4A0B2] border-4 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-7.5 -ml-40"></div>
+            <div className="w-[550px] h-[91px] bg-[#FFEFE0] opacity-[94%] rounded-[20px] border-[#F4A0B2] border-4 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-8 -ml-40"></div>
+            <div className="w-[160px] h-[160px] rounded-[20px] bg-[#FFD3DF] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] ml-25 mb-4"></div>
+            <div className="w-[550px] h-[91px] bg-[#FFEFE0] opacity-[94%] rounded-[20px] border-[#F4A0B2] border-4 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-12 -ml-40"></div>
+            <div className="w-[160px] h-[160px] rounded-[20px] bg-[#FFD3DF] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] ml-25 mb-6.5"></div>
+            <div className="w-[550px] h-[91px] bg-[#FFEFE0] opacity-[94%] rounded-[20px] border-[#F4A0B2] border-4 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-17 -ml-40"></div>
+            <div className="w-[160px] h-[160px] rounded-[20px] bg-[#FFD3DF] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] ml-25 mb-10"></div>
+            <div className="w-[550px] h-[91px] bg-[#FFEFE0] opacity-[94%] rounded-[20px] border-[#F4A0B2] border-4 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-19 -ml-40"></div>
         </div>
         </div>
     </div>
