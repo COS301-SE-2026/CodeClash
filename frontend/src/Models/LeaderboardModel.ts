@@ -2,7 +2,8 @@
 
 
 //REPLACE BELOW INTERFACE WITH USERDTO OR WHATEVER OBJECT CLASS/INTERFACE WE EVENTUALLY USE THROUGHOUT
-// TO REPRESENT A USER, THE USEERDTO IS NOT PRESEENT IN THIS BRANCH YET HENCE I AM USING A FILLER CLASS
+// TO REPRESENT A USER, THE USERDTO IS NOT PRESENT IN THIS BRANCH YET HENCE I AM USING A FILLER CLASS
+
 
 export interface LeaderboardUserProps{
     avatarUrl: string;
@@ -31,6 +32,12 @@ export interface LeaderboardProps{
     ninthUser: LeaderboardUserProps;
     tenthUser: LeaderboardUserProps;
 
+}
+
+//GET api/elo/leaderboard
+
+export async function fetchLeaderboardUsers(){
+     
 }
 
 
