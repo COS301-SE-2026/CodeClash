@@ -18,6 +18,8 @@ return(
             <div className="w-[550px] h-[91px] bg-[#FFEFE0] opacity-[94%] rounded-[20px] border-[#F4A0B2] border-4 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-7.5 -ml-40"></div>
             <div className="w-[160px] h-[160px] rounded-[20px] bg-[#FFD3DF] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] ml-25 -mt-5"></div>
             <div className="w-[550px] h-[91px] bg-[#FFEFE0] opacity-[94%] rounded-[20px] border-[#F4A0B2] border-4 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-7.5 -ml-40"></div>
+            <div className="w-[160px] h-[160px] rounded-[20px] bg-[#FFD3DF] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] ml-25 -mt-5"></div>
+            <div className="w-[550px] h-[91px] bg-[#FFEFE0] opacity-[94%] rounded-[20px] border-[#F4A0B2] border-4 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-7.5 -ml-40"></div>
         </div>
         </div>
     </div>
