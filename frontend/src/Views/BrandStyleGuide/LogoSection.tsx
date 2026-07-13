@@ -177,6 +177,42 @@ const LogoSection: React.FC<Props> = ({content}) => {
                         </div>
                     ))}
                 </div>
+
+                <div className="flex flex-wrap gap-3 mb-5">
+                    {[
+                        {
+                            size: 'w-[480px]',
+                            use: 'Hero assets - UFO, planet, robot',
+                        },
+                        {
+                            size: 'w-full h-full object-cover',
+                            use: 'Full page backgrounds',
+                        },
+                        {
+                            size: 'w-[220px]',
+                            use: 'Mid sized decorative assets',
+                        },
+                    ].map(item => (
+                        <div key = {item.size} className="border border-gray-100 rounded-lg px-4 py-2">
+                            <p className="text-xs font-semibold text=[#530a23]">{item.size}</p>
+                            <p className="text-xs text-gray-400">{item.use}</p>
+                        </div>
+                    ))}
+                </div>
+
+                <div className ="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {[
+                        'Include a descriptive alt attribute',
+                        'Use mix-blend-screen or mix-blend-mode to remove backgrounds',
+                        'Use object-contain to prevent distortion',
+                        'Use object-cover for full page backgrounds',
+                        'Do not upscale PNGs beyond their natural resolution',
+                        'Do not use thematic assets as UI icons',
+                        'Do not change the transformations or scales of source images',
+                    ].map(rule => (
+                        <p key={rule} className="text-xs text-gray-500 leading-relaxed">- {rule}</p>
+                    ))}
+                </div>
             </div>
         </SharedLayout>
     );
