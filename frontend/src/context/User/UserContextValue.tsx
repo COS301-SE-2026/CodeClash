@@ -3,7 +3,7 @@ import { createContext } from "react";
 export interface UserContextValue {
     username: string,
     elo: number,
-    avatar_url: string,
+    avatar: string,
     error: string,
     token: string | undefined
 }

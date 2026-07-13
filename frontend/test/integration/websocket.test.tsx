@@ -3,7 +3,7 @@ import { Server } from 'socket.io'
 import { createServer } from "node:http";
 import { it } from "node:test";
 import { type JWT } from "aws-amplify/auth";
-import { getToken, login, logout } from "root/testing/test-utils"
+import { getToken, login, logout } from "test/test-utils"
 
 import { SocketProvider } from "src/context/Socket/SocketContext";
 

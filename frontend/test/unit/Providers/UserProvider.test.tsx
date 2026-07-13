@@ -1,28 +1,93 @@
-import { describe } from "vitest";
-import { login, logout } from "root/testing/test-utils";
+import { beforeAll, afterAll, describe } from "vitest";
+import { getToken, login, logout } from "../../test-utils";
 import { UserProvider } from "src/context/User/UserContext";
 import { useUser } from "src/context/User/hooks/useUser";
+import { render, screen, waitFor } from "@testing-library/react";
+import { AuthProvider } from "src/context/Auth/AuthContext";
+import robot from 'src/assets/Robots/Pink_fighting.png'
+
 
 const MockComponent: React.FC = () => {
-   // const {username,elo,avatar_url,error,token} = useUser();
+    const { username, elo, avatar, error, token } = useUser();
 
     return (
         <div>
+            <div data-testid='token-test'>
+                {token}
+            </div>
+            <div data-testid='elo-test'>
+                {elo}
+            </div>
+            <div data-testid='username-test'>
+                {username}
+            </div>
+            <div data-testid='avatar-test'>
+                {avatar}
+            </div>
+            <div data-testid='error-test'>
+                {error}
+            </div>
 
         </div>
     )
 }
 
 describe("Tests user Provider", () => {
-    it('Set Token', async () => {
+
+    beforeAll(async () => {
         // login the test user
         await login();
+    })
+    
+    beforeEach(async () => {
 
-        <UserProvider>
-            <MockComponent/>
-        </UserProvider>
+        render(
+            <AuthProvider>
+                <UserProvider>
+                    <MockComponent />
+                </UserProvider>
+            </AuthProvider>
+        )
 
+    })
+
+    afterAll(async () => {
         // after test
         await logout();
     })
+
+
+    it('Set Token', async () => {
+
+        const expected = await getToken();
+
+        await waitFor(() => {
+            expect(screen.getByTestId('token-test')).toHaveTextContent(expected!);
+        })
+    })
+
+    it("Set Elo", async () => {
+        const expected = 600;   // default elo 
+
+        await waitFor(() => {
+            expect(screen.getByTestId('elo-test')).toHaveTextContent(expected.toString());
+        })
+    })
+
+    it("Set Username", async () => {
+        const expected = 'integration_test_user';
+
+        await waitFor(() => {
+            expect(screen.getByTestId('username-test')).toHaveTextContent(expected);
+        })
+    })
+
+    it("Set Avatar", async () => {
+        const expected = robot;
+
+        await waitFor(() => {
+            expect(screen.getByTestId('avatar-test')).toHaveTextContent(expected);
+        })
+    })
+
 })
