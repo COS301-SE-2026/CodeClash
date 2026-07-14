@@ -46,6 +46,12 @@ return(
                 <div className="w-[550px] h-[91px] bg-secondary opacity-[94%] rounded-[20px] border-[#F4A0B2] border-4 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-19 -ml-50 -mb-5 relative">
                     <h1 className="text-[#E8466E] text-[24px] font-silkscreen drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] absolute top-5.5 left-32">Game Instruction 5</h1>
                 </div>
+                <div className="w-[160px] h-[160px] rounded-[20px] bg-[#FFD3DF] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] relative mb-5">
+                    <h1 className="font-silkscreen text-center text-[#E8466E] text-[64px] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] absolute top-6 left-14">6</h1>
+                </div>
+                <div className="w-[550px] h-[91px] bg-secondary opacity-[94%] rounded-[20px] border-[#F4A0B2] border-4 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-15 -ml-50 relative">
+                    <h1 className="text-[#E8466E] text-[24px] font-silkscreen drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] absolute top-5.5 left-32">Game Instruction 6</h1>
+                </div>
             </div>
         </div>
     </div>
