@@ -22,7 +22,7 @@ const TypographySection: React.FC<Props> = ({content}) => {
                             <code className="text-xs text-[#530A24]">{t.cssVar}</code>
                         </div>
                         <p className="text-gray-900 leading-tight" 
-                            style = {{fontFamily: 'Roboto, sans-serif', fontSize: `clamp(1rem, ${parseFloat(t.size) * 0.5}vw, ${t.size})`, fontWeight: t.weight,}}>{t.sample}
+                            style = {{fontFamily: 'Roboto, sans-serif', fontSize: `clamp(1rem, ${Number.parseFloat(t.size) * 0.5}vw, ${t.size})`, fontWeight: t.weight,}}>{t.sample}
                         </p>
                         <p className="text-xs text-gray-400 mt-2">{t.usage}</p>
                     </div>
