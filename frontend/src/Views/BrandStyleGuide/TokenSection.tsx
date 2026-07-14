@@ -28,7 +28,7 @@ const TokenTable: React.FC<TableProps> = ({title, rows, clipboardCopy, copied}) 
             ))}
         </div>
         {rows.map(row => (
-            <div key = {row.token} onClick={() => clipboardCopy(`var(${row.token})`, row.token)} className="grid grid-cols-3 px-4 border-b border-gray-50 cursor-pointer hover:bg-gray-50 transition-colors duration-100 last:border-b-0">
+            <div key = {row.token} onClick={() => clipboardCopy(`var(${row.token})`, row.token)} className="grid grid-cols-3 px-4 border-b border-gray-50 cursor-pointer hover:bg-gray-50 transition-colors duration-100 last:border-b-0 text-left w-full">
                 <code className="text-xs text-[#530A24]">{copied === row.token ? 'Copied!' : row.token}</code>
                 <code className="text-xs text-gray-500 pr-2">{row.value}</code>
                 <span className="text-xs text-gray-500">{row.description}</span>
@@ -39,9 +39,9 @@ const TokenTable: React.FC<TableProps> = ({title, rows, clipboardCopy, copied}) 
 
 const TokenSection: React.FC<Props> = ({ content, clipboardCopy, copied}) => {
     return (
-        <SharedLayout 
+        <SharedLayout
             id = "tokens" eyebrow = "04 - Design Tokens" title = "Token System" description="All tokens are CSs custom properies defined in global.css. The @theme inline block maps them to Tailwind utilities. Click any row to copy the token reference.">
-            
+
             <TokenTable title = "Color Tokens" rows = {content.tokens.color} clipboardCopy={clipboardCopy} copied = {copied} />
             <TokenTable title = "Radius Tokens" rows = {content.tokens.radius} clipboardCopy={clipboardCopy} copied = {copied} />
             <TokenTable title = "Typography Tokens" rows = {content.tokens.typography} clipboardCopy={clipboardCopy} copied = {copied} />
