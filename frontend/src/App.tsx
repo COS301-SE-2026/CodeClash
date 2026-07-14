@@ -11,7 +11,6 @@ import MatchFound from "./Views/MatchFound";
 import Searching from "./pages/queuePages/searching";
 import Found from "./pages/queuePages/found";
 import MathMatch from "./pages/MathMatch";
-import ProgMatch from "./pages/ProgMatch";
 
 const App: React.FC = () => {
     return (
