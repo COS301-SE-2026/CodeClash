@@ -112,7 +112,7 @@ const LogoSection: React.FC<Props> = ({content}) => {
                     ].map(icon => (
                         <div key = {icon.label} className="flex flex-col items-center gap-1.5">
                             <svg>
-                                //Still need to find and switch to svg so will come back here
+                                {/*Still need to find and switch to svg so will come back here*/}
                             </svg>
                             <span className="text-xs text-gray-400">{icon.label}</span> 
                         </div>
