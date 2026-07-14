@@ -1,0 +1,16 @@
+frontend/test/unit/Providers/UserProvider.test.tsx
+  h_94c952a9e14c58 38
+frontend/src/ViewModels/FoundViewModel.ts
+  h_94c952a9e14c58 7,16,40-41
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.13",
+  "base_commit_sha": "1d2dc171d69611963026566f6836878f523a60bb",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
