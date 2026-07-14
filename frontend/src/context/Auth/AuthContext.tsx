@@ -1,4 +1,4 @@
-import { signIn as amplifySignIn, signUp as amplifySignUp, signOut as amplifySignOut, getCurrentUser, confirmSignUp as amplifyConfirmSignUp, resendSignUpCode as amplifyResendSignUpCode } from 'aws-amplify/auth'
+import { signIn as amplifySignIn, signUp as amplifySignUp, signOut as amplifySignOut, getCurrentUser, confirmSignUp as amplifyConfirmSignUp, resendSignUpCode as amplifyResendSignUpCode, fetchAuthSession } from 'aws-amplify/auth'
 import React, { useEffect, useState, useCallback, type ReactNode } from 'react'
 
 import { AuthContext, type AuthUser } from './AuthContextValue'
@@ -7,21 +7,34 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [user, setUser] = useState<AuthUser | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [token, setToken] = useState<string | undefined>('');
+
+  const getToken = async () => {
+    const session = await fetchAuthSession();
+    const idToken = session.tokens?.idToken?.toString();
+
+    setToken(idToken);
+
+  }
 
   useEffect(() => {
     getCurrentUser()
-      .then((cognitoUser) => {
+      .then(async (cognitoUser) => {
+
         setUser({
           username: cognitoUser.username,
           userId: cognitoUser.userId,
         })
+
       })
       .catch(() => {
         setUser(null)
       })
       .finally(() => {
         setIsLoading(false)
-      })
+      });
+
+    getToken();
   }, [])
 
   const clearError = useCallback(() => setError(null), [])
@@ -95,7 +108,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       setError((err instanceof Error) ? err.message : 'Sign in failed')
       throw err
     }
-  }, [])
+  }, []);
+
 
   return (
     <AuthContext.Provider
@@ -110,6 +124,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         confirmSignUp,
         resendSignUpCode,
         clearError,
+        token,
       }}
     >
       {children}

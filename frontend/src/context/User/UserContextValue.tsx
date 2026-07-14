@@ -4,8 +4,7 @@ export interface UserContextValue {
     username: string,
     elo: number,
     avatar: string,
-    error: string,
-    token: string | undefined
+    error: string
 }
 
 export const UserContext = createContext<UserContextValue | null>(null);

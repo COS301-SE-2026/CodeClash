@@ -1,7 +1,7 @@
 import React, { useEffect, useState, type ReactNode } from "react";
 import { UserContext } from "./UserContextValue";
 import axios from "axios";
-import { fetchAuthSession, type AuthUser } from "aws-amplify/auth";
+import { type AuthUser } from "aws-amplify/auth";
 import { useAuth } from "../Auth/hooks/useAuth";
 import { robot_map } from "src/assets/Robots";
 
@@ -13,20 +13,9 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [elo, setElo] = useState(0);
     const [avatar, setAvatar] = useState('');
     const [error, setError] = useState('');
-    const [token, setToken] = useState<string | undefined>('');
-    const { user } = useAuth();
+    const { user, token, isLoading } = useAuth();
 
-    const getToken = async () => {
-        const session = await fetchAuthSession();
-        const idToken = session.tokens?.idToken?.toString();
-
-        if (idToken)
-            setToken(idToken)
-        else
-            setError(`Error Getting User Token`);
-    }
-
-    const getElo = async (token: string | undefined) => {
+    const getElo = async () => {
         if (!token) {
             setError('Missing or Invalid Token');
             return;
@@ -39,6 +28,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 .then((res) => {
                     if (res.status === 200) {
                         setElo(res.data.rating)
+                        setError('');
                     }
                     else {
                         setError(`Error: ${res.status} ${res.data}`);
@@ -50,7 +40,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
     }
 
-    const getAvatarUrl = async (token: string | undefined) => {
+    const getAvatarUrl = async () => {
         if (!token) {
             setError('Missing or Invalid Token');
             return;
@@ -62,7 +52,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             })
                 .then((res) => {
                     if (res.status === 200) {
-                        const index = res.data;
+                        const index = res.data.stat.avatar_id;
                         setAvatar(robot_map[index]);
                     }
                     else {
@@ -76,7 +66,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
 
     const getUsername = (user: AuthUser | null) => {
-
         const username = user?.username;
 
         if (username && username.length > 0)
@@ -84,16 +73,13 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         else setError(`Error Getting Username`)
     }
 
-
     useEffect(() => {
-        getToken();
-    }, [token])
+        getElo();
+        getAvatarUrl()
 
-    useEffect(() => {
-        getElo(token);
-        getAvatarUrl(token)
-        getUsername(user);
-    }, [token,user])
+        if (!isLoading)
+            getUsername(user);
+    }, [token, user])
 
 
 
@@ -103,8 +89,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 username,
                 elo,
                 avatar,
-                error,
-                token
+                error
             }}
         >
             {children}

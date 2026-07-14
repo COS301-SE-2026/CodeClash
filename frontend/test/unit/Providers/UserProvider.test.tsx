@@ -8,13 +8,10 @@ import robot from 'src/assets/Robots/Pink_fighting.png'
 
 
 const MockComponent: React.FC = () => {
-    const { username, elo, avatar, error, token } = useUser();
+    const { username, elo, avatar, error} = useUser();
 
     return (
         <div>
-            <div data-testid='token-test'>
-                {token}
-            </div>
             <div data-testid='elo-test'>
                 {elo}
             </div>
@@ -56,15 +53,6 @@ describe("Tests user Provider", () => {
         await logout();
     })
 
-
-    it('Set Token', async () => {
-
-        const expected = await getToken();
-
-        await waitFor(() => {
-            expect(screen.getByTestId('token-test')).toHaveTextContent(expected!);
-        })
-    })
 
     it("Set Elo", async () => {
         const expected = 600;   // default elo 
