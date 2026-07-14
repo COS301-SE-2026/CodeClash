@@ -91,8 +91,8 @@ const ComponentPreview: React.FC<{name:string}> = ({name}) => {
 
     if (name === 'Checkbox') return (
         <div className="flex items0center gap-3">
-            <input type="checkbox" className="w-6 h-6 cursor-pointer"/>
-            <label className="text-sm text-gray-600 cursor-pointer">
+            <input type="checkbox" id="terms-checkbox" className="w-6 h-6 cursor-pointer"/>
+            <label htmlFor="terms-checkbox" className="text-sm text-gray-600 cursor-pointer">
                 Accept <span className="underline text=[#530a23]">Terms & Conditions</span>
             </label>
         </div>
