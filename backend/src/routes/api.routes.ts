@@ -28,6 +28,6 @@ router.post('/elo-set', setUserElo);
 
 
 // user routes
-router.get('/avatar_id',getUserStat);
+router.get('/:stat',getUserStat);
 
 export default router;

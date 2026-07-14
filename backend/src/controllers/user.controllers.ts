@@ -81,11 +81,10 @@ export const getUsername = async (req: Request, res: Response) => {
 
 /// GET api/user/:stat
 export const getUserStat = async (req: Request, res: Response) => {
-    console.log("User controller get stats")
-    const email = await getEmail(req, res);
-    const { stat } = req.params;
 
-    console.log(`Stat: ${stat}`)
+    const email = await getEmail(req, res);
+    const stat = req.params.stat;
+
     if (typeof stat !== 'string' || !validStat(stat)) {
         res.status(404).json({ message: 'User Stat not found' });
         return;
@@ -103,7 +102,7 @@ export const getUserStat = async (req: Request, res: Response) => {
             return;
         }
 
-        res.status(200).json({ data: result.rows[0] });
+        res.status(200).json({ stat: result.rows[0]});
     }
     catch (error) {
         console.error(`Error fetching ${stat}: `, error);

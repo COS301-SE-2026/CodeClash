@@ -41,7 +41,6 @@ async function initDB() {
         ON CONFLICT (email) DO NOTHING`,
         [user_name, email, 0]
       );
-
       const ids = await client.query(`SELECT user_id FROM users`);
 
       for (const row of ids.rows) {
@@ -52,15 +51,13 @@ async function initDB() {
           [row.user_id]
         )
       }
-
-
+      client.query('COMMIT');
     }
   } catch (error) {
     await client.query('ROLLBACK');
-    console.error('Error setting elo: ', error);
+    console.error('Initialisation error ', error);
   }
   finally {
-    client.query('COMMIT');
     client.release();
   }
 }

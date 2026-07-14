@@ -28,7 +28,7 @@ export const getUserElo = async (req: Request, res: Response): Promise<void> => 
     );
 
     if (result.rows.length === 0) {
-      res.status(404).json(accessDenied("Useer NotFound"));
+      res.status(404).json(accessDenied("User Not Found"));
       return;
     }
 
