@@ -18,7 +18,7 @@ const IntroSection: React.FC<Props> = ({content}) => {
                 <h1 className="text-3xl font-black text-gray-900 leading-tight mb-4">
                     Brand Style Guide
                 </h1>
-                <p className="text-gray-500 text-sm max-w-[560px] leading-tight mb-6">
+                <p className="text-gray-500 text-sm max-w-none leading-tight mb-6">
                     This serves as a definitive visual language guide, defining every design decision, for CodeClash - a competitive coding and mathematics gaming platform.
                 </p>
                 <div className="flex flex-wrap gap-2">

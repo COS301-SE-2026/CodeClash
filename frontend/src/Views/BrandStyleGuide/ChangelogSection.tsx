@@ -43,8 +43,8 @@ const ChangelogSection: React.FC<Props> = ({content}) => {
                             <div className="px-5 py-4">
                                 {entry.changes.map( change=> (
                                     <div key = {change} className="flex gap-2 mb-2">
-                                        <span className="text-[#530A23] text-sm mt-0.5 flex-shrink-0">-</span>
-                                        <p className="text-sm text-gray-600 leading-relaxed">{change}</p>
+                                        <span className="text-[#530A23] text-xs mt-0 flex-shrink-0">-</span>
+                                        <p className="text-xs text-gray-600 leading-relaxed">{change}</p>
                                     </div>
                                 ))}
 

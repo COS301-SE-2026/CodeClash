@@ -48,13 +48,13 @@ const LogoSection: React.FC<Props> = ({content}) => {
                 <div className="border border-gray-100 rounded-xl p-5">
                     <p className="text-sm font-semibold text-green-600 uppercase tracking-widest mb-3">Permitted</p>
                     {content.logoRules.permitted.map(rule => (
-                        <p key = {rule} className="text-sm text-gray-600 mb-0 leading-relaxed">- {rule}</p>
+                        <p key = {rule} className="text-xs text-gray-600 mb-0 leading-relaxed">- {rule}</p>
                     ))}
                 </div>
                 <div className="border border-gray-100 rounded-xl p-5">
                     <p className="text-sm font-semibold text-red-600 uppercase tracking-widest mb-3">Forbidden</p>
                     {content.logoRules.forbidden.map(rule => (
-                        <p key = {rule} className="text-sm text-gray-600 mb-0 leading-relaxed">- {rule}</p>
+                        <p key = {rule} className="text-xs text-gray-600 mb-0 leading-relaxed">- {rule}</p>
                     ))}
                 </div>
             </div>
