@@ -22,8 +22,8 @@ const BrandStyleGuide: React.FC = () => {
             <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200">
                 <div className="max-w-[1200px] mx-auto px-5 h-15 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <div className="w-7 h-7 rounded-lg bg-[#530a23] flex items-center justify-center">
-                            <span className="text-[#FCECDD] font-black text-xs">CodeClash</span>
+                        <div className="w-8 h-8 rounded-lg bg-[#530a23] flex items-center justify-center">
+                            <span className="text-[#FCECDD] font-black text-xs">CC</span>
                         </div>
                         <span className="font-bold text-sm text-gray-900">Brand Style Guide</span>
                         <span className="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full font-sm">v{content.meta.version}</span>
@@ -53,7 +53,7 @@ const BrandStyleGuide: React.FC = () => {
                 <ChangelogSection content={content}/>
 
                 <footer className="mt-24 pt-8 border-t border-gray-100 text.center">
-                    <p className="text-gray-400 text-sm">{content.meta.project} - Brand Style Guide - {content.meta.team}</p>
+                    <p className="text-[#530a23] text-sm">{content.meta.project} - Brand Style Guide - {content.meta.team}</p>
                 </footer>
             </div>
         </div>
