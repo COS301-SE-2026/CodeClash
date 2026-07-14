@@ -18,8 +18,8 @@ const ColorSection: React.FC<Props> = ({content, clipboardCopy, copied}) => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-10">
                 {content.colors.map(color => (
                     <div key={color.name} onClick={() => clipboardCopy(color.hex, color.name)}
-                    className="flex gap-4 items-start border border-gray-100 rounded-xl p-4 cursor pointer hover:border-gray-300 transition colors duration-150">
-                        <div className="w-12 h-12 rounded-lg flex-shrink-0 border border-gray-100"
+                    className="flex gap-4 items-start border border-gray-100 rounded-xl p-4 cursor-pointer hover:border-gray-300 transition-colors duration-150 text-left w-full">
+                        <div className="w-12 h-12 rounded-lg shrink-0 border border-gray-100"
                             style={{background: color.hex}}
                         />
 
@@ -51,8 +51,8 @@ const ColorSection: React.FC<Props> = ({content, clipboardCopy, copied}) => {
                     ))}
                 </div>
                 <div className="flex mt-1">
-                    {Object.values(content.pinkColors).map((hex,i) => (
-                        <div key={i} className="flex-1 text-center">
+                    {Object.values(content.pinkColors).map((hex) => (
+                        <div key={hex} className="flex-1 text-center">
                             <p className="text-[9px] text-gray-900">{hex}</p>
                         </div>
                     ))}
