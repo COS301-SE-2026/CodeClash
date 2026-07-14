@@ -21,12 +21,18 @@ return(
             <div className="w-[160px] h-[160px] rounded-[20px] bg-[#FFD3DF] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] ml-25 mb-4 relative">
                 <h1 className="font-silkscreen text-center text-[#E8466E] text-[64px] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] absolute top-6 left-14">2</h1>
             </div>
-            <div className="w-[550px] h-[91px] bg-[#FFEFE0] opacity-[94%] rounded-[20px] border-[#F4A0B2] border-4 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-12 -ml-40">
+            <div className="w-[550px] h-[91px] bg-[#FFEFE0] opacity-[94%] rounded-[20px] border-[#F4A0B2] border-4 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-12 -ml-40 relative">
                 <h1 className="text-[#E8466E] text-[24px] font-silkscreen drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] absolute top-5.5 left-32">Game Instruction 2</h1>
             </div>
-            <div className="w-[160px] h-[160px] rounded-[20px] bg-[#FFD3DF] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] ml-25 mb-6.5"></div>
-            <div className="w-[550px] h-[91px] bg-[#FFEFE0] opacity-[94%] rounded-[20px] border-[#F4A0B2] border-4 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-17 -ml-40"></div>
-            <div className="w-[160px] h-[160px] rounded-[20px] bg-[#FFD3DF] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] ml-25 mb-10"></div>
+            <div className="w-[160px] h-[160px] rounded-[20px] bg-[#FFD3DF] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] ml-25 mb-6.5 relative">
+                <h1 className="font-silkscreen text-center text-[#E8466E] text-[64px] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] absolute top-6 left-14">3</h1>
+            </div>
+            <div className="w-[550px] h-[91px] bg-[#FFEFE0] opacity-[94%] rounded-[20px] border-[#F4A0B2] border-4 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-17 -ml-40 relative">
+                <h1 className="text-[#E8466E] text-[24px] font-silkscreen drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] absolute top-5.5 left-32">Game Instruction 3</h1>
+            </div>
+            <div className="w-[160px] h-[160px] rounded-[20px] bg-[#FFD3DF] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] ml-25 mb-10">
+                
+            </div>
             <div className="w-[550px] h-[91px] bg-[#FFEFE0] opacity-[94%] rounded-[20px] border-[#F4A0B2] border-4 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-19 -ml-40"></div>
         </div>
         </div>
