@@ -1,5 +1,5 @@
 import { beforeAll, afterAll, describe } from "vitest";
-import { getToken, login, logout } from "../../test-utils";
+import { login, logout } from "../../test-utils";
 import { UserProvider } from "src/context/User/UserContext";
 import { useUser } from "src/context/User/hooks/useUser";
 import { render, screen, waitFor } from "@testing-library/react";
@@ -8,7 +8,7 @@ import robot from 'src/assets/Robots/Pink_fighting.png'
 
 
 const MockComponent: React.FC = () => {
-    const { username, elo, avatar, error} = useUser();
+    const { username, elo, avatar, error } = useUser();
 
     return (
         <div>
@@ -35,7 +35,7 @@ describe("Tests user Provider", () => {
         // login the test user
         await login();
     })
-    
+
     beforeEach(async () => {
 
         render(

@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { joinMatchQueue, useMatchmakingSocket } from "src/context/Socket/hooks/useMatchmakingSocket";
 import { useSocket } from "src/context/Socket/hooks/useSocket"
 import { matchAccepted, matchDeclined } from "src/context/Socket/hooks/useMatchmakingSocket"
-import type MatchmakingUserDTO from "src/dtos/matchmaking.dto";
+import MatchmakingUserDTO from "src/dtos/matchmaking.dto";
+import { useUser } from "src/context/User/hooks/useUser";
 
 
 export function useFound() {
@@ -12,6 +13,7 @@ export function useFound() {
     const [path, setPath] = useState('');
     const nav = useNavigate();
     const [loading, setLoading] = useState(false);
+    const { elo } = useUser();
 
     const decline = () => {
         if (socket) {
@@ -35,8 +37,8 @@ export function useFound() {
     const gameDeclined = () => {
         setLoading(false);
 
-        const data = new MatchmakingUserDTO()
-        joinMatchQueue(socket,)
+        const data = new MatchmakingUserDTO(elo, game_mode);
+        joinMatchQueue(socket!,data);
     }
 
     const accept = () => {
