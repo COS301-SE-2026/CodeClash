@@ -12,7 +12,7 @@ import {
 import { Link } from 'react-router-dom'
 
 import pink_astronaut from '../../src/assets/Robots/pink_celebrate.png'
-import { LayoutDashboard, BookOpen, Trophy, BarChart2, Medal, Users, Settings } from 'lucide-react';
+import { LayoutDashboard, HelpCircle, Trophy, BarChart2, Medal, Users, Settings } from 'lucide-react';
 
 const navItems = [
 
@@ -20,7 +20,7 @@ const navItems = [
         label: 'Section1',
         items: [
             { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-            { to: '/game-guide', label: 'Game Guide', icon: BookOpen },
+            { to: '/help-menu', label: 'Help Menu', icon: HelpCircle },
         ]
 
     },
@@ -80,8 +80,17 @@ export function AppSidebar() {
                 <AppSidebarGroups></AppSidebarGroups>
             </SidebarContent>
 
-            <SidebarFooter>
-                <Link to='/settings' className='text-sm'>Settings</Link>
+            <SidebarFooter className='pb-4'>
+                <SidebarMenu>
+                    <SidebarMenuItem className='w-[100%] flex justify-center'>
+                        <SidebarMenuButton asChild className='w-[100%]'>
+                            <Link to="/settings" className= "w-[100%]">
+                                <Settings className='w-5 h-5 flex-shrink-0'/>
+                                <span className='group-data-[state=collapsed]:hidden text-sm'>Settings</span>
+                            </Link>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                </SidebarMenu>
             </SidebarFooter>
             <SidebarRail className='hidden' />
         </Sidebar>
