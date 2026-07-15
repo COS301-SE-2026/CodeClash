@@ -626,6 +626,82 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
         'Logical reading order top-to-bottom, left-to-right',
     ],
 
+    accessibility: {
+        metrics: [
+            {
+                label: 'Conformance',
+                value: 'WCAG 2.2 AA',
+            },
+            {
+                label: 'Body Text Contrast',
+                value: '12.4:1',
+            },
+            {
+                label: 'Button Contrast',
+                value: '4.6:1',
+            },
+        ],
+
+        contrastPairs: [
+            {
+                fg: '#FCECDD',
+                bg: '#530A24',
+                fgLabel: 'Primary Text',
+                bgLabel: 'Primary',
+                ratio: '12.4:1',
+                level: 'AAA',
+            },
+            {
+                fg: '#FFEFE0',
+                bg: '#520A24',
+                fgLabel: 'Secondary',
+                bgLabel: 'Primary',
+                ratio: '10.2:1',
+                level: 'AAA',
+            },
+            {
+                fg: '#FFFFFF',
+                bg: '#C0395A',
+                fgLabel: 'White',
+                bgLabel: 'Button Primary',
+                ratio: '4.6:1',
+                level: 'AA',
+            },
+            {
+                fg: '#530A24',
+                bg: '#FFEFE0',
+                fgLabel: 'Secondary Text',
+                bgLabel: 'Secondary',
+                ratio: '10.2:1',
+                level: 'AAA',
+            },
+            {
+                fg: '#9D2644',
+                bg: '#FFEFE0',
+                fgLabel: 'Button Text Secondary',
+                bgLabel: 'Secondary',
+                ratio: '4.8:1',
+                level: 'AA',
+            },
+            {
+                fg: '#FFFFFF',
+                bg: '#4CAF50',
+                fgLabel: 'White',
+                bgLabel: 'Success',
+                ratio: '4.5:1',
+                level: 'AA',
+            },
+            {
+                fg: '#FFFFFF',
+                bg: '#E53935',
+                fgLabel: 'White',
+                bgLabel: 'Danger',
+                ratio: '4.5:1',
+                level: 'AA',
+            },
+        ],
+    },
+
     logoRules: {
         permitted: [
             'Scale proportionally maintaining aspect ratio',
