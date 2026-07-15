@@ -60,6 +60,10 @@ export interface BrandStyleGuideContent {
 
     components: ComponentSpecs[];
     changelog: ChangelogEntries[];
+    voiceRules: {
+        do: string[];
+        dont: string[];
+    };
     accessibilityRules: string[];
 
     logoRules: {
@@ -579,6 +583,22 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
         rationale: 'Demo 1 screens had no visual identity, Demo 2 now fully establishes a cosmos theme that runs consistently across the App.',
     },
     ],
+
+    voiceRules: {
+        do: [
+            'Sign up - short, direct',
+            'Already have an account? - conversational',
+            'Password must be at least 8 characters - specific',
+            'Code sent! Check your email - confirmation of action',
+        ],
+
+        dont: [
+            'SIGN UP NOW - capital letters, pushy',
+            'Please enter your password - pleading',
+            'Error - vague with no action item or path foward',
+            'Password too short - vague and blame with no solution',
+        ],
+    },
 
     accessibilityRules: [ //Need to add more here
         'Conformance target: WCAG 2.2 AA minimum, AAA achieved for all body text pairings',
