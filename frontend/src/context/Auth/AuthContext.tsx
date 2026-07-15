@@ -28,7 +28,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
       })
       .catch(() => {
-        setUser(null)
+        setUser(null);
       })
       .finally(() => {
         setIsLoading(false)
@@ -37,14 +37,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     getToken();
   }, [])
 
-  const clearError = useCallback(() => setError(null), [])
+  const clearError = useCallback(() => setError(null), []);
 
   const signIn = useCallback(async (email: string, password: string) => {
-    setError(null)
+    setError(null);
     try {
-      await amplifySignIn({ username: email, password })
+      await amplifySignIn({ username: email, password });
 
-      const cognitoUser = await getCurrentUser()
+      const cognitoUser = await getCurrentUser();
 
       setUser({
         username: cognitoUser.username,
@@ -54,7 +54,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       setError((err instanceof Error) ? err.message : 'Sign in failed')
       throw err
     }
-  }, [])
+  }, []);
 
   const signUp = useCallback(async (data: { username: string; firstName: string; lastName: string; email: string; phoneNumber: string; password: string }) => {
     setError(null)
@@ -80,27 +80,27 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, [])
 
   const confirmSignUp = useCallback(async (username: string, code: string) => {
-    setError(null)
+    setError(null);
     try {
       await amplifyConfirmSignUp({ username, confirmationCode: code })
     } catch (err: unknown) {
       setError((err instanceof Error) ? err.message : 'Sign in failed')
       throw err
     }
-  }, [])
+  }, []);
 
   const resendSignUpCode = useCallback(async (username: string) => {
-    setError(null)
+    setError(null);
     try {
       await amplifyResendSignUpCode({ username })
     } catch (err: unknown) {
       setError((err instanceof Error) ? err.message : 'Sign in failed')
       throw err
     }
-  }, [])
+  }, []);
 
   const signOut = useCallback(async () => {
-    setError(null)
+    setError(null);
     try {
       await amplifySignOut()
       setUser(null)
@@ -129,7 +129,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     >
       {children}
     </AuthContext.Provider>
-  )
-}
+  );
+};
 
 

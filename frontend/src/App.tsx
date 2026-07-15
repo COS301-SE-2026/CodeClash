@@ -10,8 +10,11 @@ import Profile from "./Views/Profile";
 import Searching from "./Views/Searching";
 import SignIn from "./Views/SignIn";
 import SignUp from "./Views/SignUp";
-import Welcome from "./Views/Welcome";
-
+import Profile from "./Views/Profile";
+import MatchSearching from "./Views/MatchSearching";
+import MatchFound from "./Views/MatchFound";
+import MathMatch from "./pages/MathMatch";
+import ProgMatch from "./pages/ProgMatch";
 
 const App: React.FC = () => {
     return (
@@ -21,6 +24,8 @@ const App: React.FC = () => {
             <Route path='/sign-in' element={<SignIn/>}/>
             <Route path='/sign-up' element={<SignUp/>}/>
             <Route path='/profile' element={<Profile/>}/>
+            <Route path='/match-searching' element={<MatchSearching/>}/>
+            <Route path='/match-found' element={<MatchFound/>}/>
             <Route path='/searching' element={<Searching/>}/>
             <Route path='/found' element={<Found/>}/>
             <Route path='/math-match' element={<MathMatch/>}/>
