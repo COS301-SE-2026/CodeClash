@@ -605,17 +605,17 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
 
     voiceRules: {
         do: [
-            'Sign up - short, direct',
-            'Already have an account? - conversational',
-            'Password must be at least 8 characters - specific',
-            'Code sent! Check your email - confirmation of action',
+            'Sign up - Short, and direct',
+            'Already have an account? - Conversational',
+            'Password must be at least 8 characters - Specific',
+            'Code sent! Check your email - Confirmation of action',
         ],
 
         dont: [
-            'SIGN UP NOW - capital letters, pushy',
-            'Please enter your password - pleading',
-            'Error - vague with no action item or path foward',
-            'Password too short - vague and blame with no solution',
+            'SIGN UP NOW - Capital letters, and pushy',
+            'Please enter your password - Pleading',
+            'Error - Vague with no action item or path foward',
+            'Password too short - Vague and blame with no solution',
         ],
     },
 
