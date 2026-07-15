@@ -1,0 +1,18 @@
+frontend/@/components/shared/Loading.tsx
+  h_94c952a9e14c58 1-29
+frontend/src/Views/MatchFound.tsx
+  h_94c952a9e14c58 5,13,20,32,35,151-153
+frontend/src/ViewModels/MatchFoundViewModel.ts
+  h_94c952a9e14c58 25-26,93-95
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "4752f5c5f301257e97862faca832aff53dde03ad",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
