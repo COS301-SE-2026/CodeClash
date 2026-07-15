@@ -1,10 +1,10 @@
 import type React from 'react';
 import { useUser } from 'src/context/User/hooks/useUser';
-import { useFound } from 'src/ViewModels/FoundViewModel';
+import { MatchFoundViewModelFunction } from 'src/ViewModels/MatchFoundViewModel';
 
 const Found: React.FC = () => {
 
-  const { decline, accept} = useFound();
+  const { decline, accept} = MatchFoundViewModelFunction();
   const { username, elo } = useUser();
 
   return (

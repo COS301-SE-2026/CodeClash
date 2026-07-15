@@ -1,9 +1,9 @@
 
 import { describe, vi } from "vitest";
-import { useFound } from "src/ViewModels/FoundViewModel";
+import { MatchFoundViewModelFunction } from "src/ViewModels/MatchFoundViewModel";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
 import { useMatchmakingSocket, matchAccepted, matchDeclined, joinMatchQueue } from "src/context/Socket/hooks/useMatchmakingSocket";
-import { render, renderHook } from "@testing-library/react";
+import { renderHook } from "@testing-library/react";
 import { act } from "react";
 import type { Socket } from "socket.io-client";
 import MatchmakingUserDTO from "src/dtos/matchmaking.dto";
@@ -57,7 +57,7 @@ describe("Testing found view model", () => {
 
 
     it("Verifies listeners are registered correctly", () => {
-        renderHook(() => useFound());
+        renderHook(() => MatchFoundViewModelFunction());
 
         expect(mock_socket.on).toHaveBeenCalledWith('game_ready', expect.any(Function));
         expect(mock_socket.on).toHaveBeenCalledWith('decline_done', expect.any(Function));
@@ -66,7 +66,7 @@ describe("Testing found view model", () => {
 
 
     it("Tests decline for matched users", () => {
-        const { result } = renderHook(() => useFound());
+        const { result } = renderHook(() => MatchFoundViewModelFunction());
 
         act(() => {
             result.current.decline();
@@ -77,7 +77,7 @@ describe("Testing found view model", () => {
     })
 
     it("Tests accept for matched users", () => {
-        const { result } = renderHook(() => useFound());
+        const { result } = renderHook(() => MatchFoundViewModelFunction());
 
         act(() => {
             result.current.accept()
@@ -87,7 +87,7 @@ describe("Testing found view model", () => {
     })
 
     it("Test gameReady navigation", () => {
-        const { result } = renderHook(() => useFound())
+        const { result } = renderHook(() => MatchFoundViewModelFunction())
 
         act(() => {
             result.current.accept()
@@ -102,7 +102,7 @@ describe("Testing found view model", () => {
     })
 
     it("Tests declineGame navigation for the declining user", () => {
-        renderHook(() => useFound())
+        renderHook(() => MatchFoundViewModelFunction())
 
         act(() => {
             handlers.get('decline_done')!();
@@ -112,7 +112,7 @@ describe("Testing found view model", () => {
     })
 
     it("Tests gameDeclined requeues the declined user", () => {
-        renderHook(() => useFound());
+        renderHook(() => MatchFoundViewModelFunction());
 
         act(() => {
             handlers.get('game_declined')!();
@@ -134,14 +134,14 @@ describe("Testing found view model", () => {
         })
 
         it("Tests that not listeneres are registered when the socket is null", () => {
-            renderHook(() => useFound());
+            renderHook(() => MatchFoundViewModelFunction());
 
             expect(mock_socket.on).not.toHaveBeenCalled();
         })
 
 
         it("Tests accept returns an error when the socket is null", () => {
-            const { result } = renderHook(() => useFound())
+            const { result } = renderHook(() => MatchFoundViewModelFunction())
 
             act(() => {
                 result.current.accept();
@@ -151,7 +151,7 @@ describe("Testing found view model", () => {
         })
 
         it("Tests decline returns an error when the socket is null", () => {
-            const { result } = renderHook(() => useFound())
+            const { result } = renderHook(() => MatchFoundViewModelFunction())
 
             act(() => {
                 result.current.decline();
