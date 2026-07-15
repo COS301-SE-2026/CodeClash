@@ -22,6 +22,9 @@ export function MatchFoundViewModelFunction() {
   const [loading, setLoading] = useState(false);
   const [socket_error, setSocketError] = useState('');
 
+  const closeLoading = () => setLoading(false);
+  const openLoading = () => setLoading(true);
+
   const decline = () => {
     if (socket) {
       matchDeclined(socket, pair_id);
@@ -87,6 +90,8 @@ export function MatchFoundViewModelFunction() {
     decline,
     accept,
     loading,
-    socket_error
+    socket_error,
+    closeLoading,
+    openLoading
   };
 }

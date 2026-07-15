@@ -2,6 +2,7 @@ import pinkCelebrate from '../assets/Robots/pink_celebrate.png';
 import mercuryBackground from '../assets/Planets/double-mercury-background.png';
 import { Button } from '@/components/ui/button';
 import { MatchFoundViewModelFunction } from '../ViewModels/MatchFoundViewModel';
+import Loading from '@/components/shared/Loading';
 
 const headingFont = { fontFamily: 'var(--heading)' };
 
@@ -9,15 +10,14 @@ const actionButtonClass =
   'h-auto min-w-[18rem] cursor-pointer rounded-[1.75rem] px-8 py-4 text-[1.75rem] font-bold shadow-[0_18px_40px_rgba(0,0,0,0.28)] transition-all duration-300 hover:-translate-y-1 md:min-w-[24rem] md:text-[2rem]';
 
 const MatchFound = () => {
-  const { content, players, details, decline, accept } =
+  const { content, players, details, decline, accept, loading, openLoading, closeLoading } =
     MatchFoundViewModelFunction();
-
 
   const leftPlayer = players.find((player) => player.side === 'left');
   const rightPlayer = players.find((player) => player.side === 'right');
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#14050C] text-white">
+    <div className="relative w-full min-h-screen overflow-hidden bg-[#14050C] text-white">
       <div
         className="absolute inset-0"
         style={{
@@ -29,10 +29,10 @@ const MatchFound = () => {
       <img
         src={mercuryBackground}
         alt=""
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover object-[center_62%] opacity-55"
+        className="pointer-events-none absolute inset-0 h-full w-full object-[center_62%] opacity-55"
       />
 
-      <div className="relative z-10 flex min-h-screen flex-col items-center justify-between px-6 py-8 md:px-10 md:py-10">
+      <div className="relative z-10 flex flex-col items-center justify-between ">
         <div className="w-full text-center">
           <h1
             className="text-[2.4rem] font-bold leading-none text-[#FCECDD] md:text-[4rem] lg:text-[4.5rem]"
@@ -148,6 +148,9 @@ const MatchFound = () => {
           </Button>
         </div>
       </div>
+
+
+      {loading && <Loading isOpen={loading} onClose={closeLoading}></Loading>}
     </div>
   );
 };
