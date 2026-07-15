@@ -14,11 +14,15 @@ export function useFound() {
     const nav = useNavigate();
     const [loading, setLoading] = useState(false);
     const { elo } = useUser();
+    const [socket_error, setSocketError] = useState('');
 
     const decline = () => {
         if (socket) {
             matchDeclined(socket, pair_id);
             setLoading(true);
+        }
+        else{
+            setSocketError('Disconnected');
         }
     }
 
@@ -48,7 +52,9 @@ export function useFound() {
             matchAccepted(socket, pair_id);
             setLoading(true);
         }
-
+        else{
+            setSocketError('Disconnected');
+        }
     }
 
     useEffect(() => {
@@ -68,5 +74,5 @@ export function useFound() {
         }
     }, [socket, path])
 
-    return { decline, accept, loading }
+    return { decline, accept, loading, socket_error }
 }

@@ -22,8 +22,8 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'lcov'],
-      include: ['@/components/**/*.tsx'],
-      exclude: ['@/components/ui/**', '@/hooks/**', '**/node_modules/**', '**/*.config.*'],
+      include: ['@/components/**/*.tsx', 'src/ViewModels/**/*.ts', 'src/context/**/*.tsx'],
+      exclude: ['@/components/ui/**', '@/hooks/**', '**/node_modules/**', '**/*.config.*', 'src/context/**/hooks/**'],
     },
 
     globals: true,

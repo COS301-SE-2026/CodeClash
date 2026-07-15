@@ -124,4 +124,41 @@ describe("Testing found view model", () => {
         expect(mock_nav).toHaveBeenCalledWith('/searching')
     })
 
+
+
+
+    describe("Tests behaviour with a null socker", () => {
+
+        beforeEach(() => {
+            vi.mocked(useSocket).mockReturnValue({ socket: null, isConnected: false });
+        })
+
+        it("Tests that not listeneres are registered when the socket is null", () => {
+            renderHook(() => useFound());
+
+            expect(mock_socket.on).not.toHaveBeenCalled();
+        })
+
+
+        it("Tests accept returns an error when the socket is null", () => {
+            const { result } = renderHook(() => useFound())
+
+            act(() => {
+                result.current.accept();
+            })
+
+            expect(result.current.socket_error).toBe("Disconnected");
+        })
+
+        it("Tests decline returns an error when the socket is null", () => {
+            const { result } = renderHook(() => useFound())
+
+            act(() => {
+                result.current.decline();
+            })
+
+            expect(result.current.socket_error).toBe("Disconnected");
+        })
+    })
+
 })
