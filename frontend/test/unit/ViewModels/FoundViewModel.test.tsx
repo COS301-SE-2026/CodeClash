@@ -3,9 +3,10 @@ import { describe, vi } from "vitest";
 import { useFound } from "src/ViewModels/FoundViewModel";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
 import { useMatchmakingSocket, matchAccepted, matchDeclined, joinMatchQueue } from "src/context/Socket/hooks/useMatchmakingSocket";
-import { renderHook } from "@testing-library/react";
+import { render, renderHook } from "@testing-library/react";
 import { act } from "react";
 import type { Socket } from "socket.io-client";
+import MatchmakingUserDTO from "src/dtos/matchmaking.dto";
 
 vi.mock('src/context/Socket/hooks/useSocket', () => ({
     useSocket: vi.fn()
@@ -60,7 +61,7 @@ describe("Testing found view model", () => {
 
         expect(mock_socket.on).toHaveBeenCalledWith('game_ready', expect.any(Function));
         expect(mock_socket.on).toHaveBeenCalledWith('decline_done', expect.any(Function));
-        expect(mock_socket.on).toHaveBeenCalledWith('game_declined', expect.any(Function));  
+        expect(mock_socket.on).toHaveBeenCalledWith('game_declined', expect.any(Function));
     })
 
 
@@ -101,8 +102,26 @@ describe("Testing found view model", () => {
     })
 
     it("Tests declineGame navigation for the declining user", () => {
-        
+        renderHook(() => useFound())
 
+        act(() => {
+            handlers.get('decline_done')!();
+        })
+
+        expect(mock_nav).toHaveBeenCalledWith('/dashboard');
+    })
+
+    it("Tests gameDeclined requeues the declined user", () => {
+        renderHook(() => useFound());
+
+        act(() => {
+            handlers.get('game_declined')!();
+        })
+
+        const data = new MatchmakingUserDTO(600, 'math');
+
+        expect(joinMatchQueue).toHaveBeenCalledWith(mock_socket, data);
+        expect(mock_nav).toHaveBeenCalledWith('/searching')
     })
 
 })

@@ -39,6 +39,7 @@ export function useFound() {
 
         const data = new MatchmakingUserDTO(elo, game_mode);
         joinMatchQueue(socket!,data);
+        nav('/searching')
     }
 
     const accept = () => {
