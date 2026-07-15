@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate  } from 'react-router-dom';
-import { useSearch } from 'src/ViewModels/SearchingViewModel';
+import { useSearch } from 'src/ViewModels/MatchSearchingViewModel';
 
 const Searching: React.FC = () => {
   const [seconds, setSeconds] = useState(0);

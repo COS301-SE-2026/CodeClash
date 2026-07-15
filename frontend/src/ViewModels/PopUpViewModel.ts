@@ -22,7 +22,7 @@ export function useSelectTopic() {
         const data = new MatchmakingUserDTO(elo, selected_topic)
 
         joinMatchQueue(socket, data)
-        navigation('/searching');
+        navigation('/match-searching');
 
     }
     return selectTopic;

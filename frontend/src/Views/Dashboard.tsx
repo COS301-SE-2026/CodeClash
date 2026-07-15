@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-
 import backgroundImg from '../assets/Background/dashboard.png'
 import aiIcon from '../assets/Icons/AI.png';
 import brainIcon from '../assets/Icons/Brain.png';
@@ -8,9 +6,7 @@ import profileIcon from '../assets/Icons/Profile.png';
 import searchIcon from '../assets/Icons/Search.png';
 import robot from '../assets/Robots/Pink_fighting.png'
 import { useShowPopUp } from '../ViewModels/DashboardViewModel';
-
 import Popup from './Popup'
-
 import GlassCard from '@/components/shared/GlassCard'
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -73,11 +69,13 @@ const Dashboard = () => {
             </CardHeader>
             <CardContent className='flex'>
               <CardAction className='flex flex-col w-[100%] h-[6rem] justify-between'>
-                <Button asChild variant={'default'} className='h-[45%] bg-pink-300 text-sm font-semibold'>
-                  <Link to="/match-searching">Ranked Play</Link>
+                <Button variant={'default'} className='h-[45%] bg-pink-300 text-sm font-semibold'
+                  onClick={openPopUp}>
+                  Ranked Play
                 </Button>
-                <Button asChild variant={'secondary'} className='h-[45%] bg-secondary text-primary text-sm font-semibold hover:bg-[#C0AF9C]'>
-                  <Link to="/match-searching">Casual Play</Link>
+                <Button variant={'secondary'} className='h-[45%] bg-secondary text-primary text-sm font-semibold hover:bg-[#C0AF9C]'
+                  onClick={openPopUp}>
+                  Casual Play
                 </Button>
               </CardAction>
             </CardContent>

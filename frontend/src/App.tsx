@@ -2,11 +2,8 @@ import type React from "react";
 import { Route, Routes } from "react-router-dom";
 
 import Layout from "./layout";
-import MathMatch from "./pages/MathMatch";
-import ProgMatch from "./pages/ProgMatch";
 import Found from "./Views/Found";
 import Dashboard from "./Views/Dashboard";
-import Profile from "./Views/Profile";
 import Searching from "./Views/Searching";
 import SignIn from "./Views/SignIn";
 import SignUp from "./Views/SignUp";
@@ -15,6 +12,7 @@ import MatchSearching from "./Views/MatchSearching";
 import MatchFound from "./Views/MatchFound";
 import MathMatch from "./pages/MathMatch";
 import ProgMatch from "./pages/ProgMatch";
+import Welcome from "./Views/Welcome";
 
 const App: React.FC = () => {
     return (
