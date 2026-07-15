@@ -28,14 +28,14 @@ const TokenTable: React.FC<TableProps> = ({title, rows, clipboardCopy, copied}) 
             ))}
         </div>
         {rows.map(row => (
-          <div key={row.token} onClick={() => clipboardCopy(`var(${row.token})`, row.token)}
+          <button key={row.token} onClick={() => clipboardCopy(`var(${row.token})`, row.token)}
             onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && clipboardCopy(`var(${row.token})`, row.token)}
             role="button" tabIndex={0}
             className="grid grid-cols-3 px-4 border-b border-gray-50 cursor-pointer hover:bg-gray-50 transition-colors duration-100 last:border-b-0 text-left w-full">
                 <code className="text-xs text-[#530A24]">{copied === row.token ? 'Copied!' : row.token}</code>
                 <code className="text-xs text-gray-500 pr-2">{row.value}</code>
                 <span className="text-xs text-gray-500">{row.description}</span>
-            </div>
+            </button>
         ))}
     </div>
 );
