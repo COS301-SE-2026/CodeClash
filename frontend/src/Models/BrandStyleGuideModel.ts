@@ -38,6 +38,20 @@ export interface ChangelogEntries { //This will show what changed from Demo 1 an
     rationale: string;
 }
 
+export interface Accessibility {
+    label: string;
+    value: string;
+}
+
+export interface ContrastPairs {
+    fg: string,
+    bg: string,
+    fgLabel: string;
+    bgLabel: string,
+    ratio: string,
+    level: "AA" | "AAA";
+}
+
 export interface BrandStyleGuideContent {
     meta: {
         version: string;
@@ -65,6 +79,11 @@ export interface BrandStyleGuideContent {
         dont: string[];
     };
     accessibilityRules: string[];
+
+    accessibility: {
+        metrics: Accessibility[];
+        contrastPairs: ContrastPairs[];
+    };
 
     logoRules: {
         permitted: string[];
