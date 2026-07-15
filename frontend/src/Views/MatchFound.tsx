@@ -12,6 +12,7 @@ const MatchFound = () => {
   const { content, players, details, decline, accept } =
     MatchFoundViewModelFunction();
 
+
   const leftPlayer = players.find((player) => player.side === 'left');
   const rightPlayer = players.find((player) => player.side === 'right');
 

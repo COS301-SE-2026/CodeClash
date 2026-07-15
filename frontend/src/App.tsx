@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import Layout from "./layout";
 import Found from "./Views/Found";
 import Dashboard from "./Views/Dashboard";
-import Searching from "./Views/Searching";
+import Searching from "./Views/MatchSearching";
 import SignIn from "./Views/SignIn";
 import SignUp from "./Views/SignUp";
 import Profile from "./Views/Profile";
