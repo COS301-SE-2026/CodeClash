@@ -72,16 +72,12 @@ const LogoSection: React.FC<Props> = ({content}) => {
                 <div className="flex gap-3 flex-wrap mb-5">
                     {[
                         {
-                            size: '16px/w-4 h-4',
-                            use: 'Inline/labels',
+                            size: '20px / w-5 h-5',
+                            use: 'Header icons - Search, Bot, UserCircle',
                         },
                         {
-                            size: '20px/w-5 h-5',
-                            use: 'Buttons/nav',
-                        },
-                        {
-                            size: '24px/w-6 h-6',
-                            use: 'Standalone/decorative',
+                            size: '24px / w-6 h-6',
+                            use: 'Standalone / decorative icons',
                         }
                     ].map (item => (
                         <div key = {item.size} className="border border-gray-100 rounded-lg px-4 py-2">
@@ -91,28 +87,52 @@ const LogoSection: React.FC<Props> = ({content}) => {
                     ))}
                 </div>
 
-                <div className="bg-gray-50 rounded-xl p-5 flex flex-wrap gap-6 items-center mb-5">
+                <div className="bg-gray-50 rounded-xl p-5 flex flex-wrap gap-8 items-center mb-5">
                     {[
                         {
                             label: 'Search',
-                            svg: '',
+                            svg: 'M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z',
                         },
                         {
-                            label: 'User',
-                            svg: '',
+                            label: 'UserCircle',
+                            svg: 'M18.364 18.364A9 9 0 0 0 12 3a9 9 0 0 0-6.364 15.364M15 11a3 3 0 1 1-6 0 3 3 0 0 1 6 0z',
+                        },
+                        {
+                            label: 'Bot',
+                            svg: 'M12 8V4H8M4 8h16M4 8v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8M9 12h.01M15 12h.01',
+                        },
+                        {
+                            label: 'Dashboard',
+                            svg: 'M3 9h8V3H3v6zM3 21h9v-6H3v6zM13 21h8v-6h-8v6zM13 3v6h8V3h-8z',
+                        },
+                        {
+                            label: 'Help Menu',
+                            svg: 'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01',
                         },
                         {
                             label: 'Trophy',
-                            svg: '',
+                            svg: 'M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22m14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22M18 2H6v7a6 6 0 0 0 12 0V2z',
+                        },
+                        {
+                            label: 'BarChart',
+                            svg: 'M18 20V10M12 20V4M6 20v-6',
+                        },
+                        {
+                            label: 'Medal',
+                            svg: 'M7.21 15 2.66 7.14a2 2 0 0 1 .13-2.2L4.4 2.8A2 2 0 0 1 6 2h12a2 2 0 0 1 1.6.8l1.6 2.14a2 2 0 0 1 .14 2.2L16.79 15M11 12 5.12 2.2M13 12l5.88-9.8M8 7h8M12 12v8M8 22h8',
+                        },
+                        {
+                            label: 'Users',
+                            svg: 'M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75',
                         },
                         {
                             label: 'Settings',
-                            svg: '',
+                            svg: 'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z',
                         },
                     ].map(icon => (
                         <div key = {icon.label} className="flex flex-col items-center gap-1.5">
-                            <svg>
-                                {/*Still need to find and switch to svg so will come back here*/}
+                            <svg xmlns = "https://www.w3.org/2000/svg" width= "24" height= "24" viewBox = "0 0 24 24" fill="none" stroke = "#530a23" strokeWidth= "2" strokeLinecap = "round" strokeLinejoin = "round">
+                                <path d={icon.svg}/>
                             </svg>
                             <span className="text-xs text-gray-400">{icon.label}</span> 
                         </div>
