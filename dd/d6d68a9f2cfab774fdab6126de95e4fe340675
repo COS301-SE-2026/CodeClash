@@ -1,0 +1,22 @@
+frontend/test/unit/ViewModels/FoundViewModel.test.tsx
+  h_94c952a9e14c58 3,60,69,80,90,105,115,137,144,154
+frontend/src/ViewModels/MatchFoundViewModel.ts
+  h_94c952a9e14c58 7-14,16-59,61-82,87-90
+frontend/src/Views/Found.tsx
+  h_94c952a9e14c58 3,7
+frontend/src/Views/MatchFound.tsx
+  h_94c952a9e14c58 12,38-43,66-69,72-73,76,85,98,107,130,135,143,150
+frontend/src/ViewModels/MatchSearchingViewModel.ts
+  h_94c952a9e14c58 1,3,36-64
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "ddd6d68a9f2cfab774fdab6126de95e4fe340675",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
