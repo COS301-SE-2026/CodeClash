@@ -14,20 +14,7 @@ const AccessibilitySection: React.FC<Props> = ({content}) => {
             id = "accessibility" eyebrow = "07 - Accessibility" title="Accessibility" description="Conformance target is WCAG 2.2 minimum. AAA is achieved for all body text paitings on the primary dark background.">
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
-                {[
-                    {
-                        label: 'Conformance',
-                        value: 'WCAG 2.2 AA',
-                    },
-                    {
-                        label: 'Body Text Contrast',
-                        value: '12.4:1',
-                    },
-                    {
-                        label: 'Button Contrast',
-                        value: '4.6:1',
-                    },
-                ].map(item => (
+                {content.accessibility.metrics.map(item => (
                     <div key = {item.label} className="border border-gray-100 rounded-xl p-4 text-center">
                         <p className="text-xs text-gray-400 uppercase tracking-widest mb-1">{item.label}</p>
                         <p className="text-xs font-semibold text-gray-900">{item.value}</p>
@@ -47,64 +34,7 @@ const AccessibilitySection: React.FC<Props> = ({content}) => {
                         <p key = {h} className="text-xs text-gray-400 uppercase tracking-widest font-medium">{h}</p>
                     ))}
                 </div>
-                {[
-                    {
-                        fg: '#FCECDD',
-                        bg: '#530A24',
-                        fgLabel: 'Primary Text',
-                        bgLabel: 'Primary',
-                        ratio: '12.4:1',
-                        level: 'AAA',
-                    },
-                    {
-                        fg: '#FFEFE0',
-                        bg: '#520A24',
-                        fgLabel: 'Secondary',
-                        bgLabel: 'Primary',
-                        ratio: '10.2:1',
-                        level: 'AAA',
-                    },
-                    {
-                        fg: '#FFFFFF',
-                        bg: '#C0395A',
-                        fgLabel: 'White',
-                        bgLabel: 'Button Primary',
-                        ratio: '4.6:1',
-                        level: 'AA',
-                    },
-                    {
-                        fg: '#530A24',
-                        bg: '#FFEFE0',
-                        fgLabel: 'Secondary Text',
-                        bgLabel: 'Secondary',
-                        ratio: '10.2:1',
-                        level: 'AAA',
-                    },
-                    {
-                        fg: '#9D2644',
-                        bg: '#FFEFE0',
-                        fgLabel: 'Button Text Secondary',
-                        bgLabel: 'Secondary',
-                        ratio: '4.8:1',
-                        level: 'AA',
-                    },
-                    {
-                        fg: '#FFFFFF',
-                        bg: '#4CAF50',
-                        fgLabel: 'White',
-                        bgLabel: 'Success',
-                        ratio: '4.5:1',
-                        level: 'AA',
-                    },
-                    {
-                        fg: '#FFFFFF',
-                        bg: '#E53935',
-                        fgLabel: 'White',
-                        bgLabel: 'Danger',
-                        ratio: '4.5:1',
-                        level: 'AA',
-                    },
-                ].map((pair, i, arr) => (
+                {content.accessibility.contrastPairs.map((pair, i, arr) => (
                     <div key = {pair.fgLabel + pair.bgLabel} className= {`grid grid-cols-4 px-4 py-3 items-center ${i<arr.length -1 ? 'border-b border-gray-50' : ''}`}>
                         <div className="flex items-center gap-2">
                             <div className="w-4 h-4 rounded border border-gray-200 flex-shrink-0" style = {{background: pair.fg}} />
