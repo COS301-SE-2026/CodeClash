@@ -19,7 +19,7 @@ const ColorsCategory: Record<string, string> = {
 const ChangelogSection: React.FC<Props> = ({content}) => {
     return (
         <SharedLayout
-            id = "changelog" eyebrow="08 - Changelog" title = "Demo 1 → Demo 2" description = "What changed between Demo 1 and Demo 2 with rationale for each decision. This proves the guide has evolved based on real implementation decisions.">
+            id = "changelog" eyebrow="09 - Changelog" title = "Demo 1 → Demo 2" description = "What changed between Demo 1 and Demo 2 with rationale for each decision. This proves the guide has evolved based on real implementation decisions.">
             
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 mb-8">
                 {content.changelog.map(entry => (
