@@ -1,6 +1,6 @@
 import type React from 'react';
+import { useUser } from 'src/context/User/hooks/useUser';
 import { useFound } from 'src/ViewModels/FoundViewModel';
-import { useUser } from 'src/ViewModels/SharedViewModel';
 
 const Found: React.FC = () => {
 

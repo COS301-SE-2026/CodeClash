@@ -8,7 +8,6 @@ import profileIcon from '../assets/Icons/Profile.png';
 import searchIcon from '../assets/Icons/Search.png';
 import robot from '../assets/Robots/Pink_fighting.png'
 import { useShowPopUp } from '../ViewModels/DashboardViewModel';
-import { useUser, getUserElo, getUserToken } from '../ViewModels/SharedViewModel';
 
 import Popup from './Popup'
 
@@ -17,6 +16,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
+import { useUser } from 'src/context/User/hooks/useUser';
 
 
 // View Model
@@ -24,21 +24,7 @@ import { Progress } from '@/components/ui/progress';
 
 const Dashboard = () => {
   const { isOpen, openPopUp, closePopUp } = useShowPopUp();
-  const { username } = useUser();
-  const [elo, setElo] = useState<number | null>(null);
-
-  useEffect(() => {
-
-    const getElo = async () => {
-      const token = await getUserToken();
-      const user_elo = await getUserElo(token);
-
-      setElo(user_elo);
-    }
-
-    getElo();
-
-  }, [elo])
+  const { username, elo } = useUser();
 
   return (
     <div style={{ backgroundImage: `url(${backgroundImg})` }} className='w-full h-[20] h-screen bg-cover bg-center flex flex-col items-center'>
