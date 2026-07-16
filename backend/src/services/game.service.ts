@@ -1,9 +1,15 @@
 
+export const gameService = (player_ids: string[]) => {
+    let result;
+    let match_id;
 
-interface GameServiceProps {
-    player_ids: string[]
-}
 
-export const GameService = ({ player_ids }: GameServiceProps) => {
+
+    // 1. Fecth Questions
+    // 2. Organise questions into rounds
+    // 3. Creat entities Components - use world 
+
+
+    
 
 }

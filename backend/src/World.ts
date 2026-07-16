@@ -1,4 +1,15 @@
-import { Badge_Component, Component, Life_Component, Match_Component, MatchComponentTypes, PlayerComponentTypes, Players_Component, Rank_Component } from "./ECS/components";
+import {
+    Badge_Component,
+    Component,
+    Life_Component,
+    Match_Component,
+    MatchComponentTypes,
+    PlayerComponentTypes,
+    Players_Component,
+    Rank_Component,
+    Submission_Component,
+    Round_Component
+} from "./ECS/components";
 
 function addComponent(
     map: Map<number, Map<string, Component>>,
@@ -103,11 +114,11 @@ export const World = () => {
     }
 
     // NEED TO ADD  TEMPLATE TYPES
-    function getRoundComponent(entity_id: number, component_name: string) {
-        return getComponent(rounds, entity_id, component_name);
+    function getRoundComponent<T extends Round_Component>(entity_id: number, component_name: string) {
+        return getComponent<T>(rounds, entity_id, component_name);
     }
 
-    function getSubmissionsComponent(entity_id: number, component_name: string) {
-        return getComponent(submissions, entity_id, component_name);
+    function getSubmissionsComponent<T extends Submission_Component>(entity_id: number, component_name: string) {
+        return getComponent<T>(submissions, entity_id, component_name);
     }
 }

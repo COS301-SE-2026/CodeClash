@@ -42,6 +42,32 @@ export interface Badge_Component {
     unlocked_at: Date
 }
 
+/********************************** */
+
+/** ROUND ENTITY */
+
+export interface Round_Component {
+    match_id: number,
+    questions_ids: number,
+    start_time: Date,
+    end_time: Date,
+    question_number: number
+}
+
+/********************************** */
+
+/** SUBMISSION ENTITY */
+
+export interface Submission_Component {
+    player_id: number,
+    round_id: number,
+    question_id: number,
+    attempt_number: number,
+    answer: string,
+    language: string
+    status: string,
+    submitted_at: Date
+}
 
 
 // union for all components - for the map
@@ -49,5 +75,9 @@ export interface Badge_Component {
 export type PlayerComponentTypes = Life_Component | Rank_Component | Badge_Component;
 export type MatchComponentTypes = Players_Component | Match_Component;
 
-export type Component = PlayerComponentTypes | MatchComponentTypes;
+export type Component =
+    PlayerComponentTypes |
+    MatchComponentTypes |
+    Round_Component |
+    Submission_Component;
 

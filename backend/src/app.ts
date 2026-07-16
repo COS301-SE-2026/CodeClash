@@ -15,6 +15,7 @@ app.use(express.json());
 app.use('/api/elo', routes);
 app.use('/api/match', routes);
 app.use('/api/user',routes);
+app.use('/api/qustion');
 
 app.get('/health', (req: Request, res: Response) => {
   res.json({ status: 'ok' });

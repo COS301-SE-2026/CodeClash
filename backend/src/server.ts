@@ -6,6 +6,7 @@ import { dequeue, matchmaking } from './services/matchmaking.service';
 import MatchmakingUserDTO from './dtos/matchmaking.dto';
 
 import dotnev from 'dotenv'
+import { gameService } from './services/game.service';
 dotnev.config()
 
 const options = {
@@ -90,6 +91,7 @@ io.on("connection", (socket) => {
         if (bothAccepted) {
             // call the game service to create the game
             const keys = [...pair!.keys()];
+           const setup =  gameService(keys);
         }
         else {
             // waiting for the other player to accept
