@@ -1,4 +1,18 @@
-import { Badge_Component, Component, Life_Component, Rank_Component } from "./ECS/components";
+import { Badge_Component, Component, Life_Component, Match_Component, Players_Component, Rank_Component } from "./ECS/components";
+
+function addComponent(
+    map: Map<number, Map<string, Component>>, entity_id: number,
+    component_name: string,
+    component: Component
+): boolean {
+
+    const entity = map.get(entity_id);
+
+    if (entity === undefined) return false;
+
+    entity.set(component_name, component);
+    return true;
+}
 
 export const World = () => {
     // Map<id, Map<component_name, Component>>
@@ -20,19 +34,40 @@ export const World = () => {
         component_name: string,
         component: Life_Component | Rank_Component | Badge_Component
     ): boolean {
-        const player = players.get(entity_id);
+        return addComponent(players, entity_id, component_name, component);
+    }
 
-        if (player === undefined)    //entity doesn't exist
-            return false;
-
-
-        player.set(component_name, component);
-        return true;
+    function addMatchComponent(
+        entity_id: number,
+        component_name: string,
+        component: Players_Component | Match_Component
+    ): boolean {
+        return addComponent(matches, entity_id, component_name, component)
     }
 
 
-    function addComponent(map: Map<number, Map<string, Component>>, component: Component, enitity: number): boolean {
-
+    function addRoundComponent(
+        entity_id: number,
+        component_name: string,
+        component: Players_Component | Match_Component
+    ): boolean {
+        return addComponent(rounds, entity_id, component_name, component)
     }
 
+    function addSubmissionComponent(
+        entity_id: number,
+        component_name: string,
+        component: Players_Component | Match_Component
+    ): boolean {
+        return addComponent(submissons, entity_id, component_name, component)
+    }
+
+
+    function addResultComponent(
+        entity_id: number,
+        component_name: string,
+        component: Players_Component | Match_Component
+    ): boolean {
+        return addComponent(results, entity_id, component_name, component)
+    }
 }
