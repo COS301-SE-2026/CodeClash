@@ -1,0 +1,20 @@
+frontend/test/unit/PopUp.test.tsx
+  h_94c952a9e14c58 4,6-14,24-25,35,46,58,62-63,66,69-70,79-80,83,85-86,89-90
+frontend/test/unit/MathField.test.tsx
+  h_94c952a9e14c58 21-23
+frontend/@/components/shared/PopUp.tsx
+  h_94c952a9e14c58 1-52
+frontend/src/Views/Popup.tsx
+  h_94c952a9e14c58 38-39,47,53-54,62,70-71,73,77
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "cdbaed3027d5031517c306fca6b96e8539f5d6c1",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
