@@ -1,16 +1,14 @@
 
-import searchIcon from '../assets/Icons/Search.png';
-import aiIcon from '../assets/Icons/AI.png';
-import profileIcon from '../assets/Icons/Profile.png';
 import backgroundImg from '../assets/Background/dashboard.png'
 import robot from '../assets/Robots/Pink_fighting.png'
-import brainIcon from '../assets/Icons/Brain.png';
+import brainIcon from '../assets/Icons/Brain.png'; //this is png cause brain contributes to theme of learning for thr game
 import GlassCard from '@/components/shared/GlassCard'
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
+import {Search, Bot, UserCircle} from 'lucide-react';
 
 const Dashboard = () => {
   return (
@@ -19,17 +17,19 @@ const Dashboard = () => {
       <div className='w-[100%] h-[10%] bg-black/80 flex justify-between items-center pl-5 mb-20'>
 
         {/* Search bar */}
-        <div className='flex items-center bg-pink-800/30 text-white w-[40%] h-[35%] rounded-3xl'>
-          <img src={searchIcon} alt='search' className='h-[100%] pl-3 pr-3' />
+        <div className='flex items-center bg-pink-800/30 text-white w-[40%] h-[35%] rounded-3xl px-4 gap-4'>
+          <Search className='text-white w-5 h-5 flex-shrink-0'/>
           <p className='text-sm font-light'>Search...</p>
         </div>
 
         {/* AI and Profile */}
-        <div className='flex items-center w-[15%] h-full justify-evenly'>
-          <img src={aiIcon} alt='AI' className=' h-[55%]' />
+        <div className='flex items-center w-[10%] h-full justify-evenly gap-5 pr-4'>
+          <button className='flex items-center justify-center bg-transparent border-none cursor-pointer hover:opacity-80 transition-opacity'>
+            <Bot className='text-white w-7 h-7'/>
+          </button>
 
           <Link to="/profile" className="h-[55%]">
-            <img src={profileIcon} alt='Profile' className=' h-[100%]' />
+            <UserCircle className='text-white w-6 h-6 h-[100%]' />
           </Link>
 
 
