@@ -94,20 +94,20 @@ export const World = () => {
 
     // GETTERS
 
-    function getPlayerComponents<T extends PlayerComponentTypes>(entity_id: number, component_name: string) {
+    function getPlayerComponent<T extends PlayerComponentTypes>(entity_id: number, component_name: string) {
         return getComponent<T>(players, entity_id, component_name);
     }
 
-    function getMatchComponents<T extends MatchComponentTypes>(entity_id: number, component_name: string) {
+    function getMatchComponent<T extends MatchComponentTypes>(entity_id: number, component_name: string) {
         return getComponent<T>(matches, entity_id, component_name);
     }
 
     // NEED TO ADD  TEMPLATE TYPES
-    function getRoundComponents(entity_id: number, component_name: string) {
+    function getRoundComponent(entity_id: number, component_name: string) {
         return getComponent(rounds, entity_id, component_name);
     }
 
-    function getSubmissionsComponents(entity_id: number, component_name: string) {
+    function getSubmissionsComponent(entity_id: number, component_name: string) {
         return getComponent(submissions, entity_id, component_name);
     }
 }
