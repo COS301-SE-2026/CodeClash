@@ -33,6 +33,23 @@ export function ConfirmationViewModelFunction({
         }
     }, [suppressedRound, onConfirm]);
 
+    const handleConfirm = useCallback(() => { //when user presses submit
+        if (dontAskAgain) { //if on the submit, they pressed not to show the popup again, the the popup will be suppressed for the round
+            setSuppressedRound(true);
+        }
+        setIsVisible(false);
+        onConfirm();
+    },[dontAskAgain, onConfirm]);
+
+    const handleCancel = useCallback(()=> {
+        setIsVisible(false);
+        onCancel();
+    }, [onCancel]);
+
+    const handleDontAsk = useCallback((checked:boolean) => {
+        setDontAskAgain(checked);
+    }, []);
+
     return {
         content: confirmationContent,
         isVisible,
