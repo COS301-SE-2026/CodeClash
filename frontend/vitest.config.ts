@@ -14,7 +14,7 @@ export default defineConfig({
 
     //collect coverage 
     coverage: {
-      provider: 'v8',
+      provider: 'istanbul',
       reporter: ['text', 'lcov'],
       include: ['@/components/**/*.tsx'],
       exclude: ['@/components/ui/**', '@/hooks/**', '**/node_modules/**', '**/*.config.*'],

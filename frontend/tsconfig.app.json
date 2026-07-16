@@ -30,5 +30,5 @@
     }
 
   },
-  "include": ["src", "@", "src/amplify-config.ts", "root", "src/context/Auth/AuthContext.tsx"],
+  "include": ["src", "@", "src/amplify-config.ts", "root"],
 }
