@@ -18,9 +18,9 @@ describe("MathField", () => {
 
     expect(mathField).not.toBeNull();
 
-    fireEvent.input(mathField!, {
-      target: { value: "x+1" },
-    });
+    // fireEvent.input(mathField!, {
+    //   target: { value: "x+1" },
+    // });
     
 
     Object.defineProperty(mathField, "value", {
