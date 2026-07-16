@@ -46,10 +46,8 @@ export interface Badge_Component {
 
 // union for all components - for the map
 
-export type Component =
-    Players_Component |
-    Match_Component |
-    Life_Component |
-    Rank_Component |
-    Badge_Component;
+export type PlayerComponentTypes = Life_Component | Rank_Component | Badge_Component;
+export type MatchComponentTypes = Players_Component | Match_Component;
+
+export type Component = PlayerComponentTypes | MatchComponentTypes;
 

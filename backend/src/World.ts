@@ -1,7 +1,8 @@
-import { Badge_Component, Component, Life_Component, Match_Component, Players_Component, Rank_Component } from "./ECS/components";
+import { Badge_Component, Component, Life_Component, Match_Component, MatchComponentTypes, PlayerComponentTypes, Players_Component, Rank_Component } from "./ECS/components";
 
 function addComponent(
-    map: Map<number, Map<string, Component>>, entity_id: number,
+    map: Map<number, Map<string, Component>>,
+    entity_id: number,
     component_name: string,
     component: Component
 ): boolean {
@@ -14,13 +15,30 @@ function addComponent(
     return true;
 }
 
+function getComponent<T extends Component>(
+    map: Map<number, Map<string, Component>>,
+    entity_id: number,
+    component_name: string
+): T | null {
+
+    const entity = map.get(entity_id);
+
+    if (entity === undefined) return null;
+
+    const component = entity.get(component_name);
+
+    if (component === undefined) return null;
+
+    return component as T;
+}
+
 export const World = () => {
     // Map<id, Map<component_name, Component>>
 
     const players = new Map<number, Map<string, Component>>();
     const matches = new Map<number, Map<string, Component>>();
     const rounds = new Map<number, Map<string, Component>>();
-    const submissons = new Map<number, Map<string, Component>>();
+    const submissions = new Map<number, Map<string, Component>>();
     const results = new Map<number, Map<string, Component>>();
 
     let ID = 0;
@@ -29,6 +47,8 @@ export const World = () => {
         return ID++;
     }
 
+
+    // ADDERS
     function addPlayerComponent(
         entity_id: number,
         component_name: string,
@@ -59,7 +79,7 @@ export const World = () => {
         component_name: string,
         component: Players_Component | Match_Component
     ): boolean {
-        return addComponent(submissons, entity_id, component_name, component)
+        return addComponent(submissions, entity_id, component_name, component)
     }
 
 
@@ -69,5 +89,25 @@ export const World = () => {
         component: Players_Component | Match_Component
     ): boolean {
         return addComponent(results, entity_id, component_name, component)
+    }
+
+
+    // GETTERS
+
+    function getPlayerComponents<T extends PlayerComponentTypes>(entity_id: number, component_name: string) {
+        return getComponent<T>(players, entity_id, component_name);
+    }
+
+    function getMatchComponents<T extends MatchComponentTypes>(entity_id: number, component_name: string) {
+        return getComponent<T>(matches, entity_id, component_name);
+    }
+
+    // NEED TO ADD  TEMPLATE TYPES
+    function getRoundComponents(entity_id: number, component_name: string) {
+        return getComponent(rounds, entity_id, component_name);
+    }
+
+    function getSubmissionsComponents(entity_id: number, component_name: string) {
+        return getComponent(submissions, entity_id, component_name);
     }
 }
