@@ -1,0 +1,14 @@
+frontend/@/components/ui/card.tsx
+  h_94c952a9e14c58 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "2aba92de8e0b7c707c42f2a3635b1869e7c41f5d",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
