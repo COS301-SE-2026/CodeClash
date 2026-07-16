@@ -49,20 +49,26 @@ return(
                 <div className="w-[160px] h-[160px] rounded-[20px] bg-[#FFD3DF] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] relative mb-6">
                     <h1 className="font-silkscreen text-center text-[#E8466E] text-[64px] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] absolute top-6 left-14">6</h1>
                 </div>
-                <div className="w-[550px] h-[91px] bg-secondary opacity-[94%] rounded-[20px] border-[#F4A0B2] border-4 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-14 -ml-50 relative">
+                <div className="w-[550px] h-[91px] bg-secondary opacity-[94%] rounded-[20px] border-[#F4A0B2] border-4 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-14.5 -ml-50 relative">
                     <h1 className="text-[#E8466E] text-[24px] font-silkscreen drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] absolute top-5.5 left-32">Game Instruction 6</h1>
                 </div>
-                <div className="w-[160px] h-[160px] rounded-[20px] bg-[#FFD3DF] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] relative mb-3">
+                <div className="w-[160px] h-[160px] rounded-[20px] bg-[#FFD3DF] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] relative mb-4">
                     <h1 className="font-silkscreen text-center text-[#E8466E] text-[64px] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] absolute top-6 left-14">7</h1>
                 </div>
-                <div className="w-[550px] h-[91px] bg-secondary opacity-[94%] rounded-[20px] border-[#F4A0B2] border-4 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-11 -ml-50 relative">
+                <div className="w-[550px] h-[91px] bg-secondary opacity-[94%] rounded-[20px] border-[#F4A0B2] border-4 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-13 -ml-50 relative">
                     <h1 className="text-[#E8466E] text-[24px] font-silkscreen drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] absolute top-5.5 left-32">Game Instruction 7</h1>
                 </div>
-                <div className="w-[160px] h-[160px] rounded-[20px] bg-[#FFD3DF] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] relative">
+                <div className="w-[160px] h-[160px] rounded-[20px] bg-[#FFD3DF] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] relative mb-2">
                     <h1 className="font-silkscreen text-center text-[#E8466E] text-[64px] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] absolute top-6 left-14">8</h1>
                 </div>
-                <div className="w-[550px] h-[91px] bg-secondary opacity-[94%] rounded-[20px] border-[#F4A0B2] border-4 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-11 -m-50 relative">
+                <div className="w-[550px] h-[91px] bg-secondary opacity-[94%] rounded-[20px] border-[#F4A0B2] border-4 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-10 -m-50 relative">
                     <h1 className="text-[#E8466E] text-[24px] font-silkscreen drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] absolute top-5.5 left-32">Game Instruction 8</h1>
+                </div>
+                <div className="w-[160px] h-[160px] rounded-[20px] bg-[#FFD3DF] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] relative">
+                    <h1 className="font-silkscreen text-center text-[#E8466E] text-[64px] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] relative top-6">9</h1>
+                </div>
+                <div className="w-[550px] h-[91px] bg-secondary opacity-[94%] rounded-[20px] border-[#F4A0B2] border-4 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-10 -m-50 relative">
+                    <h1 className="text-[#E8466E] text-[24px] font-silkscreen drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] absolute top-5.5 left-32">Game Instruction 9</h1>
                 </div>
             </div>
         </div>
