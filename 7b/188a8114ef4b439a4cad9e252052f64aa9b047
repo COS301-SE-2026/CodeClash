@@ -1,0 +1,16 @@
+frontend/src/Models/ProfileModel.ts
+  h_b13c5d77534129 1,8
+frontend/src/main.tsx
+  h_b13c5d77534129 13-14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.5",
+  "base_commit_sha": "7b188a8114ef4b439a4cad9e252052f64aa9b047",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
