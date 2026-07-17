@@ -7,7 +7,7 @@ export interface ConfirmationViewModelProps {
     onCancel: () => void;
 }
 
-interface ConfirmationViewModel {
+export interface ConfirmationViewModel {
     content: ConfirmationContent;
     isVisible: boolean;
     dontAskAgain: boolean;
@@ -15,6 +15,7 @@ interface ConfirmationViewModel {
     handleConfirm: () => void;
     handleCancel: () => void;
     handleDontAsk: (checked: boolean) => void;
+    resetRound: ()=> void;
 }
 
 export function ConfirmationViewModelFunction({
@@ -27,6 +28,7 @@ export function ConfirmationViewModelFunction({
     const showConfirm = useCallback(() => { //determines whether the popup should be shown
         if (suppressedRound) { //if the user has decided not to see the popup for each question submission in the round, confirm will immediately execute
             onConfirm();
+            return;
         }
         else {
             setIsVisible(true); //otherwise the popup will come on every submit for the round
@@ -43,12 +45,17 @@ export function ConfirmationViewModelFunction({
 
     const handleCancel = useCallback(()=> {
         setIsVisible(false);
-        onCancel();
+        if (onCancel) onCancel();
     }, [onCancel]);
 
     const handleDontAsk = useCallback((checked:boolean) => {
         setDontAskAgain(checked);
     }, []);
+
+    const resetRound = useCallback(() => { //for the start of any new game, if they want it not to show in the round they will have to select dont show again
+        setSuppressedRound(false);
+        setDontAskAgain(false);
+    },[]);
 
     return {
         content: confirmationContent,
@@ -58,5 +65,6 @@ export function ConfirmationViewModelFunction({
         handleConfirm,
         handleCancel,
         handleDontAsk,
+        resetRound,
     };
 }
