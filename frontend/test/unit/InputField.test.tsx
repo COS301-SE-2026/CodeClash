@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { fireEvent, render, screen } from '@testing-library/react';
 import InputField from '../../@/components/shared/InputField';
+import "@testing-library/jest-dom";
 
 describe('InputField', () => {
     it('renders with correct placeholder', () => {
