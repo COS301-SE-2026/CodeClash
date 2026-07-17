@@ -1,5 +1,7 @@
-import MathField from '../../@/components/features/MathField.tsx';
 import { useState } from 'react';
+
+import MathField from '../../@/components/features/MathField.tsx';
+
 import { Button } from '@/components/ui/button.tsx';
 
 const MathFieldTest = ({ back }: { back: () => void }) => {

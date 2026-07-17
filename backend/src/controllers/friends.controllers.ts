@@ -9,16 +9,22 @@ import pool from '../config/db';
 //GET api/friends/{user_id}
 //Returns the friends of a specific user
 export const getFriendsById = async (req: Request, res: Response): Promise<void> => {
-    const { friendship_id } = req.params;
+    const { user_id } = req.params;
 
     try {
         const result = await pool.query(
             `SELECT 
-                f.receiver_id, u.username, f.status, f.created_at, f.updated_at
+                u.user_id, u.username, f.created_at, f.updated_at
              FROM friendships f
-             JOIN users u ON f.receiver_id = u.user_id
-             WHERE f.status = 'Accepted' AND f.requester_id = $1`,
-            [friendship_id]
+             JOIN users u ON u.user_id = f.receiver_id
+             WHERE f.status = 'accepted' AND f.requester_id = $1
+             UNION
+             SELECT
+                u.user_id, u.username, f.created_at, f.updated_at
+            FROM friendships f
+            JOIN users u ON u.user_id = f.receiver_id
+             WHERE f.status = 'accepted' AND f.receiver_id = $1`,
+            [user_id]
         );
 
         //A user can have no friends...
