@@ -4,7 +4,7 @@ import type { ConfirmationContent } from "../Models/ConfirmationModel";
 
 export interface ConfirmationViewModelProps {
     onConfirm: () => void;
-    onCancel: () => void;
+    onCancel?: () => void;
 }
 
 export interface ConfirmationViewModel {
