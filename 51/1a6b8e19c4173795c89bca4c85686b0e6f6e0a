@@ -1,0 +1,19 @@
+frontend/src/Views/MatchSearching.tsx
+  s_b6c739e7fc4069::t_5dfc298d2c0644 88-102,116
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.12",
+  "base_commit_sha": "511a6b8e19c4173795c89bca4c85686b0e6f6e0a",
+  "prompts": {},
+  "sessions": {
+    "s_b6c739e7fc4069": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f56ee-2034-7e43-a654-4e179c127819",
+        "model": "gpt-5.4"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+backend/src/controllers/elo.controllers.ts
+  h_94c952a9e14c58 46-48,50-56,63,66-67,69
+database/test/init.sql
+  h_94c952a9e14c58 77
+backend/src/services/auth.service.ts
+  h_94c952a9e14c58 20-22,26-29
+backend/src/config/db.ts
+  h_94c952a9e14c58 55-56
+backend/tests/controller/elo.test.ts
+  h_94c952a9e14c58 19,51-67,71,78-79,83-84,90-91
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "6d060124d61e34c22b20f95560aa1140f8847232",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

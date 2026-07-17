@@ -1,0 +1,22 @@
+frontend/src/Views/Profile.tsx
+  h_94c952a9e14c58 10,22
+frontend/src/ViewModels/PopUpViewModel.ts
+  h_94c952a9e14c58 1,7,14
+frontend/src/main.tsx
+  h_94c952a9e14c58 9,16,20
+frontend/src/Views/Found.tsx
+  h_94c952a9e14c58 2
+frontend/src/Views/Dashboard.tsx
+  h_94c952a9e14c58 19,27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "4eb1a569b6343f7a79eef860f470edabc6e3bee4",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

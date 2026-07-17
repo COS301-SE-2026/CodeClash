@@ -1,0 +1,48 @@
+backend/tsconfig.json
+  h_94c952a9e14c58 30
+frontend/tsconfig.app.json
+  h_94c952a9e14c58 33
+frontend/test/integration/websocket.test.tsx
+  h_94c952a9e14c58 5-6,8,14,16,18,21-24,27,30,34-38
+backend/tests/unit/helpers/test-utils.ts
+  h_94c952a9e14c58 4,16,88,101,109,186
+frontend/src/context/Socket/hooks/useMatchmakingSocket.tsx
+  h_94c952a9e14c58 3-4,36-52
+frontend/src/ViewModels/FoundViewModel.ts
+  h_94c952a9e14c58 5
+frontend/src/ViewModels/SignUpViewModel.ts
+  h_94c952a9e14c58 9-17,43,57,65-66,70,72
+frontend/src/Views/SignIn.tsx
+  h_94c952a9e14c58 33-34
+frontend/src/Views/SignUp.tsx
+  h_94c952a9e14c58 38-39,92-93
+frontend/test/unit/PopUp.test.tsx
+  h_94c952a9e14c58 4
+backend/tests/controller/elo.test.ts
+  h_94c952a9e14c58 5
+frontend/src/ViewModels/PopUpViewModel.ts
+  h_94c952a9e14c58 6
+frontend/src/services/websocket.service.tsx
+  h_94c952a9e14c58 4
+frontend/src/Models/SignUpModel.ts
+  h_94c952a9e14c58 15
+testing/test-utils.ts
+  h_94c952a9e14c58 1-28
+backend/vitest.config.ts
+  h_94c952a9e14c58 19
+frontend/src/Views/Welcome.tsx
+  h_94c952a9e14c58 20-22
+frontend/src/ViewModels/SignInViewModel.ts
+  h_94c952a9e14c58 8-12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.12",
+  "base_commit_sha": "04cfb7060094b18107dc837e1a90ac9b18665461",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

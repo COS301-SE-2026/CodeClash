@@ -1,0 +1,22 @@
+frontend/src/assets/Robots/index.ts
+  h_94c952a9e14c58 2-4,8-11
+frontend/src/context/Auth/AuthContextValue.ts
+  h_94c952a9e14c58 21
+frontend/src/context/User/UserContext.tsx
+  h_94c952a9e14c58 16,31,55,80,92
+frontend/src/context/Auth/AuthContext.tsx
+  h_94c952a9e14c58 1,10,12-18,22-23,28,35-37,111-112,127
+frontend/src/context/User/UserContextValue.tsx
+  h_94c952a9e14c58 7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.13",
+  "base_commit_sha": "e292ad8471cd42e4fbc9d0eab501bf749f157d0d",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

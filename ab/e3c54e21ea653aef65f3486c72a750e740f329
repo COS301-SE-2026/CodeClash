@@ -1,0 +1,26 @@
+frontend/test/test-utils.ts
+  h_94c952a9e14c58 1-31
+frontend/src/context/User/UserContextValue.tsx
+  h_94c952a9e14c58 6
+frontend/src/assets/Robots/index.ts
+  h_94c952a9e14c58 1-6
+frontend/src/context/User/UserContext.tsx
+  h_94c952a9e14c58 4,6,14,17,31-32,53-78,94-96,105
+frontend/test/integration/websocket.test.tsx
+  h_94c952a9e14c58 6
+frontend/vitest.config.ts
+  h_94c952a9e14c58 9-14,19
+frontend/test/unit/Providers/UserProvider.test.tsx
+  h_94c952a9e14c58 1-2,5-8,11,15-29,36-37,40-50,52,54,58-66,68-92
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.13",
+  "base_commit_sha": "abe3c54e21ea653aef65f3486c72a750e740f329",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

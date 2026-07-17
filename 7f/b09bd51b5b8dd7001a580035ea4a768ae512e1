@@ -1,0 +1,14 @@
+backend/src/controllers/elo.controllers.ts
+  h_94c952a9e14c58 31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "7fb09bd51b5b8dd7001a580035ea4a768ae512e1",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

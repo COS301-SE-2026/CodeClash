@@ -1,0 +1,20 @@
+backend/src/routes/api.routes.ts
+  h_94c952a9e14c58 31
+backend/src/controllers/user.controllers.ts
+  h_94c952a9e14c58 84,86,105
+backend/src/controllers/elo.controllers.ts
+  h_94c952a9e14c58 31
+backend/src/config/db.ts
+  h_94c952a9e14c58 54,58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.13",
+  "base_commit_sha": "790fbde94a5c660e9a07ff0a0a675a2aab0aabd0",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

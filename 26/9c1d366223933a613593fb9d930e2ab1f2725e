@@ -1,0 +1,16 @@
+backend/src/ECS/components.ts
+  h_94c952a9e14c58 49-52
+backend/src/World.ts
+  h_94c952a9e14c58 1,18-34,41,50-51,82,93-112
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "269c1d366223933a613593fb9d930e2ab1f2725e",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

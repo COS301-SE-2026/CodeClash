@@ -1,0 +1,60 @@
+backend/src/server.ts
+  h_94c952a9e14c58 55,61-62,64-65
+backend/src/controllers/elo.controllers.ts
+  h_94c952a9e14c58 3,6,14,31,35,39
+frontend/src/ViewModels/SearchingViewModel.ts
+  h_94c952a9e14c58 2
+backend/tests/controller/match.test.ts
+  h_94c952a9e14c58 12
+backend/index.ts
+  h_94c952a9e14c58 2-3
+backend/src/services/matchmaking.service.ts
+  h_94c952a9e14c58 69,79,81
+backend/src/config/db.ts
+  h_94c952a9e14c58 7-9,12
+frontend/src/context/hooks/useSocket.ts
+  h_94c952a9e14c58 1-10
+backend/Dockerfile
+  h_94c952a9e14c58 1
+frontend/src/ViewModels/PopUpViewModel.ts
+  h_94c952a9e14c58 6-7,11,27-31
+frontend/src/services/websocket.service.tsx
+  h_94c952a9e14c58 8
+backend/tests/unit/helpers/test-utils.ts
+  h_94c952a9e14c58 4-6,10,13-43
+backend/vitest.config.ts
+  h_94c952a9e14c58 14-15,19
+backend/tests/unit/api/elo.unit.test.ts
+  h_94c952a9e14c58 6,8,10-14
+backend/tests/unit/matchmaking/matchmaking.service.test.ts
+  h_94c952a9e14c58 113,115
+frontend/src/context/SocketContext.tsx
+  h_94c952a9e14c58 6,11
+frontend/tsconfig.app.json
+  h_94c952a9e14c58 33
+docker-compose.yml
+  h_94c952a9e14c58 42,46-55
+frontend/src/ViewModels/DashboardViewModel.ts
+  h_94c952a9e14c58 2
+backend/tsconfig.test.json
+  h_94c952a9e14c58 9-15,19-20
+frontend/src/ViewModels/Shared.ViewModel.ts
+  h_94c952a9e14c58 14,18,23-25,31-33,37
+backend/tests/controller/elo.test.ts
+  h_94c952a9e14c58 1,4-7,13,18,22,24-26,30-32,36,38-39,46-49
+backend/src/services/auth.service.ts
+  h_94c952a9e14c58 16,43-46
+frontend/src/Views/Dashboard.tsx
+  h_94c952a9e14c58 18-19,24-37,99
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "355cee97236ce63cafc6b5532dcf3491a1d84d6d",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

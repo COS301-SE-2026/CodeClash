@@ -1,0 +1,18 @@
+frontend/src/context/User/hooks/useUser.tsx
+  h_94c952a9e14c58 1-9
+frontend/src/context/User/UserContext.tsx
+  h_94c952a9e14c58 8,27,62-63,65-68,82
+frontend/test/unit/Providers/UserProvider.test.tsx
+  h_94c952a9e14c58 1-28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.12",
+  "base_commit_sha": "638be5f7a5879ef8087183eaa5c9352b4943dff6",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

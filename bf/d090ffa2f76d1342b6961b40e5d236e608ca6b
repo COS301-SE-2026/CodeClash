@@ -1,0 +1,20 @@
+frontend/src/services/websocket.service.tsx
+  h_94c952a9e14c58 30-34
+frontend/src/ViewModels/SearchingViewModel.ts
+  h_94c952a9e14c58 14
+frontend/src/App.tsx
+  h_94c952a9e14c58 7
+frontend/src/Views/Found.tsx
+  h_94c952a9e14c58 1-59
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "bfd090ffa2f76d1342b6961b40e5d236e608ca6b",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

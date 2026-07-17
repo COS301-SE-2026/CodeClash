@@ -1,0 +1,38 @@
+package.json
+  h_94c952a9e14c58 4,13-16,19,28-34,36,38-39
+backend/tests/controller/match.test.ts
+  h_94c952a9e14c58 1,4
+frontend/vitest.config.ts
+  h_94c952a9e14c58 3-4
+frontend/src/pages/MathMatch.tsx
+  h_94c952a9e14c58 1-2
+backend/src/app.ts
+  h_94c952a9e14c58 2-4
+frontend/src/pages/ProgMatch.tsx
+  h_94c952a9e14c58 2,9-10,13,51,54-59,93,97,99-101
+frontend/@/components/ui/badge.tsx
+  h_94c952a9e14c58 1-3,5,7-8,17,26
+frontend/setupTests.ts
+  h_94c952a9e14c58 1-2,4
+frontend/@/components/ui/button.tsx
+  h_94c952a9e14c58 1,3,5
+backend/src/config/db.ts
+  h_94c952a9e14c58 3
+backend/tests/unit/matchmaking/matchmaking.service.test.ts
+  h_94c952a9e14c58 95-96,98
+frontend/src/main.tsx
+  h_94c952a9e14c58 4
+frontend/test/unit/PrimaryButton.test.tsx
+  h_94c952a9e14c58 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "e878c8b4eafa501df6674bff3f4057ffa3e27a75",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

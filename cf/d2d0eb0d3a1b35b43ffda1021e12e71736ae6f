@@ -1,0 +1,14 @@
+frontend/src/pages/MathMatch.tsx
+  h_94c952a9e14c58 1-2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "cfd2d0eb0d3a1b35b43ffda1021e12e71736ae6f",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

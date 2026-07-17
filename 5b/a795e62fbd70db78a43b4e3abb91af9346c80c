@@ -1,0 +1,16 @@
+docker-compose.yml
+  h_94c952a9e14c58 48
+backend/src/controllers/user.controllers.ts
+  h_94c952a9e14c58 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "5ba795e62fbd70db78a43b4e3abb91af9346c80c",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

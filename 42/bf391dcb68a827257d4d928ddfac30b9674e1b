@@ -1,0 +1,21 @@
+frontend/src/App.tsx
+  s_b9c69f262e5d5a::t_ef9eba5ac91b4b 9,23,42
+frontend/src/Views/Dashboard.tsx
+  s_b9c69f262e5d5a::t_7d9dfeb40cc2c4 64-69,187
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "42bf391dcb68a827257d4d928ddfac30b9674e1b",
+  "prompts": {},
+  "sessions": {
+    "s_b9c69f262e5d5a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f4949-30ac-7b63-adc2-b3411eecfa96",
+        "model": "gpt-5.4"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

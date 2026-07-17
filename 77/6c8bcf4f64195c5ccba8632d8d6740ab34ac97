@@ -1,0 +1,22 @@
+backend/src/World.ts
+  h_94c952a9e14c58 9-11,117-118,121-122
+backend/src/services/game.service.ts
+  h_94c952a9e14c58 2-4,7-13
+backend/src/ECS/components.ts
+  h_94c952a9e14c58 45,47-55,57-70,80-82
+backend/src/server.ts
+  h_94c952a9e14c58 9,94
+backend/src/app.ts
+  h_94c952a9e14c58 18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "776c8bcf4f64195c5ccba8632d8d6740ab34ac97",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
