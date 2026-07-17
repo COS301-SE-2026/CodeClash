@@ -6,16 +6,9 @@ import { validToken, accessDenied, unauthorised } from '../services/auth.service
 // GET /api/elo/elo-get
 // Get current elo rating for a user
 export const getUserElo = async (req: Request, res: Response): Promise<void> => {
-  const token = req.headers.authorization?.split(' ')[1];
+  const email = req.user.email;
 
-  const user = await validToken(token);
-
-  if (!user) {
-    res.status(401).json(unauthorised('Missing or Invalid Token'));
-    return;
-  }
-
-  const email = user.email;
+  if (email === null) return;
 
   try {
     const result = await pool.query(
@@ -43,18 +36,9 @@ export const getUserElo = async (req: Request, res: Response): Promise<void> => 
 // GET /api/elo/:user_id/history
 // Get full elo history for a user
 export const getEloHistory = async (req: Request, res: Response): Promise<void> => {
-  const token = req.headers.authorization?.split(' ')[1];
+   const email = req.user.email;
 
-  const user = await validToken(token);
-
-
-  if (!user) {
-    res.status(401).json(unauthorised('Missing or Invalid Token'));
-    return;
-  }
-
-  const email = user.email;
-
+  if (email === null) return;
   try {
     const result = await pool.query(
       `SELECT 
@@ -236,9 +220,9 @@ export const setUserElo = async (req: Request, res: Response): Promise<void> => 
 
   } catch (error) {
     await client.query('ROLLBACK');
-    console.error('Error setting elo',error);
+    console.error('Error setting elo', error);
     res.status(500).json({ message: 'Internal Server Error' })
-    
+
   } finally {
     client.release();
   }

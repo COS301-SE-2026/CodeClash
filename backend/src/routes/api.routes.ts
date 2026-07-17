@@ -9,8 +9,11 @@ import {
 } from '../controllers/elo.controllers';
 import { getMatches, getMatchById, createMatch, updateMatchStatus, getMatchLog } from '../controllers/matches.controllers';
 import { getUserStat } from '../controllers/user.controllers';
+import { requireAuth } from 'src/services/auth.service';
 
 const router = Router();
+
+router.use(requireAuth) // protects all routes with token authorisation
 
 // Match routes
 router.get('/matches', getMatches);

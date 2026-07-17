@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { pool } from '../config/db';
-import { validToken, accessDenied, cognito_identity_client, getEmail, validStat } from '../services/auth.service';
+import { cognito_identity_client, validStat } from '../services/auth.service';
 import { ListUsersCommand, ListUsersCommandInput } from '@aws-sdk/client-cognito-identity-provider';
 
 export async function fetchAllCognitoUsers(attributes: string[]) {
@@ -52,22 +52,9 @@ export async function fetchCognitoUser(attributes: string[], user_id: string) {
 
 // GET /api/user/username
 export const getUsername = async (req: Request, res: Response) => {
-    const token = req.headers.authorization?.split(' ')[1];
-
-    if (!token) {
-        res.status(404).json(accessDenied('Missing or Invalid Token'));
-        return;
-    }
-
-    const validate = await validToken(token)
-
-    if (!validate) {
-        res.status(404).json(accessDenied('Missing or Invalid Token'));
-        return;
-    }
 
     // Token valid proceed with request
-    const user = await fetchCognitoUser(['name'], validate.user_Id);
+    const user = await fetchCognitoUser(['name'], req.user.id);
 
     if (!user || user.length === 0) {
         res.status(404).json({ message: "User not found" })
@@ -82,7 +69,10 @@ export const getUsername = async (req: Request, res: Response) => {
 /// GET api/user/:stat
 export const getUserStat = async (req: Request, res: Response) => {
 
-    const email = await getEmail(req, res);
+    const email = req.user.email;
+
+    if (email === null) return;
+
     const stat = req.params.stat;
 
     if (typeof stat !== 'string' || !validStat(stat)) {
@@ -102,7 +92,7 @@ export const getUserStat = async (req: Request, res: Response) => {
             return;
         }
 
-        res.status(200).json({ stat: result.rows[0]});
+        res.status(200).json({ stat: result.rows[0] });
     }
     catch (error) {
         console.error(`Error fetching ${stat}: `, error);

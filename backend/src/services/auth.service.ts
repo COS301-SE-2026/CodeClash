@@ -1,7 +1,8 @@
 
 import { CognitoJwtVerifier } from 'aws-jwt-verify'
 import { CognitoIdentityProviderClient } from '@aws-sdk/client-cognito-identity-provider';
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
+import '../../types/.d.ts'
 
 import dotenv from "dotenv"
 dotenv.config()
@@ -12,7 +13,7 @@ const verifier = CognitoJwtVerifier.create({
   clientId: `${process.env.COGNITO_CLIENT_ID}`, //client ID of app, not a userId
 });
 
-const STATS = new Set(['current_streak', 'winning_streak','avatar_id']);
+const STATS = new Set(['current_streak', 'winning_streak', 'avatar_id']);
 
 
 export const validToken = async (token: string | undefined) => {
@@ -33,31 +34,21 @@ export const validToken = async (token: string | undefined) => {
 
 };
 
-
-export async function getEmail(req: Request, res: Response) {
+export const requireAuth = async (req: Request, res: Response, next: NextFunction) => {
   const token = req.headers.authorization?.split(' ')[1];
-
-  if (!token) {
-    res.status(404).json(accessDenied('Missing or Invalid Token'));
-    return;
-  }
 
   const validate = await validToken(token)
 
-  if (!validate) {
-    res.status(404).json(accessDenied('Missing or Invalid Token'));
-    return;
+  if (!validate || validate.email === undefined) {
+    res.status(401).json(accessDenied('Missing or Invalid Token'));
+    return null;
   }
 
-  const email = validate.email;
-
-  if (email === null) {
-    res.status(404).json(accessDenied('User not Found'));
-    return;
-  }
-
-  return email;
+  req.user.email = validate.email as string;
+  req.user.id = validate.user_Id; 
+  next();
 }
+
 
 export function validStat(stat: string) {
   return STATS.has(stat);
