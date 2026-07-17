@@ -1,14 +1,17 @@
 import React from "react";
 import { AlertTriangle } from "lucide-react";
-import { ConfirmationViewModelFunction } from "../ViewModels/ConfirmationViewModel";
-import type {ConfirmationViewModelProps} from '../ViewModels/ConfirmationViewModel'
+import type {ConfirmationViewModel} from '../ViewModels/ConfirmationViewModel';
 
-const ConfirmationPopup: React.FC<ConfirmationViewModelProps> = ({onConfirm, onCancel}) => {
+interface ConfirmationPopupProps {
+    confirmation: ConfirmationViewModel;
+}
+
+const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({confirmation}) => {
     const {
         content,
         isVisible, dontAskAgain, handleDontAsk,
         handleConfirm, handleCancel,
-    } = ConfirmationViewModelFunction({onConfirm, onCancel});
+    } = confirmation;
 
     if (!isVisible) return null;
     return (
@@ -44,5 +47,4 @@ const ConfirmationPopup: React.FC<ConfirmationViewModelProps> = ({onConfirm, onC
     );
 };
 
-export {ConfirmationViewModelFunction};
 export default ConfirmationPopup;
