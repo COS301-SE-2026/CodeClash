@@ -468,10 +468,24 @@ router.get('/achievements/user/:user_id', getUserAchievements);
 /** 
  * @swagger
  * /api/endpoint:
- * post:
- * summary: Awards the player with an achievement
- * tags: [Achievements]
- * parameters: 
+ *  post:
+ *    summary: Awards the player with an achievement
+ *    tags: [Elo]
+ *    parameters:
+ *      - in: path
+ *        name: user_id
+ *        required: true
+ *        schema:
+ *          type: string
+ *          format: uuid
+ *    
+ * requestBody:
+ * required: true
+ * content:
+ * application/json:
+ * schema:
+ * type:
+ * 
 */
 router.post('/submissions/award', awardAchievement);
 
