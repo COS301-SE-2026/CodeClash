@@ -30,14 +30,6 @@ export interface CognitoUser {
   email?: string
 }
 
-declare global {
-  namespace Express {
-    interface Request {
-      user?: CognitoUser
-    }
-  }
-}
-
 let jwksCache: { keys: any[] } | null = null
 let jwksCacheTime = 0
 const JWKS_CACHE_TTL = 3600000

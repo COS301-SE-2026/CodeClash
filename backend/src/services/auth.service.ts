@@ -31,7 +31,6 @@ export const validToken = async (token: string | undefined) => {
     return null
   }
 
-
 };
 
 export const requireAuth = async (req: Request, res: Response, next: NextFunction) => {
@@ -40,12 +39,12 @@ export const requireAuth = async (req: Request, res: Response, next: NextFunctio
   const validate = await validToken(token)
 
   if (!validate || validate.email === undefined) {
-    res.status(401).json(accessDenied('Missing or Invalid Token'));
+    res.status(401).json({ message: 'Missing or Invalid Token' });
     return null;
   }
 
   req.user.email = validate.email as string;
-  req.user.id = validate.user_Id; 
+  req.user.id = validate.user_Id;
   next();
 }
 
@@ -61,13 +60,3 @@ export const cognito_identity_client = new CognitoIdentityProviderClient({
     secretAccessKey: process.env.AWS_SECRET_KEY!
   }
 });
-
-// Responses 
-
-export const accessDenied = (error: string) => {
-  return { message: `Access Denied: ${error}` }
-};
-
-export const unauthorised = (error: string) => {
-  return { message: `Unauthorised: ${error}` }
-}

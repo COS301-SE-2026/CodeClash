@@ -8,7 +8,7 @@ import {
   setUserElo
 } from '../controllers/elo.controllers';
 import { getMatches, getMatchById, createMatch, updateMatchStatus, getMatchLog } from '../controllers/matches.controllers';
-import { getUserStat } from '../controllers/user.controllers';
+import { getLeague, getUserStat } from '../controllers/user.controllers';
 import { requireAuth } from 'src/services/auth.service';
 
 const router = Router();
@@ -31,6 +31,8 @@ router.post('/elo-set', setUserElo);
 
 
 // user routes
-router.get('/:stat',getUserStat);
+
+router.get('/league', getLeague);
+router.get('/:stat',getUserStat); // this must be last, it's a generic function that fetches any attribute directly in the users table
 
 export default router;

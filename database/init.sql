@@ -1,20 +1,26 @@
 --very generic tables that can be changed later, just trying not to keep the file empty
 
 CREATE TYPE problem_category AS ENUM ('math', 'programming');
-CREATE TYPE difficulty_level AS ENUM('Easy','Medium','Difficult');
 CREATE TYPE supported_languages AS ENUM('java','c++');
+
+CREATE TABLE IF NOT EXISTS leagues(
+  league_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  league_name TEXT  UNIQUE NOT NULL,
+  elo_range int4range NOT NULL
+);
 
 CREATE TABLE IF NOT EXISTS users (
   user_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   username VARCHAR(50) UNIQUE NOT NULL,
   email VARCHAR(100) UNIQUE NOT NULL,
-  avatar_id Integer
+  avatar_id Integer,
+  league REFERENCES leagues(league_id) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS problems (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  problem_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   type problem_category NOT NULL,
-  difficulty_level difficulty_level NOT NULL,
+  difficulty INTEGER NOT NULL CHECK (difficult >= 1 AND difficult<=2400),
   title VARCHAR(20) NOT NULL,
   description VARCHAR(40) NOT NULL,
   time_limit TIME(2) NOT NULL

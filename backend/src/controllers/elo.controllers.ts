@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { pool } from '../config/db';
-import { validToken, accessDenied, unauthorised } from '../services/auth.service';
+import { validToken } from '../services/auth.service';
 
 
 // GET /api/elo/elo-get
@@ -21,7 +21,7 @@ export const getUserElo = async (req: Request, res: Response): Promise<void> => 
     );
 
     if (result.rows.length === 0) {
-      res.status(404).json(accessDenied("User Not Found"));
+      res.status(404).json({ message: "User Not Found" });
       return;
     }
 
@@ -36,7 +36,7 @@ export const getUserElo = async (req: Request, res: Response): Promise<void> => 
 // GET /api/elo/:user_id/history
 // Get full elo history for a user
 export const getEloHistory = async (req: Request, res: Response): Promise<void> => {
-   const email = req.user.email;
+  const email = req.user.email;
 
   if (email === null) return;
   try {

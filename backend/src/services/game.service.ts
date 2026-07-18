@@ -8,8 +8,8 @@ export const gameService = (player_ids: string[]) => {
     // 1. Fecth Questions
     // 2. Organise questions into rounds
     // 3. Creat entities Components - use world 
+}
 
-
-    
+const questionRatio = (league: string, avg_elo: number) => {
 
 }
