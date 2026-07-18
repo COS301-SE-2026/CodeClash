@@ -14,11 +14,8 @@ const BackButton: React.FC<BackButtonProps> = ({
   <Link
     type="button"
     to={page}
-    className={cn('w-[91px] h-[31px]',
-      'flex items-center justify-center',
-      'bg-white border border-[#0f172a] rounded-md',
-      'font-baloo text-[16px] text-[#0f172a]',
-      'transition-colors duration-150 hover:bg-slate-100 cursor-pointer', className)}
+    className={cn('secondary-back-button font-semibold ',
+      'transition duration-150 hover:scale(110) cursor-pointer', className)}
   >
     ← Back
   </Link>

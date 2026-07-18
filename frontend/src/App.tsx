@@ -10,7 +10,7 @@ import MatchSearching from "./Views/MatchSearching";
 import MatchFound from "./Views/MatchFound";
 import Searching from "./pages/queuePages/searching";
 import Found from "./pages/queuePages/found";
-import MathMatch from "./pages/MathMatch";
+import Match from "./Views/Match";
 
 const App: React.FC = () => {
     return (
@@ -24,7 +24,7 @@ const App: React.FC = () => {
             <Route path='/match-found' element={<MatchFound/>}/>
             <Route path='/searching' element={<Searching/>}/>
             <Route path='/found' element={<Found/>}/>
-            <Route path='/math-match' element={<MathMatch/>}/>
+            <Route path='/match' element={<Match/>}/>
             {/* <Route path='/prog-match' element={<ProgMatch language="javascript"/>}/> */}
 
             {/* Pages with sidebar inside the app */}

@@ -3,6 +3,7 @@ export interface Player{
     life: number,
     avatar: string,
     questions_answered: number,
+    username:string
 }
 
 export interface Answer{
