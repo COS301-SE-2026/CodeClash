@@ -4,6 +4,7 @@ import { Progress } from '../ui/progress'
 import { Badge } from '../ui/badge'
 import React from 'react'
 import background from 'src/assets/Background/matchScreen.png'
+import question_doors from 'src/assets/Decor/progressDoors.png'
 
 interface MatchScreenProps {
     player_life: number[],
@@ -12,6 +13,7 @@ interface MatchScreenProps {
     minutes: number,
     avatars: string[],
     usernames: string[],
+    children: React.ReactNode
 }
 
 export const MatchScreen: React.FC<MatchScreenProps> = ({
@@ -20,11 +22,12 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
     seconds,
     minutes,
     avatars,
-    usernames
+    usernames,
+    children
 }) => {
     return (
         <div className="fixed inset-0 flex flex-col">
-            <img src={background} className='absolute w-full -z-10'/>
+            <img src={background} className='absolute w-full -z-10' />
             {/* <BackButton page='/dashboard' /> */}
             {/* Header */}
             <div className='flex w-full h-[20%] justify-between items-center '>
@@ -44,7 +47,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                         <Badge variant={'default'} className='text-[1.25rem] w-[50%] h-[35%]'>{usernames[0]}</Badge>
                     </div></div>
                 {/* Clock */}
-                <div className='text-white font-dseg w-[15%] h-20 flex items-center justify-center text-6xl font-semibold border-6 rounded-xl'>
+                <div className='text-white font-dseg w-[15%] h-20 flex items-center justify-center text-5xl font-semibold border-6 rounded-l'>
                     <span>
                         {String(minutes).padStart(2, "0")}:
                         {String(seconds).padStart(2, "0")}
@@ -67,17 +70,25 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                         alt="user 1 avatar"
                         className='scale-x-[-1] h-[120%] flex items-center '
                     />
-
-
                 </div>
             </div>
 
 
             {/* Body */}
-            <div>
-                {/* Question box */}
+            <div className='flex'>
+                <div className='flex flex-col w-[90%] h-[40rem] ml-3'>
+                    <div className='absolute bg-gradient-to-r from-button-primary to-secondary h-[3%] w-[70rem] rounded-4xl shadow-[0_4px_6px_rgba(0,0,0,0.3)]'></div>
+                    {/* Question box */}
+
+                    <div className='bg-secondary w-[80%] h-[100%] rounded-4xl ml-1 pt-[2rem]'>
+                        {children}
+                    </div></div>
 
                 {/* Progress bar */}
+                <div className='flex flex-col items-center'>
+                    <img src={question_doors} alt='match progress indicator' className='h-[40rem]'/>
+                    <Badge variant={'outline'} className='text-white text-sm font-body text-center font-semibold w-[90%] h-[2rem] '>Start</Badge>
+                </div>
             </div>
         </div>
     )
