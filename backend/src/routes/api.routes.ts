@@ -436,8 +436,14 @@ router.post('/powerups/use', usePowerup);
 /**
  * @swagger
  * /api/endpoint:
- * get:
- * summary: Gets all achievements
+ *  get:
+ *    summary: Gets all achievements
+ *    tags: [Achievements]
+ *    responses:
+ *      200:
+ *        description: Successfully retrieved all achievements
+ *      500:
+ *        Internal server error
  * 
  */
 router.get('/achievements', getAchievements);
@@ -473,7 +479,7 @@ router.get('/achievements/user/:user_id', getUserAchievements);
  * /api/endpoint:
  *  post:
  *    summary: Awards the player with an achievement
- *    tags: [Elo]
+ *    tags: [Achievements]
  *    parameters:
  *      - in: path
  *        name: user_id
