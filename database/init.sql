@@ -22,11 +22,8 @@ CREATE TABLE IF NOT EXISTS problems (
 
 CREATE TABLE IF NOT EXISTS match_problems(
   match_problems_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  question1 UUID REFERENCES problems(problem_id ) NOT NULL,
-  question2 UUID REFERENCES problems(problem_id ) NOT NULL,
-  question3 UUID REFERENCES problems(problem_id ) NOT NULL, --every match has a minimum of 3 questions, i.e. difficult mode
-  question4 UUID REFERENCES problems(problem_id ),
-  question5 UUID REFERENCES problems(problem_id )
+  match_id UUID REFERENCES matches(match_id) NOT NULL,
+  question_id UUID REFERENCES problems(problem_id ) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS matches(

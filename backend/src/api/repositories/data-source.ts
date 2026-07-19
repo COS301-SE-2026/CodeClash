@@ -3,7 +3,7 @@ import { DataSource } from "typeorm"
 import dotenv from 'dotenv'
 dotenv.config()
 
-import { User } from "../db-entities/user.entity"
+import { User } from "../db-entities/user.entities"
 
 
 const env = process.env;
