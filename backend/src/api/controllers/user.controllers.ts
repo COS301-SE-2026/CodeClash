@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { pool } from '../config/db';
-import { cognito_identity_client, validStat } from '../services/auth.service';
+import { pool } from '../../config/db';
+import { cognito_identity_client, validStat } from '../../services/auth.service';
 import { ListUsersCommand, ListUsersCommandInput } from '@aws-sdk/client-cognito-identity-provider';
 
 export async function fetchAllCognitoUsers(attributes: string[]) {

@@ -1,6 +1,5 @@
 import cors from 'cors'
 import express, { Request, Response } from 'express'
-
 import routes from './routes/api.routes';
 import { initDB } from './config/db';
 
@@ -15,7 +14,7 @@ app.use(express.json());
 app.use('/api/elo', routes);
 app.use('/api/match', routes);
 app.use('/api/user',routes);
-app.use('/api/qustion');
+app.use('/api/qustion',routes);
 
 app.get('/health', (req: Request, res: Response) => {
   res.json({ status: 'ok' });

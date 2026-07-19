@@ -6,10 +6,10 @@ import {
   updateEloAfterMatch,
   getLeaderboard,
   setUserElo
-} from '../controllers/elo.controllers';
-import { getMatches, getMatchById, createMatch, updateMatchStatus, getMatchLog } from '../controllers/matches.controllers';
-import { getLeague, getUserStat } from '../controllers/user.controllers';
-import { requireAuth } from 'src/services/auth.service';
+} from '../api/controllers/elo.controllers';
+import { getMatches, getMatchById, createMatch, updateMatchStatus, getMatchLog } from '../api/controllers/matches.controllers';
+import { getLeague, getUserStat } from '../api/controllers/user.controllers';
+import { requireAuth } from '../services/auth.service';
 
 const router = Router();
 

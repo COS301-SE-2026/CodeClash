@@ -2,7 +2,6 @@
 import { CognitoJwtVerifier } from 'aws-jwt-verify'
 import { CognitoIdentityProviderClient } from '@aws-sdk/client-cognito-identity-provider';
 import { NextFunction, Request, Response } from 'express';
-import '../../types/.d.ts'
 
 import dotenv from "dotenv"
 dotenv.config()
