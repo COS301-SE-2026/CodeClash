@@ -428,6 +428,28 @@ router.post('/submissions/:submission_id/result', createExecutionResult);
 
 // powerups
 router.get('/powerups', getPowerups);
+/**
+ * @swagger
+ * /api/powerups/match/{match_id}
+ *  get:
+ *    summary: Get all powerups used in a match
+ *    tags: [Powerups]
+ *    parameters:
+ *      - in: path
+ *        name: match_id
+ *        required: true
+ *        schema:
+ *          type: string
+ *          format: uuid
+ *    responses:
+ *      200: 
+ *        description: All powerups used in specified match were returned successfully
+ *      404:
+ *        description: Match not found
+ *      500:
+ *        description: Internal server error
+ *      
+ */
 router.get('/powerups/match/:match_id', getMatchPowerups);
 /**
  * @swagger
