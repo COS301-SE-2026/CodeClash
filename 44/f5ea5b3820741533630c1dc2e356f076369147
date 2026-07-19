@@ -1,0 +1,22 @@
+database/init.sql
+  h_94c952a9e14c58 25-26
+backend/src/api/db-entities/elo.entities.ts
+  h_94c952a9e14c58 1-2,6,9-15,17-25
+backend/src/api/repositories/index.ts
+  h_94c952a9e14c58 2
+backend/src/api/db-entities/match.entities.ts
+  h_94c952a9e14c58 1-10
+backend/src/api/repositories/data-source.ts
+  h_94c952a9e14c58 6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "44f5ea5b3820741533630c1dc2e356f076369147",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
