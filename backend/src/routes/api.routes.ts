@@ -425,7 +425,7 @@ router.get('/submissions/match/:match_id', getSubmissionsByMatch);
  * @swagger
  * /api/submissions/user/{user_id}
  *  get:
- *    summary: Gets a submission by a user
+ *    summary: Gets submissions by a user
  *    tags: [Submissions]
  *    parameters:
  *      - in: path
@@ -436,7 +436,11 @@ router.get('/submissions/match/:match_id', getSubmissionsByMatch);
  *          format: uuid
  *    responses:
  *      200:
- *        description
+ *        description: Found submissions of specified user successfully
+ *      404:
+ *        description: User not found
+ *      500:
+ *        description: Internal server error
  */
 router.get('/submissions/user/:user_id', getSubmissionsByUser);
 /**
