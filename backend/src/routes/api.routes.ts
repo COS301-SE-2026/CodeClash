@@ -423,6 +423,17 @@ router.post('/submissions', createSubmission);
 router.get('/submissions/match/:match_id', getSubmissionsByMatch);
 router.get('/submissions/user/:user_id', getSubmissionsByUser);
 router.get('/submissions/:submission_id', getSubmissionById);
+/**
+ * @swagger
+ * /api/submission/{submission_id}/status
+ *  patch:
+ *    summary: Updates status of submission
+ *    tags: [Submissions]
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ */
 router.patch('/submissions/:submission_id/status', updateSubmissionStatus);
 /**
  * @swagger
