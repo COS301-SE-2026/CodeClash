@@ -433,6 +433,22 @@ router.get('/submissions/:submission_id', getSubmissionById);
  *      required: true
  *      content:
  *        application/json:
+ *          schema:
+ *            type: object
+ *            required:
+ *              - status
+ *              - submission_id
+ *            properties:
+ *              status:
+ *                type: string
+ *                enum: [waiting, starting, in_progress, completed, abandoned]
+ *    responses:
+ *      200:
+ *        description: Updated status of submission successfully
+ *      404:
+ *        description: Submission or its status not found
+ *      500:
+ *        description: Internal server error
  */
 router.patch('/submissions/:submission_id/status', updateSubmissionStatus);
 /**
@@ -476,6 +492,8 @@ router.patch('/submissions/:submission_id/status', updateSubmissionStatus);
  *    responses:
  *      200:  
  *        description: Result created after execution successfully
+ *      404:
+ *        description: Submission not found
  *      500:
  *        description: Internal server error
  *              
