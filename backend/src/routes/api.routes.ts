@@ -427,6 +427,19 @@ router.patch('/submissions/:submission_id/status', updateSubmissionStatus);
 router.post('/submissions/:submission_id/result', createExecutionResult);
 
 // powerups
+
+/**
+ * @swagger
+ * /api/powerups
+ *  get:
+ *    summary: Get all available powerups
+ *    tags: [Powerups]
+ *    responses:
+ *      200:
+ *        description: All available powerups were retrieved successfully
+ *      500:
+ *        description: Internal server error
+ */
 router.get('/powerups', getPowerups);
 /**
  * @swagger
