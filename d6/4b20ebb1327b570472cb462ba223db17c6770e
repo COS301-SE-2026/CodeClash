@@ -1,0 +1,30 @@
+frontend/src/ViewModels/MathsMatchViewModel.ts
+  h_94c952a9e14c58 1-10
+frontend/@/components/features/VirtualKeyboard.tsx
+  h_94c952a9e14c58 5
+frontend/src/Views/MathsMatch.tsx
+  h_94c952a9e14c58 1-3,5,7,10-14,16,27-41
+frontend/@/components/features/question.tsx
+  h_94c952a9e14c58 27,33,35-36,44,46
+frontend/src/ViewModels/MatchViewModel.ts
+  h_94c952a9e14c58 15,30-33,35-47,58-59,71-74
+frontend/@/components/features/MathPage.tsx
+  h_94c952a9e14c58 1-55
+frontend/@/components/shared/Match.tsx
+  h_94c952a9e14c58 78-80,89
+frontend/src/pages/MathMatch.tsx
+  h_94c952a9e14c58 1
+frontend/src/App.tsx
+  h_94c952a9e14c58 13,27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "d64b20ebb1327b570472cb462ba223db17c6770e",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
