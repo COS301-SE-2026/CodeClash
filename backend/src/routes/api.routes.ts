@@ -429,13 +429,26 @@ router.post('/submissions/:submission_id/result', createExecutionResult);
 // powerups
 router.get('/powerups', getPowerups);
 router.get('/powerups/match/:match_id', getMatchPowerups);
+/**
+ * @swagger
+ * /api/powerups/use
+ *  post:
+ *    summary: Record a powerup being used in a match
+ *    tags: [Powerups]
+ *    requestBody:
+ *      required: true
+ *      content: 
+ *        application/json:
+ *          schema:
+ *            type: object
+ */
 router.post('/powerups/use', usePowerup);
 
 // achievements
 
 /**
  * @swagger
- * /api/endpoint:
+ * /api/achievements:
  *  get:
  *    summary: Gets all achievements
  *    tags: [Achievements]
@@ -450,7 +463,7 @@ router.get('/achievements', getAchievements);
 
 /**
  * @swagger
- * /api/endpoint:
+ * /api/achievements/user/{user_id}:
  *  get:
  *    summary: Gets all achievements earned by a user
  *    tags: [Achievements]
@@ -476,7 +489,7 @@ router.get('/achievements/user/:user_id', getUserAchievements);
 
 /** 
  * @swagger
- * /api/endpoint:
+ * /api/achievements/award:
  *  post:
  *    summary: Awards the player with an achievement
  *    tags: [Achievements]
