@@ -421,12 +421,29 @@ router.delete('/friends/:friendship_id', removeFriend);
 //submissions
 router.post('/submissions', createSubmission);
 router.get('/submissions/match/:match_id', getSubmissionsByMatch);
+/**
+ * @swagger
+ * /api/submissions/user/{user_id}
+ *  get:
+ *    summary: Gets a submission by a user
+ *    tags: [Submissions]
+ *    parameters:
+ *      - in: path
+ *        name: user_id
+ *        required: true
+ *        schema:
+ *          type: string
+ *          format: uuid
+ *    responses:
+ *      200:
+ *        description
+ */
 router.get('/submissions/user/:user_id', getSubmissionsByUser);
 /**
  * @swagger
  * /api/submissions/{submission_id}
  *  get:
- *    summary: Get a submission by its id
+ *    summary: Gets a submission by its id
  *    tags: [Submissions]
  *    parameters:
  *      - in: path
