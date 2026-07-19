@@ -41,7 +41,7 @@ export const useMatch = () => {
         //// TEMPORARY REMOVE ONCE DATA IS FETCHED
 
         setAvatars(prev => [...prev, pink_robot, pink_robot]);
-        setUsernames(prev => [...prev, "user 1", "user 2"])
+        setUsernames(prev => [...prev, "YOU", "OPPONENT"])
     }, [players])
 
     return {
