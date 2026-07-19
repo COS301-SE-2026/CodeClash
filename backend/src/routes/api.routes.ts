@@ -432,6 +432,16 @@ router.get('/submissions/user/:user_id', getSubmissionsByUser);
  *      - in: path
  *        name: submission_id
  *        required: true
+ *        schema:
+ *          type: string
+ *          format: uuid
+ *    responses:
+ *      200:
+ *        description: Found submission by given id successfully
+ *      404:
+ *        description: Submission not found
+ *      500:
+ *        description: Internal server error
  */
 router.get('/submissions/:submission_id', getSubmissionById);
 /**
