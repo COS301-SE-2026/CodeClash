@@ -31,7 +31,6 @@ async function dequeue(user_id: number, queue: string): Promise<boolean> {
 
 // finds a match for the passed in user
 async function matchmaking(user: MatchmakingUserDTO) {
-    console.log(user)
     if (user.game_mode != "math" && user.game_mode != "prog")
         throw new Error("Unknown game mode");
 
@@ -58,8 +57,6 @@ async function matchmaking(user: MatchmakingUserDTO) {
 
     // sort by joined times - ascending
     players.sort((a, b) => Number(a.join) - Number(b.join));
-
-    console.log("Players found: ", players);
 
     if (players.length == 0) {
 

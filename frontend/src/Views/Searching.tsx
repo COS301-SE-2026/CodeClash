@@ -4,7 +4,7 @@ import { useSearch } from 'src/ViewModels/SearchingViewModel';
 
 const Searching: React.FC = () => {
   const [seconds, setSeconds] = useState(0);
-  const { found } = useSearch();
+  const { matched} = useSearch();
   const nav = useNavigate();
 
   // timer
@@ -16,11 +16,11 @@ const Searching: React.FC = () => {
 
   // found
   useEffect(() => {
-    if (found) {
+    if (matched) {
       nav('/found')
     }
 
-  }, [found,nav])
+  }, [matched,nav])
 
 
   const mins = String(Math.floor(seconds / 60)).padStart(1, '0');
