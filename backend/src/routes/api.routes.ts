@@ -445,23 +445,23 @@ router.get('/achievements', getAchievements);
 /**
  * @swagger
  * /api/endpoint:
- * get:
- * summary: Gets all achievements earned by a user
- * tags: [Achievements]
- * parameters: 
- * - in: path
- *   name: user_id
- *   required: true
- *   schema:
- *   type: string
- *   description: The id assigned to a user
- * responses:
- *  200:
- *   description: Achievements of specified user retrieved
- *  404:
- *   description: User not found 
- *  500:
- *   description: Internal Server Error
+ *  get:
+ *    summary: Gets all achievements earned by a user
+ *    tags: [Achievements]
+ *    parameters: 
+ *      - in: path
+ *        name: user_id
+ *        required: true
+ *        schema:
+ *          type: string
+ *          format: uuid
+ *    responses:
+ *      200:
+ *        description: Achievements of specified user retrieved successfully
+ *      404:
+ *        description: User not found 
+ *      500:
+ *        description: Internal Server Error
  */
 router.get('/achievements/user/:user_id', getUserAchievements);
 
@@ -489,19 +489,11 @@ router.get('/achievements/user/:user_id', getUserAchievements);
  *          format: uuid 
  *    responses:
  *     200:
- *      description: Player awarded with the desired achievement
- *     400:
+ *      description: Player awarded with the desired achievement successfully
+ *     404:
  *      description: Player not found
  *     500:
  *      description: Internal Server Error
- *    
- * requestBody:
- * required: true
- * content:
- * application/json:
- * schema:
- * type:
- * 
 */
 router.post('/submissions/award', awardAchievement);
 
