@@ -438,6 +438,36 @@ router.patch('/submissions/:submission_id/status', updateSubmissionStatus);
  *            type: object
  *            required:
  *              - submission_id
+ *              - passed_cases
+ *              - total_cases
+ *              - execution_time
+ *              - memory_used
+ *              - error_message
+ *            properties:
+ *              submission_id:
+ *                type: string
+ *                format: uuid
+ *              passed_cases:
+ *                type: number
+ *                format: integer
+ *              total_cases:    
+ *                type: number
+ *                format: integer
+ *              execution_time:
+ *                 type: number
+ *                 format: integer
+ *              memory_used:
+ *                 type: number
+ *                 format: integer
+ *              error_message:
+ *                 type: string
+ *                 format: text
+ *    responses:
+ *      200:  
+ *        description: Result created after execution successfully
+ *      500:
+ *        description: Internal server error
+ *              
  *          
  */
 router.post('/submissions/:submission_id/result', createExecutionResult);
