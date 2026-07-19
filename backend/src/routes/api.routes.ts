@@ -441,6 +441,27 @@ router.get('/powerups/match/:match_id', getMatchPowerups);
  *        application/json:
  *          schema:
  *            type: object
+ *            required:
+ *              - match_id
+ *              - user_id
+ *              - powerup_id
+ *            properties:
+ *              match_id:
+ *                type: string
+ *                 format: uuid
+ *              user_id:
+ *                type: string
+ *                format: uuid
+ *              powerup_id:
+ *                type: string
+ *                format: uuid
+ *    responses:
+ *      200:
+ *        description: Recorded powerup being used in match by user successfully
+ *      404:
+ *        description: User, match and/or powerup not found
+ *      500:
+ *        description: Internal server error
  */
 router.post('/powerups/use', usePowerup);
 
