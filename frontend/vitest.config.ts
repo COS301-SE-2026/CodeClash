@@ -20,10 +20,10 @@ export default defineConfig({
 
     //collect coverage 
     coverage: {
-      provider: 'v8',
-      reporter: ['text', 'lcov'],
-      include: ['@/components/**/*.tsx', 'src/ViewModels/**/*.ts', 'src/context/**/*.tsx'],
-      exclude: ['@/components/ui/**', '@/hooks/**', '**/node_modules/**', '**/*.config.*', 'src/context/**/hooks/**'],
+      provider: 'istanbul',
+      reporter: ['text', 'html', 'lcov'],
+      include: ['**/*.tsx'],
+      exclude: ['**/@/components/ui/**', '**/@/hooks/**', '**/node_modules/**', '**/*.config.*'],
     },
 
     globals: true,

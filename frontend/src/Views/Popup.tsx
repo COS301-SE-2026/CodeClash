@@ -35,6 +35,8 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
 
                     <div className=" grid grid-flow-col grid-cols-2 gap-7  h-[35%]">
                         <Card className="group w-[18rem] bg-secondary text-secondary-text transition-all duration-200 hover:bg-primary hover:-translate-y-px active:translate-y-0"
+                            role="button"
+                            tabIndex={0}
                             onKeyDown={(e) => {
                                 const shift = e.shiftKey;
                                 if (shift && e.key === 'L') {
@@ -42,11 +44,14 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
                                 }
                             }}
                             onClick={() => selecthandler('math')}
+                            aria-label='math-selector'
                         >
                             <h1 className="text-[3rem] text-secondary-text heading font-bold  group-hover:text-white">+ -</h1>
                             <h2 className="text-[2.1rem] text-secondary-text heading font-bold  group-hover:text-white">Math</h2>
                         </Card>
                         <Card className="group w-[18rem] bg-secondary text-secondary-text transition-all duration-200 hover:bg-primary hover:-translate-y-px active:translate-y-0"
+                            role="button"
+                            tabIndex={0}
                             onKeyDown={(e) => {
                                 const shift = e.shiftKey;
                                 if (shift && e.key === 'R') {
@@ -54,6 +59,7 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
                                 }
                             }}
                             onClick={() => selecthandler('prog')}
+                            aria-label='prog-selector'
                         >
                             <h1 className="text-[3rem] text-secondary-text heading font-bold group-hover:text-white">{"</>"}</h1>
                             <h2 className="text-[2.1rem] text-secondary-text heading font-bold group-hover:text-white">Programming</h2>
@@ -61,12 +67,14 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
                     </div>
                     <div className="text-[2.3rem] text-black heading font-extrabold underline mt-[4%] rounded-3xl hover:bg-primary hover:text-secondary hover:font-normal w-[80%] "
                         onClick={onClose}
-
+                        role="button"
+                        tabIndex={0}
                         onKeyDown={(e) => {
-                            if (e.key === 'Esc') {
+                            if (e.key === 'Escape') {
                                 onClose();
                             }
                         }}
+                        aria-label='cancel'
                     >Cancel
                     </div>
                 </Card>

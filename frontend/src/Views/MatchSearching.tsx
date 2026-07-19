@@ -9,16 +9,16 @@ const headingFont = { fontFamily: 'var(--heading)' };
 
 const MatchSearching = () => {
   const { formattedTime, content, players, handleCancel } = MatchSearchingViewModelFunction();
-  const {found} = useSearch();
+  const {matched} = useSearch();
 
   const leftPlayer = players.find((player) => player.side === 'left');
   const nav = useNavigate();
   useEffect(() => {
-    if (found) {
+    if (matched) {
       nav('/match-found')
     }
 
-  }, [found, nav])
+  }, [matched, nav])
 
 
   return (

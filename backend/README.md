@@ -125,6 +125,20 @@ npm run test:backend:converag       //test and converage
     ``` 
 8. 'Save'
 
+## Websockets
+
+1. install socket io in the backend folder 
+
+````
+npm install socket.io
+```
+
+2. make sure the docker is running 
+
+```
+docker compose down -v 
+docker compose up --build
+```
 
 ## Project Structure
 
