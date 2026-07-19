@@ -465,6 +465,9 @@ router.get('/achievements', getAchievements);
  */
 router.get('/achievements/user/:user_id', getUserAchievements);
 
+//for the comment below, because, at least on this branch, achievements haven't been added to the 
+// database, i can only assume achievement_id is of uuid format, change if necessary
+
 /** 
  * @swagger
  * /api/endpoint:
@@ -478,6 +481,19 @@ router.get('/achievements/user/:user_id', getUserAchievements);
  *        schema:
  *          type: string
  *          format: uuid
+ *      - in: path
+ *        name: achievement_id
+ *        required: true
+ *        schema:
+ *          type: string
+ *          format: uuid 
+ *    responses:
+ *     200:
+ *      description: Player awarded with the desired achievement
+ *     400:
+ *      description: Player not found
+ *     500:
+ *      description: Internal Server Error
  *    
  * requestBody:
  * required: true
