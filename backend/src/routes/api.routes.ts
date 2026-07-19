@@ -424,6 +424,22 @@ router.get('/submissions/match/:match_id', getSubmissionsByMatch);
 router.get('/submissions/user/:user_id', getSubmissionsByUser);
 router.get('/submissions/:submission_id', getSubmissionById);
 router.patch('/submissions/:submission_id/status', updateSubmissionStatus);
+/**
+ * @swagger
+ * /api/submissions/{submission_id}/result
+ *  post:
+ *    summary: Create the result of the execution of a submission
+ *    tags: [Submissions]
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            required:
+ *              - submission_id
+ *          
+ */
 router.post('/submissions/:submission_id/result', createExecutionResult);
 
 // powerups
