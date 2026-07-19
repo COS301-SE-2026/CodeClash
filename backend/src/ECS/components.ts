@@ -4,7 +4,7 @@
 
 // Player Component holds array of ids for a match
 export interface Players_Component {
-    player_ids: number[]
+    player_ids: string[]
 }
 
 // Match Components stores data about the match
@@ -12,8 +12,8 @@ export interface Match_Component {
     title: string,
     status: string,
     game_mode: string,
-    difficulty: string,
-    winnder: number
+    difficulty: number,
+    winner: number
 }
 
 /********************************** */
@@ -31,9 +31,7 @@ export interface Life_Component {
 export interface Rank_Component {
     rank: number,
     elo: number,
-    league: string,
-    current_streak: number,
-    winning_streak: number,
+    league: string
 }
 
 // Badge Component stores player achievements
@@ -48,7 +46,7 @@ export interface Badge_Component {
 
 export interface Round_Component {
     match_id: number,
-    questions_ids: number,
+    question_ids: number[],
     start_time: Date,
     end_time: Date,
     question_number: number
@@ -69,15 +67,27 @@ export interface Submission_Component {
     submitted_at: Date
 }
 
+/********************************** */
+
+/** RESULT ENTITY */
+
+export interface Maths_Result_Component {
+    player_id: number,
+    submission_id: number,
+    correct: boolean
+}
+
 
 // union for all components - for the map
 
 export type PlayerComponentTypes = Life_Component | Rank_Component | Badge_Component;
 export type MatchComponentTypes = Players_Component | Match_Component;
+export type ResultComponentTypes = Maths_Result_Component
 
 export type Component =
     PlayerComponentTypes |
     MatchComponentTypes |
     Round_Component |
-    Submission_Component;
+    Submission_Component |
+    ResultComponentTypes;
 

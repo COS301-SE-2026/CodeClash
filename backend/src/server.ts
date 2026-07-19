@@ -91,7 +91,7 @@ io.on("connection", (socket) => {
         if (bothAccepted) {
             // call the game service to create the game
             const keys = [...pair!.keys()];
-           const setup =  gameService(keys);
+           const setup =  gameService(keys, socket.data.game_mode);
         }
         else {
             // waiting for the other player to accept

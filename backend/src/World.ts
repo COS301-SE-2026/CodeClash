@@ -8,7 +8,9 @@ import {
     Players_Component,
     Rank_Component,
     Submission_Component,
-    Round_Component
+    Round_Component,
+    Maths_Result_Component,
+    ResultComponentTypes
 } from "./ECS/components";
 
 function addComponent(
@@ -62,16 +64,16 @@ export const World = () => {
     // ADDERS
     function addPlayerComponent(
         entity_id: number,
-        component_name: string,
-        component: Life_Component | Rank_Component | Badge_Component
+        component_name: "Life"|"Rank"|"Badge",
+        component: PlayerComponentTypes
     ): boolean {
         return addComponent(players, entity_id, component_name, component);
     }
 
     function addMatchComponent(
         entity_id: number,
-        component_name: string,
-        component: Players_Component | Match_Component
+        component_name: "Players"|"Match",
+        component: MatchComponentTypes
     ): boolean {
         return addComponent(matches, entity_id, component_name, component)
     }
@@ -79,16 +81,16 @@ export const World = () => {
 
     function addRoundComponent(
         entity_id: number,
-        component_name: string,
-        component: Players_Component | Match_Component
+        component_name: "Round",
+        component: Round_Component
     ): boolean {
         return addComponent(rounds, entity_id, component_name, component)
     }
 
     function addSubmissionComponent(
         entity_id: number,
-        component_name: string,
-        component: Players_Component | Match_Component
+        component_name: "Submission",
+        component:Submission_Component
     ): boolean {
         return addComponent(submissions, entity_id, component_name, component)
     }
@@ -96,8 +98,8 @@ export const World = () => {
 
     function addResultComponent(
         entity_id: number,
-        component_name: string,
-        component: Players_Component | Match_Component
+        component_name: "Maths_Result"|"Prog_Result",
+        component: ResultComponentTypes
     ): boolean {
         return addComponent(results, entity_id, component_name, component)
     }
@@ -120,5 +122,19 @@ export const World = () => {
 
     function getSubmissionsComponent<T extends Submission_Component>(entity_id: number, component_name: string) {
         return getComponent<T>(submissions, entity_id, component_name);
+    }
+
+
+    return {
+        createEntity,
+        addPlayerComponent,
+        addMatchComponent,
+        addRoundComponent,
+        addSubmissionComponent,
+        addResultComponent,
+        getPlayerComponent,
+        getMatchComponent,
+        getRoundComponent,
+        getSubmissionsComponent
     }
 }
