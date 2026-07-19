@@ -12,17 +12,12 @@ export const useMatch = () => {
     const [player_life, setPlayerLife] = useState<number[]>([]);
     const [avatars, setAvatars] = useState<string[]>([]);
     const [usernames, setUsernames] = useState<string[]>([]);
+    const [current_question, setCurrentQuestions] = useState(0);
     const answers: Answer[] = [];
     const progress: MatchProgress = {
         player_progress: [0, 0],
         question_number: 0
     }
-
-
-    /* Needed from game service 
-        how many players
-        questions
-  */
 
     const expiry_time = () => {
         const time = new Date();
@@ -31,6 +26,24 @@ export const useMatch = () => {
     }
 
     const { seconds, minutes } = useTimer({ expiryTimestamp: expiry_time() });
+
+    const nextQuestion = (curr: number) => {
+        if (curr < questions.length)
+            setCurrentQuestions(curr + 1);
+    }
+
+    const prevQuestion = (curr: number) => {
+        if (curr > 0)
+            setCurrentQuestions(curr - 1)
+    }
+
+    questions.push({
+        title: "Temp Question Title",
+        difficulty: 'easy',
+        question: 'This is the actual question',
+        description: "This is a description to provide context to help solve the problem",
+        number: 0
+    })
 
     useEffect(() => {
 
@@ -42,6 +55,8 @@ export const useMatch = () => {
 
         setAvatars(prev => [...prev, pink_robot, pink_robot]);
         setUsernames(prev => [...prev, "YOU", "OPPONENT"])
+
+
     }, [players])
 
     return {
@@ -53,6 +68,9 @@ export const useMatch = () => {
         avatars,
         seconds,
         minutes,
-        usernames
+        usernames,
+        nextQuestion,
+        prevQuestion,
+        current_question
     }
 }

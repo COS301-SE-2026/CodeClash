@@ -27,7 +27,7 @@ interface MathFieldProps {
   onValueChange?: (value: string) => void;
 }
 
-const MathField = ({ onValueChange }: MathFieldProps) => {
+const Math = ({ onValueChange }: MathFieldProps) => {
   const [value, setValue] = useState<string>('');
   const mathfieldRef = useRef<MathfieldElement | null>(null)
 
@@ -39,10 +39,11 @@ const MathField = ({ onValueChange }: MathFieldProps) => {
   };
 
   return (
-    <div className="mathfield-container">
+    <div className="w-[90%] ">
       <math-field
         ref={mathfieldRef}
         onInput={handleInput}
+        className="w-[100%] h-[18rem] rounded-4xl"
       >
         {value}
       </math-field>
@@ -51,4 +52,4 @@ const MathField = ({ onValueChange }: MathFieldProps) => {
   );
 };
 
-export default MathField;
+export default Math;

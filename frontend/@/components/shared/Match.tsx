@@ -75,18 +75,19 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
 
 
             {/* Body */}
-            <div className='flex'>
-                <div className='flex flex-col w-[90%] h-[40rem] ml-3'>
-                    <div className='absolute bg-gradient-to-r from-button-primary to-secondary h-[3%] w-[70rem] rounded-4xl shadow-[0_4px_6px_rgba(0,0,0,0.3)]'></div>
+            <div className='flex justify-evenly'>
+                <div className='flex flex-col w-[80%] h-[40rem]'>
+                    <div className='absolute bg-gradient-to-r from-button-primary to-secondary h-[3%] w-[64%] rounded-4xl shadow-[0_4px_6px_rgba(0,0,0,0.3)]'></div>
                     {/* Question box */}
 
                     <div className='bg-secondary w-[80%] h-[100%] rounded-4xl ml-1 pt-[2rem]'>
                         {children}
-                    </div></div>
+                    </div>
+                </div>
 
                 {/* Progress bar */}
-                <div className='flex flex-col items-center'>
-                    <img src={question_doors} alt='match progress indicator' className='h-[40rem]'/>
+                <div className='flex flex-col items-center w-[10%]'>
+                    <img src={question_doors} alt='match progress indicator' className='h-[40rem]' />
                     <Badge variant={'outline'} className='text-white text-sm font-body text-center font-semibold w-[90%] h-[2rem] '>Start</Badge>
                 </div>
             </div>
