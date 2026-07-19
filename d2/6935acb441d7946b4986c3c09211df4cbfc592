@@ -1,0 +1,14 @@
+frontend/src/ViewModels/MatchViewModel.ts
+  h_94c952a9e14c58 44
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "d26935acb441d7946b4986c3c09211df4cbfc592",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
