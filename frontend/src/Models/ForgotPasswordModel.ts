@@ -45,3 +45,26 @@ export const resetPasswordForm: ResetPasswordForm = {
     newPassword: '',
     confirmPassword: '',
 };
+
+export function validateForgotPasswordForm(data: ForgotPasswordForm): string | null {
+    if (!data.email.trim()) return 'Email is required';
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^s@]+$/;
+    if(!emailRegex.test(data.email.trim())) return 'Please enter a valid email address';
+
+    return null;
+}
+
+export function validateResetPassword(data: ResetPasswordForm):string | null {
+    if (!data.code.trim()) return 'Reset code is required';
+    if (!data.newPassword) return 'New password is required';
+    if (data.newPassword.length < 8) return 'Password must be at lease 8 characters';
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/;
+    if(!passwordRegex.test(data.newPassword)) return 'Password must contain uppercase, lowercase and atlease one number';
+
+    if(!data.confirmPassword) return 'Please confirm your password';
+    if (data.newPassword !== data.confirmPassword) return 'Passwords do not match';
+
+    return null;
+}
