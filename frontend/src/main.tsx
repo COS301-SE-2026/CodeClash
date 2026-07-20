@@ -13,8 +13,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 
   <AuthProvider>
     <BrowserRouter>
-      {/* <App /> */}
-      <Leaderboard/>
+      <App />
+      {/* <Leaderboard/> */}
       {/* <Guidebook/> */}
     </BrowserRouter>
   </AuthProvider>
