@@ -11,7 +11,6 @@ import MatchFound from "./Views/MatchFound";
 import Searching from "./pages/queuePages/searching";
 import Found from "./pages/queuePages/found";
 import MathMatch from "./pages/MathMatch";
-import Leaderboard from "./Views/Leaderboard";
 
 const App: React.FC = () => {
     return (
@@ -33,7 +32,7 @@ const App: React.FC = () => {
                 <Route path='/dashboard' element={<Dashboard />} />
                 <Route path='/game-guide' />
                 <Route path='/tournaments' />
-                <Route path='/leaderboard' element={<Leaderboard/>} />
+                <Route path='/leaderboard' />
                 <Route path='/badges' />
                 <Route path='/friends' />
             </Route>
