@@ -1,4 +1,4 @@
-import { type ProfileProps } from '../Models/ProfileModel';
+import { type ProfileProps } from '../Models/ProfileModel'
 import { useEdit, useLogOut } from '../ViewModels/ProfileViewModel';
 import { Link } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
@@ -7,11 +7,12 @@ import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 
 const Profile: React.FC<ProfileProps> = ({
+  avatarUrl = '../assets/Profile_Icon.png',
   username = 'User Name',
-  email = 'user@codeclash.com',
   player_level = 'Level 32 - Mercury',
   current_streak = 522,
   winning_streak = 63,
+  email = 'email@gmail.com',
   prev_page = "/dashboard"
 }) => {
 

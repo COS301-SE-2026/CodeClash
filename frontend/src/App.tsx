@@ -11,11 +11,12 @@ import MatchFound from "./Views/MatchFound";
 import Searching from "./pages/queuePages/searching";
 import Found from "./pages/queuePages/found";
 import MathMatch from "./pages/MathMatch";
+import Leaderboard from "./Views/Leaderboard";
 
 const App: React.FC = () => {
     return (
         <Routes>
-            <Route path='/' element={<Welcome/>}/>
+            {/* <Route path='/' element={<Welcome/>}/>
             <Route path='/welcome' element={<Welcome/>}/>
             <Route path='/sign-in' element={<SignIn/>}/>
             <Route path='/sign-up' element={<SignUp/>}/>
@@ -24,7 +25,7 @@ const App: React.FC = () => {
             <Route path='/match-found' element={<MatchFound/>}/>
             <Route path='/searching' element={<Searching/>}/>
             <Route path='/found' element={<Found/>}/>
-            <Route path='/math-match' element={<MathMatch/>}/>
+            <Route path='/math-match' element={<MathMatch/>}/> */}
             {/* <Route path='/prog-match' element={<ProgMatch language="javascript"/>}/> */}
 
             {/* Pages with sidebar inside the app */}
@@ -32,7 +33,7 @@ const App: React.FC = () => {
                 <Route path='/dashboard' element={<Dashboard />} />
                 <Route path='/game-guide' />
                 <Route path='/tournaments' />
-                <Route path='/leaderboard' />
+                <Route path='/leaderboard' element={<Leaderboard/>} />
                 <Route path='/badges' />
                 <Route path='/friends' />
             </Route>
