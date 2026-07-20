@@ -2,8 +2,7 @@ import cors from 'cors'
 import express, { Request, Response, NextFunction } from 'express'
 import jwt, { type JwtPayload } from 'jsonwebtoken'
 
-import eloRoutes from './routes/api.routes';
-import matchRoutes from './routes/api.routes';
+import apiRoutes from './routes/api.routes';
 import swaggerUi from 'swagger-ui-express';
 import { swaggerSpec } from './config/swagger';
 
@@ -12,8 +11,7 @@ app.disable('x-powered-by');
 
 app.use(cors({origin: process.env.FRONTEND_URL || 'http://localhost:5173'}));
 app.use(express.json());
-app.use('/api/elo', eloRoutes);
-app.use('/api/match', matchRoutes);
+app.use('/api', apiRoutes);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.get('/health', (req: Request, res: Response) => {
