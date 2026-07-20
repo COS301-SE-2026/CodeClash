@@ -5,13 +5,17 @@ import './amplify-config'
 import './styles/global.css'
 import { BrowserRouter } from 'react-router-dom'
 import Popup from './Views/Popup'
+import Leaderboard from './Views/Leaderboard'
+import Guidebook from './Views/Guidebook'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   // <React.StrictMode>
 
   <AuthProvider>
     <BrowserRouter>
-      <App />
+      {/* <App /> */}
+      {/* <Leaderboard/> */}
+      <Guidebook/>
     </BrowserRouter>
   </AuthProvider>
 
