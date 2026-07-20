@@ -1,0 +1,14 @@
+frontend/@/components/ui/badge.tsx
+  h_94c952a9e14c58 1-2,5,7-8,10-26,28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "7134a1baed72f8eaffc072f5aeb2042575a41344",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
