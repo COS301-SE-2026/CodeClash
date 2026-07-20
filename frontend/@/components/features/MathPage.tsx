@@ -22,11 +22,11 @@ declare module 'react' {
 }
 
 
-interface MathFieldProps {
+interface MathMatchProps {
   onValueChange?: (value: string) => void;
 }
 
-const Math = ({ onValueChange }: MathFieldProps) => {
+const MathMatch = ({ onValueChange }: MathMatchProps) => {
   const [value, setValue] = useState<string>('');
   const mathfieldRef = useRef<MathfieldElement | null>(null)
 
