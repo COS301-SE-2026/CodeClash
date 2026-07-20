@@ -1,7 +1,7 @@
 import { signIn as amplifySignIn, signUp as amplifySignUp, signOut as amplifySignOut, getCurrentUser, confirmSignUp as amplifyConfirmSignUp, resendSignUpCode as amplifyResendSignUpCode } from 'aws-amplify/auth'
 import React, { useEffect, useState, useCallback, type ReactNode } from 'react'
 
-import {type AuthContextValue, type AuthUser } from './AuthContextValue'
+import { AuthContext, type AuthUser } from './AuthContextValue'
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<AuthUser | null>(null)
@@ -29,7 +29,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const signIn = useCallback(async (email: string, password: string) => {
     setError(null)
     try {
-     await amplifySignIn({ username: email, password })
+      await amplifySignIn({ username: email, password })
 
       const cognitoUser = await getCurrentUser()
 

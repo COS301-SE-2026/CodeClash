@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 import MathField from '../../@/components/features/MathField.tsx';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const MathMatch= () => {

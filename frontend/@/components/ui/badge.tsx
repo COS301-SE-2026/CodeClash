@@ -49,3 +49,5 @@ function Badge({
     />
   );
 }
+
+export { Badge }

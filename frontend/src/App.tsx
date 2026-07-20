@@ -9,7 +9,7 @@ import Profile from "./Views/Profile";
 import Searching from "./pages/queuePages/searching";
 import Found from "./pages/queuePages/found";
 import MathMatch from "./pages/MathMatch";
-import ProgMatch from "./pages/ProgMatch";
+// import ProgMatch from "./pages/ProgMatch";
 
 const App: React.FC = () => {
     return (
