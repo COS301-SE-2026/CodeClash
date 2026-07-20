@@ -3,12 +3,6 @@ import { describe, expect, it, vi } from "vitest";
 
 import MathField from "../../@/components/features/MathField";
 
-// window.mathVirtualKeyboard = {
-//   container: null,
-//   show: vi.fn();
-//   hide: vi.fn();
-// }
-//
 
 describe("MathField", () => {
   it("calls onValueChange when the math field input changes", () => {
@@ -27,7 +21,7 @@ describe("MathField", () => {
     // fireEvent.input(mathField!, {
     //   target: { value: "x+1" },
     // });
-    //
+    
 
     Object.defineProperty(mathField, "value", {
       value: "x+1",

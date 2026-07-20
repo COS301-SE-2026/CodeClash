@@ -1,139 +1,42 @@
-import React, { useState } from 'react';
+import type React from "react";
+import { Route, Routes } from "react-router-dom";
 
-import { useAuth } from './context/useAuth';
-import { mock_match } from './mocks/prog-match.mock';
-import Dashboard from './pages/Dashboard';
-import MathFieldTest from './pages/MathFieldTest';
-import Profile from './pages/Profile';
-import ProgMatch from './pages/ProgMatch';
-import Found from './pages/queuePages/found';
-import Searching from './pages/queuePages/searching';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
-import Welcome from './pages/Welcome';
-type QueueType = 'math' | 'programming' | null;
+import Layout from "./layout";
+import MathMatch from "./pages/MathMatch";
+import ProgMatch from "./pages/ProgMatch";
+import Found from "./pages/queuePages/found";
+import Dashboard from "./Views/Dashboard";
+import Profile from "./Views/Profile";
+import Searching from "./Views/Searching";
+import SignIn from "./Views/SignIn";
+import SignUp from "./Views/SignUp";
+import Welcome from "./Views/Welcome";
 
-type Page =
-  | 'welcome'
-  | 'signin'
-  | 'signup'
-  | 'dashboard'
-  | 'profile'
-  | 'searching'
-  | 'found'
-  | 'mathfieldtest'
-  | 'prog-match';
 
 const App: React.FC = () => {
-  const { isAuthenticated, isLoading, signOut } = useAuth();
-
-  const [page, setPage] = useState<Page>('welcome');
-  const [queueType, setQueueType] = useState<QueueType>(null);
-
-  if (isLoading) return null;
-
-  if (isAuthenticated && (page === 'welcome' || page === 'signin' || page === 'signup')) {
     return (
-      <Dashboard
-        onProfileClick={() => setPage('profile')}
-        onRankedPlay={(topic) => {
-          console.log('Topic selected:', topic);
+        <Routes>
+            <Route path='/' element={<Welcome/>}/>
+            <Route path='/welcome' element={<Welcome/>}/>
+            <Route path='/sign-in' element={<SignIn/>}/>
+            <Route path='/sign-up' element={<SignUp/>}/>
+            <Route path='/profile' element={<Profile/>}/>
+            <Route path='/searching' element={<Searching/>}/>
+            <Route path='/found' element={<Found/>}/>
+            <Route path='/math-match' element={<MathMatch/>}/>
+            <Route path='/prog-match' element={<ProgMatch language="javascript"/>}/>
 
-          if (topic.toLowerCase().includes('math')) {
-            setQueueType('math');
-          } else {
-            setQueueType('programming');
-          }
-
-          setPage('searching');
-        }}
-        onCasualPlay={() => {
-          setQueueType('programming');
-          setPage('searching');
-        }}
-      />
-    );
-  }
-
-  return (
-    <>
-      {page === 'prog-match' && (
-        <ProgMatch language="java" match={mock_match} back={() => setPage('dashboard')} />
-      )}
-
-      {page === 'mathfieldtest' && <MathFieldTest back={() => setPage('dashboard')} />}
-
-      {page === 'welcome' && (
-        <Welcome
-          onSignIn={() => setPage('signin')}
-          onSignUp={() => setPage('signup')}
-        />
-      )}
-
-      {page === 'signin' && (
-        <SignIn
-          onBack={() => setPage('welcome')}
-          onSignUp={() => setPage('signup')}
-          onSignIn={() => setPage('dashboard')}
-        />
-      )}
-
-      {page === 'signup' && (
-        <SignUp
-          onBack={() => setPage('welcome')}
-          onSignIn={() => setPage('dashboard')}
-        />
-      )}
-
-      {page === 'dashboard' && (
-        <Dashboard
-          onProfileClick={() => setPage('profile')}
-          onRankedPlay={(topic) => {
-            console.log('Topic selected:', topic);
-
-            if (topic.toLowerCase().includes('math')) {
-              setQueueType('math');
-            } else {
-              setQueueType('programming');
-            }
-
-            setPage('searching');
-          }}
-          onCasualPlay={() => {
-            setQueueType('programming');
-            setPage('searching');
-          }}
-        />
-      )}
-
-      {page === 'profile' && (
-        <Profile
-          onBack={() => setPage('dashboard')}
-          onLogout={async () => { await signOut(); setPage('welcome'); }}
-        />
-      )}
-
-      {page === 'searching' && (
-        <Searching
-          onCancel={() => setPage('dashboard')}
-          onFound={() => setPage('found')}
-        />
-      )}
-
-      {page === 'found' && (
-        <Found
-          onDecline={() => setPage('dashboard')}
-          onAccept={() => {
-            if (queueType === 'math') {
-              setPage('mathfieldtest');
-            } else {
-              setPage('prog-match');
-            }
-          }}
-        />
-      )}
-    </>
-  );
-};
+            {/* Pages with sidebar inside the app */}
+            <Route element={<Layout />}>
+                <Route path='/dashboard' element={<Dashboard />} />
+                <Route path='/game-guide' />
+                <Route path='/tournaments' />
+                <Route path='/leaderboard' />
+                <Route path='/badges' />
+                <Route path='/friends' />
+            </Route>
+        </Routes>
+    )
+}
 
 export default App;

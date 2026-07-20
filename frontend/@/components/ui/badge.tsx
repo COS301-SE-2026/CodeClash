@@ -20,11 +20,7 @@ function Badge({
     <Comp
       data-slot="badge"
       data-variant={variant}
-      className={cn(
-        badgeVariants({ variant }),
-        "font-badge font-semibold text-l",
-        className,
-      )}
+      className={cn(badgeVariants({ variant }), "font-badge font-semibold hover:scale-110 transition-transform duration-300 ease-in-out", className)}
       {...props}
     />
   );
