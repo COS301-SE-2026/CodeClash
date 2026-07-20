@@ -35,10 +35,10 @@ export interface LeaderboardProps{
 
 //GET /api/elo/leaderboard
 
-export async function fetchLeaderboardUsers(): Promise<LeaderboardUserData[]>{
-    const res = await fetch('/api/elo/leaderboard');
-    if(res.ok == false)
-}
+// export async function fetchLeaderboardUsers(): Promise<LeaderboardUserData[]>{
+//     const res = await fetch('/api/elo/leaderboard');
+//     if(res.ok == false)
+// }
 
 
 

@@ -14,8 +14,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <AuthProvider>
     <BrowserRouter>
       {/* <App /> */}
-      {/* <Leaderboard/> */}
-      <Guidebook/>
+      <Leaderboard/>
+      {/* <Guidebook/> */}
     </BrowserRouter>
   </AuthProvider>
 
