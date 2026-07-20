@@ -1,0 +1,40 @@
+backend/tsconfig.json
+  h_94c952a9e14c58 21-22,25-26,30-33,36
+backend/src/config/db.ts
+  h_94c952a9e14c58 2
+backend/src/api/controllers/matches.controllers.ts
+  h_94c952a9e14c58 1-169
+backend/Dockerfile
+  h_94c952a9e14c58 12
+backend/src/api/controllers/user.controllers.ts
+  h_94c952a9e14c58 1-130
+backend/package.json
+  h_94c952a9e14c58 11,29,49,56-57,60-61
+backend/src/api/db-entities/elo.entities.ts
+  h_94c952a9e14c58 1-9
+database/init.sql
+  h_94c952a9e14c58 11,17,25-29,61,68
+backend/src/api/repositories/index.ts
+  h_94c952a9e14c58 1-20
+backend/src/routes/api.routes.ts
+  h_94c952a9e14c58 9-12
+backend/src/api/repositories/data-source.ts
+  h_94c952a9e14c58 1-25
+backend/src/app.ts
+  h_94c952a9e14c58 17
+backend/src/api/db-entities/user.entity.ts
+  h_94c952a9e14c58 1-19
+backend/src/api/controllers/elo.controllers.ts
+  h_94c952a9e14c58 1-254
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "0042fc8c4ebf048710a8d0f4aecb66b46241e91d",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

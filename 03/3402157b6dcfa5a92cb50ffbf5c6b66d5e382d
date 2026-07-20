@@ -1,0 +1,26 @@
+frontend/src/App.tsx
+  h_94c952a9e14c58 13,27
+frontend/src/Models/MatchModel.ts
+  h_94c952a9e14c58 6
+frontend/@/components/shared/Match.tsx
+  h_94c952a9e14c58 4,6,11-14,20-23,27-28,30,32-34,36-42,44-72
+frontend/src/ViewModels/MatchViewModel.ts
+  h_94c952a9e14c58 1-58
+frontend/src/styles/global.css
+  h_94c952a9e14c58 12-15,55,88,103-105,142-144,159-160,164,220-221,238
+frontend/@/components/shared/BackButton.tsx
+  h_94c952a9e14c58 17-18
+frontend/src/Views/Match.tsx
+  h_94c952a9e14c58 1-27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "033402157b6dcfa5a92cb50ffbf5c6b66d5e382d",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

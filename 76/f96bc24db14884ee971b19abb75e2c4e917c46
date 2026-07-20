@@ -1,0 +1,16 @@
+frontend/src/Views/Match.tsx
+  h_94c952a9e14c58 21-22
+frontend/@/components/shared/Match.tsx
+  h_94c952a9e14c58 7,16,25-26,50,78-80,82-85,88-91
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "76f96bc24db14884ee971b19abb75e2c4e917c46",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
