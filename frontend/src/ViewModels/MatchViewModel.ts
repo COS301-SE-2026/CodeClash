@@ -27,15 +27,7 @@ export const useMatch = () => {
 
     const { seconds, minutes } = useTimer({ expiryTimestamp: expiry_time() });
 
-    const nextQuestion = (curr: number) => {
-        if (curr < questions.length)
-            setCurrentQuestions(curr + 1);
-    }
-
-    const prevQuestion = (curr: number) => {
-        if (curr > 0)
-            setCurrentQuestions(curr - 1)
-    }
+    
 
     questions.push({
         title: "Temp Question Title",
@@ -69,8 +61,6 @@ export const useMatch = () => {
         seconds,
         minutes,
         usernames,
-        nextQuestion,
-        prevQuestion,
         current_question
     }
 }

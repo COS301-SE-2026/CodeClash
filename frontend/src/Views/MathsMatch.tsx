@@ -1,17 +1,15 @@
-import Math from '@/components/features/MathPage';
+import MathMatch from '@/components/features/MathPage';
 import { Question } from '@/components/features/question';
-import VirtualKeyboard from '@/components/features/VirtualKeyboard';
 import { MatchScreen } from '@/components/shared/Match';
 import { Button } from '@/components/ui/button';
 import { useMatch } from 'src/ViewModels/MatchViewModel';
-import { useMathsMatch } from 'src/ViewModels/MathsMatchViewModel';
 
 const Match = () => {
-    const { math_ref } = useMathsMatch();
-    const { player_life, avatars, usernames,
-        seconds, minutes,
-        questions,
-        current_question, prevQuestion, nextQuestion } = useMatch();
+    const {
+        player_life, avatars, usernames,
+        seconds, minutes, questions,
+        current_question, progress
+    } = useMatch();
 
     const curr = questions[current_question];
 
@@ -23,6 +21,9 @@ const Match = () => {
             minutes={minutes}
             avatars={avatars}
             usernames={usernames}
+            user_progress={progress.player_progress[0]}
+            opponent_progres={progress.player_progress[1]}
+            question_number={4}
         >
             <div className=''>
                 <Question
@@ -33,7 +34,7 @@ const Match = () => {
                     description={curr.description}
                     number={curr.number}
                 >
-                    <Math></Math>
+                    <MathMatch></MathMatch>
                 </Question>
             </div>
 

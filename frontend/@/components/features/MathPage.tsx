@@ -51,4 +51,4 @@ const MathMatch = ({ onValueChange }: MathMatchProps) => {
   );
 };
 
-export default Math;
+export default MathMatch;
