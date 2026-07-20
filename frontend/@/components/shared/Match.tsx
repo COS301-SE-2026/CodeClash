@@ -30,7 +30,6 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
     usernames,
     children,
     question_number,
-    user_progress,
     opponent_progres
 }) => {
 
@@ -107,44 +106,55 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 </div>
 
                 {/* Progress bar */}
-                <div className='flex flex-col items-center w-[20%] justify-between bg-yellow-300'>
-                    <div className="fixed self-center bg-secondary h-[65%] w-[2%] rounded-3xl "></div>
+                <div className='flex flex-col items-center w-[20%] justify-between'>
 
-                    <div className='grid grid-cols[20%_80%] bg-red-200 border'>
-                        {
-                            [...Array(question_number)].map((q, id) => {
-                                const door_id = question_number - 1 - id;
-                                return (
-                                    <React.Fragment key={id}>
-                                        <div className=' h-[9rem] bg-blue-300 flex w-[70%]'>
-                                            <div className='flex items-center h-[3rem] '>
-                                                {user_progress === door_id && (
-                                                    <img src={avatars[0]}
-                                                        className="w-20 h-20 object-cover"
-                                                    />
-                                                )}
-                                            </div>
-                                            <div className='flex items-center h-[3rem]'>
-                                                {opponent_progres === door_id && (
-                                                    <img src={avatars[1]}
-                                                        className="w-20 h-20 object-cover "
-                                                    />
+                    {/* progress  */}
+                    <div className='w-[100%] flex'>
 
-                                                )}
-                                            </div>
-                                        </div>
-                                        <div className='bg-green-200 w-[100%]'>
-                                            <img src={door}
-                                                className="w-20 h-20 object-cover rounded-full"
-                                            />
-                                        </div>
-                                    </React.Fragment>
-                                )
-                            })
-                        }
+
+                        <div className='grid grid-cols-2 w-[100%]'>
+
+                            {/* avatars */}
+                            <div className='relative flex flex-row'>
+                                <img src={avatars[0]}
+                                    className=" absolute w-20 h-30 object-cover left-20"
+                                    style={{ top: `${(question_number - 1 - current_question) * 9.6}rem` }}
+                                />
+                                <img src={avatars[0]}
+                                    className=" absolute w-20 h-30 object-cover scale-x-[-1]"
+                                    style={{ top: `${(question_number - 1 - current_question) * 9.6}rem` }}
+                                />
+
+                            </div>
+                            <div className='relative  flex flex-col items-center justify-between h-[40rem]'>
+                                <div className="absolute bg-secondary h-[90%] w-[15%] -z-10 rounded-3xl "></div>
+                                {
+                                    [...Array(question_number)].map((q, id) => {
+                                        const door_id = question_number - 1 - id;
+                                        return (
+                                            <React.Fragment key={id}>
+
+                                                <div className=' w-[100%] h-[8rem] flex items-center justify-center col-start-2 '>
+                                                    <img src={door}
+                                                        className="w-20 h-20 object-cover rounded-full"
+                                                    />
+                                                </div>
+                                            </React.Fragment>
+                                        )
+                                    })
+                                }
+                                {/* start badge */}
+                                <Badge variant={'outline'} className='text-white text-sm font-body text-center font-semibold w-[60%] h-[2rem]'>Start</Badge>
+                            </div>
+
+
+
+                        </div>
+
                     </div>
                     {/* <img src={question_doors} alt='match progress indicator' className='h-[40rem]' /> */}
-                    <Badge variant={'outline'} className='text-white text-sm font-body text-center font-semibold w-[90%] h-[2rem]'>Start</Badge>
+
+
                 </div>
             </div>
         </div>
