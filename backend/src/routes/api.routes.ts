@@ -420,6 +420,10 @@ router.delete('/friends/:friendship_id', removeFriend);
 
 //submissions
 router.post('/submissions', createSubmission);
+/**
+ * @swagger
+ * /api/submissions/match/{match_id}
+ */
 router.get('/submissions/match/:match_id', getSubmissionsByMatch);
 /**
  * @swagger
