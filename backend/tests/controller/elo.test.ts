@@ -1,6 +1,6 @@
+import request from 'supertest';
 import { vi, Mock, describe, beforeEach, it, expect, afterAll } from 'vitest'
 
-import request from 'supertest';
 import app from '../../src/app';
 import pool from '../../src/config/db';
 

@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 <<<<<<<< HEAD:frontend/test/unit/components/PrimaryButton.test.tsx
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import PrimaryButton from '../../../src/components/PrimaryButton';
+=======
+import { render, screen, fireEvent } from '@testing-library/react';
+import { describe, it, expect, vi } from 'vitest';
+
+import PrimaryButton from '../../@/components/shared/PrimaryButton';
+>>>>>>> origin
 
 describe('PrimaryButton', () => {
 
