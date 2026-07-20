@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
 /* Font import */
 /* Roboto */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
@@ -5,12 +10,6 @@
 /* Baloo Bhai 2 */
 @import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400..800&display=swap');
 /************************/
-
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
-
-
 
 /* text is the text colour */
 
@@ -53,8 +52,9 @@
   --color-button-secondary: var(--button-secondary);
   --color-button-text-primary: var(--button-text-primary);
   --color-button-text-secondary: var(--button-text-secondary)
-    /* accents */
-    --color-accent: var(--accent);
+
+  /* accents */
+  --color-accent: var(--accent);
   --color-accent-text: var(--accent-text);
   --color-destructive: var(--destructive);
   --color-border: var(--border);
@@ -85,18 +85,20 @@
   --font-heading-size: var(--heading-size);
   --font-logo: var(--font-logo);
   --font-weight-light: 100;
+  --font-silkscreen: "Silkscreen", sans-serif;
 
-  /* text size */
-  --text-xsm: 1rem;
-  --text-sm: 1.3rem;
-  --text-md: 1.9rem;
-  --text-l: 2.3rem;
-  --text-xl: 3rem;
-  --text-2xl: 3.3rem;
-  --text-3xl: 3.6rem;
+  /* text size - matching to the :root vars*/
+  --text-xsm: var(--font-size-xsm);
+  --text-sm: var(--font-size-sm);
+  --text-md: var(--font-size-md);
+  --text-l: var(--font-size-l);
+  --text-xl: var(--font-size-xl);
+  --text-2xl: var(--font-size-2xl);
+  --text-3xl: var(--font-size-3xl);
 
   /* shadows */
   --shadow-badge: var(--badge-shadow);
+  --shadow-card: var(--card-shadow);
 
 }
 
@@ -110,33 +112,44 @@
   --secondary: #FFEFE0;
   --primary-text: #FCECDD;
   --secondary-text: #530a23;
+  --success: #4caf50;
+  --danger: #e53935;
+  --muted: rgba(252, 236, 221, 0.4);
+  --muted-text: rgba(252, 236, 221, 0.5);
 
   /* buttons */
   --button-primary: #C0395A;
   --button-secondary: #FFEFE0;
-  --button-text-primary: #FFFF;
+  --button-text-primary: #FFFFFF;
   --button-text-secondary: #9D2644;
 
 
-  --text: #FFFF;
+  --text: #FFFFFF;
 
   /* fonts */
   --font: 'Roboto', sans-serif;
   --font-logo: 'Baloo Bhai 2', sans-serif;
-  --heading: 'Baloo Bhai 2', sans-serif;
+  --heading: 'Roboto', sans-serif;
 
   --heading-weight: 700;
   --heading-sub-weight: 400;
   --heading-size: 3rem;
+  --heading-big-size: 5rem;
 
-  --badge-font-size: 0.1rem;
+  --badge-font-size: 0.75rem;
   --badge-font-weight: 700;
 
   --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --card-shadow: 0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25);
+
+  --font-size-xsm: 1rem;
   --font-size-sm: 1.3rem;
-  --font-size-md: 2rem;
-  --font-size-l: 2.5rem;
+  --font-size-md: 1.9rem;
+  --font-size-l: 2.3rem;
   --font-size-xl: 3rem;
+  --font-size-2xl: 3.3rem;
+  --font-size-3xl: 3.6rem;
+
   --font-weight: 500;
 }
 
@@ -209,4 +222,11 @@
     transform: scale(1.2);
   }
 
+  .badge-shadow {
+    box-shadow: var(--badge-shadow);
+  }
+
+  .card-shadow {
+    box-shadow: var(--card-shadow);
+  }
 }

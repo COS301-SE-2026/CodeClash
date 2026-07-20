@@ -124,6 +124,8 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
         team: 'QuantDevs',
     },
 
+
+
     colors: [
         {
             name: 'Primary',
