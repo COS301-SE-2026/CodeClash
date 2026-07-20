@@ -54,13 +54,13 @@ const Leaderboard = (
                 <div className="text-[32px] text-[#C0395A] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">ELO</div>
                 </div>
             </div>
-            <div style={{backgroundImage: `url(${winner})`}} className="w-[524px] h-[524px] mt-2 -ml-49 bg-cover bg-center bg-no-repeat flex flex-col items-center justify-center">
+            <div style={{backgroundImage: `url(${winner})`}} className="w-[524px] h-[524px] mt-2 -ml-28 bg-cover bg-center bg-no-repeat flex flex-col items-center justify-center">
                 <div style={{backgroundImage: `url(${profile})`}} className="w-[120px] h-[120px] bg-no-repeat rounded-full object-cover bg-size-[auto_240px] bg-[right_-60px_top_-60px] -mt-30"></div>
                 <div className="text-[64px] text-[#B39A48] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] -mt-2">1</div>
                 <div className="text-[32px] text-[#C0395A] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-1">Username</div>
                 <div className="text-[32px] text-[#C0395A] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">ELO</div>
             </div>
-            <div className="-ml-35 mb-40 w-[239px] h-[304px] rounded-[20px] bg-[#FAC8D0] border-4 border-[#F4A0B2] drop-shadow-[-10px_10px_6px_rgba(0,0,0,0.25)] flex flex-col items-center justify-center">
+            <div className="ml-5 mb-40 w-[239px] h-[304px] rounded-[20px] bg-[#FAC8D0] border-4 border-[#F4A0B2] drop-shadow-[-10px_10px_6px_rgba(0,0,0,0.25)] flex flex-col items-center justify-center">
                 <div style={{backgroundImage: `url(${profile})`}} className="w-[90px] h-[90px] bg-no-repeat rounded-full object-cover bg-size-[auto_180px] bg-[right_-45px_top_-45px] -mt-12"></div>
                 <div className="text-[64px] text-[#B36548] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">3</div>
                 <div className="text-[32px] text-[#C0395A] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
@@ -72,7 +72,7 @@ const Leaderboard = (
                 <div className="-mt-16 ml-25 text-[20px] text-[#C0395A] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
                 <div className="ml-38 text-[21px] text-[#C0395A] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">ELO</div>
             </div>
-            <div className="mb-40 -mt-40 ml-75 w-[239px] h-[77px] rounded-[20px] bg-[#FAC8D0] border-4 border-[#F4A0B2] drop-shadow-[-10px_10px_6px_rgba(0,0,0,0.25)]">
+            <div className="mb-40 -mt-40 ml-95 w-[239px] h-[77px] rounded-[20px] bg-[#FAC8D0] border-4 border-[#F4A0B2] drop-shadow-[-10px_10px_6px_rgba(0,0,0,0.25)]">
                 <div style={{backgroundImage: `url(${profile})`}} className="mt-1.5 w-[60px] h-[60px] bg-no-repeat rounded-full object-cover bg-size-[auto_120px] bg-[right_-30px_top_-30px]"></div>
                 <div className="-mt-17 -ml-15 text-[48px] text-[#FF5B8F] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">5</div>
                 <div className="-mt-16 ml-25 text-[20px] text-[#C0395A] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
@@ -115,7 +115,7 @@ const Leaderboard = (
                 </div>
             </div>
             </div>
-            <div style={{backgroundImage: `url(${planet})`}} className="w-[500px] h-[500px] bg-no-repeat object-cover bg-size-[auto_500px] bg-[right_-180px_top_-5px] mr-20">
+            <div style={{backgroundImage: `url(${planet})`}} className="w-[500px] h-[500px] bg-no-repeat object-cover bg-size-[auto_450px] bg-[right_-160px_top_-5px] mr-20">
             <div className="mt-130 text-[60px] text-[#F9A4B9] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">League</div>
             </div>
         </div>
