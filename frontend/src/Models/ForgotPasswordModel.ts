@@ -21,3 +21,27 @@ export interface ResetPasswordForm {
     newPassword: string;
     confirmPassword: string;
 }
+
+export const forgotPasswordContent: ForgotPasswordContent = {
+    titleRequest: 'Forgot Password?',
+    taglineRequest: 'Enter your email address, and recieve a code to reset your password.',
+    emailPlaceholder: 'Email address',
+    labelSendCode: 'Send code',
+    titleReset: 'Reset Password',
+    taglineReset: (email:string) => `Enter the code sent to ${email}`,
+    codePlaceholder: 'Reset code',
+    newPasswordPlaceholder: 'New password',
+    confirmPasswordPlaceholder: 'Confirm new password',
+    labelConfirm: 'Confirm',
+    messageSuccess: 'Your password has been changed successfully. You may now log in.',
+};
+
+export const forgotPasswordForm: ForgotPasswordForm = {
+    email: '',
+};
+
+export const resetPasswordForm: ResetPasswordForm = {
+    code: '',
+    newPassword: '',
+    confirmPassword: '',
+};
