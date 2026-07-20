@@ -17,8 +17,8 @@ interface MatchScreenProps {
     usernames: string[],
     children: React.ReactNode,
     question_number: number,
-    user_progress: number,
-    opponent_progres: number
+    current_question: number,
+    opponent_progress: number
 }
 
 export const MatchScreen: React.FC<MatchScreenProps> = ({
@@ -30,20 +30,10 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
     usernames,
     children,
     question_number,
-    opponent_progres
+    current_question,
+    opponent_progress
 }) => {
 
-    const [current_question, setCurrentQuestions] = useState(0);
-
-    const nextQuestion = (curr: number) => {
-        if (curr < question_number)
-            setCurrentQuestions(curr + 1);
-    }
-
-    const prevQuestion = (curr: number) => {
-        if (curr > 0)
-            setCurrentQuestions(curr - 1)
-    }
 
     return (
         <div className="fixed inset-0 flex flex-col">
@@ -122,15 +112,16 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                 />
                                 <img src={avatars[0]}
                                     className=" absolute w-20 h-30 object-cover scale-x-[-1]"
-                                    style={{ top: `${(question_number - 1 - current_question) * 9.6}rem` }}
+                                    style={{ top: `${(question_number - 1 - opponent_progress) * 9.6}rem` }}
                                 />
 
                             </div>
+
+                            {/* doors */}
                             <div className='relative  flex flex-col items-center justify-between h-[40rem]'>
                                 <div className="absolute bg-secondary h-[90%] w-[15%] -z-10 rounded-3xl "></div>
                                 {
                                     [...Array(question_number)].map((q, id) => {
-                                        const door_id = question_number - 1 - id;
                                         return (
                                             <React.Fragment key={id}>
 
@@ -146,15 +137,8 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                 {/* start badge */}
                                 <Badge variant={'outline'} className='text-white text-sm font-body text-center font-semibold w-[60%] h-[2rem]'>Start</Badge>
                             </div>
-
-
-
                         </div>
-
                     </div>
-                    {/* <img src={question_doors} alt='match progress indicator' className='h-[40rem]' /> */}
-
-
                 </div>
             </div>
         </div>

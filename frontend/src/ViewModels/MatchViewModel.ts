@@ -27,7 +27,7 @@ export const useMatch = () => {
 
     const { seconds, minutes } = useTimer({ expiryTimestamp: expiry_time() });
 
-    
+
 
     questions.push({
         title: "Temp Question Title",
@@ -36,6 +36,17 @@ export const useMatch = () => {
         description: "This is a description to provide context to help solve the problem",
         number: 0
     })
+
+
+    const nextQuestion = (curr: number) => {
+        if (curr < questions.length)
+            setCurrentQuestions(curr + 1);
+    }
+
+    const prevQuestion = (curr: number) => {
+        if (curr > 0)
+            setCurrentQuestions(curr - 1)
+    }
 
     useEffect(() => {
 
@@ -61,6 +72,8 @@ export const useMatch = () => {
         seconds,
         minutes,
         usernames,
-        current_question
+        current_question,
+        nextQuestion,
+        prevQuestion
     }
 }

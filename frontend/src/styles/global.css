@@ -36,6 +36,7 @@
   --color-success: var(--success);
   --color-danger: var(--danger);
   --color-muted: var(--muted);
+  --colour-secondary-muted: var(--secondary-muted);
 
   /* Pink */
   --color-pink-100: #ED5A90;
@@ -119,6 +120,7 @@
   --danger: #e53935;
   --muted: rgba(252, 236, 221, 0.4);
   --muted-text: rgba(252, 236, 221, 0.5);
+  --secondary-muted:#e0d0c2;
 
   /* buttons */
   --button-primary: #C0395A;
