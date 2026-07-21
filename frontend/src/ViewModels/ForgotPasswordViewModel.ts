@@ -20,6 +20,7 @@ interface ForgotPasswordViewModel {
     handleSendCode: () => Promise<void>;
     handleReset: () => Promise<void>;
     handleBack: () => void;
+    handleSuccess: () => void;
 }
 
 export function ForgotPasswordViewModelFunction ({
@@ -40,6 +41,40 @@ export function ForgotPasswordViewModelFunction ({
         setResetForm( prev => ({ ...prev, [field]: value}));
     }, []);
 
+    const handleSendCode = useCallback(async () => {
+        clearError();
+        setLocalError(null); //clear any previous error and reset the local error to null
+        const validationError = validateForgotPasswordForm(requestForm); //run validation on the email form to see if it is valid
+
+        if (validationError) {
+            setLocalError(validationError);
+            return;
+        }
+
+        try {
+            await forgotPassword(requestForm.email.trim()); //Amplify will be called to send the verification code to the given email
+            setState('reset');
+        }
+        catch {}
+    }, [requestForm, forgotPassword, clearError]); //dependency array for React to create callback
+
+    const handleReset = useCallback(async () => {
+        clearError();
+        setLocalError(null);
+        const validationError = validateResetPassword(resetForm); //validate the code, matching passwords, strong password
+
+        if (validationError) {
+            setLocalError(validationError);
+            return;
+        }
+
+        try { //Amplify will get calledm and if everyhting is correct then the password will be updated to the new password
+            await confirmForgotPassword(requestForm.email.trim(), resetForm.code.trim(), resetForm.newPassword,);
+            setState('success');
+        }
+        catch {}
+    }, [requestForm.email, resetForm, confirmForgotPassword, clearError]);
+
     return {
         content: forgotPasswordContent,
         requestForm,
@@ -49,5 +84,9 @@ export function ForgotPasswordViewModelFunction ({
         isLoading,
         setRequest,
         setReset,
+        handleSendCode,
+        handleReset,
+        handleBack: onBack,
+        handleSuccess: onSuccess,
     };
 }
