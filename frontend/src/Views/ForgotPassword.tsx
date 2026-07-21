@@ -13,13 +13,13 @@ const ForgotPassword: React.FC<ForgotPasswordViewModelProps> = ({onBack, onSucce
         state, displayError, isLoading,
         setRequest, setReset,
         handleSendCode, handleReset,
-        handleBack, handleSuccess,
+        handleBack,
     } = ForgotPasswordViewModelFunction({onBack, onSuccess});
     return (
         <div className="relative w-full min-h-screen flex items-center justify-center overflow-hidden"
             style={{background: 'var(--background)'}}>
             <button className="absolute top-10 left-10 bg-primary rounded-lg px-4 py-2 heading-sub hover:opacity-80"
-                onClick={handleBack}>
+                onClick={handleBack} type="button">
                     ← Back
                 </button>
 
