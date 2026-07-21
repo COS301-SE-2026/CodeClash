@@ -1,5 +1,5 @@
 import type React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Dashboard from "./Views/Dashboard";
 import Layout from "./layout";
 import Welcome from "./Views/Welcome";
@@ -11,8 +11,10 @@ import MatchFound from "./Views/MatchFound";
 import Searching from "./pages/queuePages/searching";
 import Found from "./pages/queuePages/found";
 import MathMatch from "./pages/MathMatch";
+import ForgotPassword from "./Views/ForgotPassword";
 
 const App: React.FC = () => {
+    const navigate = useNavigate();
     return (
         <Routes>
             <Route path='/' element={<Welcome/>}/>
@@ -25,6 +27,7 @@ const App: React.FC = () => {
             <Route path='/searching' element={<Searching/>}/>
             <Route path='/found' element={<Found/>}/>
             <Route path='/math-match' element={<MathMatch/>}/>
+            <Route path='/forgot-password' element= {<ForgotPassword onBack={() => navigate('/sign-in')} onSuccess={() => navigate('/sign-in')}/>}/>
             {/* <Route path='/prog-match' element={<ProgMatch language="javascript"/>}/> */}
 
             {/* Pages with sidebar inside the app */}
