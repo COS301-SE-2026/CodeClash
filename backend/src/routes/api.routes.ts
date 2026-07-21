@@ -419,6 +419,29 @@ router.get('/friends/:user_id', getFriendsById);
 router.delete('/friends/:friendship_id', removeFriend);
 
 //submissions
+
+/**
+ * @swagger
+ * /api/submissions
+ *  post:
+ *    summary: Creates a submission
+ *    tags: [Submissions]
+ *    parameters:
+ *      - in: query
+ *        name: type
+ *        required: true
+ *        schema:
+ *          type: string
+ *          default: received
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            required:
+ *              - 
+ */
 router.post('/submissions', createSubmission);
 /**
  * @swagger
