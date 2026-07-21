@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { pool } from '../../config/db';
-import { validToken } from '../../services/auth.service';
+import { pool } from '../../application/usecases/init-db';
+import { validToken } from '../auth/auth.service';
 
 
 // GET /api/elo/elo-get

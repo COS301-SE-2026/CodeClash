@@ -3,6 +3,12 @@
 CREATE TYPE problem_category AS ENUM ('math', 'programming');
 CREATE TYPE supported_languages AS ENUM('java','c++');
 
+CREATE TABLE IF NOT EXISTS leagues(
+  league_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  league_name TEXT  UNIQUE NOT NULL,
+  elo_range int4range NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS users (
   user_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   username VARCHAR(50) UNIQUE NOT NULL,
@@ -20,21 +26,21 @@ CREATE TABLE IF NOT EXISTS problems (
   time_limit TIME(2) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS match_problems(
-  match_problems_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  match_id UUID REFERENCES matches(match_id) NOT NULL,
-  question_id UUID REFERENCES problems(problem_id ) NOT NULL
-);
 
 CREATE TABLE IF NOT EXISTS matches(
   match_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   player1_id UUID REFERENCES users(user_id),
   player2_id UUID REFERENCES users(user_id),
-  match_problems_id UUID REFERENCES match_problems(match_problems_id),
   mode VARCHAR(10) CHECK (mode IN ('ranked', 'casual')) NOT NULL,
   queue_start TIMESTAMP DEFAULT NOW() NOT NULL,
   match_start TIMESTAMP,
   status VARCHAR(20) CHECK (status IN ('waiting', 'starting','in_progress', 'completed', 'abandoned')) DEFAULT 'waiting' -- check is there a function to set a found match status to starting?
+);
+
+CREATE TABLE IF NOT EXISTS match_problems(
+  match_problems_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  match_id UUID REFERENCES matches(match_id) NOT NULL,
+  question_id UUID REFERENCES problems(problem_id ) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS match_log(

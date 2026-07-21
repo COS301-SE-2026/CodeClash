@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { pool } from '../../config/db';
+import { pool } from '../../application/usecases/init-db';
 
 //GET api/matches/:optional params
 //Returns a paginated list of matches for the authenticated user. Optionally filter by status or game mode.

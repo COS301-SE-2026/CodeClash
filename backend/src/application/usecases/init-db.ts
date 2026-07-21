@@ -1,9 +1,11 @@
 import dotenv from 'dotenv';
-import { fetchAllCognitoUsers } from '../api/controllers/user.controllers'
+import { fetchAllCognitoUsers } from '../../interface-adapters/controllers/user.controllers'
 import { Pool } from 'pg';
 
 dotenv.config();
 
+
+// NEEDS TO BE REMOVED
 const db_url = (process.env.NODE_ENV == 'test') ?
   process.env.DATABASE_TEST_URL
   : process.env.DATABASE_URL;
@@ -21,6 +23,8 @@ pool.on('error', (err) => {
   process.exit(-1);
 });
 
+
+/////////////////////////////////////////////
 // add user elo to the system 
 
 
