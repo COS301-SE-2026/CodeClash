@@ -14,7 +14,7 @@ export const createSubmission = async (req: Request, res: Response): Promise<voi
 
     try {
         const query = type === 'math'
-        ? `INSERT INTO submissions (user_id, match_id, problem_id, answer)
+        ? `INSERT INTO submissions (user_id, match_id, problem_id, submission_type, answer)
             VALUES ($1, $2, $3, $4)
             RETURNING *`
         : `INSERT INTO submissions (user_id, match_id, problem_id, code)
@@ -23,7 +23,7 @@ export const createSubmission = async (req: Request, res: Response): Promise<voi
 
         const result = await pool.query(query,[user_id,match_id, problem_id, entry]);
 
-        res.status(200).json(result.rows);
+        res.status(201).json(result.rows[0]);
 
     } catch (error) {
         console.error('Error entering submission into database:', error);
@@ -121,7 +121,7 @@ export const getSubmissionsByUser = async (req: Request, res: Response): Promise
                 s.submission_type,
                 s.status,
                 s.submitted_at
-            FROM submission s
+            FROM submissions s
             WHERE s.user_id = $1
             ORDER BY s.submitted_at DESC`,
             [user_id]
@@ -151,7 +151,7 @@ export const getSubmissionById = async (req: Request, res: Response): Promise<vo
                 s.language,
                 s.answer,
                 s.status,
-                s.submittied_at,
+                s.submitted_at,
                 er.passed_cases,
                 er.total_cases,
                 er.execution_time,
@@ -159,7 +159,7 @@ export const getSubmissionById = async (req: Request, res: Response): Promise<vo
                 er.error_message
             FROM submissions s
             LEFT JOIN execution_results er ON er.submission_id = s.submission_id
-            WHERE s.submission+id = $1`,
+            WHERE s.submission_id = $1`,
             [submission_id]
         );
 

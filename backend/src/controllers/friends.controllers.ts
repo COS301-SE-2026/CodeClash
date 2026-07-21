@@ -22,7 +22,7 @@ export const getFriendsById = async (req: Request, res: Response): Promise<void>
              SELECT
                 u.user_id, u.username, f.created_at, f.updated_at
             FROM friendships f
-            JOIN users u ON u.user_id = f.receiver_id
+            JOIN users u ON u.user_id = f.requester_id
              WHERE f.status = 'accepted' AND f.receiver_id = $1`,
             [user_id]
         );
@@ -115,8 +115,7 @@ export const sendFriendRequest = async (req: Request, res: Response): Promise<vo
 //PATCH
 //Accept or Reject friend request
 export const respondToFriendRequest = async (req: Request, res: Response): Promise<void> => {
-    const { friendship_id } = req.body;
-    const { verdict } = req.params;
+    const { verdict, friendship_id } = req.params;
 
     try{
         const result = await pool.query(

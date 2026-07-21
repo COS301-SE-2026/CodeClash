@@ -38,7 +38,7 @@ export const getMatchPowerups = async (req: Request, res: Response): Promise<voi
                 p.description
             FROM match_powerups mp
             JOIN powerups p ON p.powerup_id = mp.powerup_id
-            JOIN users u ON U.user_id = mp.user_id
+            JOIN users u ON u.user_id = mp.user_id
             WHERE mp.match_id = $1
             ORDER BY mp.used_at ASC`,
             [match_id]
@@ -61,7 +61,7 @@ export const usePowerup = async (req: Request, res: Response): Promise<void> => 
         const result = await pool.query(
             `INSERT INTO match_powerups (match_id, user_id, powerup_id)
             VALUES ($1, $2, $3)
-            RETURN *`,
+            RETURNING *`,
             [match_id, user_id, powerup_id]
         );
 
@@ -82,7 +82,7 @@ export const getAchievements = async (req: Request, res: Response): Promise<void
             `SELECT
                 achievement_id,
                 achievement_name,
-                description,
+                description
             FROM achievements
                 `
         );
@@ -106,9 +106,9 @@ export const getUserAchievements = async (req: Request, res: Response): Promise<
                 u.username,
                 a.achievement_id,
                 a.achievement_name,
-                a.description,
+                a.description
             FROM achievements a
-            JOIN player_achievemnts pa ON pa.achievement_id = a.achievement_id
+            JOIN player_achievments pa ON pa.achievement_id = a.achievement_id
             WHERE pa.user_id = $1`,
             [user_id]
         );
@@ -124,7 +124,7 @@ export const getUserAchievements = async (req: Request, res: Response): Promise<
 //POST achievements/award
 //Award an achievement
 export const awardAchievement = async (req: Request, res: Response): Promise<void> => {
-    const { user_id, achievement_id } = req.params;
+    const { user_id, achievement_id } = req.body;
 
     try {
         const result = await pool.query(
