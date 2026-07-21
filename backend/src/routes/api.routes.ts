@@ -394,6 +394,21 @@ router.get('/friends/requests/:user_id', getFriendRequests);
  *        description: Internal server error
  */
 router.post('/friends/invite', addFriendInvite);
+/**
+ * @swagger
+ * /api/friends/request
+ *  post:
+ *    summary: Creates a pending friendship
+ *    tags: [Friends]
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            required:
+ *            
+ */
 router.post('/friends/request', sendFriendRequest);
 /**
  * @swagger
