@@ -432,7 +432,7 @@ router.delete('/friends/:friendship_id', removeFriend);
  *        required: true
  *        schema:
  *          type: string
- *          default: received
+ *          enum: [math, programming]
  *    requestBody:
  *      required: true
  *      content:
