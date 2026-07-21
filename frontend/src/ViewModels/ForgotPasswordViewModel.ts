@@ -27,12 +27,27 @@ export function ForgotPasswordViewModelFunction ({
 }: ForgotPasswordViewModelProps): ForgotPasswordViewModel {
     const {forgotPassword, confirmForgotPassword, error, clearError, isLoading} = useAuth();
 
-    const [requestForm, setRequest] =useState<ForgotPasswordForm>(forgotPasswordForm);
-    const [resetForm, setReset] = useState<ResetPasswordForm>(resetPasswordForm);
+    const [requestForm, setRequestForm] =useState<ForgotPasswordForm>(forgotPasswordForm);
+    const [resetForm, setResetForm] = useState<ResetPasswordForm>(resetPasswordForm);
     const [state, setState] = useState< 'request' | 'reset' | 'success'>('request');
     const [localError, setLocalError] = useState<string | null>(null);
 
-    return {
+    const setRequest = useCallback((field: keyof ForgotPasswordForm, value: string) => {
+        setRequestForm(prev => ({ ...prev, [field]: value}));
+    }, []);
 
+    const setReset = useCallback((field: keyof ResetPasswordForm, value: string) => {
+        setResetForm( prev => ({ ...prev, [field]: value}));
+    }, []);
+
+    return {
+        content: forgotPasswordContent,
+        requestForm,
+        resetForm,
+        state,
+        displayError: localError ?? error,
+        isLoading,
+        setRequest,
+        setReset,
     };
 }
