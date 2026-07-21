@@ -395,6 +395,20 @@ router.get('/friends/requests/:user_id', getFriendRequests);
  */
 router.post('/friends/invite', addFriendInvite);
 router.post('/friends/request', sendFriendRequest);
+/**
+ * @swagger
+ * /api/friends/request/{friendship_id}
+ *  patch:
+ *    summary: Accept or Reject a friend request
+ *    tags: [Friends]
+ *    parameters:
+ *      - in: path
+ *        name: verdict
+ *        required: true
+ *        schema:
+ *          type:
+ *          format:
+ */
 router.patch('/friends/request/:friendship_id', respondToFriendRequest);
 /**
  * @swagger
