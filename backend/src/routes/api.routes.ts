@@ -426,6 +426,16 @@ router.get('/friends/:user_id', getFriendsById);
  *      - in: path
  *        name: friendship_id
  *        required: true
+ *        schema:
+ *          type: string
+ *          format: uuid
+ *    responses:
+ *      200:
+ *        description: Deleted friend successfully
+ *      404:
+ *        description: Friend not found
+ *      500:
+ *        description: Internal server error
  * 
  */
 router.delete('/friends/:friendship_id', removeFriend);
