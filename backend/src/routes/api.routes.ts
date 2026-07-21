@@ -440,7 +440,28 @@ router.delete('/friends/:friendship_id', removeFriend);
  *          schema:
  *            type: object
  *            required:
- *              - 
+ *              - user_id
+ *              - match_id
+ *              - problem_id
+ *              - entry
+ *            properties:
+ *              user_id:
+ *                type: string
+ *                format: uuid
+ *              match_id:
+ *                type: string
+ *                format: uuid
+ *              problem_id:
+ *                type: string
+ *                format: uuid
+ *              entry:
+ *                type: string
+ *                enum: [mathsText, codeText]
+ *    responses:
+ *      200:
+ *        description: Submission successfully created
+ *      500:
+ *        description: Internal server error
  */
 router.post('/submissions', createSubmission);
 /**
