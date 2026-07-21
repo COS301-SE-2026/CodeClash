@@ -6,14 +6,11 @@ import dotnev from 'dotenv'
 import { joinMatchQueue, leaveMatchQueue, matchAccepted, matchDeclined } from 'src/interface-adapters/socket-handlers/matchmaking.handler';
 import { AppDataSource } from "./data-source"
 import { User } from "../interface-adapters/repositories/db-entities/user.entities"
+import { initDB } from 'src/application/usecases/init-db';
 
 dotnev.config()
 
 
-// Initialise DB
-AppDataSource.initialize().then(async () => {
-
-}).catch(error => console.log(error))
 
 
 // create server instance
@@ -54,10 +51,19 @@ io.on("connection", (socket) => {
     socket.on('match_declined', (pair_id) => matchDeclined(io, socket, pair_id));
 })
 
-// start server
-httpServer.listen(3000, () => {
-    console.log("Server listening")
-});
+
+// Initialise DB
+AppDataSource.initialize()
+    .then(async () => {
+
+        // seeding logic
+        await initDB();
+        // start server
+        httpServer.listen(3000, () => {
+            console.log("Server listening")
+        });
+    }).catch(error => console.error(error))
+
 
 
 

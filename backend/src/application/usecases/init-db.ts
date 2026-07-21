@@ -1,31 +1,7 @@
 import dotenv from 'dotenv';
 import { fetchAllCognitoUsers } from '../../interface-adapters/controllers/user.controllers'
-import { Pool } from 'pg';
 
 dotenv.config();
-
-
-// NEEDS TO BE REMOVED
-const db_url = (process.env.NODE_ENV == 'test') ?
-  process.env.DATABASE_TEST_URL
-  : process.env.DATABASE_URL;
-
-const pool = new Pool({
-  connectionString: db_url
-});
-
-pool.on('connect', () => {
-  console.log('Connected to the database');
-});
-
-pool.on('error', (err) => {
-  console.error('Unexpected error on idle client', err);
-  process.exit(-1);
-});
-
-
-/////////////////////////////////////////////
-// add user elo to the system 
 
 
 async function initDB() {
