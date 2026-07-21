@@ -47,7 +47,7 @@ const Leaderboard = (
         <div className="flex justify-between items-start gap-10">
             <div className="relative w-3/5 flex flex-col ml-5">
             <div className="grid grid-cols-3 md:flex-row md:flex-col gap-4 border-1 space-y-3">
-            <div className="w-[239px] h-[304px] rounded-[20px] bg-[#FAC8D0] border-4 border-[#F4A0B2] drop-shadow-[10px_10px_6px_rgba(0,0,0,0.25)] flex flex-col items-center justify-center">
+            <div className="w-[239px] h-[304px] rounded-[20px] bg-[#FAC8D0] border-4 border-[#F4A0B2] drop-shadow-[10px_10px_6px_rgba(0,0,0,0.25)] flex flex-col items-center justify-center mt-15">
                 <div style={{backgroundImage: `url(${profile})`}} className="w-[90px] h-[90px] bg-no-repeat rounded-full object-cover bg-size-[auto_180px] bg-[right_-45px_top_-45px] -mt-60">
                 <div className="text-[64px] text-[#CECBC2] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mt-22">2</div>
                 <div className="text-[32px] text-[#C0395A] text-center justify-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] -ml-7">Username</div>
@@ -60,19 +60,19 @@ const Leaderboard = (
                 <div className="text-[32px] text-[#C0395A] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-1">Username</div>
                 <div className="text-[32px] text-[#C0395A] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">ELO</div>
             </div>
-            <div className="w-[239px] h-[304px] rounded-[20px] bg-[#FAC8D0] border-4 border-[#F4A0B2] drop-shadow-[-10px_10px_6px_rgba(0,0,0,0.25)] flex flex-col items-center justify-center">
+            <div className="w-[239px] h-[304px] rounded-[20px] bg-[#FAC8D0] border-4 border-[#F4A0B2] drop-shadow-[-10px_10px_6px_rgba(0,0,0,0.25)] flex flex-col items-center justify-center mt-15">
                 <div style={{backgroundImage: `url(${profile})`}} className="w-[90px] h-[90px] bg-no-repeat rounded-full object-cover bg-size-[auto_180px] bg-[right_-45px_top_-45px] -mt-12"></div>
                 <div className="text-[64px] text-[#B36548] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">3</div>
                 <div className="text-[32px] text-[#C0395A] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
                 <div className="text-[32px] text-[#C0395A] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">ELO</div>
             </div>
-            <div className="w-[239px] h-[77px] rounded-[20px] bg-[#FAC8D0] border-4 border-[#F4A0B2] drop-shadow-[10px_10px_6px_rgba(0,0,0,0.25)]">
+            <div className="w-[239px] h-[77px] rounded-[20px] bg-[#FAC8D0] border-4 border-[#F4A0B2] drop-shadow-[10px_10px_6px_rgba(0,0,0,0.25)] -mt-40">
                 <div style={{backgroundImage: `url(${profile})`}} className="mt-1.5 w-[60px] h-[60px] bg-no-repeat rounded-full object-cover bg-size-[auto_120px] bg-[right_-30px_top_-30px]"></div>
                 <div className="-mt-17 -ml-14 text-[48px] text-[#FF5B8F] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">4</div>
                 <div className="-mt-16 ml-25 text-[20px] text-[#C0395A] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
                 <div className="ml-38 text-[21px] text-[#C0395A] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">ELO</div>
             </div>
-            <div className="w-[239px] h-[77px] rounded-[20px] bg-[#FAC8D0] border-4 border-[#F4A0B2] drop-shadow-[-10px_10px_6px_rgba(0,0,0,0.25)]">
+            <div className="w-[239px] h-[77px] rounded-[20px] bg-[#FAC8D0] border-4 border-[#F4A0B2] drop-shadow-[-10px_10px_6px_rgba(0,0,0,0.25)] -mt-40">
                 <div style={{backgroundImage: `url(${profile})`}} className="mt-1.5 w-[60px] h-[60px] bg-no-repeat rounded-full object-cover bg-size-[auto_120px] bg-[right_-30px_top_-30px]"></div>
                 <div className="-mt-17 -ml-15 text-[48px] text-[#FF5B8F] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">5</div>
                 <div className="-mt-16 ml-25 text-[20px] text-[#C0395A] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
@@ -81,7 +81,7 @@ const Leaderboard = (
             </div>
 {            //////////////////////////////////////////////////////////////////
 }            <div style={{backgroundImage: `url(${light})`}} className="absolute -top-35 -left-5 w-[1100px] h-[1000px] bg-no-repeat bg-cover bg-center bg-size-[auto_1000px]"></div>
-            <div style={{backgroundImage: `url(${background})`}} className=" absolute left-10 -bottom-60.5 w-[935px] h-[350px] rounded-[20px] bg-no-repeat bg-cover bg-center bg-size-[auto_700px]">
+            <div style={{backgroundImage: `url(${background})`}} className="absolute -bottom-80.5 w-[905px] h-[350px] rounded-[20px] bg-no-repeat bg-cover bg-center bg-size-[auto_700px]">
                 <div className="grid grid-rows-5 gap-1 items-end">
                     <div className="mt-4.25 ml-8 h-[47px] w-[870px] rounded-[20px] bg-blend-normal bg-[#FFEFE0] backdrop-blur-lg">
                         <div style={{backgroundImage: `url(${profile})`}} className="mt-0.75 w-[42px] h-[42px] bg-no-repeat rounded-full object-cover bg-size-[auto_85px] bg-[right_-21.5px_top_-21.5px]"></div>
