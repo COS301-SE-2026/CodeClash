@@ -1,0 +1,24 @@
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 9,54-66
+backend/src/entities/dtos/user.dto.ts
+  h_94c952a9e14c58 1-7
+backend/src/interface-adapters/repositories/interface-implementations/user.repository.ts
+  h_94c952a9e14c58 1-47
+backend/src/entities/dtos/elo.dto.ts
+  h_94c952a9e14c58 1-5
+backend/src/application/interfaces/IUserRepository.ts
+  h_94c952a9e14c58 1-13
+backend/src/application/interfaces/IEloRepository.ts
+  h_94c952a9e14c58 1-11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "b96874e7633a6e750ddeb13a6e09f0e2335f097a",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
