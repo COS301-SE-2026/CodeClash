@@ -1,0 +1,14 @@
+backend/src/routes/api.routes.ts
+  h_b13c5d77534129 427-442
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "d7da530871367adf72aca20eb67bb842338918d2",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

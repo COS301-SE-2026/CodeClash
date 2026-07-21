@@ -1,0 +1,36 @@
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 3,6-9,12-21,27,30,44,47-48,50,52,54,57,62-63
+backend/src/interface-adapters/controllers/elo.controllers.ts
+  h_94c952a9e14c58 2-3
+backend/src/interface-adapters/controllers/matches.controllers.ts
+  h_94c952a9e14c58 1-169
+backend/src/interface-adapters/controllers/question.controllers.ts
+  h_94c952a9e14c58 1-19
+frontend/src/styles/global.css
+  h_94c952a9e14c58 13
+backend/src/frameworks-drivers/app.ts
+  h_94c952a9e14c58 3-4
+backend/src/interface-adapters/controllers/user.controllers.ts
+  h_94c952a9e14c58 2-3
+backend/src/interface-adapters/socket-handlers/matchmaking.handler.ts
+  h_94c952a9e14c58 1-85
+backend/src/interface-adapters/auth/auth.service.ts
+  h_94c952a9e14c58 15-20,51-52,70-98
+backend/src/frameworks-drivers/data-source.ts
+  h_94c952a9e14c58 1-20
+backend/src/application/usecases/services/matchmaking.service.ts
+  h_94c952a9e14c58 1-104
+database/init.sql
+  h_94c952a9e14c58 6-11,40-45
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "e91d9dd25bd502873fb4113a54662b6f6d8d4e7d",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
