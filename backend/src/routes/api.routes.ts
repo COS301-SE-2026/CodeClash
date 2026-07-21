@@ -406,8 +406,27 @@ router.post('/friends/request', sendFriendRequest);
  *        name: verdict
  *        required: true
  *        schema:
- *          type:
- *          format:
+ *          type: string
+ *          enum: [accept, reject]
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            required:
+ *              - friendship_id
+ *            properties:
+ *              friendship_id:
+ *                type: string
+ *                format: uuid
+ *    responses:
+ *      200:
+ *        description: Response created to friend request successfully
+ *      404:
+ *        description: Friend request not found
+ *      500:
+ *        description: Internal server error
  */
 router.patch('/friends/request/:friendship_id', respondToFriendRequest);
 /**
@@ -426,6 +445,8 @@ router.patch('/friends/request/:friendship_id', respondToFriendRequest);
  *    responses:
  *      200:
  *        description: Returned user's friends successfully
+ *      404:
+ *        description: User not found
  *      500:
  *        description: Internal server error
  */
