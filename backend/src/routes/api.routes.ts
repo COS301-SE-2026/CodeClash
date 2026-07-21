@@ -423,6 +423,17 @@ router.post('/submissions', createSubmission);
 /**
  * @swagger
  * /api/submissions/match/{match_id}
+ *  get:
+ *    summary: Gets all submissions of a specified match
+ *    tags: [Submissions]
+ *    parameters:
+ *      - in: path
+ *        name: match_id
+ *        required: true
+ *        schema:
+ *          type: string
+ *          format: uuid
+ *  
  */
 router.get('/submissions/match/:match_id', getSubmissionsByMatch);
 /**
