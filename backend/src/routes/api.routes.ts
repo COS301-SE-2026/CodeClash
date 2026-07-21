@@ -433,6 +433,14 @@ router.post('/submissions', createSubmission);
  *        schema:
  *          type: string
  *          format: uuid
+ *    responses:
+ *      200:
+ *        description: Found all submissions of the specified match
+ *      404:
+ *        description: Match not found
+ *      500:
+ *        description: Internal server error
+ * 
  *  
  */
 router.get('/submissions/match/:match_id', getSubmissionsByMatch);
