@@ -6,6 +6,6 @@ export interface IEloRepository {
     createUserElo(user_id: string): Promise<void>
 
     // Read
-    getElo(user_id: string): Promise<EloDTO>
-    getUsersElo(user_ids: string[]): Promise<EloDTO[]>
+    getElo(user_id: string): Promise<EloDTO | null>
+    getUsersElo(user_ids: string[]): Promise<EloDTO[] | null>
 }

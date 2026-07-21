@@ -1,10 +1,6 @@
 import cors from 'cors'
 import express, { Request, Response } from 'express'
 import routes from '../interface-adapters/routes/api.routes';
-import { initDB } from '../application/usecases/init-db';
-
-
-initDB();
 
 const app = express();
 app.disable('x-powered-by');

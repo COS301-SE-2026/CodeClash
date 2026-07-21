@@ -11,7 +11,7 @@ import {
     Round_Component,
     Maths_Result_Component,
     ResultComponentTypes
-} from "./ECS/components";
+} from "./components";
 
 function addComponent(
     map: Map<number, Map<string, Component>>,

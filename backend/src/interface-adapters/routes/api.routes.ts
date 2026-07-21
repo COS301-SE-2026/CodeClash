@@ -6,21 +6,21 @@ import {
   updateEloAfterMatch,
   getLeaderboard,
   setUserElo
-} from '../interface-adapters/controllers/elo.controllers';
-import { getMatches, getMatchById, createMatch, updateMatchStatus, getMatchLog } from '../interface-adapters/controllers/matches.controllers';
-import { getLeague, getUserStat } from '../interface-adapters/controllers/user.controllers';
-import { requireAuth } from '../interface-adapters/auth/auth.service';
+} from 'src/interface-adapters/controllers/elo.controllers';
+// import { getMatches, getMatchById, createMatch, updateMatchStatus, getMatchLog } from 'src/interface-adapters/controllers/matches.controllers';
+import { getLeague, getUserStat } from 'src/interface-adapters/controllers/user.controllers';
+import { requireAuth } from 'src/interface-adapters/auth/auth.service';
 
 const router = Router();
 
 router.use(requireAuth) // protects all routes with token authorisation
 
-// Match routes
-router.get('/matches', getMatches);
-router.get('/matches/:match_id', getMatchById);
-router.post('/matches', createMatch);
-router.patch('/matches/:match_id/status', updateMatchStatus);
-router.get('/matches/:match_id/log', getMatchLog);
+// // Match routes
+// router.get('/matches', getMatches);
+// router.get('/matches/:match_id', getMatchById);
+// router.post('/matches', createMatch);
+// router.patch('/matches/:match_id/status', updateMatchStatus);
+// router.get('/matches/:match_id/log', getMatchLog);
 
 //elo routes
 router.get('/leaderboard', getLeaderboard);

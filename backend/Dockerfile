@@ -9,4 +9,4 @@ COPY . .
 
 EXPOSE 3000
 
-CMD ["npx","ts-node","-r","tsconfig-paths/register", "src/server.ts"]
+CMD ["npx","ts-node","-r","tsconfig-paths/register", "src/frameworks-drivers/server.ts"]

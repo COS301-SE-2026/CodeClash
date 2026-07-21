@@ -1,5 +1,5 @@
 import { Life_Component, Match_Component, Players_Component, Rank_Component, Round_Component } from "src/entities/components";
-import { World } from "src/World";
+import { World } from "src/entities/World";
 
 export const gameService = (player_ids: string[], game_mode: string) => {
 

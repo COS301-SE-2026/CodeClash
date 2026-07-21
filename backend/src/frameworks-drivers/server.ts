@@ -1,12 +1,17 @@
 import { createServer } from 'node:http';
 import { Server } from 'socket.io'
-import { validToken } from '../interface-adapters/auth/auth.service';
+import { validateToken } from '../interface-adapters/auth/auth.service';
 import app from './app';
 import dotnev from 'dotenv'
 import { joinMatchQueue, leaveMatchQueue, matchAccepted, matchDeclined } from 'src/interface-adapters/socket-handlers/matchmaking.handler';
 import { AppDataSource } from "./data-source"
 import { User } from "../interface-adapters/repositories/db-entities/user.entities"
 import { initDB } from 'src/application/usecases/init-db';
+import { IUserRepository } from 'src/application/interfaces/IUserRepository';
+import { UserRepository } from 'src/interface-adapters/repositories/interface-implementations/user.repository';
+import { IEloRepository } from 'src/application/interfaces/IEloRepository';
+import { EloRepository } from 'src/interface-adapters/repositories/interface-implementations/elo.repository';
+import { Elo_ratings } from 'src/interface-adapters/repositories/db-entities/elo.entities';
 
 dotnev.config()
 
@@ -30,7 +35,7 @@ io.use(async (socket, next) => {
 
     if (!token) return next(new Error("Authenticaion error: No token provided"));
 
-    const valid = await validToken(token)
+    const valid = await validateToken(token)
     if (valid) {
         socket.data.user_id = valid.user_Id;
         next();
@@ -57,7 +62,10 @@ AppDataSource.initialize()
     .then(async () => {
 
         // seeding logic
-        await initDB();
+
+        const user_repo: IUserRepository = new UserRepository(AppDataSource.getRepository(User));
+        const elo_repo: IEloRepository = new EloRepository(AppDataSource.getRepository(Elo_ratings))
+        await initDB(user_repo, elo_repo);
         // start server
         httpServer.listen(3000, () => {
             console.log("Server listening")
