@@ -12,7 +12,9 @@ import {
   signOut as amplifySignOut,
   getCurrentUser,
   confirmSignUp as amplifyConfirmSignUp,
-  resendSignUpCode as amplifyResendSignUpCode
+  resendSignUpCode as amplifyResendSignUpCode,
+  resetPassword as amplifyResetPassword,
+  confirmResetPassword as amplifyConfirmResetPassword,
 } from "aws-amplify/auth";
 
 interface AuthUser {
@@ -38,6 +40,8 @@ interface AuthContextValue {
   signOut: () => Promise<void>;
   confirmSignUp: (username: string, code: string) => Promise<void>;
   resendSignUpCode: (username: string) => Promise<void>;
+  forgotPassword: (email:string) => Promise<void>;
+  confirmForgotPassword: (email: string, code: string, newPassword: string) => Promise<void>;
   clearError: () => void;
 }
 
@@ -138,6 +142,32 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     }
   }, []);
 
+  const forgotPassword = useCallback(async (email: string) => {
+    setError(null);
+    try {
+      await amplifyResetPassword({username: email});
+    }
+    catch (err:any) {
+      setError(err?.message ?? "Failed to send reset code");
+      throw err;
+    }
+  }, []);
+
+  const confirmForgotPassword = useCallback(async (
+    email:string,
+    code: string,
+    newPassword: string,
+  ) => {
+    setError(null);
+    try {
+      await amplifyConfirmResetPassword ({username: email, confirmationCode: code, newPassword,});
+    }
+    catch (err: any) {
+      setError(err?.message ?? "Failed to reset password");
+      throw err;
+    }
+  }, []);
+
   const signOut = useCallback(async () => {
     setError(null);
     try {
@@ -160,6 +190,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         signOut,
         confirmSignUp,
         resendSignUpCode,
+        forgotPassword,
+        confirmForgotPassword,
         clearError,
       }}
     >
