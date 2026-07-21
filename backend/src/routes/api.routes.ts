@@ -407,6 +407,20 @@ router.post('/friends/invite', addFriendInvite);
  *          schema:
  *            type: object
  *            required:
+ *              - requester_id
+ *              - receiver_id
+ *            properties:
+ *              requester_id:
+ *                type: string
+ *                format: uuid
+ *              receiver_id:
+ *                type: string
+ *                format: uuid
+ *    responses:
+ *      200:
+ *        description: Friend request sent successfully
+ *      500:
+ *        description: Internal server error
  *            
  */
 router.post('/friends/request', sendFriendRequest);
