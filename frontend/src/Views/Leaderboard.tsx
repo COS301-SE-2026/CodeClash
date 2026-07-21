@@ -81,7 +81,8 @@ const Leaderboard = (
             </div>
 {            //////////////////////////////////////////////////////////////////
 }            <div style={{backgroundImage: `url(${light})`}} className="absolute -top-35 -left-5 w-[1100px] h-[1000px] bg-no-repeat bg-cover bg-center bg-size-[auto_1000px]"></div>
-            <div style={{backgroundImage: `url(${background})`}} className="absolute -bottom-80.5 w-[905px] h-[350px] rounded-[20px] bg-no-repeat bg-cover bg-center bg-size-[auto_700px]">
+            <div className="">
+            <div style={{backgroundImage: `url(${background})`}} className="absolute left-5 -bottom-80.5 w-[935px] h-[350px] rounded-[20px] bg-no-repeat bg-cover bg-center bg-size-[auto_700px]">
                 <div className="grid grid-rows-5 gap-1 items-end">
                     <div className="mt-4.25 ml-8 h-[47px] w-[870px] rounded-[20px] bg-blend-normal bg-[#FFEFE0] backdrop-blur-lg">
                         <div style={{backgroundImage: `url(${profile})`}} className="mt-0.75 w-[42px] h-[42px] bg-no-repeat rounded-full object-cover bg-size-[auto_85px] bg-[right_-21.5px_top_-21.5px]"></div>
@@ -114,6 +115,7 @@ const Leaderboard = (
                         <div className="ml-190 -mt-10.5 text-[32px] text-[#C0395A] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">10</div>
                     </div>
                 </div>
+            </div>
             </div>
             </div>
             <div style={{backgroundImage: `url(${planet})`}} className="w-[500px] h-[500px] bg-no-repeat object-cover bg-size-[auto_450px] bg-[right_-160px_top_-5px] mr-20">
