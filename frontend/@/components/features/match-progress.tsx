@@ -1,7 +1,8 @@
-import type { QuestionDTO } from "src/types/question.dto";
-import door from "../../../src/assets/Decor/door.png";
-import { Badge } from "../ui/badge";
 import React from "react";
+import type { QuestionDTO } from "src/types/question.dto";
+
+import door from "../../../src/assets/door.png";
+import { Badge } from "../ui/badge";
 
 function MatchProgress({
   className,

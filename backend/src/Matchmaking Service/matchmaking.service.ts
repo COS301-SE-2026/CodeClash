@@ -1,4 +1,5 @@
 import redis from "../../redis-client"
+
 import UserDto from "./matchmaking.dto";
 
 const elo_difference = 100;   // this can be changed later
@@ -54,7 +55,7 @@ async function matchmaking(user: UserDto) {
     );
 
     // remove null join values
-    let players = result.filter(u => u.join !== null);
+    const players = result.filter(u => u.join !== null);
     // sort by joined times - ascending
     players.sort((a, b) => Number(a.join) - Number(b.join));
     if (players.length == 0) {

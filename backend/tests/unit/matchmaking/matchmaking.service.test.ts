@@ -7,9 +7,9 @@ vi.mock("../../../redis-client", () => {
     return { default: new Redis_Mock.default() };
 });
 
-import { dequeue, enqueue, matchmaking, math_queue_length, prog_queue_length } from "../../../src/Matchmaking Service/matchmaking.service";
-import UserDto from "../../../src/Matchmaking Service/matchmaking.dto";
 import redis from "../../../redis-client";
+import UserDto from "../../../src/Matchmaking Service/matchmaking.dto";
+import { dequeue, enqueue, matchmaking, math_queue_length, prog_queue_length } from "../../../src/Matchmaking Service/matchmaking.service";
 
 
 let ids = 1
@@ -92,10 +92,10 @@ describe('Ideal Users', () => {
         clearQueues();
 
         test('find a match for a user', async () => {
-            let player_1_id = ids++;
-            let player_2_id = ids++;
+            const player_1_id = ids++;
+            const player_2_id = ids++;
             let math_length = 0;
-            let prog_length = 0;
+            const prog_length = 0;
 
             const player_1 = new UserDto(player_1_id, 1000, 'math');
             const player_2 = new UserDto(player_2_id, 1050, 'math');

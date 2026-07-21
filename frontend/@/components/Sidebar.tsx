@@ -12,15 +12,21 @@ import {
 import { Link } from 'react-router-dom'
 
 import pink_astronaut from '../../src/assets/Robots/pink_celebrate.png'
-import { LayoutDashboard, HelpCircle, Trophy, BarChart2, Medal, Users, Settings } from 'lucide-react';
+import dashboard_icon from '../../src/assets/Icons/dashboard.png'
+import leaderboard_icon from '../../src/assets/Icons/leaderboard.png'
+import game_guide_icon from '../../src/assets/Icons/game_guide.png'
+import tournaments_icon from '../../src/assets/Icons/trophy.png'
+import badges_icon from '../../src/assets/Icons/badges.png'
+import friends_icon from '../../src/assets/Icons/friends.png'
+
 
 const navItems = [
 
     {
         label: 'Section1',
         items: [
-            { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-            { to: '/help-menu', label: 'Help Menu', icon: HelpCircle },
+            { to: '/dashboard', label: 'Dashboard', img: dashboard_icon },
+            { to: '/game-guide', label: 'Game Guide', img: game_guide_icon },
         ]
 
     },
@@ -28,15 +34,15 @@ const navItems = [
     {
         label: 'Section2',
         items: [
-            { to: '/tournaments', label: 'Tournaments', icon: Trophy },
-            { to: '/leaderboard', label: 'Leaderboard', icon: BarChart2 },
-            { to: '/badges', label: 'Badges', icon: Medal }
+            { to: '/tournaments', label: 'Tournaments', img: tournaments_icon },
+            { to: '/leaderboard', label: 'Leaderboard', img: leaderboard_icon },
+            { to: '/badges', label: 'Badges', img: badges_icon }
         ]
     },
     {
         label: 'Section3',
         items: [
-            { to: '/friends', label: 'Friends', icon: Users }
+            { to: '/friends', label: 'Friends', img: friends_icon }
         ]
     }
 ]
@@ -47,19 +53,16 @@ const AppSidebarGroups = () => {
             {navItems.map((group) => (
                 <SidebarGroup key={group.label}>
                     <SidebarMenu>
-                        {group.items.map((item) => {
-                            const Icon = item.icon;
-                            return (
+                        {group.items.map((item) => (
                             <SidebarMenuItem key={item.to} className=' w-[100%] flex justify-center'>
                                 <SidebarMenuButton asChild className='w-[100%]'>
                                     <Link to={item.to} className='w-[100%]' >
-                                        <Icon className='w-5 h-5 flex-shrink-0' />
+                                        <img src={item.img} alt={item.label} className='w-[2rem]' />
                                         <span className='group-data-[state=collapsed]:hidden text-sm'>{item.label}</span>
                                     </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
-                            );
-                        })}
+                        ))}
                     </SidebarMenu>
                 </SidebarGroup>
             ))}
@@ -80,17 +83,8 @@ export function AppSidebar() {
                 <AppSidebarGroups></AppSidebarGroups>
             </SidebarContent>
 
-            <SidebarFooter className='pb-4'>
-                <SidebarMenu>
-                    <SidebarMenuItem className='w-[100%] flex justify-center'>
-                        <SidebarMenuButton asChild className='w-[100%]'>
-                            <Link to="/settings" className= "w-[100%]">
-                                <Settings className='w-5 h-5 flex-shrink-0'/>
-                                <span className='group-data-[state=collapsed]:hidden text-sm'>Settings</span>
-                            </Link>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
-                </SidebarMenu>
+            <SidebarFooter>
+                <Link to='/settings' className='text-sm'>Settings</Link>
             </SidebarFooter>
             <SidebarRail className='hidden' />
         </Sidebar>

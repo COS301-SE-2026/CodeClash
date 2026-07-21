@@ -47,12 +47,10 @@ interface AuthContextValue {
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
-  const [user, setUser] = useState<AuthUser | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [user, setUser] = useState<AuthUser | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     getCurrentUser()
@@ -60,85 +58,75 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         setUser({
           username: cognitoUser.username,
           userId: cognitoUser.userId,
-        });
+        })
       })
       .catch(() => {
-        setUser(null);
+        setUser(null)
       })
       .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
+        setIsLoading(false)
+      })
+  }, [])
 
-  const clearError = useCallback(() => setError(null), []);
+  const clearError = useCallback(() => setError(null), [])
 
   const signIn = useCallback(async (email: string, password: string) => {
-    setError(null);
+    setError(null)
     try {
-      await amplifySignIn({ username: email, password });
+      await amplifySignIn({ username: email, password })
 
-      const cognitoUser = await getCurrentUser();
+      const cognitoUser = await getCurrentUser()
 
       setUser({
         username: cognitoUser.username,
         userId: cognitoUser.userId,
-      });
+      })
     } catch (err: any) {
-      setError(err?.message ?? "Sign in failed");
-      throw err;
+      setError(err?.message ?? 'Sign in failed')
+      throw err
     }
-  }, []);
+  }, [])
 
-  const signUp = useCallback(
-    async (data: {
-      username: string;
-      firstName: string;
-      lastName: string;
-      email: string;
-      phoneNumber: string;
-      password: string;
-    }) => {
-      setError(null);
-      try {
-        await amplifySignUp({
-          username: data.username,
-          password: data.password,
-          options: {
-            userAttributes: {
-              given_name: data.firstName,
-              family_name: data.lastName,
-              email: data.email,
-              preferred_username: data.username,
-              phone_number: data.phoneNumber,
-              name: `${data.firstName} ${data.lastName}`,
-            },
+  const signUp = useCallback(async (data: { username: string; firstName: string; lastName: string; email: string; phoneNumber: string; password: string }) => {
+    setError(null)
+    try {
+      await amplifySignUp({
+        username: data.username,
+        password: data.password,
+        options: {
+          userAttributes: {
+            given_name: data.firstName,
+            family_name: data.lastName,
+            email: data.email,
+            preferred_username: data.username,
+            phone_number: data.phoneNumber,
+            name: `${data.firstName} ${data.lastName}`,
           },
-        });
-      } catch (err: any) {
-        setError(err?.message ?? "Sign up failed");
-        throw err;
-      }
-    },
-    [],
-  );
+        },
+      })
+    } catch (err: any) {
+      setError(err?.message ?? 'Sign up failed')
+      throw err
+    }
+  }, [])
 
   const confirmSignUp = useCallback(async (username: string, code: string) => {
-    setError(null);
+    setError(null)
     try {
-      await amplifyConfirmSignUp({ username, confirmationCode: code });
+      await amplifyConfirmSignUp({ username, confirmationCode: code })
     } catch (err: any) {
-      setError(err?.message ?? "Confirmation failed");
-      throw err;
+      setError(err?.message ?? 'Confirmation failed')
+      throw err
     }
-  }, []);
+  }, [])
 
   const resendSignUpCode = useCallback(async (username: string) => {
-    setError(null);
+    setError(null)
     try {
-      await amplifyResendSignUpCode({ username });
+      await amplifyResendSignUpCode({ username })
     } catch (err: any) {
-      setError(err?.message ?? "Failed to resend code");
-      throw err;
+      setError(err?.message ?? 'Failed to resend code')
+      throw err
     }
   }, []);
 
@@ -169,14 +157,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   }, []);
 
   const signOut = useCallback(async () => {
-    setError(null);
+    setError(null)
     try {
-      await amplifySignOut();
-      setUser(null);
+      await amplifySignOut()
+      setUser(null)
     } catch (err: any) {
-      setError(err?.message ?? "Sign out failed");
+      setError(err?.message ?? 'Sign out failed')
     }
-  }, []);
+  }, [])
 
   return (
     <AuthContext.Provider
@@ -197,11 +185,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     >
       {children}
     </AuthContext.Provider>
-  );
-};
+  )
+}
 
-export const useAuth = (): AuthContextValue => {
-  const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error("useAuth must be used within an AuthProvider");
-  return ctx;
-};
+

@@ -34,16 +34,20 @@ function Badge({
   ...props
 }: React.ComponentProps<"span"> &
   VariantProps<typeof badgeVariants> & { asChild?: boolean }) {
-  const Comp = asChild ? Slot.Root : "span"
+  const Comp = asChild ? Slot.Root : "span";
 
   return (
     <Comp
       data-slot="badge"
       data-variant={variant}
-      className={cn(badgeVariants({ variant }), "font-badge font-semibold hover:scale-110 transition-transform duration-300 ease-in-out", className)}
+      className={cn(
+        badgeVariants({ variant }),
+        "font-badge font-semibold text-l",
+        className,
+      )}
       {...props}
     />
-  )
+  );
 }
 
-export { Badge, badgeVariants }
+export { Badge }

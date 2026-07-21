@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -84,6 +85,7 @@
   --font-heading-size: var(--heading-size);
   --font-logo: var(--font-logo);
   --font-weight-light: 100;
+  --font-silkscreen: "Silkscreen", sans-serif;
 
   /* text size - matching to the :root vars*/
   --text-xsm: var(--font-size-xsm);
