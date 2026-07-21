@@ -21,3 +21,18 @@ interface ForgotPasswordViewModel {
     handleReset: () => Promise<void>;
     handleBack: () => void;
 }
+
+export function ForgotPasswordViewModelFunction ({
+    onSuccess, onBack, 
+}: ForgotPasswordViewModelProps): ForgotPasswordViewModel {
+    const {forgotPassword, confirmForgotPassword, error, clearError, isLoading} = useAuth();
+
+    const [requestForm, setRequest] =useState<ForgotPasswordForm>(forgotPasswordForm);
+    const [resetForm, setReset] = useState<ResetPasswordForm>(resetPasswordForm);
+    const [state, setState] = useState< 'request' | 'reset' | 'success'>('request');
+    const [localError, setLocalError] = useState<string | null>(null);
+
+    return {
+
+    };
+}
