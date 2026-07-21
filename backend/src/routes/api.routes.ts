@@ -416,6 +416,18 @@ router.patch('/friends/request/:friendship_id', respondToFriendRequest);
  *        description: Internal server error
  */
 router.get('/friends/:user_id', getFriendsById);
+/**
+ * @swagger
+ * /api/friends/{friendship_id}
+ *  delete:
+ *    summary: Deletes a friend
+ *    tags: [Friends]
+ *    parameters: 
+ *      - in: path
+ *        name: friendship_id
+ *        required: true
+ * 
+ */
 router.delete('/friends/:friendship_id', removeFriend);
 
 //submissions
