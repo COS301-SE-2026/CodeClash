@@ -7,7 +7,6 @@ import { UserDTO } from 'src/entities/dtos/user.dto';
 /// GET api/user/:stat
 export const getUserStat = (user_repo: UserRepository) => {
 
-
     return async (req: Request, res: Response) => {
 
         const { stat } = req.params;
@@ -18,7 +17,7 @@ export const getUserStat = (user_repo: UserRepository) => {
         }
 
 
-        const data = user_repo.getUserData(req.user.id, stat as keyof UserDTO);
+        const data = await user_repo.getUserData(req.user.id, stat as keyof UserDTO);
 
         if (!data) {
             res.status(404).json({ error: 'User not found' })

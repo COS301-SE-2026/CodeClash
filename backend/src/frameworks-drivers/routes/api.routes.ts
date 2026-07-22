@@ -8,8 +8,7 @@ import {
   setUserElo
 } from 'src/interface-adapters/controllers/elo.controllers';
 // import { getMatches, getMatchById, createMatch, updateMatchStatus, getMatchLog } from 'src/interface-adapters/controllers/matches.controllers';
-import { getLeague, getUserStat } from 'src/interface-adapters/controllers/user.controllers';
-import { requireAuth } from 'src/interface-adapters/auth/auth.service';
+import { getUserStat } from 'src/interface-adapters/controllers/user.controllers';
 import { UserRepository } from 'src/interface-adapters/repositories/interface-implementations/user.repository';
 import { AppDataSource } from '../data-source';
 import { User } from 'src/interface-adapters/repositories/db-entities/user.entities';
@@ -30,7 +29,7 @@ const elo_repo = new EloRepository(AppDataSource.getRepository(Elo_ratings))
 
 //elo routes
 router.get('/leaderboard', getLeaderboard);
-router.get('/elo-get', getUserElo);
+router.get('/elo-get', getUserElo(elo_repo));
 router.post('/elo-history', getEloHistory);
 router.post('/update', updateEloAfterMatch);
 router.post('/elo-set', setUserElo);

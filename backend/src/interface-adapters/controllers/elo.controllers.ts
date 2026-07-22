@@ -1,35 +1,23 @@
 import { Request, Response } from 'express';
 import { validateToken } from '../auth/auth.service';
+import { EloRepository } from '../repositories/interface-implementations/elo.repository';
 
 
 // GET /api/elo/elo-get
 // Get current elo rating for a user
-export const getUserElo = async (req: Request, res: Response): Promise<void> => {
-  // const email = req.user.email;
+export const getUserElo = (elo_repo: EloRepository) => {
 
-  // if (email === null) return;
+  return async (req: Request, res: Response)=>{
+      const elo = await elo_repo.getElo(req.user.id);
 
-  // try {
-  //   const result = await pool.query(
-  //     `SELECT 
-  //       e.rating
-  //      FROM elo_ratings e
-  //      JOIN users u ON e.user_id = u.user_id
-  //      WHERE u.email = $1`,
-  //     [email]
-  //   );
+      if(!elo){
+        res.status(404).json({error: 'User not found'})
+        return
+      }
 
-  //   if (result.rows.length === 0) {
-  //     res.status(404).json({ message: "User Not Found" });
-  //     return;
-  //   }
+      res.status(200).json(elo);
 
-  //   res.status(200).json({ rating: result.rows[0].rating });
-
-  // } catch (error) {
-  //   console.error('Error fetching elo rating:', error);
-  //   res.status(500).json({ message: `Internal server error: ${error}` });
-  // }
+  }
 };
 
 // GET /api/elo/:user_id/history

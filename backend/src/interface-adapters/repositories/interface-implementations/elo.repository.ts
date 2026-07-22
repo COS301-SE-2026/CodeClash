@@ -27,7 +27,6 @@ export class EloRepository implements IEloRepository {
         if (!elo) return null;
 
         const data: EloDTO = {
-            user_id: elo.user.user_id,
             rating: elo.rating
         }
         return data;
