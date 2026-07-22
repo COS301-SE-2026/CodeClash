@@ -1,5 +1,6 @@
 import type React from 'react'
 import { Card } from "../ui/card"
+import "../../../src/styles/global.css"
 
 interface gameGuideCardProps{
     children?: React.ReactNode
@@ -9,7 +10,7 @@ interface gameGuideCardProps{
 const GameGuideCard = ({children, className} : gameGuideCardProps) => {
 
     return(
-        <Card className={`bg-[#FFEFE0]/10 rounded-2xl backdrop-blur-lg border border-white/30
+        <Card className={`bg-secondary/10 rounded-2xl backdrop-blur-lg border border-white/30
             ${className}
         `}>
             {children}
