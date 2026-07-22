@@ -2,6 +2,7 @@ import background from "../assets/Background/gameguideBG.png"
 import { Link } from "react-router-dom";
 import "../styles/global.css"
 import GlassCard from "@/components/shared/GlassCard";
+import gameGuide
 
 const Guidebook = () => {
 
