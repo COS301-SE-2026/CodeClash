@@ -16,7 +16,8 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
     "ignoreDeprecations": "6.0",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "noEmitOnError": true
     // "paths": {
     //   "root/*": [
     //     "../*"
