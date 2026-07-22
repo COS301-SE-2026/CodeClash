@@ -1,0 +1,18 @@
+backend/src/entities/dtos/league.dto.ts
+  h_94c952a9e14c58 1-5
+backend/src/entities/league-mapping.ts
+  h_94c952a9e14c58 1-30
+backend/src/application/usecases/services/game.service.ts
+  h_94c952a9e14c58 2,39,50
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "a2b8b7a4a8fe1ac3cd879f391341ca5ac3412a2e",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
