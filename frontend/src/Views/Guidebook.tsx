@@ -13,8 +13,7 @@ return(
         <Link to="/dashboard" className="text-button-primary font-[var(--font)] text-[32px] font-semibold ml-5">← Back</Link>
         <h1 className="text-[80px] text-button-primary text-center justify-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] -mt-5">Game Guide</h1>
         <GlassCard className="w-[90%] h-[80%] mx-auto">   
-        {/* <GlassCard className="mt-4 ml-8 h-[10%] w-[20%]"></GlassCard> */}
-        <GameGuideCard></GameGuideCard>
+        <GameGuideCard className="w-[30%] h-[10%] ml-[2%]"></GameGuideCard>
         </GlassCard>
     </div>
 );
