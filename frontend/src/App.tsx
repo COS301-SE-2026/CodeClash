@@ -8,7 +8,7 @@ import SignUp from "./Views/SignUp";
 import Profile from "./Views/Profile";
 import MatchSearching from "./Views/MatchSearching";
 import MatchFound from "./Views/MatchFound";
-import MathMatch from "./pages/MathMatch";
+import MathMatch from "./Views/MathsMatch";
 import ProgMatch from "./pages/ProgMatch";
 import Welcome from "./Views/Welcome";
 

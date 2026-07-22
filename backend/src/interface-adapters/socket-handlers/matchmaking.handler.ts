@@ -3,10 +3,11 @@ import MatchmakingUserDTO from 'src/entities/dtos/matchmaking.dto';
 import { dequeue, matchmaking } from 'src/application/usecases/services/matchmaking.service';
 import { gameService } from 'src/application/usecases/services/game.service';
 import { IQuestionRepository } from "src/application/interfaces/IQuestionRepository";
-import { GameDataDTO } from "src/entities/dtos/game-data.dto";
+import { GameDataDTO, GameQuestionsDTO } from "src/entities/dtos/game-data.dto";
 import { IEloRepository } from "src/application/interfaces/IEloRepository";
 
 const PAIRS = new Map<string, Map<string, boolean>>();
+const GAME = new Map<number, GameQuestionsDTO>();
 
 export const joinMatchQueue = (async (io: Server, socket: Socket, data: any) => {
     //adds users to a room 
@@ -60,7 +61,6 @@ export const matchAccepted = (async (io: Server, socket: Socket, data: GameDataD
 
     const bothAccepted = pair ? [...pair.values()].every(bool => bool) : false;
 
-    console.log(`Both Accepted: ${bothAccepted}`)
     if (bothAccepted) {
         // call the game service to create the game
         const keys = [...pair!.keys()];
@@ -69,7 +69,8 @@ export const matchAccepted = (async (io: Server, socket: Socket, data: GameDataD
         const setup = await gameService(question_repo, elo_repo, data);
 
         if (setup) {
-            console.log("Emitting event")
+            GAME.set(setup.id, setup.questions as GameQuestionsDTO)
+
             for (const key of keys) {
                 io.to(key).emit("start_game");
             }
@@ -79,8 +80,7 @@ export const matchAccepted = (async (io: Server, socket: Socket, data: GameDataD
     }
     else {
         // waiting for the other player to accept
-
-        console.log("Waiting for both to accept")
+        // might need to add a timeout 
     }
 })
 

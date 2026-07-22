@@ -36,7 +36,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
 
 
     return (
-        <div className="fixed inset-0 flex flex-col">
+        <div className="fixed inset-0 min-h-screen flex flex-col">
             <img src={background} className='absolute w-full -z-10' />
             {/* <BackButton page='/dashboard' /> */}
             {/* Header */}

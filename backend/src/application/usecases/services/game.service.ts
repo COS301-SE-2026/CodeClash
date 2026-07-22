@@ -50,42 +50,41 @@ export const gameService = async (
 
     if (!elos) {
         console.log("null elos")
-        return false;}
+        return null;
+    }
 
     const avg_elo = elos.reduce((total, curr) => total + curr.rating!, 0) / 2
-    const game_questions = getQuestions(question_repo, data.league, avg_elo, data.question_number, data.game_mode)
+    const game_questions = await getQuestions(question_repo, data.league, avg_elo, data.question_number, data.game_mode)
 
 
     // how do we determine the number of rounds in a game ??
     /**ROUND ENTITY */
     const round_entity = createEntity();
     createRound(round_entity, match_entity, questions, 5); // set to 5 minutes just for now
-
-    console.log("returning")
-    return true;
+    return {
+        id: match_entity,
+        questions: game_questions
+    }
+        ;
 }
 
-const getQuestions = (question_repo: IQuestionRepository, league: string, avg_elo: number, question_number: number, game_mode: GameMode) => {
+const getQuestions = async (question_repo: IQuestionRepository, league: string, avg_elo: number, question_number: number, game_mode: GameMode) => {
     const mapping = leagueMapping(league, avg_elo);
 
     if (!mapping) throw new Error("League not found")
 
-    const easy_count:number =Math.round(question_number * (mapping.easy.percentage!));
-    const medium_count:number = Math.round (question_number * (mapping.medium.percentage!));
-    const hard_count:number = Math.round(question_number * mapping.hard.percentage!);
+    const easy_count: number = Math.round(question_number * (mapping.easy.percentage!));
+    const medium_count: number = Math.round(question_number * (mapping.medium.percentage!));
+    const hard_count: number = Math.round(question_number * mapping.hard.percentage!);
 
-    console.log(`easy: ${typeof easy_count} ${easy_count}`)
-    console.log(`medium: ${typeof medium_count} ${medium_count}`)
-    console.log(`hard: ${typeof hard_count} ${hard_count}`)
-
-    const easy_questions = question_repo.getRandQuestions(easy_count, mapping.easy.difficulty, game_mode);
-    const medium_questions = question_repo.getRandQuestions(medium_count, mapping.medium.difficulty, game_mode);
-    const hard_questions = question_repo.getRandQuestions(hard_count, mapping.hard.difficulty, game_mode);
+    const easy_questions = await question_repo.getRandQuestions(easy_count, mapping.easy.difficulty, game_mode);
+    const medium_questions = await question_repo.getRandQuestions(medium_count, mapping.medium.difficulty, game_mode);
+    const hard_questions = await question_repo.getRandQuestions(hard_count, mapping.hard.difficulty, game_mode);
 
     return {
-        easy_questions,
-        medium_questions,
-        hard_questions
+        easy: easy_questions,
+        medium: medium_questions,
+        hard: hard_questions
     }
 
 }

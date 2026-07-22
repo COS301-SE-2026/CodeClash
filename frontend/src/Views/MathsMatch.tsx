@@ -4,7 +4,7 @@ import { MatchScreen } from '@/components/shared/Match';
 import { Button } from '@/components/ui/button';
 import { useMatch } from 'src/ViewModels/MatchViewModel';
 
-const Match = () => {
+const MathsMatch = () => {
     const {
         player_life, avatars, usernames,
         seconds, minutes, questions,
@@ -55,4 +55,4 @@ const Match = () => {
 
 }
 
-export default Match;
+export default MathsMatch;
