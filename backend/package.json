@@ -8,8 +8,9 @@
     "test": "tests"
   },
   "scripts": {
-    "start": "ts-node src/server.ts",
-    "dev": "nodemon src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.ts",
+    "dev": "nodemon --exec ts-node src/server.ts",
     "test": "vitest",
     "coverage": "vitest run --coverage"
   },
