@@ -10,4 +10,11 @@ export interface UserDTO {
     winning_streak?: number,
 }
 
-export const STATS: (keyof UserDTO)[] = ['current_streak', 'winning_streak', 'avatar_id'];
+export const STATS: (keyof UserDTO)[] = [
+    'current_streak',
+    'winning_streak',
+    'avatar_id',
+    'league',
+    'username',
+    'email'
+];

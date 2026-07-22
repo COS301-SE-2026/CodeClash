@@ -20,7 +20,7 @@ import { useUser } from 'src/context/User/hooks/useUser';
 
 const Dashboard = () => {
   const { isOpen, openPopUp, closePopUp } = useShowPopUp();
-  const { username, elo } = useUser();
+  const { username, elo, league, avatar } = useUser();
 
   return (
     <div style={{ backgroundImage: `url(${backgroundImg})` }} className='w-full h-[20] h-screen bg-cover bg-center flex flex-col items-center'>
@@ -54,10 +54,10 @@ const Dashboard = () => {
           <Card className='bg-[#070400] h-[50%]'>
             <CardContent className='flex '>
               <div className='flex flex-col'>
-                <p className='text-sm'>Level #</p>
+                <p className='text-sm'>LEAGUE {league}</p>
                 <p className='text-l'>{username}</p>
               </div>
-              <img alt='avatar' src={robot} className='absolute h-[47%] left-[12%]' />
+              <img alt='avatar' src={avatar} className='absolute h-[47%] left-[12%]' />
             </CardContent>
           </Card>
 

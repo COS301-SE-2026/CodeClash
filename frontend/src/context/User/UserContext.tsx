@@ -54,7 +54,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             })
                 .then((res) => {
                     if (res.status === 200) {
-                        const index = res.data.stat.avatar_id;
+                        const index = res.data.avatar_id;
                         setAvatar(robot_map[index]);
                     }
                     else {
@@ -80,7 +80,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             })
                 .then((res) => {
                     if (res.status === 200) {
-                        setLeague(res.data.league_name);
+                        setLeague(res.data.league);
                     }
                     else {
                         setError(`Error: ${res.status} ${res.data}`);
