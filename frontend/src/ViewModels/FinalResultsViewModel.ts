@@ -1,18 +1,18 @@
 import { useState, useEffect, useCallback } from "react";
 import { finalResultsContent } from "../Models/FinalResultsModel";
-import type { FinalResults, FinalResultsContent } from "../Models/FinalResultsModel";
+import type { PlayerFinalResults, FinalResultsContent } from "../Models/FinalResultsModel";
 
-interface FinalResultsViewModelProps {
+export interface FinalResultsViewModelProps {
     onPlayAgain: () => void;
     onReturn: () => void;
-    fetchResults: () => Promise<FinalResults[]>; //results will be passed here once calculated
+    fetchResults: () => Promise<PlayerFinalResults[]>; //results will be passed here once calculated
 }
 
 interface FinalResultsViewModel {
     content: FinalResultsContent;
     state: 'loading' | 'results';
     loadingProgress: number; //for user to see how far the loading is
-    results: FinalResults[];
+    results: PlayerFinalResults[];
     displayError: string | null;
     handlePlayAgain: () => void;
     handleReturn: () => void;
@@ -23,7 +23,7 @@ export function FinalResultsViewModelFunction ({
 }: FinalResultsViewModelProps): FinalResultsViewModel {
     const [state, setState] = useState< 'loading' | 'results'>('loading');
     const [loadingProgress, setLoadingProgress] = useState(0);
-    const [results, setResults] = useState<FinalResults[]>([]);
+    const [results, setResults] = useState<PlayerFinalResults[]>([]);
     const [displayError, setDisplayError] = useState<string | null>(null);
 
     useEffect(() => {

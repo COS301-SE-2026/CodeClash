@@ -1,4 +1,4 @@
-export interface FinalResults {
+export interface PlayerFinalResults {
     username: string;
     avatar: string; //this is for the users avatar/profile image
     correctness: number; //this can be a % foe example if the user gets 3 of 5 questions completely correct, this correctness % will be 60%
