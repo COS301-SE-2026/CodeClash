@@ -1,4 +1,4 @@
-import redis from "../../redis-client"
+import redis from "../config/redis-client"
 import MatchmakingUserDTO from "../dtos/matchmaking.dto";
 
 const elo_difference = 100;   // this can be changed later
