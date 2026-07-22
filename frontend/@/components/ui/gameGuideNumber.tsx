@@ -10,7 +10,7 @@ const GameGuideNumberCard = ({children, className} : gameGuideNumberProps) => {
 
     return(
 
-        <Card className={`bg-secondary rounded-full border-button-primary border-3 ${className}`}>
+        <Card className={`bg-secondary rounded-full border-button-primary border-3 text-center ${className}`}>
             {children}
         </Card>
 
@@ -19,3 +19,5 @@ const GameGuideNumberCard = ({children, className} : gameGuideNumberProps) => {
 
 
 }
+
+export default GameGuideNumberCard;
