@@ -41,6 +41,29 @@ const FinalResults: React.FC<FinalResultsViewModelProps> = ({onPlayAgain, onRetu
                     )}
                 </div>
             )}
+
+            {state === 'results' && (
+                <div className="bg-secondary rounded-3xl p-10 w-[90%] max-w-[7200px] flex flex-col gap-6">
+                    <h1 className="text-secondary-text font-bold text-center"
+                        style = {{fontSize: 'var(--heading-size)'}}>{content.titleResults}</h1>
+
+                    {/*Table of results */}
+                    <div className="border border-secondary-text rounded-xl overflow-hidden">
+                        {/*Header */}
+                        <div className="grid border-b border-secondary"
+                            style = {{gridTemplateColumns: '1fr 1.2fr 1fr 1.2fr 1fr'}}>
+                            {content.tableHeaders.map(header => (
+                                <div key={header} className="px-3 py-3 text-center border-r border-secondary-text last:border-r-0">
+                                    <span className="text-secondary-text font-bold"
+                                        style = {{fontSize: 'var(--font-size-xsm)'}}>{header}</span>
+                                </div>
+                            ))}
+                        </div>
+
+                        
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
