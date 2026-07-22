@@ -1,0 +1,24 @@
+backend/src/interface-adapters/repositories/question.repository.ts
+  h_94c952a9e14c58 4,20-21,23-24
+backend/src/application/usecases/services/game.service.ts
+  h_94c952a9e14c58 1,3,7,9-10,14,56-75
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 15-18,59,61-77
+backend/src/interface-adapters/socket-handlers/matchmaking.handler.ts
+  h_94c952a9e14c58 5,53,62
+backend/src/entities/league-mapping.ts
+  h_94c952a9e14c58 44-47,50
+backend/src/entities/dtos/question.dto.ts
+  h_94c952a9e14c58 7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "9d2b6b236fc1eaa846db1c29bb1c926023b6da3b",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

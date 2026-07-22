@@ -1,0 +1,20 @@
+backend/src/frameworks-drivers/routes/api.routes.ts
+  h_94c952a9e14c58 32
+backend/src/interface-adapters/controllers/elo.controllers.ts
+  h_94c952a9e14c58 3,8,10-11,13-20
+backend/src/interface-adapters/controllers/user.controllers.ts
+  h_94c952a9e14c58 20
+backend/src/entities/dtos/elo.dto.ts
+  h_94c952a9e14c58 3-4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "76b7d20415764d73b8417b23dc9185b1a586222a",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
