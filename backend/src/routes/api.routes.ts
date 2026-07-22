@@ -394,7 +394,69 @@ router.get('/friends/requests/:user_id', getFriendRequests);
  *        description: Internal server error
  */
 router.post('/friends/invite', addFriendInvite);
+/**
+ * @swagger
+ * /api/friends/request
+ *  post:
+ *    summary: Creates a pending friendship
+ *    tags: [Friends]
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            required:
+ *              - requester_id
+ *              - receiver_id
+ *            properties:
+ *              requester_id:
+ *                type: string
+ *                format: uuid
+ *              receiver_id:
+ *                type: string
+ *                format: uuid
+ *    responses:
+ *      200:
+ *        description: Friend request sent successfully
+ *      500:
+ *        description: Internal server error
+ *            
+ */
 router.post('/friends/request', sendFriendRequest);
+/**
+ * @swagger
+ * /api/friends/request/{friendship_id}
+ *  patch:
+ *    summary: Accept or Reject a friend request
+ *    tags: [Friends]
+ *    parameters:
+ *      - in: path
+ *        name: verdict
+ *        required: true
+ *        schema:
+ *          type: string
+ *          enum: [accept, reject]
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            required:
+ *              - friendship_id
+ *            properties:
+ *              friendship_id:
+ *                type: string
+ *                format: uuid
+ *    responses:
+ *      200:
+ *        description: Response created to friend request successfully
+ *      404:
+ *        description: Friend request not found
+ *      500:
+ *        description: Internal server error
+ */
 router.patch('/friends/request/:friendship_id', respondToFriendRequest);
 /**
  * @swagger
@@ -412,66 +474,371 @@ router.patch('/friends/request/:friendship_id', respondToFriendRequest);
  *    responses:
  *      200:
  *        description: Returned user's friends successfully
+ *      404:
+ *        description: User not found
  *      500:
  *        description: Internal server error
  */
 router.get('/friends/:user_id', getFriendsById);
+/**
+ * @swagger
+ * /api/friends/{friendship_id}
+ *  delete:
+ *    summary: Deletes a friend
+ *    tags: [Friends]
+ *    parameters: 
+ *      - in: path
+ *        name: friendship_id
+ *        required: true
+ *        schema:
+ *          type: string
+ *          format: uuid
+ *    responses:
+ *      200:
+ *        description: Deleted friend successfully
+ *      404:
+ *        description: Friend not found
+ *      500:
+ *        description: Internal server error
+ * 
+ */
 router.delete('/friends/:friendship_id', removeFriend);
 
 //submissions
+
+/**
+ * @swagger
+ * /api/submissions
+ *  post:
+ *    summary: Creates a submission
+ *    tags: [Submissions]
+ *    parameters:
+ *      - in: query
+ *        name: type
+ *        required: true
+ *        schema:
+ *          type: string
+ *          enum: [math, programming]
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            required:
+ *              - user_id
+ *              - match_id
+ *              - problem_id
+ *              - entry
+ *            properties:
+ *              user_id:
+ *                type: string
+ *                format: uuid
+ *              match_id:
+ *                type: string
+ *                format: uuid
+ *              problem_id:
+ *                type: string
+ *                format: uuid
+ *              entry:
+ *                type: string
+ *                enum: [mathsText, codeText]
+ *    responses:
+ *      200:
+ *        description: Submission successfully created
+ *      500:
+ *        description: Internal server error
+ */
 router.post('/submissions', createSubmission);
+/**
+ * @swagger
+ * /api/submissions/match/{match_id}
+ *  get:
+ *    summary: Gets all submissions of a specified match
+ *    tags: [Submissions]
+ *    parameters:
+ *      - in: path
+ *        name: match_id
+ *        required: true
+ *        schema:
+ *          type: string
+ *          format: uuid
+ *    responses:
+ *      200:
+ *        description: Found all submissions of the specified match
+ *      404:
+ *        description: Match not found
+ *      500:
+ *        description: Internal server error
+ * 
+ *  
+ */
 router.get('/submissions/match/:match_id', getSubmissionsByMatch);
+/**
+ * @swagger
+ * /api/submissions/user/{user_id}
+ *  get:
+ *    summary: Gets submissions by a user
+ *    tags: [Submissions]
+ *    parameters:
+ *      - in: path
+ *        name: user_id
+ *        required: true
+ *        schema:
+ *          type: string
+ *          format: uuid
+ *    responses:
+ *      200:
+ *        description: Found submissions of specified user successfully
+ *      404:
+ *        description: User not found
+ *      500:
+ *        description: Internal server error
+ */
 router.get('/submissions/user/:user_id', getSubmissionsByUser);
+/**
+ * @swagger
+ * /api/submissions/{submission_id}
+ *  get:
+ *    summary: Gets a submission by its id
+ *    tags: [Submissions]
+ *    parameters:
+ *      - in: path
+ *        name: submission_id
+ *        required: true
+ *        schema:
+ *          type: string
+ *          format: uuid
+ *    responses:
+ *      200:
+ *        description: Found submission by given id successfully
+ *      404:
+ *        description: Submission not found
+ *      500:
+ *        description: Internal server error
+ */
 router.get('/submissions/:submission_id', getSubmissionById);
+/**
+ * @swagger
+ * /api/submission/{submission_id}/status
+ *  patch:
+ *    summary: Updates status of submission
+ *    tags: [Submissions]
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            required:
+ *              - status
+ *              - submission_id
+ *            properties:
+ *              status:
+ *                type: string
+ *                enum: [waiting, starting, in_progress, completed, abandoned]
+ *    responses:
+ *      200:
+ *        description: Updated status of submission successfully
+ *      404:
+ *        description: Submission or its status not found
+ *      500:
+ *        description: Internal server error
+ */
 router.patch('/submissions/:submission_id/status', updateSubmissionStatus);
+/**
+ * @swagger
+ * /api/submissions/{submission_id}/result
+ *  post:
+ *    summary: Create the result of the execution of a submission
+ *    tags: [Submissions]
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            required:
+ *              - submission_id
+ *              - passed_cases
+ *              - total_cases
+ *              - execution_time
+ *              - memory_used
+ *              - error_message
+ *            properties:
+ *              submission_id:
+ *                type: string
+ *                format: uuid
+ *              passed_cases:
+ *                type: number
+ *                format: integer
+ *              total_cases:    
+ *                type: number
+ *                format: integer
+ *              execution_time:
+ *                 type: number
+ *                 format: integer
+ *              memory_used:
+ *                 type: number
+ *                 format: integer
+ *              error_message:
+ *                 type: string
+ *                 format: text
+ *    responses:
+ *      200:  
+ *        description: Result created after execution successfully
+ *      404:
+ *        description: Submission not found
+ *      500:
+ *        description: Internal server error
+ *              
+ *          
+ */
 router.post('/submissions/:submission_id/result', createExecutionResult);
 
 // powerups
+
+/**
+ * @swagger
+ * /api/powerups
+ *  get:
+ *    summary: Get all available powerups
+ *    tags: [Powerups]
+ *    responses:
+ *      200:
+ *        description: All available powerups were retrieved successfully
+ *      500:
+ *        description: Internal server error
+ */
 router.get('/powerups', getPowerups);
+/**
+ * @swagger
+ * /api/powerups/match/{match_id}
+ *  get:
+ *    summary: Get all powerups used in a match
+ *    tags: [Powerups]
+ *    parameters:
+ *      - in: path
+ *        name: match_id
+ *        required: true
+ *        schema:
+ *          type: string
+ *          format: uuid
+ *    responses:
+ *      200: 
+ *        description: All powerups used in specified match were returned successfully
+ *      404:
+ *        description: Match not found
+ *      500:
+ *        description: Internal server error
+ *      
+ */
 router.get('/powerups/match/:match_id', getMatchPowerups);
+/**
+ * @swagger
+ * /api/powerups/use
+ *  post:
+ *    summary: Record a powerup being used in a match
+ *    tags: [Powerups]
+ *    requestBody:
+ *      required: true
+ *      content: 
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            required:
+ *              - match_id
+ *              - user_id
+ *              - powerup_id
+ *            properties:
+ *              match_id:
+ *                type: string
+ *                 format: uuid
+ *              user_id:
+ *                type: string
+ *                format: uuid
+ *              powerup_id:
+ *                type: string
+ *                format: uuid
+ *    responses:
+ *      200:
+ *        description: Recorded powerup being used in match by user successfully
+ *      404:
+ *        description: User, match and/or powerup not found
+ *      500:
+ *        description: Internal server error
+ */
 router.post('/powerups/use', usePowerup);
 
 // achievements
 
 /**
  * @swagger
- * /api/endpoint:
- * get:
- * summary: Gets all achievements
+ * /api/achievements:
+ *  get:
+ *    summary: Gets all achievements
+ *    tags: [Achievements]
+ *    responses:
+ *      200:
+ *        description: Successfully retrieved all achievements
+ *      500:
+ *        Internal server error
  * 
  */
 router.get('/achievements', getAchievements);
 
 /**
  * @swagger
- * /api/endpoint:
- * get:
- * summary: Gets all achievements earned by a user
- * tags: [Achievements]
- * parameters: 
- * - in: path
- *   name: user_id
- *   required: true
- *   schema:
- *   type: string
- *   description: The id assigned to a user
- * responses:
- *  200:
- *   description: Achievements of specified user retrieved
- *  404:
- *   description: User not found 
- *  500:
- *   description: Internal Server Error
+ * /api/achievements/user/{user_id}:
+ *  get:
+ *    summary: Gets all achievements earned by a user
+ *    tags: [Achievements]
+ *    parameters: 
+ *      - in: path
+ *        name: user_id
+ *        required: true
+ *        schema:
+ *          type: string
+ *          format: uuid
+ *    responses:
+ *      200:
+ *        description: Achievements of specified user retrieved successfully
+ *      404:
+ *        description: User not found 
+ *      500:
+ *        description: Internal Server Error
  */
 router.get('/achievements/user/:user_id', getUserAchievements);
 
+//for the comment below, because, at least on this branch, achievements haven't been added to the 
+// database, i can only assume achievement_id is of uuid format, change if necessary
+
 /** 
  * @swagger
- * /api/endpoint:
- * post:
- * summary: Awards the player with an achievement
- * tags: [Achievements]
- * parameters: 
+ * /api/achievements/award:
+ *  post:
+ *    summary: Awards the player with an achievement
+ *    tags: [Achievements]
+ *    parameters:
+ *      - in: path
+ *        name: user_id
+ *        required: true
+ *        schema:
+ *          type: string
+ *          format: uuid
+ *      - in: path
+ *        name: achievement_id
+ *        required: true
+ *        schema:
+ *          type: string
+ *          format: uuid 
+ *    responses:
+ *     200:
+ *      description: Player awarded with the desired achievement successfully
+ *     404:
+ *      description: Player not found
+ *     500:
+ *      description: Internal Server Error
 */
 router.post('/submissions/award', awardAchievement);
 
