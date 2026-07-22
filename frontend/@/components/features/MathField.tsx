@@ -8,19 +8,21 @@ import VirtualKeyboard from "./VirtualKeyboard";
 
 //Extending JSX to react mathfield as a valid element
 declare module "react" {
-  // namespace JSX {
-  interface IntrinsicElements {
-    "math-field": {
-      ref?: React.RefObject<MathfieldElement | null>;
-      value?: string;
-      onInput?: (evt: React.SyntheticEvent<MathfieldElement>) => void; //double check SyntheticEvent is the correct function
-      children?: React.ReactNode;
-      className?: string;
-      style?: React.CSSProperties;
-    };
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace JSX {
+    interface IntrinsicElements {
+      "math-field": {
+        ref?: React.RefObject<MathfieldElement | null>;
+        value?: string;
+        onInput?: (evt: React.SyntheticEvent<MathfieldElement>) => void; //double check SyntheticEvent is the correct function
+        children?: React.ReactNode;
+        className?: string;
+        style?: React.CSSProperties;
+      };
+    }
   }
 }
-// }
+}
 
 interface MathFieldProps {
   onValueChange?: (value: string) => void;

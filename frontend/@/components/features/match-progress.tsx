@@ -32,7 +32,7 @@ function MatchProgress({
 
       <div className="absolute top-5 self-center bg-black h-[75%] w-[2%] z-0"></div>
       <div className="grid grid-cols-3 flex-1 gap-2 items-center relative z-10">
-        {[...questions].reverse().map((q, id) => {
+        {[...questions].reverse().map((_, id) => {
           const door_id = questions.length - 1 - id;
           return (
             <React.Fragment key={id}>
