@@ -7,19 +7,22 @@ services:
       - DATABASE_URL=postgresql://postgres:password@db:5432/codeclash
     depends_on:
       - db
-    volumes:
-      - ./backend:/app
-      - /app/node_modules
+    # volumes:
+    #   - ./backend:/app
+    #   - /app/node_modules
     networks:
       - pgnetwork
 
-  # frontend:
-  #   build: ./frontend
-  #   ports:
-  #     - "5173:5173"
-  #   volumes:
-  #     - ./frontend:/app
-  #     - /app/node_modules
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+    # volumes:
+    #   - ./frontend:/app
+    #   - /app/node_modules
+    #commented out for production
+    networks:
+      - pgnetwork
   #TODO IMPORTANT return this when we want to containerise the front end for deployment
 
   db:
