@@ -12,7 +12,7 @@ import {
     Maths_Result_Component,
     ResultComponentTypes,
     QuestionComponentTypes
-} from "../components";
+} from "./components";
 
 function addComponent(
     map: Map<number, Map<string, Component>>,
