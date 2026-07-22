@@ -2,9 +2,7 @@ import type React from "react";
 import { Route, Routes } from "react-router-dom";
 
 import Layout from "./layout";
-import Found from "./Views/Found";
 import Dashboard from "./Views/Dashboard";
-import Searching from "./Views/MatchSearching";
 import SignIn from "./Views/SignIn";
 import SignUp from "./Views/SignUp";
 import Profile from "./Views/Profile";
@@ -22,8 +20,8 @@ const App: React.FC = () => {
             <Route path='/sign-in' element={<SignIn/>}/>
             <Route path='/sign-up' element={<SignUp/>}/>
             <Route path='/profile' element={<Profile/>}/>
-            <Route path='/searching' element={<Searching/>}/>
-            <Route path='/found' element={<Found/>}/>
+            <Route path='/match-searching' element={<MatchSearching/>}/>
+            <Route path='/match-found' element={<MatchFound/>}/>
             <Route path='/math-match' element={<MathMatch/>}/>
             <Route path='/prog-match' element={<ProgMatch language="javascript"/>}/>
 
