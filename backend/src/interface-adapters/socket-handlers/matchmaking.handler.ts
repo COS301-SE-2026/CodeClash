@@ -52,14 +52,12 @@ export const leaveMatchQueue = (async (io: Server, socket: Socket) => {
         io.to(socket.data.user_id).emit('dequeue-failed');
 })
 
-export const matchAccepted = (async (socket: Socket, data: GameDataDTO, question_repo: IQuestionRepository, elo_repo: IEloRepository) => {
-    console.log("Match Accepted")
+export const matchAccepted = (async (io: Server, socket: Socket, data: GameDataDTO, question_repo: IQuestionRepository, elo_repo: IEloRepository) => {
 
     PAIRS.get(data.pair_id)?.set(socket.data.user_id, true);
 
     const pair = PAIRS.get(data.pair_id);
 
-    console.log(`Pair: ${pair}`)
     const bothAccepted = pair ? [...pair.values()].every(bool => bool) : false;
 
     console.log(`Both Accepted: ${bothAccepted}`)
@@ -70,10 +68,13 @@ export const matchAccepted = (async (socket: Socket, data: GameDataDTO, question
         data.question_number = 5;   // TODO update this to be dynamic
         const setup = await gameService(question_repo, elo_repo, data);
 
-        console.log("GameService Done")
         if (setup) {
             console.log("Emitting event")
-            socket.emit("game_ready", keys);
+            for (const key of keys) {
+                io.to(key).emit("start_game");
+            }
+        } else {
+            console.log("Game service returning false")
         }
     }
     else {

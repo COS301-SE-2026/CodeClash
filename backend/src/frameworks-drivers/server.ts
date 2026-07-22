@@ -69,7 +69,7 @@ AppDataSource.initialize()
 
             socket.on('leave_match_queue', async () => await leaveMatchQueue(io, socket));
 
-            socket.on('match_accepted', async (data) => { console.log("Server, accepted handler"); await matchAccepted(socket, data, question_repo,elo_repo) });
+            socket.on('match_accepted', async (data) => {await matchAccepted(io,socket, data, question_repo,elo_repo) });
 
             socket.on('match_declined', (pair_id: string) => matchDeclined(io, socket, pair_id));
 

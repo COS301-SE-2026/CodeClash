@@ -1,6 +1,7 @@
 import { IEloRepository } from "src/application/interfaces/IEloRepository";
 import { IQuestionRepository } from "src/application/interfaces/IQuestionRepository";
 import { Life_Component, Match_Component, Players_Component, Rank_Component, Round_Component } from "src/entities/components";
+import { GameMode } from "src/entities/db-entities/questions.entities";
 import { GameDataDTO } from "src/entities/dtos/game-data.dto";
 import { leagueMapping } from "src/entities/league-mapping";
 import { World } from "src/entities/World";
@@ -47,7 +48,9 @@ export const gameService = async (
     // fetch questions form the db 
     const elos = await elo_repo.getUsersElo(data.player_ids);
 
-    if (!elos) return false;
+    if (!elos) {
+        console.log("null elos")
+        return false;}
 
     const avg_elo = elos.reduce((total, curr) => total + curr.rating!, 0) / 2
     const game_questions = getQuestions(question_repo, data.league, avg_elo, data.question_number, data.game_mode)
@@ -58,18 +61,22 @@ export const gameService = async (
     const round_entity = createEntity();
     createRound(round_entity, match_entity, questions, 5); // set to 5 minutes just for now
 
+    console.log("returning")
     return true;
 }
 
-const getQuestions = (question_repo: IQuestionRepository, league: string, avg_elo: number, question_number: number, game_mode: "Maths" | "Prog") => {
+const getQuestions = (question_repo: IQuestionRepository, league: string, avg_elo: number, question_number: number, game_mode: GameMode) => {
     const mapping = leagueMapping(league, avg_elo);
 
     if (!mapping) throw new Error("League not found")
 
-    const easy_count = question_number * mapping.easy.percentage!;
-    const medium_count = question_number * mapping.medium.percentage!;
-    const hard_count = question_number * mapping.hard.percentage!;
+    const easy_count:number =Math.round(question_number * (mapping.easy.percentage!));
+    const medium_count:number = Math.round (question_number * (mapping.medium.percentage!));
+    const hard_count:number = Math.round(question_number * mapping.hard.percentage!);
 
+    console.log(`easy: ${typeof easy_count} ${easy_count}`)
+    console.log(`medium: ${typeof medium_count} ${medium_count}`)
+    console.log(`hard: ${typeof hard_count} ${hard_count}`)
 
     const easy_questions = question_repo.getRandQuestions(easy_count, mapping.easy.difficulty, game_mode);
     const medium_questions = question_repo.getRandQuestions(medium_count, mapping.medium.difficulty, game_mode);

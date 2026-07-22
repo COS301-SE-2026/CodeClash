@@ -19,32 +19,33 @@ export const leagueMapping = (league: string, avg_elo: number) => {
 
     if (!user_league) return null;
 
-    const distances: number[] = [];
     const weights: number[] = [];
 
-    for (var i = user_league.elo[0]!; i < user_league.elo[1]!; i += 600) {
-        const upper_bound = i + 200;
+    const start = user_league.elo[0]!;
 
-        const midpoint = (i + upper_bound) / 2;
+    for (var i = 0; i < 3; i++) {
+        const lower_bound = start + i * 200;
+        const upper_bound = lower_bound + 200;
+
+        const midpoint = (lower_bound + upper_bound) / 2;
 
         const value = Math.abs(avg_elo - midpoint)
-        distances.push(value);
-        weights.push(1/value)
+        weights.push(1 / Math.max(value,1))
     }
 
 
-    const sum_weight = weights.reduce((total, curr)=> total + curr,0);
+    const sum_weight = weights.reduce((total, curr) => total + curr, 0);
     const percentages: number[] = []
 
-    for(var i = 0; i < 3; i++){
-        percentages.push((weights[i]!/sum_weight )* 100);
+    for (var i = 0; i < 3; i++) {
+        percentages.push(weights[i]! / sum_weight);
     }
- 
 
-   return {
-        easy: {difficulty: user_league.difficulty[0]!, percentage: percentages[0]},
-        medium: {difficulty: user_league.difficulty[1]!, percentage: percentages[1]},
-        hard: {difficulty: user_league.difficulty[2]!, percentage: percentages[2]},
+
+    return {
+        easy: { difficulty: user_league.difficulty[0]!, percentage: percentages[0] },
+        medium: { difficulty: user_league.difficulty[1]!, percentage: percentages[1] },
+        hard: { difficulty: user_league.difficulty[2]!, percentage: percentages[2] },
     }
 
 

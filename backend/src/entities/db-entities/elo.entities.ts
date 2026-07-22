@@ -8,7 +8,7 @@ export class Elo_ratings {
     elo_id!: string
 
     @OneToOne(() => Users)
-    @JoinColumn()
+    @JoinColumn({name: 'user_id'})
     user!: Users
 
     @Column({ nullable: false })

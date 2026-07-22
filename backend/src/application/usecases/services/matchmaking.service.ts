@@ -1,12 +1,11 @@
+import { GameMode } from "src/entities/db-entities/questions.entities";
 import redis from "../../../../redis-client"
 import MatchmakingUserDTO from "src/entities/dtos/matchmaking.dto";
 
 const elo_difference = 100;   // this can be changed later
 
 // adds player to queue
-async function enqueue(user: MatchmakingUserDTO, queue: string): Promise<boolean> {
-    if (queue != "math" && queue != "prog") return false;
-
+async function enqueue(user: MatchmakingUserDTO, queue: GameMode): Promise<boolean> {
     // add user to the queue
     await redis.zadd(queue, user.elo, user.id);
 
@@ -16,8 +15,7 @@ async function enqueue(user: MatchmakingUserDTO, queue: string): Promise<boolean
 }
 
 // remove player from the queue
-async function dequeue(user_id: number, queue: string): Promise<boolean> {
-    if (queue != "math" && queue != "prog") return false;
+async function dequeue(user_id: number, queue: GameMode): Promise<boolean> {
 
     const rem_joined_hash = await redis.hdel(`user:${user_id}`,'user_joined_at');
     const rem_user = await redis.zrem(queue, user_id);
@@ -31,9 +29,6 @@ async function dequeue(user_id: number, queue: string): Promise<boolean> {
 
 // finds a match for the passed in user
 async function matchmaking(user: MatchmakingUserDTO) {
-    if (user.game_mode != "math" && user.game_mode != "prog")
-        throw new Error("Unknown game mode");
-
     const range = elo_difference * user.match_attempt;
 
     const elo_range_lower = Math.min(0, user.elo - range);
