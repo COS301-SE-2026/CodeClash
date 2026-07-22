@@ -86,6 +86,7 @@
   --font-heading-size: var(--heading-size);
   --font-logo: var(--font-logo);
   --font-weight-light: 100;
+  --font-silkscreen: "Silkscreen", sans-serif;
   --font-dseg: 'DSEG7', monospace;
 
   /* text size - matching to the :root vars*/

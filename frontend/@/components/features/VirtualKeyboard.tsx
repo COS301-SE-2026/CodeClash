@@ -1,6 +1,5 @@
 //Page containing the virtual math keyboard
 
-import 'mathlive';
 import { MathfieldElement } from 'mathlive';
 import { useEffect} from 'react';
 

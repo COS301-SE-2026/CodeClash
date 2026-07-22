@@ -3,23 +3,23 @@
 
 import { MathfieldElement} from "mathlive";
 import { useState, useRef } from "react";
-import VirtualKeyboard from './VirtualKeyboard';
+
+import VirtualKeyboard from "./VirtualKeyboard";
 
 //Extending JSX to react mathfield as a valid element
-declare module 'react' {
-  namespace JSX {
-    interface IntrinsicElements {
-      'math-field': {
-        ref?: React.RefObject<MathfieldElement | null>;
-        value?: string;
-        onInput?: (evt: React.SyntheticEvent<MathfieldElement>) => void; //double check SyntheticEvent is the correct function
-        children?: React.ReactNode;
-        className?: string;
-        style?: React.CSSProperties;
-      };
-    }
+declare module "react" {
+  interface IntrinsicElements {
+    "math-field": {
+      ref?: React.RefObject<MathfieldElement | null>;
+      value?: string;
+      onInput?: (evt: React.SyntheticEvent<MathfieldElement>) => void; //double check SyntheticEvent is the correct function
+      children?: React.ReactNode;
+      className?: string;
+      style?: React.CSSProperties;
+    };
   }
 }
+
 
 
 interface MathMatchProps {
