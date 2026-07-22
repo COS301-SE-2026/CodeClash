@@ -22,7 +22,7 @@ declare module "react" {
     }
   }
 }
-}
+
 
 interface MathFieldProps {
   onValueChange?: (value: string) => void;
