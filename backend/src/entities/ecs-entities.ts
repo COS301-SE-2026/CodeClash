@@ -1,11 +1,6 @@
 //  PLAYER
-export class Player {
+export interface Player {
     id: number;
-
-
-    constructor(id: number) {
-        this.id = id;
-    }
 }
 
 //  MATCH
@@ -25,5 +20,10 @@ export interface Submission {
 
 //  RESULT
 export interface Result {
+    id: number;
+}
+
+// QUESTION
+export interface Question{
     id: number;
 }

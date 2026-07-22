@@ -77,17 +77,32 @@ export interface Maths_Result_Component {
     correct: boolean
 }
 
+/** QUESTION ENTITY */
+
+export interface Maths_Question_Component {
+    answer: string,
+    question: string
+}
+
+export interface Prog_Question_Component {
+    question: string,
+    test_cases: string[],
+    expected_output: string[]
+}
+
 
 // union for all components - for the map
 
 export type PlayerComponentTypes = Life_Component | Rank_Component | Badge_Component;
 export type MatchComponentTypes = Players_Component | Match_Component;
-export type ResultComponentTypes = Maths_Result_Component
+export type ResultComponentTypes = Maths_Result_Component;
+export type QuestionComponentTypes = Maths_Question_Component | Prog_Question_Component;
 
 export type Component =
     PlayerComponentTypes |
     MatchComponentTypes |
     Round_Component |
     Submission_Component |
-    ResultComponentTypes;
+    ResultComponentTypes |
+    QuestionComponentTypes;
 

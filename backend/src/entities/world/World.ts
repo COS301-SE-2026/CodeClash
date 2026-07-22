@@ -10,8 +10,9 @@ import {
     Submission_Component,
     Round_Component,
     Maths_Result_Component,
-    ResultComponentTypes
-} from "./components";
+    ResultComponentTypes,
+    QuestionComponentTypes
+} from "../components";
 
 function addComponent(
     map: Map<number, Map<string, Component>>,
@@ -53,6 +54,7 @@ export const World = () => {
     const rounds = new Map<number, Map<string, Component>>();
     const submissions = new Map<number, Map<string, Component>>();
     const results = new Map<number, Map<string, Component>>();
+    const questions = new Map<number, Map<string, Component>>();
 
     let ID = 0;
 
@@ -62,9 +64,10 @@ export const World = () => {
 
 
     // ADDERS
+
     function addPlayerComponent(
         entity_id: number,
-        component_name: "Life"|"Rank"|"Badge",
+        component_name: "Life" | "Rank" | "Badge",
         component: PlayerComponentTypes
     ): boolean {
         return addComponent(players, entity_id, component_name, component);
@@ -72,7 +75,7 @@ export const World = () => {
 
     function addMatchComponent(
         entity_id: number,
-        component_name: "Players"|"Match",
+        component_name: "Players" | "Match",
         component: MatchComponentTypes
     ): boolean {
         return addComponent(matches, entity_id, component_name, component)
@@ -90,7 +93,7 @@ export const World = () => {
     function addSubmissionComponent(
         entity_id: number,
         component_name: "Submission",
-        component:Submission_Component
+        component: Submission_Component
     ): boolean {
         return addComponent(submissions, entity_id, component_name, component)
     }
@@ -98,11 +101,19 @@ export const World = () => {
 
     function addResultComponent(
         entity_id: number,
-        component_name: "Maths_Result"|"Prog_Result",
+        component_name: "Maths_Result" | "Prog_Result",
         component: ResultComponentTypes
     ): boolean {
         return addComponent(results, entity_id, component_name, component)
     }
+
+    function addQuestionComponents(
+        entity_id: number,
+        component_name: "Maths_Question"| 'Prog_Question',
+        component: QuestionComponentTypes
+    ): boolean {
+        return addComponent(questions, entity_id, component_name, component);
+     }
 
 
     // GETTERS
@@ -124,6 +135,10 @@ export const World = () => {
         return getComponent<T>(submissions, entity_id, component_name);
     }
 
+    function getQuestionComponent<T extends QuestionComponentTypes>(entity_id: number, component_name: string){
+        return getComponent<T>(questions, entity_id, component_name);
+    }
+
 
     return {
         createEntity,
@@ -132,9 +147,11 @@ export const World = () => {
         addRoundComponent,
         addSubmissionComponent,
         addResultComponent,
+        addQuestionComponents,
         getPlayerComponent,
         getMatchComponent,
         getRoundComponent,
-        getSubmissionsComponent
+        getSubmissionsComponent,
+        getQuestionComponent
     }
 }

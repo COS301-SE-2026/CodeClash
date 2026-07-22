@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { validateToken } from '../auth/auth.service';
-import { EloRepository } from '../repositories/interface-implementations/elo.repository';
+import { EloRepository } from '../repositories/elo.repository';
 
 
 // GET /api/elo/elo-get

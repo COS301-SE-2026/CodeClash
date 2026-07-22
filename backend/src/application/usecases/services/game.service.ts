@@ -1,5 +1,5 @@
 import { Life_Component, Match_Component, Players_Component, Rank_Component, Round_Component } from "src/entities/components";
-import { World } from "src/entities/World";
+import { World } from "src/entities/world/World";
 
 export const gameService = (player_ids: string[], game_mode: string) => {
 
@@ -33,6 +33,10 @@ export const gameService = (player_ids: string[], game_mode: string) => {
 
     addMatchComponent(match_entity, "Players", players);
     addMatchComponent(match_entity, "Match", match_component);
+
+
+    /** Question Entity */
+    
 
 
     // how do we determine the number of rounds in a game ??

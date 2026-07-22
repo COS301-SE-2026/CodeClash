@@ -9,15 +9,15 @@ import {
 } from 'src/interface-adapters/controllers/elo.controllers';
 // import { getMatches, getMatchById, createMatch, updateMatchStatus, getMatchLog } from 'src/interface-adapters/controllers/matches.controllers';
 import { getUserStat } from 'src/interface-adapters/controllers/user.controllers';
-import { UserRepository } from 'src/interface-adapters/repositories/interface-implementations/user.repository';
+import { UserRepository } from 'src/interface-adapters/repositories/user.repository';
 import { AppDataSource } from '../data-source';
-import { User } from 'src/interface-adapters/repositories/db-entities/user.entities';
-import { EloRepository } from 'src/interface-adapters/repositories/interface-implementations/elo.repository';
-import { Elo_ratings } from 'src/interface-adapters/repositories/db-entities/elo.entities';
+import { Users } from 'src/entities/db-entities/user.entities';
+import { EloRepository } from 'src/interface-adapters/repositories/elo.repository';
+import { Elo_ratings } from 'src/entities/db-entities/elo.entities';
 
 const router = Router();
 
-const user_repo = new UserRepository(AppDataSource.getRepository(User))
+const user_repo = new UserRepository(AppDataSource.getRepository(Users))
 const elo_repo = new EloRepository(AppDataSource.getRepository(Elo_ratings))
 
 // // Match routes

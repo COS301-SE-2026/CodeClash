@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, OneToOne, JoinColumn } from "typeorm";
-import { User } from "./user.entities";
+import { Users } from "./user.entities";
 
 
 @Entity()
@@ -7,20 +7,20 @@ export class Elo_ratings {
     @PrimaryGeneratedColumn('uuid')
     elo_id!: string
 
-    @OneToOne(() => User)
+    @OneToOne(() => Users)
     @JoinColumn()
-    user!: User
+    user!: Users
 
-    @Column()
+    @Column({ nullable: false })
     rating!: number
 }
 
 @Entity()
-export class Elo_history{
+export class Elo_history {
     @PrimaryGeneratedColumn('uuid')
     history_id!: string
 
-    @ManyToOne(()=> User)
-    user!: User
+    @ManyToOne(() => Users)
+    user!: Users
 
 }

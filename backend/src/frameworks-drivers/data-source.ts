@@ -14,7 +14,7 @@ export const AppDataSource = new DataSource({
     database: env.DB_NAME!,
     synchronize: true,
     logging: ["warn", "error"],
-    entities: ["src/interface-adapters/repositories/db-entities/*.ts" ],
+    entities: ["src/entities/db-entities/*.{js,ts}" ],
     migrations: [],
     subscribers: [],
 })

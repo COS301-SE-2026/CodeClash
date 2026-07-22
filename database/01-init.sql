@@ -1,6 +1,6 @@
 --very generic tables that can be changed later, just trying not to keep the file empty
 
-CREATE TYPE problem_category AS ENUM ('math', 'programming');
+CREATE TYPE GAME_MODES AS ENUM ('maths', 'programming');
 CREATE TYPE supported_languages AS ENUM('java','c++');
 
 CREATE TABLE IF NOT EXISTS leagues(
@@ -17,12 +17,12 @@ CREATE TABLE IF NOT EXISTS users (
   league VARCHAR(10) NOT NULL DEFAULT 'Mercury'
 );
 
-CREATE TABLE IF NOT EXISTS problems (
-  problem_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  type problem_category NOT NULL,
-  difficulty INTEGER NOT NULL CHECK (difficulty >= 1 AND difficulty <= 2400),
-  title VARCHAR(20) NOT NULL,
-  description VARCHAR(40) NOT NULL,
+CREATE TABLE IF NOT EXISTS questions (
+  question_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  game_mode GAME_MODES NOT NULL,
+  difficulty INTEGER NOT NULL CHECK (difficulty >= 1 AND difficulty <= 24),
+  title TEXT NOT NULL,
+  description TEXT NOT NULL,
   time_limit TIME(2) NOT NULL
 );
 
@@ -37,10 +37,10 @@ CREATE TABLE IF NOT EXISTS matches(
   status VARCHAR(20) CHECK (status IN ('waiting', 'starting','in_progress', 'completed', 'abandoned')) DEFAULT 'waiting' -- check is there a function to set a found match status to starting?
 );
 
-CREATE TABLE IF NOT EXISTS match_problems(
-  match_problems_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+CREATE TABLE IF NOT EXISTS match_questions(
+  match_questions_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   match_id UUID REFERENCES matches(match_id) NOT NULL,
-  question_id UUID REFERENCES problems(problem_id ) NOT NULL
+  question_id UUID REFERENCES questions(question_id ) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS match_log(
@@ -59,16 +59,16 @@ CREATE TABLE IF NOT EXISTS elo_ratings (
 );
 
 
-CREATE TABLE IF NOT EXISTS math_problems (
+CREATE TABLE IF NOT EXISTS math_questions (
   id SERIAL PRIMARY KEY,
-  problem_id UUID NOT NULL REFERENCES problems(problem_id) ON DELETE CASCADE,
+  question_id UUID NOT NULL REFERENCES questions(question_id) ON DELETE CASCADE,
   --equation VARCHAR(20) NOT NULL,
   solution_formula VARCHAR(20) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS programming_problems (
+CREATE TABLE IF NOT EXISTS programming_questions (
   id SERIAL PRIMARY KEY,
-  problem_id UUID NOT NULL REFERENCES problems(problem_id) ON DELETE CASCADE,
+  question_id UUID NOT NULL REFERENCES questions(question_id) ON DELETE CASCADE,
   --function_signature VARCHAR(25) NOT NULL,
   supported_languages supported_languages NOT NULL
 );

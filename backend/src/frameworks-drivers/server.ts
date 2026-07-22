@@ -5,13 +5,13 @@ import app from './app';
 import dotnev from 'dotenv'
 import { joinMatchQueue, leaveMatchQueue, matchAccepted, matchDeclined } from 'src/interface-adapters/socket-handlers/matchmaking.handler';
 import { AppDataSource } from "./data-source"
-import { User } from "../interface-adapters/repositories/db-entities/user.entities"
+import { Users } from "../entities/db-entities/user.entities"
 import { initDB } from 'src/application/usecases/init-db';
 import { IUserRepository } from 'src/application/interfaces/IUserRepository';
-import { UserRepository } from 'src/interface-adapters/repositories/interface-implementations/user.repository';
+import { UserRepository } from 'src/interface-adapters/repositories/user.repository';
 import { IEloRepository } from 'src/application/interfaces/IEloRepository';
-import { EloRepository } from 'src/interface-adapters/repositories/interface-implementations/elo.repository';
-import { Elo_ratings } from 'src/interface-adapters/repositories/db-entities/elo.entities';
+import { EloRepository } from 'src/interface-adapters/repositories/elo.repository';
+import { Elo_ratings } from 'src/entities/db-entities/elo.entities';
 
 dotnev.config()
 
@@ -63,7 +63,7 @@ AppDataSource.initialize()
 
         // seeding logic
 
-        const user_repo: IUserRepository = new UserRepository(AppDataSource.getRepository(User));
+        const user_repo: IUserRepository = new UserRepository(AppDataSource.getRepository(Users));
         const elo_repo: IEloRepository = new EloRepository(AppDataSource.getRepository(Elo_ratings))
         await initDB(user_repo, elo_repo);
         // start server

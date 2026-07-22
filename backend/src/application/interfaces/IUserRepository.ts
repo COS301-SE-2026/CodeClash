@@ -1,6 +1,4 @@
 import { UserDTO } from "src/entities/dtos/user.dto"
-import { User } from "src/interface-adapters/repositories/db-entities/user.entities"
-
 
 export interface IUserRepository {
 

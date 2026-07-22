@@ -1,19 +1,19 @@
 import { IUserRepository } from "src/application/interfaces/IUserRepository";
 import { UserDTO } from "src/entities/dtos/user.dto";
 import { Repository } from "typeorm";
-import { User } from "../db-entities/user.entities";
+import { Users } from "src/entities/db-entities/user.entities";
 
 
 
 export class UserRepository implements IUserRepository {
     constructor(
-        private userRepository: Repository<User>,
+        private userRepository: Repository<Users>,
     ) { }
 
     async createUser(username: string, email: string, cognito_id: string, avatar_id: number, league: string): Promise<UserDTO | null> {
         const insert = await this.userRepository.createQueryBuilder()
             .insert()
-            .into(User)
+            .into(Users)
             .values({
                 username: username,
                 email: email,
