@@ -12,6 +12,10 @@ import { UserRepository } from 'src/interface-adapters/repositories/user.reposit
 import { IEloRepository } from 'src/application/interfaces/IEloRepository';
 import { EloRepository } from 'src/interface-adapters/repositories/elo.repository';
 import { Elo_ratings } from 'src/entities/db-entities/elo.entities';
+import { gameService } from 'src/application/usecases/services/game.service';
+import { IQuestionRepository } from 'src/application/interfaces/IQuestionRepository';
+import { QuestionRepository } from 'src/interface-adapters/repositories/question.repository';
+import { Questions } from 'src/entities/db-entities/questions.entities';
 
 dotnev.config()
 
@@ -43,18 +47,6 @@ io.use(async (socket, next) => {
     else next(new Error("Authentication error: Invalid token"));
 })
 
-// attach socket handlers
-io.on("connection", (socket) => {
-
-    // SOCKET HANDLERS MUST MOOVE TO interface-adapter/
-    socket.on('join_match_queue', async (data) => await joinMatchQueue(io, socket, data));
-
-    socket.on('leave_match_queue', async () => await leaveMatchQueue(io, socket));
-
-    socket.on('match_accepted', async (pair_id) => await matchAccepted(socket, pair_id));
-
-    socket.on('match_declined', (pair_id) => matchDeclined(io, socket, pair_id));
-})
 
 
 // Initialise DB
@@ -64,8 +56,25 @@ AppDataSource.initialize()
         // seeding logic
 
         const user_repo: IUserRepository = new UserRepository(AppDataSource.getRepository(Users));
-        const elo_repo: IEloRepository = new EloRepository(AppDataSource.getRepository(Elo_ratings))
+        const elo_repo: IEloRepository = new EloRepository(AppDataSource.getRepository(Elo_ratings));
         await initDB(user_repo, elo_repo);
+
+        const question_repo: IQuestionRepository = new QuestionRepository(AppDataSource.getRepository(Questions));
+
+        // attach socket handlers
+        io.on("connection", (socket) => {
+
+            // SOCKET HANDLERS MUST MOOVE TO interface-adapter/
+            socket.on('join_match_queue', async (data) => await joinMatchQueue(io, socket, data));
+
+            socket.on('leave_match_queue', async () => await leaveMatchQueue(io, socket));
+
+            socket.on('match_accepted', async (pair_id: string, league: string) => await matchAccepted(socket, pair_id, league, question_repo));
+
+            socket.on('match_declined', (pair_id: string) => matchDeclined(io, socket, pair_id));
+        })
+
+
         // start server
         httpServer.listen(3000, () => {
             console.log("Server listening")

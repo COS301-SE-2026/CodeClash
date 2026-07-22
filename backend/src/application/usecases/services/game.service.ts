@@ -1,10 +1,17 @@
+import { IQuestionRepository } from "src/application/interfaces/IQuestionRepository";
 import { Life_Component, Match_Component, Players_Component, Rank_Component, Round_Component } from "src/entities/components";
+import { leagueMapping } from "src/entities/league-mapping";
 import { World } from "src/entities/World";
 
-export const gameService = (player_ids: string[], game_mode: string) => {
+export const gameService = (
+    question_repo: IQuestionRepository,
+    player_ids: string[],
+    game_mode: string,
+    league: string
+) => {
 
     let questions: number[] = [];
-    
+
     // Creat entities Components - use world 
     const { createEntity, addMatchComponent } = World();
 
@@ -36,18 +43,36 @@ export const gameService = (player_ids: string[], game_mode: string) => {
 
 
     /** Question Entity */
-        // fetch questions form the db 
+    // fetch questions form the db 
 
 
 
     // how do we determine the number of rounds in a game ??
     /**ROUND ENTITY */
     const round_entity = createEntity();
-    createRound(round_entity,match_entity,questions,5); // set to 5 minutes just for now
+    createRound(round_entity, match_entity, questions, 5); // set to 5 minutes just for now
 }
 
-const questionRatio = (league: string, avg_elo: number) => {
-    
+const questionRatio = (question_repo: IQuestionRepository, league: string, avg_elo: number, question_number: number, game_mode: "Maths" | "Prog") => {
+    const mapping = leagueMapping(league, avg_elo);
+
+    if (!mapping) throw new Error("League not found")
+
+    const easy_count = question_number * mapping.easy.percentage!;
+    const medium_count = question_number * mapping.medium.percentage!;
+    const hard_count = question_number * mapping.hard.percentage!;
+
+
+    const easy_questions = question_repo.getRandQuestions(easy_count, mapping.easy.difficulty, game_mode);
+    const medium_questions = question_repo.getRandQuestions(medium_count, mapping.medium.difficulty, game_mode);
+    const hard_questions = question_repo.getRandQuestions(hard_count, mapping.hard.difficulty, game_mode);
+
+    return {
+        easy_questions,
+        medium_questions,
+        hard_questions
+    }
+
 }
 
 const createPlayer = (player_entity: number, player_life: number, player_rank: number, elo: number, league: string) => {
@@ -78,9 +103,9 @@ const createRound = (round_entity: number, match_id: number, question_ids: numbe
         match_id: match_id,
         question_ids: question_ids,
         start_time: start_time,
-        end_time: new Date(start_time.getTime() + (duration* 60000)),
+        end_time: new Date(start_time.getTime() + (duration * 60000)),
         question_number: question_ids.length
     }
 
-    addRoundComponent(round_entity,"Round",round);
+    addRoundComponent(round_entity, "Round", round);
 }

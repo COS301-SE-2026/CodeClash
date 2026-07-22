@@ -41,10 +41,11 @@ export const leagueMapping = (league: string, avg_elo: number) => {
     }
  
 
-    const result = {
-        [user_league.difficulty[0]!]: percentages[0],
-        [user_league.difficulty[1]!]: percentages[2],
-        [user_league.difficulty[2]!]: percentages[2],
+   return {
+        easy: {difficulty: user_league.difficulty[0]!, percentage: percentages[0]},
+        medium: {difficulty: user_league.difficulty[1]!, percentage: percentages[1]},
+        hard: {difficulty: user_league.difficulty[2]!, percentage: percentages[2]},
     }
+
 
 }

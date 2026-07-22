@@ -4,6 +4,6 @@ export interface QuestionDTO {
     difficulty?: number,
     title?: string,
     description?: string,
-    time_limit?: Date
+    time_limit?: string
 }
 

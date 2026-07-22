@@ -2,6 +2,7 @@ import { Socket, Server } from "socket.io"
 import MatchmakingUserDTO from 'src/entities/dtos/matchmaking.dto';
 import { dequeue, matchmaking } from 'src/application/usecases/services/matchmaking.service';
 import { gameService } from 'src/application/usecases/services/game.service';
+import { IQuestionRepository } from "src/application/interfaces/IQuestionRepository";
 
 const PAIRS = new Map<string, Map<string, boolean>>();
 
@@ -49,7 +50,7 @@ export const leaveMatchQueue = (async (io: Server, socket: Socket) => {
         io.to(socket.data.user_id).emit('dequeue-failed');
 })
 
-export const matchAccepted = (async (socket: Socket, pair_id: string) => {
+export const matchAccepted = (async (socket: Socket, pair_id: string, league:string, question_repo: IQuestionRepository) => {
     PAIRS.get(pair_id)?.set(socket.data.user_id, true);
 
     const pair = PAIRS.get(pair_id);
@@ -58,7 +59,7 @@ export const matchAccepted = (async (socket: Socket, pair_id: string) => {
     if (bothAccepted) {
         // call the game service to create the game
         const keys = [...pair!.keys()];
-        const setup = await gameService(keys, socket.data.game_mode);
+        const setup = await gameService(question_repo, keys, socket.data.game_mode,league);
     }
     else {
         // waiting for the other player to accept
