@@ -14,7 +14,7 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
     const nav = useNavigate();
     const selecthandler = (t: string) => {
         if (selectTopic === null || t === null)
-            nav('/error')
+            nav('error')
         else {
             selectTopic(t)
         }

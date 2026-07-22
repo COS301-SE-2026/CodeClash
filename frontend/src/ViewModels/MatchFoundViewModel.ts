@@ -57,7 +57,8 @@ export function MatchFoundViewModelFunction() {
 
   const accept = () => {
     if (socket) {
-      setPath(game_mode.concat("-match"));
+      const new_path ="/".concat(game_mode).concat("-match")
+      setPath(new_path);
       const data = {
         pair_id: pair_id,
         game_mode: game_mode,
