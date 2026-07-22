@@ -9,10 +9,11 @@ interface FinalResultsViewModelProps {
 }
 
 interface FinalResultsViewModel {
-    content: FinalResults;
+    content: FinalResultsContent;
     state: 'loading' | 'results';
     loadingProgress: number; //for user to see how far the loading is
-    diaplayError: string | null;
+    results: FinalResults[];
+    displayError: string | null;
     handlePlayAgain: () => void;
     handleReturn: () => void;
 }
@@ -38,5 +39,40 @@ export function FinalResultsViewModelFunction ({
                 return prev + Math.random() * 8; //this will make the loading bar feel more natural instead of updating by the same amount the same time
             });
         }, 400);
-    })
+
+        fetchResults().then(data => {
+            if (cancelled) return;
+            clearInterval(progressInterval);
+            setLoadingProgress(100);
+
+            setTimeout(() => { //brief pause before displaying results
+                if (!cancelled) {
+                    setResults(data);
+                    setState('results');
+                }
+            }, 600)
+        }).catch(() => {
+            if (cancelled) return;
+            clearInterval(progressInterval);
+            setDisplayError('Failed to load results.'); //how are we going about 'trying again' in case of failure? i could add a Retry button
+        });
+
+        return () => {
+            cancelled = true;
+            clearInterval(progressInterval);
+        };
+    }, [fetchResults]);
+
+    const handlePlayAgain = useCallback(() => onPlayAgain(), [onPlayAgain]);
+    const handleReturn = useCallback(() => onReturn(), [onReturn]);
+
+    return {
+        content: finalResultsContent,
+        state,
+        loadingProgress,
+        results,
+        displayError,
+        handlePlayAgain,
+        handleReturn,
+    }
 }
