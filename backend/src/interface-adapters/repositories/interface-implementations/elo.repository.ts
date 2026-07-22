@@ -2,7 +2,6 @@ import { IEloRepository } from "src/application/interfaces/IEloRepository";
 import { Repository } from "typeorm";
 import { Elo_ratings } from "../db-entities/elo.entities";
 import { EloDTO } from "src/entities/dtos/elo.dto";
-import { User } from "../db-entities/user.entities";
 
 
 export class EloRepository implements IEloRepository {

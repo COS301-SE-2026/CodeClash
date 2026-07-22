@@ -1,7 +1,8 @@
 
 import { CognitoJwtVerifier } from 'aws-jwt-verify'
 import { NextFunction, Request, Response } from 'express';
-
+import { IUserRepository } from 'src/application/interfaces/IUserRepository';
+import { STATS, UserDTO } from 'src/entities/dtos/user.dto'
 import dotenv from "dotenv"
 dotenv.config()
 
@@ -12,7 +13,6 @@ const verifier = CognitoJwtVerifier.create({
 });
 
 
-const STATS = new Set(['current_streak', 'winning_streak', 'avatar_id']);
 
 export const validateToken = async (token: string | undefined) => {
   if (token === undefined)
@@ -31,29 +31,39 @@ export const validateToken = async (token: string | undefined) => {
 
 };
 
-export const requireAuth = async (req: Request, res: Response, next: NextFunction) => {
-  const token = req.headers.authorization?.split(' ')[1];
+export const requireAuth = (user_repo: IUserRepository) => {
 
-  const validate = await validateToken(token)
+  return async (req: Request, res: Response, next: NextFunction) => {
+    const token = req.headers.authorization?.split(' ')[1];
 
-  if (!validate || validate.email === undefined) {
-    res.status(401).json({ message: 'Missing or Invalid Token' });
-    return null;
+    const validate = await validateToken(token)
+
+    if (!validate || validate.email === undefined) {
+      res.status(401).json({ message: 'Missing or Invalid Token' });
+      return null;
+    }
+
+    const db_user = await user_repo.getUserId(validate.user_Id);
+
+    if (!db_user) {
+      res.status(404).json({ message: 'Unknown User' });
+      return null
+    }
+
+    req.user = {
+      id: db_user.user_id!,
+      email: validate.email as string
+    };
+
+    next();
   }
 
-  req.user = {} as any;
-
-  req.user.email = validate.email as string;
-  req.user.id = validate.user_Id;
-  next();
 }
 
 
 export function validStat(stat: string) {
-  return STATS.has(stat);
+  return STATS.includes(stat as keyof UserDTO)
 }
-
-
 
 
 let jwksCache: { keys: any[] } | null = null

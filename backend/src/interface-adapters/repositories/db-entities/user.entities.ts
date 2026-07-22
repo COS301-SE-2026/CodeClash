@@ -5,6 +5,9 @@ export class User{
     @PrimaryGeneratedColumn('uuid')
     user_id!: string
 
+    @Column({unique: true})
+    cognito_id!: string
+
     @Column()
     username!: string
 
@@ -16,4 +19,10 @@ export class User{
 
     @Column()
     league!: string
+
+    @Column({default: 0})
+    current_streak!: number
+
+    @Column({default: 0})
+    winning_streak!: number
 }

@@ -10,13 +10,14 @@ export class UserRepository implements IUserRepository {
         private userRepository: Repository<User>,
     ) { }
 
-    async createUser(username: string, email: string, avatar_id: number, league: string): Promise<UserDTO | null> {
+    async createUser(username: string, email: string, cognito_id: string, avatar_id: number, league: string): Promise<UserDTO | null> {
         const insert = await this.userRepository.createQueryBuilder()
             .insert()
             .into(User)
             .values({
                 username: username,
                 email: email,
+                cognito_id: cognito_id,
                 avatar_id: avatar_id,
                 league: league
             })
@@ -25,7 +26,7 @@ export class UserRepository implements IUserRepository {
 
         const id = insert.identifiers[0];
 
-        if(id === undefined) return null
+        if (id === undefined) return null
 
         const data: UserDTO = {
             user_id: id.user_id
@@ -62,5 +63,28 @@ export class UserRepository implements IUserRepository {
         return users
     }
 
+    async getUserId(cognito_id: string): Promise<UserDTO | null> {
+        const user = await this.userRepository.findOneBy({ cognito_id: cognito_id })
+
+        if (!user) return null;
+
+        const data: UserDTO = {
+            user_id: user.user_id
+        }
+
+        return data;
+    }
+
+    async getUserData(user_id: string, stat: keyof UserDTO): Promise<UserDTO | null> {
+        const user = await this.userRepository.findOneBy({ user_id: user_id })
+
+        if (!user) return null;
+
+        const data: UserDTO = {
+            [stat]: user[stat]
+        }
+        
+        return data
+    }
 
 }
