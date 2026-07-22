@@ -1,13 +1,14 @@
+import { IEloRepository } from "src/application/interfaces/IEloRepository";
 import { IQuestionRepository } from "src/application/interfaces/IQuestionRepository";
 import { Life_Component, Match_Component, Players_Component, Rank_Component, Round_Component } from "src/entities/components";
+import { GameDataDTO } from "src/entities/dtos/game-data.dto";
 import { leagueMapping } from "src/entities/league-mapping";
 import { World } from "src/entities/World";
 
-export const gameService = (
+export const gameService = async (
     question_repo: IQuestionRepository,
-    player_ids: string[],
-    game_mode: string,
-    league: string
+    elo_repo: IEloRepository,
+    data: GameDataDTO
 ) => {
 
     let questions: number[] = [];
@@ -25,7 +26,7 @@ export const gameService = (
 
     // need api calls here
     const players: Players_Component = {
-        player_ids: player_ids,
+        player_ids: data.player_ids,
     }
 
     // this data also needs to be fetched from the db 
@@ -33,7 +34,7 @@ export const gameService = (
     const match_component: Match_Component = {
         title: 'To Be Determined',
         status: 'active',
-        game_mode: game_mode,
+        game_mode: data.game_mode,
         difficulty: 1,  // also to be determined
         winner: -1  // will become winning players id once the game is over
     }
@@ -44,16 +45,23 @@ export const gameService = (
 
     /** Question Entity */
     // fetch questions form the db 
+    const elos = await elo_repo.getUsersElo(data.player_ids);
 
+    if (!elos) return false;
+
+    const avg_elo = elos.reduce((total, curr) => total + curr.rating!, 0) / 2
+    const game_questions = getQuestions(question_repo, data.league, avg_elo, data.question_number, data.game_mode)
 
 
     // how do we determine the number of rounds in a game ??
     /**ROUND ENTITY */
     const round_entity = createEntity();
     createRound(round_entity, match_entity, questions, 5); // set to 5 minutes just for now
+
+    return true;
 }
 
-const questionRatio = (question_repo: IQuestionRepository, league: string, avg_elo: number, question_number: number, game_mode: "Maths" | "Prog") => {
+const getQuestions = (question_repo: IQuestionRepository, league: string, avg_elo: number, question_number: number, game_mode: "Maths" | "Prog") => {
     const mapping = leagueMapping(league, avg_elo);
 
     if (!mapping) throw new Error("League not found")

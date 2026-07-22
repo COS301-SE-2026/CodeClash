@@ -3,6 +3,8 @@ import MatchmakingUserDTO from 'src/entities/dtos/matchmaking.dto';
 import { dequeue, matchmaking } from 'src/application/usecases/services/matchmaking.service';
 import { gameService } from 'src/application/usecases/services/game.service';
 import { IQuestionRepository } from "src/application/interfaces/IQuestionRepository";
+import { GameDataDTO } from "src/entities/dtos/game-data.dto";
+import { IEloRepository } from "src/application/interfaces/IEloRepository";
 
 const PAIRS = new Map<string, Map<string, boolean>>();
 
@@ -50,19 +52,34 @@ export const leaveMatchQueue = (async (io: Server, socket: Socket) => {
         io.to(socket.data.user_id).emit('dequeue-failed');
 })
 
-export const matchAccepted = (async (socket: Socket, pair_id: string, league:string, question_repo: IQuestionRepository) => {
-    PAIRS.get(pair_id)?.set(socket.data.user_id, true);
+export const matchAccepted = (async (socket: Socket, data: GameDataDTO, question_repo: IQuestionRepository, elo_repo: IEloRepository) => {
+    console.log("Match Accepted")
 
-    const pair = PAIRS.get(pair_id);
+    PAIRS.get(data.pair_id)?.set(socket.data.user_id, true);
+
+    const pair = PAIRS.get(data.pair_id);
+
+    console.log(`Pair: ${pair}`)
     const bothAccepted = pair ? [...pair.values()].every(bool => bool) : false;
 
+    console.log(`Both Accepted: ${bothAccepted}`)
     if (bothAccepted) {
         // call the game service to create the game
         const keys = [...pair!.keys()];
-        const setup = await gameService(question_repo, keys, socket.data.game_mode,league);
+        data.player_ids = keys;
+        data.question_number = 5;   // TODO update this to be dynamic
+        const setup = await gameService(question_repo, elo_repo, data);
+
+        console.log("GameService Done")
+        if (setup) {
+            console.log("Emitting event")
+            socket.emit("game_ready", keys);
+        }
     }
     else {
         // waiting for the other player to accept
+
+        console.log("Waiting for both to accept")
     }
 })
 
@@ -83,4 +100,13 @@ export const matchDeclined = ((io: Server, socket: Socket, pair_id: string) => {
         }
     }
 })
+
+export const gameReady = (io: Server, player_ids: string[]) => {
+    console.log("GAME_READY")
+
+    for (const id of player_ids) {
+        io.to(id).emit("start_game");
+    }
+
+}
 

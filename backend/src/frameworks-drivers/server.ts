@@ -3,7 +3,7 @@ import { Server } from 'socket.io'
 import { validateToken } from '../interface-adapters/auth/auth.service';
 import app from './app';
 import dotnev from 'dotenv'
-import { joinMatchQueue, leaveMatchQueue, matchAccepted, matchDeclined } from 'src/interface-adapters/socket-handlers/matchmaking.handler';
+import { gameReady, joinMatchQueue, leaveMatchQueue, matchAccepted, matchDeclined } from 'src/interface-adapters/socket-handlers/matchmaking.handler';
 import { AppDataSource } from "./data-source"
 import { Users } from "../entities/db-entities/user.entities"
 import { initDB } from 'src/application/usecases/init-db';
@@ -69,9 +69,11 @@ AppDataSource.initialize()
 
             socket.on('leave_match_queue', async () => await leaveMatchQueue(io, socket));
 
-            socket.on('match_accepted', async (pair_id: string, league: string) => await matchAccepted(socket, pair_id, league, question_repo));
+            socket.on('match_accepted', async (data) => { console.log("Server, accepted handler"); await matchAccepted(socket, data, question_repo,elo_repo) });
 
             socket.on('match_declined', (pair_id: string) => matchDeclined(io, socket, pair_id));
+
+            socket.on('game_ready', (player_ids: string[]) => { gameReady(io, player_ids) })
         })
 
 

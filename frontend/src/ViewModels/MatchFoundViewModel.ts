@@ -14,7 +14,7 @@ import { useUser } from "src/context/User/hooks/useUser";
 
 export function MatchFoundViewModelFunction() {
   const nav = useNavigate();
-  const { elo } = useUser();
+  const { elo, league } = useUser();
 
   const { socket } = useSocket()
   const { game_mode, pair_id } = useMatchmakingSocket();
@@ -58,7 +58,13 @@ export function MatchFoundViewModelFunction() {
   const accept = () => {
     if (socket) {
       setPath(game_mode.concat("-match"));
-      matchAccepted(socket, pair_id);
+      const data = {
+        pair_id: pair_id,
+        game_mode: game_mode,
+        league: league
+      }
+
+      matchAccepted(socket, data);
       setLoading(true);
     }
     else {
@@ -74,11 +80,14 @@ export function MatchFoundViewModelFunction() {
 
       socket.on("game_declined", gameDeclined);
 
+      socket.on("start_game", gameReady)
+
 
       return () => {
         socket.off("game_ready", gameReady);
         socket.off("decline_done", declineGame);
         socket.off("game_declined", gameDeclined);
+        socket.off("start_game", gameReady)
       }
     }
   }, [socket, path])

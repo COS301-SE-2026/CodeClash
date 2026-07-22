@@ -5,7 +5,7 @@ import { Socket } from "socket.io-client";
 
 
 export const useMatchmakingSocket = () => {
-    const { socket, isConnected } = useSocket();
+    const { socket, isConnected, matched } = useSocket();
     const [game_mode, setGameMode] = useState('');
     const [pair_id, setPairId] = useState('');
 
@@ -13,19 +13,14 @@ export const useMatchmakingSocket = () => {
     const handleMatched = useCallback((mode: string, pair_id: string) => {
         setGameMode(mode);
         setPairId(pair_id);
-
     }, [])
 
 
     useEffect(() => {
-
         if (!socket) return;
-
-        socket.on("users_matched", (data) => { handleMatched(data.game_mode, data.pair_id) })
-
-        return () => {
-            socket.off("users_matched", (data) => { handleMatched(data.game_mode, data.pair_id) })
-
+        
+        if(matched){
+            handleMatched(matched.game_mode, matched.pair_id)
         }
     }, [socket])
 
@@ -42,8 +37,8 @@ export function leaveMatchQueue(socket: Socket) {
     socket.emit("leave_match_queue");
 }
 
-export function matchAccepted(socket: Socket, pair_id: string) {
-    socket.emit("match_accepted", pair_id)
+export function matchAccepted(socket: Socket, data: {}) {
+    socket.emit("match_accepted", data)
 }
 
 export function matchDeclined(socket: Socket, pair_id: string) {
