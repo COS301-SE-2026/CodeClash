@@ -6,8 +6,12 @@ interface gameGuideHeadingProps{
     className?: string
 }
 
-const GameGuideHeading = ({children, classname} : GlassCardProps) => {
+const GameGuideHeading = ({children, className} : gameGuideHeadingProps) => {
     return(
-        <Card className={``}"></Card>
+        <Card className={`text-center font-font font-semibold text-[120%] text-button-primary -mt-[26%] -ml-[1%] ${className}`}>
+            {children}
+        </Card>
     )
 }
+
+export default GameGuideHeading;
