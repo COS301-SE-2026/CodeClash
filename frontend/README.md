@@ -17,19 +17,35 @@ We're using a React + TypeScript frontend built with Vite.
 - For the pages: 
     - npm install
     - npm install react-router-dom
-    - npm install -D tailwindcss postcss autoprefixer 
+    - npm install tailwindcss @tailwindcss/vite
 - For component testing:
     - npm install -D vitest @vitest/coverage-v8 @testing-library/react @testing-library/jest-dom @testing-library/user-event jsdom
 
 ## Running
-- The App:
-    - npm run dev
-- The testing:
-    - npm test (runs all tests once)
-    - npm run test:watch (watch mode re-runs on file save)
-    - npm run test:coverage (run with coverage report)
-- Individual files for testing:
-    - npx vitest run src/components/tests/FileName.test.tsx (FileName is the name of the file to test)
+
+from the root
+
+### The App
+
+````
+npm run frontend   // to run the frontend only
+npm run backend    // to run the backend only 
+npm run dev        // to run both frontend and backend
+````
+
+### Testing 
+
+Frontend
+````
+npm run test:frontend               //test only
+npm run test:frontend:coverage      //test and coverage
+````
+
+To run tests on an individual file 
+
+````
+npx vitest run test/unit/<FileName.test.tsx>
+````
 
 ## Page URL's
 
@@ -46,3 +62,20 @@ The pages are currently using state-based routing, so they are live at the same 
 ## Notes
 
 Google and Apple OAuth sign-ins are not implemented yet. The buttons are wired to prop callbacks (`onGoogleSignIn`, `onAppleSignIn`) and is ready for future integration.
+
+
+## Websockets
+
+1. install socket io in the frontend folder
+
+````
+npm install socket.io-client
+````
+
+2. ensure the correct env variables are set 
+3. run the frontend
+
+````
+npm run frontend    //from the root
+````
+

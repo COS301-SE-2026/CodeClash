@@ -7,8 +7,8 @@ vi.mock("../../../redis-client", () => {
     return { default: new Redis_Mock.default() };
 });
 
-import { dequeue, enqueue, matchmaking, math_queue_length, prog_queue_length } from "../../../src/Matchmaking Service/matchmaking.service";
-import UserDto from "../../../src/Matchmaking Service/matchmaking.dto";
+import { dequeue, enqueue, matchmaking, math_queue_length, prog_queue_length } from "../../../src/services/matchmaking.service";
+import UserDto from "../../../src/dtos/matchmaking.dto";
 import redis from "../../../redis-client";
 
 
@@ -92,10 +92,10 @@ describe('Ideal Users', () => {
         clearQueues();
 
         test('find a match for a user', async () => {
-            let player_1_id = ids++;
-            let player_2_id = ids++;
+            const player_1_id = ids++;
+            const player_2_id = ids++;
             let math_length = 0;
-            let prog_length = 0;
+            const prog_length = 0;
 
             const player_1 = new UserDto(player_1_id, 1000, 'math');
             const player_2 = new UserDto(player_2_id, 1050, 'math');
@@ -110,8 +110,9 @@ describe('Ideal Users', () => {
 
             const add_p_2 = await matchmaking(player_2);
             math_length = await math_queue_length();
+         
 
-            expect(add_p_2).toEqual({ player_2_id, player_1_id });    // should match players 1 and 2
+            expect(add_p_2).toEqual({ player_1_id: player_2_id, player_2_id: player_1_id.toString() });    // should match players 1 and 2
             expect(math_length).toBe(0);    // player 1 should be removed from the queue
             expect(prog_length).toBe(0);
 

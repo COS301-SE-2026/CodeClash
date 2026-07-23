@@ -93,17 +93,14 @@ You should see:
 { "status": "ok" }
 ```
 
-## Running Tests
+## Testing
 
-From the backend folder:
-```bash
-npm test
-```
+Backend 
+````
+npm run test:backend                //tests only
+npm run test:backend:converag       //test and converage
+````
 
-To run tests with coverage:
-```bash
-npm test -- --coverage
-```
 
 ## PG-Admin
 
@@ -128,6 +125,20 @@ npm test -- --coverage
     ``` 
 8. 'Save'
 
+## Websockets
+
+1. install socket io in the backend folder 
+
+````
+npm install socket.io
+```
+
+2. make sure the docker is running 
+
+```
+docker compose down -v 
+docker compose up --build
+```
 
 ## Project Structure
 
