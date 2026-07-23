@@ -12,6 +12,8 @@ export interface FinalResultsContent {
     labelLoading: string;
     titleResults: string;
     tableHeaders: string[];
+    labelPlayAgain: string;
+    labelReturn: string;
 }
 
 export const finalResultsContent: FinalResultsContent = {
@@ -19,4 +21,6 @@ export const finalResultsContent: FinalResultsContent = {
     labelLoading: 'Loading...',
     titleResults: 'Final Results',
     tableHeaders: ['User', 'Correctness', 'Speed', 'Effect on Elo', 'Position'],
+    labelPlayAgain: 'Play Again',
+    labelReturn: 'Return',
 }
