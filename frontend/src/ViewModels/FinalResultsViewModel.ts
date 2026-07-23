@@ -10,10 +10,9 @@ export interface FinalResultsViewModelProps {
 
 interface FinalResultsViewModel {
     content: FinalResultsContent;
-    state: 'loading' | 'results';
+    state: 'loading' | 'results' | 'error';
     loadingProgress: number; //for user to see how far the loading is
     results: PlayerFinalResults[];
-    displayError: string | null;
     handlePlayAgain: () => void;
     handleReturn: () => void;
 }
@@ -21,10 +20,9 @@ interface FinalResultsViewModel {
 export function FinalResultsViewModelFunction ({
     onPlayAgain, onReturn, fetchResults,
 }: FinalResultsViewModelProps): FinalResultsViewModel {
-    const [state, setState] = useState< 'loading' | 'results'>('loading');
+    const [state, setState] = useState< 'loading' | 'results' | 'error'>('loading');
     const [loadingProgress, setLoadingProgress] = useState(0);
     const [results, setResults] = useState<PlayerFinalResults[]>([]);
-    const [displayError, setDisplayError] = useState<string | null>(null);
 
     useEffect(() => {
         let progressInterval: ReturnType<typeof setInterval>;
@@ -54,7 +52,7 @@ export function FinalResultsViewModelFunction ({
         }).catch(() => {
             if (cancelled) return;
             clearInterval(progressInterval);
-            setDisplayError('Failed to load results.'); //how are we going about 'trying again' in case of failure? i could add a Retry button
+            setState('error'); //so the error will ask the user to come back later
         });
 
         return () => {
@@ -71,7 +69,6 @@ export function FinalResultsViewModelFunction ({
         state,
         loadingProgress,
         results,
-        displayError,
         handlePlayAgain,
         handleReturn,
     }
