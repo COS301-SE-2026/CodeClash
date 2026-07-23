@@ -12,12 +12,12 @@ const Guidebook = () => {
 
 return(
     <div style={{backgroundImage: `url(${background})`}} className="w-full min-h-screen overflow-hidden bg-no-repeat object-cover bg-size-[auto_110%] bg-[right_40%_top_50%]">
-        <Link to="/dashboard" className="text-button-primary font-[var(--font)] text-[32px] font-semibold ml-5">← Back</Link>
-        <h1 className="text-[80px] text-button-primary text-center justify-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] -mt-5">Game Guide</h1>
+        <Link to="/dashboard" className="text-button-primary font-[var(--font)] text-[200%] font-semibold ml-5">← Back</Link>
+        <h1 className="text-[450%] text-button-primary text-center justify-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] -mt-5">Game Guide</h1>
         <GlassCard className="w-[90%] h-[80%] mx-auto">
         <div className="flex grid grid-rows-6 gap-4 w-[26%] -mt-[1%]"> 
         <div className="border-1 border-button-primary bg-secondary rounded-[20px] w-[25%] h-[35%] mt-[24%] ml-[10%]">
-            
+            <h1 className="font-font font-semibold text-button-primary text-center drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] -mb-[25%]">Hint:</h1>
         </div>  
         <GameGuideCard className="w-[110%] h-[70%] ml-[8%]">
             <GameGuideNumberCard className="w-[16%] h-[100%] ml-[1%] -mt-[4%]">
