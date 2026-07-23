@@ -26,6 +26,11 @@ return(
                 <GameGuideHeading>2</GameGuideHeading>
             </GameGuideNumberCard>
         </GameGuideCard>
+        <GameGuideCard className="w-[110%] h-[70%] ml-[8%]">
+            <GameGuideNumberCard className="w-[16%] h-[100%] ml-[1%] -mt-[4%]"> 
+                <GameGuideHeading>3</GameGuideHeading>
+            </GameGuideNumberCard>
+        </GameGuideCard>
         </div>
         </GlassCard>
     </div>
