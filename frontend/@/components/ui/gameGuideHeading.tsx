@@ -1,5 +1,4 @@
 import type React from 'react';
-import { Card } from "./card";
 
 interface gameGuideHeadingProps{
     children?: React.ReactNode
@@ -8,9 +7,9 @@ interface gameGuideHeadingProps{
 
 const GameGuideHeading = ({children, className} : gameGuideHeadingProps) => {
     return(
-        <Card className={`text-center font-font font-semibold text-[120%] text-button-primary -mt-[26%] -ml-[1%] ${className}`}>
+        <h1 className={`text-center font-font font-semibold text-[120%] text-button-primary -mt-[26%] -ml-[2%] ${className}`}>
             {children}
-        </Card>
+        </h1>
     )
 }
 
