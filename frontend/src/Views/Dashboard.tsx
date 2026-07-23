@@ -4,7 +4,6 @@ import aiIcon from '../assets/Icons/AI.png';
 import brainIcon from '../assets/Icons/Brain.png';
 import profileIcon from '../assets/Icons/Profile.png';
 import searchIcon from '../assets/Icons/Search.png';
-import robot from '../assets/Robots/Pink_fighting.png'
 import { useShowPopUp } from '../ViewModels/DashboardViewModel';
 import Popup from './Popup'
 import GlassCard from '@/components/shared/GlassCard'

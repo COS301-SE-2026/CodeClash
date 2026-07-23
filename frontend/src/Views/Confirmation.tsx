@@ -16,20 +16,10 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({ confirmation }) =
     if (!isVisible) return null;
     return (
         <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/40" onClick={handleCancel}
-        role="close" 
-            onKeyDown={(e) => {
-                if (e.key === 'Escape') {
-                    handleCancel()
-                }
-            }}
+            role="presentation"
         >
             <div className="bg-white rounded-3xl p-8 w-[90%] max-w-[550px] flex flex-col items-center gap-5 shadow-xl" onClick={(e) => e.stopPropagation()}
-                role="select"
-                onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                        handleCancel()
-                    }
-                }}
+                role="presentation"
             >
                 <AlertTriangle className="w-15 h-15 text-danger" strokeWidth={1.5} />
 
