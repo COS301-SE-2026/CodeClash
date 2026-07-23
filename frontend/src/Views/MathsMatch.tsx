@@ -17,9 +17,7 @@ const MathsMatch = () => {
 
     const curr = questions[current_question];
 
-    console.log("question ", current_question, " ", curr)
-
-    if(loading){
+    if(loading || !curr){
         return (
             <Loading isOpen={loading} onClose={closeLoading}></Loading>
         )

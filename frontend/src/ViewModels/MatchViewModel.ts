@@ -22,6 +22,7 @@ export const useMatch = () => {
     const [current_question, setCurrentQuestions] = useState(0);
     const [time, setTime] = useState(0)
     const [loading, setLoading] = useState(false);
+    const [questions_ready, setQuestionsReady] = useState(false)
 
     const answers: Answer[] = [];
     const progress: MatchProgress = {
@@ -40,7 +41,7 @@ export const useMatch = () => {
     const { seconds, minutes } = useTimer({ expiryTimestamp: expiry_time() });
 
     const nextQuestion = (curr: number) => {
-        if (curr < questions.length)
+        if (curr < questions.length - 1)
             setCurrentQuestions(curr + 1);
     }
 
@@ -63,10 +64,6 @@ export const useMatch = () => {
     }
 
     const loadQuestions = (data: GameQuestionsDTO) => {
-
-        console.log("loading questions")
-        console.log(data)
-        console.log("*****************************")
         let temp_arr: Question[] = [];
         let sumtime = 0;
 
@@ -114,13 +111,12 @@ export const useMatch = () => {
         }
 
         setQuestions(final);
-
+        setQuestionsReady(true);
     }
 
     useEffect(() => {
         if (socket) {
-            console.log("Match page is mounted and socket is connected, asking for questions")
-            socket.emit('send_questions', id)
+             socket.emit('send_questions', id)
 
             socket.on('get_questions', loadQuestions)
 
@@ -142,7 +138,7 @@ export const useMatch = () => {
             }
         }
 
-    }, [socket, players])
+    }, [socket, players,questions_ready])
 
     return {
         players,

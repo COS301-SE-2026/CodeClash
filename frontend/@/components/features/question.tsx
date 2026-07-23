@@ -37,8 +37,8 @@ function Question({
         </div>
 
         <div className="m-5 flex flex-col justify-evenly">
-          <h1 className="text-3xl font-semibold">{title}</h1>
-          <div className="text-l whitespace-pre-line">{description}</div>
+          <h1 className="text-2xl font-semibold">{title}</h1>
+          <div className="text-md whitespace-pre-line">{description}</div>
         </div>
       </div>
 

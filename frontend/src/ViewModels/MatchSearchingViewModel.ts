@@ -22,7 +22,7 @@ export function MatchSearchingViewModelFunction() {
   }, []);
 
   const handleCancel = () => {
-    navigate('dashboard');
+    navigate('/dashboard');
   };
 
   return {
