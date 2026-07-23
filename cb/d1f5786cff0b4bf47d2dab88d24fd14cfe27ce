@@ -1,0 +1,28 @@
+frontend/src/context/Socket/SocketContextValue.tsx
+  h_94c952a9e14c58 8
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 6,72,75-76
+backend/src/entities/dtos/game-data.dto.ts
+  h_94c952a9e14c58 1-7
+frontend/src/ViewModels/MatchFoundViewModel.ts
+  h_94c952a9e14c58 17,61-67,83-84,90
+frontend/src/context/Socket/SocketContext.tsx
+  h_94c952a9e14c58 10,34
+backend/src/interface-adapters/socket-handlers/matchmaking.handler.ts
+  h_94c952a9e14c58 6-7,55-56,58,60-62,65,69-77,81-82,104-112
+frontend/src/context/Socket/hooks/useMatchmakingSocket.tsx
+  h_94c952a9e14c58 8,21-23,40-41
+backend/src/application/usecases/services/game.service.ts
+  h_94c952a9e14c58 1,4,8,10-11,29,37,48,50-53,60-61,64
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "cbd1f5786cff0b4bf47d2dab88d24fd14cfe27ce",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+frontend/@/components/ui/badge.tsx
+  h_94c952a9e14c58 1-2,5,7-8,10-26,28,48-49
+frontend/src/styles/global.css
+  h_94c952a9e14c58 1,5,55,88,90-97,101,115-118,123,127,132,137,139,143-145,147-148,150-152,225-230
+frontend/src/ViewModels/ProfileViewModel.ts
+  h_94c952a9e14c58 1
+backend/types/index.d.ts
+  h_94c952a9e14c58 11-12
+frontend/src/Models/BrandStyleGuideModel.ts
+  h_94c952a9e14c58 127-128
+package.json
+  h_94c952a9e14c58 43-45
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "a4cd1145d62a735eaf3c3079e8af0b5551701495",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

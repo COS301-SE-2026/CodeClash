@@ -1,0 +1,56 @@
+backend/src/interface-adapters/repositories/question.repository.ts
+  h_94c952a9e14c58 1-20
+backend/src/interface-adapters/controllers/user.controllers.ts
+  h_94c952a9e14c58 2
+backend/src/frameworks-drivers/app.ts
+  h_94c952a9e14c58 4,6,18
+backend/src/frameworks-drivers/routes/api.routes.ts
+  h_94c952a9e14c58 12,14-16,20
+backend/src/entities/dtos/question.dto.ts
+  h_94c952a9e14c58 1-9
+backend/src/interface-adapters/repositories/user.repository.ts
+  h_94c952a9e14c58 4,10,16
+backend/src/entities/db-entities/elo.entities.ts
+  h_94c952a9e14c58 1-26
+backend/src/frameworks-drivers/data-source.ts
+  h_94c952a9e14c58 17
+backend/src/interface-adapters/repositories/elo.repository.ts
+  h_94c952a9e14c58 3
+backend/src/entities/ecs-entities.ts
+  h_94c952a9e14c58 2,25-29
+docker-compose.yml
+  h_94c952a9e14c58 35
+backend/src/entities/world/World.ts
+  h_94c952a9e14c58 13-15,57,67,70,78,96,104,110-117,138-141,150,154-155
+backend/src/application/interfaces/IQuestionRepository.ts
+  h_94c952a9e14c58 1-7
+backend/src/application/usecases/questions.usecase.ts
+  h_94c952a9e14c58 1-2
+backend/src/entities/db-entities/user.entities.ts
+  h_94c952a9e14c58 1-34
+database/02-init-questions.sql
+  h_94c952a9e14c58 1-13
+backend/src/application/usecases/services/game.service.ts
+  h_94c952a9e14c58 2,38-41
+backend/src/interface-adapters/controllers/elo.controllers.ts
+  h_94c952a9e14c58 3
+backend/src/entities/components.ts
+  h_94c952a9e14c58 80-92,98-99,106-107
+backend/src/entities/db-entities/questions.entities.ts
+  h_94c952a9e14c58 1-32
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 8,11,13-14,66
+database/01-init.sql
+  h_94c952a9e14c58 3,20-25,40-41,43,62,64,69,71
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "3c7e6f2f27b048570189e0c3e2299c6d60fd90d1",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

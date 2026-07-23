@@ -1,0 +1,30 @@
+backend/src/interface-adapters/repositories/db-entities/user.entities.ts
+  h_94c952a9e14c58 8-10,22-27
+backend/src/interface-adapters/repositories/interface-implementations/user.repository.ts
+  h_94c952a9e14c58 13,20,66-76,78-88
+backend/src/frameworks-drivers/app.ts
+  h_94c952a9e14c58 3-7,23-26
+backend/src/frameworks-drivers/routes/api.routes.ts
+  h_94c952a9e14c58 13-17,21-22,40
+backend/src/interface-adapters/controllers/user.controllers.ts
+  h_94c952a9e14c58 2-4,8,11,13,15-18,21,23-26,28
+backend/src/application/interfaces/IUserRepository.ts
+  h_94c952a9e14c58 8,14-15
+backend/src/entities/dtos/user.dto.ts
+  h_94c952a9e14c58 5,8-10,12-13
+backend/src/interface-adapters/auth/auth.service.ts
+  h_94c952a9e14c58 4-5,34,36,46,48-52,54-55,59,64-66
+backend/src/application/usecases/init-db.ts
+  h_94c952a9e14c58 11,16,18,24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "593f0579e203ab0f73c40119fbf4d875faedc898",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

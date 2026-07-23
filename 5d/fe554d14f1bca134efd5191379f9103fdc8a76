@@ -1,0 +1,16 @@
+frontend/src/styles/global.css
+  h_94c952a9e14c58 12-15,39,56,90,105-107,124,145-147,162-163,241
+frontend/src/pages/MathMatch.tsx
+  h_94c952a9e14c58 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "5dfe554d14f1bca134efd5191379f9103fdc8a76",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
