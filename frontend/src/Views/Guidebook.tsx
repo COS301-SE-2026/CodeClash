@@ -15,7 +15,10 @@ return(
         <Link to="/dashboard" className="text-button-primary font-[var(--font)] text-[32px] font-semibold ml-5">← Back</Link>
         <h1 className="text-[80px] text-button-primary text-center justify-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] -mt-5">Game Guide</h1>
         <GlassCard className="w-[90%] h-[80%] mx-auto">
-        <div className="flex grid grid-rows-5 gap-4 w-[26%]">   
+        <div className="flex grid grid-rows-6 gap-4 w-[26%] -mt-[1%]"> 
+        <div className="border-1 border-button-primary bg-secondary rounded-[20px] w-[25%] h-[35%] mt-[24%] ml-[10%]">
+            
+        </div>  
         <GameGuideCard className="w-[110%] h-[70%] ml-[8%]">
             <GameGuideNumberCard className="w-[16%] h-[100%] ml-[1%] -mt-[4%]">
                <GameGuideHeading>1</GameGuideHeading>
@@ -31,6 +34,17 @@ return(
                 <GameGuideHeading>3</GameGuideHeading>
             </GameGuideNumberCard>
         </GameGuideCard>
+        <GameGuideCard className="w-[110%] h-[70%] ml-[8%]">
+            <GameGuideNumberCard className="w-[16%] h-[100%] ml-[1%] -mt-[4%]">
+                <GameGuideHeading>4</GameGuideHeading>
+            </GameGuideNumberCard>
+        </GameGuideCard>
+        <GameGuideCard className="w-[110%] h-[70%] ml-[8%]">
+            <GameGuideNumberCard className="w-[16%] h-[100%] ml-[1%] -mt-[4%]">
+                <GameGuideHeading>5</GameGuideHeading>
+            </GameGuideNumberCard>
+        </GameGuideCard>
+            
         </div>
         </GlassCard>
     </div>
