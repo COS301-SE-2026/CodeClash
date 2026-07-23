@@ -34,7 +34,7 @@ export function FinalResultsViewModelFunction ({
                     clearInterval(progressInterval);
                     return 90;
                 }
-                return prev + Math.random() * 8; //this will make the loading bar feel more natural instead of updating by the same amount the same time
+                return prev + 5; //this will make the loading bar feel more natural instead of updating by the same amount the same time
             });
         }, 400);
 
