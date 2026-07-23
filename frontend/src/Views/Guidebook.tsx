@@ -5,6 +5,7 @@ import GlassCard from "@/components/shared/GlassCard";
 import GameGuideCard from "../../@/components/ui/gameGuideCard";
 import GameGuideNumberCard from "../../@/components/ui/gameGuideNumber"
 import GameGuideHeading from "../../@/components/ui/gameGuideHeading"
+import { GameGuideCardText } from "../../@/components/ui/gameGuideCard";
 
 const Guidebook = () => {
 
@@ -18,33 +19,33 @@ return(
         <div className="flex grid grid-cols-4 gap-4">
         <div className="flex grid grid-rows-6 gap-4 w-[100%] mt-[7%]"> 
         <GameGuideCard className="w-[110%] h-[70%] ml-[8%]">
-            <GameGuideNumberCard className="w-[34%] h-[100%] ml-[1%] -mt-[7%]">
+            <GameGuideNumberCard className="w-[34%] h-[100%] ml-[1%] -mt-[5%]">
                <GameGuideHeading>1</GameGuideHeading>
             </GameGuideNumberCard>
-            <h1 className="">test</h1>
+            <GameGuideCardText className="-ml-[60%] -mt-[9%] text-[75%]">First select "Play Now" on your Dashboard and choose what type of match you want to play</GameGuideCardText>
         </GameGuideCard>
         <GameGuideCard className="w-[110%] h-[70%] ml-[8%]">
-            <GameGuideNumberCard className="w-[16%] h-[100%] ml-[1%] -mt-[4%]">
+            <GameGuideNumberCard className="w-[34%] h-[100%] ml-[1%] -mt-[6.5%]">
                 <GameGuideHeading>2</GameGuideHeading>
             </GameGuideNumberCard>
         </GameGuideCard>
         <GameGuideCard className="w-[110%] h-[70%] ml-[8%]">
-            <GameGuideNumberCard className="w-[16%] h-[100%] ml-[1%] -mt-[4%]"> 
+            <GameGuideNumberCard className="w-[34%] h-[100%] ml-[1%] -mt-[6.5%]"> 
                 <GameGuideHeading>3</GameGuideHeading>
             </GameGuideNumberCard>
         </GameGuideCard>
         <GameGuideCard className="w-[110%] h-[70%] ml-[8%]">
-            <GameGuideNumberCard className="w-[16%] h-[100%] ml-[1%] -mt-[4%]">
+            <GameGuideNumberCard className="w-[34%] h-[100%] ml-[1%] -mt-[6.5%]">
                 <GameGuideHeading>4</GameGuideHeading>
             </GameGuideNumberCard>
         </GameGuideCard>
         <GameGuideCard className="w-[110%] h-[70%] ml-[8%]">
-            <GameGuideNumberCard className="w-[16%] h-[100%] ml-[1%] -mt-[4%]">
+            <GameGuideNumberCard className="w-[34%] h-[100%] ml-[1%] -mt-[6.5%]">
                 <GameGuideHeading>5</GameGuideHeading>
             </GameGuideNumberCard>
         </GameGuideCard>
         <GameGuideCard className="w-[110%] h-[70%] ml-[8%]">
-            <GameGuideNumberCard className="w-[16%] h-[100%] ml-[1%] -mt-[4%]">
+            <GameGuideNumberCard className="w-[34%] h-[100%] ml-[1%] -mt-[6.5%]">
                 <GameGuideHeading>6</GameGuideHeading>
             </GameGuideNumberCard>
         </GameGuideCard>
