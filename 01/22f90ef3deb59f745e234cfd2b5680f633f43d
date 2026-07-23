@@ -1,0 +1,16 @@
+frontend/@/components/ui/gameGuideNumber.tsx
+  h_b13c5d77534129 1-19
+frontend/@/components/ui/gameGuideCard.tsx
+  h_b13c5d77534129 1-23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "0122f90ef3deb59f745e234cfd2b5680f633f43d",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
