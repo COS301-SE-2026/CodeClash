@@ -7,7 +7,7 @@ interface gameGuideHeadingProps{
 
 const GameGuideHeading = ({children, className} : gameGuideHeadingProps) => {
     return(
-        <h1 className={`text-center font-font font-semibold text-[120%] text-button-primary -mt-[26%] -ml-[2%] ${className}`}>
+        <h1 className={`text-center font-font font-semibold text-[120%] text-button-primary -mt-[10%] -ml-[2%] ${className}`}>
             {children}
         </h1>
     )
