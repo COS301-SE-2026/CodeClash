@@ -1,13 +1,13 @@
 import React from "react";
 import { FinalResultsViewModelFunction } from "../ViewModels/FinalResultsViewModel";
 import type {FinalResultsViewModelProps} from "../ViewModels/FinalResultsViewModel";
-import { TrendingUp, TrendingDown} from "lucide-react";
+import { TrendingUp, TrendingDown, Clock} from "lucide-react";
 import ResultsBackground from '../assets/Background/FinalResults.jpg';
 
 const FinalResults: React.FC<FinalResultsViewModelProps> = ({onPlayAgain, onReturn, fetchResults}) => {
     const {
         content, state, loadingProgress,
-        results, displayError, 
+        results, 
         handlePlayAgain, handleReturn,
     } = FinalResultsViewModelFunction({onPlayAgain, onReturn, fetchResults});
 
@@ -18,10 +18,7 @@ const FinalResults: React.FC<FinalResultsViewModelProps> = ({onPlayAgain, onRetu
                 <div className="bg-secondary rounded-3xl p-12 w-[90%] max-w-[550px] flex flex-col gap-6">
                     <h1 className="text-secondary-text font-bold"
                         style = {{fontSize: 'var(--heading-size)'}}>{content.titleLoading}</h1>
-                    
-                    {displayError ? (
-                        <p className="text-danger">{displayError}</p>
-                    ) : (
+                
                         <div className="flex flex-col gap-3">
                             <div className="flex justify-between items-center">
                                 <span className="text-secondary-text font-medium"
@@ -39,7 +36,21 @@ const FinalResults: React.FC<FinalResultsViewModelProps> = ({onPlayAgain, onRetu
                                     style = {{width: `${Math.min(loadingProgress, 100)}%`}}/>
                             </div>
                         </div>
-                    )}
+                </div>
+            )}
+
+            {/*Error state */}
+            {state === 'error' && (
+                <div className="bg-secondary rounded-3xl p-12 w-[90%] max-w-[550px] flex flex-col items-center gap-6 text-center">
+                    <Clock className="w-16 h-16 text-black opacity-60"/>
+                    <h1 className="text-secondary-text font-extrabold"
+                        style={{fontSize: 'var(--heading-size)'}}>{content.titleError}</h1>
+                    <p className="text-secondary-text iopacity-70 leading-relaxed"
+                        style={{fontSize: 'var(--font-size-sm)'}}>{content.messageError}</p>
+                    <button className="w-full py-3 rounded-2xl bg-button-primary text-button-text-primary font-bold hover:opacity-90 transition-opacity shadow-badge flex items-center justify-center gap-2"
+                        style={{fontSize: 'var(--font-size-sm)'}} onClick={handleReturn} type="button">
+                        {content.labelReturn}
+                    </button>
                 </div>
             )}
 

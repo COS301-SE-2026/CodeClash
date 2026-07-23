@@ -16,7 +16,6 @@ export interface FinalResultsContent {
     labelReturn: string;
     titleError: string;
     messageError: string;
-    labelComeBack: string;
 }
 
 export const finalResultsContent: FinalResultsContent = {
@@ -27,6 +26,5 @@ export const finalResultsContent: FinalResultsContent = {
     labelPlayAgain: 'Play Again',
     labelReturn: 'Return',
     titleError: 'Results Not Ready',
-    messageError: 'The final results are still being calculated. Please come back later to view them',
-    labelComeBack: 'Come back later',
+    messageError: 'The final results are still being calculated. Please come back later.',
 }
