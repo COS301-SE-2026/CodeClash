@@ -1,4 +1,4 @@
-// This is the token section for the brand style guide - a reusable token table that will have a copy functionality
+// This is the token section for the brand style guide - a reusable token table that will have a copy functionality - correct file
 
 import React from "react";
 import SharedLayout from "./SharedLayout";

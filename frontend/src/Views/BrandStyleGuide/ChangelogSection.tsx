@@ -1,4 +1,4 @@
-//This is the changelog section for the brand style guide - what changed from Demo 1
+//This is the changelog section for the brand style guide - what changed from Demo 1 - correct file
 
 import React from "react";
 import SharedLayout from "./SharedLayout";
