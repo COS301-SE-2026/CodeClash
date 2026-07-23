@@ -10,6 +10,7 @@ import matchPlay from "../../src/assets/matchPlay.png";
 import matchSearch from "../../src/assets/search_match.png"
 import playNow from "../../src/assets/play_now.png"
 import score from "../../src/assets/score.png"
+import robot from "../../src/assets/Robots/pink_celebrate.png"
 
 const Guidebook = () => {
 
@@ -80,8 +81,9 @@ return(
             </GameGuideCard>
         </div>
 
-        <div className="flex grid grid-rows-3 gap-15">
-            <div style={{backgroundImage: `url(${score})`}} className="bg-no-repeat object-cover bg-size-[auto_35%] ml-[22%] mt-[12%]"></div>
+        <div className="flex grid grid-rows-2 gap-15">
+            <div style={{backgroundImage: `url(${score})`}} className="bg-no-repeat object-cover bg-size-[auto_22%] ml-[22%] mt-[12%]"></div>
+            <div style={{backgroundImage: `url(${robot})`}} className="bg-no-repeat object-cover bg-size-[auto_100%] -mt-[5%] -ml-[10%]"></div>
         </div>
 
         </div>
