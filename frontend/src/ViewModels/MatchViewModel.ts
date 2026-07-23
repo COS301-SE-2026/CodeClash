@@ -86,7 +86,7 @@ export const useMatch = () => {
             sumtime += Number(q.time_limit!.split(":")[1])
         }
 
-        for (const q of data.medium) {
+        for (const q of data.hard) {
             temp_arr.push({
                 title: q.title,
                 difficulty: "Hard",
