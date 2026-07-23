@@ -9,4 +9,4 @@ COPY . .
 
 EXPOSE 3000
 
-CMD ["npx","--noinstal","ts-node@10.9.2","-r","tsconfig-paths/register", "src/frameworks-drivers/server.ts"]
+CMD ["npx","--no-install","ts-node@10.9.2","-r","tsconfig-paths/register", "src/frameworks-drivers/server.ts"]

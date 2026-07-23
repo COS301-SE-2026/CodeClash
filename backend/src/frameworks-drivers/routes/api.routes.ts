@@ -13,12 +13,12 @@ import { UserRepository } from 'src/interface-adapters/repositories/user.reposit
 import { AppDataSource } from '../config/data-source';
 import { Users } from 'src/entities/db-entities/user.entities';
 import { EloRepository } from 'src/interface-adapters/repositories/elo.repository';
-import { Elo_ratings } from 'src/entities/db-entities/elo.entities';
+import { EloRatings } from 'src/entities/db-entities/elo.entities';
 
 const router = Router();
 
 const user_repo = new UserRepository(AppDataSource.getRepository(Users))
-const elo_repo = new EloRepository(AppDataSource.getRepository(Elo_ratings))
+const elo_repo = new EloRepository(AppDataSource.getRepository(EloRatings))
 
 // // Match routes
 // router.get('/matches', getMatches);
