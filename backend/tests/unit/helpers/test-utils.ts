@@ -1,15 +1,21 @@
 import request from 'supertest'
 import { describe, test, expect } from 'vitest';
-import { JWT } from "aws-amplify/auth";
-import { getToken } from "test/test-utils"
+import { JWT, fetchAuthSession } from "aws-amplify/auth";
 import dotenv from "dotenv"
 dotenv.config();
 
-import app from '../../../src/app'
+import app from '../../../src/frameworks-drivers/app'
+
+async function getToken() {
+  const session = await fetchAuthSession();
+  const token = session.tokens?.idToken?.toString()
+
+  return token;
+}
 
 export { request, app }
 
-export const auth = (token: JWT | undefined) => `Bearer ${token}`
+export const auth = (token: string | undefined) => `Bearer ${token}`
 
 
 

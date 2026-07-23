@@ -2,7 +2,7 @@ import cors from 'cors'
 import express, { Request, Response } from 'express'
 import routes from './routes/api.routes';
 import { UserRepository } from 'src/interface-adapters/repositories/user.repository';
-import { AppDataSource } from './data-source';
+import { AppDataSource } from './config/data-source';
 import { Users } from 'src/entities/db-entities/user.entities';
 import { requireAuth } from 'src/interface-adapters/auth/auth.service';
 

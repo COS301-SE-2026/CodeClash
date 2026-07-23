@@ -4,7 +4,7 @@ import { validateToken } from '../interface-adapters/auth/auth.service';
 import app from './app';
 import dotnev from 'dotenv'
 import { sendGameQuestions, joinMatchQueue, leaveMatchQueue, matchAccepted, matchDeclined } from 'src/interface-adapters/socket-handlers/matchmaking.handler';
-import { AppDataSource } from "./data-source"
+import { AppDataSource } from "./config/data-source"
 import { Users } from "../entities/db-entities/user.entities"
 import { initDB } from 'src/application/usecases/init-db';
 import { IUserRepository } from 'src/application/interfaces/IUserRepository';

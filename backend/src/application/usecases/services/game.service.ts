@@ -1,6 +1,6 @@
 import { IEloRepository } from "src/application/interfaces/IEloRepository";
 import { IQuestionRepository } from "src/application/interfaces/IQuestionRepository";
-import { Life_Component, Match_Component, Players_Component, Rank_Component, Round_Component } from "src/entities/components";
+import { LifeComponent, MatchComponent, PlayersComponent, RankComponent, RoundComponent } from "src/entities/components";
 import { GameMode } from "src/entities/db-entities/questions.entities";
 import { GameDataDTO } from "src/entities/dtos/game-data.dto";
 import { leagueMapping } from "src/entities/league-mapping";
@@ -26,13 +26,13 @@ export const gameService = async (
     const match_entity = createEntity();
 
     // need api calls here
-    const players: Players_Component = {
+    const players: PlayersComponent = {
         player_ids: data.player_ids,
     }
 
     // this data also needs to be fetched from the db 
     // how are match titles generated
-    const match_component: Match_Component = {
+    const match_component: MatchComponent = {
         title: 'To Be Determined',
         status: 'active',
         game_mode: data.game_mode,
@@ -92,12 +92,12 @@ const getQuestions = async (question_repo: IQuestionRepository, league: string, 
 const createPlayer = (player_entity: number, player_life: number, player_rank: number, elo: number, league: string) => {
     const { addPlayerComponent } = World();
 
-    const life: Life_Component = {
+    const life: LifeComponent = {
         current_life: player_life,
         max_life: 100,
     }
 
-    const rank: Rank_Component = {
+    const rank: RankComponent = {
         rank: player_rank,    //needs to be fetched
         elo: elo,   //needs to be fetched
         league: league
@@ -113,7 +113,7 @@ const createRound = (round_entity: number, match_id: number, question_ids: numbe
 
     const start_time = new Date();
 
-    const round: Round_Component = {
+    const round: RoundComponent = {
         match_id: match_id,
         question_ids: question_ids,
         start_time: start_time,

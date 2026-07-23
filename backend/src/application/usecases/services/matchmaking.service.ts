@@ -88,11 +88,11 @@ async function matchmaking(user: MatchmakingUserDTO) {
 }
 
 async function math_queue_length(): Promise<number> {
-    return await redis.zcard('math');
+    return await redis.zcard(GameMode.Maths);
 }
 
 async function prog_queue_length(): Promise<number> {
-    return await redis.zcard('prog');
+    return await redis.zcard(GameMode.Programming);
 }
 
 
