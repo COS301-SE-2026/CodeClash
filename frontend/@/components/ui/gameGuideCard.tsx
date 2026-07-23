@@ -22,7 +22,13 @@ const GameGuideCard = ({children, className} : gameGuideCardProps) => {
 
 export default GameGuideCard;
 
-interface gameeGuideCardTextProps{
+interface gameGuideCardTextProps{
     children?: React.ReactNode
     className?: string
+}
+
+const GameGuideCardText = ({children, className} : gameGuideCardTextProps) => {
+    return(
+        <h1 className="font-font font-semibold text-[#FFFFFF]"></h1>
+    )
 }
