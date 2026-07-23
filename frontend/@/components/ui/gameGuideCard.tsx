@@ -10,7 +10,7 @@ interface gameGuideCardProps{
 const GameGuideCard = ({children, className} : gameGuideCardProps) => {
 
     return(
-        <Card className={`bg-secondary/10 rounded-2xl backdrop-blur-lg border border-white/30 flex grid grid-cols-2 -gap-10
+        <Card className={`bg-secondary/10 rounded-2xl backdrop-blur-lg border border-white/30 flex grid grid-cols-2 -gap-10 w-[120%] h-[100%]
             ${className}
         `}>
             {children}
