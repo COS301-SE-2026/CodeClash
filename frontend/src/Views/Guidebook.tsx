@@ -22,7 +22,7 @@ return(
             <GameGuideNumberCard className="ml-[1%]">
                <GameGuideHeading>1</GameGuideHeading>
             </GameGuideNumberCard>
-            <GameGuideCardText className="-ml-[62%] mr-[5%] text-[105%]">First select "Play Now" on your Dashboard and choose what type of match you want to play</GameGuideCardText>
+            <GameGuideCardText className="-ml-[62%] mr-[5%] text-[105%]">First select "Play Now" on the bottom left corner of your Dashboard and choose what type of match you want to play.</GameGuideCardText>
         </GameGuideCard>
         <GameGuideCard className="ml-[8%]">
             <GameGuideNumberCard className="ml-[1%]">
@@ -34,18 +34,19 @@ return(
             <GameGuideNumberCard className="ml-[1%]"> 
                 <GameGuideHeading>3</GameGuideHeading>
             </GameGuideNumberCard>
-            <GameGuideCardText className="-ml-[62%] mr-[5%] -mt-[3%] text-[110%]">After selecting Play Now, wait until we find someone for you to battle against. Your opponent's ELO will be similar to yours!</GameGuideCardText>
+            <GameGuideCardText className="-ml-[62%] mr-[5%] text-[110%]">After selecting Play Now, wait until we find someone for you to battle against. Your opponent's ELO will be similar to yours!</GameGuideCardText>
         </GameGuideCard>
         <GameGuideCard className="ml-[8%]">
             <GameGuideNumberCard className="ml-[1%]">
                 <GameGuideHeading>4</GameGuideHeading>
             </GameGuideNumberCard>
-            <GameGuideCardText className="-ml-[62%] mr-[5%] -mt-[3%] text-[100%]">Now you're in a match! Make sure you answer questions quickly to score more points than your opponent, but make sure they're correct first else you get no points!</GameGuideCardText>
+            <GameGuideCardText className="-ml-[62%] mr-[5%] text-[100%]">Now you're in a match! Make sure you answer questions quickly to score more points than your opponent, but make sure they're correct first else you get no points!</GameGuideCardText>
         </GameGuideCard>
         <GameGuideCard className="ml-[8%]">
             <GameGuideNumberCard className="ml-[1%]">
                 <GameGuideHeading>5</GameGuideHeading>
             </GameGuideNumberCard>
+            <GameGuideCardText className="-ml-[62%] mr-[5%] text-[105%]">Make sure to pick up Powerups to boost your score and detriment your opponent's score, along the way!</GameGuideCardText>
         </GameGuideCard>
         {/* <GameGuideCard className="ml-[8%]">
             <GameGuideNumberCard className=" ml-[1%] -mt-[6.5%]">
