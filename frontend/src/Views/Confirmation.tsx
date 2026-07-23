@@ -23,7 +23,15 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({ confirmation }) =
                 }
             }}
         >
-            <div className="bg-white rounded-3xl p-8 w-[90%] max-w-[550px] flex flex-col items-center gap-5 shadow-xl" onClick={(e) => e.stopPropagation()}>
+            <div className="bg-white rounded-3xl p-8 w-[90%] max-w-[550px] flex flex-col items-center gap-5 shadow-xl" onClick={(e) => e.stopPropagation()}
+
+                tabIndex={0}
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                        handleCancel()
+                    }
+                }}
+            >
                 <AlertTriangle className="w-15 h-15 text-danger" strokeWidth={1.5} />
 
                 <h2 className="text-black font-extrabold text-center whitespace-nowrap" style={{ fontSize: 'var(--heading-size)' }}>{content.title}</h2>
