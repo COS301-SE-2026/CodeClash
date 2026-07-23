@@ -131,7 +131,7 @@ npm run test:backend:converag       //test and converage
 
 ````
 npm install socket.io
-```
+````
 
 2. make sure the docker is running 
 
@@ -145,13 +145,21 @@ docker compose up --build
 ```
 backend/
 ├── src/
-│   ├── config/         # Database and environment configuration
-│   ├── controllers/    # Route handler logic
-│   ├── middleware/     # Authentication, error handling, validation
-│   ├── models/         # Database models
-│   ├── routes/         # API route definitions
-│   ├── app.js       
-│   └── server.js       # Entry point
+│   ├── application/                       # Application specific logic
+|   |       ├── interfaces/                # Repository interfaces
+|   |       ├── usecases/                  # services and systems that execute functionality 
+|   |             ├── services/
+|   |             ├── systems/
+│   ├── entities/                           # System objects and entities 
+|   |       ├── db-entities/
+|   |       ├── dtos/
+│   ├── frameworks-drivers/                 # Framework, driver and library config
+|   |       ├── routes/                     # API route wiring      
+│   ├── interface-adapters/                 # Adapters to translate between backend and external systems (frontend and DB)
+|   |       ├── auth                        # Verifies external requests
+|   |       ├── controllers                 # Handle API requests
+|   |       ├── repositores                 # Handle database queries
+|   |       ├── socket-handlers             # Handle socket events
 ├── tests/              # Jest test files
 ├── Dockerfile
 ├── package-lock.json
