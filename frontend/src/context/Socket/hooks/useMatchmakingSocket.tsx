@@ -6,8 +6,8 @@ import { Socket } from "socket.io-client";
 
 export const useMatchmakingSocket = () => {
     const { socket, isConnected, matched } = useSocket();
-    const [game_mode, setGameMode] = useState('');
-    const [pair_id, setPairId] = useState('');
+    const [gameMode, setGameMode] = useState('');
+    const [pairId, setPairId] = useState('');
 
 
     const handleMatched = useCallback((mode: string, pair_id: string) => {
@@ -25,7 +25,7 @@ export const useMatchmakingSocket = () => {
     }, [socket])
 
 
-    return { isConnected, game_mode, pair_id };
+    return { isConnected, gameMode, pairId };
 }
 
 /// websocket functions for the app

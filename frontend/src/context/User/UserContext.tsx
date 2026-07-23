@@ -1,4 +1,4 @@
-import React, { useEffect, useState, type ReactNode } from "react";
+import React, { useEffect, useMemo, useState, type ReactNode } from "react";
 import { UserContext } from "./UserContextValue";
 import axios from "axios";
 import { type AuthUser } from "aws-amplify/auth";
@@ -111,16 +111,13 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }, [token, user])
 
 
+    const value = useMemo(() => ({
+        username, elo, avatar, error, league
+    }), [username, elo, avatar, error, league])
 
     return (
         <UserContext.Provider
-            value={{
-                username,
-                elo,
-                avatar,
-                error,
-                league
-            }}
+            value={value}
         >
             {children}
         </UserContext.Provider>

@@ -16,7 +16,7 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({ confirmation }) =
     if (!isVisible) return null;
     return (
         <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/40" onClick={handleCancel}
-            tabIndex={0}
+        role="close" 
             onKeyDown={(e) => {
                 if (e.key === 'Escape') {
                     handleCancel()
@@ -24,8 +24,7 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({ confirmation }) =
             }}
         >
             <div className="bg-white rounded-3xl p-8 w-[90%] max-w-[550px] flex flex-col items-center gap-5 shadow-xl" onClick={(e) => e.stopPropagation()}
-
-                tabIndex={0}
+                role="select"
                 onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                         handleCancel()
@@ -52,7 +51,7 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({ confirmation }) =
                     </button>
 
                     {/*copying above button but changing cancel to confirm */}
-                    <button className="flex-1 py-3 rounded-2xl bg-primary text-primary-text font-bold hover:opacity-80 transition-opacity"
+                    <button type="button" className="flex-1 py-3 rounded-2xl bg-primary text-primary-text font-bold hover:opacity-80 transition-opacity"
                         style={{ fontSize: 'var(--font-size-sm)' }} onClick={handleConfirm}>
                         {content.confirmLabel}
                     </button>

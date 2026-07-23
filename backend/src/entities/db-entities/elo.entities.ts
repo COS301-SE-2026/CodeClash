@@ -3,7 +3,7 @@ import { Users } from "./user.entities";
 
 
 @Entity()
-export class Elo_ratings {
+export class EloRatings {
     @PrimaryGeneratedColumn('uuid')
     elo_id!: string
 
@@ -16,7 +16,7 @@ export class Elo_ratings {
 }
 
 @Entity()
-export class Elo_history {
+export class EloHistory {
     @PrimaryGeneratedColumn('uuid')
     history_id!: string
 

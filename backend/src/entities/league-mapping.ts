@@ -23,7 +23,7 @@ export const leagueMapping = (league: string, avg_elo: number) => {
 
     const start = user_league.elo[0]!;
 
-    for (var i = 0; i < 3; i++) {
+    for (let i = 0; i < 3; i++) {
         const lower_bound = start + i * 200;
         const upper_bound = lower_bound + 200;
 
@@ -37,7 +37,7 @@ export const leagueMapping = (league: string, avg_elo: number) => {
     const sum_weight = weights.reduce((total, curr) => total + curr, 0);
     const percentages: number[] = []
 
-    for (var i = 0; i < 3; i++) {
+    for (let i = 0; i < 3; i++) {
         percentages.push(weights[i]! / sum_weight);
     }
 

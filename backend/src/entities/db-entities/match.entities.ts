@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity()
-export class Match_Problems{
+export class MatchProblems{
     @PrimaryGeneratedColumn('uuid')
     match_problems_id!: string
 

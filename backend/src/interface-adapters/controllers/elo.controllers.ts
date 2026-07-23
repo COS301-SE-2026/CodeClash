@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { validateToken } from '../auth/auth.service';
 import { EloRepository } from '../repositories/elo.repository';
 
 

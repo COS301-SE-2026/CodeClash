@@ -11,8 +11,7 @@ import { IUserRepository } from 'src/application/interfaces/IUserRepository';
 import { UserRepository } from 'src/interface-adapters/repositories/user.repository';
 import { IEloRepository } from 'src/application/interfaces/IEloRepository';
 import { EloRepository } from 'src/interface-adapters/repositories/elo.repository';
-import { Elo_ratings } from 'src/entities/db-entities/elo.entities';
-import { gameService } from 'src/application/usecases/services/game.service';
+import { EloRatings } from 'src/entities/db-entities/elo.entities';
 import { IQuestionRepository } from 'src/application/interfaces/IQuestionRepository';
 import { QuestionRepository } from 'src/interface-adapters/repositories/question.repository';
 import { Questions } from 'src/entities/db-entities/questions.entities';
@@ -56,7 +55,7 @@ AppDataSource.initialize()
         // seeding logic
 
         const user_repo: IUserRepository = new UserRepository(AppDataSource.getRepository(Users));
-        const elo_repo: IEloRepository = new EloRepository(AppDataSource.getRepository(Elo_ratings));
+        const elo_repo: IEloRepository = new EloRepository(AppDataSource.getRepository(EloRatings));
         await initDB(user_repo, elo_repo);
 
         const question_repo: IQuestionRepository = new QuestionRepository(AppDataSource.getRepository(Questions));

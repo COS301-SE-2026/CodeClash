@@ -7,7 +7,7 @@ import { Users } from "src/entities/db-entities/user.entities";
 
 export class UserRepository implements IUserRepository {
     constructor(
-        private userRepository: Repository<Users>,
+        private readonly userRepository: Repository<Users>,
     ) { }
 
     async createUser(username: string, email: string, cognito_id: string, avatar_id: number, league: string): Promise<UserDTO | null> {

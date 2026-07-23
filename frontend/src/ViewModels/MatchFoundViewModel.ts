@@ -5,12 +5,10 @@ import {
   mockMatchFoundPlayers,
 } from '../Models/MatchFoundModel';
 import { useEffect, useState } from "react"
-import { joinMatchQueue, useMatchmakingSocket } from "src/context/Socket/hooks/useMatchmakingSocket";
+import { joinMatchQueue, useMatchmakingSocket ,matchAccepted, matchDeclined} from "src/context/Socket/hooks/useMatchmakingSocket";
 import { useSocket } from "src/context/Socket/hooks/useSocket"
-import { matchAccepted, matchDeclined } from "src/context/Socket/hooks/useMatchmakingSocket"
 import MatchmakingUserDTO from "src/dtos/matchmaking.dto";
 import { useUser } from "src/context/User/hooks/useUser";
-import type { QuestionDTO } from 'src/dtos/game-questionDTO';
 
 
 export function MatchFoundViewModelFunction() {
@@ -18,17 +16,17 @@ export function MatchFoundViewModelFunction() {
   const { elo, league } = useUser();
 
   const { socket } = useSocket()
-  const { game_mode, pair_id } = useMatchmakingSocket();
+  const { gameMode, pairId } = useMatchmakingSocket();
   const [path, setPath] = useState('');
   const [loading, setLoading] = useState(false);
-  const [socket_error, setSocketError] = useState('');
+  const [socketError, setSocketError] = useState('');
 
   const closeLoading = () => setLoading(false);
   const openLoading = () => setLoading(true);
 
   const decline = () => {
     if (socket) {
-      matchDeclined(socket, pair_id);
+      matchDeclined(socket, pairId);
       setLoading(true);
     }
     else {
@@ -58,18 +56,18 @@ export function MatchFoundViewModelFunction() {
   const gameDeclined = () => {
     setLoading(false);
 
-    const data = new MatchmakingUserDTO(elo, game_mode);
+    const data = new MatchmakingUserDTO(elo, gameMode);
     joinMatchQueue(socket!, data);
     nav('/searching')
   }
 
   const accept = () => {
     if (socket) {
-      const new_path = "/".concat(game_mode).concat("-match")
+      const new_path = "/".concat(gameMode).concat("-match")
       setPath(new_path);
       const data = {
-        pair_id: pair_id,
-        game_mode: game_mode,
+        pair_id: pairId,
+        game_mode: gameMode,
         league: league
       }
 
@@ -108,7 +106,7 @@ export function MatchFoundViewModelFunction() {
     decline,
     accept,
     loading,
-    socket_error,
+    socketError,
     closeLoading,
     openLoading
   };

@@ -34,11 +34,6 @@ export interface LeaderboardProps{
 
 }
 
-//GET api/elo/leaderboard
-
-export async function fetchLeaderboardUsers(){
-     
-}
 
 
 

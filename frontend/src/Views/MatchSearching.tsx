@@ -86,9 +86,8 @@ const MatchSearching = () => {
           </div>
 
           <div className="flex flex-col items-center md:items-end">
-            <div
+            <output
               className="flex h-[13rem] w-[13rem] items-center justify-center gap-3 md:h-[18rem] md:w-[18rem] lg:h-[22rem] lg:w-[22rem]"
-              role="status"
               aria-label="Searching for opponent"
             >
               <span className="h-4 w-4 rounded-full bg-[#FCECDD] animate-pulse" />
@@ -100,7 +99,7 @@ const MatchSearching = () => {
                 className="h-4 w-4 rounded-full bg-[#FCECDD] animate-pulse"
                 style={{ animationDelay: '300ms' }}
               />
-            </div>
+            </output>
           </div>
         </div>
 

@@ -5,7 +5,7 @@ import { QuestionDTO } from "src/entities/dtos/question.dto";
 
 export class QuestionRepository implements IQuestionRepository {
     constructor(
-        private questionRepository: Repository<Questions>
+        private readonly questionRepository: Repository<Questions>
     ) { }
 
     async getRandQuestions(count: number, difficulty: number, game_mode: GameMode): Promise<QuestionDTO[] | null> {

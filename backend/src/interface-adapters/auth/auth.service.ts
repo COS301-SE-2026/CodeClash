@@ -38,7 +38,7 @@ export const requireAuth = (user_repo: IUserRepository) => {
 
     const validate = await validateToken(token)
 
-    if (!validate || validate.email === undefined) {
+    if (validate?.email === undefined) {
       res.status(401).json({ message: 'Missing or Invalid Token' });
       return null;
     }

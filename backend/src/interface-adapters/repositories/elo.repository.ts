@@ -1,12 +1,12 @@
 import { IEloRepository } from "src/application/interfaces/IEloRepository";
 import { Repository } from "typeorm";
-import { Elo_ratings } from "src/entities/db-entities/elo.entities";
+import { EloRatings } from "src/entities/db-entities/elo.entities";
 import { EloDTO } from "src/entities/dtos/elo.dto";
 
 
 export class EloRepository implements IEloRepository {
     constructor(
-        private eloRepository: Repository<Elo_ratings>
+        private readonly eloRepository: Repository<EloRatings>
     ) { }
 
 

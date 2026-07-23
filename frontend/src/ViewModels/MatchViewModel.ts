@@ -19,7 +19,7 @@ export const useMatch = () => {
     const [playerLife, setPlayerLife] = useState<number[]>([]);
     const [avatars, setAvatars] = useState<string[]>([]);
     const [usernames, setUsernames] = useState<string[]>([]);
-    const [currentQuestion, setCurrentQuestions] = useState(0);
+    const [currentQuestion, setCurrentQuestion] = useState(0);
     const [loading, setLoading] = useState(false);
     const [questionsReady, setQuestionsReady] = useState(false)
 
@@ -44,12 +44,12 @@ export const useMatch = () => {
 
     const nextQuestion = (curr: number) => {
         if (curr < questions.length - 1)
-            setCurrentQuestions(curr + 1);
+            setCurrentQuestion(curr + 1);
     }
 
     const prevQuestion = (curr: number) => {
         if (curr > 0)
-            setCurrentQuestions(curr - 1)
+            setCurrentQuestion(curr - 1)
     }
 
     function shuffle(array: Question[]) {

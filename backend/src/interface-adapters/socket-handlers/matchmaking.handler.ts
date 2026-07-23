@@ -59,13 +59,13 @@ export const matchAccepted = (async (io: Server, socket: Socket, data: GameDataD
 
     const pair = PAIRS.get(data.pair_id);
 
-    const bothAccepted = pair ? [...pair.values()].every(bool => bool) : false;
+    const bothAccepted = pair ? [...pair.values()].every(Boolean) : false;
 
     if (bothAccepted) {
         // call the game service to create the game
         const keys = [...pair!.keys()];
         data.player_ids = keys;
-        data.question_number = 5;   // TODO update this to be dynamic
+        data.question_number = 5;   //  update this to be dynamic
         const setup = await gameService(question_repo, elo_repo, data);
 
 
