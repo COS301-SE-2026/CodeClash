@@ -1,6 +1,5 @@
+import MathField from '../../@/components/features/MathPage.tsx';
 import { useState } from 'react';
-
-import MathField from '../../@/components/features/MathField.tsx';
 import { Link } from 'react-router-dom';
 
 const MathMatch= () => {

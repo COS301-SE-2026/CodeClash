@@ -26,29 +26,26 @@ function Question({
   return (
     <div
       className={cn(
-        "flex flex-col justify-between bg-white rounded-2xl",
+        "flex flex-col justify-between text-primary",
         className,
       )}
     >
-      {/* bar at the top */}
-      <div className="bg-gradient-to-r from-[#0C3883] to-[#D2C4FD] h-5 w-[100%] rounded-2xl shadow-[0_4px_6px_rgba(0,0,0,0.3)]"></div>
-
       <div className="flex flex-col p-2">
         <div className="flex justify-between w-full">
-          <p className="font-bold text-2xl">Question {number}</p>
+          <p className="font-bold text-md">Question {number}</p>
           <Badge
-            className="w-[10%] h-[70%] text-white text-xl"
-            variant={"secondary"}
+            className="w-[10%] h-[2rem] text-white text-sm"
+            variant={"default"}
           >
             {difficulty}
           </Badge>
         </div>
 
         <div className="m-5 flex flex-col justify-evenly">
-          <h1 className="text-5xl font-semibold"> &lt; / &gt; {title}</h1>
-          <p className="text-xl text-muted-text m-1">{question}</p>
+          <h1 className="text-5xl font-semibold">{title}</h1>
+          <p className="text-sm font-semibold mt-[1%]">{question}</p>
 
-          <div className="whitespace-pre-wrap">{description}</div>
+          <div>{description}</div>
         </div>
       </div>
 

@@ -8,8 +8,7 @@ import SignUp from "./Views/SignUp";
 import Profile from "./Views/Profile";
 import Searching from "./pages/queuePages/searching";
 import Found from "./pages/queuePages/found";
-import MathMatch from "./pages/MathMatch";
-// import ProgMatch from "./pages/ProgMatch";
+import MathMatch from "./Views/MathsMatch";
 
 const App: React.FC = () => {
     return (
@@ -21,7 +20,7 @@ const App: React.FC = () => {
             <Route path='/profile' element={<Profile/>}/>
             <Route path='/searching' element={<Searching/>}/>
             <Route path='/found' element={<Found/>}/>
-            <Route path='/math-match' element={<MathMatch/>}/>
+            <Route path='/match' element={<MathMatch/>}/>
             {/* <Route path='/prog-match' element={<ProgMatch language="javascript"/>}/> */}
 
             {/* Pages with sidebar inside the app */}
