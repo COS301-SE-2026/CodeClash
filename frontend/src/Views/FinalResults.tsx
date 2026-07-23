@@ -2,7 +2,7 @@ import React from "react";
 import { FinalResultsViewModelFunction } from "../ViewModels/FinalResultsViewModel";
 import type {FinalResultsViewModelProps} from "../ViewModels/FinalResultsViewModel";
 import { TrendingUp, TrendingDown} from "lucide-react";
-import ResultsBackground from '../assets/Background/FinalResults.png';
+import ResultsBackground from '../assets/Background/FinalResults.jpg';
 
 const FinalResults: React.FC<FinalResultsViewModelProps> = ({onPlayAgain, onReturn, fetchResults}) => {
     const {
