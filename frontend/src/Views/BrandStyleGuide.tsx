@@ -1,4 +1,4 @@
-// This is the View for the brand style guide - this will contain all react components, no logic, and call the ViewModel
+// This is the View for the brand style guide - this will contain all react components, no logic, and call the ViewModel - correct file
 
 import React from "react";
 import { BrandStyleGuideViewModelFunction, navSections } from "../ViewModels/BrandStyleGuideViewModel";

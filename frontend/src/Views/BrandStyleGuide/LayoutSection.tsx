@@ -1,4 +1,4 @@
-// This is the layout and spacings section for the brand style guide - to ensure that the UI will be consistent
+// This is the layout and spacings section for the brand style guide - to ensure that the UI will be consistent - correct file
 
 import React from "react";
 import SharedLayout from "./SharedLayout";
