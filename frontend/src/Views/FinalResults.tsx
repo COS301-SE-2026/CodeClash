@@ -83,7 +83,7 @@ const FinalResults: React.FC<FinalResultsViewModelProps> = ({onPlayAgain, onRetu
                                 <div className="px-3 py-4 flex flex-col items-center justify-center gap-1 border-r border-secondary-text h-full">
                                     <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
                                         {player.avatar ? (
-                                            <img src = {player.avatar} className="w-full h-full object-cover"/>
+                                            <img src = {player.avatar} alt = {player.username} className="w-full h-full object-cover"/>
                                         ): (
                                             <div className="w-full h-full bg-secondary-text"/>
                                         )}
