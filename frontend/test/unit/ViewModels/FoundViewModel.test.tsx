@@ -48,7 +48,7 @@ describe("Testing found view model", () => {
         vi.clearAllMocks();
         vi.mocked(useSocket).mockReturnValue({ socket: mock_socket as Socket, isConnected: true });
         vi.mocked(useMatchmakingSocket).mockReturnValue({
-            game_mode: 'math',
+            game_mode: 'maths',
             pair_id: "12345ABCDE"
         } as any);
 
@@ -82,7 +82,14 @@ describe("Testing found view model", () => {
         act(() => {
             result.current.accept()
         })
-        expect(matchAccepted).toHaveBeenCalledWith(mock_socket, '12345ABCDE');
+
+        const expected = {
+            pair_id: '12345ABCDE',
+            league: 'Mercury',
+            game_mode: 'maths'
+        };
+
+        expect(matchAccepted).toHaveBeenCalledWith(mock_socket, expected);
         expect(result.current.loading).toBe(true);
     })
 

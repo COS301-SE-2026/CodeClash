@@ -1,9 +1,9 @@
-import { beforeAll, afterAll, describe } from "vitest";
+import { beforeAll, afterAll, describe, beforeEach } from "vitest";
 import { login, logout } from "../../test-utils";
-import { UserProvider } from "src/context/User/UserContext";
-import { useUser } from "src/context/User/hooks/useUser";
+import { UserProvider } from "../../../src/context/User/UserContext";
+import { useUser } from "../../../src/context/User/hooks/useUser";
 import { render, screen, waitFor } from "@testing-library/react";
-import { AuthProvider } from "src/context/Auth/AuthContext";
+import { AuthProvider } from "../../../src/context/Auth/AuthContext";
 import robot from 'src/assets/Robots/Pink_fighting.png'
 
 
@@ -37,7 +37,6 @@ describe("Tests user Provider", () => {
     })
 
     beforeEach(async () => {
-
         render(
             <AuthProvider>
                 <UserProvider>

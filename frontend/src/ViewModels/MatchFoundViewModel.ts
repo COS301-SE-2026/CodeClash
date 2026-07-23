@@ -10,7 +10,6 @@ import { useSocket } from "src/context/Socket/hooks/useSocket"
 import { matchAccepted, matchDeclined } from "src/context/Socket/hooks/useMatchmakingSocket"
 import MatchmakingUserDTO from "src/dtos/matchmaking.dto";
 import { useUser } from "src/context/User/hooks/useUser";
-import type { QuestionDTO } from 'src/dtos/game-questionDTO';
 
 
 export function MatchFoundViewModelFunction() {
