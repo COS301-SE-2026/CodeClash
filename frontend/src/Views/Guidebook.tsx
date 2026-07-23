@@ -16,8 +16,9 @@ return(
         <h1 className="text-[450%] text-button-primary text-center justify-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] -mt-5">Game Guide</h1>
         <GlassCard className="w-[90%] h-[80%] mx-auto">
         <div className="flex grid grid-rows-6 gap-4 w-[26%] -mt-[1%]"> 
-        <div className="border-1 border-button-primary bg-secondary rounded-[20px] w-[25%] h-[35%] mt-[24%] ml-[10%]">
+        <div className="border-1 border-button-primary bg-secondary rounded-[20px] w-[75%] h-[75%] mt-[14%] ml-[10%]">
             <h1 className="font-font font-semibold text-button-primary text-center drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] -mb-[25%]">Hint:</h1>
+            <h2 className="font-font font-medium text-button-primary text-center text-[80%]">Casual Play is for</h2>
         </div>  
         <GameGuideCard className="w-[110%] h-[70%] ml-[8%]">
             <GameGuideNumberCard className="w-[16%] h-[100%] ml-[1%] -mt-[4%]">
