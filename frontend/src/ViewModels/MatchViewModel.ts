@@ -21,12 +21,15 @@ export const useMatch = () => {
     const [usernames, setUsernames] = useState<string[]>([]);
     const [current_question, setCurrentQuestions] = useState(0);
     const [time, setTime] = useState(0)
+    const [loading, setLoading] = useState(false);
 
     const answers: Answer[] = [];
     const progress: MatchProgress = {
         player_progress: [0, 0],
         question_number: 0
     }
+
+    const closeLoading = () => setLoading(false);
 
     const expiry_time = () => {
         const time = new Date();
@@ -112,15 +115,17 @@ export const useMatch = () => {
 
         setQuestions(final);
 
-        console.log(questions)
     }
 
     useEffect(() => {
         if (socket) {
-            console.log("Match page is mounted and socket is connected, asking fro questions")
+            console.log("Match page is mounted and socket is connected, asking for questions")
             socket.emit('send_questions', id)
 
             socket.on('get_questions', loadQuestions)
+
+            if (questions.length == 0) setLoading(true)
+            else setLoading(false)
 
 
             setPlayerLife(players.map(p => p.life))
@@ -152,6 +157,8 @@ export const useMatch = () => {
         current_question,
         nextQuestion,
         prevQuestion,
-        time
+        time,
+        loading,
+        closeLoading
     }
 }

@@ -1,5 +1,6 @@
 import MathMatch from '@/components/features/MathPage';
 import { Question } from '@/components/features/question';
+import Loading from '@/components/shared/Loading';
 import { MatchScreen } from '@/components/shared/Match';
 import { Button } from '@/components/ui/button';
 import { useMatch } from 'src/ViewModels/MatchViewModel';
@@ -9,12 +10,20 @@ const MathsMatch = () => {
         player_life, avatars, usernames,
         seconds, minutes, questions,
         current_question, progress,
-        nextQuestion, prevQuestion
+        nextQuestion, prevQuestion,
+        loading, closeLoading
     } = useMatch();
+
 
     const curr = questions[current_question];
 
     console.log("question ", current_question, " ", curr)
+
+    if(loading){
+        return (
+            <Loading isOpen={loading} onClose={closeLoading}></Loading>
+        )
+    }
 
     return (
         <MatchScreen
@@ -33,7 +42,7 @@ const MathsMatch = () => {
                     className=''
                     difficulty={curr.difficulty!}
                     title={curr.title!}
-                    description={curr.description!}
+                    description={curr.description}
                     number={current_question + 1}
                 >
                     <MathMatch></MathMatch>

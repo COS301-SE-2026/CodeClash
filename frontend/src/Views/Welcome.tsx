@@ -6,7 +6,7 @@ import helloRobot from '../assets/Robots/HelloRobot_Pink.png';
 const Welcome: React.FC = () => {
 
   return (
-    <div className="min-h-screen w-full flex items-center overflow-hidden px-[8%]"
+    <div className="min-h-screen w-full flex items-center overflow-hidden px-[12%]"
       style={{ background: 'radial-gradient(circle at 88% 88%, #B91551 0%, #850F3B 20%, #630B3C 30%, #530A24 38%)' }}>
 
       {/*Background frame*/}
