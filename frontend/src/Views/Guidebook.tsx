@@ -9,6 +9,7 @@ import { GameGuideCardText } from "../../@/components/ui/gameGuideCard";
 import matchPlay from "../../src/assets/matchPlay.png";
 import matchSearch from "../../src/assets/search_match.png"
 import playNow from "../../src/assets/play_now.png"
+import score from "../../src/assets/score.png"
 
 const Guidebook = () => {
 
@@ -20,7 +21,7 @@ return(
         <h1 className="text-[450%] text-button-primary text-center justify-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] -mt-[1%] -ml-[3%]">Game Guide</h1>
         <GlassCard className="w-[90%] h-[80%] mx-auto">
         <div className="flex grid grid-cols-4 gap-4">
-        <div className="flex grid grid-rows-6 gap-15 w-[100%] mt-[10%]"> 
+        <div className="flex grid grid-rows-6 gap-15 w-[100%] mt-[10%] ml-[5%]"> 
         <GameGuideCard className="ml-[8%]">
             <GameGuideNumberCard className="ml-[1%]">
                <GameGuideHeading>1</GameGuideHeading>
@@ -58,7 +59,7 @@ return(
         </GameGuideCard> */}
         </div>
 
-        <div className="flex grid grid-rows-3 gap-15">
+        <div className="flex grid grid-rows-3 gap-15 ml-[7%]">
         <div style={{backgroundImage: `url(${playNow})`}} className="bg-no-repeat object-cover bg-size-[auto_48%] ml-[30%] mt-[12%]"></div>
         <div style={{backgroundImage: `url(${matchSearch})`}} className="bg-no-repeat object-cover bg-size-[auto_45%] ml-[30%] mt-[8%]"></div>
         <div style={{backgroundImage: `url(${matchPlay})`}} className="bg-no-repeat object-cover bg-size-[auto_49%] ml-[30%] -mt-[7%]"></div>
@@ -79,7 +80,9 @@ return(
             </GameGuideCard>
         </div>
 
-        <div className=""></div>
+        <div className="flex grid grid-rows-3 gap-15">
+            <div style={{backgroundImage: `url(${score})`}} className="bg-no-repeat object-cover bg-size-[auto_35%] ml-[22%] mt-[12%]"></div>
+        </div>
 
         </div>
         </GlassCard>
