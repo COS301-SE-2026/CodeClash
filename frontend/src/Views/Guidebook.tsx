@@ -15,11 +15,13 @@ return(
         <Link to="/dashboard" className="text-button-primary font-[var(--font)] text-[200%] font-semibold ml-5">← Back</Link>
         <h1 className="text-[450%] text-button-primary text-center justify-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] -mt-5">Game Guide</h1>
         <GlassCard className="w-[90%] h-[80%] mx-auto">
-        <div className="flex grid grid-rows-6 gap-4 w-[26%] mt-[2%]"> 
+        <div className="flex grid grid-cols-4 gap-4">
+        <div className="flex grid grid-rows-6 gap-4 w-[100%] mt-[7%]"> 
         <GameGuideCard className="w-[110%] h-[70%] ml-[8%]">
-            <GameGuideNumberCard className="w-[16%] h-[100%] ml-[1%] -mt-[4%]">
+            <GameGuideNumberCard className="w-[34%] h-[100%] ml-[1%] -mt-[7%]">
                <GameGuideHeading>1</GameGuideHeading>
             </GameGuideNumberCard>
+            <h1 className="">test</h1>
         </GameGuideCard>
         <GameGuideCard className="w-[110%] h-[70%] ml-[8%]">
             <GameGuideNumberCard className="w-[16%] h-[100%] ml-[1%] -mt-[4%]">
@@ -46,7 +48,7 @@ return(
                 <GameGuideHeading>6</GameGuideHeading>
             </GameGuideNumberCard>
         </GameGuideCard>
-            
+        </div>
         </div>
         </GlassCard>
     </div>

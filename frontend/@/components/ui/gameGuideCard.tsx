@@ -10,7 +10,7 @@ interface gameGuideCardProps{
 const GameGuideCard = ({children, className} : gameGuideCardProps) => {
 
     return(
-        <Card className={`bg-secondary/10 rounded-2xl backdrop-blur-lg border border-white/30
+        <Card className={`bg-secondary/10 rounded-2xl backdrop-blur-lg border border-white/30 flex grid grid-cols-2 -gap-10
             ${className}
         `}>
             {children}
@@ -18,7 +18,11 @@ const GameGuideCard = ({children, className} : gameGuideCardProps) => {
     )
 
 
-
 }
 
 export default GameGuideCard;
+
+interface gameeGuideCardTextProps{
+    children?: React.ReactNode
+    className?: string
+}
