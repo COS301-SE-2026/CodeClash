@@ -6,6 +6,9 @@ import GameGuideCard from "../../@/components/ui/gameGuideCard";
 import GameGuideNumberCard from "../../@/components/ui/gameGuideNumber"
 import GameGuideHeading from "../../@/components/ui/gameGuideHeading"
 import { GameGuideCardText } from "../../@/components/ui/gameGuideCard";
+import matchPlay from "../../src/assets/play_now.png"
+import matchSearch from "../../src/assets/search_match.png"
+import playNow from "../../src/assets/play_now.png"
 
 const Guidebook = () => {
 
@@ -54,6 +57,7 @@ return(
             </GameGuideNumberCard>
         </GameGuideCard> */}
         </div>
+        <div style={{backgroundImage: `url(${playNow})`}} className="bg-no-repeat object-cover bg-size-[auto_12%] ml-[30%] mt-[11%]"></div>
         </div>
         </GlassCard>
     </div>
