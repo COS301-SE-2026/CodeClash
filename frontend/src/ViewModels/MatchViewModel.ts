@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import { useTimer } from "react-timer-hook";
 import type { Player, Answer, Question, MatchProgress } from "src/Models/MatchModel";
@@ -20,7 +20,6 @@ export const useMatch = () => {
     const [avatars, setAvatars] = useState<string[]>([]);
     const [usernames, setUsernames] = useState<string[]>([]);
     const [current_question, setCurrentQuestions] = useState(0);
-    const [time, setTime] = useState(0)
     const [loading, setLoading] = useState(false);
     const [questions_ready, setQuestionsReady] = useState(false)
 
@@ -32,13 +31,16 @@ export const useMatch = () => {
 
     const closeLoading = () => setLoading(false);
 
-    const expiry_time = () => {
+    const expiry_time = useMemo(() => {
         const time = new Date();
         time.setSeconds(time.getSeconds() + match_duration * 60);
         return time;
-    }
+    }, [match_duration])
 
-    const { seconds, minutes } = useTimer({ expiryTimestamp: expiry_time() });
+    const { seconds, minutes, restart } = useTimer({
+        expiryTimestamp: expiry_time,
+        autoStart: false
+    });
 
     const nextQuestion = (curr: number) => {
         if (curr < questions.length - 1)
@@ -95,7 +97,7 @@ export const useMatch = () => {
             sumtime += Number(q.time_limit!.split(":")[1])
         }
 
-        setTime(sumtime);
+        setMatchDuration(sumtime);
 
         temp_arr = shuffle(temp_arr);
 
@@ -115,8 +117,14 @@ export const useMatch = () => {
     }
 
     useEffect(() => {
+        if (match_duration > 0) {
+            restart(expiry_time);
+        }
+    }, [match_duration])
+
+    useEffect(() => {
         if (socket) {
-             socket.emit('send_questions', id)
+            socket.emit('send_questions', id)
 
             socket.on('get_questions', loadQuestions)
 
@@ -138,7 +146,7 @@ export const useMatch = () => {
             }
         }
 
-    }, [socket, players,questions_ready])
+    }, [socket, players, questions_ready])
 
     return {
         players,
@@ -153,7 +161,7 @@ export const useMatch = () => {
         current_question,
         nextQuestion,
         prevQuestion,
-        time,
+        match_duration,
         loading,
         closeLoading
     }

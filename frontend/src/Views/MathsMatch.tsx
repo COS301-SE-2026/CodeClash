@@ -47,7 +47,7 @@ const MathsMatch = () => {
                 </Question>
             </div>
 
-            <div className='flex items-center justify-center gap-[4rem]'>
+            <div className='absolute w-[70%]  flex flex-shrink-0 items-center justify-center gap-[4rem]'>
                 <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem]'
                     onClick={() => nextQuestion(current_question)}    // need to attach marking logic once submission systems are implemented
                 >SUBMIT</Button>

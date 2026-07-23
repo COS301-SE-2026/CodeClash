@@ -36,7 +36,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
 
 
     return (
-        <div className="fixed inset-0 min-h-screen flex flex-col">
+        <div className="fixed inset-0 flex flex-col">
             <img src={background} className='absolute w-full -z-10' />
             {/* <BackButton page='/dashboard' /> */}
             {/* Header */}
@@ -90,7 +90,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                     <div className='absolute bg-gradient-to-r from-button-primary to-secondary h-[3%] w-[71%] rounded-4xl shadow-[0_4px_6px_rgba(0,0,0,0.3)]'></div>
                     {/* Question box */}
 
-                    <div className='bg-secondary w-[100%] h-[100%] rounded-4xl ml-1 pt-[2rem]'>
+                    <div className='bg-secondary w-[100%] h-[100%] rounded-4xl ml-1 pt-[2rem] flex-1'>
                         {children}
                     </div>
                 </div>
