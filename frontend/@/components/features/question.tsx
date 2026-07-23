@@ -9,14 +9,12 @@ function Question({
   children,
   difficulty,
   title,
-  question,
   description,
   number
 }: React.ComponentProps<"div"> & {
   children?: React.ReactNode;
   difficulty: string;
   title: string;
-  question: string;
   description?: string;
   number: number;
 }) {
@@ -39,10 +37,8 @@ function Question({
         </div>
 
         <div className="m-5 flex flex-col justify-evenly">
-          <h1 className="text-5xl font-semibold">{title}</h1>
-          <p className="text-sm font-semibold mt-[1%]">{question}</p>
-
-          <div>{description}</div>
+          <h1 className="text-3xl font-semibold">{title}</h1>
+          <div className="text-l whitespace-pre-line">{description}</div>
         </div>
       </div>
 

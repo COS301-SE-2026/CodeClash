@@ -14,6 +14,8 @@ const MathsMatch = () => {
 
     const curr = questions[current_question];
 
+    console.log("question ", current_question, " ", curr)
+
     return (
         <MatchScreen
             player_life={player_life}
@@ -29,10 +31,9 @@ const MathsMatch = () => {
             <div className=''>
                 <Question
                     className=''
-                    difficulty={curr.difficulty}
-                    title={curr.title}
-                    question={curr.question}
-                    description={curr.description}
+                    difficulty={curr.difficulty!}
+                    title={curr.title!}
+                    description={curr.description!}
                     number={current_question + 1}
                 >
                     <MathMatch></MathMatch>

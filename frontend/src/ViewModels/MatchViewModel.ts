@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { useTimer } from "react-timer-hook";
 import type { Player, Answer, Question, MatchProgress } from "src/Models/MatchModel";
 import pink_robot from 'src/assets/Robots/HelloRobot_Pink.png'
@@ -9,6 +10,8 @@ import type { GameQuestionsDTO, QuestionDTO } from "src/dtos/game-questionDTO";
 
 export const useMatch = () => {
     const { socket } = useSocket();
+    const location = useLocation();
+    const { id } = location.state;
 
     const [players, setPlayers] = useState<Player[]>([]);
     const [questions, setQuestions] = useState<Question[]>([]);
@@ -32,16 +35,6 @@ export const useMatch = () => {
     }
 
     const { seconds, minutes } = useTimer({ expiryTimestamp: expiry_time() });
-
-
-
-    questions.push({
-        title: "Temp Question Title",
-        difficulty: 'easy',
-        description: "This is a description to provide context to help solve the problem",
-        number: 0
-    })
-
 
     const nextQuestion = (curr: number) => {
         if (curr < questions.length)
@@ -69,6 +62,8 @@ export const useMatch = () => {
     const loadQuestions = (data: GameQuestionsDTO) => {
 
         console.log("loading questions")
+        console.log(data)
+        console.log("*****************************")
         let temp_arr: Question[] = [];
         let sumtime = 0;
 
@@ -116,27 +111,31 @@ export const useMatch = () => {
         }
 
         setQuestions(final);
+
+        console.log(questions)
     }
 
     useEffect(() => {
         if (socket) {
-            socket.on('questions_ready', loadQuestions)
+            console.log("Match page is mounted and socket is connected, asking fro questions")
+            socket.emit('send_questions', id)
+
+            socket.on('get_questions', loadQuestions)
+
+
+            setPlayerLife(players.map(p => p.life))
+            setAvatars(players.map(p => p.avatar));
+            setUsernames(players.map(p => p.username));
+
+            //// TEMPORARY REMOVE ONCE DATA IS FETCHED
+
+            setAvatars(prev => [...prev, pink_robot, pink_robot]);
+            setUsernames(prev => [...prev, "YOU", "OPPONENT"])
 
             return () => {
-                socket.off("questions_ready", loadQuestions);
+                socket.off("get_questions", loadQuestions);
             }
         }
-
-        setPlayerLife(players.map(p => p.life))
-        setAvatars(players.map(p => p.avatar));
-        setUsernames(players.map(p => p.username));
-
-        //// TEMPORARY REMOVE ONCE DATA IS FETCHED
-
-        setAvatars(prev => [...prev, pink_robot, pink_robot]);
-        setUsernames(prev => [...prev, "YOU", "OPPONENT"])
-
-
 
     }, [socket, players])
 

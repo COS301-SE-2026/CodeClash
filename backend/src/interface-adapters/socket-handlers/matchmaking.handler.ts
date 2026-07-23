@@ -7,7 +7,7 @@ import { GameDataDTO, GameQuestionsDTO } from "src/entities/dtos/game-data.dto";
 import { IEloRepository } from "src/application/interfaces/IEloRepository";
 
 const PAIRS = new Map<string, Map<string, boolean>>();
-const GAME = new Map<number, GameQuestionsDTO>();
+const GAME = new Map<number, { player_ids: string[], questions: GameQuestionsDTO }>();
 
 export const joinMatchQueue = (async (io: Server, socket: Socket, data: any) => {
     //adds users to a room 
@@ -68,11 +68,12 @@ export const matchAccepted = (async (io: Server, socket: Socket, data: GameDataD
         data.question_number = 5;   // TODO update this to be dynamic
         const setup = await gameService(question_repo, elo_repo, data);
 
+
         if (setup) {
-            GAME.set(setup.id, setup.questions as GameQuestionsDTO)
+            GAME.set(setup.id, { player_ids: keys, questions: setup.questions as GameQuestionsDTO })
 
             for (const key of keys) {
-                io.to(key).emit("start_game");
+                io.to(key).emit("start_game", { game_id: setup.id });
             }
         } else {
             console.log("Game service returning false")
@@ -102,12 +103,16 @@ export const matchDeclined = ((io: Server, socket: Socket, pair_id: string) => {
     }
 })
 
-export const gameReady = (io: Server, player_ids: string[]) => {
-    console.log("GAME_READY")
+export const sendGameQuestions = (io: Server, game_id: number) => {
+    const data = GAME.get(game_id)
 
-    for (const id of player_ids) {
-        io.to(id).emit("start_game");
+    console.log("sending game questions")
+    if (data) {
+        for (const id of data!.player_ids!) {
+            io.to(id).emit('get_questions', data.questions)
+        }
+    } else {
+        console.log("Game data null")
     }
-
 }
 

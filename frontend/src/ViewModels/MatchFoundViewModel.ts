@@ -36,10 +36,16 @@ export function MatchFoundViewModelFunction() {
     }
   }
 
-  const gameReady = (data: QuestionDTO) => {
-    
+  const gameReady = (data: { game_id: number }) => {
     setLoading(false);
-    nav(path);
+
+    console.log("Recieved start game event, navigating to match page")
+    nav(path, {
+      replace: true,
+      state: {
+        id: data.game_id
+      }
+    });
   }
 
   // handler for user that declined the game
@@ -59,7 +65,7 @@ export function MatchFoundViewModelFunction() {
 
   const accept = () => {
     if (socket) {
-      const new_path ="/".concat(game_mode).concat("-match")
+      const new_path = "/".concat(game_mode).concat("-match")
       setPath(new_path);
       const data = {
         pair_id: pair_id,

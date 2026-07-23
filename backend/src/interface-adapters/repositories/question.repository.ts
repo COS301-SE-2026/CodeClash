@@ -9,9 +9,7 @@ export class QuestionRepository implements IQuestionRepository {
     ) { }
 
     async getRandQuestions(count: number, difficulty: number, game_mode: GameMode): Promise<QuestionDTO[] | null> {
-        const questions = await this.questionRepository.createQueryBuilder()
-            .select("*")
-            .from(Questions, 'q')
+        const questions = await this.questionRepository.createQueryBuilder('q')
             .where("q.difficulty = :difficulty", { difficulty: difficulty })
             .andWhere('q.game_mode = :game_mode', { game_mode: game_mode })
             .take(count)
