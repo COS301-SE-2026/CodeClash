@@ -2,6 +2,7 @@ import React from "react";
 import { FinalResultsViewModelFunction } from "../ViewModels/FinalResultsViewModel";
 import type {FinalResultsViewModelProps} from "../ViewModels/FinalResultsViewModel";
 import type { PlayerFinalResults } from "../Models/FinalResultsModel";
+import { TrendingUp, TrendingDown,} from "lucide-react";
 
 const FinalResults: React.FC<FinalResultsViewModelProps> = ({onPlayAgain, onReturn, fetchResults}) => {
     const {
@@ -90,12 +91,43 @@ const FinalResults: React.FC<FinalResultsViewModelProps> = ({onPlayAgain, onRetu
                                         style={{fontSize: 'var(--font-size-sm)'}}>{player.speed}</span>
                                 </div>
 
-                                
+                                {/*Column for elo effect */}
+                                <div className="px-3 py-4 flex  flex-col items-center justify-center border-r border-secondary-text h-full">
+                                    {player.eloEffect >= 0 ? (
+                                        <TrendingUp className="w-9 h-9 text-success"/>
+                                    ): (
+                                        <TrendingDown className="w-9 h-9 text-danger"/>
+                                    )}
+                                    <span className= {`font-bold ${player.eloEffect >=0 ? 'text-success': 'text-danger'}`}
+                                        style={{fontSize: 'var(--font-size-sm)'}}>{player.eloEffect >= 0 ? ' +': ''}{player.eloEffect}</span>
+                                </div>
+
+                                {/*Column for the users position (1st or 2nd) */}
+                                <div className="px-3 py-4 mt-2">
+                                    <Badge position={ player.position}/>
+                                </div>
                             </div>
                         ))}
                     </div>
                 </div>
             )}
+        </div>
+    );
+};
+
+const Badge: React.FC<{position: 1 | 2}> = ({position}) => {
+    if (position === 1) return (
+        <div className="flex flex-col items-center gap-1">
+            <div className="w-12 h-12 rounded-full bg-yellow-400 border-4 border-yellow-600 flex items-center justify-center shadow-md">
+                <span className="text-yellow-900 font-black text-xs">1st</span>
+            </div>
+        </div>
+    );
+    return (
+        <div className="flex flex-col items-center gap-1">
+            <div className="w-12 h-12 rounded-full bg-gray-400 border-4 border-gray-600 flex items-center justify-center shadow-md">
+                <span className="text-gray-700 font-black text-xs">2nd</span>
+            </div>
         </div>
     );
 };
