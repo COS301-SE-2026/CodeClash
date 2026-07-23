@@ -17,7 +17,7 @@ const Guidebook = () => {
 return(
     <div style={{backgroundImage: `url(${background})`}} className="w-full min-h-screen overflow-hidden bg-no-repeat object-cover bg-size-[auto_110%] bg-[right_40%_top_50%]">
         <Link to="/dashboard" className="text-button-primary font-[var(--font)] text-[200%] font-semibold ml-5">← Back</Link>
-        <h1 className="text-[450%] text-button-primary text-center justify-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] -mt-5">Game Guide</h1>
+        <h1 className="text-[450%] text-button-primary text-center justify-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] -mt-[1%] -ml-[3%]">Game Guide</h1>
         <GlassCard className="w-[90%] h-[80%] mx-auto">
         <div className="flex grid grid-cols-4 gap-4">
         <div className="flex grid grid-rows-6 gap-15 w-[100%] mt-[10%]"> 
@@ -61,17 +61,25 @@ return(
         <div className="flex grid grid-rows-3 gap-15">
         <div style={{backgroundImage: `url(${playNow})`}} className="bg-no-repeat object-cover bg-size-[auto_48%] ml-[30%] mt-[12%]"></div>
         <div style={{backgroundImage: `url(${matchSearch})`}} className="bg-no-repeat object-cover bg-size-[auto_45%] ml-[30%] mt-[8%]"></div>
-        <div style={{backgroundImage: `url(${matchPlay})`}} className="bg-no-repeat object-cover bg-size-[auto_50%] ml-[30%]"></div>
+        <div style={{backgroundImage: `url(${matchPlay})`}} className="bg-no-repeat object-cover bg-size-[auto_49%] ml-[30%] -mt-[7%]"></div>
         </div>
 
         <div className="flex grid grid-rows-6 gap-15 w-[100%] mt-[10%]">
-            <GameGuideCard className="">
+            <GameGuideCard>
                 <GameGuideNumberCard className="ml-[1%]">
                     <GameGuideHeading>6</GameGuideHeading>
                 </GameGuideNumberCard>
                 <GameGuideCardText className="-ml-[62%] mr-[5%] text-[105%]">If you suspect your opponent of cheating, please select the Report a Match option in your Dashboard</GameGuideCardText>
             </GameGuideCard>
+            <GameGuideCard>
+                <GameGuideNumberCard className="ml-[1%]">
+                    <GameGuideHeading>7</GameGuideHeading>
+                </GameGuideNumberCard>
+                <GameGuideCardText className="-ml-[62%] mr-[5%] text-[105%]">As you play and win more ranked matches, your ELO will increase until you're able to play in a new, more advanced league</GameGuideCardText>
+            </GameGuideCard>
         </div>
+
+        <div className=""></div>
 
         </div>
         </GlassCard>
