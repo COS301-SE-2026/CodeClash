@@ -21,7 +21,7 @@ vi.mock('src/context/Socket/hooks/useMatchmakingSocket', () => ({
 
 vi.mock('src/context/User/hooks/useUser', () => ({
     useUser: () => {
-        return { elo: 600 }
+        return { elo: 600, league: "Mercury" }
     },
 
 }))
@@ -48,7 +48,7 @@ describe("Testing found view model", () => {
         vi.clearAllMocks();
         vi.mocked(useSocket).mockReturnValue({ socket: mock_socket as Socket, isConnected: true });
         vi.mocked(useMatchmakingSocket).mockReturnValue({
-            game_mode: 'math',
+            game_mode: 'maths',
             pair_id: "12345ABCDE"
         } as any);
 
@@ -82,7 +82,14 @@ describe("Testing found view model", () => {
         act(() => {
             result.current.accept()
         })
-        expect(matchAccepted).toHaveBeenCalledWith(mock_socket, '12345ABCDE');
+
+        const expected = {
+            pair_id: '12345ABCDE',
+            game_mode: 'maths',
+            league: "Mercury"
+
+        }
+        expect(matchAccepted).toHaveBeenCalledWith(mock_socket, expected);
         expect(result.current.loading).toBe(true);
     })
 
@@ -94,11 +101,12 @@ describe("Testing found view model", () => {
         })
 
         act(() => {
-            handlers.get("game_ready")!();
+            handlers.get("game_ready")!({ game_id: 1 });
         })
 
+
         expect(result.current.loading).toBe(false);
-        expect(mock_nav).toHaveBeenCalledWith('math-match');
+        expect(mock_nav).toHaveBeenCalledWith('/maths-match', { replace: true, state: { id: 1 } });
     })
 
     it("Tests declineGame navigation for the declining user", () => {
@@ -118,7 +126,7 @@ describe("Testing found view model", () => {
             handlers.get('game_declined')!();
         })
 
-        const data = new MatchmakingUserDTO(600, 'math');
+        const data = new MatchmakingUserDTO(600, 'maths');
 
         expect(joinMatchQueue).toHaveBeenCalledWith(mock_socket, data);
         expect(mock_nav).toHaveBeenCalledWith('/searching')

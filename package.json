@@ -9,8 +9,8 @@
     "dev": "npm run frontend && npm run backend",
     "test:backend": "cd backend && npx vitest run",
     "test:backend:coverage": "cd backend && npx vitest run --coverage",
-    "test:frontend": "cd frontend && npx vitest run",
-    "test:frontend:coverage": "cd frontend && npx vitest run --coverage",
+    "test:frontend": "cd frontend && NODE_OPTIONS=--no-experimental-webstorage npx vitest run",
+    "test:frontend:coverage": "cd frontend && NODE_OPTIONS=--no-experimental-webstorage npx vitest run --coverage",
     "lint": "npm run lint --prefix frontend && npm run lint --prefix backend",
     "lint:staged": "lint-staged",
     "prepare": "husky"

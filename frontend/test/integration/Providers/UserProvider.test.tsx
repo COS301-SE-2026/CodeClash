@@ -1,5 +1,5 @@
-import { beforeAll, afterAll, describe } from "vitest";
-import { login, logout } from "../../test-utils";
+import { beforeAll, afterAll, describe, beforeEach, vi } from "vitest";
+import { getToken, login, logout } from "../../test-utils";
 import { UserProvider } from "src/context/User/UserContext";
 import { useUser } from "src/context/User/hooks/useUser";
 import { render, screen, waitFor } from "@testing-library/react";

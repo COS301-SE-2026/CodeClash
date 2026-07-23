@@ -14,7 +14,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const idToken = session.tokens?.idToken?.toString();
 
     setToken(idToken);
-
   }
 
   useEffect(() => {
