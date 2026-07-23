@@ -57,11 +57,22 @@ return(
             </GameGuideNumberCard>
         </GameGuideCard> */}
         </div>
+
         <div className="flex grid grid-rows-3 gap-15">
         <div style={{backgroundImage: `url(${playNow})`}} className="bg-no-repeat object-cover bg-size-[auto_48%] ml-[30%] mt-[12%]"></div>
         <div style={{backgroundImage: `url(${matchSearch})`}} className="bg-no-repeat object-cover bg-size-[auto_45%] ml-[30%] mt-[8%]"></div>
         <div style={{backgroundImage: `url(${matchPlay})`}} className="bg-no-repeat object-cover bg-size-[auto_50%] ml-[30%]"></div>
         </div>
+
+        <div className="flex grid grid-rows-6 gap-15 w-[100%] mt-[10%]">
+            <GameGuideCard className="">
+                <GameGuideNumberCard className="ml-[1%]">
+                    <GameGuideHeading>6</GameGuideHeading>
+                </GameGuideNumberCard>
+                <GameGuideCardText className="-ml-[62%] mr-[5%] text-[105%]">If you suspect your opponent of cheating, please select the Report a Match option in your Dashboard</GameGuideCardText>
+            </GameGuideCard>
+        </div>
+
         </div>
         </GlassCard>
     </div>
