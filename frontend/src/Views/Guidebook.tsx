@@ -18,33 +18,34 @@ return(
         <GlassCard className="w-[90%] h-[80%] mx-auto">
         <div className="flex grid grid-cols-4 gap-4">
         <div className="flex grid grid-rows-6 gap-4 w-[100%] mt-[7%]"> 
-        <GameGuideCard className="w-[110%] h-[70%] ml-[8%]">
+        <GameGuideCard className="w-[120%] h-[70%] ml-[8%]">
             <GameGuideNumberCard className="w-[34%] h-[100%] ml-[1%] -mt-[5%]">
                <GameGuideHeading>1</GameGuideHeading>
             </GameGuideNumberCard>
-            <GameGuideCardText className="-ml-[60%] -mt-[9%] text-[75%]">First select "Play Now" on your Dashboard and choose what type of match you want to play</GameGuideCardText>
+            <GameGuideCardText className="-ml-[60%] -mt-[6%] text-[75%]">First select "Play Now" on your Dashboard and choose what type of match you want to play</GameGuideCardText>
         </GameGuideCard>
-        <GameGuideCard className="w-[110%] h-[70%] ml-[8%]">
+        <GameGuideCard className="w-[120%] h-[70%] ml-[8%]">
             <GameGuideNumberCard className="w-[34%] h-[100%] ml-[1%] -mt-[6.5%]">
                 <GameGuideHeading>2</GameGuideHeading>
             </GameGuideNumberCard>
+            <GameGuideCardText className="-ml-[60%] -mt-[9%] text-[60%]">Casual Play is for players who want to practise without impacting their ELO. Ranked Play is for players who want to put their skills to the test by battling against others (Be careful! This impacts your ELO!)"</GameGuideCardText>
         </GameGuideCard>
-        <GameGuideCard className="w-[110%] h-[70%] ml-[8%]">
+        <GameGuideCard className="w-[120%] h-[70%] ml-[8%]">
             <GameGuideNumberCard className="w-[34%] h-[100%] ml-[1%] -mt-[6.5%]"> 
                 <GameGuideHeading>3</GameGuideHeading>
             </GameGuideNumberCard>
         </GameGuideCard>
-        <GameGuideCard className="w-[110%] h-[70%] ml-[8%]">
+        <GameGuideCard className="w-[120%] h-[70%] ml-[8%]">
             <GameGuideNumberCard className="w-[34%] h-[100%] ml-[1%] -mt-[6.5%]">
                 <GameGuideHeading>4</GameGuideHeading>
             </GameGuideNumberCard>
         </GameGuideCard>
-        <GameGuideCard className="w-[110%] h-[70%] ml-[8%]">
+        <GameGuideCard className="w-[120%] h-[70%] ml-[8%]">
             <GameGuideNumberCard className="w-[34%] h-[100%] ml-[1%] -mt-[6.5%]">
                 <GameGuideHeading>5</GameGuideHeading>
             </GameGuideNumberCard>
         </GameGuideCard>
-        <GameGuideCard className="w-[110%] h-[70%] ml-[8%]">
+        <GameGuideCard className="w-[120%] h-[70%] ml-[8%]">
             <GameGuideNumberCard className="w-[34%] h-[100%] ml-[1%] -mt-[6.5%]">
                 <GameGuideHeading>6</GameGuideHeading>
             </GameGuideNumberCard>
