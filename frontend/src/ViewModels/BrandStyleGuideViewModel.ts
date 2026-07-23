@@ -30,7 +30,10 @@ export const navSections = [
         id: 'accessibility', label: 'Accessibility',
     },
     {
-        id: 'changelog', label: 'CHangelog',
+        id: 'voice', label: 'Voice & Tone',
+    },
+    {
+        id: 'changelog', label: 'Changelog',
     },
 ] as const;
 
