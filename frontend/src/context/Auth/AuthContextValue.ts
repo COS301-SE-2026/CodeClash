@@ -18,6 +18,7 @@ export interface AuthContextValue {
   confirmSignUp: (username: string, code: string) => Promise<void>;
   resendSignUpCode: (username: string) => Promise<void>;
   clearError: () => void;
+  token: string | undefined;
 }
 
 export interface AuthUser {

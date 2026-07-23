@@ -11,7 +11,6 @@ const buttonPrimaryClass = "w-[100%] max-w-[90vw] h-[3rem] text-[1.5rem] rounded
 
 const SignIn: React.FC= () => {
     const {
-        content,
         form,
         displayError,
         isLoading,
@@ -31,8 +30,8 @@ const SignIn: React.FC= () => {
             <div className="relative z-10 flex flex-col items-center" >
 
                 <div className="relative z-20 flex flex-col items-center gap-6 w-full max-w-[520px] mt-[50%] mb-[2%]">
-                    <h1 className="heading text-center -mb-4"> {content.title} </h1>
-                    <p className="heading-sub text-center mb-4"> {content.tagline} </p>
+                    <h1 className="heading text-center -mb-4"> Welcome Back, Challenger </h1>
+                    <p className="heading-sub text-center mb-4"> Compete in battles, earn badges, and rise through the ranks. </p>
 
                     {displayError && (
                         <p className="text-danger text-center"> {displayError} </p>

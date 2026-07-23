@@ -2,7 +2,6 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 
 import PrimaryButton from '../../@/components/shared/PrimaryButton';
-import '@testing-library/jest-dom';
 
 describe('PrimaryButton', () => {
 
