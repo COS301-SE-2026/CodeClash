@@ -50,8 +50,8 @@ const FinalResults: React.FC<FinalResultsViewModelProps> = ({onPlayAgain, onRetu
                     {/*Table of results */}
                     <div className="border border-secondary-text rounded-xl overflow-hidden">
                         {/*Header */}
-                        <div className="grid border-b border-secondary"
-                            style = {{gridTemplateColumns: '1fr 1.2fr 1fr 1.2fr 1fr'}}>
+                        <div className="grid border-b border-secondary-text"
+                            style = {{gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr'}}>
                             {content.tableHeaders.map(header => (
                                 <div key={header} className="px-3 py-3 text-center border-r border-secondary-text last:border-r-0">
                                     <span className="text-secondary-text font-bold"
@@ -60,7 +60,39 @@ const FinalResults: React.FC<FinalResultsViewModelProps> = ({onPlayAgain, onRetu
                             ))}
                         </div>
 
-                        
+                        {/*Rows */}
+                        {results.map((player, i) => (
+                            <div key = {player.username} className= {`grid items-stretch items-center ${i < results.length-1 ? 'border-b border-secondary-text' : ''}`}
+                                style = {{gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr'}}>
+                                
+                                {/*The user name + user robot/icon */}
+                                <div className="px-3 py-4 flex flex-col items-center justify-center gap-1 border-r border-secondary-text h-full">
+                                    <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+                                        {player.avatar ? (
+                                            <img src = {player.avatar} className="w-full h-full object-cover"/>
+                                        ): (
+                                            <div className="w-full h-full bg-secondary-text"/>
+                                        )}
+                                    </div>
+                                    <span className="text-secondary-text font-medium text-center truncate w-full"
+                                        style={{ fontSize: 'var(--font-size-xsm)'}}>{player.username}</span>
+                                </div>
+
+                                {/*The column for correctness */}
+                                <div className="px-3 py-4 flex items-center justify-center border-r border-secondary-text h-full">
+                                    <span className="text-secondary-text font-semibold"
+                                        style={{fontSize: 'var(--font-size-sm)'}}>{player.correctness}%</span>
+                                </div>
+
+                                {/*The column for speed - copied from above*/}
+                                <div className="px-3 py-4 flex items-center justify-center border-r border-secondary-text h-full">
+                                    <span className="text-secondary-text font-semibold"
+                                        style={{fontSize: 'var(--font-size-sm)'}}>{player.speed}</span>
+                                </div>
+
+                                
+                            </div>
+                        ))}
                     </div>
                 </div>
             )}
