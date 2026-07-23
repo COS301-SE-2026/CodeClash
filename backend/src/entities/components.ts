@@ -3,12 +3,12 @@
 /* MATCH ENTITY */
 
 // Player Component holds array of ids for a match
-export interface Players_Component {
+export interface PlayersComponent {
     player_ids: string[]
 }
 
 // Match Components stores data about the match
-export interface Match_Component {
+export interface MatchComponent {
     title: string,
     status: string,
     game_mode: string,
@@ -22,20 +22,20 @@ export interface Match_Component {
 
 // Life Components store current and total life a player has
 
-export interface Life_Component {
+export interface LifeComponent {
     current_life: number,
     max_life: number
 }
 
 // Rank Components stores the players rank,elo, league and streaks
-export interface Rank_Component {
+export interface RankComponent {
     rank: number,
     elo: number,
     league: string
 }
 
 // Badge Component stores player achievements
-export interface Badge_Component {
+export interface BadgeComponent {
     achievement_id: number,
     unlocked_at: Date
 }
@@ -44,7 +44,7 @@ export interface Badge_Component {
 
 /** ROUND ENTITY */
 
-export interface Round_Component {
+export interface RoundComponent {
     match_id: number,
     question_ids: number[],
     start_time: Date,
@@ -56,7 +56,7 @@ export interface Round_Component {
 
 /** SUBMISSION ENTITY */
 
-export interface Submission_Component {
+export interface SubmissionComponent {
     player_id: number,
     round_id: number,
     question_id: number,
@@ -71,7 +71,7 @@ export interface Submission_Component {
 
 /** RESULT ENTITY */
 
-export interface Maths_Result_Component {
+export interface MathsResultComponent {
     player_id: number,
     submission_id: number,
     correct: boolean
@@ -79,12 +79,12 @@ export interface Maths_Result_Component {
 
 /** QUESTION ENTITY */
 
-export interface Maths_Question_Component {
+export interface MathsQuestionComponent {
     answer: string,
     question: string
 }
 
-export interface Prog_Question_Component {
+export interface ProgQuestionComponent {
     question: string,
     test_cases: string[],
     expected_output: string[]
@@ -93,16 +93,16 @@ export interface Prog_Question_Component {
 
 // union for all components - for the map
 
-export type PlayerComponentTypes = Life_Component | Rank_Component | Badge_Component;
-export type MatchComponentTypes = Players_Component | Match_Component;
-export type ResultComponentTypes = Maths_Result_Component;
-export type QuestionComponentTypes = Maths_Question_Component | Prog_Question_Component;
+export type PlayerComponentTypes = LifeComponent | RankComponent | BadgeComponent;
+export type MatchComponentTypes = PlayersComponent | MatchComponent;
+export type ResultComponentTypes = MathsResultComponent;
+export type QuestionComponentTypes = MathsQuestionComponent | ProgQuestionComponent;
 
 export type Component =
     PlayerComponentTypes |
     MatchComponentTypes |
-    Round_Component |
-    Submission_Component |
+    RoundComponent |
+    SubmissionComponent |
     ResultComponentTypes |
     QuestionComponentTypes;
 

@@ -5,7 +5,7 @@ import { useTimer } from "react-timer-hook";
 import type { Player, Answer, Question, MatchProgress } from "src/Models/MatchModel";
 import pink_robot from 'src/assets/Robots/HelloRobot_Pink.png'
 import { useSocket } from "src/context/Socket/hooks/useSocket";
-import type { GameQuestionsDTO, QuestionDTO } from "src/dtos/game-questionDTO";
+import type { GameQuestionsDTO } from "src/dtos/game-questionDTO";
 
 
 export const useMatch = () => {
@@ -13,15 +13,15 @@ export const useMatch = () => {
     const location = useLocation();
     const { id } = location.state;
 
-    const [players, setPlayers] = useState<Player[]>([]);
+    const [players] = useState<Player[]>([]);
     const [questions, setQuestions] = useState<Question[]>([]);
-    const [match_duration, setMatchDuration] = useState(0);
-    const [player_life, setPlayerLife] = useState<number[]>([]);
+    const [matchDuration, setMatchDuration] = useState(0);
+    const [playerLife, setPlayerLife] = useState<number[]>([]);
     const [avatars, setAvatars] = useState<string[]>([]);
     const [usernames, setUsernames] = useState<string[]>([]);
-    const [current_question, setCurrentQuestions] = useState(0);
+    const [currentQuestion, setCurrentQuestions] = useState(0);
     const [loading, setLoading] = useState(false);
-    const [questions_ready, setQuestionsReady] = useState(false)
+    const [questionsReady, setQuestionsReady] = useState(false)
 
     const answers: Answer[] = [];
     const progress: MatchProgress = {
@@ -33,9 +33,9 @@ export const useMatch = () => {
 
     const expiry_time = useMemo(() => {
         const time = new Date();
-        time.setSeconds(time.getSeconds() + match_duration * 60);
+        time.setSeconds(time.getSeconds() + matchDuration * 60);
         return time;
-    }, [match_duration])
+    }, [matchDuration])
 
     const { seconds, minutes, restart } = useTimer({
         expiryTimestamp: expiry_time,
@@ -57,7 +57,7 @@ export const useMatch = () => {
         let random;
 
         while (curr != 0) {
-            random = Math.floor(Math.random() * curr);
+            random = Math.floor(Math.random() * curr);  // NOSONAR - Math.random() is just to shuffle questions
             curr--;
 
             [array[curr], array[random]] = [array[random], array[curr]]
@@ -117,10 +117,10 @@ export const useMatch = () => {
     }
 
     useEffect(() => {
-        if (match_duration > 0) {
+        if (matchDuration > 0) {
             restart(expiry_time);
         }
-    }, [match_duration])
+    }, [matchDuration])
 
     useEffect(() => {
         if (socket) {
@@ -132,7 +132,7 @@ export const useMatch = () => {
             else setLoading(false)
 
 
-            setPlayerLife(players.map(p => p.life))
+            setPlayerLife(players.map(p => p.life = 100))
             setAvatars(players.map(p => p.avatar));
             setUsernames(players.map(p => p.username));
 
@@ -146,22 +146,22 @@ export const useMatch = () => {
             }
         }
 
-    }, [socket, players, questions_ready])
+    }, [socket, players, questionsReady])
 
     return {
         players,
         questions,
         answers,
         progress,
-        player_life,
+        playerLife,
         avatars,
         seconds,
         minutes,
         usernames,
-        current_question,
+        currentQuestion,
         nextQuestion,
         prevQuestion,
-        match_duration,
+        matchDuration,
         loading,
         closeLoading
     }

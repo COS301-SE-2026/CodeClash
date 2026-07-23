@@ -1,15 +1,9 @@
 import {
-    Badge_Component,
     Component,
-    Life_Component,
-    Match_Component,
     MatchComponentTypes,
     PlayerComponentTypes,
-    Players_Component,
-    Rank_Component,
-    Submission_Component,
-    Round_Component,
-    Maths_Result_Component,
+    SubmissionComponent,
+    RoundComponent,
     ResultComponentTypes,
     QuestionComponentTypes
 } from "./components";
@@ -85,7 +79,7 @@ export const World = () => {
     function addRoundComponent(
         entity_id: number,
         component_name: "Round",
-        component: Round_Component
+        component: RoundComponent
     ): boolean {
         return addComponent(rounds, entity_id, component_name, component)
     }
@@ -93,7 +87,7 @@ export const World = () => {
     function addSubmissionComponent(
         entity_id: number,
         component_name: "Submission",
-        component: Submission_Component
+        component: SubmissionComponent
     ): boolean {
         return addComponent(submissions, entity_id, component_name, component)
     }
@@ -127,11 +121,11 @@ export const World = () => {
     }
 
     // NEED TO ADD  TEMPLATE TYPES
-    function getRoundComponent<T extends Round_Component>(entity_id: number, component_name: string) {
+    function getRoundComponent<T extends RoundComponent>(entity_id: number, component_name: string) {
         return getComponent<T>(rounds, entity_id, component_name);
     }
 
-    function getSubmissionsComponent<T extends Submission_Component>(entity_id: number, component_name: string) {
+    function getSubmissionsComponent<T extends SubmissionComponent>(entity_id: number, component_name: string) {
         return getComponent<T>(submissions, entity_id, component_name);
     }
 

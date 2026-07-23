@@ -1,11 +1,8 @@
 
-import BackButton from './BackButton'
-import { useState } from 'react'
 import { Progress } from '../ui/progress'
 import { Badge } from '../ui/badge'
 import React from 'react'
 import background from 'src/assets/Background/matchScreen.png'
-import question_doors from 'src/assets/Decor/progressDoors.png'
 import door from 'src/assets/Decor/door.png'
 
 interface MatchScreenProps {
@@ -37,7 +34,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
 
     return (
         <div className="fixed inset-0 flex flex-col">
-            <img src={background} className='absolute w-full -z-10' />
+            <img src={background} className='absolute w-full -z-10' alt='background' />
             {/* <BackButton page='/dashboard' /> */}
             {/* Header */}
             <div className='flex w-full h-[20%] justify-between items-center '>

@@ -71,7 +71,7 @@ export const matchAccepted = (async (io: Server, socket: Socket, data: GameDataD
 
         if (setup) {
             GAME.set(setup.id, { player_ids: keys, questions: setup.questions as GameQuestionsDTO })
-
+    
             for (const key of keys) {
                 io.to(key).emit("start_game", { game_id: setup.id });
             }
@@ -106,7 +106,6 @@ export const matchDeclined = ((io: Server, socket: Socket, pair_id: string) => {
 export const sendGameQuestions = (io: Server, game_id: number) => {
     const data = GAME.get(game_id)
 
-    console.log("sending game questions")
     if (data) {
         for (const id of data!.player_ids!) {
             io.to(id).emit('get_questions', data.questions)
