@@ -57,7 +57,10 @@ return(
             </GameGuideNumberCard>
         </GameGuideCard> */}
         </div>
-        <div style={{backgroundImage: `url(${playNow})`}} className="bg-no-repeat object-cover bg-size-[auto_12%] ml-[30%] mt-[11%]"></div>
+        <div className="flex grid grid-rows-3 gap-15">
+        <div style={{backgroundImage: `url(${playNow})`}} className="bg-no-repeat object-cover bg-size-[auto_48%] ml-[30%] mt-[12%]"></div>
+        <div style={{backgroundImage: `url(${matchSearch})`}} className="bg-no-repeat object-cover bg-size-[auto_45%] ml-[30%] mt-[8%]"></div>
+        </div>
         </div>
         </GlassCard>
     </div>
