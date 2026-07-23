@@ -10,6 +10,9 @@ Make sure you have the following installed before running the backend:
 - [Docker](https://www.docker.com/products/docker-desktop)
 - [Docker Compose](https://docs.docker.com/compose/) (included with Docker Desktop)
 - [Git](https://git-scm.com/)
+- [TypeORM] ```
+            npm install typeorm reflect-metadata pg
+            ```
 
 ## Environment Setup
 
