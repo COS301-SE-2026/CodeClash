@@ -12,8 +12,7 @@ const FinalResults: React.FC<FinalResultsViewModelProps> = ({onPlayAgain, onRetu
     } = FinalResultsViewModelFunction({onPlayAgain, onReturn, fetchResults});
 
     return (
-        <div className="min-h-screen w-full flex items-center justify-center"
-        style={{ backgroundImage: `url(${ResultsBackground})`, backgroundSize: 'cover', backgroundPosition: 'center',}}>
+        <div className="bg-secondary min-h-screen w-full flex items-center justify-center">
             
             {state === 'loading' && (
                 <div className="bg-secondary rounded-3xl p-12 w-[90%] max-w-[550px] flex flex-col gap-6">
@@ -45,14 +44,16 @@ const FinalResults: React.FC<FinalResultsViewModelProps> = ({onPlayAgain, onRetu
             )}
 
             {state === 'results' && (
-                <div className="bg-secondary rounded-3xl p-10 w-[90%] max-w-[7200px] flex flex-col gap-6">
-                    <h1 className="text-secondary-text font-bold text-center"
+                <div className="min-h-screen w-full flex items-center justify-center"
+                style={{ backgroundImage: `url(${ResultsBackground})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat',}}>
+                <div className="w-[90%] max-w-6xl flex flex-col gap-6 p-10">
+                    <h1 className="text-primary-text font-bold text-center"
                         style = {{fontSize: 'var(--heading-size)'}}>{content.titleResults}</h1>
 
                     {/*Table of results */}
-                    <div className="border border-secondary-text rounded-xl overflow-hidden">
+                    <div className="flex flex-col gap-4">
                         {/*Header */}
-                        <div className="grid border-b border-secondary-text"
+                        <div className="grid rounded-lg border border-secondary-text bg-secondary"
                             style = {{gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr'}}>
                             {content.tableHeaders.map(header => (
                                 <div key={header} className="px-3 py-3 text-center border-r border-secondary-text last:border-r-0">
@@ -63,8 +64,8 @@ const FinalResults: React.FC<FinalResultsViewModelProps> = ({onPlayAgain, onRetu
                         </div>
 
                         {/*Rows */}
-                        {results.map((player, i) => (
-                            <div key = {player.username} className= {`grid items-stretch items-center ${i < results.length-1 ? 'border-b border-secondary-text' : ''}`}
+                        {results.map((player) => (
+                            <div key = {player.username} className= "grid rounded-lg border border-secondary-text bg-secondary"
                                 style = {{gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr'}}>
                                 
                                 {/*The user name + user robot/icon */}
@@ -113,7 +114,7 @@ const FinalResults: React.FC<FinalResultsViewModelProps> = ({onPlayAgain, onRetu
 
                     {/*Buttons for return and try again*/}
                     <div className="flex gap-4 mt-2">
-                    <button className="flex-1 flex items-center justify-center gap-2 rounded-2xl b-secondary border border-secondary-text text-secondary-text font-bold hover:opacity-80 transition-opacity"
+                    <button className="flex-1 flex items-center justify-center gap-2 rounded-2xl bg-secondary text-secondary-text font-bold hover:opacity-80 transition-opacity"
                         style={{fontSize: 'var(--font-size-sm)'}} onClick={handleReturn} type="button">
                         {content.labelReturn}
                     </button>
@@ -122,6 +123,7 @@ const FinalResults: React.FC<FinalResultsViewModelProps> = ({onPlayAgain, onRetu
                         {content.labelPlayAgain}
                     </button>
                     </div>
+                </div>
                 </div>
             )}
         </div>
