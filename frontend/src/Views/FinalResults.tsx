@@ -1,8 +1,8 @@
 import React from "react";
 import { FinalResultsViewModelFunction } from "../ViewModels/FinalResultsViewModel";
 import type {FinalResultsViewModelProps} from "../ViewModels/FinalResultsViewModel";
-import type { PlayerFinalResults } from "../Models/FinalResultsModel";
-import { TrendingUp, TrendingDown,} from "lucide-react";
+import { TrendingUp, TrendingDown} from "lucide-react";
+import ResultsBackground from '../assets/Background/FinalResults.png';
 
 const FinalResults: React.FC<FinalResultsViewModelProps> = ({onPlayAgain, onReturn, fetchResults}) => {
     const {
@@ -12,7 +12,8 @@ const FinalResults: React.FC<FinalResultsViewModelProps> = ({onPlayAgain, onRetu
     } = FinalResultsViewModelFunction({onPlayAgain, onReturn, fetchResults});
 
     return (
-        <div className="bg-secondary min-h-screen w-full flex items-center justify-center">
+        <div className="min-h-screen w-full flex items-center justify-center"
+        style={{ backgroundImage: `url(${ResultsBackground})`, backgroundSize: 'cover', backgroundPosition: 'center',}}>
             
             {state === 'loading' && (
                 <div className="bg-secondary rounded-3xl p-12 w-[90%] max-w-[550px] flex flex-col gap-6">
@@ -108,6 +109,18 @@ const FinalResults: React.FC<FinalResultsViewModelProps> = ({onPlayAgain, onRetu
                                 </div>
                             </div>
                         ))}
+                    </div>
+
+                    {/*Buttons for return and try again*/}
+                    <div className="flex gap-4 mt-2">
+                    <button className="flex-1 flex items-center justify-center gap-2 rounded-2xl b-secondary border border-secondary-text text-secondary-text font-bold hover:opacity-80 transition-opacity"
+                        style={{fontSize: 'var(--font-size-sm)'}} onClick={handleReturn} type="button">
+                        {content.labelReturn}
+                    </button>
+                    <button className="flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl bg-button-primary text-button-text-primary font-bold hover:opacity-90 transition-opacity"
+                        style={{fontSize: 'var(--font-size-sm)'}} onClick={handlePlayAgain} type="button">
+                        {content.labelPlayAgain}
+                    </button>
                     </div>
                 </div>
             )}
