@@ -2,10 +2,9 @@ import background from "../assets/Background/gameguideBG.png"
 import { Link } from "react-router-dom";
 import "../styles/global.css"
 import GlassCard from "@/components/shared/GlassCard";
-import GameGuideCard from "../../@/components/ui/gameGuideCard";
+import GameGuideCard, { GameGuideCardText } from "../../@/components/ui/gameGuideCard";
 import GameGuideNumberCard from "../../@/components/ui/gameGuideNumber"
 import GameGuideHeading from "../../@/components/ui/gameGuideHeading"
-import { GameGuideCardText } from "../../@/components/ui/gameGuideCard";
 import matchPlay from "../../src/assets/matchPlay.png";
 import matchSearch from "../../src/assets/search_match.png"
 import playNow from "../../src/assets/play_now.png"

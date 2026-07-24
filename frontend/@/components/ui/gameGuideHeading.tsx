@@ -1,11 +1,11 @@
 import type React from 'react';
 
-interface gameGuideHeadingProps{
+interface GameGuideHeadingProps{
     children?: React.ReactNode
     className?: string
 }
 
-const GameGuideHeading = ({children, className} : gameGuideHeadingProps) => {
+const GameGuideHeading = ({children, className} : GameGuideHeadingProps) => {
     return(
         <h1 className={`text-center font-font font-semibold text-[120%] text-button-primary mx-auto ${className}`}>
             {children}
