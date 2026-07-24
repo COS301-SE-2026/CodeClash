@@ -12,6 +12,8 @@ export const gameService = async (
     data: GameDataDTO
 ) => {
 
+    if (!data) return null;
+
     let questions: number[] = [];
 
     // Creat entities Components - use world 
@@ -19,15 +21,16 @@ export const gameService = async (
 
     /** PLAYER ENTITY */
     const player_entity = createEntity();
-    createPlayer(player_entity, 100, 1, 600, "Placeholder");
-    createPlayer(player_entity, 100, 1, 600, "Placeholder");
+
+    for (const e of data.elos){
+        createPlayer(player_entity, e);
+    }
 
     /** MATCH ENTITY */
     const match_entity = createEntity();
 
-    // need api calls here
     const players: PlayersComponent = {
-        player_ids: data.player_ids,
+        player_ids: data.players,
     }
 
     // this data also needs to be fetched from the db 
@@ -46,7 +49,7 @@ export const gameService = async (
 
     /** Question Entity */
     // fetch questions form the db 
-    const elos = await elo_repo.getUsersElo(data.player_ids);
+    const elos = await elo_repo.getUsersElo(data.players);
 
     if (!elos) {
         console.log("null elos")
@@ -89,23 +92,16 @@ const getQuestions = async (question_repo: IQuestionRepository, league: string, 
 
 }
 
-const createPlayer = (player_entity: number, player_life: number, player_rank: number, elo: number, league: string) => {
+const createPlayer = (player_entity: number, player_life: number) => {
     const { addPlayerComponent } = World();
 
     const life: LifeComponent = {
+        
         current_life: player_life,
         max_life: 100,
     }
 
-    const rank: RankComponent = {
-        rank: player_rank,    //needs to be fetched
-        elo: elo,   //needs to be fetched
-        league: league
-    }
-
-
     addPlayerComponent(player_entity, "Life", life);
-    addPlayerComponent(player_entity, 'Rank', rank);
 }
 
 const createRound = (round_entity: number, match_id: number, question_ids: number[], duration: number) => {

@@ -15,9 +15,9 @@ async function enqueue(user: MatchmakingUserDTO, queue: GameMode): Promise<boole
 }
 
 // remove player from the queue
-async function dequeue(user_id: number, queue: GameMode): Promise<boolean> {
+async function dequeue(user_id: string, queue: GameMode): Promise<boolean> {
 
-    const rem_joined_hash = await redis.hdel(`user:${user_id}`,'user_joined_at');
+    const rem_joined_hash = await redis.hdel(`user:${user_id}`, 'user_joined_at');
     const rem_user = await redis.zrem(queue, user_id);
 
     if (rem_joined_hash == 0 || rem_user == 0)
@@ -74,6 +74,8 @@ async function matchmaking(user: MatchmakingUserDTO) {
 
         if (!match) return null;
 
+        const match_elo = Number(await redis.zscore(user.game_mode, match.user_id));
+
         // found a match
         // remove players from queue
         await redis.zrem(user.game_mode, user.id);
@@ -83,7 +85,16 @@ async function matchmaking(user: MatchmakingUserDTO) {
         await redis.hdel(`user:${user.id}`, "user_joined_at");
         await redis.hdel(`user:${match.user_id}`, "user_joined_at");
 
-        return { player_1_id: user.id, player_2_id: match.user_id };
+        return {
+            player_1: {
+                id: user.id,
+                elo: user.elo
+            },
+            player_2: {
+                id: match.user_id,
+                elo: match_elo
+            }
+        };
     }
 }
 

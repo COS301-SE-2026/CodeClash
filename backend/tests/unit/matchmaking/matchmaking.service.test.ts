@@ -14,9 +14,9 @@ import { GameMode } from '../../../src/entities/db-entities/questions.entities';
 
 
 let ids = 1
-const ideal_math_user = new UserDto(ids++, 1000, GameMode.Maths);
-const ideal_prog_user = new UserDto(ids++, 1010, GameMode.Programming);
-const invalid_remove = new UserDto(ids++, 1020, GameMode.Maths);
+const ideal_math_user = new UserDto((ids++).toString(), 1000, GameMode.Maths);
+const ideal_prog_user = new UserDto((ids++).toString(), 1010, GameMode.Programming);
+const invalid_remove = new UserDto((ids++).toString(), 1020, GameMode.Maths);
 
 
 // to clear queue between tests
@@ -92,8 +92,8 @@ describe('Ideal Users', () => {
         clearQueues();
 
         test('find a match for a user', async () => {
-            const player_1_id = ids++;
-            const player_2_id = ids++;
+            const player_1_id = (ids++).toString();
+            const player_2_id = (ids++).toString();
             let math_length = 0;
             const prog_length = 0;
 
@@ -110,9 +110,19 @@ describe('Ideal Users', () => {
 
             const add_p_2 = await matchmaking(player_2);
             math_length = await math_queue_length();
-         
+        
+            const expected = {
+                player_1: {
+                    id:  player_2_id,
+                    elo: 1050
+                },
+                player_2: {
+                    id: player_1_id,
+                    elo:1000
+                }
+            }
 
-            expect(add_p_2).toEqual({ player_1_id: player_2_id, player_2_id: player_1_id.toString() });    // should match players 1 and 2
+            expect(add_p_2).toEqual(expected);    // should match players 1 and 2
             expect(math_length).toBe(0);    // player 1 should be removed from the queue
             expect(prog_length).toBe(0);
 

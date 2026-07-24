@@ -6,13 +6,14 @@ import { IQuestionRepository } from "src/application/interfaces/IQuestionReposit
 import { GameDataDTO, GameQuestionsDTO } from "src/entities/dtos/game-data.dto";
 import { IEloRepository } from "src/application/interfaces/IEloRepository";
 
-const PAIRS = new Map<string, Map<string, boolean>>();
+const PAIRS = new Map<string, Map<string, { accepted: boolean, elo: number }>>();
 const GAME = new Map<number, { player_ids: string[], questions: GameQuestionsDTO }>();
 
 export const joinMatchQueue = (async (io: Server, socket: Socket, data: any) => {
     //adds users to a room 
     await socket.join(socket.data.user_id)
     socket.data.game_mode = data.game_mode
+    socket.data.elo = data.elo;
 
     const user = new MatchmakingUserDTO(socket.data.user_id, data.elo, data.game_mode);
     let match = null;
@@ -23,8 +24,8 @@ export const joinMatchQueue = (async (io: Server, socket: Socket, data: any) => 
         return;
 
 
-    const player_1 = match.player_1_id.toString();
-    const player_2 = match.player_2_id.toString();
+    const player_1 = match.player_1.id.toString();
+    const player_2 = match.player_2.id.toString();
 
 
     const pair_id = player_1.concat("-").concat(player_2);
@@ -37,7 +38,14 @@ export const joinMatchQueue = (async (io: Server, socket: Socket, data: any) => 
     }
 
 
-    PAIRS.set(pair_id, new Map([[player_1, false], [player_2, false]]));
+    PAIRS.set(pair_id, new Map([[
+        player_1,
+        { accepted: false, elo: match.player_1.elo }
+    ],
+    [
+        player_2,
+        { accepted: false, elo: match.player_2.elo }
+    ]]));
 
     io.to(player_1!).emit('users_matched', pair);
     io.to(player_2!).emit('users_matched', pair);
@@ -55,23 +63,37 @@ export const leaveMatchQueue = (async (io: Server, socket: Socket) => {
 
 export const matchAccepted = (async (io: Server, socket: Socket, data: GameDataDTO, question_repo: IQuestionRepository, elo_repo: IEloRepository) => {
 
-    PAIRS.get(data.pair_id)?.set(socket.data.user_id, true);
+    PAIRS.get(data.pair_id)?.set(socket.data.user_id,
+        {
+            accepted: true,
+            elo: socket.data.elo
+        }
+    );
+
 
     const pair = PAIRS.get(data.pair_id);
+    if (!pair)
+        return;
 
-    const bothAccepted = pair ? [...pair.values()].every(Boolean) : false;
+
+    const bothAccepted = [...pair.values()].every(val => val.accepted);
+
+
 
     if (bothAccepted) {
         // call the game service to create the game
         const keys = [...pair!.keys()];
-        data.player_ids = keys;
+
+        data.players = keys;
         data.question_number = 5;   //  update this to be dynamic
+        data.elos = [...pair.values()].map(v => v.elo);
+
         const setup = await gameService(question_repo, elo_repo, data);
 
 
         if (setup) {
             GAME.set(setup.id, { player_ids: keys, questions: setup.questions as GameQuestionsDTO })
-    
+
             for (const key of keys) {
                 io.to(key).emit("start_game", { game_id: setup.id });
             }

@@ -26,6 +26,11 @@ CREATE TABLE IF NOT EXISTS questions (
   time_limit TIME(2) NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS answers (
+  answer_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  question_id UUID REFERENCES questions(question_id),
+  answer TEXT NOT NULL
+);
 
 CREATE TABLE IF NOT EXISTS matches(
   match_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),

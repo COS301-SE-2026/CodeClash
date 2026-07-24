@@ -23,6 +23,7 @@ export interface MatchComponent {
 // Life Components store current and total life a player has
 
 export interface LifeComponent {
+    
     current_life: number,
     max_life: number
 }
