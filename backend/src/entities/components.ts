@@ -4,7 +4,7 @@
 
 // Player Component holds array of ids for a match
 export interface PlayersComponent {
-    player_ids: string[]
+    players: Map<string, number>    // <player_id, player_entity>
 }
 
 // Match Components stores data about the match
@@ -13,7 +13,10 @@ export interface MatchComponent {
     status: string,
     game_mode: string,
     difficulty: number,
-    winner: number
+    winner: number,
+    rounds: number[],
+    start_time: Date,
+    end_time: Date,
 }
 
 /********************************** */
@@ -23,15 +26,20 @@ export interface MatchComponent {
 // Life Components store current and total life a player has
 
 export interface LifeComponent {
-    
+
     current_life: number,
     max_life: number
+}
+
+export interface PlayerInfoComponent {
+    id: string,
+    username: string,
+    elo: number
 }
 
 // Rank Components stores the players rank,elo, league and streaks
 export interface RankComponent {
     rank: number,
-    elo: number,
     league: string
 }
 
@@ -46,10 +54,7 @@ export interface BadgeComponent {
 /** ROUND ENTITY */
 
 export interface RoundComponent {
-    match_id: number,
-    question_ids: number[],
-    start_time: Date,
-    end_time: Date,
+    question_ids: string[],
     question_number: number
 }
 
@@ -94,7 +99,7 @@ export interface ProgQuestionComponent {
 
 // union for all components - for the map
 
-export type PlayerComponentTypes = LifeComponent | RankComponent | BadgeComponent;
+export type PlayerComponentTypes = LifeComponent | PlayerInfoComponent | RankComponent | BadgeComponent;
 export type MatchComponentTypes = PlayersComponent | MatchComponent;
 export type ResultComponentTypes = MathsResultComponent;
 export type QuestionComponentTypes = MathsQuestionComponent | ProgQuestionComponent;

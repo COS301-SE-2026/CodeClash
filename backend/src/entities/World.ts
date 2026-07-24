@@ -13,14 +13,16 @@ function addComponent(
     entity_id: number,
     component_name: string,
     component: Component
-): boolean {
+) {
 
-    const entity = map.get(entity_id);
+    let entity = map.get(entity_id);
 
-    if (entity === undefined) return false;
+    if (entity === undefined) {
+        entity = new Map<string, Component>();
+        map.set(entity_id, entity);
+    }
 
     entity.set(component_name, component);
-    return true;
 }
 
 function getComponent<T extends Component>(
@@ -61,9 +63,9 @@ export const World = () => {
 
     function addPlayerComponent(
         entity_id: number,
-        component_name: "Life" | "Rank" | "Badge",
+        component_name: "Life"|"Info" | "Rank" | "Badge",
         component: PlayerComponentTypes
-    ): boolean {
+    ){
         return addComponent(players, entity_id, component_name, component);
     }
 
@@ -71,7 +73,7 @@ export const World = () => {
         entity_id: number,
         component_name: "Players" | "Match",
         component: MatchComponentTypes
-    ): boolean {
+    ) {
         return addComponent(matches, entity_id, component_name, component)
     }
 
@@ -80,7 +82,7 @@ export const World = () => {
         entity_id: number,
         component_name: "Round",
         component: RoundComponent
-    ): boolean {
+    ) {
         return addComponent(rounds, entity_id, component_name, component)
     }
 
@@ -88,7 +90,7 @@ export const World = () => {
         entity_id: number,
         component_name: "Submission",
         component: SubmissionComponent
-    ): boolean {
+    ){
         return addComponent(submissions, entity_id, component_name, component)
     }
 
@@ -97,7 +99,7 @@ export const World = () => {
         entity_id: number,
         component_name: "Maths_Result" | "Prog_Result",
         component: ResultComponentTypes
-    ): boolean {
+    ){
         return addComponent(results, entity_id, component_name, component)
     }
 
@@ -105,7 +107,7 @@ export const World = () => {
         entity_id: number,
         component_name: "Maths_Question"| 'Prog_Question',
         component: QuestionComponentTypes
-    ): boolean {
+    ) {
         return addComponent(questions, entity_id, component_name, component);
      }
 
