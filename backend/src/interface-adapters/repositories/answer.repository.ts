@@ -17,7 +17,16 @@ export class AnswerRepository implements IAnswerRepository {
                         question_id: question_id
                     }
                 },
-                select: { answer: true }
+                 select: { 
+                    answer: true, 
+                    answer_id: true,
+                    question:{
+                        question_id: true
+                    }
+                },
+                relations:{
+                    question: true
+                }
             })
 
         if (answer?.answer == undefined) return null
@@ -35,7 +44,16 @@ export class AnswerRepository implements IAnswerRepository {
                         question_id: id
                     }
                 },
-                select: { answer: true }
+                select: { 
+                    answer: true, 
+                    answer_id: true,
+                    question:{
+                        question_id: true
+                    }
+                },
+                relations:{
+                    question: true
+                }
             })
 
             if (answer) {

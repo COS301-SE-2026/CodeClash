@@ -13,7 +13,7 @@ import { useUser } from "src/context/User/hooks/useUser";
 
 export function MatchFoundViewModelFunction() {
   const nav = useNavigate();
-  const { elo, league } = useUser();
+  const { elo, league, username } = useUser();
 
   const { socket } = useSocket()
   const { gameMode, pairId } = useMatchmakingSocket();
@@ -68,7 +68,8 @@ export function MatchFoundViewModelFunction() {
       const data = {
         pair_id: pairId,
         game_mode: gameMode,
-        league: league
+        league: league,
+        username: username
       }
 
       matchAccepted(socket, data);

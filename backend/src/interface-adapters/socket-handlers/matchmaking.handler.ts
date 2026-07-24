@@ -3,14 +3,16 @@ import MatchmakingUserDTO from 'src/entities/dtos/matchmaking.dto';
 import { dequeue, matchmaking } from 'src/application/usecases/services/matchmaking.service';
 import { GameService } from 'src/application/usecases/services/game.service';
 import { GameDataDTO, GameQuestionsDTO } from "src/entities/dtos/game-data.dto";
+import { PlayerDTO } from "src/entities/dtos/components.dto";
 
-const PAIRS = new Map<string, Map<string, { accepted: boolean, elo: number }>>();
+const PAIRS = new Map<string, Map<string, { accepted: boolean, elo: number, username?: string}>>();
 const GAME = new Map<number, { player_ids: string[], questions: GameQuestionsDTO }>();
 
 export const joinMatchQueue = (async (io: Server, socket: Socket, data: any) => {
     //adds users to a room 
     await socket.join(socket.data.user_id)
     socket.data.game_mode = data.game_mode
+    socket.data.elo = data.elo
 
     const user = new MatchmakingUserDTO(socket.data.user_id, data.elo, data.game_mode);
     let match = null;
@@ -54,7 +56,7 @@ export const leaveMatchQueue = (async (io: Server, socket: Socket) => {
 
 export const matchAccepted = (async (io: Server, socket: Socket, data: GameDataDTO, game_service: GameService) => {
 
-    PAIRS.get(data.pair_id)?.set(socket.data.user_id, { accepted: true, elo: socket.data.elo });
+    PAIRS.get(data.pair_id)?.set(socket.data.user_id, { accepted: true, elo: socket.data.elo, username: data.username });
 
     const pair = PAIRS.get(data.pair_id);
 
@@ -63,7 +65,19 @@ export const matchAccepted = (async (io: Server, socket: Socket, data: GameDataD
 
     const bothAccepted = [...pair.values()].every(val => val.accepted);
     if (bothAccepted) {
-        const setup = await game_service.execute(data.players, data.game_mode, data.league);
+        let players: PlayerDTO[] = [];
+
+        pair.forEach((val,key)=>{
+            const player: PlayerDTO = {
+                id: key,
+                username: val.username!,
+                elo: val.elo
+            }
+
+            players.push(player)
+        })
+
+        const setup = await game_service.execute(players, data.game_mode, data.league);
 
         const keys = [...pair!.keys()];
         GAME.set(setup.id, { player_ids: keys, questions: setup.questions as GameQuestionsDTO })

@@ -2,12 +2,9 @@ import { GameMode } from "../db-entities/questions.entities";
 import { PlayerDTO } from "./components.dto";
 import { QuestionDTO } from "./question.dto";
 
-
-
 export interface GameDataDTO {
     pair_id: string,
-    players: PlayerDTO[]
-    usernames: string[],
+    username: string,
     league: string,
     game_mode: GameMode
 }
