@@ -1,0 +1,34 @@
+backend/src/application/usecases/questions.ts
+  h_94c952a9e14c58 1-83
+backend/src/application/usecases/services/game.service.ts
+  h_94c952a9e14c58 2-4,7-13,15,18-19,21-24,26,28-31,34,36-45,47,49,51-60,62,64-67
+backend/src/entities/World.ts
+  h_94c952a9e14c58 18,20-23,66
+backend/src/application/usecases/create-game.ts
+  h_94c952a9e14c58 1-141
+backend/src/entities/dtos/question.dto.ts
+  h_94c952a9e14c58 2
+backend/src/application/interfaces/repositories/IQuestionRepository.ts
+  h_94c952a9e14c58 7
+backend/src/entities/components.ts
+  h_94c952a9e14c58 7,16-19,29,34-39,57,102
+backend/src/entities/dtos/league.dto.ts
+  h_94c952a9e14c58 5
+backend/src/interface-adapters/repositories/question.repository.ts
+  h_94c952a9e14c58 19-35
+backend/src/entities/dtos/components.dto.ts
+  h_94c952a9e14c58 1-21
+backend/src/entities/league-mapping.ts
+  h_94c952a9e14c58 6-13,49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "b3dc385f2f9a3cb9e5403df46efc85651bf1f075",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
