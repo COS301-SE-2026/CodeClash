@@ -2,6 +2,10 @@ import { GameMode } from "src/entities/db-entities/questions.entities";
 import { CreateGame } from "../create-game";
 import { MatchDTO, PlayerDTO, RoundDTO } from "src/entities/dtos/components.dto";
 import { GetDifficulty, GetQuestions, GetTotalTime } from "../questions";
+import { GetAnswers } from "../answers";
+import { IGameCache } from "src/application/interfaces/IGameCache";
+
+
 
 
 export class GameService {
@@ -10,6 +14,8 @@ export class GameService {
         private readonly getQuestions: GetQuestions,
         private readonly getDifficulty: GetDifficulty,
         private readonly getTotalTime: GetTotalTime,
+        private readonly getAnswers: GetAnswers,
+        private readonly game_cache: IGameCache
     ) { }
 
     async execute(players: PlayerDTO[], game_mode: GameMode, league: string) {
@@ -17,9 +23,11 @@ export class GameService {
 
         let title_temp: string[] = []
         let avg_elo = 0;
+        let player_ids: string[] = []
 
         for (const player of players) {
             title_temp.push(player.username);
+            player_ids.push(player.id);
             avg_elo += player.elo
         }
 
@@ -31,20 +39,26 @@ export class GameService {
         const time = this.getTotalTime.execute(questions)
 
 
+
+
         // Rounds   - creating one round for now, this logic will need to be updated for multiple 
 
-        let ids: string[] = [];
+        let question_ids: string[] = [];
         for (const question of questions.easy) {
-            ids.push(question.id)
+            question_ids.push(question.id)
         }
         for (const question of questions.medium) {
-            ids.push(question.id)
+            question_ids.push(question.id)
         }
         for (const question of questions.hard) {
-            ids.push(question.id)
+            question_ids.push(question.id)
         }
 
-        const round: RoundDTO = { question_ids: ids }
+        const round: RoundDTO = { question_ids: question_ids }
+
+
+        // get answers 
+        const answers = await this.getAnswers.execute(question_ids)
 
         // Match 
 
@@ -61,9 +75,16 @@ export class GameService {
 
         const match_entity = this.createGame.execute(players, match, [round]);
 
+        this.game_cache.saveGame(match_entity,player_ids, question_ids);
+        
+        for(const answer of answers){
+            this.game_cache.saveAnswer(answer.question_id, answer.answer)
+        }
+
         return {
             id: match_entity,
-            questions: questions
+            questions: questions,
+            answers: answers
         }
 
     }

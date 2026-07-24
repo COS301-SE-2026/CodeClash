@@ -1,7 +1,7 @@
 import { IAnswerRepository } from "src/application/interfaces/repositories/IAnswerRepository";
 import { Answers } from "src/entities/db-entities/answers.entities";
 import { Repository } from "typeorm";
-
+import { AnswerDTO } from "src/entities/dtos/answer.dto";
 
 export class AnswerRepository implements IAnswerRepository {
     constructor(
@@ -9,7 +9,7 @@ export class AnswerRepository implements IAnswerRepository {
     ) { }
 
 
-    async getAnswer(question_id: string): Promise<string | null> {
+    async getAnswer(question_id: string): Promise<AnswerDTO | null> {
         const answer = await this.answerRepository.findOne(
             {
                 where: {
@@ -22,11 +22,11 @@ export class AnswerRepository implements IAnswerRepository {
 
         if (answer?.answer == undefined) return null
 
-        return answer.answer;
+        return { answer: answer.answer, question_id: answer.question.question_id };
     }
 
-    async getAnswers(question_ids: string[]): Promise<string[] | null> {
-        let answers: string[] | null = []
+    async getAnswers(question_ids: string[]): Promise<AnswerDTO[]> {
+        let answers: AnswerDTO[] | null = []
 
         for (const id of question_ids) {
             const answer = await this.answerRepository.findOne({
@@ -39,11 +39,9 @@ export class AnswerRepository implements IAnswerRepository {
             })
 
             if (answer) {
-                answers.push(answer.answer);
+                answers.push({ answer: answer.answer, question_id: answer.question.question_id });
             }
         }
-
-        if (answers.length === 0) return null
 
         return answers
     }

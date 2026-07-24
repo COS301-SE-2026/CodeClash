@@ -20,11 +20,15 @@ import { SubmissionDTO } from 'src/entities/dtos/game-data.dto';
 import { IAnswerRepository } from 'src/application/interfaces/repositories/IAnswerRepository';
 import { AnswerRepository } from 'src/interface-adapters/repositories/answer.repository';
 import { Answers } from 'src/entities/db-entities/answers.entities';
+import { GameService } from 'src/application/usecases/services/game.service';
+import { CreateGame, CreateMatchEntity, CreatePlayerEntity, CreateRoundEntity } from 'src/application/usecases/create-game';
+import { GetDifficulty, GetQuestions, GetTotalTime } from 'src/application/usecases/questions';
+import { GetAnswers } from 'src/application/usecases/answers';
+import { GameCache } from 'src/interface-adapters/game-cache';
+import { IGameCache } from 'src/application/interfaces/IGameCache';
+import redis from './config/redis-client';
 
 dotnev.config()
-
-
-
 
 // create server instance
 const httpServer = createServer(app)     // can update to https
@@ -35,7 +39,6 @@ const io = new Server(httpServer, {
     },
 }
 );
-
 
 // auth middleware 
 io.use(async (socket, next) => {
@@ -52,20 +55,40 @@ io.use(async (socket, next) => {
 })
 
 
-
 // Initialise DB
 AppDataSource.initialize()
     .then(async () => {
 
-        // seeding logic
-
+        // initialise repos
         const user_repo: IUserRepository = new UserRepository(AppDataSource.getRepository(Users));
         const elo_repo: IEloRepository = new EloRepository(AppDataSource.getRepository(EloRatings));
-        await initDB(user_repo, elo_repo);
-
         const question_repo: IQuestionRepository = new QuestionRepository(AppDataSource.getRepository(Questions));
         const answer_repo: IAnswerRepository = new AnswerRepository(AppDataSource.getRepository(Answers))
-        
+
+
+        // initialise use cases 
+        const create_player_entity = new CreatePlayerEntity();
+        const create_match_entity = new CreateMatchEntity();
+        const create_round_entity = new CreateRoundEntity();
+
+        const get_questions = new GetQuestions(question_repo);
+        const get_answers = new GetAnswers(answer_repo);
+        const get_difficulty = new GetDifficulty();
+        const get_total_time = new GetTotalTime();
+
+        const create_game = new CreateGame(create_player_entity, create_match_entity, create_round_entity);
+
+        // create game cache
+        const game_cache:IGameCache = new GameCache(redis);
+
+
+        // initialise services 
+        const game_service = new GameService(create_game,get_questions, get_difficulty, get_total_time, get_answers, game_cache);
+
+
+
+        // initialise database with users and elos
+        await initDB(user_repo, elo_repo);
 
         // attach socket handlers
         io.on("connection", (socket) => {
@@ -75,13 +98,13 @@ AppDataSource.initialize()
 
             socket.on('leave_match_queue', async () => await leaveMatchQueue(io, socket));
 
-            socket.on('match_accepted', async (data) => {await matchAccepted(io,socket, data, question_repo,elo_repo, answer_repo) });
+            socket.on('match_accepted', async (data) => { await matchAccepted(io, socket, data,game_service) });
 
             socket.on('match_declined', (pair_id: string) => matchDeclined(io, socket, pair_id));
 
-            socket.on('send_questions', ( game_id: number) => { sendGameQuestions(io, game_id) });
+            socket.on('send_questions', (game_id: number) => { sendGameQuestions(io, game_id) });
 
-            socket.on('submit_question', (data: SubmissionDTO)=> submitQuestion(data));
+            socket.on('submit_question', (data: SubmissionDTO) => submitQuestion(data));
         })
 
 

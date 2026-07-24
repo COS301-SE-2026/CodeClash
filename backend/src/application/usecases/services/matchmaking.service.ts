@@ -1,5 +1,5 @@
 import { GameMode } from "src/entities/db-entities/questions.entities";
-import redis from "../../../../redis-client"
+import redis from "../../../frameworks-drivers/config/redis-client"
 import MatchmakingUserDTO from "src/entities/dtos/matchmaking.dto";
 
 const elo_difference = 100;   // this can be changed later
