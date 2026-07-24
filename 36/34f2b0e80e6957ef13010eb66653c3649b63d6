@@ -1,0 +1,14 @@
+frontend/src/Views/Leaderboard.tsx
+  h_b13c5d77534129 53-54,66-67
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "3634f2b0e80e6957ef13010eb66653c3649b63d6",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
