@@ -1,4 +1,4 @@
-import { IEloRepository } from "src/application/interfaces/IEloRepository";
+import { IEloRepository } from "src/application/interfaces/repositories/IEloRepository";
 import { Repository } from "typeorm";
 import { EloRatings } from "src/entities/db-entities/elo.entities";
 import { EloDTO } from "src/entities/dtos/elo.dto";

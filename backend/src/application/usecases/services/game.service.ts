@@ -1,5 +1,6 @@
-import { IEloRepository } from "src/application/interfaces/IEloRepository";
-import { IQuestionRepository } from "src/application/interfaces/IQuestionRepository";
+import { IAnswerRepository } from "src/application/interfaces/repositories/IAnswerRepository";
+import { IEloRepository } from "src/application/interfaces/repositories/IEloRepository";
+import { IQuestionRepository } from "src/application/interfaces/repositories/IQuestionRepository";
 import { LifeComponent, MatchComponent, PlayersComponent, RankComponent, RoundComponent } from "src/entities/components";
 import { GameMode } from "src/entities/db-entities/questions.entities";
 import { GameDataDTO } from "src/entities/dtos/game-data.dto";
@@ -9,6 +10,7 @@ import { World } from "src/entities/World";
 export const gameService = async (
     question_repo: IQuestionRepository,
     elo_repo: IEloRepository,
+    answer_repo: IAnswerRepository,
     data: GameDataDTO
 ) => {
 
@@ -18,12 +20,33 @@ export const gameService = async (
 
     // Creat entities Components - use world 
     const { createEntity, addMatchComponent } = World();
+    /** Question Entity */
+    // fetch questions form the db 
+    const elos = await elo_repo.getUsersElo(data.players);
+
+    if (!elos) {
+        console.log("null elos")
+        return null;
+    }
+
+    /** GET QUESTIONS */
+    const avg_elo = elos.reduce((total, curr) => total + curr.rating!, 0) / 2
+    const game_questions = await getQuestions(question_repo, data.league, avg_elo, data.question_number, data.game_mode)
+
+    /** GET ANSWERS  */
+    const answers = getAnswers(answer_repo, data.players);
+
+    if (!answers) {
+        return null;
+    }
 
     /** PLAYER ENTITY */
     const player_entity = createEntity();
 
-    for (const e of data.elos){
-        createPlayer(player_entity, e);
+    let i = 0
+    while (i < data.players.length) {
+        createPlayer(player_entity, 100);
+        ++i;
     }
 
     /** MATCH ENTITY */
@@ -33,7 +56,7 @@ export const gameService = async (
         player_ids: data.players,
     }
 
-    // this data also needs to be fetched from the db 
+
     // how are match titles generated
     const match_component: MatchComponent = {
         title: 'To Be Determined',
@@ -46,29 +69,16 @@ export const gameService = async (
     addMatchComponent(match_entity, "Players", players);
     addMatchComponent(match_entity, "Match", match_component);
 
-
-    /** Question Entity */
-    // fetch questions form the db 
-    const elos = await elo_repo.getUsersElo(data.players);
-
-    if (!elos) {
-        console.log("null elos")
-        return null;
-    }
-
-    const avg_elo = elos.reduce((total, curr) => total + curr.rating!, 0) / 2
-    const game_questions = await getQuestions(question_repo, data.league, avg_elo, data.question_number, data.game_mode)
-
-
     // how do we determine the number of rounds in a game ??
     /**ROUND ENTITY */
     const round_entity = createEntity();
     createRound(round_entity, match_entity, questions, 5); // set to 5 minutes just for now
+
+
     return {
         id: match_entity,
         questions: game_questions
     }
-        ;
 }
 
 const getQuestions = async (question_repo: IQuestionRepository, league: string, avg_elo: number, question_number: number, game_mode: GameMode) => {
@@ -96,7 +106,7 @@ const createPlayer = (player_entity: number, player_life: number) => {
     const { addPlayerComponent } = World();
 
     const life: LifeComponent = {
-        
+
         current_life: player_life,
         max_life: 100,
     }
@@ -118,4 +128,15 @@ const createRound = (round_entity: number, match_id: number, question_ids: numbe
     }
 
     addRoundComponent(round_entity, "Round", round);
+}
+
+const getAnswers = async (answer_repo: IAnswerRepository, questions: string[]) => {
+    const answers = await answer_repo.getAnswers(questions)
+
+    return answers
+}
+
+const startRedis = (match_id: number, questions: string [], answers: string []) => {
+
+
 }

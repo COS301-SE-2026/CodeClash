@@ -7,16 +7,19 @@ import { sendGameQuestions, joinMatchQueue, leaveMatchQueue, matchAccepted, matc
 import { AppDataSource } from "./config/data-source"
 import { Users } from "../entities/db-entities/user.entities"
 import { initDB } from 'src/application/usecases/init-db';
-import { IUserRepository } from 'src/application/interfaces/IUserRepository';
+import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
 import { UserRepository } from 'src/interface-adapters/repositories/user.repository';
-import { IEloRepository } from 'src/application/interfaces/IEloRepository';
+import { IEloRepository } from 'src/application/interfaces/repositories/IEloRepository';
 import { EloRepository } from 'src/interface-adapters/repositories/elo.repository';
 import { EloRatings } from 'src/entities/db-entities/elo.entities';
-import { IQuestionRepository } from 'src/application/interfaces/IQuestionRepository';
+import { IQuestionRepository } from 'src/application/interfaces/repositories/IQuestionRepository';
 import { QuestionRepository } from 'src/interface-adapters/repositories/question.repository';
 import { Questions } from 'src/entities/db-entities/questions.entities';
 import { submitQuestion } from 'src/interface-adapters/socket-handlers/game.handler';
 import { SubmissionDTO } from 'src/entities/dtos/game-data.dto';
+import { IAnswerRepository } from 'src/application/interfaces/repositories/IAnswerRepository';
+import { AnswerRepository } from 'src/interface-adapters/repositories/answer.repository';
+import { Answers } from 'src/entities/db-entities/answers.entities';
 
 dotnev.config()
 
@@ -61,6 +64,8 @@ AppDataSource.initialize()
         await initDB(user_repo, elo_repo);
 
         const question_repo: IQuestionRepository = new QuestionRepository(AppDataSource.getRepository(Questions));
+        const answer_repo: IAnswerRepository = new AnswerRepository(AppDataSource.getRepository(Answers))
+        
 
         // attach socket handlers
         io.on("connection", (socket) => {
@@ -70,7 +75,7 @@ AppDataSource.initialize()
 
             socket.on('leave_match_queue', async () => await leaveMatchQueue(io, socket));
 
-            socket.on('match_accepted', async (data) => {await matchAccepted(io,socket, data, question_repo,elo_repo) });
+            socket.on('match_accepted', async (data) => {await matchAccepted(io,socket, data, question_repo,elo_repo, answer_repo) });
 
             socket.on('match_declined', (pair_id: string) => matchDeclined(io, socket, pair_id));
 

@@ -1,7 +1,7 @@
 
 import { CognitoJwtVerifier } from 'aws-jwt-verify'
 import { NextFunction, Request, Response } from 'express';
-import { IUserRepository } from 'src/application/interfaces/IUserRepository';
+import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
 import { STATS, UserDTO } from 'src/entities/dtos/user.dto'
 import dotenv from "dotenv"
 dotenv.config()

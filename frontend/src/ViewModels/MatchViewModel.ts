@@ -6,6 +6,9 @@ import type { Player, Answer, Question, MatchProgress } from "src/Models/MatchMo
 import pink_robot from 'src/assets/Robots/HelloRobot_Pink.png'
 import { useSocket } from "src/context/Socket/hooks/useSocket";
 import type { GameQuestionsDTO } from "src/dtos/game-questionDTO";
+import { useRef } from 'react';
+import { MathfieldElement } from 'mathlive';
+import { submitAnswer } from "src/services/submission.service";
 
 
 export const useMatch = () => {
@@ -22,8 +25,10 @@ export const useMatch = () => {
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [loading, setLoading] = useState(false);
     const [questionsReady, setQuestionsReady] = useState(false)
+    const [answers, setAnswers] = useState<Record<string, string>>();
 
-    const answers: Answer[] = [];
+    const mathfieldRef = useRef<MathfieldElement | null>(null)
+
     const progress: MatchProgress = {
         player_progress: [0, 0],
         question_number: 0
@@ -52,6 +57,10 @@ export const useMatch = () => {
             setCurrentQuestion(curr - 1)
     }
 
+    const submitQuestion = (question_id: string, answer: string) => {
+        submitAnswer(socket, id, question_id, answer);
+    }
+
     function shuffle(array: Question[]) {
         let curr = array.length;
         let random;
@@ -69,8 +78,10 @@ export const useMatch = () => {
         let temp_arr: Question[] = [];
         let sumtime = 0;
 
+
         for (const q of data.easy) {
             temp_arr.push({
+                id: q.question_id,
                 title: q.title!,
                 difficulty: "Easy",
                 description: q.description,
@@ -81,6 +92,7 @@ export const useMatch = () => {
 
         for (const q of data.medium) {
             temp_arr.push({
+                id: q.question_id,
                 title: q.title,
                 difficulty: "Medium",
                 description: q.description
@@ -90,6 +102,7 @@ export const useMatch = () => {
 
         for (const q of data.hard) {
             temp_arr.push({
+                id: q.question_id,
                 title: q.title,
                 difficulty: "Hard",
                 description: q.description
@@ -104,6 +117,7 @@ export const useMatch = () => {
         let final: Question[] = []
         for (const t of temp_arr) {
             const q: Question = {
+                id: t.id,
                 title: t.title!,
                 difficulty: t.difficulty,
                 description: t.description
@@ -129,7 +143,7 @@ export const useMatch = () => {
             socket.on('get_questions', loadQuestions)
 
             if (questions.length == 0) setLoading(true)
-            else setLoading(false)
+            else { setLoading(false) }
 
 
             setPlayerLife(players.map(p => p.life = 100))
@@ -163,6 +177,9 @@ export const useMatch = () => {
         prevQuestion,
         matchDuration,
         loading,
-        closeLoading
+        closeLoading,
+        submitQuestion,
+        mathfieldRef,
+        setAnswers
     }
 }

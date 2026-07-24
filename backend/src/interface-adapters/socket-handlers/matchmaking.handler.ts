@@ -2,9 +2,10 @@ import { Socket, Server } from "socket.io"
 import MatchmakingUserDTO from 'src/entities/dtos/matchmaking.dto';
 import { dequeue, matchmaking } from 'src/application/usecases/services/matchmaking.service';
 import { gameService } from 'src/application/usecases/services/game.service';
-import { IQuestionRepository } from "src/application/interfaces/IQuestionRepository";
+import { IQuestionRepository } from "src/application/interfaces/repositories/IQuestionRepository";
 import { GameDataDTO, GameQuestionsDTO } from "src/entities/dtos/game-data.dto";
-import { IEloRepository } from "src/application/interfaces/IEloRepository";
+import { IEloRepository } from "src/application/interfaces/repositories/IEloRepository";
+import { IAnswerRepository } from "src/application/interfaces/repositories/IAnswerRepository";
 
 const PAIRS = new Map<string, Map<string, { accepted: boolean, elo: number }>>();
 const GAME = new Map<number, { player_ids: string[], questions: GameQuestionsDTO }>();
@@ -61,7 +62,13 @@ export const leaveMatchQueue = (async (io: Server, socket: Socket) => {
         io.to(socket.data.user_id).emit('dequeue-failed');
 })
 
-export const matchAccepted = (async (io: Server, socket: Socket, data: GameDataDTO, question_repo: IQuestionRepository, elo_repo: IEloRepository) => {
+export const matchAccepted = (async (
+    io: Server,
+    socket: Socket,
+    data: GameDataDTO,
+    question_repo: IQuestionRepository,
+    elo_repo: IEloRepository,
+    answer_repo: IAnswerRepository) => {
 
     PAIRS.get(data.pair_id)?.set(socket.data.user_id,
         {
@@ -88,7 +95,7 @@ export const matchAccepted = (async (io: Server, socket: Socket, data: GameDataD
         data.question_number = 5;   //  update this to be dynamic
         data.elos = [...pair.values()].map(v => v.elo);
 
-        const setup = await gameService(question_repo, elo_repo, data);
+        const setup = await gameService(question_repo, elo_repo, answer_repo, data);
 
 
         if (setup) {

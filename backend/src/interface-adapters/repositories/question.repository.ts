@@ -1,4 +1,4 @@
-import { IQuestionRepository } from "src/application/interfaces/IQuestionRepository";
+import { IQuestionRepository } from "src/application/interfaces/repositories/IQuestionRepository";
 import { GameMode, Questions } from "src/entities/db-entities/questions.entities";
 import { Repository } from "typeorm";
 import { QuestionDTO } from "src/entities/dtos/question.dto";
