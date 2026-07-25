@@ -1,0 +1,18 @@
+backend/src/application/usecases/systems/life.system.ts
+  h_94c952a9e14c58 1-34
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 24-26
+backend/src/application/usecases/services/game.service.ts
+  h_94c952a9e14c58 2,4-5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "e58d4880e743a327c3a996ed80b5241df8ff400a",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
