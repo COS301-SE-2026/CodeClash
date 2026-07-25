@@ -12,13 +12,14 @@ export interface LeaderboardUserProps{
 
 export const LeaderboardUserData : LeaderboardUserProps = {
     avatarUrl: '../assets/Icons/profile_black.png',
-    username: '',
+    username: 'Username',
     elo: 0,
 }
 
 
 export interface LeaderboardProps{
     league: string;
+    leagueUrl: string;
     prev_page: string;
     firstUser: LeaderboardUserProps;
     secondUser: LeaderboardUserProps;
@@ -35,10 +36,13 @@ export interface LeaderboardProps{
 
 //GET /api/elo/leaderboard
 
-// export async function fetchLeaderboardUsers(): Promise<LeaderboardUserData[]>{
-//     const res = await fetch('/api/elo/leaderboard');
-//     if(res.ok == false)
-// }
+export async function fetchLeaderboardUsers(): Promise<LeaderboardUserProps[]>{
+    const res = await fetch('/api/elo/leaderboard');
+    if(!res.ok){
+        throw new Error(`Unable to fetch leaderboard`);
+    }
+        return res.json();
+}
 
 
 

@@ -42,25 +42,25 @@ const Leaderboard = (
     // </div>
     <div style={{backgroundImage: `url(${shadow})`}} className="w-full min-h-screen bg-[#381421] bg-no-repeat object-cover bg-size-[auto_150px] bg-[37%_48%]">
         <Link to="/dashboard" className="text-secondary font-[var(--font)] text-[200%] font-semibold ml-5">← Back</Link>
-        <h1 className="text-[340%] text-secondary text-center -mt-1 mr-230 font-[var(--font)] font-semibold drop-shadow-[4px_4px_0px_rgba(0,0,0,0.25)]">Leader Board</h1>
+        <h1 className="text-[340%] text-secondary text-center mr-[5%] font-[var(--font)] font-semibold drop-shadow-[4px_4px_0px_rgba(0,0,0,0.25)]">Leader Board</h1>
         
         <div className="flex justify-between items-start gap-10">
             <div className="relative w-full flex flex-col ml-5">
             <div className="grid grid-cols-3 md:flex-row md:flex-col gap-4 space-y-3">
-            <div className="w-[36%] h-[57%] rounded-[20px] bg-secondary border-4 border-button-primary drop-shadow-[10px_10px_6px_rgba(0,0,0,0.25)] flex flex-col items-center justify-center mt-15">
+            <div className="w-[36%] h-[57%] rounded-[20px] bg-secondary border-4 border-button-primary drop-shadow-[10px_10px_6px_rgba(0,0,0,0.25)] flex flex-col items-center justify-center mt-[7%] ml-[45%]">
                 <div style={{backgroundImage: `url(${profile})`}} className="w-[90px] h-[90px] bg-no-repeat rounded-full object-cover bg-size-[auto_180px] bg-[right_-45px_top_-45px] -mt-60">
                 <div className="text-[340%] text-[#AFAEA9] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mt-22">2</div>
                 <div className="text-[200%] text-button-primary text-center justify-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] -ml-7">Username</div>
                 <div className="text-[200%] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">ELO</div>
                 </div>
             </div>
-            <div style={{backgroundImage: `url(${winner})`}} className="w-[524px] h-[524px] bg-cover bg-no-repeat flex flex-col items-center justify-center -ml-35">
+            <div style={{backgroundImage: `url(${winner})`}} className="w-[524px] h-[524px] bg-cover bg-no-repeat flex flex-col items-center justify-center ml-[3%]">
                 <div style={{backgroundImage: `url(${profile})`}} className="w-[120px] h-[120px] bg-no-repeat rounded-full object-cover bg-size-[auto_240px] bg-[right_-60px_top_-60px] -mt-30"></div>
                 <div className="text-[370%] text-[#B39A48] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] -mt-2">1</div>
                 <div className="text-[220%] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-1">Username</div>
                 <div className="text-[200%] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">ELO</div>
             </div>
-            <div className="w-[36%] h-[57%] rounded-[20px] bg-secondary border-4 border-button-primary drop-shadow-[-10px_10px_6px_rgba(0,0,0,0.25)] flex flex-col items-center justify-center mt-15">
+            <div className="w-[36%] h-[57%] rounded-[20px] bg-secondary border-4 border-button-primary drop-shadow-[-10px_10px_6px_rgba(0,0,0,0.25)] flex flex-col items-center justify-center mt-[7%] -ml-[45%]">
                 <div style={{backgroundImage: `url(${profile})`}} className="w-[90px] h-[90px] bg-no-repeat rounded-full object-cover bg-size-[auto_180px] bg-[right_-45px_top_-45px] -mt-12"></div>
                 <div className="text-[340%] text-[#B36548] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">3</div>
                 <div className="text-[200%] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
@@ -68,15 +68,15 @@ const Leaderboard = (
             </div>
             <div className="w-[36%] h-[94%] rounded-[20px] bg-secondary border-4 border-button-primary drop-shadow-[10px_10px_6px_rgba(0,0,0,0.25)]">
                 <div style={{backgroundImage: `url(${profile})`}} className="mt-[1%] -ml-[1%] w-[60px] h-[60px] bg-no-repeat rounded-full object-cover bg-size-[auto_120px] bg-[right_-30px_top_-30px]"></div>
-                <div className="-mt-[32%] -ml-[30%] text-[320%] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">4</div>
-                <div className="-mt-[28%] ml-[50%] text-[120%] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
+                <div className="-mt-[30%] -ml-[30%] text-[320%] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">4</div>
+                <div className="-mt-[27%] ml-[50%] text-[120%] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
                 <div className="-mt-[2%] ml-[74%] text-[120%] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">ELO</div>
             </div>
-            <div className="w-[36%] h-[90%] rounded-[20px] bg-secondary border-4 border-button-primary drop-shadow-[-10px_10px_6px_rgba(0,0,0,0.25)] -mt-40">
-                <div style={{backgroundImage: `url(${profile})`}} className="mt-0.25 w-[60px] h-[60px] bg-no-repeat rounded-full object-cover bg-size-[auto_120px] bg-[right_-30px_top_-30px]"></div>
-                <div className="-mt-17 -ml-15 text-[48px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">5</div>
-                <div className="-mt-16 ml-25 text-[20px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
-                <div className="ml-38 text-[21px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">ELO</div>
+            <div className="w-[36%] h-[94%] rounded-[20px] bg-secondary border-4 border-button-primary drop-shadow-[-10px_10px_6px_rgba(0,0,0,0.25)]">
+                <div style={{backgroundImage: `url(${profile})`}} className="mt-[1%] -ml-[1%] w-[60px] h-[60px] bg-no-repeat rounded-full object-cover bg-size-[auto_120px] bg-[right_-30px_top_-30px]"></div>
+                <div className="-mt-[28%] -ml-[30%] text-[48px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">5</div>
+                <div className="-mt-[27%] ml-[50%] text-[20px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
+                <div className="ml-[74%] -mt-[2%] text-[21px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">ELO</div>
             </div>
             </div>
 {            //////////////////////////////////////////////////////////////////
