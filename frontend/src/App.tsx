@@ -6,11 +6,9 @@ import Welcome from "./Views/Welcome";
 import SignIn from "./Views/SignIn";
 import SignUp from "./Views/SignUp";
 import Profile from "./Views/Profile";
-import MatchSearching from "./Views/MatchSearching";
-import MatchFound from "./Views/MatchFound";
 import Searching from "./pages/queuePages/searching";
 import Found from "./pages/queuePages/found";
-import MathMatch from "./pages/MathMatch";
+import MathMatch from "./Views/MathMatch";
 import Leaderboard from "./Views/Leaderboard";
 import Guidebook from "./Views/Guidebook"
 
@@ -22,11 +20,9 @@ const App: React.FC = () => {
             <Route path='/sign-in' element={<SignIn/>}/>
             <Route path='/sign-up' element={<SignUp/>}/>
             <Route path='/profile' element={<Profile/>}/>
-            <Route path='/match-searching' element={<MatchSearching/>}/>
-            <Route path='/match-found' element={<MatchFound/>}/>
             <Route path='/searching' element={<Searching/>}/>
             <Route path='/found' element={<Found/>}/>
-            <Route path='/math-match' element={<MathMatch/>}/>
+            <Route path='/match' element={<MathMatch/>}/>
             {/* <Route path='/prog-match' element={<ProgMatch language="javascript"/>}/> */}
 
             {/* Pages with sidebar inside the app */}
@@ -34,7 +30,7 @@ const App: React.FC = () => {
                 <Route path='/dashboard' element={<Dashboard />} />
                 <Route path='/game-guide' element={<Guidebook/>}/>
                 <Route path='/tournaments' />
-                <Route path='/leaderboard' element={<Leaderboard/>} />
+                <Route path='/leaderboard' />
                 <Route path='/badges' />
                 <Route path='/friends' />
             </Route>

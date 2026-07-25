@@ -1,4 +1,4 @@
-// This is the voice section for the brand style guide - dos and donts for voice
+// This is the voice section for the brand style guide - dos and donts for voice - correct file
 
 import React from "react";
 import SharedLayout from "./SharedLayout";

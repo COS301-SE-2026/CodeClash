@@ -1,4 +1,4 @@
-import MathField from '../../@/components/features/MathField.tsx';
+import MathField from '../../@/components/features/MathPage.tsx';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
