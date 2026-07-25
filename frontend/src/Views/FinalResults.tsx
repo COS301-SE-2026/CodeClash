@@ -1,15 +1,16 @@
 import React from "react";
 import { FinalResultsViewModelFunction } from "../ViewModels/FinalResultsViewModel";
-import type {FinalResultsViewModelProps} from "../ViewModels/FinalResultsViewModel";
 import { TrendingUp, TrendingDown, Clock} from "lucide-react";
 import ResultsBackground from '../assets/Background/FinalResults.jpg';
+import { useNavigate } from "react-router-dom";
 
-const FinalResults: React.FC<FinalResultsViewModelProps> = ({onPlayAgain, onReturn, fetchResults}) => {
+const FinalResults: React.FC = () => {
+    const navigate = useNavigate();
+
     const {
         content, state, loadingProgress,
         results, 
-        handlePlayAgain, handleReturn,
-    } = FinalResultsViewModelFunction({onPlayAgain, onReturn, fetchResults});
+    } = FinalResultsViewModelFunction();
 
     return (
         <div className="bg-secondary min-h-screen w-full flex items-center justify-center">
@@ -48,7 +49,7 @@ const FinalResults: React.FC<FinalResultsViewModelProps> = ({onPlayAgain, onRetu
                     <p className="text-secondary-text iopacity-70 leading-relaxed"
                         style={{fontSize: 'var(--font-size-sm)'}}>{content.messageError}</p>
                     <button className="w-full py-3 rounded-2xl bg-button-primary text-button-text-primary font-bold hover:opacity-90 transition-opacity shadow-badge flex items-center justify-center gap-2"
-                        style={{fontSize: 'var(--font-size-sm)'}} onClick={handleReturn} type="button">
+                        style={{fontSize: 'var(--font-size-sm)'}} onClick={() => navigate('/dashboard')} type="button">
                         {content.labelReturn}
                     </button>
                 </div>
@@ -126,11 +127,11 @@ const FinalResults: React.FC<FinalResultsViewModelProps> = ({onPlayAgain, onRetu
                     {/*Buttons for return and try again*/}
                     <div className="flex gap-4 mt-2">
                     <button className="flex-1 flex items-center justify-center gap-2 rounded-2xl bg-secondary text-secondary-text font-bold hover:opacity-80 transition-opacity"
-                        style={{fontSize: 'var(--font-size-sm)'}} onClick={handleReturn} type="button">
+                        style={{fontSize: 'var(--font-size-sm)'}} onClick={() => navigate('/dashboard')} type="button">
                         {content.labelReturn}
                     </button>
                     <button className="flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl bg-button-primary text-button-text-primary font-bold hover:opacity-90 transition-opacity"
-                        style={{fontSize: 'var(--font-size-sm)'}} onClick={handlePlayAgain} type="button">
+                        style={{fontSize: 'var(--font-size-sm)'}} onClick={() => navigate('/dashboard')} type="button"> {/*Need to fix this navigation cause not sure where this will take the user?? */}
                         {content.labelPlayAgain}
                     </button>
                     </div>
