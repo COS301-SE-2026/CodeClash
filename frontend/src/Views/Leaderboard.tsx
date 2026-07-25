@@ -43,7 +43,9 @@ const Leaderboard = (league : string) => {
                 <div className="w-[45%] h-[85%] rounded-[20px] border-4 border-button-primary bg-secondary ml-[58%] -mt-[15%]">
                     <div style={{backgroundImage: `url(${profile})`}} className="w-[50px] h-[50px] bg-no-repeat rounded-full object-cover bg-size-[auto_199%] bg-[right_49%_top_50%] mt-[2%]"></div>
                 </div>
-                <div className="w-[45%] h-[85%] rounded-[20px] border-4 border-button-primary bg-secondary ml-[103%] -mt-[15%]"></div>
+                <div className="w-[45%] h-[85%] rounded-[20px] border-4 border-button-primary bg-secondary ml-[103%] -mt-[15%]">
+                    <div style={{backgroundImage: `url(${profile})`}} className="w-[50px] h-[50px] bg-no-repeat rounded-full object-cover bg-size-[auto_199%] bg-[right_49%_top_50%] mt-[2%]"></div>
+                </div>
             </div>
         
         {/* <div className="flex justify-between items-start gap-10">
