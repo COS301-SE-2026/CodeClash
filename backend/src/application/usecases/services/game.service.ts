@@ -70,7 +70,7 @@ export class GameService {
             end_time: new Date(start.getTime() + (time * 60 * 1000))
         }
 
-        const match_entity = this.createGame.execute(players, match, [round]);
+        const match_entity = this.createGame.execute(players, match, [round], question_ids.length);
 
         this.game_cache.saveGame(match_entity,player_ids, question_ids);
         

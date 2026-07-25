@@ -17,6 +17,7 @@ export interface MatchComponent {
     rounds: number[],
     start_time: Date,
     end_time: Date,
+    question_number: number,
 }
 
 // SubmissionRegistryComponent maps player_id-question_id -> submission entity

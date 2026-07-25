@@ -11,7 +11,7 @@ export class CreateGame {
     ) { }
 
 
-    execute(players: PlayerDTO[], match: MatchDTO, rounds: RoundDTO[]) {
+    execute(players: PlayerDTO[], match: MatchDTO, rounds: RoundDTO[], question_number: number) {
         // Player entities
         const player_entities = this.create_players.execute(players);
 
@@ -24,7 +24,7 @@ export class CreateGame {
         }
 
         // Match entity
-        const match_entity = this.create_match.execute(match, player_entities, round_entities)
+        const match_entity = this.create_match.execute(match, player_entities, round_entities, question_number)
 
         return match_entity
     }
@@ -111,7 +111,7 @@ export class CreateMatchEntity {
         this.addMatchComponent = addMatchComponent
     }
 
-    execute(match: MatchDTO, players: Map<string, number>, rounds: number[]) {
+    execute(match: MatchDTO, players: Map<string, number>, rounds: number[], question_number: number) {
         const entity = this.createEntity();
 
         const players_component: PlayersComponent = {
@@ -126,7 +126,8 @@ export class CreateMatchEntity {
             winner: match.winner,
             rounds: rounds,
             start_time: match.start_time,
-            end_time: match.end_time
+            end_time: match.end_time,
+            question_number: question_number
         }
 
         const submission: SubmissionRegistryComponent= {
