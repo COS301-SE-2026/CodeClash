@@ -1,3 +1,4 @@
+import Leaderboard from "src/Views/Leaderboard";
 
 export interface LeaderboardUserProps{
     avatarUrl: string;
@@ -12,7 +13,7 @@ export const LeaderboardUserData : LeaderboardUserProps = {
 }
 
 
-export interface LeaderboardProps{
+export class LeaderboardProps{
     league: string;
     firstUser: LeaderboardUserProps;
     secondUser: LeaderboardUserProps;
@@ -24,6 +25,20 @@ export interface LeaderboardProps{
     eigthUser: LeaderboardUserProps;
     ninthUser: LeaderboardUserProps;
     tenthUser: LeaderboardUserProps;
+
+    constructor(l : string){
+        this.league = l;
+        this.firstUser = LeaderboardUserData;
+        this.secondUser = LeaderboardUserData;
+        this.thirdUser = LeaderboardUserData;
+        this.fourthUser = LeaderboardUserData;
+        this.fifthUser = LeaderboardUserData;
+        this.sixthUser = LeaderboardUserData;
+        this.sevthUser = LeaderboardUserData;
+        this.eigthUser = LeaderboardUserData;
+        this.ninthUser = LeaderboardUserData;
+        this.tenthUser = LeaderboardUserData;
+    }
 
 }
 

@@ -1,18 +1,18 @@
-import {data, useNavigate} from 'react-router-dom'
 import { useState, useEffect, useCallback } from 'react'
-import { LeaderboardUserProps, LeaderboardProps, LeaderboardUserData, fetchLeaderboardUsers } from 'src/Models/LeaderboardModel'
+import type { LeaderboardUserProps } from 'src/Models/LeaderboardModel';
+import { fetchLeaderboardUsers } from 'src/Models/LeaderboardModel';
 
 
-export function LeaderboardViewModel(league : string, leagueUrl : string){
+export function LeaderboardViewModel(league : string){
     const [userData, setUserData] = useState<LeaderboardUserProps[]>([]);
     const [isLoadingData, setIsLoadingData] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-    const loadLeaderboard = useCallback(async () => {
+    const loadLeaderboard = useCallback(async () => { //useCallback is used so that returned data is cached until any values of the returned data is changed
         setIsLoadingData(true);
         setError(null);
         try{
-            const data = await fetchLeaderboardUsers();
+            const data = await fetchLeaderboardUsers(league);
             setUserData(data);
         }
         catch(err){
@@ -27,9 +27,7 @@ export function LeaderboardViewModel(league : string, leagueUrl : string){
         loadLeaderboard();
     }, [loadLeaderboard]);
 
-    const toReturn = new LeaderboardProps(league, leagueUrl);
-
-    toReturn.firstUser = userData.slice(0,1);
+    return {userData, isLoadingData, error, refresh: loadLeaderboard}
 
 
 

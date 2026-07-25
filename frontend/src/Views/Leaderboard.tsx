@@ -5,9 +5,7 @@ import planet from '../assets/Planets/Earth.png';
 import background from '../assets/Background/leaderboard_background.png';
 import '../styles/global.css';
 import {Link} from 'react-router-dom';
-import { type LeaderboardProps } from 'src/Models/LeaderboardModel';
-import { LeaderboardUserData } from 'src/Models/LeaderboardModel';
-import light from '../assets/light.png';
+import { LeaderboardViewModel } from 'src/ViewModels/LeaderboardViewModel';
 
 
 // const Leaderboard: React.FC<LeaderboardProps> = (
