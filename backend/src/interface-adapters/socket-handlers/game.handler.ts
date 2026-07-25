@@ -26,10 +26,27 @@ export const submitAnswer = (async (
             question_id: data.question_id,
             correct
         });
-        
+
+        const { getMatchComponent, getPlayerComponent } = World();
+        const players = getMatchComponent<PlayersComponent>(data.match_id, 'Players');
+
+        if(players){
+            for (const [opponent_id, opponent_entity] of players.players){
+                //skip self
+                if(opponent_id === player_id) continue;
+
+                const life = getPlayerComponent<LifeComponent>(opponent_entity, 'Life');
+
+                //notify the opponent that this player answered
+                io.to(opponent_id).emit('opponent_progress', {
+                    player_id,
+                    correct,
+                    opponent_life: life?.current_life ?? null
+                });
+            }
+        }
+    } catch (error) {
+        io.to(player_id).emit('submission_error', { message: 'Failed to process submission'});
     }
-
     
-
-    //notify opponent of player's progress
 })
