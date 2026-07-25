@@ -28,12 +28,12 @@ const Leaderboard = (league : string) => {
     // </div>
     <div style={{backgroundImage: `url(${bg})`}} className="w-full min-h-screen bg-cover bg-no-repeat object-cover">
         <Link to="/dashboard" className="text-secondary font-[var(--font)] text-[200%] font-semibold ml-5">← Back</Link>
-        <h1 className="text-[340%] text-secondary text-center mr-[5%] font-[var(--font)] font-semibold drop-shadow-[4px_4px_0px_rgba(0,0,0,0.25)]">Leader Board</h1>
+        <h1 className="text-[340%] text-secondary text-center mr-[5%] font-[var(--font)] font-semibold drop-shadow-[4px_4px_0px_rgba(0,0,0,0.25)] ml-[4%]">Leader Board</h1>
         <GlassCard className="w-[80%] h-[50%] mx-auto">
             <div className="flex grid grid-cols-3 gap-4 h-full">
-                <LeaderboardCardLeft></LeaderboardCardLeft>
-                <div style={{backgroundImage : `url(${winner})`}} className="w-[100%] h-[100%] bg-no-repeat object-cover bg-size-[auto_100%] bg-[left_-50px_top_-60px] justify-center mt-[10%] border-1"></div>
-                <LeaderboardCardRight></LeaderboardCardRight>
+                <LeaderboardCardLeft className="ml-[50%] mt-[7%]"></LeaderboardCardLeft>
+                <div style={{backgroundImage : `url(${winner})`}} className="w-[100%] h-[100%] bg-no-repeat object-cover bg-size-[auto_100%] bg-[left_-50px_top_-60px] justify-center mt-[10%] ml-[9.5%]"></div>
+                <LeaderboardCardRight className="mt-[7%] ml-[5%]"></LeaderboardCardRight>
             </div>
         
         {/* <div className="flex justify-between items-start gap-10">
