@@ -12,9 +12,8 @@ export const LeaderboardUserData : LeaderboardUserProps = {
 }
 
 
-export class LeaderboardProps{
+export interface LeaderboardProps{
     league: string;
-    leagueUrl: string;
     firstUser: LeaderboardUserProps;
     secondUser: LeaderboardUserProps;
     thirdUser: LeaderboardUserProps;
@@ -26,24 +25,15 @@ export class LeaderboardProps{
     ninthUser: LeaderboardUserProps;
     tenthUser: LeaderboardUserProps;
 
-    constructor(l: string, lUrl: string){
-        this.league = l;
-        this.leagueUrl = lUrl;
-        this.firstUser = LeaderboardUserData;
-        this.secondUser = LeaderboardUserData;
-        this.thirdUser = LeaderboardUserData;
-        this.fourthUser = LeaderboardUserData;
-
-
-    }
-
 }
 
 //GET /api/elo/leaderboard
 
 //will eventually filter by league once endpoint is changed
-export async function fetchLeaderboardUsers(): Promise<LeaderboardUserProps[]>{
-    const res = await fetch('/api/elo/leaderboard');
+export async function fetchLeaderboardUsers(league : string): Promise<LeaderboardUserProps[]>{
+    const api = '/api/elo/leaderboard'
+    const finalUrl = `${api}/${league}`
+    const res = await fetch(finalUrl); //or however we will add league as an api endpoint, just change this depending on that
     if(!res.ok){
         throw new Error(`Unable to fetch leaderboard`);
     }
