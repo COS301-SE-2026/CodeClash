@@ -1,5 +1,5 @@
 import type React from "react";
-import { Route, Routes } from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import Dashboard from "./Views/Dashboard";
 import Layout from "./layout";
 import Welcome from "./Views/Welcome";
@@ -9,6 +9,7 @@ import Profile from "./Views/Profile";
 import Searching from "./pages/queuePages/searching";
 import Found from "./pages/queuePages/found";
 import MathMatch from "./Views/MathsMatch";
+import FinalResults from "./Views/FinalResults";
 
 const App: React.FC = () => {
     return (
@@ -22,6 +23,8 @@ const App: React.FC = () => {
             <Route path='/found' element={<Found/>}/>
             <Route path='/match' element={<MathMatch/>}/>
             {/* <Route path='/prog-match' element={<ProgMatch language="javascript"/>}/> */}
+
+            <Route path= '/results' element= {<FinalResults/>}/>
 
             {/* Pages with sidebar inside the app */}
             <Route element={<Layout />}>
