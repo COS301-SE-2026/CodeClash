@@ -9,16 +9,22 @@ COPY . .
 
 ARG VITE_COGNITO_USER_POOL_ID
 ARG VITE_COGNITO_CLIENT_ID
+ARG COGNITO_REGION
+ARG COGNITO_USER_POOL
+ARG COGNITO_CLIENT_ID
 
 ENV VITE_COGNITO_USER_POOL_ID=${VITE_COGNITO_USER_POOL_ID}
 ENV VITE_COGNITO_CLIENT_ID=${VITE_COGNITO_CLIENT_ID}
+ENV COGNITO_REGION=${COGNITO_REGION}
+ENV COGNITO_USER_POOL=${COGNITO_USER_POOL}
+ENV COGNITO_CLIENT_ID=${COGNITO_CLIENT_ID}
 
 
 RUN npm run build
 
 FROM nginx:alpine
 
-COPY nginx.conf /etc/nginx/nginx.conf.d/default.conf
+COPY nginx.conf /etc/nginx.conf.d/default.conf
 COPY --from=builder /app/dist /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
