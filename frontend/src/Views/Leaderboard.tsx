@@ -9,6 +9,7 @@ import {Link} from 'react-router-dom';
 import { LeaderboardViewModel } from 'src/ViewModels/LeaderboardViewModel';
 import GlassCard from '@/components/shared/GlassCard';
 import LeaderboardCardLeft, {LeaderboardCardRight} from '@/components/ui/leaderboardCard'
+import { EloText } from '@/components/ui/leaderboardCard';
 
 
 // const Leaderboard: React.FC<LeaderboardProps> = (
@@ -34,6 +35,9 @@ const Leaderboard = (league : string) => {
                 <LeaderboardCardLeft className="mt-[7%] ml-[58%]"></LeaderboardCardLeft>
                 <div style={{backgroundImage : `url(${winner})`}} className="w-[83%] h-[80%] bg-no-repeat object-cover bg-size-[auto_130%] bg-[left_49%_top_55%] justify-center mt-[10%] ml-[9.5%]">
                     <div style={{backgroundImage : `url(${profile})`}} className="w-[120px] h-[120px] bg-no-repeat rounded-full object-cover bg-size-[auto_200%] bg-[right_49.5%_top_49%] mx-auto"></div>
+                    <div className="text-[360%] text-[#B39A48] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">1</div>
+                    <EloText className="text-[165%]">Username</EloText>
+                    <EloText className="text-[165%]">ELO</EloText>
                 </div>
                 <LeaderboardCardRight className="mt-[7%]"></LeaderboardCardRight>
             </div>

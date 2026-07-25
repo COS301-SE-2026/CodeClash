@@ -15,7 +15,7 @@ const LeaderboardCardLeft = ({children, className} : LeaderboardCardProps) => {
             <div style={{backgroundImage : `url(${profile})`}} className="w-[85px] h-[85px] bg-no-repeat rounded-full object-cover bg-size-[auto_200%] bg-[right_49.5%_top_49%] -mt-[85%]">
                 <div className="text-[340%] text-[#AFAEA9] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mt-[83%]">2</div>
                 <div className="text-[150%] text-button-primary text-center justify-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] -ml-7">Username</div>
-                <EloText></EloText>
+                <EloText>ELO</EloText>
             </div>
             {children}
         </Card>
@@ -33,7 +33,7 @@ export const LeaderboardCardRight = ({children, className} : LeaderboardCardProp
             <div style={{backgroundImage : `url(${profile})`}} className="w-[85px] h-[85px] bg-no-repeat rounded-full object-cover bg-size-[auto_200%] bg-[right_49.5%_top_49%] -mt-[85%]">
                 <div className="text-[340%] text-[#B36548] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mt-[83%]">3</div>
                 <div className="text-[150%] text-button-primary text-center justify-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] -ml-7">Username</div>
-                <EloText></EloText>
+                <EloText>ELO</EloText>
             </div>
             {children}
         </Card>
@@ -46,9 +46,9 @@ interface EloTextProps{
     className?: string
 }
 
-const EloText = ({children, className} : EloTextProps) => {
+export const EloText = ({children, className} : EloTextProps) => {
     return(
-        <h1 className={`text-[150%] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] ${className}`}>ELO
+        <h1 className={`text-[150%] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] ${className}`}>
         {children}
         </h1>
     )
