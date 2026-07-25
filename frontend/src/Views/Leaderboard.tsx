@@ -41,10 +41,14 @@ const Leaderboard = (league : string) => {
                 </div>
                 <LeaderboardCardRight className="mt-[7%]"></LeaderboardCardRight>
                 <div className="w-[45%] h-[85%] rounded-[20px] border-4 border-button-primary bg-secondary ml-[58%] -mt-[15%]">
-                    <div style={{backgroundImage: `url(${profile})`}} className="w-[50px] h-[50px] bg-no-repeat rounded-full object-cover bg-size-[auto_199%] bg-[right_49%_top_50%] mt-[2%]"></div>
+                    <div style={{backgroundImage: `url(${profile})`}} className="w-[59px] h-[59px] bg-no-repeat rounded-full object-cover bg-size-[auto_200%] bg-[right_49%_top_50%] mt-[2%]">
+                        <EloText className="text-[200%] ml-[115%] -mt-[10%]">4</EloText>
+                    </div>
                 </div>
                 <div className="w-[45%] h-[85%] rounded-[20px] border-4 border-button-primary bg-secondary ml-[103%] -mt-[15%]">
-                    <div style={{backgroundImage: `url(${profile})`}} className="w-[50px] h-[50px] bg-no-repeat rounded-full object-cover bg-size-[auto_199%] bg-[right_49%_top_50%] mt-[2%]"></div>
+                    <div style={{backgroundImage: `url(${profile})`}} className="w-[59px] h-[59px] bg-no-repeat rounded-full object-cover bg-size-[auto_200%] bg-[right_49%_top_50%] mt-[2%]">
+                        <EloText className="text-[200%] ml-[115%] -mt-[10%]">5</EloText>
+                    </div>
                 </div>
             </div>
         
