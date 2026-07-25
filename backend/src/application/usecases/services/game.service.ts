@@ -37,6 +37,7 @@ export class GameService {
         const time = this.getTotalTime.execute(questions)
 
 
+        if(!questions) throw new Error ("Error fetching questions")
 
         // Rounds   - creating one round for now, this logic will need to be updated for multiple 
 
@@ -51,8 +52,8 @@ export class GameService {
             question_ids.push(question.id)
         }
 
+        // need to update for multiple round
         const round: RoundDTO = { question_ids: question_ids }
-
 
         // get answers 
         const answers = await this.getAnswers.execute(question_ids)
@@ -72,9 +73,9 @@ export class GameService {
 
         const match_entity = this.createGame.execute(players, match, [round], question_ids.length);
 
-        this.game_cache.saveGame(match_entity,player_ids, question_ids);
-        
-        for(const answer of answers){
+        this.game_cache.saveGame(match_entity, player_ids, question_ids);
+
+        for (const answer of answers) {
             this.game_cache.saveAnswer(answer.question_id, answer.answer)
         }
 

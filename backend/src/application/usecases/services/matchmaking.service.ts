@@ -36,6 +36,7 @@ export class MatchmakingService {
             })
         );
 
+
         // remove null join values
         let players = result.filter(u => u.join !== null);
 
@@ -63,11 +64,12 @@ export class MatchmakingService {
 
             if (!match) return null;
 
-            const match_elo = Number(await this.cache.getUserElo(user.game_mode, user.id));
+            const match_elo = Number(await this.cache.getUserElo(user.game_mode, match.user_id));
 
             // found a match
             // remove players from queue
             this.cache.deletUser(user.game_mode, user.id);
+            this.cache.deletUser(user.game_mode, match.user_id)
 
             return {
                 player_1: {

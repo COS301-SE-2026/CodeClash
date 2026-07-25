@@ -42,7 +42,7 @@ export class MatchmakingCache implements IMatchmakingCache {
     }
 
     async getJoinedAt(user_id: string): Promise<(string | null)[]> {
-        return this.redis.hmget(`user:${{ user_id }}`, "user_joined_at");
+        return this.redis.hmget(`user:${ user_id }`, "user_joined_at");
     }
 
 
