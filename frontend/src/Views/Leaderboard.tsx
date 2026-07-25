@@ -1,5 +1,4 @@
 import profile from '../assets/Icons/profile_black.png';
-import shadow from '../assets/shadow.png';
 import winner from '../assets/Icons/winner.png';
 import planet from '../assets/Planets/Earth.png';
 import background from '../assets/Background/leaderboard_background.png';
@@ -22,7 +21,10 @@ const Leaderboard = (league : string) => {
 
     if(error){
         return(
-            <div ></div>
+            <div className="text-center mx-auto font-[var(--font)] text-[200%] font-semibold text-button-primary">
+                {error}
+                <button onClick={refresh} className="text-secondary bg-button-primary font-[var(--font)] font-semibold">Refresh</button>
+            </div>
         )
     }
     
