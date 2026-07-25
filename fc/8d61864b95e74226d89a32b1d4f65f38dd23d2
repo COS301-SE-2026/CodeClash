@@ -1,0 +1,54 @@
+backend/src/entities/db-entities/match.entities.ts
+  h_94c952a9e14c58 5
+frontend/src/Views/BrandStyleGuide.tsx
+  h_94c952a9e14c58 34
+frontend/src/Views/MatchSearching.tsx
+  h_94c952a9e14c58 89,102
+frontend/src/context/User/UserContext.tsx
+  h_94c952a9e14c58 1,114-116,120
+backend/src/interface-adapters/repositories/question.repository.ts
+  h_94c952a9e14c58 8
+frontend/src/ViewModels/MatchViewModel.ts
+  h_94c952a9e14c58 22,47,52
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 14,58
+backend/src/interface-adapters/auth/auth.service.ts
+  h_94c952a9e14c58 41
+backend/src/interface-adapters/repositories/elo.repository.ts
+  h_94c952a9e14c58 3,9
+backend/src/interface-adapters/socket-handlers/matchmaking.handler.ts
+  h_94c952a9e14c58 62,68
+frontend/src/Views/BrandStyleGuide/ColorSection.tsx
+  h_94c952a9e14c58 20,46
+frontend/src/Views/BrandStyleGuide/TokenSection.tsx
+  h_94c952a9e14c58 31
+frontend/src/ViewModels/MatchFoundViewModel.ts
+  h_94c952a9e14c58 8,19,22,29,59,66,69-70,109
+frontend/@/components/shared/Match.tsx
+  h_94c952a9e14c58 123,125
+frontend/src/Views/Dashboard.tsx
+  h_94c952a9e14c58 60
+backend/src/interface-adapters/repositories/user.repository.ts
+  h_94c952a9e14c58 10
+frontend/@/components/features/question.tsx
+  h_94c952a9e14c58 41
+frontend/src/Views/Confirmation.tsx
+  h_94c952a9e14c58 19,27,54
+frontend/src/context/Socket/hooks/useMatchmakingSocket.tsx
+  h_94c952a9e14c58 9-10,28
+backend/src/entities/league-mapping.ts
+  h_94c952a9e14c58 26,40
+backend/src/entities/db-entities/elo.entities.ts
+  h_94c952a9e14c58 6,19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "fc8d61864b95e74226d89a32b1d4f65f38dd23d2",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

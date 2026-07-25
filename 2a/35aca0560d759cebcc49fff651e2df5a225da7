@@ -1,0 +1,24 @@
+frontend/test/unit/PopUp.test.tsx
+  h_94c952a9e14c58 80,90
+frontend/test/setupTests.ts
+  h_94c952a9e14c58 1,6
+frontend/test/integration/Providers/UserProvider.test.tsx
+  h_94c952a9e14c58 1-2
+frontend/test/unit/ViewModels/FoundViewModel.test.tsx
+  h_94c952a9e14c58 24,51,85-92,104,107,109,129
+frontend/src/Views/Leaderboard.tsx
+  h_94c952a9e14c58 1
+package.json
+  h_94c952a9e14c58 12-13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "2a35aca0560d759cebcc49fff651e2df5a225da7",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

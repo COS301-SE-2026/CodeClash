@@ -1,0 +1,16 @@
+frontend/src/Views/Confirmation.tsx
+  h_94c952a9e14c58 19,22
+frontend/@/components/features/question.tsx
+  h_94c952a9e14c58 41
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "96b7ee5b1809705a5a1ffcb1c54832dd3b81848c",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

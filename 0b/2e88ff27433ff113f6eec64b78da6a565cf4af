@@ -1,0 +1,30 @@
+backend/src/application/usecases/services/matchmaking.service.ts
+  h_94c952a9e14c58 91,95
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 7
+backend/src/application/usecases/services/game.service.ts
+  h_94c952a9e14c58 3,29,35,95,100,116
+backend/tests/unit/helpers/test-utils.ts
+  h_94c952a9e14c58 3,7,9-14,18
+backend/src/frameworks-drivers/app.ts
+  h_94c952a9e14c58 5
+backend/src/frameworks-drivers/routes/api.routes.ts
+  h_94c952a9e14c58 13
+backend/vitest.config.ts
+  h_94c952a9e14c58 19-20
+backend/tests/setup.ts
+  h_94c952a9e14c58 5
+backend/tests/unit/matchmaking/matchmaking.service.test.ts
+  h_94c952a9e14c58 10-11,13,17-19,24-25,100-101
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "0b2e88ff27433ff113f6eec64b78da6a565cf4af",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

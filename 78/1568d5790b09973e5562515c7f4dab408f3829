@@ -1,0 +1,14 @@
+backend/README.md
+  h_94c952a9e14c58 13-15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "781568d5790b09973e5562515c7f4dab408f3829",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

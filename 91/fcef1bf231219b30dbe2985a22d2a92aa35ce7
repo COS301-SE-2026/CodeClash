@@ -1,0 +1,28 @@
+backend/src/interface-adapters/socket-handlers/matchmaking.handler.ts
+  h_94c952a9e14c58 74
+backend/src/entities/components.ts
+  h_94c952a9e14c58 6,11,25,31,38,47,59,74,82,87,96-99,104-105
+frontend/src/ViewModels/MatchViewModel.ts
+  h_94c952a9e14c58 16,18-19,22,24,36,38,60,120,123,135,149,156,161,164
+frontend/src/Views/MathsMatch.tsx
+  h_94c952a9e14c58 10,12,18,28,34,44,52,55,57
+backend/src/entities/World.ts
+  h_94c952a9e14c58 5-6,82,90,124,128
+backend/tests/setup.ts
+  h_94c952a9e14c58 5
+frontend/src/Views/BrandStyleGuide/ComponentSection.tsx
+  h_94c952a9e14c58 19,63-66,72-73,79-80
+frontend/@/components/shared/Match.tsx
+  h_94c952a9e14c58 37
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "91fcef1bf231219b30dbe2985a22d2a92aa35ce7",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+backend/src/entities/dtos/matchmaking.dto.ts
+  h_94c952a9e14c58 4,11
+backend/tests/unit/matchmaking/matchmaking.service.test.ts
+  h_94c952a9e14c58 17-19,95-96,113-123,125
+backend/src/application/usecases/services/matchmaking.service.ts
+  h_94c952a9e14c58 18,77-78,89-96
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 18-19,77-79
+database/01-init.sql
+  h_94c952a9e14c58 29-33
+backend/src/entities/dtos/game-data.dto.ts
+  h_94c952a9e14c58 4-5,8-9,20-24
+backend/src/interface-adapters/socket-handlers/matchmaking.handler.ts
+  h_94c952a9e14c58 9,16,27-28,43,47,67-70,72,75-79,86-87,89-90,96
+backend/src/interface-adapters/socket-handlers/game.handler.ts
+  h_94c952a9e14c58 1-6
+backend/src/application/usecases/services/game.service.ts
+  h_94c952a9e14c58 15-16,24-27,33,52,99
+backend/src/entities/components.ts
+  h_94c952a9e14c58 26
+frontend/src/ViewModels/SignInViewModel.ts
+  h_94c952a9e14c58 39-40
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "817a0e98ef48b24abe01f29cd823e838ca89c8d4",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

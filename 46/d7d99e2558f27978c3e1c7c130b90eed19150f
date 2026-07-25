@@ -1,0 +1,14 @@
+frontend/vite.config.ts
+  h_94c952a9e14c58 26-28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "46d7d99e2558f27978c3e1c7c130b90eed19150f",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

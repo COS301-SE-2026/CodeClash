@@ -1,0 +1,20 @@
+backend/src/interface-adapters/socket-handlers/matchmaking.handler.ts
+  h_94c952a9e14c58 6,8,15,59,68-80
+backend/src/interface-adapters/repositories/answer.repository.ts
+  h_94c952a9e14c58 21-28,48-56
+backend/src/entities/dtos/game-data.dto.ts
+  h_94c952a9e14c58 7
+frontend/src/ViewModels/MatchFoundViewModel.ts
+  h_94c952a9e14c58 16,71-72
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "ea684c350c64d8bcbf128b833874c05410e0617b",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
