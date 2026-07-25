@@ -15,6 +15,12 @@ export function LeaderboardViewModel(){
             const data = await fetchLeaderboardUsers();
             setUserData(data);
         }
+        catch(err){
+            setError('Could not load User Data');
+        }
+        finally{
+            setIsLoadingData(false);
+        }
 
     })
 }
