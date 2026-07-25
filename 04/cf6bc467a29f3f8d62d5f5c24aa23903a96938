@@ -1,0 +1,16 @@
+frontend/@/components/ui/leaderboardCard.tsx
+  h_b13c5d77534129 18,36,49
+frontend/src/Views/Leaderboard.tsx
+  h_b13c5d77534129 12,38-40
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "04cf6bc467a29f3f8d62d5f5c24aa23903a96938",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
