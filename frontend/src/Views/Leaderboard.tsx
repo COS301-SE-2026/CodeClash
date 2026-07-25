@@ -33,13 +33,15 @@ const Leaderboard = (league : string) => {
         <GlassCard className="w-[80%] h-[50%] mx-auto">
             <div className="flex grid grid-cols-3 gap-4 h-full w-full">
                 <LeaderboardCardLeft className="mt-[7%] ml-[58%]"></LeaderboardCardLeft>
-                <div style={{backgroundImage : `url(${winner})`}} className="w-[83%] h-[80%] bg-no-repeat object-cover bg-size-[auto_130%] bg-[left_49%_top_55%] justify-center mt-[10%] ml-[9.5%]">
+                <div style={{backgroundImage : `url(${winner})`}} className="w-[83%] h-[95%] bg-no-repeat object-cover bg-size-[auto_130%] bg-[left_49%_top_55%] justify-center mt-[10%] ml-[9.5%]">
                     <div style={{backgroundImage : `url(${profile})`}} className="w-[120px] h-[120px] bg-no-repeat rounded-full object-cover bg-size-[auto_200%] bg-[right_49.5%_top_49%] mx-auto"></div>
                     <div className="text-[360%] text-[#B39A48] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">1</div>
                     <EloText className="text-[165%]">Username</EloText>
                     <EloText className="text-[165%]">ELO</EloText>
                 </div>
                 <LeaderboardCardRight className="mt-[7%]"></LeaderboardCardRight>
+                <div className="w-[45%] h-[85%] rounded-[20px] border-4 border-button-primary bg-secondary ml-[58%] -mt-[15%]"></div>
+                <div className="w-[45%] h-[85%] rounded-[20px] border-4 border-button-primary bg-secondary ml-[103%] -mt-[15%]"></div>
             </div>
         
         {/* <div className="flex justify-between items-start gap-10">
