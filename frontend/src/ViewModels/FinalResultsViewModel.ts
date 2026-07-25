@@ -1,11 +1,10 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect} from "react";
 import { finalResultsContent } from "../Models/FinalResultsModel";
 import type { PlayerFinalResults, FinalResultsContent } from "../Models/FinalResultsModel";
 
-export interface FinalResultsViewModelProps {
-    onPlayAgain: () => void;
-    onReturn: () => void;
-    fetchResults: () => Promise<PlayerFinalResults[]>; //results will be passed here once calculated
+async function fetchResults(): Promise<PlayerFinalResults[]> {
+    //add the actual api call 
+    throw new Error('Results not ready');
 }
 
 interface FinalResultsViewModel {
@@ -13,13 +12,9 @@ interface FinalResultsViewModel {
     state: 'loading' | 'results' | 'error';
     loadingProgress: number; //for user to see how far the loading is
     results: PlayerFinalResults[];
-    handlePlayAgain: () => void;
-    handleReturn: () => void;
 }
 
-export function FinalResultsViewModelFunction ({
-    onPlayAgain, onReturn, fetchResults,
-}: FinalResultsViewModelProps): FinalResultsViewModel {
+export function FinalResultsViewModelFunction(): FinalResultsViewModel {
     const [state, setState] = useState< 'loading' | 'results' | 'error'>('loading');
     const [loadingProgress, setLoadingProgress] = useState(0);
     const [results, setResults] = useState<PlayerFinalResults[]>([]);
@@ -38,7 +33,7 @@ export function FinalResultsViewModelFunction ({
             });
         }, 400);
 
-        fetchResults().then(data => {
+        fetchResults().then(data => { //REPLACE WITH REAL API CALL
             if (cancelled) return;
             clearInterval(progressInterval);
             setLoadingProgress(100);
@@ -59,17 +54,12 @@ export function FinalResultsViewModelFunction ({
             cancelled = true;
             clearInterval(progressInterval);
         };
-    }, [fetchResults]);
-
-    const handlePlayAgain = useCallback(() => onPlayAgain(), [onPlayAgain]);
-    const handleReturn = useCallback(() => onReturn(), [onReturn]);
+    }, []);
 
     return {
         content: finalResultsContent,
         state,
         loadingProgress,
         results,
-        handlePlayAgain,
-        handleReturn,
-    }
+    };
 }
