@@ -13,7 +13,7 @@ import { EloText } from '@/components/ui/leaderboardCard';
 
 // const Leaderboard: React.FC<LeaderboardProps> = (
 const Leaderboard = (league : string) => {
-    const {userData, isLoadingData, error, refresh} = LeaderboardViewModel(league);
+    const {topTen, isLoadingData, error, refresh} = LeaderboardViewModel(league);
 
     if(isLoadingData){
         return <div className="text-center mx-auto font-[var(--font)] text-[200%] font-semibold text-button-primary">Fetching Leaderboard Data</div>
@@ -25,7 +25,7 @@ const Leaderboard = (league : string) => {
                 {error}
                 <button onClick={refresh} className="text-secondary bg-button-primary font-[var(--font)] font-semibold">Refresh</button>
             </div>
-        )
+        );
     }
     
     return(

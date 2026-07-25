@@ -28,9 +28,9 @@ export function LeaderboardViewModel(league : string){
         loadLeaderboard();
     }, [loadLeaderboard]);
 
-    const toReturn = userData.slice(0,10);
+    const topTen = userData.slice(0,10);
 
-   return {toReturn, userData, isLoadingData, error, refresh: loadLeaderboard}
+   return {userData, topTen, isLoadingData, error, refresh: loadLeaderboard}
 
 
 }
