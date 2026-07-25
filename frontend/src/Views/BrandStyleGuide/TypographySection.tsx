@@ -1,4 +1,4 @@
-// This is the typography section for the brand style guide - it will show the live text samples
+// This is the typography section for the brand style guide - it will show the live text samples - correct file
 
 import React from "react";
 import SharedLayout from "./SharedLayout";

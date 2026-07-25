@@ -1,4 +1,4 @@
-// This is the Model for the brand style guide - a pure data file with the BSG content
+// This is the Model for the brand style guide - a pure data file with the BSG content - correct file
 
 import convert from "color-convert";
 
