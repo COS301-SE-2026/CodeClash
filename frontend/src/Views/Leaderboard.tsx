@@ -32,6 +32,8 @@ const Leaderboard = (league : string) => {
         <GlassCard className="w-[80%] h-[50%] mx-auto">
             <div className="flex grid grid-cols-3 gap-4 h-full">
                 <LeaderboardCardLeft></LeaderboardCardLeft>
+                <div style={{backgroundImage : `url(${winner})`}} className="w-[50px] h-[50px] bg-no-repeat rounded-full object-cover bg-size-[auto_20px] bg-[right_20px_top_20px] border-1 "></div>
+                <LeaderboardCardLeft></LeaderboardCardLeft>
             </div>
         
         {/* <div className="flex justify-between items-start gap-10">
