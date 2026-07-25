@@ -15,6 +15,7 @@ import { EloRatings } from 'src/entities/db-entities/elo.entities';
 import { IQuestionRepository } from 'src/application/interfaces/IQuestionRepository';
 import { QuestionRepository } from 'src/interface-adapters/repositories/question.repository';
 import { Questions } from 'src/entities/db-entities/questions.entities';
+import { submitAnswer } from 'src/interface-adapters/socket-handlers/game.handler';
 
 dotnev.config()
 
@@ -72,7 +73,10 @@ AppDataSource.initialize()
 
             socket.on('match_declined', (pair_id: string) => matchDeclined(io, socket, pair_id));
 
-            socket.on('send_questions', ( game_id: number) => { sendGameQuestions(io, game_id) })
+            socket.on('send_questions', ( game_id: number) => { sendGameQuestions(io, game_id) });
+
+            //CheckAnswer is a dependency that needs to be injected (might be in the submission-service branch)
+            socket.on('submit_answer', (data) => submitAnswer(io, socket, data, checkAnswerInstance));
         })
 
 
