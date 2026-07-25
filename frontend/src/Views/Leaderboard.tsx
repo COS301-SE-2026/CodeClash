@@ -32,7 +32,7 @@ const Leaderboard = (league : string) => {
         <GlassCard className="w-[80%] h-[50%] mx-auto">
             <div className="flex grid grid-cols-3 gap-4 h-full">
                 <LeaderboardCardLeft></LeaderboardCardLeft>
-                <div style={{backgroundImage : `url(${winner})`}} className="w-[50px] h-[50px] bg-no-repeat rounded-full object-cover bg-size-[auto_20px] bg-[right_20px_top_20px] border-1 "></div>
+                <div style={{backgroundImage : `url(${winner})`}} className="w-[100%] h-[100%] bg-no-repeat object-cover bg-size-[auto_100%] bg-[left_-50px_top_-60px] justify-center mt-[10%] border-1"></div>
                 <LeaderboardCardRight></LeaderboardCardRight>
             </div>
         
