@@ -55,7 +55,7 @@ const Leaderboard = (league : string) => {
                 <div className="-mt-[27%] ml-[50%] text-[120%] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
                 <div className="-mt-[2%] ml-[74%] text-[120%] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">ELO</div>
             </div>
-            <div className="w-[36%] h-[94%] rounded-[20px] bg-secondary border-4 border-button-primary drop-shadow-[-10px_10px_6px_rgba(0,0,0,0.25)]">
+            <div className="w-[36%] min-h-[94%] rounded-[20px] bg-secondary border-4 border-button-primary drop-shadow-[-10px_10px_6px_rgba(0,0,0,0.25)]">
                 <div style={{backgroundImage: `url(${profile})`}} className="mt-[1%] -ml-[1%] w-[60px] h-[60px] bg-no-repeat rounded-full object-cover bg-size-[auto_120px] bg-[right_-30px_top_-30px]"></div>
                 <div className="-mt-[28%] -ml-[30%] text-[48px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">5</div>
                 <div className="-mt-[27%] ml-[50%] text-[20px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
