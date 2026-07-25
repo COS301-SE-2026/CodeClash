@@ -28,7 +28,13 @@ export class LeaderboardProps{
 
     constructor(l: string, lUrl: string){
         this.league = l;
-        
+        this.leagueUrl = lUrl;
+        this.firstUser = LeaderboardUserData;
+        this.secondUser = LeaderboardUserData;
+        this.thirdUser = LeaderboardUserData;
+        this.fourthUser = LeaderboardUserData;
+
+
     }
 
 }
