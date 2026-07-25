@@ -66,10 +66,10 @@ const Leaderboard = (
                 <div className="text-[200%] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
                 <div className="text-[200%] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">ELO</div>
             </div>
-            <div className="w-[239px] h-[77px] rounded-[20px] bg-secondary border-4 border-button-primary drop-shadow-[10px_10px_6px_rgba(0,0,0,0.25)] -mt-40">
+            <div className="w-[30%] h-[90%] rounded-[20px] bg-secondary border-4 border-button-primary drop-shadow-[10px_10px_6px_rgba(0,0,0,0.25)]">
                 <div style={{backgroundImage: `url(${profile})`}} className="mt-1.5 w-[60px] h-[60px] bg-no-repeat rounded-full object-cover bg-size-[auto_120px] bg-[right_-30px_top_-30px]"></div>
-                <div className="-mt-17 -ml-14 text-[48px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">4</div>
-                <div className="-mt-16 ml-25 text-[20px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
+                <div className="-mt-[24%] -ml-[25%] text-[320%] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">4</div>
+                <div className="-mt-16 ml-40 text-[20px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
                 <div className="ml-38 text-[21px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">ELO</div>
             </div>
             <div className="w-[239px] h-[77px] rounded-[20px] bg-secondary border-4 border-button-primary drop-shadow-[-10px_10px_6px_rgba(0,0,0,0.25)] -mt-40">
@@ -83,7 +83,7 @@ const Leaderboard = (
 }            
             {/* <div style={{backgroundImage: `url(${light})`}} className="absolute -top-35 -left-5 w-[1100px] h-[1000px] bg-no-repeat bg-cover bg-center bg-size-[auto_1000px]"></div> */}
             <div className="">
-            <div style={{backgroundImage: `url(${background})`}} className="absolute left-5 -bottom-80.5 w-[935px] h-[350px] rounded-[20px] bg-no-repeat bg-cover bg-center bg-size-[auto_700px]">
+            <div style={{backgroundImage: `url(${background})`}} className="w-[935px] h-[350px] rounded-[20px] bg-no-repeat bg-cover bg-center bg-size-[auto_700px]">
                 <div className="grid grid-rows-5 gap-1 items-end">
                     <div className="mt-4.25 ml-8 h-[47px] w-[870px] rounded-[20px] bg-blend-normal bg-secondary backdrop-blur-lg">
                         <div style={{backgroundImage: `url(${profile})`}} className="mt-0.75 w-[42px] h-[42px] bg-no-repeat rounded-full object-cover bg-size-[auto_85px] bg-[right_-21.5px_top_-21.5px]"></div>
