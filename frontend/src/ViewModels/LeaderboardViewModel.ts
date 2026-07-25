@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
+import { data } from 'react-router-dom';
 import type { LeaderboardUserProps } from 'src/Models/LeaderboardModel';
-import { fetchLeaderboardUsers } from 'src/Models/LeaderboardModel';
+import { LeaderboardProps, fetchLeaderboardUsers } from 'src/Models/LeaderboardModel';
 
 
 export function LeaderboardViewModel(league : string){
@@ -27,8 +28,9 @@ export function LeaderboardViewModel(league : string){
         loadLeaderboard();
     }, [loadLeaderboard]);
 
-    return {userData, isLoadingData, error, refresh: loadLeaderboard}
+    const toReturn = userData.slice(0,10);
 
+   return {toReturn, userData, isLoadingData, error, refresh: loadLeaderboard}
 
 
 }

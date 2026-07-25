@@ -9,23 +9,8 @@ import { LeaderboardViewModel } from 'src/ViewModels/LeaderboardViewModel';
 
 
 // const Leaderboard: React.FC<LeaderboardProps> = (
-const Leaderboard = (
-    //{
-//     league = 'earth',
-//     prev_page = "/dashboard",
-//     firstUser = LeaderboardUserData,
-//     secondUser = LeaderboardUserData,
-//     thirdUser = LeaderboardUserData,
-//     fourthUser = LeaderboardUserData,
-//     fifthUser = LeaderboardUserData,
-//     sixthUser = LeaderboardUserData,
-//     sevthUser = LeaderboardUserData,
-//     eigthUser = LeaderboardUserData,
-//     ninthUser = LeaderboardUserData,
-//     tenthUser = LeaderboardUserData
-// 
-//}
-) => {
+const Leaderboard = (league : string) => {
+    const {userData, isLoadingData, error, refresh} = LeaderboardViewModel(league);
     
     return(
     // <div className="w-full min-h-screen bg-button-primary">
