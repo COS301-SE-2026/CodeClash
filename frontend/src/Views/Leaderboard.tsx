@@ -3,9 +3,12 @@ import shadow from '../assets/shadow.png';
 import winner from '../assets/Icons/winner.png';
 import planet from '../assets/Planets/Earth.png';
 import background from '../assets/Background/leaderboard_background.png';
+import bg from '../assets/Background/leaderboardBG.jfif'
 import '../styles/global.css';
 import {Link} from 'react-router-dom';
 import { LeaderboardViewModel } from 'src/ViewModels/LeaderboardViewModel';
+import GlassCard from '@/components/shared/GlassCard';
+import LeaderboardCardLeft from '@/components/ui/leaderboardCard'
 
 
 // const Leaderboard: React.FC<LeaderboardProps> = (
@@ -23,11 +26,15 @@ const Leaderboard = (league : string) => {
     // </div>
     // </div>
     // </div>
-    <div style={{backgroundImage: `url(${shadow})`}} className="w-full min-h-screen bg-[#381421] bg-no-repeat object-cover bg-size-[auto_150px] bg-[37%_48%]">
+    <div style={{backgroundImage: `url(${bg})`}} className="w-full min-h-screen bg-cover bg-no-repeat object-cover">
         <Link to="/dashboard" className="text-secondary font-[var(--font)] text-[200%] font-semibold ml-5">← Back</Link>
         <h1 className="text-[340%] text-secondary text-center mr-[5%] font-[var(--font)] font-semibold drop-shadow-[4px_4px_0px_rgba(0,0,0,0.25)]">Leader Board</h1>
+        <GlassCard className="w-[80%] h-[50%] mx-auto">
+            <div className="flex grid grid-cols-3 gap-4 h-full">
+                <LeaderboardCardLeft></LeaderboardCardLeft>
+            </div>
         
-        <div className="flex justify-between items-start gap-10">
+        {/* <div className="flex justify-between items-start gap-10">
             <div className="relative w-full flex flex-col ml-5">
             <div className="grid grid-cols-3 md:flex-row md:flex-col gap-4 space-y-3">
             <div className="w-[36%] h-[57%] rounded-[20px] bg-secondary border-4 border-button-primary drop-shadow-[10px_10px_6px_rgba(0,0,0,0.25)] flex flex-col items-center justify-center mt-[7%] ml-[45%]">
@@ -49,7 +56,7 @@ const Leaderboard = (league : string) => {
                 <div className="text-[200%] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
                 <div className="text-[200%] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">ELO</div>
             </div>
-            <div className="w-[36%] h-[94%] rounded-[20px] bg-secondary border-4 border-button-primary drop-shadow-[10px_10px_6px_rgba(0,0,0,0.25)]">
+            <div className="w-[36%] h-[94%] rounded-[20px] bg-secondary border-4 border-button-primary drop-shadow-[10px_10px_6px_rgba(0,0,0,0.25)] flex flex-col justify-center">
                 <div style={{backgroundImage: `url(${profile})`}} className="mt-[1%] -ml-[1%] w-[60px] h-[60px] bg-no-repeat rounded-full object-cover bg-size-[auto_120px] bg-[right_-30px_top_-30px]"></div>
                 <div className="-mt-[30%] -ml-[30%] text-[320%] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">4</div>
                 <div className="-mt-[27%] ml-[50%] text-[120%] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
@@ -60,54 +67,58 @@ const Leaderboard = (league : string) => {
                 <div className="-mt-[28%] -ml-[30%] text-[48px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">5</div>
                 <div className="-mt-[27%] ml-[50%] text-[20px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
                 <div className="ml-[74%] -mt-[2%] text-[21px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">ELO</div>
-            </div>
-            </div>
-{            //////////////////////////////////////////////////////////////////
-}            
-            {/* <div style={{backgroundImage: `url(${light})`}} className="absolute -top-35 -left-5 w-[1100px] h-[1000px] bg-no-repeat bg-cover bg-center bg-size-[auto_1000px]"></div> */}
-            <div className="">
-            <div style={{backgroundImage: `url(${background})`}} className="w-[935px] h-[350px] rounded-[20px] bg-no-repeat bg-cover bg-center bg-size-[auto_700px]">
-                <div className="grid grid-rows-5 gap-1 items-end">
-                    <div className="mt-4.25 ml-8 h-[47px] w-[870px] rounded-[20px] bg-blend-normal bg-secondary backdrop-blur-lg">
-                        <div style={{backgroundImage: `url(${profile})`}} className="mt-0.75 w-[42px] h-[42px] bg-no-repeat rounded-full object-cover bg-size-[auto_85px] bg-[right_-21.5px_top_-21.5px]"></div>
-                        <div className="-ml-110 -mt-10 text-[24px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
-                        <div className="ml-75 -mt-9 text-[24px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">ELO</div>
-                        <div className="ml-190 -mt-10.5 text-[32px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">6</div>
-                    </div>
-                    <div className="mt-4 ml-8 h-[47px] w-[870px] rounded-[20px] bg-blend-normal bg-secondary backdrop-blur-lg">
-                        <div style={{backgroundImage: `url(${profile})`}} className="mt-0.5 w-[42px] h-[42px] bg-no-repeat rounded-full object-cover bg-size-[auto_85px] bg-[right_-21.5px_top_-21.5px]"></div>
-                        <div className="-ml-110 -mt-10 text-[24px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
-                        <div className="ml-75 -mt-9 text-[24px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">ELO</div>
-                        <div className="ml-190 -mt-10.5 text-[32px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">7</div>
-                    </div>
-                    <div className="mt-4 ml-8 h-[47px] w-[870px] rounded-[20px] bg-blend-normal bg-secondary backdrop-blur-lg">
-                        <div style={{backgroundImage: `url(${profile})`}} className="mt-0.5 w-[42px] h-[42px] bg-no-repeat rounded-full object-cover bg-size-[auto_85px] bg-[right_-21.5px_top_-21.5px]"></div>
-                        <div className="-ml-110 -mt-10 text-[24px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
-                        <div className="ml-75 -mt-9 text-[24px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">ELO</div>
-                        <div className="ml-190 -mt-10.5 text-[32px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">8</div>
-                    </div>
-                    <div className="mt-4 ml-8 h-[47px] w-[870px] rounded-[20px] bg-blend-normal bg-secondary backdrop-blur-lg">
-                        <div style={{backgroundImage: `url(${profile})`}} className="mt-0.5 w-[42px] h-[42px] bg-no-repeat rounded-full object-cover bg-size-[auto_85px] bg-[right_-21.5px_top_-21.5px]"></div>
-                        <div className="-ml-110 -mt-10 text-[24px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
-                        <div className="ml-75 -mt-9 text-[24px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">ELO</div>
-                        <div className="ml-190 -mt-10.5 text-[32px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">9</div>
-                    </div>
-                    <div className="mt-4 ml-8 h-[47px] w-[870px] rounded-[20px] bg-blend-normal bg-secondary backdrop-blur-lg">
-                        <div style={{backgroundImage: `url(${profile})`}} className="mt-0.75 w-[42px] h-[42px] bg-no-repeat rounded-full object-cover bg-size-[auto_85px] bg-[right_-21.5px_top_-21.5px]"></div>
-                        <div className="-ml-110 -mt-10 text-[24px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
-                        <div className="ml-75 -mt-9 text-[24px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">ELO</div>
-                        <div className="ml-190 -mt-10.5 text-[32px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">10</div>
-                    </div>
-                </div>
-            </div>
-            </div>
-            </div>
-            {/* <div style={{backgroundImage: `url(${planet})`}} className="w-[500px] h-[500px] bg-no-repeat object-cover bg-size-[auto_450px] bg-[right_-160px_top_-5px] mr-20">
-            <div className="mt-130 text-[60px] text-[#F9A4B9] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">League</div>
             </div> */}
-        </div>
-    </div>
+            </GlassCard>
+            </div>
     );
 }
+            
+// {            //////////////////////////////////////////////////////////////////
+// }            
+            // /* <div style={{backgroundImage: `url(${light})`}} className="absolute -top-35 -left-5 w-[1100px] h-[1000px] bg-no-repeat bg-cover bg-center bg-size-[auto_1000px]"></div> */}
+            // <div className="">
+            // <div style={{backgroundImage: `url(${background})`}} className="w-[935px] h-[350px] rounded-[20px] bg-no-repeat bg-cover bg-center bg-size-[auto_700px]">
+            //     <div className="grid grid-rows-5 gap-1 items-end">
+            //         <div className="mt-4.25 ml-8 h-[47px] w-[870px] rounded-[20px] bg-blend-normal bg-secondary backdrop-blur-lg">
+            //             <div style={{backgroundImage: `url(${profile})`}} className="mt-0.75 w-[42px] h-[42px] bg-no-repeat rounded-full object-cover bg-size-[auto_85px] bg-[right_-21.5px_top_-21.5px]"></div>
+            //             <div className="-ml-110 -mt-10 text-[24px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
+            //             <div className="ml-75 -mt-9 text-[24px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">ELO</div>
+            //             <div className="ml-190 -mt-10.5 text-[32px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">6</div>
+            //         </div>
+            //         <div className="mt-4 ml-8 h-[47px] w-[870px] rounded-[20px] bg-blend-normal bg-secondary backdrop-blur-lg">
+            //             <div style={{backgroundImage: `url(${profile})`}} className="mt-0.5 w-[42px] h-[42px] bg-no-repeat rounded-full object-cover bg-size-[auto_85px] bg-[right_-21.5px_top_-21.5px]"></div>
+            //             <div className="-ml-110 -mt-10 text-[24px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
+            //             <div className="ml-75 -mt-9 text-[24px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">ELO</div>
+            //             <div className="ml-190 -mt-10.5 text-[32px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">7</div>
+            //         </div>
+            //         <div className="mt-4 ml-8 h-[47px] w-[870px] rounded-[20px] bg-blend-normal bg-secondary backdrop-blur-lg">
+            //             <div style={{backgroundImage: `url(${profile})`}} className="mt-0.5 w-[42px] h-[42px] bg-no-repeat rounded-full object-cover bg-size-[auto_85px] bg-[right_-21.5px_top_-21.5px]"></div>
+            //             <div className="-ml-110 -mt-10 text-[24px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
+            //             <div className="ml-75 -mt-9 text-[24px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">ELO</div>
+            //             <div className="ml-190 -mt-10.5 text-[32px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">8</div>
+            //         </div>
+            //         <div className="mt-4 ml-8 h-[47px] w-[870px] rounded-[20px] bg-blend-normal bg-secondary backdrop-blur-lg">
+            //             <div style={{backgroundImage: `url(${profile})`}} className="mt-0.5 w-[42px] h-[42px] bg-no-repeat rounded-full object-cover bg-size-[auto_85px] bg-[right_-21.5px_top_-21.5px]"></div>
+            //             <div className="-ml-110 -mt-10 text-[24px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
+            //             <div className="ml-75 -mt-9 text-[24px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">ELO</div>
+            //             <div className="ml-190 -mt-10.5 text-[32px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">9</div>
+            //         </div>
+            //         <div className="mt-4 ml-8 h-[47px] w-[870px] rounded-[20px] bg-blend-normal bg-secondary backdrop-blur-lg">
+            //             <div style={{backgroundImage: `url(${profile})`}} className="mt-0.75 w-[42px] h-[42px] bg-no-repeat rounded-full object-cover bg-size-[auto_85px] bg-[right_-21.5px_top_-21.5px]"></div>
+            //             <div className="-ml-110 -mt-10 text-[24px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">Username</div>
+            //             <div className="ml-75 -mt-9 text-[24px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">ELO</div>
+            //             <div className="ml-190 -mt-10.5 text-[32px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">10</div>
+            //         </div>
+            //     </div>
+            // </div>
+            // </div>
+        //     </div>
+        //     {/* <div style={{backgroundImage: `url(${planet})`}} className="w-[500px] h-[500px] bg-no-repeat object-cover bg-size-[auto_450px] bg-[right_-160px_top_-5px] mr-20">
+        //     <div className="mt-130 text-[60px] text-[#F9A4B9] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">League</div>
+        //     </div> */}
+        // </div>
+//     </div>
+    
+
 
 export default Leaderboard;
