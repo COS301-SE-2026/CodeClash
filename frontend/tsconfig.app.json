@@ -21,14 +21,14 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
 
-    /* shadcn */
     "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "paths": {
       "@/*":["./@/*"],
-      "src/*":["./src/*"]
+      "root/*":["../*"],
+      "src/*": ["./src/*"]
     }
 
   },
-  "include": ["src", "amplify-config.ts", "dto"],
+  "include": ["src", "@", "src/amplify-config.ts", "root"],
 }

@@ -1,7 +1,13 @@
 import { useState } from 'react';
+<<<<<<< HEAD
 
 import MathField from '../../@/components/features/MathField.tsx';
 import { Link } from 'react-router-dom';
+=======
+import { Link } from 'react-router-dom';
+
+import MathField from '../../@/components/features/MathField.tsx';
+>>>>>>> 1a91153d0bfc103692795b99232322c777702128
 
 const MathMatch= () => {
   const [currentValue, setCurrentValue] = useState<string>('');

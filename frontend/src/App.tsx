@@ -1,8 +1,8 @@
 import type React from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Dashboard from "./Views/Dashboard";
-import Layout from "./layout";
-import Welcome from "./Views/Welcome";
+import Profile from "./Views/Profile";
+import Searching from "./Views/Searching";
 import SignIn from "./Views/SignIn";
 import SignUp from "./Views/SignUp";
 import Profile from "./Views/Profile";

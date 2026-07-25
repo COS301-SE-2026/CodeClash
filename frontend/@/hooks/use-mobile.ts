@@ -2,7 +2,7 @@ import * as React from "react";
 
 const MOBILE_BREAKPOINT = 768;
 
-function getIsMobile() {
+export function getIsMobile() {
   return window.innerWidth < MOBILE_BREAKPOINT;
 }
 

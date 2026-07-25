@@ -1,33 +1,22 @@
 import { useAuth } from "src/context/useAuth";
 import { useNavigate } from "react-router-dom";
 
-export function useLogOut() {
-    const { user, error, signOut } = useAuth();
-    const nav = useNavigate();
+import { useAuth } from "../context/hooks/useAuth";
 
+export function useLogOut() {
+    const { signOut } = useAuth();
+    const nav = useNavigate();
 
     const logout = async () => {
 
         try {
 
-            console.log(`logging user out: ${user}`)
             await signOut();
             nav('/welcome');
         } catch (err) {
-            console.log(`Error logging out: ${err}`)
+            console.error(`Error logging out: ${err}`)
         }
     }
 
     return logout
-}
-
-export function useEdit() {
-    const edit = async () => { }
-
-    return edit;
-}
-
-export async function getProfile() {
-
-
 }

@@ -1,18 +1,45 @@
-
-import searchIcon from '../assets/Icons/Search.png';
-import aiIcon from '../assets/Icons/AI.png';
-import profileIcon from '../assets/Icons/Profile.png';
-import backgroundImg from '../assets/Background/dashboard.png'
-import robot from '../assets/Robots/Pink_fighting.png'
-import brainIcon from '../assets/Icons/Brain.png';
-import GlassCard from '@/components/shared/GlassCard'
-import { Button } from '@/components/ui/button';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+
+import backgroundImg from '../assets/Background/dashboard.png'
+import aiIcon from '../assets/Icons/AI.png';
+import brainIcon from '../assets/Icons/Brain.png';
+import profileIcon from '../assets/Icons/Profile.png';
+import searchIcon from '../assets/Icons/Search.png';
+import robot from '../assets/Robots/Pink_fighting.png'
+import { useShowPopUp } from '../ViewModels/DashboardViewModel';
+import { useUser, getUserElo, getUserToken } from '../ViewModels/SharedViewModel';
+
+import Popup from './Popup'
+
+import GlassCard from '@/components/shared/GlassCard'
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { Badge } from '@/components/ui/badge';
+
+
+// View Model
+
 
 const Dashboard = () => {
+  const { isOpen, openPopUp, closePopUp } = useShowPopUp();
+  const { username } = useUser();
+  const [elo, setElo] = useState<number | null>(null);
+
+  useEffect(() => {
+
+    const getElo = async () => {
+      const token = await getUserToken();
+      const user_elo = await getUserElo(token);
+
+      setElo(user_elo);
+    }
+
+    getElo();
+
+  }, [elo])
+
   return (
     <div style={{ backgroundImage: `url(${backgroundImg})` }} className='w-full h-[20] h-screen bg-cover bg-center flex flex-col items-center'>
       {/* Header */}
@@ -32,13 +59,12 @@ const Dashboard = () => {
             <img src={profileIcon} alt='Profile' className=' h-[100%]' />
           </Link>
 
-
         </div>
 
       </div>
 
       {/* // Body */}
-      <GlassCard className='flex flex-row text-white items-center pl-5 pr-5 w-[97%] border h-[78%]'>
+      <GlassCard className=' flex flex-row text-white items-center justify-center pl-5 pr-5 w-[97%] border h-[78%]'>
 
         {/* First Column */}
         <div className='flex flex-col  w-[35%] justify-between ml-5 mr-5 h-[90%]'>
@@ -47,7 +73,7 @@ const Dashboard = () => {
             <CardContent className='flex '>
               <div className='flex flex-col'>
                 <p className='text-sm'>Level #</p>
-                <p className='text-l'>username</p>
+                <p className='text-l'>{username}</p>
               </div>
               <img alt='avatar' src={robot} className='absolute h-[47%] left-[12%]' />
             </CardContent>
@@ -61,7 +87,9 @@ const Dashboard = () => {
             </CardHeader>
             <CardContent className='flex'>
               <CardAction className='flex flex-col w-[100%] h-[6rem] justify-between'>
-                <Button variant={'default'} className='h-[45%] bg-pink-300 text-sm font-semibold'>  Ranked Play </Button>
+                <Button className='h-[45%] bg-pink-300 text-sm font-semibold'
+                  onClick={openPopUp}
+                > Ranked Play </Button>
                 <Button variant={'secondary'} className='h-[45%] bg-secondary text-primary text-sm font-semibold hover:bg-[#C0AF9C]'> Casual Play </Button>
               </CardAction>
             </CardContent>
@@ -71,7 +99,7 @@ const Dashboard = () => {
         {/* Elo Score */}
         <div className='flex flex-col w-[35%] items-center'>
           <p className='text-3xl font-semibold'>SKILL SCORE</p>
-          <p className='text-l'>###ELO</p>
+          <p className='text-l'>{elo} &nbsp; ELO</p>
         </div>
 
         {/* Stats */}
@@ -111,7 +139,7 @@ const Dashboard = () => {
                   Description of why badge was awarded
                 </div>
               </div>
-              <img src={brainIcon} alt='badge image' className='text-black h-[6rem]' />
+              <img src={brainIcon} alt='badge' className='text-black h-[6rem]' />
             </div>
           </div>
 
@@ -174,6 +202,8 @@ const Dashboard = () => {
           </div>
         </div>
       </GlassCard>
+
+      {isOpen && <Popup isOpen={isOpen} onClose={closePopUp} ></Popup>}
     </div>
   )
 

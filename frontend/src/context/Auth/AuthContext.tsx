@@ -1,50 +1,7 @@
-import React, {
-  createContext,
-  useEffect,
-  useState,
-  useCallback,
-  type ReactNode,
-} from "react";
-import {
-  signIn as amplifySignIn,
-  signUp as amplifySignUp,
-  signOut as amplifySignOut,
-  getCurrentUser,
-  confirmSignUp as amplifyConfirmSignUp,
-  resendSignUpCode as amplifyResendSignUpCode,
-  resetPassword as amplifyResetPassword,
-  confirmResetPassword as amplifyConfirmResetPassword,
-} from "aws-amplify/auth";
+import { signIn as amplifySignIn, signUp as amplifySignUp, signOut as amplifySignOut, getCurrentUser, confirmSignUp as amplifyConfirmSignUp, resendSignUpCode as amplifyResendSignUpCode } from 'aws-amplify/auth'
+import React, { useEffect, useState, useCallback, type ReactNode } from 'react'
 
-interface AuthUser {
-  username: string;
-  email?: string;
-  userId: string;
-}
-
-interface AuthContextValue {
-  user: AuthUser | null;
-  isAuthenticated: boolean;
-  isLoading: boolean;
-  error: string | null;
-  signIn: (email: string, password: string) => Promise<void>;
-  signUp: (data: {
-    username: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    phoneNumber: string;
-    password: string;
-  }) => Promise<void>;
-  signOut: () => Promise<void>;
-  confirmSignUp: (username: string, code: string) => Promise<void>;
-  resendSignUpCode: (username: string) => Promise<void>;
-  forgotPassword: (email:string) => Promise<void>;
-  confirmForgotPassword: (email: string, code: string, newPassword: string) => Promise<void>;
-  clearError: () => void;
-}
-
-const AuthContext = createContext<AuthContextValue | null>(null);
+import { AuthContext, type AuthUser } from './AuthContextValue'
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<AuthUser | null>(null)
@@ -80,8 +37,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         username: cognitoUser.username,
         userId: cognitoUser.userId,
       })
-    } catch (err: any) {
-      setError(err?.message ?? 'Sign in failed')
+    } catch (err: unknown) {
+      setError((err instanceof Error) ? err.message : 'Sign in failed')
       throw err
     }
   }, [])
@@ -103,8 +60,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           },
         },
       })
-    } catch (err: any) {
-      setError(err?.message ?? 'Sign up failed')
+    } catch (err: unknown) {
+      setError((err instanceof Error) ? err.message : 'Sign in failed')
       throw err
     }
   }, [])
@@ -113,8 +70,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setError(null)
     try {
       await amplifyConfirmSignUp({ username, confirmationCode: code })
-    } catch (err: any) {
-      setError(err?.message ?? 'Confirmation failed')
+    } catch (err: unknown) {
+      setError((err instanceof Error) ? err.message : 'Sign in failed')
       throw err
     }
   }, [])
@@ -123,8 +80,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setError(null)
     try {
       await amplifyResendSignUpCode({ username })
-    } catch (err: any) {
-      setError(err?.message ?? 'Failed to resend code')
+    } catch (err: unknown) {
+      setError((err instanceof Error) ? err.message : 'Sign in failed')
       throw err
     }
   }, []);
@@ -160,8 +117,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     try {
       await amplifySignOut()
       setUser(null)
-    } catch (err: any) {
-      setError(err?.message ?? 'Sign out failed')
+    } catch (err: unknown) {
+      setError((err instanceof Error) ? err.message : 'Sign in failed')
+      throw err
     }
   }, [])
 

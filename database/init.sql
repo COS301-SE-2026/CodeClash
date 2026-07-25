@@ -7,9 +7,7 @@ CREATE TYPE supported_languages AS ENUM('java','c++');
 CREATE TABLE IF NOT EXISTS users (
   user_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   username VARCHAR(50) UNIQUE NOT NULL,
-  email VARCHAR(100) UNIQUE NOT NULL,
-  password_hash VARCHAR(255) NOT NULL,
-  created_at TIMESTAMP DEFAULT NOW()
+  email VARCHAR(100) UNIQUE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS problems (
@@ -38,7 +36,7 @@ CREATE TABLE IF NOT EXISTS matches(
   mode VARCHAR(10) CHECK (mode IN ('ranked', 'casual')) NOT NULL,
   queue_start TIMESTAMP DEFAULT NOW() NOT NULL,
   match_start TIMESTAMP,
-  status VARCHAR(20) CHECK (status IN ('waiting', 'starting','in_progress', 'completed', 'abandoned')) DEFAULT 'waiting' --TODO check is there a function to set a found match status to starting?
+  status VARCHAR(20) CHECK (status IN ('waiting', 'starting','in_progress', 'completed', 'abandoned')) DEFAULT 'waiting' -- check is there a function to set a found match status to starting?
 );
 
 CREATE TABLE IF NOT EXISTS match_log(
@@ -52,10 +50,8 @@ CREATE TABLE IF NOT EXISTS match_log(
 
 CREATE TABLE IF NOT EXISTS elo_ratings (
   elo_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID REFERENCES users(user_id),
-  rating INTEGER DEFAULT 600,
-  updated_at TIMESTAMP DEFAULT NOW()
- 
+  user_id UUID REFERENCES users(user_id) UNIQUE,
+  rating INTEGER DEFAULT 600
 );
 
 
@@ -77,7 +73,6 @@ CREATE TABLE IF NOT EXISTS elo_history (
   history_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID REFERENCES users(user_id),
   match_id UUID REFERENCES matches(match_id),
-  old_rating INTEGER,
   new_rating INTEGER,
   changed_at TIMESTAMP DEFAULT NOW()
 );

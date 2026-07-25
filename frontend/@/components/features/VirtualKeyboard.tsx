@@ -1,7 +1,7 @@
 //Page containing the virtual math keyboard
 
 import { MathfieldElement } from 'mathlive';
-import { useEffect, useRef } from 'react';
+import { useEffect} from 'react';
 
 interface VirtualKeyboardProps {
   mathfieldRef: React.RefObject<MathfieldElement | null>;

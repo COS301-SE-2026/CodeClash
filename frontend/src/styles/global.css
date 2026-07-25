@@ -212,7 +212,8 @@
     padding: 4px 2px;
     color: var(--secondary-text);
     font-family: var(--heading);
-    font-size: var(--font-size-l);
+    font-weight: var(--heading-sub-weight);
+    font-size: var(--font-size-md);
     white-space: nowrap;
     transition: transform 0.3s ease;
   }
