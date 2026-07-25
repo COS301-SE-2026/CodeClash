@@ -1,0 +1,22 @@
+frontend/@/components/ui/gameGuideCard.tsx
+  h_b13c5d77534129 5,10,25,30
+frontend/@/components/ui/gameGuideNumber.tsx
+  h_b13c5d77534129 4,9
+frontend/src/Views/Leaderboard.tsx
+  h_b13c5d77534129 33-34,45,48-50,52-54,57,60-61,63,66-67,69,71-73,75,77-79,84,88,90-92,94,96-98,100,102-104,106,108-110,112,114-116,122,124
+frontend/@/components/ui/gameGuideHeading.tsx
+  h_b13c5d77534129 3,8
+frontend/src/Views/Guidebook.tsx
+  h_b13c5d77534129 5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "4d7011334716a791a49caf18ad7276a2c835af37",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
