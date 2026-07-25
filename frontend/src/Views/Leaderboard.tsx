@@ -8,7 +8,7 @@ import '../styles/global.css';
 import {Link} from 'react-router-dom';
 import { LeaderboardViewModel } from 'src/ViewModels/LeaderboardViewModel';
 import GlassCard from '@/components/shared/GlassCard';
-import LeaderboardCardLeft from '@/components/ui/leaderboardCard'
+import LeaderboardCardLeft, {LeaderboardCardRight} from '@/components/ui/leaderboardCard'
 
 
 // const Leaderboard: React.FC<LeaderboardProps> = (
@@ -33,7 +33,7 @@ const Leaderboard = (league : string) => {
             <div className="flex grid grid-cols-3 gap-4 h-full">
                 <LeaderboardCardLeft></LeaderboardCardLeft>
                 <div style={{backgroundImage : `url(${winner})`}} className="w-[50px] h-[50px] bg-no-repeat rounded-full object-cover bg-size-[auto_20px] bg-[right_20px_top_20px] border-1 "></div>
-                <LeaderboardCardLeft></LeaderboardCardLeft>
+                <LeaderboardCardRight></LeaderboardCardRight>
             </div>
         
         {/* <div className="flex justify-between items-start gap-10">
