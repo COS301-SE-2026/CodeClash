@@ -1,6 +1,6 @@
 import { Socket, Server } from "socket.io"
 import MatchmakingUserDTO from 'src/entities/dtos/matchmaking.dto';
-import { dequeue, matchmaking } from 'src/application/usecases/services/matchmaking.service';
+import { MatchmakingService } from 'src/application/usecases/services/matchmaking.service';
 import { GameService } from 'src/application/usecases/services/game.service';
 import { GameDataDTO, GameQuestionsDTO } from "src/entities/dtos/game-data.dto";
 import { PlayerDTO } from "src/entities/dtos/components.dto";
@@ -8,7 +8,7 @@ import { PlayerDTO } from "src/entities/dtos/components.dto";
 const PAIRS = new Map<string, Map<string, { accepted: boolean, elo: number, username?: string}>>();
 const GAME = new Map<number, { player_ids: string[], questions: GameQuestionsDTO }>();
 
-export const joinMatchQueue = (async (io: Server, socket: Socket, data: any) => {
+export const joinMatchQueue = (async (io: Server, socket: Socket, data: any, matchmaking_service: MatchmakingService) => {
     //adds users to a room 
     await socket.join(socket.data.user_id)
     socket.data.game_mode = data.game_mode
@@ -17,7 +17,7 @@ export const joinMatchQueue = (async (io: Server, socket: Socket, data: any) => 
     const user = new MatchmakingUserDTO(socket.data.user_id, data.elo, data.game_mode);
     let match = null;
 
-    match = await matchmaking(user);
+    match = await matchmaking_service.matchmaking(user);
 
     if (!match)
         return;
@@ -44,8 +44,8 @@ export const joinMatchQueue = (async (io: Server, socket: Socket, data: any) => 
     io.to(player_2!).emit('users_matched', pair);
 })
 
-export const leaveMatchQueue = (async (io: Server, socket: Socket) => {
-    const remove = await dequeue(socket.data.user_id, socket.data.game_mode);
+export const leaveMatchQueue = (async (io: Server, socket: Socket, matchmaking_service: MatchmakingService) => {
+    const remove = await matchmaking_service.dequeue(socket.data.user_id, socket.data.game_mode);
 
     if (remove) {
         io.to(socket.data.user_id).emit('user_dequeued');

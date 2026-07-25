@@ -27,6 +27,9 @@ import { GetAnswers } from 'src/application/usecases/services/answers.service';
 import { GameCache } from 'src/interface-adapters/game-cache';
 import { IGameCache } from 'src/application/interfaces/IGameCache';
 import redis from './config/redis-client';
+import { MatchmakingService } from 'src/application/usecases/services/matchmaking.service';
+import { IMatchmakingCache } from 'src/application/interfaces/IMatchmakingCache';
+import { MatchmakingCache } from 'src/interface-adapters/matchmaking-cache';
 
 dotnev.config()
 
@@ -80,11 +83,12 @@ AppDataSource.initialize()
 
         // create game cache
         const game_cache:IGameCache = new GameCache(redis);
+        const matchmaking_cache: IMatchmakingCache = new MatchmakingCache(redis);
 
 
         // initialise services 
         const game_service = new GameService(create_game,get_questions, get_difficulty, get_total_time, get_answers, game_cache);
-
+        const matchmkaing_service = new MatchmakingService(matchmaking_cache);
 
 
         // initialise database with users and elos
@@ -94,9 +98,9 @@ AppDataSource.initialize()
         io.on("connection", (socket) => {
 
             // SOCKET HANDLERS MUST MOOVE TO interface-adapter/
-            socket.on('join_match_queue', async (data) => await joinMatchQueue(io, socket, data));
+            socket.on('join_match_queue', async (data) => await joinMatchQueue(io, socket, data, matchmkaing_service));
 
-            socket.on('leave_match_queue', async () => await leaveMatchQueue(io, socket));
+            socket.on('leave_match_queue', async () => await leaveMatchQueue(io, socket, matchmkaing_service));
 
             socket.on('match_accepted', async (data) => { await matchAccepted(io, socket, data,game_service) });
 
