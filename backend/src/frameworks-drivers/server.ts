@@ -16,7 +16,7 @@ import { IQuestionRepository } from 'src/application/interfaces/repositories/IQu
 import { QuestionRepository } from 'src/interface-adapters/repositories/question.repository';
 import { Questions } from 'src/entities/db-entities/questions.entities';
 import { submitQuestion } from 'src/interface-adapters/socket-handlers/game.handler';
-import { SubmissionDTO } from 'src/entities/dtos/game-data.dto';
+import { SubmissionDTO } from 'src/entities/dtos/components.dto';
 import { IAnswerRepository } from 'src/application/interfaces/repositories/IAnswerRepository';
 import { AnswerRepository } from 'src/interface-adapters/repositories/answer.repository';
 import { Answers } from 'src/entities/db-entities/answers.entities';

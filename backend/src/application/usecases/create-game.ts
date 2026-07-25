@@ -1,4 +1,4 @@
-import { LifeComponent, MatchComponent, PlayerInfoComponent, PlayersComponent, RoundComponent } from "src/entities/components";
+import { LifeComponent, MatchComponent, PlayerInfoComponent, PlayersComponent, RoundComponent, SubmissionRegistryComponent } from "src/entities/components";
 import { PlayerDTO, MatchDTO, RoundDTO } from "src/entities/dtos/components.dto";
 import { World } from "src/entities/World"
 
@@ -130,9 +130,14 @@ export class CreateMatchEntity {
             end_time: match.end_time
         }
 
+        const submission: SubmissionRegistryComponent= {
+            submissions: new Map<string, number>()
+        }
+
 
         this.addMatchComponent(entity, 'Players', players_component);
         this.addMatchComponent(entity, 'Match', match_component);
+        this.addMatchComponent(entity, 'Submission', submission);
 
         return entity;
     }

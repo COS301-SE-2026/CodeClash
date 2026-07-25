@@ -14,9 +14,3 @@ export interface GameQuestionsDTO {
     medium: QuestionDTO[],
     hard: QuestionDTO[]
 }
-
-export interface SubmissionDTO {
-    math_id: number,
-    question_id: string,
-    answer: string
-}

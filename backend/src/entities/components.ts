@@ -19,6 +19,12 @@ export interface MatchComponent {
     end_time: Date,
 }
 
+// SubmissionRegistryComponent maps player_id-question_id -> submission entity
+
+export interface SubmissionRegistryComponent{
+    submissions: Map<string, number>
+}
+
 /********************************** */
 
 /** PLAYER ENTITY */
@@ -26,7 +32,6 @@ export interface MatchComponent {
 // Life Components store current and total life a player has
 
 export interface LifeComponent {
-
     current_life: number,
     max_life: number
 }
@@ -63,14 +68,13 @@ export interface RoundComponent {
 /** SUBMISSION ENTITY */
 
 export interface SubmissionComponent {
-    player_id: number,
-    round_id: number,
-    question_id: number,
+    player_id: string,
+    question_id: string,
     attempt_number: number,
     answer: string,
-    language: string
-    status: string,
-    submitted_at: Date
+    language?: string
+    submitted_at: Date,
+    correct:boolean
 }
 
 /********************************** */
@@ -83,32 +87,17 @@ export interface MathsResultComponent {
     correct: boolean
 }
 
-/** QUESTION ENTITY */
-
-export interface MathsQuestionComponent {
-    answer: string,
-    question: string
-}
-
-export interface ProgQuestionComponent {
-    question: string,
-    test_cases: string[],
-    expected_output: string[]
-}
-
 
 // union for all components - for the map
 
 export type PlayerComponentTypes = LifeComponent | PlayerInfoComponent | RankComponent | BadgeComponent;
-export type MatchComponentTypes = PlayersComponent | MatchComponent;
+export type MatchComponentTypes = PlayersComponent | MatchComponent | SubmissionRegistryComponent;
 export type ResultComponentTypes = MathsResultComponent;
-export type QuestionComponentTypes = MathsQuestionComponent | ProgQuestionComponent;
 
 export type Component =
     PlayerComponentTypes |
     MatchComponentTypes |
     RoundComponent |
     SubmissionComponent |
-    ResultComponentTypes |
-    QuestionComponentTypes;
+    ResultComponentTypes ;
 

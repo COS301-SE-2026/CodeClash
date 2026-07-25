@@ -19,3 +19,10 @@ export interface MatchDTO {
 export interface RoundDTO {
     question_ids: string[],
 }
+
+
+export interface SubmissionDTO {
+    player_id: string,
+    question_id: string,
+    answer: string
+}

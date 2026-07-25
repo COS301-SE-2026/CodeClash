@@ -6,8 +6,6 @@ import { GetAnswers } from "../answers";
 import { IGameCache } from "src/application/interfaces/IGameCache";
 
 
-
-
 export class GameService {
     constructor(
         private readonly createGame: CreateGame,
@@ -37,7 +35,6 @@ export class GameService {
         const questions = await this.getQuestions.execute(league, avg_elo, game_mode);
         const difficulty = this.getDifficulty.execute(questions)
         const time = this.getTotalTime.execute(questions)
-
 
 
 

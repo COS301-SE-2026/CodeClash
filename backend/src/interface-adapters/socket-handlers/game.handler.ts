@@ -1,8 +1,6 @@
-import { SubmissionDTO } from "src/entities/dtos/game-data.dto";
+import { SubmissionDTO } from "src/entities/dtos/components.dto";
 
 
 export const submitQuestion = (data: SubmissionDTO)=>{
-
-    
-        
+       
 }
