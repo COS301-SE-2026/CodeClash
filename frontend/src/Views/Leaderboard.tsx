@@ -15,6 +15,16 @@ import { EloText } from '@/components/ui/leaderboardCard';
 // const Leaderboard: React.FC<LeaderboardProps> = (
 const Leaderboard = (league : string) => {
     const {userData, isLoadingData, error, refresh} = LeaderboardViewModel(league);
+
+    if(isLoadingData){
+        return <div className="text-center mx-auto font-[var(--font)] text-[200%] font-semibold text-button-primary">Fetching Leaderboard Data</div>
+    }
+
+    if(error){
+        return(
+            <div ></div>
+        )
+    }
     
     return(
     <div style={{backgroundImage: `url(${bg})`}} className="w-full min-h-screen bg-cover bg-no-repeat object-cover">
