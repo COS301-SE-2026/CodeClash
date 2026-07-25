@@ -1,4 +1,4 @@
-import { IAnswerRepository } from "../interfaces/repositories/IAnswerRepository";
+import { IAnswerRepository } from "../../interfaces/repositories/IAnswerRepository";
 
 
 export class GetAnswers {

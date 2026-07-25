@@ -21,9 +21,9 @@ import { IAnswerRepository } from 'src/application/interfaces/repositories/IAnsw
 import { AnswerRepository } from 'src/interface-adapters/repositories/answer.repository';
 import { Answers } from 'src/entities/db-entities/answers.entities';
 import { GameService } from 'src/application/usecases/services/game.service';
-import { CreateGame, CreateMatchEntity, CreatePlayerEntity, CreateRoundEntity } from 'src/application/usecases/create-game';
-import { GetDifficulty, GetQuestions, GetTotalTime } from 'src/application/usecases/questions';
-import { GetAnswers } from 'src/application/usecases/answers';
+import { CreateGame, CreateMatchEntity, CreatePlayerEntity, CreateRoundEntity } from 'src/application/usecases/systems/create-game';
+import { GetDifficulty, GetQuestions, GetTotalTime } from 'src/application/usecases/services/questions.service';
+import { GetAnswers } from 'src/application/usecases/services/answers.service';
 import { GameCache } from 'src/interface-adapters/game-cache';
 import { IGameCache } from 'src/application/interfaces/IGameCache';
 import redis from './config/redis-client';

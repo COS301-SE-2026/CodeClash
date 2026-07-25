@@ -1,8 +1,8 @@
 import { GameMode } from "src/entities/db-entities/questions.entities";
-import { CreateGame } from "../create-game";
+import { CreateGame } from "../systems/create-game";
 import { MatchDTO, PlayerDTO, RoundDTO } from "src/entities/dtos/components.dto";
-import { GetDifficulty, GetQuestions, GetTotalTime } from "../questions";
-import { GetAnswers } from "../answers";
+import { GetDifficulty, GetQuestions, GetTotalTime } from "./questions.service";
+import { GetAnswers } from "./answers.service";
 import { IGameCache } from "src/application/interfaces/IGameCache";
 
 
