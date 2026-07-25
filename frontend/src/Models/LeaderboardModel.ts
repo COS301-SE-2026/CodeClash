@@ -12,7 +12,7 @@ export const LeaderboardUserData : LeaderboardUserProps = {
 }
 
 
-export interface LeaderboardProps{
+export class LeaderboardProps{
     league: string;
     leagueUrl: string;
     firstUser: LeaderboardUserProps;
@@ -25,6 +25,11 @@ export interface LeaderboardProps{
     eigthUser: LeaderboardUserProps;
     ninthUser: LeaderboardUserProps;
     tenthUser: LeaderboardUserProps;
+
+    constructor(l: string, lUrl: string){
+        this.league = l;
+        
+    }
 
 }
 

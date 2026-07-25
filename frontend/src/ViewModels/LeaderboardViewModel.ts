@@ -21,6 +21,14 @@ export function LeaderboardViewModel(){
         finally{
             setIsLoadingData(false);
         }
+    }, []);
 
-    })
+    useEffect(() => {
+        loadLeaderboard();
+    }, [loadLeaderboard]);
+
+    const toReturn = new LeaderboardProps();
+
+    
+
 }
