@@ -1,22 +1,30 @@
-import express, { Request, Response, NextFunction } from 'express'
 import cors from 'cors'
+import express, { Request, Response } from 'express'
+
 import eloRoutes from './routes/api.routes';
 import matchRoutes from './routes/api.routes';
-import jwt, { type JwtPayload } from 'jsonwebtoken'
+import { initDB } from './config/db';
+
+
+initDB();
 
 const app = express();
 app.disable('x-powered-by');
 
-app.use(cors({origin: process.env.FRONTEND_URL || 'http://localhost:5173'}));
+app.use(cors({ origin: process.env.FRONTEND_URL || 'http://localhost:5173' }));
 app.use(express.json());
 app.use('/api/elo', eloRoutes);
 app.use('/api/match', matchRoutes);
 
 app.get('/health', (req: Request, res: Response) => {
-    res.json({ status: 'ok'});
+  res.json({ status: 'ok' });
 });
 
-interface CognitoUser {
+
+
+//  AWS COGNITO SETUP
+
+export interface CognitoUser {
   sub: string
   email?: string
 }
@@ -54,37 +62,6 @@ function jwkToPem(jwk: any): string {
   const exponentB64 = base64UrlEncode(exponent)
   const pemBody = `MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA${modulusB64}${exponentB64}`
   return `-----BEGIN PUBLIC KEY-----\n${pemBody}\n-----END PUBLIC KEY-----`
-}
-
-export const authenticate = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  const header = req.headers.authorization
-  if (!header?.startsWith('Bearer ')) {
-    res.status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Missing or invalid Authorization header' } })
-    return
-  }
-  const token = header.slice(7)
-  try {
-    const decoded = jwt.decode(token, { complete: true })
-    if (!decoded || typeof decoded === 'string' || !decoded.header.kid) {
-      res.status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Invalid token' } })
-      return
-    }
-    const keys = await getJwks()
-    const key = keys.find((k: any) => k.kid === decoded.header.kid)
-    if (!key) {
-      res.status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Invalid token key' } })
-      return
-    }
-    const pem = jwkToPem(key)
-    const payload = jwt.verify(token, pem, {
-      algorithms: ['RS256'],
-      issuer: `https://cognito-idp.${process.env.COGNITO_REGION}.amazonaws.com/${process.env.COGNITO_USER_POOL_ID}`,
-    }) as JwtPayload
-    req.user = { sub: payload.sub!, email: payload.email }
-    next()
-  } catch {
-    res.status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Token verification failed' } })
-  }
 }
 
 export default app;

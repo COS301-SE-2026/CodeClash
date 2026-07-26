@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
-import pool from '../config/db';
+import { pool } from '../config/db';
 
 //GET api/matches/:optional params
 //Returns a paginated list of matches for the authenticated user. Optionally filter by status or game mode.
 export const getMatches = async (req: Request, res: Response): Promise<void> => {
     const { status, mode, limit = '10', offset = '0' } = req.query;
-    
 
-    try{
+
+    try {
         const conditions: string[] = [];
         const values: any[] = [];
 
@@ -22,7 +22,7 @@ export const getMatches = async (req: Request, res: Response): Promise<void> => 
 
         const where = conditions.length > 0 ? `WHERE ${conditions.join(' AND ')}` : '';
         const result = await pool.query(
-      `SELECT 
+            `SELECT 
         match_id,
         mode,
         status,
@@ -30,12 +30,12 @@ export const getMatches = async (req: Request, res: Response): Promise<void> => 
         match_start
         FROM matches
         ${where}
-        LIMIT $${values.length +1} OFFSET $${values.length + 2}`,
-        [...values, parseInt(limit as string), parseInt(offset as string)]
+        LIMIT $${values.length + 1} OFFSET $${values.length + 2}`,
+            [...values, parseInt(limit as string), parseInt(offset as string)]
         );
 
         res.status(200).json(result.rows);
-    } catch(error){
+    } catch (error) {
         console.error('Error fetching matches:', error);
         res.status(500).json({ message: 'Internal server error' });
     }

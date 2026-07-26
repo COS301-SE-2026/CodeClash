@@ -2,8 +2,21 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "module": "commonjs",
-    "types": ["node", "vitest"],
-    "ignoreDeprecations": "6.0"
+    "types": [
+      "node",
+      "vitest"
+    ],
+    "ignoreDeprecations": "6.0",
+    "baseUrl": ".",
+    "paths": {
+      "root/*": [
+        "../*"
+      ]
+    }
   },
-  "include": ["tests/**/*.ts", "src/**/*.ts"],
+  "include": [
+    "tests/**/*.ts",
+    "src/**/*.ts",
+    "../**/*.ts"
+  ],
 }
