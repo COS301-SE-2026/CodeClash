@@ -8,7 +8,7 @@ import SignUp from "./Views/SignUp";
 import Profile from "./Views/Profile";
 import Searching from "./Views/Searching";
 import Found from "./pages/queuePages/found";
-import Leaderboard from "./Views/Leaderboard";
+//import Leaderboard from "./Views/Leaderboard";
 import Guidebook from "./Views/Guidebook"
 import MathMatch from "./Views/MathsMatch";
 import FinalResults from "./Views/FinalResults";
