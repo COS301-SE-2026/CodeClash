@@ -30,7 +30,7 @@ const ForgotPassword: React.FC = () => {
                         <p className="heading-sub text-center mb-4">{content.taglineRequest}</p>
 
                         {displayError && (
-                            <p className="text-danger text-center">{displayError}</p>
+                            <p className="text-primary-text text-center">{displayError}</p>
                         )}
 
                         <input className= {fieldClass} type="email" placeholder={content.emailPlaceholder}
@@ -49,7 +49,7 @@ const ForgotPassword: React.FC = () => {
                         <p className="heading-sub text-center mb-4">{content.taglineReset(requestForm.email)}</p>
 
                         {displayError && (
-                            <p className="text-danger text-center">{displayError}</p>
+                            <p className="text-primary-text text-center">{displayError}</p>
                         )}
 
                         <input className= {fieldClass} type="text" placeholder= {content.codePlaceholder}
