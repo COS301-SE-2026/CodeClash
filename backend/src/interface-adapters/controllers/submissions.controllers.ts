@@ -4,7 +4,7 @@
 */
 
 import { Request, Response } from 'express';
-import pool from '../config/db';
+import pool from '../../frameworks-drivers/config/db';
 
 //POST
 export const createSubmission = async (req: Request, res: Response): Promise<void> => {

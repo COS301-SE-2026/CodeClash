@@ -4,7 +4,7 @@
 */
 
 import { Request, Response } from 'express';
-import pool from '../config/db';
+import pool from '../../frameworks-drivers/config/db';
 
 //GET api/friends/{user_id}
 //Returns the friends of a specific user

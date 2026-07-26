@@ -6,13 +6,13 @@ import {
   updateMatchStatus, 
   getMatchLog,
   createMatchLog
-} from '../controllers/matches.controllers';
+} from '../../interface-adapters/controllers/matches.controllers';
 import {
   getUserElo,
   getEloHistory,
   updateEloAfterMatch,
   getLeaderboard
-} from '../controllers/elo.controllers';
+} from '../../interface-adapters/controllers/elo.controllers';
 import {
   getFriendsById,
   getFriendRequests,
@@ -20,7 +20,7 @@ import {
   sendFriendRequest,
   respondToFriendRequest,
   removeFriend
-} from '../controllers/friends.controllers';
+} from '../../interface-adapters/controllers/friends.controllers';
 
 import{
   createSubmission,
@@ -29,7 +29,7 @@ import{
   getSubmissionById,
   updateSubmissionStatus,
   createExecutionResult
-}from '../controllers/submissions.controllers'
+}from '../../interface-adapters/controllers/submissions.controllers'
 
 import{
   getPowerups,
@@ -38,7 +38,7 @@ import{
   getAchievements,
   awardAchievement,
   getUserAchievements
-} from '../controllers/powerups.controllers'
+} from '../../interface-adapters/controllers/powerups.controllers'
 const router = Router();
 
 // Match routes

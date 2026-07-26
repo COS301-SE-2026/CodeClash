@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import pool from '../config/db';
+import pool from '../../frameworks-drivers/config/db';
 
 //GET /powerups
 // Get all available powerups

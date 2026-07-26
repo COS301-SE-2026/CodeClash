@@ -1,7 +1,7 @@
 import request from 'supertest'
 import { describe, test, expect } from 'vitest';
 
-import app from '../../../src/app'
+import app from '../../../src/frameworks-drivers/app'
 
 export { request, app }
 

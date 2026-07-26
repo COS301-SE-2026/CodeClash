@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import pool from '../config/db';
+import pool from '../../frameworks-drivers/config/db';
 
 // GET /api/elo/:user_id
 // Get current elo rating for a user
