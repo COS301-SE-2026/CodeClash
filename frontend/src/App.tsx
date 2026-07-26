@@ -1,18 +1,17 @@
 import type React from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import Dashboard from "./Views/Dashboard";
-import Profile from "./Views/Profile";
-import Searching from "./Views/Searching";
+import Layout from "./layout";
+import Welcome from "./Views/Welcome";
 import SignIn from "./Views/SignIn";
 import SignUp from "./Views/SignUp";
 import Profile from "./Views/Profile";
-import Searching from "./pages/queuePages/searching";
+import Searching from "./Views/Searching";
 import Found from "./pages/queuePages/found";
-import MathMatch from "./pages/MathMatch";
+import MathMatch from "./Views/MathsMatch";
 import ForgotPassword from "./Views/ForgotPassword";
 
 const App: React.FC = () => {
-    const navigate = useNavigate();
     return (
         <Routes>
             <Route path='/' element={<Welcome/>}/>
@@ -22,9 +21,10 @@ const App: React.FC = () => {
             <Route path='/profile' element={<Profile/>}/>
             <Route path='/searching' element={<Searching/>}/>
             <Route path='/found' element={<Found/>}/>
-            <Route path='/math-match' element={<MathMatch/>}/>
-            <Route path='/forgot-password' element= {<ForgotPassword onBack={() => navigate('/sign-in')} onSuccess={() => navigate('/sign-in')}/>}/>
+            <Route path='/match' element={<MathMatch/>}/>
             {/* <Route path='/prog-match' element={<ProgMatch language="javascript"/>}/> */}
+
+            <Route path= '/forgot-password' element= {<ForgotPassword/>}/>
 
             {/* Pages with sidebar inside the app */}
             <Route element={<Layout />}>
