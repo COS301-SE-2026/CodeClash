@@ -23,7 +23,7 @@ import { Progress } from '@/components/ui/progress';
 
 
 const Dashboard = () => {
-  const { isOpen, openPopUp, closePopUp } = useShowPopUp();
+  const { isOpen, closePopUp } = useShowPopUp();
   const { username } = useUser();
   const [elo, setElo] = useState<number | null>(null);
 
