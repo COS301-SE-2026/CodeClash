@@ -1,0 +1,46 @@
+backend/src/interface-adapters/socket-handlers/matchmaking.handler.ts
+  h_94c952a9e14c58 9,34-36,76-78,87,122-123,130-139
+backend/src/application/usecases/check-answer.ts
+  h_94c952a9e14c58 44,47-49,52
+backend/src/entities/dtos/game-data.dto.ts
+  h_94c952a9e14c58 9-10
+frontend/@/components/shared/Match.tsx
+  h_94c952a9e14c58 74
+frontend/src/Views/MatchFound.tsx
+  h_94c952a9e14c58 13
+backend/src/entities/dtos/components.dto.ts
+  h_94c952a9e14c58 6-8
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 6,123-124
+frontend/src/ViewModels/MatchSearchingViewModel.ts
+  h_94c952a9e14c58 8,10,15,31-36,41
+frontend/src/context/Socket/SocketContext.tsx
+  h_94c952a9e14c58 5,11
+frontend/src/Models/MatchModel.ts
+  h_94c952a9e14c58 3
+backend/src/application/usecases/systems/life.system.ts
+  h_94c952a9e14c58 6,9
+frontend/src/Models/MatchSearchingModel.ts
+  h_94c952a9e14c58 2
+frontend/src/ViewModels/MatchViewModel.ts
+  h_94c952a9e14c58 11,19,33,136-137,143,146-153,160,167-173,177-178,181,195
+frontend/src/Views/MathsMatch.tsx
+  h_94c952a9e14c58 22,39-43
+frontend/src/dtos/submission.dto.ts
+  h_94c952a9e14c58 1-6
+frontend/src/dtos/matched-user.dto.ts
+  h_94c952a9e14c58 1-6
+frontend/src/ViewModels/MatchFoundViewModel.ts
+  h_94c952a9e14c58 16-17,70-71,111-112
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "80f9f6e5328369209211ea8d290bf6729818a5fa",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

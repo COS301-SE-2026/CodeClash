@@ -1,0 +1,48 @@
+database/02-init-questions.sql
+  h_94c952a9e14c58 1-26,28-269
+frontend/@/components/features/MathPage.tsx
+  h_94c952a9e14c58 30,33,44,48
+frontend/src/dtos/game-questionDTO.tsx
+  h_94c952a9e14c58 2
+backend/src/interface-adapters/socket-handlers/game.handler.ts
+  h_94c952a9e14c58 1-2,6-16
+backend/src/application/usecases/systems/submission.system.ts
+  h_94c952a9e14c58 11,13
+backend/src/entities/dtos/components.dto.ts
+  h_94c952a9e14c58 25
+backend/src/entities/World.ts
+  h_94c952a9e14c58 35-36,39-40,44,80
+backend/src/application/usecases/systems/life.system.ts
+  h_94c952a9e14c58 8,10
+backend/tests/unit/usecases/check-answer.test.ts
+  h_94c952a9e14c58 1
+frontend/@/components/shared/Match.tsx
+  h_94c952a9e14c58 18-19,32-33,38,94,124-127,129-135,140-141,144-145,151
+backend/src/application/usecases/systems/create-game.ts
+  h_94c952a9e14c58 3,9,38,40,83,85,112,114
+frontend/@/components/features/question.tsx
+  h_94c952a9e14c58 41
+backend/src/interface-adapters/game-cache.ts
+  h_94c952a9e14c58 20
+frontend/src/Views/MathsMatch.tsx
+  h_94c952a9e14c58 17,35-40,52-53,57,62-71
+frontend/src/ViewModels/MatchViewModel.ts
+  h_94c952a9e14c58 29,32,63,83,87,98,108,136-150,162-163,180-181,205-206
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 33-36,69-71,80-82,100-104,123
+backend/src/application/usecases/check-answer.ts
+  h_94c952a9e14c58 14-15,18,43-44,54,57-58
+backend/src/entities/db-entities/answers.entities.ts
+  h_94c952a9e14c58 16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "ada87a3728839aa16912b52cdffd5663769df028",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

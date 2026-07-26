@@ -1,0 +1,24 @@
+backend/src/interface-adapters/socket-handlers/matchmaking.handler.ts
+  h_94c952a9e14c58 3,11,20,47-48
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 30-32,86,91,101,103
+backend/src/application/interfaces/IMatchmakingCache.ts
+  h_94c952a9e14c58 1-19
+backend/src/application/usecases/services/matchmaking.service.ts
+  h_94c952a9e14c58 3,6-7,9-11,14-18,21-24,26-27,29,31-37,39-40,42-43,45,47,49-53,55,57-60,62,64,66,68-70,72-83,85-86,89-90
+backend/tests/unit/services/matchmaking.service.test.ts
+  h_94c952a9e14c58 1-133
+backend/src/interface-adapters/matchmaking-cache.ts
+  h_94c952a9e14c58 1-62
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "f2df97d10a11b5d4f0f2041a07d1dedea414c8ce",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

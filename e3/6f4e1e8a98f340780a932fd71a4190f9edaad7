@@ -1,0 +1,20 @@
+frontend/src/App.tsx
+  h_94c952a9e14c58 2,14,17-36,39
+database/02-init-questions.sql
+  h_94c952a9e14c58 1-3,6-7,19
+frontend/@/components/features/question.tsx
+  h_94c952a9e14c58 41
+frontend/src/Views/Confirmation.tsx
+  h_94c952a9e14c58 18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "e36f4e1e8a98f340780a932fd71a4190f9edaad7",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

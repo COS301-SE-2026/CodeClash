@@ -1,0 +1,32 @@
+frontend/src/context/Auth/AuthContext.tsx
+  h_94c952a9e14c58 8-10,111-136,161-162
+frontend/src/ViewModels/SignUpViewModel.ts
+  h_94c952a9e14c58 6
+frontend/src/Views/BrandStyleGuide/ComponentSection.tsx
+  h_94c952a9e14c58 1,19,63-66,72-73,79-80
+frontend/src/Views/BrandStyleGuide/SharedLayout.tsx
+  h_94c952a9e14c58 1,17,20,23
+frontend/src/Views/Confirmation.tsx
+  h_94c952a9e14c58 18-23,35,41
+package.json
+  h_94c952a9e14c58 48-49
+frontend/src/ViewModels/SignInViewModel.ts
+  h_94c952a9e14c58 2-3
+frontend/src/Views/Leaderboard.tsx
+  h_94c952a9e14c58 6,9-11,15-29,32-35,37-44,46-51,54-58,60-95,97-99,105-106,110-111
+frontend/src/Models/LeaderboardModel.ts
+  h_94c952a9e14c58 9,14,27-39,43-54
+frontend/src/App.tsx
+  h_94c952a9e14c58 56
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "fd304b153a31e7d6400f62e87f0185ff579d9b1f",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

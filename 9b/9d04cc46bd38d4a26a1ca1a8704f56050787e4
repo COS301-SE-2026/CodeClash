@@ -1,0 +1,24 @@
+backend/src/application/usecases/services/game.service.ts
+  h_94c952a9e14c58 73
+backend/src/application/usecases/systems/create-game.ts
+  h_94c952a9e14c58 14,27,114,129-130
+backend/src/entities/components.ts
+  h_94c952a9e14c58 20
+backend/src/application/interfaces/IGameCache.ts
+  h_94c952a9e14c58 6
+backend/src/application/usecases/check-answer.ts
+  h_94c952a9e14c58 1-5,9,12-14,17-18,21-49,51-55
+backend/src/interface-adapters/game-cache.ts
+  h_94c952a9e14c58 18-23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "9b9d04cc46bd38d4a26a1ca1a8704f56050787e4",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
