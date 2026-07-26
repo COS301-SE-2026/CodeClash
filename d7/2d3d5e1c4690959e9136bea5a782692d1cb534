@@ -1,0 +1,14 @@
+frontend/src/Views/GameGuide.tsx
+  h_b13c5d77534129 1-29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "d72d3d5e1c4690959e9136bea5a782692d1cb534",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
