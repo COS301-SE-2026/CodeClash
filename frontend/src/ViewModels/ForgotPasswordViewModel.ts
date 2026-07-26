@@ -1,12 +1,7 @@
 import {useState, useCallback} from 'react';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/hooks/useAuth';
 import { forgotPasswordContent, forgotPasswordForm, resetPasswordForm, validateForgotPasswordForm, validateResetPassword } from '../Models/ForgotPasswordModel';
 import type { ForgotPasswordContent, ForgotPasswordForm, ResetPasswordForm } from '../Models/ForgotPasswordModel';
-
-export interface ForgotPasswordViewModelProps {
-    onSuccess: () => void;
-    onBack: () => void;
-}
 
 interface ForgotPasswordViewModel {
     content: ForgotPasswordContent;
@@ -19,13 +14,9 @@ interface ForgotPasswordViewModel {
     setReset: (field: keyof ResetPasswordForm, value:string) => void;
     handleSendCode: () => Promise<void>;
     handleReset: () => Promise<void>;
-    handleBack: () => void;
-    handleSuccess: () => void;
 }
 
-export function ForgotPasswordViewModelFunction ({
-    onSuccess, onBack, 
-}: ForgotPasswordViewModelProps): ForgotPasswordViewModel {
+export function ForgotPasswordViewModelFunction (): ForgotPasswordViewModel {
     const {forgotPassword, confirmForgotPassword, error, clearError, isLoading} = useAuth();
 
     const [requestForm, setRequestForm] =useState<ForgotPasswordForm>(forgotPasswordForm);
@@ -86,7 +77,5 @@ export function ForgotPasswordViewModelFunction ({
         setReset,
         handleSendCode,
         handleReset,
-        handleBack: onBack,
-        handleSuccess: onSuccess,
     };
 }
