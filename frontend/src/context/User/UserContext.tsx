@@ -5,8 +5,8 @@ import { type AuthUser } from "aws-amplify/auth";
 import { useAuth } from "../Auth/hooks/useAuth";
 import { robot_map } from "src/assets/Robots";
 
+const url = import.meta.env.VITE_API_URL;
 
-const url = 'http://localhost:3000/api/';
 
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [username, setUsername] = useState('');
@@ -54,6 +54,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             })
                 .then((res) => {
                     if (res.status === 200) {
+                        
                         const index = res.data.avatar_id;
                         setAvatar(robot_map[index]);
                     }
@@ -106,8 +107,10 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         getAvatarUrl()
         getLeague();
 
-        if (!isLoading)
+        if (!isLoading) {
             getUsername(user);
+
+        }
     }, [token, user])
 
 

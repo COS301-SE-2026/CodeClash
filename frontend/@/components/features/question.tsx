@@ -38,7 +38,7 @@ function Question({
 
         <div className="m-5 flex flex-col justify-evenly">
           <h1 className="text-2xl font-semibold">{title}</h1>
-          <div className="text-sm whitespace-pre-line">{description?.replaceAll('\\n', '\n')}</div>
+          <div className="text-md whitespace-pre-line">{description?.replaceAll(String.raw`\n`, '\n')}</div>
         </div>
       </div>
 
