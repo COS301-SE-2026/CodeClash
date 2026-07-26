@@ -1,4 +1,4 @@
-//This is the accessibility section for the brand style guide 
+//This is the accessibility section for the brand style guide -correct file
 
 import React from "react";
 import SharedLayout from "./SharedLayout";

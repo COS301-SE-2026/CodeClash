@@ -9,6 +9,8 @@ import { SidebarContext } from "./sidebar-context"
 import { type SidebarContextProps } from "./sidebar-context-props"
 import { useSidebar } from "./useSidebar"
 
+import { useIsMobile } from "@/hooks/use-mobile"
+import { cn } from "../../../lib/utils";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
@@ -25,8 +27,6 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { useIsMobile } from "@/hooks/use-mobile"
-import { cn } from "@/lib/utils"
 
 
 const SIDEBAR_WIDTH_MOBILE = "18rem"

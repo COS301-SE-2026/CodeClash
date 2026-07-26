@@ -1,4 +1,4 @@
-// This is the token section for the brand style guide - a reusable token table that will have a copy functionality
+// This is the token section for the brand style guide - a reusable token table that will have a copy functionality - correct file
 
 import React from "react";
 import SharedLayout from "./SharedLayout";
@@ -30,7 +30,7 @@ const TokenTable: React.FC<TableProps> = ({title, rows, clipboardCopy, copied}) 
         {rows.map(row => (
           <button type="button" key={row.token} onClick={() => clipboardCopy(`var(${row.token})`, row.token)}
             onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && clipboardCopy(`var(${row.token})`, row.token)}
-            className="grid grid-cols-3 px-4 border-b border-gray-50 cursor-pointer hover:bg-gray-50 transition-colors duration-100 last:border-b-0 text-left w-full">
+            className="grid grid-cols-3 px-4 border-b border-gray-50 cursor-pointer hover:bg-gray-50 transition-colors duration-100 last:border-b-0 text-left w-full" type="button">
                 <code className="text-xs text-[#530A24]">{copied === row.token ? 'Copied!' : row.token}</code>
                 <code className="text-xs text-gray-500 pr-2">{row.value}</code>
                 <span className="text-xs text-gray-500">{row.description}</span>

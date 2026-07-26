@@ -1,4 +1,4 @@
-// This is the component section for the brand style guide - it will show every variant and state of the components used by the app
+// This is the component section for the brand style guide - it will show every variant and state of the components used by the app - correct file
 
 import React, {useState} from "react";
 import SharedLayout from "./SharedLayout";
@@ -16,7 +16,7 @@ const ComponentSection: React.FC<Props> = ({content}) => {
 
             <div className="flex flex-wrap gap-2 mb-6">
                 {content.components.map((c,i) => (
-                    <button key = {c.name} onClick={() => setActive(i)} type='button' className= {`text-xs font-medium px-3 py-1.5 rounded-lg border transition-all duration-150 cursor-pointer ${active === i ? 'bg-[#530a23] text-[#FCECDD] border-[#530a23]' : 'bg-white text-gray-500 border-gray-200 hover:border-400'}`}>
+                    <button key = {c.name} onClick={() => setActive(i)} className= {`text-xs font-medium px-3 py-1.5 rounded-lg border transition-all duration-150 cursor-pointer ${active === i ? 'bg-[#530a23] text-[#FCECDD] border-[#530a23]' : 'bg-white text-gray-500 border-gray-200 hover:border-400'}`} type="button">
                         {c.name}
                     </button>
                 ))}
@@ -60,24 +60,24 @@ const ComponentSection: React.FC<Props> = ({content}) => {
 const ComponentPreview: React.FC<{name:string}> = ({name}) => {
     if (name === 'Button Primary') return (
         <>
-            <button type='button' className= "bg-[#C0395A] text-white rounded-[20px] px-8 py-3 font-bold text-sm cursor-pointer shadow-md hover:-translate-y-0.5 transition-trasnform">Sign up</button>
-            <button type='button' className= "bg-[#C0395A] text-white rounded-[20px] px-8 py-3 font-bold text-sm cursor-pointer shadow-md -translate-y-0.5 opacity-90">Hover</button>
-            <button type='button' disabled className= "bg-[#C0395A] text-white rounded-[20px] px-8 py-3 font-bold text-sm opacity-40 cursor-not-allowed">Disabled</button>
-            <button type='button' className= "bg-[#C0395A] text-white rounded-[20px] px-8 py-3 font-bold text-sm opacity-75 cursor-wait">Loading..</button>
+            <button className= "bg-[#C0395A] text-white rounded-[20px] px-8 py-3 font-bold text-sm cursor-pointer shadow-md hover:-translate-y-0.5 transition-trasnform" type="button">Sign up</button>
+            <button className= "bg-[#C0395A] text-white rounded-[20px] px-8 py-3 font-bold text-sm cursor-pointer shadow-md -translate-y-0.5 opacity-90" type="button">Hover</button>
+            <button disabled className= "bg-[#C0395A] text-white rounded-[20px] px-8 py-3 font-bold text-sm opacity-40 cursor-not-allowed" type="button">Disabled</button>
+            <button className= "bg-[#C0395A] text-white rounded-[20px] px-8 py-3 font-bold text-sm opacity-75 cursor-wait" type="button">Loading..</button>
         </>
     );
 
     if (name === 'Button Secondary') return (
         <>
-            <button type='button' className = "text-[#530a23] font-semibold text-sm underline bg-transparent border-none cursor-pointer">Sign in</button>
-            <button type='button' className = "text-[#C0395A] font-semibold text-sm underline bg-transparent border-none cursor-pointer">Hover</button>
+            <button className = "text-[#530a23] font-semibold text-sm underline bg-transparent border-none cursor-pointer" type="button">Sign in</button>
+            <button className = "text-[#C0395A] font-semibold text-sm underline bg-transparent border-none cursor-pointer" type="button">Hover</button>
         </>
     );
 
     if (name === 'Back Button') return (
         <div className="flex gap-4">
-            <button type='button' className="text-[#FCECDD] rounded-[20px] px-5 py-2 text-sm font-medium cursor-pointer hover:opacity-80 transition-opacity">← Back</button>
-            <button type='button' className="text-[#530a23] rounded-[20px] px-5 py-2 text-sm font-medium cursor-pointer hover:scale-110 transition-transform">← Back</button>
+            <button className="text-[#FCECDD] rounded-[20px] px-5 py-2 text-sm font-medium cursor-pointer hover:opacity-80 transition-opacity" type="button">← Back</button>
+            <button className="text-[#530a23] rounded-[20px] px-5 py-2 text-sm font-medium cursor-pointer hover:scale-110 transition-transform" type="button">← Back</button>
         </div>
     );
 

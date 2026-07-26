@@ -53,7 +53,7 @@ const App: React.FC = () => {
             {/* Pages with sidebar inside the app */}
             <Route element={<Layout />}>
                 <Route path='/dashboard' element={<Dashboard />} />
-                <Route path='/game-guide' />
+                <Route path='/game-guide' element={<Guidebook/>}/>
                 <Route path='/tournaments' />
                 <Route path='/leaderboard' />
                 <Route path='/badges' />

@@ -1,4 +1,4 @@
-// This is the color secto=ion of the brand style guide - it will render the color swatches including the themes (later)
+// This is the color secto=ion of the brand style guide - it will render the color swatches including the themes (later) - correct file
 
 import React from "react";
 import SharedLayout from "./SharedLayout";
@@ -19,7 +19,7 @@ const ColorSection: React.FC<Props> = ({content, clipboardCopy, copied}) => {
                 {content.colors.map(color => (
                   <button type="button" key={color.name} onClick={() => clipboardCopy(color.hex, color.name)}
                     onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && clipboardCopy(color.hex, color.name)}
-                    className="flex gap-4 items-start border border-gray-100 rounded-xl p-4 cursor-pointer hover:border-gray-300 transition-colors duration-150 text-left w-full">
+                    className="flex gap-4 items-start border border-gray-100 rounded-xl p-4 cursor-pointer hover:border-gray-300 transition-colors duration-150 text-left w-full" type="button">
                         <div className="w-12 h-12 rounded-lg shrink-0 border border-gray-100"
                             style={{background: color.hex}}
                         />
@@ -45,7 +45,7 @@ const ColorSection: React.FC<Props> = ({content, clipboardCopy, copied}) => {
                     {Object.entries(content.pinkColors).map(([stop, hex]) => (
                       <button type="button" key={stop} onClick={() => clipboardCopy(hex, `pink-${stop}`)}
                             onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && clipboardCopy(hex, `pink-${stop}`)}
-                            className= "flex-1 cursor-pointer group" style={{background: hex}}>
+                            className= "flex-1 cursor-pointer group" style={{background: hex}} type="button">
                             <div className="h-16 flex items-end justify-center pb-1.5">
                                 <span className="text-[10px] text-white/60 font-mono opacity-0 group-hover:opacity-100 transition-opacity">{stop}</span>
                             </div>
