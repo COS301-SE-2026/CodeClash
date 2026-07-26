@@ -1,8 +1,8 @@
 import { useCallback, useState } from "react";
-import { useAuth } from "src/context/useAuth";
 import { signInContent, formData, validateSignInForm } from "../Models/SignInModel";
 import type { SignInForm, SignInContent } from "../Models/SignInModel";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/hooks/useAuth";
 
 export function SignInViewModelFunction() {
         const { signIn, error, clearError, isLoading} = useAuth();
@@ -31,8 +31,10 @@ export function SignInViewModelFunction() {
                     form.password,
                 );
                 nav('/dashboard')
-            } catch {}
-        }, [form, signIn, clearError]); //Dependency array
+            } catch {
+                console.error("Sign in error")
+            }
+        }, [form, signIn, clearError,nav]); //Dependency array
 
         return {
             content: signInContent,

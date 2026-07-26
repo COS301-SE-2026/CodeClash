@@ -14,10 +14,10 @@ export default defineConfig({
 
     //collect coverage 
     coverage: {
-      provider: 'v8',
-      reporter: ['text', 'lcov'],
-      include: ['@/components/**/*.tsx'],
-      exclude: ['@/components/ui/**', '@/hooks/**', '**/node_modules/**','**/*.config.*'],
+      provider: 'istanbul',
+      reporter: ['text', 'html', 'lcov'],
+      include: ['**/*.tsx'],
+      exclude: ['**/@/components/ui/**', '**/@/hooks/**', '**/node_modules/**', '**/*.config.*'],
     },
 
     globals: true,
@@ -25,7 +25,9 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': path.resolve(__dirname, './@'),
+      'root': path.resolve('../'),
+      'src': path.resolve(__dirname, './src')
     },
   },
 });

@@ -6,13 +6,13 @@ import Welcome from "./Views/Welcome";
 import SignIn from "./Views/SignIn";
 import SignUp from "./Views/SignUp";
 import Profile from "./Views/Profile";
-import Searching from "./pages/queuePages/searching";
+import Searching from "./Views/Searching";
 import Found from "./pages/queuePages/found";
-import MathMatch from "./Views/MathMatch";
 import Leaderboard from "./Views/Leaderboard";
 import Guidebook from "./Views/Guidebook"
 import MathMatch from "./Views/MathsMatch";
 import FinalResults from "./Views/FinalResults";
+import ForgotPassword from "./Views/ForgotPassword";
 
 const App: React.FC = () => {
     return (
@@ -28,6 +28,8 @@ const App: React.FC = () => {
             {/* <Route path='/prog-match' element={<ProgMatch language="javascript"/>}/> */}
 
             <Route path= '/results' element= {<FinalResults/>}/>
+
+            <Route path= '/forgot-password' element= {<ForgotPassword/>}/>
 
             {/* Pages with sidebar inside the app */}
             <Route element={<Layout />}>

@@ -4,7 +4,8 @@ import {
   getUserElo,
   getEloHistory,
   updateEloAfterMatch,
-  getLeaderboard
+  getLeaderboard,
+  setUserElo
 } from '../controllers/elo.controllers';
 import { getMatches, getMatchById, createMatch, updateMatchStatus, getMatchLog } from '../controllers/matches.controllers';
 
@@ -19,8 +20,9 @@ router.get('/matches/:match_id/log', getMatchLog);
 
 //elo routes
 router.get('/leaderboard', getLeaderboard);
-router.get('/:user_id', getUserElo);
-router.get('/:user_id/history', getEloHistory);
+router.get('/elo-get', getUserElo);
+  router.post('/elo-history', getEloHistory);
 router.post('/update', updateEloAfterMatch);
+router.post('/elo-set', setUserElo);
 
 export default router;

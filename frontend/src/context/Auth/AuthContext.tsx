@@ -1,4 +1,4 @@
-import { signIn as amplifySignIn, signUp as amplifySignUp, signOut as amplifySignOut, getCurrentUser, confirmSignUp as amplifyConfirmSignUp, resendSignUpCode as amplifyResendSignUpCode } from 'aws-amplify/auth'
+import { signIn as amplifySignIn, signUp as amplifySignUp, signOut as amplifySignOut, getCurrentUser, confirmSignUp as amplifyConfirmSignUp, resendSignUpCode as amplifyResendSignUpCode, resetPassword as amplifyResetPassword, confirmResetPassword as amplifyConfirmResetPassword } from 'aws-amplify/auth'
 import React, { useEffect, useState, useCallback, type ReactNode } from 'react'
 
 import { AuthContext, type AuthUser } from './AuthContextValue'
@@ -37,8 +37,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         username: cognitoUser.username,
         userId: cognitoUser.userId,
       })
-    } catch (err: any) {
-      setError(err?.message ?? 'Sign in failed')
+    } catch (err: unknown) {
+      setError((err instanceof Error) ? err.message : 'Sign in failed')
       throw err
     }
   }, [])
@@ -60,8 +60,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           },
         },
       })
-    } catch (err: any) {
-      setError(err?.message ?? 'Sign up failed')
+    } catch (err: unknown) {
+      setError((err instanceof Error) ? err.message : 'Sign in failed')
       throw err
     }
   }, [])
@@ -70,8 +70,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setError(null)
     try {
       await amplifyConfirmSignUp({ username, confirmationCode: code })
-    } catch (err: any) {
-      setError(err?.message ?? 'Confirmation failed')
+    } catch (err: unknown) {
+      setError((err instanceof Error) ? err.message : 'Sign in failed')
       throw err
     }
   }, [])
@@ -80,19 +80,46 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setError(null)
     try {
       await amplifyResendSignUpCode({ username })
-    } catch (err: any) {
-      setError(err?.message ?? 'Failed to resend code')
+    } catch (err: unknown) {
+      setError((err instanceof Error) ? err.message : 'Sign in failed')
       throw err
     }
-  }, [])
+  }, []);
+
+  const forgotPassword = useCallback(async (email: string) => {
+    setError(null);
+    try {
+      await amplifyResetPassword({username: email});
+    }
+    catch (err:any) {
+      setError(err?.message ?? "Failed to send reset code");
+      throw err;
+    }
+  }, []);
+
+  const confirmForgotPassword = useCallback(async (
+    email:string,
+    code: string,
+    newPassword: string,
+  ) => {
+    setError(null);
+    try {
+      await amplifyConfirmResetPassword ({username: email, confirmationCode: code, newPassword,});
+    }
+    catch (err: any) {
+      setError(err?.message ?? "Failed to reset password");
+      throw err;
+    }
+  }, []);
 
   const signOut = useCallback(async () => {
     setError(null)
     try {
       await amplifySignOut()
       setUser(null)
-    } catch (err: any) {
-      setError(err?.message ?? 'Sign out failed')
+    } catch (err: unknown) {
+      setError((err instanceof Error) ? err.message : 'Sign in failed')
+      throw err
     }
   }, [])
 
@@ -108,6 +135,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         signOut,
         confirmSignUp,
         resendSignUpCode,
+        forgotPassword,
+        confirmForgotPassword,
         clearError,
       }}
     >

@@ -1,3 +1,13 @@
+import { Link } from 'react-router-dom'
+
+import badges_icon from '../../src/assets/Icons/badges.png'
+import dashboard_icon from '../../src/assets/Icons/dashboard.png'
+import friends_icon from '../../src/assets/Icons/friends.png'
+import game_guide_icon from '../../src/assets/Icons/game_guide.png'
+import leaderboard_icon from '../../src/assets/Icons/leaderboard.png'
+import tournaments_icon from '../../src/assets/Icons/trophy.png'
+import pink_astronaut from '../../src/assets/Robots/pink_celebrate.png'
+
 import {
     Sidebar,
     SidebarContent,
@@ -8,16 +18,7 @@ import {
     SidebarMenuItem,
     SidebarMenuButton,
     SidebarRail
-} from '@/components/ui/sidebar'
-import { Link } from 'react-router-dom'
-
-import pink_astronaut from '../../src/assets/Robots/pink_celebrate.png'
-import dashboard_icon from '../../src/assets/Icons/dashboard.png'
-import leaderboard_icon from '../../src/assets/Icons/leaderboard.png'
-import game_guide_icon from '../../src/assets/Icons/game_guide.png'
-import tournaments_icon from '../../src/assets/Icons/trophy.png'
-import badges_icon from '../../src/assets/Icons/badges.png'
-import friends_icon from '../../src/assets/Icons/friends.png'
+} from '@/components/ui/sidebar/sidebar'
 
 
 const navItems = [

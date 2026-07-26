@@ -1,58 +1,72 @@
 import { Request, Response } from 'express';
+import { pool } from '../config/db';
+import { validToken, accessDenied, unauthorised } from '../services/auth.service';
 
-import pool from '../config/db';
 
-// GET /api/elo/:user_id
+// GET /api/elo/elo-get
 // Get current elo rating for a user
 export const getUserElo = async (req: Request, res: Response): Promise<void> => {
-  const { user_id } = req.params;
+  const token = req.headers.authorization?.split(' ')[1];
+
+  const user = await validToken(token);
+
+  if (!user) {
+    res.status(401).json(unauthorised('Missing or Invalid Token'));
+    return;
+  }
+
+  const email = user.email;
 
   try {
     const result = await pool.query(
       `SELECT 
-        e.elo_id,
-        e.user_id,
-        u.username,
-        e.rating,
-        e.updated_at
+        e.rating
        FROM elo_ratings e
-       JOIN users u ON u.user_id = e.user_id
-       WHERE e.user_id = $1`,
-      [user_id]
+       JOIN users u ON e.user_id = u.user_id
+       WHERE u.email = $1`,
+      [email]
     );
 
     if (result.rows.length === 0) {
-      res.status(404).json({ message: 'Elo rating not found for this user' });
+      res.status(404).json(accessDenied("User NotFound"));
       return;
     }
 
-    res.status(200).json(result.rows[0]);
+    res.status(200).json({ rating: result.rows[0].rating });
 
   } catch (error) {
     console.error('Error fetching elo rating:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: `Internal server error: ${error}` });
   }
 };
 
 // GET /api/elo/:user_id/history
 // Get full elo history for a user
 export const getEloHistory = async (req: Request, res: Response): Promise<void> => {
-  const { user_id } = req.params;
+  const token = req.headers.authorization?.split(' ')[1];
+
+  const user = await validToken(token);
+
+
+  if (!user) {
+    res.status(401).json(unauthorised('Missing or Invalid Token'));
+    return;
+  }
+
+  const email = user.email;
 
   try {
     const result = await pool.query(
       `SELECT 
-        eh.history_id,
-        eh.user_id,
         eh.match_id,
-        eh.old_rating,
         eh.new_rating,
-        eh.new_rating - eh.old_rating AS change,
+        eh.change,
         eh.changed_at
        FROM elo_history eh
-       WHERE eh.user_id = $1
+       JOIN users u ON eh.user_id = u.user_id
+       WHERE u.email = $1
        ORDER BY eh.changed_at DESC`,
-      [user_id]
+      [email]
     );
 
     if (result.rows.length === 0) {
@@ -195,6 +209,40 @@ export const updateEloAfterMatch = async (req: Request, res: Response): Promise<
     client.release();
   }
 };
+
+// POST /api/elo
+// sets user elo 
+export const setUserElo = async (req: Request, res: Response): Promise<void> => {
+  const { user_id } = req.body;
+
+  console.log("setting user elo")
+  const client = await pool.connect();
+
+  console.log("pool connected")
+
+  try {
+    await client.query('BEGIN');
+
+    await client.query(
+      `INSERT INTO elo_ratings (user_id)
+    VALUES ($1)
+    ON CONFLICT DO NOTHING`,
+      [user_id]
+    )
+
+    await client.query('COMMIT');
+
+    res.status(200).json({ message: 'successfully set elo' })
+
+  } catch (error) {
+    await client.query('ROLLBACK');
+    console.error('Error setting elo',error);
+    res.status(500).json({ message: 'Internal Server Error' })
+    
+  } finally {
+    client.release();
+  }
+}
 
 // GET /api/elo/leaderboard
 // Get top 10 players by elo rating
