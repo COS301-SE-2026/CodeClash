@@ -13,7 +13,7 @@ export class Answers {
     @JoinColumn({ name: 'question_id' })
     question!: Questions
 
-    @Column({ nullable: false })
+    @Column({ nullable: false, type:'text' })
     answer!: string
 
 

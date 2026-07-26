@@ -27,9 +27,10 @@ declare module "react" {
 interface MathMatchProps {
   onValueChange?: (value: string) => void;
   mathfieldRef: React.RefObject<MathfieldElement | null>;
+  className?: string
 }
 
-const MathMatch = ({ onValueChange, mathfieldRef }: MathMatchProps) => {
+const MathMatch = ({ onValueChange, mathfieldRef, className }: MathMatchProps) => {
   const [value, setValue] = useState<string>('');
 
   const handleInput = (evt: React.SyntheticEvent<MathfieldElement>) => {
@@ -40,11 +41,11 @@ const MathMatch = ({ onValueChange, mathfieldRef }: MathMatchProps) => {
   };
 
   return (
-    <div className="w-[90%] ">
+    <div className="flex items-center w-[90%] h-[100%]">
       <math-field
         ref={mathfieldRef}
         onInput={handleInput}
-        className="w-[100%] h-[18rem] rounded-4xl"
+        className={`${className} w-[100%] h-[12rem] rounded-4xl`}
       >
         {value}
       </math-field>

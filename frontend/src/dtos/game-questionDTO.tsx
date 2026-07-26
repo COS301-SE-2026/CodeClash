@@ -1,5 +1,5 @@
 export interface QuestionDTO {
-    question_id?: string,
+    id?: string,
     difficulty?: number,
     title?: string,
     description?: string,

@@ -11,15 +11,15 @@ export class CheckAnswer {
     constructor(
         private readonly game_cache: IGameCache,
         private readonly submission_system: SubmissionSystem,
-        private readonly life_System: LifeSystem
+        private readonly life_System: LifeSystem,
+        private readonly world: ReturnType<typeof World>
     ) {
 
-        const { getMatchComponent } = World();
+        const { getMatchComponent } = this.world;
         this.getMatchComponent = getMatchComponent
     }
 
     async execute(match_id: number, player_id: string, question_id: string, answer: string) {
-
         try {
 
 
@@ -35,13 +35,13 @@ export class CheckAnswer {
             this.submission_system.saveSubmission(match_id, player_id, question_id, correct, answer);
 
             // 4. update player life
-
             const match = this.getMatchComponent<MatchComponent>(match_id, 'Match');
             const players = this.getMatchComponent<PlayersComponent>(match_id, 'Players');
 
             const player_entity = players!.players.get(player_id);
 
-            if (!player_entity) throw new Error("Invalid Player");
+        
+            if (player_entity === undefined) throw new Error("Invalid Player");
 
             if (!correct) this.life_System.decrement(player_entity, match!.question_number);
 
@@ -51,7 +51,9 @@ export class CheckAnswer {
         }
         catch (error) {
             console.error(`Error Checking answer: ${error}`);
-            throw error
+            throw new Error(`${error}`)
         }
     }
+
+
 }

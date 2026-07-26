@@ -26,8 +26,10 @@ export const useMatch = () => {
     const [loading, setLoading] = useState(false);
     const [questionsReady, setQuestionsReady] = useState(false)
     const [answers, setAnswers] = useState<Record<string, string>>();
+    const [results, setResults] = useState<(boolean | null)[]>([]);
 
     const mathfieldRef = useRef<MathfieldElement | null>(null)
+    const q_index = useRef<number | null>(null);
 
     const progress: MatchProgress = {
         player_progress: [0, 0],
@@ -58,6 +60,7 @@ export const useMatch = () => {
     }
 
     const submitQuestion = (question_id: string, answer: string) => {
+        q_index.current = currentQuestion;
         submitAnswer(socket, id, question_id, answer);
     }
 
@@ -77,11 +80,11 @@ export const useMatch = () => {
     const loadQuestions = (data: GameQuestionsDTO) => {
         let temp_arr: Question[] = [];
         let sumtime = 0;
-
+        console.log(data)
 
         for (const q of data.easy) {
             temp_arr.push({
-                id: q.question_id,
+                id: q.id,
                 title: q.title!,
                 difficulty: "Easy",
                 description: q.description,
@@ -92,7 +95,7 @@ export const useMatch = () => {
 
         for (const q of data.medium) {
             temp_arr.push({
-                id: q.question_id,
+                id: q.id,
                 title: q.title,
                 difficulty: "Medium",
                 description: q.description
@@ -102,7 +105,7 @@ export const useMatch = () => {
 
         for (const q of data.hard) {
             temp_arr.push({
-                id: q.question_id,
+                id: q.id,
                 title: q.title,
                 difficulty: "Hard",
                 description: q.description
@@ -130,6 +133,21 @@ export const useMatch = () => {
         setQuestionsReady(true);
     }
 
+    const submission_result = (result: boolean, question: number) => {
+        const index = q_index.current
+        if (index === null) return;
+
+        setResults((prev) => {
+            const next = [...prev];
+            next[index] = result;
+            return next
+        });
+    }
+
+    const submission_error = (error: string) => {
+
+    }
+
     useEffect(() => {
         if (matchDuration > 0) {
             restart(expiry_time);
@@ -141,6 +159,8 @@ export const useMatch = () => {
             socket.emit('send_questions', id)
 
             socket.on('get_questions', loadQuestions)
+            socket.on('submission_result', submission_result);
+            socket.on("submission_error", submission_error);
 
             if (questions.length == 0) setLoading(true)
             else { setLoading(false) }
@@ -157,6 +177,8 @@ export const useMatch = () => {
 
             return () => {
                 socket.off("get_questions", loadQuestions);
+                socket.off("submission_result", submission_result);
+                socket.off("submission_error", submission_error);
             }
         }
 
@@ -180,6 +202,7 @@ export const useMatch = () => {
         closeLoading,
         submitQuestion,
         mathfieldRef,
-        setAnswers
+        setAnswers,
+        results
     }
 }

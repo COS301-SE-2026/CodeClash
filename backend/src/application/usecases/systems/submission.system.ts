@@ -7,8 +7,10 @@ export class SubmissionSystem {
     private createEntity
     private addSubmissionComponent
 
-    constructor() {
-        const { getMatchComponent, getSubmissionComponent, createEntity, addSubmissionComponent } = World();
+    constructor(
+        private readonly world: ReturnType<typeof World>
+    ) {
+        const { getMatchComponent, getSubmissionComponent, createEntity, addSubmissionComponent } = this.world
         this.getMatchComponent = getMatchComponent;
         this.createEntity = createEntity;
         this.addSubmissionComponent = addSubmissionComponent;

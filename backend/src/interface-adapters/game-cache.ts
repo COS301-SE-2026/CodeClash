@@ -17,7 +17,7 @@ export class GameCache implements IGameCache {
     }
 
     async getAnswer(question_id: string): Promise<string | null> {
-        const answer = await this.redis.get(`question${question_id}`);
+        const answer = await this.redis.get(`question:${question_id}`);
 
         return answer;
     }

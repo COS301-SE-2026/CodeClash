@@ -1,13 +1,12 @@
 import { LifeComponent, MatchComponent, PlayerInfoComponent, PlayersComponent, RoundComponent, SubmissionRegistryComponent } from "src/entities/components";
 import { PlayerDTO, MatchDTO, RoundDTO } from "src/entities/dtos/components.dto";
-import { World } from "src/entities/World"
-
+import { World } from "src/entities/World";
 
 export class CreateGame {
     constructor(
         private readonly create_players: CreatePlayerEntity,
         private readonly create_match: CreateMatchEntity,
-        private readonly create_round: CreateRoundEntity
+        private readonly create_round: CreateRoundEntity,
     ) { }
 
 
@@ -35,8 +34,10 @@ export class CreatePlayerEntity {
     private createEntity;
     private addPlayerComponent;
 
-    constructor() {
-        const { createEntity, addPlayerComponent } = World()
+    constructor(
+        private readonly world: ReturnType<typeof World>
+    ) {
+        const { createEntity, addPlayerComponent } = this.world
         this.createEntity = createEntity;
         this.addPlayerComponent = addPlayerComponent
     }
@@ -78,8 +79,10 @@ export class CreateRoundEntity {
     private createEntity;
     private addRoundComponent;
 
-    constructor() {
-        const { createEntity, addRoundComponent } = World();
+    constructor(
+         private readonly world: ReturnType<typeof World>
+    ) {
+        const { createEntity, addRoundComponent } = this.world;
 
         this.createEntity = createEntity;
         this.addRoundComponent = addRoundComponent
@@ -105,8 +108,10 @@ export class CreateMatchEntity {
     private createEntity;
     private addMatchComponent;
 
-    constructor() {
-        const { createEntity, addMatchComponent } = World();
+    constructor(
+         private readonly world: ReturnType<typeof World>
+    ) {
+        const { createEntity, addMatchComponent } = this.world;
         this.createEntity = createEntity;
         this.addMatchComponent = addMatchComponent
     }
@@ -130,7 +135,7 @@ export class CreateMatchEntity {
             question_number: question_number
         }
 
-        const submission: SubmissionRegistryComponent= {
+        const submission: SubmissionRegistryComponent = {
             submissions: new Map<string, number>()
         }
 

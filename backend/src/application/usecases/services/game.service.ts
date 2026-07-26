@@ -36,11 +36,9 @@ export class GameService {
         const difficulty = this.getDifficulty.execute(questions)
         const time = this.getTotalTime.execute(questions)
 
-
         if(!questions) throw new Error ("Error fetching questions")
 
         // Rounds   - creating one round for now, this logic will need to be updated for multiple 
-
         let question_ids: string[] = [];
         for (const question of questions.easy) {
             question_ids.push(question.id)

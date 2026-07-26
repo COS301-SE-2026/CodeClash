@@ -30,6 +30,10 @@ import redis from './config/redis-client';
 import { MatchmakingService } from 'src/application/usecases/services/matchmaking.service';
 import { IMatchmakingCache } from 'src/application/interfaces/IMatchmakingCache';
 import { MatchmakingCache } from 'src/interface-adapters/matchmaking-cache';
+import { CheckAnswer } from 'src/application/usecases/check-answer';
+import { SubmissionSystem } from 'src/application/usecases/systems/submission.system';
+import { LifeSystem } from 'src/application/usecases/systems/life.system';
+import { World } from 'src/entities/World';
 
 dotnev.config()
 
@@ -62,6 +66,9 @@ io.use(async (socket, next) => {
 AppDataSource.initialize()
     .then(async () => {
 
+        // initialise ecs world 
+        const world = World();
+
         // initialise repos
         const user_repo: IUserRepository = new UserRepository(AppDataSource.getRepository(Users));
         const elo_repo: IEloRepository = new EloRepository(AppDataSource.getRepository(EloRatings));
@@ -70,9 +77,9 @@ AppDataSource.initialize()
 
 
         // initialise use cases 
-        const create_player_entity = new CreatePlayerEntity();
-        const create_match_entity = new CreateMatchEntity();
-        const create_round_entity = new CreateRoundEntity();
+        const create_player_entity = new CreatePlayerEntity(world);
+        const create_match_entity = new CreateMatchEntity(world);
+        const create_round_entity = new CreateRoundEntity(world);
 
         const get_questions = new GetQuestions(question_repo);
         const get_answers = new GetAnswers(answer_repo);
@@ -82,14 +89,19 @@ AppDataSource.initialize()
         const create_game = new CreateGame(create_player_entity, create_match_entity, create_round_entity);
 
         // create game cache
-        const game_cache:IGameCache = new GameCache(redis);
+        const game_cache: IGameCache = new GameCache(redis);
         const matchmaking_cache: IMatchmakingCache = new MatchmakingCache(redis);
 
 
         // initialise services 
-        const game_service = new GameService(create_game,get_questions, get_difficulty, get_total_time, get_answers, game_cache);
+        const game_service = new GameService(create_game, get_questions, get_difficulty, get_total_time, get_answers, game_cache);
         const matchmkaing_service = new MatchmakingService(matchmaking_cache);
 
+        // initialise systems 
+        const submission_system = new SubmissionSystem(world);
+        const life_system = new LifeSystem(world);
+
+        const check_answer = new CheckAnswer(game_cache, submission_system, life_system, world)
 
         // initialise database with users and elos
         await initDB(user_repo, elo_repo);
@@ -102,13 +114,13 @@ AppDataSource.initialize()
 
             socket.on('leave_match_queue', async () => await leaveMatchQueue(io, socket, matchmkaing_service));
 
-            socket.on('match_accepted', async (data) => { await matchAccepted(io, socket, data,game_service) });
+            socket.on('match_accepted', async (data) => { await matchAccepted(io, socket, data, game_service) });
 
             socket.on('match_declined', (pair_id: string) => matchDeclined(io, socket, pair_id));
 
             socket.on('send_questions', (game_id: number) => { sendGameQuestions(io, game_id) });
 
-            socket.on('submit_question', (data: SubmissionDTO) => submitQuestion(data));
+            socket.on('submit_question', (data: SubmissionDTO) => submitQuestion(io, socket,data, check_answer));
         })
 
 

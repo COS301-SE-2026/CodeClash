@@ -14,9 +14,8 @@ const MathsMatch = () => {
         currentQuestion, progress,
         nextQuestion, prevQuestion,
         loading, closeLoading, submitQuestion,
-        mathfieldRef, setAnswers, answers
+        mathfieldRef, setAnswers, answers, results
     } = useMatch();
-
 
     const curr = questions[currentQuestion];
 
@@ -33,6 +32,12 @@ const MathsMatch = () => {
         )
     }
 
+    const correct = results[currentQuestion];
+    const result_colour =
+        (correct === true) ? 'bg-green-200' :
+            (correct === false) ? 'bg-red-200' :
+                'bg-white'
+
 
     return (
         <MatchScreen
@@ -44,21 +49,26 @@ const MathsMatch = () => {
             usernames={usernames}
             current_question={currentQuestion}
             opponent_progress={progress.player_progress[1]}
-            question_number={4}
+            question_number={questions.length}
+            question_results={results}
         >
-            <div className=''>
-                <Question
-                    className=''
-                    difficulty={curr.difficulty!}
-                    title={curr.title!}
-                    description={curr.description}
-                    number={currentQuestion + 1}
-                >
-                    <MathMatch mathfieldRef={mathfieldRef} onValueChange={(val) => setAnswers(prev => ({ ...prev, [currentQuestion]: val }))}></MathMatch>
-                </Question>
-            </div>
 
-            <div className='absolute w-[70%]  flex flex-shrink-0 items-center justify-center gap-[4rem]'>
+            <Question
+                className={` h-[20rem] `}
+                difficulty={curr.difficulty!}
+                title={curr.title!}
+                description={curr.description}
+                number={currentQuestion + 1}
+            />
+
+            <div className='w-[100%] h-[100%] min-h-[35%] flex items-center justify-center'>
+                <MathMatch 
+                mathfieldRef={mathfieldRef} 
+                onValueChange={(val) => setAnswers(prev => ({ ...prev, [currentQuestion]: val }))}
+                className={`${result_colour}`}
+                ></MathMatch>
+            </div>
+            <div className='w-[100%] h-[6rem]  flex flex-shrink-0 items-center justify-evenly rounded-4xl'>
                 <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem]'
                     onClick={() => {
                         const answer = mathfieldRef.current?.value ?? '';
