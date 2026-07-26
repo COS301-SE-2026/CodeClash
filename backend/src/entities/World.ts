@@ -4,7 +4,6 @@ import {
     PlayerComponentTypes,
     SubmissionComponent,
     RoundComponent,
-    ResultComponentTypes,
 } from "./components";
 
 function addComponent(
@@ -70,7 +69,7 @@ export const World = () => {
 
     function addMatchComponent(
         entity_id: number,
-        component_name: "Players" | "Match" | "Submission",
+        component_name: "Players" | "Match" | "Submission"| "Result",
         component: MatchComponentTypes
     ) {
         return addComponent(matches, entity_id, component_name, component)
@@ -94,14 +93,6 @@ export const World = () => {
     }
 
 
-    function addResultComponent(
-        entity_id: number,
-        component_name: "Maths_Result" | "Prog_Result",
-        component: ResultComponentTypes
-    ) {
-        return addComponent(results, entity_id, component_name, component)
-    }
-
 
 
     // GETTERS
@@ -110,7 +101,7 @@ export const World = () => {
         return getComponent<T>(players, entity_id, component_name);
     }
 
-    function getMatchComponent<T extends MatchComponentTypes>(entity_id: number, component_name: "Players" | "Match" | "Submission") {
+    function getMatchComponent<T extends MatchComponentTypes>(entity_id: number, component_name: "Players" | "Match" | "Submission"|"Result") {
         return getComponent<T>(matches, entity_id, component_name);
     }
 
@@ -131,7 +122,6 @@ export const World = () => {
         addMatchComponent,
         addRoundComponent,
         addSubmissionComponent,
-        addResultComponent,
         getPlayerComponent,
         getMatchComponent,
         getRoundComponent,

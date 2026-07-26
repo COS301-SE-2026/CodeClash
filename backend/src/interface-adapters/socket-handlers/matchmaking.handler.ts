@@ -5,10 +5,13 @@ import { GameService } from 'src/application/usecases/services/game.service';
 import { GameDataDTO, GameQuestionsDTO } from "src/entities/dtos/game-data.dto";
 import { PlayerDTO } from "src/entities/dtos/components.dto";
 
-const PAIRS = new Map<string, Map<string, { accepted: boolean, elo: number, username?: string }>>();
-const GAME = new Map<number, { players: PlayerDTO[], questions: GameQuestionsDTO }>();
 
-export const joinMatchQueue = (async (io: Server, socket: Socket, data: any, matchmaking_service: MatchmakingService) => {
+export const joinMatchQueue = (
+    async (io: Server,
+         socket: Socket, 
+         data: any,
+          matchmaking_service: MatchmakingService,
+        PAIRS:Map<string, Map<string, { accepted: boolean, elo: number, username?: string }>> ) => {
     //adds users to a room 
     await socket.join(socket.data.user_id)
     socket.data.game_mode = data.game_mode
@@ -56,7 +59,14 @@ export const leaveMatchQueue = (async (io: Server, socket: Socket, matchmaking_s
         io.to(socket.data.user_id).emit('dequeue-failed');
 })
 
-export const matchAccepted = (async (io: Server, socket: Socket, data: GameDataDTO, game_service: GameService) => {
+export const matchAccepted = (
+    async (io: Server,
+         socket: Socket, 
+         data: GameDataDTO, 
+         game_service: GameService, 
+         PAIRS:Map<string, Map<string, { accepted: boolean, elo: number, username?: string }>>,
+        GAME: Map<number, { players: PlayerDTO[], questions: GameQuestionsDTO }>
+        ) => {
 
     PAIRS.get(data.pair_id)?.set(socket.data.user_id, { accepted: true, elo: socket.data.elo, username: data.username });
 
@@ -97,7 +107,7 @@ export const matchAccepted = (async (io: Server, socket: Socket, data: GameDataD
     }
 })
 
-export const matchDeclined = ((io: Server, socket: Socket, pair_id: string) => {
+export const matchDeclined = ((io: Server, socket: Socket, pair_id: string, PAIRS:Map<string, Map<string, { accepted: boolean, elo: number, username?: string }>>) => {
     const pair = PAIRS.get(pair_id);
     const players = pair ? [...pair.keys()] : null; //get ids of paird players 
 
@@ -115,7 +125,7 @@ export const matchDeclined = ((io: Server, socket: Socket, pair_id: string) => {
     }
 })
 
-export const sendGameQuestions = (io: Server, game_id: number) => {
+export const sendGameQuestions = (io: Server, game_id: number,GAME: Map<number, { players: PlayerDTO[], questions: GameQuestionsDTO }>) => {
     const data = GAME.get(game_id)
 
     if (data) {
@@ -127,7 +137,7 @@ export const sendGameQuestions = (io: Server, game_id: number) => {
     }
 }
 
-export const sendGamePlayers = (io: Server, game_id: number) => {
+export const sendGamePlayers = (io: Server, game_id: number,GAME: Map<number, { players: PlayerDTO[], questions: GameQuestionsDTO }>) => {
     const data = GAME.get(game_id);
 
     if(data){

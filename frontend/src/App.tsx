@@ -13,6 +13,8 @@ import ProgMatch from "./pages/ProgMatch";
 import Welcome from "./Views/Welcome";
 import { useAuth } from "./context/Auth/hooks/useAuth";
 import Loading from "@/components/shared/Loading";
+import Guidebook from "./Views/Guidebook";
+import FinalResults from "./Views/FinalResults";
 
 const App: React.FC = () => {
 
@@ -49,6 +51,7 @@ const App: React.FC = () => {
             <Route path='/match-found' element={<MatchFound />} />
             <Route path='/maths-match' element={<MathMatch />} />
             <Route path='/prog-match' element={<ProgMatch language="javascript" />} />
+            <Route path='/results' element={<FinalResults/>} />
 
             {/* Pages with sidebar inside the app */}
             <Route element={<Layout />}>

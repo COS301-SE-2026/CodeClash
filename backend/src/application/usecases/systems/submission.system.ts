@@ -2,10 +2,10 @@ import { SubmissionComponent, SubmissionRegistryComponent } from "src/entities/c
 import { World } from "src/entities/World";
 
 export class SubmissionSystem {
-    private getMatchComponent
-    private getSubmissionComponent
-    private createEntity
-    private addSubmissionComponent
+    private readonly getMatchComponent
+    private readonly getSubmissionComponent
+    private readonly createEntity
+    private readonly addSubmissionComponent
 
     constructor(
         private readonly world: ReturnType<typeof World>

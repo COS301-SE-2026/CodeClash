@@ -1,6 +1,6 @@
 
 import { useEffect, useState, useMemo } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useTimer } from "react-timer-hook";
 import type { Player, Question, MatchProgress } from "src/Models/MatchModel";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
@@ -18,6 +18,7 @@ export const useMatch = () => {
     const location = useLocation();
     const { id } = location.state;
     const { userId } = useUser();
+    const nav = useNavigate();
 
     const [players, setPlayers] = useState<Player[]>([]);
     const [questions, setQuestions] = useState<Question[]>([]);
@@ -43,6 +44,9 @@ export const useMatch = () => {
 
     const closeLoading = () => setLoading(false);
 
+
+    // TIMER
+
     const expiry_time = useMemo(() => {
         const time = new Date();
         time.setSeconds(time.getSeconds() + matchDuration * 60);
@@ -54,10 +58,14 @@ export const useMatch = () => {
         autoStart: false,
         onExpire: () => {
             setGameOver(true);
-            endGame(userId);
+            endGame(userId,socket);
         }
     });
 
+    //////////////////////////////////////////
+
+
+    //  Question Handling
     const nextQuestion = (curr: number) => {
         if (curr < questions.length - 1) {
             setCurrentQuestion(curr + 1);
@@ -78,7 +86,8 @@ export const useMatch = () => {
 
         if (q_index.current == questions.length - 1) {
             setGameOver(true);
-            endGame(userId);
+            endGame(userId,socket);
+            nav('/results')
         }
     }
 
@@ -92,6 +101,8 @@ export const useMatch = () => {
         socket?.emit('question_started', data);
     }
 
+
+    // load questions helper
     function shuffle(array: Question[]) {
         let curr = array.length;
         let random;
@@ -164,6 +175,9 @@ export const useMatch = () => {
         startQuestion(userId, final[0].id!);
     }
 
+    ///////////////////////////////////////
+
+    // Result Handling
     const submission_result = (result: SubmissionDTO) => {
         const index = q_index.current
         if (index === null) return;
@@ -187,6 +201,8 @@ export const useMatch = () => {
 
     }
 
+
+    // Use Effects
 
     useEffect(() => {
         if (matchDuration > 0) {

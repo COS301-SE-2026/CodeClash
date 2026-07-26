@@ -15,7 +15,7 @@ import { EloRatings } from 'src/entities/db-entities/elo.entities';
 import { IQuestionRepository } from 'src/application/interfaces/repositories/IQuestionRepository';
 import { QuestionRepository } from 'src/interface-adapters/repositories/question.repository';
 import { Questions } from 'src/entities/db-entities/questions.entities';
-import { startQuestion, submitQuestion } from 'src/interface-adapters/socket-handlers/game.handler';
+import { gameDone, startQuestion, submitQuestion } from 'src/interface-adapters/socket-handlers/game.handler';
 import { SubmissionDTO } from 'src/entities/dtos/components.dto';
 import { IAnswerRepository } from 'src/application/interfaces/repositories/IAnswerRepository';
 import { AnswerRepository } from 'src/interface-adapters/repositories/answer.repository';
@@ -35,6 +35,9 @@ import { SubmissionSystem } from 'src/application/usecases/systems/submission.sy
 import { LifeSystem } from 'src/application/usecases/systems/life.system';
 import { World } from 'src/entities/World';
 import { StartQuestionDTO } from 'src/entities/dtos/question.dto';
+import { FinishGame } from 'src/application/usecases/systems/finish-game';
+import { PlayerDTO } from 'src/entities/dtos/components.dto';
+import { GameQuestionsDTO } from 'src/entities/dtos/game-data.dto';
 
 dotnev.config()
 
@@ -101,31 +104,39 @@ AppDataSource.initialize()
         // initialise systems 
         const submission_system = new SubmissionSystem(world);
         const life_system = new LifeSystem(world);
+        const finish_game = new FinishGame(world);
 
         const check_answer = new CheckAnswer(game_cache, submission_system, life_system, world)
 
         // initialise database with users and elos
         await initDB(user_repo, elo_repo);
 
+
+        // Socket maps 
+        const PAIRS = new Map<string, Map<string, { accepted: boolean, elo: number, username?: string, done?:boolean }>>();
+        const GAME = new Map<number, { players: PlayerDTO[], questions: GameQuestionsDTO }>();
+
         // attach socket handlers
         io.on("connection", (socket) => {
 
             // SOCKET HANDLERS MUST MOOVE TO interface-adapter/
-            socket.on('join_match_queue', async (data) => await joinMatchQueue(io, socket, data, matchmkaing_service));
+            socket.on('join_match_queue', async (data) => await joinMatchQueue(io, socket, data, matchmkaing_service,PAIRS));
 
             socket.on('leave_match_queue', async () => await leaveMatchQueue(io, socket, matchmkaing_service));
 
-            socket.on('match_accepted', async (data) => { await matchAccepted(io, socket, data, game_service) });
+            socket.on('match_accepted', async (data) => { await matchAccepted(io, socket, data, game_service,PAIRS,GAME) });
 
-            socket.on('match_declined', (pair_id: string) => matchDeclined(io, socket, pair_id));
+            socket.on('match_declined', (pair_id: string) => matchDeclined(io, socket, pair_id,PAIRS));
 
-            socket.on('send_questions', (game_id: number) => { sendGameQuestions(io, game_id) });
+            socket.on('send_questions', (game_id: number) => { sendGameQuestions(io, game_id,GAME) });
 
-            socket.on('send_players', (game_id: number)=> {sendGamePlayers(io,game_id)})
+            socket.on('send_players', (game_id: number) => { sendGamePlayers(io, game_id,GAME) })
 
-            socket.on('submit_question', (data: SubmissionDTO) => submitQuestion(io, socket,data, check_answer));
+            socket.on('submit_question', (data: SubmissionDTO) => submitQuestion(io, socket, data, check_answer));
 
-            socket.on('question_started', (data: StartQuestionDTO)=> startQuestion(submission_system,data))
+            socket.on('question_started', (data: StartQuestionDTO) => startQuestion(submission_system, data));
+
+            socket.on('game_done', (pair_id: string, game_id: number) => gameDone(io,socket,pair_id, game_id, finish_game, PAIRS))
         })
 
 

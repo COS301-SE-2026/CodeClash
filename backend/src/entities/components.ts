@@ -27,14 +27,15 @@ export interface SubmissionRegistryComponent{
 }
 
 
-
-
-// Result component for end of match results 
+// Result component 
 export interface ResultComponent{
-    winner_id: string,
-    win_elo: number,
-    lose_elo: number
+    winner: string,
+    loser:string,
+    winner_elo: number,
+    loser_elo: number,
+    stats: Map<string, {num_correct: number, total_time:number}>
 }
+
 
 
 /********************************** */
@@ -92,25 +93,17 @@ export interface SubmissionComponent {
 
 /********************************** */
 
-/** RESULT ENTITY */
 
-export interface MathsResultComponent {
-    player_id: number,
-    submission_id: number,
-    correct: boolean
-}
 
 
 // union for all components - for the map
 
 export type PlayerComponentTypes = LifeComponent | PlayerInfoComponent | RankComponent | BadgeComponent;
-export type MatchComponentTypes = PlayersComponent | MatchComponent | SubmissionRegistryComponent;
-export type ResultComponentTypes = MathsResultComponent;
+export type MatchComponentTypes = PlayersComponent | MatchComponent | SubmissionRegistryComponent |ResultComponent;
 
 export type Component =
     PlayerComponentTypes |
     MatchComponentTypes |
     RoundComponent |
-    SubmissionComponent |
-    ResultComponentTypes ;
+    SubmissionComponent 
 
