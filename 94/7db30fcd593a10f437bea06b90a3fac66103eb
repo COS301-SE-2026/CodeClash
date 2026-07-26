@@ -1,0 +1,32 @@
+backend/src/entities/World.ts
+  h_94c952a9e14c58 72,104
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 18,38-40,107,114-118,123,127,129,131,133,137,139
+backend/src/application/usecases/systems/finish-game.ts
+  h_94c952a9e14c58 1-113
+backend/src/application/usecases/systems/submission.system.ts
+  h_94c952a9e14c58 5-8
+backend/src/interface-adapters/socket-handlers/game.handler.ts
+  h_94c952a9e14c58 3,9,23,27-52
+backend/src/entities/components.ts
+  h_94c952a9e14c58 30,32-36,102
+frontend/src/App.tsx
+  h_94c952a9e14c58 16-17,54
+backend/src/interface-adapters/socket-handlers/matchmaking.handler.ts
+  h_94c952a9e14c58 13-14,66-68,110,128,140
+frontend/src/services/result.service.tsx
+  h_94c952a9e14c58 1,4-7
+frontend/src/ViewModels/MatchViewModel.ts
+  h_94c952a9e14c58 3,21,47-49,61,65-68,89-90,104-105,178-180,205
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "947db30fcd593a10f437bea06b90a3fac66103eb",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
