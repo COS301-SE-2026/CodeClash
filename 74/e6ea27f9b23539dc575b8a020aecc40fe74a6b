@@ -1,0 +1,20 @@
+frontend/src/dtos/result.dto.ts
+  h_94c952a9e14c58 1-8
+frontend/src/ViewModels/SignUpViewModel.ts
+  h_94c952a9e14c58 6
+frontend/src/ViewModels/FinalResultsViewModel.ts
+  h_94c952a9e14c58 4-5,23,25-41,44,56-59,80,82
+frontend/src/ViewModels/SignInViewModel.ts
+  h_94c952a9e14c58 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "74e6ea27f9b23539dc575b8a020aecc40fe74a6b",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
