@@ -8,7 +8,11 @@ import SignUp from "./Views/SignUp";
 import Profile from "./Views/Profile";
 import Searching from "./Views/Searching";
 import Found from "./pages/queuePages/found";
+import MathMatch from "./Views/MathMatch";
+import Leaderboard from "./Views/Leaderboard";
+import Guidebook from "./Views/Guidebook"
 import MathMatch from "./Views/MathsMatch";
+import FinalResults from "./Views/FinalResults";
 import ForgotPassword from "./Views/ForgotPassword";
 
 const App: React.FC = () => {
@@ -24,12 +28,14 @@ const App: React.FC = () => {
             <Route path='/match' element={<MathMatch/>}/>
             {/* <Route path='/prog-match' element={<ProgMatch language="javascript"/>}/> */}
 
+            <Route path= '/results' element= {<FinalResults/>}/>
+
             <Route path= '/forgot-password' element= {<ForgotPassword/>}/>
 
             {/* Pages with sidebar inside the app */}
             <Route element={<Layout />}>
                 <Route path='/dashboard' element={<Dashboard />} />
-                <Route path='/game-guide' />
+                <Route path='/game-guide' element={<Guidebook/>}/>
                 <Route path='/tournaments' />
                 <Route path='/leaderboard' />
                 <Route path='/badges' />
