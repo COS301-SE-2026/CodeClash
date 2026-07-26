@@ -1,4 +1,3 @@
-import { useAuth } from "src/context/useAuth";
 import { useNavigate } from "react-router-dom";
 
 import { useAuth } from "../context/hooks/useAuth";
