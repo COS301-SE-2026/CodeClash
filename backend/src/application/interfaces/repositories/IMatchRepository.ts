@@ -9,5 +9,5 @@ export interface IMatchRepository {
     completeMatch(
         match_id: string,
         status: 'completed' | 'abandoned'
-    ): Promise<string>;
+    ): Promise<void>;
 }

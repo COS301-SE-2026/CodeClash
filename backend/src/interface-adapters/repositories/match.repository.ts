@@ -18,7 +18,7 @@ export class MatchRepository implements IMatchRepository {
         return saved.match_id;
     }//end promise
 
-    async completeMatch(match_id: string, status: 'completed' | 'abandoned'): Promise<string> {
+    async completeMatch(match_id: string, status: 'completed' | 'abandoned'): Promise<void> {
         await this.matchRepository.update(match_id, { status });
     }
 }

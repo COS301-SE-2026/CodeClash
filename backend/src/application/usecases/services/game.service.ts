@@ -4,7 +4,7 @@ import { MatchDTO, PlayerDTO, RoundDTO } from "src/entities/dtos/components.dto"
 import { GetDifficulty, GetQuestions, GetTotalTime } from "./questions.service";
 import { GetAnswers } from "./answers.service";
 import { IGameCache } from "src/application/interfaces/IGameCache";
-
+import { IMatchRepository } from "src/application/interfaces/repositories/IMatchRepository";
 
 export class GameService {
     constructor(
@@ -13,7 +13,8 @@ export class GameService {
         private readonly getDifficulty: GetDifficulty,
         private readonly getTotalTime: GetTotalTime,
         private readonly getAnswers: GetAnswers,
-        private readonly game_cache: IGameCache
+        private readonly game_cache: IGameCache,
+        private readonly match_repo: IMatchRepository
     ) { }
 
     async execute(players: PlayerDTO[], game_mode: GameMode, league: string) {
@@ -71,6 +72,18 @@ export class GameService {
 
         const match_entity = this.createGame.execute(players, match, [round], question_ids.length);
 
+        const player1_id = players[0]?.id;
+        const player2_id = players[1]?.id;
+
+        if (!player1_id || !player2_id) throw new Error ("Both players must be defined to create a match");
+
+        const db_match_id = await this.match_repo.createMatch(
+            player1_id,
+            player2_id,
+            mode, //TODO bruh moment
+            start
+        );
+
         this.game_cache.saveGame(match_entity, player_ids, question_ids);
 
         for (const answer of answers) {
@@ -79,6 +92,8 @@ export class GameService {
 
         return {
             id: match_entity,
+            // IMPORTANT this is the Postrgres match id for results, elo, history
+            db_match_id,
             questions: questions,
             answers: answers
         }
