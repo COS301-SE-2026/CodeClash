@@ -5,8 +5,7 @@ import { type AuthUser } from "aws-amplify/auth";
 import { useAuth } from "../Auth/hooks/useAuth";
 import { robot_map } from "src/assets/Robots";
 
-
-const url = 'http://localhost:3000/api/';
+const url = import.meta.env.VITE_API_URL;
 
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [username, setUsername] = useState('');
