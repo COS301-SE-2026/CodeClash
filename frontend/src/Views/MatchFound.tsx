@@ -10,7 +10,7 @@ const actionButtonClass =
   'h-auto min-w-[18rem] cursor-pointer rounded-[1.75rem] px-8 py-4 text-[1.75rem] font-bold shadow-[0_18px_40px_rgba(0,0,0,0.28)] transition-all duration-300 hover:-translate-y-1 md:min-w-[24rem] md:text-[2rem]';
 
 const MatchFound = () => {
-  const { content, players, details, decline, accept, loading, closeLoading } =
+  const { content, players, details, decline, accept, loading, closeLoading, matched } =
     MatchFoundViewModelFunction();
 
   const leftPlayer = players.find((player) => player.side === 'left');

@@ -1,5 +1,6 @@
 
 export interface Player{
+    id:string,
     life: number,
     avatar: string,
     questions_answered: number,

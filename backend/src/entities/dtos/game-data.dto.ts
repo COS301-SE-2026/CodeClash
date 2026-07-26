@@ -6,7 +6,8 @@ export interface GameDataDTO {
     pair_id: string,
     username: string,
     league: string,
-    game_mode: GameMode
+    game_mode: GameMode,
+    avatar?: string
 }
 
 export interface GameQuestionsDTO {

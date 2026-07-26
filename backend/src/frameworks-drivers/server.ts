@@ -3,7 +3,7 @@ import { Server } from 'socket.io'
 import { validateToken } from '../interface-adapters/auth/auth.service';
 import app from './app';
 import dotnev from 'dotenv'
-import { sendGameQuestions, joinMatchQueue, leaveMatchQueue, matchAccepted, matchDeclined } from 'src/interface-adapters/socket-handlers/matchmaking.handler';
+import { sendGameQuestions, joinMatchQueue, leaveMatchQueue, matchAccepted, matchDeclined, sendGamePlayers } from 'src/interface-adapters/socket-handlers/matchmaking.handler';
 import { AppDataSource } from "./config/data-source"
 import { Users } from "../entities/db-entities/user.entities"
 import { initDB } from 'src/application/usecases/init-db';
@@ -119,6 +119,8 @@ AppDataSource.initialize()
             socket.on('match_declined', (pair_id: string) => matchDeclined(io, socket, pair_id));
 
             socket.on('send_questions', (game_id: number) => { sendGameQuestions(io, game_id) });
+
+            socket.on('send_players', (game_id: number)=> {sendGamePlayers(io,game_id)})
 
             socket.on('submit_question', (data: SubmissionDTO) => submitQuestion(io, socket,data, check_answer));
         })

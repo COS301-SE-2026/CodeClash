@@ -1,5 +1,5 @@
 export interface MatchSearchingPlayer {
-  id: string;
+  id?: string;
   username: string;
   elo: number;
   side: 'left' | 'right';

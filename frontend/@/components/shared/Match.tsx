@@ -71,7 +71,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                         <Progress
                             value={player_life[1]}
                             progress_colour={colour}
-                            className='w-full h-9 shadow-[0_4px_6px_rgba(0,0,0,0.3)]'
+                            className='w-full h-9 shadow-[0_4px_6px_rgba(0,0,0,0.3)] scale-x-[-1]'
                         />
                         <Badge variant={'secondary'} className='font-body text-[1.25rem] w-[50%] h-[35%]'>{usernames[1]}</Badge>
                     </div>

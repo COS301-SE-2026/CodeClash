@@ -14,10 +14,12 @@ const MathsMatch = () => {
         currentQuestion, progress,
         nextQuestion, prevQuestion,
         loading, closeLoading, submitQuestion,
-        mathfieldRef, setAnswers, answers, results
+        mathfieldRef, setAnswers, answers, 
+        results
     } = useMatch();
 
     const curr = questions[currentQuestion];
+    console.log(playerLife)
 
     useEffect(() => {
         if (mathfieldRef.current) {
@@ -33,11 +35,13 @@ const MathsMatch = () => {
     }
 
     const correct = results[currentQuestion];
-   
-    const result_colour =
-        (correct === true) ? 'bg-success/50' :
-            (correct === false) ? 'bg-danger/50' :
-                'bg-white'
+
+
+    const result_colour = () => {
+        if (correct === true) return 'bg-success/50'
+        else if (correct === false) return 'bg-danger/50'
+        else return 'bg-white'
+    }
 
 
     return (
@@ -63,10 +67,10 @@ const MathsMatch = () => {
             />
 
             <div className='w-[100%] h-[100%] min-h-[35%] flex items-center justify-center'>
-                <MathMatch 
-                mathfieldRef={mathfieldRef} 
-                onValueChange={(val) => setAnswers(prev => ({ ...prev, [currentQuestion]: val }))}
-                className={`${result_colour}`}
+                <MathMatch
+                    mathfieldRef={mathfieldRef}
+                    onValueChange={(val) => setAnswers(prev => ({ ...prev, [currentQuestion]: val }))}
+                    className={`${result_colour}`}
                 ></MathMatch>
             </div>
             <div className='w-[100%] h-[6rem]  flex flex-shrink-0 items-center justify-evenly rounded-4xl'>

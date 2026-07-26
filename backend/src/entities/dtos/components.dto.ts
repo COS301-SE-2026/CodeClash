@@ -3,7 +3,9 @@ import { GameMode } from "../db-entities/questions.entities"
 export interface PlayerDTO {
     id: string,
     username: string,
-    elo: number
+    elo: number,
+    avatar?:string,
+    life?:number
 }
 
 export interface MatchDTO {
