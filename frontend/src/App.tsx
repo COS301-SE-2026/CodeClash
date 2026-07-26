@@ -17,7 +17,7 @@ const App: React.FC = () => {
 
     const { user } = useAuth();
 
-    const logged_in = (user === null) ? false : true
+    const logged_in = user !== null
 
     const base_path = logged_in ? <Dashboard /> : <Welcome />
 
