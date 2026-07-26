@@ -15,7 +15,6 @@ import { EloRatings } from 'src/entities/db-entities/elo.entities';
 import { IQuestionRepository } from 'src/application/interfaces/repositories/IQuestionRepository';
 import { QuestionRepository } from 'src/interface-adapters/repositories/question.repository';
 import { Questions } from 'src/entities/db-entities/questions.entities';
-import { submitAnswer } from 'src/interface-adapters/socket-handlers/game.handler';
 import { submitQuestion } from 'src/interface-adapters/socket-handlers/game.handler';
 import { SubmissionDTO } from 'src/entities/dtos/components.dto';
 import { IAnswerRepository } from 'src/application/interfaces/repositories/IAnswerRepository';
@@ -123,8 +122,6 @@ AppDataSource.initialize()
 
             socket.on('submit_question', (data: SubmissionDTO) => submitQuestion(io, socket,data, check_answer));
 
-            //CheckAnswer is a dependency that needs to be injected (might be in the submission-service branch)
-            socket.on('submit_answer', (data) => submitAnswer(io, socket, data, checkAnswerInstance));
         })
 
 
