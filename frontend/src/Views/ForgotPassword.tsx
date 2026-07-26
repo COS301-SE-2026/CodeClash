@@ -52,7 +52,7 @@ const ForgotPassword: React.FC = () => {
                             <p className="text-primary-text text-center">{displayError}</p>
                         )}
 
-                        <input className= {fieldClass} type="text" placeholder= {content.codePlaceholder}
+                        <input className= {fieldClass} type="text" placeholder= {content.codePlaceholder} //This is the input field for the code
                             value={resetForm.code} onChange={(e) => setReset('code', e.target.value)} disabled= {isLoading}/>
                         {/*Copying above for next 2 and changing as needed */}
                         <input className= {fieldClass} type="password" placeholder= {content.newPasswordPlaceholder}
