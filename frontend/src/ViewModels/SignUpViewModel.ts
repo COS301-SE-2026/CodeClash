@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useAuth } from "../context/Auth/hooks/useAuth";
 import { formData } from "../Models/SignUpModel";
-import type { SignUpContent, SignUpForm } from "../Models/SignUpModel";
+import type { SignUpForm } from "../Models/SignUpModel";
 
 
 export function validateSignUpForm(data: SignUpForm): string | null {

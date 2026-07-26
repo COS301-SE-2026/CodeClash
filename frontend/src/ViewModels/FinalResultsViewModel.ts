@@ -1,6 +1,8 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { finalResultsContent } from "../Models/FinalResultsModel";
 import type { PlayerFinalResults, FinalResultsContent } from "../Models/FinalResultsModel";
+import { useSocket } from "src/context/Socket/hooks/useSocket";
+import type { ResultDTO } from "src/dtos/result.dto";
 
 async function fetchResults(): Promise<PlayerFinalResults[]> {
     //add the actual api call 
@@ -15,13 +17,31 @@ interface FinalResultsViewModel {
 }
 
 export function FinalResultsViewModelFunction(): FinalResultsViewModel {
-    const [state, setState] = useState< 'loading' | 'results' | 'error'>('loading');
+    const [state, setState] = useState<'loading' | 'results' | 'error'>('loading');
     const [loadingProgress, setLoadingProgress] = useState(0);
     const [results, setResults] = useState<PlayerFinalResults[]>([]);
+    const { socket } = useSocket();
+
+    let progressInterval: ReturnType<typeof setInterval>;
+    let cancelled = false;
+
+    const handleResult = (result: ResultDTO) => {
+        console.log(result)
+
+        if (cancelled) return;
+        clearInterval(progressInterval);
+        setLoadingProgress(100);
+
+        setTimeout(() => { //brief pause before displaying results
+            if (!cancelled) {
+                setResults(results);
+                setState('results');
+            }
+        }, 600)
+    }
 
     useEffect(() => {
-        let progressInterval: ReturnType<typeof setInterval>;
-        let cancelled = false;
+
 
         progressInterval = setInterval(() => { //create a fake loading animation that will gradually fill while waiting for backed. This is going to cont to UX cause otherwise they will just see a frozen loading screen
             setLoadingProgress(prev => {
@@ -33,6 +53,10 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
             });
         }, 400);
 
+
+        if (socket) {
+            socket.on('game_result', handleResult);
+        }
         fetchResults().then(data => { //REPLACE WITH REAL API CALL
             if (cancelled) return;
             clearInterval(progressInterval);
@@ -53,8 +77,9 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
         return () => {
             cancelled = true;
             clearInterval(progressInterval);
+            socket?.off('game)result', handleResult)
         };
-    }, []);
+    }, [socket]);
 
     return {
         content: finalResultsContent,
