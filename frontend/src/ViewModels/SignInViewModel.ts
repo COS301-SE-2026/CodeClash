@@ -1,12 +1,8 @@
 import { useCallback, useState } from "react";
-import { useAuth } from "src/context/useAuth";
 import { signInContent, formData, validateSignInForm } from "../Models/SignInModel";
 import type { SignInForm, SignInContent } from "../Models/SignInModel";
 import { useNavigate } from "react-router-dom";
-
 import { useAuth } from "../context/hooks/useAuth";
-import { signInContent, formData, validateSignInForm } from "../Models/SignInModel";
-import type { SignInForm} from "../Models/SignInModel";
 
 export function SignInViewModelFunction() {
         const { signIn, error, clearError, isLoading} = useAuth();
