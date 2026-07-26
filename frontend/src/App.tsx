@@ -12,16 +12,20 @@ import MathMatch from "./Views/MathsMatch";
 import ProgMatch from "./pages/ProgMatch";
 import Welcome from "./Views/Welcome";
 import { useAuth } from "./context/Auth/hooks/useAuth";
+import Loading from "@/components/shared/Loading";
 
 const App: React.FC = () => {
 
-    const { user } = useAuth();
+    const { user, isLoading } = useAuth();
+    if(isLoading){
+        return <Loading isOpen={isLoading} />
+    }
 
     const logged_in = user !== null
 
     const base_path = logged_in ? <Dashboard /> : <Welcome />
 
-    if (!logged_in) {
+    if (logged_in === false) {
         return (
             <Routes>
                 <Route path='/' element={<Welcome />} />
