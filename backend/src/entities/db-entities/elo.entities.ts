@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, OneToOne, JoinColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, OneToOne, JoinColumn, UpdateDateColumn } from "typeorm";
 import { Users } from "./user.entities";
 
 
@@ -13,6 +13,10 @@ export class EloRatings {
 
     @Column({ nullable: false })
     rating!: number
+
+    // this is important for leaving a paper trail of elo history
+    @UpdateDateColumn()
+    updated_at!: Date;
 }
 
 @Entity()
