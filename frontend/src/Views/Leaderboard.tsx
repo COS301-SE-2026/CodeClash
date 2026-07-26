@@ -23,7 +23,7 @@ const Leaderboard = (league : string) => {
         return(
             <div className="text-center mx-auto font-[var(--font)] text-[200%] font-semibold text-button-primary">
                 {error}
-                <button onClick={refresh} className="text-secondary bg-button-primary font-[var(--font)] font-semibold">Refresh</button>
+                <button onClick={refresh} className="text-secondary bg-button-primary font-[var(--font)] font-semibold" type="button">Refresh</button>
             </div>
         );
     }

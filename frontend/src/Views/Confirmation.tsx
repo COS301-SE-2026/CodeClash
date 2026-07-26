@@ -32,13 +32,13 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({confirmation}) => 
                 {/*The cancel and submit buttons */}
                 <div className="flex w-full gap-3">
                     <button className="flex-1 py-3 rounded-2xl bg-secondary text-secondary-text font-bold hover:opacity-80 transition-opacity"
-                        style = {{fontSize: 'var(--font-size-sm)'}} onClick={handleCancel}>
+                        style = {{fontSize: 'var(--font-size-sm)'}} onClick={handleCancel} type="button">
                         {content.cancelLabel}
                     </button>
 
                     {/*copying above button but changing cancel to confirm */}
                     <button className="flex-1 py-3 rounded-2xl bg-primary text-primary-text font-bold hover:opacity-80 transition-opacity"
-                        style = {{fontSize: 'var(--font-size-sm)'}} onClick={handleConfirm}>
+                        style = {{fontSize: 'var(--font-size-sm)'}} onClick={handleConfirm} type="button">
                         {content.confirmLabel}
                     </button>
                 </div>
