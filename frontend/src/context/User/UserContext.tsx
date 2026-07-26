@@ -15,6 +15,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [error, setError] = useState('');
     const [league, setLeague] = useState('');
     const { user, token, isLoading } = useAuth();
+    const [userId, setUserId] = useState('');
 
 
     const getElo = async () => {
@@ -54,7 +55,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             })
                 .then((res) => {
                     if (res.status === 200) {
-                        
+
                         const index = res.data.avatar_id;
                         setAvatar(robot_map[index]);
                     }
@@ -109,14 +110,15 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
         if (!isLoading) {
             getUsername(user);
+            setUserId(user!.userId);
 
         }
     }, [token, user])
 
 
     const value = useMemo(() => ({
-        username, elo, avatar, error, league
-    }), [username, elo, avatar, error, league])
+        username, elo, avatar, error, league, userId
+    }), [username, elo, avatar, error, league, userId])
 
     return (
         <UserContext.Provider

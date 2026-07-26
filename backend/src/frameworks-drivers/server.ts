@@ -15,7 +15,7 @@ import { EloRatings } from 'src/entities/db-entities/elo.entities';
 import { IQuestionRepository } from 'src/application/interfaces/repositories/IQuestionRepository';
 import { QuestionRepository } from 'src/interface-adapters/repositories/question.repository';
 import { Questions } from 'src/entities/db-entities/questions.entities';
-import { submitQuestion } from 'src/interface-adapters/socket-handlers/game.handler';
+import { startQuestion, submitQuestion } from 'src/interface-adapters/socket-handlers/game.handler';
 import { SubmissionDTO } from 'src/entities/dtos/components.dto';
 import { IAnswerRepository } from 'src/application/interfaces/repositories/IAnswerRepository';
 import { AnswerRepository } from 'src/interface-adapters/repositories/answer.repository';
@@ -34,6 +34,7 @@ import { CheckAnswer } from 'src/application/usecases/check-answer';
 import { SubmissionSystem } from 'src/application/usecases/systems/submission.system';
 import { LifeSystem } from 'src/application/usecases/systems/life.system';
 import { World } from 'src/entities/World';
+import { StartQuestionDTO } from 'src/entities/dtos/question.dto';
 
 dotnev.config()
 
@@ -123,6 +124,8 @@ AppDataSource.initialize()
             socket.on('send_players', (game_id: number)=> {sendGamePlayers(io,game_id)})
 
             socket.on('submit_question', (data: SubmissionDTO) => submitQuestion(io, socket,data, check_answer));
+
+            socket.on('question_started', (data: StartQuestionDTO)=> startQuestion(submission_system,data))
         })
 
 

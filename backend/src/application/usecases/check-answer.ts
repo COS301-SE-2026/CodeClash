@@ -48,6 +48,7 @@ export class CheckAnswer {
 
             if (!correct) life_update = this.life_System.decrement(player_entity, match!.question_number);
 
+            else life_update = this.life_System.getCurrentLife(player_entity);
             // 5. return result
             return { player_id: player_id, result: correct, life_update: life_update };
 

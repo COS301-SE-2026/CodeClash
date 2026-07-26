@@ -9,12 +9,15 @@ import { useRef } from 'react';
 import { MathfieldElement } from 'mathlive';
 import { submitAnswer } from "src/services/submission.service";
 import type { SubmissionDTO } from "src/dtos/submission.dto";
+import { endGame } from "src/services/result.service";
+import { useUser } from "src/context/User/hooks/useUser";
 
 
 export const useMatch = () => {
     const { socket } = useSocket();
     const location = useLocation();
     const { id } = location.state;
+    const { userId } = useUser();
 
     const [players, setPlayers] = useState<Player[]>([]);
     const [questions, setQuestions] = useState<Question[]>([]);
@@ -27,6 +30,7 @@ export const useMatch = () => {
     const [questionsReady, setQuestionsReady] = useState(false)
     const [answers, setAnswers] = useState<Record<string, string>>();
     const [results, setResults] = useState<(boolean | null)[]>([]);
+    const [gameOver, setGameOver] = useState(false);
 
     const mathfieldRef = useRef<MathfieldElement | null>(null)
     const q_index = useRef<number | null>(null);
@@ -47,22 +51,45 @@ export const useMatch = () => {
 
     const { seconds, minutes, restart } = useTimer({
         expiryTimestamp: expiry_time,
-        autoStart: false
+        autoStart: false,
+        onExpire: () => {
+            setGameOver(true);
+            endGame(userId);
+        }
     });
 
     const nextQuestion = (curr: number) => {
-        if (curr < questions.length - 1)
+        if (curr < questions.length - 1) {
             setCurrentQuestion(curr + 1);
+            startQuestion(userId, questions[curr].id!)
+        }
     }
 
     const prevQuestion = (curr: number) => {
-        if (curr > 0)
+        if (curr > 0) {
             setCurrentQuestion(curr - 1)
+            startQuestion(userId, questions[curr].id!)
+        }
     }
 
     const submitQuestion = (question_id: string, answer: string) => {
         q_index.current = currentQuestion;
         submitAnswer(socket, id, question_id, answer);
+
+        if (q_index.current == questions.length - 1) {
+            setGameOver(true);
+            endGame(userId);
+        }
+    }
+
+    const startQuestion = (player_id: string, question_id: string) => {
+        const data = {
+            match_id: id,
+            player: player_id,
+            question: question_id
+        }
+
+        socket?.emit('question_started', data);
     }
 
     function shuffle(array: Question[]) {
@@ -131,10 +158,13 @@ export const useMatch = () => {
 
         setQuestions(final);
         setQuestionsReady(true);
+
+
+        // first question ready 
+        startQuestion(userId, final[0].id!);
     }
 
     const submission_result = (result: SubmissionDTO) => {
-        console.log(result)
         const index = q_index.current
         if (index === null) return;
 
@@ -217,6 +247,7 @@ export const useMatch = () => {
         submitQuestion,
         mathfieldRef,
         setAnswers,
-        results
+        results,
+        gameOver
     }
 }

@@ -17,7 +17,7 @@ export class SubmissionSystem {
         this.getSubmissionComponent = getSubmissionComponent
     }
 
-    saveSubmission(match_id: number, player_id: string, question_id: string, is_correct: boolean, answer: string) {
+    saveSubmission(match_id: number, player_id: string, question_id: string, is_correct: boolean | null, answer: string) {
 
         // 1 lookup submission entity
         const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(match_id, "Submission");
@@ -28,8 +28,9 @@ export class SubmissionSystem {
 
         // 2 if found update component with new submission  -- an extra step would be added here to save submission later on for history
         if (submission_entity !== undefined) {
-            const submission_component = this.getSubmissionComponent(submission_entity, 'Submission')
+            if (is_correct === null) return;
 
+            const submission_component = this.getSubmissionComponent(submission_entity, 'Submission')
             submission_component!.attempt_number += 1;
             submission_component!.correct = is_correct;
             submission_component!.answer = answer;
@@ -44,9 +45,10 @@ export class SubmissionSystem {
             const submission_component: SubmissionComponent = {
                 player_id: player_id,
                 question_id: question_id,
-                attempt_number: 1,
+                started_at: new Date(),
+                attempt_number: is_correct === null ? 0 : 1,
                 answer: answer,
-                submitted_at: new Date(),
+                submitted_at: is_correct === null ? null : new Date(),
                 correct: is_correct
             }
 

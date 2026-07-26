@@ -5,6 +5,7 @@ import { MatchScreen } from '@/components/shared/Match';
 import { Button } from '@/components/ui/button';
 import { useEffect } from 'react';
 import { useMatch } from 'src/ViewModels/MatchViewModel';
+import { ChevronRight, ChevronLeft } from 'lucide-react'
 
 
 const MathsMatch = () => {
@@ -14,16 +15,26 @@ const MathsMatch = () => {
         currentQuestion, progress,
         nextQuestion, prevQuestion,
         loading, closeLoading, submitQuestion,
-        mathfieldRef, setAnswers, answers, 
-        results
+        mathfieldRef, setAnswers, answers,
+        results, gameOver
     } = useMatch();
 
     const curr = questions[currentQuestion];
-    console.log(playerLife)
+    const correct = results[currentQuestion];
+    const result_colour = () => {
+        if (correct === true) return 'bg-success/50'
+        else if (correct === false) return 'bg-danger/50'
+        else return 'bg-white'
+    }
+
+    const read_only = () => {
+        if (gameOver) return 'read-only'
+        else return ''
+    }
 
     useEffect(() => {
         if (mathfieldRef.current) {
-            mathfieldRef.current.value = answers![currentQuestion] ?? ''
+            mathfieldRef.current.value = answers?.[currentQuestion] ?? ''
         }
     }, [currentQuestion])
 
@@ -33,16 +44,6 @@ const MathsMatch = () => {
             <Loading isOpen={loading} onClose={closeLoading}></Loading>
         )
     }
-
-    const correct = results[currentQuestion];
-
-
-    const result_colour = () => {
-        if (correct === true) return 'bg-success/50'
-        else if (correct === false) return 'bg-danger/50'
-        else return 'bg-white'
-    }
-
 
     return (
         <MatchScreen
@@ -70,23 +71,31 @@ const MathsMatch = () => {
                 <MathMatch
                     mathfieldRef={mathfieldRef}
                     onValueChange={(val) => setAnswers(prev => ({ ...prev, [currentQuestion]: val }))}
-                    className={`${result_colour}`}
+                    className={`${result_colour()},${read_only}`}
                 ></MathMatch>
             </div>
             <div className='w-[100%] h-[6rem]  flex flex-shrink-0 items-center justify-evenly rounded-4xl'>
-                <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem]'
-                    onClick={() => {
-                        const answer = mathfieldRef.current?.value ?? '';
-                        submitQuestion(curr.id!, answer)
-                        nextQuestion(currentQuestion)
-                    }}    // need to attach marking logic once submission systems are implemented
-                >SUBMIT</Button>
 
-                {currentQuestion > 0 && (
-                    <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem] bg-primary text-secondary'
-                        onClick={() => prevQuestion(currentQuestion)}
-                    >PREV</Button>
-                )}
+                <div className='flex items-center justify-evenly text-secondary bg-primary rounded-2xl w-[15%]'>
+                    <ChevronLeft onClick={() => prevQuestion(currentQuestion)} className='size-[3rem] hover:scale-110  hover:bg-secondary/20 rounded-2xl w-[50%]' />
+                    <ChevronRight onClick={() => nextQuestion(currentQuestion)} className='size-[3rem] hover:scale-110 hover:bg-secondary/20 rounded-2xl w-[50%]' />
+                </div>
+                <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem] hover:-translate-y-1'
+                    onClick={async () => {
+                        const answer = mathfieldRef.current?.value ?? '';
+                       await submitQuestion(curr.id!, answer)
+                        if (correct === true) nextQuestion(currentQuestion)
+                    }}    // need to attach marking logic once submission systems are implemented
+                >
+                    {currentQuestion < (questions.length - 1 )&&
+                        <p> SUBMIT</p>
+                    }
+
+                    { currentQuestion == (questions.length - 1) &&
+                        <p>FINISH</p>
+                    }
+
+                </Button>
             </div>
         </MatchScreen>
     )

@@ -7,3 +7,10 @@ export interface QuestionDTO {
     time_limit: string
 }
 
+
+export interface StartQuestionDTO {
+    match_id: number
+    player: string,
+    question: string
+}
+

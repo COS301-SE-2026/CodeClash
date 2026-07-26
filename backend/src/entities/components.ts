@@ -26,6 +26,17 @@ export interface SubmissionRegistryComponent{
     submissions: Map<string, number>
 }
 
+
+
+
+// Result component for end of match results 
+export interface ResultComponent{
+    winner_id: string,
+    win_elo: number,
+    lose_elo: number
+}
+
+
 /********************************** */
 
 /** PLAYER ENTITY */
@@ -71,11 +82,12 @@ export interface RoundComponent {
 export interface SubmissionComponent {
     player_id: string,
     question_id: string,
+    started_at: Date,
     attempt_number: number,
     answer: string,
     language?: string
-    submitted_at: Date,
-    correct:boolean
+    submitted_at: Date | null,
+    correct:boolean | null
 }
 
 /********************************** */
