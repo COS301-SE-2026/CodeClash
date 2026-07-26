@@ -7,8 +7,7 @@ import '../styles/global.css';
 import {Link} from 'react-router-dom';
 import { LeaderboardViewModel } from 'src/ViewModels/LeaderboardViewModel';
 import GlassCard from '@/components/shared/GlassCard';
-import LeaderboardCardLeft, {LeaderboardCardRight} from '@/components/ui/leaderboardCard'
-import { EloText } from '@/components/ui/leaderboardCard';
+import LeaderboardCardLeft, {LeaderboardCardRight, EloText} from '@/components/ui/leaderboardCard'
 
 
 // const Leaderboard: React.FC<LeaderboardProps> = (
