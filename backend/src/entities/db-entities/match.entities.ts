@@ -12,7 +12,7 @@ export class MatchProblems{
 @Entity()
 export class Match {
     @PrimaryGeneratedColumn('uuid')
-    match!: string;
+    match_id!: string;
 
     @OneToOne(() => Users)
     @JoinColumn({ name: 'player1_id'})
