@@ -1,31 +1,29 @@
 import { Socket, Server } from "socket.io"
 import MatchmakingUserDTO from 'src/entities/dtos/matchmaking.dto';
-import { dequeue, matchmaking } from 'src/application/usecases/services/matchmaking.service';
-import { gameService } from 'src/application/usecases/services/game.service';
-import { IQuestionRepository } from "src/application/interfaces/IQuestionRepository";
+import { MatchmakingService } from 'src/application/usecases/services/matchmaking.service';
+import { GameService } from 'src/application/usecases/services/game.service';
 import { GameDataDTO, GameQuestionsDTO } from "src/entities/dtos/game-data.dto";
-import { IEloRepository } from "src/application/interfaces/IEloRepository";
+import { PlayerDTO } from "src/entities/dtos/components.dto";
 
-const PAIRS = new Map<string, Map<string, boolean>>();
+const PAIRS = new Map<string, Map<string, { accepted: boolean, elo: number, username?: string}>>();
 const GAME = new Map<number, { player_ids: string[], questions: GameQuestionsDTO }>();
 
-export const joinMatchQueue = (async (io: Server, socket: Socket, data: any) => {
+export const joinMatchQueue = (async (io: Server, socket: Socket, data: any, matchmaking_service: MatchmakingService) => {
     //adds users to a room 
     await socket.join(socket.data.user_id)
     socket.data.game_mode = data.game_mode
+    socket.data.elo = data.elo
 
     const user = new MatchmakingUserDTO(socket.data.user_id, data.elo, data.game_mode);
     let match = null;
 
-    match = await matchmaking(user);
+    match = await matchmaking_service.matchmaking(user);
 
     if (!match)
         return;
 
-
-    const player_1 = match.player_1_id.toString();
-    const player_2 = match.player_2_id.toString();
-
+    const player_1 = match.player_1.id;
+    const player_2 = match.player_2.id;
 
     const pair_id = player_1.concat("-").concat(player_2);
 
@@ -37,14 +35,17 @@ export const joinMatchQueue = (async (io: Server, socket: Socket, data: any) => 
     }
 
 
-    PAIRS.set(pair_id, new Map([[player_1, false], [player_2, false]]));
+    PAIRS.set(pair_id, new Map([
+        [player_1, { accepted: false, elo: match.player_1.elo }],
+        [player_2, { accepted: false, elo: match.player_2.elo }]
+    ]));
 
     io.to(player_1!).emit('users_matched', pair);
     io.to(player_2!).emit('users_matched', pair);
 })
 
-export const leaveMatchQueue = (async (io: Server, socket: Socket) => {
-    const remove = await dequeue(socket.data.user_id, socket.data.game_mode);
+export const leaveMatchQueue = (async (io: Server, socket: Socket, matchmaking_service: MatchmakingService) => {
+    const remove = await matchmaking_service.dequeue(socket.data.user_id, socket.data.game_mode);
 
     if (remove) {
         io.to(socket.data.user_id).emit('user_dequeued');
@@ -53,31 +54,38 @@ export const leaveMatchQueue = (async (io: Server, socket: Socket) => {
         io.to(socket.data.user_id).emit('dequeue-failed');
 })
 
-export const matchAccepted = (async (io: Server, socket: Socket, data: GameDataDTO, question_repo: IQuestionRepository, elo_repo: IEloRepository) => {
+export const matchAccepted = (async (io: Server, socket: Socket, data: GameDataDTO, game_service: GameService) => {
 
-    PAIRS.get(data.pair_id)?.set(socket.data.user_id, true);
+    PAIRS.get(data.pair_id)?.set(socket.data.user_id, { accepted: true, elo: socket.data.elo, username: data.username });
 
     const pair = PAIRS.get(data.pair_id);
 
-    const bothAccepted = pair ? [...pair.values()].every(Boolean) : false;
+    if (!pair)
+        return;
 
+    const bothAccepted = [...pair.values()].every(val => val.accepted);
     if (bothAccepted) {
-        // call the game service to create the game
-        const keys = [...pair!.keys()];
-        data.player_ids = keys;
-        data.question_number = 5;   //  update this to be dynamic
-        const setup = await gameService(question_repo, elo_repo, data);
+        let players: PlayerDTO[] = [];
 
-
-        if (setup) {
-            GAME.set(setup.id, { player_ids: keys, questions: setup.questions as GameQuestionsDTO })
-    
-            for (const key of keys) {
-                io.to(key).emit("start_game", { game_id: setup.id });
+        pair.forEach((val,key)=>{
+            const player: PlayerDTO = {
+                id: key,
+                username: val.username!,
+                elo: val.elo
             }
-        } else {
-            console.log("Game service returning false")
+
+            players.push(player)
+        })
+
+        const setup = await game_service.execute(players, data.game_mode, data.league);
+
+        const keys = [...pair!.keys()];
+        GAME.set(setup.id, { player_ids: keys, questions: setup.questions as GameQuestionsDTO })
+
+        for (const key of keys) {
+            io.to(key).emit("start_game", { game_id: setup.id });
         }
+
     }
     else {
         // waiting for the other player to accept

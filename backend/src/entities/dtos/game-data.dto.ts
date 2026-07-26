@@ -1,15 +1,15 @@
 import { GameMode } from "../db-entities/questions.entities";
+import { PlayerDTO } from "./components.dto";
 import { QuestionDTO } from "./question.dto";
 
-export interface GameDataDTO{
-    pair_id:string,
-    player_ids: string[],
+export interface GameDataDTO {
+    pair_id: string,
+    username: string,
     league: string,
-    game_mode: GameMode,
-    question_number: number
+    game_mode: GameMode
 }
 
-export interface GameQuestionsDTO{
+export interface GameQuestionsDTO {
     easy: QuestionDTO[],
     medium: QuestionDTO[],
     hard: QuestionDTO[]

@@ -1,4 +1,4 @@
-import { IUserRepository } from "src/application/interfaces/IUserRepository";
+import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 import { UserDTO } from "src/entities/dtos/user.dto";
 import { Repository } from "typeorm";
 import { Users } from "src/entities/db-entities/user.entities";

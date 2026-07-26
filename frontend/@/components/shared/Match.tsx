@@ -15,7 +15,8 @@ interface MatchScreenProps {
     children: React.ReactNode,
     question_number: number,
     current_question: number,
-    opponent_progress: number
+    opponent_progress: number,
+    question_results: (boolean | null)[]
 }
 
 export const MatchScreen: React.FC<MatchScreenProps> = ({
@@ -28,8 +29,11 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
     children,
     question_number,
     current_question,
-    opponent_progress
+    opponent_progress,
+    question_results
 }) => {
+
+
 
 
     return (
@@ -87,7 +91,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                     <div className='absolute bg-gradient-to-r from-button-primary to-secondary h-[3%] w-[71%] rounded-4xl shadow-[0_4px_6px_rgba(0,0,0,0.3)]'></div>
                     {/* Question box */}
 
-                    <div className='bg-secondary w-[100%] h-[100%] rounded-4xl ml-1 pt-[2rem] flex-1'>
+                    <div className='bg-secondary w-[100%] h-[100%] rounded-4xl ml-1 pt-[2rem] flex flex-col justify-between itmes-center'>
                         {children}
                     </div>
                 </div>
@@ -105,37 +109,46 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                             <div className='relative flex flex-row'>
                                 <img src={avatars[0]}
                                     className=" absolute w-20 h-30 object-cover left-20"
-                                    style={{ top: `${(question_number - 1 - current_question) * 9.6}rem`}}
-                                     alt='progress avatar user 1'
+                                    style={{ top: `${(question_number - 1 - current_question) * 9.6}rem` }}
+                                    alt='progress avatar user 1'
                                 />
                                 <img src={avatars[0]}
                                     className=" absolute w-20 h-30 object-cover scale-x-[-1]"
                                     style={{ top: `${(question_number - 1 - opponent_progress) * 9.6}rem` }}
-                                     alt='progress avatar user 2'
+                                    alt='progress avatar user 2'
                                 />
 
                             </div>
 
                             {/* doors */}
-                            <div className='relative  flex flex-col items-center justify-between h-[40rem]'>
-                                <div className="absolute bg-secondary h-[90%] w-[15%] -z-10 rounded-3xl "></div>
+                            <div className='relative  flex flex-col-reverse items-center justify-between h-[40rem]'>
+                                {/* start badge */}
+                                <Badge variant={'outline'} className='text-white text-sm font-body text-center font-semibold w-[60%] h-[2rem]'>Start</Badge>
+                                <div className="absolute top-0 bg-secondary h-[90%] w-[15%] -z-10 rounded-3xl "></div>
                                 {
-                                    Array.from({length: question_number}).map((q, id) => {
+                                    Array.from({ length: question_number }).map((_, id) => {
+
+                                        const correct = question_results[id];
+                                        const result_colour =
+                                            (correct === true) ? 'bg-green-200' :
+                                                (correct === false) ? 'bg-red-200' : 'bg-transparent'
+
                                         return (
                                             <React.Fragment key={`${question_number}-${id}`}>
 
                                                 <div className=' w-[100%] h-[8rem] flex items-center justify-center col-start-2 '>
-                                                    <img src={door}
-                                                        className="w-20 h-20 object-cover rounded-full"
-                                                        alt='door'
-                                                    />
+                                                    <div className={`${result_colour} rounded-full p-[1%] flex items-center justify-center`}>
+                                                        <img src={door}
+                                                            className="w-20 h-20 object-cover rounded-full"
+                                                            alt='door'
+                                                        />
+                                                    </div>
                                                 </div>
                                             </React.Fragment>
                                         )
                                     })
                                 }
-                                {/* start badge */}
-                                <Badge variant={'outline'} className='text-white text-sm font-body text-center font-semibold w-[60%] h-[2rem]'>Start</Badge>
+
                             </div>
                         </div>
                     </div>

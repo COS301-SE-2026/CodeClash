@@ -6,6 +6,9 @@ import type { Player, Answer, Question, MatchProgress } from "src/Models/MatchMo
 import pink_robot from 'src/assets/Robots/HelloRobot_Pink.png'
 import { useSocket } from "src/context/Socket/hooks/useSocket";
 import type { GameQuestionsDTO } from "src/dtos/game-questionDTO";
+import { useRef } from 'react';
+import { MathfieldElement } from 'mathlive';
+import { submitAnswer } from "src/services/submission.service";
 
 
 export const useMatch = () => {
@@ -22,8 +25,12 @@ export const useMatch = () => {
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [loading, setLoading] = useState(false);
     const [questionsReady, setQuestionsReady] = useState(false)
+    const [answers, setAnswers] = useState<Record<string, string>>();
+    const [results, setResults] = useState<(boolean | null)[]>([]);
 
-    const answers: Answer[] = [];
+    const mathfieldRef = useRef<MathfieldElement | null>(null)
+    const q_index = useRef<number | null>(null);
+
     const progress: MatchProgress = {
         player_progress: [0, 0],
         question_number: 0
@@ -52,6 +59,11 @@ export const useMatch = () => {
             setCurrentQuestion(curr - 1)
     }
 
+    const submitQuestion = (question_id: string, answer: string) => {
+        q_index.current = currentQuestion;
+        submitAnswer(socket, id, question_id, answer);
+    }
+
     function shuffle(array: Question[]) {
         let curr = array.length;
         let random;
@@ -68,9 +80,11 @@ export const useMatch = () => {
     const loadQuestions = (data: GameQuestionsDTO) => {
         let temp_arr: Question[] = [];
         let sumtime = 0;
+        console.log(data)
 
         for (const q of data.easy) {
             temp_arr.push({
+                id: q.id,
                 title: q.title!,
                 difficulty: "Easy",
                 description: q.description,
@@ -81,6 +95,7 @@ export const useMatch = () => {
 
         for (const q of data.medium) {
             temp_arr.push({
+                id: q.id,
                 title: q.title,
                 difficulty: "Medium",
                 description: q.description
@@ -90,6 +105,7 @@ export const useMatch = () => {
 
         for (const q of data.hard) {
             temp_arr.push({
+                id: q.id,
                 title: q.title,
                 difficulty: "Hard",
                 description: q.description
@@ -104,6 +120,7 @@ export const useMatch = () => {
         let final: Question[] = []
         for (const t of temp_arr) {
             const q: Question = {
+                id: t.id,
                 title: t.title!,
                 difficulty: t.difficulty,
                 description: t.description
@@ -114,6 +131,21 @@ export const useMatch = () => {
 
         setQuestions(final);
         setQuestionsReady(true);
+    }
+
+    const submission_result = (result: boolean, question: number) => {
+        const index = q_index.current
+        if (index === null) return;
+
+        setResults((prev) => {
+            const next = [...prev];
+            next[index] = result;
+            return next
+        });
+    }
+
+    const submission_error = (error: string) => {
+
     }
 
     useEffect(() => {
@@ -127,9 +159,11 @@ export const useMatch = () => {
             socket.emit('send_questions', id)
 
             socket.on('get_questions', loadQuestions)
+            socket.on('submission_result', submission_result);
+            socket.on("submission_error", submission_error);
 
             if (questions.length == 0) setLoading(true)
-            else setLoading(false)
+            else { setLoading(false) }
 
 
             setPlayerLife(players.map(p => p.life = 100))
@@ -143,6 +177,8 @@ export const useMatch = () => {
 
             return () => {
                 socket.off("get_questions", loadQuestions);
+                socket.off("submission_result", submission_result);
+                socket.off("submission_error", submission_error);
             }
         }
 
@@ -163,6 +199,10 @@ export const useMatch = () => {
         prevQuestion,
         matchDuration,
         loading,
-        closeLoading
+        closeLoading,
+        submitQuestion,
+        mathfieldRef,
+        setAnswers,
+        results
     }
 }

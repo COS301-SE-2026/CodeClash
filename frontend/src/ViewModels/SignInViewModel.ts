@@ -36,8 +36,8 @@ export function SignInViewModelFunction() {
                 form.password,
             );
             nav('/dashboard')
-        } catch {
-            console.error("Sign in error")
+        } catch (error) {
+            console.error(`Sign in error ${error}`)
         }
     }, [form, signIn, clearError, nav]); //Dependency array
 

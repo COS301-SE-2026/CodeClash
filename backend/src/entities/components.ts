@@ -4,7 +4,7 @@
 
 // Player Component holds array of ids for a match
 export interface PlayersComponent {
-    player_ids: string[]
+    players: Map<string, number>    // <player_id, player_entity>
 }
 
 // Match Components stores data about the match
@@ -13,7 +13,17 @@ export interface MatchComponent {
     status: string,
     game_mode: string,
     difficulty: number,
-    winner: number
+    winner: number,
+    rounds: number[],
+    start_time: Date,
+    end_time: Date,
+    question_number: number,
+}
+
+// SubmissionRegistryComponent maps player_id-question_id -> submission entity
+
+export interface SubmissionRegistryComponent{
+    submissions: Map<string, number>
 }
 
 /********************************** */
@@ -27,10 +37,15 @@ export interface LifeComponent {
     max_life: number
 }
 
+export interface PlayerInfoComponent {
+    id: string,
+    username: string,
+    elo: number
+}
+
 // Rank Components stores the players rank,elo, league and streaks
 export interface RankComponent {
     rank: number,
-    elo: number,
     league: string
 }
 
@@ -45,10 +60,7 @@ export interface BadgeComponent {
 /** ROUND ENTITY */
 
 export interface RoundComponent {
-    match_id: number,
-    question_ids: number[],
-    start_time: Date,
-    end_time: Date,
+    question_ids: string[],
     question_number: number
 }
 
@@ -57,14 +69,13 @@ export interface RoundComponent {
 /** SUBMISSION ENTITY */
 
 export interface SubmissionComponent {
-    player_id: number,
-    round_id: number,
-    question_id: number,
+    player_id: string,
+    question_id: string,
     attempt_number: number,
     answer: string,
-    language: string
-    status: string,
-    submitted_at: Date
+    language?: string
+    submitted_at: Date,
+    correct:boolean
 }
 
 /********************************** */
@@ -77,32 +88,17 @@ export interface MathsResultComponent {
     correct: boolean
 }
 
-/** QUESTION ENTITY */
-
-export interface MathsQuestionComponent {
-    answer: string,
-    question: string
-}
-
-export interface ProgQuestionComponent {
-    question: string,
-    test_cases: string[],
-    expected_output: string[]
-}
-
 
 // union for all components - for the map
 
-export type PlayerComponentTypes = LifeComponent | RankComponent | BadgeComponent;
-export type MatchComponentTypes = PlayersComponent | MatchComponent;
+export type PlayerComponentTypes = LifeComponent | PlayerInfoComponent | RankComponent | BadgeComponent;
+export type MatchComponentTypes = PlayersComponent | MatchComponent | SubmissionRegistryComponent;
 export type ResultComponentTypes = MathsResultComponent;
-export type QuestionComponentTypes = MathsQuestionComponent | ProgQuestionComponent;
 
 export type Component =
     PlayerComponentTypes |
     MatchComponentTypes |
     RoundComponent |
     SubmissionComponent |
-    ResultComponentTypes |
-    QuestionComponentTypes;
+    ResultComponentTypes ;
 

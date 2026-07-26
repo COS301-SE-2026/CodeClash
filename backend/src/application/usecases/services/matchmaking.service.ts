@@ -1,99 +1,97 @@
 import { GameMode } from "src/entities/db-entities/questions.entities";
-import redis from "../../../../redis-client"
 import MatchmakingUserDTO from "src/entities/dtos/matchmaking.dto";
-
-const elo_difference = 100;   // this can be changed later
-
-// adds player to queue
-async function enqueue(user: MatchmakingUserDTO, queue: GameMode): Promise<boolean> {
-    // add user to the queue
-    await redis.zadd(queue, user.elo, user.id);
-
-    // store their joined_at time in a hash
-    await redis.hset(`user:${user.id}`, "user_joined_at", user.joined_at);
-    return true;
-}
-
-// remove player from the queue
-async function dequeue(user_id: number, queue: GameMode): Promise<boolean> {
-
-    const rem_joined_hash = await redis.hdel(`user:${user_id}`,'user_joined_at');
-    const rem_user = await redis.zrem(queue, user_id);
-
-    if (rem_joined_hash == 0 || rem_user == 0)
-        return false;
-
-    return true;
-}
+import { IMatchmakingCache } from "src/application/interfaces/IMatchmakingCache";
 
 
-// finds a match for the passed in user
-async function matchmaking(user: MatchmakingUserDTO) {
-    const range = elo_difference * user.match_attempt;
+export class MatchmakingService {
+    private elo_difference = 100;
 
-    const elo_range_lower = Math.min(0, user.elo - range);
-    const elo_range_upper = user.elo + range;
-
-
-    // finds all players in the queue within the elo range
-    const elo_range = await redis.zrangebyscore(user.game_mode, elo_range_lower, elo_range_upper);
-
-    // get joined_at times for all users in the elo_range
-    const result = await Promise.all(
-        elo_range.map(async (user_id) => {
-            const [join] = await redis.hmget(`user:${user_id}`, "user_joined_at");
-            return { user_id, join };
-        })
-    );
+    constructor(
+        private readonly cache: IMatchmakingCache
+    ) { }
 
 
-    // remove null join values
-    let players = result.filter(u => u.join !== null);
+    // adds player to queue
+    async enqueue(user: MatchmakingUserDTO, queue: GameMode): Promise<boolean> {
+        await this.cache.enqueue(queue, user);
+        return true;
+    }
 
-    // sort by joined times - ascending
-    players.sort((a, b) => Number(a.join) - Number(b.join));
 
-    if (players.length == 0) {
+    // remove player from the queue
+    async dequeue(user_id: string, queue: GameMode): Promise<boolean> {
+        return await this.cache.dequeue(user_id, queue);
+    }
 
-        const waiting = await redis.zscore(user.game_mode, user.id.toString());
+    async matchmaking(user: MatchmakingUserDTO) {
+        const range = this.elo_difference * user.match_attempt;
 
-        if (waiting)   //user is already in the queue
-            ++user.match_attempt;
-        else {
-            enqueue(user, user.game_mode);
+        const elo_range = await this.cache.getPlayers(user.game_mode, user.elo, range);
+
+        // get joined_at times for all users in the elo_range
+        const result = await Promise.all(
+            elo_range.map(async (user_id) => {
+                const [join] = await this.cache.getJoinedAt(user_id);
+                return { user_id, join };
+            })
+        );
+
+
+        // remove null join values
+        let players = result.filter(u => u.join !== null);
+
+        // sort by joined times - ascending
+        players.sort((a, b) => Number(a.join) - Number(b.join));
+
+        if (players.length == 0) {
+
+            const waiting = await this.cache.getUserElo(user.game_mode, user.id);
+
+            if (waiting)   //user is already in the queue
+                ++user.match_attempt;
+            else {
+                this.enqueue(user, user.game_mode);
+            }
+
+            return null;
         }
+        else if (players[0]!.user_id == user.id) {
+            return null;
+        }
+        else {
 
-        return null;
+            const match = players[0];
+
+            if (!match) return null;
+
+            const match_elo = Number(await this.cache.getUserElo(user.game_mode, match.user_id));
+
+            // found a match
+            // remove players from queue
+            this.cache.deletUser(user.game_mode, user.id);
+            this.cache.deletUser(user.game_mode, match.user_id)
+
+            return {
+                player_1: {
+                    id: user.id,
+                    elo: user.elo
+                },
+                player_2: {
+                    id: match.user_id,
+                    elo: match_elo
+                }
+            };
+        }
     }
-    else if (players[0]!.user_id == user.id.toString()) {
-        return null;
+
+    async math_queue_length(): Promise<number> {
+        return this.cache.getQueueLength(GameMode.Maths)
     }
-    else {
 
-        const match = players[0];
-
-        if (!match) return null;
-
-        // found a match
-        // remove players from queue
-        await redis.zrem(user.game_mode, user.id);
-        await redis.zrem(user.game_mode, match.user_id);
-
-        //remove joined_at hash
-        await redis.hdel(`user:${user.id}`, "user_joined_at");
-        await redis.hdel(`user:${match.user_id}`, "user_joined_at");
-
-        return { player_1_id: user.id, player_2_id: match.user_id };
+    async prog_queue_length(): Promise<number> {
+        return this.cache.getQueueLength(GameMode.Programming);
     }
 }
 
-async function math_queue_length(): Promise<number> {
-    return await redis.zcard(GameMode.Maths);
-}
-
-async function prog_queue_length(): Promise<number> {
-    return await redis.zcard(GameMode.Programming);
-}
 
 
-export { matchmaking, dequeue, enqueue, math_queue_length, prog_queue_length };
