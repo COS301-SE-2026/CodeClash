@@ -8,7 +8,7 @@ import SignUp from "./Views/SignUp";
 import Profile from "./Views/Profile";
 import Searching from "./pages/queuePages/searching";
 import Found from "./pages/queuePages/found";
-import MathMatch from "./Views/MathMatch";
+import MathMatch from "./Views/MathsMatch";
 import Leaderboard from "./Views/Leaderboard";
 import GameGuide from "./Views/GameGuide"
 
@@ -30,7 +30,7 @@ const App: React.FC = () => {
                 <Route path='/dashboard' element={<Dashboard />} />
                 <Route path='/game-guide' element={<GameGuide/>}/>
                 <Route path='/tournaments' />
-                <Route path='/leaderboard' />
+                <Route path='/leaderboard'/>
                 <Route path='/badges' />
                 <Route path='/friends' />
             </Route>
