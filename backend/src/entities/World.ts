@@ -32,16 +32,12 @@ function getComponent<T extends Component>(
 
     const entity = map.get(entity_id);
 
-    //console.log("entity: ", entity)
-
     if (entity === undefined) return null;
 
-    //console.log("getComponent from: ", entity);
 
     const component = entity.get(component_name);
 
     if (component === undefined) return null;
-   // console.log("component: ", component);
 
     return component as T;
 }
@@ -77,7 +73,6 @@ export const World = () => {
         component_name: "Players" | "Match" | "Submission",
         component: MatchComponentTypes
     ) {
-        console.log("Adding component: ", component, " to match")
         return addComponent(matches, entity_id, component_name, component)
     }
 

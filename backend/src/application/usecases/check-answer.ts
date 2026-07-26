@@ -31,6 +31,7 @@ export class CheckAnswer {
             // 2. compare correct vs submitted answer 
             const correct = correct_answer === answer;
 
+
             // 3. save answer with submission system
             this.submission_system.saveSubmission(match_id, player_id, question_id, correct, answer);
 

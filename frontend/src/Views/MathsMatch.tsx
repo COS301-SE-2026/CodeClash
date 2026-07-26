@@ -33,9 +33,10 @@ const MathsMatch = () => {
     }
 
     const correct = results[currentQuestion];
+   
     const result_colour =
-        (correct === true) ? 'bg-green-200' :
-            (correct === false) ? 'bg-red-200' :
+        (correct === true) ? 'bg-success/50' :
+            (correct === false) ? 'bg-danger/50' :
                 'bg-white'
 
 

@@ -80,7 +80,6 @@ export const useMatch = () => {
     const loadQuestions = (data: GameQuestionsDTO) => {
         let temp_arr: Question[] = [];
         let sumtime = 0;
-        console.log(data)
 
         for (const q of data.easy) {
             temp_arr.push({
@@ -133,7 +132,7 @@ export const useMatch = () => {
         setQuestionsReady(true);
     }
 
-    const submission_result = (result: boolean, question: number) => {
+    const submission_result = (result: boolean) => {
         const index = q_index.current
         if (index === null) return;
 
