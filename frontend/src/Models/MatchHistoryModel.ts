@@ -1,4 +1,4 @@
-export type MatchMode = 'CASUAL' | 'RANKED';
+export type MatchMode = 'RANKED';
 export type MatchType = 'PROGRAMMING' | 'MATH';
 export type MatchResult = 'WIN' | 'LOSS' | 'DRAW';
 
@@ -29,7 +29,7 @@ export interface MatchRow {
 export const mockedMatch: MatchRow[] = [
     {
         id: '1',
-        mode: 'CASUAL',
+        mode: 'RANKED',
         type: 'PROGRAMMING',
         timestamp: '2H 30M AGO',
         result: 'WIN',
@@ -46,6 +46,27 @@ export const mockedMatch: MatchRow[] = [
             ],
             date: 'JULY 26, 2026',
             time: '10:25 - 10:28',
+        },
+    },
+    {
+        id: '2',
+        mode: 'RANKED',
+        type: 'MATH',
+        timestamp: '2H 55M AGO',
+        result: 'LOSS',
+        details: {
+            results: '1-2',
+            matchLength: '05:00',
+            questions: [
+                {
+                    label: 'QUESTION 1',
+                    speed: '01:22',
+                    accuracy: '40%',
+                    correctness: false,
+                },
+            ],
+            date: 'JULY 26, 2026',
+            time: '10:00 - 10:04',
         },
     },
 ];
