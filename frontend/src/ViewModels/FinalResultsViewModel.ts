@@ -4,85 +4,69 @@ import { useSocket } from "src/context/Socket/hooks/useSocket";
 import type { ResultDTO } from "src/dtos/result.dto";
 
 import { finalResultsContent } from "../Models/FinalResultsModel";
-import type { PlayerFinalResults, FinalResultsContent } from "../Models/FinalResultsModel";
+import type { FinalResultsContent } from "../Models/FinalResultsModel";
 
 interface FinalResultsViewModel {
     content: FinalResultsContent;
     state: 'loading' | 'results' | 'error';
     loadingProgress: number; //for user to see how far the loading is
-    results: PlayerFinalResults[];
+    results: ResultDTO | null;
 
 }
 
 export function FinalResultsViewModelFunction(): FinalResultsViewModel {
     const [state, setState] = useState<'loading' | 'results' | 'error'>('loading');
     const [loadingProgress, setLoadingProgress] = useState(0);
-    const [results, setResults] = useState<PlayerFinalResults[]>([]);
+    const [results, setResults] = useState<ResultDTO | null>(null);
     const { socket, matched } = useSocket();
     const location = useLocation();
     const { id } = location.state;
-
-    let progressInterval: ReturnType<typeof setInterval>;
-    let cancelled = false;
-
     const handleResult = (result: ResultDTO) => {
-     
-
-        if (cancelled) return;
-        clearInterval(progressInterval);
-        setLoadingProgress(100);
-
-        setTimeout(() => { //brief pause before displaying results
-            if (!cancelled) {
-                setResults(results);
-                setState('results');
-            }
-        }, 600)
+        setResults(result);
     }
 
+
     useEffect(() => {
-        if (socket) {
+        if (results !== null) return;
 
-            socket.emit('send_results', id, matched!.pair_id);
+        const progressInterval = setInterval(() => { //create a fake loading animation that will gradually fill while waiting for backed. This is going to cont to UX cause otherwise they will just see a frozen loading screen
+            setLoadingProgress(prev => {
+                if (prev >= 90) { //this will have the bar slow down as it reaches 90% and wait for real data. This can be changed as it gets connected to backend
+                    clearInterval(progressInterval);
+                    return 90;
+                }
+                return prev + 5; //this will make the loading bar feel more natural instead of updating by the same amount the same time
+            });
+        }, 400);
+    }, [results])
 
-            progressInterval = setInterval(() => { //create a fake loading animation that will gradually fill while waiting for backed. This is going to cont to UX cause otherwise they will just see a frozen loading screen
-                setLoadingProgress(prev => {
-                    if (prev >= 90) { //this will have the bar slow down as it reaches 90% and wait for real data. This can be changed as it gets connected to backend
-                        clearInterval(progressInterval);
-                        return 90;
-                    }
-                    return prev + 5; //this will make the loading bar feel more natural instead of updating by the same amount the same time
-                });
-            }, 400);
+    useEffect(() => {
+
+        if (!socket || !matched) return;
+
+        socket.emit('send_results', id, matched!.pair_id);
+        socket.on('get_result', handleResult);
 
 
+        return () => {
+            socket.off('get_result', handleResult)
+        };
 
-            socket.on('get_result', handleResult);
+    }, [socket, matched, id]);
 
-            // fetchResults().then(data => { //REPLACE WITH REAL API CALL
-            //     if (cancelled) return;
-            //     clearInterval(progressInterval);
-            //     setLoadingProgress(100);
+    useEffect(() => {
+        if (results === null) return;
 
-            //     setTimeout(() => { //brief pause before displaying results
-            //         if (!cancelled) {
-            //             setResults(data);
-            //             setState('results');
-            //         }
-            //     }, 600)
-            // }).catch(() => {
-            //     if (cancelled) return;
-            //     clearInterval(progressInterval);
-            //     setState('error'); //so the error will ask the user to come back later
-            // });
+        setLoadingProgress(100);
 
-            return () => {
-                cancelled = true;
-                clearInterval(progressInterval);
-                socket.off('game_result', handleResult)
-            };
+        const timeout = setTimeout(() => {
+            setState('results')
+        }, 600);
+
+        return () => {
+            clearTimeout(timeout)
         }
-    }, [socket]);
+    }, [results]);
 
     return {
         content: finalResultsContent,

@@ -85,11 +85,17 @@ export class FinishGame {
         const elo_updates = this.eloUpdate(winner_info!.elo, loser_info!.elo)
 
         const data: ResultComponent = {
-            winner: winner!,
-            loser: loser,
-            winner_elo: elo_updates.win,
-            loser_elo: elo_updates.lose,
-            stats: game_stats
+            winner: {
+                id: winner!,
+                username: winner_info!.username,
+                elo: elo_updates.win
+            },
+            loser: {
+                id: loser,
+                username: loser_info!.username,
+                elo: elo_updates.lose
+            },
+            stats: Object.fromEntries(game_stats)
         }
 
         this.addMatchComponent(match_id, 'Result', data);

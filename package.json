@@ -12,12 +12,14 @@
     "test:frontend": "cd frontend && NODE_OPTIONS=--no-experimental-webstorage npx vitest run",
     "test:frontend:coverage": "cd frontend && NODE_OPTIONS=--no-experimental-webstorage npx vitest run --coverage",
     "lint": "npm run lint --prefix frontend && npm run lint --prefix backend",
-    "lint:staged": {
-      "frontend/**/*.{ts,tsx}": ["eslint --fix --config frontend/eskint.config.js"],
-      "backend/**/*.ts":["eslint --fix --config backend/eslint.config.mjs"]
-    },
+    "lint:staged":"lint-staged",
     "prepare": "husky"
   },
+
+  "lint:staged":{
+      "frontend/src/*.{ts,tsx}": "eslint --fix",
+      "backend/src/*.ts":"eslint --fix"
+    },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@testing-library/jest-dom": "^6.9.1",
