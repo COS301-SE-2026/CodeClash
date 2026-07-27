@@ -14,18 +14,18 @@ import LeaderboardCardLeft, {LeaderboardCardRight, EloText} from '@/components/u
 const Leaderboard = (league : string) => {
     const { isLoadingData, error, refresh} = LeaderboardViewModel(league);
 
-    if(isLoadingData){
-        return <div className="text-center mx-auto font-[var(--font)] text-[200%] font-semibold text-button-primary">Fetching Leaderboard Data</div>
-    }
+    // if(isLoadingData){
+    //     return <div className="text-center mx-auto font-[var(--font)] text-[200%] font-semibold text-button-primary">Fetching Leaderboard Data</div>
+    // }
 
-    if(error){
-        return(
-            <div className="text-center mx-auto font-[var(--font)] text-[200%] font-semibold text-button-primary">
-                {error}
-                <button onClick={refresh} className="text-secondary bg-button-primary font-[var(--font)] font-semibold" type="button">Refresh</button>
-            </div>
-        );
-    }
+    // if(error){
+    //     return(
+    //         <div className="text-center mx-auto font-[var(--font)] text-[200%] font-semibold text-button-primary">
+    //             {error}
+    //             <button onClick={refresh} className="text-secondary bg-button-primary font-[var(--font)] font-semibold" type="button">Refresh</button>
+    //         </div>
+    //     );
+    // }
     
     return(
     <div style={{backgroundImage: `url(${bg})`}} className="w-full min-h-screen bg-cover bg-no-repeat object-cover">
