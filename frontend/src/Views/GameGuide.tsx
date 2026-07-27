@@ -45,6 +45,8 @@ const GameGuide = () => {
                             Success in ranked play rewards players with progression through the league system, allowing them to climb the leaderboard while competing against opponents of similar skill levels. Along the way, players unlock achievements and earn badges that celebrate milestones such as winning matches, maintaining high accuracy, answering quickly, or demonstrating consistent improvement.
                     </div>
                 
+                <div className="bg-[var(--color-pink-700)] w-[22%] h-[3%] text-[#FFFFFF] text-[260%] font-bold font-font text-center mt-[4%] ml-[2%]">HOW TO PLAY</div>
+                
             
             </div>
 
