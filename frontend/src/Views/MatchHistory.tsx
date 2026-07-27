@@ -40,7 +40,7 @@ const MatchHistory: React.FC = () => {
                 <div className="grid w-full px-6 mb-2 mx-auto"
                     style = {{gridTemplateColumns: '1fr 1fr 1fr 1fr'}}>
                     {['MODE', 'TYPE', 'TIMESTAMP', 'RESULT'].map(header => (
-                        <p key = {header} className="text-primary-text opacity-60 font-semibold tracking-widest text-center mx-auto"
+                        <p key = {header} className="text-primary-text font-semibold tracking-widest text-center mx-auto"
                             style={{fontSize: 'var(--font-size-sm)'}}>{header}</p>
                     ))}
                 </div>
@@ -117,15 +117,16 @@ const MatchDetailsPanel: React.FC<{details: MatchDetails}> = ({details}) => (
             <p className="text-primary-text font-bold tracking-widest text-center py-2"
                 style={{fontSize: 'var(--font-size-sm)'}}>MY STATS</p>
             {details.questions.map(q => (
-                <div key = {q.label} className="bg-secondary rounded-lg px-3 py-2 mb-1 last:mb-0 flex flex-col gap-1">
-                    <p className="text-secondary-text font-semibold" style={{fontSize: 'var(--font-size-xsm)'}}>{q.label}</p>
-
+                <div key = {q.label} className="flex flex-col gap-1">
+                    <div className="bg-secondary rounded-lg flex items-center px-3 py-2">
+                    <span className="text-secondary-text font-semibold" style={{fontSize: 'var(--font-size-xsm)'}}>{q.label}</span>
+                    </div>
                     {/*copied from match info */}
-                    <div className="bg-secondary rounded-md px-2 py-1 flex justify-between">
+                    <div className="bg-secondary rounded-lg flex  justify-between items-center px-3 py-1">
                         <span className="text-secondary-text font-semibold" style={{fontSize: 'var(--font-size-xsm)'}}>SPEED</span>
                         <span className="text-secondary-text font-semibold" style={{fontSize: 'var(--font-size-xsm)'}}>{q.speed}</span>
                     </div>
-                    <div className="bg-secondary rounded-md px-2 py-0 flex justify-between">
+                    <div className="bg-secondary rounded-lg flex  justify-between items-center px-3 py-1">
                         <span className="text-secondary-text font-semibold" style={{fontSize: 'var(--font-size-xsm)'}}>ACCURACY</span>
                         <span className= {q.correctness ? 'text-success': 'text-danger'} style={{fontSize: 'var(--font-size-xsm)'}}>{q.correctness ? 'CORRECT': 'INCORRECT'}</span>
                     </div>
