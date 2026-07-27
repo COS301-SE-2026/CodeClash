@@ -121,6 +121,18 @@ const GameGuide = () => {
                                 If you suspect your opponent of cheating, please select the Report a Match option in your Dashboard
                             </GameGuideCardText>
                         </GameGuideCard>
+
+                        <GameGuideCard className="ml-[7%] mt-[10%] w-[80%]">
+                            <GameGuideNumberCard className="h-[50%]">
+                                <GameGuideHeading>
+                                    7
+                                </GameGuideHeading>
+                            </GameGuideNumberCard>
+                            <GameGuideCardText className="-ml-[60%]">
+                                {/* the text below is copied and pasted from an old page that is now being redone here, none of the code on this page is AI generated */}
+                                As you play and win more ranked matches, your ELO will increase until you're able to play in a new, more advanced league
+                            </GameGuideCardText>
+                        </GameGuideCard>
                     </div>
                 </div>
             
