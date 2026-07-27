@@ -12,21 +12,14 @@ import { Button } from '@/components/ui/button';
 import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { useUser } from 'src/context/User/hooks/useUser';
-import { useAuth } from 'src/context/Auth/hooks/useAuth';
-import Loading from '@/components/shared/Loading';
+
 
 // View Model
+
 
 const Dashboard = () => {
   const { isOpen, openPopUp, closePopUp } = useShowPopUp();
   const { username, elo, league, avatar } = useUser();
-  const { isLoading } = useAuth();
-
-  if (isLoading) {
-    return (
-      <Loading isOpen={isLoading}></Loading>
-    )
-  }
 
   return (
     <div style={{ backgroundImage: `url(${backgroundImg})` }} className='w-full h-[20] h-screen bg-cover bg-center flex flex-col items-center'>

@@ -7,7 +7,6 @@ import { robot_map } from "src/assets/Robots";
 
 const url = import.meta.env.VITE_API_URL;
 
-
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [username, setUsername] = useState('');
     const [elo, setElo] = useState(0);
@@ -54,7 +53,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             })
                 .then((res) => {
                     if (res.status === 200) {
-                        
                         const index = res.data.avatar_id;
                         setAvatar(robot_map[index]);
                     }
@@ -107,10 +105,8 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         getAvatarUrl()
         getLeague();
 
-        if (!isLoading) {
+        if (!isLoading)
             getUsername(user);
-
-        }
     }, [token, user])
 
 
