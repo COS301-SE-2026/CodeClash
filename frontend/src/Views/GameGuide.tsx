@@ -25,7 +25,9 @@ const GameGuide = () => {
                     <div className="bg-[var(--color-pink-700)] w-[35%] h-[25%] text-[#FFFFFF] text-[160%] font-bold font-font text-center ml-[50%] -mt-[5%]">PLATFORM:</div>
                         <div className="text-[#FFFFFF] text-[160%] font-bold font-font ml-[2%] -mt-[5%]">WINDOWS & MAC OS</div>
                     </div>
-                    </div>
+                </div>
+
+                <div className="bg-[var(--color-pink-700)] w-[22%] h-[6%] text-[#FFFFFF] text-[260%] font-bold font-font text-center mt-[10%] ml-[2%]">SCORING SYSTEM</div>
             </div>
 
 
