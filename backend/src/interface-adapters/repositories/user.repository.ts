@@ -1,7 +1,7 @@
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
+import { Users } from "src/entities/db-entities/user.entities";
 import { UserDTO } from "src/entities/dtos/user.dto";
 import { Repository } from "typeorm";
-import { Users } from "src/entities/db-entities/user.entities";
 
 
 
@@ -42,7 +42,7 @@ export class UserRepository implements IUserRepository {
     }
 
     async getUsers(user_ids: string[]): Promise<UserDTO[] | null> {
-        let users: UserDTO[] | null = [];
+        const users: UserDTO[] | null = [];
 
         for (const id of user_ids) {
             const user = await this.userRepository.findOneBy({ user_id: id })

@@ -1,5 +1,5 @@
-import { IMatchmakingCache } from "src/application/interfaces/IMatchmakingCache";
 import Redis from "ioredis";
+import { IMatchmakingCache } from "src/application/interfaces/IMatchmakingCache";
 import { GameMode } from "src/entities/db-entities/questions.entities";
 import MatchmakingUserDTO from "src/entities/dtos/matchmaking.dto";
 

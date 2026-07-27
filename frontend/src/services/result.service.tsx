@@ -1,8 +1,9 @@
 import type { Socket } from "socket.io-client";
 
 
-export const endGame = (player_id:string,socket: Socket | null ) => {
-    if(!socket) return;
+export const endGame = (game_id: number, socket: Socket | null, pair_id: string) => {
+    if (!socket) return;
 
-    socket.emit('game_done', player_id); 
+    console.log("EMITTING GAME DONE: ", pair_id)
+    socket.emit('game_done', pair_id,game_id);
 }

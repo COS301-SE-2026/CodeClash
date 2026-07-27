@@ -1,8 +1,10 @@
 // This is the voice section for the brand style guide - dos and donts for voice - correct file
 
 import React from "react";
-import SharedLayout from "./SharedLayout";
+
 import type { BrandStyleGuideContent } from "../../Models/BrandStyleGuideModel";
+
+import SharedLayout from "./SharedLayout";
 
 interface Props {
     content: BrandStyleGuideContent;

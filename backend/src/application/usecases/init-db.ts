@@ -1,7 +1,9 @@
 import dotenv from 'dotenv';
-import { fetchAllCognitoUsers } from './services/cognito.service'
-import { IUserRepository } from '../interfaces/repositories/IUserRepository';
+
 import { IEloRepository } from '../interfaces/repositories/IEloRepository';
+import { IUserRepository } from '../interfaces/repositories/IUserRepository';
+
+import { fetchAllCognitoUsers } from './services/cognito.service'
 
 dotenv.config();
 

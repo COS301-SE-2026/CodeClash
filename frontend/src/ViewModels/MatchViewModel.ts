@@ -1,16 +1,16 @@
 
-import { useEffect, useState, useMemo } from "react";
+import { MathfieldElement } from 'mathlive';
+import { useEffect, useState, useMemo, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTimer } from "react-timer-hook";
-import type { Player, Question, MatchProgress } from "src/Models/MatchModel";
+import { useMatchmakingSocket } from "src/context/Socket/hooks/useMatchmakingSocket";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
-import type { GameQuestionsDTO } from "src/dtos/game-questionDTO";
-import { useRef } from 'react';
-import { MathfieldElement } from 'mathlive';
-import { submitAnswer } from "src/services/submission.service";
-import type { SubmissionDTO } from "src/dtos/submission.dto";
-import { endGame } from "src/services/result.service";
 import { useUser } from "src/context/User/hooks/useUser";
+import type { GameQuestionsDTO } from "src/dtos/game-questionDTO";
+import type { SubmissionDTO } from "src/dtos/submission.dto";
+import type { Player, Question, MatchProgress } from "src/Models/MatchModel";
+import { endGame } from "src/services/result.service";
+import { submitAnswer } from "src/services/submission.service";
 
 
 export const useMatch = () => {
@@ -19,6 +19,7 @@ export const useMatch = () => {
     const { id } = location.state;
     const { userId } = useUser();
     const nav = useNavigate();
+    const { pairId } = useMatchmakingSocket()
 
     const [players, setPlayers] = useState<Player[]>([]);
     const [questions, setQuestions] = useState<Question[]>([]);
@@ -32,6 +33,7 @@ export const useMatch = () => {
     const [answers, setAnswers] = useState<Record<string, string>>();
     const [results, setResults] = useState<(boolean | null)[]>([]);
     const [gameOver, setGameOver] = useState(false);
+    const [waitingOpponent, setWaitingOpponent] = useState(false);
 
     const mathfieldRef = useRef<MathfieldElement | null>(null)
     const q_index = useRef<number | null>(null);
@@ -56,9 +58,9 @@ export const useMatch = () => {
     const { seconds, minutes, restart } = useTimer({
         expiryTimestamp: expiry_time,
         autoStart: false,
-        onExpire: () => {
+        onExpire: async () => {
             setGameOver(true);
-            endGame(userId,socket);
+            await endGame(id, socket, pairId);
         }
     });
 
@@ -83,11 +85,12 @@ export const useMatch = () => {
     const submitQuestion = (question_id: string, answer: string) => {
         q_index.current = currentQuestion;
         submitAnswer(socket, id, question_id, answer);
+    }
 
-        if (q_index.current == questions.length - 1) {
-            setGameOver(true);
-            endGame(userId,socket);
-            nav('/results')
+    const finishGame = async () => {
+        if (q_index.current === questions.length - 1) {
+            setWaitingOpponent(true)
+            await endGame(id, socket, pairId);
         }
     }
 
@@ -107,7 +110,7 @@ export const useMatch = () => {
         let curr = array.length;
         let random;
 
-        while (curr != 0) {
+        while (curr !== 0) {
             random = Math.floor(Math.random() * curr);  // NOSONAR - Math.random() is just to shuffle questions
             curr--;
 
@@ -155,7 +158,7 @@ export const useMatch = () => {
 
         temp_arr = shuffle(temp_arr);
 
-        let final: Question[] = []
+        const final: Question[] = []
         for (const t of temp_arr) {
             const q: Question = {
                 id: t.id,
@@ -198,9 +201,22 @@ export const useMatch = () => {
     }
 
     const submission_error = (error: string) => {
-
+        console.error(error)
     }
 
+    const waiting_opponent = () => {
+        setWaitingOpponent(true);
+    }
+
+    const both_done = () => {
+        setWaitingOpponent(false);
+        nav('/results', {
+            replace: true,
+            state: {
+                id: id
+            }
+        });
+    }
 
     // Use Effects
 
@@ -227,8 +243,10 @@ export const useMatch = () => {
             socket.on('get_players', setPlayers)
             socket.on('submission_result', submission_result);
             socket.on("submission_error", submission_error);
+            socket.on('waiting_opponent', waiting_opponent);
+            socket.on('both_done', both_done)
 
-            if (questions.length == 0) setLoading(true)
+            if (questions.length === 0) setLoading(true)
             else { setLoading(false) }
 
 
@@ -239,6 +257,8 @@ export const useMatch = () => {
                 socket.off("submission_result", submission_result);
                 socket.off("submission_error", submission_error);
                 socket.off('get_players', setPlayers);
+                socket.off('waiting_opponent', waiting_opponent)
+                socket.off('both_done', both_done)
             }
         }
 
@@ -264,6 +284,8 @@ export const useMatch = () => {
         mathfieldRef,
         setAnswers,
         results,
-        gameOver
+        gameOver,
+        waitingOpponent,
+        finishGame
     }
 }

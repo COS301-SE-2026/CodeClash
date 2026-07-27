@@ -12,7 +12,10 @@
     "test:frontend": "cd frontend && NODE_OPTIONS=--no-experimental-webstorage npx vitest run",
     "test:frontend:coverage": "cd frontend && NODE_OPTIONS=--no-experimental-webstorage npx vitest run --coverage",
     "lint": "npm run lint --prefix frontend && npm run lint --prefix backend",
-    "lint:staged": "lint-staged",
+    "lint:staged": {
+      "frontend/**/*.{ts,tsx}": ["eslint --fix --config frontend/eskint.config.js"],
+      "backend/**/*.ts":["eslint --fix --config backend/eslint.config.mjs"]
+    },
     "prepare": "husky"
   },
   "devDependencies": {

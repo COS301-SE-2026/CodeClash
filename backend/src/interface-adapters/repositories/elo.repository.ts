@@ -1,7 +1,7 @@
 import { IEloRepository } from "src/application/interfaces/repositories/IEloRepository";
-import { Repository } from "typeorm";
 import { EloRatings } from "src/entities/db-entities/elo.entities";
 import { EloDTO } from "src/entities/dtos/elo.dto";
+import { Repository } from "typeorm";
 
 
 export class EloRepository implements IEloRepository {
@@ -38,7 +38,7 @@ export class EloRepository implements IEloRepository {
 
     async getUsersElo(user_ids: string[]): Promise<EloDTO[] | null> {
 
-        let elos: EloDTO[] | null = []
+        const elos: EloDTO[] | null = []
 
         for (const id of user_ids) {
             const elo = await this.eloRepository.findOne({

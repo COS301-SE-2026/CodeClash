@@ -1,6 +1,6 @@
+import { IMatchmakingCache } from "src/application/interfaces/IMatchmakingCache";
 import { GameMode } from "src/entities/db-entities/questions.entities";
 import MatchmakingUserDTO from "src/entities/dtos/matchmaking.dto";
-import { IMatchmakingCache } from "src/application/interfaces/IMatchmakingCache";
 
 
 export class MatchmakingService {
@@ -38,7 +38,7 @@ export class MatchmakingService {
 
 
         // remove null join values
-        let players = result.filter(u => u.join !== null);
+        const players = result.filter(u => u.join !== null);
 
         // sort by joined times - ascending
         players.sort((a, b) => Number(a.join) - Number(b.join));

@@ -1,7 +1,7 @@
 import { IQuestionRepository } from "src/application/interfaces/repositories/IQuestionRepository";
 import { GameMode, Questions } from "src/entities/db-entities/questions.entities";
-import { Repository } from "typeorm";
 import { QuestionDTO } from "src/entities/dtos/question.dto";
+import { Repository } from "typeorm";
 
 export class QuestionRepository implements IQuestionRepository {
     constructor(
@@ -17,7 +17,7 @@ export class QuestionRepository implements IQuestionRepository {
             .getMany()
 
 
-        let data: QuestionDTO[] = [];
+        const data: QuestionDTO[] = [];
 
         for (const question of questions) {
             const d: QuestionDTO = {

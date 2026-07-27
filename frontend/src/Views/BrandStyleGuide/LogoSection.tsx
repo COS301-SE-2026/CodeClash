@@ -1,8 +1,10 @@
 // The is the logo section for the brand style guide - this previews the logo and icons and prevents misuse through explicit rules - correct file
 
 import React from "react";
-import SharedLayout from "./SharedLayout";
+
 import type { BrandStyleGuideContent } from "../../Models/BrandStyleGuideModel";
+
+import SharedLayout from "./SharedLayout";
 
 interface Props {
     content: BrandStyleGuideContent;

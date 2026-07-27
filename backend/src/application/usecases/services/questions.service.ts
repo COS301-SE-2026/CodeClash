@@ -1,7 +1,9 @@
 import { GameMode } from "src/entities/db-entities/questions.entities";
-import { IQuestionRepository } from "../../interfaces/repositories/IQuestionRepository";
-import { leagueMapping } from "src/entities/league-mapping";
 import { GameQuestionsDTO } from "src/entities/dtos/game-data.dto";
+import { leagueMapping } from "src/entities/league-mapping";
+
+import { IQuestionRepository } from "../../interfaces/repositories/IQuestionRepository";
+
 
 export class GetQuestions {
     constructor(

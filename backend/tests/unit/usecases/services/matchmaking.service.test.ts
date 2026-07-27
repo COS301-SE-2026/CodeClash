@@ -1,13 +1,12 @@
 // intercepts redis import in the matchmaking services so the tests use a mock redis
 
-import { vi, describe, test, expect, beforeEach, afterEach } from 'vitest';
-import UserDto from "src/entities/dtos/matchmaking.dto";
-import { GameMode } from 'src/entities/db-entities/questions.entities';
-import { IMatchmakingCache } from 'src/application/interfaces/IMatchmakingCache'
-import { MatchmakingCache } from 'src/interface-adapters/matchmaking-cache'
-import { MatchmakingService } from 'src/application/usecases/services/matchmaking.service'
-
 import RedisMock from 'ioredis-mock'
+import { IMatchmakingCache } from 'src/application/interfaces/IMatchmakingCache'
+import { MatchmakingService } from 'src/application/usecases/services/matchmaking.service'
+import { GameMode } from 'src/entities/db-entities/questions.entities';
+import UserDto from "src/entities/dtos/matchmaking.dto";
+import { MatchmakingCache } from 'src/interface-adapters/matchmaking-cache'
+import { vi, describe, test, expect, beforeEach, afterEach } from 'vitest';
 
 vi.mock("src/frameworks-drivers/config/redis-client", () => {
     return { default: new RedisMock() };

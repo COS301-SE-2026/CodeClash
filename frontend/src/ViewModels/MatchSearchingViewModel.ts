@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSocket } from "src/context/Socket/hooks/useSocket";
+import { useUser } from 'src/context/User/hooks/useUser';
+
 import {
   formatMatchSearchTime,
   matchSearchingContent,
-  mockMatchSearchingPlayer,
   type MatchSearchingPlayer,
 } from '../Models/MatchSearchingModel';
-import { useUser } from 'src/context/User/hooks/useUser';
 
 export function MatchSearchingViewModelFunction() {
   const navigate = useNavigate();

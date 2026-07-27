@@ -1,4 +1,5 @@
 import {useState, useCallback} from 'react';
+
 import { useAuth } from '../context/hooks/useAuth';
 import { forgotPasswordContent, forgotPasswordForm, resetPasswordForm, validateForgotPasswordForm, validateResetPassword } from '../Models/ForgotPasswordModel';
 import type { ForgotPasswordContent, ForgotPasswordForm, ResetPasswordForm } from '../Models/ForgotPasswordModel';
@@ -46,7 +47,9 @@ export function ForgotPasswordViewModelFunction (): ForgotPasswordViewModel {
             await forgotPassword(requestForm.email.trim()); //Amplify will be called to send the verification code to the given email
             setState('reset');
         }
-        catch {}
+        catch (error){
+            console.error(error)
+        }
     }, [requestForm, forgotPassword, clearError]); //dependency array for React to create callback
 
     const handleReset = useCallback(async () => {
@@ -63,7 +66,9 @@ export function ForgotPasswordViewModelFunction (): ForgotPasswordViewModel {
             await confirmForgotPassword(requestForm.email.trim(), resetForm.code.trim(), resetForm.newPassword,);
             setState('success');
         }
-        catch {}
+         catch (error){
+            console.error(error)
+        }
     }, [requestForm.email, resetForm, confirmForgotPassword, clearError]);
 
     return {

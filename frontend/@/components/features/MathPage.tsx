@@ -2,7 +2,7 @@
 //Tutorial taken from https://mathlive.io/mathfield/guides/getting-started/
 
 import { MathfieldElement } from "mathlive";
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 
 import VirtualKeyboard from "./VirtualKeyboard";
 

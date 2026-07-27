@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
-import { UserRepository } from '../repositories/user.repository';
-import { validStat } from '../auth/auth.service';
 import { UserDTO } from 'src/entities/dtos/user.dto';
+
+import { validStat } from '../auth/auth.service';
+import { UserRepository } from '../repositories/user.repository';
 
 
 /// GET api/user/:stat

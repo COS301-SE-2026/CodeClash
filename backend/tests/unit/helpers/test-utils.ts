@@ -1,7 +1,7 @@
-import request from 'supertest'
-import { describe, test, expect } from 'vitest';
 import { JWT, fetchAuthSession } from "aws-amplify/auth";
 import dotenv from "dotenv"
+import request from 'supertest'
+import { describe, test, expect } from 'vitest';
 dotenv.config();
 
 import app from '../../../src/frameworks-drivers/app'

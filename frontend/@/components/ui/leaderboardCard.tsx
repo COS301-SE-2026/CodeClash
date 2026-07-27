@@ -1,7 +1,9 @@
 import type React from 'react';
+import "src/styles/global.css"
+import profile from "src/assets/Icons/profile_black.png"
 import { Card } from './card';
-import "../../../src/styles/global.css"
-import profile from "../../../src/assets/Icons/profile_black.png"
+
+
 
 interface LeaderboardCardProps{
     children?: React.ReactNode

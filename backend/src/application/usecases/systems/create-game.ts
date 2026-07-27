@@ -15,7 +15,7 @@ export class CreateGame {
         const player_entities = this.create_players.execute(players);
 
         // Round entities
-        let round_entities: number[] = []
+        const round_entities: number[] = []
         for (const round of rounds) {
             const round_entity = this.create_round.execute(round);
 
@@ -44,7 +44,7 @@ export class CreatePlayerEntity {
 
 
     execute(players: PlayerDTO[]) {
-        let entities = new Map<string, number>()
+        const entities = new Map<string, number>()
         for (const player of players) {
             const entity = this.createEntity();
 

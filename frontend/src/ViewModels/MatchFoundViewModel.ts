@@ -1,14 +1,15 @@
+import { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom';
+import { joinMatchQueue, useMatchmakingSocket ,matchAccepted, matchDeclined} from "src/context/Socket/hooks/useMatchmakingSocket";
+import { useSocket } from "src/context/Socket/hooks/useSocket"
+import { useUser } from "src/context/User/hooks/useUser";
+import MatchmakingUserDTO from "src/dtos/matchmaking.dto";
+
 import {
   matchFoundContent,
   mockMatchFoundDetails,
   mockMatchFoundPlayers,
 } from '../Models/MatchFoundModel';
-import { useEffect, useState } from "react"
-import { joinMatchQueue, useMatchmakingSocket ,matchAccepted, matchDeclined} from "src/context/Socket/hooks/useMatchmakingSocket";
-import { useSocket } from "src/context/Socket/hooks/useSocket"
-import MatchmakingUserDTO from "src/dtos/matchmaking.dto";
-import { useUser } from "src/context/User/hooks/useUser";
 
 
 export function MatchFoundViewModelFunction() {

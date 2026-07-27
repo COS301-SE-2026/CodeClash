@@ -1,11 +1,14 @@
+import { ChevronRight, ChevronLeft } from 'lucide-react'
+import { useEffect } from 'react';
+import { useMatch } from 'src/ViewModels/MatchViewModel';
+
 import MathMatch from '@/components/features/MathPage';
 import { Question } from '@/components/features/question';
 import Loading from '@/components/shared/Loading';
 import { MatchScreen } from '@/components/shared/Match';
 import { Button } from '@/components/ui/button';
-import { useEffect } from 'react';
-import { useMatch } from 'src/ViewModels/MatchViewModel';
-import { ChevronRight, ChevronLeft } from 'lucide-react'
+import { Card } from '@/components/ui/card';
+import { Spinner } from '@/components/ui/spinner';
 
 
 const MathsMatch = () => {
@@ -14,9 +17,10 @@ const MathsMatch = () => {
         seconds, minutes, questions,
         currentQuestion, progress,
         nextQuestion, prevQuestion,
-        loading, closeLoading, submitQuestion,
+        loading, submitQuestion,
         mathfieldRef, setAnswers, answers,
-        results, gameOver
+        results, gameOver, waitingOpponent,
+        finishGame
     } = useMatch();
 
     const curr = questions[currentQuestion];
@@ -26,7 +30,7 @@ const MathsMatch = () => {
         else if (correct === false) return 'bg-danger/50'
         else return 'bg-white'
     }
-    console.log(playerLife)
+
 
     const read_only = () => {
         if (gameOver) return 'read-only'
@@ -42,7 +46,7 @@ const MathsMatch = () => {
 
     if (loading || !curr) {
         return (
-            <Loading isOpen={loading} onClose={closeLoading}></Loading>
+            <Loading isOpen={loading}></Loading>
         )
     }
 
@@ -84,20 +88,39 @@ const MathsMatch = () => {
                 <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem] hover:-translate-y-1'
                     onClick={async () => {
                         const answer = mathfieldRef.current?.value ?? '';
-                       await submitQuestion(curr.id!, answer)
+                        await submitQuestion(curr.id!, answer)
                         if (correct === true) nextQuestion(currentQuestion)
                     }}    // need to attach marking logic once submission systems are implemented
                 >
-                    {currentQuestion < (questions.length - 1 )&&
-                        <p> SUBMIT</p>
-                    }
-
-                    { currentQuestion == (questions.length - 1) &&
-                        <p>FINISH</p>
-                    }
-
+                    SUBMIT
                 </Button>
+                {currentQuestion == (questions.length - 1) &&
+                    <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem] hover:-translate-y-1'
+                        onClick={async () => {
+                            await finishGame();
+                        }}
+                    >
+                        <p>FINISH</p>
+                    </Button>
+                }
             </div>
+
+            {waitingOpponent && (
+                <div className="fixed inset-0 z-50  bg-black/50 flex items-center justify-center  ">
+
+                    <Card className="relative bg-primary h-[35rem] w-[50%] rounded-3xl  text-center flex items-center absolute">
+                        <h1 className="text-[3rem] heading text-primary-text font-extrabold">
+                            Waiting For Opponent To Finish
+                        </h1>
+                        <h2 className="text-[24rem] font-heading text-md text-primary-text text-center justify-center">
+                            Hang on while your opponent finishes up
+                        </h2>
+                        <Spinner className={` size-120 text-secondary`}></Spinner>
+                    </Card>
+                </div>
+            )
+
+            }
         </MatchScreen>
     )
 

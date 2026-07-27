@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
-import { useSocket } from "./useSocket"
-import MatchmakingUserDTO from '../../../dtos/matchmaking.dto';
 import { Socket } from "socket.io-client";
+
+import MatchmakingUserDTO from '../../../dtos/matchmaking.dto';
+
+import { useSocket } from "./useSocket"
 
 
 export const useMatchmakingSocket = () => {

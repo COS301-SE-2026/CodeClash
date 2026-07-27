@@ -1,9 +1,9 @@
-import { vi, describe, test, expect, afterEach } from "vitest";
 import { GameService } from 'src/application/usecases/services/game.service'
-import { PlayerDTO } from "src/entities/dtos/components.dto";
 import { GameMode } from "src/entities/db-entities/questions.entities";
-import { QuestionDTO } from 'src/entities/dtos/question.dto'
 import { AnswerDTO } from 'src/entities/dtos/answer.dto'
+import { PlayerDTO } from "src/entities/dtos/components.dto";
+import { QuestionDTO } from 'src/entities/dtos/question.dto'
+import { vi, describe, test, expect, afterEach } from "vitest";
 
 const mock_dependencies = () => ({ execute: vi.fn() });
 

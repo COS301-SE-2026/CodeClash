@@ -1,7 +1,7 @@
 import { IAnswerRepository } from "src/application/interfaces/repositories/IAnswerRepository";
 import { Answers } from "src/entities/db-entities/answers.entities";
-import { Repository } from "typeorm";
 import { AnswerDTO } from "src/entities/dtos/answer.dto";
+import { Repository } from "typeorm";
 
 export class AnswerRepository implements IAnswerRepository {
     constructor(
@@ -35,7 +35,7 @@ export class AnswerRepository implements IAnswerRepository {
     }
 
     async getAnswers(question_ids: string[]): Promise<AnswerDTO[]> {
-        let answers: AnswerDTO[] | null = []
+        const answers: AnswerDTO[] | null = []
 
         for (const id of question_ids) {
             const answer = await this.answerRepository.findOne({

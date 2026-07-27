@@ -1,12 +1,12 @@
 
-import { describe, vi } from "vitest";
-import { MatchFoundViewModelFunction } from "src/ViewModels/MatchFoundViewModel";
-import { useSocket } from "src/context/Socket/hooks/useSocket";
-import { useMatchmakingSocket, matchAccepted, matchDeclined, joinMatchQueue } from "src/context/Socket/hooks/useMatchmakingSocket";
 import { renderHook } from "@testing-library/react";
 import { act } from "react";
 import type { Socket } from "socket.io-client";
+import { useMatchmakingSocket, matchAccepted, matchDeclined, joinMatchQueue } from "src/context/Socket/hooks/useMatchmakingSocket";
+import { useSocket } from "src/context/Socket/hooks/useSocket";
 import MatchmakingUserDTO from "src/dtos/matchmaking.dto";
+import { MatchFoundViewModelFunction } from "src/ViewModels/MatchFoundViewModel";
+import { describe, vi } from "vitest";
 
 vi.mock('src/context/Socket/hooks/useSocket', () => ({
     useSocket: vi.fn()

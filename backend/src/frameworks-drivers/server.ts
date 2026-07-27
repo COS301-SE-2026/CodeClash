@@ -1,21 +1,12 @@
 import { createServer } from 'node:http';
-import { Server } from 'socket.io'
-import { validateToken } from '../interface-adapters/auth/auth.service';
-import app from './app';
+
 import dotnev from 'dotenv'
-import { sendGameQuestions, joinMatchQueue, leaveMatchQueue, matchAccepted, matchDeclined, sendGamePlayers } from 'src/interface-adapters/socket-handlers/matchmaking.handler';
-import { AppDataSource } from "./config/data-source"
-import { Users } from "../entities/db-entities/user.entities"
-import { initDB } from 'src/application/usecases/init-db';
-import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
-import { UserRepository } from 'src/interface-adapters/repositories/user.repository';
-import { IEloRepository } from 'src/application/interfaces/repositories/IEloRepository';
-import { EloRepository } from 'src/interface-adapters/repositories/elo.repository';
+import { Server } from 'socket.io'
 import { EloRatings } from 'src/entities/db-entities/elo.entities';
 import { IQuestionRepository } from 'src/application/interfaces/repositories/IQuestionRepository';
 import { QuestionRepository } from 'src/interface-adapters/repositories/question.repository';
 import { Questions } from 'src/entities/db-entities/questions.entities';
-import { gameDone, startQuestion, submitQuestion } from 'src/interface-adapters/socket-handlers/game.handler';
+import { gameDone, sendResults, startQuestion, submitQuestion } from 'src/interface-adapters/socket-handlers/game.handler';
 import { SubmissionDTO } from 'src/entities/dtos/components.dto';
 import { IAnswerRepository } from 'src/application/interfaces/repositories/IAnswerRepository';
 import { AnswerRepository } from 'src/interface-adapters/repositories/answer.repository';
@@ -29,15 +20,28 @@ import { IGameCache } from 'src/application/interfaces/IGameCache';
 import redis from './config/redis-client';
 import { MatchmakingService } from 'src/application/usecases/services/matchmaking.service';
 import { IMatchmakingCache } from 'src/application/interfaces/IMatchmakingCache';
-import { MatchmakingCache } from 'src/interface-adapters/matchmaking-cache';
+import { IEloRepository } from 'src/application/interfaces/repositories/IEloRepository';
+import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
 import { CheckAnswer } from 'src/application/usecases/check-answer';
-import { SubmissionSystem } from 'src/application/usecases/systems/submission.system';
+import { initDB } from 'src/application/usecases/init-db';
 import { LifeSystem } from 'src/application/usecases/systems/life.system';
-import { World } from 'src/entities/World';
 import { StartQuestionDTO } from 'src/entities/dtos/question.dto';
 import { FinishGame } from 'src/application/usecases/systems/finish-game';
+import { SubmissionSystem } from 'src/application/usecases/systems/submission.system';
 import { PlayerDTO } from 'src/entities/dtos/components.dto';
+import { ResultComponent } from 'src/entities/components';
 import { GameQuestionsDTO } from 'src/entities/dtos/game-data.dto';
+import { World } from 'src/entities/World';
+import { MatchmakingCache } from 'src/interface-adapters/matchmaking-cache';
+import { EloRepository } from 'src/interface-adapters/repositories/elo.repository';
+import { UserRepository } from 'src/interface-adapters/repositories/user.repository';
+import { sendGameQuestions, joinMatchQueue, leaveMatchQueue, matchAccepted, matchDeclined, sendGamePlayers } from 'src/interface-adapters/socket-handlers/matchmaking.handler';
+
+import { Users } from "../entities/db-entities/user.entities"
+import { validateToken } from '../interface-adapters/auth/auth.service';
+
+import app from './app';
+import { AppDataSource } from "./config/data-source"
 
 dotnev.config()
 
@@ -113,30 +117,33 @@ AppDataSource.initialize()
 
 
         // Socket maps 
-        const PAIRS = new Map<string, Map<string, { accepted: boolean, elo: number, username?: string, done?:boolean }>>();
+        const PAIRS = new Map<string, Map<string, { accepted: boolean, elo: number, username?: string, done?: boolean }>>();
         const GAME = new Map<number, { players: PlayerDTO[], questions: GameQuestionsDTO }>();
+        const RESULTS = new Map<number, ResultComponent>();
 
         // attach socket handlers
         io.on("connection", (socket) => {
 
             // SOCKET HANDLERS MUST MOOVE TO interface-adapter/
-            socket.on('join_match_queue', async (data) => await joinMatchQueue(io, socket, data, matchmkaing_service,PAIRS));
+            socket.on('join_match_queue', async (data) => await joinMatchQueue(io, socket, data, matchmkaing_service, PAIRS));
 
             socket.on('leave_match_queue', async () => await leaveMatchQueue(io, socket, matchmkaing_service));
 
-            socket.on('match_accepted', async (data) => { await matchAccepted(io, socket, data, game_service,PAIRS,GAME) });
+            socket.on('match_accepted', async (data) => { await matchAccepted(io, socket, data, game_service, PAIRS, GAME) });
 
-            socket.on('match_declined', (pair_id: string) => matchDeclined(io, socket, pair_id,PAIRS));
+            socket.on('match_declined', (pair_id: string) => matchDeclined(io, socket, pair_id, PAIRS));
 
-            socket.on('send_questions', (game_id: number) => { sendGameQuestions(io, game_id,GAME) });
+            socket.on('send_questions', (game_id: number) => { sendGameQuestions(io, game_id, GAME) });
 
-            socket.on('send_players', (game_id: number) => { sendGamePlayers(io, game_id,GAME) })
+            socket.on('send_players', (game_id: number) => { sendGamePlayers(io, game_id, GAME) })
 
             socket.on('submit_question', (data: SubmissionDTO) => submitQuestion(io, socket, data, check_answer));
 
             socket.on('question_started', (data: StartQuestionDTO) => startQuestion(submission_system, data));
 
-            socket.on('game_done', (pair_id: string, game_id: number) => gameDone(io,socket,pair_id, game_id, finish_game, PAIRS))
+            socket.on('game_done', (pair_id: string, game_id: number) => gameDone(io, socket, pair_id, game_id, finish_game, PAIRS, RESULTS));
+
+            socket.on('send_results', (game_id: number, pair_id:string) =>{ console.log("Server pairid: ", pair_id); sendResults(io, game_id,pair_id, RESULTS, PAIRS)})
         })
 
 

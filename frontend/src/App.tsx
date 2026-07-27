@@ -1,20 +1,22 @@
 import type React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
+import { useAuth } from "./context/Auth/hooks/useAuth";
 import Layout from "./layout";
+import ProgMatch from "./pages/ProgMatch";
 import Dashboard from "./Views/Dashboard";
+import FinalResults from "./Views/FinalResults";
+import Guidebook from "./Views/Guidebook";
+import MatchFound from "./Views/MatchFound";
+import MatchSearching from "./Views/MatchSearching";
+import MathMatch from "./Views/MathsMatch";
+import Profile from "./Views/Profile";
 import SignIn from "./Views/SignIn";
 import SignUp from "./Views/SignUp";
-import Profile from "./Views/Profile";
-import MatchSearching from "./Views/MatchSearching";
-import MatchFound from "./Views/MatchFound";
-import MathMatch from "./Views/MathsMatch";
-import ProgMatch from "./pages/ProgMatch";
 import Welcome from "./Views/Welcome";
-import { useAuth } from "./context/Auth/hooks/useAuth";
+
 import Loading from "@/components/shared/Loading";
-import Guidebook from "./Views/Guidebook";
-import FinalResults from "./Views/FinalResults";
+
 
 const App: React.FC = () => {
 

@@ -1,8 +1,9 @@
-import pinkCelebrate from '../assets/Robots/pink_celebrate.png';
 import mercuryBackground from '../assets/Planets/double-mercury-background.png';
-import { Button } from '@/components/ui/button';
+import pinkCelebrate from '../assets/Robots/pink_celebrate.png';
 import { MatchFoundViewModelFunction } from '../ViewModels/MatchFoundViewModel';
+
 import Loading from '@/components/shared/Loading';
+import { Button } from '@/components/ui/button';
 
 const headingFont = { fontFamily: 'var(--heading)' };
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useUser } from 'src/context/User/hooks/useUser';
 
 import placeholder from '../assets/Avatar/placeholder.png'
 import { type ProfileProps } from '../Models/ProfileModel';
@@ -7,7 +8,6 @@ import { useLogOut } from '../ViewModels/ProfileViewModel';
 
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { useUser } from 'src/context/User/hooks/useUser';
 
 
 

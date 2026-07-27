@@ -1,9 +1,11 @@
-import { GameMode } from "src/entities/db-entities/questions.entities";
-import { CreateGame } from "../systems/create-game";
-import { MatchDTO, PlayerDTO, RoundDTO } from "src/entities/dtos/components.dto";
-import { GetDifficulty, GetQuestions, GetTotalTime } from "./questions.service";
-import { GetAnswers } from "./answers.service";
 import { IGameCache } from "src/application/interfaces/IGameCache";
+import { GameMode } from "src/entities/db-entities/questions.entities";
+import { MatchDTO, PlayerDTO, RoundDTO } from "src/entities/dtos/components.dto";
+
+import { CreateGame } from "../systems/create-game";
+
+import { GetAnswers } from "./answers.service";
+import { GetDifficulty, GetQuestions, GetTotalTime } from "./questions.service";
 
 
 export class GameService {
@@ -19,9 +21,9 @@ export class GameService {
     async execute(players: PlayerDTO[], game_mode: GameMode, league: string) {
 
 
-        let title_temp: string[] = []
+        const title_temp: string[] = []
         let avg_elo = 0;
-        let player_ids: string[] = []
+        const player_ids: string[] = []
 
         for (const player of players) {
             title_temp.push(player.username);
@@ -39,7 +41,7 @@ export class GameService {
         if(!questions) throw new Error ("Error fetching questions")
 
         // Rounds   - creating one round for now, this logic will need to be updated for multiple 
-        let question_ids: string[] = [];
+        const question_ids: string[] = [];
         for (const question of questions.easy) {
             question_ids.push(question.id)
         }

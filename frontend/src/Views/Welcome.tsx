@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import symbolBackground from '../assets/Background/SymbolBackground.png';
 import helloRobot from '../assets/Robots/HelloRobot_Pink.png';
 

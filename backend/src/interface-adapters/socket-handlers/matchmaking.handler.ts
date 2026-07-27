@@ -1,9 +1,9 @@
 import { Socket, Server } from "socket.io"
-import MatchmakingUserDTO from 'src/entities/dtos/matchmaking.dto';
-import { MatchmakingService } from 'src/application/usecases/services/matchmaking.service';
 import { GameService } from 'src/application/usecases/services/game.service';
-import { GameDataDTO, GameQuestionsDTO } from "src/entities/dtos/game-data.dto";
+import { MatchmakingService } from 'src/application/usecases/services/matchmaking.service';
 import { PlayerDTO } from "src/entities/dtos/components.dto";
+import { GameDataDTO, GameQuestionsDTO } from "src/entities/dtos/game-data.dto";
+import MatchmakingUserDTO from 'src/entities/dtos/matchmaking.dto';
 
 
 export const joinMatchQueue = (
@@ -77,7 +77,7 @@ export const matchAccepted = (
 
     const bothAccepted = [...pair.values()].every(val => val.accepted);
     if (bothAccepted) {
-        let players: PlayerDTO[] = [];
+        const players: PlayerDTO[] = [];
 
         pair.forEach((val, key) => {
             const player: PlayerDTO = {

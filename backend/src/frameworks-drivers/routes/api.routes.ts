@@ -1,15 +1,15 @@
 import { Router } from 'express';
-
+import { EloRatings } from 'src/entities/db-entities/elo.entities';
+import { Users } from 'src/entities/db-entities/user.entities';
 import {
   getUserElo,
 } from 'src/interface-adapters/controllers/elo.controllers';
 // import { getMatches, getMatchById, createMatch, updateMatchStatus, getMatchLog } from 'src/interface-adapters/controllers/matches.controllers';
 import { getUserStat } from 'src/interface-adapters/controllers/user.controllers';
-import { UserRepository } from 'src/interface-adapters/repositories/user.repository';
-import { AppDataSource } from '../config/data-source';
-import { Users } from 'src/entities/db-entities/user.entities';
 import { EloRepository } from 'src/interface-adapters/repositories/elo.repository';
-import { EloRatings } from 'src/entities/db-entities/elo.entities';
+import { UserRepository } from 'src/interface-adapters/repositories/user.repository';
+
+import { AppDataSource } from '../config/data-source';
 
 const router = Router();
 

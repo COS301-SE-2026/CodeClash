@@ -1,5 +1,6 @@
 import {renderHook, act} from "@testing-library/react";
 import {describe, expect, it, vi} from "vitest";
+
 import { ConfirmationViewModelFunction } from "../../../src/ViewModels/ConfirmationViewModel";
 
 describe("ConfirmationViewModel", () => {

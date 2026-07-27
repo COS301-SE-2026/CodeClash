@@ -1,8 +1,10 @@
-import React from "react";
-import { FinalResultsViewModelFunction } from "../ViewModels/FinalResultsViewModel";
 import { TrendingUp, TrendingDown, Clock} from "lucide-react";
-import ResultsBackground from '../assets/Background/FinalResults.jpg';
+import React from "react";
 import { useNavigate } from "react-router-dom";
+
+import ResultsBackground from '../assets/Background/FinalResults.jpg';
+import { FinalResultsViewModelFunction } from "../ViewModels/FinalResultsViewModel";
+
 
 const FinalResults: React.FC = () => {
     const navigate = useNavigate();
@@ -12,6 +14,7 @@ const FinalResults: React.FC = () => {
         results, 
     } = FinalResultsViewModelFunction();
 
+    console.log(state)
     return (
         <div className="bg-secondary min-h-screen w-full flex items-center justify-center">
             
