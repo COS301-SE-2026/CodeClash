@@ -15,8 +15,8 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({confirmation}) => 
 
     if (!isVisible) return null;
     return (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/40" onClick={handleCancel}>
-            <div className="bg-white rounded-3xl p-8 w-[90%] max-w-[550px] flex flex-col items-center gap-5 shadow-xl" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/40" onMouseDown={handleCancel}>
+            <div className="bg-white rounded-3xl p-8 w-[90%] max-w-[550px] flex flex-col items-center gap-5 shadow-xl" onMouseDown={(e) => e.stopPropagation()}>
                 <AlertTriangle className="w-15 h-15 text-danger" strokeWidth={1.5}/>
                 
                 <h2 className="text-black font-extrabold text-center whitespace-nowrap" style = {{fontSize: 'var(--heading-size)'}}>{content.title}</h2>
@@ -32,13 +32,13 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({confirmation}) => 
                 {/*The cancel and submit buttons */}
                 <div className="flex w-full gap-3">
                     <button className="flex-1 py-3 rounded-2xl bg-secondary text-secondary-text font-bold hover:opacity-80 transition-opacity"
-                        style = {{fontSize: 'var(--font-size-sm)'}} onClick={handleCancel}>
+                        style = {{fontSize: 'var(--font-size-sm)'}} onClick={handleCancel} type="button">
                         {content.cancelLabel}
                     </button>
 
                     {/*copying above button but changing cancel to confirm */}
                     <button className="flex-1 py-3 rounded-2xl bg-primary text-primary-text font-bold hover:opacity-80 transition-opacity"
-                        style = {{fontSize: 'var(--font-size-sm)'}} onClick={handleConfirm}>
+                        style = {{fontSize: 'var(--font-size-sm)'}} onClick={handleConfirm} type="button">
                         {content.confirmLabel}
                     </button>
                 </div>

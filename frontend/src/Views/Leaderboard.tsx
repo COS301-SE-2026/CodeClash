@@ -7,13 +7,12 @@ import '../styles/global.css';
 import {Link} from 'react-router-dom';
 import { LeaderboardViewModel } from 'src/ViewModels/LeaderboardViewModel';
 import GlassCard from '@/components/shared/GlassCard';
-import LeaderboardCardLeft, {LeaderboardCardRight} from '@/components/ui/leaderboardCard'
-import { EloText } from '@/components/ui/leaderboardCard';
+import LeaderboardCardLeft, {LeaderboardCardRight, EloText} from '@/components/ui/leaderboardCard'
 
 
 // const Leaderboard: React.FC<LeaderboardProps> = (
 const Leaderboard = (league : string) => {
-    const {topTen, isLoadingData, error, refresh} = LeaderboardViewModel(league);
+    const { isLoadingData, error, refresh} = LeaderboardViewModel(league);
 
     if(isLoadingData){
         return <div className="text-center mx-auto font-[var(--font)] text-[200%] font-semibold text-button-primary">Fetching Leaderboard Data</div>
@@ -23,7 +22,7 @@ const Leaderboard = (league : string) => {
         return(
             <div className="text-center mx-auto font-[var(--font)] text-[200%] font-semibold text-button-primary">
                 {error}
-                <button onClick={refresh} className="text-secondary bg-button-primary font-[var(--font)] font-semibold">Refresh</button>
+                <button onClick={refresh} className="text-secondary bg-button-primary font-[var(--font)] font-semibold" type="button">Refresh</button>
             </div>
         );
     }

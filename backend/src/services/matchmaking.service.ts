@@ -1,19 +1,17 @@
 import redis from "../../redis-client"
-
-import UserDto from "./matchmaking.dto";
+import MatchmakingUserDTO from "../dtos/matchmaking.dto";
 
 const elo_difference = 100;   // this can be changed later
 
-
 // adds player to queue
-async function enqueue(user: UserDto, queue: string): Promise<boolean> {
+async function enqueue(user: MatchmakingUserDTO, queue: string): Promise<boolean> {
     if (queue != "math" && queue != "prog") return false;
 
     // add user to the queue
     await redis.zadd(queue, user.elo, user.id);
 
     // store their joined_at time and game mode in a hash
-    await redis.hset(`user:${user.id}`, "user_joined_at", user.joined_at, "user_game_mode", user.game_mode);
+    await redis.hset(`user:${user.id}`, "user_joined_at", user.joined_at);
     return true;
 }
 
@@ -31,9 +29,8 @@ async function dequeue(user_id: number, queue: string): Promise<boolean> {
 }
 
 
-// finds a match for a the passed in user
-async function matchmaking(user: UserDto) {
-
+// finds a match for the passed in user
+async function matchmaking(user: MatchmakingUserDTO) {
     if (user.game_mode != "math" && user.game_mode != "prog")
         throw new Error("Unknown game mode");
 
@@ -49,20 +46,23 @@ async function matchmaking(user: UserDto) {
     // get joined_at times for all users in the elo_range
     const result = await Promise.all(
         elo_range.map(async (user_id) => {
-            const [join, game_mode] = await redis.hmget(`user:${user_id}`, "user_joined_at", "user_game_mode");
-            return { user_id, join, game_mode };
+            const [join] = await redis.hmget(`user:${user_id}`, "user_joined_at");
+            return { user_id, join };
         })
     );
 
+
     // remove null join values
-    const players = result.filter(u => u.join !== null);
+    let players = result.filter(u => u.join !== null);
+
     // sort by joined times - ascending
     players.sort((a, b) => Number(a.join) - Number(b.join));
+
     if (players.length == 0) {
 
         const waiting = await redis.zscore(user.game_mode, user.id.toString());
 
-        if (waiting)   //user isn't already in the queue
+        if (waiting)   //user is already in the queue
             ++user.match_attempt;
         else {
             enqueue(user, user.game_mode);
@@ -70,7 +70,11 @@ async function matchmaking(user: UserDto) {
 
         return null;
     }
+    else if (players[0]!.user_id == user.id.toString()) {
+        return null;
+    }
     else {
+
         const match = players[0];
 
         if (!match) return null;
@@ -81,10 +85,10 @@ async function matchmaking(user: UserDto) {
         await redis.zrem(user.game_mode, match.user_id);
 
         //remove joined_at hash
-        await redis.hdel(`user:${user.id}`);
-        await redis.hdel(`user:${match.user_id}`);
+        await redis.hdel(`user:${user.id}`, "user_joined_at");
+        await redis.hdel(`user:${match.user_id}`, "user_joined_at");
 
-        return { player_2_id: user.id, player_1_id: Number(match.user_id) };
+        return { player_1_id: user.id, player_2_id: match.user_id };
     }
 }
 

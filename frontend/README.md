@@ -39,7 +39,7 @@ Frontend
 ````
 npm run test:frontend               //test only
 npm run test:frontend:coverage      //test and coverage
-
+````
 
 To run tests on an individual file 
 
@@ -62,3 +62,20 @@ The pages are currently using state-based routing, so they are live at the same 
 ## Notes
 
 Google and Apple OAuth sign-ins are not implemented yet. The buttons are wired to prop callbacks (`onGoogleSignIn`, `onAppleSignIn`) and is ready for future integration.
+
+
+## Websockets
+
+1. install socket io in the frontend folder
+
+````
+npm install socket.io-client
+````
+
+2. ensure the correct env variables are set 
+3. run the frontend
+
+````
+npm run frontend    //from the root
+````
+

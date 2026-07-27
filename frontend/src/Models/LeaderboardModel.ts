@@ -1,5 +1,3 @@
-import Leaderboard from "src/Views/Leaderboard";
-
 export interface LeaderboardUserProps{
     avatarUrl: string;
     username: string;
