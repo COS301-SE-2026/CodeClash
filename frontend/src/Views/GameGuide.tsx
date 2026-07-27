@@ -98,9 +98,9 @@ const GameGuide = () => {
                     </div>
 
                     <div className="flex flex-row grid grid-rows-3">
-                        <GameGuideCard className="ml-[7%] mt-[10%] w-[80%] h-[50%]">
+                        <GameGuideCard className="ml-[7%] mt-[7%] w-[80%] h-[50%]">
                             <GameGuideNumberCard className="h-[60%] my-auto">
-                                <GameGuideHeading>
+                                <GameGuideHeading className="-mt-[10%]">
                                     5
                                 </GameGuideHeading>
                             </GameGuideNumberCard>
@@ -110,9 +110,9 @@ const GameGuide = () => {
                             </GameGuideCardText>
                         </GameGuideCard>
 
-                        <GameGuideCard className="ml-[7%] mt-[10%] w-[80%]">
-                            <GameGuideNumberCard className="h-[50%]">
-                                <GameGuideHeading>
+                        <GameGuideCard className="ml-[7%] mt-[2%] w-[80%] h-[50%]">
+                            <GameGuideNumberCard className="h-[60%]">
+                                <GameGuideHeading className="-mt-[10%]">
                                     6
                                 </GameGuideHeading>
                             </GameGuideNumberCard>
@@ -122,9 +122,9 @@ const GameGuide = () => {
                             </GameGuideCardText>
                         </GameGuideCard>
 
-                        <GameGuideCard className="ml-[7%] mt-[10%] w-[80%]">
-                            <GameGuideNumberCard className="h-[50%]">
-                                <GameGuideHeading>
+                        <GameGuideCard className="ml-[7%] -mt-[2%] w-[80%] h-[50%]">
+                            <GameGuideNumberCard className="h-[60%]">
+                                <GameGuideHeading className="-mt-[10%]">
                                     7
                                 </GameGuideHeading>
                             </GameGuideNumberCard>
