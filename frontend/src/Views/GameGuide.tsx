@@ -50,7 +50,7 @@ const GameGuide = () => {
                     <div className="flex flex-row grid grid-rows-4">
                     <GameGuideCard className="ml-[5%] mt-[5%] w-[80%] h-[50%]">
                         <GameGuideNumberCard className="h-[60%]">
-                            <GameGuideHeading className="-mt-[10%]">
+                            <GameGuideHeading className="-mt-[10%] my-auto">
                                 1
                             </GameGuideHeading>
                         </GameGuideNumberCard>
@@ -61,7 +61,7 @@ const GameGuide = () => {
                     </GameGuideCard>
 
                     <GameGuideCard className="ml-[5%] mt-[1%] w-[80%] h-[50%]">
-                        <GameGuideNumberCard className="h-[60%]">
+                        <GameGuideNumberCard className="h-[60%] my-auto">
                             <GameGuideHeading className="-mt-[10%]">
                                 2
                             </GameGuideHeading>
@@ -72,9 +72,9 @@ const GameGuide = () => {
                         </GameGuideCardText>
                     </GameGuideCard>
 
-                    <GameGuideCard className="ml-[5%] mt-[1%] w-[80%] h-[50%]">
-                        <GameGuideNumberCard className="h-[50%]">
-                            <GameGuideHeading>
+                    <GameGuideCard className="ml-[5%] -mt-[3%] w-[80%] h-[50%]">
+                        <GameGuideNumberCard className="h-[60%] my-auto">
+                            <GameGuideHeading className="-mt-[10%]">
                                 3
                             </GameGuideHeading>
                         </GameGuideNumberCard>
@@ -84,9 +84,9 @@ const GameGuide = () => {
                         </GameGuideCardText>
                     </GameGuideCard>
 
-                    <GameGuideCard className="ml-[5%] mt-[10%] w-[80%]">
-                        <GameGuideNumberCard className="h-[50%]">
-                            <GameGuideHeading>
+                    <GameGuideCard className="ml-[5%] -mt-[3%] w-[80%] h-[50%]">
+                        <GameGuideNumberCard className="h-[60%] my-auto">
+                            <GameGuideHeading className="-mt-[10%]">
                                 4
                             </GameGuideHeading>
                         </GameGuideNumberCard>
@@ -98,8 +98,8 @@ const GameGuide = () => {
                     </div>
 
                     <div className="flex flex-row grid grid-rows-3">
-                        <GameGuideCard className="ml-[7%] mt-[10%] w-[80%]">
-                            <GameGuideNumberCard className="h-[50%]">
+                        <GameGuideCard className="ml-[7%] mt-[10%] w-[80%] h-[50%]">
+                            <GameGuideNumberCard className="h-[60%] my-auto">
                                 <GameGuideHeading>
                                     5
                                 </GameGuideHeading>
