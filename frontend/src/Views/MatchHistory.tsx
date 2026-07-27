@@ -1,12 +1,11 @@
 import React from "react";
-import { useNavigate, Link } from "react-router-dom";
+import {Link } from "react-router-dom";
 import { MatchHistoryViewModelFunction } from "../ViewModels/MatchHistoryViewModel";
 import type { MatchDetails } from "../Models/MatchHistoryModel";
 import { RotateCcw} from "lucide-react";
 import Stars from "../assets/Background/Stars.png";
 
 const MatchHistory: React.FC = () => {
-    const navigate = useNavigate();
     const {
         matches, selected, isDetails,
         handleRowClick, handleCloseDetails,
