@@ -14,7 +14,7 @@ export class MatchResultService{
         winner_id: string,
         loser_id: string,
         is_ranked: boolean,
-        playerStats: PlayerStatsDTO
+        playerStats: PlayerStatsDTO[]
     ): Promise<MatchResultDTO>{
         let eloEffects = new Map<string, number>();
 

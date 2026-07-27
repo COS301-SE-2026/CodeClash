@@ -3,7 +3,6 @@ import { SubmissionRegistryComponent, SubmissionComponent, MatchComponent, Playe
 import { IMatchRepository } from "src/application/interfaces/repositories/IMatchRepository";
 import { MatchResultService } from "./match-result.service";
 import { PlayerStatsDTO } from "src/entities/dtos/player-stats.dto";
-import { lstat } from "node:fs";
 
 export class MatchCompletionService {
     constructor( 

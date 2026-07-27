@@ -1,0 +1,11 @@
+export interface IMatchResultRepository {
+    saveMatchLog(
+        match_id: string,
+        winner_id: string,
+        loser_id: string,
+        elo_gained: number | null,
+        elo_lost: number | null
+    ): Promise<void>;
+
+    getUserDetails(user_id: string): Promise<{ username: string; avatar: string }>;
+}
