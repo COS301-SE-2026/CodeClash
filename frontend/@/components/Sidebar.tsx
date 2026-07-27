@@ -38,18 +38,30 @@ export function AppSidebar() {
                 </span>
             </SidebarHeader>
             <SidebarContent className='flex-1'>
-                <SidebarMenu>
-                    
+                <SidebarMenu className='flex h-full flex-col justify-evenly px-2'>
+                    {navItems.map((item) => {
+                        const Icon = item.icon;
+                        return (
+                            <SidebarMenuItem key = {item.to}>
+                                <SidebarMenuButton asChild className='w-[100%]'>
+                                    <Link to={item.to}>
+                                        <Icon className='flex-shrink-0'/>
+                                        <span className='group-data-[state=collapsed]:hidden'>{item.label}</span>
+                                    </Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                        )
+                    })}
                 </SidebarMenu>
             </SidebarContent>
 
             <SidebarFooter className='pb-4'>
                 <SidebarMenu>
                     <SidebarMenuItem className='w-[100%] flex justify-center'>
-                        <SidebarMenuButton asChild className='w-[100%]'>
+                        <SidebarMenuButton asChild size="lg" className='w-[100%]'>
                             <Link to='/settings' className='text-sm'>
-                                <Settings className='w-10 h-10 flex-shrink-0'/>
-                                <span className='group-data-[state=collapsed]:hidden text-sm'>Settings</span>
+                                <Settings className='flex-shrink-0'/>
+                                <span className='group-data-[state=collapsed]:hidden'>Settings</span>
                             </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
