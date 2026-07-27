@@ -32,6 +32,10 @@ const MatchHistory: React.FC = () => {
                             style = {{fontSize: 'var(--font-size-xsm)'}}>CLICK ON ROW FOR MORE INFORMATION</p>
                 </div>
 
+                <div className="flex items-start justify-centergap-8 w-full">
+                    {/*Table LHS */}
+                    <div className={`transition-all duration-300 ${isDetails ? 'max-w-[700px]': 'max-w-[850px]'}`}>
+
                 {/*Headers */}
                 <div className="grid w-full max-w-[860px] px-6 mb-2 mx-auto"
                     style = {{gridTemplateColumns: '1fr 1fr 1fr 1fr'}}>
@@ -42,7 +46,7 @@ const MatchHistory: React.FC = () => {
                 </div>
 
                 {/*Table */}
-                <div className="w-full max-w-[860px] bg-secondary rounded-2xl overflow-y-auto max-h-[420px] flex flex-col">
+                <div className="w-full bg-secondary rounded-2xl overflow-y-auto max-h-[420px] flex flex-col">
                     {matches.map((match,i) => (
                     <button key = {match.id} onClick={() => handleRowClick(match)} type="button"
                         className = {`grid w-full text-center px-6 py-5 cursor-pointer bg-transparent hover:bg-secondary-text transition-colors duration-150 ${i < matches.length - 1 ? 'border-b border-secondary-text': ''}
@@ -69,26 +73,44 @@ const MatchHistory: React.FC = () => {
                     </button>
                 ))}
                 </div>
-
-                {/*Scroll Bar */}
-                <div className="absolute right-[calc(50%-430px+4px)] top-[calc(50%+20px)] w-5 h-30 bg-primary rounded-full opacity-80"/> {/*Needs an update here */}
             </div>
 
             {/*The toggable details panel */}
-            {isDetails && selected && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-primary" onClick={handleCloseDetails}>
-                    <div className="relative bg-primary rounded-3xl p-6 w-[90%] max-w-[380px] flex flex-col gap-4" onClick={e => e.stopPropagation()}>
+            <div className= {`transition-all duration-300 overflow-hidden ${isDetails ? 'w-[340px] opacity-100 translate-x-0': 'w-0 opacity-o translate-x-10'}`}>
+            {selected && (
+                    <div className="relative bg-primary rounded-3xl p-6">
                         {/*X button to exit the details panel */}
                         <button onClick={handleCloseDetails} type="button" 
                             className="absolute -top-4 -right-4 w-10 h-10 rounded-full bg-secondary text-secondary-text font-black flex items-center justify-center cursor-pointer border-none hover:opacity-80 transition-opacity shadow-badge"
                             style={{fontSize: 'var(--font-size-sm)'}}>
                             X
                         </button>
+                        <MatchDetailsPanel details = {selected.details}/>
                     </div>
-                </div>
             )}
+        </div>
+        </div>
+        </div>
         </div>
     );
 };
+
+const MatchDetailsPanel: React.FC<{details: MatchDetails}> = ({details}) => (
+    <div className="flex flex-col gap-4 w-full">
+        <div className="bg-primary rounded-xl p-2 flex flex-col gap-0">
+            <p className="text-primary-text font-bold tracking-widest text-center py-2"
+            style={{fontSize: 'var(--font-size-sm)'}}>MATCH INFO</p>
+            <div className="bg-secondary rounded-lg flex justify-between items-center px-3 py-2 mb-1">
+                <span className="text-secondary-text font-semibold" style={{fontSize: 'var(--font-size-xsm)'}}>RESULTS</span>
+                <span className="text-secondary-text font-semibold" style={{fontSize: 'var(--font-size-xsm)'}}>{details.results}</span>
+            </div>
+            {/*Copied whole of above */}
+            <div className="bg-secondary rounded-lg flex justify-between items-center px-3 py-2 mb-1">
+                <span className="text-secondary-text font-semibold" style={{fontSize: 'var(--font-size-xsm)'}}>MATCH LENGTH</span>
+                <span className="text-secondary-text font-semibold" style={{fontSize: 'var(--font-size-xsm)'}}>{details.matchLength}</span>
+            </div>
+        </div>
+    </div>
+)
 
 export default MatchHistory;
