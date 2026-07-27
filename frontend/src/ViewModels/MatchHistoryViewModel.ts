@@ -22,7 +22,7 @@ export function MatchHistoryViewModelFunction(): MatchHistoryViewModel {
 
     const handleCloseDetails = useCallback(() => {
         setIsDetails(false);
-        setTimeout(() => setSelected(null), 300);
+        setTimeout(() => setSelected(null), 100);
     }, []);
 
     return {
