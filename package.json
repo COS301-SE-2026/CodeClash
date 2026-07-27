@@ -46,5 +46,9 @@
     "jest": "^30.4.2",
     "ws": "^8.21.0",
     "tailwind-merge": "^3.6.0"
+  },
+  "lint-staged": {
+    "frontend/src/**/*.{ts,tsx}":"eslint --fix",
+    "backend/src/**/*.ts": "eslint --fix"
   }
 }
