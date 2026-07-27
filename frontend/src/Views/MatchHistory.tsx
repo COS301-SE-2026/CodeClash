@@ -77,7 +77,14 @@ const MatchHistory: React.FC = () => {
             {/*The toggable details panel */}
             {isDetails && selected && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-primary" onClick={handleCloseDetails}>
-
+                    <div className="relative bg-primary rounded-3xl p-6 w-[90%] max-w-[380px] flex flex-col gap-4" onClick={e => e.stopPropagation()}>
+                        {/*X button to exit the details panel */}
+                        <button onClick={handleCloseDetails} type="button" 
+                            className="absolute -top-4 -right-4 w-10 h-10 rounded-full bg-secondary text-secondary-text font-black flex items-center justify-center cursor-pointer border-none hover:opacity-80 transition-opacity shadow-badge"
+                            style={{fontSize: 'var(--font-size-sm)'}}>
+                            X
+                        </button>
+                    </div>
                 </div>
             )}
         </div>
