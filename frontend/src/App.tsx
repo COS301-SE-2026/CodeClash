@@ -13,6 +13,7 @@ import Guidebook from "./Views/Guidebook"
 import MathMatch from "./Views/MathsMatch";
 import FinalResults from "./Views/FinalResults";
 import ForgotPassword from "./Views/ForgotPassword";
+import MatchHistory from "./Views/MatchHistory";
 
 const App: React.FC = () => {
     return (
@@ -39,6 +40,7 @@ const App: React.FC = () => {
                 <Route path='/leaderboard' />
                 <Route path='/badges' />
                 <Route path='/friends' />
+                <Route path='/match-history' element={<MatchHistory/>}/>
             </Route>
         </Routes>
     )
