@@ -1,12 +1,7 @@
 import { Link } from 'react-router-dom'
-
-import badges_icon from '../../src/assets/Icons/badges.png'
-import dashboard_icon from '../../src/assets/Icons/dashboard.png'
-import friends_icon from '../../src/assets/Icons/friends.png'
-import game_guide_icon from '../../src/assets/Icons/game_guide.png'
-import leaderboard_icon from '../../src/assets/Icons/leaderboard.png'
-import tournaments_icon from '../../src/assets/Icons/trophy.png'
 import pink_astronaut from '../../src/assets/Robots/pink_celebrate.png'
+
+import { LayoutDashboard, HelpCircle, Trophy, BarChart2, Medal, Users, Settings } from 'lucide-react'
 
 import {
     Sidebar,
@@ -26,8 +21,8 @@ const navItems = [
     {
         label: 'Section1',
         items: [
-            { to: '/dashboard', label: 'Dashboard', img: dashboard_icon },
-            { to: '/game-guide', label: 'Game Guide', img: game_guide_icon },
+            { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+            { to: '/help-menu', label: 'Help Menu', icon: HelpCircle},
         ]
 
     },
@@ -35,15 +30,15 @@ const navItems = [
     {
         label: 'Section2',
         items: [
-            { to: '/tournaments', label: 'Tournaments', img: tournaments_icon },
-            { to: '/leaderboard', label: 'Leaderboard', img: leaderboard_icon },
-            { to: '/badges', label: 'Badges', img: badges_icon }
+            { to: '/tournaments', label: 'Tournaments', icon: Trophy },
+            { to: '/leaderboard', label: 'Leaderboard', icon: BarChart2 },
+            { to: '/badges', label: 'Badges', icon: Medal }
         ]
     },
     {
         label: 'Section3',
         items: [
-            { to: '/friends', label: 'Friends', img: friends_icon }
+            { to: '/friends', label: 'Friends', icon: Users }
         ]
     }
 ]
@@ -54,16 +49,19 @@ const AppSidebarGroups = () => {
             {navItems.map((group) => (
                 <SidebarGroup key={group.label}>
                     <SidebarMenu>
-                        {group.items.map((item) => (
+                        {group.items.map((item) => {
+                            const Icon = item.icon;
+                            return (
                             <SidebarMenuItem key={item.to} className=' w-[100%] flex justify-center'>
                                 <SidebarMenuButton asChild className='w-[100%]'>
                                     <Link to={item.to} className='w-[100%]' >
-                                        <img src={item.img} alt={item.label} className='w-[2rem]' />
+                                        <Icon className='w-10 h-10 flex-shrink-0' />
                                         <span className='group-data-[state=collapsed]:hidden text-sm'>{item.label}</span>
                                     </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
-                        ))}
+                            );
+                        })}
                     </SidebarMenu>
                 </SidebarGroup>
             ))}
@@ -84,8 +82,17 @@ export function AppSidebar() {
                 <AppSidebarGroups></AppSidebarGroups>
             </SidebarContent>
 
-            <SidebarFooter>
-                <Link to='/settings' className='text-sm'>Settings</Link>
+            <SidebarFooter className='pb-4'>
+                <SidebarMenu>
+                    <SidebarMenuItem className='w-[100%] flex justify-center'>
+                        <SidebarMenuButton asChild className='w-[100%]'>
+                            <Link to='/settings' className='text-sm'>
+                                <Settings className='w-10 h-10 flex-shirnk-0'/>
+                                <span className='group-data-[state=collapsed]:hidden text-sm'>Settings</span>
+                            </Link>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                </SidebarMenu>
             </SidebarFooter>
             <SidebarRail className='hidden' />
         </Sidebar>
