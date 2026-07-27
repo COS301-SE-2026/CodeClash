@@ -97,8 +97,18 @@ const GameGuide = () => {
                     </GameGuideCard>
                     </div>
 
-                    <div className>
-
+                    <div className="flex flex-row grid grid-rows-3">
+                        <GameGuideCard className="ml-[7%] mt-[10%] w-[80%]">
+                            <GameGuideNumberCard className="h-[50%]">
+                                <GameGuideHeading>
+                                    5
+                                </GameGuideHeading>
+                            </GameGuideNumberCard>
+                            <GameGuideCardText className="-ml-[60%]">
+                                {/* the text below is copied and pasted from an old page that is now being redone here, none of the code in this page is AI generated */}
+                                Make sure to pick up Powerups to boost your score and detriment your opponent's score, along the way!
+                            </GameGuideCardText>
+                        </GameGuideCard>
                     </div>
                 </div>
             
