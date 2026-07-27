@@ -14,12 +14,6 @@ const MatchHistory: React.FC = () => {
     return (
         <div className="relative min-h-screen w-full flex flex-col overflow-hidden bg-black">
             <img src = {Stars} alt = "" className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0 opacity-70"/>
-            {/*Back button copied from Sign up */}
-            <Link className="absolute top-10 left-10 rounded-lg px-4 py-2 heading-sub hover:opacity-80"
-                    to='/dashboard'
-                >
-                    ← Back
-            </Link>
             <div className="relative z-10 flex flex-col items-center w-full px-6 pt-16 pb-10">
                 <div className="flex flex-col items-center gap-1 mb-6">
                         <div className="flex items-center gap-3">
