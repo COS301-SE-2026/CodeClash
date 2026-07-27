@@ -47,10 +47,11 @@ const GameGuide = () => {
                 
                 <div className="bg-[var(--color-pink-700)] w-[22%] h-[3%] text-[#FFFFFF] text-[260%] font-bold font-font text-center mt-[4%] ml-[2%]">HOW TO PLAY</div>
                 <div className="flex flex-col grid grid-cols-2">
+                    <div className="flex flex-row grid grid-rows-4">
                     <GameGuideCard className="ml-[5%] mt-[5%] w-[80%]">
                         <GameGuideNumberCard className="h-[50%]">
                             <GameGuideHeading>
-                                    1
+                                1
                             </GameGuideHeading>
                         </GameGuideNumberCard>
                         <GameGuideCardText className="-ml-[60%]">
@@ -58,6 +59,28 @@ const GameGuide = () => {
                             As you play and win more ranked matches, your ELO will increase until you're able to play in a new, more advanced league
                         </GameGuideCardText>
                     </GameGuideCard>
+
+                    <GameGuideCard className="ml-[5%] mt-[10%] w-[80%]">
+                        <GameGuideNumberCard className="h-[50%]">
+                            <GameGuideHeading>
+                                2
+                            </GameGuideHeading>
+                        </GameGuideNumberCard>
+                        <GameGuideCardText className="-ml-[60%]">
+                            {/* the text below was copied from an old page that has been redone here, no AI was used to generate any code on this page */}
+                            Casual Play is for players who want to practise without impacting their ELO. Ranked Play is for players who want to put their skills to the test by battling against others (Be careful! This impacts your ELO!)
+                        </GameGuideCardText>
+                    </GameGuideCard>
+
+                    <GameGuideCard className="ml">
+                        <GameGuideNumberCard>
+                            <GameGuideHeading>
+
+                            </GameGuideHeading>
+                        </GameGuideNumberCard>
+                        <GameGuideCardText></GameGuideCardText>
+                    </GameGuideCard>
+                    </div>
                 </div>
             
             </div>
