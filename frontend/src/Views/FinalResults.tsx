@@ -19,6 +19,19 @@ const FinalResults: React.FC = () => {
 
     const winner_stats = results?.stats[results.winner.id];
     const loser_stats = results?.stats[results.loser.id]
+
+    const formatTime = (ms: number|undefined) => {
+
+        if(ms === undefined) return 'Error getting time'
+        const total_sec = Math.floor(ms / 1000);
+        const min = Math.floor(total_sec / 60);
+        const sec = total_sec % 60
+
+        return `${min}:${sec.toString().padStart(2,'0')}`;
+    }
+
+    const winner_time = formatTime(winner_stats?.total_time);
+    const loser_time = formatTime(loser_stats?.total_time)
     return (
         <div className="bg-secondary min-h-screen w-full flex items-center justify-center">
 
@@ -111,7 +124,7 @@ const FinalResults: React.FC = () => {
                                 {/*The column for speed - copied from above*/}
                                 <div className="px-3 py-4 flex items-center justify-center border-r border-secondary-text h-full">
                                     <span className="text-secondary-text font-semibold"
-                                        style={{ fontSize: 'var(--font-size-sm)' }}>{winner_stats?.total_time}</span>
+                                        style={{ fontSize: 'var(--font-size-sm)' }}>{winner_time}</span>
                                 </div>
 
                                 {/*Column for elo effect */}
@@ -136,49 +149,49 @@ const FinalResults: React.FC = () => {
                         {/* loser */}
 
                         <div className="grid rounded-lg border border-secondary-text bg-secondary"
-                                style={{ gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr' }}>
+                            style={{ gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr' }}>
 
-                                {/*The user name + user robot/icon */}
-                                <div className="px-3 py-4 flex flex-col items-center justify-center gap-1 border-r border-secondary-text h-full">
-                                    <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
-                                        {/* {.avatar ? (
+                            {/*The user name + user robot/icon */}
+                            <div className="px-3 py-4 flex flex-col items-center justify-center gap-1 border-r border-secondary-text h-full">
+                                <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+                                    {/* {.avatar ? (
                                             <img src={player.avatar} alt={player.username} className="w-full h-full object-cover" />
                                         ) : (
                                             <div className="w-full h-full bg-secondary-text" />
                                         )} */}
-                                    </div>
-                                    <span className="text-secondary-text font-medium text-center truncate w-full"
-                                        style={{ fontSize: 'var(--font-size-xsm)' }}>{results?.loser.username}</span>
                                 </div>
-
-                                {/*The column for correctness */}
-                                <div className="px-3 py-4 flex items-center justify-center border-r border-secondary-text h-full">
-                                    <span className="text-secondary-text font-semibold"
-                                        style={{ fontSize: 'var(--font-size-sm)' }}>{loser_stats?.num_correct} questions correct</span>
-                                </div>
-
-                                {/*The column for speed - copied from above*/}
-                                <div className="px-3 py-4 flex items-center justify-center border-r border-secondary-text h-full">
-                                    <span className="text-secondary-text font-semibold"
-                                        style={{ fontSize: 'var(--font-size-sm)' }}>{loser_stats?.total_time}</span>
-                                </div>
-
-                                {/*Column for elo effect */}
-                                <div className="px-3 py-4 flex  flex-col items-center justify-center border-r border-secondary-text h-full">
-                                    {results?.loser.elo! >= 0 ? (
-                                        <TrendingUp className="w-9 h-9 text-success" />
-                                    ) : (
-                                        <TrendingDown className="w-9 h-9 text-danger" />
-                                    )}
-                                    <span className={`font-bold ${results?.loser.elo! >= 0 ? 'text-success' : 'text-danger'}`}
-                                        style={{ fontSize: 'var(--font-size-sm)' }}>{results?.loser.elo!}</span>
-                                </div>
-
-                                {/*Column for the users position (1st or 2nd) */}
-                                <div className="px-3 py-4 mt-2">
-                                    <Badge position={2} />
-                                </div>
+                                <span className="text-secondary-text font-medium text-center truncate w-full"
+                                    style={{ fontSize: 'var(--font-size-xsm)' }}>{results?.loser.username}</span>
                             </div>
+
+                            {/*The column for correctness */}
+                            <div className="px-3 py-4 flex items-center justify-center border-r border-secondary-text h-full">
+                                <span className="text-secondary-text font-semibold"
+                                    style={{ fontSize: 'var(--font-size-sm)' }}>{loser_stats?.num_correct} questions correct</span>
+                            </div>
+
+                            {/*The column for speed - copied from above*/}
+                            <div className="px-3 py-4 flex items-center justify-center border-r border-secondary-text h-full">
+                                <span className="text-secondary-text font-semibold"
+                                    style={{ fontSize: 'var(--font-size-sm)' }}>{loser_time}</span>
+                            </div>
+
+                            {/*Column for elo effect */}
+                            <div className="px-3 py-4 flex  flex-col items-center justify-center border-r border-secondary-text h-full">
+                                {results?.loser.elo! >= 0 ? (
+                                    <TrendingUp className="w-9 h-9 text-success" />
+                                ) : (
+                                    <TrendingDown className="w-9 h-9 text-danger" />
+                                )}
+                                <span className={`font-bold ${results?.loser.elo! >= 0 ? 'text-success' : 'text-danger'}`}
+                                    style={{ fontSize: 'var(--font-size-sm)' }}>{results?.loser.elo!}</span>
+                            </div>
+
+                            {/*Column for the users position (1st or 2nd) */}
+                            <div className="px-3 py-4 mt-2">
+                                <Badge position={2} />
+                            </div>
+                        </div>
 
 
                         {/*Buttons for return and try again*/}
