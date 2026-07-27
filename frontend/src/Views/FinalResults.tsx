@@ -127,7 +127,7 @@ const FinalResults: React.FC = () => {
 
                                 {/*Column for the users position (1st or 2nd) */}
                                 <div className="px-3 py-4 mt-2">
-                                    <Badge position={2} />
+                                    <Badge position={1} />
                                 </div>
                             </div>
 
@@ -176,7 +176,7 @@ const FinalResults: React.FC = () => {
 
                                 {/*Column for the users position (1st or 2nd) */}
                                 <div className="px-3 py-4 mt-2">
-                                    <Badge position={1} />
+                                    <Badge position={2} />
                                 </div>
                             </div>
 

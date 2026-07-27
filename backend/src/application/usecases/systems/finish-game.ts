@@ -34,17 +34,17 @@ export class FinishGame {
 
         // 2 get stats
         for (const [key, submission] of submission_registry.submissions) {
-            const [player] = key.split('-')
+            const [player] = key.split('::')
 
-            if (!player) continue;
+            if (!player) throw new Error("Couldn't fetch player submissions");
             const stat = game_stats.get(player);
 
-            if (!stat) continue;
+            if (!stat) throw new Error("Couldn't get player data");
 
             // get submission component 
             const component = this.getSubmissionComponent(submission, 'Submission');
 
-            if (!component) continue
+            if (!component) throw new Error("couldnt get player submissions")
 
             if (component.correct) stat.num_correct += 1;
             const time = component.submitted_at!.getTime() - component.started_at!.getTime();

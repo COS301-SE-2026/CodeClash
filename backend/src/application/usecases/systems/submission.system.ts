@@ -23,7 +23,7 @@ export class SubmissionSystem {
         const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(match_id, "Submission");
         if (!submission_registry) { throw new Error("Error saving submission") }
 
-        const key = `${player_id}-${question_id}`
+        const key = `${player_id}::${question_id}`
         const submission_entity = submission_registry.submissions.get(key);
 
         // 2 if found update component with new submission  -- an extra step would be added here to save submission later on for history

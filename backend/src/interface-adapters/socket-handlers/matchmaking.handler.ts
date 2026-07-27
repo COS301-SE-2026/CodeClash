@@ -28,7 +28,7 @@ export const joinMatchQueue = (
     const player_1 = match.player_1.id;
     const player_2 = match.player_2.id;
 
-    const pair_id = player_1.concat("-").concat(player_2);
+    const pair_id = player_1.concat("::").concat(player_2);
 
     const pair = {
         player_1: player_1,
