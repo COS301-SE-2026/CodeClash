@@ -109,6 +109,18 @@ const GameGuide = () => {
                                 Make sure to pick up Powerups to boost your score and detriment your opponent's score, along the way!
                             </GameGuideCardText>
                         </GameGuideCard>
+
+                        <GameGuideCard className="ml-[7%] mt-[10%] w-[80%]">
+                            <GameGuideNumberCard className="h-[50%]">
+                                <GameGuideHeading>
+                                    6
+                                </GameGuideHeading>
+                            </GameGuideNumberCard>
+                            <GameGuideCardText className="-ml-[60%]">
+                                {/* the text below is copied and pasted from an old page that is now being redone here, none of the code on this page is AI generated */}
+                                If you suspect your opponent of cheating, please select the Report a Match option in your Dashboard
+                            </GameGuideCardText>
+                        </GameGuideCard>
                     </div>
                 </div>
             
