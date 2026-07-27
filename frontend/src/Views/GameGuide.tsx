@@ -60,9 +60,9 @@ const GameGuide = () => {
                         </GameGuideCardText>
                     </GameGuideCard>
 
-                    <GameGuideCard className="ml-[5%] mt-[10%] w-[80%]">
-                        <GameGuideNumberCard className="h-[50%]">
-                            <GameGuideHeading>
+                    <GameGuideCard className="ml-[5%] mt-[1%] w-[80%] h-[50%]">
+                        <GameGuideNumberCard className="h-[60%]">
+                            <GameGuideHeading className="-mt-[10%]">
                                 2
                             </GameGuideHeading>
                         </GameGuideNumberCard>
@@ -72,7 +72,7 @@ const GameGuide = () => {
                         </GameGuideCardText>
                     </GameGuideCard>
 
-                    <GameGuideCard className="ml-[5%] mt-[10%] w-[80%]">
+                    <GameGuideCard className="ml-[5%] mt-[1%] w-[80%] h-[50%]">
                         <GameGuideNumberCard className="h-[50%]">
                             <GameGuideHeading>
                                 3
