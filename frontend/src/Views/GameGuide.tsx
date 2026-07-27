@@ -12,7 +12,7 @@ const GameGuide = () => {
 
         <div style={{backgroundImage: `url(${bg})`}} className="w-full min-h-screen overflow-y-auto bg-no-repeat object-cover bg-no-repeat bg-size-[auto_200%]">
 
-            <div className="bg-[#000000]/20 mx-auto mt-[1%] w-[95%] h-[200%] rounded-[20px] backdrop-blur-sm border-10 border-[var(--color-pink-700)]">
+            <div className="bg-[#000000]/20 mx-auto mt-[1%] w-[95%] h-[145%] rounded-[20px] backdrop-blur-sm border-10 border-[var(--color-pink-700)]">
                 <div className="font-font font-bold text-secondary text-[270%] mx-auto text-center mt-[3%]">CODECLASH - Game Guide</div>
                 <div className="flex flex-col grid grid-cols-2 grid rows-2 w-[90%] h-[30%] mx-auto ml-[2%] mt-[4%]">
 
@@ -48,9 +48,9 @@ const GameGuide = () => {
                 <div className="bg-[var(--color-pink-700)] w-[22%] h-[3%] text-[#FFFFFF] text-[260%] font-bold font-font text-center mt-[4%] ml-[2%]">HOW TO PLAY</div>
                 <div className="flex flex-col grid grid-cols-2">
                     <div className="flex flex-row grid grid-rows-4">
-                    <GameGuideCard className="ml-[5%] mt-[5%] w-[80%]">
-                        <GameGuideNumberCard className="h-[50%]">
-                            <GameGuideHeading>
+                    <GameGuideCard className="ml-[5%] mt-[5%] w-[80%] h-[50%]">
+                        <GameGuideNumberCard className="h-[60%]">
+                            <GameGuideHeading className="-mt-[10%]">
                                 1
                             </GameGuideHeading>
                         </GameGuideNumberCard>
