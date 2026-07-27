@@ -22,8 +22,5 @@ export default defineConfig({
   },
   optimizeDeps: {
     exclude: ['@monaco-aditor/react', 'mathlive'],
-  },
-  server: {
-    allowedHosts: ['localhost']
   }
 })

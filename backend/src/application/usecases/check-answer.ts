@@ -44,11 +44,10 @@ export class CheckAnswer {
 
             if (player_entity === undefined) throw new Error("Invalid Player");
 
-            let life_update = 0;
+            let life_update = this.life_System.getCurrentLife(player_entity);
 
             if (!correct) life_update = this.life_System.decrement(player_entity, match!.question_number);
 
-            else life_update = this.life_System.getCurrentLife(player_entity);
             // 5. return result
             return { player_id: player_id, result: correct, life_update: life_update };
 

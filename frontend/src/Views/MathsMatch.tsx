@@ -26,6 +26,7 @@ const MathsMatch = () => {
         else if (correct === false) return 'bg-danger/50'
         else return 'bg-white'
     }
+    console.log(playerLife)
 
     const read_only = () => {
         if (gameOver) return 'read-only'

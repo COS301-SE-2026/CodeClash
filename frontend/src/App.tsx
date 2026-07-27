@@ -19,13 +19,11 @@ import FinalResults from "./Views/FinalResults";
 const App: React.FC = () => {
 
     const { user, isLoading } = useAuth();
-    if(isLoading){
+    if (isLoading) {
         return <Loading isOpen={isLoading} />
     }
 
     const logged_in = user !== null
-
-    const base_path = logged_in ? <Dashboard /> : <Welcome />
 
     if (logged_in === false) {
         return (
@@ -36,13 +34,23 @@ const App: React.FC = () => {
                 <Route path='/sign-up' element={<SignUp />} />
                 <Route path='*' element={<Navigate to='/sign-in' replace />} />
 
+
+                {/* Pages with sidebar inside the app */}
+                <Route element={<Layout />}>
+                    <Route path='/dashboard' element={<Dashboard />} />
+                    <Route path='/game-guide' />
+                    <Route path='/tournaments' />
+                    <Route path='/leaderboard' />
+                    <Route path='/badges' />
+                    <Route path='/friends' />
+                </Route>
             </Routes>
         )
     }
 
     return (
         <Routes>
-            <Route path='/' element={base_path} />
+            <Route path='/' element={<Dashboard/>} />
             <Route path='/welcome' element={<Welcome />} />
             <Route path='/sign-in' element={<SignIn />} />
             <Route path='/sign-up' element={<SignUp />} />

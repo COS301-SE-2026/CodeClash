@@ -12,7 +12,7 @@ app.get('/health', (req: Request, res: Response) => {
   res.json({ status: 'ok' });
 });
 
-app.use(cors({ origin: process.env.FRONTEND_URL || 'http://localhost:5173' }));
+app.use(cors({ origin: process.env.FRONTEND_URL || 'http://localhost:4444' }));
 app.use(express.json());
 
 const user_repo = new UserRepository(AppDataSource.getRepository(Users))

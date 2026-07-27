@@ -72,6 +72,8 @@ export const World = () => {
         component_name: "Players" | "Match" | "Submission"| "Result",
         component: MatchComponentTypes
     ) {
+
+        console.log("Adding component ", component_name)
         return addComponent(matches, entity_id, component_name, component)
     }
 
