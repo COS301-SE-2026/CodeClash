@@ -12,7 +12,7 @@ const GameGuide = () => {
 
         <div style={{backgroundImage: `url(${bg})`}} className="w-full min-h-screen overflow-y-auto bg-no-repeat object-cover bg-no-repeat bg-size-[auto_200%]">
 
-            <div className="bg-[#000000]/20 mx-auto mt-[1%] w-[95%] h-[145%] rounded-[20px] backdrop-blur-sm border-10 border-[var(--color-pink-700)]">
+            <div className="bg-[#000000]/20 mx-auto mt-[1%] w-[95%] h-[140%] rounded-[20px] backdrop-blur-sm border-10 border-[var(--color-pink-700)]">
                 <div className="font-font font-bold text-secondary text-[270%] mx-auto text-center mt-[3%]">CODECLASH - Game Guide</div>
                 <div className="flex flex-col grid grid-cols-2 grid rows-2 w-[90%] h-[30%] mx-auto ml-[2%] mt-[4%]">
 
@@ -39,14 +39,14 @@ const GameGuide = () => {
                 </div>
 
                 {/* the text below was copied and pasted from a wireframe, no AI was used to generate any of this code */}
-                <div className="bg-[var(--color-pink-700)] w-[22%] h-[3%] text-[#FFFFFF] text-[260%] font-bold font-font text-center mt-[4%] ml-[2%]">PLAYER JOURNEY</div>
+                <div className="bg-[var(--color-pink-700)] w-[22%] h-[3%] text-[#FFFFFF] text-[260%] font-bold font-font text-center mt-[5%] ml-[2%]">PLAYER JOURNEY</div>
                     <div className="w-[95%] text-[#FFFFFF] text-[190%] font-bold font-font ml-[2%] mt-[1%] mx-auto">
                         Casual matches provide a safe space to practice, build confidence, and develop problem-solving skills without the pressure of rankings. As players gain experience, improve their accuracy, and become more confident in solving challenges, they can progress into ranked matches where every game contributes to their competitive standing.
                             Success in ranked play rewards players with progression through the league system, allowing them to climb the leaderboard while competing against opponents of similar skill levels. Along the way, players unlock achievements and earn badges that celebrate milestones such as winning matches, maintaining high accuracy, answering quickly, or demonstrating consistent improvement.
                     </div>
                 
-                <div className="bg-[var(--color-pink-700)] w-[22%] h-[3%] text-[#FFFFFF] text-[260%] font-bold font-font text-center mt-[4%] ml-[2%]">HOW TO PLAY</div>
-                <div className="flex flex-col grid grid-cols-2">
+                <div className="bg-[var(--color-pink-700)] w-[22%] h-[3%] text-[#FFFFFF] text-[260%] font-bold font-font text-center mt-[5%] ml-[2%]">HOW TO PLAY</div>
+                <div className="flex flex-col grid grid-cols-2 h-[38.5%]">
                     <div className="flex flex-row grid grid-rows-4">
                     <GameGuideCard className="ml-[5%] mt-[5%] w-[80%] h-[50%]">
                         <GameGuideNumberCard className="h-[60%]">
@@ -86,7 +86,7 @@ const GameGuide = () => {
 
                     <GameGuideCard className="ml-[5%] -mt-[3%] w-[80%] h-[50%]">
                         <GameGuideNumberCard className="h-[60%] my-auto">
-                            <GameGuideHeading className="-mt-[10%]">
+                            <GameGuideHeading className="-mt-[12%]">
                                 4
                             </GameGuideHeading>
                         </GameGuideNumberCard>
