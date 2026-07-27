@@ -9,8 +9,6 @@ import { LeaderboardViewModel } from 'src/ViewModels/LeaderboardViewModel';
 import GlassCard from '@/components/shared/GlassCard';
 import LeaderboardCardLeft, {LeaderboardCardRight, EloText} from '@/components/ui/leaderboardCard'
 
-
-// const Leaderboard: React.FC<LeaderboardProps> = (
 const Leaderboard = (league : string) => {
     const { isLoadingData, error, refresh} = LeaderboardViewModel(league);
 
