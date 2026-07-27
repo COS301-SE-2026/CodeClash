@@ -8,8 +8,8 @@ import SignUp from "./Views/SignUp";
 import Profile from "./Views/Profile";
 import Searching from "./Views/Searching";
 import Found from "./pages/queuePages/found";
-//import Leaderboard from "./Views/Leaderboard";
-import Guidebook from "./Views/Guidebook"
+import Leaderboard from "./Views/Leaderboard";
+import Guidebook from "./Views/GameGuide"
 import MathMatch from "./Views/MathsMatch";
 import FinalResults from "./Views/FinalResults";
 import ForgotPassword from "./Views/ForgotPassword";
@@ -34,7 +34,7 @@ const App: React.FC = () => {
             {/* Pages with sidebar inside the app */}
             <Route element={<Layout />}>
                 <Route path='/dashboard' element={<Dashboard />} />
-                <Route path='/game-guide' element={<GameGuide/>}/>
+                <Route path='/game-guide' element={<Guidebook/>}/>
                 <Route path='/tournaments' />
                 <Route path='/leaderboard'/>
                 <Route path='/badges' />
