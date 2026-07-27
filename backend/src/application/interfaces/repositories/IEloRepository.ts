@@ -1,4 +1,4 @@
-import { EloDTO } from "src/entities/dtos/elo.dto"
+import { EloDTO, EloUpdateResultDTO } from "src/entities/dtos/elo.dto"
 
 
 export interface IEloRepository {
@@ -8,4 +8,9 @@ export interface IEloRepository {
     // Read
     getElo(user_id: string): Promise<EloDTO | null>
     getUsersElo(user_ids: string[]): Promise<EloDTO[] | null>
+    updateRatingsAfterMatch(
+        match_id: string,
+        winner_id: string,
+        loser_id: string
+    ): Promise<{ winner: EloUpdateResultDTO; loser: EloUpdateResultDTO }>;
 }

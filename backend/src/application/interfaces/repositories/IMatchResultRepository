@@ -1,4 +1,7 @@
+import { MatchResultDTO } from '../../../entities/dtos/match-result.dto';
+
 export interface IMatchResultRepository {
+    buildMatchResult(match_id: string): Promise<MatchResultDTO>;
     saveMatchLog(
         match_id: string,
         winner_id: string,
