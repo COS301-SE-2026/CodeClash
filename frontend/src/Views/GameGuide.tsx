@@ -72,14 +72,33 @@ const GameGuide = () => {
                         </GameGuideCardText>
                     </GameGuideCard>
 
-                    <GameGuideCard className="ml">
-                        <GameGuideNumberCard>
+                    <GameGuideCard className="ml-[5%] mt-[10%] w-[80%]">
+                        <GameGuideNumberCard className="h-[50%]">
                             <GameGuideHeading>
-
+                                3
                             </GameGuideHeading>
                         </GameGuideNumberCard>
-                        <GameGuideCardText></GameGuideCardText>
+                        <GameGuideCardText className="-ml-[60%]">
+                            {/* the text below was copied from an old page that is being redone here, no AI was used to generate any code on this page */}
+                            After selecting Play Now, wait until we find someone for you to battle against. Your opponent's ELO will be similar to yours!
+                        </GameGuideCardText>
                     </GameGuideCard>
+
+                    <GameGuideCard className="ml-[5%] mt-[10%] w-[80%]">
+                        <GameGuideNumberCard className="h-[50%]">
+                            <GameGuideHeading>
+                                4
+                            </GameGuideHeading>
+                        </GameGuideNumberCard>
+                        <GameGuideCardText className="-ml-[60%]">
+                            {/* the text below was copied from an old page that is now being redone here, no AI was used to generate any of the code on this page */}
+                            Now you're in a match! Make sure you answer questions quickly to score more points than your opponent, but make sure they're correct first else you get no points!
+                        </GameGuideCardText>
+                    </GameGuideCard>
+                    </div>
+
+                    <div className>
+
                     </div>
                 </div>
             
