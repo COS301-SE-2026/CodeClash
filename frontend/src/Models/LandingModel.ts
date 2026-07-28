@@ -16,6 +16,12 @@ export interface Feature {
     desc: string;
 }
 
+export interface PlayerProgress {
+    label: string;
+    progress: number;
+    color: string;
+}
+
 export const stats: Stat[] = [
     {
         value: '1v1',
@@ -86,5 +92,18 @@ export const features: Feature[] = [
         icon: 'globe',
         title: 'Leaderboard',
         desc: 'See where you stand globally and among your league.',
+    },
+]
+
+export const players: PlayerProgress[] = [
+    {
+        label: 'You',
+        progress: 75,
+        color: '#c0395a',
+    },
+    {
+        label: 'Opponent',
+        progress: 60,
+        color: '#850F3b',
     },
 ]
