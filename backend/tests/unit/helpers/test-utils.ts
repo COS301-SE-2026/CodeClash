@@ -17,11 +17,7 @@ export { request, app }
 
 export const auth = (token: string | undefined) => `Bearer ${token}`
 
-
-
 export const userAuth = async () => { return auth(await getToken()) }
-// export const adminAuth = auth('admin-jwt')
-// export const otherUserAuth = auth('other-user-jwt')
 
 export const setAuth = (token: JWT | undefined) => (req: any) =>
   req.set('Authorization', `Bearer ${token}`)

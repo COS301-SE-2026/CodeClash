@@ -8,46 +8,46 @@ import MatchmakingUserDTO from 'src/entities/dtos/matchmaking.dto';
 
 export const joinMatchQueue = (
     async (io: Server,
-         socket: Socket, 
-         data: any,
-          matchmaking_service: MatchmakingService,
-        PAIRS:Map<string, Map<string, { accepted: boolean, elo: number, username?: string }>> ) => {
-    //adds users to a room 
-    await socket.join(socket.data.user_id)
-    socket.data.game_mode = data.game_mode
-    socket.data.elo = data.elo
+        socket: Socket,
+        data: any,
+        matchmaking_service: MatchmakingService,
+        PAIRS: Map<string, Map<string, { accepted: boolean, elo: number, username?: string }>>) => {
+        //adds users to a room 
+        await socket.join(socket.data.user_id)
+        socket.data.game_mode = data.game_mode
+        socket.data.elo = data.elo
 
-    const user = new MatchmakingUserDTO(socket.data.user_id, data.elo, data.game_mode);
-    let match = null;
+        const user = new MatchmakingUserDTO(socket.data.user_id, data.elo, data.game_mode);
+        let match = null;
 
-    match = await matchmaking_service.matchmaking(user);
+        match = await matchmaking_service.matchmaking(user);
 
-    if (!match)
-        return;
+        if (!match)
+            return;
 
-    const player_1 = match.player_1.id;
-    const player_2 = match.player_2.id;
+        const player_1 = match.player_1.id;
+        const player_2 = match.player_2.id;
 
-    const pair_id = player_1.concat("::").concat(player_2);
+        const pair_id = player_1.concat("::").concat(player_2);
 
-    const pair = {
-        player_1: player_1,
-        player_2: player_2,
-        pair_id: pair_id,
-        game_mode: data.game_mode,
-        player_1_elo: match.player_1.elo,
-        player_2_elo: match.player_2.elo
-    }
+        const pair = {
+            player_1: player_1,
+            player_2: player_2,
+            pair_id: pair_id,
+            game_mode: data.game_mode,
+            player_1_elo: match.player_1.elo,
+            player_2_elo: match.player_2.elo
+        }
 
 
-    PAIRS.set(pair_id, new Map([
-        [player_1, { accepted: false, elo: match.player_1.elo }],
-        [player_2, { accepted: false, elo: match.player_2.elo }]
-    ]));
+        PAIRS.set(pair_id, new Map([
+            [player_1, { accepted: false, elo: match.player_1.elo }],
+            [player_2, { accepted: false, elo: match.player_2.elo }]
+        ]));
 
-    io.to(player_1!).emit('users_matched', pair);
-    io.to(player_2!).emit('users_matched', pair);
-})
+        io.to(player_1!).emit('users_matched', pair);
+        io.to(player_2!).emit('users_matched', pair);
+    })
 
 export const leaveMatchQueue = (async (io: Server, socket: Socket, matchmaking_service: MatchmakingService) => {
     const remove = await matchmaking_service.dequeue(socket.data.user_id, socket.data.game_mode);
@@ -61,53 +61,53 @@ export const leaveMatchQueue = (async (io: Server, socket: Socket, matchmaking_s
 
 export const matchAccepted = (
     async (io: Server,
-         socket: Socket, 
-         data: GameDataDTO, 
-         game_service: GameService, 
-         PAIRS:Map<string, Map<string, { accepted: boolean, elo: number, username?: string }>>,
+        socket: Socket,
+        data: GameDataDTO,
+        game_service: GameService,
+        PAIRS: Map<string, Map<string, { accepted: boolean, elo: number, username?: string }>>,
         GAME: Map<number, { players: PlayerDTO[], questions: GameQuestionsDTO }>
-        ) => {
+    ) => {
 
-    PAIRS.get(data.pair_id)?.set(socket.data.user_id, { accepted: true, elo: socket.data.elo, username: data.username });
+        PAIRS.get(data.pair_id)?.set(socket.data.user_id, { accepted: true, elo: socket.data.elo, username: data.username });
 
-    const pair = PAIRS.get(data.pair_id);
+        const pair = PAIRS.get(data.pair_id);
 
-    if (!pair)
-        return;
+        if (!pair)
+            return;
 
-    const bothAccepted = [...pair.values()].every(val => val.accepted);
-    if (bothAccepted) {
-        const players: PlayerDTO[] = [];
+        const bothAccepted = [...pair.values()].every(val => val.accepted);
+        if (bothAccepted) {
+            const players: PlayerDTO[] = [];
 
-        pair.forEach((val, key) => {
-            const player: PlayerDTO = {
-                id: key,
-                username: val.username!,
-                elo: val.elo,
-                avatar: data.avatar!,
-                life: 100
+            pair.forEach((val, key) => {
+                const player: PlayerDTO = {
+                    id: key,
+                    username: val.username!,
+                    elo: val.elo,
+                    avatar: data.avatar!,
+                    life: 100
+                }
+
+                players.push(player)
+            })
+
+            const setup = await game_service.execute(players, data.game_mode, data.league);
+
+            const keys = [...pair!.keys()];
+            GAME.set(setup.id, { players: players, questions: setup.questions as GameQuestionsDTO })
+
+            for (const key of keys) {
+                io.to(key).emit("start_game", { game_id: setup.id });
             }
 
-            players.push(player)
-        })
-
-        const setup = await game_service.execute(players, data.game_mode, data.league);
-
-        const keys = [...pair!.keys()];
-        GAME.set(setup.id, { players: players, questions: setup.questions as GameQuestionsDTO })
-
-        for (const key of keys) {
-            io.to(key).emit("start_game", { game_id: setup.id });
         }
+        else {
+            // waiting for the other player to accept
+            // might need to add a timeout 
+        }
+    })
 
-    }
-    else {
-        // waiting for the other player to accept
-        // might need to add a timeout 
-    }
-})
-
-export const matchDeclined = ((io: Server, socket: Socket, pair_id: string, PAIRS:Map<string, Map<string, { accepted: boolean, elo: number, username?: string }>>) => {
+export const matchDeclined = ((io: Server, socket: Socket, pair_id: string, PAIRS: Map<string, Map<string, { accepted: boolean, elo: number, username?: string }>>) => {
     const pair = PAIRS.get(pair_id);
     const players = pair ? [...pair.keys()] : null; //get ids of paird players 
 
@@ -125,7 +125,7 @@ export const matchDeclined = ((io: Server, socket: Socket, pair_id: string, PAIR
     }
 })
 
-export const sendGameQuestions = (io: Server, game_id: number,GAME: Map<number, { players: PlayerDTO[], questions: GameQuestionsDTO }>) => {
+export const sendGameQuestions = (io: Server, game_id: number, GAME: Map<number, { players: PlayerDTO[], questions: GameQuestionsDTO }>) => {
     const data = GAME.get(game_id)
 
     if (data) {
@@ -137,12 +137,12 @@ export const sendGameQuestions = (io: Server, game_id: number,GAME: Map<number, 
     }
 }
 
-export const sendGamePlayers = (io: Server, game_id: number,GAME: Map<number, { players: PlayerDTO[], questions: GameQuestionsDTO }>) => {
+export const sendGamePlayers = (io: Server, game_id: number, GAME: Map<number, { players: PlayerDTO[], questions: GameQuestionsDTO }>) => {
     const data = GAME.get(game_id);
 
-    if(data){
-        for(const player of data.players){
-            io.to(player.id).emit('get_players',data.players);
+    if (data) {
+        for (const player of data.players) {
+            io.to(player.id).emit('get_players', data.players);
         }
     }
 }
