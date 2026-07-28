@@ -1,0 +1,20 @@
+frontend/src/Views/FinalResults.tsx
+  h_94c952a9e14c58 130,179
+backend/src/interface-adapters/socket-handlers/matchmaking.handler.ts
+  h_94c952a9e14c58 31
+backend/src/application/usecases/systems/finish-game.ts
+  h_94c952a9e14c58 37,39,42,47
+backend/src/application/usecases/systems/submission.system.ts
+  h_94c952a9e14c58 26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "1c6d3c6924fbf70a0080571659eed78aa4092a4b",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+backend/src/interface-adapters/socket-handlers/matchmaking.handler.ts
+  h_94c952a9e14c58 19,22,24,27,30,32
+backend/tests/unit/controllers/elo.controlers.test.ts
+  h_94c952a9e14c58 1-11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "b6645b450902b2b58388d9d58af2be10faa5dd86",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
