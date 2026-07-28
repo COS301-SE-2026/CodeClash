@@ -1,6 +1,6 @@
 import { vi, Mock, describe, beforeEach, it, expect} from 'vitest';
-import { getMatchResults } from '../../../src/interface-adapters/controllers/match-results.controllers';
 import { Response, Request } from 'express';
+import { MatchResultService } from '../../../src/application/usecases/services/match-result.service';
 
 const mockReq = (override: Partial<Request> = {}): Request => ({ params: {}, body: {}, query: {}, ...override } as unknown as Request);
 
@@ -11,12 +11,17 @@ const mockRes = (): Response => {
     return res;
 };
 
-vi.mock('src/application/usecases/services/match-result.service', () => ({
-    MatchResultService: vi.fn().mockImplementation(() => ({ getMatchResult: vi.fn(),})),
-}));
+const getMatchResultMock = vi.fn();
+
+vi.mock('src/application/usecases/services/match-result.service', () => {
+    class MockMatchResultService { getMatchResult= getMatchResultMock; }
+    return { MatchResultService: MockMatchResultService };
+});
+
+const { getMatchResults } = await import( '../../../src/interface-adapters/controllers/match-results.controllers');
 
 describe('getMatchResults controller', () => {
-    beforeEach(() => vi.clearAllMocks());
+    beforeEach(() => {getMatchResultMock.mockReset(); });
 
     it('returns 200 with match result', async () => {
         const mockResult = {
@@ -30,9 +35,9 @@ describe('getMatchResults controller', () => {
         const req = mockReq({ params: { match_id: 'match-uuid' } });
         const res = mockRes();
 
-        const { MatchResultService } = await import('../../../src/application/usecases/services/match-result.service');
-        const instance= new MatchResultService({} as any, {} as any);
-        (instance.getMatchResult as Mock).mockResolvedValueOnce(mockResult);
+        //const { MatchResultService } = await import('../../../src/application/usecases/services/match-result.service');
+        //const instance= new MatchResultService({} as any, {} as any);
+        getMatchResultMock.mockResolvedValueOnce(mockResult);
 
         await getMatchResults(req, res);
 
@@ -54,9 +59,9 @@ describe('getMatchResults controller', () => {
         const req = mockReq({ params: { match_id: 'match-uuid' } });
         const res = mockRes();
 
-        const { MatchResultService } = await import('../../../src/application/usecases/services/match-result.service');
-        const instance= new MatchResultService({} as any, {} as any);
-        (instance.getMatchResult as Mock).mockRejectedValueOnce(new Error('Results not ready'));
+        //const { MatchResultService } = await import('../../../src/application/usecases/services/match-result.service');
+        //const instance= new MatchResultService({} as any, {} as any);
+        getMatchResultMock.mockRejectedValueOnce(new Error('Results not ready'));
 
         await getMatchResults(req, res);
 
