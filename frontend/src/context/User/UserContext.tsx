@@ -112,7 +112,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         getAvatarUrl()
         getLeague();
 
-        if (!isLoading) {
+        if (!isLoading && user) {
             getUsername(user);
             setUserId(user!.userId);
 
