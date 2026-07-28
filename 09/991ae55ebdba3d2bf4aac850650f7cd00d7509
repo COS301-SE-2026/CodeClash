@@ -1,0 +1,22 @@
+backend/src/frameworks-drivers/app.ts
+  h_94c952a9e14c58 15
+frontend/src/App.tsx
+  h_94c952a9e14c58 37-46,53
+backend/src/entities/World.ts
+  h_94c952a9e14c58 75-76
+backend/src/application/usecases/check-answer.ts
+  h_94c952a9e14c58 47
+frontend/src/Views/MathsMatch.tsx
+  h_94c952a9e14c58 29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "09991ae55ebdba3d2bf4aac850650f7cd00d7509",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
