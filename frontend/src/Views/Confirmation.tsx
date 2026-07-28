@@ -1,12 +1,12 @@
 import React from "react";
 import { AlertTriangle } from "lucide-react";
-import type {ConfirmationViewModel} from '../ViewModels/ConfirmationViewModel';
+import type { ConfirmationViewModel } from '../ViewModels/ConfirmationViewModel';
 
 interface ConfirmationPopupProps {
     confirmation: ConfirmationViewModel;
 }
 
-const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({confirmation}) => {
+const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({ confirmation }) => {
     const {
         content,
         isVisible, dontAskAgain, handleDontAsk,
@@ -24,9 +24,9 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({confirmation}) => 
 
                 {/*Dont ask me again option */}
                 <label className="flex items-center gap-3 cursor-pointer">
-                    <input type="checkbox" checked = {dontAskAgain} onChange={(e) => handleDontAsk(e.target.checked)}
-                        className="w-5 h-5 cursor-pointer rounded"/>
-                    <span className="text-black" style={{fontSize: 'var(--font-size-sm)'}}>{content.dontAskAgainLabel}</span>
+                    <input type="checkbox" checked={dontAskAgain} onChange={(e) => handleDontAsk(e.target.checked)}
+                        className="w-5 h-5 cursor-pointer rounded" />
+                    <span className="text-black" style={{ fontSize: 'var(--font-size-sm)' }}>{content.dontAskAgainLabel}</span>
                 </label>
 
                 {/*The cancel and submit buttons */}

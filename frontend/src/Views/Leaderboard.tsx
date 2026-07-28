@@ -1,4 +1,5 @@
-import profile from '../assets/Icons/profile_black.png';
+import profile from '../assets/Icons/Profile.png';
+import shadow from '../assets/shadow.png';
 import winner from '../assets/Icons/winner.png';
 import planet from '../assets/Planets/Earth.png';
 import background from '../assets/Background/leaderboard_background.png';
