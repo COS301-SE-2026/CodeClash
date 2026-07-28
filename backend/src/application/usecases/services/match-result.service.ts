@@ -1,6 +1,5 @@
 import { IEloRepository } from "src/application/interfaces/repositories/IEloRepository";
-// import { IMatchResultRepository } from "src/application/interfaces/repositories/IMatchResultRepository";
-import { IMatchResultRepository } from "../../interfaces/repositories/IMatchResultRepository";
+import { IMatchResultRepository } from "src/application/interfaces/repositories/IMatchResultRepository";
 import { MatchResultDTO, PlayerResultDTO } from "src/entities/dtos/match-result.dto";
 import { PlayerStatsDTO } from "src/entities/dtos/player-stats.dto";
 
@@ -22,8 +21,8 @@ export class MatchResultService{
         if(is_ranked) {
             const { winner, loser } = await this.elo_repo.updateRatingsAfterMatch(match_id, winner_id, loser_id);
             await this.match_result_repo.saveMatchLog(match_id, winner_id, loser_id, winner.elo_gained, -loser.elo_gained);
-            eloEffects.set(winner_id,0);
-            eloEffects.set(loser_id, 0);
+            eloEffects.set(winner_id, winner.elo_gained);
+            eloEffects.set(loser_id, loser.elo_gained);
         }else{
             await this.match_result_repo.saveMatchLog(match_id, winner_id, loser_id, null, null);
             eloEffects.set(winner_id,0);
@@ -49,5 +48,9 @@ export class MatchResultService{
         players.sort((a, b) => a.position - b.position);
 
         return { match_id, players };
+    }
+
+    async getMatchResult(match_id: string): Promise<MatchResultDTO> {
+        return await this.match_result_repo.buildMatchResult(match_id);
     }
 }
