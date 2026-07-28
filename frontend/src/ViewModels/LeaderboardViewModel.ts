@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
-import { data } from 'react-router-dom';
 import type { LeaderboardUserProps } from 'src/Models/LeaderboardModel';
-import { LeaderboardProps, fetchLeaderboardUsers } from 'src/Models/LeaderboardModel';
+import { fetchLeaderboardUsers } from 'src/Models/LeaderboardModel';
 
 
 export function LeaderboardViewModel(league : string){
