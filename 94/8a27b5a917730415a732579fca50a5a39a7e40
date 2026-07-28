@@ -1,0 +1,14 @@
+backend/src/interface-adapters/socket-handlers/game.handler.ts
+  h_94c952a9e14c58 9-10,14,19-36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "948a27b5a917730415a732579fca50a5a39a7e40",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
