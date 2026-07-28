@@ -10,6 +10,12 @@ export interface Step {
     desc: string;
 }
 
+export interface Feature {
+    icon: "calculator" | "code" | "chart" | "medal" | "history" | "globe";
+    title: string;
+    desc: string;
+}
+
 export const stats: Stat[] = [
     {
         value: '1v1',
@@ -48,4 +54,37 @@ export const steps:Step[] = [
         title: 'CLimb the Ranks',
         desc: 'Your ELO updates after every match. Earn nadges, trcak your history, and rise through the leaderboard.',
     }
+]
+
+export const features: Feature[] = [
+    {
+        icon: 'calculator',
+        title: 'Math Battles',
+        desc: 'Timed arithmetic, algebraic and calculus challenges against a live opponent.',
+    },
+    {
+        icon: 'code',
+        title: 'Code Duels',
+        desc: 'Solve programming problems with speed and accuracy.',
+    },
+    {
+        icon: 'chart',
+        title: 'ELO Ranking',
+        desc: 'A fair skill-based rating system. Win and climb. Lose and learn.',
+    },
+    {
+        icon: 'medal',
+        title: 'Badges',
+        desc: 'Earn achievements for milestones, winning streaks and special challenges.',
+    },
+    {
+        icon: 'history',
+        title: 'Math History',
+        desc: 'Review every match, your speed, accuracy and ELO impact.',
+    },
+    {
+        icon: 'globe',
+        title: 'Leaderboard',
+        desc: 'See where you stand globally and among your league.',
+    },
 ]
