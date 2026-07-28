@@ -16,7 +16,12 @@ const matchResultRepository = new MatchResultRepository(
 const service = new MatchResultService(eloRepository, matchResultRepository);
 
 export const getMatchResults = async (req: Request, res: Response ): Promise<void> => {
-    const { match_id } = req.params;
+    const  match_id  = req.params['match_id'] as string;
+
+    if (!match_id) {
+        res.status(400).json({message: "match ID is required"});
+        return;
+    }
 
     try{
         const result = await service.getMatchResult(match_id);
