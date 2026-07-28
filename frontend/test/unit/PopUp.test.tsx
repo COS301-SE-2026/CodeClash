@@ -77,7 +77,7 @@ describe("PopUp", () => {
         ></PopUp>)
 
         fireEvent.click(screen.getByRole('button', { name: 'math-selector' }))
-        expect(mock_select_topic).toHaveBeenCalledWith('math');
+        expect(mock_select_topic).toHaveBeenCalledWith('maths');
     })
 
     it("Selects programming topic", () => {
@@ -87,6 +87,6 @@ describe("PopUp", () => {
         ></PopUp>)
 
         fireEvent.click(screen.getByRole('button', { name: 'prog-selector' }))
-        expect(mock_select_topic).toHaveBeenCalledWith('prog');
+        expect(mock_select_topic).toHaveBeenCalledWith('programming');
     })
 })

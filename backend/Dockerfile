@@ -3,10 +3,10 @@ FROM node:22-alpine
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm install
+RUN npm ci --ignore-scripts
 
 COPY . .
 
 EXPOSE 3000
 
-CMD ["npx","ts-node", "src/server.ts"]
+CMD ["npx","--no-install","ts-node@10.9.2","-r","tsconfig-paths/register", "src/frameworks-drivers/server.ts"]

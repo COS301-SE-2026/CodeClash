@@ -9,8 +9,8 @@
     "dev": "npm run frontend && npm run backend",
     "test:backend": "cd backend && npx vitest run",
     "test:backend:coverage": "cd backend && npx vitest run --coverage",
-    "test:frontend": "cd frontend && npx vitest run",
-    "test:frontend:coverage": "cd frontend && npx vitest run --coverage",
+    "test:frontend": "cd frontend && NODE_OPTIONS=--no-experimental-webstorage npx vitest run",
+    "test:frontend:coverage": "cd frontend && NODE_OPTIONS=--no-experimental-webstorage npx vitest run --coverage",
     "lint": "npm run lint --prefix frontend && npm run lint --prefix backend",
     "lint:staged": "lint-staged",
     "prepare": "husky"
@@ -40,8 +40,11 @@
     "vitest": "^4.1.6"
   },
   "dependencies": {
-    "aws-amplify": "^6.18.0",
+    "clsx": "^2.1.1",
+    "color-convert": "^3.1.3",
+     "aws-amplify": "^6.18.0",
     "jest": "^30.4.2",
+    "mock-socket": "^9.3.1",
     "ws": "^8.21.0"
   }
 }

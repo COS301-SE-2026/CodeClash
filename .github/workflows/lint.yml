@@ -51,12 +51,12 @@ jobs:
 
       - name: Install root dependencies
         if: steps.changed.outputs.any_changed == 'true'
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - name: Install backend dependencies
         if: steps.changed.outputs.any_changed == 'true'
         working-directory: backend
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - name: Run ESLint on changed files only
         if: steps.changed.outputs.any_changed == 'true'
@@ -97,12 +97,12 @@ jobs:
 
       - name: Install root dependencies
         if: steps.changed.outputs.any_changed == 'true'
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - name: install frontend dependencies
         if: steps.changed.outputs.any_changed == 'true'
         working-directory: frontend
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - name: Run ESLint on changed files only
         if: steps.changed.outputs.any_changed == 'true'
