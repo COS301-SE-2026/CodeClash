@@ -120,7 +120,7 @@ AppDataSource.initialize()
 
             socket.on('send_questions', (game_id: number) => { sendGameQuestions(io, game_id) });
 
-            socket.on('submit_question', (data: SubmissionDTO) => submitQuestion(io, socket,data, check_answer));
+            socket.on('submit_question', (data: SubmissionDTO) => submitQuestion(io, socket,data, check_answer, world));
 
         })
 

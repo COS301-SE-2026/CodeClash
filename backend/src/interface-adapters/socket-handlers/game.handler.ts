@@ -4,14 +4,14 @@ import { SubmissionDTO } from "src/entities/dtos/components.dto";
 import { World } from "src/entities/World";
 import { PlayersComponent, LifeComponent } from "src/entities/components";
 
-export const submitQuestion = async (io: Server, socket: Socket ,data: SubmissionDTO, check_answer: CheckAnswer) => {
+export const submitQuestion = async (io: Server, socket: Socket ,data: SubmissionDTO, check_answer: CheckAnswer, world: ReturnType<typeof World>) => {
     try {
         const player_id = socket.data.user_id;
         const result = await check_answer.execute(data.match_id, socket.data.user_id, data.question_id, data.answer)
 
         io.to(socket.data.user_id).emit('submission_result', result);
 
-        const { getMatchComponent, getPlayerComponent } = World();
+        const { getMatchComponent, getPlayerComponent } = world;
         const players = getMatchComponent<PlayersComponent>(data.match_id, 'Players');
 
         if(players){
