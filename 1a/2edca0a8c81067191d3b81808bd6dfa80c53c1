@@ -1,0 +1,36 @@
+frontend/src/main.tsx
+  h_94c952a9e14c58 9,16-17,19-20
+frontend/src/Views/Dashboard.tsx
+  h_94c952a9e14c58 14-16,21-23,25-27,63,66,78-80,83
+frontend/@/components/shared/Match.tsx
+  h_94c952a9e14c58 36,89,108,113,122,124,129
+frontend/src/ViewModels/SignInViewModel.ts
+  h_94c952a9e14c58 5-12
+frontend/src/pages/ProgMatch.tsx
+  h_94c952a9e14c58 1-14,54-76
+frontend/src/App.tsx
+  h_94c952a9e14c58 2-3,5,9-10,12-15,18-40,43,48-50,52
+frontend/@/components/ui/badge.tsx
+  h_94c952a9e14c58 43
+frontend/src/ViewModels/SignUpViewModel.ts
+  h_94c952a9e14c58 4-6,9-17,43,57,65-66,70,72
+frontend/src/context/Auth/AuthContext.tsx
+  h_94c952a9e14c58 9-10,20,22-27,31-32,37,40,44-46,49,52,54,56,66,92,99,102,138,146-147,164,169-170
+package.json
+  h_94c952a9e14c58 12-13,18-24,52,54
+frontend/src/Views/Leaderboard.tsx
+  h_94c952a9e14c58 1-2
+.github/workflows/ci.yml
+  h_94c952a9e14c58 31,33,36,48,50,53,61-63
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "1a2edca0a8c81067191d3b81808bd6dfa80c53c1",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
