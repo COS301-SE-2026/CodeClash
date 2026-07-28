@@ -39,15 +39,26 @@ CodeClash follows agile testing where every component will be testing once its b
 # Quality Objective
 
 ### Coverage 
-    Tests should have 100% coverage on branches, statements and functions. 
+    Core game logic needs to be tested with at least 90% coverage, core features include:
+        - submission validation
+        - matchmaking
+        - game creation
+        - game resolution 
+    
+    Secondary features need to be tested with at least 80% coverage, secondary features include:
+        - navigation
+        - ui interactions 
+    
 
 ### Definition of Done
     Features are considered 'Done' once all tests for that feature have passed 
 
 ### Priority Order 
-    1. Backend functionality 
-    2 Backend-Frontend connection 
-    3. Frontend views 
+    - Backend-Frontend connection 
+    - Backend functionality 
+    - Frontend Providers 
+    - Frontend View Models
+    - Frontend Views  
 
 # Testing Standards
 ### Naming Conventions 
@@ -55,6 +66,12 @@ CodeClash follows agile testing where every component will be testing once its b
     - it blocks: <Use Case>
 
 ## Mocking Conventions 
+
+External dependencies are mocked in unit tests
+- redis (ioredis-mock)
+- database accesses (mock repositories)
+
+Integration and system tests use real connection through the Docker containers to validate behaviour
     
 
 ## File Structure 
@@ -77,4 +94,15 @@ All testing in the pipeline must pass before PRs can be merged
 All tests must be passing locally before a PR is opened into dev or main
 
 # Risk Management
+
+## Coverage Shortfall
+    If testing for a feature cannot reach target coverage by the deadline, this must be documented with reason so it can be planned into the next sprint and prioritised 
+
+## Failing Tests
+    tests that fail continuously or intermittently are treated as a defect in the code or the test.
+    Thesee tests are not to be deleted and must be addressed and updated accordingly 
+
+## Timeline
+    Testing is prioritised as outlined in the [Quality objective](#quality-objective) section
+    Given the fixed deadlines of the project, lower-priority areas may be submitted with lower coverage, should time run out.
 
