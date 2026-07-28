@@ -2,11 +2,9 @@
 export interface ProfileProps {
     avatarUrl: string;
     username: string;
-    player_level: number;
-    current_streak: number;
-    winning_streak: number;
-    email: string;
-    prev_page: string;
+    rank: number;
+    elo: number;
+    league: string;
 }
 
 

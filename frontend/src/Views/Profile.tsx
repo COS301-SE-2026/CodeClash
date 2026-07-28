@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Profile: React.FC<ProfileProps> = ({
   username = 'User Name',
-  elo = 
+  elo = 600,
   player_level = 'Level 32 - Mercury',
   current_streak = 522,
   winning_streak = 63,
