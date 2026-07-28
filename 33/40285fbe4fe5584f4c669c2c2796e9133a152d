@@ -1,0 +1,14 @@
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 45,113,142
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "3340285fbe4fe5584f4c669c2c2796e9133a152d",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
