@@ -42,6 +42,7 @@ import { validateToken } from '../interface-adapters/auth/auth.service';
 
 import app from './app';
 import { AppDataSource } from "./config/data-source"
+import { OpponentProgress } from 'src/application/usecases/systems/opponent-progress';
 
 dotnev.config()
 
@@ -109,6 +110,7 @@ AppDataSource.initialize()
         const submission_system = new SubmissionSystem(world);
         const life_system = new LifeSystem(world);
         const finish_game = new FinishGame(world);
+        const opponent_progress = new OpponentProgress(world);
 
         const check_answer = new CheckAnswer(game_cache, submission_system, life_system, world)
 
@@ -137,7 +139,7 @@ AppDataSource.initialize()
 
             socket.on('send_players', (game_id: number) => { sendGamePlayers(io, game_id, GAME) })
 
-            socket.on('submit_question', (data: SubmissionDTO) => submitQuestion(io, socket, data, check_answer));
+            socket.on('submit_question', (data: SubmissionDTO) => submitQuestion(io, socket, data, check_answer, opponent_progress));
 
             socket.on('question_started', (data: StartQuestionDTO) => startQuestion(submission_system, data));
 
