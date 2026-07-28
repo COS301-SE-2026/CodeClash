@@ -1,0 +1,16 @@
+backend/src/application/usecases/systems/opponent-progress.ts
+  h_94c952a9e14c58 1-46
+backend/src/interface-adapters/socket-handlers/game.handler.ts
+  h_94c952a9e14c58 8,13-14,22,24,26-30
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "0d6a141f88d2596ca71a00b4fc88d6fd7e713910",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
