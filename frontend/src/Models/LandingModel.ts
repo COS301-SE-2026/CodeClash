@@ -107,3 +107,10 @@ export const players: PlayerProgress[] = [
         color: '#850F3b',
     },
 ]
+
+export const audience: string[] = [
+    "Computer science students aiming to imporve thier techincal skills",
+    "Mathematics studnets who want to benchmark their speed",
+    "Competitive programmers looking for daily match practice",
+    "Anyone who wants to learn match and programming",
+]
