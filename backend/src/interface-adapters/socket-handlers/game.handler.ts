@@ -5,37 +5,31 @@ import { SubmissionSystem } from "src/application/usecases/systems/submission.sy
 import { ResultComponent } from "src/entities/components";
 import { SubmissionDTO } from "src/entities/dtos/components.dto";
 import { StartQuestionDTO } from "src/entities/dtos/question.dto";
+import { OpponentProgress } from "src/application/usecases/systems/opponent-progress";
 
-import { World } from "src/entities/World";
-import { PlayersComponent, LifeComponent } from "src/entities/components";
-
-export const submitQuestion = async (io: Server, socket: Socket, data: SubmissionDTO, check_answer: CheckAnswer) => {
+export const submitQuestion = async (
+    io: Server, socket: Socket,
+    data: SubmissionDTO,
+    check_answer: CheckAnswer,
+    opponent_progres: OpponentProgress
+) => {
     try {
         const player_id = socket.data.user_id;
         const result = await check_answer.execute(data.match_id, socket.data.user_id, data.question_id, data.answer)
 
         io.to(socket.data.user_id).emit('submission_result', result);
 
-        const { getMatchComponent, getPlayerComponent } = World();
-        const players = getMatchComponent<PlayersComponent>(data.match_id, 'Players');
+        //notify the opponent that this player answered
 
-        if(players){
-            for (const [opponent_id, opponent_entity] of players.players){
-                //skip self
-                if(opponent_id === player_id) continue;
+        const opponent = opponent_progres.execute(data, socket.data.user_id);
 
-                const life = getPlayerComponent<LifeComponent>(opponent_entity, 'Life');
-
-                //notify the opponent that this player answered
-                io.to(opponent_id).emit('opponent_progress', {
-                    player_id,
-                    correct: result,
-                    opponent_life: life?.current_life ?? null
-                });
-            }
-        }
+        io.to(opponent.opponent).emit('opponent_progress', {
+            player_id,
+            correct: result,
+            opponent_life: opponent.opponent_life
+        });
     }
-    catch (error:unknown) {
+    catch (error: unknown) {
         io.to(socket.data.user_id).emit('submission_error', error);
         return;
     }
@@ -53,7 +47,7 @@ export const gameDone = (io: Server, socket: Socket, pair_id: string, game_id: n
 
     console.log(pair)
 
-    if (!pair) throw new Error ("Invalid pair id");
+    if (!pair) throw new Error("Invalid pair id");
     const prev = pair.get(socket.data.user_id);
 
     if (!prev) throw new Error("invalid pair");
