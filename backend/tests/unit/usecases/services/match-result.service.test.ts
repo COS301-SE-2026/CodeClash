@@ -19,15 +19,6 @@ const mockMatchResultRepo: IMatchResultRepository = {
     buildMatchResult: vi.fn(),
 };
 
-const mockReq = (override: Partial<Request> = {}): Request => ({ params: {}, body: {}, query: {}, ...override } as unknown as Request);
-
-const mockRes = (): Response => {
-    const res = {} as Response;
-    res.status = vi.fn().mockReturnValue(res);
-    res.json = vi.fn().mockReturnValue(res);
-    return res;
-};
-
 describe('MatchResultService', () => {
     let service: MatchResultService;
 
