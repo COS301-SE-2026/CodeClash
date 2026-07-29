@@ -6,14 +6,12 @@ import { SubmissionDTO } from "src/entities/dtos/components.dto";
 export class OpponentProgress {
 
     private readonly getMatchComponent;
-    private readonly getPlayerComponent
     constructor(
         private readonly world: ReturnType<typeof World>
     ) {
-        const { getMatchComponent, getPlayerComponent } = this.world
+        const { getMatchComponent} = this.world
 
         this.getMatchComponent = getMatchComponent;
-        this.getPlayerComponent = getPlayerComponent;
 
     }
 

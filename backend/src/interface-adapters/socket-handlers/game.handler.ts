@@ -19,7 +19,6 @@ export const submitQuestion = async (
 
         io.to(socket.data.user_id).emit('submission_result', result);
 
-
         const opponent_id = opponent_progres.execute(data, socket.data.user_id);
 
         if(opponent_id === undefined) throw new Error("Couldn't get opponent")
