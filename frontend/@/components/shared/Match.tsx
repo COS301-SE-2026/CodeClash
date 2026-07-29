@@ -114,14 +114,14 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                     style={{ top: `${(question_number - 1 - current_question) * 9.6}rem` }}
                                     alt='progress avatar user 1'
                                 />
-                                <div>
+                                <div className='relative w-[50%]'>
                                     <img src={avatars[0]}
                                         className=" absolute w-20 h-30 object-cover scale-x-[-1]"
                                         style={{ top: `${(question_number - 1 - opponent_progress) * 9.6}rem` }}
                                         alt='progress avatar user 2'
                                     />
                                     {opponent_done &&
-                                        <Badge variant={'secondary'} className= 'amimate-pop'>DONE</Badge>
+                                        <Badge variant={'secondary'} className= 'absolute top-25 animate-pop botton-0 w-[100%] h-[2rem] text-sm font-bold'>DONE</Badge>
                                     }
 
                                 </div>
