@@ -85,7 +85,7 @@ export const features: Feature[] = [
     },
     {
         icon: 'history',
-        title: 'Math History',
+        title: 'Match History',
         desc: 'Review every match, your speed, accuracy and ELO impact.',
     },
     {

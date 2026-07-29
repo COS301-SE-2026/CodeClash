@@ -120,6 +120,26 @@ const Landing:React.FC = ()=>{
                     })}
                 </div>
             </section>
+
+            {/*Features of the game */}
+            <section style = {{padding: "6 rem 8%", background: "linear-gradient(to bottom, #0a0008, #1a0610"}}>
+                <div style={{textAlign: "center", marginBottom: "4rem"}}>
+                    <p style={{ color: "#c0395a", fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.15rem", textTransform: "uppercase", marginBottom: "0.75rem"}}>Features</p>
+                    <h2 style={{fontSize: "clamp(1.8rem, 4vw, 2.8rem)", fontWeight: 900, color: "#fcecdd", margin: 0}}>Built for competitors</h2>
+                </div>
+                <div style={{display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))", gap: "1.5rem"}}>
+                    {features.map((feature) => {
+                        const Icon = featureIcons[feature.icon];
+                        return (
+                            <div key = {feature.title} style={{background: "rgba(252, 236, 221, 0.03)", border: "1px solid rgba(252, 235, 221, 0.07)", borderRadius: "18px", padding: "1.75rem", transition: "0.25"}}>
+                                <Icon size = {34} color = "#c0395a" style={{marginBottom: "1rem"}}/>
+                                <h3 style={{color: "#fcecdd", fontWeight: 700, fontSize: "1.05rem", marginBottom: "0.75rem"}}>{feature.title}</h3>
+                                <p style={{color: "rgba(252, 236, 221, 0.55)", lineHeight: 1.7, margin: 0}}>{feature.desc}</p>
+                            </div>
+                        )
+                    })}
+                </div>
+            </section>
         </div>
     )
 }
