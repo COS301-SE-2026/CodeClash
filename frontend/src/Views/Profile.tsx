@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useUsername } from 'src/ViewModels/SharedViewModel';
+import { useUser } from 'src/context/User/hooks/useUser';
 
 import placeholder from '../assets/Avatar/placeholder.png'
 import { type ProfileProps } from '../Models/ProfileModel';
@@ -19,7 +19,7 @@ const Profile: React.FC<ProfileProps> = ({
 }) => {
 
   const onLogout = useLogOut();
-  const username = useUsername();
+  const { username } = useUser();
 
   return (
     <div className="w-full min-h-screen bg-secondary flex flex-col items-center justify-center text-secondary-text">

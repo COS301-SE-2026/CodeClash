@@ -4,7 +4,7 @@ FROM node:22-alpine AS builder
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm install
+RUN npm ci --ignore-scripts
 
 COPY . .
 RUN npm run build
@@ -33,3 +33,4 @@ HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD node 
 
 ENTRYPOINT [ "dumb-init", "--" ]
 CMD ["node", "dist/server.js"]
+# CMD ["npx","--no-install","ts-node@10.9.2","-r","tsconfig-paths/register", "src/frameworks-drivers/server.ts"]

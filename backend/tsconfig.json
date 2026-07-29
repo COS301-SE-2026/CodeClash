@@ -16,13 +16,21 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
     "ignoreDeprecations": "6.0",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "baseUrl": ".",
-    "noEmitOnError": true
-    // "paths": {
-    //   "root/*": [
-    //     "../*"
-    //   ]
-    // }
+    "noEmitOnError": true,
+    "paths": {
+      "src/*": [
+        "src/*"
+      ]
+    }
   },
-  "include": ["src"]
+  "ts-node": {
+    "files": true
+  },
+  "include": [
+    "src",
+    "types/**/*"
+  ]
 }
