@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
-import type { LeaderboardUserProps } from 'src/Models/LeaderboardModel';
-import { fetchLeaderboardUsers } from 'src/Models/LeaderboardModel';
+// import type { LeaderboardUserProps } from 'src/Models/LeaderboardModel';
+import { fetchLeaderboard, type LeaderboardEntry, type LeaderboardUserProps } from 'src/Models/LeaderboardModel';
 
 
 export function LeaderboardViewModel(league : string){
@@ -12,7 +12,7 @@ export function LeaderboardViewModel(league : string){
         setIsLoadingData(true);
         setError(null);
         try{
-            const data = await fetchLeaderboardUsers(league);
+            const data = await fetchLeaderboard(10);
             setUserData(data);
         }
         catch(err){
