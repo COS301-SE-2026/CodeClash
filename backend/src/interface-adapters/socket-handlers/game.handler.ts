@@ -4,17 +4,33 @@ import { FinishGame } from "src/application/usecases/systems/finish-game";
 import { SubmissionSystem } from "src/application/usecases/systems/submission.system";
 import { ResultComponent } from "src/entities/components";
 import { SubmissionDTO } from "src/entities/dtos/components.dto";
+import { World } from "src/entities/World";
+import { PlayersComponent, LifeComponent } from "src/entities/components";
 import { StartQuestionDTO } from "src/entities/dtos/question.dto";
 
-
-
-export const submitQuestion = async (io: Server, socket: Socket, data: SubmissionDTO, check_answer: CheckAnswer) => {
+export const submitQuestion = async (io: Server, socket: Socket ,data: SubmissionDTO, check_answer: CheckAnswer, world: ReturnType<typeof World>) => {
     try {
         const player_id = socket.data.user_id;
         const result = await check_answer.execute(data.match_id, socket.data.user_id, data.question_id, data.answer)
 
         io.to(socket.data.user_id).emit('submission_result', result);
 
+        const { getMatchComponent } = world;
+        const players = getMatchComponent<PlayersComponent>(data.match_id, 'Players');
+
+        if(players){
+            for (const [opponent_id] of players.players){
+                //skip self
+                if(opponent_id === player_id) continue;
+
+                //notify the opponent that this player answered
+                io.to(opponent_id).emit('opponent_progress', {
+                    player_id: result.player_id,
+                    correct: result.result,
+                    opponent_life: result.life_update
+                });
+            }
+        }
     }
     catch (error: unknown) {
         io.to(socket.data.user_id).emit('submission_error', error);

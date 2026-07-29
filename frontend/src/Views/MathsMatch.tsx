@@ -15,7 +15,7 @@ const MathsMatch = () => {
     const {
         playerLife, avatars, usernames,
         seconds, minutes, questions,
-        currentQuestion, progress,
+        currentQuestion,opponentCurrent,
         nextQuestion, prevQuestion,
         loading, submitQuestion,
         mathfieldRef, setAnswers, answers,
@@ -59,7 +59,7 @@ const MathsMatch = () => {
             avatars={avatars}
             usernames={usernames}
             current_question={currentQuestion}
-            opponent_progress={progress.player_progress[1]}
+            opponent_progress={opponentCurrent}
             question_number={questions.length}
             question_results={results}
         >
@@ -88,8 +88,7 @@ const MathsMatch = () => {
                 <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem] hover:-translate-y-1'
                     onClick={async () => {
                         const answer = mathfieldRef.current?.value ?? '';
-                        await submitQuestion(curr.id!, answer)
-                        if (correct === true) nextQuestion(currentQuestion)
+                        submitQuestion(curr.id!, answer)
                     }}    // need to attach marking logic once submission systems are implemented
                 >
                     SUBMIT

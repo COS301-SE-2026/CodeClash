@@ -11,7 +11,6 @@ import type { SubmissionDTO } from "src/dtos/submission.dto";
 import type { Player, Question, MatchProgress } from "src/Models/MatchModel";
 import { endGame } from "src/services/result.service";
 import { submitAnswer } from "src/services/submission.service";
-import type { SubmissionDTO } from "src/dtos/submission.dto";
 import type { OpponentDTO } from "src/dtos/opponent.dto";
 
 
@@ -30,6 +29,7 @@ export const useMatch = () => {
     const [avatars, setAvatars] = useState<string[]>([]);
     const [usernames, setUsernames] = useState<string[]>([]);
     const [currentQuestion, setCurrentQuestion] = useState(0);
+    const [opponentCurrent, setOpponentCurrent] = useState(0);
     const [loading, setLoading] = useState(false);
     const [questionsReady, setQuestionsReady] = useState(false)
     const [answers, setAnswers] = useState<Record<string, string>>();
@@ -39,6 +39,7 @@ export const useMatch = () => {
 
     const mathfieldRef = useRef<MathfieldElement | null>(null)
     const q_index = useRef<number | null>(null);
+    const op_index = useRef<number | null>(null);
     const players_ref = useRef(players);
 
     const progress: MatchProgress = {
@@ -221,8 +222,23 @@ export const useMatch = () => {
         });
     }
 
-       const opponent_progress = (data: OpponentDTO) => {
+    const opponent_progress = (data: OpponentDTO) => {
         console.log(data)
+
+        setOpponentCurrent((prev) => {
+            if (data.correct === true) return prev + 1
+            else return prev
+        });
+        const player_index = players_ref.current.findIndex(p => p.id === data.player_id)
+        if (player_index === -1) return
+
+        setPlayerLife((prev) => {
+            const next = [...prev];
+            next[player_index] = data.opponent_life;
+            return next
+        })
+
+
     }
     // Use Effects
 
@@ -231,6 +247,12 @@ export const useMatch = () => {
             restart(expiry_time);
         }
     }, [matchDuration])
+
+    useEffect(() => {
+        if (results[currentQuestion] === true) {
+            nextQuestion(currentQuestion);
+        }
+    }, [results, currentQuestion])
 
     useEffect(() => {
         players_ref.current = players
@@ -251,7 +273,7 @@ export const useMatch = () => {
             socket.on("submission_error", submission_error);
             socket.on('waiting_opponent', waiting_opponent);
             socket.on('both_done', both_done)
-            socket.on("opponent_progress",opponent_progress)
+            socket.on("opponent_progress", opponent_progress)
 
             if (questions.length === 0) setLoading(true)
             else { setLoading(false) }
@@ -294,6 +316,7 @@ export const useMatch = () => {
         results,
         gameOver,
         waitingOpponent,
-        finishGame
+        finishGame,
+        opponentCurrent
     }
 }
