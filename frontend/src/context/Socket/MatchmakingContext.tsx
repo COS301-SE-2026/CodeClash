@@ -12,12 +12,12 @@ export const MatchmakingProvider: React.FC<{ children: ReactNode }> = ({ childre
     const [gameMode, setGameMode] = useState<GameMode>(null)
     const [gameType, setGameType] = useState<GameType>(null);
     const [pairId, setPairId] = useState('');
+    const [matched, setMatched] = useState(false);
     const { socket } = useSocket()
 
-    const handleMatched = (mode: GameMode, type: GameType, pair_id: string)=>{
-        setGameType(type);
-        setGameMode(mode);
-        setPairId(pair_id)
+    const handleMatched = (pair_id: string) => {
+        setMatched(true)
+        setPairId(pair_id);
     }
 
 
@@ -25,7 +25,7 @@ export const MatchmakingProvider: React.FC<{ children: ReactNode }> = ({ childre
         if (socket) {
             socket.on('users_matched', handleMatched)
         }
-    },[socket])
+    }, [socket])
 
     const joinMatchQueue = (socket: Socket, data: MatchmakingUserDTO) => {
         socket.emit("join_match_queue", data);
@@ -51,6 +51,9 @@ export const MatchmakingProvider: React.FC<{ children: ReactNode }> = ({ childre
                 gameMode,
                 gameType,
                 pairId,
+                matched,
+                setGameType,
+                setGameMode,
                 joinMatchQueue,
                 leaveMatchQueue,
                 matchAccepted,
