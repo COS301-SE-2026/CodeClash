@@ -59,7 +59,7 @@ const Leaderboard = (league : string) => {
          
             <div className="ml-25% w-[full] h-[30%]"></div>
              <div className="">
-             <div style={{backgroundImage: `url(${background})`}} className="w-[80%] h-[70%] rounded-[20px] bg-no-repeat bg-cover bg-center bg-size-[auto_500%] -mt-[16%] ml-[10%] overflow-y-auto">
+             <div style={{backgroundImage: `url(${background})`}} className="w-[80%] h-[70%] rounded-[20px] bg-no-repeat bg-cover bg-center bg-size-[auto_500%] -mt-[12%] ml-[10%] overflow-y-auto">
                  <div className="grid grid-rows-5 gap-1 items-end">
                      <div className="ml-[12%] h-[70%] w-[75%] rounded-[20px] bg-blend-normal bg-secondary backdrop-blur-lg">
                          <UserCircle className="mt-0.75 w-[42px] h-[42px] bg-no-repeat rounded-full object-cover bg-size-[auto_85px] bg-[right_-21.5px_top_-21.5px]"></UserCircle>
