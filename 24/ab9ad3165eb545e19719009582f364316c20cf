@@ -1,0 +1,42 @@
+frontend/src/Views/MatchFound.tsx
+  h_94c952a9e14c58 14,17-22
+backend/src/application/usecases/init-db.ts
+  h_94c952a9e14c58 13,25
+frontend/src/dtos/matched-user.dto.ts
+  h_94c952a9e14c58 3-12,14
+backend/src/interface-adapters/repositories/user.repository.ts
+  h_94c952a9e14c58 78
+frontend/src/context/Socket/MatchmakingContextValue.tsx
+  h_94c952a9e14c58 3,8
+frontend/src/dtos/matchmaking.dto.ts
+  h_94c952a9e14c58 3
+backend/tests/integration/repositories/mocks/mock-user.ts
+  h_94c952a9e14c58 2
+frontend/src/ViewModels/PopUpViewModel.ts
+  h_94c952a9e14c58 12,19
+backend/src/interface-adapters/socket-handlers/matchmaking.handler.ts
+  h_94c952a9e14c58 7,15-16,36-43,45-54
+backend/tests/unit/usecases/services/matchmaking.service.test.ts
+  h_94c952a9e14c58 4-8,98,102
+backend/tests/integration/repositories/user.repository.test.ts
+  h_94c952a9e14c58 32-33,37-41
+frontend/src/context/Socket/MatchmakingContext.tsx
+  h_94c952a9e14c58 8,17,20,22-23,64
+frontend/src/ViewModels/MatchFoundViewModel.ts
+  h_94c952a9e14c58 10,15,20,22,26,30,40,43,51,57,61,66,78,86-107,109-112,115,117,119,121-122,130-131,142-143
+backend/src/application/usecases/services/matchmaking.service.ts
+  h_94c952a9e14c58 75,79
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 143,161
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "24ab9ad3165eb545e19719009582f364316c20cf",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
