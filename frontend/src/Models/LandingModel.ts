@@ -16,6 +16,13 @@ export interface Feature {
     desc: string;
 }
 
+export interface Docs {
+    title: string;
+    desc: string;
+    icon: "palette" | "book" | "help";
+    link: string;
+}
+
 export const stats: Stat[] = [
     {
         value: '1v1',
@@ -94,4 +101,25 @@ export const audience: string[] = [
     "Mathematics students who want to benchmark their speed",
     "Competitive programmers looking for daily match practice",
     "Anyone who wants to learn math and programming",
+]
+
+export const docs: Docs[] = [
+    {
+        title: 'Brand Style Guide',
+        desc: 'Explore the CodeClash brand identity, including colors, typography, logos, icons and visual design guidelines.',
+        icon: 'palette',
+        link: '/brand-style-guide',
+    },
+    {
+        title: 'Game Guide',
+        desc: 'Learn about game modes, matchmaking, scoring, ELO rankings, badges and everything you need to before entering the CodeClashe Arena.',
+        icon: 'book',
+        link: '/game-guide',
+    },
+    {
+        title: 'Help Menu',
+        desc: 'Find answers to common questions, and learn how to use every part of CodeClash',
+        icon: 'help',
+        link: '/help-menu',
+    },
 ]
