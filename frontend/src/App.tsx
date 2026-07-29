@@ -35,6 +35,9 @@ const App: React.FC = () => {
                 <Route path='/' element={<Landing />} />
                 <Route path='/sign-in' element={<SignIn />} />
                 <Route path='/sign-up' element={<SignUp />} />
+                <Route path= '/brand-style-guide' element={<BrandStyleGuide/>}/>
+                <Route path='/game-guide' element={<Guidebook/>}/> 
+                <Route path= '/help-menu' element={<Guidebook/>}/>
                 <Route path='*' element={<Navigate to='/sign-in' replace />} />
 
             </Routes>
