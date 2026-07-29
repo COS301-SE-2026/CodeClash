@@ -1,0 +1,20 @@
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 46-51,65-70,119,121
+backend/src/interface-adapters/controllers/match-results.controllers.ts
+  h_94c952a9e14c58 4-7,9-12,22
+backend/src/entities/db-entities/elo.entities.ts
+  h_94c952a9e14c58 1,18-19
+backend/src/entities/dtos/match-result.dto.ts
+  h_94c952a9e14c58 6-8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "9eb93eeb42f910c2ab1dd5120b91a3f83839f6b5",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

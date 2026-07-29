@@ -1,0 +1,24 @@
+frontend/src/ViewModels/MatchViewModel.ts
+  h_94c952a9e14c58 32,42,227-241,251-256,319-320
+database/02-init-questions.sql
+  h_94c952a9e14c58 1-26,28-29,40-63,65,67,71-92,94,98-99,101-119,121,125-126,128-146,148,152-173,175,178-200,202,205-227,229,233-234,236-254,256,260-269
+backend/src/interface-adapters/socket-handlers/game.handler.ts
+  h_94c952a9e14c58 7-8,11,18-33
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 143
+frontend/src/dtos/opponent.dto.ts
+  h_94c952a9e14c58 2
+frontend/src/Views/MathsMatch.tsx
+  h_94c952a9e14c58 18,62
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "e32844b48a2c2708fc0e4309fd423df17ad051e6",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
