@@ -1,0 +1,18 @@
+backend/src/interface-adapters/socket-handlers/game.handler.ts
+  h_94c952a9e14c58 13
+frontend/src/ViewModels/MatchViewModel.ts
+  h_94c952a9e14c58 14-15,89,224-226,254,269
+package.json
+  h_94c952a9e14c58 18-20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "b87ada92fe697508cc1c55088113601d5540bf1c",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
