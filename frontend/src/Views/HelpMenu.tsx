@@ -20,7 +20,7 @@ const HelpMenu: React.FC = () => {
             <section style={{padding: "3rem 8% 5rem", textAlign: "center"}}>
                 <HelpCircle size = {60} color="#c0395a" style={{marginBottom: "1rem"}}/>
                 <h1 style={{fontSize: "clamp(2.5rem, 5vw, 4rem)", fontWeight: 900, marginBottom: "1rem"}}>Help Menu</h1>
-                <p style={{color: "rgba(252, 235, 221, 0.65)", maxWidth: "700px", margin: "0 auto", lineHeight: 1.8}}>Everything you need to get started with CodeClash. Browse our game guide, frequently asked questions, tutorials amd support resources.</p>
+                <p style={{color: "rgba(252, 235, 221, 0.65)", maxWidth: "700px", margin: "0 auto", lineHeight: 1.8}}>Everything you need to get started with CodeClash. Browse our game guide, frequently asked questions, tutorials and support resources.</p>
             </section>
 
             <section style={{padding: "0 8% 6rem"}}>
@@ -70,6 +70,18 @@ const HelpMenu: React.FC = () => {
                         </div>
                     ))}
                 </div>
+            </section>
+
+            {/**contact support */}
+            <section style={{maxWidth: "900px", margin: "0 auto", background: "rgba(252, 235, 221, 0.03", border: "1px solid rgba(252, 236, 221, 0.08)", borderRadius: "20px", padding: "3rem", textAlign: "center"}}>
+                <Mail size={44} color="#c0395a" style={{marginBottom: "1rem"}}/>
+                <h2 style={{fontSize: "2rem", fontWeight: 900, marginBottom: "1rem"}}>{contact.heading}</h2>
+                <p style={{color: "rgba(252,236, 221, 0.65)", lineHeight: 1.8, maxWidth: "650px", margin: "0 auto 2rem"}}>{contact.desc}</p>
+
+                <a href="{`mailto:${contact.email}`}" style={{display: "inline-flex", alignItems: "center", gap: "0.75rem", padding: "14px 28px", background: "#c0395a", color: "#ffffff", borderRadius: "16px", textDecoration: "none", fontWeight: 700}}>
+                    <Mail size={18}/>
+                    {contact.email}
+                </a>
             </section>
         </div>
     );
