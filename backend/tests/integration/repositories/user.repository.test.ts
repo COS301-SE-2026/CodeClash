@@ -29,6 +29,16 @@ describe("User Repository Quesries", () => {
 
         expect(add).toBeDefined()
         expect(add.user_id).toMatch(uuid_regex)
+
+        user.user_id = add.user_id;
+    })
+
+
+    it("Gets a valid user from the db", async () => {
+        const fetched = await user_repo.getUser(user.user_id)
+
+        expect(fetched).toBeDefined()
+        expect(fetched.cognito_id).toBe(user.cognito_id)
     })
 
 

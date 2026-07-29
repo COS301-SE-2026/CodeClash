@@ -72,11 +72,11 @@ export class MatchmakingService {
             this.cache.deletUser(user.game_mode, match.user_id)
 
             return {
-                player_1: {
+                player_2: {
                     id: user.id,
                     elo: user.elo
                 },
-                player_2: {
+                player_1: {
                     id: match.user_id,
                     elo: match_elo
                 }

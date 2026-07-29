@@ -5,6 +5,7 @@ import { MatchmakingContext } from "./MatchmakingContextValue";
 import type { MatchmakingUserDTO, GameType, GameMode } from "src/dtos/matchmaking.dto";
 import { Socket } from "socket.io-client";
 import { useSocket } from "./hooks/useSocket";
+import type { MatchedUsersDTO } from "src/dtos/matched-user.dto";
 
 
 export const MatchmakingProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -13,11 +14,13 @@ export const MatchmakingProvider: React.FC<{ children: ReactNode }> = ({ childre
     const [gameType, setGameType] = useState<GameType>(null);
     const [pairId, setPairId] = useState('');
     const [matched, setMatched] = useState(false);
+    const [matchedUsers, setMatchedUsers] = useState<MatchedUsersDTO | null>(null);
     const { socket } = useSocket()
 
-    const handleMatched = (pair_id: string) => {
+    const handleMatched = (data: MatchedUsersDTO) => {
         setMatched(true)
-        setPairId(pair_id);
+        setPairId(data.pair_id);
+        setMatchedUsers(data);
     }
 
 
@@ -58,6 +61,7 @@ export const MatchmakingProvider: React.FC<{ children: ReactNode }> = ({ childre
                 leaveMatchQueue,
                 matchAccepted,
                 matchDeclined,
+                matchedUsers
             }}
         >
             {children}

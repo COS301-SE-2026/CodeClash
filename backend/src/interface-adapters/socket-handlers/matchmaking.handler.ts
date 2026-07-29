@@ -4,6 +4,7 @@ import { MatchmakingService } from 'src/application/usecases/services/matchmakin
 import { PlayerDTO } from "src/entities/dtos/components.dto";
 import { GameDataDTO, GameQuestionsDTO } from "src/entities/dtos/game-data.dto";
 import MatchmakingUserDTO from 'src/entities/dtos/matchmaking.dto';
+import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 
 
 export const joinMatchQueue = (
@@ -11,7 +12,9 @@ export const joinMatchQueue = (
         socket: Socket,
         data: any,
         matchmaking_service: MatchmakingService,
-        PAIRS: Map<string, Map<string, { accepted: boolean, elo: number, username?: string }>>) => {
+        PAIRS: Map<string, Map<string, { accepted: boolean, elo: number, username?: string }>>,
+        user_repo: IUserRepository
+    ) => {
         //adds users to a room 
         await socket.join(socket.data.user_id)
         socket.data.game_mode = data.game_mode
@@ -30,13 +33,27 @@ export const joinMatchQueue = (
 
         const pair_id = player_1.concat("::").concat(player_2);
 
+
+        const p1_id = await user_repo.getUserId(player_1);
+        const p2_id = await user_repo.getUserId(player_2);
+        if (!p2_id || !p1_id) throw new Error("Coudln't find user");
+
+        const p2_username = await user_repo.getUserData(p2_id.user_id!, 'username');
+        const p1_username = await user_repo.getUserData(p1_id.user_id!, 'username');
+
         const pair = {
-            player_1: player_1,
-            player_2: player_2,
+            player_1: {
+                id: player_1,
+                elo: match.player_1.elo,
+                username: p1_username?.username
+            },
+            player_2: {
+                id: player_2,
+                elo: match.player_2.elo,
+                username: p2_username?.username
+            },
             pair_id: pair_id,
             game_mode: data.game_mode,
-            player_1_elo: match.player_1.elo,
-            player_2_elo: match.player_2.elo
         }
 
 

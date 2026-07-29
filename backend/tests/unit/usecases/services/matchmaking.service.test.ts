@@ -1,11 +1,11 @@
 // intercepts redis import in the matchmaking services so the tests use a mock redis
 
 import RedisMock from 'ioredis-mock'
-import { IMatchmakingCache } from 'src/application/interfaces/IMatchmakingCache'
-import { MatchmakingService } from 'src/application/usecases/services/matchmaking.service'
-import { GameMode } from 'src/entities/db-entities/questions.entities';
-import UserDto from "src/entities/dtos/matchmaking.dto";
-import { MatchmakingCache } from 'src/interface-adapters/matchmaking-cache'
+import { IMatchmakingCache } from '../../../../src/application/interfaces/cache/IMatchmakingCache'
+import { MatchmakingService } from '../../../../src/application/usecases/services/matchmaking.service'
+import { GameMode } from '../../../../src/entities/db-entities/questions.entities';
+import UserDto from "../../../../src/entities/dtos/matchmaking.dto";
+import { MatchmakingCache } from '../../../../src/interface-adapters/cache/matchmaking-cache'
 import { vi, describe, test, expect, beforeEach, afterEach } from 'vitest';
 
 vi.mock("src/frameworks-drivers/config/redis-client", () => {
@@ -95,11 +95,11 @@ describe('Ideal Users', async () => {
             math_length = await matchmaking_service.math_queue_length();
 
             const expected = {
-                player_1: {
+                player_2: {
                     id: player_2_id,
                     elo: 1050
                 },
-                player_2: {
+                player_1: {
                     id: player_1_id,
                     elo: 1000
                 }

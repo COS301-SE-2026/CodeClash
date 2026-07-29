@@ -1,5 +1,6 @@
 
 export interface MatchmakingUserDTO {
+    username: string,
     elo: number;
     game_mode: GameMode;
     game_type: GameType

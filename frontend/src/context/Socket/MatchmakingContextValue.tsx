@@ -1,9 +1,11 @@
 import { createContext } from "react";
 import type { Socket } from "socket.io-client";
+import type { MatchedUsersDTO } from "src/dtos/matched-user.dto";
 import type { GameMode, GameType, MatchmakingUserDTO } from "src/dtos/matchmaking.dto";
 
 
 export interface MatchmakingContextValue {
+    matchedUsers: MatchedUsersDTO | null,
     gameMode: GameMode,
     gameType: GameType,
     pairId: string,

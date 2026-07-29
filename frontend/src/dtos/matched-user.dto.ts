@@ -1,9 +1,15 @@
 import type { GameMode, GameType } from "./matchmaking.dto"
 
-export interface MatchedUserDTO {
-    game_mode: GameMode,
-    game_type: GameType
+
+export interface PlayerDTO{
+    id: string,
+    elo: number,
+    username: string
+}
+
+export interface MatchedUsersDTO {
+    player_1: PlayerDTO,
+    player_2: PlayerDTO,
     pair_id: string,
-    p1_elo: number,
-    p2_elo: number
+    game_mode: GameMode
 } 

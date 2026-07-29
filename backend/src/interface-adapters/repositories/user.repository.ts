@@ -31,7 +31,6 @@ export class UserRepository implements IUserRepository {
         const data: UserDTO = {
             user_id: id.user_id
         }
-
         return data
     }
 
@@ -76,6 +75,7 @@ export class UserRepository implements IUserRepository {
     }
 
     async getUserData(user_id: string, stat: keyof UserDTO): Promise<UserDTO | null> {
+       
         const user = await this.userRepository.findOneBy({ user_id: user_id })
 
         if (!user) return null;

@@ -1,110 +1,137 @@
- import { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 // import { useNavigate } from 'react-router-dom';
 // // import { joinMatchQueue, useMatchmakingSocket ,matchAccepted, matchDeclined} from "src/context/Socket/hooks/useMatchmakingSocket";
- import { useSocket } from "src/context/Socket/hooks/useSocket"
-// import { useUser } from "src/context/User/hooks/useUser";
+import { useSocket } from "src/context/Socket/hooks/useSocket"
+import { useUser } from "src/context/User/hooks/useUser";
 // // import MatchmakingUserDTO from "src/dtos/matchmaking.dto";
 
 import {
   matchFoundContent,
+  type MatchFoundPlayer,
   mockMatchFoundDetails,
   mockMatchFoundPlayers,
 } from '../Models/MatchFoundModel';
 import { useMatchmaking } from "src/context/Socket/hooks/useMatchmaking";
+import type { MatchedUsersDTO } from "src/dtos/matched-user.dto";
 
 
 export function MatchFoundViewModelFunction() {
-//   const nav = useNavigate();
-//   const { elo, league, username, avatar } = useUser();
-    const { socket, } = useSocket()
-    const {matched} = useMatchmaking()
-//   // const { gameMode, pairId } = useMatchmakingSocket();
-//   // const [path, setPath] = useState('');
+  //   const nav = useNavigate();
+  // const { elo, league, username, avatar } = useUser();
+  const { socket, } = useSocket()
+  const { matched, gameMode, pairId, matchAccepted, matchDeclined, matchedUsers } = useMatchmaking()
+  const [path, setPath] = useState('');
   const [loading, setLoading] = useState(false);
- const [socketError, setSocketError] = useState('');
+  const [socketError, setSocketError] = useState('');
+  const [players, setPlayers] = useState<MatchFoundPlayer[] | null>(null);
 
   const closeLoading = () => setLoading(false);
-   const openLoading = () => setLoading(true);
+  const openLoading = () => setLoading(true);
 
- const decline = () => {
-//   //   if (socket) {
-//   //     matchDeclined(socket, pairId);
-//   //     setLoading(true);
-//   //   }
-//   //   else {
-//   //     setSocketError('Disconnected');
-//   //   }
- }
+  const decline = () => {
+    if (socket) {
+      matchDeclined(socket, pairId);
+      setLoading(true);
+    }
+    else {
+      setSocketError('Disconnected');
+    }
+  }
 
- const gameReady = (data: { game_id: number }) => {
-//   //   setLoading(false);
+  const gameReady = (data: { game_id: number }) => {
+    //   //   setLoading(false);
 
-//   //   nav(path, {
-//   //     replace: true,
-//   //     state: {
-//   //       id: data.game_id
-//   //     }
-//   //   });
- }
+    //   //   nav(path, {
+    //   //     replace: true,
+    //   //     state: {
+    //   //       id: data.game_id
+    //   //     }
+    //   //   });
+  }
 
-//   // handler for user that declined the game
-//   const declineGame = () => {
-//     setLoading(false);
-//     nav('/dashboard')
-//   }
+  //   // handler for user that declined the game
+  //   const declineGame = () => {
+  //     setLoading(false);
+  //     nav('/dashboard')
+  //   }
 
-//   // handler for user that was declined
-//   const gameDeclined = () => {
-//     setLoading(false);
+  //   // handler for user that was declined
+  //   const gameDeclined = () => {
+  //     setLoading(false);
 
-//     const data = new MatchmakingUserDTO(elo, gameMode);
-//     joinMatchQueue(socket!, data);
-//     nav('/searching')
-//   }
+  //     const data = new MatchmakingUserDTO(elo, gameMode);
+  //     joinMatchQueue(socket!, data);
+  //     nav('/searching')
+  //   }
 
-   const accept = () => {
-//     if (socket) {
-//       const new_path = "/".concat(gameMode).concat("-match")
-//       setPath(new_path);
-//       const data = {
-//         pair_id: pairId,
-//         game_mode: gameMode,
-//         league: league,
-//         username: username,
-//         avatar: avatar
-       }
+  const accept = () => {
+    //     if (socket) {
+    //       const new_path = "/".concat(gameMode).concat("-match")
+    //       setPath(new_path);
+    //       const data = {
+    //         pair_id: pairId,
+    //         game_mode: gameMode,
+    //         league: league,
+    //         username: username,
+    //         avatar: avatar
+  }
 
-//       matchAccepted(socket, data);
-//       setLoading(true);
-//     }
-//     else {
-//       setSocketError('Disconnected');
-//     }
-//   }
+  //       matchAccepted(socket, data);
+  //       setLoading(true);
+  //     }
+  //     else {
+  //       setSocketError('Disconnected');
+  //     }
+  //   }
 
-//   useEffect(() => {
-//     if (socket) {
-//       socket.on("game_ready", gameReady);
+  const set_players = (matched_users: MatchedUsersDTO) => {
 
-//       socket.on("decline_done", declineGame);
+    const player_1 = matched_users.player_1;
+    const p1: MatchFoundPlayer = {
+      id: player_1.id,
+      username: player_1.username,
+      elo: player_1.elo,
+      side: 'left'
+    }
 
-//       socket.on("game_declined", gameDeclined);
+    const player_2 = matched_users.player_2;
+    const p2: MatchFoundPlayer = {
+      id: player_2.id,
+      username: player_2.username,
+      elo: player_2.elo,
+      side: 'right'
+    }
 
-//       socket.on("start_game", gameReady)
+    setPlayers([p1, p2])
+  }
+
+  useEffect(() => {
+
+    if (matchedUsers) {
+      set_players(matchedUsers)
+    }
+    //     if (socket) {
+    //       socket.on("game_ready", gameReady);
+
+    //       socket.on("decline_done", declineGame);
+
+    //       socket.on("game_declined", gameDeclined);
+
+    //       socket.on("start_game", gameReady)
 
 
-//       return () => {
-//         socket.off("game_ready", gameReady);
-//         socket.off("decline_done", declineGame);
-//         socket.off("game_declined", gameDeclined);
-//         socket.off("start_game", gameReady)
-//       }
-//     }
-//   }, [socket, path])
+    //       return () => {
+    //         socket.off("game_ready", gameReady);
+    //         socket.off("decline_done", declineGame);
+    //         socket.off("game_declined", gameDeclined);
+    //         socket.off("start_game", gameReady)
+    //       }
+    //     }
+  }, [socket, path, matchedUsers])
 
-   return {
+  return {
     content: matchFoundContent,
-    players: mockMatchFoundPlayers,
+    players,
     details: mockMatchFoundDetails,
     decline,
     accept,
@@ -112,6 +139,7 @@ export function MatchFoundViewModelFunction() {
     socketError,
     closeLoading,
     openLoading,
-    matched
-   };
+    matched,
+    matchedUsers
+  };
 }

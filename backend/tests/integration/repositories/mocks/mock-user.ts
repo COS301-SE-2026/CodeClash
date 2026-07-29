@@ -1,4 +1,5 @@
 export const mock_user = {
+    user_id: '',
     cognito_id: 'cognito-user-id',
     username: 'integration_test_user',
     email: 'integration01@test.com',

@@ -140,7 +140,7 @@ AppDataSource.initialize()
         io.on("connection", (socket) => {
 
             // SOCKET HANDLERS MUST MOOVE TO interface-adapter/
-            socket.on('join_match_queue', async (data) => await joinMatchQueue(io, socket, data, matchmkaing_service, PAIRS));
+            socket.on('join_match_queue', async (data) => await joinMatchQueue(io, socket, data, matchmkaing_service, PAIRS, user_repo));
 
             socket.on('leave_match_queue', async () => await leaveMatchQueue(io, socket, matchmkaing_service));
 
@@ -158,7 +158,7 @@ AppDataSource.initialize()
 
             socket.on('game_done', (pair_id: string, game_id: number) => gameDone(io, socket, pair_id, game_id, finish_game, PAIRS, RESULTS));
 
-            socket.on('send_results', (game_id: number, pair_id: string) => { console.log("Server pairid: ", pair_id); sendResults(io, game_id, pair_id, RESULTS, PAIRS) })
+            socket.on('send_results', (game_id: number, pair_id: string) => sendResults(io, game_id, pair_id, RESULTS, PAIRS))
         })
 
 
