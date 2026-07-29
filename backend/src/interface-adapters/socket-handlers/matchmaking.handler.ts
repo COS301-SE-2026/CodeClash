@@ -91,7 +91,7 @@ export const matchAccepted = (
                 players.push(player)
             })
 
-            const setup = await game_service.execute(players, data.game_mode, data.league);
+            const setup = await game_service.execute(players, data.game_mode, data.league, data.game_type);
 
             const keys = [...pair!.keys()];
             GAME.set(setup.id, { players: players, questions: setup.questions as GameQuestionsDTO })

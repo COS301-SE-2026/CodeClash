@@ -1,5 +1,5 @@
 import Redis from "ioredis";
-import { IGameCache } from "src/application/interfaces/IGameCache";
+import { IGameCache } from "src/application/interfaces/cache/IGameCache";
 
 
 export class GameCache implements IGameCache {
@@ -8,7 +8,7 @@ export class GameCache implements IGameCache {
     ) { }
 
     async saveGame(game_id: number, player_ids: string[], question_ids: string[]): Promise<void> {
-        this.redis.set(`game:${game_id}`, `players:${player_ids}, questions:${question_ids}`)
+        this.redis.set(`game:${game_id}`, JSON.stringify({players: player_ids, questions: question_ids}))
     }
 
     // correct answers

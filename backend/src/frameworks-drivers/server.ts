@@ -16,10 +16,10 @@ import { CreateGame, CreateMatchEntity, CreatePlayerEntity, CreateRoundEntity } 
 import { GetDifficulty, GetQuestions, GetTotalTime } from 'src/application/usecases/services/questions.service';
 import { GetAnswers } from 'src/application/usecases/services/answers.service';
 import { GameCache } from 'src/interface-adapters/cache/game-cache';
-import { IGameCache } from 'src/application/interfaces/IGameCache';
+import { IGameCache } from 'src/application/interfaces/cache/IGameCache';
 import redis from './config/redis-client';
 import { MatchmakingService } from 'src/application/usecases/services/matchmaking.service';
-import { IMatchmakingCache } from 'src/application/interfaces/IMatchmakingCache';
+import { IMatchmakingCache } from 'src/application/interfaces/cache/IMatchmakingCache';
 import { IEloRepository } from 'src/application/interfaces/repositories/IEloRepository';
 import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
 import { CheckAnswer } from 'src/application/usecases/check-answer';
@@ -65,8 +65,7 @@ AppDataSource.initialize()
         const match_repo: IMatchRepository = new MatchRepository(AppDataSource.getRepository(Match))
         const match_results_repo: IMatchResultRepository = new MatchResultRepository(
             AppDataSource.getRepository(MatchLog),
-            AppDataSource.getRepository(Users),
-            AppDataSource.getRepository(Match)
+            AppDataSource.getRepository(Users)
         )
 
         const app = createApp(user_repo)

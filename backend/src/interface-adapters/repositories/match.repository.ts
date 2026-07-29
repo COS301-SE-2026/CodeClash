@@ -3,7 +3,7 @@ import { Match } from 'src/entities/db-entities/match.entities';
 import { IMatchRepository } from 'src/application/interfaces/repositories/IMatchRepository';
 
 export class MatchRepository implements IMatchRepository {
-    constructor(private readonly matchRepository: Repository<Match>) {}
+    constructor(private readonly matchRepository: Repository<Match>) { }
 
     async createMatch(
         player1_id: string,
@@ -12,7 +12,14 @@ export class MatchRepository implements IMatchRepository {
         match_start: Date
     ): Promise<string> {
         // not using DTOs cause I honestly don't know exactly how they work
-        const match =  this.matchRepository.create({player1: { user_id: player1_id } as any, player2: { user_id: player2_id } as any, mode, match_start, status: 'in_progress'});
+        const match = this.matchRepository.create(
+            {
+                player1: { user_id: player1_id } as any,
+                player2: { user_id: player2_id } as any,
+                match_type: mode,
+                match_start: match_start,
+                status: 'in_progress'
+            });
 
         const saved = await this.matchRepository.save(match);
         return saved.match_id;

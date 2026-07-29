@@ -1,48 +1,11 @@
-import { useCallback, useEffect, useState } from "react";
-import { Socket } from "socket.io-client";
-
-import MatchmakingUserDTO from '../../../dtos/matchmaking.dto';
-
-import { useSocket } from "./useSocket"
+import { useContext } from "react";
+import { MatchmakingContext, type MatchmakingContextValue } from "../MatchmakingContextValue";
 
 
-export const useMatchmakingSocket = () => {
-    const { socket, isConnected, matched } = useSocket();
-    const [gameMode, setGameMode] = useState('');
-    const [pairId, setPairId] = useState('');
 
+export const useMatchmaking = (): MatchmakingContextValue =>{
+    const context = useContext(MatchmakingContext);
 
-    const handleMatched = useCallback((mode: string, pair_id: string) => {
-        setGameMode(mode);
-        setPairId(pair_id);
-    }, [])
-
-
-    useEffect(() => {
-        if (!socket) return;
-        
-        if(matched){
-            handleMatched(matched.game_mode, matched.pair_id)
-        }
-    }, [socket])
-
-
-    return { isConnected, gameMode, pairId };
-}
-
-/// websocket functions for the app
-export function joinMatchQueue(socket: Socket, data: MatchmakingUserDTO) {
-    socket.emit("join_match_queue", data);
-}
-
-export function leaveMatchQueue(socket: Socket) {
-    socket.emit("leave_match_queue");
-}
-
-export function matchAccepted(socket: Socket, data: {}) {
-    socket.emit("match_accepted", data)
-}
-
-export function matchDeclined(socket: Socket, pair_id: string) {
-    socket.emit("match_declined", pair_id);
+    if(!context) throw new Error("useMatchmaking must be used within a Matchmaking Provider")
+        return context;
 }

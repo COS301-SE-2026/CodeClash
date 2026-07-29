@@ -27,7 +27,7 @@ export class Match {
     match_problems!: MatchProblems | null;
 
     @Column({ type: 'varchar', length: 10})
-    mode!: 'ranked' | 'casual';
+    match_type!: 'ranked' | 'casual';
 
     @CreateDateColumn()
     queue_start!: Date;
@@ -57,8 +57,5 @@ export class MatchLog {
     loser!: Users;
 
     @Column( { nullable: true })
-    elo_gained!: number | null;
-
-    @Column( { nullable: true })
-    elo_lost!: number | null;
+    elo_change!: number;
 }

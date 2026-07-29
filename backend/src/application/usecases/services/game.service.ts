@@ -1,4 +1,4 @@
-import { IGameCache } from "src/application/interfaces/IGameCache";
+import { IGameCache } from "src/application/interfaces/cache/IGameCache";
 import { GameMode } from "src/entities/db-entities/questions.entities";
 import { MatchDTO, PlayerDTO, RoundDTO } from "src/entities/dtos/components.dto";
 
@@ -6,8 +6,6 @@ import { CreateGame } from "../systems/create-game";
 
 import { GetAnswers } from "./answers.service";
 import { GetDifficulty, GetQuestions, GetTotalTime } from "./questions.service";
-import { GetAnswers } from "./answers.service";
-import { IGameCache } from "src/application/interfaces/IGameCache";
 import { IMatchRepository } from "src/application/interfaces/repositories/IMatchRepository";
 
 export class GameService {
@@ -21,8 +19,7 @@ export class GameService {
         private readonly match_repo: IMatchRepository
     ) { }
 
-    async execute(players: PlayerDTO[], game_mode: GameMode, league: string) {
-
+    async execute(players: PlayerDTO[], game_mode: GameMode, league: string, game_type: 'ranked'|'casual') {
 
         const title_temp: string[] = []
         let avg_elo = 0;
@@ -84,7 +81,7 @@ export class GameService {
         const db_match_id = await this.match_repo.createMatch(
             player1_id,
             player2_id,
-            mode, //TODO bruh moment
+            game_type,
             start
         );
 
@@ -96,8 +93,7 @@ export class GameService {
 
         return {
             id: match_entity,
-            // IMPORTANT this is the Postrgres match id for results, elo, history
-            db_match_id,
+            match_id: db_match_id,
             questions: questions,
             answers: answers
         }

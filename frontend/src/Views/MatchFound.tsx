@@ -151,7 +151,7 @@ const MatchFound = () => {
       </div>
 
 
-      {loading && <Loading isOpen={loading} onClose={closeLoading}></Loading>}
+      {loading && <Loading isOpen={loading} ></Loading>}
     </div>
   );
 };

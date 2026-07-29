@@ -53,8 +53,7 @@ CREATE TABLE IF NOT EXISTS match_log(
   match_id UUID REFERENCES matches(match_id),
   winner_id UUID REFERENCES users(user_id),
   loser_id UUID REFERENCES users(user_id),
-  elo_gained INTEGER, --can be null incase it's a casual match
-  elo_lost INTEGER
+  elo_change INTEGER --can be null incase it's a casual match
 );
 
 CREATE TABLE IF NOT EXISTS elo_ratings (

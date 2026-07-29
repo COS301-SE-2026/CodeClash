@@ -1,6 +1,5 @@
 import React, { useEffect, useState, type ReactNode } from 'react'
 import type { Socket } from 'socket.io-client'
-import type { MatchedUserDTO } from 'src/dtos/matched-user.dto'
 import { createSocket } from 'src/services/websocket.service'
 
 import { SocketContext } from './SocketContextValue'
@@ -9,7 +8,6 @@ import { SocketContext } from './SocketContextValue'
 export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [socket, setSocket] = useState<Socket | null>(null);
     const [isConnected, setIsConnected] = useState(false);
-    const [matched, setMatched] = useState<MatchedUserDTO | null>(null);
 
     useEffect(() => {
         createSocket().then((conn) => {
@@ -33,7 +31,6 @@ export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) 
                 setIsConnected(false);
             })
 
-            socket.on("users_matched", (data) => { setMatched(data) })
         }
     }, [socket])
 
@@ -43,7 +40,7 @@ export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) 
             value={{
                 socket,
                 isConnected,
-                matched
+
             }}
         >
             {children}

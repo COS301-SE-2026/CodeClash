@@ -1,14 +1,9 @@
 
-class MatchmakingUserDTO{
+export interface MatchmakingUserDTO {
     elo: number;
-    game_mode: string;
+    game_mode: GameMode;
+    game_type: GameType
+};
 
-
-    constructor(elo: number,game_mode: string) {
-    this.elo = elo
-    this.game_mode = game_mode;
-}
-}
-
-
-export default MatchmakingUserDTO;
+export type GameMode = 'maths' | 'programming' | null
+export type GameType = 'ranked' | 'casual' | null

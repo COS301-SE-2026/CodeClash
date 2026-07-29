@@ -48,7 +48,6 @@ export const World = () => {
     const matches = new Map<number, Map<string, Component>>();
     const rounds = new Map<number, Map<string, Component>>();
     const submissions = new Map<number, Map<string, Component>>();
-    const results = new Map<number, Map<string, Component>>();
 
     let ID = 0;
 
@@ -73,7 +72,6 @@ export const World = () => {
         component: MatchComponentTypes
     ) {
 
-        console.log("Adding component ", component_name)
         return addComponent(matches, entity_id, component_name, component)
     }
 
