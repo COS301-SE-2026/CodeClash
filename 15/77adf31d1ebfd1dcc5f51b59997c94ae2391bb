@@ -1,0 +1,18 @@
+frontend/src/context/Socket/MatchmakingContextValue.tsx
+  h_94c952a9e14c58 10-12
+frontend/src/main.tsx
+  h_94c952a9e14c58 10,18,22
+frontend/src/context/Socket/MatchmakingContext.tsx
+  h_94c952a9e14c58 15,18-20,54-56
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "1577adf31d1ebfd1dcc5f51b59997c94ae2391bb",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
