@@ -3,7 +3,17 @@ export interface Help {
     desc: string;
     icon: "book" | "help" | "graduation" |"info";
     link?: string;
-    comingSoon?:boolean; 
+}
+
+export interface FAQ {
+    question: string;
+    answer: string;
+}
+
+export interface Contact {
+    heading: string;
+    desc: string;
+    email: string;
 }
 
 export const help: Help[] = [
@@ -29,3 +39,32 @@ export const help: Help[] = [
         icon: 'info',
     },
 ]
+
+export const faqs: FAQ[] = [
+    {
+        question: 'How do I start a match?',
+        answer: 'Choose Raked Play on the dashboard, and select Programming or Mathematics. You will be entered into the matchmaking queue and the match will begin once an opponent is found'
+    },
+    {
+        question: 'How is my score calculated?',
+        answer: 'Scores are determined using both corrections and completion time for each question. Faster, correct answers earn more points.'
+    },
+    {
+        question: 'What is ELO?',
+        answer: 'Elo is a competitive rating that increases as you win matches, and decreases if you lose a match.'
+    },
+    {
+        question: 'How do I practice before starting a match?',
+        answer: 'Casual play is designed for practice and does not affect your competitive ELO rating.'
+    }, 
+    {
+        question: 'Can I see previously played matches?',
+        answer: "'Match History' is accessible from the dashboard sidebar, and can be used to review previous matches, scores, and performance statistics"
+    }
+]
+
+export const contact: Contact = {
+    heading: 'Contact Our Support Team',
+    desc: "Can't find what you're looking for? Contact our support team.",
+    email: 'quantdevs@gmail.com' 
+}
