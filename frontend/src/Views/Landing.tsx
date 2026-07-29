@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router";
 import { LandingViewModelFunction } from "../ViewModels/LandingViewModel";
-import { Rocket, Swords, Trophy, Calculator, Code2, ChartNoAxesColumn, Medal, History, Globe, CircleCheck } from "lucide-react";
+import { Rocket, Swords, Trophy, Calculator, Code2, ChartNoAxesColumn, Medal, History, Globe, CircleCheck, Palette, BookOpen, HelpCircle } from "lucide-react";
 import symbolBackground from '../assets/Background/SymbolBackground.png';
 import helloRobot from '../assets/Robots/HelloRobot_Pink.png';
+import { docs } from "src/Models/LandingModel";
 
 const Landing:React.FC = ()=>{
     const {
@@ -26,6 +27,12 @@ const Landing:React.FC = ()=>{
         globe: Globe,
     }
 
+    const docIcons = {
+        palette: Palette,
+        book: BookOpen,
+        help: HelpCircle,
+    }
+
     return (
         <div className="min-h-screen w-full bg-[#0a0008] text-[#fcecdd] overflow-hidden"
             style={{fontFamily: "Roboto, sans-serif"}}>
@@ -37,18 +44,17 @@ const Landing:React.FC = ()=>{
                     <span style={{color: '#c0395a', fontWeight: 900, fontSize: "1.2rem", letterSpacing: "0.05rem"}}>CLASH</span>
                 </span>
 
-                <div className="flex items-center gap-4">
-                    <Link to='/sign-in' style={{color: '#fcecdd', fontSize: "1rem", fontWeight: 900, textDecoration: "none"}} onMouseEnter={(e) => {e.currentTarget.style.color = '#fcecdd'}} onMouseLeave={(e) => {e.currentTarget.style.color = 'rgba(252, 236, 221, 0.7)'}}>
-                        Sign in
-                    </Link>
-                    <Link to='/sign-up' style={{color: '#ffffff', fontSize: "1rem", fontWeight: 900, textDecoration: "none"}} onMouseEnter={(e) => {e.currentTarget.style.color = '#fcecdd'}} onMouseLeave={(e) => {e.currentTarget.style.color = 'rgba(252, 236, 221, 0.7)'}}>
-                        Get started
-                    </Link>
+                <div style={{display: "flex", alignItems: "center", gap: "3rem"}}>
+                    <a href="#home">Home</a>
+                    <a href="#how-it-works">How it Works</a>
+                    <a href="#features">Features</a>
+                    <a href="#audience">Who it's For</a>
+                    <a href="#documentation">Documentation</a>
                 </div>
             </nav>
 
             {/*Hero img */}
-            <section className="relative min-h-screen flex items-center px-[8%] overflow-hidden"
+            <section id = "home" className="relative min-h-screen flex items-center px-[8%] overflow-hidden"
                 style={{background: 'radial-gradient(circle at 88% 88%, #B91551 0%, #850F3B 20%, #630B3C 30%, #530A24 38%)' }}>
                 <img src= {symbolBackground} alt="" className="absolute inset-0 w-full h-full object-cover pointer-events-none"/>
                 
@@ -81,13 +87,13 @@ const Landing:React.FC = ()=>{
 
                 <div className="relative z-10 w-1/2 flex items-center justify-center">
                 <div style={{position: "absolute", width: "90%", aspectRatio: "1", borderRadius: "50%", background: "radial-gradient(circle, #3d0818, 0%, #2e0613, transparent 70%"}}>
-                    <img src = {helloRobot} alt = "Robot" className="relative select-none pointer-events-none" style={{width: "90%",maxWidth: "650px", height: "auto", transform: "translateX(20px) translateY(30px),", zIndex: 1}}/>
+                    <img src = {helloRobot} alt = "Robot" className="relative select-none pointer-events-none" style={{width: "88%", maxWidth: "650px", height: "auto", transform: "translateX(20px) translateY(30px),", zIndex: 1}}/>
                 </div>
                 </div>
             </section>
 
             {/*Stats for game */}
-            <section style={{background: "#530a24", padding: "2rem 8%"}}>
+            <section id = "stats" style={{background: "#530a24", padding: "2rem 8%"}}>
                 <div className="flex justify-around lfex-wrap gap-8">
                     {stats.map((stat) => (
                         <div key = {stat.label} style={{textAlign: "center"}}>
@@ -99,7 +105,7 @@ const Landing:React.FC = ()=>{
             </section>
 
             {/*How the game works */}
-            <section style={{padding: "6rem 8%", background: "#0a0008"}}>
+            <section id="how-it-works" style={{padding: "6rem 8%", background: "#0a0008"}}>
                 <div style={{textAlign: "center", marginBottom: "4rem"}}>
                     <p style={{color: "#c0395a", letterSpacing: "0.15rem", textTransform: "uppercase", fontSize: "0.75rem"}}>How it works</p>
                     <h2 style={{fontWeight: 900, fontSize: "clamp(1.8rem, 4vw, 2.8rem)"}}>Three steps to the CodeClash Arena</h2>
@@ -122,7 +128,7 @@ const Landing:React.FC = ()=>{
             </section>
 
             {/*Features of the game */}
-            <section style = {{padding: "6 rem 8%", background: "linear-gradient(to bottom, #0a0008, #1a0610"}}>
+            <section id="features" style = {{padding: "6 rem 8%", background: "linear-gradient(to bottom, #0a0008, #1a0610"}}>
                 <div style={{textAlign: "center", marginBottom: "4rem"}}>
                     <p style={{ color: "#c0395a", fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.15rem", textTransform: "uppercase", marginBottom: "0.75rem"}}>Features</p>
                     <h2 style={{fontSize: "clamp(1.8rem, 4vw, 2.8rem)", fontWeight: 900, color: "#fcecdd", margin: 0}}>Built for competitors</h2>
@@ -142,7 +148,7 @@ const Landing:React.FC = ()=>{
             </section>
 
             {/*Who the game is for - audience */}
-            <section style = {{display: "grid", gridTemplateColumns: "1fr 1fr", gap: "5rem", alignItems: "center"}}>
+            <section id="audience" style = {{display: "grid", gridTemplateColumns: "1fr 1fr", gap: "5rem", alignItems: "center"}}>
                 <div>
                     <p style={{color: "rgba(252, 236, 221, 0.55)", fontSize: "1rem", fontWeight: 600, margin: "1rem 1.5rem", letterSpacing: "0.15rem", textTransform: "uppercase"}}>Who It's For</p>
                     <h2 style={{fontSize: "clamp(2rem, 3vw, 2.7rem)", fontWeight: 900, lineHeight: 1.15, margin: "1rem 1.5rem", color: "#fcecdd"}}>For students who want <br/>to win, not just pass</h2>
@@ -158,7 +164,30 @@ const Landing:React.FC = ()=>{
                 </div>
             </section>
 
-            <section style={{position: "relative", padding:"8rem 8% ", textAlign: "center", background: "radial-gradient(circle at center, #530a24 0%, #01008 70%", overflow: "hidden"}}>
+            {/*for docs*/}
+            <section id="documentation" style={{padding: "6rem 8%", background: "#0a0008"}}>
+                <div style={{ textAlign: "center", marginBottom: "4rem",}}>
+                    <p style={{color: "#c0395a", fontSize: "0.75rem", letterSpacing: "0.15rem", textTransform: "uppercase", fontWeight: 700}}>Documentation</p>
+                    <h2 style={{color: "#fcecdd", fontSize: "clamp(2rem,4vw, 2.8rem", fontWeight: 900, margin: "1rem 0"}}>Learn more about CodeClash</h2>
+                </div>
+                <div style={{display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr)", gap: "1.5rem"}}>
+                    {docs.map((doc) => {
+                        const Icon = docIcons[doc.icon];
+                        return (
+                            <Link key = {doc.title} to={doc.link} style={{textDecoration: "none"}}>
+                                <div style={{background: "rgba(252, 236, 221, 0.03)", border: "1px solid rgba(1px solid rgba(252, 235, 221, 0.08))", borderRadius: "18px"
+                                    , padding: "2rem", height: "100%", transition: "all 0.2 ease"}}>
+                                        <Icon size = {34} color = "#c0395a"/>
+                                        <h3 style={{color: "#fcecdd", marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 700}}>{doc.title}</h3>
+                                        <p style={{ color: "rgba(252, 236, 221, 0.55)", lineHeight: 1.7, margin: 0}}>{doc.desc}</p>
+                                    </div>
+                            </Link>
+                        )
+                    })}
+                </div>
+            </section>
+
+            <section id="get-started" style={{position: "relative", padding:"8rem 8% ", textAlign: "center", background: "radial-gradient(circle at center, #530a24 0%, #01008 70%", overflow: "hidden"}}>
                 <img src= {symbolBackground} alt= "" style={{position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", pointerEvents: "none"}}/>
                 <div style={{position: "relative", zIndex: 1}}>
                     <h2 style={{fontSize: "clamp(2.2rem, 5vw, 3.6rem)", fontWeight: 900, color: "#fcecdd", lineHeight: 1.1, marginBottom: "1.5rem"}}>Ready to enter <br/>
