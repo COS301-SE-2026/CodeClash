@@ -10,13 +10,13 @@ import MatchSearching from "./Views/MatchSearching";
 import MatchFound from "./Views/MatchFound";
 import MathMatch from "./Views/MathsMatch";
 import ProgMatch from "./pages/ProgMatch";
-import Welcome from "./Views/Welcome";
 import { useAuth } from "./context/Auth/hooks/useAuth";
 import Loading from "@/components/shared/Loading";
 import ForgotPassword from "./Views/ForgotPassword";
 import FinalResults from "./Views/FinalResults";
 import Guidebook from "./Views/Guidebook";
 import Landing from "./Views/Landing";
+import BrandStyleGuide from "./Views/BrandStyleGuide";
 
 const App: React.FC = () => {
 
@@ -27,13 +27,12 @@ const App: React.FC = () => {
 
     const logged_in = user !== null
 
-    const base_path = logged_in ? <Dashboard /> : <Welcome />
+    const base_path = logged_in ? <Dashboard /> : <Landing />
 
     if (logged_in === false) {
         return (
             <Routes>
                 <Route path='/' element={<Landing />} />
-                <Route path='/welcome' element={<Welcome />} />
                 <Route path='/sign-in' element={<SignIn />} />
                 <Route path='/sign-up' element={<SignUp />} />
                 <Route path='*' element={<Navigate to='/sign-in' replace />} />
@@ -45,7 +44,6 @@ const App: React.FC = () => {
     return (
         <Routes>
             <Route path='/' element={base_path} />
-            <Route path='/welcome' element={<Welcome />} />
             <Route path='/sign-in' element={<SignIn />} />
             <Route path='/sign-up' element={<SignUp />} />
             <Route path='/profile' element={<Profile />} />
@@ -55,6 +53,7 @@ const App: React.FC = () => {
             <Route path='/prog-match' element={<ProgMatch language="javascript" />} />
              <Route path= '/results' element= {<FinalResults/>}/>
             <Route path= '/forgot-password' element= {<ForgotPassword/>}/>
+            <Route path="/brand-style-guide" element= {<BrandStyleGuide/>}/>
 
             {/* Pages with sidebar inside the app */}
             <Route element={<Layout />}>
