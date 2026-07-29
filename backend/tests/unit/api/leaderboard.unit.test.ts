@@ -10,5 +10,16 @@ describe('Leaderboard API', () => {
       expect(Array.isArray(response.body)).toBe(true);
       
     })
+
+    test('returns entries with rank, username and rating', async () => {
+      const response = await request(app).get('/api/elo/leaderboard');
+      expect(response.status).toBe(200);
+      expect(Array.isArray(response.body)).toBe(true);
+      if (response.body.length > 0) {
+        expect(response.body[0]).toHaveProperty('rank');
+        expect(response.body[0]).toHaveProperty('username');
+        expect(response.body[0]).toHaveProperty('rating');
+      }
+    });
   })
 })
