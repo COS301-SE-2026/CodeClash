@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { Link } from "react-router";
 import { LandingViewModelFunction } from "../ViewModels/LandingViewModel";
-import { Rocket, Swords, Trophy, Calculator, Code2, ChartNoAxesColumn, Medal, History, Globe } from "lucide-react";
+import { Rocket, Swords, Trophy, Calculator, Code2, ChartNoAxesColumn, Medal, History, Globe, CircleCheck } from "lucide-react";
 import symbolBackground from '../assets/Background/SymbolBackground.png';
 import helloRobot from '../assets/Robots/HelloRobot_Pink.png';
 
@@ -127,7 +127,7 @@ const Landing:React.FC = ()=>{
                     <p style={{ color: "#c0395a", fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.15rem", textTransform: "uppercase", marginBottom: "0.75rem"}}>Features</p>
                     <h2 style={{fontSize: "clamp(1.8rem, 4vw, 2.8rem)", fontWeight: 900, color: "#fcecdd", margin: 0}}>Built for competitors</h2>
                 </div>
-                <div style={{display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))", gap: "1.5rem"}}>
+                <div style={{display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "1.5rem"}}>
                     {features.map((feature) => {
                         const Icon = featureIcons[feature.icon];
                         return (
@@ -138,6 +138,23 @@ const Landing:React.FC = ()=>{
                             </div>
                         )
                     })}
+                </div>
+            </section>
+
+            {/*Who the game is for - audience */}
+            <section style = {{display: "grid", gridTemplateColumns: "1fr 1fr", gap: "5rem", alignItems: "center"}}>
+                <div>
+                    <p style={{color: "rgba(252, 236, 221, 0.55)", fontSize: "1rem", fontWeight: 600, margin: "1rem 1.5rem", letterSpacing: "0.15rem", textTransform: "uppercase"}}>Who It's For</p>
+                    <h2 style={{fontSize: "clamp(2rem, 3vw, 2.7rem)", fontWeight: 900, lineHeight: 1.15, margin: "1rem 1.5rem", color: "#fcecdd"}}>For students who want <br/>to win, not just pass</h2>
+                    <p style={{color: "rgba(252, 236, 221, 0.65)", lineHeight: 1.8, marginBottom: "2rem", margin: "1rem 1.5rem"}}>CodeClash is build for beginners and early career developers where math and programming practice sessions become a competitive match against another player.</p>
+                    <div style={{display: "flex", flexDirection: "column"}}>
+                        {audience.map((item) => (
+                            <div key = {item} style={{display: "flex", gap: "10px", alignItems: "flex-start"}}>
+                                <CircleCheck size = {18} color= "#c0295a" strokeWidth={2.5} style={{marginTop: "2px", flexShrink: 0 ,margin: "1rem 1.5rem"}}/>
+                                <span style={{color: "rgba(252, 236, 221, 0.72)", lineHeight: 1.5, margin: "0.6rem", gap: "1px"}}>{item}</span>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </section>
         </div>

@@ -109,8 +109,8 @@ export const players: PlayerProgress[] = [
 ]
 
 export const audience: string[] = [
-    "Computer science students aiming to imporve thier techincal skills",
-    "Mathematics studnets who want to benchmark their speed",
+    "Computer science students aiming to improve their technical skills",
+    "Mathematics students who want to benchmark their speed",
     "Competitive programmers looking for daily match practice",
-    "Anyone who wants to learn match and programming",
+    "Anyone who wants to learn math and programming",
 ]
