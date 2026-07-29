@@ -3,7 +3,7 @@ import { MathfieldElement } from 'mathlive';
 import { useEffect, useState, useMemo, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTimer } from "react-timer-hook";
-import { useMatchmakingSocket } from "src/context/Socket/hooks/useMatchmakingSocket";
+import { useMatchmaking } from "src/context/Socket/hooks/useMatchmaking";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
 import { useUser } from "src/context/User/hooks/useUser";
 import type { GameQuestionsDTO } from "src/dtos/game-questionDTO";
@@ -20,7 +20,7 @@ export const useMatch = () => {
     const { id } = location.state;
     const { userId } = useUser();
     const nav = useNavigate();
-    const { pairId } = useMatchmakingSocket()
+    const { pairId } = useMatchmaking()
 
     const [players, setPlayers] = useState<Player[]>([]);
     const [questions, setQuestions] = useState<Question[]>([]);

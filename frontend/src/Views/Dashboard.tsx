@@ -7,7 +7,7 @@ import aiIcon from '../assets/Icons/AI.png';
 import brainIcon from '../assets/Icons/Brain.png';
 import profileIcon from '../assets/Icons/Profile.png';
 import searchIcon from '../assets/Icons/Search.png';
-import { useShowPopUp } from '../ViewModels/DashboardViewModel';
+import { dashboardViewModel } from '../ViewModels/DashboardViewModel';
 
 import Popup from './Popup'
 
@@ -19,12 +19,8 @@ import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle }
 import { Progress } from '@/components/ui/progress';
 
 
-// View Model
-
 const Dashboard = () => {
-  const { isOpen, openPopUp, closePopUp } = useShowPopUp();
-  const { username, elo, league, avatar } = useUser();
-  const { isLoading } = useAuth();
+  const { isOpen, openPopUp, closePopUp, username, elo, league, avatar, isLoading } = dashboardViewModel();
 
   if (isLoading) {
     return (
@@ -80,11 +76,11 @@ const Dashboard = () => {
             <CardContent className='flex'>
               <CardAction className='flex flex-col w-[100%] h-[6rem] justify-between'>
                 <Button variant={'default'} className='h-[45%] bg-pink-300 text-sm font-semibold'
-                  onClick={() =>openPopUp('ranked')}>
+                  onClick={() => openPopUp('ranked')}>
                   Ranked Play
                 </Button>
                 <Button variant={'secondary'} className='h-[45%] bg-secondary text-primary text-sm font-semibold hover:bg-[#C0AF9C]'
-                  onClick={()=>openPopUp('casual')}>
+                  onClick={() => openPopUp('casual')}>
                   Casual Play
                 </Button>
               </CardAction>
