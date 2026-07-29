@@ -48,9 +48,9 @@ export async function getProfile() {
                 const user : ProfileProps = {
                     avatarUrl : attributes['custom:avatarUrl'] || '../../src/assets/Icons/profile_black.png'
                     username,
-                    rank : at,
-                    elo,
-                    league
+                    rank : attributes['custom:avatarUrl'] || '0',
+                    elo : attributes['custom:elo'] || "600",
+                    league : attributes['custom:league']
                     
                 }
             }
