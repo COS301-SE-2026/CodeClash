@@ -21,8 +21,7 @@ export class CheckAnswer {
 
     async execute(match_id: number, player_id: string, question_id: string, answer: string) {
         try {
-
-
+            console.log(question_id)
             // 1. fetch answer from redis 
             const correct_answer = await this.game_cache.getAnswer(question_id);
 

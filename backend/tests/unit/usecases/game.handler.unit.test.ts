@@ -99,7 +99,7 @@ describe('submitQuestion socket handler', () => {
         const socket = mockSocket('player-a');
 
         (check_answer.execute as Mock).mockResolvedValueOnce(false);
-        (world.getMatchComponent as Mock).mockResolvedValueOnce(null);
+        (world.getMatchComponent as Mock).mockReturnValueOnce(null);
 
         await submitQuestion(io as any, socket, data, check_answer, world as any);
 
@@ -111,7 +111,7 @@ describe('submitQuestion socket handler', () => {
         const socket = mockSocket('player-a');
 
         (check_answer.execute as Mock).mockResolvedValueOnce(true);
-        (world.getMatchComponent as Mock).mockResolvedValueOnce(undefined);
+        (world.getMatchComponent as Mock).mockReturnValueOnce(undefined);
 
         await submitQuestion(io as any, socket, data, check_answer, world as any);
 

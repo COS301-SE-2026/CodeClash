@@ -19,7 +19,7 @@ const MathsMatch = () => {
     } = useMatch();
 
     const curr = questions[currentQuestion];
-    console.log(playerLife)
+  //  console.log(playerLife)
 
     useEffect(() => {
         if (mathfieldRef.current) {

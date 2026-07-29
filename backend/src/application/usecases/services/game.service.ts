@@ -55,6 +55,7 @@ export class GameService {
 
         // get answers 
         const answers = await this.getAnswers.execute(question_ids)
+        console.log("LINE 58 Game Service, get answers: ", answers)
 
         // Match 
 
@@ -74,6 +75,7 @@ export class GameService {
         this.game_cache.saveGame(match_entity, player_ids, question_ids);
 
         for (const answer of answers) {
+            console.log("Saving game answers to the cache")
             this.game_cache.saveAnswer(answer.question_id, answer.answer)
         }
 

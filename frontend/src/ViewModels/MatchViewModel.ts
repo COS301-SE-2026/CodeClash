@@ -9,6 +9,7 @@ import { useRef } from 'react';
 import { MathfieldElement } from 'mathlive';
 import { submitAnswer } from "src/services/submission.service";
 import type { SubmissionDTO } from "src/dtos/submission.dto";
+import type { OpponentDTO } from "src/dtos/opponent.dto";
 
 
 export const useMatch = () => {
@@ -62,6 +63,7 @@ export const useMatch = () => {
 
     const submitQuestion = (question_id: string, answer: string) => {
         q_index.current = currentQuestion;
+        console.log(question_id)
         submitAnswer(socket, id, question_id, answer);
     }
 
@@ -154,7 +156,11 @@ export const useMatch = () => {
     }
 
     const submission_error = (error: string) => {
+        console.error(error)
+    }
 
+    const opponent_progress = (data: OpponentDTO) => {
+        console.log(data)
     }
 
 
@@ -181,6 +187,7 @@ export const useMatch = () => {
             socket.on('get_players', setPlayers)
             socket.on('submission_result', submission_result);
             socket.on("submission_error", submission_error);
+            socket.on("opponent_progress",opponent_progress)
 
             if (questions.length == 0) setLoading(true)
             else { setLoading(false) }
@@ -193,6 +200,7 @@ export const useMatch = () => {
                 socket.off("submission_result", submission_result);
                 socket.off("submission_error", submission_error);
                 socket.off('get_players', setPlayers);
+                socket.off('opponent_progress', opponent_progress)
             }
         }
 
