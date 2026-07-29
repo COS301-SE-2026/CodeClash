@@ -1,5 +1,5 @@
-import { LeaderboardEntryDTO } from "@/application/dtos/LeaderboardEntryDTO";
-import { IEloRepository } from "@/application/interfaces/IEloRepository";
+import { LeaderboardEntryDTO } from "../../../entities/dtos/leaderboard.dto";
+import { IEloRepository } from "../../interfaces/IEloRepository";
 
 export class LeaderboardSystem {
     constructor(private eloRepository: IEloRepository) {}
