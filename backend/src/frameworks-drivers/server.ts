@@ -43,6 +43,12 @@ import { validateToken } from '../interface-adapters/auth/auth.service';
 import { createApp } from './app';
 import { AppDataSource } from "./config/data-source"
 import { OpponentProgress } from 'src/application/usecases/systems/opponent-progress';
+import { IMatchRepository } from 'src/application/interfaces/repositories/IMatchRepository';
+import { MatchRepository } from 'src/interface-adapters/repositories/match.repository';
+import { Match, MatchLog } from 'src/entities/db-entities/match.entities';
+import { MatchResultService } from 'src/application/usecases/services/match-result.service';
+import { IMatchResultRepository } from 'src/application/interfaces/repositories/IMatchResultRepository';
+import { MatchResultRepository } from 'src/interface-adapters/repositories/match-result.repository';
 
 dotnev.config()
 
@@ -56,8 +62,12 @@ AppDataSource.initialize()
         const elo_repo: IEloRepository = new EloRepository(AppDataSource.getRepository(EloRatings));
         const question_repo: IQuestionRepository = new QuestionRepository(AppDataSource.getRepository(Questions));
         const answer_repo: IAnswerRepository = new AnswerRepository(AppDataSource.getRepository(Answers))
-
-
+        const match_repo: IMatchRepository = new MatchRepository(AppDataSource.getRepository(Match))
+        const match_results_repo: IMatchResultRepository = new MatchResultRepository(
+            AppDataSource.getRepository(MatchLog),
+            AppDataSource.getRepository(Users),
+            AppDataSource.getRepository(Match)
+        )
 
         const app = createApp(user_repo)
         const httpServer = createServer(app)     // can update to https
@@ -106,8 +116,9 @@ AppDataSource.initialize()
 
 
         // initialise services 
-        const game_service = new GameService(create_game, get_questions, get_difficulty, get_total_time, get_answers, game_cache);
+        const game_service = new GameService(create_game, get_questions, get_difficulty, get_total_time, get_answers, game_cache, match_repo);
         const matchmkaing_service = new MatchmakingService(matchmaking_cache);
+        const match_results = new MatchResultService(elo_repo, match_results_repo)
 
         // initialise systems 
         const submission_system = new SubmissionSystem(world);
@@ -148,7 +159,7 @@ AppDataSource.initialize()
 
             socket.on('game_done', (pair_id: string, game_id: number) => gameDone(io, socket, pair_id, game_id, finish_game, PAIRS, RESULTS));
 
-            socket.on('send_results', (game_id: number, pair_id:string) =>{ console.log("Server pairid: ", pair_id); sendResults(io, game_id,pair_id, RESULTS, PAIRS)})
+            socket.on('send_results', (game_id: number, pair_id: string) => { console.log("Server pairid: ", pair_id); sendResults(io, game_id, pair_id, RESULTS, PAIRS) })
         })
 
 

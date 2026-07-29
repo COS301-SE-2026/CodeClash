@@ -2,10 +2,10 @@ export interface PlayerResultDTO {
     user_id: string;
     username: string;
     avatar: string;
-    correctness: number;
-    speed: string; // percentage 0-100
-    eloEffect: number; // mm:ss
-    position: 1 | 2; //signed 
+    correctness: number;// percentage 0-100
+    speed: string; // mm:ss
+    eloEffect: number; //signed 
+    position: 1 | 2; 
 }
 
 export interface MatchResultDTO {

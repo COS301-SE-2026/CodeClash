@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, OneToOne, JoinColumn, CreateDateColum } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, OneToOne, JoinColumn, UpdateDateColumn,CreateDateColumn } from "typeorm";
 import { Users } from "./user.entities";
 import { Match } from "./match.entities";
 
@@ -15,6 +15,8 @@ export class EloRatings {
     @Column({ nullable: false })
     rating!: number
 
+    @UpdateDateColumn()
+    updated_at!: Date
 }
 
 @Entity()
