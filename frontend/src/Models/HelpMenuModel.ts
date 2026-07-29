@@ -43,7 +43,7 @@ export const help: Help[] = [
 export const faqs: FAQ[] = [
     {
         question: 'How do I start a match?',
-        answer: 'Choose Raked Play on the dashboard, and select Programming or Mathematics. You will be entered into the matchmaking queue and the match will begin once an opponent is found'
+        answer: 'Choose Ranked Play on the dashboard, and select Programming or Mathematics. You will be entered into the matchmaking queue and the match will begin once an opponent is found'
     },
     {
         question: 'How is my score calculated?',

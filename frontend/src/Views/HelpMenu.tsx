@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router";
-import { BookOpen, HelpCircle, GraduationCap, Info, } from "lucide-react";
+import { BookOpen, HelpCircle, GraduationCap, Info, ChevronDown, ChevronRight, Mail} from "lucide-react";
 import { HelpMenuViewModelFunction } from "../ViewModels/HelpMenuViewModel";
 
 const HelpMenu: React.FC = () => {
@@ -48,6 +48,27 @@ const HelpMenu: React.FC = () => {
                         </div>
                     );
                     })}
+                </div>
+            </section>
+
+            {/*faq */}
+            <section style= {{padding: "0 8% 6rem"}}>
+                <h2 style={{textAlign: "center", fontSize: "2.2rem", fontWeight: 900, marginBottom: "3rem"}}>Frequently Asked Questions</h2>
+                <div style={{maxWidth: "900px", margin: "0 auto"}}>
+                    {faqs.map((faq, index) => (
+                        <div key={faq.question} style={{borderBottom: "1px solid rgba(252, 236, 221, 0.08)"}}>
+                            <button onClick={( ) => toggleFAQ(index)} style={{width: "100%", background: "transparent", border: "none", color: "#fcecdd"
+                                ,display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer", padding: "1.4rem 0", fontSize: "1rem", fontWeight: 700}}>{faq.question}
+                                {openFAQ === index ? (
+                                    <ChevronDown/>
+                                ) : (<ChevronRight/>)}
+                            </button>
+
+                            {openFAQ === index && (
+                                <p style={{color: "rgba(252, 236, 221, 0.65)", lineHeight: 1.8, paddingBottom: "1.5rem"}}>{faq.answer}</p>
+                            )}
+                        </div>
+                    ))}
                 </div>
             </section>
         </div>
