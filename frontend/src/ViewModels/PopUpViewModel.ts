@@ -17,6 +17,7 @@ export function useSelectTopic() {
 
         const data = new MatchmakingUserDTO(elo, selected_topic)
 
+        console.log(data)
         joinMatchQueue(socket, data)
         navigation('/match-searching');
 
