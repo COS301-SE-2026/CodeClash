@@ -111,8 +111,10 @@ const Landing:React.FC = ()=>{
                             <div key = {step.step} style={{background: "rgba(252, 236, 221, 0.08)", borderRadius: 20, padding: "2rem"}}>
                                 <div className="flex items-center gap-4 mb-4">
                                     <Icon size = {34} color = "#c0395a"/>
-                                    
+                                    <span style={{color: "rgba(192, 57,90, 0.6)", fontSize: "0.7rem", fontWeight: 700}}>{step.step}</span>
                                 </div>
+                                    <h3>{step.title}</h3>
+                                    <p style={{color: "rgba(252, 236, 221, 0.55)", lineHeight: 1.7}}>{step.desc}</p>
                             </div>
                         )
                     })}
