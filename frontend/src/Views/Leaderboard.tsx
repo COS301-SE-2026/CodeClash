@@ -22,7 +22,8 @@ const Leaderboard = (league : string) => {
         </div>
         <GlassCard className="w-[80%] h-[50%] mx-auto mt-[1%]">
             <div className="flex grid grid-cols-3 gap-4 h-full w-full">
-                <LeaderboardCardLeft className="mt-[7%] ml-[58%]"></LeaderboardCardLeft>
+                <LeaderboardCardLeft className="mt-[7%] ml-[58%]">
+                </LeaderboardCardLeft>
                 <div style={{backgroundImage : `url(${winner})`}} className="w-[83%] h-[95%] bg-no-repeat object-cover bg-size-[auto_130%] bg-[left_49%_top_55%] justify-center mt-[10%] ml-[9.5%]">
                     <UserCircle className="w-[120px] h-[120px] bg-no-repeat rounded-full object-cover bg-size-[auto_200%] bg-[right_49.5%_top_49%] mx-auto"></UserCircle>
                     <div className="text-[360%] text-[#B39A48] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">1</div>
