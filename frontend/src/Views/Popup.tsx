@@ -11,7 +11,7 @@ import type { GameMode } from 'src/dtos/matchmaking.dto';
 
 
 const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
-    const selectTopic = useSelectTopic();
+    const { selectTopic, cancel } = useSelectTopic();
     const nav = useNavigate();
 
     const selecthandler = (t: GameMode) => {
@@ -68,12 +68,16 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
                         </Card>
                     </div>
                     <div className="text-[2.3rem] text-black heading font-extrabold underline mt-[4%] rounded-3xl hover:bg-primary hover:text-secondary hover:font-normal w-[80%] "
-                        onClick={onClose}
+                        onClick={() => {
+                            cancel();
+                            onClose()
+                        }}
                         role="button"
                         tabIndex={0}
                         onKeyDown={(e) => {
                             if (e.key === 'Escape') {
                                 onClose();
+                                cancel()
                             }
                         }}
                         aria-label='cancel'

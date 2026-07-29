@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSocket } from "src/context/Socket/hooks/useSocket";
 import { useUser } from 'src/context/User/hooks/useUser';
 
 import {
@@ -43,8 +42,3 @@ export function MatchSearchingViewModelFunction() {
   };
 }
 
-export function useSearch() {
-  const { matched } = useSocket();
-
-  return { matched };
-}

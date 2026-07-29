@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import mercuryBackground from '../assets/Planets/double-mercury-background.png';
 import robot from '../assets/Robots/Pink_fighting.png';
-import { MatchSearchingViewModelFunction, useSearch } from '../ViewModels/MatchSearchingViewModel';
+import { MatchSearchingViewModelFunction} from '../ViewModels/MatchSearchingViewModel';
 
 import { Button } from '@/components/ui/button';
 
@@ -13,7 +13,6 @@ const headingFont = { fontFamily: 'var(--heading)' };
 
 const MatchSearching = () => {
   const { formattedTime, content, players, handleCancel } = MatchSearchingViewModelFunction();
-  const {matched} = useSearch();
 
   const leftPlayer = players.find((player) => player.side === 'left');
   const nav = useNavigate();
