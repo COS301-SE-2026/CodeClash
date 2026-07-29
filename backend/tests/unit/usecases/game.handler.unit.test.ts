@@ -107,7 +107,7 @@ describe('submitQuestion socket handler', () => {
 
     });
 
-    it('does nothing extra if Players component is missing (no opponent to notify', async () => {
+    it('does nothing extra if Players component is missing (no opponent to notify)', async () => {
         const socket = mockSocket('player-a');
 
         (check_answer.execute as Mock).mockResolvedValueOnce(true);
@@ -137,10 +137,10 @@ describe('submitQuestion socket handler', () => {
 
         await submitQuestion(io as any, socket, data, check_answer, world as any);
 
-        expect(io._emit).toHaveBeenCalledWith('opponrnt_progress', {
-            player_is: 'player-a',
+        expect(io._emit).toHaveBeenCalledWith('opponent_progress', {
+            player_id: 'player-a',
             correct: true,
-            oppoennt_life: null,
+            opponent_life: null,
         });
     });
 
