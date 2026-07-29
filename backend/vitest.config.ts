@@ -12,7 +12,8 @@ export default defineConfig({
             include: ['src/**'],
             exclude: ['src/tests/**', '**/config/**']
         },
-        setupFiles: ['./tests/setup.ts']
+        setupFiles: ['./tests/setup.ts'],
+        fileParallelism: false,
     },
     resolve: {
         alias: {
