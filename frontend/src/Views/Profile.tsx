@@ -12,7 +12,6 @@ const Profile: React.FC<ProfileProps> = ({
   rank = '5',
   elo = 600,
   league = 'Earth',
-  prev_page = '/dashboard'
 }) => {
 
   const onLogout = useLogOut();
@@ -22,11 +21,11 @@ const Profile: React.FC<ProfileProps> = ({
   return (
     <div className="w-full min-h-screen bg-secondary flex flex-col items-center justify-center text-secondary-text">
 
-      <Link className="secondary-back-button font-semibold" to={prev_page}
+      <Link className="secondary-back-button font-semibold" to={'/dashboard'}
         onKeyDown={(e) => {
           const shift = e.shiftKey;
           if (shift && e.key === 'Esc') {
-            nav(prev_page);
+            nav('/dashboard');
           }
         }}
       >

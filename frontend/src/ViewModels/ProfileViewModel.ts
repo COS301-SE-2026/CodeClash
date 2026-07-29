@@ -1,6 +1,6 @@
 import { useAuth } from "src/context/useAuth";
 import { useNavigate } from "react-router-dom";
-import { getCurrentUser } from "aws-amplify/auth";
+import { getCurrentUser, fetchUserAttributes } from "aws-amplify/auth";
 import { ProfileProps } from "src/Models/ProfileModel";
 import {useState, useEffect} from 'react'
 
@@ -30,11 +30,20 @@ export function useEdit() {
     return edit;
 }
 
-export async function getProfile() : Promise<ProfileProps> {
+export async function getProfile() {
 
     //this is a very quickly done function that may be wrong, it is meant to be presented to Oliver now, may be wrong!
     
     const [userData, setUserData] = useState<ProfileProps | null>(null);
     const [loadingData, setLoadingData] = useState(true);
     const [error, setError] = useState<Error | null>(null);
+
+    useEffect(() => {
+        async function loadUser(){
+            try{
+                const {username} = await getCurrentUser();
+                const {avatarUrl, rank, elo, league} = await fetchUserAttributes();
+            }
+        }
+    })
 }

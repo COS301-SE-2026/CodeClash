@@ -5,7 +5,6 @@ export interface ProfileProps {
     rank: number;
     elo: number;
     league: string;
-    prev_page: string;
 }
 
 
