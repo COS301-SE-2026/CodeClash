@@ -31,6 +31,7 @@ export class CheckAnswer {
             // 2. compare correct vs submitted answer 
             const correct = correct_answer === answer;
 
+
             // 3. save answer with submission system
             this.submission_system.saveSubmission(match_id, player_id, question_id, correct, answer);
 
@@ -40,13 +41,15 @@ export class CheckAnswer {
 
             const player_entity = players!.players.get(player_id);
 
-        
+
             if (player_entity === undefined) throw new Error("Invalid Player");
 
-            if (!correct) this.life_System.decrement(player_entity, match!.question_number);
+            let life_update = 0;
+
+            if (!correct) life_update = this.life_System.decrement(player_entity, match!.question_number);
 
             // 5. return result
-            return correct;
+            return { player_id: player_id, result: correct, life_update: life_update };
 
         }
         catch (error) {

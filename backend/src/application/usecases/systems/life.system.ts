@@ -3,9 +3,10 @@ import { World } from "src/entities/World"
 
 
 export class LifeSystem {
-    private getPlayerComponents
+    private readonly getPlayerComponents
     constructor(
          private readonly world: ReturnType<typeof World>
+         
     ) {
         const { getPlayerComponent } = this.world
         this.getPlayerComponents = getPlayerComponent

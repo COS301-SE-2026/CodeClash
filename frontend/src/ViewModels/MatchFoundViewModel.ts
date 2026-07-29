@@ -13,9 +13,8 @@ import { useUser } from "src/context/User/hooks/useUser";
 
 export function MatchFoundViewModelFunction() {
   const nav = useNavigate();
-  const { elo, league, username } = useUser();
-
-  const { socket } = useSocket()
+  const { elo, league, username, avatar } = useUser();
+  const { socket, matched } = useSocket()
   const { gameMode, pairId } = useMatchmakingSocket();
   const [path, setPath] = useState('');
   const [loading, setLoading] = useState(false);
@@ -37,7 +36,6 @@ export function MatchFoundViewModelFunction() {
   const gameReady = (data: { game_id: number }) => {
     setLoading(false);
 
-    console.log("Recieved start game event, navigating to match page")
     nav(path, {
       replace: true,
       state: {
@@ -69,7 +67,8 @@ export function MatchFoundViewModelFunction() {
         pair_id: pairId,
         game_mode: gameMode,
         league: league,
-        username: username
+        username: username,
+        avatar: avatar
       }
 
       matchAccepted(socket, data);
@@ -109,6 +108,7 @@ export function MatchFoundViewModelFunction() {
     loading,
     socketError,
     closeLoading,
-    openLoading
+    openLoading,
+    matched
   };
 }

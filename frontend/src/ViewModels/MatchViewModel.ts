@@ -2,13 +2,13 @@
 import { useEffect, useState, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import { useTimer } from "react-timer-hook";
-import type { Player, Answer, Question, MatchProgress } from "src/Models/MatchModel";
-import pink_robot from 'src/assets/Robots/HelloRobot_Pink.png'
+import type { Player, Question, MatchProgress } from "src/Models/MatchModel";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
 import type { GameQuestionsDTO } from "src/dtos/game-questionDTO";
 import { useRef } from 'react';
 import { MathfieldElement } from 'mathlive';
 import { submitAnswer } from "src/services/submission.service";
+import type { SubmissionDTO } from "src/dtos/submission.dto";
 
 
 export const useMatch = () => {
@@ -16,7 +16,7 @@ export const useMatch = () => {
     const location = useLocation();
     const { id } = location.state;
 
-    const [players] = useState<Player[]>([]);
+    const [players, setPlayers] = useState<Player[]>([]);
     const [questions, setQuestions] = useState<Question[]>([]);
     const [matchDuration, setMatchDuration] = useState(0);
     const [playerLife, setPlayerLife] = useState<number[]>([]);
@@ -30,6 +30,7 @@ export const useMatch = () => {
 
     const mathfieldRef = useRef<MathfieldElement | null>(null)
     const q_index = useRef<number | null>(null);
+    const players_ref = useRef(players);
 
     const progress: MatchProgress = {
         player_progress: [0, 0],
@@ -80,7 +81,6 @@ export const useMatch = () => {
     const loadQuestions = (data: GameQuestionsDTO) => {
         let temp_arr: Question[] = [];
         let sumtime = 0;
-        console.log(data)
 
         for (const q of data.easy) {
             temp_arr.push({
@@ -133,20 +133,30 @@ export const useMatch = () => {
         setQuestionsReady(true);
     }
 
-    const submission_result = (result: boolean, question: number) => {
+    const submission_result = (result: SubmissionDTO) => {
+        console.log(result)
         const index = q_index.current
         if (index === null) return;
 
         setResults((prev) => {
             const next = [...prev];
-            next[index] = result;
+            next[index] = result.result;
             return next
         });
+
+        const player_index = players_ref.current.findIndex(p => p.id === result.player_id)
+
+        setPlayerLife((prev) => {
+            const next = [...prev];
+            next[player_index] = result.life_update;
+            return next
+        })
     }
 
     const submission_error = (error: string) => {
 
     }
+
 
     useEffect(() => {
         if (matchDuration > 0) {
@@ -155,10 +165,20 @@ export const useMatch = () => {
     }, [matchDuration])
 
     useEffect(() => {
+        players_ref.current = players
+        setPlayerLife(players.map(p => p.life))
+        setAvatars(players.map(p => p.avatar));
+        setUsernames(players.map(p => p.username));
+    }, [players])
+
+    useEffect(() => {
         if (socket) {
             socket.emit('send_questions', id)
+            socket.emit('send_players', id);
+
 
             socket.on('get_questions', loadQuestions)
+            socket.on('get_players', setPlayers)
             socket.on('submission_result', submission_result);
             socket.on("submission_error", submission_error);
 
@@ -166,23 +186,17 @@ export const useMatch = () => {
             else { setLoading(false) }
 
 
-            setPlayerLife(players.map(p => p.life = 100))
-            setAvatars(players.map(p => p.avatar));
-            setUsernames(players.map(p => p.username));
 
-            //// TEMPORARY REMOVE ONCE DATA IS FETCHED
-
-            setAvatars(prev => [...prev, pink_robot, pink_robot]);
-            setUsernames(prev => [...prev, "YOU", "OPPONENT"])
 
             return () => {
                 socket.off("get_questions", loadQuestions);
                 socket.off("submission_result", submission_result);
                 socket.off("submission_error", submission_error);
+                socket.off('get_players', setPlayers);
             }
         }
 
-    }, [socket, players, questionsReady])
+    }, [socket, questionsReady])
 
     return {
         players,

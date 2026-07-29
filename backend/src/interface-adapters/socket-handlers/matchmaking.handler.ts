@@ -5,8 +5,8 @@ import { GameService } from 'src/application/usecases/services/game.service';
 import { GameDataDTO, GameQuestionsDTO } from "src/entities/dtos/game-data.dto";
 import { PlayerDTO } from "src/entities/dtos/components.dto";
 
-const PAIRS = new Map<string, Map<string, { accepted: boolean, elo: number, username?: string}>>();
-const GAME = new Map<number, { player_ids: string[], questions: GameQuestionsDTO }>();
+const PAIRS = new Map<string, Map<string, { accepted: boolean, elo: number, username?: string }>>();
+const GAME = new Map<number, { players: PlayerDTO[], questions: GameQuestionsDTO }>();
 
 export const joinMatchQueue = (async (io: Server, socket: Socket, data: any, matchmaking_service: MatchmakingService) => {
     //adds users to a room 
@@ -31,7 +31,9 @@ export const joinMatchQueue = (async (io: Server, socket: Socket, data: any, mat
         player_1: player_1,
         player_2: player_2,
         pair_id: pair_id,
-        game_mode: data.game_mode
+        game_mode: data.game_mode,
+        player_1_elo: match.player_1.elo,
+        player_2_elo: match.player_2.elo
     }
 
 
@@ -67,11 +69,13 @@ export const matchAccepted = (async (io: Server, socket: Socket, data: GameDataD
     if (bothAccepted) {
         let players: PlayerDTO[] = [];
 
-        pair.forEach((val,key)=>{
+        pair.forEach((val, key) => {
             const player: PlayerDTO = {
                 id: key,
                 username: val.username!,
-                elo: val.elo
+                elo: val.elo,
+                avatar: data.avatar!,
+                life: 100
             }
 
             players.push(player)
@@ -80,7 +84,7 @@ export const matchAccepted = (async (io: Server, socket: Socket, data: GameDataD
         const setup = await game_service.execute(players, data.game_mode, data.league);
 
         const keys = [...pair!.keys()];
-        GAME.set(setup.id, { player_ids: keys, questions: setup.questions as GameQuestionsDTO })
+        GAME.set(setup.id, { players: players, questions: setup.questions as GameQuestionsDTO })
 
         for (const key of keys) {
             io.to(key).emit("start_game", { game_id: setup.id });
@@ -115,11 +119,21 @@ export const sendGameQuestions = (io: Server, game_id: number) => {
     const data = GAME.get(game_id)
 
     if (data) {
-        for (const id of data!.player_ids!) {
-            io.to(id).emit('get_questions', data.questions)
+        for (const player of data.players) {
+            io.to(player.id).emit('get_questions', data.questions)
         }
     } else {
         console.log("Game data null")
+    }
+}
+
+export const sendGamePlayers = (io: Server, game_id: number) => {
+    const data = GAME.get(game_id);
+
+    if(data){
+        for(const player of data.players){
+            io.to(player.id).emit('get_players',data.players);
+        }
     }
 }
 

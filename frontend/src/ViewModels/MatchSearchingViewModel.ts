@@ -5,11 +5,14 @@ import {
   formatMatchSearchTime,
   matchSearchingContent,
   mockMatchSearchingPlayer,
+  type MatchSearchingPlayer,
 } from '../Models/MatchSearchingModel';
+import { useUser } from 'src/context/User/hooks/useUser';
 
 export function MatchSearchingViewModelFunction() {
   const navigate = useNavigate();
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
+  const {elo, username} = useUser();
 
   useEffect(() => {
     const intervalId = window.setInterval(() => {
@@ -25,11 +28,17 @@ export function MatchSearchingViewModelFunction() {
     navigate('/dashboard');
   };
 
+  const user: MatchSearchingPlayer = {
+    username: username,
+    elo: elo,
+    side: 'left'
+  }
+
   return {
     elapsedSeconds,
     formattedTime: formatMatchSearchTime(elapsedSeconds),
     content: matchSearchingContent,
-    players: mockMatchSearchingPlayer,
+    players: [user],
     handleCancel,
   };
 }
