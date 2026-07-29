@@ -1,5 +1,8 @@
 import { useAuth } from "src/context/useAuth";
 import { useNavigate } from "react-router-dom";
+import { getCurrentUser } from "aws-amplify/auth";
+import { ProfileProps } from "src/Models/ProfileModel";
+import {useState, useEffect} from 'react'
 
 export function useLogOut() {
     const { user, error, signOut } = useAuth();
@@ -27,7 +30,11 @@ export function useEdit() {
     return edit;
 }
 
-export async function getProfile() {
+export async function getProfile() : Promise<ProfileProps> {
 
-
+    //this is a very quickly done function that may be wrong, it is meant to be presented to Oliver now, may be wrong!
+    
+    const [userData, setUserData] = useState<ProfileProps | null>(null);
+    const [loadingData, setLoadingData] = useState(true);
+    const [error, setError] = useState<Error | null>(null);
 }
