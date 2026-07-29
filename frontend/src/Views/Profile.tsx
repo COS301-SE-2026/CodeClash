@@ -7,12 +7,12 @@ import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 
 const Profile: React.FC<ProfileProps> = ({
+  avatarUrl = `(${placeholder})`,
   username = 'User Name',
+  rank = '5',
   elo = 600,
-  player_level = 'Level 32 - Mercury',
-  current_streak = 522,
-  winning_streak = 63,
-  prev_page = "/dashboard"
+  league = 'Earth',
+  prev_page = '/dashboard'
 }) => {
 
   const onLogout = useLogOut();
@@ -36,12 +36,13 @@ const Profile: React.FC<ProfileProps> = ({
       <Card className="w-[30%] h-[45rem] flex items-center  bg-[#F8E5DD] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
 
         <div className="w-[35%]" >
-          <img src={placeholder} alt="placeholder-avatar" className="" />
+          <img src={avatarUrl} className="" />
         </div>
         <div className="text-xl font-semibold ">{username}</div>
-        <div className=" text-md font-semibold ">{player_level}</div>
+        <div className=" text-md font-semibold ">ELO - {elo}</div>
+        <div className="text-md font-semibold">League - {league}</div>
         <div>
-          <span className="text-[1.5rem] ">Current Streak - {current_streak}</span>
+          <p className="text-[1.5rem] ">Current Rank - {rank}</p>
         </div>
 
         <div className='mt-[9%] grid grid-flow-col grid-cols-2 gap-[6%] w-[70%]'>
