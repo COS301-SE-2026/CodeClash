@@ -17,6 +17,7 @@ import FinalResults from "./Views/FinalResults";
 import Guidebook from "./Views/Guidebook";
 import Landing from "./Views/Landing";
 import BrandStyleGuide from "./Views/BrandStyleGuide";
+import HelpMenu from "./Views/HelpMenu";
 
 const App: React.FC = () => {
 
@@ -37,7 +38,7 @@ const App: React.FC = () => {
                 <Route path='/sign-up' element={<SignUp />} />
                 <Route path= '/brand-style-guide' element={<BrandStyleGuide/>}/>
                 <Route path='/game-guide' element={<Guidebook/>}/> 
-                <Route path= '/help-menu' element={<Guidebook/>}/>
+                <Route path= '/help-menu' element={<HelpMenu/>}/>
                 <Route path='*' element={<Navigate to='/sign-in' replace />} />
 
             </Routes>
