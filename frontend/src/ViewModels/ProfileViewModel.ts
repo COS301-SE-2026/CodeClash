@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
-
-import { useAuth } from "../context/hooks/useAuth";
+import { getCurrentUser, fetchUserAttributes } from "aws-amplify/auth";
+import { ProfileProps } from "src/Models/ProfileModel";
+import {useState, useEffect} from 'react'
+import profile from "../../src/assets/Icons/profile_black.png"
 
 export function useLogOut() {
     const { signOut } = useAuth();
@@ -18,4 +20,37 @@ export function useLogOut() {
     }
 
     return logout
+}
+
+export function useEdit() {
+    const edit = async () => { }
+
+    return edit;
+}
+
+export async function getProfile() {
+
+    //this is a very quickly done function that may be wrong, it is meant to be presented to Oliver now, may be wrong!
+    
+    const [userData, setUserData] = useState<ProfileProps | null>(null);
+    const [loadingData, setLoadingData] = useState(true);
+    const [error, setError] = useState<Error | null>(null);
+
+    useEffect(() => {
+        async function loadUser(){
+            try{
+                const {username} = await getCurrentUser();
+                const attributes = await fetchUserAttributes();
+
+                const user : ProfileProps = {
+                    avatarUrl : attributes['custom:avatarUrl'] || '../../src/assets/Icons/profile_black.png'
+                    username,
+                    rank : attributes['custom:avatarUrl'] || '0',
+                    elo : attributes['custom:elo'] || "600",
+                    league : attributes['custom:league']
+                    
+                }
+            }
+        }
+    })
 }
