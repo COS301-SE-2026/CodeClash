@@ -9,6 +9,7 @@ export interface GameDataDTO {
     league: string,
     game_mode: GameMode,
     avatar?: string
+    game_type: 'ranked' | 'casual'
 }
 
 export interface GameQuestionsDTO {
