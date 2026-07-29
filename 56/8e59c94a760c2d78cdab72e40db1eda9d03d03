@@ -1,0 +1,14 @@
+frontend/src/Views/Popup.tsx
+  h_94c952a9e14c58 10,16-17,19,45,60
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "568e59c94a760c2d78cdab72e40db1eda9d03d03",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

@@ -1,0 +1,52 @@
+frontend/src/context/Socket/SocketContext.tsx
+  h_94c952a9e14c58 43
+frontend/src/Views/MatchFound.tsx
+  h_94c952a9e14c58 154
+backend/src/interface-adapters/repositories/match.repository.ts
+  h_94c952a9e14c58 19-20
+backend/src/interface-adapters/socket-handlers/matchmaking.handler.ts
+  h_94c952a9e14c58 94
+backend/src/interface-adapters/cache/matchmaking-cache.ts
+  h_94c952a9e14c58 2
+backend/src/entities/db-entities/match.entities.ts
+  h_94c952a9e14c58 30,60
+frontend/src/Views/Dashboard.tsx
+  h_94c952a9e14c58 83,87
+frontend/src/context/Socket/MatchmakingContextValue.tsx
+  h_94c952a9e14c58 1-16
+frontend/src/ViewModels/DashboardViewModel.ts
+  h_94c952a9e14c58 5,7-8,10-11,13-14,16,18-19
+backend/src/application/usecases/services/matchmaking.service.ts
+  h_94c952a9e14c58 1
+database/01-init.sql
+  h_94c952a9e14c58 56
+frontend/src/dtos/matchmaking.dto.ts
+  h_94c952a9e14c58 2,4-6,8-9
+frontend/src/dtos/matched-user.dto.ts
+  h_94c952a9e14c58 1-2,4-5
+backend/src/application/usecases/services/game.service.ts
+  h_94c952a9e14c58 1,22,84,96
+backend/src/interface-adapters/cache/game-cache.ts
+  h_94c952a9e14c58 2,11
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 19,22
+backend/src/application/usecases/check-answer.ts
+  h_94c952a9e14c58 4
+frontend/src/context/Socket/hooks/useMatchmakingSocket.tsx
+  h_94c952a9e14c58 1-2,6-7,9-11
+backend/src/interface-adapters/repositories/match-result.repository.ts
+  h_94c952a9e14c58 17,23,51,60
+frontend/src/context/Socket/MatchmakingContext.tsx
+  h_94c952a9e14c58 1-64
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "74c826be37c4cb826b2daec58d99938678d0dcb3",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
