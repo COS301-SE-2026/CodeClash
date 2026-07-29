@@ -21,7 +21,7 @@ const Leaderboard = (league : string) => {
         <div style={{backgroundImage: `url(${planet})`}} className="w-[105px] h-[105px] bg-no-repeat object-cover bg-size-[auto_92%] bg-[left_49%_top_55%] justify-center mx-auto -mt-[5%]"></div>
         </div>
         <GlassCard className="w-[80%] h-[50%] mx-auto mt-[1%]">
-            <div className="flex grid grid-cols-3 gap-4 h-full w-full">
+            <div className="flex grid grid-cols-3 gap-4 h-full w-full ">
                 <LeaderboardCardLeft className="mt-[7%] ml-[58%]">
                 </LeaderboardCardLeft>
                 <div style={{backgroundImage : `url(${winner})`}} className="w-[83%] h-[95%] bg-no-repeat object-cover bg-size-[auto_130%] bg-[left_49%_top_55%] justify-center mt-[10%] ml-[9.5%]">
@@ -31,7 +31,7 @@ const Leaderboard = (league : string) => {
                     <EloText className="text-[165%]">ELO</EloText>
                 </div>
                 <LeaderboardCardRight className="mt-[7%]"></LeaderboardCardRight>
-                <div className="w-[45%] h-[85%] rounded-[20px] border-4 border-button-primary bg-secondary ml-[58%] -mt-[15%]">
+                <div className="w-[45%] h-[90%] rounded-[20px] border-4 border-button-primary bg-secondary ml-[58%] -mt-[5%]">
                     <div className="flex flex-col grid grid-cols-3">
                     <UserCircle className="w-[59px] h-[59px] bg-no-repeat rounded-full object-cover bg-size-[auto_200%] bg-[right_49%_top_50%]"></UserCircle>
                         <EloText className="text-[200%] -ml-[70%] -mt-[5%]">4</EloText>
@@ -41,7 +41,7 @@ const Leaderboard = (league : string) => {
                         </div>
                     </div>
                 </div>
-                <div className="w-[45%] h-[85%] rounded-[20px] border-4 border-button-primary bg-secondary ml-[103%] -mt-[15%]">
+                <div className="w-[45%] h-[90%] rounded-[20px] border-4 border-button-primary bg-secondary ml-[103%] -mt-[5%]">
                     <div className="flex flex-col grid grid-cols-3">
                     <UserCircle className="w-[59px] h-[59px] bg-no-repeat rounded-full object-cover bg-size-[auto_200%] bg-[right_49%_top_50%]"></UserCircle>
                         <EloText className="text-[200%] -ml-[70%] -mt-[5%]">5</EloText>
