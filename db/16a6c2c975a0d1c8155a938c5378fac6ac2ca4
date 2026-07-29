@@ -1,0 +1,22 @@
+frontend/src/Views/MathsMatch.tsx
+  h_94c952a9e14c58 23,65
+frontend/src/styles/global.css
+  h_94c952a9e14c58 17-30,256-259
+backend/src/interface-adapters/socket-handlers/game.handler.ts
+  h_94c952a9e14c58 72-78
+frontend/@/components/shared/Match.tsx
+  h_94c952a9e14c58 123-126
+frontend/src/ViewModels/MatchViewModel.ts
+  h_94c952a9e14c58 39,231,234,237,247-251,281,297,326-327
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "db16a6c2c975a0d1c8155a938c5378fac6ac2ca4",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
