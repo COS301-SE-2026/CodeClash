@@ -1,0 +1,22 @@
+backend/tests/integration/repositories/mocks/mock-user.ts
+  h_94c952a9e14c58 1-41
+backend/tests/integration/repositories/test-data-source.ts
+  h_94c952a9e14c58 1-25
+backend/tests/integration/repositories/elo.repository.test.ts
+  h_94c952a9e14c58 1-76
+docker-compose.yml
+  h_94c952a9e14c58 39-52,92
+package.json
+  h_94c952a9e14c58 18-21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "2fdf39e2d5ec7bb187b7d9bd72065ef582d4cff7",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
