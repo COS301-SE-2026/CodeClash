@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import { Link } from "react-router";
 import { LandingViewModelFunction } from "../ViewModels/LandingViewModel";
 import { Rocket, Swords, Trophy, Calculator, Code2, ChartNoAxesColumn, Medal, History, Globe, CircleCheck } from "lucide-react";
@@ -73,7 +73,7 @@ const Landing:React.FC = ()=>{
                         </Link>
                         {/*copied link above */}
                         <Link to="/sign-in" style={{
-                            background: "transparent", color: "#fcecdd", border: "1px solid rgba(252, 236, 221, 0.25)", padding: "12px 24px", borderRadius: "20px", textDecoration: "none", fontWeight: 800, transition: "all 0.2s ease"}}>
+                            background: "#fcecdd", color: "#9d2644", border: "1px solid rgba(252, 236, 221, 0.25)", padding: "12px 24px", borderRadius: "20px", textDecoration: "none", fontWeight: 800, transition: "all 0.2s ease"}}>
                             Already have an account
                         </Link>
                     </div>
@@ -127,7 +127,7 @@ const Landing:React.FC = ()=>{
                     <p style={{ color: "#c0395a", fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.15rem", textTransform: "uppercase", marginBottom: "0.75rem"}}>Features</p>
                     <h2 style={{fontSize: "clamp(1.8rem, 4vw, 2.8rem)", fontWeight: 900, color: "#fcecdd", margin: 0}}>Built for competitors</h2>
                 </div>
-                <div style={{display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "1.5rem"}}>
+                <div style={{display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))", gap: "1.5rem"}}>
                     {features.map((feature) => {
                         const Icon = featureIcons[feature.icon];
                         return (
@@ -156,6 +156,28 @@ const Landing:React.FC = ()=>{
                         ))}
                     </div>
                 </div>
+            </section>
+
+            <section style={{position: "relative", padding:"8rem 8% ", textAlign: "center", background: "radial-gradient(circle at center, #530a24 0%, #01008 70%", overflow: "hidden"}}>
+                <img src= {symbolBackground} alt= "" style={{position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", pointerEvents: "none"}}/>
+                <div style={{position: "relative", zIndex: 1}}>
+                    <h2 style={{fontSize: "clamp(2.2rem, 5vw, 3.6rem)", fontWeight: 900, color: "#fcecdd", lineHeight: 1.1, marginBottom: "1.5rem"}}>Ready to enter <br/>
+                    <span style={{color: "#c0395a"}}>the CodeClash Arena?</span>
+                    </h2>
+                    {/*copied from buttons above */}
+                    <div style={{display: "flex", justifyContent: "center", gap: "18px", flexWrap: "wrap"}}>
+                        <Link to="/sign-up" style={{
+                            background: "#c0395a", color: "#fffff", textAlign: "center", padding: "15px 60px", borderRadius: "20px", textDecoration: "none", fontWeight: 800, fontSize: "0.95rem", boxShadow: "0 4px 20px rgba(192, 57, 90, 0.35)", transition: "all 0.2s ease"}}>
+                            Start Competing
+                        </Link>
+                        {/*copied link above */}
+                        <Link to="/sign-in" style={{
+                            background: "#fcecdd", color: "#9d2644", border: "1px solid rgba(252, 236, 221, 0.25)", padding: "15px 60px", borderRadius: "20px", textDecoration: "none", fontWeight: 800, transition: "all 0.2s ease"}}>
+                            Already have an account
+                        </Link>
+                    </div>
+                </div>
+
             </section>
         </div>
     )
