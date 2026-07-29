@@ -1,0 +1,14 @@
+frontend/test/unit/ViewModels/SignUpViewModel.test.ts
+  h_b13c5d77534129 5,12-13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "c33655e03a64d7a409d2719eb7b3e301090c5ad0",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
