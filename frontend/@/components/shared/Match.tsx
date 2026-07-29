@@ -16,7 +16,8 @@ interface MatchScreenProps {
     question_number: number,
     current_question: number,
     opponent_progress: number,
-    question_results: (boolean | null)[]
+    question_results: (boolean | null)[],
+    opponent_done: boolean,
 }
 
 export const MatchScreen: React.FC<MatchScreenProps> = ({
@@ -30,7 +31,8 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
     question_number,
     current_question,
     opponent_progress,
-    question_results
+    question_results,
+    opponent_done
 }) => {
 
 
@@ -112,11 +114,14 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                     style={{ top: `${(question_number - 1 - current_question) * 9.6}rem` }}
                                     alt='progress avatar user 1'
                                 />
-                                <img src={avatars[0]}
-                                    className=" absolute w-20 h-30 object-cover scale-x-[-1]"
-                                    style={{ top: `${(question_number - 1 - opponent_progress) * 9.6}rem` }}
-                                    alt='progress avatar user 2'
-                                />
+                                <div>
+                                    <img src={avatars[0]}
+                                        className=" absolute w-20 h-30 object-cover scale-x-[-1]"
+                                        style={{ top: `${(question_number - 1 - opponent_progress) * 9.6}rem` }}
+                                        alt='progress avatar user 2'
+                                    />
+                                    <Badge variant={'secondary'}>DONE</Badge>
+                                </div>
 
                             </div>
 

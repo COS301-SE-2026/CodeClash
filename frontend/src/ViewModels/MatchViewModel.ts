@@ -39,7 +39,6 @@ export const useMatch = () => {
 
     const mathfieldRef = useRef<MathfieldElement | null>(null)
     const q_index = useRef<number | null>(null);
-    const op_index = useRef<number | null>(null);
     const players_ref = useRef(players);
 
     const progress: MatchProgress = {
@@ -72,6 +71,7 @@ export const useMatch = () => {
 
     //  Question Handling
     const nextQuestion = (curr: number) => {
+        console.log("being called with number ", curr)
         if (curr < questions.length - 1) {
             setCurrentQuestion(curr + 1);
             startQuestion(userId, questions[curr].id!)
@@ -87,8 +87,7 @@ export const useMatch = () => {
 
     const submitQuestion = (question_id: string, answer: string) => {
         q_index.current = currentQuestion;
-        console.log(question_id)
-        submitAnswer(socket, id, question_id, answer);
+        submitAnswer(socket, id, question_id, answer, q_index.current);
     }
 
     const finishGame = async () => {
@@ -202,6 +201,8 @@ export const useMatch = () => {
             next[player_index] = result.life_update;
             return next
         })
+
+        if (result.result === true) nextQuestion(index)
     }
 
     const submission_error = (error: string) => {
@@ -226,9 +227,12 @@ export const useMatch = () => {
         console.log(data)
 
         setOpponentCurrent((prev) => {
-            if (data.correct === true) return prev + 1
+            const next = data.question + 1
+
+            if (next < questions.length - 1) return next
             else return prev
         });
+        
         const player_index = players_ref.current.findIndex(p => p.id === data.player_id)
         if (player_index === -1) return
 
@@ -237,8 +241,6 @@ export const useMatch = () => {
             next[player_index] = data.opponent_life;
             return next
         })
-
-
     }
     // Use Effects
 
@@ -248,11 +250,6 @@ export const useMatch = () => {
         }
     }, [matchDuration])
 
-    useEffect(() => {
-        if (results[currentQuestion] === true) {
-            nextQuestion(currentQuestion);
-        }
-    }, [results, currentQuestion])
 
     useEffect(() => {
         players_ref.current = players

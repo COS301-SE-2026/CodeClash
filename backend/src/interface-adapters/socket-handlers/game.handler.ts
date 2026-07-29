@@ -27,7 +27,8 @@ export const submitQuestion = async (io: Server, socket: Socket ,data: Submissio
                 io.to(opponent_id).emit('opponent_progress', {
                     player_id: result.player_id,
                     correct: result.result,
-                    opponent_life: result.life_update
+                    opponent_life: result.life_update,
+                    question: data.question_number
                 });
             }
         }

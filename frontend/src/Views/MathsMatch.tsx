@@ -86,10 +86,10 @@ const MathsMatch = () => {
                     <ChevronRight onClick={() => nextQuestion(currentQuestion)} className='size-[3rem] hover:scale-110 hover:bg-secondary/20 rounded-2xl w-[50%]' />
                 </div>
                 <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem] hover:-translate-y-1'
-                    onClick={async () => {
+                    onClick={() => {
                         const answer = mathfieldRef.current?.value ?? '';
                         submitQuestion(curr.id!, answer)
-                    }}    // need to attach marking logic once submission systems are implemented
+                    }}   
                 >
                     SUBMIT
                 </Button>
