@@ -78,6 +78,45 @@ const Landing:React.FC = ()=>{
                         </Link>
                     </div>
                 </div>
+
+                <div className="relative z-10 w-1/2 flex items-center justify-center">
+                <div style={{position: "absolute", width: "90%", aspectRatio: "1", borderRadius: "50%", background: "radial-gradient(circle, #3d0818, 0%, #2e0613, transparent 70%"}}>
+                    <img src = {helloRobot} alt = "Robot" className="relative select-none pointer-events-none" style={{width: "90%",maxWidth: "650px", height: "auto", transform: "translateX(20px) translateY(30px),", zIndex: 1}}/>
+                </div>
+                </div>
+            </section>
+
+            {/*Stats for game */}
+            <section style={{background: "#530a24", padding: "2rem 8%"}}>
+                <div className="flex justify-around lfex-wrap gap-8">
+                    {stats.map((stat) => (
+                        <div key = {stat.label} style={{textAlign: "center"}}>
+                            <p style={{fontSize: "2rem", fontWeight: 900, margin: 0}}>{stat.value}</p>
+                            <p style={{color: "#rgba(252, 236, 221, 0.5", textTransform: "uppercase", fontSize: "0.75rem"}}>{stat.label}</p>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            {/*How the game works */}
+            <section style={{padding: "6rem 8%", background: "#0a0008"}}>
+                <div style={{textAlign: "center", marginBottom: "4rem"}}>
+                    <p style={{color: "#c0395a", letterSpacing: "0.15rem", textTransform: "uppercase", fontSize: "0.75rem"}}>How it works</p>
+                    <h2 style={{fontWeight: 900, fontSize: "clamp(1.8rem, 4vw, 2.8rem)"}}>Three steps to the CodeClash Arena</h2>
+                </div>
+                <div style={{display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "2rem"}}>
+                    {steps.map((step) => {
+                        const Icon = stepIcons[step.icon];
+                        return (
+                            <div key = {step.step} style={{background: "rgba(252, 236, 221, 0.08)", borderRadius: 20, padding: "2rem"}}>
+                                <div className="flex items-center gap-4 mb-4">
+                                    <Icon size = {34} color = "#c0395a"/>
+                                    
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
             </section>
         </div>
     )
