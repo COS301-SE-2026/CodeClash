@@ -7,9 +7,9 @@ import { useUser } from "src/context/User/hooks/useUser";
 
 import {
   matchFoundContent,
+  type MatchFoundDetail,
   type MatchFoundPlayer,
   mockMatchFoundDetails,
-  mockMatchFoundPlayers,
 } from '../Models/MatchFoundModel';
 import { useMatchmaking } from "src/context/Socket/hooks/useMatchmaking";
 import type { MatchedUsersDTO } from "src/dtos/matched-user.dto";
@@ -19,11 +19,12 @@ export function MatchFoundViewModelFunction() {
   //   const nav = useNavigate();
   // const { elo, league, username, avatar } = useUser();
   const { socket, } = useSocket()
-  const { matched, gameMode, pairId, matchAccepted, matchDeclined, matchedUsers } = useMatchmaking()
+  const { gameType, gameMode, pairId, matchAccepted, matchDeclined, matchedUsers } = useMatchmaking()
   const [path, setPath] = useState('');
   const [loading, setLoading] = useState(false);
   const [socketError, setSocketError] = useState('');
   const [players, setPlayers] = useState<MatchFoundPlayer[] | null>(null);
+  const [matchDetails, setMatchDetails] = useState<MatchFoundDetail[]|null>(null);
 
   const closeLoading = () => setLoading(false);
   const openLoading = () => setLoading(true);
@@ -105,10 +106,25 @@ export function MatchFoundViewModelFunction() {
     setPlayers([p1, p2])
   }
 
+  const set_detais = ()=>{
+    const type: MatchFoundDetail= {
+      label: "Match Type",
+      value: gameType!
+    }
+
+    const mode: MatchFoundDetail={
+      label: "Match Mode",
+      value: matchedUsers!.game_mode!
+    }
+
+    setMatchDetails([type,mode])
+  }
+
   useEffect(() => {
 
     if (matchedUsers) {
       set_players(matchedUsers)
+      set_detais()
     }
     //     if (socket) {
     //       socket.on("game_ready", gameReady);
@@ -132,14 +148,13 @@ export function MatchFoundViewModelFunction() {
   return {
     content: matchFoundContent,
     players,
-    details: mockMatchFoundDetails,
+    matchDetails,
     decline,
     accept,
     loading,
     socketError,
     closeLoading,
     openLoading,
-    matched,
     matchedUsers
   };
 }

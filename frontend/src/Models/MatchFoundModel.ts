@@ -24,20 +24,6 @@ export interface MatchFoundContent {
     acceptLabel: 'Accept Match',
   };
 
-  export const mockMatchFoundPlayers: MatchFoundPlayer[] = [
-    {
-      id: 'current-user',
-      username: 'User 1',
-      elo: 1222,
-      side: 'left',
-    },
-    {
-      id: 'matched-opponent',
-      username: 'User 2',
-      elo: 1500,
-      side: 'right',
-    },
-  ];
 
   export const mockMatchFoundDetails: MatchFoundDetail[] = [
     {
