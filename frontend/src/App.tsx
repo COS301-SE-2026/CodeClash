@@ -13,6 +13,10 @@ import ProgMatch from "./pages/ProgMatch";
 import Welcome from "./Views/Welcome";
 import { useAuth } from "./context/Auth/hooks/useAuth";
 import Loading from "@/components/shared/Loading";
+import ForgotPassword from "./Views/ForgotPassword";
+import FinalResults from "./Views/FinalResults";
+import Guidebook from "./Views/Guidebook";
+import Landing from "./Views/Landing";
 
 const App: React.FC = () => {
 
@@ -28,7 +32,7 @@ const App: React.FC = () => {
     if (logged_in === false) {
         return (
             <Routes>
-                <Route path='/' element={<Welcome />} />
+                <Route path='/' element={<Landing />} />
                 <Route path='/welcome' element={<Welcome />} />
                 <Route path='/sign-in' element={<SignIn />} />
                 <Route path='/sign-up' element={<SignUp />} />
