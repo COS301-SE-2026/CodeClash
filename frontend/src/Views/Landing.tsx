@@ -8,7 +8,7 @@ import helloRobot from '../assets/Robots/HelloRobot_Pink.png';
 const Landing:React.FC = ()=>{
     const {
         scrollY, stats, steps,
-        features, audience, players,
+        features, audience,
     } = LandingViewModelFunction();
 
     const stepIcons = {
@@ -177,8 +177,20 @@ const Landing:React.FC = ()=>{
                         </Link>
                     </div>
                 </div>
-
             </section>
+
+            {/*CLosing footer */}
+            <footer style={{background: "#0a0008", borderTop: "1px solid rgba(252, 235, 221, 0.08)", padding: "2rem 8%"}}>
+                <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1.5rem"}}>
+                    <div>
+                        <span style={{fontSize: "1.3rem", fontWeight: 900, color: "#fcecdd", letterSpacing: '0.05rem'}}>CODE
+                            <span style={{color: "#c0395a"}}>CLASH</span>
+                        </span>
+                        < p style={{color: "rgba(252,236, 221, 0.35)", marginTop: "0.5rem", fontSize: "0.9rem"}}>Competitive Programming & Mathematic Battles</p>
+                    </div>
+                    <p style={{color: "#fcecdd", fontSize: "0.9rem ", margin: 0, textAlign: "right"}}>2026 CodeClash - QuantDevs</p>
+                </div>
+            </footer>
         </div>
     )
 }
