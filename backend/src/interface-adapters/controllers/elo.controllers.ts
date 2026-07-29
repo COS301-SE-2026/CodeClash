@@ -6,7 +6,6 @@ import { EloRepository } from '../repositories/elo.repository';
 // GET /api/elo/elo-get
 // Get current elo rating for a user
 export const getUserElo = (elo_repo: EloRepository) => {
-console.log("Get elo endpoint")
   return async (req: Request, res: Response)=>{
       const elo = await elo_repo.getElo(req.user.id);
 

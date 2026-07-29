@@ -20,27 +20,15 @@ export class OpponentProgress {
     execute(data: SubmissionDTO, player_id: string) {
         const players = this.getMatchComponent<PlayersComponent>(data.match_id, 'Players');
 
-
         if (!players) throw new Error("Couldn't get player info")
 
-        let opponent: string = '';
-        let opponent_life: number = 0;
 
-        for (const [opponent_id, opponent_entity] of players.players) {
+        for (const [opponent_id] of players.players) {
             //skip self
             if (opponent_id === player_id) continue;
 
-            const life = this.getPlayerComponent<LifeComponent>(opponent_entity, 'Life');
-
-            if (!life) throw new Error("Couldn't get opponent life");
-
-            opponent = opponent_id;
-            opponent_life = life.current_life;
+            return opponent_id;
         }
 
-        return {
-            opponent: opponent,
-            opponent_life: opponent_life
-        }
     }
 }

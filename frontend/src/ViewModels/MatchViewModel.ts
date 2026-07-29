@@ -11,6 +11,7 @@ import type { SubmissionDTO } from "src/dtos/submission.dto";
 import type { Player, Question, MatchProgress } from "src/Models/MatchModel";
 import { endGame } from "src/services/result.service";
 import { submitAnswer } from "src/services/submission.service";
+import type { OpponentDTO } from "src/dtos/opponent.dto";
 
 
 export const useMatch = () => {
@@ -28,12 +29,14 @@ export const useMatch = () => {
     const [avatars, setAvatars] = useState<string[]>([]);
     const [usernames, setUsernames] = useState<string[]>([]);
     const [currentQuestion, setCurrentQuestion] = useState(0);
+    const [opponentCurrent, setOpponentCurrent] = useState(0);
     const [loading, setLoading] = useState(false);
     const [questionsReady, setQuestionsReady] = useState(false)
     const [answers, setAnswers] = useState<Record<string, string>>();
     const [results, setResults] = useState<(boolean | null)[]>([]);
     const [gameOver, setGameOver] = useState(false);
     const [waitingOpponent, setWaitingOpponent] = useState(false);
+    const [opponentDone, setOpponentDone] = useState(false)
 
     const mathfieldRef = useRef<MathfieldElement | null>(null)
     const q_index = useRef<number | null>(null);
@@ -69,6 +72,7 @@ export const useMatch = () => {
 
     //  Question Handling
     const nextQuestion = (curr: number) => {
+        console.log("being called with number ", curr)
         if (curr < questions.length - 1) {
             setCurrentQuestion(curr + 1);
             startQuestion(userId, questions[curr].id!)
@@ -84,7 +88,7 @@ export const useMatch = () => {
 
     const submitQuestion = (question_id: string, answer: string) => {
         q_index.current = currentQuestion;
-        submitAnswer(socket, id, question_id, answer);
+        submitAnswer(socket, id, question_id, answer, q_index.current);
     }
 
     const finishGame = async () => {
@@ -198,6 +202,8 @@ export const useMatch = () => {
             next[player_index] = result.life_update;
             return next
         })
+
+        if (result.result === true) nextQuestion(index)
     }
 
     const submission_error = (error: string) => {
@@ -218,6 +224,31 @@ export const useMatch = () => {
         });
     }
 
+    const opponent_progress = (data: OpponentDTO) => {
+        console.log(data)
+
+        setOpponentCurrent((prev) => {
+            console.log(prev)
+            const next = data.question + 1
+
+            if (next < questions.length) return next
+            else return prev
+        });
+
+        const player_index = players_ref.current.findIndex(p => p.id === data.player_id)
+        if (player_index === -1) return
+
+        setPlayerLife((prev) => {
+            const next = [...prev];
+            next[player_index] = data.opponent_life;
+            return next
+        })
+    }
+
+    const opponent_done = ()=>{
+        console.log("Your opponent is done")
+        setOpponentDone(true)
+    }
     // Use Effects
 
     useEffect(() => {
@@ -225,6 +256,7 @@ export const useMatch = () => {
             restart(expiry_time);
         }
     }, [matchDuration])
+
 
     useEffect(() => {
         players_ref.current = players
@@ -245,6 +277,8 @@ export const useMatch = () => {
             socket.on("submission_error", submission_error);
             socket.on('waiting_opponent', waiting_opponent);
             socket.on('both_done', both_done)
+            socket.on("opponent_progress", opponent_progress)
+            socket.on("opponent_done",opponent_done);
 
             if (questions.length === 0) setLoading(true)
             else { setLoading(false) }
@@ -259,6 +293,8 @@ export const useMatch = () => {
                 socket.off('get_players', setPlayers);
                 socket.off('waiting_opponent', waiting_opponent)
                 socket.off('both_done', both_done)
+                socket.off('opponent_progress', opponent_progress)
+                socket.off('opponent_done', opponent_done)
             }
         }
 
@@ -286,6 +322,8 @@ export const useMatch = () => {
         results,
         gameOver,
         waitingOpponent,
-        finishGame
+        finishGame,
+        opponentCurrent,
+        opponentDone
     }
 }

@@ -15,7 +15,7 @@ import { GameService } from 'src/application/usecases/services/game.service';
 import { CreateGame, CreateMatchEntity, CreatePlayerEntity, CreateRoundEntity } from 'src/application/usecases/systems/create-game';
 import { GetDifficulty, GetQuestions, GetTotalTime } from 'src/application/usecases/services/questions.service';
 import { GetAnswers } from 'src/application/usecases/services/answers.service';
-import { GameCache } from 'src/interface-adapters/game-cache';
+import { GameCache } from 'src/interface-adapters/cache/game-cache';
 import { IGameCache } from 'src/application/interfaces/IGameCache';
 import redis from './config/redis-client';
 import { MatchmakingService } from 'src/application/usecases/services/matchmaking.service';
@@ -32,7 +32,7 @@ import { PlayerDTO } from 'src/entities/dtos/components.dto';
 import { ResultComponent } from 'src/entities/components';
 import { GameQuestionsDTO } from 'src/entities/dtos/game-data.dto';
 import { World } from 'src/entities/World';
-import { MatchmakingCache } from 'src/interface-adapters/matchmaking-cache';
+import { MatchmakingCache } from 'src/interface-adapters/cache/matchmaking-cache';
 import { EloRepository } from 'src/interface-adapters/repositories/elo.repository';
 import { UserRepository } from 'src/interface-adapters/repositories/user.repository';
 import { sendGameQuestions, joinMatchQueue, leaveMatchQueue, matchAccepted, matchDeclined, sendGamePlayers } from 'src/interface-adapters/socket-handlers/matchmaking.handler';
@@ -40,49 +40,52 @@ import { sendGameQuestions, joinMatchQueue, leaveMatchQueue, matchAccepted, matc
 import { Users } from "../entities/db-entities/user.entities"
 import { validateToken } from '../interface-adapters/auth/auth.service';
 
-import app from './app';
+import { createApp } from './app';
 import { AppDataSource } from "./config/data-source"
 import { OpponentProgress } from 'src/application/usecases/systems/opponent-progress';
 
 dotnev.config()
 
 // create server instance
-const httpServer = createServer(app)     // can update to https
-const io = new Server(httpServer, {
-    cors: {
-        origin: [process.env.FRONTEND_URL!],
-        credentials: true
-    },
-}
-);
-
-// auth middleware 
-io.use(async (socket, next) => {
-    const token = socket.handshake.auth.token;
-
-    if (!token) return next(new Error("Authenticaion error: No token provided"));
-
-    const valid = await validateToken(token)
-    if (valid) {
-        socket.data.user_id = valid.user_Id;
-        next();
-    }
-    else next(new Error("Authentication error: Invalid token"));
-})
-
-
 // Initialise DB
 AppDataSource.initialize()
     .then(async () => {
-
-        // initialise ecs world 
-        const world = World();
 
         // initialise repos
         const user_repo: IUserRepository = new UserRepository(AppDataSource.getRepository(Users));
         const elo_repo: IEloRepository = new EloRepository(AppDataSource.getRepository(EloRatings));
         const question_repo: IQuestionRepository = new QuestionRepository(AppDataSource.getRepository(Questions));
         const answer_repo: IAnswerRepository = new AnswerRepository(AppDataSource.getRepository(Answers))
+
+
+
+        const app = createApp(user_repo)
+        const httpServer = createServer(app)     // can update to https
+        const io = new Server(httpServer, {
+            cors: {
+                origin: [process.env.FRONTEND_URL!],
+                credentials: true
+            },
+        }
+        );
+
+        // auth middleware 
+        io.use(async (socket, next) => {
+            const token = socket.handshake.auth.token;
+
+            if (!token) return next(new Error("Authenticaion error: No token provided"));
+
+            const valid = await validateToken(token)
+            if (valid) {
+                socket.data.user_id = valid.user_Id;
+                next();
+            }
+            else next(new Error("Authentication error: Invalid token"));
+        })
+
+        // initialise ecs world 
+        const world = World();
+
 
 
         // initialise use cases 
@@ -155,7 +158,4 @@ AppDataSource.initialize()
         });
     }).catch(error => console.error(error))
 
-
-
-
-export default httpServer
+// export default httpServer

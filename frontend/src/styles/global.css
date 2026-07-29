@@ -14,6 +14,20 @@
   src: url('../assets/Fonts/DSEG7-Modern-MINI/DSEG7ModernMini-Regular.woff2') format('woff2');
 }
 
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.15);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
 @theme inline {
   /* radius */
   --radius-sm: calc(var(--radius) - 4px);
@@ -121,7 +135,7 @@
   --danger: #e53935;
   --muted: rgba(252, 236, 221, 0.4);
   --muted-text: rgba(252, 236, 221, 0.5);
-  --secondary-muted:#e0d0c2;
+  --secondary-muted: #e0d0c2;
 
   /* buttons */
   --button-primary: #C0395A;
@@ -237,6 +251,10 @@
 
   .card-shadow {
     box-shadow: var(--card-shadow);
+  }
+
+  .animate-pop{
+    animation: pop 0.35s ease-out forwards;
   }
 
 }
