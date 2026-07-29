@@ -10,6 +10,7 @@ import { StartQuestionDTO } from "src/entities/dtos/question.dto";
 
 export const submitQuestion = async (io: Server, socket: Socket, data: SubmissionDTO, check_answer: CheckAnswer) => {
     try {
+        const player_id = socket.data.user_id;
         const result = await check_answer.execute(data.match_id, socket.data.user_id, data.question_id, data.answer)
 
         io.to(socket.data.user_id).emit('submission_result', result);

@@ -28,6 +28,7 @@ export class AnswerRepository implements IAnswerRepository {
                     question: true
                 }
             })
+            console.log(answer)
 
         if (answer?.answer == undefined) return null
 

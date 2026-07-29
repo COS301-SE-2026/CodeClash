@@ -11,6 +11,8 @@ import type { SubmissionDTO } from "src/dtos/submission.dto";
 import type { Player, Question, MatchProgress } from "src/Models/MatchModel";
 import { endGame } from "src/services/result.service";
 import { submitAnswer } from "src/services/submission.service";
+import type { SubmissionDTO } from "src/dtos/submission.dto";
+import type { OpponentDTO } from "src/dtos/opponent.dto";
 
 
 export const useMatch = () => {
@@ -84,6 +86,7 @@ export const useMatch = () => {
 
     const submitQuestion = (question_id: string, answer: string) => {
         q_index.current = currentQuestion;
+        console.log(question_id)
         submitAnswer(socket, id, question_id, answer);
     }
 
@@ -218,6 +221,9 @@ export const useMatch = () => {
         });
     }
 
+       const opponent_progress = (data: OpponentDTO) => {
+        console.log(data)
+    }
     // Use Effects
 
     useEffect(() => {
@@ -245,6 +251,7 @@ export const useMatch = () => {
             socket.on("submission_error", submission_error);
             socket.on('waiting_opponent', waiting_opponent);
             socket.on('both_done', both_done)
+            socket.on("opponent_progress",opponent_progress)
 
             if (questions.length === 0) setLoading(true)
             else { setLoading(false) }
@@ -259,6 +266,7 @@ export const useMatch = () => {
                 socket.off('get_players', setPlayers);
                 socket.off('waiting_opponent', waiting_opponent)
                 socket.off('both_done', both_done)
+                socket.off('opponent_progress', opponent_progress)
             }
         }
 
