@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { getCurrentUser, fetchUserAttributes } from "aws-amplify/auth";
 import { ProfileProps } from "src/Models/ProfileModel";
 import {useState, useEffect} from 'react'
+import profile from "../../src/assets/Icons/profile_black.png"
 
 export function useLogOut() {
     const { user, error, signOut } = useAuth();
@@ -42,7 +43,16 @@ export async function getProfile() {
         async function loadUser(){
             try{
                 const {username} = await getCurrentUser();
-                const {avatarUrl, rank, elo, league} = await fetchUserAttributes();
+                const attributes = await fetchUserAttributes();
+
+                const user : ProfileProps = {
+                    avatarUrl : attributes['custom:avatarUrl'] || '../../src/assets/Icons/profile_black.png'
+                    username,
+                    rank : at,
+                    elo,
+                    league
+                    
+                }
             }
         }
     })
