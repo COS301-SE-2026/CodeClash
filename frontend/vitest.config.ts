@@ -6,11 +6,17 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
   plugins: [react()],
   test: {
+    server: {
+      deps: {
+        inline: ['aws-amplify', '@aws-amplify/core', '@aws-amplify/auth'],
+      }
+    },
+
     //use jsdom for react components to render in browser
     environment: 'jsdom',
 
     //runs setupTests.ts before every test file 
-    setupFiles: ['./setupTests.ts'],
+    setupFiles: ['./test/setupTests.ts'],
 
     //collect coverage 
     coverage: {
@@ -22,7 +28,7 @@ export default defineConfig({
 
     globals: true,
     exclude: ['@/components/ui/**', '@/hooks/**', '**/node_modules/**'],  // exclude shadcn ui components
-  },
+    },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './@'),

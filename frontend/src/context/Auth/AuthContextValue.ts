@@ -20,6 +20,7 @@ export interface AuthContextValue {
   forgotPassword: (email: string) => Promise<void>;
   confirmForgotPassword: (email: string, code: string, newPassword: string) => Promise<void>;
   clearError: () => void;
+  token: string | undefined;
 }
 
 export interface AuthUser {

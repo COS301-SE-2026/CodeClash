@@ -11,7 +11,6 @@ const buttonPrimaryClass = "w-[100%] max-w-[90vw] h-[3rem] text-[1.5rem] rounded
 
 const SignUp: React.FC= () => {
     const { //this is to destructure the elements that the viewmodel returns, so that the view can access them
-        content,
         form,
         confirmationCode,
         needsConfirmation,
@@ -36,8 +35,8 @@ const SignUp: React.FC= () => {
                 </Link>
 
                 <div className="relative z-10 flex flex-col items-center gap-4 w-[100%]" >
-                    <h1 className="text-center"> {content.confirmTitle} </h1>
-                    <p> {content.confirmTagline(form.email)} </p>2
+                    <h1 className="text-center"> Please verify your email </h1>
+                    <p> Enter the code sent to {form.email} </p>2
 
                     {displayError && (
                         <p className="text-danger text-center"> {displayError} </p>
@@ -90,8 +89,8 @@ const SignUp: React.FC= () => {
                 </div>
 
                 <div className="relative z-20 flex flex-col items-center gap-4 w-full -mt-[12%] mb-[2%]">
-                    <h1 className="heading text-center -mb-2"> {content.title} </h1>
-                    <p className="heading-sub mb-2"> {content.tagline} </p>
+                    <h1 className="heading text-center -mb-2"> Create Your Account </h1>
+                    <p className="heading-sub mb-2"> Build your skills. Earn your rank. </p>
 
                     {displayError && (
                         <p className="text-danger text-center"> {displayError} </p>
