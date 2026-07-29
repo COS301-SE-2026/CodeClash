@@ -11,3 +11,4 @@ vi.mock('react-router', () => ({  //apparently there is a security issue with re
 }))
 
 vi.mock('../../../src/context/Auth/hooks/useAuth');
+
