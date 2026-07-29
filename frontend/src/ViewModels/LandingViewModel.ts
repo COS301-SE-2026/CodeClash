@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
-import {stats, steps, features, audience} from '../Models/LandingModel';
-import type { Stat, Step, Feature} from '../Models/LandingModel';
+import {stats, steps, features, audience, docs} from '../Models/LandingModel';
+import type { Stat, Step, Feature, Docs} from '../Models/LandingModel';
 
 export interface LandingViewModelProps {
     scrollY: number;
@@ -9,6 +9,7 @@ export interface LandingViewModelProps {
     steps: Step[];
     features: Feature[];
     audience: string[];
+    docs: Docs[];
 }
 
 export const LandingViewModelFunction = (): LandingViewModelProps => {
@@ -35,5 +36,6 @@ export const LandingViewModelFunction = (): LandingViewModelProps => {
         steps,
         features,
         audience,
+        docs,
     };
 };
