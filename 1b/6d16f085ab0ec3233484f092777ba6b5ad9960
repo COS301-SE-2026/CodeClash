@@ -1,0 +1,14 @@
+frontend/@/components/shared/Match.tsx
+  h_94c952a9e14c58 117,124
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "1b6d16f085ab0ec3233484f092777ba6b5ad9960",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
