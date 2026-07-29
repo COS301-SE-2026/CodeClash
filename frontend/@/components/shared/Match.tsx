@@ -120,7 +120,10 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                         style={{ top: `${(question_number - 1 - opponent_progress) * 9.6}rem` }}
                                         alt='progress avatar user 2'
                                     />
-                                    <Badge variant={'secondary'}>DONE</Badge>
+                                    {opponent_done &&
+                                        <Badge variant={'secondary'} className= 'amimate-pop'>DONE</Badge>
+                                    }
+
                                 </div>
 
                             </div>

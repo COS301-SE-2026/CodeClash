@@ -13,13 +13,11 @@ export class GameCache implements IGameCache {
 
     // correct answers
     async saveAnswer(question_id: string, answer: string): Promise<void> {
-        console.log("saving question: ", question_id)
         this.redis.set(`question:${question_id}`, `answer:${answer}`)
 
     }
 
     async getAnswer(question_id: string): Promise<string | null> {
-        console.log("getting: ", question_id)
         const answer = await this.redis.get(`question:${question_id}`);
 
         if(!answer) return null;

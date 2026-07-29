@@ -6,11 +6,7 @@ export class GetAnswers {
     ) { }
 
     async execute(questions: string[]) {
-        console.log("LINE 11 Answer service")
         const answers = await this.answer_repo.getAnswers(questions)
-
-        console.log(answers)
-
         return answers
     }
 }
