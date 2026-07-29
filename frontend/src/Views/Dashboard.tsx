@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom';
 import backgroundImg from '../assets/Background/dashboard.png'
 import brainIcon from '../assets/Icons/Brain.png';
-import robot from '../assets/Robots/Pink_fighting.png'
 import { useShowPopUp } from '../ViewModels/DashboardViewModel';
-import { useUser, getUserElo, getUserToken } from '../ViewModels/SharedViewModel';
+//import {getUserElo, getUserToken } from '../ViewModels/SharedViewModel';
 
 import { Search, Bot, UserCircle } from 'lucide-react';
 
