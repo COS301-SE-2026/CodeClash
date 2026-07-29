@@ -30,9 +30,9 @@ const leaderboard_system = new LeaderboardSystem(elo_repo);
 //elo routes
 router.get('/leaderboard', getLeaderboardController(leaderboard_system));
 router.get('/elo-get', getUserElo(elo_repo));
-router.post('/elo-history', getEloHistory);
-router.post('/update', updateEloAfterMatch);
-router.post('/elo-set', setUserElo);
+// router.post('/elo-history', getEloHistory);
+// router.post('/update', updateEloAfterMatch);
+// router.post('/elo-set', setUserElo);
 
 
 // user routes

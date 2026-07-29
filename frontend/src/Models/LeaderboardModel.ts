@@ -15,23 +15,18 @@ export const LeaderboardUserData : LeaderboardUserProps = {
     avatarUrl: '../assets/Icons/profile_black.png',
     username: '',
     elo: 0,
+    // rating: 0,
 }
 
 
-export interface LeaderboardProps{
-    league: string;
-    prev_page: string;
-    firstUser: LeaderboardUserProps;
-    secondUser: LeaderboardUserProps;
-    thirdUser: LeaderboardUserProps;
-    fourthUser: LeaderboardUserProps;
-    fifthUser: LeaderboardUserProps;
-    sixthUser: LeaderboardUserProps;
-    sevthUser: LeaderboardUserProps;
-    eigthUser: LeaderboardUserProps;
-    ninthUser: LeaderboardUserProps;
-    tenthUser: LeaderboardUserProps;
-
+export interface LeaderboardEntry {
+  rank: number;
+  user_id: string;
+  league: string;
+  avatarUrl: string;
+  username: string;
+  elo: number;
+  rating: number;
 }
 
 
