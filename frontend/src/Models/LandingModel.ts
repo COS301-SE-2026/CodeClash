@@ -36,7 +36,7 @@ export const stats: Stat[] = [
         label: 'Ranked system',
     },
     {
-        value: 'Infinity',
+        value: 'Infinite',
         label: 'Problems to solve',
     }
 ]
@@ -55,9 +55,9 @@ export const steps:Step[] = [
         desc: 'Solve problems faster and more accurately than your opponent. Watch their progress in real-time. Submit answers before they do.',
     },
     {
-        step: '02',
+        step: '03',
         icon: 'trophy',
-        title: 'CLimb the Ranks',
+        title: 'Climb the Ranks',
         desc: 'Your ELO updates after every match. Earn nadges, trcak your history, and rise through the leaderboard.',
     }
 ]
