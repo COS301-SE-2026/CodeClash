@@ -51,6 +51,36 @@ const HelpMenu: React.FC = () => {
                 </div>
             </section>
 
+            {/*About section */}
+            <section style={{padding: "0 8% 6rem"}}>
+                <div style={{maxWidth: "1000px", margin: "0 auto", background: "rgba(252, 236, 221, 0.03)", border: "1px solid rgba(252, 236, 221, 0.08)", borderRadius: "20px", padding: "3rem"}}>
+                    <div style={{display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1rem"}}>
+                        <Info size={32} color="#c03951"/>
+                        <h2 style={{fontSize: "2rem", fontWeight: 900, margin: 0}}>About CodeClash</h2>
+                    </div>
+                    <p style={{color: "rgba(252, 236, 221, 0.7)", lineHeight: 1.9, marginBottom: "1.5rem"}}>
+                        {/*Copied from Figma wireframe! */}
+                        CodeClash is an interactive competition platform that makes programming and mathematics fun, and engaging. Players challenge one another in real-time, earning points for speed and accuracy while climbing the leaderboard. With a space-inspired theme, customizable avatars, achievements, and live match results, CodeClash creates an exciting environment where users can sharpen their skills, track their progress, and compete against others in fast-paced battles.
+                    </p>
+                    <div style={{display: "grid", gridTemplateColumns: "repeat(autp-fit, minmax(220px, 1fr)", gap: "1.5rem"}}>
+                        <div>
+                            <h3 style={{color: "#c0396a", marginBottom: "0.5rem"}}>Mission</h3>
+                            <p style={{color: "rgba(252, 236, 221, 0.65)", lineHeight: 1.7}}>Make learning programming and mathematics fun, and engaging through friendly competition and meaningful progression.</p>
+                        </div>
+                        {/*copied above */}
+                        <div>
+                            <h3 style={{color: "#c0396a", marginBottom: "0.5rem"}}>Vision</h3>
+                            <p style={{color: "rgba(252, 236, 221, 0.65)", lineHeight: 1.7}}>Create a community of continuous improvement through challenges and a celebration of achievemnets.</p>
+                        </div>
+                        {/*copied above */}
+                        <div>
+                            <h3 style={{color: "#c0396a", marginBottom: "0.5rem"}}>Core Values</h3>
+                            <p style={{color: "rgba(252, 236, 221, 0.65)", lineHeight: 1.7}}>Fair competition, continuous learning, accessibility, teamwork, growth mindset, and innovation.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/*faq */}
             <section style= {{padding: "0 8% 6rem"}}>
                 <h2 style={{textAlign: "center", fontSize: "2.2rem", fontWeight: 900, marginBottom: "3rem"}}>Frequently Asked Questions</h2>
