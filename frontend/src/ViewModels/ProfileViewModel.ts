@@ -4,7 +4,6 @@ import { useUser } from "src/context/User/hooks/useUser";
 import { getCurrentUser, fetchUserAttributes } from "aws-amplify/auth";
 import type { ProfileProps } from "src/Models/ProfileModel";
 import {useState, useEffect} from 'react'
-import profile from "../../src/assets/Icons/profile_black.png"
 
 export function useLogOut() {
     const { signOut } = useAuth();
@@ -32,8 +31,8 @@ export function useEdit() {
 
 export async function getProfile() {
 
-    //this is a very quickly done function that may be wrong, it is meant to be presented to Oliver now, may be wrong!
-    
+    //this is a very quickly done function that may be wrong, please correct if necessary
+
     const [userData, setUserData] = useState<ProfileProps | null>(null);
     const [loadingData, setLoadingData] = useState(true);
     const [error, setError] = useState<Error | null>(null);
@@ -52,7 +51,16 @@ export async function getProfile() {
                 };
                 
                 setUserData(user);
+            } catch (err) {
+                setError(err as Error);
+            }
+
+            finally {
+                setLoadingData(false);
             }
         }
-    })
+        loadUser();
+    }, []);
+
+    return {userData, loadingData, error};
 }
