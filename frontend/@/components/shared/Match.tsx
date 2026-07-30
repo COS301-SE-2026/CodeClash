@@ -1,7 +1,3 @@
-<<<<<<<<< Temporary merge branch 1
-=========
-
->>>>>>>>> Temporary merge branch 2
 import { Progress } from '../ui/progress'
 import { Badge } from '../ui/badge'
 import React from 'react'
@@ -123,11 +119,8 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                             <div className='relative  flex flex-col items-center justify-between h-[40rem]'>
                                 <div className="absolute bg-secondary h-[90%] w-[15%] -z-10 rounded-3xl "></div>
                                 {
-<<<<<<<<< Temporary merge branch 1
-                                    [...Array(question_number)].map((id) => {
-=========
+
                                     Array.from({length: question_number}).map((q, id) => {
->>>>>>>>> Temporary merge branch 2
                                         return (
                                             <React.Fragment key={`${question_number}-${id}`}>
 
