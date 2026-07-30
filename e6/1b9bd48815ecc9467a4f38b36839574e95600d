@@ -1,0 +1,36 @@
+backend/src/interface-adapters/socket-handlers/game.handler.ts
+  h_94c952a9e14c58 13,50,63-64
+backend/src/interface-adapters/socket-handlers/matchmaking.handler.ts
+  h_94c952a9e14c58 75,80
+frontend/src/services/result.service.tsx
+  h_94c952a9e14c58 2,5,8
+backend/src/entities/dtos/match-result.dto.ts
+  h_94c952a9e14c58 6
+frontend/src/ViewModels/MatchViewModel.ts
+  h_94c952a9e14c58 24,67,97
+backend/src/application/usecases/services/game-store.service.ts
+  h_94c952a9e14c58 7,14,29
+backend/src/application/usecases/services/game.service.ts
+  h_94c952a9e14c58 93
+backend/src/application/usecases/systems/finish-game.ts
+  h_94c952a9e14c58 2,4-6,15-17,26,33,35,39,41-42,46-47,49-55,57-61,67-68,70,72,74,80,84,91,94-101,103-104,106-115,117-119
+backend/src/interface-adapters/repositories/match-result.repository.ts
+  h_94c952a9e14c58 50,59
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 8,139,173
+backend/src/application/usecases/services/match-result.service.ts
+  h_94c952a9e14c58 21,23-24,26,38,55,59
+backend/src/entities/dtos/player-stats.dto.ts
+  h_94c952a9e14c58 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "e61b9bd48815ecc9467a4f38b36839574e95600d",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
