@@ -8,7 +8,7 @@ export interface Terms {
 export const terms: Terms[] = [
     {
         title: '1. Acceptance of Terms',
-        desc: 'By creating an account or using CodeClash,you agree to these Terms and Conditions. If you do not agree, do not use the platform.'
+        desc: 'By creating an account or using CodeClash, you agree to these Terms and Conditions. If you do not agree, do not use the platform.'
     },
     {
         title: '2. User Accounts',
@@ -73,6 +73,6 @@ export const terms: Terms[] = [
     },
     {
         title: '12. Contact',
-        desc: 'Questions regarding these Terms and Conditions may be directed to quantdevs@gmail.com'
+        desc: 'Questions regarding these Terms and Conditions may be directed to quantdevs@gmail.com.'
     },
 ]

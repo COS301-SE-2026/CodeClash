@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router";
 import { TermsAndConditionsViewModelFunction } from "../ViewModels/TermsAndConditionsViewModel";
 
+import { Dot } from "lucide-react";
+
 const TermsAndConditions: React.FC = () => {
     const {section} = TermsAndConditionsViewModelFunction();
 
@@ -24,6 +26,16 @@ const TermsAndConditions: React.FC = () => {
                             <h2 style={{fontSize: "1.35rem", fontWeight: 700, color: "#000000", marginBottom: "1rem"}}>{s.title}</h2>
                             {s.desc && (
                                 <p style={{color: "var(--primary)", lineHeight: 1.9, marginBottom: s.bullets? "1rem" : 0, fontWeight: 500 }}>{s.desc}</p>
+                            )}
+                            {s.bullets && (
+                                <ul style={{listStyle: "none", padding: 0, margin: 0}}>
+                                    {s.bullets.map((bullet) => (
+                                        <li key={bullet} style={{marginBottom: "0.75rem", display: "flex", alignItems: "flex-start", gap: "0.75rem"}}>
+                                            <Dot size={30} style={{flexShrink: 0, color: "var(--primary)"}}/>
+                                            <span style={{color: "var(--primary)", lineHeight: 1.8, fontWeight: 500}}>{bullet}</span>
+                                        </li>
+                                    ))}
+                                </ul>
                             )}
                         </section>
                     ))}
