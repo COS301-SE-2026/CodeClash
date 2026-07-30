@@ -1,0 +1,24 @@
+backend/src/application/usecases/services/match-result.service.ts
+  h_94c952a9e14c58 29,42-43,55-56,60-64
+frontend/src/Views/FinalResults.tsx
+  h_94c952a9e14c58 19,153-154,157
+frontend/src/ViewModels/FinalResultsViewModel.ts
+  h_94c952a9e14c58 31
+backend/src/interface-adapters/repositories/match-result.repository.ts
+  h_94c952a9e14c58 27,52
+backend/src/entities/dtos/match-result.dto.ts
+  h_94c952a9e14c58 5-8,12
+backend/src/application/usecases/systems/finish-game.ts
+  h_94c952a9e14c58 75-77,84-85,89,93
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "69a5a709b564ebcef5fcee4798aee7c6baeaa046",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
