@@ -29,7 +29,7 @@ const SignUp: React.FC= () => {
             <div className="relative w-full h-screen flex items-center justify-center overflow-x-hidden"
                 style={{ background: 'var(--background)' }} >
                 <Link className="absolute top-10 left-10 bg-primary rounded-lg px-4 py-2 heading-sub hover:opacity-80"
-                    to='/welcome'
+                    to='/'
                 >
                     ← Back
                 </Link>

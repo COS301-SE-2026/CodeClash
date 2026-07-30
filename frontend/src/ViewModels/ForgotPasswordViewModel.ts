@@ -1,5 +1,5 @@
 import {useState, useCallback} from 'react';
-import { useAuth } from '../context/hooks/useAuth';
+import { useAuth } from '../context/Auth/hooks/useAuth';
 import { forgotPasswordContent, forgotPasswordForm, resetPasswordForm, validateForgotPasswordForm, validateResetPassword } from '../Models/ForgotPasswordModel';
 import type { ForgotPasswordContent, ForgotPasswordForm, ResetPasswordForm } from '../Models/ForgotPasswordModel';
 
