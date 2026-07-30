@@ -1,9 +1,8 @@
 import bg from "../../src/assets/Background/solar_system.jpg"
 import "../../src/styles/global.css"
-import GameGuideCard from "@/components/ui/gameGuideCard";
+import GameGuideCard, { GameGuideCardText } from "@/components/ui/gameGuideCard";
 import GameGuideHeading from "@/components/ui/gameGuideHeading";
 import GameGuideNumberCard from "@/components/ui/gameGuideNumber";
-import { GameGuideCardText } from "@/components/ui/gameGuideCard";
 
 const GameGuide = () => {
 

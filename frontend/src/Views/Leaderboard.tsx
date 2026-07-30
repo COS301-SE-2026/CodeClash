@@ -1,4 +1,3 @@
-import profile from '../assets/Icons/profile_black.png';
 import { UserCircle } from 'lucide-react';
 import winner from '../assets/Icons/winner.png';
 import planet from '../assets/Planets/Earth.png';
