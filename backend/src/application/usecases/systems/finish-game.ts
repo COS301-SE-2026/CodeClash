@@ -1,4 +1,4 @@
-import { PlayerInfoComponent, PlayersComponent, ResultComponent, SubmissionRegistryComponent } from "src/entities/components";
+import { ResultComponent, SubmissionRegistryComponent } from "src/entities/components";
 import { PlayerStatsDTO } from "src/entities/dtos/player-stats.dto";
 import { World } from "src/entities/World"
 import { MatchResultService } from "../services/match-result.service";
@@ -31,8 +31,6 @@ export class FinishGame {
         if (!submission_registry) throw new Error('Error finishing game')
 
         const game_stats = this.getStats(submission_registry.submissions, player_ids);
-
-        console.log(`Game stats:`, game_stats)
 
         // calculate winner 
         let winner: string | null = null;
@@ -69,20 +67,13 @@ export class FinishGame {
 
         // elo updates 
 
-        console.log("Winner is: ", winner);
-        console.log("Loser is: ", loser);
-
-        console.log("winner stats: ", winner_stats);
-        console.log("loser_stat: ", loser_stat)
-
         if (!winner || !loser) throw new Error("Error getting user stats")
 
         const db_match_id = this.game_store.get(match_id);
 
         const result = await this.match_result_service.finaliseMatch(db_match_id!.database_id, winner, loser, game_type === GameType.ranked, [winner_stats!, loser_stat!])
 
-    console.log("returning result: ", result)
-    
+
         const data: ResultComponent = {
             winner: {
                 id: winner,

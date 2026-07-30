@@ -39,8 +39,6 @@ export class MatchResultService {
         for (const stat of playerStats) {
             const user_details = await this.match_result_repo.getUserDetails(stat.user_id);
 
-            console.log("STAT: ", stat);
-            console.log("DETAILS: ", user_details)
             players.push({
                 user_id: stat.user_id,
                 username: user_details.username,
@@ -53,10 +51,6 @@ export class MatchResultService {
         }
 
         players.sort((a, b) => a.position! - b.position!);
-        console.log(players);
-
-        // 
-
 
         return {
             match_id: match_id,

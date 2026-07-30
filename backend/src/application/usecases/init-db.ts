@@ -10,19 +10,20 @@ dotenv.config();
 export async function initDB(user_repo: IUserRepository, elo_repo: IEloRepository) {
 
   try {
+    let avatar_index = 0;
     const users = await fetchAllCognitoUsers(['email', 'sub']);
 
     for (const user of users) {
       const email = user.Attributes!.find(attr => attr.Name === 'email')?.Value;
       const cognito_id = user.Attributes!.find(attr => attr.Name === 'sub')?.Value;
 
-      if ( !email || !cognito_id) {
+      if (!email || !cognito_id) {
         // need to throw some error
         return;
       }
 
       // add user from cognito
-      const inserted_user = await user_repo.createUser(user.Username!, email, cognito_id, 0, "Mercury")
+      const inserted_user = await user_repo.createUser(user.Username!, email, cognito_id, ((avatar_index++) % 4), "Mercury")
 
       if (inserted_user) {
         // add default elo

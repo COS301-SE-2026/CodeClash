@@ -16,7 +16,6 @@ const FinalResults: React.FC = () => {
     } = FinalResultsViewModelFunction();
 
 
-
     const formatTime = (ms: number|undefined) => {
 
         if(ms === undefined) return 'Error getting time'
@@ -101,7 +100,7 @@ const FinalResults: React.FC = () => {
                                 {/*The user name + user robot/icon */}
                                 <div className="px-3 py-4 flex flex-col items-center justify-center gap-1 border-r border-secondary-text h-full">
                                     <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
-                                        {winner?.avatar ? (
+                                        {winner ? (
                                             <img src={robot_map[winner.avatar]} alt={winner.username} className="w-full h-full object-cover" />
                                         ) : (
                                             <div className="w-full h-full bg-secondary-text" />
@@ -150,8 +149,8 @@ const FinalResults: React.FC = () => {
                             {/*The user name + user robot/icon */}
                             <div className="px-3 py-4 flex flex-col items-center justify-center gap-1 border-r border-secondary-text h-full">
                                 <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
-                                    {loser?.avatar ? (
-                                            <img src={robot_map[loser.avatar]} alt={loser?.username} className="w-full h-full object-cover" />
+                                    {loser ? (
+                                            <img src={robot_map[loser.avatar]} alt={loser.username} className="w-full h-full object-cover" />
                                         ) : (
                                             <div className="w-full h-full bg-secondary-text" />
                                         )}

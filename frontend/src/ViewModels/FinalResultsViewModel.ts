@@ -28,7 +28,6 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
     const { pairId } = useMatchmaking()
 
     const handleResult = (result: ResultDTO) => {
-        console.log(result)
         setResults(result);
 
         setWinner(result.players[0]);
