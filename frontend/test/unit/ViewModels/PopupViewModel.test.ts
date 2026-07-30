@@ -3,6 +3,7 @@ import { renderHook } from "@testing-library/react"
 import { act } from "react"
 import { useSocket } from "../../../src/context/Socket/hooks/useSocket"
 import { useUser } from "../../../src/context/User/hooks/useUser"
+import { useSelectTopic } from "../../../src/ViewModels/PopUpViewModel"
 
 
 const mock_nav = vi.fn();
@@ -22,6 +23,8 @@ const mockSocket = {id : 'mock-socket'} as unknown as ReturnType<typeof useSocke
 
 beforeEach(() => {
     vi.clearAllMocks();
+    vi.mocked(useSocket).mockReturnValue({socket : mockSocket, isConnected: true, matched: null}) as unknown as ReturnType<typeof useSocket>);
+    vi.mocked(useUser).mockReturnValue({ elo: 600} as ReturnType<typeof useUser>);
 
-})
+});
 
