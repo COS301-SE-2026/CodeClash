@@ -1,0 +1,19 @@
+backend/src/application/interfaces/IEloRepository.ts
+  s_a0294126f7a89a::t_5605cfdb78a506 13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "01e9c76b516736c9278345ea8b1338cd916a6a2f",
+  "prompts": {},
+  "sessions": {
+    "s_a0294126f7a89a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04ffa4cabffeUeIh34xdcGnNh2",
+        "model": "big-pickle"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
