@@ -1,0 +1,14 @@
+backend/tests/unit/controllers/user.controller.test.ts
+  h_94c952a9e14c58 1-85
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.18",
+  "base_commit_sha": "09099662aee1888a82f2902968f4a0a6dd4f11f2",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
