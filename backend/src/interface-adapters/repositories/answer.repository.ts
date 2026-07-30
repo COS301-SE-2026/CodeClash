@@ -1,7 +1,7 @@
 import { IAnswerRepository } from "src/application/interfaces/repositories/IAnswerRepository";
 import { Answers } from "src/entities/db-entities/answers.entities";
 import { AnswerDTO } from "src/entities/dtos/answer.dto";
-import { Repository } from "typeorm";
+import { Repository, In } from "typeorm";
 
 export class AnswerRepository implements IAnswerRepository {
     constructor(
@@ -17,14 +17,14 @@ export class AnswerRepository implements IAnswerRepository {
                         question_id: question_id
                     }
                 },
-                 select: { 
-                    answer: true, 
+                select: {
+                    answer: true,
                     answer_id: true,
-                    question:{
+                    question: {
                         question_id: true
                     }
                 },
-                relations:{
+                relations: {
                     question: true
                 }
             })
@@ -35,32 +35,28 @@ export class AnswerRepository implements IAnswerRepository {
     }
 
     async getAnswers(question_ids: string[]): Promise<AnswerDTO[]> {
-        const answers: AnswerDTO[] | null = []
-
-        for (const id of question_ids) {
-            const answer = await this.answerRepository.findOne({
-                where: {
-                    question: {
-                        question_id: id
-                    }
-                },
-                select: { 
-                    answer: true, 
-                    answer_id: true,
-                    question:{
-                        question_id: true
-                    }
-                },
-                relations:{
-                    question: true
+        const answers = await this.answerRepository.find({
+            where: {
+                question: {
+                    question_id: In(question_ids)
                 }
-            })
-
-            if (answer) {
-                answers.push({ answer: answer.answer, question_id: answer.question.question_id });
+            },
+            select: {
+                answer: true,
+                answer_id: true,
+                question: {
+                    question_id: true
+                }
+            },
+            relations: {
+                question: true
             }
-        }
+        })
 
-        return answers
+        return answers.map(a => ({
+            answer: a.answer,
+            question_id: a.question.question_id
+        }))
+
     }
 }
