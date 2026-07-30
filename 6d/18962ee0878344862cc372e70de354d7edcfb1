@@ -1,0 +1,16 @@
+backend/src/application/usecases/init-db.ts
+  h_94c952a9e14c58 13,26
+backend/src/application/usecases/systems/finish-game.ts
+  h_94c952a9e14c58 1,76
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "6d18962ee0878344862cc372e70de354d7edcfb1",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
