@@ -1,0 +1,18 @@
+backend/tests/unit/usecases/services/game.service.test.ts
+  h_94c952a9e14c58 22-32,41-43,126
+backend/tests/unit/socket-handlers/game.handler.unit.test.ts
+  h_94c952a9e14c58 113,124,126,131,136
+backend/tests/integration/repositories/test-data-source.ts
+  h_94c952a9e14c58 11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "69a1b777d770af4a44d274194854db9ef777c364",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
