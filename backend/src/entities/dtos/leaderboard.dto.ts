@@ -7,3 +7,10 @@ export interface LeaderboardEntryDTO {
   league: string;
 
 }
+
+export interface PaginatedLeaderboardResponse {
+  data: LeaderboardEntryDTO[];
+  total: number;
+  page: number;
+  pageSize: number;
+}
