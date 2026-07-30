@@ -47,14 +47,19 @@ export class FinishGame {
                 winner_stats!.correctness === stat.num_correct && winner_stats!.speed > stat.total_time
             ) {
 
-                console.log(`updating loser from ${loser} to ${winner}`);
                 loser = winner;
                 loser_stat = winner_stats
 
-                console.log(`updating winner from ${winner} to ${id}`)
 
                 winner = id;
                 winner_stats = {
+                    user_id: id,
+                    correctness: stat.num_correct,
+                    speed: stat.total_time
+                }
+            }else{
+                loser = id;
+                loser_stat = {
                     user_id: id,
                     correctness: stat.num_correct,
                     speed: stat.total_time

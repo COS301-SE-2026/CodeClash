@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
-import type { ResultDTO } from "src/dtos/result.dto";
+import { type PlayerResultDTO, type ResultDTO } from "src/dtos/result.dto";
 
 import { finalResultsContent } from "../Models/FinalResultsModel";
 import type { FinalResultsContent } from "../Models/FinalResultsModel";
@@ -11,7 +11,8 @@ interface FinalResultsViewModel {
     content: FinalResultsContent;
     state: 'loading' | 'results' | 'error';
     loadingProgress: number; //for user to see how far the loading is
-    results: ResultDTO | null;
+    winner: PlayerResultDTO | null,
+    loser:PlayerResultDTO | null
 
 }
 
@@ -19,13 +20,18 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
     const [state, setState] = useState<'loading' | 'results' | 'error'>('loading');
     const [loadingProgress, setLoadingProgress] = useState(0);
     const [results, setResults] = useState<ResultDTO | null>(null);
+    const [winner, setWinner] = useState<PlayerResultDTO | null>(null);
+    const [loser, setLoser] = useState<PlayerResultDTO | null>(null)
     const { socket } = useSocket();
     const location = useLocation();
     const { id } = location.state;
-    const {pairId} = useMatchmaking()
+    const { pairId } = useMatchmaking()
 
     const handleResult = (result: ResultDTO) => {
         setResults(result);
+
+        setWinner(result.players[0]);
+        setLoser(result.players[1]);
     }
 
 
@@ -75,6 +81,7 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
         content: finalResultsContent,
         state,
         loadingProgress,
-        results,
+        winner,
+        loser
     };
 }

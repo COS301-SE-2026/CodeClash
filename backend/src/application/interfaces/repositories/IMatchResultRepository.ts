@@ -10,5 +10,5 @@ export interface IMatchResultRepository {
         elo_lost: number | null
     ): Promise<void>;
 
-    getUserDetails(user_id: string): Promise<{ username: string; avatar: string }>;
+    getUserDetails(user_id: string): Promise<{ username: string; avatar: number }>;
 }

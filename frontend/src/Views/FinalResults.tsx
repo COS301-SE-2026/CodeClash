@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import ResultsBackground from '../assets/Background/FinalResults.jpg';
 import { FinalResultsViewModelFunction } from "../ViewModels/FinalResultsViewModel";
+import { robot_map } from "src/assets/Robots";
 
 
 const FinalResults: React.FC = () => {
@@ -11,12 +12,9 @@ const FinalResults: React.FC = () => {
 
     const {
         content, state, loadingProgress,
-        results,
+        winner, loser
     } = FinalResultsViewModelFunction();
 
-
-    const winner_stats = results?.stats[results.winner.id];
-    const loser_stats = results?.stats[results.loser.id]
 
     const formatTime = (ms: number|undefined) => {
 
@@ -28,8 +26,7 @@ const FinalResults: React.FC = () => {
         return `${min}:${sec.toString().padStart(2,'0')}`;
     }
 
-    const winner_time = formatTime(winner_stats?.total_time);
-    const loser_time = formatTime(loser_stats?.total_time)
+
     return (
         <div className="bg-secondary min-h-screen w-full flex items-center justify-center">
 
@@ -103,37 +100,37 @@ const FinalResults: React.FC = () => {
                                 {/*The user name + user robot/icon */}
                                 <div className="px-3 py-4 flex flex-col items-center justify-center gap-1 border-r border-secondary-text h-full">
                                     <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
-                                        {/* {.avatar ? (
-                                            <img src={player.avatar} alt={player.username} className="w-full h-full object-cover" />
+                                        {winner?.avatar ? (
+                                            <img src={robot_map[winner.avatar]} alt={winner.username} className="w-full h-full object-cover" />
                                         ) : (
                                             <div className="w-full h-full bg-secondary-text" />
-                                        )} */}
+                                        )}
                                     </div>
                                     <span className="text-secondary-text font-medium text-center truncate w-full"
-                                        style={{ fontSize: 'var(--font-size-xsm)' }}>{results?.winner.username}</span>
+                                        style={{ fontSize: 'var(--font-size-xsm)' }}>{winner?.username}</span>
                                 </div>
 
                                 {/*The column for correctness */}
                                 <div className="px-3 py-4 flex items-center justify-center border-r border-secondary-text h-full">
                                     <span className="text-secondary-text font-semibold"
-                                        style={{ fontSize: 'var(--font-size-sm)' }}>{winner_stats?.num_correct} questions correct</span>
+                                        style={{ fontSize: 'var(--font-size-sm)' }}>{winner?.correctness} questions correct</span>
                                 </div>
 
                                 {/*The column for speed - copied from above*/}
                                 <div className="px-3 py-4 flex items-center justify-center border-r border-secondary-text h-full">
                                     <span className="text-secondary-text font-semibold"
-                                        style={{ fontSize: 'var(--font-size-sm)' }}>{winner_time}</span>
+                                        style={{ fontSize: 'var(--font-size-sm)' }}>{formatTime(winner?.speed)}</span>
                                 </div>
 
                                 {/*Column for elo effect */}
                                 <div className="px-3 py-4 flex  flex-col items-center justify-center border-r border-secondary-text h-full">
-                                    {results?.winner.elo! >= 0 ? (
+                                    {winner?.eloEffect! >= 0 ? (
                                         <TrendingUp className="w-9 h-9 text-success" />
                                     ) : (
                                         <TrendingDown className="w-9 h-9 text-danger" />
                                     )}
-                                    <span className={`font-bold ${results?.winner.elo! >= 0 ? 'text-success' : 'text-danger'}`}
-                                        style={{ fontSize: 'var(--font-size-sm)' }}>{results?.winner.elo!}</span>
+                                    <span className={`font-bold ${winner?.eloEffect! >= 0 ? 'text-success' : 'text-danger'}`}
+                                        style={{ fontSize: 'var(--font-size-sm)' }}>{winner?.eloEffect!}</span>
                                 </div>
 
                                 {/*Column for the users position (1st or 2nd) */}
@@ -159,30 +156,30 @@ const FinalResults: React.FC = () => {
                                         )} */}
                                 </div>
                                 <span className="text-secondary-text font-medium text-center truncate w-full"
-                                    style={{ fontSize: 'var(--font-size-xsm)' }}>{results?.loser.username}</span>
+                                    style={{ fontSize: 'var(--font-size-xsm)' }}>{loser?.username}</span>
                             </div>
 
                             {/*The column for correctness */}
                             <div className="px-3 py-4 flex items-center justify-center border-r border-secondary-text h-full">
                                 <span className="text-secondary-text font-semibold"
-                                    style={{ fontSize: 'var(--font-size-sm)' }}>{loser_stats?.num_correct} questions correct</span>
+                                    style={{ fontSize: 'var(--font-size-sm)' }}>{loser?.correctness} questions correct</span>
                             </div>
 
                             {/*The column for speed - copied from above*/}
                             <div className="px-3 py-4 flex items-center justify-center border-r border-secondary-text h-full">
                                 <span className="text-secondary-text font-semibold"
-                                    style={{ fontSize: 'var(--font-size-sm)' }}>{loser_time}</span>
+                                    style={{ fontSize: 'var(--font-size-sm)' }}>{formatTime(loser?.speed)}</span>
                             </div>
 
                             {/*Column for elo effect */}
                             <div className="px-3 py-4 flex  flex-col items-center justify-center border-r border-secondary-text h-full">
-                                {results?.loser.elo! >= 0 ? (
+                                {loser?.eloEffect! >= 0 ? (
                                     <TrendingUp className="w-9 h-9 text-success" />
                                 ) : (
                                     <TrendingDown className="w-9 h-9 text-danger" />
                                 )}
-                                <span className={`font-bold ${results?.loser.elo! >= 0 ? 'text-success' : 'text-danger'}`}
-                                    style={{ fontSize: 'var(--font-size-sm)' }}>{results?.loser.elo!}</span>
+                                <span className={`font-bold ${loser?.eloEffect! >= 0 ? 'text-success' : 'text-danger'}`}
+                                    style={{ fontSize: 'var(--font-size-sm)' }}>{loser?.eloEffect!}</span>
                             </div>
 
                             {/*Column for the users position (1st or 2nd) */}

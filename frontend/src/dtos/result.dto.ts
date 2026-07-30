@@ -1,14 +1,15 @@
 
+export interface PlayerResultDTO {
+    user_id: string;
+    username: string;
+    avatar: number;
+    correctness: number;// percentage 0-100
+    speed: number; 
+    eloEffect: number; //signed 
+    position: 1 | 2; 
+}
+
 export interface ResultDTO {
-    winner: {
-        id: string,
-        username: string,
-        elo: number
-    },
-    loser: {
-        id: string,
-        username: string,
-        elo: number
-    }
-    stats: Record<string, { num_correct: number, total_time: number }>
+    match_id: string;
+    players: PlayerResultDTO[];
 }

@@ -1,7 +1,7 @@
 export interface PlayerResultDTO {
     user_id: string;
     username: string;
-    avatar: string;
+    avatar: number;
     correctness: number;// percentage 0-100
     speed: number; 
     eloEffect: number; //signed 
@@ -9,6 +9,5 @@ export interface PlayerResultDTO {
 }
 
 export interface MatchResultDTO {
-    match_id: string;
     players: PlayerResultDTO[];
 }
