@@ -1,0 +1,19 @@
+frontend/Dockerfile
+  s_a0294126f7a89a::t_e8e0ccc24bb12f 15-16,23-24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.18",
+  "base_commit_sha": "d976546b9712266d4eef54e36807324850540f2c",
+  "prompts": {},
+  "sessions": {
+    "s_a0294126f7a89a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04ffa4cabffeUeIh34xdcGnNh2",
+        "model": "big-pickle"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

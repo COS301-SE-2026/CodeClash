@@ -1,0 +1,19 @@
+frontend/src/Views/Leaderboard.tsx
+  s_a0294126f7a89a::t_f4db912061f225 15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.18",
+  "base_commit_sha": "46402dc858db679ebc526ba7312eca3f43f452cc",
+  "prompts": {},
+  "sessions": {
+    "s_a0294126f7a89a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04ffa4cabffeUeIh34xdcGnNh2",
+        "model": "big-pickle"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
