@@ -1,0 +1,16 @@
+frontend/src/App.tsx
+  h_b13c5d77534129 2-3,5,11-12,14-17,20-42,45,50-52
+package.json
+  h_b13c5d77534129 12-13,18-21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "9570a55dda6b8460d92ffd299e3046df13aa1b96",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
