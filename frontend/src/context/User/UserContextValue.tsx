@@ -6,6 +6,7 @@ export interface UserContextValue {
     avatar: string,
     error: string,
     league: string,
+    rank: string
 }
 
 export const UserContext = createContext<UserContextValue | null>(null);

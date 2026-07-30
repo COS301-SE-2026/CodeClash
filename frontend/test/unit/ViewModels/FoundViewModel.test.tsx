@@ -1,12 +1,12 @@
 
-import { describe, vi } from "vitest";
-import { MatchFoundViewModelFunction } from "src/ViewModels/MatchFoundViewModel";
-import { useSocket } from "src/context/Socket/hooks/useSocket";
-import { useMatchmakingSocket, matchAccepted, matchDeclined, joinMatchQueue } from "src/context/Socket/hooks/useMatchmakingSocket";
+import { describe, vi, it, beforeEach, expect } from "vitest";
+import { MatchFoundViewModelFunction } from "../../../src/ViewModels/MatchFoundViewModel";
+import { useSocket } from "../../../src/context/Socket/hooks/useSocket";
+import { useMatchmakingSocket, matchAccepted, matchDeclined, joinMatchQueue } from "../../../src/context/Socket/hooks/useMatchmakingSocket";
 import { renderHook } from "@testing-library/react";
 import { act } from "react";
 import type { Socket } from "socket.io-client";
-import MatchmakingUserDTO from "src/dtos/matchmaking.dto";
+import MatchmakingUserDTO from "../../../src/dtos/matchmaking.dto";
 
 vi.mock('src/context/Socket/hooks/useSocket', () => ({
     useSocket: vi.fn()
@@ -46,7 +46,7 @@ describe("Testing found view model", () => {
 
     beforeEach(() => {
         vi.clearAllMocks();
-        vi.mocked(useSocket).mockReturnValue({ socket: mock_socket as Socket, isConnected: true });
+        vi.mocked(useSocket).mockReturnValue({ socket: mock_socket as Socket, isConnected: true , matched: {game_mode: 'maths', pair_id: "12345ABCDE"}});
         vi.mocked(useMatchmakingSocket).mockReturnValue({
             game_mode: 'maths',
             pair_id: "12345ABCDE"
@@ -138,7 +138,7 @@ describe("Testing found view model", () => {
     describe("Tests behaviour with a null socker", () => {
 
         beforeEach(() => {
-            vi.mocked(useSocket).mockReturnValue({ socket: null, isConnected: false });
+            vi.mocked(useSocket).mockReturnValue({ socket: null, isConnected: false , matched: null});
         })
 
         it("Tests that not listeneres are registered when the socket is null", () => {
@@ -155,7 +155,7 @@ describe("Testing found view model", () => {
                 result.current.accept();
             })
 
-            expect(result.current.socket_error).toBe("Disconnected");
+            expect(result.current.socketError).toBe("Disconnected");
         })
 
         it("Tests decline returns an error when the socket is null", () => {
@@ -165,7 +165,7 @@ describe("Testing found view model", () => {
                 result.current.decline();
             })
 
-            expect(result.current.socket_error).toBe("Disconnected");
+            expect(result.current.socketError).toBe("Disconnected");
         })
     })
 
