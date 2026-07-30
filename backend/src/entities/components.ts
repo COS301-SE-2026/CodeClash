@@ -2,6 +2,8 @@
 
 /* MATCH ENTITY */
 
+import { GameType } from "./db-entities/questions.entities"
+
 // Player Component holds array of ids for a match
 export interface PlayersComponent {
     players: Map<string, number>    // <player_id, player_entity>
@@ -12,6 +14,7 @@ export interface MatchComponent {
     title: string,
     status: string,
     game_mode: string,
+    match_type: GameType
     difficulty: number,
     winner: number,
     rounds: number[],
@@ -31,12 +34,10 @@ export interface SubmissionRegistryComponent{
 export interface ResultComponent{
     winner: {
         id: string,
-        username: string,
         elo: number
     },
     loser: {
         id: string,
-        username: string,
         elo: number
     }
     stats: Record<string, {num_correct: number, total_time:number}>
@@ -57,7 +58,6 @@ export interface LifeComponent {
 
 export interface PlayerInfoComponent {
     id: string,
-    username: string,
     elo: number
 }
 

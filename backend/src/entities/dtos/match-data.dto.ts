@@ -1,6 +1,5 @@
-import { GameMode } from "../db-entities/questions.entities";
+import { GameMode, GameType } from "../db-entities/questions.entities";
 
-import { PlayerDTO } from "./components.dto";
 import { QuestionDTO } from "./question.dto";
 
 export interface GameDataDTO {
@@ -9,11 +8,23 @@ export interface GameDataDTO {
     league: string,
     game_mode: GameMode,
     avatar?: string
-    game_type: 'ranked' | 'casual'
+    game_type: GameType
 }
 
 export interface GameQuestionsDTO {
     easy: QuestionDTO[],
     medium: QuestionDTO[],
     hard: QuestionDTO[]
+}
+
+
+export interface MatchedPlayersDTO {
+    player_1: {
+        id: string,
+        elo: number
+    },
+    player_2: {
+        id: string,
+        elo: number
+    }
 }

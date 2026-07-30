@@ -2,9 +2,11 @@ import { Socket, Server } from "socket.io"
 import { GameService } from 'src/application/usecases/services/game.service';
 import { MatchmakingService } from 'src/application/usecases/services/matchmaking.service';
 import { PlayerDTO } from "src/entities/dtos/components.dto";
-import { GameDataDTO, GameQuestionsDTO } from "src/entities/dtos/game-data.dto";
+import { GameDataDTO, GameQuestionsDTO } from "src/entities/dtos/match-data.dto";
 import MatchmakingUserDTO from 'src/entities/dtos/matchmaking.dto';
-import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
+import { MatchedUsersService } from "src/application/usecases/services/matched-users.service";
+import { GameStore } from "src/application/usecases/services/game-store.service";
+
 
 
 export const joinMatchQueue = (
@@ -12,15 +14,12 @@ export const joinMatchQueue = (
         socket: Socket,
         data: any,
         matchmaking_service: MatchmakingService,
-        PAIRS: Map<string, Map<string, { accepted: boolean, elo: number, username?: string }>>,
-        user_repo: IUserRepository
+        matched_users_service: MatchedUsersService
     ) => {
-        //adds users to a room 
-        await socket.join(socket.data.user_id)
-        socket.data.game_mode = data.game_mode
-        socket.data.elo = data.elo
 
+        socket.join(socket.data.user_id)
         const user = new MatchmakingUserDTO(socket.data.user_id, data.elo, data.game_mode);
+
         let match = null;
 
         match = await matchmaking_service.matchmaking(user);
@@ -28,42 +27,16 @@ export const joinMatchQueue = (
         if (!match)
             return;
 
-        const player_1 = match.player_1.id;
-        const player_2 = match.player_2.id;
+        const pair_id = matched_users_service.create(match);
 
-        const pair_id = player_1.concat("::").concat(player_2);
-
-
-        const p1_id = await user_repo.getUserId(player_1);
-        const p2_id = await user_repo.getUserId(player_2);
-        if (!p2_id || !p1_id) throw new Error("Coudln't find user");
-
-        const p2_username = await user_repo.getUserData(p2_id.user_id!, 'username');
-        const p1_username = await user_repo.getUserData(p1_id.user_id!, 'username');
-
-        const pair = {
-            player_1: {
-                id: player_1,
-                elo: match.player_1.elo,
-                username: p1_username?.username
-            },
-            player_2: {
-                id: player_2,
-                elo: match.player_2.elo,
-                username: p2_username?.username
-            },
+        const result = {
+            players: match,
             pair_id: pair_id,
-            game_mode: data.game_mode,
+            game_mode: data.game_mode
         }
 
-
-        PAIRS.set(pair_id, new Map([
-            [player_1, { accepted: false, elo: match.player_1.elo }],
-            [player_2, { accepted: false, elo: match.player_2.elo }]
-        ]));
-
-        io.to(player_1!).emit('users_matched', pair);
-        io.to(player_2!).emit('users_matched', pair);
+        io.to(match.player_1.id).emit('users_matched', result);
+        io.to(match.player_2.id).emit('users_matched', result);
     })
 
 export const leaveMatchQueue = (async (io: Server, socket: Socket, matchmaking_service: MatchmakingService) => {
@@ -77,42 +50,25 @@ export const leaveMatchQueue = (async (io: Server, socket: Socket, matchmaking_s
 })
 
 export const matchAccepted = (
-    async (io: Server,
+    async (
+        io: Server,
         socket: Socket,
         data: GameDataDTO,
         game_service: GameService,
-        PAIRS: Map<string, Map<string, { accepted: boolean, elo: number, username?: string }>>,
-        GAME: Map<number, { players: PlayerDTO[], questions: GameQuestionsDTO }>
+        matched_users_service: MatchedUsersService,
+        game_store: GameStore
     ) => {
 
-        PAIRS.get(data.pair_id)?.set(socket.data.user_id, { accepted: true, elo: socket.data.elo, username: data.username });
+        matched_users_service.accept(data.pair_id, socket.data.user_id);
 
-        const pair = PAIRS.get(data.pair_id);
-
-        if (!pair)
-            return;
-
-        const bothAccepted = [...pair.values()].every(val => val.accepted);
-        if (bothAccepted) {
-            const players: PlayerDTO[] = [];
-
-            pair.forEach((val, key) => {
-                const player: PlayerDTO = {
-                    id: key,
-                    username: val.username!,
-                    elo: val.elo,
-                    avatar: data.avatar!,
-                    life: 100
-                }
-
-                players.push(player)
-            })
+        if (matched_users_service.bothAccepted(data.pair_id)) {
+            const players = matched_users_service.getPlayers(data.pair_id);
 
             const setup = await game_service.execute(players, data.game_mode, data.league, data.game_type);
+            game_store.create(setup.id, players, setup.questions);
 
-            const keys = [...pair!.keys()];
-            GAME.set(setup.id, { players: players, questions: setup.questions as GameQuestionsDTO })
 
+            const keys = matched_users_service.getKeys(data.pair_id);
             for (const key of keys) {
                 io.to(key).emit("start_game", { game_id: setup.id });
             }
@@ -124,19 +80,17 @@ export const matchAccepted = (
         }
     })
 
-export const matchDeclined = ((io: Server, socket: Socket, pair_id: string, PAIRS: Map<string, Map<string, { accepted: boolean, elo: number, username?: string }>>) => {
-    const pair = PAIRS.get(pair_id);
-    const players = pair ? [...pair.keys()] : null; //get ids of paird players 
-
-    PAIRS.delete(pair_id);
+export const matchDeclined = ((io: Server, socket: Socket, pair_id: string, matched_users_service: MatchedUsersService) => {
+    matched_users_service.decline(pair_id);
+    const players = matched_users_service.getPlayers(pair_id);
 
     if (players) {
         for (const player of players) {
             if (player === socket.data.user_id) {
-                io.to(player).emit("decline_done");
+                io.to(player.id).emit("decline_done");
             }
             else {
-                io.to(player).emit("game_declined");
+                io.to(player.id).emit("game_declined");
             }
         }
     }

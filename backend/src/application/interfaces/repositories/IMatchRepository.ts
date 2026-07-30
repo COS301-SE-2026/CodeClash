@@ -1,7 +1,6 @@
 export interface IMatchRepository {
     createMatch(
-        player1_id: string,
-        player2_id: string,
+        players: string[],
         mode: 'ranked' | 'casual',
         match_start: Date
     ): Promise<string>;

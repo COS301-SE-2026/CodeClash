@@ -1,15 +1,16 @@
-import type { GameMode, GameType } from "./matchmaking.dto"
+import type { GameMode } from "./matchmaking.dto"
 
 
-export interface PlayerDTO{
+export interface PlayerDTO {
     id: string,
-    elo: number,
-    username: string
+    elo: number
 }
 
 export interface MatchedUsersDTO {
-    player_1: PlayerDTO,
-    player_2: PlayerDTO,
+    players: {
+        player_1: PlayerDTO,
+        player_2: PlayerDTO,
+    }
     pair_id: string,
     game_mode: GameMode
 } 

@@ -12,14 +12,15 @@ export const submitQuestion = async (
     io: Server, socket: Socket,
     data: SubmissionDTO,
     check_answer: CheckAnswer,
-    opponent_progres: OpponentProgress
+    opponent_progress: OpponentProgress
 ) => {
     try {
         const result = await check_answer.execute(data.match_id, socket.data.user_id, data.question_id, data.answer)
 
+        console.log(result)
         io.to(socket.data.user_id).emit('submission_result', result);
 
-        const opponent_id = opponent_progres.execute(data, socket.data.user_id);
+        const opponent_id = opponent_progress.execute(data, socket.data.user_id);
 
         if(opponent_id === undefined) throw new Error("Couldn't get opponent")
 

@@ -22,15 +22,8 @@ export class Match {
     @JoinColumn({ name: 'player2_id'})
     player2!: Users;
 
-    @OneToOne(() => MatchProblems, { nullable: true})
-    @JoinColumn({ name: 'match_problems' })
-    match_problems!: MatchProblems | null;
-
     @Column({ type: 'varchar', length: 10})
     match_type!: 'ranked' | 'casual';
-
-    @CreateDateColumn()
-    queue_start!: Date;
 
     @Column({ type: 'timestamp', nullable: true })
     match_start!: Date | null;

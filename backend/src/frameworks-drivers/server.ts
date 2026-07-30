@@ -30,7 +30,7 @@ import { FinishGame } from 'src/application/usecases/systems/finish-game';
 import { SubmissionSystem } from 'src/application/usecases/systems/submission.system';
 import { PlayerDTO } from 'src/entities/dtos/components.dto';
 import { ResultComponent } from 'src/entities/components';
-import { GameQuestionsDTO } from 'src/entities/dtos/game-data.dto';
+import { GameQuestionsDTO } from 'src/entities/dtos/match-data.dto';
 import { World } from 'src/entities/World';
 import { MatchmakingCache } from 'src/interface-adapters/cache/matchmaking-cache';
 import { EloRepository } from 'src/interface-adapters/repositories/elo.repository';
@@ -49,6 +49,8 @@ import { Match, MatchLog } from 'src/entities/db-entities/match.entities';
 import { MatchResultService } from 'src/application/usecases/services/match-result.service';
 import { IMatchResultRepository } from 'src/application/interfaces/repositories/IMatchResultRepository';
 import { MatchResultRepository } from 'src/interface-adapters/repositories/match-result.repository';
+import { MatchedUsersService } from 'src/application/usecases/services/matched-users.service';
+import { GameStore } from 'src/application/usecases/services/game-store.service';
 
 dotnev.config()
 
@@ -86,7 +88,16 @@ AppDataSource.initialize()
 
             const valid = await validateToken(token)
             if (valid) {
-                socket.data.user_id = valid.user_Id;
+
+                // get db id from cognito id
+                const db_id = (await user_repo.getUserId(valid.user_Id))!.user_id;
+                const username = (await user_repo.getUserData(db_id!, 'username'))!.username
+
+
+                socket.data = {
+                    user_id: db_id,
+                    username: username
+                }
                 next();
             }
             else next(new Error("Authentication error: Invalid token"));
@@ -115,9 +126,11 @@ AppDataSource.initialize()
 
 
         // initialise services 
-        const game_service = new GameService(create_game, get_questions, get_difficulty, get_total_time, get_answers, game_cache, match_repo);
+        const game_service = new GameService(create_game, get_questions, get_difficulty, get_total_time, get_answers, game_cache, match_repo, user_repo);
         const matchmkaing_service = new MatchmakingService(matchmaking_cache);
         const match_results = new MatchResultService(elo_repo, match_results_repo)
+        const matched_users_service = new MatchedUsersService();
+        const game_store = new GameStore();
 
         // initialise systems 
         const submission_system = new SubmissionSystem(world);
@@ -140,13 +153,13 @@ AppDataSource.initialize()
         io.on("connection", (socket) => {
 
             // SOCKET HANDLERS MUST MOOVE TO interface-adapter/
-            socket.on('join_match_queue', async (data) => await joinMatchQueue(io, socket, data, matchmkaing_service, PAIRS, user_repo));
+            socket.on('join_match_queue', async (data) => await joinMatchQueue(io, socket, data, matchmkaing_service, matched_users_service));
 
             socket.on('leave_match_queue', async () => await leaveMatchQueue(io, socket, matchmkaing_service));
 
-            socket.on('match_accepted', async (data) => { await matchAccepted(io, socket, data, game_service, PAIRS, GAME) });
+            socket.on('match_accepted', async (data) => { await matchAccepted(io, socket, data, game_service, matched_users_service, game_store) });
 
-            socket.on('match_declined', (pair_id: string) => matchDeclined(io, socket, pair_id, PAIRS));
+            socket.on('match_declined', (pair_id: string) => matchDeclined(io, socket, pair_id, matched_users_service));
 
             socket.on('send_questions', (game_id: number) => { sendGameQuestions(io, game_id, GAME) });
 

@@ -52,7 +52,6 @@ export class CreatePlayerEntity {
             // player info component
             const info: PlayerInfoComponent = {
                 id: player.id,
-                username: player.username,
                 elo: player.elo
             }
 
@@ -127,6 +126,7 @@ export class CreateMatchEntity {
             title: match.title,
             status: match.status,
             game_mode: match.game_mode,
+            match_type: match.match_type,
             difficulty: match.difficulty,
             winner: match.winner,
             rounds: rounds,

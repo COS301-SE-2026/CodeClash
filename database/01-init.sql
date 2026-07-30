@@ -36,8 +36,7 @@ CREATE TABLE IF NOT EXISTS matches(
   match_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   player1_id UUID REFERENCES users(user_id),
   player2_id UUID REFERENCES users(user_id),
-  mode VARCHAR(10) CHECK (mode IN ('ranked', 'casual')) NOT NULL,
-  queue_start TIMESTAMP DEFAULT NOW() NOT NULL,
+  match_type VARCHAR(10) CHECK (match_type IN ('ranked', 'casual')) NOT NULL,
   match_start TIMESTAMP,
   status VARCHAR(20) CHECK (status IN ('waiting', 'starting','in_progress', 'completed', 'abandoned')) DEFAULT 'waiting' -- check is there a function to set a found match status to starting?
 );

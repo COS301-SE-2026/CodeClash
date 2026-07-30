@@ -87,12 +87,10 @@ export class FinishGame {
         const data: ResultComponent = {
             winner: {
                 id: winner!,
-                username: winner_info!.username,
                 elo: elo_updates.win
             },
             loser: {
                 id: loser,
-                username: loser_info!.username,
                 elo: elo_updates.lose
             },
             stats: Object.fromEntries(game_stats)

@@ -1,5 +1,5 @@
 import { IGameCache } from "src/application/interfaces/cache/IGameCache";
-import { GameMode } from "src/entities/db-entities/questions.entities";
+import { GameMode, GameType } from "src/entities/db-entities/questions.entities";
 import { MatchDTO, PlayerDTO, RoundDTO } from "src/entities/dtos/components.dto";
 
 import { CreateGame } from "../systems/create-game";
@@ -7,6 +7,7 @@ import { CreateGame } from "../systems/create-game";
 import { GetAnswers } from "./answers.service";
 import { GetDifficulty, GetQuestions, GetTotalTime } from "./questions.service";
 import { IMatchRepository } from "src/application/interfaces/repositories/IMatchRepository";
+import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 
 export class GameService {
     constructor(
@@ -16,21 +17,23 @@ export class GameService {
         private readonly getTotalTime: GetTotalTime,
         private readonly getAnswers: GetAnswers,
         private readonly game_cache: IGameCache,
-        private readonly match_repo: IMatchRepository
+        private readonly match_repo: IMatchRepository,
+        private readonly user_repo: IUserRepository
     ) { }
 
-    async execute(players: PlayerDTO[], game_mode: GameMode, league: string, game_type: 'ranked'|'casual') {
+    async execute(players: PlayerDTO[], game_mode: GameMode, league: string, game_type: GameType) {
 
-        const title_temp: string[] = []
         let avg_elo = 0;
-        const player_ids: string[] = []
+        const usernames = await Promise.all(
+            players.map(async (player) => {
+                avg_elo += player.elo
+                const user = await this.user_repo.getUserData(player.id, 'username');
+                return user!.username!;
+            })
+        )
 
-        for (const player of players) {
-            title_temp.push(player.username);
-            player_ids.push(player.id);
-            avg_elo += player.elo
-        }
-
+        const title = usernames.join(" vs ")
+        const player_ids = players.map((player) => player.id);
         avg_elo /= players.length;
 
         // get questions
@@ -38,7 +41,7 @@ export class GameService {
         const difficulty = this.getDifficulty.execute(questions)
         const time = this.getTotalTime.execute(questions)
 
-        if(!questions) throw new Error ("Error fetching questions")
+        if (!questions) throw new Error("Error fetching questions")
 
         // Rounds   - creating one round for now, this logic will need to be updated for multiple 
         const question_ids: string[] = [];
@@ -62,9 +65,10 @@ export class GameService {
 
         const start = new Date();
         const match: MatchDTO = {
-            title: title_temp.join(" vs "),
+            title: title,
             status: 'active',
             game_mode: game_mode,
+            match_type: game_type,
             difficulty: difficulty,
             winner: -1,
             start_time: start,
@@ -73,23 +77,17 @@ export class GameService {
 
         const match_entity = this.createGame.execute(players, match, [round], question_ids.length);
 
-        const player1_id = players[0]?.id;
-        const player2_id = players[1]?.id;
-
-        if (!player1_id || !player2_id) throw new Error ("Both players must be defined to create a match");
-
-        const db_match_id = await this.match_repo.createMatch(
-            player1_id,
-            player2_id,
-            game_type,
-            start
-        );
-
         this.game_cache.saveGame(match_entity, player_ids, question_ids);
 
         for (const answer of answers) {
             this.game_cache.saveAnswer(answer.question_id, answer.answer)
         }
+
+
+        const ids = players.map((p) => p.id);
+        const db_match_id = await this.match_repo.createMatch(ids, game_type, start
+        );
+
 
         return {
             id: match_entity,
