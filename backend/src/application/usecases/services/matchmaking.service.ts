@@ -60,7 +60,7 @@ async function matchmaking(user: MatchmakingUserDTO) {
         if (waiting)   //user is already in the queue
             ++user.match_attempt;
         else {
-            enqueue(user, user.game_mode);
+            await enqueue(user, user.game_mode);
         }
 
         return null;
