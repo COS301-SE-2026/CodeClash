@@ -17,7 +17,6 @@ export const submitQuestion = async (
     try {
         const result = await check_answer.execute(data.match_id, socket.data.user_id, data.question_id, data.answer)
 
-        console.log(result)
         io.to(socket.data.user_id).emit('submission_result', result);
 
         const opponent_id = opponent_progress.execute(data, socket.data.user_id);

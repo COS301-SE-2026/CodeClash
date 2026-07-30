@@ -37,6 +37,7 @@ describe('submitQuestion socket handler', () => {
         match_id: 1,
         question_id: 'q1',
         answer: '42',
+        question_number: 2
     } as SubmissionDTO;
 
     beforeEach(() => {
@@ -57,7 +58,6 @@ describe('submitQuestion socket handler', () => {
 
         (opponent_progress.execute as Mock).mockReturnValue("player-b");
 
-
         await submitQuestion(io as any, socket, data, check_answer, opponent_progress);
 
         expect(check_answer.execute).toHaveBeenCalledWith(data.match_id, 'player-a', data.question_id, data.answer);
@@ -73,22 +73,16 @@ describe('submitQuestion socket handler', () => {
     it('broadcasts opponent_progress to the OTHER player in the match, not the submitter', async () => {
         const socket = mockSocket('player-a');
 
-        const players: PlayersComponent = {
-            players: new Map([['player-a', 1], ['player-b', 2],]),
-        };
-
-        const opponentLife: LifeComponent = { current_life: 80, max_life: 100 };
-
-        (check_answer.execute as Mock).mockResolvedValueOnce(true);
-        (world.getMatchComponent as Mock).mockImplementation((_id: number, type: string) => {
-            if (type === 'Players') return players;
-            return null;
+        (check_answer.execute as Mock).mockResolvedValueOnce({
+            player_id: 'player-a',
+            result: true,
+            life_update: 80
         });
-      //  (world.getPlayerComponent as Mock).mockImplementation((entity: number) => {
-          //  return entity === 2 ? opponentLife : { current_life: 100, max_life: 100 };
-       // });
 
-        await submitQuestion(io as any, socket, data, check_answer, world as any);
+        (opponent_progress.execute as Mock).mockReturnValue("player-b");
+
+
+        await submitQuestion(io as any, socket, data, check_answer, opponent_progress);
 
         //submitter gets their own result
         expect(io.to).toHaveBeenCalledWith('player-a');
@@ -96,60 +90,60 @@ describe('submitQuestion socket handler', () => {
             player_id: 'player-a',
             correct: true,
             opponent_life: 80,
+            question: 2
         });
 
         //submitter should never receive an opponent_progress event about themselves
         expect(io.to).not.toHaveBeenCalledWith('player-a', expect.anything());
     });
 
-    // it('uses the injected world instance, not a freshly created one', async () => {
-    //     const socket = mockSocket('player-a');
 
-    //     (check_answer.execute as Mock).mockResolvedValueOnce(false);
-    //     (world.getMatchComponent as Mock).mockReturnValueOnce(null);
 
-    //     await submitQuestion(io as any, socket, data, check_answer, world as any);
+    it('does nothing extra if Players component is missing (no opponent to notify)', async () => {
+        const socket = mockSocket('player-a');
 
-    //     expect(world.getMatchComponent).toHaveBeenCalledWith(data.match_id, 'Players');
+        (check_answer.execute as Mock).mockResolvedValueOnce({
+            player_id: 'player-a',
+            result: true,
+            life_update: 80
+        });
 
-    // });
+         await submitQuestion(io as any, socket, {}, check_answer, opponent_progress);
 
-    // it('does nothing extra if Players component is missing (no opponent to notify)', async () => {
-    //     const socket = mockSocket('player-a');
+        console.log(io._emit.mock.calls)
+        expect(io._emit).toHaveBeenCalledWith('submission_result', {
+            player_id: 'player-a',
+            result: true,
+            life_update: 80
+        });
 
-    //     (check_answer.execute as Mock).mockResolvedValueOnce(true);
-    //     (world.getMatchComponent as Mock).mockReturnValueOnce(undefined);
+        
+        expect(io._emit).toHaveBeenCalledWith('submission_error', expect.objectContaining({message: "Couldn't get opponent"}))
+    });
 
-    //     await submitQuestion(io as any, socket, data, check_answer, world as any);
+    it('handled opponent life being null/undeifined gracefully', async () => {
+        const socket = mockSocket('player-a');
 
-    //     expect(io._emit).toHaveBeenCalledTimes(1);
-    //     expect(io._emit).toHaveBeenCalledWith('submission_result', true);
+        const players: PlayersComponent = {
+            players: new Map([['players-a', 1], ['player-b', 2],]),
+        };
 
-    // });
+        (check_answer.execute as Mock).mockResolvedValueOnce(true);
+        (world.getMatchComponent as Mock).mockImplementation((_id: number, type: string) => {
+            if (type === 'Players') return players;
+            return null;
+        });
 
-    // it('handled opponent life being null/undeifined gracefully', async () => {
-    //     const socket = mockSocket('player-a');
+       // (world.getPlayerComponent as Mock).mockReturnValue(undefined);
 
-    //     const players: PlayersComponent = {
-    //         players: new Map([['players-a', 1], ['player-b', 2],]),
-    //     };
+        await submitQuestion(io as any, socket, data, check_answer, opponent_progress);
 
-    //     (check_answer.execute as Mock).mockResolvedValueOnce(true);
-    //     (world.getMatchComponent as Mock).mockImplementation((_id: number, type: string) => {
-    //         if (type === 'Players') return players;
-    //         return null;
-    //     });
-
-    //    // (world.getPlayerComponent as Mock).mockReturnValue(undefined);
-
-    //     await submitQuestion(io as any, socket, data, check_answer, world as any);
-
-    //     expect(io._emit).toHaveBeenCalledWith('opponent_progress', {
-    //         player_id: 'player-a',
-    //         correct: true,
-    //         opponent_life: null,
-    //     });
-    // });
+        expect(io._emit).toHaveBeenCalledWith('opponent_progress', {
+            player_id: 'player-a',
+            correct: true,
+            opponent_life: null,
+        });
+    });
 
     // it('emits submission_error and does not throw when check)answer.execute rejects', async () => {
     //     const socket = mockSocket('player-a');
