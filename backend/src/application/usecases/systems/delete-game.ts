@@ -58,8 +58,11 @@ export class DeleteGame {
         this.removeMatchEntity(match_id);
         // remove from game store
 
-        if (this.game_store.get(match_id))
+        const stored = this.game_store.get(match_id);
+        
+        if (stored) {
             this.game_store.deleteGame(match_id);
+        }
         // remove from matched_users
         this.matched_users.deletePair(pair_id)
 

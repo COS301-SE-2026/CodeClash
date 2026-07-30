@@ -89,7 +89,17 @@ export const sendResults = (io: Server, game_id: number, pair_id: string, game_s
     }
 }
 
-export const cleanUp = (game_id: number, pair_id: string, delete_game: DeleteGame) => {
-    delete_game.execute(game_id, pair_id);
+export const cleanUp = (game_id: number, pair_id: string, delete_game: DeleteGame, game_store: GameStore) => {
+
+    const game = game_store.get(game_id);
+
+    if (game) {
+        game.ack_count += 1;
+
+        if (game.ack_count >= 2) {
+            delete_game.execute(game_id, pair_id);
+        }
+    }
+
 
 }

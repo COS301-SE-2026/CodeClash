@@ -5,7 +5,13 @@ import { MatchResultDTO } from "src/interface-adapters/dtos/match-result.dto";
 
 
 export class GameStore {
-    private GAME = new Map<number, { database_id: string, players: PlayerDTO[], questions: GameQuestionsDTO, result: MatchResultDTO | null }>();
+    private GAME = new Map<number, {
+        database_id: string,
+        players: PlayerDTO[],
+        questions: GameQuestionsDTO,
+        result: MatchResultDTO | null,
+        ack_count: number
+    }>();
 
     constructor(
         private readonly user_repo: IUserRepository
@@ -27,7 +33,7 @@ export class GameStore {
             })
         )
 
-        this.GAME.set(match_id, { database_id: db_id, players: populatePlayerData, questions: questions, result: null });
+        this.GAME.set(match_id, { database_id: db_id, players: populatePlayerData, questions: questions, result: null , ack_count: 0});
     }
 
     get(game_id: number) {
@@ -69,11 +75,14 @@ export class GameStore {
 
         if (!game) return null;
 
-        return {match_id: game_id, result: game.result}
+        return { match_id: game_id, result: game.result }
     }
 
-    deleteGame(game_id: number){
+    deleteGame(game_id: number) {
+
+
         this.GAME.delete(game_id);
+
     }
 }
 
