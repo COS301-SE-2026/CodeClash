@@ -3,7 +3,6 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import Layout from "./layout";
 import Dashboard from "./Views/Dashboard";
-import Welcome from "./Views/Welcome";
 import SignIn from "./Views/SignIn";
 import SignUp from "./Views/SignUp";
 import Profile from "./Views/Profile";
@@ -39,7 +38,7 @@ const App: React.FC = () => {
                 <Route path='/sign-in' element={<SignIn />} />
                 <Route path='/sign-up' element={<SignUp />} />
                 <Route path= '/brand-style-guide' element={<BrandStyleGuide/>}/>
-                <Route path='/game-guide' element={<Guidebook/>}/> 
+                <Route path='/game-guide' element={<GameGuide/>}/> 
                 <Route path= '/help-menu' element={<HelpMenu/>}/>
                 <Route path='*' element={<Navigate to='/sign-in' replace />} />
 
