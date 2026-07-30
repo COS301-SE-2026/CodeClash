@@ -1,0 +1,28 @@
+frontend/src/Views/GameGuide.tsx
+  h_b13c5d77534129 3
+package.json
+  h_b13c5d77534129 49-50
+frontend/@/components/shared/Match.tsx
+  h_b13c5d77534129 1,123
+frontend/src/Views/BrandStyleGuide/SharedLayout.tsx
+  h_b13c5d77534129 23-24
+frontend/src/ViewModels/SignInViewModel.ts
+  h_b13c5d77534129 2
+frontend/src/App.tsx
+  h_b13c5d77534129 19-22,33,38,41-43,65
+frontend/src/Views/BrandStyleGuide/ComponentSection.tsx
+  h_b13c5d77534129 19,63-66,72-73,79-80
+frontend/src/ViewModels/ForgotPasswordViewModel.ts
+  h_b13c5d77534129 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.18",
+  "base_commit_sha": "563865d307ca80ab6a65efb5b73d2a5b6dcf3099",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

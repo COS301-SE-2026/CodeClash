@@ -1,0 +1,18 @@
+frontend/src/App.tsx
+  h_b13c5d77534129 41
+frontend/src/Views/Profile.tsx
+  h_b13c5d77534129 66
+frontend/src/ViewModels/ProfileViewModel.ts
+  h_b13c5d77534129 33,54
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.18",
+  "base_commit_sha": "aa8befb0197b92220eae2e5750a6f53e433f7272",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+frontend/test/unit/ViewModels/PopupViewModel.test.ts
+  h_b13c5d77534129 6,26-27,29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.18",
+  "base_commit_sha": "edaf3d51245e0bd91216056fa6b4d14924382181",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
