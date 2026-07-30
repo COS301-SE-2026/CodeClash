@@ -46,7 +46,7 @@ export const startQuestion = (player_id: string, submission_system: SubmissionSy
     submission_system.saveSubmission(data.match_id, player_id, data.question, null, '');
 }
 
-export const gameDone = (io: Server, socket: Socket, pair_id: string, game_id: number, finish_game: FinishGame, game_store: GameStore) => {
+export const gameDone = (io: Server, socket: Socket, game_id: number, finish_game: FinishGame, game_store: GameStore) => {
     // wait for both players to be done
 
     const game = game_store.get(game_id);

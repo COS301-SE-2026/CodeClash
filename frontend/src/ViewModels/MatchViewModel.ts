@@ -64,7 +64,7 @@ export const useMatch = () => {
         autoStart: false,
         onExpire: async () => {
             setGameOver(true);
-            await endGame(id, socket, pairId);
+            await endGame(id, socket);
         }
     });
 
@@ -94,7 +94,7 @@ export const useMatch = () => {
     const finishGame = async () => {
         if (q_index.current === questions.length - 1) {
             setWaitingOpponent(true)
-            await endGame(id, socket, pairId);
+            await endGame(id, socket);
         }
     }
 

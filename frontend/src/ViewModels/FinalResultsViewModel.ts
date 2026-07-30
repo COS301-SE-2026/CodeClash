@@ -5,6 +5,7 @@ import type { ResultDTO } from "src/dtos/result.dto";
 
 import { finalResultsContent } from "../Models/FinalResultsModel";
 import type { FinalResultsContent } from "../Models/FinalResultsModel";
+import { useMatchmaking } from "src/context/Socket/hooks/useMatchmaking";
 
 interface FinalResultsViewModel {
     content: FinalResultsContent;
@@ -21,6 +22,8 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
     const { socket } = useSocket();
     const location = useLocation();
     const { id } = location.state;
+    const {pairId} = useMatchmaking()
+
     const handleResult = (result: ResultDTO) => {
         setResults(result);
     }
@@ -42,9 +45,9 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
 
     useEffect(() => {
 
-        if (!socket || !matched) return;
+        if (!socket) return;
 
-        socket.emit('send_results', id, matched!.pair_id);
+        socket.emit('send_results', id, pairId);
         socket.on('get_result', handleResult);
 
 
@@ -52,7 +55,7 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
             socket.off('get_result', handleResult)
         };
 
-    }, [socket, matched, id]);
+    }, [socket, id]);
 
     useEffect(() => {
         if (results === null) return;

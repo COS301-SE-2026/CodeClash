@@ -170,9 +170,9 @@ AppDataSource.initialize()
 
             socket.on('question_started', (data: StartQuestionDTO) => startQuestion(socket.data.user_id,submission_system, data));
 
-            socket.on('game_done', (pair_id: string, game_id: number) => gameDone(io, socket, pair_id, game_id, finish_game, game_store, RESULTS));
+            socket.on('game_done', ( game_id: number) => gameDone(io, socket, game_id, finish_game, game_store));
 
-            socket.on('send_results', (game_id: number, pair_id: string) => sendResults(io, game_id, pair_id, RESULTS, PAIRS))
+            socket.on('send_results', (game_id: number, pair_id: string) => sendResults(io, game_id, pair_id, result_sysyem, matched_users_service))
         })
 
 
