@@ -3,16 +3,20 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import Layout from "./layout";
 import Dashboard from "./Views/Dashboard";
+import Welcome from "./Views/Welcome";
 import SignIn from "./Views/SignIn";
 import SignUp from "./Views/SignUp";
 import Profile from "./Views/Profile";
+import Leaderboard from "./Views/Leaderboard";
+import GameGuide from "./Views/GameGuide"
 import MatchSearching from "./Views/MatchSearching";
 import MatchFound from "./Views/MatchFound";
 import MathMatch from "./Views/MathsMatch";
-import ProgMatch from "./pages/ProgMatch";
-import Welcome from "./Views/Welcome";
+import ProgMatch from "./pages/ProgMatch"; 
 import { useAuth } from "./context/Auth/hooks/useAuth";
 import Loading from "@/components/shared/Loading";
+import FinalResults from "./Views/FinalResults";
+import ForgotPassword from "./Views/ForgotPassword";
 import TermsAndConditions from "./Views/TermsAndConditions";
 
 const App: React.FC = () => {
@@ -51,16 +55,19 @@ const App: React.FC = () => {
             <Route path='/match-found' element={<MatchFound />} />
             <Route path='/maths-match' element={<MathMatch />} />
             <Route path='/prog-match' element={<ProgMatch language="javascript" />} />
-             <Route path= '/results' element= {<FinalResults/>}/>
+            {/* <Route path='/prog-match' element={<ProgMatch language="javascript"/>}/> */}
+
+            <Route path= '/results' element= {<FinalResults/>}/>
+
             <Route path= '/forgot-password' element= {<ForgotPassword/>}/>
             <Route path='/terms' element={<TermsAndConditions/>}/>
 
             {/* Pages with sidebar inside the app */}
             <Route element={<Layout />}>
                 <Route path='/dashboard' element={<Dashboard />} />
-                <Route path='/game-guide' element={<Guidebook/>}/>
+                <Route path='/game-guide' element={<GameGuide/>}/>
                 <Route path='/tournaments' />
-                <Route path='/leaderboard' />
+                <Route path='/leaderboard' element={<Leaderboard/>}/>
                 <Route path='/badges' />
                 <Route path='/friends' />
             </Route>
