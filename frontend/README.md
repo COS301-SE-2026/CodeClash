@@ -1,6 +1,6 @@
 # CodeClash Frontend
 
-The CodeClash frontend is built using **React**, **TYpeScript**, and **Vite**, following the **MVVM(Model-View-ViewModel)** architecture. It provides a responsive interface for users to compete in live programming and mathematics battles, track their progress, and access supporting documentation.
+The CodeClash frontend is built using **React**, **TypeScript**, and **Vite**, following the **MVVM (Model-View-ViewModel)** architecture. It provides a responsive interface for users to compete in live programming and mathematics battles, track their progress, and access supporting documentation.
 
 ---
 
@@ -52,20 +52,21 @@ npm install -D vitest @vitest/coverage-v8 @testing-library/react @testing-librar
 
 ## Running
 
-from the root
-
 ### The App
 
 From the root:
 
+Frontend:
 ```bash
 npm run frontend   
 ```
 
+Backend:
 ```bash
 npm run backend    
 ```
 
+Frontend and Backend:
 ```bash
 npm run dev       
 ```
@@ -116,10 +117,6 @@ Navigation is handled using **React Router DOM**
 
 Unauthenticated users attempting to access non public routes are redeirected to the Sign in page.
 
-## Navigation Flow
-
-![Diagram](../docs/UserFlow_Diagram.png)
-
 ---
 
 ## Features
@@ -162,7 +159,6 @@ Primary fonts:
 ## Websockets
 
 Install:
-
 ```bash
 npm install socket.io-client
 ```
@@ -170,7 +166,6 @@ npm install socket.io-client
 Ensure the correct env variables are configured.
 
 Run the frontend from the root: 
-
 ```bash
 npm run frontend   
 ```
