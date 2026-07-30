@@ -28,18 +28,15 @@ export function useEdit() {
     return edit;
 }
 
-export async function getProfile() {
+export function getProfile() {
 
-
+    const {username, elo, avatar, league, rank} = useUser();
     const [userData, setUserData] = useState<ProfileProps | null>(null);
     const [loadingData, setLoadingData] = useState(true);
     const [error, setError] = useState<Error | null>(null);
 
     useEffect(() => {
-        async function loadUser(){
             try{
-                const {username, elo, avatar, league, rank} = useUser();
-                
                 const user : ProfileProps = {
                     username,
                     elo,
@@ -47,18 +44,14 @@ export async function getProfile() {
                     league,
                     rank
                 };
-                
                 setUserData(user);
             } catch (err) {
                 setError(err as Error);
             }
-
             finally {
                 setLoadingData(false);
             }
-        }
-        loadUser();
-    }, []);
+    }, [username, elo, avatar, league, rank]);
 
     return {userData, loadingData, error};
 }
