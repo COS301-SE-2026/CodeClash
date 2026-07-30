@@ -41,15 +41,9 @@ export async function getProfile() {
     useEffect(() => {
         async function loadUser(){
             try{
-                const {username} = await getCurrentUser();
-                const attributes = await fetchUserAttributes();
-
+                const {username, elo, avatar, league, rank} = await useUser();
+                
                 const user : ProfileProps = {
-                    avatarUrl : attributes['custom:avatarUrl'] || '../../src/assets/Icons/profile_black.png'
-                    username,
-                    rank : attributes['custom:avatarUrl'] || '0',
-                    elo : attributes['custom:elo'] || "600",
-                    league : attributes['custom:league']
                     
                 }
             }
