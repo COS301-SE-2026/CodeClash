@@ -50,7 +50,7 @@ export class MatchmakingService {
             if (waiting)   //user is already in the queue
                 ++user.match_attempt;
             else {
-                this.enqueue(user, user.game_mode);
+                await this.enqueue(user, user.game_mode);
             }
 
             return null;
@@ -68,8 +68,8 @@ export class MatchmakingService {
 
             // found a match
             // remove players from queue
-            this.cache.deletUser(user.game_mode, user.id);
-            this.cache.deletUser(user.game_mode, match.user_id)
+            await this.cache.deletUser(user.game_mode, user.id);
+            await this.cache.deletUser(user.game_mode, match.user_id)
 
             return {
                 player_2: {

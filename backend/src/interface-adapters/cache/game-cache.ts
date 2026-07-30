@@ -8,7 +8,7 @@ export class GameCache implements IGameCache {
     ) { }
 
     async saveGame(game_id: number, player_ids: string[], question_ids: string[]): Promise<void> {
-        this.redis.set(`game:${game_id}`, JSON.stringify({players: player_ids, questions: question_ids}))
+        this.redis.set(`game:${game_id}`, JSON.stringify({ players: player_ids, questions: question_ids }))
     }
 
     // correct answers
@@ -20,7 +20,7 @@ export class GameCache implements IGameCache {
     async getAnswer(question_id: string): Promise<string | null> {
         const answer = await this.redis.get(`question:${question_id}`);
 
-        if(!answer) return null;
+        if (!answer) return null;
 
         return answer.split(":")[1]!;
     }

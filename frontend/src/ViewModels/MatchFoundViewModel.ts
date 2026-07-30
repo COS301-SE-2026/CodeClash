@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom';
 import { useSocket } from "src/context/Socket/hooks/useSocket"
 import { useUser } from "src/context/User/hooks/useUser";
-// // import MatchmakingUserDTO from "src/dtos/matchmaking.dto";
+import type { MatchmakingUserDTO } from "src/dtos/matchmaking.dto";
 
 import {
   matchFoundContent,
@@ -15,9 +15,9 @@ import type { MatchedUsersDTO } from "src/dtos/matched-user.dto";
 
 export function MatchFoundViewModelFunction() {
   const nav = useNavigate();
-  const { league, username, avatar } = useUser();
+  const { league, username, avatar, elo } = useUser();
   const { socket, } = useSocket()
-  const { gameType, pairId, matchAccepted, matchDeclined, matchedUsers } = useMatchmaking()
+  const { gameType, pairId, matchAccepted, matchDeclined, matchedUsers, gameMode, joinMatchQueue } = useMatchmaking()
   const [path, setPath] = useState('');
   const [loading, setLoading] = useState(false);
   const [socketError, setSocketError] = useState('');
@@ -48,19 +48,25 @@ export function MatchFoundViewModelFunction() {
     });
   }
 
-  //   // handler for user that declined the game
+    // handler for user that declined the game
   const declineGame = () => {
-    //     setLoading(false);
-    //     nav('/dashboard')
+        setLoading(false);
+        nav('/dashboard')
   }
 
-  //   // handler for user that was declined
+    // handler for user that was declined
   const gameDeclined = () => {
-    //     setLoading(false);
+        setLoading(false);
 
-    //     const data = new MatchmakingUserDTO(elo, gameMode);
-    //     joinMatchQueue(socket!, data);
-    //     nav('/searching')
+        const data: MatchmakingUserDTO = {
+          elo: elo, 
+          game_mode: gameMode,
+          game_type: gameType,
+          username: username
+        };
+
+        joinMatchQueue(socket!, data);
+        nav('/searching')
   }
 
   const accept = () => {

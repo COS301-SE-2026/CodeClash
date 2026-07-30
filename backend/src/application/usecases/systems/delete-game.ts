@@ -2,6 +2,7 @@ import { MatchComponent, PlayersComponent, ResultComponent, RoundComponent, Subm
 import { World } from "src/entities/World";
 import { GameStore } from "../services/game-store.service";
 import { MatchedUsersService } from "../services/matched-users.service";
+import { IGameCache } from "src/application/interfaces/cache/IGameCache";
 
 
 export class DeleteGame {
@@ -26,7 +27,7 @@ export class DeleteGame {
 
 
     execute(match_id: number, pair_id: string) {
-
+        console.log("Deleting game ", match_id, " for ", pair_id);
 
         const players = this.getMatchComponent<PlayersComponent>(match_id, 'Players');
         const submission = this.getMatchComponent<SubmissionRegistryComponent>(match_id, 'Submission');
@@ -56,7 +57,9 @@ export class DeleteGame {
         // Delete match
         this.removeMatchEntity(match_id);
         // remove from game store
-        this.game_store.deleteGame(match_id);
+
+        if (this.game_store.get(match_id))
+            this.game_store.deleteGame(match_id);
         // remove from matched_users
         this.matched_users.deletePair(pair_id)
 

@@ -6,7 +6,7 @@ import { EloRatings } from 'src/entities/db-entities/elo.entities';
 import { IQuestionRepository } from 'src/application/interfaces/repositories/IQuestionRepository';
 import { QuestionRepository } from 'src/interface-adapters/repositories/question.repository';
 import { GameType, Questions } from 'src/entities/db-entities/questions.entities';
-import { gameDone, sendResults, startQuestion, submitQuestion } from 'src/interface-adapters/socket-handlers/game.handler';
+import { cleanUp, gameDone, sendResults, startQuestion, submitQuestion } from 'src/interface-adapters/socket-handlers/game.handler';
 import { SubmissionDTO } from 'src/entities/dtos/components.dto';
 import { IAnswerRepository } from 'src/application/interfaces/repositories/IAnswerRepository';
 import { AnswerRepository } from 'src/interface-adapters/repositories/answer.repository';
@@ -51,6 +51,7 @@ import { IMatchResultRepository } from 'src/application/interfaces/repositories/
 import { MatchResultRepository } from 'src/interface-adapters/repositories/match-result.repository';
 import { MatchedUsersService } from 'src/application/usecases/services/matched-users.service';
 import { GameStore } from 'src/application/usecases/services/game-store.service';
+import { DeleteGame } from 'src/application/usecases/systems/delete-game';
 
 dotnev.config()
 
@@ -135,7 +136,8 @@ AppDataSource.initialize()
         // initialise systems 
         const submission_system = new SubmissionSystem(world);
         const life_system = new LifeSystem(world);
-        const finish_game = new FinishGame(world, match_results, game_store);
+        const delete_game = new DeleteGame(world,game_store,matched_users_service);
+        const finish_game = new FinishGame(world, match_results, game_store, delete_game);
         const opponent_progress = new OpponentProgress(world);
 
         const check_answer = new CheckAnswer(game_cache, submission_system, life_system, world)
@@ -163,9 +165,11 @@ AppDataSource.initialize()
 
             socket.on('question_started', (data: StartQuestionDTO) => startQuestion(socket.data.user_id,submission_system, data));
 
-            socket.on('game_done', ( game_id: number, game_type: GameType) => gameDone(io, socket, game_id,game_type, finish_game, game_store));
+            socket.on('game_done', ( game_id: number, game_type: GameType, pair_id:string) => gameDone(io, socket, game_id,game_type, pair_id,finish_game, game_store));
 
-            socket.on('send_results', (game_id: number, pair_id: string) => sendResults(io, game_id, pair_id, game_store))
+            socket.on('send_results', (game_id: number, pair_id: string) => sendResults(io, game_id, pair_id, game_store)),
+
+            socket.on('clean_up', (game_id: number, pair_id: string)=> cleanUp(game_id, pair_id, delete_game))
         })
 
 

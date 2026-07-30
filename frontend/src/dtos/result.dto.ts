@@ -10,6 +10,6 @@ export interface PlayerResultDTO {
 }
 
 export interface ResultDTO {
-    match_id: string;
+    match_id: number;
     players: PlayerResultDTO[];
 }

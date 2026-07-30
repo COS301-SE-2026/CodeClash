@@ -2,7 +2,6 @@ import { IUserRepository } from "src/application/interfaces/repositories/IUserRe
 import { PlayerDTO } from "src/entities/dtos/components.dto";
 import { GameQuestionsDTO } from "src/entities/dtos/match-data.dto";
 import { MatchResultDTO } from "src/entities/dtos/match-result.dto";
-import { DeleteGame } from "../systems/delete-game";
 
 
 export class GameStore {
@@ -65,12 +64,12 @@ export class GameStore {
 
     }
 
-    geResult(game_id: number) {
+    getResult(game_id: number) {
         const game = this.GAME.get(game_id);
 
-        if (!game) throw new Error("Invalid game id")
+        if (!game) return null;
 
-        return game.result
+        return {match_id: game_id, result: game.result}
     }
 
     deleteGame(game_id: number){

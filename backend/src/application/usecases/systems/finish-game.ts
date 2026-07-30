@@ -4,6 +4,7 @@ import { World } from "src/entities/World"
 import { MatchResultService } from "../services/match-result.service";
 import { GameStore } from "../services/game-store.service";
 import { GameType } from "src/entities/db-entities/questions.entities";
+import { DeleteGame } from "./delete-game";
 
 
 export class FinishGame {
@@ -14,7 +15,8 @@ export class FinishGame {
     constructor(
         private readonly world: ReturnType<typeof World>,
         private readonly match_result_service: MatchResultService,
-        private readonly game_store: GameStore
+        private readonly game_store: GameStore,
+        private readonly delete_game: DeleteGame
     ) {
         const { getMatchComponent, getSubmissionComponent, addMatchComponent } = this.world
         this.getMatchComponent = getMatchComponent;
@@ -23,7 +25,7 @@ export class FinishGame {
     }
 
 
-    async execute(match_id: number, player_ids: string[], game_type: GameType) {
+    async execute(match_id: number, player_ids: string[], game_type: GameType, pair_id:string) {
 
         // 1. get submission entities for players
         const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(match_id, 'Submission');
@@ -87,6 +89,8 @@ export class FinishGame {
         }
 
         this.addMatchComponent(match_id, 'Result', data);
+
+
 
         return result
     }

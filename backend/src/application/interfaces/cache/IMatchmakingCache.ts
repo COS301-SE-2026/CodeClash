@@ -14,6 +14,4 @@ export interface IMatchmakingCache {
 
     deletUser(queue: GameMode, user_id: string): Promise<number>;
 
-
-
 }

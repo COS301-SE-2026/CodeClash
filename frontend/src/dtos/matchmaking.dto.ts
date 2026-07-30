@@ -2,7 +2,8 @@
 export interface MatchmakingUserDTO {
     elo: number;
     game_mode: GameMode;
-    game_type: GameType
+    game_type: GameType,
+    username: string
 };
 
 export type GameMode = 'maths' | 'programming' | null

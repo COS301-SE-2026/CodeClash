@@ -15,7 +15,8 @@ export interface MatchmakingContextValue {
     joinMatchQueue: (socket: Socket, data: MatchmakingUserDTO) => void,
     leaveMatchQueue: (socket: Socket) => void,
     matchAccepted: (socket: Socket, data: {}) => void,
-    matchDeclined: (socket: Socket, pair_id: string) => void
+    matchDeclined: (socket: Socket, pair_id: string) => void,
+    setMatched: (matched: boolean)=>void
 }
 
 export const MatchmakingContext = createContext<MatchmakingContextValue | null>(null);

@@ -60,7 +60,8 @@ export const MatchmakingProvider: React.FC<{ children: ReactNode }> = ({ childre
                 leaveMatchQueue,
                 matchAccepted,
                 matchDeclined,
-                matchedUsers
+                matchedUsers,
+                setMatched
             }}
         >
             {children}

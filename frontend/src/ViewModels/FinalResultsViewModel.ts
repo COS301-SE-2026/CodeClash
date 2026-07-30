@@ -27,14 +27,19 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
     const { socket } = useSocket();
     const location = useLocation();
     const { id } = location.state;
-    const { pairId } = useMatchmaking()
+    const { pairId,setMatched } = useMatchmaking()
 
-    const handleResult = async (result: ResultDTO) => {
+    const handleResult = async (result: any) => {
+    
         setResults(result);
 
-        setWinner(result.players[0]);
-        setLoser(result.players[1]);
+        setWinner(result.result.players[0]);
+        setLoser(result.result.players[1]);
         await refresh();
+
+        // can start clean up now 
+        socket?.emit('clean_up', result.match_id,pairId )
+        setMatched(false)
     }
 
 

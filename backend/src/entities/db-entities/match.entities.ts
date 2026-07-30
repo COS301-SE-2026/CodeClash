@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Users } from './user.entities';
 
 @Entity()
@@ -14,11 +14,11 @@ export class Match {
     @PrimaryGeneratedColumn('uuid')
     match_id!: string;
 
-    @OneToOne(() => Users)
+    @ManyToOne(() => Users)
     @JoinColumn({ name: 'player1_id'})
     player1!: Users;
 
-    @OneToOne(() => Users)
+    @ManyToOne(() => Users)
     @JoinColumn({ name: 'player2_id'})
     player2!: Users;
 
@@ -41,11 +41,11 @@ export class MatchLog {
     @JoinColumn({ name: 'match_id' })
     match!: Match;
 
-    @OneToOne(() => Users)
+    @ManyToOne(() => Users)
     @JoinColumn({ name: 'winner_id' })
     winner!: Users;
 
-    @OneToOne(() => Users)
+    @ManyToOne(() => Users)
     @JoinColumn({ name: 'loser_id' })
     loser!: Users;
 

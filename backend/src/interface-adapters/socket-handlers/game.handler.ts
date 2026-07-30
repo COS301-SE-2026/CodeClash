@@ -8,6 +8,7 @@ import { StartQuestionDTO } from "src/entities/dtos/question.dto";
 import { OpponentProgress } from "src/application/usecases/systems/opponent-progress";
 import { GameStore } from "src/application/usecases/services/game-store.service";
 import { GameType } from "src/entities/db-entities/questions.entities";
+import { DeleteGame } from "src/application/usecases/systems/delete-game";
 
 export const submitQuestion = async (
     io: Server, socket: Socket,
@@ -44,7 +45,7 @@ export const startQuestion = (player_id: string, submission_system: SubmissionSy
     submission_system.saveSubmission(data.match_id, player_id, data.question, null, '');
 }
 
-export const gameDone = async (io: Server, socket: Socket, game_id: number, game_type: GameType, finish_game: FinishGame, game_store: GameStore) => {
+export const gameDone = async (io: Server, socket: Socket, game_id: number, game_type: GameType, pair_id: string, finish_game: FinishGame, game_store: GameStore) => {
     // wait for both players to be done
 
     const game = game_store.get(game_id);
@@ -57,7 +58,7 @@ export const gameDone = async (io: Server, socket: Socket, game_id: number, game
 
         const ids = game.players.map(player => player.id);
 
-        const game_result = await finish_game.execute(game_id, ids, game_type);
+        const game_result = await finish_game.execute(game_id, ids, game_type, pair_id);
         game_store.saveResult(game_id, game_result);
 
         for (const id of ids) {
@@ -78,12 +79,17 @@ export const gameDone = async (io: Server, socket: Socket, game_id: number, game
 
 export const sendResults = (io: Server, game_id: number, pair_id: string, game_store: GameStore) => {
 
-    const result = game_store.geResult(game_id);
+    const result = game_store.getResult(game_id);
 
-    if (!result) throw new Error("Couldn't fetch result");
+    if (!result || !result.result) throw new Error("Couldn't fetch result");
 
-    const ids = result.players.map(player => player.user_id);
+    const ids = result.result.players.map(player => player.user_id);
     for (const id of ids) {
         io.to(id).emit('get_result', result);
     }
+}
+
+export const cleanUp = (game_id: number, pair_id: string, delete_game: DeleteGame) => {
+    delete_game.execute(game_id, pair_id);
+
 }
