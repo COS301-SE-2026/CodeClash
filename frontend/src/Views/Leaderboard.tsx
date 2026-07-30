@@ -30,7 +30,7 @@ const Leaderboard = (league : string) => {
                     <EloText className="text-[165%]">ELO</EloText>
                 </div>
                 <LeaderboardCardRight className="mt-[7%]"></LeaderboardCardRight>
-                <div className="w-[45%] h-[90%] rounded-[20px] border-4 border-button-primary bg-secondary ml-[58%] -mt-[5%]">
+                <div className="w-[45%] h-[170%] rounded-[20px] border-4 border-button-primary bg-secondary ml-[58%] -mt-[5%]">
                     <div className="flex flex-col grid grid-cols-3">
                     <UserCircle className="w-[59px] h-[59px] bg-no-repeat rounded-full object-cover bg-size-[auto_200%] bg-[right_49%_top_50%]"></UserCircle>
                         <EloText className="text-[200%] -ml-[70%] -mt-[5%]">4</EloText>
@@ -40,7 +40,7 @@ const Leaderboard = (league : string) => {
                         </div>
                     </div>
                 </div>
-                <div className="w-[45%] h-[90%] rounded-[20px] border-4 border-button-primary bg-secondary ml-[103%] -mt-[5%]">
+                <div className="w-[45%] h-[170%] rounded-[20px] border-4 border-button-primary bg-secondary ml-[103%] -mt-[5%]">
                     <div className="flex flex-col grid grid-cols-3">
                     <UserCircle className="w-[59px] h-[59px] bg-no-repeat rounded-full object-cover bg-size-[auto_200%] bg-[right_49%_top_50%]"></UserCircle>
                         <EloText className="text-[200%] -ml-[70%] -mt-[5%]">5</EloText>
@@ -56,7 +56,7 @@ const Leaderboard = (league : string) => {
           
             
          
-            <div className="ml-25% w-[full] h-[30%]"></div>
+            <div className="ml-25% w-[full] h-[30%] mt-[13%]"></div>
              <div className="">
              <div style={{backgroundImage: `url(${background})`}} className="w-[80%] h-[70%] rounded-[20px] bg-no-repeat bg-cover bg-center bg-size-[auto_500%] -mt-[12%] ml-[10%] overflow-y-auto">
                  <div className="grid grid-rows-5 gap-1 items-end">
