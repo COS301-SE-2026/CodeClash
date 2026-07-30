@@ -31,7 +31,6 @@ export function useEdit() {
 
 export async function getProfile() {
 
-    //this is a very quickly done function that may be wrong, please correct if necessary
 
     const [userData, setUserData] = useState<ProfileProps | null>(null);
     const [loadingData, setLoadingData] = useState(true);

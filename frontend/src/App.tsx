@@ -10,7 +10,7 @@ import Profile from "./Views/Profile";
 import MatchSearching from "./Views/MatchSearching";
 import MatchFound from "./Views/MatchFound";
 import Leaderboard from "./Views/Leaderboard";
-import Guidebook from "./Views/GameGuide"
+import GameGuide from "./Views/GameGuide"
 import MathMatch from "./Views/MathsMatch";
 import ProgMatch from "./pages/ProgMatch"; 
 import { useAuth } from "./context/Auth/hooks/useAuth";
@@ -62,7 +62,7 @@ const App: React.FC = () => {
             {/* Pages with sidebar inside the app */}
             <Route element={<Layout />}>
                 <Route path='/dashboard' element={<Dashboard />} />
-                <Route path='/game-guide' element={<Guidebook/>}/>
+                <Route path='/game-guide' element={<GameGuide/>}/>
                 <Route path='/tournaments' />
                 <Route path='/leaderboard' element={<Leaderboard/>}/>
                 <Route path='/badges' />

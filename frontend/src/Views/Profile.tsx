@@ -10,7 +10,7 @@ import "../styles/global.css"
 
 
 
-const Profile() {
+async function ProfileView(){
   
   const { userData, loadingData, error} = await getProfile();
 
@@ -65,5 +65,9 @@ const Profile() {
     </div>
   );
 };
+
+const Profile = () => {
+  ProfileView();
+}
 
 export default Profile;
