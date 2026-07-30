@@ -90,7 +90,7 @@ export class GameService {
 
 
         return {
-            id: match_entity,
+            match_enitity: match_entity,
             match_id: db_match_id,
             questions: questions,
             answers: answers

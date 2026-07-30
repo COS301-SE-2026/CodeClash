@@ -3,7 +3,7 @@ export interface PlayerResultDTO {
     username: string;
     avatar: string;
     correctness: number;// percentage 0-100
-    speed: string; // mm:ss
+    speed: number; 
     eloEffect: number; //signed 
     position: 1 | 2; 
 }

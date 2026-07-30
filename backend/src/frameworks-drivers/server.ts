@@ -5,7 +5,7 @@ import { Server } from 'socket.io'
 import { EloRatings } from 'src/entities/db-entities/elo.entities';
 import { IQuestionRepository } from 'src/application/interfaces/repositories/IQuestionRepository';
 import { QuestionRepository } from 'src/interface-adapters/repositories/question.repository';
-import { Questions } from 'src/entities/db-entities/questions.entities';
+import { GameType, Questions } from 'src/entities/db-entities/questions.entities';
 import { gameDone, sendResults, startQuestion, submitQuestion } from 'src/interface-adapters/socket-handlers/game.handler';
 import { SubmissionDTO } from 'src/entities/dtos/components.dto';
 import { IAnswerRepository } from 'src/application/interfaces/repositories/IAnswerRepository';
@@ -136,7 +136,7 @@ AppDataSource.initialize()
         // initialise systems 
         const submission_system = new SubmissionSystem(world);
         const life_system = new LifeSystem(world);
-        const finish_game = new FinishGame(world);
+        const finish_game = new FinishGame(world, match_results, game_store);
         const opponent_progress = new OpponentProgress(world);
         const result_sysyem = new ResultSystem(world)
 
@@ -170,7 +170,7 @@ AppDataSource.initialize()
 
             socket.on('question_started', (data: StartQuestionDTO) => startQuestion(socket.data.user_id,submission_system, data));
 
-            socket.on('game_done', ( game_id: number) => gameDone(io, socket, game_id, finish_game, game_store));
+            socket.on('game_done', ( game_id: number, game_type: GameType) => gameDone(io, socket, game_id,game_type, finish_game, game_store));
 
             socket.on('send_results', (game_id: number, pair_id: string) => sendResults(io, game_id, pair_id, result_sysyem, matched_users_service))
         })

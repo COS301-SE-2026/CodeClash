@@ -4,14 +4,14 @@ import { GameQuestionsDTO } from "src/entities/dtos/match-data.dto";
 
 
 export class GameStore {
-    private GAME = new Map<number, { players: PlayerDTO[], questions: GameQuestionsDTO }>();
+    private GAME = new Map<number, { database_id: string, players: PlayerDTO[], questions: GameQuestionsDTO }>();
 
     constructor(
         private readonly user_repo: IUserRepository
     ) { }
 
 
-    async create(match_id: number, players: PlayerDTO[], questions: GameQuestionsDTO) {
+    async create(match_id: number, db_id: string, players: PlayerDTO[], questions: GameQuestionsDTO) {
 
         const populatePlayerData = await Promise.all(
             players.map(async (player) => {
@@ -26,7 +26,7 @@ export class GameStore {
             })
         )
 
-        this.GAME.set(match_id, { players: populatePlayerData, questions: questions });
+        this.GAME.set(match_id, { database_id: db_id, players: populatePlayerData, questions: questions });
     }
 
     get(game_id: number) {

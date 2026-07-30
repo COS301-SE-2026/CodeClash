@@ -1,39 +1,103 @@
 import { PlayerInfoComponent, PlayersComponent, ResultComponent, SubmissionRegistryComponent } from "src/entities/components";
+import { PlayerStatsDTO } from "src/entities/dtos/player-stats.dto";
 import { World } from "src/entities/World"
+import { MatchResultService } from "../services/match-result.service";
+import { GameStore } from "../services/game-store.service";
+import { GameType } from "src/entities/db-entities/questions.entities";
 
 
 export class FinishGame {
     private readonly getMatchComponent
     private readonly getSubmissionComponent
-    private readonly getPlayerComponent
     private readonly addMatchComponent
 
     constructor(
-        private readonly world: ReturnType<typeof World>
+        private readonly world: ReturnType<typeof World>,
+        private readonly match_result_service: MatchResultService,
+        private readonly game_store: GameStore
     ) {
-        const { getMatchComponent, getSubmissionComponent, getPlayerComponent, addMatchComponent } = this.world
+        const { getMatchComponent, getSubmissionComponent, addMatchComponent } = this.world
         this.getMatchComponent = getMatchComponent;
         this.getSubmissionComponent = getSubmissionComponent
-        this.getPlayerComponent = getPlayerComponent
         this.addMatchComponent = addMatchComponent
     }
 
 
-    execute(match_id: number, player_ids: string[]) {
-        // 1. get submission entities for players
+    async execute(match_id: number, player_ids: string[], game_type: GameType) {
 
+        // 1. get submission entities for players
         const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(match_id, 'Submission');
 
         if (!submission_registry) throw new Error('Error finishing game')
 
-        const game_stats = new Map<string, { num_correct: number, total_time: number }>();
+        const game_stats = this.getStats(submission_registry.submissions, player_ids);
 
+        console.log(`Game stats:`, game_stats)
+
+        // calculate winner 
+        let winner: string | null = null;
+        let winner_stats: PlayerStatsDTO | null = null
+
+        let loser: string | null = null;
+        let loser_stat: PlayerStatsDTO | null = null;
+
+        for (const [id, stat] of game_stats) {
+            if (winner == null ||
+                winner_stats!.correctness < stat.num_correct ||
+                winner_stats!.correctness === stat.num_correct && winner_stats!.speed > stat.total_time
+            ) {
+
+                console.log(`updating loser from ${loser} to ${winner}`);
+                loser = winner;
+                loser_stat = winner_stats
+
+                console.log(`updating winner from ${winner} to ${id}`)
+
+                winner = id;
+                winner_stats = {
+                    user_id: id,
+                    correctness: stat.num_correct,
+                    speed: stat.total_time
+                }
+            }
+        }
+
+        // elo updates 
+
+        console.log("Winner is: ", winner);
+        console.log("Loser is: ", loser);
+
+        if (!winner || !loser) throw new Error("Error getting user stats")
+
+        const db_match_id = this.game_store.get(match_id);
+
+        const result = await this.match_result_service.finaliseMatch(db_match_id!.database_id, winner, loser, game_type === GameType.ranked, [winner_stats!, loser_stat!])
+
+
+        const data: ResultComponent = {
+            winner: {
+                id: winner,
+                elo: result.players[0]!.eloEffect
+            },
+            loser: {
+                id: loser,
+                elo: result.players[1]!.eloEffect
+            },
+            stats: Object.fromEntries(game_stats)
+        }
+
+        this.addMatchComponent(match_id, 'Result', data);
+
+        return result
+    }
+
+    getStats(submissions: Map<string, number>, player_ids: string[]) {
+        const game_stats = new Map<string, { num_correct: number, total_time: number }>();
         for (const id of player_ids) {
             game_stats.set(id, { num_correct: 0, total_time: 0 })
         }
 
-        // 2 get stats
-        for (const [key, submission] of submission_registry.submissions) {
+        for (const [key, submission] of submissions) {
             const [player] = key.split('::')
 
             if (!player) throw new Error("Couldn't fetch player submissions");
@@ -51,67 +115,7 @@ export class FinishGame {
             stat.total_time += time
         }
 
-        // calculate winner 
-        let winner: string | null = null;
-        let winner_stats: { num_correct: number, total_time: number } | null = null
+        return game_stats
 
-        for (const [id, stat] of game_stats) {
-            if (winner == null ||
-                winner_stats!.num_correct < stat.num_correct ||
-                winner_stats!.num_correct === stat.num_correct && winner_stats!.total_time > stat.total_time
-            ) {
-                winner = id;
-                winner_stats = stat
-            }
-        }
-
-        // elo updates 
-
-        const players_component = this.getMatchComponent<PlayersComponent>(match_id, 'Players');
-        if (!players_component) throw new Error("Error updating elo ")
-
-        const winner_entity = players_component.players.get(winner!)
-        const loser = [...players_component.players.keys()].find(id => id != winner)    // get the other player
-
-        if (!loser) throw new Error("Error getting player info")
-
-
-        const loser_enitity = players_component.players.get(loser)
-
-
-        const winner_info = this.getPlayerComponent<PlayerInfoComponent>(winner_entity!, 'Info');
-        const loser_info = this.getPlayerComponent<PlayerInfoComponent>(loser_enitity!, 'Info');
-
-        const elo_updates = this.eloUpdate(winner_info!.elo, loser_info!.elo)
-
-        const data: ResultComponent = {
-            winner: {
-                id: winner!,
-                elo: elo_updates.win
-            },
-            loser: {
-                id: loser,
-                elo: elo_updates.lose
-            },
-            stats: Object.fromEntries(game_stats)
-        }
-
-        this.addMatchComponent(match_id, 'Result', data);
-
-        return data
-    }
-
-    eloUpdate(winner_elo: number, loser_elo: number) {
-        const K = 32;
-        const expected_winner = 1 / (1 + Math.pow(10, (loser_elo - winner_elo) / 400));
-        const expected_loser = 1 / (1 + Math.pow(10, (winner_elo - loser_elo) / 400));
-
-        const new_win = Math.round(winner_elo + K * (1 - expected_winner));
-        const new_lose = Math.round(loser_elo + K * (0 - expected_loser));
-
-        return {
-            win: new_win,
-            lose: new_lose
-        }
     }
 }

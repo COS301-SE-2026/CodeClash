@@ -21,7 +21,7 @@ export const useMatch = () => {
     const { id } = location.state;
     const { userId } = useUser();
     const nav = useNavigate();
-    const { pairId } = useMatchmaking()
+    const { gameType } = useMatchmaking()
 
     const [players, setPlayers] = useState<Player[]>([]);
     const [questions, setQuestions] = useState<Question[]>([]);
@@ -64,7 +64,7 @@ export const useMatch = () => {
         autoStart: false,
         onExpire: async () => {
             setGameOver(true);
-            await endGame(id, socket);
+            await endGame(id, gameType, socket);
         }
     });
 
@@ -94,7 +94,7 @@ export const useMatch = () => {
     const finishGame = async () => {
         if (q_index.current === questions.length - 1) {
             setWaitingOpponent(true)
-            await endGame(id, socket);
+            await endGame(id, gameType,socket);
         }
     }
 

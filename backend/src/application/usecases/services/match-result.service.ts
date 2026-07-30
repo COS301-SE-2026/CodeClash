@@ -18,8 +18,12 @@ export class MatchResultService{
     ): Promise<MatchResultDTO>{
         let eloEffects = new Map<string, number>();
 
+        // save match log
         if(is_ranked) {
+
+            // calculate and store new elo
             const { winner, loser } = await this.elo_repo.updateRatingsAfterMatch(match_id, winner_id, loser_id);
+            
             await this.match_result_repo.saveMatchLog(match_id, winner_id, loser_id, winner.elo_gained, -loser.elo_gained);
             eloEffects.set(winner_id, winner.elo_gained);
             eloEffects.set(loser_id, loser.elo_gained);
@@ -31,6 +35,7 @@ export class MatchResultService{
 
         const players: PlayerResultDTO[] = [];
 
+        // store player results
         for (const stat of playerStats) {
             const user_details = await this.match_result_repo.getUserDetails(stat.user_id);
 
@@ -47,9 +52,11 @@ export class MatchResultService{
 
         players.sort((a, b) => a.position - b.position);
 
+        // 
         return { match_id, players };
     }
 
+    // match id from databse
     async getMatchResult(match_id: string): Promise<MatchResultDTO> {
         return await this.match_result_repo.buildMatchResult(match_id);
     }
