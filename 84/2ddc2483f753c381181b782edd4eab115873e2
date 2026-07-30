@@ -1,0 +1,16 @@
+frontend/tsconfig.app.json
+  h_b13c5d77534129 33
+frontend/test/unit/ViewModels/FoundViewModel.test.tsx
+  h_b13c5d77534129 2,4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.18",
+  "base_commit_sha": "842ddc2483f753c381181b782edd4eab115873e2",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
