@@ -1,0 +1,22 @@
+backend/src/application/usecases/services/match-result.service.ts
+  h_94c952a9e14c58 26,56-58
+backend/src/entities/World.ts
+  h_94c952a9e14c58 75
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 168
+backend/src/application/usecases/services/game-store.service.ts
+  h_94c952a9e14c58 4,8,30,57-73
+backend/src/interface-adapters/socket-handlers/game.handler.ts
+  h_94c952a9e14c58 47,60-61,79,81,85
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "01fb77615e49520285feebf5d5a20c575d0e30a7",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
