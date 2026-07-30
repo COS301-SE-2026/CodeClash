@@ -26,7 +26,7 @@ export class MatchResultService {
 
             await this.match_result_repo.saveMatchLog(match_id, winner_id, loser_id, winner.elo_gained, -loser.elo_gained);
             eloEffects.set(winner_id, winner.elo_gained);
-            eloEffects.set(loser_id, loser.elo_gained);
+            eloEffects.set(loser_id, -1 * loser.elo_gained);
         } else {
             await this.match_result_repo.saveMatchLog(match_id, winner_id, loser_id, null, null);
             eloEffects.set(winner_id, 0);
@@ -39,6 +39,8 @@ export class MatchResultService {
         for (const stat of playerStats) {
             const user_details = await this.match_result_repo.getUserDetails(stat.user_id);
 
+            console.log("STAT: ", stat);
+            console.log("DETAILS: ", user_details)
             players.push({
                 user_id: stat.user_id,
                 username: user_details.username,
@@ -50,12 +52,16 @@ export class MatchResultService {
             });
         }
 
-        players.sort((a, b) => a.position - b.position);
+        players.sort((a, b) => a.position! - b.position!);
+        console.log(players);
 
         // 
 
-        const result = this.getMatchResult(match_id);
-        return result;
+
+        return {
+            match_id: match_id,
+            players: players
+        };
     }
 
     // match id from databse

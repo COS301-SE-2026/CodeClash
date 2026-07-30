@@ -24,10 +24,10 @@ export class MatchResultRepository implements IMatchResultRepository {
         }));
     }
 
-    async getUserDetails(user_id: string): Promise<{ username: string; avatar: string }> {
+    async getUserDetails(user_id: string): Promise<{ username: string; avatar: number}> {
         const user = await this.usersRepo.findOne({ where: { user_id } });
         if (!user) throw new Error(`User ${user_id} not found`);
-        return { username: user.username, avatar: String(user.avatar_id) };
+        return { username: user.username, avatar: user.avatar_id };
     }
 
     async buildMatchResult(match_id: string): Promise<MatchResultDTO> {
@@ -45,20 +45,11 @@ export class MatchResultRepository implements IMatchResultRepository {
             user_id: matchLog.winner.user_id,
             username: winnerDetails.username,
             avatar: winnerDetails.avatar,
-            // currently the next two values are not persisted in the db
-            correctness: 0,
-            speed: 0,
-            eloEffect: matchLog.elo_change ?? 0,
-            position: 1
         },
         {
             user_id: matchLog.loser.user_id,
             username: loserDetails.username,
-            avatar: loserDetails.avatar,
-            correctness: 0,
-            speed: 0,
-            eloEffect: -(matchLog.elo_change ?? 0),
-            position: 2
+            avatar: loserDetails.avatar
         }
         ];
 
