@@ -133,6 +133,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         getElo();
         getAvatarUrl()
         getLeague();
+        getRank();
 
         if (!isLoading) {
             getUsername(user);
@@ -142,8 +143,8 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
 
     const value = useMemo(() => ({
-        username, elo, avatar, error, league
-    }), [username, elo, avatar, error, league])
+        username, elo, avatar, error, league, rank
+    }), [username, elo, avatar, error, league, rank])
 
     return (
         <UserContext.Provider
