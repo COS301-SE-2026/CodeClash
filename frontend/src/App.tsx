@@ -18,7 +18,6 @@ import Loading from "@/components/shared/Loading";
 import MatchHistory from "./Views/MatchHistory";
 import FinalResults from "./Views/FinalResults";
 import ForgotPassword from "./Views/ForgotPassword";
-import Guidebook from "./Views/Guidebook";
 
 const App: React.FC = () => {
 
