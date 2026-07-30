@@ -44,8 +44,14 @@ export async function getProfile() {
                 const {username, elo, avatar, league, rank} = await useUser();
                 
                 const user : ProfileProps = {
-                    
-                }
+                    username,
+                    elo,
+                    avatar, 
+                    league,
+                    rank
+                };
+                
+                setUserData(user);
             }
         }
     })

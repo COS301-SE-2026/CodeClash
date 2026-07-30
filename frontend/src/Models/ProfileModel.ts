@@ -1,10 +1,11 @@
 
 export interface ProfileProps {
-    avatarUrl: string;
     username: string;
-    rank: number;
     elo: number;
+    avatar: string;
     league: string;
+    rank: string;
+    
 }
 
 
