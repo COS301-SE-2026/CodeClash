@@ -1,0 +1,34 @@
+frontend/src/Models/MatchModel.ts
+  h_94c952a9e14c58 5
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 133,155,163,165
+frontend/src/ViewModels/MatchViewModel.ts
+  h_94c952a9e14c58 15,25,266,268-270
+frontend/src/Models/MatchFoundModel.ts
+  h_94c952a9e14c58 3
+backend/src/application/usecases/services/game-store.service.ts
+  h_94c952a9e14c58 1,9,13-27,29-31,34-35
+frontend/src/dtos/matched-user.dto.ts
+  h_94c952a9e14c58 6-7,14
+backend/src/interface-adapters/socket-handlers/matchmaking.handler.ts
+  h_94c952a9e14c58 9,18-19,33-34,37-40,106-107,118-119
+frontend/src/context/Socket/MatchmakingContext.tsx
+  h_94c952a9e14c58 18
+backend/src/entities/dtos/components.dto.ts
+  h_94c952a9e14c58 7-8
+frontend/src/ViewModels/MatchFoundViewModel.ts
+  h_94c952a9e14c58 43,90,94-95,98,102-103,129
+frontend/src/Views/MathsMatch.tsx
+  h_94c952a9e14c58 23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "6fd405a0fe93221722d789ea02876f2c323793ab",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
