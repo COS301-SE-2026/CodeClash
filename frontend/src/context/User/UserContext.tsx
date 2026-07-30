@@ -110,6 +110,9 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                     if(res.status === 200){
                         setRank(res.data.rank);
                     }
+                    else{
+                        setError(`Error: ${res.status} ${res.data}`)
+                    }
                 })
         }
 
