@@ -43,8 +43,6 @@ export interface ResultComponent{
     stats: Record<string, {num_correct: number, total_time:number}>
 }
 
-
-
 /********************************** */
 
 /** PLAYER ENTITY */

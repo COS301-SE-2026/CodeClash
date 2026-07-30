@@ -5,6 +5,7 @@ import { GameQuestionsDTO } from "src/entities/dtos/match-data.dto";
 
 export class GameStore {
     private GAME = new Map<number, { players: PlayerDTO[], questions: GameQuestionsDTO }>();
+
     constructor(
         private readonly user_repo: IUserRepository
     ) { }

@@ -18,7 +18,7 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
     const [state, setState] = useState<'loading' | 'results' | 'error'>('loading');
     const [loadingProgress, setLoadingProgress] = useState(0);
     const [results, setResults] = useState<ResultDTO | null>(null);
-    const { socket, matched } = useSocket();
+    const { socket } = useSocket();
     const location = useLocation();
     const { id } = location.state;
     const handleResult = (result: ResultDTO) => {

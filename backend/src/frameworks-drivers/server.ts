@@ -51,6 +51,7 @@ import { IMatchResultRepository } from 'src/application/interfaces/repositories/
 import { MatchResultRepository } from 'src/interface-adapters/repositories/match-result.repository';
 import { MatchedUsersService } from 'src/application/usecases/services/matched-users.service';
 import { GameStore } from 'src/application/usecases/services/game-store.service';
+import { ResultSystem } from 'src/application/usecases/systems/result.system';
 
 dotnev.config()
 
@@ -137,6 +138,7 @@ AppDataSource.initialize()
         const life_system = new LifeSystem(world);
         const finish_game = new FinishGame(world);
         const opponent_progress = new OpponentProgress(world);
+        const result_sysyem = new ResultSystem(world)
 
         const check_answer = new CheckAnswer(game_cache, submission_system, life_system, world)
 
