@@ -16,8 +16,6 @@ export const getUserStat = (user_repo: UserRepository) => {
             res.status(400).json({ error: 'Invalid request' })
             return;
         }
-
-
         const data = await user_repo.getUserData(req.user.id, stat as keyof UserDTO);
 
         if (!data) {
