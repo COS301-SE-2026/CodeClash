@@ -41,7 +41,7 @@ const BrandStyleGuide: React.FC = () => {
                             </button>
                         ))}
                     </div>
-                </div>    
+                </div>
             </nav>
 
             <div className = "max-w-[860px] mx-auto px-6 pt-24 pb-24">

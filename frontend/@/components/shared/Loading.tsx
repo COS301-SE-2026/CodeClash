@@ -5,12 +5,12 @@ import { cn } from "@/lib/utils";
 
 interface LoadingProps {
     isOpen?: boolean;
-    _onClose?: () => void;
+    onClose?: () => void;
     className?: string;
-    _children?: React.ReactNode;
+    children?: React.ReactNode;
 }
 
-const Loading = ({ isOpen, _onClose, className, _children }: LoadingProps) => {
+const Loading = ({ isOpen, className }: LoadingProps) => {
 
     if (!isOpen) return null;
     return (

@@ -7,10 +7,10 @@ import type { BrandStyleGuideContent } from "../../Models/BrandStyleGuideModel";
 import SharedLayout from "./SharedLayout";
 
 interface Props {
-    _content: BrandStyleGuideContent;
+    content: BrandStyleGuideContent;
 }
 
-const LayoutSection: React.FC<Props> = ({_content}) => {
+const LayoutSection: React.FC<Props> = () => {
     return (
         <SharedLayout
             id = "layout" eyebrow="06 - Layout & Spacing" title = "Grid & Spacing" description="The system uses three distinct layout patterns - auth pages, the welcome page, and the dashboard. All share the same spacing scale and token system.">
