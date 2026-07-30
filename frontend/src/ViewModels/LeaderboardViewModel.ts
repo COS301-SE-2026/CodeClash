@@ -1,19 +1,34 @@
 import { useState, useEffect, useCallback } from 'react'
 // import type { LeaderboardUserProps } from 'src/Models/LeaderboardModel';
-import { fetchLeaderboard, type LeaderboardEntry, type LeaderboardUserProps } from 'src/Models/LeaderboardModel';
+import { fetchLeaderboard, type LeaderboardUserProps } from 'src/Models/LeaderboardModel';
 
 
 export function LeaderboardViewModel(league : string){
-    const [userData, setUserData] = useState<LeaderboardUserProps[]>([]);
-    const [isLoadingData, setIsLoadingData] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+  const [userData, setUserData] = useState<LeaderboardUserProps[]>([]);
+  const [topThree, setTopThree] = useState<LeaderboardUserProps[]>([]);
+  const [isLoadingData, setIsLoadingData] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const pageSize = 10;
 
-    const loadLeaderboard = useCallback(async () => { //useCallback is used so that returned data is cached until any values of the returned data is changed
+    const loadLeaderboard = useCallback(async (p: number) => { //useCallback is used so that returned data is cached until any values of the returned data is changed
         setIsLoadingData(true);
         setError(null);
         try{
-            const data = await fetchLeaderboard(10);
-            setUserData(data);
+            const response = await fetchLeaderboard(pageSize, p);
+            // setUserData(response.data);
+            // setTotalPages(Math.ceil(response.total / pageSize));
+            const mapped: LeaderboardUserProps[] = response.data.map(entry => ({
+                avatarUrl: '',
+                username: entry.username,
+              elo: entry.rating !== undefined ? entry.rating : 0,
+            }));
+            setUserData(mapped);
+          setTotalPages(Math.max(1, Math.ceil(response.total / pageSize)));
+          if (p === 1) {
+            setTopThree(mapped.slice(0, 3));
+          }
         }
         catch(err){
             setError('Could not load User Data');
@@ -24,12 +39,25 @@ export function LeaderboardViewModel(league : string){
     }, []);
 
     useEffect(() => {
-        loadLeaderboard();
-    }, [loadLeaderboard]);
+        loadLeaderboard(page);
+    }, [page, loadLeaderboard]);
 
-    const topTen = userData.slice(0,10);
+  const nextPage = () => {
+    if (page < totalPages) {
+      setPage(p => p + 1);
+    }
+  }
 
-   return {userData, topTen, isLoadingData, error, refresh: loadLeaderboard}
+  const prevPage = () => {
+    if (page > 1) {
+      setPage(p => p - 1);
+    }
+  }
+
+  return {
+    userData, topThree, isLoadingData, error, page, totalPages, setPage, nextPage, prevPage,
+    refresh: () => loadLeaderboard(page)
+  }
 
 
 }
