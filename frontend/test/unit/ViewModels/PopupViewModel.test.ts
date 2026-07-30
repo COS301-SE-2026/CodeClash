@@ -18,7 +18,7 @@ vi.mock('../../../src/context/User/hooks/useUser', () => ({
     useUser: vi.fn()
 }))
 
-const mockSocket = 
+const mockSocket = {id : 'mock-socket'} as unknown as ReturnType<typeof useSocket>['socket']; //typing as unknown first forces TypeScript to bypass type checking so any mock data, even incomplete objects, can be injected eventually into this mock object which is a safe practise when doing unit tests
 
 beforeEach(() => {
     vi.clearAllMocks();
