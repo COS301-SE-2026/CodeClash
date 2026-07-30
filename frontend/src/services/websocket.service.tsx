@@ -15,7 +15,8 @@ export async function createSocket(): Promise<Socket> {
         }
     }
 
-    const conn = io(env.VITE_WEBSOCKET_URL, options);
+  const conn = io(env.VITE_WEBSOCKET_URL, options);
+  console.log(env.VITE_WEBSOCKET_URL, "THIS IS THE PRINT")
 
 
     conn.on("connect_error", (err) => {
