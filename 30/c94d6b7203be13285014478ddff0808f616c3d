@@ -1,0 +1,22 @@
+backend/src/application/usecases/services/matched-users.service.ts
+  h_94c952a9e14c58 78-81
+backend/src/application/usecases/systems/delete-game.ts
+  h_94c952a9e14c58 1-67
+backend/src/entities/World.ts
+  h_94c952a9e14c58 44-50,124-142,153-157
+backend/src/application/usecases/services/game-store.service.ts
+  h_94c952a9e14c58 5,75-78
+frontend/src/ViewModels/MatchFoundViewModel.ts
+  h_94c952a9e14c58 88-89
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.18",
+  "base_commit_sha": "30c94d6b7203be13285014478ddff0808f616c3d",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
