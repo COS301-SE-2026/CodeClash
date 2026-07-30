@@ -1,17 +1,18 @@
 import type React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
+import { useAuth } from "./context/Auth/hooks/useAuth";
 import Layout from "./layout";
+import ProgMatch from "./pages/ProgMatch";
 import Dashboard from "./Views/Dashboard";
+import Leaderboard from "./Views/Leaderboard";
+import MatchFound from "./Views/MatchFound";
+import MatchSearching from "./Views/MatchSearching";
+import MathMatch from "./Views/MathsMatch";
+import Profile from "./Views/Profile";
 import SignIn from "./Views/SignIn";
 import SignUp from "./Views/SignUp";
-import Profile from "./Views/Profile";
-import MatchSearching from "./Views/MatchSearching";
-import MatchFound from "./Views/MatchFound";
-import MathMatch from "./Views/MathsMatch";
-import ProgMatch from "./pages/ProgMatch";
 import Welcome from "./Views/Welcome";
-import { useAuth } from "./context/Auth/hooks/useAuth";
 
 const App: React.FC = () => {
 
@@ -44,6 +45,7 @@ const App: React.FC = () => {
             <Route path='/match-searching' element={<MatchSearching />} />
             <Route path='/match-found' element={<MatchFound />} />
             <Route path='/maths-match' element={<MathMatch />} />
+            {/*<Route path='/leaderboard' element={<Leaderboard />} />*/}
             <Route path='/prog-match' element={<ProgMatch language="javascript" />} />
 
             {/* Pages with sidebar inside the app */}
@@ -51,7 +53,7 @@ const App: React.FC = () => {
                 <Route path='/dashboard' element={<Dashboard />} />
                 <Route path='/game-guide' />
                 <Route path='/tournaments' />
-                <Route path='/leaderboard' />
+                <Route path='/leaderboard' element={<Leaderboard />} />
                 <Route path='/badges' />
                 <Route path='/friends' />
             </Route>
