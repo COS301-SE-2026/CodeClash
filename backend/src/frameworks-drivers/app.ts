@@ -1,9 +1,11 @@
 import cors from 'cors'
+import dotenv from 'dotenv'
 import express, { Request, Response } from 'express'
 import { Users } from 'src/entities/db-entities/user.entities';
 import { requireAuth } from 'src/interface-adapters/auth/auth.service';
 import { UserRepository } from 'src/interface-adapters/repositories/user.repository';
 
+dotenv.config()
 import { AppDataSource } from './config/data-source';
 import routes from './routes/api.routes';
 
@@ -14,6 +16,7 @@ app.get('/health', (req: Request, res: Response) => {
 });
 
 app.use(cors({ origin: process.env.FRONTEND_URL || 'http://localhost:5173' }));
+console.log(process.env.FRONTEND_URL)
 app.use(express.json());
 
 const user_repo = new UserRepository(AppDataSource.getRepository(Users))
