@@ -94,6 +94,12 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
     }
 
+    const getRank = async () => {
+
+        if(!token)
+
+    }
+
     const getUsername = (user: AuthUser | null) => {
         const username = user?.username;
 

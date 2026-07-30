@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "src/context/hooks/useAuth";
-import { useUser } from "./SharedViewModel";
+import { useAuth } from "src/context/Auth/hooks/useAuth";
+import { useUser } from "src/context/User/hooks/useUser";
 import { getCurrentUser, fetchUserAttributes } from "aws-amplify/auth";
-import { ProfileProps } from "src/Models/ProfileModel";
+import type { ProfileProps } from "src/Models/ProfileModel";
 import {useState, useEffect} from 'react'
 import profile from "../../src/assets/Icons/profile_black.png"
 

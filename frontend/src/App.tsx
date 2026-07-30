@@ -17,7 +17,6 @@ import { useAuth } from "./context/Auth/hooks/useAuth";
 import Loading from "@/components/shared/Loading";
 import FinalResults from "./Views/FinalResults";
 import ForgotPassword from "./Views/ForgotPassword";
->>>>>>>>> Temporary merge branch 2
 
 const App: React.FC = () => {
 
