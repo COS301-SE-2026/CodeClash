@@ -7,7 +7,6 @@ import { Socket } from "socket.io-client";
 import { useSocket } from "./hooks/useSocket";
 import type { MatchedUsersDTO } from "src/dtos/matched-user.dto";
 
-
 export const MatchmakingProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
     const [gameMode, setGameMode] = useState<GameMode>(null)
@@ -16,7 +15,7 @@ export const MatchmakingProvider: React.FC<{ children: ReactNode }> = ({ childre
     const [matched, setMatched] = useState(false);
     const [matchedUsers, setMatchedUsers] = useState<MatchedUsersDTO | null>(null);
     const { socket } = useSocket()
-
+ 
     const handleMatched = (data: MatchedUsersDTO) => {
         setMatched(true)
         setPairId(data.pair_id);

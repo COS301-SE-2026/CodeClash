@@ -130,7 +130,7 @@ AppDataSource.initialize()
         const matchmkaing_service = new MatchmakingService(matchmaking_cache);
         const match_results = new MatchResultService(elo_repo, match_results_repo)
         const matched_users_service = new MatchedUsersService();
-        const game_store = new GameStore();
+        const game_store = new GameStore(user_repo);
 
         // initialise systems 
         const submission_system = new SubmissionSystem(world);
@@ -146,14 +146,13 @@ AppDataSource.initialize()
 
         // Socket maps 
         const PAIRS = new Map<string, Map<string, { accepted: boolean, elo: number, username?: string, done?: boolean }>>();
-        const GAME = new Map<number, { players: PlayerDTO[], questions: GameQuestionsDTO }>();
         const RESULTS = new Map<number, ResultComponent>();
 
         // attach socket handlers
         io.on("connection", (socket) => {
 
             // SOCKET HANDLERS MUST MOOVE TO interface-adapter/
-            socket.on('join_match_queue', async (data) => await joinMatchQueue(io, socket, data, matchmkaing_service, matched_users_service));
+            socket.on('join_match_queue', async (data) => await joinMatchQueue(io, socket, data, matchmkaing_service, matched_users_service, user_repo));
 
             socket.on('leave_match_queue', async () => await leaveMatchQueue(io, socket, matchmkaing_service));
 
@@ -161,9 +160,9 @@ AppDataSource.initialize()
 
             socket.on('match_declined', (pair_id: string) => matchDeclined(io, socket, pair_id, matched_users_service));
 
-            socket.on('send_questions', (game_id: number) => { sendGameQuestions(io, game_id, GAME) });
+            socket.on('send_questions', (game_id: number) => { sendGameQuestions(io, game_id, game_store) });
 
-            socket.on('send_players', (game_id: number) => { sendGamePlayers(io, game_id, GAME) })
+            socket.on('send_players', (game_id: number) => { sendGamePlayers(io, game_id, game_store) })
 
             socket.on('submit_question', (data: SubmissionDTO) => submitQuestion(io, socket, data, check_answer, opponent_progress));
 

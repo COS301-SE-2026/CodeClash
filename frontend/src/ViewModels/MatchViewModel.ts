@@ -12,6 +12,7 @@ import type { Player, Question, MatchProgress } from "src/Models/MatchModel";
 import { endGame } from "src/services/result.service";
 import { submitAnswer } from "src/services/submission.service";
 import type { OpponentDTO } from "src/dtos/opponent.dto";
+import { robot_map } from 'src/assets/Robots';
 
 
 export const useMatch = () => {
@@ -21,6 +22,7 @@ export const useMatch = () => {
     const { userId } = useUser();
     const nav = useNavigate();
     const { pairId } = useMatchmaking()
+    const {matchedUsers} = useMatchmaking();
 
     const [players, setPlayers] = useState<Player[]>([]);
     const [questions, setQuestions] = useState<Question[]>([]);
@@ -261,8 +263,11 @@ export const useMatch = () => {
     useEffect(() => {
         players_ref.current = players
         setPlayerLife(players.map(p => p.life))
-        setAvatars(players.map(p => p.avatar));
+        setAvatars(players.map(p => robot_map[p.avatar_id]));
         setUsernames(players.map(p => p.username));
+
+        console.log(players)
+        console.log(avatars)
     }, [players])
 
     useEffect(() => {

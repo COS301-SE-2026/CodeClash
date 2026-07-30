@@ -6,6 +6,7 @@ import { GameDataDTO, GameQuestionsDTO } from "src/entities/dtos/match-data.dto"
 import MatchmakingUserDTO from 'src/entities/dtos/matchmaking.dto';
 import { MatchedUsersService } from "src/application/usecases/services/matched-users.service";
 import { GameStore } from "src/application/usecases/services/game-store.service";
+import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 
 
 
@@ -14,7 +15,8 @@ export const joinMatchQueue = (
         socket: Socket,
         data: any,
         matchmaking_service: MatchmakingService,
-        matched_users_service: MatchedUsersService
+        matched_users_service: MatchedUsersService,
+        user_repo: IUserRepository
     ) => {
 
         socket.join(socket.data.user_id)
@@ -28,9 +30,14 @@ export const joinMatchQueue = (
             return;
 
         const pair_id = matched_users_service.create(match);
+        const player_1_username = await user_repo.getUserData(match.player_1.id, 'username');
+        const Player_2_username = await user_repo.getUserData(match.player_2.id, 'username');
 
         const result = {
-            players: match,
+            players: {
+                player_1:{ ...match.player_1, username: player_1_username?.username},
+                player_2:{...match.player_2, username: Player_2_username?.username}
+            },
             pair_id: pair_id,
             game_mode: data.game_mode
         }
@@ -96,8 +103,8 @@ export const matchDeclined = ((io: Server, socket: Socket, pair_id: string, matc
     }
 })
 
-export const sendGameQuestions = (io: Server, game_id: number, GAME: Map<number, { players: PlayerDTO[], questions: GameQuestionsDTO }>) => {
-    const data = GAME.get(game_id)
+export const sendGameQuestions = (io: Server, game_id: number, game_store: GameStore) => {
+    const data = game_store.get(game_id)
 
     if (data) {
         for (const player of data.players) {
@@ -108,8 +115,8 @@ export const sendGameQuestions = (io: Server, game_id: number, GAME: Map<number,
     }
 }
 
-export const sendGamePlayers = (io: Server, game_id: number, GAME: Map<number, { players: PlayerDTO[], questions: GameQuestionsDTO }>) => {
-    const data = GAME.get(game_id);
+export const sendGamePlayers = (io: Server, game_id: number, game_store: GameStore) => {
+    const data = game_store.get(game_id)
 
     if (data) {
         for (const player of data.players) {

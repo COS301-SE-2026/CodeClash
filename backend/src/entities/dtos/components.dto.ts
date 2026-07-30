@@ -4,7 +4,8 @@ export interface PlayerDTO {
     id: string,
     elo: number,
     avatar?:string,
-    life?:number
+    life?:number,
+    username?:string
 }
 
 export interface MatchDTO {

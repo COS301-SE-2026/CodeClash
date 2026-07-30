@@ -20,7 +20,7 @@ const MathsMatch = () => {
         loading, submitQuestion,
         mathfieldRef, setAnswers, answers,
         results, gameOver, waitingOpponent,
-        finishGame, opponentDone
+        finishGame, opponentDone, players
     } = useMatch();
 
     const curr = questions[currentQuestion];

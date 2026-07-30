@@ -1,6 +1,6 @@
 export interface MatchFoundPlayer {
   id: string;
-  username: string;
+  username?: string;
   elo: number;
   side: 'left' | 'right';
 }

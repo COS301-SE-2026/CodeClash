@@ -14,8 +14,8 @@ import type { MatchedUsersDTO } from "src/dtos/matched-user.dto";
 
 
 export function MatchFoundViewModelFunction() {
-    const nav = useNavigate();
-  const { elo, league, username, avatar } = useUser();
+  const nav = useNavigate();
+  const { league, username, avatar } = useUser();
   const { socket, } = useSocket()
   const { gameType, pairId, matchAccepted, matchDeclined, matchedUsers } = useMatchmaking()
   const [path, setPath] = useState('');
@@ -39,14 +39,14 @@ export function MatchFoundViewModelFunction() {
 
   const gameReady = (data: { game_id: number }) => {
     console.log("Game ready: ", data)
-        setLoading(false);
+    setLoading(false);
 
-        nav(path, {
-          replace: true,
-          state: {
-            id: data.game_id
-          }
-        });
+    nav(path, {
+      replace: true,
+      state: {
+        id: data.game_id
+      }
+    });
   }
 
   //   // handler for user that declined the game
@@ -87,21 +87,20 @@ export function MatchFoundViewModelFunction() {
   }
 
   const set_players = (matched_users: MatchedUsersDTO) => {
-
-    const player_1 = matched_users.player_1;
+    const player_1 = matched_users.players.player_1;
     const p1: MatchFoundPlayer = {
       id: player_1.id,
-      username: player_1.username,
       elo: player_1.elo,
-      side: 'left'
+      side: 'left',
+      username: player_1.username
     }
 
-    const player_2 = matched_users.player_2;
+    const player_2 = matched_users.players.player_2;
     const p2: MatchFoundPlayer = {
       id: player_2.id,
-      username: player_2.username,
       elo: player_2.elo,
-      side: 'right'
+      side: 'right',
+      username: player_2.username
     }
 
     setPlayers([p1, p2])
@@ -127,7 +126,7 @@ export function MatchFoundViewModelFunction() {
       set_players(matchedUsers)
       set_detais()
     }
-    
+
     if (socket) {
       socket.on("game_ready", gameReady);
 
