@@ -13,6 +13,7 @@ import ProgMatch from "./pages/ProgMatch";
 import Welcome from "./Views/Welcome";
 import { useAuth } from "./context/Auth/hooks/useAuth";
 import Loading from "@/components/shared/Loading";
+import TermsAndConditions from "./Views/TermsAndConditions";
 
 const App: React.FC = () => {
 
@@ -32,6 +33,7 @@ const App: React.FC = () => {
                 <Route path='/welcome' element={<Welcome />} />
                 <Route path='/sign-in' element={<SignIn />} />
                 <Route path='/sign-up' element={<SignUp />} />
+                <Route path='terms' element={<TermsAndConditions/>}/>
                 <Route path='*' element={<Navigate to='/sign-in' replace />} />
 
             </Routes>
@@ -51,6 +53,7 @@ const App: React.FC = () => {
             <Route path='/prog-match' element={<ProgMatch language="javascript" />} />
              <Route path= '/results' element= {<FinalResults/>}/>
             <Route path= '/forgot-password' element= {<ForgotPassword/>}/>
+            <Route path='/terms' element={<TermsAndConditions/>}/>
 
             {/* Pages with sidebar inside the app */}
             <Route element={<Layout />}>
