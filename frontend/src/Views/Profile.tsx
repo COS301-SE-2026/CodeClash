@@ -14,7 +14,6 @@ import { useUser } from 'src/context/User/hooks/useUser';
 
 const Profile: React.FC<ProfileProps> = ({
   avatarUrl = `(${placeholder})`,
-  username = 'User Name',
   rank = '5',
   elo = 600,
   league = 'Earth',

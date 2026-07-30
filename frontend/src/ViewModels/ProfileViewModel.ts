@@ -1,10 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "src/context/hooks/useAuth";
-import { useUser } from "./SharedViewModel";
+import { useAuth } from "src/context/Auth/hooks/useAuth";
+import { useUser } from "src/context/User/hooks/useUser";
 import { getCurrentUser, fetchUserAttributes } from "aws-amplify/auth";
-import { ProfileProps } from "src/Models/ProfileModel";
+import type { ProfileProps } from "src/Models/ProfileModel";
 import {useState, useEffect} from 'react'
-import profile from "../../src/assets/Icons/profile_black.png"
 
 export function useLogOut() {
     const { signOut } = useAuth();
@@ -44,14 +43,17 @@ export async function getProfile() {
                 const {username} = await getCurrentUser();
                 const attributes = await fetchUserAttributes();
 
-                const user : ProfileProps = {
-                    avatarUrl : attributes['custom:avatarUrl'] || '../../src/assets/Icons/profile_black.png'
-                    username,
-                    rank : attributes['custom:avatarUrl'] || '0',
-                    elo : attributes['custom:elo'] || "600",
-                    league : attributes['custom:league']
+                // const user : ProfileProps = {
+                //     avatarUrl : attributes['custom:avatarUrl'] || '../../src/assets/Icons/profile_black.png'
+                //     username,
+                //     rank : attributes['custom:avatarUrl'] || '0',
+                //     elo : attributes['custom:elo'] || "600",
+                //     league : attributes['custom:league']
                     
-                }
+                // }
+            }
+            catch(err){
+
             }
         }
     })
