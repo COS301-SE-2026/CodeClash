@@ -17,6 +17,7 @@ import { useAuth } from "./context/Auth/hooks/useAuth";
 import Loading from "@/components/shared/Loading";
 import MatchHistory from "./Views/MatchHistory";
 import ForgotPassword from "./Views/ForgotPassword";
+import TermsAndConditions from "./Views/TermsAndConditions";
 import FinalResults from "./Views/FinalResults";
 import Guidebook from "./Views/Guidebook";
 import Landing from "./Views/Landing";
@@ -40,6 +41,7 @@ const App: React.FC = () => {
                 <Route path='/' element={<Landing />} />
                 <Route path='/sign-in' element={<SignIn />} />
                 <Route path='/sign-up' element={<SignUp />} />
+                <Route path='terms' element={<TermsAndConditions/>}/>
                 <Route path= '/brand-style-guide' element={<BrandStyleGuide/>}/>
                 <Route path='/game-guide' element={<Guidebook/>}/> 
                 <Route path= '/help-menu' element={<HelpMenu/>}/>
@@ -64,6 +66,7 @@ const App: React.FC = () => {
             <Route path= '/results' element= {<FinalResults/>}/>
 
             <Route path= '/forgot-password' element= {<ForgotPassword/>}/>
+            <Route path='/terms' element={<TermsAndConditions/>}/>
             <Route path="/brand-style-guide" element= {<BrandStyleGuide/>}/>
 
             {/* Pages with sidebar inside the app */}
