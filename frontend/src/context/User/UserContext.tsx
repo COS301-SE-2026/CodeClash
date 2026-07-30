@@ -114,9 +114,12 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                         setError(`Error: ${res.status} ${res.data}`)
                     }
                 })
-        }
+            }
+            catch(error){
+                setError(`Error Getting User Rank: ${error}`);
+            }
 
-    }
+        }
 
     const getUsername = (user: AuthUser | null) => {
         const username = user?.username;
