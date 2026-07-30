@@ -1,0 +1,14 @@
+package.json
+  h_b13c5d77534129 51-52
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "60bf9039341e75c84c0b59139f6b5a39a1a761ea",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
