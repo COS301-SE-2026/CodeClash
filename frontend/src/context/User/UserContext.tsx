@@ -96,7 +96,16 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     const getRank = async () => {
 
-        if(!token)
+        if(!token){
+            setError('Missing or Invalid Token');
+            return;
+        }
+
+        try{
+            await axios.get(url.concat('user/rank'), {
+                headers: { Authorization: `Bearer ${token}`}
+            })
+        }
 
     }
 
