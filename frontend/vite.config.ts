@@ -25,6 +25,6 @@ export default defineConfig({
     setupFiles: "./test/setup.ts",
   },
   optimizeDeps: {
-    exclude: ['@monaco-aditor/react'],
+    exclude: ['@monaco-aditor/react', 'mathlive'],
   },
 })

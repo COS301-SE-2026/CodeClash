@@ -1,44 +1,32 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-
 import backgroundImg from '../assets/Background/dashboard.png'
 import aiIcon from '../assets/Icons/AI.png';
 import brainIcon from '../assets/Icons/Brain.png';
 import profileIcon from '../assets/Icons/Profile.png';
 import searchIcon from '../assets/Icons/Search.png';
-import robot from '../assets/Robots/Pink_fighting.png'
 import { useShowPopUp } from '../ViewModels/DashboardViewModel';
-import { useUser, getUserElo, getUserToken } from '../ViewModels/SharedViewModel';
-
 import Popup from './Popup'
-
 import GlassCard from '@/components/shared/GlassCard'
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-
+import { useUser } from 'src/context/User/hooks/useUser';
+import { useAuth } from 'src/context/Auth/hooks/useAuth';
+import Loading from '@/components/shared/Loading';
 
 // View Model
 
-
 const Dashboard = () => {
-  const { isOpen, closePopUp } = useShowPopUp();
-  const { username } = useUser();
-  const [elo, setElo] = useState<number | null>(null);
+  const { isOpen, openPopUp, closePopUp } = useShowPopUp();
+  const { username, elo, league, avatar } = useUser();
+  const { isLoading } = useAuth();
 
-  useEffect(() => {
-
-    const getElo = async () => {
-      const token = await getUserToken();
-      const user_elo = await getUserElo(token);
-
-      setElo(user_elo);
-    }
-
-    getElo();
-
-  }, [elo])
+  if (isLoading) {
+    return (
+      <Loading isOpen={isLoading}></Loading>
+    )
+  }
 
   return (
     <div style={{ backgroundImage: `url(${backgroundImg})` }} className='w-full h-[20] h-screen bg-cover bg-center flex flex-col items-center'>
@@ -72,10 +60,10 @@ const Dashboard = () => {
           <Card className='bg-[#070400] h-[50%]'>
             <CardContent className='flex '>
               <div className='flex flex-col'>
-                <p className='text-sm'>Level #</p>
+                <p className='text-sm'>LEAGUE {league}</p>
                 <p className='text-l'>{username}</p>
               </div>
-              <img alt='avatar' src={robot} className='absolute h-[47%] left-[12%]' />
+              <img alt='avatar' src={avatar} className='absolute h-[47%] left-[12%]' />
             </CardContent>
           </Card>
 
@@ -87,11 +75,13 @@ const Dashboard = () => {
             </CardHeader>
             <CardContent className='flex'>
               <CardAction className='flex flex-col w-[100%] h-[6rem] justify-between'>
-                <Button asChild variant={'default'} className='h-[45%] text-sm font-semibold'>
-                  <Link to="/match-searching">Ranked Play</Link>
+                <Button variant={'default'} className='h-[45%] bg-pink-300 text-sm font-semibold'
+                  onClick={openPopUp}>
+                  Ranked Play
                 </Button>
-                <Button asChild variant={'secondary'} className='h-[45%] bg-secondary text-primary text-sm font-semibold hover:bg-[#C0AF9C]'>
-                  <Link to="/match-searching">Casual Play</Link>
+                <Button variant={'secondary'} className='h-[45%] bg-secondary text-primary text-sm font-semibold hover:bg-[#C0AF9C]'
+                  onClick={openPopUp}>
+                  Casual Play
                 </Button>
               </CardAction>
             </CardContent>

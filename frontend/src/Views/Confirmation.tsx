@@ -1,12 +1,12 @@
 import React from "react";
 import { AlertTriangle } from "lucide-react";
-import type {ConfirmationViewModel} from '../ViewModels/ConfirmationViewModel';
+import type { ConfirmationViewModel } from '../ViewModels/ConfirmationViewModel';
 
 interface ConfirmationPopupProps {
     confirmation: ConfirmationViewModel;
 }
 
-const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({confirmation}) => {
+const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({ confirmation }) => {
     const {
         content,
         isVisible, dontAskAgain, handleDontAsk,
@@ -15,7 +15,12 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({confirmation}) => 
 
     if (!isVisible) return null;
     return (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/40" onMouseDown={handleCancel}>
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/40" role="button" tabIndex={0} onMouseDown={handleCancel} 
+        onKeyDown={(e) => {
+            if (e.key === "Escape" || e.key === "Enter" || e.key === " ") {
+                handleCancel();
+            }
+        }}>
             <div className="bg-white rounded-3xl p-8 w-[90%] max-w-[550px] flex flex-col items-center gap-5 shadow-xl" onMouseDown={(e) => e.stopPropagation()}>
                 <AlertTriangle className="w-15 h-15 text-danger" strokeWidth={1.5}/>
                 
@@ -24,9 +29,9 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({confirmation}) => 
 
                 {/*Dont ask me again option */}
                 <label className="flex items-center gap-3 cursor-pointer">
-                    <input type="checkbox" checked = {dontAskAgain} onChange={(e) => handleDontAsk(e.target.checked)}
-                        className="w-5 h-5 cursor-pointer rounded"/>
-                    <span className="text-black" style={{fontSize: 'var(--font-size-sm)'}}>{content.dontAskAgainLabel}</span>
+                    <input type="checkbox" checked={dontAskAgain} onChange={(e) => handleDontAsk(e.target.checked)}
+                        className="w-5 h-5 cursor-pointer rounded" />
+                    <span className="text-black" style={{ fontSize: 'var(--font-size-sm)' }}>{content.dontAskAgainLabel}</span>
                 </label>
 
                 {/*The cancel and submit buttons */}

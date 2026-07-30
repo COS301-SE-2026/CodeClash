@@ -1,16 +1,17 @@
-import { Editor } from "@monaco-editor/react";
-import React, { useState, useEffect, useRef } from "react";
-import { useTimer } from "react-timer-hook";
-import { Question } from "@/components/features/question";
-import blue_avatar from "../assets/Avatar/blue_avatar.jpeg";
-import puprle_avatar from "../assets/Avatar/purple_avatar.jpeg";
-import type { QuestionDTO, MatchDTO } from "src/types/question.dto";
-import { MatchProgress } from "@/components/features/match-progress";
-import { Question } from "@/components/features/question";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
-import { Link } from "react-router-dom";
+//import { Editor } from "@monaco-editor/react";
+import React from "react";
+// import { Link } from "react-router-dom";
+// import { useTimer } from "react-timer-hook";
+// import type { QuestionDTO } from "src/types/question.dto";
+
+// import blue_avatar from "../assets/Avatar/blue_avatar.jpeg";
+// import puprle_avatar from "../assets/Avatar/purple_avatar.jpeg";
+
+// import { MatchProgress } from "@/components/features/match-progress";
+// import { Question } from "@/components/features/question";
+// import { Badge } from "@/components/ui/badge";
+// import { Button } from "@/components/ui/button";
+// import { Progress } from "@/components/ui/progress";
 
 interface ProgMatchProps {
   language: string;
@@ -50,29 +51,29 @@ const ProgMatch: React.FC<ProgMatchProps> = () => {
   //   // const [question, set_question] = useState();
   //   // const [description, set_description] = useState("description");
 
-  // initialise questions
-  useEffect(() => {
-    //   set_questions(mock_questions);
+  //   // initialise questions
+  //   useEffect(() => {
+  //     //   set_questions(mock_questions);
 
-    //   const q_1 = mock_questions[0];
-    //   set_q_index(0);
-    //   set_difficulty(q_1.difficulty);
-    //   set_title(q_1.title);
-    //   set_question(q_1.question);
-    //   set_description(q_1.description ?? "");
-  }, []);
+  //     //   const q_1 = mock_questions[0];
+  //     //   set_q_index(0);
+  //     //   set_difficulty(q_1.difficulty);
+  //     //   set_title(q_1.title);
+  //     //   set_question(q_1.question);
+  //     //   set_description(q_1.description ?? "");
+  //   }, []);
 
-  function updateQuestion(q_idx: number) {
-    if (typeof questions !== "undefined") {
-      if (q_idx >= questions.length) { set_player_1_done(true); set_q_index(questions.length - 1); }
-      else if (q_idx < 0) return;
-      else {
-        const q = questions[q_idx];
-        set_q_index(q_idx);
-        set_difficulty(q.difficulty);
-        set_title(q.title);
-        set_question(q.question);
-        set_description(q.description ?? "");
+  //   function updateQuestion(q_idx: number) {
+  //     // if (typeof questions !== "undefined") {
+  //     //   if (q_idx >= questions.length) { set_player_1_done(true); set_q_index(questions.length - 1); }
+  //     //   else if (q_idx < 0) return;
+  //     //   else {
+  //     //     const q = questions[q_idx];
+  //     //     set_q_index(q_idx);
+  //     //     set_difficulty(q.difficulty);
+  //     //     set_title(q.title);
+  //     //     set_question(q.question);
+  //     //     set_description(q.description ?? "");
 
   //     //     // clear editor
   //     //     editorRef.current?.setValue(input[q_idx] ?? default_value);
