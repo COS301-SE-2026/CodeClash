@@ -1,0 +1,19 @@
+backend/src/application/usecases/systems/leaderboard.system.ts
+  s_a0294126f7a89a::t_73ec82f9ae316a 1,6-15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.18",
+  "base_commit_sha": "d6eca9906369097c69fe769a50a41f71a7beb583",
+  "prompts": {},
+  "sessions": {
+    "s_a0294126f7a89a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04ffa4cabffeUeIh34xdcGnNh2",
+        "model": "big-pickle"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
