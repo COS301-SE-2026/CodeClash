@@ -9,8 +9,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "start": "ts-node -r tsconfig-paths/register src/server.ts",
-    "dev": "nodemon src/server.ts",
+    "start": "ts-node -r tsconfig-paths/register src/frameworks-drivers/server.ts",
+    "dev": "nodemon src/frameworks-drivers/server.ts",
     "test": "vitest",
     "coverage": "vitest run --coverage"
   },
