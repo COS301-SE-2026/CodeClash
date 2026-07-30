@@ -5,8 +5,6 @@ import { useLogOut } from '../ViewModels/ProfileViewModel';
 import { getProfile } from '../ViewModels/ProfileViewModel';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { useUser } from 'src/context/User/hooks/useUser';
-import { useNavigate } from 'react-router';
 import "../styles/global.css"
 
 
@@ -14,7 +12,7 @@ import "../styles/global.css"
 
 const Profile() {
   
-  const { userData, loadingData, error} = getProfile();
+  const { userData, loadingData, error} = await getProfile();
 
   const onLogout = useLogOut();
 
@@ -25,6 +23,7 @@ const Profile() {
   if(error) return
     <div className="font-font font-semibold, text-color-button-primary">Error loading user data</div>
 
+
   return (
     <div className="w-full min-h-screen bg-secondary flex flex-col items-center justify-center text-secondary-text">
 
@@ -32,7 +31,7 @@ const Profile() {
         onKeyDown={(e) => {
           const shift = e.shiftKey;
           if (shift && e.key === 'Esc') {
-            nav('/dashboard');
+            // nav('/dashboard');
           }
         }}
       >
@@ -42,13 +41,13 @@ const Profile() {
       <Card className="w-[40%] h-[35rem] flex items-center justify-center bg-[#F8E5DD]">
 
         <div className="w-[35%]" >
-          <img src={avatarUrl} className="" />
+          <img src={userData?.avatar} className="" />
         </div>
-        <div className="text-xl font-semibold ">{username}</div>
-        <div className=" text-md font-semibold ">ELO - {elo}</div>
-        <div className="text-md font-semibold">League - {league}</div>
+        <div className="text-xl font-semibold ">{userData?.username}</div>
+        <div className=" text-md font-semibold ">ELO - {userData?.elo}</div>
+        <div className="text-md font-semibold">League - {userData?.league}</div>
         <div>
-          <p className="text-[1.5rem] ">Current Rank - {rank}</p>
+          <p className="text-[1.5rem] ">Current Rank - {userData?.rank}</p>
         </div>
 
         <div className="profile-divider" />
