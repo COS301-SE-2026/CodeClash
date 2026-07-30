@@ -14,6 +14,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [avatar, setAvatar] = useState('');
     const [error, setError] = useState('');
     const [league, setLeague] = useState('');
+    const [rank, setRank] = useState('');
     const { user, token, isLoading } = useAuth();
 
 
@@ -105,6 +106,11 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             await axios.get(url.concat('user/rank'), {
                 headers: { Authorization: `Bearer ${token}`}
             })
+                .then((res) => {
+                    if(res.status === 200){
+                        setRank(res.data.rank);
+                    }
+                })
         }
 
     }
