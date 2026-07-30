@@ -3,11 +3,11 @@ import { IMatchResultRepository } from "src/application/interfaces/repositories/
 import { MatchResultDTO, PlayerResultDTO } from "src/entities/dtos/match-result.dto";
 import { PlayerStatsDTO } from "src/entities/dtos/player-stats.dto";
 
-export class MatchResultService{
+export class MatchResultService {
     constructor(
         private readonly elo_repo: IEloRepository,
         private readonly match_result_repo: IMatchResultRepository
-    ) {}
+    ) { }
 
     async finaliseMatch(
         match_id: string,
@@ -15,21 +15,21 @@ export class MatchResultService{
         loser_id: string,
         is_ranked: boolean,
         playerStats: PlayerStatsDTO[]
-    ): Promise<MatchResultDTO>{
+    ): Promise<MatchResultDTO> {
         let eloEffects = new Map<string, number>();
 
         // save match log
-        if(is_ranked) {
+        if (is_ranked) {
 
             // calculate and store new elo
             const { winner, loser } = await this.elo_repo.updateRatingsAfterMatch(match_id, winner_id, loser_id);
-            
+
             await this.match_result_repo.saveMatchLog(match_id, winner_id, loser_id, winner.elo_gained, -loser.elo_gained);
             eloEffects.set(winner_id, winner.elo_gained);
             eloEffects.set(loser_id, loser.elo_gained);
-        }else{
+        } else {
             await this.match_result_repo.saveMatchLog(match_id, winner_id, loser_id, null, null);
-            eloEffects.set(winner_id,0);
+            eloEffects.set(winner_id, 0);
             eloEffects.set(loser_id, 0);
         }
 
@@ -53,7 +53,9 @@ export class MatchResultService{
         players.sort((a, b) => a.position - b.position);
 
         // 
-        return { match_id, players };
+
+        const result = this.getMatchResult(match_id);
+        return result;
     }
 
     // match id from databse

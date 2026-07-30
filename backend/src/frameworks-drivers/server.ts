@@ -51,7 +51,6 @@ import { IMatchResultRepository } from 'src/application/interfaces/repositories/
 import { MatchResultRepository } from 'src/interface-adapters/repositories/match-result.repository';
 import { MatchedUsersService } from 'src/application/usecases/services/matched-users.service';
 import { GameStore } from 'src/application/usecases/services/game-store.service';
-import { ResultSystem } from 'src/application/usecases/systems/result.system';
 
 dotnev.config()
 
@@ -138,17 +137,11 @@ AppDataSource.initialize()
         const life_system = new LifeSystem(world);
         const finish_game = new FinishGame(world, match_results, game_store);
         const opponent_progress = new OpponentProgress(world);
-        const result_sysyem = new ResultSystem(world)
 
         const check_answer = new CheckAnswer(game_cache, submission_system, life_system, world)
 
         // initialise database with users and elos
         await initDB(user_repo, elo_repo);
-
-
-        // Socket maps 
-        const PAIRS = new Map<string, Map<string, { accepted: boolean, elo: number, username?: string, done?: boolean }>>();
-        const RESULTS = new Map<number, ResultComponent>();
 
         // attach socket handlers
         io.on("connection", (socket) => {
@@ -172,7 +165,7 @@ AppDataSource.initialize()
 
             socket.on('game_done', ( game_id: number, game_type: GameType) => gameDone(io, socket, game_id,game_type, finish_game, game_store));
 
-            socket.on('send_results', (game_id: number, pair_id: string) => sendResults(io, game_id, pair_id, result_sysyem, matched_users_service))
+            socket.on('send_results', (game_id: number, pair_id: string) => sendResults(io, game_id, pair_id, game_store))
         })
 
 

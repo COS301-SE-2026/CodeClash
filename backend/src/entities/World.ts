@@ -72,6 +72,7 @@ export const World = () => {
         component: MatchComponentTypes
     ) {
 
+        console.log("adding match component ", component_name)
         return addComponent(matches, entity_id, component_name, component)
     }
 

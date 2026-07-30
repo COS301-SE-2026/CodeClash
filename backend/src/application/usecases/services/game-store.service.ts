@@ -1,10 +1,11 @@
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 import { PlayerDTO } from "src/entities/dtos/components.dto";
 import { GameQuestionsDTO } from "src/entities/dtos/match-data.dto";
+import { MatchResultDTO } from "src/entities/dtos/match-result.dto";
 
 
 export class GameStore {
-    private GAME = new Map<number, { database_id: string, players: PlayerDTO[], questions: GameQuestionsDTO }>();
+    private GAME = new Map<number, { database_id: string, players: PlayerDTO[], questions: GameQuestionsDTO, result: MatchResultDTO | null }>();
 
     constructor(
         private readonly user_repo: IUserRepository
@@ -26,7 +27,7 @@ export class GameStore {
             })
         )
 
-        this.GAME.set(match_id, { database_id: db_id, players: populatePlayerData, questions: questions });
+        this.GAME.set(match_id, { database_id: db_id, players: populatePlayerData, questions: questions, result: null });
     }
 
     get(game_id: number) {
@@ -52,6 +53,23 @@ export class GameStore {
         if (!game) throw new Error("Invalid game id")
 
         return game.players.every(player => player.done)
+    }
+
+    saveResult(game_id: number, result: MatchResultDTO) {
+        const game = this.GAME.get(game_id);
+
+        if (!game) throw new Error("Invalid game id")
+
+        game.result = result;
+
+    }
+
+    geResult(game_id: number) {
+        const game = this.GAME.get(game_id);
+
+        if (!game) throw new Error("Invalid game id")
+
+        return game.result
     }
 }
 

@@ -2,14 +2,11 @@ import { Server, Socket } from "socket.io";
 import { CheckAnswer } from "src/application/usecases/check-answer";
 import { FinishGame } from "src/application/usecases/systems/finish-game";
 import { SubmissionSystem } from "src/application/usecases/systems/submission.system";
-import { ResultComponent } from "src/entities/components";
 import { SubmissionDTO } from "src/entities/dtos/components.dto";
 
 import { StartQuestionDTO } from "src/entities/dtos/question.dto";
 import { OpponentProgress } from "src/application/usecases/systems/opponent-progress";
-import { MatchedUsersService } from "src/application/usecases/services/matched-users.service";
 import { GameStore } from "src/application/usecases/services/game-store.service";
-import { ResultSystem } from "src/application/usecases/systems/result.system";
 import { GameType } from "src/entities/db-entities/questions.entities";
 
 export const submitQuestion = async (
@@ -47,7 +44,7 @@ export const startQuestion = (player_id: string, submission_system: SubmissionSy
     submission_system.saveSubmission(data.match_id, player_id, data.question, null, '');
 }
 
-export const gameDone = (io: Server, socket: Socket, game_id: number, game_type: GameType, finish_game: FinishGame, game_store: GameStore) => {
+export const gameDone = async (io: Server, socket: Socket, game_id: number, game_type: GameType, finish_game: FinishGame, game_store: GameStore) => {
     // wait for both players to be done
 
     const game = game_store.get(game_id);
@@ -60,8 +57,8 @@ export const gameDone = (io: Server, socket: Socket, game_id: number, game_type:
 
         const ids = game.players.map(player => player.id);
 
-        finish_game.execute(game_id, ids, game_type);
-        // need to call match result service
+        const game_result = await finish_game.execute(game_id, ids, game_type);
+        game_store.saveResult(game_id, game_result);
 
         for (const id of ids) {
             io.to(id).emit('both_done');
@@ -79,14 +76,13 @@ export const gameDone = (io: Server, socket: Socket, game_id: number, game_type:
 
 }
 
-export const sendResults = (io: Server, game_id: number, pair_id: string, result_system: ResultSystem, matched_users_service: MatchedUsersService) => {
+export const sendResults = (io: Server, game_id: number, pair_id: string, game_store: GameStore) => {
 
-    const result = result_system.get(game_id);
+    const result = game_store.geResult(game_id);
 
     if (!result) throw new Error("Couldn't fetch result");
 
-    const ids = matched_users_service.getKeys(pair_id);
-
+    const ids = result.players.map(player => player.user_id);
     for (const id of ids) {
         io.to(id).emit('get_result', result);
     }
