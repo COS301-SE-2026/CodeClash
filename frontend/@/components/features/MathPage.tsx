@@ -6,8 +6,8 @@ import React, { useState } from "react";
 
 import VirtualKeyboard from "./VirtualKeyboard";
 
-//Extending JSX to react mathfield as a valid element
 declare module "react" {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {
     interface IntrinsicElements {
       "math-field": {

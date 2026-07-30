@@ -19,31 +19,35 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [error, setError] = useState<string | null>(null)
   const [token, setToken] = useState<string | undefined>('');
 
-  const getToken = async () => {
-    const session = await fetchAuthSession();
-    const idToken = session.tokens?.idToken?.toString();
-
-    setToken(idToken);
-  }
-
   useEffect(() => {
-    getCurrentUser()
-      .then(async (cognitoUser) => {
 
-        setUser({
-          username: cognitoUser.username,
-          userId: cognitoUser.userId,
+    const loadUser = async () => {
+      getCurrentUser()
+        .then(async (cognitoUser) => {
+
+          setUser({
+            username: cognitoUser.username,
+            userId: cognitoUser.userId,
+          })
+
         })
+        .catch(() => {
+          setUser(null);
+        })
+        .finally(() => {
+          setIsLoading(false)
+        });
+    }
 
-      })
-      .catch(() => {
-        setUser(null);
-      })
-      .finally(() => {
-        setIsLoading(false)
-      });
+    const fetchToken = async () => {
+      const session = await fetchAuthSession();
+      const idToken = session.tokens?.idToken?.toString();
 
-    getToken();
+      setToken(idToken);
+    }
+
+    void loadUser();
+    void fetchToken()
   }, [])
 
   const clearError = useCallback(() => setError(null), []);

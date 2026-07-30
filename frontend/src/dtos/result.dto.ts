@@ -9,7 +9,12 @@ export interface PlayerResultDTO {
     position: 1 | 2; 
 }
 
+export interface MatchResultDTO {
+    match_id:string,
+    players: PlayerResultDTO[];
+}
+
 export interface ResultDTO {
     match_id: number;
-    players: PlayerResultDTO[];
+    result: MatchResultDTO
 }

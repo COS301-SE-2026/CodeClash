@@ -1,4 +1,3 @@
-import { type AuthUser } from "aws-amplify/auth";
 import axios from "axios";
 import React, { useEffect, useMemo, useState, type ReactNode } from "react";
 import { robot_map } from "src/assets/Robots";
@@ -10,13 +9,13 @@ const url = import.meta.env.VITE_API_URL;
 
 
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [username, setUsername] = useState('');
     const [elo, setElo] = useState(0);
     const [avatar, setAvatar] = useState('');
     const [error, setError] = useState('');
     const [league, setLeague] = useState('');
-    const { user, token, isLoading } = useAuth();
-    const [userId, setUserId] = useState('');
+    const { user, token } = useAuth();
+    const userId = user?.userId ?? ""
+    const username = user?.username ?? ""
 
 
     const getElo = async () => {
@@ -26,7 +25,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
 
         try {
-            await axios.get(url.concat('elo/elo-get'), {
+            axios.get(url.concat('elo/elo-get'), {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {
@@ -51,7 +50,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
 
         try {
-            await axios.get(url.concat('user/avatar_id'), {
+            axios.get(url.concat('user/avatar_id'), {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {
@@ -78,7 +77,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
 
         try {
-            await axios.get(url.concat('user/league'), {
+            axios.get(url.concat('user/league'), {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {
@@ -96,13 +95,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
     }
 
-    const getUsername = (user: AuthUser | null) => {
-        const username = user?.username;
-
-        if (username && username.length > 0)
-            setUsername(username);
-        else setError(`Error Getting Username`)
-    }
 
     const refresh = async () => {
         await Promise.all([
@@ -112,15 +104,21 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         ]);
     }
 
+
     useEffect(() => {
-        refresh();
 
-        if (!isLoading && user) {
-            getUsername(user);
-            setUserId(user!.userId);
+        if (!token) return;
 
+        const load = async () => {
+            await Promise.all([
+                getElo(),
+                getAvatarUrl(),
+                getLeague()
+            ]);
         }
-    }, [token, user])
+
+        void load();
+    }, [token])
 
 
     const value = useMemo(() => ({

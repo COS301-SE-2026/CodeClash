@@ -94,7 +94,7 @@ export const useMatch = () => {
     const finishGame = async () => {
         if (q_index.current === questions.length - 1) {
             setWaitingOpponent(true)
-            await endGame(id, gameType,socket);
+            await endGame(id, gameType, socket);
         }
     }
 
@@ -225,10 +225,10 @@ export const useMatch = () => {
     }
 
     const opponent_progress = (data: OpponentDTO) => {
-     
+
 
         setOpponentCurrent((prev) => {
-        
+
             const next = data.question + 1
 
             if (next < questions.length) return next
@@ -245,7 +245,7 @@ export const useMatch = () => {
         })
     }
 
-    const opponent_done = ()=>{
+    const opponent_done = () => {
         setOpponentDone(true)
     }
     // Use Effects
@@ -259,11 +259,14 @@ export const useMatch = () => {
 
     useEffect(() => {
         players_ref.current = players
-        console.log(players)
-        setPlayerLife(players.map(p => p.life))
-        setAvatars(players.map(p => robot_map[p.avatar_id]));
-        setUsernames(players.map(p => p.username));
 
+        const initPLayers = async () => {
+            setPlayerLife(players.map(p => p.life))
+            setAvatars(players.map(p => robot_map[p.avatar_id]));
+            setUsernames(players.map(p => p.username));
+        }
+
+        void initPLayers();
     }, [players])
 
     useEffect(() => {
@@ -279,13 +282,15 @@ export const useMatch = () => {
             socket.on('waiting_opponent', waiting_opponent);
             socket.on('both_done', both_done)
             socket.on("opponent_progress", opponent_progress)
-            socket.on("opponent_done",opponent_done);
+            socket.on("opponent_done", opponent_done);
 
-            if (questions.length === 0) setLoading(true)
-            else { setLoading(false) }
+            const loadLoader = async () => {
+                if (questions.length === 0) setLoading(true)
+                else { setLoading(false) }
+            }
 
 
-
+            void loadLoader()
 
             return () => {
                 socket.off("get_questions", loadQuestions);

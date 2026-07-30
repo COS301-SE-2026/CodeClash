@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom';
+import { useMatchmaking } from "src/context/Socket/hooks/useMatchmaking";
 import { useSocket } from "src/context/Socket/hooks/useSocket"
 import { useUser } from "src/context/User/hooks/useUser";
+import type { MatchedUsersDTO } from "src/dtos/matched-user.dto";
 import type { MatchmakingUserDTO } from "src/dtos/matchmaking.dto";
 
 import {
@@ -9,8 +11,8 @@ import {
   type MatchFoundDetail,
   type MatchFoundPlayer,
 } from '../Models/MatchFoundModel';
-import { useMatchmaking } from "src/context/Socket/hooks/useMatchmaking";
-import type { MatchedUsersDTO } from "src/dtos/matched-user.dto";
+
+
 
 
 export function MatchFoundViewModelFunction() {

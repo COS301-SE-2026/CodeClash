@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, type ReactNode } from "react";
 import { MatchmakingContext } from "./MatchmakingContextValue";
-import type { MatchmakingUserDTO, GameType, GameMode } from "src/dtos/matchmaking.dto";
+import type { MatchmakingUserDTO, GameType, GameMode, MatchAcceptedDTO } from "src/dtos/matchmaking.dto";
 import { Socket } from "socket.io-client";
 import { useSocket } from "./hooks/useSocket";
 import type { MatchedUsersDTO } from "src/dtos/matched-user.dto";
@@ -37,7 +37,7 @@ export const MatchmakingProvider: React.FC<{ children: ReactNode }> = ({ childre
         socket.emit("leave_match_queue");
     }
 
-    const matchAccepted = (socket: Socket, data: {}) => {
+    const matchAccepted = (socket: Socket, data: MatchAcceptedDTO) => {
         socket.emit("match_accepted", data)
     }
 

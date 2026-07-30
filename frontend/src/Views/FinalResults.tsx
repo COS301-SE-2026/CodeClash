@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import ResultsBackground from '../assets/Background/FinalResults.jpg';
 import { FinalResultsViewModelFunction } from "../ViewModels/FinalResultsViewModel";
 import { robot_map } from "src/assets/Robots";
+import Loading from "@/components/shared/Loading";
 
 
 const FinalResults: React.FC = () => {
@@ -23,6 +24,12 @@ const FinalResults: React.FC = () => {
         const sec = total_sec % 60
 
         return `${min}:${sec.toString().padStart(2,'0')}`;
+    }
+
+    if(!winner || !loser){
+        return(
+            <Loading></Loading>
+        )
     }
 
 
@@ -106,30 +113,30 @@ const FinalResults: React.FC = () => {
                                         )}
                                     </div>
                                     <span className="text-secondary-text font-medium text-center truncate w-full"
-                                        style={{ fontSize: 'var(--font-size-xsm)' }}>{winner?.username}</span>
+                                        style={{ fontSize: 'var(--font-size-xsm)' }}>{winner.username}</span>
                                 </div>
 
                                 {/*The column for correctness */}
                                 <div className="px-3 py-4 flex items-center justify-center border-r border-secondary-text h-full">
                                     <span className="text-secondary-text font-semibold"
-                                        style={{ fontSize: 'var(--font-size-sm)' }}>{winner?.correctness} questions</span>
+                                        style={{ fontSize: 'var(--font-size-sm)' }}>{winner.correctness} questions</span>
                                 </div>
 
                                 {/*The column for speed - copied from above*/}
                                 <div className="px-3 py-4 flex items-center justify-center border-r border-secondary-text h-full">
                                     <span className="text-secondary-text font-semibold"
-                                        style={{ fontSize: 'var(--font-size-sm)' }}>{formatTime(winner?.speed)}</span>
+                                        style={{ fontSize: 'var(--font-size-sm)' }}>{formatTime(winner.speed)}</span>
                                 </div>
 
                                 {/*Column for elo effect */}
                                 <div className="px-3 py-4 flex  flex-col items-center justify-center border-r border-secondary-text h-full">
-                                    {winner?.eloEffect! >= 0 ? (
+                                    {winner.eloEffect >= 0 ? (
                                         <TrendingUp className="w-9 h-9 text-success" />
                                     ) : (
                                         <TrendingDown className="w-9 h-9 text-danger" />
                                     )}
-                                    <span className={`font-bold ${winner?.eloEffect! >= 0 ? 'text-success' : 'text-danger'}`}
-                                        style={{ fontSize: 'var(--font-size-sm)' }}>{winner?.eloEffect!}</span>
+                                    <span className={`font-bold ${winner.eloEffect >= 0 ? 'text-success' : 'text-danger'}`}
+                                        style={{ fontSize: 'var(--font-size-sm)' }}>{winner.eloEffect}</span>
                                 </div>
 
                                 {/*Column for the users position (1st or 2nd) */}
@@ -155,30 +162,30 @@ const FinalResults: React.FC = () => {
                                         )}
                                 </div>
                                 <span className="text-secondary-text font-medium text-center truncate w-full"
-                                    style={{ fontSize: 'var(--font-size-xsm)' }}>{loser?.username}</span>
+                                    style={{ fontSize: 'var(--font-size-xsm)' }}>{loser.username}</span>
                             </div>
 
                             {/*The column for correctness */}
                             <div className="px-3 py-4 flex items-center justify-center border-r border-secondary-text h-full">
                                 <span className="text-secondary-text font-semibold"
-                                    style={{ fontSize: 'var(--font-size-sm)' }}>{loser?.correctness} questions</span>
+                                    style={{ fontSize: 'var(--font-size-sm)' }}>{loser.correctness} questions</span>
                             </div>
 
                             {/*The column for speed - copied from above*/}
                             <div className="px-3 py-4 flex items-center justify-center border-r border-secondary-text h-full">
                                 <span className="text-secondary-text font-semibold"
-                                    style={{ fontSize: 'var(--font-size-sm)' }}>{formatTime(loser?.speed)}</span>
+                                    style={{ fontSize: 'var(--font-size-sm)' }}>{formatTime(loser.speed)}</span>
                             </div>
 
                             {/*Column for elo effect */}
                             <div className="px-3 py-4 flex  flex-col items-center justify-center border-r border-secondary-text h-full">
-                                {loser?.eloEffect! >= 0 ? (
+                                {loser.eloEffect >= 0 ? (
                                     <TrendingUp className="w-9 h-9 text-success" />
                                 ) : (
                                     <TrendingDown className="w-9 h-9 text-danger" />
                                 )}
-                                <span className={`font-bold ${loser?.eloEffect! >= 0 ? 'text-success' : 'text-danger'}`}
-                                    style={{ fontSize: 'var(--font-size-sm)' }}>{loser?.eloEffect!}</span>
+                                <span className={`font-bold ${loser.eloEffect >= 0 ? 'text-success' : 'text-danger'}`}
+                                    style={{ fontSize: 'var(--font-size-sm)' }}>{loser.eloEffect}</span>
                             </div>
 
                             {/*Column for the users position (1st or 2nd) */}

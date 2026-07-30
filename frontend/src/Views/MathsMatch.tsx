@@ -20,7 +20,7 @@ const MathsMatch = () => {
         loading, submitQuestion,
         mathfieldRef, setAnswers, answers,
         results, gameOver, waitingOpponent,
-        finishGame, opponentDone, players
+        finishGame, opponentDone
     } = useMatch();
 
     const curr = questions[currentQuestion];
@@ -94,7 +94,7 @@ const MathsMatch = () => {
                 >
                     SUBMIT
                 </Button>
-                {currentQuestion == (questions.length - 1) &&
+                {currentQuestion === (questions.length - 1) &&
                     <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem] hover:-translate-y-1'
                         onClick={async () => {
                             await finishGame();

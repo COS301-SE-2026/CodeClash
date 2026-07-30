@@ -1,12 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useLocation } from "react-router-dom";
+import { useMatchmaking } from "src/context/Socket/hooks/useMatchmaking";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
+import { useUser } from "src/context/User/hooks/useUser";
 import { type PlayerResultDTO, type ResultDTO } from "src/dtos/result.dto";
 
 import { finalResultsContent } from "../Models/FinalResultsModel";
 import type { FinalResultsContent } from "../Models/FinalResultsModel";
-import { useMatchmaking } from "src/context/Socket/hooks/useMatchmaking";
-import { useUser } from "src/context/User/hooks/useUser";
+
+
 
 interface FinalResultsViewModel {
     content: FinalResultsContent;
@@ -29,7 +31,7 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
     const { id } = location.state;
     const { pairId,setMatched } = useMatchmaking()
 
-    const handleResult = async (result: any) => {
+    const handleResult = useCallback(async (result: ResultDTO) => {
     
         setResults(result);
 
@@ -40,7 +42,7 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
         // can start clean up now 
         socket?.emit('clean_up', result.match_id,pairId )
         setMatched(false)
-    }
+    },[pairId, refresh, setMatched, socket])
 
 
     useEffect(() => {
@@ -69,7 +71,7 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
             socket.off('get_result', handleResult)
         };
 
-    }, [socket, id]);
+    }, [socket, id, handleResult, pairId]);
 
     useEffect(() => {
         if (results === null) return;
