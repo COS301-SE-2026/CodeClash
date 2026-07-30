@@ -1,0 +1,18 @@
+frontend/src/context/User/UserContext.tsx
+  h_94c952a9e14c58 110-117,119-122,133
+frontend/src/context/User/UserContextValue.tsx
+  h_94c952a9e14c58 9-10
+frontend/src/ViewModels/FinalResultsViewModel.ts
+  h_94c952a9e14c58 9,25-26,32,37
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "799a4cacb669c8a39b8fa210473b00b7537a1baf",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

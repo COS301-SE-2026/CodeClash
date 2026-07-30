@@ -1,0 +1,14 @@
+.gitignore
+  h_94c952a9e14c58 409
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.18",
+  "base_commit_sha": "fb4882746ce4c415b2aec4e490ba66d37e8ddd67",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
