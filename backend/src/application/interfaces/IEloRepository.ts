@@ -10,5 +10,5 @@ export interface IEloRepository {
     // Read
     getElo(user_id: string): Promise<EloDTO | null>
     getUsersElo(user_ids: string[]): Promise<EloDTO[] | null>
-    getLeaderboard(limit?: number): Promise<LeaderboardEntryDTO[]>
+    getLeaderboard(limit: number, offset: number): Promise<{ data: LeaderboardEntryDTO[]; total: number }>
 }
