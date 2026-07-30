@@ -1,0 +1,22 @@
+frontend/src/ViewModels/FinalResultsViewModel.ts
+  h_94c952a9e14c58 8,25-26,50
+frontend/src/services/result.service.tsx
+  h_94c952a9e14c58 4
+frontend/src/ViewModels/MatchViewModel.ts
+  h_94c952a9e14c58 97
+backend/src/interface-adapters/socket-handlers/matchmaking.handler.ts
+  h_94c952a9e14c58 75
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 175
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "c5b2d973b06d6a90428e28470d752ced90bcf6df",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
