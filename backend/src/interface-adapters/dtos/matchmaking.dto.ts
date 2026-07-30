@@ -1,4 +1,4 @@
-import { GameMode } from "../db-entities/questions.entities";
+import { GameMode } from "../../entities/db-entities/questions.entities";
 
 class MatchmakingUserDTO{
     id: string;

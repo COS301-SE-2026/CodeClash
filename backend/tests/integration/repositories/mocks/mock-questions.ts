@@ -13,7 +13,7 @@ export const mock_questions: DeepPartial<Questions>[] = [
     },
     {
         game_mode: GameMode.Maths,
-        difficulty: 4,
+        difficulty: 3,
         title: 'Question 2',
         description: "Answer repo testing, question 2",
         time_limit: '00:02:02'

@@ -1,6 +1,6 @@
 import { IQuestionRepository } from "src/application/interfaces/repositories/IQuestionRepository";
 import { GameMode, Questions } from "src/entities/db-entities/questions.entities";
-import { QuestionDTO } from "src/entities/dtos/question.dto";
+import { QuestionDTO } from "src/interface-adapters/dtos/question.dto";
 import { Repository } from "typeorm";
 
 export class QuestionRepository implements IQuestionRepository {

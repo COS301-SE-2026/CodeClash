@@ -1,5 +1,5 @@
 import { LifeComponent, MatchComponent, PlayerInfoComponent, PlayersComponent, RoundComponent, SubmissionRegistryComponent } from "src/entities/components";
-import { PlayerDTO, MatchDTO, RoundDTO } from "src/entities/dtos/components.dto";
+import { PlayerDTO, MatchDTO, RoundDTO } from "src/interface-adapters/dtos/components.dto";
 import { World } from "src/entities/World";
 
 export class CreateGame {

@@ -1,4 +1,4 @@
-import { MatchResultDTO } from '../../../entities/dtos/match-result.dto';
+import { MatchResultDTO } from '../../../interface-adapters/dtos/match-result.dto';
 
 export interface IMatchResultRepository {
     buildMatchResult(match_id: string): Promise<MatchResultDTO>;

@@ -1,6 +1,6 @@
 import { IGameCache } from "src/application/interfaces/cache/IGameCache";
 import { GameMode, GameType } from "src/entities/db-entities/questions.entities";
-import { MatchDTO, PlayerDTO, RoundDTO } from "src/entities/dtos/components.dto";
+import { MatchDTO, PlayerDTO, RoundDTO } from "src/interface-adapters/dtos/components.dto";
 
 import { CreateGame } from "../systems/create-game";
 

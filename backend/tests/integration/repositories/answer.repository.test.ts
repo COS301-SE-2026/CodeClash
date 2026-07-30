@@ -16,7 +16,7 @@ let answers: Answers[]
 
 
 
-describe("Answer Repository Quesries", () => {
+describe("Answer Repository Queries", () => {
 
     beforeAll(async () => {
         data_source = await createTestDataSource();

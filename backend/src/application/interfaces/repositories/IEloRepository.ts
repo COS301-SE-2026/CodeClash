@@ -1,4 +1,4 @@
-import { EloDTO, EloUpdateResultDTO } from "src/entities/dtos/elo.dto"
+import { EloDTO, EloUpdateResultDTO } from "src/interface-adapters/dtos/elo.dto"
 
 
 export interface IEloRepository {

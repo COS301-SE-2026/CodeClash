@@ -2,9 +2,9 @@ import { Server, Socket } from "socket.io";
 import { CheckAnswer } from "src/application/usecases/check-answer";
 import { FinishGame } from "src/application/usecases/systems/finish-game";
 import { SubmissionSystem } from "src/application/usecases/systems/submission.system";
-import { SubmissionDTO } from "src/entities/dtos/components.dto";
+import { SubmissionDTO } from "src/interface-adapters/dtos/components.dto";
 
-import { StartQuestionDTO } from "src/entities/dtos/question.dto";
+import { StartQuestionDTO } from "src/interface-adapters/dtos/question.dto";
 import { OpponentProgress } from "src/application/usecases/systems/opponent-progress";
 import { GameStore } from "src/application/usecases/services/game-store.service";
 import { GameType } from "src/entities/db-entities/questions.entities";
