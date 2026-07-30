@@ -1,6 +1,15 @@
-import { signIn as amplifySignIn, signUp as amplifySignUp, signOut as amplifySignOut, getCurrentUser, confirmSignUp as amplifyConfirmSignUp, resendSignUpCode as amplifyResendSignUpCode, resetPassword as amplifyResetPassword, confirmResetPassword as amplifyConfirmResetPassword } from 'aws-amplify/auth'
+import { 
+  signIn as amplifySignIn, 
+  signUp as amplifySignUp, 
+  signOut as amplifySignOut, 
+  getCurrentUser,
+   confirmSignUp as amplifyConfirmSignUp, 
+   resendSignUpCode as amplifyResendSignUpCode, 
+   resetPassword as amplifyResetPassword, 
+   confirmResetPassword as amplifyConfirmResetPassword,
+  fetchAuthSession
+  } from 'aws-amplify/auth'
 import React, { useEffect, useState, useCallback, type ReactNode } from 'react'
-import { fetchAuthSession } from 'aws-amplify/auth';
 
 import { AuthContext, type AuthUser } from './AuthContextValue'
 

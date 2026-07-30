@@ -20,8 +20,7 @@ const SharedLayout: React.FC<SharedLayoutProps> = ({
                     <p className="text-gray-500 text-sm leading-relaved max-w-none">{description}</p>
                 )}
             </div>
-            {/* //just a spacing for better visual seperation of the page sections - need to test this layout */}
-            <div className="pt-8">{children}</div> 
+            <div className="pt-8">{children}</div> {/*just a spacing for better visual seperation of the page sections - need to test this layout*/}
         </section>
     );
 };
