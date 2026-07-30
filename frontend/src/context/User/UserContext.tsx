@@ -4,10 +4,7 @@ import React, { useEffect, useMemo, useState, type ReactNode } from "react";
 import { robot_map } from "src/assets/Robots";
 
 import { useAuth } from "../Auth/hooks/useAuth";
-
 import { UserContext } from "./UserContextValue";
-
-
 
 const url = import.meta.env.VITE_API_URL;
 
@@ -116,9 +113,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
 
     useEffect(() => {
-
-        if(!token) return;
-
         refresh();
 
         if (!isLoading && user) {

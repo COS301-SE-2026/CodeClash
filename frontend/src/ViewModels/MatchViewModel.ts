@@ -259,6 +259,7 @@ export const useMatch = () => {
 
     useEffect(() => {
         players_ref.current = players
+        console.log(players)
         setPlayerLife(players.map(p => p.life))
         setAvatars(players.map(p => robot_map[p.avatar_id]));
         setUsernames(players.map(p => p.username));

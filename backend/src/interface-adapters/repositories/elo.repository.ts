@@ -82,7 +82,7 @@ export class EloRepository implements IEloRepository {
         const expectedLoser = 1 / (1 + Math.pow(10, (winnerRating.rating - loserRating.rating) /400));
 
         const newWinnerRating = Math.round(winnerRating.rating + K_FACTOR * (1 - expectedWinner));
-        const newLoserRating = Math.round(loserRating.rating + K_FACTOR * (1 - expectedLoser));
+        const newLoserRating = Math.round(loserRating.rating + K_FACTOR * (0 - expectedLoser));
 
         const eloGained = newWinnerRating - winnerRating.rating;
         const eloLost  = loserRating.rating - newLoserRating;

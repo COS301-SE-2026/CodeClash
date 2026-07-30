@@ -16,6 +16,9 @@ const FinalResults: React.FC = () => {
     } = FinalResultsViewModelFunction();
 
 
+    console.log(winner);
+    console.log(loser)
+
     const formatTime = (ms: number|undefined) => {
 
         if(ms === undefined) return 'Error getting time'
@@ -99,9 +102,9 @@ const FinalResults: React.FC = () => {
 
                                 {/*The user name + user robot/icon */}
                                 <div className="px-3 py-4 flex flex-col items-center justify-center gap-1 border-r border-secondary-text h-full">
-                                    <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+                                    <div className="w-15 h-[6rem] rounded-full overflow-hidden flex-shrink-0">
                                         {winner ? (
-                                            <img src={robot_map[winner.avatar]} alt={winner.username} className="w-full h-full object-cover" />
+                                            <img src={robot_map[winner.avatar]} alt={winner.username} className="w-full h-[5.5rem]  object-cover" />
                                         ) : (
                                             <div className="w-full h-full bg-secondary-text" />
                                         )}
@@ -113,7 +116,7 @@ const FinalResults: React.FC = () => {
                                 {/*The column for correctness */}
                                 <div className="px-3 py-4 flex items-center justify-center border-r border-secondary-text h-full">
                                     <span className="text-secondary-text font-semibold"
-                                        style={{ fontSize: 'var(--font-size-sm)' }}>{winner?.correctness} questions correct</span>
+                                        style={{ fontSize: 'var(--font-size-sm)' }}>{winner?.correctness} questions</span>
                                 </div>
 
                                 {/*The column for speed - copied from above*/}
@@ -148,7 +151,7 @@ const FinalResults: React.FC = () => {
 
                             {/*The user name + user robot/icon */}
                             <div className="px-3 py-4 flex flex-col items-center justify-center gap-1 border-r border-secondary-text h-full">
-                                <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+                                <div className="w-15 h-25 rounded-full overflow-hidden flex-shrink-0">
                                     {loser ? (
                                             <img src={robot_map[loser.avatar]} alt={loser.username} className="w-full h-full object-cover" />
                                         ) : (
@@ -162,7 +165,7 @@ const FinalResults: React.FC = () => {
                             {/*The column for correctness */}
                             <div className="px-3 py-4 flex items-center justify-center border-r border-secondary-text h-full">
                                 <span className="text-secondary-text font-semibold"
-                                    style={{ fontSize: 'var(--font-size-sm)' }}>{loser?.correctness} questions correct</span>
+                                    style={{ fontSize: 'var(--font-size-sm)' }}>{loser?.correctness} questions</span>
                             </div>
 
                             {/*The column for speed - copied from above*/}

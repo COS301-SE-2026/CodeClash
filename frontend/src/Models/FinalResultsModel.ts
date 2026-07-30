@@ -22,7 +22,7 @@ export const finalResultsContent: FinalResultsContent = {
     titleLoading: 'Calculating Results',
     labelLoading: 'Loading...',
     titleResults: 'Final Results',
-    tableHeaders: ['User', 'Correctness', 'Speed', 'Effect on Elo', 'Position'],
+    tableHeaders: ['User', 'Correctness', 'Speed (minutes)', 'Effect on Elo', 'Position'],
     labelPlayAgain: 'Play Again',
     labelReturn: 'Return',
     titleError: 'Results Not Ready',

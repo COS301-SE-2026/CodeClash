@@ -24,9 +24,10 @@ export class MatchResultService {
             // calculate and store new elo
             const { winner, loser } = await this.elo_repo.updateRatingsAfterMatch(match_id, winner_id, loser_id);
 
+
             await this.match_result_repo.saveMatchLog(match_id, winner_id, loser_id, winner.elo_gained, -loser.elo_gained);
             eloEffects.set(winner_id, winner.elo_gained);
-            eloEffects.set(loser_id, -1 * loser.elo_gained);
+            eloEffects.set(loser_id, loser.elo_gained);
         } else {
             await this.match_result_repo.saveMatchLog(match_id, winner_id, loser_id, null, null);
             eloEffects.set(winner_id, 0);
