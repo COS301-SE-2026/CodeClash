@@ -28,6 +28,11 @@ describe('validateSignUpForm', () => {
     it('returns an error message for any missing or invalid field', () => {
         expect(validateSignUpForm({...validForm, username: ''})).toBe('Username is required'); // ... is a rest operator meaning we take all the values of validform and clone them into a new object of the same type EXCEPT for the variable that is paired with the object that has the rest operator in front of it, in this case, that is username
         expect(validateSignUpForm({...validForm, password: 'bad'})).toBe('Password must be atleast 8 characters');
+        expect(validateSignUpForm({...validForm, firstName: ''})).toBe('First name is required');
+        expect(validateSignUpForm({...validForm, lastName: ''})).toBe('Last name is required');
+        expect(validateSignUpForm({...validForm, email: ''})).toBe('Email is required');
+        expect(validateSignUpForm({...validForm, phoneNumber: ''})).toBe('Phone number is required');
+        expect(validateSignUpForm({...validForm, acceptedTerms: false})).toBe('Please accept the terms and conditions');
     })
 })
 
