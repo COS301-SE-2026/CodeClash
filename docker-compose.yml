@@ -26,7 +26,13 @@ services:
       - pgnetwork
 
   frontend:
+
     build: ./frontend
+    environment:
+      - VITE_COGNITO_USER_POOL_ID=${VITE_COGNITO_USER_POOL_ID}
+      - VITE_COGNITO_CLIENT_ID=${VITE_COGNITO_CLIENT_ID}
+      - VITE_API_URL=${VITE_API_URL}
+      - VITE_WEBSOCKET_URL=${VITE_WEBSOCKET_URL}
     ports:
       - "80:80"
     # volumes:
