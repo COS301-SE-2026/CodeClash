@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { useUser } from 'src/context/User/hooks/useUser';
 import { useNavigate } from 'react-router';
+import "../styles/global.css"
 
 
 
@@ -17,9 +18,12 @@ const Profile() {
 
   const onLogout = useLogOut();
 
-  if(loadingData){
-    <div></div>
-  }
+  if(loadingData) return
+    <div className="font-font font-semibold text-color-button-primary">Loading Data</div>
+  
+
+  if(error) return
+    <div className="font-font font-semibold, text-color-button-primary">Error loading user data</div>
 
   return (
     <div className="w-full min-h-screen bg-secondary flex flex-col items-center justify-center text-secondary-text">
