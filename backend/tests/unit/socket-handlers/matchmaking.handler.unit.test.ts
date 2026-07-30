@@ -269,6 +269,13 @@ describe('sendGamePlayers', () => {
         expect(mockEmit).toHaveBeenCalledWith('get_players', players);
     });
 
-    
-})
+    it('does not emit if game data is null', () => {
+        mockGameStore.get.mockReturnValueOnce(null);
+
+        sendGamePlayers(mockIo, 42, mockGameStore);
+
+        expect(mockTo).not.toHaveBeenCalled();
+        expect(mockEmit).not.toHaveBeenCalled();
+    });
+});
 
