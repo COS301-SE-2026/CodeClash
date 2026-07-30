@@ -110,7 +110,7 @@ describe('submitQuestion socket handler', () => {
 
          await submitQuestion(io as any, socket, {}, check_answer, opponent_progress);
 
-        console.log(io._emit.mock.calls)
+       
         expect(io._emit).toHaveBeenCalledWith('submission_result', {
             player_id: 'player-a',
             result: true,
@@ -121,42 +121,18 @@ describe('submitQuestion socket handler', () => {
         expect(io._emit).toHaveBeenCalledWith('submission_error', expect.objectContaining({message: "Couldn't get opponent"}))
     });
 
-    it('handled opponent life being null/undeifined gracefully', async () => {
+ 
+
+    it('emits submission_error and does not throw when check_answer.execute rejects', async () => {
         const socket = mockSocket('player-a');
 
-        const players: PlayersComponent = {
-            players: new Map([['players-a', 1], ['player-b', 2],]),
-        };
+        (check_answer.execute as Mock).mockRejectedValueOnce(new Error('Invalid question id'));
 
-        (check_answer.execute as Mock).mockResolvedValueOnce(true);
-        (world.getMatchComponent as Mock).mockImplementation((_id: number, type: string) => {
-            if (type === 'Players') return players;
-            return null;
-        });
+        await expect(submitQuestion(io as any, socket, data, check_answer,opponent_progress)).resolves.toBeUndefined()
 
-       // (world.getPlayerComponent as Mock).mockReturnValue(undefined);
+        expect(io.to).toHaveBeenCalledWith('player-a');
+        expect(io._emit).toHaveBeenCalledWith('submission_error', expect.any(Error));
 
-        await submitQuestion(io as any, socket, data, check_answer, opponent_progress);
-
-        expect(io._emit).toHaveBeenCalledWith('opponent_progress', {
-            player_id: 'player-a',
-            correct: true,
-            opponent_life: null,
-        });
+    
     });
-
-    // it('emits submission_error and does not throw when check)answer.execute rejects', async () => {
-    //     const socket = mockSocket('player-a');
-
-    //     (check_answer.execute as Mock).mockRejectedValueOnce(new Error('Invalid question id'));
-
-    //     await expect(submitQuestion(io as any, socket, data, check_answer, world as any)).resolves.not.toThrow();
-
-    //     expect(io.to).toHaveBeenCalledWith('player-a');
-    //     expect(io._emit).toHaveBeenCalledWith('submission_error', expect.any(Error));
-
-    //     // world should never be queried if check_answer already failed
-    //     expect(world.getMatchComponent).not.toHaveBeenCalled();
-
-    // });
 });

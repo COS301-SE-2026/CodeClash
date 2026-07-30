@@ -19,6 +19,17 @@ const mock_game_cache = () => ({
     getAnswer: vi.fn()
 })
 
+const mock_match_repo = () => ({
+    createMatch: vi.fn()
+})
+
+const mock_user_repo = () => ({
+    getUserData: vi.fn()
+})
+
+const user_repo = mock_user_repo();
+user_repo.getUserData.mockResolvedValue({username: 'player'})
+
 let ids = 1;
 
 const game_service = new GameService(
@@ -27,7 +38,9 @@ const game_service = new GameService(
     mock_get_difficulty,
     mock_get_total_time,
     mock_get_answers,
-    mock_game_cache()
+    mock_game_cache(),
+    mock_match_repo(),
+    user_repo
 )
 
 
@@ -110,7 +123,7 @@ describe("Tests Game Creation", () => {
         mock_get_answers.execute.mockResolvedValue(mock_answers)
 
 
-        await game_service.execute([player_1, player_2], GameMode.Maths, "Mercury")
+        await game_service.execute([player_1, player_2], GameMode.Maths, "Mercury", 'ranked')
 
 
         expect(mock_get_questions.execute).toHaveBeenCalledWith("Mercury", avg, GameMode.Maths)
