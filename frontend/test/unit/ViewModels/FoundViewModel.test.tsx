@@ -1,7 +1,7 @@
 
-import { describe, vi } from "vitest";
+import { describe, vi, beforeEach, it, expect } from "vitest";
 import { MatchFoundViewModelFunction } from "src/ViewModels/MatchFoundViewModel";
-import { useSocket } from "src/context/Socket/hooks/useSocket";
+import { useSocket } from "../../../src/context/Socket/hooks/useSocket";
 import { useMatchmakingSocket, matchAccepted, matchDeclined, joinMatchQueue } from "src/context/Socket/hooks/useMatchmakingSocket";
 import { renderHook } from "@testing-library/react";
 import { act } from "react";
