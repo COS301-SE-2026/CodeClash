@@ -1,0 +1,82 @@
+backend/src/application/usecases/services/questions.service.ts
+  h_94c952a9e14c58 2
+backend/tests/integration/repositories/answer.repository.test.ts
+  h_94c952a9e14c58 19
+backend/src/application/usecases/systems/create-game.ts
+  h_94c952a9e14c58 2
+backend/src/application/interfaces/repositories/IMatchResultRepository.ts
+  h_94c952a9e14c58 1
+backend/src/entities/league-mapping.ts
+  h_94c952a9e14c58 1
+backend/tests/integration/repositories/question.repository.test.ts
+  h_94c952a9e14c58 1-31
+backend/src/interface-adapters/repositories/question.repository.ts
+  h_94c952a9e14c58 3
+backend/src/application/interfaces/repositories/IUserRepository.ts
+  h_94c952a9e14c58 1
+backend/src/application/usecases/services/match-completion.service.ts
+  h_94c952a9e14c58 5
+backend/src/application/usecases/systems/opponent-progress.ts
+  h_94c952a9e14c58 3
+backend/src/interface-adapters/repositories/elo.repository.ts
+  h_94c952a9e14c58 4
+backend/src/application/interfaces/repositories/IAnswerRepository.ts
+  h_94c952a9e14c58 1
+backend/src/application/interfaces/repositories/IQuestionRepository.ts
+  h_94c952a9e14c58 2
+backend/src/interface-adapters/auth/auth.service.ts
+  h_94c952a9e14c58 6
+backend/src/application/usecases/services/match-result.service.ts
+  h_94c952a9e14c58 3-4
+backend/src/interface-adapters/cache/matchmaking-cache.ts
+  h_94c952a9e14c58 4
+backend/tests/integration/repositories/mocks/mock-questions.ts
+  h_94c952a9e14c58 16
+backend/src/interface-adapters/repositories/user.repository.ts
+  h_94c952a9e14c58 3
+backend/src/interface-adapters/dtos/matchmaking.dto.ts
+  h_94c952a9e14c58 1
+backend/src/interface-adapters/repositories/match-result.repository.ts
+  h_94c952a9e14c58 5
+backend/src/interface-adapters/socket-handlers/game.handler.ts
+  h_94c952a9e14c58 5,7
+backend/src/application/interfaces/cache/IMatchmakingCache.ts
+  h_94c952a9e14c58 2
+backend/src/interface-adapters/controllers/user.controllers.ts
+  h_94c952a9e14c58 2
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 10,28,31,33
+backend/src/interface-adapters/socket-handlers/matchmaking.handler.ts
+  h_94c952a9e14c58 4-6
+backend/src/application/interfaces/repositories/IEloRepository.ts
+  h_94c952a9e14c58 1
+backend/src/interface-adapters/dtos/match-data.dto.ts
+  h_94c952a9e14c58 1
+backend/tests/integration/repositories/match.repository.test.ts
+  h_94c952a9e14c58 1-7
+backend/src/interface-adapters/repositories/answer.repository.ts
+  h_94c952a9e14c58 3
+backend/src/application/usecases/systems/finish-game.ts
+  h_94c952a9e14c58 2
+backend/src/interface-adapters/dtos/components.dto.ts
+  h_94c952a9e14c58 1
+backend/src/application/usecases/services/matchmaking.service.ts
+  h_94c952a9e14c58 3
+backend/src/application/usecases/services/game-store.service.ts
+  h_94c952a9e14c58 2-4
+backend/src/application/usecases/services/matched-users.service.ts
+  h_94c952a9e14c58 1
+backend/src/application/usecases/services/game.service.ts
+  h_94c952a9e14c58 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.18",
+  "base_commit_sha": "df82f490f054e967cdcf582d86d0762f6927ba25",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+backend/src/application/usecases/services/match-result.service.ts
+  h_94c952a9e14c58 27
+frontend/src/Views/FinalResults.tsx
+  h_94c952a9e14c58 19-21,105,107,154
+frontend/src/ViewModels/MatchViewModel.ts
+  h_94c952a9e14c58 262
+backend/src/interface-adapters/repositories/elo.repository.ts
+  h_94c952a9e14c58 85
+frontend/src/Models/FinalResultsModel.ts
+  h_94c952a9e14c58 25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "d9c14a2480157a943682388f79e57438488f7009",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
