@@ -45,8 +45,10 @@ describe('useSelectTopic', () => {
         const { result } = renderHook(() => useSelectTopic());
 
         await act( () => result.current('maths'));
-        expect(MatchmakingUserDTO)
+        expect(MatchmakingUserDTO).toHaveBeenCalledWith(600, 'maths');
+        expect(joinMatchQueue).toHaveBeenCalledWith(mockSocket, vi.mocked(MatchmakingUserDTO));
+        expect(mock_nav).toHaveBeenCalledWith('/match-searching');
 
-    })
-})
+    });
+});
 
