@@ -1,6 +1,4 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { type ProfileProps } from '../Models/ProfileModel';
 import { useLogOut } from '../ViewModels/ProfileViewModel';
 import { getProfile } from '../ViewModels/ProfileViewModel';
 import { Button } from '@/components/ui/button';
@@ -16,12 +14,10 @@ async function ProfileView(){
 
   const onLogout = useLogOut();
 
-  if(loadingData) return
-    <div className="font-font font-semibold text-color-button-primary">Loading Data</div>
+  if(loadingData) return <div className="font-font font-semibold text-color-button-primary">Loading Data</div>;
   
 
-  if(error) return
-    <div className="font-font font-semibold, text-color-button-primary">Error loading user data</div>
+  if(error) return <div className="font-font font-semibold, text-color-button-primary">Error loading user data</div>;
 
 
   return (
@@ -41,7 +37,7 @@ async function ProfileView(){
       <Card className="w-[40%] h-[35rem] flex items-center justify-center bg-[#F8E5DD]">
 
         <div className="w-[35%]" >
-          <img src={userData?.avatar} className="" />
+          <img src={userData?.avatar} alt="avatarImage" className="" />
         </div>
         <div className="text-xl font-semibold ">{userData?.username}</div>
         <div className=" text-md font-semibold ">ELO - {userData?.elo}</div>
