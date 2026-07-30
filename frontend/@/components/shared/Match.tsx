@@ -1,3 +1,4 @@
+
 import { Progress } from '../ui/progress'
 import { Badge } from '../ui/badge'
 import React from 'react'
@@ -33,7 +34,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
 
     return (
         <div className="fixed inset-0 flex flex-col">
-            <img src={background} className='absolute w-full -z-10' />
+            <img src={background} className='absolute w-full -z-10' alt='background' />
             {/* <BackButton page='/dashboard' /> */}
             {/* Header */}
             <div className='flex w-full h-[20%] justify-between items-center '>
@@ -86,7 +87,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                     <div className='absolute bg-gradient-to-r from-button-primary to-secondary h-[3%] w-[71%] rounded-4xl shadow-[0_4px_6px_rgba(0,0,0,0.3)]'></div>
                     {/* Question box */}
 
-                    <div className='bg-secondary w-[100%] h-[100%] rounded-4xl ml-1 pt-[2rem]'>
+                    <div className='bg-secondary w-[100%] h-[100%] rounded-4xl ml-1 pt-[2rem] flex-1'>
                         {children}
                     </div>
                 </div>
@@ -104,11 +105,13 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                             <div className='relative flex flex-row'>
                                 <img src={avatars[0]}
                                     className=" absolute w-20 h-30 object-cover left-20"
-                                    style={{ top: `${(question_number - 1 - current_question) * 9.6}rem` }}
+                                    style={{ top: `${(question_number - 1 - current_question) * 9.6}rem`}}
+                                     alt='progress avatar user 1'
                                 />
                                 <img src={avatars[0]}
                                     className=" absolute w-20 h-30 object-cover scale-x-[-1]"
                                     style={{ top: `${(question_number - 1 - opponent_progress) * 9.6}rem` }}
+                                     alt='progress avatar user 2'
                                 />
 
                             </div>
@@ -119,11 +122,12 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                 {
                                     [...Array(question_number)].map((id) => {
                                         return (
-                                            <React.Fragment key={id}>
+                                            <React.Fragment key={`${question_number}-${id}`}>
 
                                                 <div className=' w-[100%] h-[8rem] flex items-center justify-center col-start-2 '>
                                                     <img src={door}
                                                         className="w-20 h-20 object-cover rounded-full"
+                                                        alt='door'
                                                     />
                                                 </div>
                                             </React.Fragment>

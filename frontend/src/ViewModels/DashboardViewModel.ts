@@ -1,6 +1,5 @@
 import { useState } from "react"
 
-
 export function useShowPopUp() {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -9,5 +8,3 @@ export function useShowPopUp() {
 
     return { isOpen, openPopUp, closePopUp };
 }
-
-

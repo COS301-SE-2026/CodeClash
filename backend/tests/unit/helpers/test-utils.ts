@@ -1,43 +1,25 @@
 import request from 'supertest'
 import { describe, test, expect } from 'vitest';
-import { fetchAuthSession, JWT, signIn, signOut } from "aws-amplify/auth";
+import { JWT, fetchAuthSession } from "aws-amplify/auth";
 import dotenv from "dotenv"
 dotenv.config();
 
-import app from '../../../src/app'
+import app from '../../../src/frameworks-drivers/app'
 
-export { request, app }
-
-export const auth = (token: JWT | undefined) => `Bearer ${token}`
-
-
-export async function login() {
-  try {
-    await signIn({ username: process.env.INTEGRATION_TEST_USER!, password: process.env.INTEGRATION_TEST_PASS! })
-  }
-  catch (error) {
-    console.log(`Error signing user in: ${error}`)
-  }
-
-}
-
-export async function getToken() {
+async function getToken() {
   const session = await fetchAuthSession();
-  const token = session.tokens?.idToken
+  const token = session.tokens?.idToken?.toString()
 
   return token;
 }
 
-export async function logout() {
-  try {
-    await signOut();
-  }
-  catch (error) {
-    console.log(`Error signing user out: ${error}`)
-  }
-}
+export { request, app }
 
-export const userAuth = auth(await getToken())
+export const auth = (token: string | undefined) => `Bearer ${token}`
+
+
+
+export const userAuth = async () => { return auth(await getToken()) }
 // export const adminAuth = auth('admin-jwt')
 // export const otherUserAuth = auth('other-user-jwt')
 
@@ -109,7 +91,7 @@ export const matchActionTests = (action: string, pastTense: string) => {
     test(`returns 200 when invited player ${pastTense} match`, async () => {
       const res = await request(app)
         .put(`/matches/1/${action}`)
-        .set('Authorization', userAuth)
+        .set('Authorization', await userAuth())
       expect(res.status).toBe(200)
       expect(res.body.status).toBe(pastTense)
     })
@@ -122,7 +104,7 @@ export const matchActionTests = (action: string, pastTense: string) => {
       expectNotFound(
         await request(app)
           .put(`/matches/99999/${action}`)
-          .set('Authorization', userAuth)
+          .set('Authorization', await userAuth())
       )
     })
 
@@ -130,7 +112,7 @@ export const matchActionTests = (action: string, pastTense: string) => {
       expectValidationError(
         await request(app)
           .put(`/matches/abc/${action}`)
-          .set('Authorization', userAuth)
+          .set('Authorization', await userAuth())
       )
     })
   })
@@ -207,7 +189,7 @@ export const adminGuardTests = (method: 'post' | 'put' | 'delete', path: string,
   test('returns 403 when regular user', async () => {
     expectForbidden(
       await request(app)[method](path)
-        .set('Authorization', userAuth)
+        .set('Authorization', await userAuth())
         .send(body)
     )
   })

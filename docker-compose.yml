@@ -32,20 +32,7 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
-    networks:
-      - pgnetwork
-
-  test-db:
-    image: postgres:15-alpine
-    environment:
-      POSTGRES_USER: ${POSTGRES_TEST_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_TEST_PASS}
-      POSTGRES_DB: ${POSTGRES_TEST_DB}
-    ports:
-      - "4432:5432"
-    volumes:
-      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./database:/docker-entrypoint-initdb.d
     networks:
       - pgnetwork
 

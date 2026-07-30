@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSocket } from "src/context/Socket/hooks/useSocket";
 import {
   formatMatchSearchTime,
   matchSearchingContent,
@@ -31,4 +32,10 @@ export function MatchSearchingViewModelFunction() {
     players: mockMatchSearchingPlayer,
     handleCancel,
   };
+}
+
+export function useSearch() {
+  const { matched } = useSocket();
+
+  return { matched };
 }

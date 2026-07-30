@@ -14,11 +14,10 @@ export interface Answer{
 }
 
 export interface Question{
-    title: string,
-    difficulty: string,
-    description: string,
-    question: string,
-    number: number
+    title?: string,
+    difficulty?: string,
+    description?: string,
+    number?: number
 }
 
 export interface MatchProgress{
