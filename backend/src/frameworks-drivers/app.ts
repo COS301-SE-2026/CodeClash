@@ -16,7 +16,7 @@ app.get('/health', (req: Request, res: Response) => {
 });
 
 app.use(cors({ origin: process.env.FRONTEND_URL || 'http://localhost:3000' }));
-console.log(process.env.FRONTEND_URL)
+console.log(process.env.FRONTEND_URL, "THIS IS THE PRINT")
 app.use(express.json());
 
 const user_repo = new UserRepository(AppDataSource.getRepository(Users))
