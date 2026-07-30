@@ -65,21 +65,25 @@ export class EloRepository implements IEloRepository {
 
     }
 
-    async getLeaderboard(limit?: number): Promise<LeaderboardEntryDTO[]> {
-      const results = await this.eloRepository
+    async getLeaderboard(limit: number, offset: number): Promise<{ data: LeaderboardEntryDTO[]; total: number }> {
+      const [results, total] = await this.eloRepository
         .createQueryBuilder('elo')
         .innerJoinAndSelect('elo.user', 'user')
         .orderBy('elo.rating', 'DESC')
-        .limit(limit ?? 10)
-        .getMany()
+        .skip(offset)
+        .take(limit)
+        .getManyAndCount()
 
-        return results.map((elo, index) => ({
+      return {
+        data: results.map((elo, index) => ({
           user_id: elo.user.user_id,
           username: elo.user.username,
           avatar_id: elo.user.avatar_id,
           league: elo.user.league,
           rating: elo.rating,
           rank: index + 1
-        }))
+        })),
+        total
+      }
     }
 }
