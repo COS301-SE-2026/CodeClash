@@ -30,7 +30,7 @@ export interface LeaderboardEntry {
 }
 
 export async function fetchLeaderboard(limit?: number): Promise<LeaderboardEntry[]> {
-  const response = await fetch(`${import.meta.env.VITE_API_URL || 'localhost:3000'}/api/elo/leaderboard?limit=${limit ?? 10}`);
+  const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/elo/leaderboard?limit=${limit ?? 10}`);
   if (!response.ok) throw new Error('Failed to fetch leaderboard')
   return await response.json();
 }
