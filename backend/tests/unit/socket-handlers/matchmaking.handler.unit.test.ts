@@ -246,6 +246,29 @@ describe ('sendGameQuestions', () => {
 
     it('does not emit if game data is null', () => {
         mockGameStore.get.mockReturnValueOnce(null);
+
+        sendGameQuestions(mockIo, 42, mockGameStore);
+
+        expect(mockTo).not.toHaveBeenCalled();
+        expect(mockEmit).not.toHaveBeenCalled();
     });
 });
+
+describe('sendGamePlayers', () => {
+    beforeEach(() => vi.clearAllMocks());
+
+    it('emits get_players to each player', () => {
+        const players = [{ id: 'user-1' }, { id: 'user-2' }];
+        mockGameStore.get.mockReturnValueOnce({ players, questions: [] });
+
+        sendGamePlayers(mockIo, 42, mockGameStore);
+
+        expect(mockGameStore.get).toHaveBeenNthCalledWith(42);
+        expect(mockTo).toHaveBeenCalledWith('user-1');
+        expect(mockTo).toHaveBeenCalledWith('user-2');
+        expect(mockEmit).toHaveBeenCalledWith('get_players', players);
+    });
+
+    
+})
 
