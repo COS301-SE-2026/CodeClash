@@ -7,6 +7,8 @@ import { SubmissionDTO } from "src/entities/dtos/components.dto";
 
 import { StartQuestionDTO } from "src/entities/dtos/question.dto";
 import { OpponentProgress } from "src/application/usecases/systems/opponent-progress";
+import { MatchedUsersService } from "src/application/usecases/services/matched-users.service";
+import { GameStore } from "src/application/usecases/services/game-store.service";
 
 export const submitQuestion = async (
     io: Server, socket: Socket,
@@ -21,7 +23,7 @@ export const submitQuestion = async (
 
         const opponent_id = opponent_progress.execute(data, socket.data.user_id);
 
-        if(opponent_id === undefined) throw new Error("Couldn't get opponent")
+        if (opponent_id === undefined) throw new Error("Couldn't get opponent")
 
         //notify the opponent that this player answered
         io.to(opponent_id).emit('opponent_progress', {
@@ -39,28 +41,24 @@ export const submitQuestion = async (
     }
 }
 
-export const startQuestion = (submission_system: SubmissionSystem, data: StartQuestionDTO,) => {
-    submission_system.saveSubmission(data.match_id, data.player, data.question, null, '');
+export const startQuestion = (player_id:string, submission_system: SubmissionSystem, data: StartQuestionDTO,) => {
+    submission_system.saveSubmission(data.match_id, player_id, data.question, null, '');
 }
 
-export const gameDone = (io: Server, socket: Socket, pair_id: string, game_id: number, finish_game: FinishGame, PAIRS: Map<string, Map<string, { accepted: boolean, elo: number, done?: boolean }>>, RESULTS: Map<number, ResultComponent>) => {
+export const gameDone = (io: Server, socket: Socket, pair_id: string, game_id: number, finish_game: FinishGame, game_store: GameStore, RESULTS: Map<number, ResultComponent>) => {
     // wait for both players to be done
 
-    const pair = PAIRS.get(pair_id);
+    const game = game_store.get(game_id);
 
 
-    if (!pair) throw new Error("Invalid pair id");
-    const prev = pair.get(socket.data.user_id);
+    if (!game) throw new Error("Invalid pair id");
 
-    if (!prev) throw new Error("invalid pair");
+    game_store.setDone(socket.data.user_id, game_id);
 
-    pair.set(socket.data.user_id, { ...prev, done: true })
+    if (game_store.bothDone(game_id)) {
 
-    const bothDone = [...pair.values()].every(val => val.done);
-    console.log('both done: ', bothDone)
-    if (bothDone) {
+        const ids = game.players.map(player => player.id);
 
-        const ids = [...pair.keys()]
         const result = finish_game.execute(game_id, ids);
         RESULTS.set(game_id, result);
 
@@ -70,9 +68,9 @@ export const gameDone = (io: Server, socket: Socket, pair_id: string, game_id: n
     } else {
         socket.emit('waiting_opponent');
 
-        for (const p of pair.keys()) {
+        for (const p of game.players) {
             if (p !== socket.data.user_id) {
-                io.to(p).emit('opponent_done');
+                io.to(p.id).emit('opponent_done');
                 return;
             }
         }

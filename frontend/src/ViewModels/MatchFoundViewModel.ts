@@ -38,7 +38,6 @@ export function MatchFoundViewModelFunction() {
   }
 
   const gameReady = (data: { game_id: number }) => {
-    console.log("Game ready: ", data)
     setLoading(false);
 
     nav(path, {
@@ -67,7 +66,6 @@ export function MatchFoundViewModelFunction() {
   const accept = () => {
     if (socket && matchedUsers) {
       const new_path = "/".concat(matchedUsers.game_mode!).concat("-match")
-      console.log(new_path)
       setPath(new_path);
       const data = {
         pair_id: pairId,

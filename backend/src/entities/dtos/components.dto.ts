@@ -5,7 +5,8 @@ export interface PlayerDTO {
     elo: number,
     avatar?:string,
     life?:number,
-    username?:string
+    username?:string,
+    done?:boolean
 }
 
 export interface MatchDTO {

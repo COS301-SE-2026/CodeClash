@@ -19,7 +19,8 @@ export class GameStore {
                 return {
                     ...player,
                     username: user_name!.username!,
-                    avatar_id: user_avatar!.avatar_id
+                    avatar_id: user_avatar!.avatar_id,
+                    done: false
                 }
             })
         )
@@ -29,6 +30,27 @@ export class GameStore {
 
     get(game_id: number) {
         return this.GAME.get(game_id)
+    }
+
+    setDone(player_id: string, game_id: number) {
+        const game = this.GAME.get(game_id);
+
+        if (!game) throw new Error("Invalid game id")
+
+        game.players.map((player) => {
+            if (player.id === player_id) {
+                player.done = true;
+                return;
+            }
+        })
+    }
+
+    bothDone(game_id: number) {
+        const game = this.GAME.get(game_id);
+
+        if (!game) throw new Error("Invalid game id")
+
+        return game.players.every(player => player.done)
     }
 }
 

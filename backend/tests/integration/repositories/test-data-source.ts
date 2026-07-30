@@ -8,7 +8,6 @@ dotenv.config()
 
 const env = process.env
 
-console.log(env.DB_TEST_PASSWORD)
 export async function createTestDataSource() {
     const data_source = new DataSource({
         type: 'postgres',

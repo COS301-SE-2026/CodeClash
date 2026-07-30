@@ -22,7 +22,6 @@ export const useMatch = () => {
     const { userId } = useUser();
     const nav = useNavigate();
     const { pairId } = useMatchmaking()
-    const {matchedUsers} = useMatchmaking();
 
     const [players, setPlayers] = useState<Player[]>([]);
     const [questions, setQuestions] = useState<Question[]>([]);
@@ -74,7 +73,6 @@ export const useMatch = () => {
 
     //  Question Handling
     const nextQuestion = (curr: number) => {
-        console.log("being called with number ", curr)
         if (curr < questions.length - 1) {
             setCurrentQuestion(curr + 1);
             startQuestion(userId, questions[curr].id!)
@@ -227,10 +225,10 @@ export const useMatch = () => {
     }
 
     const opponent_progress = (data: OpponentDTO) => {
-        console.log(data)
+     
 
         setOpponentCurrent((prev) => {
-            console.log(prev)
+        
             const next = data.question + 1
 
             if (next < questions.length) return next
@@ -248,7 +246,6 @@ export const useMatch = () => {
     }
 
     const opponent_done = ()=>{
-        console.log("Your opponent is done")
         setOpponentDone(true)
     }
     // Use Effects
@@ -266,8 +263,6 @@ export const useMatch = () => {
         setAvatars(players.map(p => robot_map[p.avatar_id]));
         setUsernames(players.map(p => p.username));
 
-        console.log(players)
-        console.log(avatars)
     }, [players])
 
     useEffect(() => {

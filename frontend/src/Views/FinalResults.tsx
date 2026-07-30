@@ -15,8 +15,6 @@ const FinalResults: React.FC = () => {
     } = FinalResultsViewModelFunction();
 
 
-    console.log(results)
-
     const winner_stats = results?.stats[results.winner.id];
     const loser_stats = results?.stats[results.loser.id]
 
