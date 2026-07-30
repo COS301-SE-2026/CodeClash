@@ -6,6 +6,7 @@ import { type PlayerResultDTO, type ResultDTO } from "src/dtos/result.dto";
 import { finalResultsContent } from "../Models/FinalResultsModel";
 import type { FinalResultsContent } from "../Models/FinalResultsModel";
 import { useMatchmaking } from "src/context/Socket/hooks/useMatchmaking";
+import { useUser } from "src/context/User/hooks/useUser";
 
 interface FinalResultsViewModel {
     content: FinalResultsContent;
@@ -21,17 +22,19 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
     const [loadingProgress, setLoadingProgress] = useState(0);
     const [results, setResults] = useState<ResultDTO | null>(null);
     const [winner, setWinner] = useState<PlayerResultDTO | null>(null);
-    const [loser, setLoser] = useState<PlayerResultDTO | null>(null)
+    const [loser, setLoser] = useState<PlayerResultDTO | null>(null);
+    const {refresh} = useUser();
     const { socket } = useSocket();
     const location = useLocation();
     const { id } = location.state;
     const { pairId } = useMatchmaking()
 
-    const handleResult = (result: ResultDTO) => {
+    const handleResult = async (result: ResultDTO) => {
         setResults(result);
 
         setWinner(result.players[0]);
         setLoser(result.players[1]);
+        await refresh();
     }
 
 

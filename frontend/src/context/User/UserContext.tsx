@@ -107,10 +107,19 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         else setError(`Error Getting Username`)
     }
 
+    const refresh = async () => {
+        await Promise.all([
+            getElo(),
+            getAvatarUrl(),
+            getLeague()
+        ]);
+    }
+
     useEffect(() => {
-        getElo();
-        getAvatarUrl()
-        getLeague();
+
+        if(!token) return;
+
+        refresh();
 
         if (!isLoading && user) {
             getUsername(user);
@@ -121,7 +130,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
 
     const value = useMemo(() => ({
-        username, elo, avatar, error, league, userId
+        username, elo, avatar, error, league, userId, refresh
     }), [username, elo, avatar, error, league, userId])
 
     return (

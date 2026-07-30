@@ -6,7 +6,8 @@ export interface UserContextValue {
     avatar: string,
     error: string,
     league: string,
-    userId: string
+    userId: string,
+    refresh: () => Promise<void>
 }
 
 export const UserContext = createContext<UserContextValue | null>(null);
