@@ -23,6 +23,14 @@ export async function createSocket(): Promise<Socket> {
         console.error(`Error connecting to socket: ${err}`);
     })
 
+  conn.on("connect", () => {
+    console.log("CONNECTED", conn.id)
+  })
+
+  conn.on("disconnect", (reason) => {
+    console.log("DISCONNECTED", conn.id, reason)
+  })
+
 
     conn.on("back_to_dash", ()=>{
         
