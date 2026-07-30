@@ -1,5 +1,5 @@
 import React from "react";
-import type { QuestionDTO } from "src/types/question.dto";
+import type { QuestionDTO } from "src/dtos/game-questionDTO";
 
 import door from "../../../src/assets/door.png";
 import { Badge } from "../ui/badge";

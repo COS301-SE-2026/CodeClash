@@ -1,4 +1,4 @@
-import { useSocket } from "src/context/hooks/useSocket";
+import { useSocket } from "src/context/Socket/hooks/useSocket";
 
 export function useSearch() {
     const { matched } = useSocket();
