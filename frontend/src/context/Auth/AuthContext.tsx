@@ -10,6 +10,7 @@ import {
   fetchAuthSession
   } from 'aws-amplify/auth'
 import React, { useEffect, useState, useCallback, type ReactNode } from 'react'
+import { fetchAuthSession } from 'aws-amplify/auth';
 
 import { AuthContext, type AuthUser } from './AuthContextValue'
 
