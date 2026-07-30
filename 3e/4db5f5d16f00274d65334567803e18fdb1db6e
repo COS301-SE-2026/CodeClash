@@ -1,0 +1,20 @@
+backend/src/interface-adapters/socket-handlers/game.handler.ts
+  h_94c952a9e14c58 92-99,101-103
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 172
+backend/src/application/usecases/services/game-store.service.ts
+  h_94c952a9e14c58 12-13,36,82-83,85
+backend/src/application/usecases/systems/delete-game.ts
+  h_94c952a9e14c58 61-63,65
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.18",
+  "base_commit_sha": "3e4db5f5d16f00274d65334567803e18fdb1db6e",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
