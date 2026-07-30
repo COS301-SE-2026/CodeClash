@@ -75,4 +75,8 @@ export class MatchedUsersService {
 
         return [...pair.keys()];
     }
+
+    deletePair(pair_id: string){
+        this.PAIRS.delete(pair_id);
+    }
 }

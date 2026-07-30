@@ -41,6 +41,13 @@ function getComponent<T extends Component>(
     return component as T;
 }
 
+function removeEntity(
+    map: Map<number, Map<string, Component>>,
+    entity_id: number,
+) {
+    map.delete(entity_id);
+}
+
 export const World = () => {
     // Map<id, Map<component_name, Component>>
 
@@ -55,7 +62,6 @@ export const World = () => {
         return ID++;
     }
 
-
     // ADDERS
 
     function addPlayerComponent(
@@ -68,7 +74,7 @@ export const World = () => {
 
     function addMatchComponent(
         entity_id: number,
-        component_name: "Players" | "Match" | "Submission"| "Result",
+        component_name: "Players" | "Match" | "Submission" | "Result",
         component: MatchComponentTypes
     ) {
 
@@ -101,7 +107,7 @@ export const World = () => {
         return getComponent<T>(players, entity_id, component_name);
     }
 
-    function getMatchComponent<T extends MatchComponentTypes>(entity_id: number, component_name: "Players" | "Match" | "Submission"|"Result") {
+    function getMatchComponent<T extends MatchComponentTypes>(entity_id: number, component_name: "Players" | "Match" | "Submission" | "Result") {
         return getComponent<T>(matches, entity_id, component_name);
     }
 
@@ -115,6 +121,25 @@ export const World = () => {
     }
 
 
+    // REMOVERS
+
+    function removePlayerEntity(entity_id: number) {
+        removeEntity(players, entity_id);
+    }
+
+    function removeMatchEntity(entity_id: number){
+        removeEntity(matches, entity_id)
+    }
+
+    function removeRoundEntity(entity_id: number){
+        removeEntity(rounds, entity_id)
+    }
+
+    function removeSubmissionEntity(entity_id: number){
+        removeEntity(submissions, entity_id)
+    }
+
+
 
     return {
         createEntity,
@@ -125,6 +150,10 @@ export const World = () => {
         getPlayerComponent,
         getMatchComponent,
         getRoundComponent,
-        getSubmissionComponent
+        getSubmissionComponent,
+        removePlayerEntity,
+        removeMatchEntity,
+        removeRoundEntity,
+        removeSubmissionEntity
     }
 }

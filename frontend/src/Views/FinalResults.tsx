@@ -15,10 +15,6 @@ const FinalResults: React.FC = () => {
         winner, loser
     } = FinalResultsViewModelFunction();
 
-
-    console.log(winner);
-    console.log(loser)
-
     const formatTime = (ms: number|undefined) => {
 
         if(ms === undefined) return 'Error getting time'
