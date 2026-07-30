@@ -29,8 +29,15 @@ export interface LeaderboardEntry {
   rating: number;
 }
 
-export async function fetchLeaderboard(limit?: number): Promise<LeaderboardEntry[]> {
-  const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/elo/leaderboard?limit=${limit ?? 10}`);
+export interface PaginatedLeaderboardResponse {
+  data: LeaderboardEntry[];
+  total: number;
+  page: number;
+  pageSize: number;
+}
+
+export async function fetchLeaderboard(limit: number, page: number): Promise<PaginatedLeaderboardResponse> {
+  const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/elo/leaderboard?limit=${limit}&page=${page}`);
   if (!response.ok) throw new Error('Failed to fetch leaderboard')
   return await response.json();
 }
