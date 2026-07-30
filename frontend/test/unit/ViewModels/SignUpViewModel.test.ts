@@ -33,6 +33,10 @@ describe('validateSignUpForm', () => {
         expect(validateSignUpForm({...validForm, email: ''})).toBe('Email is required');
         expect(validateSignUpForm({...validForm, phoneNumber: ''})).toBe('Phone number is required');
         expect(validateSignUpForm({...validForm, acceptedTerms: false})).toBe('Please accept the terms and conditions');
-    })
-})
+    });
+
+    it('returns null when form is valid', () => {
+        expect(validateSignUpForm(validForm)).toBeNull();
+    });
+});
 
