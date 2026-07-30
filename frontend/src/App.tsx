@@ -15,6 +15,7 @@ import MathMatch from "./Views/MathsMatch";
 import ProgMatch from "./pages/ProgMatch";
 import { useAuth } from "./context/Auth/hooks/useAuth";
 import Loading from "@/components/shared/Loading";
+import MatchHistory from "./Views/MatchHistory";
 import ForgotPassword from "./Views/ForgotPassword";
 import FinalResults from "./Views/FinalResults";
 import Guidebook from "./Views/Guidebook";
@@ -73,6 +74,7 @@ const App: React.FC = () => {
                 <Route path='/leaderboard' element={<Leaderboard/>}/>
                 <Route path='/badges' />
                 <Route path='/friends' />
+                <Route path='/match-history' element={<MatchHistory/>}/>
             </Route>
         </Routes>
     )
