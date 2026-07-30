@@ -14,9 +14,6 @@
     "test:ui": "vitest --ui",
     "coverage": "vitest --coverage"
   },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": []
-  }
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.8",
     "aws-amplify": "^6.17.0",
