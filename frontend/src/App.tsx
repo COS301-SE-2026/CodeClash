@@ -1,28 +1,29 @@
 import type React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
+import { useAuth } from "./context/Auth/hooks/useAuth";
 import Layout from "./layout";
+import ProgMatch from "./pages/ProgMatch";
+import BrandStyleGuide from "./Views/BrandStyleGuide";
 import Dashboard from "./Views/Dashboard";
-import Welcome from "./Views/Welcome";
-import SignIn from "./Views/SignIn";
-import SignUp from "./Views/SignUp";
-import Profile from "./Views/Profile";
-import Leaderboard from "./Views/Leaderboard";
-import GameGuide from "./Views/GameGuide"
-import MatchSearching from "./Views/MatchSearching";
 import MatchFound from "./Views/MatchFound";
 import MathMatch from "./Views/MathsMatch";
-import ProgMatch from "./pages/ProgMatch";
-import { useAuth } from "./context/Auth/hooks/useAuth";
 import Loading from "@/components/shared/Loading";
+
 import MatchHistory from "./Views/MatchHistory";
 import ForgotPassword from "./Views/ForgotPassword";
 import TermsAndConditions from "./Views/TermsAndConditions";
 import FinalResults from "./Views/FinalResults";
+import GameGuide from "./Views/GameGuide"
 import Guidebook from "./Views/Guidebook";
-import Landing from "./Views/Landing";
-import BrandStyleGuide from "./Views/BrandStyleGuide";
 import HelpMenu from "./Views/HelpMenu";
+import Landing from "./Views/Landing";
+import Leaderboard from "./Views/Leaderboard";
+import MatchSearching from "./Views/MatchSearching";
+import Profile from "./Views/Profile";
+import SignIn from "./Views/SignIn";
+import SignUp from "./Views/SignUp";
+import Welcome from "./Views/Welcome";
 
 const App: React.FC = () => {
 

@@ -1,6 +1,7 @@
 // This is the introduction section of the brand style guide, so that it doesn't just jump into the guide but instead gives the user a bit of information - correct file
 
 import React from "react";
+
 import type { BrandStyleGuideContent } from "../../Models/BrandStyleGuideModel";
 
 interface Props {

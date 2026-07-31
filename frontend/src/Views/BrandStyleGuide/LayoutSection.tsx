@@ -1,8 +1,10 @@
 // This is the layout and spacings section for the brand style guide - to ensure that the UI will be consistent - correct file
 
 import React from "react";
-import SharedLayout from "./SharedLayout";
+
 import type { BrandStyleGuideContent } from "../../Models/BrandStyleGuideModel";
+
+import SharedLayout from "./SharedLayout";
 
 interface Props {
     content: BrandStyleGuideContent;

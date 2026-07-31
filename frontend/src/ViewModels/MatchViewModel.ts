@@ -2,10 +2,10 @@
 import { useEffect, useState, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import { useTimer } from "react-timer-hook";
-import type { Player, Answer, Question, MatchProgress } from "src/Models/MatchModel";
 import pink_robot from 'src/assets/Robots/HelloRobot_Pink.png'
 import { useSocket } from "src/context/Socket/hooks/useSocket";
 import type { GameQuestionsDTO } from "src/dtos/game-questionDTO";
+import type { Player, Answer, Question, MatchProgress } from "src/Models/MatchModel";
 
 
 export const useMatch = () => {
@@ -101,7 +101,7 @@ export const useMatch = () => {
 
         temp_arr = shuffle(temp_arr);
 
-        let final: Question[] = []
+        const final: Question[] = []
         for (const t of temp_arr) {
             const q: Question = {
                 title: t.title!,

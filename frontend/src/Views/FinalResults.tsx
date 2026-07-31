@@ -1,8 +1,10 @@
-import React from "react";
-import { FinalResultsViewModelFunction } from "../ViewModels/FinalResultsViewModel";
 import { TrendingUp, TrendingDown, Clock} from "lucide-react";
-import ResultsBackground from '../assets/Background/FinalResults.jpg';
+import React from "react";
 import { useNavigate } from "react-router-dom";
+
+import ResultsBackground from '../assets/Background/FinalResults.jpg';
+import { FinalResultsViewModelFunction } from "../ViewModels/FinalResultsViewModel";
+
 
 const FinalResults: React.FC = () => {
     const navigate = useNavigate();

@@ -1,9 +1,10 @@
-import React from "react";
-//import {Link } from "react-router-dom";
-import { MatchHistoryViewModelFunction } from "../ViewModels/MatchHistoryViewModel";
-import type { MatchDetails } from "../Models/MatchHistoryModel";
 import { RotateCcw} from "lucide-react";
+import React from "react";
+
+//import {Link } from "react-router-dom";
 import Stars from "../assets/Background/Stars.png";
+import type { MatchDetails } from "../Models/MatchHistoryModel";
+import { MatchHistoryViewModelFunction } from "../ViewModels/MatchHistoryViewModel";
 
 const MatchHistory: React.FC = () => {
     const {
