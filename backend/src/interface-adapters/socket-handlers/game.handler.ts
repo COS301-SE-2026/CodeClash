@@ -50,7 +50,10 @@ export const gameDone = async (io: Server, socket: Socket, game_id: number, game
 
     const game = game_store.get(game_id);
 
-    if (!game) throw new Error("Invalid pair id");
+    if (!game) {
+        console.error("No game found");
+        return;
+    }
 
     game_store.setDone(socket.data.user_id, game_id);
 
@@ -81,7 +84,10 @@ export const sendResults = (io: Server, game_id: number, pair_id: string, game_s
 
     const result = game_store.getResult(game_id);
 
-    if (!result?.result) throw new Error("Couldn't fetch result");
+    if (!result?.result) {
+        console.error("No result foud")
+        return;
+    }
 
     const ids = result.result.players.map(player => player.user_id);
     for (const id of ids) {
@@ -100,6 +106,5 @@ export const cleanUp = (game_id: number, pair_id: string, delete_game: DeleteGam
             delete_game.execute(game_id, pair_id);
         }
     }
-
 
 }

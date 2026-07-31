@@ -57,7 +57,7 @@ export class DeleteGame {
         // remove from game store
 
         const stored = this.game_store.get(match_id);
-        
+
         if (stored) {
             this.game_store.deleteGame(match_id);
         }
