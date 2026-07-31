@@ -28,7 +28,7 @@ const Leaderboard = () => {
             <Link to="/dashboard" className="text-primary font-[var(--font)] text-[32px] font-semibold ml-5">← Back</Link>
             <h1 className="text-[60px] text-secondary text-center -mt-1 font-[var(--font)] font-semibold drop-shadow-[4px_4px_0px_rgba(0,0,0,0.25)]">Leader Board</h1>
 
-            <div className="flex justify-center items-start gap-10 ">
+            <div className="relative flex justify-center items-start gap-10 ">
                 <div className="relative w-2/3 flex flex-col gap-6 ">
                   <div className="flex justify-center items-end gap-5 ">
                     <div className="w-[239px] h-[304px] rounded-[20px] bg-white/10 backdrop-blur-xl border-4 border-secondary drop-shadow-[10px_10px_6px_rgba(0,0,0,0.25)] flex flex-col items-center justify-center">
@@ -38,7 +38,8 @@ const Leaderboard = () => {
                         <div className="text-[32px]  text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{user(0).username}</div>
                         <div className="text-[32px]  text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{user(0).elo}</div>
                     </div>
-                    <div style={{backgroundImage: `url(${winner})`}}  className="w-[524px] h-[524px] -mt-10 bg-cover bg-center bg-no-repeat flex flex-col items-center justify-center ">
+                    <div className="w-[320px] h-[400px] rounded-[20px] bg-white/10 backdrop-blur-xl border-4 border-secondary drop-shadow-[0px_10px_6px_rgba(0,0,0,0.25)] flex flex-col items-center justify-center">
+
                         {/*<div style={{backgroundImage: `url(${profile})`}} className="w-[120px] h-[120px] bg-no-repeat rounded-full bg-white/10 backdrop-blur-xl bg-size-[auto_240px] bg-[right_-60px_top_-60px] -mt-20"></div>*/}
                         <div className="text-[64px]  text-primary-text text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">1</div>
                         <div className="text-[32px]  text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{user(1).username}</div>
@@ -96,7 +97,7 @@ const Leaderboard = () => {
                   </div>
                 </div>
 
-                <div className="flex flex-col items-center mt-10">
+                <div className="absolute right-0 top-40 flex flex-col items-center">
                     <div style={{backgroundImage: `url(${planet})`}} className="w-[300px] h-[300px] bg-no-repeat bg-contain bg-center"></div>
                     <div className="text-[60px] text-secondary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">League</div>
                 </div>
