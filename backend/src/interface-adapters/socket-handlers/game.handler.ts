@@ -102,7 +102,7 @@ export const cleanUp = (game_id: number, pair_id: string, delete_game: DeleteGam
     if (game) {
         game.ack_count += 1;
 
-        if (game.ack_count >= 2) {
+        if (game.ack_count >= 4) {
             delete_game.execute(game_id, pair_id);
         }
     }
