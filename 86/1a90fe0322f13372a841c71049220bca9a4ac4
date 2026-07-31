@@ -1,0 +1,16 @@
+frontend/@/components/shared/Match.tsx
+  h_94c952a9e14c58 134-141,143,146
+backend/src/entities/league-mapping.ts
+  h_94c952a9e14c58 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.18",
+  "base_commit_sha": "861a90fe0322f13372a841c71049220bca9a4ac4",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
