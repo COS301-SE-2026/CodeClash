@@ -1,0 +1,58 @@
+frontend/src/Views/Confirmation.tsx
+  h_94c952a9e14c58 19-20
+backend/src/interface-adapters/socket-handlers/game.handler.ts
+  h_94c952a9e14c58 84
+backend/src/application/usecases/systems/create-game.ts
+  h_94c952a9e14c58 34-35,78-79,107-108
+frontend/@/components/shared/Match.tsx
+  h_94c952a9e14c58 140-144,150
+frontend/src/ViewModels/MatchFoundViewModel.ts
+  h_94c952a9e14c58 96
+backend/src/application/usecases/check-answer.ts
+  h_94c952a9e14c58 11
+frontend/src/Views/BrandStyleGuide/ColorSection.tsx
+  h_94c952a9e14c58 50
+frontend/src/context/User/UserContext.tsx
+  h_94c952a9e14c58 115
+frontend/src/Views/Dashboard.tsx
+  h_94c952a9e14c58 8,21
+backend/src/application/usecases/services/game-store.service.ts
+  h_94c952a9e14c58 8,48
+backend/src/application/usecases/services/match-completion.service.ts
+  h_94c952a9e14c58 16,83,101,103,109,111,113
+backend/src/interface-adapters/repositories/elo.repository.ts
+  h_94c952a9e14c58 13,77
+backend/src/application/usecases/systems/opponent-progress.ts
+  h_94c952a9e14c58 2
+frontend/src/Views/BrandStyleGuide.tsx
+  h_94c952a9e14c58 38
+frontend/src/Views/BrandStyleGuide/TokenSection.tsx
+  h_94c952a9e14c58 35
+frontend/src/context/Socket/MatchmakingContext.tsx
+  h_94c952a9e14c58 3,18,49-62,66
+frontend/src/context/Socket/hooks/useMatchmaking.tsx
+  h_94c952a9e14c58 9
+backend/src/application/usecases/services/matchmaking.service.ts
+  h_94c952a9e14c58 7
+backend/src/application/usecases/systems/delete-game.ts
+  h_94c952a9e14c58 1
+backend/src/entities/db-entities/match.entities.ts
+  h_94c952a9e14c58 1
+frontend/src/Models/ForgotPasswordModel.ts
+  h_94c952a9e14c58 52,63
+backend/src/application/usecases/services/matched-users.service.ts
+  h_94c952a9e14c58 5
+backend/src/entities/db-entities/submission.entities.ts
+  h_94c952a9e14c58 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.18",
+  "base_commit_sha": "bd220950225c832f53c19bc6ade5c861279861b7",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
