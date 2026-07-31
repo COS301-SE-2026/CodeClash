@@ -164,7 +164,7 @@ AppDataSource.initialize()
 
             socket.on('game_done', ( game_id: number, game_type: GameType, pair_id:string) => gameDone(io, socket, game_id,game_type, pair_id,finish_game, game_store));
 
-            socket.on('send_results', (game_id: number, pair_id: string) => sendResults(io, game_id, pair_id, game_store)),
+            socket.on('send_results', (game_id: number, pair_id: string) => sendResults(io, game_id, pair_id, game_store))
 
             socket.on('clean_up', (game_id: number, pair_id: string)=> cleanUp(game_id, pair_id, delete_game, game_store))
         })
