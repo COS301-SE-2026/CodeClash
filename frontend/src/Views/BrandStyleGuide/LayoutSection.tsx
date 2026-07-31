@@ -1,0 +1,119 @@
+// This is the layout and spacings section for the brand style guide - to ensure that the UI will be consistent - correct file
+
+import React from "react";
+
+import type { BrandStyleGuideContent } from "../../Models/BrandStyleGuideModel";
+
+import SharedLayout from "./SharedLayout";
+
+interface Props {
+    content: BrandStyleGuideContent;
+}
+
+const LayoutSection: React.FC<Props> = () => {
+    return (
+        <SharedLayout
+            id = "layout" eyebrow="06 - Layout & Spacing" title = "Grid & Spacing" description="The system uses distinct layout patterns. All share the same spacing scale and token system.">
+
+            {/*The sidebar */}
+            <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">Sidebar Navigation</p>
+            <div className="border border-gray-100 rounded-xl p-5 mb-10">
+                <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                    The sidebar is implemented via shadcn's{' '}
+                    <code className="text-[#530a23] bg-gray-50 px-1.5 py-0.5 rounded text-xs">SidebarProvider</code>{' '}
+                    and{' '}
+                    <code className="text-[#530a23] bg-gray-50 px-1.5 py-0.5 rounded text-xs">AppSidebar</code>{' '}
+                    component. It wraps all authenticated routes via the{' '}
+                    <code className="text-[#530a23] bg-gray-50 px-1.5 py-0.5 rounded text-xs">Layout</code>{' '}
+                    component in
+                    <code className="text-[#530a23] bg-gray-50 px-1.5 py-0.5 rounded text-xs">layout.tsx</code>
+                </p>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    {[
+                        {
+                            route: '/dashboard',
+                            label: 'Dasboard',
+                        },
+                        {
+                            route: '/game-guide',
+                            label: 'Game Guide',
+                        },
+                        {
+                            route: '/tournaments',
+                            label: 'Tournaments',
+                        },
+                        {
+                            route: '/leaderboard',
+                            label: 'Leaderboard',
+                        },
+                        {
+                            route: '/badges',
+                            label: 'Badges',
+                        },
+                        {
+                            route: '/friends',
+                            label: 'Friends'
+                        }
+                    ].map(item => (
+                        <div key = {item.route} className="bg-gray-50 rounded-lg px-4 py-2">
+                            <p className="text-xs font-semibold text-gray-700">{item.label}</p>
+                            <code className="text-xs text-[#530a23]">{item.route}</code>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">Spacing Scale</p>
+            <div className="border border-gray-100 rounded-xl overflow-hidden">
+                {[
+                    {
+                        name: 'xs',
+                        value: '0.25rem',
+                        px: '4px',
+                        example: 'Icon gaps',
+                    },
+                    {
+                        name: 'sm',
+                        value: '0.5rem',
+                        px: '8px',
+                        example: 'Tight padding',
+                    },
+                    {
+                        name: 'md',
+                        value: '1rem',
+                        px: '16px',
+                        example: 'Component padding',
+                    },
+                    {
+                        name: 'lg',
+                        value: '1.5rem',
+                        px: '24px',
+                        example: 'Card padding, section gaps',
+                    },
+                    {
+                        name: 'xl',
+                        value: '2rem',
+                        px: '32px',
+                        example: 'Page padding, large gaps',
+                    },
+                    {
+                        name: 'xxl',
+                        value: '3rem',
+                        px: '48px',
+                        example: 'Section margins',
+                    },
+                ].map((s, i, arr) => (
+                    <div key = {s.name} className= {`flex items-center gap-4 px-4 py-3 ${i< arr.length -1 ? 'border-b border-gray-50' : ''}`}>
+                        <code className="text-xs text-gray-400 w-8 flex-shrink-0">{s.name}</code>
+                        <div className="bg-[#530a23] rounded h-3 flex-shrink-0" style = {{width: s.px}}/>
+                        <code className="text-xs text-gray-500 w-16 flex-shrink-0">{s.value}</code>
+                        <code className="text-xs text-gray-300 w-10 flex-shrink-0">{s.px}</code>
+                        <p className="text-xs text-gray-400">{s.example}</p>
+                    </div>
+                ))}
+            </div>
+        </SharedLayout>
+    );
+};
+
+export default LayoutSection;

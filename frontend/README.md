@@ -1,6 +1,8 @@
 # CodeClash Frontend
 
-We're using a React + TypeScript frontend built with Vite.
+The CodeClash frontend is built using **React**, **TypeScript**, and **Vite**, following the **MVVM (Model-View-ViewModel)** architecture. It provides a responsive interface for users to compete in live programming and mathematics battles, track their progress, and access supporting documentation.
+
+---
 
 ## Tech Stack
 
@@ -8,57 +10,174 @@ We're using a React + TypeScript frontend built with Vite.
 |------------------|------------------------|
 | React            | UI framework           |
 | TypeScript       | Type safety            |
-| Vite             | Dev server and bundler |
+| Vite             | Development server and bundler |
 | React Router DOM | Page routing           |
+| Tailwind CSS | Styling |
+| Lucide React | Icons |
+| Vitest | Unit Testing |
+| Testing Library | Component Testing |
+
+---
 
 ## Installation
 
-- cd frontend
-- For the pages: 
-    - npm install
-    - npm install react-router-dom
-    - npm install -D @tailwindcss/vite tailwindcss
-- For component testing:
-    - npm install -D vitest @vitest/coverage-v8 @testing-library/react @testing-library/jest-dom @testing-library/user-event jsdom
+Navigate to the frontend directory.
+
+```bash
+cd frontend
+```
+
+Install dependencies.
+
+```bash
+npm install
+```
+
+If necessary, install the core packages manually.
+
+```bash
+npm install react-router-dom
+npm install lucide-react
+npm install tailwindcss @tailwindcss/vite
+npm install socket.io-client
+```
+
+Testing packages.
+
+```bash
+npm install -D vitest @vitest/coverage-v8 @testing-library/react @testing-library/jest-dom @testing-library/user-event jsdom
+```
+
+---
 
 ## Running
 
-from the root
-
 ### The App
 
-````
-npm run frontend   // to run the frontend only
-npm run backend    // to run the backend only 
-npm run dev        // to run both frontend and backend
-````
+From the root:
+
+Frontend:
+```bash
+npm run frontend   
+```
+
+Backend:
+```bash
+npm run backend    
+```
+
+Frontend and Backend:
+```bash
+npm run dev       
+```
+
+---
 
 ### Testing 
 
-Frontend
-````
-npm run test:frontend               //test only
-npm run test:frontend:coverage      //test and coverage
+Frontend:
+```bash
+npm run test:frontend       
+```
 
+Coverage: 
+```bash
+npm run test:frontend:coverage      
+```
 
-To run tests on an individual file 
+To run tests on an individual file:
+```bash
+npx vitest run <path-to-test-file>
+```
+---
 
-````
-npx vitest run test/unit/<FileName.test.tsx>
-````
+## Architecture
 
-## Page URL's
+The project follows the **MVVM (Model-View-ViewModel)** architecture.
 
-The pages are currently using state-based routing, so they are live at the same URL. Navigation is done through the buttons via 'useState'.
+- **Models** contain page content, interfaces, and data structures.
+- **Views** render the UI.
+- **ViewModels** contain presentation logic and page behaviour.
 
-## Navigation Flow
+---
 
-![Diagram](../docs/UserFlow_Diagram.png)
+## Routing
 
-## Fonts
+Navigation is handled using **React Router DOM**
 
-"Baloo Bhai 2" font is loaded via Google Fonts in each of the CSS files. This requires an internet connection when running.
+### Public Routes
 
-## Notes
+- Landing
+- Sign In
+- Sign Up
+- Terms & Conditions
+- Brand Style Guide
+- Help Menu
+- Game Guide
 
-Google and Apple OAuth sign-ins are not implemented yet. The buttons are wired to prop callbacks (`onGoogleSignIn`, `onAppleSignIn`) and is ready for future integration.
+Unauthenticated users attempting to access non public routes are redeirected to the Sign in page.
+
+---
+
+## Features
+
+The frontend currently includes: 
+
+- Responsive landing page
+- Authentication pages
+- Terms & Conditions
+- Dashboard
+- Responsive sidebar navigation
+- Live match interface
+- Match history 
+- Leaderboards
+- Help Menu
+- Game Guide
+- Brand Style Guide
+- MVVM architecture
+
+---
+
+## Styling
+
+The project uses: 
+
+- Tailwind CSS 
+- Custom CSS variables
+- Responsive layouts
+- Design tokens
+- Lucide react icons
+- Google fonts
+
+Primary fonts:
+
+- Roboto
+- Baloo Bhai 2
+
+---
+
+## Websockets
+
+Install:
+```bash
+npm install socket.io-client
+```
+
+Ensure the correct env variables are configured.
+
+Run the frontend from the root: 
+```bash
+npm run frontend   
+```
+
+---
+
+# Authors
+
+Developed by QuantDevs:
+
+- Taskeen Abdoola
+- Morgan Calaca
+- Swelihle Makhathini 
+- Ntuthuko Mbatha 
+- Nosandiso Mzoneli 

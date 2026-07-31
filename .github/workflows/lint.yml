@@ -1,0 +1,113 @@
+name: Lint
+
+on:
+  pull_request:
+    branches: [dev, main]
+
+jobs:
+  changes:
+    name: Detect Changes
+    runs-on: ubuntu-latest
+    outputs:
+      backend: ${{ steps.filter.outputs.backend }}
+      frontend: ${{ steps.filter.outputs.frontend }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@d1c1ffe0248fe513906c8e24db8ea791d46f8590 # v3
+        id: filter
+        with:
+          filters: |
+            backend:
+              - 'backend/**/*.ts'
+            frontend:
+              - 'frontend/**/*.ts'
+              - 'frontend/**/*.tsx'
+
+  lint-backend:
+    name: Lint backend
+    needs: changes
+    if: ${{ needs.changes.outputs.backend == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Required so changed-files can diff against the base branch
+
+      - name: Get changed backend files
+        id: changed
+        uses: tj-actions/changed-files@2d756ea4c53f7f6b397767d8723b3a10a9f35bf2 # v44
+        with:
+          files: backend/**/*.ts
+
+      - name: Set up Node
+        if: steps.changed.outputs.any_changed == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: |
+              package-lock.json
+              backend/package-lock.json
+
+      - name: Install root dependencies
+        if: steps.changed.outputs.any_changed == 'true'
+        run: npm ci --ignore-scripts
+
+      - name: Install backend dependencies
+        if: steps.changed.outputs.any_changed == 'true'
+        working-directory: backend
+        run: npm ci --ignore-scripts
+
+      - name: Run ESLint on changed files only
+        if: steps.changed.outputs.any_changed == 'true'
+        working-directory: backend
+        run: |
+          files="${{ steps.changed.outputs.all_changed_files }}"
+          stripped=$(echo "$files" | sed 's|backend/||g')
+
+
+
+  lint-frontend:
+    name: Lint frontend
+    needs: changes
+    if: ${{ needs.changes.outputs.frontend == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Required so changed-files can diff against the base branch
+
+      - name: Get changed frontend files
+        id: changed
+        uses: tj-actions/changed-files@2d756ea4c53f7f6b397767d8723b3a10a9f35bf2 # v44
+        with:
+          files: |
+            frontend/**/*.ts
+            frontend/**/*.tsx
+
+      - name: Set up Node
+        if: steps.changed.outputs.any_changed == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: |
+            package-lock.json
+            frontend/package-lock.json
+
+      - name: Install root dependencies
+        if: steps.changed.outputs.any_changed == 'true'
+        run: npm ci --ignore-scripts
+
+      - name: install frontend dependencies
+        if: steps.changed.outputs.any_changed == 'true'
+        working-directory: frontend
+        run: npm ci --ignore-scripts
+
+      - name: Run ESLint on changed files only
+        if: steps.changed.outputs.any_changed == 'true'
+        working-directory: frontend
+        run: |
+          files="${{ steps.changed.outputs.all_changed_files }}"
+          stripped=$(echo "$files" | sed 's|frontend/||g')
+

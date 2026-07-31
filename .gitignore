@@ -406,6 +406,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+env
 
 # Spyder project settings
 .spyderproject
@@ -460,5 +461,7 @@ node_modules
 psd
 thumb
 sketch
+
+!frontend/@/lib/
 
 # End of https://www.toptal.com/developers/gitignore/api/node,react,java,python,intellij

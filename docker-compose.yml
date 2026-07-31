@@ -10,6 +10,8 @@ services:
     volumes:
       - ./backend:/app
       - /app/node_modules
+    networks:
+      - pgnetwork
 
   # frontend:
   #   build: ./frontend
@@ -30,7 +32,23 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./database:/docker-entrypoint-initdb.d
+    networks:
+      - pgnetwork
+
+  test-db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_TEST_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_TEST_PASS}
+      POSTGRES_DB: ${POSTGRES_TEST_DB}
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_test_data:/var/lib/postgresql/data
+      - ./database:/docker-entrypoint-initdb.d
+    networks:
+      - pgnetwork
 
   # judge0:
   #   image: judge0/judge0:latest
@@ -47,20 +65,35 @@ services:
       - '6379:6379'
     volumes:
       - redis-data:/data
-    command: --requirepass ${REDIS_PASS} --appendonly yes
+      - ./backend/src/config/redis.conf:/etc/redis/redis.conf
+    command: ["redis-server", "/etc/redis/redis.conf"]
     restart: unless-stopped
+    networks:
+      - pgnetwork
 
-  redis:
-    image: redis:8.6.3-alpine
-    container_name: codeclash-redis
+  pgadmin:
+    image: dpage/pgadmin4:9.16
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASS}
+      PGADMIN_LISTEN_PORT: ${PGADMIN_PORT}
     ports:
-      - '6379:6379'
-    volumes:
-      - redis-data:/data
-    command: --requirepass ${REDIS_PASS} --appendonly yes
-    restart: unless-stopped
+      - "${PGADMIN_PORT}:5151"
+    volumes: 
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      - db
+    networks:
+      - pgnetwork
 
 volumes:
   postgres_data:
+  postgres_test_data:
+  pgadmin_data:
   redis-data:
     driver: local
+
+networks:
+  pgnetwork:
+  

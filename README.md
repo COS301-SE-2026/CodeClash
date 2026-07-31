@@ -17,6 +17,7 @@ CodeClash is a competitive mathematics and coding collaboration platform designe
 - [Project Board](#project-board)
 - [GitHub Repo Structure](#github-repo-structure)
 - [Branching Strategy](#branching-strategy)
+- [Git AI](#git-ai)
 - [Team Profiles](#team-profiles)
 - [Contact Us](#contact-us)
 
@@ -44,6 +45,7 @@ CodeClash is a competitive mathematics and coding collaboration platform designe
 ## Demo Videos
 
 - [Demo 1](https://drive.google.com/file/d/1jSZ5YmmdEsPccR-M5zBKY4wCI998dGdX/view?usp=sharing)
+- [Demo 2](https://youtu.be/5oXeTaWXfpI)
 
 ## Documentation
 
@@ -58,7 +60,12 @@ CodeClash is a competitive mathematics and coding collaboration platform designe
 <details>
 <summary>Demo 2</summary>
 
-Coming soon!
+- [Software Requirements Specification](docs/Demo_2/SRS.md)
+- [Software Architecture Specification](docs/Demo_2/SAS.md)
+- [Coding Standards Document](docs/Demo_2/coding-standards.md)
+- [Testing Policy Document](docs/Demo_2/testing-policy.md)
+- [User Manual](docs/Demo_2/User%20Manual%20Document.pdf)
+
 
 </details>
 
@@ -102,6 +109,32 @@ This project uses the Git Flow branching strategy.
 Branches are named according to the features they implement or the issues they address, as well as the name of the team member working on the branch. 
 
 Once a feature complete or an issue is addressed, branches are merged back into Dev. From there Dev is merged into main.
+
+
+## Git AI
+
+To install
+````
+curl -sSL https://usegitai.com/install.sh | bash
+````
+
+for stats on your contribution vs ai 
+````
+git ai stats 
+
+git ai stats --json   // for json formatting
+````
+
+Using the commit hash 
+````
+git ai stats <commit hash>  // to check a specific commit 
+git ai stats <commit hash> --json
+````
+
+To see authors 
+````
+git ai blame <file path>
+````
 
 ## Team Profiles
 
