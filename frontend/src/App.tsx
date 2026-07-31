@@ -22,7 +22,6 @@ import MatchSearching from "./Views/MatchSearching";
 import Profile from "./Views/Profile";
 import SignIn from "./Views/SignIn";
 import SignUp from "./Views/SignUp";
-import Welcome from "./Views/Welcome";
 
 const App: React.FC = () => {
 
@@ -46,10 +45,6 @@ const App: React.FC = () => {
                 <Route path='/game-guide' element={<GameGuide/>}/> 
                 <Route path= '/help-menu' element={<HelpMenu/>}/>
                 <Route path='/dashboard' element={<Dashboard/>}/>
-                <Route path='/profile' element={<Profile/>}/>
-                <Route path='/leaderboard' element={<Leaderboard/>}/>
-                <Route path='fr' element={<FinalResults/>}/>
-                <Route path='match' element={<ProgMatch/>}/>
 
                 <Route path='*' element={<Navigate to='/sign-in' replace />} />
 
