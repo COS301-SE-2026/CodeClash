@@ -1,4 +1,4 @@
-// The is the logo section for the brand style guide - this previews the logo and icons and prevents misuse through explicit rules
+// The is the logo section for the brand style guide - this previews the logo and icons and prevents misuse through explicit rules - correct file
 
 import React from "react";
 

@@ -40,8 +40,7 @@ export function leaveMatchQueue(socket: Socket) {
     socket.emit("leave_match_queue");
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export function matchAccepted(socket: Socket, data: {}) {
+export function matchAccepted(socket: Socket, data:unknown) {
     socket.emit("match_accepted", data)
 }
 

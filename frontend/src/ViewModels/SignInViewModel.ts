@@ -5,6 +5,7 @@ import { useAuth } from "../context/Auth/hooks/useAuth";
 import { formData } from "../Models/SignInModel";
 import type { SignInForm } from "../Models/SignInModel";
 
+
 export function validateSignInForm(data: SignInForm): string | null {
     if (!data.email.trim()) return 'Email is required';
     if (!data.password) return 'Password is required';

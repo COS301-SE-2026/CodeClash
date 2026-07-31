@@ -11,14 +11,15 @@ import { UserContext } from "./UserContextValue";
 
 const url = import.meta.env.VITE_API_URL;
 
-
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [username, setUsername] = useState('');
     const [elo, setElo] = useState(0);
     const [avatar, setAvatar] = useState('');
     const [error, setError] = useState('');
     const [league, setLeague] = useState('');
+    const [rank, setRank] = useState('');
     const { user, token, isLoading } = useAuth();
+
+    const username = user?.username ?? '';
 
 
     const getElo = async () => {
@@ -58,7 +59,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             })
                 .then((res) => {
                     if (res.status === 200) {
-                        
                         const index = res.data.avatar_id;
                         setAvatar(robot_map[index]);
                     }
@@ -98,30 +98,51 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
     }
 
-    const getUsername = (user: AuthUser | null) => {
-        const username = user?.username;
+    const getRank = async () => {
 
-        if (username && username.length > 0)
-            setUsername(username);
-        else setError(`Error Getting Username`)
+        if (!token) {
+            setError('Missing or Invalid Token');
+            return;
+        }
+
+        try {
+            await axios.get(url.concat('user/rank'), {
+                headers: { Authorization: `Bearer ${token}` }
+            })
+                .then((res) => {
+                    if (res.status === 200) {
+                        setRank(res.data.rank);
+                    }
+                    else {
+                        setError(`Error: ${res.status} ${res.data}`)
+                    }
+                })
+        }
+        catch (error) {
+            setError(`Error Getting User Rank: ${error}`);
+        }
+
     }
 
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-        getElo();
-        getAvatarUrl()
-        getLeague();
 
-        if (!isLoading) {
-            getUsername(user);
+    useEffect(() => {
+        if (!token) return;
 
+        const load = async () => {
+            getElo();
+            getAvatarUrl()
+            getLeague();
+            getRank();
         }
-    }, [token, user])
+
+
+        void load();
+    }, [token])
 
 
     const value = useMemo(() => ({
-        username, elo, avatar, error, league
-    }), [username, elo, avatar, error, league])
+        username, elo, avatar, error, league, rank
+    }), [username, elo, avatar, error, league, rank])
 
     return (
         <UserContext.Provider

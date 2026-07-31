@@ -1,11 +1,13 @@
 
 import type React from "react";
+
 import { Spinner } from "../ui/spinner";
+
 import { cn } from "@/lib/utils";
 
 interface LoadingProps {
-    isOpen?: boolean;
-    onClose?: () => void;
+    isOpen: boolean;
+    onClose: () => void;
     className?: string;
     children?: React.ReactNode;
 }

@@ -1,4 +1,4 @@
-// This is the View for the brand style guide - this will contain all react components, no logic, and call the ViewModel
+// This is the View for the brand style guide - this will contain all react components, no logic, and call the ViewModel - correct file
 
 import React from "react";
 
@@ -35,8 +35,7 @@ const BrandStyleGuide: React.FC = () => {
                         {navSections.map(section => (
                             <button type="button" key={section.id} onClick={() => sectionScroll(section.id)}
                             className= {
-                                `px-2 py-1.5 rounded-md text-xs font-medium transition-all duration-150 cursor-pointer border-none ${active === section.id ? 'bg-[#530a23] text-[#FCECDD]' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-100 bg-transparent'}`}
-                            >
+                                `px-2 py-1.5 rounded-md text-xs font-medium transition-all duration-150 cursor-pointer border-none ${active === section.id ? 'bg-[#530a23] text-[#FCECDD]' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-100 bg-transparent'}`}>
                                 {section.label}
                             </button>
                         ))}

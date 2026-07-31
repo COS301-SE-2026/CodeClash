@@ -1,4 +1,4 @@
-// This is the color secto=ion of the brand style guide - it will render the color swatches including the themes (later)
+// This is the color secto=ion of the brand style guide - it will render the color swatches including the themes (later) - correct file
 
 import React from "react";
 
