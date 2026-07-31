@@ -8,12 +8,15 @@ import { SocketContext } from './SocketContextValue'
 export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [socket, setSocket] = useState<Socket | null>(null);
     const [isConnected, setIsConnected] = useState(false);
-    const [matched, setMatched] = useState(false);
+    const [matched, setMatched] = useState<{ game_mode: string, pair_id: string } | null>(null);
 
     useEffect(() => {
         createSocket().then((conn) => {
             if (conn) {
                 setSocket(conn);
+            }
+            else {
+                console.error("Error Creating Socket Connection");
             }
         })
 
@@ -29,7 +32,7 @@ export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) 
                 setIsConnected(false);
             })
 
-            socket.on("users_matched", () => setMatched(true))
+            socket.on("users_matched", (data) => { setMatched(data) })
         }
     }, [socket])
 

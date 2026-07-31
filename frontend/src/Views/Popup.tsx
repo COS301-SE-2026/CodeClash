@@ -14,7 +14,7 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
     const nav = useNavigate();
     const selecthandler = (t: string) => {
         if (selectTopic === null || t === null)
-            nav('/error')
+            nav('error')
         else {
             selectTopic(t)
         }
@@ -43,7 +43,7 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
                                     selecthandler('math')
                                 }
                             }}
-                            onClick={() => selecthandler('math')}
+                            onClick={() => selecthandler('maths')}
                             aria-label='math-selector'
                         >
                             <h1 className="text-[3rem] text-secondary-text heading font-bold  group-hover:text-white">+ -</h1>
@@ -58,7 +58,7 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
                                     selecthandler('prog')
                                 }
                             }}
-                            onClick={() => selecthandler('prog')}
+                            onClick={() => selecthandler('programming')}
                             aria-label='prog-selector'
                         >
                             <h1 className="text-[3rem] text-secondary-text heading font-bold group-hover:text-white">{"</>"}</h1>

@@ -1,14 +1,11 @@
-import { useEffect, useState } from 'react';
+import { Search, Bot, UserCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useUser } from 'src/context/User/hooks/useUser';
 
 import backgroundImg from '../assets/Background/dashboard.png'
-import aiIcon from '../assets/Icons/AI.png';
 import brainIcon from '../assets/Icons/Brain.png';
-import profileIcon from '../assets/Icons/Profile.png';
-import searchIcon from '../assets/Icons/Search.png';
-import robot from '../assets/Robots/Pink_fighting.png'
 import { useShowPopUp } from '../ViewModels/DashboardViewModel';
-import { useUser, getUserElo, getUserToken } from '../ViewModels/SharedViewModel';
+
 
 import Popup from './Popup'
 
@@ -18,27 +15,12 @@ import { Button } from '@/components/ui/button';
 import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 
-
 // View Model
 
 
 const Dashboard = () => {
   const { isOpen, openPopUp, closePopUp } = useShowPopUp();
-  const { username } = useUser();
-  const [elo, setElo] = useState<number | null>(null);
-
-  useEffect(() => {
-
-    const getElo = async () => {
-      const token = await getUserToken();
-      const user_elo = await getUserElo(token);
-
-      setElo(user_elo);
-    }
-
-    getElo();
-
-  }, [elo])
+  const { username, elo, league, avatar } = useUser();
 
   return (
     <div style={{ backgroundImage: `url(${backgroundImg})` }} className='w-full h-[20] h-screen bg-cover bg-center flex flex-col items-center'>
@@ -46,17 +28,17 @@ const Dashboard = () => {
       <div className='w-[100%] h-[10%] bg-black/80 flex justify-between items-center pl-5 mb-20'>
 
         {/* Search bar */}
-        <div className='flex items-center bg-pink-800/30 text-white w-[40%] h-[35%] rounded-3xl'>
-          <img src={searchIcon} alt='search' className='h-[100%] pl-3 pr-3' />
+        <div className='flex items-center bg-pink-800/30 text-white w-[40%] h-[35%] rounded-3xl gap-3'>
+          <Search className="text-white w-5 h-5 flex-shrink-0" />
           <p className='text-sm font-light'>Search...</p>
         </div>
 
         {/* AI and Profile */}
-        <div className='flex items-center w-[15%] h-full justify-evenly'>
-          <img src={aiIcon} alt='AI' className=' h-[55%]' />
+        <div className='flex items-center w-[15%] h-full justify evenly gap-4'>
+          <Bot className='text-white w-7 h-7' />
 
-          <Link to="/profile" className="h-[55%]">
-            <img src={profileIcon} alt='Profile' className=' h-[100%]' />
+          <Link to="/profile">
+            <UserCircle className='text-white w-7 h-7' />
           </Link>
 
         </div>
@@ -72,10 +54,10 @@ const Dashboard = () => {
           <Card className='bg-[#070400] h-[50%]'>
             <CardContent className='flex '>
               <div className='flex flex-col'>
-                <p className='text-sm'>Level #</p>
+                <p className='text-sm'>LEAGUE {league}</p>
                 <p className='text-l'>{username}</p>
               </div>
-              <img alt='avatar' src={robot} className='absolute h-[47%] left-[12%]' />
+              <img alt='avatar' src={avatar} className='absolute h-[47%] left-[12%]' />
             </CardContent>
           </Card>
 
@@ -87,10 +69,14 @@ const Dashboard = () => {
             </CardHeader>
             <CardContent className='flex'>
               <CardAction className='flex flex-col w-[100%] h-[6rem] justify-between'>
-                <Button className='h-[45%] bg-pink-300 text-sm font-semibold'
-                  onClick={openPopUp}
-                > Ranked Play </Button>
-                <Button variant={'secondary'} className='h-[45%] bg-secondary text-primary text-sm font-semibold hover:bg-[#C0AF9C]'> Casual Play </Button>
+                <Button variant={'default'} className='h-[45%] bg-pink-300 text-sm font-semibold'
+                  onClick={openPopUp}>
+                  Ranked Play
+                </Button>
+                <Button variant={'secondary'} className='h-[45%] bg-secondary text-primary text-sm font-semibold hover:bg-[#C0AF9C]'
+                  onClick={openPopUp}>
+                  Casual Play
+                </Button>
               </CardAction>
             </CardContent>
           </Card>

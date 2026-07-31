@@ -7,22 +7,22 @@ vi.mock("../../../redis-client", () => {
     return { default: new Redis_Mock.default() };
 });
 
-import { dequeue, enqueue, matchmaking, math_queue_length, prog_queue_length } from "../../../src/services/matchmaking.service";
-import UserDto from "../../../src/dtos/matchmaking.dto";
+import { dequeue, enqueue, matchmaking, math_queue_length, prog_queue_length } from "../../../src/application/usecases/services/matchmaking.service";
+import UserDto from "../../../src/entities/dtos/matchmaking.dto";
 import redis from "../../../redis-client";
+import { GameMode } from '../../../src/entities/db-entities/questions.entities';
 
 
 let ids = 1
-const ideal_math_user = new UserDto(ids++, 1000, 'math');
-const ideal_prog_user = new UserDto(ids++, 1010, 'prog');
-const invalid_game_mode = new UserDto(ids++, 2020, 'stats');
-const invalid_remove = new UserDto(ids++, 1020, 'math');
+const ideal_math_user = new UserDto(ids++, 1000, GameMode.Maths);
+const ideal_prog_user = new UserDto(ids++, 1010, GameMode.Programming);
+const invalid_remove = new UserDto(ids++, 1020, GameMode.Maths);
 
 
 // to clear queue between tests
 async function clearQueues() {
-    await redis.del('math');
-    await redis.del('prog');
+    await redis.del('maths');
+    await redis.del('programming');
 
     let cursor;
 
@@ -97,8 +97,8 @@ describe('Ideal Users', () => {
             let math_length = 0;
             const prog_length = 0;
 
-            const player_1 = new UserDto(player_1_id, 1000, 'math');
-            const player_2 = new UserDto(player_2_id, 1050, 'math');
+            const player_1 = new UserDto(player_1_id, 1000, GameMode.Maths);
+            const player_2 = new UserDto(player_2_id, 1050, GameMode.Maths);
 
             const add_p_1 = await matchmaking(player_1);  // this should not find a match
             expect(add_p_1).toBeNull();
@@ -120,17 +120,5 @@ describe('Ideal Users', () => {
     })
 })
 
-
-describe('Invalid game mode', () => {
-    test('Adds user with invalid game mode', async () => {
-        const add = await enqueue(invalid_game_mode, invalid_game_mode.game_mode);
-        expect(add).toBe(false);
-    })
-
-    test('Remove invalid game mode', async () => {
-        const rem = await dequeue(invalid_game_mode.id, invalid_game_mode.game_mode);
-        expect(rem).toBe(false);
-    })
-})
 
 
