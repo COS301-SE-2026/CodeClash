@@ -15,7 +15,7 @@ const MathsMatch = () => {
     const {
         playerLife, avatars, usernames,
         seconds, minutes, questions,
-        currentQuestion,opponentCurrent,
+        currentQuestion, opponentCurrent,
         nextQuestion, prevQuestion,
         loading, submitQuestion,
         mathfieldRef, setAnswers, answers,
@@ -90,14 +90,14 @@ const MathsMatch = () => {
                     onClick={() => {
                         const answer = mathfieldRef.current?.value ?? '';
                         submitQuestion(curr.id!, answer)
-                    }}   
+                    }}
                 >
                     SUBMIT
                 </Button>
                 {currentQuestion === (questions.length - 1) &&
                     <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem] hover:-translate-y-1'
-                        onClick={async () => {
-                            await finishGame();
+                        onClick={() => {
+                            finishGame();
                         }}
                     >
                         <p>FINISH</p>
