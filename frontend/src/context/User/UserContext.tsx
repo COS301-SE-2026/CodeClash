@@ -1,4 +1,4 @@
-import { type AuthUser } from "aws-amplify/auth";
+
 import axios from "axios";
 import React, { useEffect, useMemo, useState, type ReactNode } from "react";
 import { robot_map } from "src/assets/Robots";

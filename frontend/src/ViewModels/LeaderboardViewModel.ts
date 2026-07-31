@@ -9,7 +9,7 @@ export async function fetchLeaderboard(limit: number, page: number): Promise<Pag
   return await response.json();
 }
 
-export function LeaderboardViewModel(league : string){
+export function LeaderboardViewModel(_league : string){
   const [userData, setUserData] = useState<LeaderboardUserProps[]>([]);
   const [topThree, setTopThree] = useState<LeaderboardUserProps[]>([]);
   const [isLoadingData, setIsLoadingData] = useState(true);

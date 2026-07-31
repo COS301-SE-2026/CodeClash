@@ -8,6 +8,7 @@
     "test": "tests"
   },
   "scripts": {
+    "build": "tsc && tsc-alias",
     "start": "ts-node -r tsconfig-paths/register src/server.ts",
     "dev": "nodemon --exec \"ts-node -r tsconfig-paths/register\" src/frameworks-drivers/server.ts",
     "test": "vitest",

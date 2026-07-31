@@ -8,9 +8,6 @@ import Dashboard from "./Views/Dashboard";
 import MatchFound from "./Views/MatchFound";
 import BrandStyleGuide from "./Views/BrandStyleGuide";
 import MathsMatch from "./Views/MathsMatch";
-import Welcome from "./Views/Welcome";
-
-import Loading from "@/components/shared/Loading";
 
 import MatchHistory from "./Views/MatchHistory";
 import ForgotPassword from "./Views/ForgotPassword";
