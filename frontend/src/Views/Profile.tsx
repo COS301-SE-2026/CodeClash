@@ -8,9 +8,9 @@ import "../styles/global.css"
 
 
 
-async function ProfileView(){
+function ProfileView(){
   
-  const { userData, loadingData, error} = await getProfile();
+  const { userData, loadingData, error} = getProfile();
 
   const onLogout = useLogOut();
 
@@ -63,7 +63,7 @@ async function ProfileView(){
 };
 
 const Profile = () => {
-  ProfileView();
+  return <ProfileView/>;
 }
 
 export default Profile;
