@@ -82,6 +82,14 @@ Time is a determining factor in who wins a match and who loses. Therefore, in th
 
 The server acts as the event bus for this architecture. It routes all messages from the frontend client to the use cases that execute and return responses back through the server. 
 
+#### Model, View, View Model
+
+The frontend of the application is represented by a presentation layer implemented with mvvm. 
+
+Models describe how data will be structures, views simply display data to the client and view models encapsulate all business logic regarding populating the view. 
+
+This includes API requests, Websocket event emmission and any calculations and transformations needed to present data to the client. 
+
 | **Client-Side SPA** | The React frontend is a single-page application. Navigation between screens does not trigger full-page reloads; all routing is handled client-side via React Router. |
 
 ---
