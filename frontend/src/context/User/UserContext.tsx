@@ -11,7 +11,6 @@ import { UserContext } from "./UserContextValue";
 
 const url = import.meta.env.VITE_API_URL;
 
-
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [elo, setElo] = useState(0);
     const [avatar, setAvatar] = useState('');
@@ -60,7 +59,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             })
                 .then((res) => {
                     if (res.status === 200) {
-
                         const index = res.data.avatar_id;
                         setAvatar(robot_map[index]);
                     }
