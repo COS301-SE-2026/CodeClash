@@ -1,7 +1,13 @@
 import { useState, useEffect, useCallback } from 'react'
 // import type { LeaderboardUserProps } from 'src/Models/LeaderboardModel';
-import { fetchLeaderboard, type LeaderboardUserProps } from 'src/Models/LeaderboardModel';
+import { type PaginatedLeaderboardResponse, type LeaderboardUserProps } from 'src/Models/LeaderboardModel';
 
+
+export async function fetchLeaderboard(limit: number, page: number): Promise<PaginatedLeaderboardResponse> {
+  const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}elo/leaderboard?limit=${limit}&page=${page}`);
+  if (!response.ok) throw new Error('Failed to fetch leaderboard')
+  return await response.json();
+}
 
 export function LeaderboardViewModel(league : string){
   const [userData, setUserData] = useState<LeaderboardUserProps[]>([]);

@@ -1,24 +1,19 @@
 import { Search, Bot, UserCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useAuth } from 'src/context/Auth/hooks/useAuth';
 import { useUser } from 'src/context/User/hooks/useUser';
 
 import backgroundImg from '../assets/Background/dashboard.png'
 import brainIcon from '../assets/Icons/Brain.png';
 import { useShowPopUp } from '../ViewModels/DashboardViewModel';
-//import {getUserElo, getUserToken } from '../ViewModels/SharedViewModel';
 
 
 import Popup from './Popup'
 
 import GlassCard from '@/components/shared/GlassCard'
-import Loading from '@/components/shared/Loading';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { useUser } from 'src/context/User/hooks/useUser';
-
 
 // View Model
 
