@@ -264,36 +264,6 @@ Unfortunately our previous API contract doc is too out of date to comfortably in
 
 The pipeline is defined in `.github/workflows/ci.yml` and runs on GitHub Actions.
 
-```
-Trigger: Pull request opened or updated targeting dev or main
-│
-├── Stage 1: Install
-│     Tool: GitHub Actions (ubuntu-latest)
-│     Steps: checkout → npm ci
-│     Artifact: node_modules (cached)
-│
-├── Stage 2: Lint
-│     Tool: ESLint
-│     Steps: npm run lint
-│     Failure path: PR blocked, merge prevented
-│
-├── Stage 3: Build
-│     Tool: TypeScript compiler (tsc)
-│     Steps: npm run build
-│     Artifact: dist/ directory
-│     Failure path: PR blocked, merge prevented
-│
-├── Stage 4: Test
-│     Tool: Vitest
-│     Steps: npx vitest run --coverage
-│     Artifact: coverage report
-│     Failure path: PR blocked, merge prevented
-│
-└── On merge to main:
-      Tool: Railway (auto-deploy)
-      Trigger: push event on main branch
-      Steps: Railway pulls latest main → builds Docker image → deploys to production
-      Rollback: select previous deployment in Railway dashboard → redeploy
-```
+[CI CD Pipeline Diagram](/docs/Demo_2/diagrams/CI_CD_as_pe.pdf)
 
 **Manual approval gates:** Pull requests into `main` require at least 2 approving reviews from team members with write access before merge is permitted, enforced by GitHub branch protection rules.
