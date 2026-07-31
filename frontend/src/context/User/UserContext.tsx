@@ -17,7 +17,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [error, setError] = useState('');
     const [league, setLeague] = useState('');
     const [rank, setRank] = useState('');
-    const { user, token, isLoading } = useAuth();
+    const { user, token } = useAuth();
 
     const username = user?.username ?? '';
 
