@@ -1,0 +1,14 @@
+docs/Demo_2/architecture-patterns.md
+  h_94c952a9e14c58 10,14,21-22,24,27,29-31,34,37,39-41,44,51,55-57,62-68
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.18",
+  "base_commit_sha": "fb9e6e0e8de60c109bc6f862d6550a398e8fc6d9",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

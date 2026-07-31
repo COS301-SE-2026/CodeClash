@@ -1,0 +1,16 @@
+frontend/@/components/features/VirtualKeyboard.tsx
+  h_94c952a9e14c58 4-5,12-13,25-32,36-40,44
+backend/src/interface-adapters/socket-handlers/game.handler.ts
+  h_94c952a9e14c58 105
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.18",
+  "base_commit_sha": "3f0de0f6d73f380622af44f2f15f804e9cab58bc",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

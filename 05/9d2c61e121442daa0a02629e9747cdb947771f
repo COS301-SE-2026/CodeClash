@@ -1,0 +1,14 @@
+frontend/test/unit/BackButton.test.tsx
+  h_b13c5d77534129 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.18",
+  "base_commit_sha": "059d2c61e121442daa0a02629e9747cdb947771f",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
