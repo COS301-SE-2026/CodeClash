@@ -1,21 +1,26 @@
-import React, { useEffect, useMemo, useState, type ReactNode } from "react";
-import { UserContext } from "./UserContextValue";
-import axios from "axios";
 import { type AuthUser } from "aws-amplify/auth";
-import { useAuth } from "../Auth/hooks/useAuth";
+import axios from "axios";
+import React, { useEffect, useMemo, useState, type ReactNode } from "react";
 import { robot_map } from "src/assets/Robots";
+
+import { useAuth } from "../Auth/hooks/useAuth";
+
+import { UserContext } from "./UserContextValue";
+
+
 
 const url = import.meta.env.VITE_API_URL;
 
 
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [username, setUsername] = useState('');
     const [elo, setElo] = useState(0);
     const [avatar, setAvatar] = useState('');
     const [error, setError] = useState('');
     const [league, setLeague] = useState('');
     const [rank, setRank] = useState('');
     const { user, token, isLoading } = useAuth();
+
+    const username = user?.username ?? '';
 
 
     const getElo = async () => {
@@ -55,7 +60,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             })
                 .then((res) => {
                     if (res.status === 200) {
-                        
+
                         const index = res.data.avatar_id;
                         setAvatar(robot_map[index]);
                     }
@@ -97,49 +102,44 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     const getRank = async () => {
 
-        if(!token){
+        if (!token) {
             setError('Missing or Invalid Token');
             return;
         }
 
-        try{
+        try {
             await axios.get(url.concat('user/rank'), {
-                headers: { Authorization: `Bearer ${token}`}
+                headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {
-                    if(res.status === 200){
+                    if (res.status === 200) {
                         setRank(res.data.rank);
                     }
-                    else{
+                    else {
                         setError(`Error: ${res.status} ${res.data}`)
                     }
                 })
-            }
-            catch(error){
-                setError(`Error Getting User Rank: ${error}`);
-            }
-
+        }
+        catch (error) {
+            setError(`Error Getting User Rank: ${error}`);
         }
 
-    const getUsername = (user: AuthUser | null) => {
-        const username = user?.username;
-
-        if (username && username.length > 0)
-            setUsername(username);
-        else setError(`Error Getting Username`)
     }
 
+
     useEffect(() => {
-        getElo();
-        getAvatarUrl()
-        getLeague();
-        getRank();
+        if (!token) return;
 
-        if (!isLoading) {
-            getUsername(user);
-
+        const load = async () => {
+            getElo();
+            getAvatarUrl()
+            getLeague();
+            getRank();
         }
-    }, [token, user])
+
+
+        void load();
+    }, [token])
 
 
     const value = useMemo(() => ({

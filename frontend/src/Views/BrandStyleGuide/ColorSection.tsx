@@ -1,8 +1,10 @@
 // This is the color secto=ion of the brand style guide - it will render the color swatches including the themes (later) - correct file
 
 import React from "react";
-import SharedLayout from "./SharedLayout";
+
 import type { BrandStyleGuideContent } from "../../Models/BrandStyleGuideModel";
+
+import SharedLayout from "./SharedLayout";
 
 interface Props {
     content: BrandStyleGuideContent;

@@ -1,9 +1,13 @@
-import robot from '../assets/Robots/Pink_fighting.png';
-import mercuryBackground from '../assets/Planets/double-mercury-background.png';
-import { Button } from '@/components/ui/button';
-import { MatchSearchingViewModelFunction, useSearch } from '../ViewModels/MatchSearchingViewModel';
-import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import mercuryBackground from '../assets/Planets/double-mercury-background.png';
+import robot from '../assets/Robots/Pink_fighting.png';
+import { MatchSearchingViewModelFunction, useSearch } from '../ViewModels/MatchSearchingViewModel';
+
+import { Button } from '@/components/ui/button';
+
+
 
 const headingFont = { fontFamily: 'var(--heading)' };
 

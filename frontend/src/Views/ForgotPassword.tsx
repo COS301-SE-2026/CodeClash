@@ -1,7 +1,8 @@
-import React from "react";
-import { ForgotPasswordViewModelFunction } from "../ViewModels/ForgotPasswordViewModel";
 import { CheckCircle } from "lucide-react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
+
+import { ForgotPasswordViewModelFunction } from "../ViewModels/ForgotPasswordViewModel";
 
 //Copying the fields and button class from SignUp.tsx
 const fieldClass = "fields w-[100%] max-w-[90vw] h-[3rem] bg-white rounded-lg px-[2%] border-[0.5px] border-primary outline-none transition-all duration-200 focus:border-pink-400 focus:shadow-[0_0_0_3px_rgba(185,21,81,0.15)] disabled:opacity-50 text-primary font-medium placeholder:text-primary/60 focus:text-primary";
