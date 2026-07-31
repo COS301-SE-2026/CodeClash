@@ -29,5 +29,9 @@ it('signs out and navigates to /welcome', async () => {
 });
 
 it('does not navigate if signOut throws an error', async () => {
-    
+    const {result} = renderHook(() => useLogOut());
+
+    await act(() => result.current());
+
+    expect(mock_nav).not.toHaveBeenCalled();
 })
