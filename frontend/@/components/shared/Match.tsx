@@ -37,8 +37,6 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
 }) => {
 
 
-
-
     return (
         <div className="fixed inset-0 flex flex-col">
             <img src={background} className='absolute w-full -z-10' alt='background' />
@@ -121,9 +119,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                         style={{ top: `${(question_number - 1 - opponent_progress) * 9.6}rem` }}
                                         alt='progress avatar user 2'
                                     />
-                                    {opponent_done &&
-                                        <Badge variant={'secondary'} className='absolute top-25 animate-pop botton-0 w-[100%] h-[2rem] text-sm font-bold'>DONE</Badge>
-                                    }
+
 
                                 </div>
 
@@ -135,12 +131,19 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                 <Badge variant={'outline'} className='text-white text-sm font-body text-center font-semibold w-[60%] h-[2rem]'>Start</Badge>
                                 <div className="absolute top-0 bg-secondary h-[90%] w-[15%] -z-10 rounded-3xl "></div>
                                 {
-                                    [...Array(question_number)].map((id) => {
+                                    [...Array(question_number)].map((_, idx) => {
+
+                                        const doorResult = question_results[idx];
+                                        const doorColour = () => {
+                                            if (doorResult === true) return 'bg-success/50'
+                                            if (doorResult === false) return 'bg-danger/50'
+                                            return 'bg-transparent'
+                                        }
                                         return (
-                                            <React.Fragment key={`${question_number}-${id}`}>
+                                            <React.Fragment key={`${question_number}-${idx}`}>
 
                                                 <div className=' w-[100%] h-[8rem] flex items-center justify-center col-start-2 '>
-                                                    <div className={` rounded-full p-[1%] flex items-center justify-center`}>
+                                                    <div className={`${doorColour()} rounded-full p-[1%] flex items-center justify-center`}>
                                                         <img src={door}
                                                             className="w-20 h-20 object-cover rounded-full"
                                                             alt='door'
