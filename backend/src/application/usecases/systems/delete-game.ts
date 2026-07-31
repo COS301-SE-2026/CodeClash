@@ -25,7 +25,6 @@ export class DeleteGame {
 
 
     execute(match_id: number, pair_id: string) {
-        console.log("Deleting game ", match_id, " for ", pair_id);
 
         const players = this.getMatchComponent<PlayersComponent>(match_id, 'Players');
         const submission = this.getMatchComponent<SubmissionRegistryComponent>(match_id, 'Submission');

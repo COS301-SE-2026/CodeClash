@@ -18,7 +18,7 @@ const ComponentSection: React.FC<Props> = ({content}) => {
 
             <div className="flex flex-wrap gap-2 mb-6">
                 {content.components.map((c,i) => (
-                    <button key = {c.name} onClick={() => setActive(i)} className= {`text-xs font-medium px-3 py-1.5 rounded-lg border transition-all duration-150 cursor-pointer ${active === i ? 'bg-[#530a23] text-[#FCECDD] border-[#530a23]' : 'bg-white text-gray-500 border-gray-200 hover:border-400'}`} type="button">
+                    <button key = {c.name} onClick={() => setActive(i)} type='button' className= {`text-xs font-medium px-3 py-1.5 rounded-lg border transition-all duration-150 cursor-pointer ${active === i ? 'bg-[#530a23] text-[#FCECDD] border-[#530a23]' : 'bg-white text-gray-500 border-gray-200 hover:border-gray-400'}`}>
                         {c.name}
                     </button>
                 ))}
@@ -62,46 +62,46 @@ const ComponentSection: React.FC<Props> = ({content}) => {
 const ComponentPreview: React.FC<{name:string}> = ({name}) => {
     if (name === 'Button Primary') return (
         <>
-            <button className= "bg-[#C0395A] text-white rounded-[20px] px-8 py-3 font-bold text-sm cursor-pointer shadow-md hover:-translate-y-0.5 transition-trasnform" type="button">Sign up</button>
-            <button className= "bg-[#C0395A] text-white rounded-[20px] px-8 py-3 font-bold text-sm cursor-pointer shadow-md -translate-y-0.5 opacity-90" type="button">Hover</button>
-            <button disabled className= "bg-[#C0395A] text-white rounded-[20px] px-8 py-3 font-bold text-sm opacity-40 cursor-not-allowed" type="button">Disabled</button>
-            <button className= "bg-[#C0395A] text-white rounded-[20px] px-8 py-3 font-bold text-sm opacity-75 cursor-wait" type="button">Loading..</button>
+            <button type='button' className= "bg-[#C0395A] text-white rounded-[20px] px-8 py-3 font-bold text-sm cursor-pointer shadow-md hover:-translate-y-0.5 transition-transform">Sign up</button>
+            <button type='button' className= "bg-[#C0395A] text-white rounded-[20px] px-8 py-3 font-bold text-sm cursor-pointer shadow-md -translate-y-0.5 opacity-90">Hover</button>
+            <button type='button' disabled className= "bg-[#C0395A] text-white rounded-[20px] px-8 py-3 font-bold text-sm opacity-40 cursor-not-allowed">Disabled</button>
+            <button type='button' className= "bg-[#C0395A] text-white rounded-[20px] px-8 py-3 font-bold text-sm opacity-75 cursor-wait">Loading..</button>
         </>
     );
 
     if (name === 'Button Secondary') return (
         <>
-            <button className = "text-[#530a23] font-semibold text-sm underline bg-transparent border-none cursor-pointer" type="button">Sign in</button>
-            <button className = "text-[#C0395A] font-semibold text-sm underline bg-transparent border-none cursor-pointer" type="button">Hover</button>
+            <button type='button' className = "text-[#530a23] font-semibold text-sm underline bg-transparent border-none cursor-pointer">Sign in</button>
+            <button type='button' className = "text-[#C0395A] font-semibold text-sm underline bg-transparent border-none cursor-pointer">Hover</button>
         </>
     );
 
     if (name === 'Back Button') return (
         <div className="flex gap-4">
-            <button className="text-[#FCECDD] rounded-[20px] px-5 py-2 text-sm font-medium cursor-pointer hover:opacity-80 transition-opacity" type="button">← Back</button>
-            <button className="text-[#530a23] rounded-[20px] px-5 py-2 text-sm font-medium cursor-pointer hover:scale-110 transition-transform" type="button">← Back</button>
+            <button type='button' className="text-[#FCECDD] rounded-[20px] px-5 py-2 text-sm font-medium cursor-pointer hover:opacity-80 transition-opacity">← Back</button>
+            <button type='button' className="text-[#530a23] rounded-[20px] px-5 py-2 text-sm font-medium cursor-pointer hover:scale-110 transition-transform">← Back</button>
         </div>
     );
 
     if (name === 'Input Field') return (
         <div className="flex flex-col gap-3 w-full max-w-[320px]">
             <input placeholder="Default input" className="h-12 bg-white border border-gray-300 rounded-[20px] px-4 text-sm text-gray-900 outline-none"/>
-            <input placeholder="Focus State" className="h-12 bg-white border-2 border-gray-300 rounded-[20px] px-4 text-sm text-gray-900 outline-none shadow[0_0_0_3px_rgba(185, 21, 81,0.15)]"/>
+            <input placeholder="Focus State" className="h-12 bg-white border-2 border-gray-300 rounded-[20px] px-4 text-sm text-gray-900 outline-none shadow-[0_0_0_3px_rgba(185, 21, 81,0.15)]"/>
             <input placeholder="Disabled" disabled className="h-12 bg-white border border-gray-300 rounded-[20px] px-4 text-sm text-gray-400 opacity-50"/>
         </div>
     );
 
     if (name === 'Checkbox') return (
-        <div className="flex items0center gap-3">
+        <div className="flex items-center gap-3">
             <input type="checkbox" id="terms-checkbox" className="w-6 h-6 cursor-pointer"/>
             <label htmlFor="terms-checkbox" className="text-sm text-gray-600 cursor-pointer">
-                Accept <span className="underline text=[#530a23]">Terms & Conditions</span>
+                Accept <span className="underline text-[#530a23]">Terms & Conditions</span>
             </label>
         </div>
     );
 
     if (name === 'Glass Card') return (
-        <div className="bg-black/80 border border-white/20 rounded-xl p-6 text-white text-sm w-ful max-w-[280px]">
+        <div className="bg-black/80 border border-white/20 rounded-xl p-6 text-white text-sm w-full max-w-[280px]">
             <p className="font-semibold mb-1">Glass Card</p>
             <p className="text-white/60 text-xs">Used on dashboard for elevated content areas</p>
         </div>

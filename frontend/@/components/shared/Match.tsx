@@ -5,6 +5,7 @@ import door from 'src/assets/Decor/door.png'
 import { Badge } from '../ui/badge'
 import { Progress } from '../ui/progress'
 
+
 interface MatchScreenProps {
     player_life: number[],
     colour: string,
@@ -134,20 +135,12 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                 <Badge variant={'outline'} className='text-white text-sm font-body text-center font-semibold w-[60%] h-[2rem]'>Start</Badge>
                                 <div className="absolute top-0 bg-secondary h-[90%] w-[15%] -z-10 rounded-3xl "></div>
                                 {
-                                    Array.from({ length: question_number }).map((_, id) => {
-
-                                        const correct = question_results[id];
-                                        const result_colour = () => {
-                                            if (correct === true) return 'bg-green-200'
-                                            if (correct === false) return 'bg-red-200'
-                                            return 'bg-transparent'
-                                        }
-
+                                    [...Array(question_number)].map((id) => {
                                         return (
                                             <React.Fragment key={`${question_number}-${id}`}>
 
                                                 <div className=' w-[100%] h-[8rem] flex items-center justify-center col-start-2 '>
-                                                    <div className={`${result_colour()} rounded-full p-[1%] flex items-center justify-center`}>
+                                                    <div className={` rounded-full p-[1%] flex items-center justify-center`}>
                                                         <img src={door}
                                                             className="w-20 h-20 object-cover rounded-full"
                                                             alt='door'

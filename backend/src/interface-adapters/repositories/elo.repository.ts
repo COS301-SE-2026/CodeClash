@@ -4,6 +4,8 @@ import { EloHistory, EloRatings } from "src/entities/db-entities/elo.entities";
 import { EloDTO, EloUpdateResultDTO } from "src/interface-adapters/dtos/elo.dto";
 import { AppDataSource } from "src/frameworks-drivers/config/data-source";
 
+import { LeaderboardEntryDTO } from "src/interface-adapters/dtos/leaderboard.dto"
+
 const K_FACTOR = 32
 
 export class EloRepository implements IEloRepository {
@@ -63,6 +65,28 @@ export class EloRepository implements IEloRepository {
 
         return elos;
 
+    }
+
+    async getLeaderboard(limit: number, offset: number): Promise<{ data: LeaderboardEntryDTO[]; total: number }> {
+      const [results, total] = await this.eloRepository
+        .createQueryBuilder('elo')
+        .innerJoinAndSelect('elo.user', 'user')
+        .orderBy('elo.rating', 'DESC')
+        .skip(offset)
+        .take(limit)
+        .getManyAndCount()
+
+      return {
+        data: results.map((elo, index) => ({
+          user_id: elo.user.user_id,
+          username: elo.user.username,
+          avatar_id: elo.user.avatar_id,
+          league: elo.user.league,
+          rating: elo.rating,
+          rank: index + 1
+        })),
+        total
+      }
     }
 
     async updateRatingsAfterMatch(

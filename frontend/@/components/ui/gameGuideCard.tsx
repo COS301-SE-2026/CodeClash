@@ -30,7 +30,7 @@ interface GameGuideCardTextProps{
 
 export const GameGuideCardText = ({children, className} : GameGuideCardTextProps) => {
     return(
-        <h1 className={`font-font font-semibold text-[#FFFFFF] mx-auto mt-1
+        <h1 className={`font-font font-semibold text-[#FFFFFF] mx-auto
             ${className}
         `}>
             {children}

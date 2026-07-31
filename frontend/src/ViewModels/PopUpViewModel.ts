@@ -5,7 +5,6 @@ import { useUser } from "src/context/User/hooks/useUser";
 import type { GameMode, MatchmakingUserDTO } from "src/dtos/matchmaking.dto";
 
 
-
 export function useSelectTopic() {
     const navigation = useNavigate();
     const { socket } = useSocket();

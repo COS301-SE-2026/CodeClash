@@ -37,7 +37,7 @@ import { sendGameQuestions, joinMatchQueue, leaveMatchQueue, matchAccepted, matc
 import { Users } from "../entities/db-entities/user.entities"
 import { validateToken } from '../interface-adapters/auth/auth.service';
 
-import { createApp } from './app';
+import  app from './app';
 import { AppDataSource } from "./config/data-source"
 import { OpponentProgress } from 'src/application/usecases/systems/opponent-progress';
 import { IMatchRepository } from 'src/application/interfaces/repositories/IMatchRepository';
@@ -68,7 +68,7 @@ AppDataSource.initialize()
             AppDataSource.getRepository(Users)
         )
 
-        const app = createApp(user_repo)
+
         const httpServer = createServer(app)     // can update to https
         const io = new Server(httpServer, {
             cors: {

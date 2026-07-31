@@ -49,7 +49,7 @@ export const resetPasswordForm: ResetPasswordForm = {
 export function validateForgotPasswordForm(data: ForgotPasswordForm): string | null {
     if (!data.email.trim()) return 'Email is required';
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // --NOSONAR
+    const emailRegex = /^\S+@\S+\.\S+$/;
     if(!emailRegex.test(data.email.trim())) return 'Please enter a valid email address';
 
     return null;

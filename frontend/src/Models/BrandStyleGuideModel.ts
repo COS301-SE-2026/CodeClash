@@ -54,6 +54,11 @@ export interface ContrastPairs {
     level: "AA" | "AAA";
 }
 
+export interface AccessibilitySection {
+    title: string;
+    items: string[];
+}
+
 export interface BrandStyleGuideContent {
     meta: {
         version: string;
@@ -85,6 +90,7 @@ export interface BrandStyleGuideContent {
     accessibility: {
         metrics: Accessibility[];
         contrastPairs: ContrastPairs[];
+        sections: AccessibilitySection[];
     };
 
     logoRules: {
@@ -707,6 +713,32 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
                 level: 'AA',
             },
         ],
+        
+        sections: [
+            {
+                title: 'Keyboard Navigation',
+                items: [
+                    "Buttons activate using Enter or Space",
+                    "No keyboard traps exist",
+                    "Dismissal may be done using Escape"
+                ]
+            },
+            {
+                title: 'Screem Reader Support',
+                items: [
+                    "Every form field has an associated label",
+                    "Decorative images use empty alt attributes",
+                    "Meaningful icons include accessible labels"
+                ]
+            },
+            {
+                title: 'Reduced Motion',
+                items: [
+                    "Animations are decorative only",
+                    "Users can navigate without animation"
+                ]
+            }
+        ]
     },
 
     logoRules: {

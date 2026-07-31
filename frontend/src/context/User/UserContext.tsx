@@ -7,15 +7,15 @@ import { UserContext } from "./UserContextValue";
 
 const url = import.meta.env.VITE_API_URL;
 
-
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [elo, setElo] = useState(0);
     const [avatar, setAvatar] = useState('');
     const [error, setError] = useState('');
     const [league, setLeague] = useState('');
-    const { user, token } = useAuth();
-    const userId = user?.userId ?? ""
-    const username = user?.username ?? ""
+    const { user, token, isLoading } = useAuth();
+ const [rank, setRank] = useState('');
+  const userId = user?.userId ?? ""
+    const username = user?.username ?? '';
 
 
     const getElo = async () => {
@@ -104,6 +104,32 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         ]);
     }
 
+    const getRank = async () => {
+
+        if (!token) {
+            setError('Missing or Invalid Token');
+            return;
+        }
+
+        try {
+            await axios.get(url.concat('user/rank'), {
+                headers: { Authorization: `Bearer ${token}` }
+            })
+                .then((res) => {
+                    if (res.status === 200) {
+                        setRank(res.data.rank);
+                    }
+                    else {
+                        setError(`Error: ${res.status} ${res.data}`)
+                    }
+                })
+        }
+        catch (error) {
+            setError(`Error Getting User Rank: ${error}`);
+        }
+
+    }
+
 
     useEffect(() => {
 
@@ -122,8 +148,8 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
 
     const value = useMemo(() => ({
-        username, elo, avatar, error, league, userId, refresh
-    }), [username, elo, avatar, error, league, userId])
+        username, elo, avatar, error, league, userId, refresh, rank
+    }), [username, elo, avatar, error, league, userId, rank])
 
     return (
         <UserContext.Provider
