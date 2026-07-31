@@ -20,9 +20,14 @@ beforeEach(() => {
 
 it('signs out and navigates to /welcome', async () => {
 
-    signOut.mockResolvedValueOnce(undefined);  
-
     const {result} = renderHook(() => useLogOut());
 
     await act(() => result.current());
+
+    expect(signOut).toHaveBeenCalled();
+    expect(mock_nav).toHaveBeenCalledWith('/welcome');
+});
+
+it('does not navigate if signOut throws an error', async () => {
+    
 })
