@@ -9,9 +9,9 @@ import "../styles/global.css"
 
 
 
-async function ProfileView(){
+function ProfileView(){
   
-  const { userData, loadingData, error} = await getProfile();
+  const { userData, loadingData, error} = getProfile();
 
   const onLogout = useLogOut();
 
@@ -35,7 +35,7 @@ async function ProfileView(){
         ← Back
       </Link>
 
-      <Card className="w-[40%] h-[35rem] flex items-center justify-center bg-[#F8E5DD]">
+      <Card className="w-[40%] h-[40rem] flex items-center justify-center bg-[#F8E5DD]">
 
         <div className="w-[35%]" >
           <img src={userData?.avatar} alt="avatarImage" className="" />
@@ -64,7 +64,7 @@ async function ProfileView(){
 };
 
 const Profile = () => {
-  ProfileView();
+  return <ProfileView/>;
 }
 
 export default Profile;

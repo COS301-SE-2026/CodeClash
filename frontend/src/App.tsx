@@ -14,29 +14,24 @@ import MatchHistory from "./Views/MatchHistory";
 import ForgotPassword from "./Views/ForgotPassword";
 import TermsAndConditions from "./Views/TermsAndConditions";
 import FinalResults from "./Views/FinalResults";
-import GameGuide from "./Views/GameGuide"
-import Guidebook from "./Views/Guidebook";
-import HelpMenu from "./Views/HelpMenu";
 import Landing from "./Views/Landing";
+import GameGuide from "./Views/GameGuide"
+import HelpMenu from "./Views/HelpMenu";
 import Leaderboard from "./Views/Leaderboard";
 import MatchSearching from "./Views/MatchSearching";
 import Profile from "./Views/Profile";
 import SignIn from "./Views/SignIn";
 import SignUp from "./Views/SignUp";
-import Welcome from "./Views/Welcome";
 
 const App: React.FC = () => {
 
-    const { user, isLoading } = useAuth();
-    if(isLoading){
-        return <Loading isOpen={isLoading} />
-    }
+    const { user } = useAuth();
 
     const logged_in = user !== null
 
     const base_path = logged_in ? <Dashboard /> : <Landing />
 
-    if (logged_in === false) {
+    if (!logged_in) {
         return (
             <Routes>
                 <Route path='/' element={<Landing />} />
@@ -44,8 +39,9 @@ const App: React.FC = () => {
                 <Route path='/sign-up' element={<SignUp />} />
                 <Route path='terms' element={<TermsAndConditions/>}/>
                 <Route path= '/brand-style-guide' element={<BrandStyleGuide/>}/>
-                <Route path='/game-guide' element={<Guidebook/>}/> 
-                <Route path= '/help-menu' element={<HelpMenu/>}/>
+                {/*<Route path='/game-guide' element={<Guidebook/>}/> */}
+            <Route path='/help-menu' element={<HelpMenu />} />
+            <Route path='/leaderboard' element={<Leaderboard />} />
                 <Route path='*' element={<Navigate to='/sign-in' replace />} />
 
             </Routes>
@@ -61,6 +57,7 @@ const App: React.FC = () => {
             <Route path='/match-searching' element={<MatchSearching />} />
             <Route path='/match-found' element={<MatchFound />} />
             <Route path='/maths-match' element={<MathMatch />} />
+            {/*<Route path='/leaderboard' element={<Leaderboard />} />*/}
             <Route path='/prog-match' element={<ProgMatch language="javascript" />} />
             {/* <Route path='/prog-match' element={<ProgMatch language="javascript"/>}/> */}
 

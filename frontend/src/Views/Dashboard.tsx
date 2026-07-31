@@ -1,36 +1,26 @@
 import { Search, Bot, UserCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useAuth } from 'src/context/Auth/hooks/useAuth';
 import { useUser } from 'src/context/User/hooks/useUser';
 
 import backgroundImg from '../assets/Background/dashboard.png'
 import brainIcon from '../assets/Icons/Brain.png';
 import { useShowPopUp } from '../ViewModels/DashboardViewModel';
-//import {getUserElo, getUserToken } from '../ViewModels/SharedViewModel';
 
 
 import Popup from './Popup'
 
 import GlassCard from '@/components/shared/GlassCard'
-import Loading from '@/components/shared/Loading';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 
-
 // View Model
+
 
 const Dashboard = () => {
   const { isOpen, openPopUp, closePopUp } = useShowPopUp();
   const { username, elo, league, avatar } = useUser();
-  const { isLoading } = useAuth();
-
-  if (isLoading) {
-    return (
-      <Loading isOpen={isLoading}></Loading>
-    )
-  }
 
   return (
     <div style={{ backgroundImage: `url(${backgroundImg})` }} className='w-full h-[20] h-screen bg-cover bg-center flex flex-col items-center'>
