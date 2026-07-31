@@ -1,0 +1,16 @@
+frontend/src/App.tsx
+  h_b13c5d77534129 43-45
+frontend/src/Views/GameGuide.tsx
+  h_b13c5d77534129 24,27-28,32,51-52,63-64,75-76,87-88
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.18",
+  "base_commit_sha": "7b523d81855e34dfc0254614df61c0c0bab0023d",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
