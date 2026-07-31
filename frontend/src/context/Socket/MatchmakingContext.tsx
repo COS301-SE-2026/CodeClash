@@ -1,6 +1,6 @@
 
 
-import React, { useEffect, useState, type ReactNode } from "react";
+import React, { useEffect, useMemo, useState, type ReactNode } from "react";
 import { MatchmakingContext } from "./MatchmakingContextValue";
 import type { MatchmakingUserDTO, GameType, GameMode, MatchAcceptedDTO } from "src/dtos/matchmaking.dto";
 import { Socket } from "socket.io-client";
@@ -15,7 +15,7 @@ export const MatchmakingProvider: React.FC<{ children: ReactNode }> = ({ childre
     const [matched, setMatched] = useState(false);
     const [matchedUsers, setMatchedUsers] = useState<MatchedUsersDTO | null>(null);
     const { socket } = useSocket()
- 
+
     const handleMatched = (data: MatchedUsersDTO) => {
         setMatched(true)
         setPairId(data.pair_id);
@@ -46,23 +46,24 @@ export const MatchmakingProvider: React.FC<{ children: ReactNode }> = ({ childre
     }
 
 
+    const value = useMemo(() => ({
+        gameMode,
+        gameType,
+        pairId,
+        matched,
+        setGameType,
+        setGameMode,
+        joinMatchQueue,
+        leaveMatchQueue,
+        matchAccepted,
+        matchDeclined,
+        matchedUsers,
+        setMatched
+    }), [gameMode, gameType, pairId, matched, setGameType])
 
     return (
         <MatchmakingContext.Provider
-            value={{
-                gameMode,
-                gameType,
-                pairId,
-                matched,
-                setGameType,
-                setGameMode,
-                joinMatchQueue,
-                leaveMatchQueue,
-                matchAccepted,
-                matchDeclined,
-                matchedUsers,
-                setMatched
-            }}
+            value={value}
         >
             {children}
         </MatchmakingContext.Provider>

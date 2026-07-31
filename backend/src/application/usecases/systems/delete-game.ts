@@ -1,9 +1,7 @@
-import { MatchComponent, PlayersComponent, ResultComponent, RoundComponent, SubmissionRegistryComponent } from "src/entities/components";
+import { MatchComponent, PlayersComponent, SubmissionRegistryComponent } from "src/entities/components";
 import { World } from "src/entities/World";
 import { GameStore } from "../services/game-store.service";
 import { MatchedUsersService } from "../services/matched-users.service";
-import { IGameCache } from "src/application/interfaces/cache/IGameCache";
-
 
 export class DeleteGame {
     private readonly getMatchComponent

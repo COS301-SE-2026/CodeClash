@@ -3,7 +3,6 @@ import bg from '../assets/Background/leaderboardBG.jfif'
 import profile from '../assets/Icons/Profile.png';
 import winner from '../assets/Icons/winner.png';
 import planet from '../assets/Planets/Earth.png';
-import shadow from '../assets/shadow.png';
 
 import '../styles/global.css';
 import {Link} from 'react-router-dom';

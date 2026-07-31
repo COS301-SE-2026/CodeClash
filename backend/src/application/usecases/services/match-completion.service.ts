@@ -13,7 +13,7 @@ export class MatchCompletionService {
 
 
     async execute(ecs_match_id:number, db_match_id: string, is_ranked: boolean) {
-        const { getMatchComponent, getSubmissionComponent, getPlayerComponent } = World();
+        const { getMatchComponent, getSubmissionComponent, getPlayerComponent } = this.world;
 
         const submission_registry = getMatchComponent<SubmissionRegistryComponent>(ecs_match_id, 'Submission');
         const players = getMatchComponent<PlayersComponent>(ecs_match_id, 'Players');
@@ -80,7 +80,7 @@ export class MatchCompletionService {
             const total = submissions.length;
             const correct = submissions.filter(s => s.correct).length;
             const correctness = total > 0? Math.round((correct / total) * 100) : 0;
-            const speed = this.formatSpeed(submissions);
+            const speed = Number(this.formatSpeed(submissions));
 
             playerStats.push({ user_id: player_id, correctness, speed});
         }
@@ -98,19 +98,19 @@ export class MatchCompletionService {
     private getLastSubmissionTime(submissions: SubmissionComponent[], match_start: Date): number {
         if (submissions.length === 0) return Infinity;
 
-        const last_submission = submissions.reduce((latest, s) => s.submitted_at > latest.submitted_at ? s : latest);
+        const last_submission = submissions.reduce((latest, s) => s.submitted_at! > latest.submitted_at! ? s : latest);
 
-        return last_submission.submitted_at.getTime() - match_start.getTime();
+        return last_submission.submitted_at!.getTime() - match_start.getTime();
     }
 
     private formatSpeed(submissions: SubmissionComponent[]): string {
         if (submissions.length === 0) return '00:00';
 
-        const first = submissions.reduce((earliest, s) => s.submitted_at > earliest.submitted_at ? s : earliest);
+        const first = submissions.reduce((earliest, s) => s.submitted_at! > earliest.submitted_at! ? s : earliest);
 
-        const last = submissions.reduce((latest, s) => s.submitted_at > latest.submitted_at ? s : latest); 
+        const last = submissions.reduce((latest, s) => s.submitted_at! > latest.submitted_at! ? s : latest); 
         
-        const totalSeconds = Math.floor((last.submitted_at.getTime() - first.submitted_at.getTime()) / 1000);
+        const totalSeconds = Math.floor((last.submitted_at!.getTime() - first.submitted_at!.getTime()) / 1000);
         const mm = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
         const ss = String(totalSeconds % 60).padStart(2, '0');
         return `${mm}:${ss}`;

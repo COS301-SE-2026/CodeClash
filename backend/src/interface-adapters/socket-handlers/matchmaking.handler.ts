@@ -1,8 +1,7 @@
 import { Socket, Server } from "socket.io"
 import { GameService } from 'src/application/usecases/services/game.service';
 import { MatchmakingService } from 'src/application/usecases/services/matchmaking.service';
-import { PlayerDTO } from "src/interface-adapters/dtos/components.dto";
-import { GameDataDTO, GameQuestionsDTO } from "src/interface-adapters/dtos/match-data.dto";
+import { GameDataDTO} from "src/interface-adapters/dtos/match-data.dto";
 import MatchmakingUserDTO from 'src/interface-adapters/dtos/matchmaking.dto';
 import { MatchedUsersService } from "src/application/usecases/services/matched-users.service";
 import { GameStore } from "src/application/usecases/services/game-store.service";

@@ -93,7 +93,7 @@ export function MatchFoundViewModelFunction() {
   }
 
   const set_players = (matched_users: MatchedUsersDTO) => {
-    if(!matchedUsers || !matchedUsers.players) return
+    if(!matchedUsers?.players) return
 
     const player_1 = matched_users.players.player_1;
     const p1: MatchFoundPlayer = {

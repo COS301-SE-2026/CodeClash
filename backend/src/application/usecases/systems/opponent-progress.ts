@@ -1,5 +1,5 @@
 import { World } from "src/entities/World";
-import { PlayersComponent, LifeComponent } from "src/entities/components";
+import { PlayersComponent} from "src/entities/components";
 import { SubmissionDTO } from "src/interface-adapters/dtos/components.dto";
 
 

@@ -111,9 +111,9 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
         const load = async () => {
             await Promise.all([
-                getElo(),
                 getAvatarUrl(),
-                getLeague()
+                getLeague(),
+                getElo(),
             ]);
         }
 

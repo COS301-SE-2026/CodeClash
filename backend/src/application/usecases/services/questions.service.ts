@@ -35,7 +35,6 @@ export class GetQuestions {
 }
 
 export class GetDifficulty {
-    constructor() { }
 
     execute(questions: GameQuestionsDTO) {
 
@@ -63,7 +62,6 @@ export class GetDifficulty {
 }
 
 export class GetTotalTime {
-    constructor() { }
 
     execute(questions: GameQuestionsDTO){
         let time = 0;

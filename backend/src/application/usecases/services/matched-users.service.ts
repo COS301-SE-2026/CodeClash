@@ -2,9 +2,7 @@ import { MatchedPlayersDTO } from "src/interface-adapters/dtos/match-data.dto";
 
 export class MatchedUsersService {
 
-    private PAIRS = new Map<string, Map<string, { accepted: boolean, elo: number }>>();
-    constructor() { }
-
+    private readonly PAIRS = new Map<string, Map<string, { accepted: boolean, elo: number }>>();
 
     create(match: MatchedPlayersDTO) {
         const player_1 = match.player_1;

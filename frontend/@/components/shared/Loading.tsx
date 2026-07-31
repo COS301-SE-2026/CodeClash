@@ -1,6 +1,3 @@
-
-import type React from "react";
-
 import { Spinner } from "../ui/spinner";
 
 import { cn } from "@/lib/utils";
@@ -8,7 +5,6 @@ import { cn } from "@/lib/utils";
 interface LoadingProps {
     isOpen?: boolean;
     className?: string;
-    children?: React.ReactNode;
     text?:string
 }
 

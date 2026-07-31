@@ -62,9 +62,9 @@ export const useMatch = () => {
     const { seconds, minutes, restart } = useTimer({
         expiryTimestamp: expiry_time,
         autoStart: false,
-        onExpire: async () => {
+        onExpire: () => {
             setGameOver(true);
-            await endGame(id, gameType, socket);
+            endGame(id, gameType, socket);
         }
     });
 
@@ -91,10 +91,10 @@ export const useMatch = () => {
         submitAnswer(socket, id, question_id, answer, q_index.current);
     }
 
-    const finishGame = async () => {
+    const finishGame = () => {
         if (q_index.current === questions.length - 1) {
             setWaitingOpponent(true)
-            await endGame(id, gameType, socket);
+            endGame(id, gameType, socket);
         }
     }
 

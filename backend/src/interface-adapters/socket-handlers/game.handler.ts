@@ -81,7 +81,7 @@ export const sendResults = (io: Server, game_id: number, pair_id: string, game_s
 
     const result = game_store.getResult(game_id);
 
-    if (!result || !result.result) throw new Error("Couldn't fetch result");
+    if (!result?.result) throw new Error("Couldn't fetch result");
 
     const ids = result.result.players.map(player => player.user_id);
     for (const id of ids) {

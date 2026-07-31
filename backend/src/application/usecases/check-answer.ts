@@ -8,7 +8,7 @@ import { SubmissionSystem } from "./systems/submission.system";
 
 
 export class CheckAnswer {
-    private getMatchComponent;
+    private readonly getMatchComponent;
 
     constructor(
         private readonly game_cache: IGameCache,

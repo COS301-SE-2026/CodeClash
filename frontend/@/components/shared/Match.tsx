@@ -121,7 +121,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                         alt='progress avatar user 2'
                                     />
                                     {opponent_done &&
-                                        <Badge variant={'secondary'} className= 'absolute top-25 animate-pop botton-0 w-[100%] h-[2rem] text-sm font-bold'>DONE</Badge>
+                                        <Badge variant={'secondary'} className='absolute top-25 animate-pop botton-0 w-[100%] h-[2rem] text-sm font-bold'>DONE</Badge>
                                     }
 
                                 </div>
@@ -137,15 +137,17 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                     Array.from({ length: question_number }).map((_, id) => {
 
                                         const correct = question_results[id];
-                                        const result_colour =
-                                            (correct === true) ? 'bg-green-200' :
-                                                (correct === false) ? 'bg-red-200' : 'bg-transparent'
+                                        const result_colour = () => {
+                                            if (correct === true) return 'bg-green-200'
+                                            if (correct === false) return 'bg-red-200'
+                                            return 'bg-transparent'
+                                        }
 
                                         return (
                                             <React.Fragment key={`${question_number}-${id}`}>
 
                                                 <div className=' w-[100%] h-[8rem] flex items-center justify-center col-start-2 '>
-                                                    <div className={`${result_colour} rounded-full p-[1%] flex items-center justify-center`}>
+                                                    <div className={`${result_colour()} rounded-full p-[1%] flex items-center justify-center`}>
                                                         <img src={door}
                                                             className="w-20 h-20 object-cover rounded-full"
                                                             alt='door'

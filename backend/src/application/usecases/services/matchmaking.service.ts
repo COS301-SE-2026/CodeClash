@@ -4,7 +4,7 @@ import MatchmakingUserDTO from "src/interface-adapters/dtos/matchmaking.dto";
 
 
 export class MatchmakingService {
-    private elo_difference = 100;
+    private readonly elo_difference = 100;
 
     constructor(
         private readonly cache: IMatchmakingCache

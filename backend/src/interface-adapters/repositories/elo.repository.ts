@@ -10,7 +10,7 @@ export class EloRepository implements IEloRepository {
     constructor(
         private readonly eloRepository: Repository<EloRatings>
     ) { }
-    private historyRepo: Repository<EloHistory> = AppDataSource.getRepository(EloHistory);
+    private readonly historyRepo: Repository<EloHistory> = AppDataSource.getRepository(EloHistory);
 
     async createUserElo(user_id: string): Promise<void> {
 
@@ -74,7 +74,7 @@ export class EloRepository implements IEloRepository {
         const winnerRating = await this.getElo(winner_id);
         const loserRating = await this.getElo(loser_id);
 
-        if(!winnerRating ||!winnerRating.rating || !loserRating ||!loserRating.rating) {
+        if(!winnerRating?.rating || !loserRating?.rating) {
             throw new Error("Players need to have a previous elo to update it");
         }
 

@@ -31,8 +31,8 @@ export class CreateGame {
 }
 
 export class CreatePlayerEntity {
-    private createEntity;
-    private addPlayerComponent;
+    private readonly createEntity;
+    private readonly addPlayerComponent;
 
     constructor(
         private readonly world: ReturnType<typeof World>
@@ -75,11 +75,11 @@ export class CreatePlayerEntity {
 
 
 export class CreateRoundEntity {
-    private createEntity;
-    private addRoundComponent;
+    private readonly createEntity;
+    private readonly addRoundComponent;
 
     constructor(
-         private readonly world: ReturnType<typeof World>
+        private readonly world: ReturnType<typeof World>
     ) {
         const { createEntity, addRoundComponent } = this.world;
 
@@ -104,11 +104,11 @@ export class CreateRoundEntity {
 
 
 export class CreateMatchEntity {
-    private createEntity;
-    private addMatchComponent;
+    private readonly createEntity;
+    private readonly addMatchComponent;
 
     constructor(
-         private readonly world: ReturnType<typeof World>
+        private readonly world: ReturnType<typeof World>
     ) {
         const { createEntity, addMatchComponent } = this.world;
         this.createEntity = createEntity;

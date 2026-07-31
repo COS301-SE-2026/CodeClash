@@ -1,13 +1,11 @@
 import { Link } from 'react-router-dom';
-import { useAuth } from 'src/context/Auth/hooks/useAuth';
-import { useUser } from 'src/context/User/hooks/useUser';
 
 import backgroundImg from '../assets/Background/dashboard.png'
 import aiIcon from '../assets/Icons/AI.png';
 import brainIcon from '../assets/Icons/Brain.png';
 import profileIcon from '../assets/Icons/Profile.png';
 import searchIcon from '../assets/Icons/Search.png';
-import { dashboardViewModel } from '../ViewModels/DashboardViewModel';
+import { useDashboardViewModel } from '../ViewModels/DashboardViewModel';
 
 import Popup from './Popup'
 
@@ -20,7 +18,7 @@ import { Progress } from '@/components/ui/progress';
 
 
 const Dashboard = () => {
-  const { isOpen, openPopUp, closePopUp, username, elo, league, avatar, isLoading } = dashboardViewModel();
+  const { isOpen, openPopUp, closePopUp, username, elo, league, avatar, isLoading } = useDashboardViewModel();
 
   if (isLoading) {
     return (

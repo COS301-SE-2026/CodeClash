@@ -5,7 +5,7 @@ import { MatchResultDTO } from "src/interface-adapters/dtos/match-result.dto";
 
 
 export class GameStore {
-    private GAME = new Map<number, {
+    private readonly GAME = new Map<number, {
         database_id: string,
         players: PlayerDTO[],
         questions: GameQuestionsDTO,
@@ -33,7 +33,7 @@ export class GameStore {
             })
         )
 
-        this.GAME.set(match_id, { database_id: db_id, players: populatePlayerData, questions: questions, result: null , ack_count: 0});
+        this.GAME.set(match_id, { database_id: db_id, players: populatePlayerData, questions: questions, result: null, ack_count: 0 });
     }
 
     get(game_id: number) {
@@ -45,10 +45,9 @@ export class GameStore {
 
         if (!game) throw new Error("Invalid game id")
 
-        game.players.map((player) => {
+        game.players.forEach((player) => {
             if (player.id === player_id) {
                 player.done = true;
-                return;
             }
         })
     }
