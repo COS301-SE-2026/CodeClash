@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
-
-import MatchmakingUserDTO from "../dtos/matchmaking.dto";
-import { joinMatchQueue } from "../context/Socket/hooks/useMatchmakingSocket";
 import { useUser } from "src/context/User/hooks/useUser";
+
+import { joinMatchQueue } from "../context/Socket/hooks/useMatchmakingSocket";
+import MatchmakingUserDTO from "../dtos/matchmaking.dto";
 
 
 export function useSelectTopic() {

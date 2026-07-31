@@ -1,16 +1,18 @@
-// This is the View for the brand style guide - this will contain all react components, no logic, and call the ViewModel
+// This is the View for the brand style guide - this will contain all react components, no logic, and call the ViewModel - correct file
 
 import React from "react";
+
 import { BrandStyleGuideViewModelFunction, navSections } from "../ViewModels/BrandStyleGuideViewModel";
-import IntroSection from "./BrandStyleGuide/IntroductionSection";
-import ColorSection from "./BrandStyleGuide/ColorSection";
-import TypographySection from "./BrandStyleGuide/TypographySection";
-import LogoSection from "./BrandStyleGuide/LogoSection";
-import TokenSection from "./BrandStyleGuide/TokenSection";
-import ComponentSection from "./BrandStyleGuide/ComponentSection";
-import LayoutSection from "./BrandStyleGuide/LayoutSection";
+
 import AccessibilitySection from "./BrandStyleGuide/AccessibilitySection";
 import ChangelogSection from "./BrandStyleGuide/ChangelogSection";
+import ColorSection from "./BrandStyleGuide/ColorSection";
+import ComponentSection from "./BrandStyleGuide/ComponentSection";
+import IntroSection from "./BrandStyleGuide/IntroductionSection";
+import LayoutSection from "./BrandStyleGuide/LayoutSection";
+import LogoSection from "./BrandStyleGuide/LogoSection";
+import TokenSection from "./BrandStyleGuide/TokenSection";
+import TypographySection from "./BrandStyleGuide/TypographySection";
 import VoiceSection from "./BrandStyleGuide/VoiceSection";
 
 const BrandStyleGuide: React.FC = () => {
@@ -33,8 +35,7 @@ const BrandStyleGuide: React.FC = () => {
                         {navSections.map(section => (
                             <button type="button" key={section.id} onClick={() => sectionScroll(section.id)}
                             className= {
-                                `px-2 py-1.5 rounded-md text-xs font-medium transition-all duration-150 cursor-pointer border-none ${active === section.id ? 'bg-[#530a23] text-[#FCECDD]' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-100 bg-transparent'}`}
-                            >
+                                `px-2 py-1.5 rounded-md text-xs font-medium transition-all duration-150 cursor-pointer border-none ${active === section.id ? 'bg-[#530a23] text-[#FCECDD]' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-100 bg-transparent'}`}>
                                 {section.label}
                             </button>
                         ))}

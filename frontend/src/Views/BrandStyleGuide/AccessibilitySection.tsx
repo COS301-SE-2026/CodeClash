@@ -1,8 +1,10 @@
-//This is the accessibility section for the brand style guide 
+//This is the accessibility section for the brand style guide -correct file
 
 import React from "react";
-import SharedLayout from "./SharedLayout";
+
 import type { BrandStyleGuideContent } from "../../Models/BrandStyleGuideModel";
+
+import SharedLayout from "./SharedLayout";
 
 interface Props {
     content: BrandStyleGuideContent;
@@ -55,10 +57,26 @@ const AccessibilitySection: React.FC<Props> = ({content}) => {
             <div className="border border-gray-100 rounded-xl overflow-hidden mb-8">
                 {content.accessibilityRules.map((rule, i, arr) => (
                     <div key={rule} className= {`flex gap-3 px-4 py-3 ${i < arr.length- 1 ? 'border-b border-gray-50' : ''}`}>
-                        <p className="text-gray-600 text-xs leading relaxed">- {rule}</p>
+                        <span className="text-gray-600 text-xs leading relaxed">- {rule}</span>
                     </div>
                 ))}
             </div>
+
+            {/*Sections */}
+            {content.accessibility.sections.map((section) => (
+                <div key={section.title} className="mb-8">
+                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">{section.title}</p>
+                    <div className="border border-gray-100 rounded-xl p-5">
+                        <ul className="space-y-2">
+                            {section.items.map((item) => (
+                                <div key={item} className="text-xsm text-gray-600 leading-relaxed flex gap-2">
+                                    <span className="text-gray-600 text-xs leading-relaxed">- {item}</span>
+                                </div>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            ))}
         </SharedLayout>
     );
 };

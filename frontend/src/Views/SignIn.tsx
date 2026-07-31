@@ -22,7 +22,7 @@ const SignIn: React.FC= () => {
         <div className="relative w-full h-screen flex items-center justify-center overflow-hidden"
             style={{ background: 'var(--background)' }} >
             <Link className="primary-back-button"
-                to='/welcome'
+                to='/'
             >
                 ← Back
             </Link>
