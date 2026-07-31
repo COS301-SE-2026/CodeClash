@@ -1,29 +1,35 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useMatchmaking } from "src/context/Socket/hooks/useMatchmaking";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
 import { useUser } from "src/context/User/hooks/useUser";
-
-import { joinMatchQueue } from "../context/Socket/hooks/useMatchmakingSocket";
-import MatchmakingUserDTO from "../dtos/matchmaking.dto";
+import type { GameMode, MatchmakingUserDTO } from "src/dtos/matchmaking.dto";
 
 
 export function useSelectTopic() {
     const navigation = useNavigate();
-    const [topic, setTopic] = useState('');
     const { socket } = useSocket();
-    const { elo } = useUser();
+    const { elo, username } = useUser();
+    const { joinMatchQueue, gameType, leaveMatchQueue } = useMatchmaking()
 
-    const selectTopic = async (selected_topic: string) => {
-        setTopic(selected_topic);
-
+    const selectTopic = (selected_topic: GameMode) => {
         if (!socket) throw new Error("500 Internal Server Error");
 
-        console.log("Topic: ", topic)
-        const data = new MatchmakingUserDTO(elo, selected_topic)
+        const data: MatchmakingUserDTO = {
+            username:username,
+            elo: elo,
+            game_mode: selected_topic,
+            game_type: gameType
+        }
 
         joinMatchQueue(socket, data)
         navigation('/match-searching');
 
     }
-    return selectTopic;
+
+    const cancel = () => {
+        if (!socket) throw new Error("500 Internal Server Error");
+
+        leaveMatchQueue(socket)
+    }
+    return { selectTopic, cancel };
 }

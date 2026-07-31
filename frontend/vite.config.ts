@@ -6,10 +6,6 @@ import dotenv from 'dotenv'
 import { defineConfig } from 'vitest/config'
 dotenv.config();
 
-
-
-
-
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {
@@ -26,5 +22,5 @@ export default defineConfig({
   },
   optimizeDeps: {
     exclude: ['@monaco-aditor/react', 'mathlive'],
-  },
+  }
 })

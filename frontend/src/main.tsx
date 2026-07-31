@@ -7,6 +7,7 @@ import './amplify-config'
 import './styles/global.css'
 import { SocketProvider } from './context/Socket/SocketContext'
 import { UserProvider } from './context/User/UserContext'
+import { MatchmakingProvider } from './context/Socket/MatchmakingContext'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   // <React.StrictMode>
@@ -14,9 +15,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <AuthProvider>
     <SocketProvider>
       <UserProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <MatchmakingProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </MatchmakingProvider>
       </UserProvider>
     </SocketProvider>
   </AuthProvider>

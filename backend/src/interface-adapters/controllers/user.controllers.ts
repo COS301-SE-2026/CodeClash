@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
-import { UserRepository } from '../repositories/user.repository';
+import { UserDTO } from 'src/interface-adapters/dtos/user.dto';
+
 import { validStat } from '../auth/auth.service';
-import { UserDTO } from 'src/entities/dtos/user.dto';
+import { UserRepository } from '../repositories/user.repository';
 
 
 /// GET api/user/:stat
@@ -15,8 +16,6 @@ export const getUserStat = (user_repo: UserRepository) => {
             res.status(400).json({ error: 'Invalid request' })
             return;
         }
-
-
         const data = await user_repo.getUserData(req.user.id, stat as keyof UserDTO);
 
         if (!data) {

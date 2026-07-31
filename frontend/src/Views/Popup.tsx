@@ -7,14 +7,16 @@ import { type PopupProps } from '../Models/PopUpModel';
 import { useSelectTopic } from '../ViewModels/PopUpViewModel';
 
 import { Card } from '@/components/ui/card'
+import type { GameMode } from 'src/dtos/matchmaking.dto';
 
 
 const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
-    const selectTopic = useSelectTopic();
+    const { selectTopic, cancel } = useSelectTopic();
     const nav = useNavigate();
-    const selecthandler = (t: string) => {
+
+    const selecthandler = (t: GameMode) => {
         if (selectTopic === null || t === null)
-            nav('error')
+            nav('/error')
         else {
             selectTopic(t)
         }
@@ -40,7 +42,7 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
                             onKeyDown={(e) => {
                                 const shift = e.shiftKey;
                                 if (shift && e.key === 'L') {
-                                    selecthandler('math')
+                                    selecthandler('maths')
                                 }
                             }}
                             onClick={() => selecthandler('maths')}
@@ -55,7 +57,7 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
                             onKeyDown={(e) => {
                                 const shift = e.shiftKey;
                                 if (shift && e.key === 'R') {
-                                    selecthandler('prog')
+                                    selecthandler('programming')
                                 }
                             }}
                             onClick={() => selecthandler('programming')}
@@ -66,12 +68,16 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
                         </Card>
                     </div>
                     <div className="text-[2.3rem] text-black heading font-extrabold underline mt-[4%] rounded-3xl hover:bg-primary hover:text-secondary hover:font-normal w-[80%] "
-                        onClick={onClose}
+                        onClick={() => {
+                            cancel();
+                            onClose()
+                        }}
                         role="button"
                         tabIndex={0}
                         onKeyDown={(e) => {
                             if (e.key === 'Escape') {
                                 onClose();
+                                cancel()
                             }
                         }}
                         aria-label='cancel'

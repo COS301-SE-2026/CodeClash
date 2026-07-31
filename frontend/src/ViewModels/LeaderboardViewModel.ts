@@ -37,12 +37,12 @@ export function LeaderboardViewModel(league : string){
           }
         }
         catch(err){
-            setError('Could not load User Data');
+            setError(`Could not load User Data ${err}`);
         }
         finally{
             setIsLoadingData(false);
         }
-    }, []);
+    }, [league]);
 
     useEffect(() => {
         loadLeaderboard(page);

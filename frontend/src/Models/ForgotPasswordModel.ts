@@ -60,7 +60,7 @@ export function validateResetPassword(data: ResetPasswordForm):string | null {
     if (!data.newPassword) return 'New password is required';
     if (data.newPassword.length < 8) return 'Password must be at lease 8 characters';
 
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/; // --NOSONAR
     if(!passwordRegex.test(data.newPassword)) return 'Password must contain uppercase, lowercase and atlease one number';
 
     if(!data.confirmPassword) return 'Please confirm your password';
