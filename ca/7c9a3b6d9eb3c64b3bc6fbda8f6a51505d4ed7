@@ -1,0 +1,16 @@
+backend/src/interface-adapters/socket-handlers/game.handler.ts
+  h_94c952a9e14c58 53-56,87-90
+backend/src/application/usecases/systems/delete-game.ts
+  h_94c952a9e14c58 60
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.18",
+  "base_commit_sha": "ca7c9a3b6d9eb3c64b3bc6fbda8f6a51505d4ed7",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
