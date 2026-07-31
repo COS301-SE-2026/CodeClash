@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
+import { useUser } from 'src/context/User/hooks/useUser';
 
 import { useLogOut, getProfile  } from '../ViewModels/ProfileViewModel';
 
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import "../styles/global.css"
 
 
 

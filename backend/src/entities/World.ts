@@ -4,8 +4,6 @@ import {
     PlayerComponentTypes,
     SubmissionComponent,
     RoundComponent,
-    ResultComponentTypes,
-    QuestionComponentTypes
 } from "./components";
 
 function addComponent(
@@ -13,14 +11,16 @@ function addComponent(
     entity_id: number,
     component_name: string,
     component: Component
-): boolean {
+) {
 
-    const entity = map.get(entity_id);
+    let entity = map.get(entity_id);
 
-    if (entity === undefined) return false;
+    if (entity === undefined) {
+        entity = new Map<string, Component>();
+        map.set(entity_id, entity);
+    }
 
     entity.set(component_name, component);
-    return true;
 }
 
 function getComponent<T extends Component>(
@@ -33,11 +33,19 @@ function getComponent<T extends Component>(
 
     if (entity === undefined) return null;
 
+
     const component = entity.get(component_name);
 
     if (component === undefined) return null;
 
     return component as T;
+}
+
+function removeEntity(
+    map: Map<number, Map<string, Component>>,
+    entity_id: number,
+) {
+    map.delete(entity_id);
 }
 
 export const World = () => {
@@ -47,8 +55,6 @@ export const World = () => {
     const matches = new Map<number, Map<string, Component>>();
     const rounds = new Map<number, Map<string, Component>>();
     const submissions = new Map<number, Map<string, Component>>();
-    const results = new Map<number, Map<string, Component>>();
-    const questions = new Map<number, Map<string, Component>>();
 
     let ID = 0;
 
@@ -56,22 +62,22 @@ export const World = () => {
         return ID++;
     }
 
-
     // ADDERS
 
     function addPlayerComponent(
         entity_id: number,
-        component_name: "Life" | "Rank" | "Badge",
+        component_name: "Life" | "Info" | "Rank" | "Badge",
         component: PlayerComponentTypes
-    ): boolean {
+    ) {
         return addComponent(players, entity_id, component_name, component);
     }
 
     function addMatchComponent(
         entity_id: number,
-        component_name: "Players" | "Match",
+        component_name: "Players" | "Match" | "Submission" | "Result",
         component: MatchComponentTypes
-    ): boolean {
+    ) {
+
         return addComponent(matches, entity_id, component_name, component)
     }
 
@@ -80,7 +86,7 @@ export const World = () => {
         entity_id: number,
         component_name: "Round",
         component: RoundComponent
-    ): boolean {
+    ) {
         return addComponent(rounds, entity_id, component_name, component)
     }
 
@@ -88,50 +94,51 @@ export const World = () => {
         entity_id: number,
         component_name: "Submission",
         component: SubmissionComponent
-    ): boolean {
+    ) {
         return addComponent(submissions, entity_id, component_name, component)
     }
 
 
-    function addResultComponent(
-        entity_id: number,
-        component_name: "Maths_Result" | "Prog_Result",
-        component: ResultComponentTypes
-    ): boolean {
-        return addComponent(results, entity_id, component_name, component)
-    }
-
-    function addQuestionComponents(
-        entity_id: number,
-        component_name: "Maths_Question"| 'Prog_Question',
-        component: QuestionComponentTypes
-    ): boolean {
-        return addComponent(questions, entity_id, component_name, component);
-     }
 
 
     // GETTERS
 
-    function getPlayerComponent<T extends PlayerComponentTypes>(entity_id: number, component_name: string) {
+    function getPlayerComponent<T extends PlayerComponentTypes>(entity_id: number, component_name: "Life" | "Info" | "Rank" | "Badge") {
         return getComponent<T>(players, entity_id, component_name);
     }
 
-    function getMatchComponent<T extends MatchComponentTypes>(entity_id: number, component_name: string) {
+    function getMatchComponent<T extends MatchComponentTypes>(entity_id: number, component_name: "Players" | "Match" | "Submission" | "Result") {
         return getComponent<T>(matches, entity_id, component_name);
     }
 
     // NEED TO ADD  TEMPLATE TYPES
-    function getRoundComponent<T extends RoundComponent>(entity_id: number, component_name: string) {
+    function getRoundComponent<T extends RoundComponent>(entity_id: number, component_name: "Round") {
         return getComponent<T>(rounds, entity_id, component_name);
     }
 
-    function getSubmissionsComponent<T extends SubmissionComponent>(entity_id: number, component_name: string) {
+    function getSubmissionComponent<T extends SubmissionComponent>(entity_id: number, component_name: "Submission") {
         return getComponent<T>(submissions, entity_id, component_name);
     }
 
-    function getQuestionComponent<T extends QuestionComponentTypes>(entity_id: number, component_name: string){
-        return getComponent<T>(questions, entity_id, component_name);
+
+    // REMOVERS
+
+    function removePlayerEntity(entity_id: number) {
+        removeEntity(players, entity_id);
     }
+
+    function removeMatchEntity(entity_id: number){
+        removeEntity(matches, entity_id)
+    }
+
+    function removeRoundEntity(entity_id: number){
+        removeEntity(rounds, entity_id)
+    }
+
+    function removeSubmissionEntity(entity_id: number){
+        removeEntity(submissions, entity_id)
+    }
+
 
 
     return {
@@ -140,12 +147,13 @@ export const World = () => {
         addMatchComponent,
         addRoundComponent,
         addSubmissionComponent,
-        addResultComponent,
-        addQuestionComponents,
         getPlayerComponent,
         getMatchComponent,
         getRoundComponent,
-        getSubmissionsComponent,
-        getQuestionComponent
+        getSubmissionComponent,
+        removePlayerEntity,
+        removeMatchEntity,
+        removeRoundEntity,
+        removeSubmissionEntity
     }
 }

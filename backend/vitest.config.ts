@@ -1,5 +1,6 @@
-import { defineConfig } from 'vitest/config';
 import path from 'node:path';
+
+import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
     test: {
@@ -12,7 +13,8 @@ export default defineConfig({
             include: ['src/**'],
             exclude: ['src/tests/**', '**/config/**']
         },
-        setupFiles: ['./tests/setup.ts']
+        setupFiles: ['./tests/setup.ts'],
+        fileParallelism: false,
     },
     resolve: {
         alias: {

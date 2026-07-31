@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useAuth } from "../context/Auth/hooks/useAuth";
-import { formData } from "../Models/SignInModel";
+import { formData} from "../Models/SignInModel";
 import type { SignInForm } from "../Models/SignInModel";
 
 
@@ -37,8 +37,8 @@ export function SignInViewModelFunction() {
                 form.password,
             );
             nav('/dashboard')
-        } catch {
-            console.error("Sign in error")
+        } catch (error) {
+            console.error(`Sign in error ${error}`)
         }
     }, [form, signIn, clearError, nav]); //Dependency array
 

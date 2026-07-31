@@ -4,15 +4,16 @@ import { Card } from '@/components/ui/card'
 
 interface PopupProps {
     isOpen: boolean;
-    onClose: () => void;
     children?: React.ReactNode;
+    onClose: ()=> void;
     title: string;
     subtitle: string;
     image?: string;
 }
 
 
-const Popup: React.FC<PopupProps> = ({ isOpen, onClose, children, title, subtitle, image }) => {
+const Popup: React.FC<PopupProps> = ({ isOpen, onClose,  children, title, subtitle, image }) => {
+
 
     if (!isOpen) return null;
 
@@ -22,7 +23,7 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose, children, title, subtitl
             <div className="relative w-[50%] h-[4rem] top-[-6rem] ">
 
                 <Card className="bg-secondary h-[35rem] w-[100%] rounded-3xl  text-center flex items-center absolute">
-                    <h1 className="text-[64px] heading text-secondary-text font-extrabold">
+                    <h1 className="text-[3rem] heading text-secondary-text font-extrabold">
                         {title}
                     </h1>
                     <h2 className="text-[24rem] font-heading text-md text-secondary-text text-center justify-center">
@@ -37,7 +38,7 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose, children, title, subtitl
 
                         onKeyDown={(e) => {
                             if (e.key === 'Esc') {
-                                onClose();
+                                 onClose();
                             }
                         }}
                     >Cancel
