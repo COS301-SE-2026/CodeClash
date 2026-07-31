@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "src/context/Auth/hooks/useAuth";
-import { useUser } from "src/context/User/hooks/useUser";
+import { useAuth } from "../../src/context/Auth/hooks/useAuth";
+import { useUser } from "../../src/context/User/hooks/useUser";
 import type { ProfileProps } from "src/Models/ProfileModel";
 import {useState, useEffect} from 'react'
 

@@ -63,7 +63,7 @@ function ProfileView(){
 };
 
 const Profile = () => {
-  <ProfileView/>;
+  return <ProfileView/>;
 }
 
 export default Profile;
