@@ -4,7 +4,7 @@ import * as React from "react"
 
 import { buttonVariants } from "./button-variants"
 
-import { cn } from "@/lib/utils"
+import { cn } from "../../lib/utils"
 
 function Button({
   className,

@@ -17,6 +17,8 @@ export interface AuthContextValue {
   signOut: () => Promise<void>;
   confirmSignUp: (username: string, code: string) => Promise<void>;
   resendSignUpCode: (username: string) => Promise<void>;
+  forgotPassword: (email: string) => Promise<void>;
+  confirmForgotPassword: (email: string, code: string, newPassword: string) => Promise<void>;
   clearError: () => void;
   token: string | undefined;
 }

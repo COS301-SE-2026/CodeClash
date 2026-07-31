@@ -13,6 +13,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [avatar, setAvatar] = useState('');
     const [error, setError] = useState('');
     const [league, setLeague] = useState('');
+    const [rank, setRank] = useState('');
     const { user, token, isLoading } = useAuth();
 
 
@@ -92,6 +93,32 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
     }
 
+    const getRank = async () => {
+
+        if(!token){
+            setError('Missing or Invalid Token');
+            return;
+        }
+
+        try{
+            await axios.get(url.concat('user/rank'), {
+                headers: { Authorization: `Bearer ${token}`}
+            })
+                .then((res) => {
+                    if(res.status === 200){
+                        setRank(res.data.rank);
+                    }
+                    else{
+                        setError(`Error: ${res.status} ${res.data}`)
+                    }
+                })
+            }
+            catch(error){
+                setError(`Error Getting User Rank: ${error}`);
+            }
+
+        }
+
     const getUsername = (user: AuthUser | null) => {
         const username = user?.username;
 
@@ -104,6 +131,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         getElo();
         getAvatarUrl()
         getLeague();
+        getRank();
 
         if (!isLoading)
             getUsername(user);
@@ -111,8 +139,8 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
 
     const value = useMemo(() => ({
-        username, elo, avatar, error, league
-    }), [username, elo, avatar, error, league])
+        username, elo, avatar, error, league, rank
+    }), [username, elo, avatar, error, league, rank])
 
     return (
         <UserContext.Provider

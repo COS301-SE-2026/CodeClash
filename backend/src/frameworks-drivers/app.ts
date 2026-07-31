@@ -1,6 +1,6 @@
 import cors from 'cors'
 import express, { Request, Response } from 'express'
-import { LeaderboardSystem } from 'src/application/usecases/systems/leaderboard.system';
+import { LeaderboardSystem } from 'src/application/usecases/services/leaderboard.service';
 import { EloRatings } from 'src/entities/db-entities/elo.entities';
 import { Users } from 'src/entities/db-entities/user.entities';
 import { requireAuth } from 'src/interface-adapters/auth/auth.service';
