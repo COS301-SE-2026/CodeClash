@@ -1,9 +1,10 @@
 
-import { Progress } from '../ui/progress'
-import { Badge } from '../ui/badge'
 import React from 'react'
 import background from 'src/assets/Background/matchScreen.png'
 import door from 'src/assets/Decor/door.png'
+
+import { Badge } from '../ui/badge'
+import { Progress } from '../ui/progress'
 
 interface MatchScreenProps {
     player_life: number[],

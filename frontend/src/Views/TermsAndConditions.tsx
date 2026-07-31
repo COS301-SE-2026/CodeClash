@@ -1,8 +1,9 @@
+import { Dot } from "lucide-react";
 import React from "react";
 import { Link } from "react-router";
+
 import { TermsAndConditionsViewModelFunction } from "../ViewModels/TermsAndConditionsViewModel";
 
-import { Dot } from "lucide-react";
 
 const TermsAndConditions: React.FC = () => {
     const {section} = TermsAndConditionsViewModelFunction();

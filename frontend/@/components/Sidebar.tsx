@@ -1,7 +1,8 @@
+import { LayoutDashboard, HelpCircle, Trophy, BarChart2, Medal, Users, Settings, History } from 'lucide-react'
 import { Link } from 'react-router-dom'
+
 import pink_astronaut from '../../src/assets/Robots/pink_celebrate.png'
 
-import { LayoutDashboard, HelpCircle, Trophy, BarChart2, Medal, Users, Settings, History } from 'lucide-react'
 
 import {
     Sidebar,

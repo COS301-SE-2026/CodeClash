@@ -1,10 +1,12 @@
+import { Rocket, Swords, Trophy, Calculator, Code2, ChartNoAxesColumn, Medal, History, Globe, CircleCheck, Palette, BookOpen, HelpCircle } from "lucide-react";
 import React from "react";
 import { Link } from "react-router";
-import { LandingViewModelFunction } from "../ViewModels/LandingViewModel";
-import { Rocket, Swords, Trophy, Calculator, Code2, ChartNoAxesColumn, Medal, History, Globe, CircleCheck, Palette, BookOpen, HelpCircle } from "lucide-react";
+import { docs } from "src/Models/LandingModel";
+
 import symbolBackground from '../assets/Background/SymbolBackground.png';
 import helloRobot from '../assets/Robots/HelloRobot_Pink.png';
-import { docs } from "src/Models/LandingModel";
+import { LandingViewModelFunction } from "../ViewModels/LandingViewModel";
+
 
 const Landing:React.FC = ()=>{
     const {

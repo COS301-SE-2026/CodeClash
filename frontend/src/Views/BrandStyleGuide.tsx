@@ -1,16 +1,18 @@
 // This is the View for the brand style guide - this will contain all react components, no logic, and call the ViewModel - correct file
 
 import React from "react";
+
 import { BrandStyleGuideViewModelFunction, navSections } from "../ViewModels/BrandStyleGuideViewModel";
-import IntroSection from "./BrandStyleGuide/IntroductionSection";
-import ColorSection from "./BrandStyleGuide/ColorSection";
-import TypographySection from "./BrandStyleGuide/TypographySection";
-import LogoSection from "./BrandStyleGuide/LogoSection";
-import TokenSection from "./BrandStyleGuide/TokenSection";
-import ComponentSection from "./BrandStyleGuide/ComponentSection";
-import LayoutSection from "./BrandStyleGuide/LayoutSection";
+
 import AccessibilitySection from "./BrandStyleGuide/AccessibilitySection";
 import ChangelogSection from "./BrandStyleGuide/ChangelogSection";
+import ColorSection from "./BrandStyleGuide/ColorSection";
+import ComponentSection from "./BrandStyleGuide/ComponentSection";
+import IntroSection from "./BrandStyleGuide/IntroductionSection";
+import LayoutSection from "./BrandStyleGuide/LayoutSection";
+import LogoSection from "./BrandStyleGuide/LogoSection";
+import TokenSection from "./BrandStyleGuide/TokenSection";
+import TypographySection from "./BrandStyleGuide/TypographySection";
 import VoiceSection from "./BrandStyleGuide/VoiceSection";
 
 const BrandStyleGuide: React.FC = () => {

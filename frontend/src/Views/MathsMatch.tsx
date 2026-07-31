@@ -1,9 +1,10 @@
+import { useMatch } from 'src/ViewModels/MatchViewModel';
+
 import MathMatch from '@/components/features/MathPage';
 import { Question } from '@/components/features/question';
 import Loading from '@/components/shared/Loading';
 import { MatchScreen } from '@/components/shared/Match';
 import { Button } from '@/components/ui/button';
-import { useMatch } from 'src/ViewModels/MatchViewModel';
 
 const MathsMatch = () => {
     const {
