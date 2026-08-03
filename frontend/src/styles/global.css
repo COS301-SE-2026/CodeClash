@@ -123,28 +123,42 @@
 
 :root {
 
-  --background: radial-gradient(circle at 38%, #530A24 100%);
   --radius: 20px;
 
-  /* colours */
-  --primary: #530a23;
-  --secondary: #FFEFE0;
+  /*Backgrounds*/
+  --background: #0a008;
+  --background-elevated: rgba(252, 236, 221, 0.03);
+  --background-card: rgba(252, 236, 221, 0.05);
+
+  /*Brand Colours */
+  --primary: #c0395a;
+  --primary-dark: #530a23;
+  --secondary: #fcecdd;
+
+  /*Text*/
+  --text: #fcecdd;
   --primary-text: #FCECDD;
   --secondary-text: #530a23;
+  --muted: rgba(252, 236, 221, 0.65);
+  --muted-text: rgba(252, 236, 221, 0.12);
+
+  /*Borders*/
+  --border: rgba(252, 236, 221, 0.08);
+  --border-hover: rgba(252, 236, 221, 0.18);
+
+  /*Cards*/
+  --card: var(--background-card);
+  --card-text: var(--primary-text);
+
+  /* Buttons */
+  --button-primary: #C0395A;
+  --button-secondary: transparent;
+  --button-text-primary: #FFFFFF;
+  --button-text-secondary: #fcecdd;
+
+  /*Status*/
   --success: #4caf50;
   --danger: #e53935;
-  --muted: rgba(252, 236, 221, 0.4);
-  --muted-text: rgba(252, 236, 221, 0.5);
-  --secondary-muted: #e0d0c2;
-
-  /* buttons */
-  --button-primary: #C0395A;
-  --button-secondary: #FFEFE0;
-  --button-text-primary: #FFFFFF;
-  --button-text-secondary: #9D2644;
-
-
-  --text: #FFFFFF;
 
   /* fonts */
   --font: 'Roboto', sans-serif;
@@ -156,14 +170,11 @@
   --heading-size: 3rem;
   --heading-big-size: 5rem;
 
-  --badge-font-size-sm: 0.75rem;
-  --badge-font-size-md: 1rem;
-  --badge-font-size-l: 1.25rem;
-  --badge-font-weight: 700;
-
+  /*Shadows*/
   --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   --card-shadow: 0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25);
 
+  /*Font sizes*/
   --font-size-xsm: 1rem;
   --font-size-sm: 1.3rem;
   --font-size-md: 1.9rem;
@@ -171,8 +182,6 @@
   --font-size-xl: 3rem;
   --font-size-2xl: 3.3rem;
   --font-size-3xl: 3.6rem;
-
-  --font-weight: 500;
 
   --life-primary: #C0395A;
 }
@@ -257,4 +266,32 @@
     animation: pop 0.35s ease-out forwards;
   }
 
+  .card-glass {
+    background: var(--background-card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    transition: all 0.2s ease;
+  }
+
+  card-glass:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-2px);
+  }
+
+  .section-title {
+    color: var(--primary-text);
+    font-weight: 900;
+  }
+
+  .section-description {
+    color: var(--muted-text);
+  }
+
+  .eyebrow {
+    color: var(--primary);
+    letter-spacing: 0.15rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 0.75rem;
+  }
 }
