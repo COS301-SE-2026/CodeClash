@@ -1,7 +1,7 @@
 import { Search, Bot, UserCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useAuth } from 'src/context/Auth/hooks/useAuth';
-import { useUser } from 'src/context/User/hooks/useUser';
+import { useAuth } from '../../src/context/Auth/hooks/useAuth';
+import { useUser } from '../../src/context/User/hooks/useUser';
 
 import backgroundImg from '../assets/Background/dashboard.png'
 import brainIcon from '../assets/Icons/Brain.png';
@@ -17,8 +17,6 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { useUser } from 'src/context/User/hooks/useUser';
-
 
 // View Model
 
