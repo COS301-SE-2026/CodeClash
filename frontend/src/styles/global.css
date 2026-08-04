@@ -94,6 +94,44 @@
   }
 }
 
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes progress-fill {
+  from {
+    width: 0;
+  }
+}
+
+@keyframes sweep {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
 @theme inline {
   /* radius */
   --radius-sm: calc(var(--radius) - 4px);
@@ -115,6 +153,8 @@
   --color-muted-text: var(--muted-text);
   --color-success: var(--success);
   --color-danger: var(--danger);
+  --color-warning: var(--warning);
+  --color-info: var(--info)
   --color-muted: var(--muted);
   --colour-secondary-muted: var(--secondary-muted);
 
@@ -134,6 +174,7 @@
   --color-button-secondary: var(--button-secondary);
   --color-button-text-primary: var(--button-text-primary);
   --color-button-text-secondary: var(--button-text-secondary);
+
   /* accents */
   --color-accent: var(--accent);
   --color-accent-text: var(--accent-text);
@@ -159,6 +200,11 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
+  /*Difficulty of the questions*/
+  --color-difficulty-easy: var(--difficulty-easy);
+  --color-difficulty-medium: var(--difficulty-medium);
+  --color-difficulty-hard: var(--difficulty-hard);
+
   /* font  */
   --font-body: var(--font);
   --font-heading: var(--heading);
@@ -181,6 +227,7 @@
   /* shadows */
   --shadow-badge: var(--badge-shadow);
   --shadow-card: var(--card-shadow);
+  --shadow-glow: var(--glow-shadow);
 
   /* Life bars */
   --color-life-primary: var(--life-primary);
