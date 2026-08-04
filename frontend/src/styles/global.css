@@ -469,3 +469,84 @@
     }
   }
 }
+
+@layer components {
+  /*Buttons*/
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 12px 24px;
+    border-radius: var(--radius-lg, 20px);
+    font-weight: 800;
+    font-size: 0.95rem;
+    font-family: var(--heading);
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+  }
+
+  .btn:disabled, .btn[aria-disabled="true"] {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none !important;
+  }
+
+  .btn-primary {
+    background: var(--button-primary);
+    color: var(--button-text-primary);
+    box-shadow: 0 4px 20px rgba(192, 57, 90, 0.35);
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background: var(--pink-200, #e93577);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    background: var(--secondary);
+    color: var(--secondary-text);
+    border: 1px solid rgba(252, 236, 221, 0.25);
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--primary-text);
+    border: 1px solid var(--border);
+  }
+
+  .btn-ghost:hover:not(:disabled) {
+    border-color: var(--border-hover);
+    background: var(--background-card);
+  }
+
+  .btn-danger {
+    background: var(--danger);
+    color: #ffffff;
+  }
+
+  .btn-danger:hover:not(:disabled) {
+    filter: brightness(1.1);
+  }
+
+  .btn-icon {
+    padding: 10px;
+    border-radius: 999px;
+  }
+
+  .btn-sm {
+    padding: 8px 16px;
+    font-size: 0.8rem;
+  }
+
+  .btn-lg {
+    padding: 15px 48px;
+    font-size: 1.05rem;
+  }
+}
