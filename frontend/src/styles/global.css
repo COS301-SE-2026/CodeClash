@@ -269,9 +269,24 @@
   --button-text-primary: #FFFFFF;
   --button-text-secondary: #fcecdd;
 
+  /*Inputs*/
+  --input: rgba(252, 236, 221, 0.06);
+  --ring: #c0395a;
+  --accent: #e93577;
+  --accent-text: #fcecdd;
+  --destructive: #e53935;
+
   /*Status*/
   --success: #4caf50;
   --danger: #e53935;
+  --warning: #e8a33d;
+  --info: #3d9be8;
+  --secondary-muted: rgba(252,236, 221, 0.4);
+
+  /*Difficulty for questions*/
+  --difficulty-easy: #4caf50;
+  --difficulty-medium: #e8a33d;
+  --difficulty-hard: #e53935;
 
   /* fonts */
   --font: 'Roboto', sans-serif;
@@ -286,6 +301,7 @@
   /*Shadows*/
   --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   --card-shadow: 0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25);
+  --glow-shadow: 0 0 24px rgba(192, 57, 90, 0.45);
 
   /*Font sizes*/
   --font-size-xsm: 1rem;
@@ -300,7 +316,6 @@
 }
 
 @layer base {
-
 
   .badge {
     box-shadow: var(--badge-shadow);
@@ -406,5 +421,51 @@
     text-transform: uppercase;
     font-weight: 700;
     font-size: 0.75rem;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--text);
+    font-family: var(--font);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm, 4px);
+  }
+
+  ::selection {
+    background: var(--primary);
+    color: #FFFFFF;
+  }
+
+  /*A scroll bar for the leaderboard and match history etc*/
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(252, 236, 221, 0.15);
+    border-radius: 999px;
+    border: 2px solid var(--background);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(252, 236, 221, 0.3);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
