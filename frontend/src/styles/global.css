@@ -653,4 +653,12 @@
     color: var(--danger);
     border: 1px solid rgba(229, 57, 53, 0.35);
   }
+
+  /*Divider*/
+  .divider {
+    height: 1px;
+    width: 100%;
+    background: var(--border);
+    border: none;
+  }
 }

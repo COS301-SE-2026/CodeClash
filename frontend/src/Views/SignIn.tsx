@@ -5,10 +5,6 @@ import lightBeam from '../assets/Background/SignInBeam.png';
 import planetEarth from '../assets/Planets/Earth.png';
 import { SignInViewModelFunction } from "../ViewModels/SignInViewModel";
 
-
-const fieldClass = "w-full h-12 rounded-xl border border-white/10 bg-white shadow-sm pl-12 pr-4 text-sm text-primary placeholder:text-primary/50 outline-none transition-all duration-200 focus:border-button-primary focus:ring-4 focus:ring-pink-200";
-const buttonPrimaryClass = "w-full h-12 rounded-xl bg-button-primary text-button-text-primary font-semibold flex items-center justify-center gap-2 shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 disabled:opacity-50";
-
 const SignIn: React.FC= () => {
     const {
         form,
