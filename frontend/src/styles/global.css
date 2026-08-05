@@ -549,4 +549,108 @@
     padding: 15px 48px;
     font-size: 1.05rem;
   }
+
+  /*Inputs and FOrms - this is copied, my previous clone broke and didnt track these changes*/
+  .input, .select, .textarea {
+    width: 100%;
+    background: var(--input);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 12px 16px;
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 0.95rem;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .input::placeholder, .textarea::placeholder {
+    color: rgba(252,235,221, 0.35);
+  }
+
+  .input:hover, .select:hover, .textarea:hover {
+    border-color: var(--border-hover);
+  }
+
+  .input:focus, .select:focus, .textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: rgba(252, 236, 221, 0.08);
+  }
+
+  .input-error {
+    border-color: var(--danger);
+    animation: shake 0.35s ease-in-out;
+  }
+
+  .field-label {
+    display: block;
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .field-hint {
+    color: rgba(252, 236, 221, 0.4);
+    font-size: 0.8rem;
+    margin-top: 0.4rem;
+  }
+
+  .field-error-text {
+    color: var(--danger);
+    font-size: 0.8rem;
+    margin-top: 0.4rem;
+  }
+
+  /*Difficulty for questions and Status - this is copied, my previous clone broke*/
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 40x 12px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.03rem;
+    box-shadow: var(--badge-shadow);
+  }
+
+  .badge-difficulty-easy {
+    background: rgba(76, 175, 80, 0.15);
+    color: var(--difficulty-easy);
+    border: 1px solid rgba(76, 175, 80, 0.35);
+  }
+
+  .badge-difficulty-medium {
+    background: rgba(232, 163, 61, 0.15);
+    color: var(--difficulty-medium);
+    border: 1px solid rgba(232, 163, 61, 0.35);
+  }
+
+  .badge-difficulty-hard {
+    background: rgba(229, 57, 53, 0.15);
+    color: var(--difficulty-hard);
+    border: 1px solid rgba(229, 57, 53, 0.35);
+  }
+
+  /*Copied from above*/
+  .badge-status-correct {
+    background: rgba(76, 175, 80, 0.15);
+    color: var(--success);
+    border: 1px solid rgba(76, 175, 80, 0.35);
+  }
+
+  .badge-status-pending {
+    background: rgba(232, 163, 61, 0.15);
+    color: var(--warning);
+    border: 1px solid rgba(232, 163, 61, 0.35);
+  }
+
+  .badge-status-wrong {
+    background: rgba(229, 57, 53, 0.15);
+    color: var(--danger);
+    border: 1px solid rgba(229, 57, 53, 0.35);
+  }
 }
