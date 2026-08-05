@@ -36,22 +36,45 @@ const SignIn: React.FC= () => {
 
             {/*Main Content */}
             <div className="relative z-10 flex flex-col items-center w-full max-w-md">
-                {/*A glowing robot */}
-                <div className="relative flex items-center justify-center -mb-10">
-                    <div className="absolute w-64 h-64 rounded-full animate-glow"
-                        style={{background: "radial-gradient(circle, #3d0818 0%, transparent 70%)"}}/>
-                        <img src = {helloRobot} alt="" className="relative w-40 h-auto animate-float select-none pointer-events-none"/>
-                </div>
                 {/*Card */}
-                <div className="card-glow w-full px-8 py-10 backdrop-blur-md">
-                    <div className="eyebrow text-center mb-2">Welcome Back</div>
-                    <h1 className="text-2xl font-black text-primary-text text-center mb-2">Continue to CodeClash</h1>
-                    <p className="text-muted text-sm text-center mb-8">Compete in battles, earn badges, and rise through the ranks</p>
+                <div className="card-glow w-full px-8 backdrop-blur-md">
+                    <div className="eyebrow text-center mb-2 font-extrabold">Welcome Back</div>
+                    <div className="flex justify-center mb-2">
+                        <h1 className="w-fit mx-auto text-xl font-black text-primary-text whitespace-nowrap">Continue to CodeClash</h1>
+                    </div>
+                    <p className="text-muted text-xsm text-center mb-8 whitespace-nowrap">Compete in battles, earn badges, and rise through the ranks</p>
                     {displayError && (
-                        <div className="mb-6 rounded-2xl border border-danger/30 bg-danger/10 px-5 py-4">
-                            <p className="text-sm text-danger">{displayError}</p>
+                        <div className="mb-6 rounded-3xl border border-danger/30 bg-danger/10 px-5 py-4">
+                            <p className="text-sm text-danger font-semibold">{displayError}!</p>
                         </div>
                     )}
+                    {/*FIelds */}
+                    <div className="mb-5">
+                        <label className="field-label">Email address</label>
+                        <div className="relative">
+                            <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-text"/>
+                            <input className="input pl-11" type="email" placeholder="email@example.com" value={form.email} onChange={(e) => setField("email", e.target.value)} disabled={isLoading}/>
+                        </div>
+                    </div>
+                    <div>
+                        <label className="field-label">Password</label>
+                        <div className="relative">
+                            <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-text"/>
+                            <input className="input pl-11" type="password" placeholder="Enter your password" value={form.password} onChange={(e) => setField("password", e.target.value)} disabled= {isLoading}/>
+                        </div>
+                    </div>
+                    {/*Forgot Password */}
+                    <div className="flex justify-end mt-3">
+                        <Link className="text-xsm underline text-muted-text hover:text-primary transition-colors" to='/forgot-password'>Forgot password?</Link>
+                    </div>
+                    <button className="btn btn-primary btn-lg w-full mt-8 group" type="button" onClick={handleSubmit} disabled={isLoading}>
+                        {isLoading ? ("Signing in...") : (
+                            <>
+                                <span>Sign In</span>
+                                <ArrowRight size={20} className="transition-transform duration-300 group-hover:translate-x-1"/>
+                            </>
+                        )}
+                    </button>
                 </div>
             </div>
         </div>

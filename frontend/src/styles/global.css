@@ -253,7 +253,7 @@
   --primary-text: #FCECDD;
   --secondary-text: #530a23;
   --muted: rgba(252, 236, 221, 0.65);
-  --muted-text: rgba(252, 236, 221, 0.12);
+  --muted-text: rgba(252, 236, 221, 0.50);
 
   /*Borders*/
   --border: rgba(252, 236, 221, 0.08);
