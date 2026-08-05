@@ -86,7 +86,7 @@ const SignUp: React.FC= () => {
                     <p className='text-muted text-xsm text-center mb-8 whitespace-nowrap'>Build your skills. Earn your rank.</p>
                     {displayError && (
                         <div className='mb-6 rounded-3xl border border-danger/30 bg-danger/10 px-5 py-4'>
-                            <p className='text-sm text-danger'>{displayError}</p>
+                            <p className='text-sm text-danger'>{displayError}!</p>
                         </div>
                     )}
                     {/*Fields */}
@@ -136,6 +136,32 @@ const SignUp: React.FC= () => {
                             <input className='input pl-10' type='password' placeholder='Create a password' value={form.password} onChange={(e) => setField('password', e.target.value)} disabled={isLoading}/>
                         </div>
                     </div>
+                    {/*Terms and Conditions */}
+                    <div className='flex items-center gap-3 mb-8'>
+                        <input className='w-5 h-5 rounded-sm cursor-pointer accent-primary shrink-0' type='checkbox' id='acceptTerms' checked={form.acceptedTerms} onChange={(e) => setField('acceptedTerms', e.target.checked)} disabled={isLoading}/>
+                        <label className='cursor-pointer text-xsm text-muted-text' htmlFor='acceptTerms'>
+                            Accept{' '}
+                            <Link className='underline text-muted-text hover:text-primary transition-colors text-xsm' to='/terms' target='_blank'>Terms &amp; Conditions</Link>
+                        </label>
+                    </div>
+                    <button className='btn btn-primary btn-md w-full group' type='button' onClick={handleSubmit} disabled={isLoading}>
+                        {isLoading ? ("Signing up...") : (
+                            <>
+                                <span>Sign Up</span>
+                                <ArrowRight size={20} className='transition-transform duration-300 group-hover:translate-x-1'/>
+                            </>
+                        )}
+                    </button>
+                    {/*Copied from Signin */}
+                    <div className="flex items-center gap-3 my-8">
+                        <span className="divider flex-1"/>
+                        <span className="text-xsm uppercase tracking-[0.2rem] text-muted-text whitespace-nowrap">Have an account?</span>
+                        <span className="divider flex-1"/>
+                    </div>
+                    <Link to='/sign-in' className="btn btn-secondary w-full group">
+                        <span>Continue to CodeClash</span>
+                        <ArrowRight size={18} className="transition-transform duration-300 group:hover:translate-x-1"/>
+                    </Link>
                 </div>
             </div>
         </div>
