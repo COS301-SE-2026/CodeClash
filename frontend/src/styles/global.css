@@ -631,4 +631,45 @@
     background: var(--border);
     border: none;
   }
+
+  /*Cards*/
+  .card-elevated {
+    background: var(--popover);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: var(--card-shadow);
+  }
+
+  .card-glow {
+    background: var(--background-card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: var(--card-shadow);
+  }
+
+  /*A space themes star bg*/
+  .starfield {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .starfield span {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: var(--primary-text);
+    border-radius: 999px;
+    animation: twinkle 3s ease-in-out infinite;
+  }
+
+  /*Animations for float and glow*/
+  .animate-float {
+    animation: float 5s ease-in-out infinite;
+  }
+
+  .animate-glow {
+    animation: glow 3s ease-in-out infinite;
+  }
 }
