@@ -78,12 +78,64 @@ const SignUp: React.FC= () => {
             </Link>
 
             <div className='relative z-10 flex flex-col items-center w-full max-w-md'>
-                <div className='relative w-full px-8 py-10 backdrop-blur-md'>
+                <div className='relative w-full px-8 backdrop-blur-md'>
                     <div className='eyebrow text-center mb-2'>Join the arena</div>
                     <div className='flex justify-center mb-2'>
                         <h1 className='w-fit mx-auto text-xl font-black text-primary-text text-center whitespace-nowrap'>Create your account</h1>
                     </div>
                     <p className='text-muted text-xsm text-center mb-8 whitespace-nowrap'>Build your skills. Earn your rank.</p>
+                    {displayError && (
+                        <div className='mb-6 rounded-3xl border border-danger/30 bg-danger/10 px-5 py-4'>
+                            <p className='text-sm text-danger'>{displayError}</p>
+                        </div>
+                    )}
+                    {/*Fields */}
+                    <div className='grid grid-cols-2 gap-4 mb-4'>
+                        <div>
+                            <label className='field-label'>First Name</label>
+                            <div className='relative'>
+                                <User size={16} className='absolute left-4 top-1/2 -translate-y-1/2 text-muted-text'/>
+                                <input className='input pl-10' type='text' placeholder='John' value={form.firstName} onChange={(e) => setField('firstName', e.target.value)} disabled={isLoading}/>
+                            </div>
+                        </div>
+                        {/*Copying above field and changing what needs to be changed */}
+                        <div>
+                            <label className='field-label'>Last Name</label>
+                            <div className='relative'>
+                                <User size={16} className='absolute left-4 top-1/2 -translate-y-1/2 text-muted-text'/>
+                                <input className='input pl-10' type='text' placeholder='Doe' value={form.lastName} onChange={(e) => setField('lastName', e.target.value)} disabled={isLoading}/>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='mb-4'>
+                        <label className='field-label'>Username</label>
+                        <div className='relative'>
+                            <AtSign size={16} className='absolute left-4 top-1/2 -translate-y-1/2 text-muted-text'/>
+                            <input className='input pl-10' type='text' placeholder='JohnDoe' value={form.username} onChange={(e) => setField('username', e.target.value)} disabled={isLoading}/>
+                        </div>
+                    </div>
+                    {/*Copying above field and changing what needs to be */}
+                    <div className='mb-4'>
+                        <label className='field-label'>Email address</label>
+                        <div className='relative'>
+                            <Mail size={16} className='absolute left-4 top-1/2 -translate-y-1/2 text-muted-text'/>
+                            <input className='input pl-10' type='email' placeholder='email@example.com' value={form.email} onChange={(e) => setField('email', e.target.value)} disabled={isLoading}/>
+                        </div>
+                    </div>
+                    <div className='mb-4'>
+                        <label className='field-label'>Phone number</label>
+                        <div className='relative'>
+                            <Phone size={16} className='absolute left-4 top-1/2 -translate-y-1/2 text-muted-text'/>
+                            <input className='input pl-10' type='tel' placeholder='012 345 6789' value={form.phoneNumber} onChange={(e) => setField('phoneNumber', e.target.value)} disabled={isLoading}/>
+                        </div>
+                    </div>
+                    <div className='mb-4'>
+                        <label className='field-label'>Password</label>
+                        <div className='relative'>
+                            <Lock size={16} className='absolute left-4 top-1/2 -translate-y-1/2 text-muted-text'/>
+                            <input className='input pl-10' type='password' placeholder='Create a password' value={form.password} onChange={(e) => setField('password', e.target.value)} disabled={isLoading}/>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
