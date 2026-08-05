@@ -1,12 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ArrowRight, Mail, Lock} from "lucide-react";
-import lightBeam from '../assets/Background/SignInBeam.png';
-import planetEarth from '../assets/Planets/Earth.png';
 import { SignInViewModelFunction } from "../ViewModels/SignInViewModel";
 
 import SymbolBackground from "../assets/Background/SymbolBackground.png";
-import helloRobot from "../assets/Robots/HelloRobot_Pink.png";
 
 const SignIn: React.FC= () => {
     const {
@@ -29,7 +26,7 @@ const SignIn: React.FC= () => {
             </div>
 
             {/*Back Button*/}
-            <Link to='/' className="primary-back-button flex items-center gap-2 z-20">
+            <Link to='/' className="btn btn-ghost flex items-center gap-2 z-20">
                 <ArrowLeft size={18}/>
                 Back
             </Link>
@@ -64,10 +61,10 @@ const SignIn: React.FC= () => {
                         </div>
                     </div>
                     {/*Forgot Password */}
-                    <div className="flex justify-end mt-3">
+                    <div className="flex justify-center mt-4">
                         <Link className="text-xsm underline text-muted-text hover:text-primary transition-colors" to='/forgot-password'>Forgot password?</Link>
                     </div>
-                    <button className="btn btn-primary btn-lg w-full mt-8 group" type="button" onClick={handleSubmit} disabled={isLoading}>
+                    <button className="btn btn-primary btn-lg w-full mt-6 group" type="button" onClick={handleSubmit} disabled={isLoading}>
                         {isLoading ? ("Signing in...") : (
                             <>
                                 <span>Sign In</span>
@@ -75,6 +72,15 @@ const SignIn: React.FC= () => {
                             </>
                         )}
                     </button>
+                    <div className="flex items-center gap-3 my-8">
+                        <span className="divider flex-1"/>
+                        <span className="text-xsm uppercase tracking-[0.2rem] text-muted-text whitespace-nowrap">New to CodeClash?</span>
+                        <span className="divider flex-1"/>
+                    </div>
+                    <Link to='/sign-up' className="btn btn-secondary w-full group">
+                        <span>Creat an account</span>
+                        <ArrowRight size={18} className="transition-transform duration-300 group:hover:translate-x-1"/>
+                    </Link>
                 </div>
             </div>
         </div>
