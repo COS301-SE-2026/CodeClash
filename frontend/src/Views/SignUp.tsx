@@ -2,9 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowLeft, User, AtSign, Mail, Phone, Lock } from 'lucide-react';
 import { SignUpViewModelFunction } from '../ViewModels/SignUpViewModel.ts';
-
-import lightBeam from "../assets/Background/SignUpBeam.png";
-import ufo from "../assets/Decor/RedUFO.png";
 import symbolBackground from "../assets/Background/SymbolBackground.png";
 
 const SignUp: React.FC= () => {
@@ -53,8 +50,43 @@ const SignUp: React.FC= () => {
                             <p className='text-sm text-sucess font-semibold'>{resendMessage}</p>
                         </div>
                     )}
+                    <input className='input text-center tracking-[0.4rem] font-bold mb-6' type='text' placeholder='000000' value={confirmationCode} onChange={(e) => setConfirmationCode(e.target.value)} disabled={isLoading}/>
+                    <button className='btn btn-primary btn-md w-full' type='button' onClick={handleConfirm} disabled={isLoading}>
+                        {isLoading ? "Verifying..." : "Confirm"}
+                    </button>
+                    <button className='mt-5 text-sm underline text-muted-text hover:text-primary transition-colors disabled:opacity-50' type='button' onClick={handleResend} disabled={isLoading}>Resend code</button>
                 </div>
             </div>
+        )
+    }
+
+    {/*The main signup page */}
+    return (
+        <div className='relative w-full min-h-screen flex items-center justify-center overflow-hidden px-6 py-16'
+            style={{background: "radial-gradient(circle at 50% 12%, #b91551 0%, #850f3b 22%, #630b3c 34%, #0a0008 62%)"}}>
+            <img src={symbolBackground} alt='' className='absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none'/>
+            <div className='starfield'>
+                {Array.from({length: 40}).map((_, i) => (
+                    <span key= {i} style={{top: `${Math.random() * 100}%`, left: `${Math.random() * 100}%`, animationDelay: `${Math.random() *3}s`}}/>
+                ))}
+            </div>
+
+            {/*Back Button - copied from signin*/}
+            <Link to='/' className="btn btn-ghost flex items-center gap-2 z-20">
+                <ArrowLeft size={18}/>
+                Back
+            </Link>
+
+            <div className='relative z-10 flex flex-col items-center w-full max-w-md'>
+                <div className='relative w-full px-8 py-10 backdrop-blur-md'>
+                    <div className='eyebrow text-center mb-2'>Join the arena</div>
+                    <div className='flex justify-center mb-2'>
+                        <h1 className='w-fit mx-auto text-xl font-black text-primary-text text-center whitespace-nowrap'>Create your account</h1>
+                    </div>
+                    <p className='text-muted text-xsm text-center mb-8 whitespace-nowrap'>Build your skills. Earn your rank.</p>
+                </div>
+            </div>
+        </div>
     )
 };
 
