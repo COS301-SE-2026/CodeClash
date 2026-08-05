@@ -33,8 +33,7 @@ const SignIn: React.FC= () => {
 
             {/*Main Content */}
             <div className="relative z-10 flex flex-col items-center w-full max-w-md">
-                {/*Card */}
-                <div className="card-glow w-full px-8 backdrop-blur-md">
+                <div className="w-full px-8 backdrop-blur-md">
                     <div className="eyebrow text-center mb-2 font-extrabold">Welcome Back</div>
                     <div className="flex justify-center mb-2">
                         <h1 className="w-fit mx-auto text-xl font-black text-primary-text whitespace-nowrap">Continue to CodeClash</h1>
