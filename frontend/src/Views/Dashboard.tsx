@@ -62,7 +62,7 @@ const Dashboard = () => {
                 <p className='text-sm'>LEAGUE {league}</p>
                 <p className='text-l'>{username}</p>
               </div>
-              <img alt='avatar' src={avatar} className='absolute h-[47%] left-[12%]' />
+              {avatar && <img alt='avatar' src={avatar} className='absolute h-[47%] left-[12%]' />}
             </CardContent>
           </Card>
 
