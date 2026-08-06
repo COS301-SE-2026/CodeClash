@@ -54,8 +54,36 @@ const Dashboard = () => {
   }
 
   return (
-    <div>
+    <div className='relative w-full min-h-screen bg-cover bg-center overflow-hidden'
+      style={{backgroundImage: `url(${backgroundImg})`}}>
+      <div className='absolute inset-0 bg-gradient-to-b from-background/85 via-background/75 to-background'/>
+      {/*Starfield copied from SignIn */}
+      <div className="starfield">
+        {Array.from({length: 40}).map((_, i) => (
+            <span key={i} style={{top: `${Math.random() * 100}%`, left: `${Math.random() * 100}%`, animationDelay: `${Math.random() *3};s`}}/>
+        ))}
+      </div>
+      <div className='relative z-10 flex flex-col min-h-screen'>
+        <header className='w-full flex items-center justify-between gap-4 px-8 py-4 border-b border-border bg-background/60 backdrop-blur-md'>
+          <div className='flex items-center gap-2 w-full max-w-md rounded-3xl border border-border bg-card px-4 py-2.5'>
+            <Search size={18} className='text-muted-text shrink-0'/>
+            <input type='text' placeholder='Search' className='bg-transparent outline-none text-xsm text-primary-text placeholder:text-muted-text w-full'/>
+          </div>
 
+          <div className='flex items-center gap-5 shrink-0'>
+            <button className='btn btn-ghost btn-icon' aria-label='Ask CodeClash AI (coming soon)'>
+              <Bot size={20}/>
+            </button>
+            <Link to='/profile' className='avatar w-10 h-10 flex items-center justify-center overflow-hidden'>
+              {avatar ? (
+                <img src={avatar} alt='Your CodeClash avatar' className='w-full h-full object-cover'/>
+              ) : (
+                <UserCircle size={22} className='text-muted-text'/>
+              )}
+            </Link>
+          </div>
+        </header>
+      </div>
     </div>
   )
 
