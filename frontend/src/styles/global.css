@@ -482,13 +482,17 @@
     transform: translateY(-1px);
   }
 
+  .primary-back-button {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    z-index: 20;
+  }
+
   .btn-ghost { /*Used for back button - top left*/
     background: transparent;
     color: var(--primary-text);
     border: 1px solid var(--border);
-    position: absolute;
-    top: 15px;
-    left: 40px;
   }
 
   .btn-ghost:hover:not(:disabled) {
@@ -687,5 +691,13 @@
     background: linear-gradient(90deg, var(--primary), var(--pink-200, #e93577));
     border-radius: 999px;
     animation: progress-fill 0.6s ease-out;
+  }
+
+  /*Avatars/Robots*/
+  .avatar {
+    border-radius: 999px;
+    border: 2px solid var(--border);
+    background: var(--background-card);
+    object-fit: cover;
   }
 }

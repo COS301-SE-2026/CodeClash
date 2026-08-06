@@ -26,7 +26,7 @@ const SignIn: React.FC= () => {
             </div>
 
             {/*Back Button*/}
-            <Link to='/' className="btn btn-ghost flex items-center gap-2 z-20">
+            <Link to='/' className="btn btn-ghost primary-back-button flex items-center gap-2 z-20">
                 <ArrowLeft size={18}/>
                 Back
             </Link>

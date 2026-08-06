@@ -26,7 +26,7 @@ const SignUp: React.FC= () => {
                 <img src= {symbolBackground} alt='' className='absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none'/>
 
                 {/*Back Btn */}
-                <Link to='/' className='btn btn-ghost flex items-center fap-2 z-20'>
+                <Link to='/' className='btn btn-ghost primary-back-button flex items-center fap-2 z-20'>
                     <ArrowLeft size={18}/>
                     Back
                 </Link>
