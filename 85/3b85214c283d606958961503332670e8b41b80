@@ -1,0 +1,16 @@
+docker-compose.prod.yml
+  h_94c952a9e14c58 1-66
+.gitignore
+  h_94c952a9e14c58 410-414
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "853b85214c283d606958961503332670e8b41b80",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
