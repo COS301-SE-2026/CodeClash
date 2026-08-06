@@ -3,7 +3,7 @@ import { GameService } from 'src/application/usecases/services/game.service';
 import { MatchmakingService } from 'src/application/usecases/services/matchmaking.service';
 import { PlayerDTO } from "src/entities/dtos/components.dto";
 import { GameDataDTO, GameQuestionsDTO } from "src/entities/dtos/match-data.dto";
-import MatchmakingUserDTO from 'src/entities/dtos/matchmaking.dto';
+import MatchmakingUserDTO  from 'src/entities/dtos/matchmaking.dto';
 import { MatchedUsersService } from "src/application/usecases/services/matched-users.service";
 import { GameStore } from "src/application/usecases/services/game-store.service";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
