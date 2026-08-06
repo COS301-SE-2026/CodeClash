@@ -1,0 +1,15 @@
+backend/src/entities/league-mapping.ts
+  h_b13c5d77534129 12-13,15-16
+  h_b13c5d77534129 14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "7ca8c2f7c691c4a0965f321ae316e0de71402cee",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
