@@ -3,21 +3,36 @@ services:
     build: ./backend
     ports:
       - "3000:3000"
-    environment:
-      - DATABASE_URL=postgresql://postgres:password@db:5432/codeclash
+    environment: #Copied from deployment branch
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - REDIS_URL=${REDIS_URL}
+      - COGNITO_USER_POOL_ID=${COGNITO_USER_POOL_ID}
+      - COGNITO_CLIENT_ID=${COGNITO_CLIENT_ID}
+      - COGNITO_REGION=${COGNITO_REGION}
+      - AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
+      - AWS_SECRET_KEY=${AWS_SECRET_KEY}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - COGNITO_JWKS_URI=${COGNITO_JWKS_URI} 
     depends_on:
       - db
     networks:
       - pgnetwork
 
-  # frontend:
-  #   build: ./frontend
-  #   ports:
-  #     - "5173:5173"
-  #   volumes:
-  #     - ./frontend:/app
-  #     - /app/node_modules
-  #TODO IMPORTANT return this when we want to containerise the front end for deployment
+  frontend: # Copied from deployment branch
+    build: ./frontend
+    environment:
+      - COGNITO_USER_POOL_ID=${COGNITO_USER_POOL_ID}
+      - COGNITO_CLIENT_ID=${COGNITO_CLIENT_ID}
+      - API_URL=${API_URL}
+      - WEBSOCKET_URL=${WEBSOCKET_URL}
+    ports:
+      - "80:80"
+    networks:
+      - pgnetwork
 
   db:
     image: postgres:15-alpine

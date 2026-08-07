@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { useUser } from 'src/context/User/hooks/useUser';
 
 import { useLogOut, getProfile  } from '../ViewModels/ProfileViewModel';
 

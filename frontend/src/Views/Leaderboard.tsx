@@ -82,7 +82,7 @@ const Leaderboard = () => {
                         const p = start + i;
                         if (p > totalPages) return null;
                         return (
-                          <button key={p} onClick={() => setPage(p)} className={`w-[40px] h-[40px] rounded-full text-[20px] font-semibold transition-colors ${p === page ? 'bg-button-primary text-primary' : 'text-secondary hover:bg-[#F4A0B2]/30'}`}>{p}</button>
+                          <button key={p}  className={`w-[40px] h-[40px] rounded-full text-[20px] font-semibold transition-colors ${p === page ? 'bg-button-primary text-primary' : 'text-secondary hover:bg-[#F4A0B2]/30'}`}>{p}</button>
                         );
                       })}
                     </div>

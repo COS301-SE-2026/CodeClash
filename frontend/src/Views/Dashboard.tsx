@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 
 import backgroundImg from '../assets/Background/dashboard.png'
 import brainIcon from '../assets/Icons/Brain.png';
-import profileIcon from '../assets/Icons/Profile.png';
-import searchIcon from '../assets/Icons/Search.png';
 import { useDashboardViewModel } from '../ViewModels/DashboardViewModel';
 
 import Popup from './Popup'

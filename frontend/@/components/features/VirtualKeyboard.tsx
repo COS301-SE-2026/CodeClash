@@ -2,14 +2,13 @@
 
 import { MathfieldElement } from 'mathlive';
 import { useEffect, useState } from 'react';
-import { Keyboard } from 'lucide-react';
 
 interface VirtualKeyboardProps {
   mathfieldRef: React.RefObject<MathfieldElement | null>;
 }
 
 const VirtualKeyboard = ({ mathfieldRef }: VirtualKeyboardProps) => {
-  const [open, setOpen] = useState(false);
+  const [, setOpen] = useState(false);
 
   useEffect(() => {
     const mf = mathfieldRef.current;

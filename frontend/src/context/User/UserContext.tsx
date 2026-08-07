@@ -12,7 +12,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [avatar, setAvatar] = useState('');
     const [error, setError] = useState('');
     const [league, setLeague] = useState('');
-    const { user, token, isLoading } = useAuth();
+    const { user, token} = useAuth();
  const [rank, setRank] = useState('');
   const userId = user?.userId ?? ""
     const username = user?.username ?? '';
@@ -140,6 +140,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 getAvatarUrl(),
                 getLeague(),
                 getElo(),
+                getRank()
             ]);
         }
 
