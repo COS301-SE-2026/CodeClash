@@ -17,7 +17,7 @@ app.get('/health', (req: Request, res: Response) => {
   res.json({ status: 'ok' });
 });
 
-app.use(cors({ origin: process.env.FRONTEND_URL || 'http://localhost' }));
+app.use(cors({ origin:[ process.env.FRONTEND_URL!, process.env.PROD_FRONTEND_URL!]}));
 app.use(express.json());
 
 const elo_repo = new EloRepository(AppDataSource.getRepository(EloRatings))
