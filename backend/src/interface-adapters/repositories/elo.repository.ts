@@ -88,16 +88,26 @@ export class EloRepository implements IEloRepository {
       }
     }
 
-    async getUserRank(user_id: string): Promise<RankDTO | null> {
+    async getUserRank(userId: string): Promise<RankDTO | null> {
 
         const sorted = await this.eloRepository
         .createQueryBuilder()
         .innerJoinAndSelect('elo.user', 'user')
         .orderBy('elo.rating', 'DESC')
         .getMany();
-
-        const index 
         
+        const index = sorted.findIndex(e => e.user.user_id === userId);
+
+        if(index < 0){
+            throw new Error('Error calculating rank');
+        }
+
+        const data : RankDTO = {
+            user_id: userId,
+            rank: index + 1
+        };
+
+        return data;
         
     }
 }
