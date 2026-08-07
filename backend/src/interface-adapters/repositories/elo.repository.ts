@@ -4,6 +4,7 @@ import { EloDTO } from "src/entities/dtos/elo.dto";
 import { Repository } from "typeorm";
 
 import { LeaderboardEntryDTO } from "../../entities/dtos/leaderboard.dto"
+import { RankDTO } from "src/entities/dtos/rank.dto";
 
 
 export class EloRepository implements IEloRepository {
@@ -85,5 +86,18 @@ export class EloRepository implements IEloRepository {
         })),
         total
       }
+    }
+
+    async getUserRank(user_id: string): Promise<RankDTO | null> {
+
+        const sorted = await this.eloRepository
+        .createQueryBuilder()
+        .innerJoinAndSelect('elo.user', 'user')
+        .orderBy('elo.rating', 'DESC')
+        .getMany();
+
+        const index 
+        
+        
     }
 }
