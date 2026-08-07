@@ -98,6 +98,15 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             else if(elo >= 1200 && elo < 1800){
                 setLeague("Venus");
             }
+            else if(elo >= 1800 && elo < 2400){
+                setLeague("Earth");
+            }
+            else if(elo >= 2400 && elo < 3000){
+                setLeague("Mars");
+            }
+            else if(elo >= 3000 && elo < 3600){
+                
+            }
 
         }
         catch (error) {
