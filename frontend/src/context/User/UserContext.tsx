@@ -105,7 +105,19 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 setLeague("Mars");
             }
             else if(elo >= 3000 && elo < 3600){
-                
+                setLeague("Jupiter");
+            }
+            else if(elo >= 3600 && elo < 4200){
+                setLeague("Saturn");
+            }
+            else if(elo >= 4200 && elo < 4800){
+                setLeague("Uranus");
+            }
+            else if(elo >= 4800 && elo <= 5400){
+                setLeague("Neptune");
+            }
+            else{
+                setError('Error: Invalid League');
             }
 
         }
