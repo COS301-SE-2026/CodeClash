@@ -7,7 +7,9 @@
     "test": "tests"
   },
   "scripts": {
-    "start": "ts-node -r tsconfig-paths/register src/server.ts",
+    "start": "ts-node -r tsconfig-paths/register src/frameworks-drivers/server.ts",
+    "prod": "node -r tsconfig-paths/register dist/frameworks-drivers/server.js",
+    "build": "tsc && tsc-alias",
     "dev": "nodemon --exec \"ts-node -r tsconfig-paths/register\" src/frameworks-drivers/server.ts",
     "test": "vitest",
     "coverage": "vitest run --coverage"
@@ -56,6 +58,7 @@
     "reflect-metadata": "^0.2.2",
     "supertest": "^7.2.2",
     "ts-node": "^10.9.2",
+    "tsc-alias": "^1.9.1",
     "tsconfig-paths": "^4.2.0",
     "typeorm": "^1.1.0",
     "typescript": "^6.0.3",

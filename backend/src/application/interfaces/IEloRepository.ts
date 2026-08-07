@@ -1,6 +1,6 @@
 
-import { EloDTO } from "src/entities/dtos/elo.dto"
-import { LeaderboardEntryDTO } from "src/entities/dtos/leaderboard.dto"
+import { EloDTO } from "src/interface-adapters/dtos/elo.dto"
+import { LeaderboardEntryDTO } from "src/interface-adapters/dtos/leaderboard.dto"
 
 
 export interface IEloRepository {
