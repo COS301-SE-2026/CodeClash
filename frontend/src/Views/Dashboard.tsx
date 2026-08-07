@@ -1,4 +1,4 @@
-import { Search, Bot, UserCircle, ChevronRight, Swords, Users2 } from 'lucide-react';
+import { Search, Bot, UserCircle, ChevronRight, Swords, Users2, Trophy, Flame, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import backgroundImg from '../assets/Background/dashboard.png'
 import brainIcon from '../assets/Icons/Brain.png';
@@ -113,6 +113,51 @@ const Dashboard = () => {
                 </div> 
               </div>
 
+              {/*Skill score */}
+              <div className='card-glow flex flex-col items-center justify-center p-8 text-center'>
+                <p className='eyebrow mb-4'>Skill Score</p>
+                <p className='score-display text-6xl mb-2'>{elo}</p>
+                <p className='text-xsm uppercase tracking=[0.2rem] text-muted'>Elo Rating</p>
+                <span className='divider w-full my-6'/>
+                <span>
+                  <Trophy size= {14}/>
+                  {league} League
+                </span>
+              </div>
+
+              {/*Stats, badges, progress */}
+              <div className='flex flex-col gap-4'>
+                <div className='grid grid-cols-2 gap-4'>
+                  <div className='card-elevated flex flex-col items-center justify-center gap-1 py-5'>
+                    <Flame size={20} className='text-primary mb-1'/>
+                    <p className='text-xsm uppercase tracking-wide text-muted'>Current Streak</p>
+                    <p className='score-display text-2xl'>-</p>
+                  </div>
+                  <div className='card-elevated flex flex-col items-center justify-center gap-1 py-5'>
+                    <Sparkles size={20} className='text-primary mb-1'/>
+                    <p className='text-xsm uppercase tracking-wide text-muted'>Winning Streak</p>
+                    <p className='score-display text-2xl'>-</p>
+                  </div>
+                </div>
+
+                {/*Recntly earned */}
+                <div className='card-elevated p-5'>
+                  <div className='flex items-center justify-between mb-3'>
+                    <p className='text-sm font-bold text-primary-text'>Recently Earned</p>
+                    <Link to='/badges' className='badge badge-status-pending'>
+                    See all 
+                    <ChevronRight size={12}/>
+                    </Link>
+                  </div>
+                  <div className='flex items-center gap04 rounded-2xl bg-background-elevated border border-border p-3'>
+                    <div>
+                      <p className='text-sm font-semibold text-primary'>Badge Name</p>
+                      <p className='text-xsm text-secondary uppercase'>Math/Programming</p>
+                      <p className='text-xsm text-muted-text mt-1'>Description of award</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
           </div>
         </main>
       </div>
