@@ -1,4 +1,4 @@
-import { Search, Bot, UserCircle, ChevronRight } from 'lucide-react';
+import { Search, Bot, UserCircle, ChevronRight, Swords, Users2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import backgroundImg from '../assets/Background/dashboard.png'
 import brainIcon from '../assets/Icons/Brain.png';
@@ -83,6 +83,38 @@ const Dashboard = () => {
             </Link>
           </div>
         </header>
+
+        <main className='flex-1 px-8 py-8'>
+          <div className='grid grid-cols-1 lg:grid-cols-[1.1fr_1fr_1.2fr] gap-6 max-w-[1400px] mx-auto'>
+            {/*Profile + Play */}
+            <div className='flex flex-col gap-6'>
+              <div className='card-elevated flex items-center gap-4 p-6'>
+                <img src = {avatar} alt='' className='w-16 h-16 rounded-full border-2 border-primary object-cover shrink-0'/>
+                <div>
+                  <span>League - {league}</span>
+                  <p className='text-xl font-black text-primart-text'>{username}</p>
+                </div>
+              </div>
+
+              <div className='card-elevated p-6 text-center'>
+                  <p className='eyebrow mb-1'>Play now</p>
+                  <h2 className='text-md font-black text-primary-text mb-1 whitespace-nowrap'>Enter the arena</h2>
+                  <p className='text-xsm text-muted mb-5'>Select a game mode and start competing</p>
+                  <div className='flex flex-col gap-3'>
+                    <button className='btn btn-primary w-full' onClick={() => openPopUp('ranked')}>
+                      <Swords size= {18}/>
+                      Ranked Play
+                    </button>
+                    <button className='btn btn-secondary w-full' onClick={() => openPopUp('casual')}>
+                      <Users2 size= {18}/>
+                      Casual Play
+                    </button>
+                  </div>
+                </div> 
+              </div>
+
+          </div>
+        </main>
       </div>
     </div>
   )
