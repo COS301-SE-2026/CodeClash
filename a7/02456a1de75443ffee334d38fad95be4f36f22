@@ -1,0 +1,14 @@
+backend/src/interface-adapters/repositories/elo.repository.ts
+  h_b13c5d77534129 91,99-110
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "a702456a1de75443ffee334d38fad95be4f36f22",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
