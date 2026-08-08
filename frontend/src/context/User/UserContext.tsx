@@ -25,7 +25,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
 
         try {
-            axios.get(url.concat('elo/elo-get'), {
+            axios.get('/api/elo/elo-get', {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {
@@ -77,7 +77,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
 
         try {
-            axios.get(url.concat('user/league'), {
+            axios.get('/api/user/league', {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {
@@ -104,31 +104,31 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         ]);
     }
 
-    const getRank = async () => {
+    // const getRank = async () => {
 
-        if (!token) {
-            setError('Missing or Invalid Token');
-            return;
-        }
+    //     if (!token) {
+    //         setError('Missing or Invalid Token');
+    //         return;
+    //     }
 
-        try {
-            await axios.get(url.concat('user/rank'), {
-                headers: { Authorization: `Bearer ${token}` }
-            })
-                .then((res) => {
-                    if (res.status === 200) {
-                        setRank(res.data.rank);
-                    }
-                    else {
-                        setError(`Error: ${res.status} ${res.data}`)
-                    }
-                })
-        }
-        catch (error) {
-            setError(`Error Getting User Rank: ${error}`);
-        }
+    //     try {
+    //         await axios.get('user/rank', {
+    //             headers: { Authorization: `Bearer ${token}` }
+    //         })
+    //             .then((res) => {
+    //                 if (res.status === 200) {
+    //                     setRank(res.data.rank);
+    //                 }
+    //                 else {
+    //                     setError(`Error: ${res.status} ${res.data}`)
+    //                 }
+    //             })
+    //     }
+    //     catch (error) {
+    //         setError(`Error Getting User Rank: ${error}`);
+    //     }
 
-    }
+    // }
 
 
     useEffect(() => {
@@ -140,7 +140,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 getAvatarUrl(),
                 getLeague(),
                 getElo(),
-                getRank()
+                // getRank()
             ]);
         }
 
