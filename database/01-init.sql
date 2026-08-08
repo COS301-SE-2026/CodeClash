@@ -83,3 +83,12 @@ CREATE TABLE IF NOT EXISTS elo_history (
   new_rating INTEGER,
   changed_at TIMESTAMP DEFAULT NOW()
 );
+
+CREATE TABLE IF NOT EXISTS match_stats (
+  stat_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  match_id UUID REFERENCES matches(match_id),
+  user_id UUID REFERENCES users(user_id),
+  num_correct INTEGER NOT NULL,
+  total_time INTEGER NOT NULL, --milliseconds
+  created_at TIMESTAMP DEFAULT NOW()
+);

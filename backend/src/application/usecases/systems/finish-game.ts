@@ -34,6 +34,11 @@ export class FinishGame {
 
         const game_stats = this.getStats(submission_registry.submissions, player_ids);
 
+        //persist match stats
+        for(const [user_id, stat] of game_stats){
+            await this.match_stats_repo.saveStats(db_match_id!.database_id, user_id, stat.num_correct, stat.total_time);
+        }
+        
         // calculate winner 
         let winner: string | null = null;
         let winner_stats: PlayerStatsDTO | null = null
