@@ -89,6 +89,6 @@ CREATE TABLE IF NOT EXISTS match_stats (
   match_id UUID REFERENCES matches(match_id),
   user_id UUID REFERENCES users(user_id),
   num_correct INTEGER NOT NULL,
-  total_time INTEGER NOT NULL, --milliseconds
+  total_time INTEGER NOT NULL, -- milliseconds
   created_at TIMESTAMP DEFAULT NOW()
 );
