@@ -23,7 +23,10 @@ const SkillProgressCard = ({
 }) => (
   <div className='card-elevated p-5'>
     <div className='flex items-center justify-between mb-3'>
-      <p className='text-sm font-bold text-primary-text'>Skill Progress - {title}</p>
+      <div>
+        <p className='text-sm font-bold text-primary-text'>Skill Progress</p>
+        <p className='text-xsm text-muted uppercase'>{title}</p>
+      </div>
       <Link to = {seeAll} className='badge badge-status-pending'>
         See all 
         <ChevronRight size = {12}/>
@@ -157,7 +160,7 @@ const Dashboard = () => {
                     <ChevronRight size={12}/>
                     </Link>
                   </div>
-                  <div className='flex items-center gap04 rounded-2xl bg-background-elevated border border-border p-3'>
+                  <div className='flex items-center gap-4 rounded-2xl bg-background-elevated border border-border p-3'>
                     <div>
                       <p className='text-sm font-semibold text-primary'>Badge Name</p>
                       <p className='text-xsm text-secondary uppercase'>Math/Programming</p>
