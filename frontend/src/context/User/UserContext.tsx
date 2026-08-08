@@ -7,6 +7,8 @@ import { useAuth } from "../Auth/hooks/useAuth";
 
 import { UserContext } from "./UserContextValue";
 
+import type {RankDTO} from "../../../../backend/src/entities/dtos/rank.dto"
+
 
 
 const url = import.meta.env.VITE_API_URL;
@@ -16,7 +18,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [avatar, setAvatar] = useState('');
     const [error, setError] = useState('');
     const [league, setLeague] = useState('');
-    const [rank, setRank] = useState('');
+    const [rank, setRank] = useState(0);
     const { user, token, isLoading } = useAuth();
 
     const username = user?.username ?? '';
@@ -134,7 +136,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
 
         try {
-            await axios.get(url.concat('user/rank'), {
+            await axios.get(url.concat('elo/rank'), {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {

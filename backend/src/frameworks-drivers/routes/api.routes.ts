@@ -10,6 +10,7 @@ import {
 import { getUserStat } from 'src/interface-adapters/controllers/user.controllers';
 import { EloRepository } from 'src/interface-adapters/repositories/elo.repository';
 import { UserRepository } from 'src/interface-adapters/repositories/user.repository';
+import { getUserRank } from 'src/interface-adapters/controllers/rank.controllers';
 
 import { AppDataSource } from '../config/data-source';
 
@@ -29,6 +30,7 @@ const elo_repo = new EloRepository(AppDataSource.getRepository(EloRatings))
 
 //elo routes
 // router.get('/leaderboard', getLeaderboardController(leaderboard_system));
+router.get('/elo/rank/:user_id', getUserRank)
 router.get('/elo-get', getUserElo(elo_repo));
 // router.post('/elo-history', getEloHistory);
 // router.post('/update', updateEloAfterMatch);
