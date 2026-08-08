@@ -50,7 +50,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
 
         try {
-            axios.get(url.concat('user/avatar_id'), {
+            axios.get('/api/user/avatar_id', {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {
