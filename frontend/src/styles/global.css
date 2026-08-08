@@ -329,6 +329,7 @@
 
   .badge {
     box-shadow: var(--badge-shadow);
+
   }
 
   .heading {
@@ -592,8 +593,11 @@
   .badge {
     display: inline-flex;
     align-items: center;
+    align-self: flex-start;
+    flex: none;
+    height: fit-content;
     gap: 0.4rem;
-    padding: 40px 12px;
+    padding: 4px 12px;
     border-radius: 999px;
     font-size: 0.75rem;
     font-weight: 700;
