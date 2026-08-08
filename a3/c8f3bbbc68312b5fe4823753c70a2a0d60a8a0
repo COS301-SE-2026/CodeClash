@@ -1,0 +1,23 @@
+frontend/src/context/User/UserContext.tsx
+  h_b13c5d77534129 150,156-163
+  h_b13c5d77534129 164
+backend/src/application/usecases/services/leaderboard.service.ts
+  h_b13c5d77534129 3
+backend/src/interface-adapters/repositories/elo.repository.ts
+  h_b13c5d77534129 7-8,141,149
+backend/src/frameworks-drivers/routes/api.routes.ts
+  h_b13c5d77534129 13,19-21,23,27
+backend/src/interface-adapters/controllers/elo.controllers.ts
+  h_b13c5d77534129 8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "a3c8f3bbbc68312b5fe4823753c70a2a0d60a8a0",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
