@@ -1,8 +1,15 @@
-import React from 'react';
+import React , {useMemo}from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowLeft, User, AtSign, Mail, Phone, Lock } from 'lucide-react';
 import { SignUpViewModelFunction } from '../ViewModels/SignUpViewModel.ts';
 import symbolBackground from "../assets/Background/SymbolBackground.png";
+
+{/*Copied from dashboard */}
+const secureRandom = ()=> {
+  const arr = new Uint32Array(1);
+  window.crypto.getRandomValues(arr);
+  return arr[0] / (0xffffffff + 1);
+}
 
 const SignUp: React.FC= () => {
     const { //this is to destructure the elements that the viewmodel returns, so that the view can access them
@@ -18,6 +25,13 @@ const SignUp: React.FC= () => {
         handleConfirm,
         handleResend,
     } = SignUpViewModelFunction();
+
+    {/*Copied from dashboard */}
+      const stars = useMemo (
+        () => Array.from({length: 40}, (_,i) => ({
+          id: i, top: secureRandom() *100, left: secureRandom() *100, delay: secureRandom() * 3,
+        })), []
+      )
 
     if (needsConfirmation) {
         return (
@@ -65,9 +79,10 @@ const SignUp: React.FC= () => {
         <div className='relative w-full min-h-screen flex items-center justify-center overflow-hidden px-6 py-16'
             style={{background: "radial-gradient(circle at 50% 12%, #b91551 0%, #850f3b 22%, #630b3c 34%, #0a0008 62%)"}}>
             <img src={symbolBackground} alt='' className='absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none'/>
-            <div className='starfield'>
-                {Array.from({length: 40}).map((_, i) => (
-                    <span key= {i} style={{top: `${Math.random() * 100}%`, left: `${Math.random() * 100}%`, animationDelay: `${Math.random() *3}s`}}/>
+            {/*Starfield copied from dashboard */}
+            <div className="starfield">
+                {stars.map((star) => (
+                    <span key={star.id} style={{top: `${star.top}%`, left: `${star.left}%`, animationDelay: `${star.delay}s`}}/>
                 ))}
             </div>
 

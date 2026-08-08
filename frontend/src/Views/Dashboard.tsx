@@ -8,10 +8,17 @@ import Loading from '@/components/shared/Loading';
 
 import { AppSidebar} from '@/components/Sidebar';
 import { SidebarProvider, SidebarInset, SidebarTrigger } from '@/components/ui/sidebar/sidebar';
+import { useMemo } from 'react';
 
 type SkillMetric = {
   label: string;
   value: number;
+}
+
+const secureRandom = ()=> {
+  const arr = new Uint32Array(1);
+  window.crypto.getRandomValues(arr);
+  return arr[0] / (0xffffffff + 1);
 }
 
 const SkillProgressCard = ({
@@ -52,6 +59,12 @@ const SkillProgressCard = ({
 const Dashboard = () => {
   const { isOpen, openPopUp, closePopUp, username, elo, league, avatar, isLoading } = useDashboardViewModel();
 
+  const stars = useMemo (
+    () => Array.from({length: 40}, (_,i) => ({
+      id: i, top: secureRandom() *100, left: secureRandom() *100, delay: secureRandom() * 3,
+    })), []
+  )
+
   if (isLoading) {
     return (
       <Loading isOpen={isLoading}></Loading>
@@ -65,10 +78,9 @@ const Dashboard = () => {
     <div className='relative w-full min-h-screen bg-cover bg-center overflow-hidden'
       style={{backgroundImage: `url(${backgroundImg})`}}>
       <div className='absolute inset-0 bg-gradient-to-b from-background/85 via-background/75 to-background'/>
-      {/*Starfield copied from SignIn */}
       <div className="starfield">
-        {Array.from({length: 40}).map((_, i) => (
-            <span key={i} style={{top: `${Math.random() * 100}%`, left: `${Math.random() * 100}%`, animationDelay: `${Math.random() *3}s`}}/>
+        {stars.map((star) => (
+            <span key={star.id} style={{top: `${star.top}%`, left: `${star.left}%`, animationDelay: `${star.delay}s`}}/>
         ))}
       </div>
       <div className='relative z-10 flex flex-col min-h-screen'>
