@@ -68,7 +68,7 @@ const Dashboard = () => {
       {/*Starfield copied from SignIn */}
       <div className="starfield">
         {Array.from({length: 40}).map((_, i) => (
-            <span key={i} style={{top: `${Math.random() * 100}%`, left: `${Math.random() * 100}%`, animationDelay: `${Math.random() *3};s`}}/>
+            <span key={i} style={{top: `${Math.random() * 100}%`, left: `${Math.random() * 100}%`, animationDelay: `${Math.random() *3}s`}}/>
         ))}
       </div>
       <div className='relative z-10 flex flex-col min-h-screen'>
@@ -82,7 +82,7 @@ const Dashboard = () => {
         </div>
 
           <div className='flex items-center gap-5 shrink-0'>
-            <button className='btn btn-ghost btn-icon' aria-label='Ask CodeClash AI (coming soon)'>
+            <button className='btn btn-ghost btn-icon' aria-label='Ask CodeClash AI (coming soon)' type='button'>
               <Bot size={20}/>
             </button>
             <Link to='/profile' className='avatar w-10 h-10 flex items-center justify-center overflow-hidden'>
@@ -112,11 +112,11 @@ const Dashboard = () => {
                   <h2 className='text-md font-black text-primary-text mb-1 whitespace-nowrap'>Enter the arena</h2>
                   <p className='text-xsm text-muted mb-5'>Select a game mode and start competing</p>
                   <div className='flex flex-col gap-3'>
-                    <button className='btn btn-primary w-full' onClick={() => openPopUp('ranked')}>
+                    <button className='btn btn-primary w-full' onClick={() => openPopUp('ranked')} type='button'>
                       <Swords size= {18}/>
                       Ranked Play
                     </button>
-                    <button className='btn btn-secondary w-full' onClick={() => openPopUp('casual')}>
+                    <button className='btn btn-secondary w-full' onClick={() => openPopUp('casual')} type='button'>
                       <Users2 size= {18}/>
                       Casual Play
                     </button>
