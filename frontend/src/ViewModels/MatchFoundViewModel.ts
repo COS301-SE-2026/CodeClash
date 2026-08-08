@@ -1,26 +1,30 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom';
-import { joinMatchQueue, useMatchmakingSocket ,matchAccepted, matchDeclined} from "src/context/Socket/hooks/useMatchmakingSocket";
+import { useMatchmaking } from "src/context/Socket/hooks/useMatchmaking";
 import { useSocket } from "src/context/Socket/hooks/useSocket"
 import { useUser } from "src/context/User/hooks/useUser";
-import MatchmakingUserDTO from "src/dtos/matchmaking.dto";
+import type { MatchedUsersDTO } from "src/dtos/matched-user.dto";
+import type { MatchmakingUserDTO } from "src/dtos/matchmaking.dto";
 
 import {
   matchFoundContent,
-  mockMatchFoundDetails,
-  mockMatchFoundPlayers,
+  type MatchFoundDetail,
+  type MatchFoundPlayer,
 } from '../Models/MatchFoundModel';
+
+
 
 
 export function MatchFoundViewModelFunction() {
   const nav = useNavigate();
-  const { elo, league } = useUser();
-
-  const { socket } = useSocket()
-  const { gameMode, pairId } = useMatchmakingSocket();
+  const { league, username, avatar, elo } = useUser();
+  const { socket, } = useSocket()
+  const { gameType, pairId, matchAccepted, matchDeclined, matchedUsers, gameMode, joinMatchQueue } = useMatchmaking()
   const [path, setPath] = useState('');
   const [loading, setLoading] = useState(false);
   const [socketError, setSocketError] = useState('');
+  const [players, setPlayers] = useState<MatchFoundPlayer[] | null>(null);
+  const [matchDetails, setMatchDetails] = useState<MatchFoundDetail[] | null>(null);
 
   const closeLoading = () => setLoading(false);
   const openLoading = () => setLoading(true);
@@ -38,7 +42,6 @@ export function MatchFoundViewModelFunction() {
   const gameReady = (data: { game_id: number }) => {
     setLoading(false);
 
-    console.log("Recieved start game event, navigating to match page")
     nav(path, {
       replace: true,
       state: {
@@ -47,29 +50,38 @@ export function MatchFoundViewModelFunction() {
     });
   }
 
-  // handler for user that declined the game
+    // handler for user that declined the game
   const declineGame = () => {
-    setLoading(false);
-    nav('/dashboard')
+        setLoading(false);
+        nav('/dashboard')
   }
 
-  // handler for user that was declined
+    // handler for user that was declined
   const gameDeclined = () => {
-    setLoading(false);
+        setLoading(false);
 
-    const data = new MatchmakingUserDTO(elo, gameMode);
-    joinMatchQueue(socket!, data);
-    nav('/searching')
+        const data: MatchmakingUserDTO = {
+          elo: elo, 
+          game_mode: gameMode,
+          game_type: gameType,
+          username: username
+        };
+
+        joinMatchQueue(socket!, data);
+        nav('/searching')
   }
 
   const accept = () => {
-    if (socket) {
-      const new_path = "/".concat(gameMode).concat("-match")
+    if (socket && matchedUsers) {
+      const new_path = "/".concat(matchedUsers.game_mode!).concat("-match")
       setPath(new_path);
       const data = {
         pair_id: pairId,
-        game_mode: gameMode,
-        league: league
+        game_mode: matchedUsers.game_mode!,
+        league: league,
+        username: username,
+        avatar: avatar,
+        game_type: gameType
       }
 
       matchAccepted(socket, data);
@@ -80,7 +92,49 @@ export function MatchFoundViewModelFunction() {
     }
   }
 
+  const set_players = (matched_users: MatchedUsersDTO) => {
+    if(!matchedUsers?.players) return
+
+    const player_1 = matched_users.players.player_1;
+    const p1: MatchFoundPlayer = {
+      id: player_1.id,
+      elo: player_1.elo,
+      side: 'left',
+      username: player_1.username
+    }
+
+    const player_2 = matched_users.players.player_2;
+    const p2: MatchFoundPlayer = {
+      id: player_2.id,
+      elo: player_2.elo,
+      side: 'right',
+      username: player_2.username
+    }
+
+    setPlayers([p1, p2])
+  }
+
+  const set_detais = () => {
+    const type: MatchFoundDetail = {
+      label: "Match Type",
+      value: gameType!
+    }
+
+    const mode: MatchFoundDetail = {
+      label: "Match Mode",
+      value: matchedUsers!.game_mode!
+    }
+
+    setMatchDetails([type, mode])
+  }
+
   useEffect(() => {
+
+    if (matchedUsers) {
+      set_players(matchedUsers)
+      set_detais()
+    }
+
     if (socket) {
       socket.on("game_ready", gameReady);
 
@@ -98,17 +152,18 @@ export function MatchFoundViewModelFunction() {
         socket.off("start_game", gameReady)
       }
     }
-  }, [socket, path])
+  }, [socket, path, matchedUsers])
 
   return {
     content: matchFoundContent,
-    players: mockMatchFoundPlayers,
-    details: mockMatchFoundDetails,
+    players,
+    matchDetails,
     decline,
     accept,
     loading,
     socketError,
     closeLoading,
-    openLoading
+    openLoading,
+    matchedUsers
   };
 }

@@ -1,10 +1,8 @@
-import { type AuthUser } from "aws-amplify/auth";
 import axios from "axios";
 import React, { useEffect, useMemo, useState, type ReactNode } from "react";
 import { robot_map } from "src/assets/Robots";
 
 import { useAuth } from "../Auth/hooks/useAuth";
-
 import { UserContext } from "./UserContextValue";
 
 import type {RankDTO} from "../../../../backend/src/entities/dtos/rank.dto"
@@ -20,7 +18,8 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [league, setLeague] = useState('');
     const [rank, setRank] = useState(0);
     const { user, token, isLoading } = useAuth();
-
+ 
+  const userId = user?.userId ?? ""
     const username = user?.username ?? '';
 
 
@@ -31,7 +30,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
 
         try {
-            await axios.get(url.concat('elo/elo-get'), {
+            axios.get(url.concat('elo/elo-get'), {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {
@@ -56,11 +55,12 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
 
         try {
-            await axios.get(url.concat('user/avatar_id'), {
+            axios.get(url.concat('user/avatar_id'), {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {
                     if (res.status === 200) {
+
                         const index = res.data.avatar_id;
                         setAvatar(robot_map[index]);
                     }
@@ -128,6 +128,15 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
     }
 
+
+    const refresh = async () => {
+        await Promise.all([
+            getElo(),
+            getAvatarUrl(),
+            getLeague(),
+        ]);
+    }
+
     const getRank = async () => {
 
         if (!token) {
@@ -156,23 +165,25 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
 
     useEffect(() => {
+
         if (!token) return;
 
         const load = async () => {
-            getElo();
-            getAvatarUrl()
-            getLeague();
-            getRank();
+            await Promise.all([
+                getAvatarUrl(),
+                getLeague(),
+                getElo(),
+                getRank(),
+            ]);
         }
-
 
         void load();
     }, [token])
 
 
     const value = useMemo(() => ({
-        username, elo, avatar, error, league, rank
-    }), [username, elo, avatar, error, league, rank])
+        username, elo, avatar, error, league, userId, refresh, rank
+    }), [username, elo, avatar, error, league, userId, rank])
 
     return (
         <UserContext.Provider

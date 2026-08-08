@@ -5,6 +5,11 @@ export enum GameMode {
     Programming = "programming"
 }
 
+export enum GameType{
+    ranked = 'ranked',
+    casual = 'casual'
+}
+
 
 @Entity()
 export class Questions {

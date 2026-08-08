@@ -32,7 +32,7 @@ export async function fetchCognitoUser(attributes: string[], user_id: string) {
 
 
 export async function fetchAllCognitoUsers(attributes: string[]) {
-    let users = [];
+    const users = [];
     let paginationToken: string | undefined = undefined;
     let input: ListUsersCommandInput;
 

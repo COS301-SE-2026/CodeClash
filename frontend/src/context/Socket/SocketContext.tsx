@@ -8,7 +8,6 @@ import { SocketContext } from './SocketContextValue'
 export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [socket, setSocket] = useState<Socket | null>(null);
     const [isConnected, setIsConnected] = useState(false);
-    const [matched, setMatched] = useState<{ game_mode: string, pair_id: string } | null>(null);
 
     useEffect(() => {
         createSocket().then((conn) => {
@@ -32,7 +31,6 @@ export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) 
                 setIsConnected(false);
             })
 
-            socket.on("users_matched", (data) => { setMatched(data) })
         }
     }, [socket])
 
@@ -42,7 +40,7 @@ export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) 
             value={{
                 socket,
                 isConnected,
-                matched
+
             }}
         >
             {children}

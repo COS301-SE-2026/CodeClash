@@ -1,4 +1,4 @@
-import { PaginatedLeaderboardResponse } from "../../../entities/dtos/leaderboard.dto";
+import { PaginatedLeaderboardResponse } from "src/interface-adapters/dtos/leaderboard.dto";
 import { IEloRepository } from "../../interfaces/IEloRepository";
 import { RankDTO } from "src/entities/dtos/rank.dto";
 

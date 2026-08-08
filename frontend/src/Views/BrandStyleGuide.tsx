@@ -40,20 +40,20 @@ const BrandStyleGuide: React.FC = () => {
                             </button>
                         ))}
                     </div>
-                </div>    
+                </div>
             </nav>
 
-            <div className = "max-w-[860px] mx-auto px-6 pt-24 pb-24">
-                <IntroSection content = {content}/>
-                <ColorSection content = {content} clipboardCopy={clipboardCopy} copied={copied}/>
-                <TypographySection content = {content}/>
-                <LogoSection content={content}/>
-                <TokenSection content = {content} clipboardCopy={clipboardCopy} copied = {copied} />
-                <ComponentSection content={content}/>
-                <LayoutSection content = {content}/>
-                <AccessibilitySection content = {content} />
-                <VoiceSection content = {content}/>
-                <ChangelogSection content={content}/>
+            <div className="max-w-[860px] mx-auto px-6 pt-24 pb-24">
+                <IntroSection content={content} />
+                <ColorSection content={content} clipboardCopy={clipboardCopy} copied={copied} />
+                <TypographySection content={content} />
+                <LogoSection content={content} />
+                <TokenSection content={content} clipboardCopy={clipboardCopy} copied={copied} />
+                <ComponentSection content={content} />
+                <LayoutSection content={content} />
+                <AccessibilitySection content={content} />
+                <VoiceSection content={content} />
+                <ChangelogSection content={content} />
 
                 <footer className="mt-24 pt-8 border-t border-gray-100 text.center">
                     <p className="text-[#530a23] text-sm">{content.meta.project} - Brand Style Guide - {content.meta.team}</p>

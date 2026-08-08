@@ -1,6 +1,6 @@
 import "reflect-metadata"
-import { DataSource } from "typeorm"
 import dotenv from 'dotenv'
+import { DataSource } from "typeorm"
 dotenv.config()
 
 const env = process.env;

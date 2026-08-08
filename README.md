@@ -45,6 +45,7 @@ CodeClash is a competitive mathematics and coding collaboration platform designe
 ## Demo Videos
 
 - [Demo 1](https://drive.google.com/file/d/1jSZ5YmmdEsPccR-M5zBKY4wCI998dGdX/view?usp=sharing)
+- [Demo 2](https://youtu.be/5oXeTaWXfpI)
 
 ## Documentation
 
@@ -59,7 +60,12 @@ CodeClash is a competitive mathematics and coding collaboration platform designe
 <details>
 <summary>Demo 2</summary>
 
-Coming soon!
+- [Software Requirements Specification](docs/Demo_2/SRS.md)
+- [Software Architecture Specification](docs/Demo_2/SAS.md)
+- [Coding Standards Document](docs/Demo_2/coding-standards.md)
+- [Testing Policy Document](docs/Demo_2/testing-policy.md)
+- [User Manual](docs/Demo_2/User%20Manual%20Document.pdf)
+
 
 </details>
 

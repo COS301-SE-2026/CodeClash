@@ -8,7 +8,6 @@ import BrandStyleGuide from "./Views/BrandStyleGuide";
 import Dashboard from "./Views/Dashboard";
 import MatchFound from "./Views/MatchFound";
 import MathMatch from "./Views/MathsMatch";
-import Loading from "@/components/shared/Loading";
 
 import MatchHistory from "./Views/MatchHistory";
 import ForgotPassword from "./Views/ForgotPassword";
@@ -23,9 +22,16 @@ import Profile from "./Views/Profile";
 import SignIn from "./Views/SignIn";
 import SignUp from "./Views/SignUp";
 
+import Loading from "@/components/shared/Loading";
+
+
 const App: React.FC = () => {
 
-    const { user } = useAuth();
+    const { user, isLoading } = useAuth();
+    if (isLoading) {
+        return <Loading isOpen={isLoading} />
+    }
+   
 
     const logged_in = user !== null
 
@@ -49,12 +55,23 @@ const App: React.FC = () => {
 
                 <Route path='*' element={<Navigate to='/sign-in' replace />} />
 
+
+                {/* Pages with sidebar inside the app */}
+                <Route element={<Layout />}>
+                    <Route path='/dashboard' element={<Dashboard />} />
+                    <Route path='/game-guide' />
+                    <Route path='/tournaments' />
+                    <Route path='/leaderboard' />
+                    <Route path='/badges' />
+                    <Route path='/friends' />
+                </Route>
             </Routes>
         )
     }
 
     return (
         <Routes>
+            <Route path='/' element={<Dashboard/>} />
             <Route path='/' element={base_path} />
             <Route path='/sign-in' element={<SignIn />} />
             <Route path='/sign-up' element={<SignUp />} />
@@ -64,6 +81,7 @@ const App: React.FC = () => {
             <Route path='/maths-match' element={<MathMatch />} />
             {/*<Route path='/leaderboard' element={<Leaderboard />} />*/}
             <Route path='/prog-match' element={<ProgMatch language="javascript" />} />
+            <Route path='/results' element={<FinalResults/>} />
             {/* <Route path='/prog-match' element={<ProgMatch language="javascript"/>}/> */}
 
             <Route path= '/results' element= {<FinalResults/>}/>

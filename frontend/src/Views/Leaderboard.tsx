@@ -1,15 +1,8 @@
-// import background from '../assets/Background/leaderboard_background.png';
-import profile from '../assets/Icons/Profile.png';
-import winner from '../assets/Icons/winner.png';
-import planet from '../assets/Planets/Earth.png';
-import GlassCard from '@/components/shared/GlassCard';
 import bg from '../assets/Background/stary-image-part-two.jpeg'
 import { LeaderboardViewModel } from '../ViewModels/LeaderboardViewModel';
 
 import '../styles/global.css';
 import {Link} from 'react-router-dom';
-
-import light from '../assets/light.png';
 
 
 const Leaderboard = () => {
@@ -25,7 +18,7 @@ const Leaderboard = () => {
 
   return (
     <div style={{backgroundImage: `url(${bg})`}} className="w-full min-h-screen bg-cover bg-no-repeat object-cover">
-            <Link to="/dashboard" className="text-primary font-[var(--font)] text-[32px] font-semibold ml-5">← Back</Link>
+            <Link to="/dashboard" className="text-secondary font-[var(--font)] text-[32px] font-semibold ml-5">← Back</Link>
             <h1 className="text-[60px] text-secondary text-center -mt-1 font-[var(--font)] font-semibold drop-shadow-[4px_4px_0px_rgba(0,0,0,0.25)]">Leader Board</h1>
 
             <div className="relative flex justify-center items-start gap-10 ">
@@ -82,7 +75,7 @@ const Leaderboard = () => {
                   </div>
 
                   <div className="flex items-center justify-center gap-6 mt-2">
-                    <button onClick={prevPage} disabled={page <= 1} className="px-5 py-2 rounded-[10px] bg-button-primary text-primary font-semibold text-[20px] disabled:opacity-40 hover:bg-[#F4A0B2] transition-colors">← Prev</button>
+                    <button onClick={prevPage} disabled={page <= 1} className="px-5 py-2 rounded-[10px] bg-button-secondary text-primary font-semibold text-[20px] disabled:opacity-40 hover:bg-[#F4A0B2] transition-colors">← Prev</button>
                     <div className="flex items-center gap-2">
                       {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
                         const start = Math.max(1, page - 2);
@@ -93,13 +86,8 @@ const Leaderboard = () => {
                         );
                       })}
                     </div>
-                    <button onClick={nextPage} disabled={page >= totalPages} className="px-5 py-2 rounded-[10px] bg-button-primary text-primary font-semibold text-[20px] disabled:opacity-40 hover:bg-[#F4A0B2] transition-colors">Next →</button>
+                    <button onClick={nextPage} disabled={page >= totalPages} className="px-5 py-2 rounded-[10px] bg-button-secondary text-primary font-semibold text-[20px] disabled:opacity-40 hover:bg-[#F4A0B2] transition-colors">Next →</button>
                   </div>
-                </div>
-
-                <div className="absolute right-0 top-40 flex flex-col items-center">
-                    <div style={{backgroundImage: `url(${planet})`}} className="w-[300px] h-[300px] bg-no-repeat bg-contain bg-center"></div>
-                    <div className="text-[60px] text-secondary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">League</div>
                 </div>
             </div>
       </div>
