@@ -1,0 +1,15 @@
+frontend/src/context/User/UserContext.tsx
+  h_94c952a9e14c58 109-111,114-128
+  h_94c952a9e14c58 107-108,112-113,129-131,143
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "96e5fc64f3af5c754b9cb7b9d7dd62e37b8d89bc",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
