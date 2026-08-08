@@ -5,8 +5,6 @@ import { robot_map } from "src/assets/Robots";
 import { useAuth } from "../Auth/hooks/useAuth";
 import { UserContext } from "./UserContextValue";
 
-import type {RankDTO} from "../../../../backend/src/entities/dtos/rank.dto"
-
 
 
 const url = import.meta.env.VITE_API_URL;
@@ -128,15 +126,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
     }
 
-
-    const refresh = async () => {
-        await Promise.all([
-            getElo(),
-            getAvatarUrl(),
-            getLeague(),
-        ]);
-    }
-
     const getRank = async () => {
 
         if (!token) {
@@ -158,9 +147,19 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 })
         }
         catch (error) {
+            console.error('getRank failed', error);
             setError(`Error Getting User Rank: ${error}`);
         }
 
+    }
+
+    const refresh = async () =>{
+        await Promise.all([
+            getElo(),
+            getAvatarUrl(),
+            getLeague(),
+            getRank()
+        ])
     }
 
 

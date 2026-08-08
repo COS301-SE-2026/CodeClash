@@ -1,6 +1,6 @@
 import { PaginatedLeaderboardResponse } from "src/interface-adapters/dtos/leaderboard.dto";
 import { IEloRepository } from "../../interfaces/IEloRepository";
-import { RankDTO } from "src/entities/dtos/rank.dto";
+import { RankDTO } from "src/interface-adapters/dtos/rank.dto";
 
 export class LeaderboardSystem {
     constructor(private readonly eloRepository: IEloRepository) {}

@@ -10,15 +10,20 @@ import { UserRepository } from 'src/interface-adapters/repositories/user.reposit
 import { getUserRank } from 'src/interface-adapters/controllers/rank.controllers';
 
 import { AppDataSource } from '../config/data-source';
+import { LeaderboardSystem } from 'src/application/usecases/services/leaderboard.service';
 
 const router = Router();
 
 const user_repo = new UserRepository(AppDataSource.getRepository(Users))
 const elo_repo = new EloRepository(AppDataSource.getRepository(EloRatings))
+
+const leaderboard_system = new LeaderboardSystem(elo_repo);
+
 router.get('/elo-get', getUserElo(elo_repo));
+router.get('/rank', getUserRank(leaderboard_system));
 
 // user routes
 router.get('/:stat', getUserStat(user_repo)); // this must be last, it's a generic function that fetches any attribute directly in the users table
-router.get('/elo/rank/:user_id', getUserRank);
+
 
 export default router;
