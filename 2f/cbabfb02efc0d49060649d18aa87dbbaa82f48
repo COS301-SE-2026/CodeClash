@@ -1,0 +1,16 @@
+frontend/package-lock.json
+  h_94c952a9e14c58 17,40,4619-4635,5829-5849
+frontend/package.json
+  h_94c952a9e14c58 24,47
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "2fcbabfb02efc0d49060649d18aa87dbbaa82f48",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

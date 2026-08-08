@@ -1,0 +1,14 @@
+frontend/nginx.conf
+  h_94c952a9e14c58 20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "415238a93f2717c86d5e8d190d90530a2966a7f4",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

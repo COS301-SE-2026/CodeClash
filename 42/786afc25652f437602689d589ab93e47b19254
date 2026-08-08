@@ -1,0 +1,30 @@
+frontend/src/Views/Leaderboard.tsx
+  h_94c952a9e14c58 85
+frontend/Dockerfile
+  h_94c952a9e14c58 1-34
+frontend/src/context/User/UserContext.tsx
+  h_94c952a9e14c58 143
+  h_94c952a9e14c58 15
+frontend/@/components/features/VirtualKeyboard.tsx
+  h_94c952a9e14c58 11
+frontend/@/components/shared/Match.tsx
+  h_94c952a9e14c58 21
+docker-compose.prod.yml
+  h_94c952a9e14c58 6-19,25,27-31,33-35
+  h_94c952a9e14c58 26,32
+docker-compose.yml
+  h_94c952a9e14c58 10-12,16-25
+frontend/nginx.conf
+  h_94c952a9e14c58 1-32
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "42786afc25652f437602689d589ab93e47b19254",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
