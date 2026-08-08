@@ -263,6 +263,16 @@
   --card: var(--background-card);
   --card-text: var(--primary-text);
 
+  /*Sidebar*/
+  --sidebar: #0a0008;
+  --sidebar-text: var(--primary-text);
+  --sidebar-primary: #c0395a;
+  --sidebar-primary-text: #ffffff;
+  --sidebar-accent: rgba(252, 236, 221, 0.06);
+  --sidebar-accent-text: var(--primary-text);
+  --sidebar-border: rgba(252, 236, 221, 0.08);
+  --sidebar-ring: #c0395a;
+
   /* Buttons */
   --button-primary: #C0395A;
   --button-secondary: transparent;
