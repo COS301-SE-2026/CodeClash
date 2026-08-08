@@ -1,11 +1,13 @@
 import { Search, Bot, UserCircle, ChevronRight, Swords, Users2, Trophy, Flame, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import backgroundImg from '../assets/Background/dashboard.png'
-import brainIcon from '../assets/Icons/Brain.png';
 import { useDashboardViewModel } from '../ViewModels/DashboardViewModel';
 
 import Popup from './Popup'
 import Loading from '@/components/shared/Loading';
+
+import { AppSidebar} from '@/components/Sidebar';
+import { SidebarProvider, SidebarInset, SidebarTrigger } from '@/components/ui/sidebar/sidebar';
 
 type SkillMetric = {
   label: string;
@@ -54,6 +56,9 @@ const Dashboard = () => {
   }
 
   return (
+    <SidebarProvider>
+    <AppSidebar/>
+    <SidebarInset>
     <div className='relative w-full min-h-screen bg-cover bg-center overflow-hidden'
       style={{backgroundImage: `url(${backgroundImg})`}}>
       <div className='absolute inset-0 bg-gradient-to-b from-background/85 via-background/75 to-background'/>
@@ -65,10 +70,13 @@ const Dashboard = () => {
       </div>
       <div className='relative z-10 flex flex-col min-h-screen'>
         <header className='w-full flex items-center justify-between gap-4 px-8 py-4 border-b border-border bg-background/60 backdrop-blur-md'>
-          <div className='flex items-center gap-2 w-full max-w-md rounded-3xl border border-border bg-card px-4 py-2.5'>
+        <div className='flex items-center gap-3 w-full max-w-md'>
+          <SidebarTrigger className='btn btn-ghost btn-icon shrink-0'/>
+          <div className='flex items-center gap-2 w-full rounded-3xl border border-border bg-card px-4 py-2.5'>
             <Search size={18} className='text-muted-text shrink-0'/>
             <input type='text' placeholder='Search' className='bg-transparent outline-none text-xsm text-primary-text placeholder:text-muted-text w-full'/>
           </div>
+        </div>
 
           <div className='flex items-center gap-5 shrink-0'>
             <button className='btn btn-ghost btn-icon' aria-label='Ask CodeClash AI (coming soon)'>
@@ -85,7 +93,7 @@ const Dashboard = () => {
         </header>
 
         <main className='flex-1 px-8 py-8'>
-          <div className='grid grid-cols-1 lg:grid-cols-[1.1fr_1fr_1.2fr] gap-6 max-w-[1400px] mx-auto'>
+          <div className='grid grid-cols-1 lg:grid-cols-[1.1fr_1fr_1.2fr] gap-6 max-w-[1400px] mx-auto items-start'>
             {/*Profile + Play */}
             <div className='flex flex-col gap-6'>
               <div className='card-elevated flex items-center gap-4 p-6'>
@@ -111,7 +119,21 @@ const Dashboard = () => {
                     </button>
                   </div>
                 </div> 
+
+                {/*Stats - copied from below, i just decided to chnage the place cause the RHS was much more populated than LHS */}
+                <div className='grid grid-cols-2 gap-4'>
+                  <div className='card-elevated flex flex-col items-center justify-center gap-1 py-5'>
+                    <Flame size={20} className='text-primary mb-1'/>
+                    <p className='text-xsm uppercase tracking-wide text-muted'>Current Streak</p>
+                    <p className='score-display text-2xl'>-</p>
+                  </div>
+                  <div className='card-elevated flex flex-col items-center justify-center gap-1 py-5'>
+                    <Sparkles size={20} className='text-primary mb-1'/>
+                    <p className='text-xsm uppercase tracking-wide text-muted'>Winning Streak</p>
+                    <p className='score-display text-2xl'>-</p>
+                  </div>
               </div>
+            </div>
 
               {/*Skill score */}
               <div className='card-glow flex flex-col items-center justify-center p-8 text-center'>
@@ -125,22 +147,8 @@ const Dashboard = () => {
                 </span>
               </div>
 
-              {/*Stats, badges, progress */}
-              <div className='flex flex-col gap-4'>
-                <div className='grid grid-cols-2 gap-4'>
-                  <div className='card-elevated flex flex-col items-center justify-center gap-1 py-5'>
-                    <Flame size={20} className='text-primary mb-1'/>
-                    <p className='text-xsm uppercase tracking-wide text-muted'>Current Streak</p>
-                    <p className='score-display text-2xl'>-</p>
-                  </div>
-                  <div className='card-elevated flex flex-col items-center justify-center gap-1 py-5'>
-                    <Sparkles size={20} className='text-primary mb-1'/>
-                    <p className='text-xsm uppercase tracking-wide text-muted'>Winning Streak</p>
-                    <p className='score-display text-2xl'>-</p>
-                  </div>
-                </div>
-
                 {/*Recntly earned */}
+              <div className='flex flex-col gap-6'>
                 <div className='card-elevated p-5'>
                   <div className='flex items-center justify-between mb-3'>
                     <p className='text-sm font-bold text-primary-text'>Recently Earned</p>
@@ -157,13 +165,25 @@ const Dashboard = () => {
                     </div>
                   </div>
                 </div>
+
+                <SkillProgressCard title='Math' seeAll='/stats' items={[
+                  {label: 'Metric Title', value: 65},
+                  {label: 'Metric Title', value: 40}
+                ]}/>
+                <SkillProgressCard title='Programming' seeAll='/stats' items={[
+                  {label: 'Metric Title', value: 80},
+                  {label: 'Metric Title', value: 85}
+                ]}/>
               </div>
           </div>
         </main>
       </div>
-    </div>
-  )
 
+      {isOpen && <Popup isOpen={isOpen} onClose={closePopUp}/>}
+    </div>
+    </SidebarInset>
+    </SidebarProvider>
+  )
 }
 
 export default Dashboard;
