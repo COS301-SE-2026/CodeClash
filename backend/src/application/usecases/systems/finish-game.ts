@@ -5,7 +5,7 @@ import { MatchResultService } from "../services/match-result.service";
 import { GameStore } from "../services/game-store.service";
 import { GameType } from "src/entities/db-entities/questions.entities";
 import { DeleteGame } from "./delete-game";
-
+import { IMatchStatsRepository } from "src/application/interfaces/repositories/IMatchStatsRepository";
 
 export class FinishGame {
     private readonly getMatchComponent
@@ -16,7 +16,8 @@ export class FinishGame {
         private readonly world: ReturnType<typeof World>,
         private readonly match_result_service: MatchResultService,
         private readonly game_store: GameStore,
-        private readonly delete_game: DeleteGame
+        private readonly delete_game: DeleteGame,
+        private readonly match_stats_repo: IMatchStatsRepository
     ) {
         const { getMatchComponent, getSubmissionComponent, addMatchComponent } = this.world
         this.getMatchComponent = getMatchComponent;
@@ -38,7 +39,7 @@ export class FinishGame {
         for(const [user_id, stat] of game_stats){
             await this.match_stats_repo.saveStats(db_match_id!.database_id, user_id, stat.num_correct, stat.total_time);
         }
-        
+
         // calculate winner 
         let winner: string | null = null;
         let winner_stats: PlayerStatsDTO | null = null
