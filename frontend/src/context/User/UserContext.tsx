@@ -5,7 +5,6 @@ import { robot_map } from "src/assets/Robots";
 import { useAuth } from "../Auth/hooks/useAuth";
 import { UserContext } from "./UserContextValue";
 
-const url = import.meta.env.VITE_API_URL;
 
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [elo, setElo] = useState(0);
