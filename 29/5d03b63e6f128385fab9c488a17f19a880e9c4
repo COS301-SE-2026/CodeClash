@@ -1,0 +1,24 @@
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 91
+docker-compose.prod.yml
+  h_94c952a9e14c58 35
+frontend/Dockerfile
+  h_94c952a9e14c58 5-6,29,33
+frontend/src/Views/MathsMatch.tsx
+  h_94c952a9e14c58 23
+frontend/nginx.conf
+  h_94c952a9e14c58 1-6,8-9,33
+frontend/@/components/features/VirtualKeyboard.tsx
+  h_94c952a9e14c58 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "295d03b63e6f128385fab9c488a17f19a880e9c4",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
