@@ -49,6 +49,8 @@ import { MatchResultRepository } from 'src/interface-adapters/repositories/match
 import { MatchedUsersService } from 'src/application/usecases/services/matched-users.service';
 import { GameStore } from 'src/application/usecases/services/game-store.service';
 import { DeleteGame } from 'src/application/usecases/systems/delete-game';
+import { MatchStatsRepository } from 'src/interface-adapters/repositories/match-stats.repository';
+import { MatchStats } from 'src/entities/db-entities/match-stats.entities';
 
 dotnev.config()
 
@@ -67,6 +69,7 @@ AppDataSource.initialize()
             AppDataSource.getRepository(MatchLog),
             AppDataSource.getRepository(Users)
         )
+        const match_stats_repo = new MatchStatsRepository(AppDataSource.getRepository(MatchStats));
 
 
         const httpServer = createServer(app)     // can update to https
@@ -134,7 +137,7 @@ AppDataSource.initialize()
         const submission_system = new SubmissionSystem(world);
         const life_system = new LifeSystem(world);
         const delete_game = new DeleteGame(world,game_store,matched_users_service);
-        const finish_game = new FinishGame(world, match_results, game_store, delete_game);
+        const finish_game = new FinishGame(world, match_results, game_store, delete_game, match_stats_repo);
         const opponent_progress = new OpponentProgress(world);
 
         const check_answer = new CheckAnswer(game_cache, submission_system, life_system, world)
