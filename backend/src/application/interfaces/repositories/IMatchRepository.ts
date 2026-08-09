@@ -1,7 +1,8 @@
 export interface IMatchRepository {
     createMatch(
         players: string[],
-        mode: 'ranked' | 'casual',
+        match_type: 'ranked' | 'casual',
+        game_mode: 'math' | 'programming',
         match_start: Date
     ): Promise<string>;
 

@@ -34,6 +34,7 @@ export class FinishGame {
         if (!submission_registry) throw new Error('Error finishing game')
 
         const game_stats = this.getStats(submission_registry.submissions, player_ids);
+        const db_match_id = this.game_store.get(match_id);
 
         //persist match stats
         for(const [user_id, stat] of game_stats){
@@ -76,8 +77,6 @@ export class FinishGame {
         // elo updates 
 
         if (!winner || !loser) throw new Error("Error getting user stats")
-
-        const db_match_id = this.game_store.get(match_id);
 
         const result = await this.match_result_service.finaliseMatch(db_match_id!.database_id, winner, loser, game_type === GameType.ranked, [winner_stats!, loser_stat!])
 

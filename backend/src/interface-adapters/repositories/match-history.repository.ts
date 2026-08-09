@@ -34,7 +34,7 @@ export class MatchHistoryRepository implements IMatchHistoryRepository {
 
             rows.push({
                 match_id: match.match_id,
-                mode: match.mode,
+                mode: match.match_type,
                 game_type: match.game_mode,
                 match_start: match.match_start!,
                 result,
@@ -78,7 +78,7 @@ export class MatchHistoryRepository implements IMatchHistoryRepository {
 
         return {
             match_id: match.match_id,
-            mode: match.mode,
+            mode: match.match_type,
             game_type: match.game_mode,
             match_start: match.match_start!,
             result,
