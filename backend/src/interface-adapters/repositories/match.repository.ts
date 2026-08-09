@@ -5,8 +5,7 @@ import { IMatchRepository } from 'src/application/interfaces/repositories/IMatch
 export class MatchRepository implements IMatchRepository {
     constructor(private readonly matchRepository: Repository<Match>) { }
 
-    async createMatch(players: string[], mode: 'ranked' | 'casual', match_start: Date): Promise<string> {
-        // not using DTOs cause I honestly don't know exactly how they work
+    async createMatch(players: string[], mode: 'ranked' | 'casual', game_mode: 'math' | 'programming', match_start: Date): Promise<string> {
 
 
         if (players.length < 2) throw new Error("Not Enough Players");
