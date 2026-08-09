@@ -1,0 +1,15 @@
+frontend/src/context/User/UserContext.tsx
+  h_b13c5d77534129 108,110-120
+  h_b13c5d77534129 109
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "ab88afcf7d0a7a2e14bf876d1cbf0feece9fc3ce",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

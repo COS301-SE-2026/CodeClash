@@ -1,0 +1,14 @@
+backend/src/application/usecases/services/leaderboard.service.ts
+  h_b13c5d77534129 3,6,28-35
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "dafecaf9d80f92af2d4cb39ecf8f5cc93d28836a",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

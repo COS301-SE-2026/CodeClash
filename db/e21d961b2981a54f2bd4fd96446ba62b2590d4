@@ -1,0 +1,14 @@
+backend/src/interface-adapters/controllers/rank.controllers.ts
+  h_b13c5d77534129 6-16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "dbe21d961b2981a54f2bd4fd96446ba62b2590d4",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

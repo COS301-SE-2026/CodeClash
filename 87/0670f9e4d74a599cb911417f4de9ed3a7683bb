@@ -1,0 +1,16 @@
+backend/src/entities/dtos/rank.dto.ts
+  h_b13c5d77534129 1-4
+backend/src/interface-adapters/controllers/rank.controllers.ts
+  h_b13c5d77534129 1-8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "870670f9e4d74a599cb911417f4de9ed3a7683bb",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

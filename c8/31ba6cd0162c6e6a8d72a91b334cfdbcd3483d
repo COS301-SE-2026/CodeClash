@@ -1,0 +1,18 @@
+frontend/src/Views/Leaderboard.tsx
+  h_b13c5d77534129 16
+package-lock.json
+  h_b13c5d77534129 19,2291,2304,2329,2342,2355,2986-2991,4103-4111,4766,4942-4947,9002,9015-9020,9380-9395,9926-10143
+package.json
+  h_b13c5d77534129 55
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "c831ba6cd0162c6e6a8d72a91b334cfdbcd3483d",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
