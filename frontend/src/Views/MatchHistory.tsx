@@ -5,12 +5,14 @@ import React from "react";
 import Stars from "../assets/Background/Stars.png";
 import type { MatchDetails } from "../Models/MatchHistoryModel";
 import { MatchHistoryViewModelFunction } from "../ViewModels/MatchHistoryViewModel";
+import { useAuth } from "src/context/Auth/hooks/useAuth";
 
 const MatchHistory: React.FC = () => {
+    const { user } = useAuth();
     const {
         matches, selected, isDetails,
         handleRowClick, handleCloseDetails,
-    } = MatchHistoryViewModelFunction();
+    } = MatchHistoryViewModelFunction(user?.username ?? "");
 
     return (
         <div className="relative min-h-screen w-full flex flex-col overflow-hidden bg-black">
@@ -71,7 +73,7 @@ const MatchHistory: React.FC = () => {
 
             {/*The toggable details panel */}
             <div className= {`transition-all duration-100 ${isDetails ? 'w-[340px] opacity-100 translate-x-0': 'w-0 opacity-o translate-x-10'}`}>
-            {selected && (
+            {selected && selected.details && (
                     <div className="relative bg-primary rounded-3xl p-6">
                         {/*X button to exit the details panel */}
                         <button onClick={handleCloseDetails} type="button" 
@@ -97,12 +99,12 @@ const MatchDetailsPanel: React.FC<{details: MatchDetails}> = ({details}) => (
             style={{fontSize: 'var(--font-size-sm)'}}>MATCH INFO</p>
             <div className="bg-secondary rounded-lg flex justify-between items-center px-3 py-2 mb-1">
                 <span className="text-secondary-text font-semibold" style={{fontSize: 'var(--font-size-xsm)'}}>RESULTS</span>
-                <span className="text-secondary-text font-semibold" style={{fontSize: 'var(--font-size-xsm)'}}>{details.results}</span>
+                <span className="text-secondary-text font-semibold" style={{fontSize: 'var(--font-size-xsm)'}}>{details.score}</span>
             </div>
             {/*Copied whole of above */}
             <div className="bg-secondary rounded-lg flex justify-between items-center px-3 py-2 mb-1">
                 <span className="text-secondary-text font-semibold" style={{fontSize: 'var(--font-size-xsm)'}}>MATCH LENGTH</span>
-                <span className="text-secondary-text font-semibold" style={{fontSize: 'var(--font-size-xsm)'}}>{details.matchLength}</span>
+                <span className="text-secondary-text font-semibold" style={{fontSize: 'var(--font-size-xsm)'}}>{details.totalTime}</span>
             </div>
         </div>
 
@@ -110,22 +112,11 @@ const MatchDetailsPanel: React.FC<{details: MatchDetails}> = ({details}) => (
         <div className="bg-primary rounded-xl p-2 flex flex-col gap-0">
             <p className="text-primary-text font-bold tracking-widest text-center py-2"
                 style={{fontSize: 'var(--font-size-sm)'}}>MY STATS</p>
-            {details.questions.map(q => (
-                <div key = {q.label} className="flex flex-col gap-1">
-                    <div className="bg-secondary rounded-lg flex items-center px-3 py-2">
-                    <span className="text-secondary-text font-semibold" style={{fontSize: 'var(--font-size-xsm)'}}>{q.label}</span>
-                    </div>
                     {/*copied from match info */}
                     <div className="bg-secondary rounded-lg flex  justify-between items-center px-3 py-1">
-                        <span className="text-secondary-text font-semibold" style={{fontSize: 'var(--font-size-xsm)'}}>SPEED</span>
-                        <span className="text-secondary-text font-semibold" style={{fontSize: 'var(--font-size-xsm)'}}>{q.speed}</span>
-                    </div>
-                    <div className="bg-secondary rounded-lg flex  justify-between items-center px-3 py-1">
-                        <span className="text-secondary-text font-semibold" style={{fontSize: 'var(--font-size-xsm)'}}>ACCURACY</span>
-                        <span className= {q.correctness ? 'text-success': 'text-danger'} style={{fontSize: 'var(--font-size-xsm)'}}>{q.correctness ? 'CORRECT': 'INCORRECT'}</span>
-                    </div>
-                </div>
-            ))}
+                        <span className="text-secondary-text font-semibold" style={{fontSize: 'var(--font-size-xsm)'}}>CORRECT ANSWERS</span>
+                        <span className="text-secondary-text font-semibold" style={{fontSize: 'var(--font-size-xsm)'}}>{details.numCorrect}</span>
+                    </div>                 
         </div>
 
         {/*Date */}
