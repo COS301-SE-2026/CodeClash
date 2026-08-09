@@ -88,7 +88,7 @@ AppDataSource.initialize()
             if (valid) {
 
                 // get db id from cognito id
-                const db_id = (await user_repo.getUserId(valid.user_Id))!.user_id;
+                const db_id = (await user_repo.getUserId(valid.user_Id))?.user_id;
                 const username = (await user_repo.getUserData(db_id!, 'username'))!.username
 
 
