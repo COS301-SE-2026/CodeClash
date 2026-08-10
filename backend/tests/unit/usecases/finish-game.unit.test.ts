@@ -55,6 +55,42 @@ describe('FinishGame', () => {
             expect(match_result_service.finaliseMatch).not.toHaveBeenCalled();
         });
 
-        
+        it('persists match stats for both players before determining a winner', async () => {
+            const SubmissionRegistry = {
+                submission: new Map([
+                    ['player-a::q1', 1],
+                    ['player-a::q2', 2],
+                    ['player-b::q1', 3]
+                ])
+            };
+
+            world.getMatchComponent.mockReturnValue(SubmissionRegistry);
+
+            const started = new Date('2026-01-01T00:00:00Z');
+            const submitted = new Date('2026-01-01T00:00:05Z');
+
+            world.getSubmissionComponent.mockImplementation((entity: number) => {
+                const data: Record<number, any> ={
+                    1: { correct: true, submitted_at: submitted, started_at: started },
+                    2: { correct: true, submitted_at: submitted, started_at: started },
+                    3: { correct: false, submitted_at: submitted, started_at: started },
+                };
+                return data[entity];
+            });
+
+            match_result_service.finaliseMatch.mockResolvedValueOnce({
+                players: [
+                    { user_id: 'player-a', eloEffect: 16 },
+                    { user_id: 'player-b', eloEffect: -16 }
+                ]
+            });
+
+            await finish_game.execute(match_id, player_ids, GameType.ranked, pair_id);
+
+            expect(match_stats_repo.saveStats).toHaveBeenCalledWith(db_match_id, 'player-a', 2, 10000);
+            expect(match_stats_repo.saveStats).toHaveBeenCalledWith(db_match_id, 'player-b', 0, 5000);
+            expect(match_stats_repo.saveStats).toHaveBeenCalledTimes(2);
+
+        });
     });
 });
