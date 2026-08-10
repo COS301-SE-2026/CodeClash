@@ -17,7 +17,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [rank, setRank] = useState(0);
     const { user, token, isLoading } = useAuth();
  
-  const userId = user?.userId ?? ""
+    const userId = user?.userId ?? ""
     const username = user?.username ?? '';
 
 
@@ -92,7 +92,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             //         }
             //     })
 
-            if(elo >= 0 && elo < 1200){ //change this to "elo >= 600", the lowest is 600, but test_user has an elo of 0 so that needs to be changed then this should be changed
+            if(elo >= 600 && elo < 1200){ //change this to "elo >= 600", the lowest is 600, but test_user has an elo of 0 so that needs to be changed then this should be changed
                 setLeague("Mercury");
             }
             else if(elo >= 1200 && elo < 1800){

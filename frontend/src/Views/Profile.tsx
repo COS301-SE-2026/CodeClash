@@ -35,7 +35,7 @@ function ProfileView(){
         ← Back
       </Link>
 
-      <Card className="w-[40%] h-[40rem] flex items-center justify-center bg-[#F8E5DD]">
+      <Card className="w-[40%] h-[50%] flex items-center justify-center bg-[#F8E5DD]">
 
         <div className="w-[35%]" >
           <img src={userData?.avatar} alt="avatarImage" className="" />
