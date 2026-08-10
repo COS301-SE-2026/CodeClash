@@ -5,14 +5,12 @@ import React from "react";
 import Stars from "../assets/Background/Stars.png";
 import type { MatchDetails } from "../Models/MatchHistoryModel";
 import { MatchHistoryViewModelFunction } from "../ViewModels/MatchHistoryViewModel";
-import { useAuth } from "src/context/Auth/hooks/useAuth";
 
 const MatchHistory: React.FC = () => {
-    const { user } = useAuth();
     const {
         matches, selected, isDetails,
         handleRowClick, handleCloseDetails,
-    } = MatchHistoryViewModelFunction(user?.username ?? "");
+    } = MatchHistoryViewModelFunction();
 
     return (
         <div className="relative min-h-screen w-full flex flex-col overflow-hidden bg-black">
