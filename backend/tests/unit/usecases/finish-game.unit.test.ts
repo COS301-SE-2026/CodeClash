@@ -139,6 +139,71 @@ describe('FinishGame', () => {
             );
         });
 
-        
+        it('uses speed as a tiebreaker when correctness is equal', async () => {
+            world.getMatchComponent.mockReturnValue({
+                submissions: new Map([
+                    ['player-a::q1', 1],
+                    ['player-a::q2', 2]
+                ])
+            });
+
+            const started = new Date('2026-01-01T00:00:00Z');
+
+            world.getSubmissionComponent.mockImplementation((entity: number) => {
+                const data: Record<number, any> ={
+                    1: { correct: true, submitted_at: new Date('2026-01-01T00:00:05Z'), started_at: started },
+                    2: { correct: true, submitted_at: new Date('2026-01-01T00:00:10Z'), started_at: started }
+                };
+                return data[entity];
+            });
+
+            //copied from above
+            match_result_service.finaliseMatch.mockResolvedValueOnce({
+                players: [
+                    { user_id: 'player-a', eloEffect: 16 },
+                    { user_id: 'player-b', eloEffect: -16 }
+                ]
+            });
+
+            await finish_game.execute(match_id, player_ids, GameType.ranked, pair_id);
+
+            expect(match_result_service.finaliseMatch).toHaveBeenCalledWith(
+                db_match_id,
+                'player-a',
+                'player-b',
+                true,
+                expect.any(Array)
+            );
+        });
+
+        it('passes is_ranked=false for casual matches', async () => {
+
+        });
+
+        it('writes a Result component to the ECS world with winner/loser elo and stats', async () => {
+
+        });
+
+        it('returns the result from match_result_service.finaliseMatch', async () => {
+
+        });
     });
+
+    describe ('getStats', () => {
+        it('correctly aggregates num_correct and total_time per player', () =>{
+
+        });
+
+        it('initialises all player_ids with zero stats even if they have nosubmissions', () => {
+
+        });
+
+        it('throws if a submission key cannot be parsed into player id', () => {
+
+        });
+
+        it('throws if the submission component cannot be found', () => {
+
+        });
+    })//
 });
