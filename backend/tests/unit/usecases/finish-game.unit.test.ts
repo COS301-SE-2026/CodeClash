@@ -299,15 +299,25 @@ describe('FinishGame', () => {
         });
 
         it('initialises all player_ids with zero stats even if they have nosubmissions', () => {
+            const submissions = new Map();
 
+            const result = finish_game.getStats(submissions, player_ids);
+            
+            expect(result.get('player-a')).toEqual({ num_correct: 0, total_time: 0});
+            expect(result.get('player-b')).toEqual({ num_correct: 0, total_time: 0});
         });
 
         it('throws if a submission key cannot be parsed into player id', () => {
+            const submissions = new Map([['', 1]]);
 
+            expect(() => finish_game.getStats(submissions, player_ids)).toThrow("Couldn't fetch player submissions");
         });
 
         it('throws if the submission component cannot be found', () => {
+            const submissions = new Map([['player-a::q1', 1]]);
+            world.getSubmissionComponent.mockReturnValue(undefined);
 
+            expect(() => finish_game.getStats(submissions, player_ids)).toThrow("coulnd't get player submissions");
         });
     })//
 });
