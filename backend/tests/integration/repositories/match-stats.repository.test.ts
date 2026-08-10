@@ -35,7 +35,21 @@ describe('MatchStatsRepository', () => {
 
     describe('getStatsByMatch', () => {
         it('returns stats for both players in a match', async () => {
+            mockRepo.find.mockResolvedValueOnce([
+                { user: { user_id: 'user-1' }, num_correct: 4, total_time: 12000 },
+                { user: { user_id: 'user-2' }, num_correct: 3, total_time: 15000 }
+            ]);
 
+            const result = await repository.getStatsByMatch('match-1');
+
+            expect(mockRepo.find).toHaveBeenCalledWith({
+                where: { match: {match_id: 'match-1' } },
+                relations: { user: true }
+            });
+            expect(result).toEqual([
+                { user_id: 'user-1' , num_correct: 4, total_time: 12000 },
+                { user: { user_id: 'user-2' }, num_correct: 3, total_time: 15000 }
+            ]);
         });
 
         it('returns an ampty array when no stats exist for the match', async () => {
