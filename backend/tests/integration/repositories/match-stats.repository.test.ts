@@ -17,7 +17,19 @@ describe('MatchStatsRepository', () => {
 
     describe('saveStats', () =>{
         it('creates and saves a match stats record with correct fields', async () =>{
+            const created = { match: { match_id: 'match-1' }, user: { user_id: 'user-1' }, num_correct: 4, total_time: 12000 };
+            mockRepo.create.mockReturnValueOnce(created);
+            mockRepo.save.mockResolvedValueOnce(created);
 
+            await repository.saveStats('match-1', 'user-1', 4, 12000);
+
+            expect(mockRepo.create).toHaveBeenCalledWith({
+                match: { match_id: 'match-1' },
+                user: { user_id: 'user-1' },
+                num_correct: 4,
+                total_time: 12000
+            });
+            expect(mockRepo.save).toHaveBeenCalledWith(created);
         });
     });
 

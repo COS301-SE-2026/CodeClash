@@ -117,7 +117,7 @@ export class FinishGame {
             // get submission component 
             const component = this.getSubmissionComponent(submission, 'Submission');
 
-            if (!component) throw new Error("couldnt get player submissions")
+            if (!component) throw new Error("Couldn't get player submissions")
 
             if (component.correct) stat.num_correct += 1;
             const time = component.submitted_at!.getTime() - component.started_at!.getTime();

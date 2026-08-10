@@ -47,7 +47,7 @@ describe('FinishGame', () => {
 
             await expect(
                 finish_game.execute(match_id, player_ids, GameType.ranked, pair_id)
-            ).rejects.toThrow("error finishing game");
+            ).rejects.toThrow("Error finishing game");
 
             expect(match_stats_repo.saveStats).not.toHaveBeenCalled();
             expect(match_result_service.finaliseMatch).not.toHaveBeenCalled();
@@ -290,8 +290,8 @@ describe('FinishGame', () => {
 
             const result = finish_game.getStats(submissions, player_ids);
 
-            expect(result.get('player-a')).toEqual({ num_correct: 1, total_time: 7000});
-            expect(result.get('player-b')).toEqual({ num_correct: 1, total_time: 7000});
+            expect(result.get('player-a')).toEqual({ num_correct: 1, total_time: '7000'});
+            expect(result.get('player-b')).toEqual({ num_correct: 1, total_time: '7000'});
         });
 
         it('initialises all player_ids with zero stats even if they have nosubmissions', () => {
@@ -313,7 +313,7 @@ describe('FinishGame', () => {
             const submissions = new Map([['player-a::q1', 1]]);
             world.getSubmissionComponent.mockReturnValue(undefined);
 
-            expect(() => finish_game.getStats(submissions, player_ids)).toThrow("coulnd't get player submissions");
+            expect(() => finish_game.getStats(submissions, player_ids)).toThrow("Couldn't get player submissions");
         });
     })//
 });
