@@ -248,7 +248,28 @@ describe('FinishGame', () => {
         });
 
         it('returns the result from match_result_service.finaliseMatch', async () => {
+            //copied above
+            world.getMatchComponent.mockReturnValue({
+                submissions: new Map([
+                    ['player-a::q1', 1],
+                    ['player-a::q2', 2]
+                ])
+            });
 
+            world.getSubmissionComponent.mockReturnValue({ correct: true, submitted_at: new Date('2026-01-01T00:00:05Z'), started_at: new Date('2026-01-01T00:00:00Z')});
+
+            const expectedResult = {
+                players: [
+                    { user_id: 'player-a', eloEffect: 16 },
+                    { user_id: 'player-b', eloEffect: -16 }
+                ]
+            };
+
+            match_result_service.finaliseMatch.mockResolvedValueOnce(expectedResult);
+
+            const result = await finish_game.execute(match_id, player_ids,GameType.ranked, pair_id);
+
+            expect(result).toBe(expectedResult);
         });
     });
 
