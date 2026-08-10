@@ -1,125 +1,100 @@
-import { IEloRepository } from "src/application/interfaces/IEloRepository";
-import { IQuestionRepository } from "src/application/interfaces/IQuestionRepository";
-import { LifeComponent, MatchComponent, PlayersComponent, RankComponent, RoundComponent } from "src/entities/components";
-import { GameMode } from "src/entities/db-entities/questions.entities";
-import { GameDataDTO } from "src/entities/dtos/game-data.dto";
-import { leagueMapping } from "src/entities/league-mapping";
-import { World } from "src/entities/World";
+import { IGameCache } from "src/application/interfaces/cache/IGameCache";
+import { GameMode, GameType } from "src/entities/db-entities/questions.entities";
+import { MatchDTO, PlayerDTO, RoundDTO } from "src/interface-adapters/dtos/components.dto";
 
-export const gameService = async (
-    question_repo: IQuestionRepository,
-    elo_repo: IEloRepository,
-    data: GameDataDTO
-) => {
+import { CreateGame } from "../systems/create-game";
 
-    let questions: number[] = [];
+import { GetAnswers } from "./answers.service";
+import { GetDifficulty, GetQuestions, GetTotalTime } from "./questions.service";
+import { IMatchRepository } from "src/application/interfaces/repositories/IMatchRepository";
+import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 
-    // Creat entities Components - use world 
-    const { createEntity, addMatchComponent } = World();
+export class GameService {
+    constructor(
+        private readonly createGame: CreateGame,
+        private readonly getQuestions: GetQuestions,
+        private readonly getDifficulty: GetDifficulty,
+        private readonly getTotalTime: GetTotalTime,
+        private readonly getAnswers: GetAnswers,
+        private readonly game_cache: IGameCache,
+        private readonly match_repo: IMatchRepository,
+        private readonly user_repo: IUserRepository
+    ) { }
 
-    /** PLAYER ENTITY */
-    const player_entity = createEntity();
-    createPlayer(player_entity, 100, 1, 600, "Placeholder");
-    createPlayer(player_entity, 100, 1, 600, "Placeholder");
+    async execute(players: PlayerDTO[], game_mode: GameMode, league: string, game_type: GameType) {
 
-    /** MATCH ENTITY */
-    const match_entity = createEntity();
+        let avg_elo = 0;
+        const usernames = await Promise.all(
+            players.map(async (player) => {
+                avg_elo += player.elo
+                const user = await this.user_repo.getUserData(player.id, 'username');
+                return user!.username!;
+            })
+        )
 
-    // need api calls here
-    const players: PlayersComponent = {
-        player_ids: data.player_ids,
+        const title = usernames.join(" vs ")
+        const player_ids = players.map((player) => player.id);
+        avg_elo /= players.length;
+
+        // get questions
+        const questions = await this.getQuestions.execute(league, avg_elo, game_mode);
+        const difficulty = this.getDifficulty.execute(questions)
+        const time = this.getTotalTime.execute(questions)
+
+        if (!questions) throw new Error("Error fetching questions")
+
+        // Rounds   - creating one round for now, this logic will need to be updated for multiple 
+        const question_ids: string[] = [];
+        for (const question of questions.easy) {
+            question_ids.push(question.id)
+        }
+        for (const question of questions.medium) {
+            question_ids.push(question.id)
+        }
+        for (const question of questions.hard) {
+            question_ids.push(question.id)
+        }
+
+        // need to update for multiple round
+        const round: RoundDTO = { question_ids: question_ids }
+
+        // get answers 
+        const answers = await this.getAnswers.execute(question_ids)
+
+        // Match 
+
+        const start = new Date();
+        const match: MatchDTO = {
+            title: title,
+            status: 'active',
+            game_mode: game_mode,
+            match_type: game_type,
+            difficulty: difficulty,
+            winner: -1,
+            start_time: start,
+            end_time: new Date(start.getTime() + (time * 60 * 1000))
+        }
+
+        const match_entity = this.createGame.execute(players, match, [round], question_ids.length);
+
+        this.game_cache.saveGame(match_entity, player_ids, question_ids);
+
+        for (const answer of answers) {
+            this.game_cache.saveAnswer(answer.question_id, answer.answer)
+        }
+
+
+        const ids = players.map((p) => p.id);
+        const db_match_id = await this.match_repo.createMatch(ids, game_type, start
+        );
+
+
+        return {
+            match_enitity: match_entity,
+            match_id: db_match_id,
+            questions: questions,
+            answers: answers
+        }
+
     }
-
-    // this data also needs to be fetched from the db 
-    // how are match titles generated
-    const match_component: MatchComponent = {
-        title: 'To Be Determined',
-        status: 'active',
-        game_mode: data.game_mode,
-        difficulty: 1,  // also to be determined
-        winner: -1  // will become winning players id once the game is over
-    }
-
-    addMatchComponent(match_entity, "Players", players);
-    addMatchComponent(match_entity, "Match", match_component);
-
-
-    /** Question Entity */
-    // fetch questions form the db 
-    const elos = await elo_repo.getUsersElo(data.player_ids);
-
-    if (!elos) {
-        console.log("null elos")
-        return null;
-    }
-
-    const avg_elo = elos.reduce((total, curr) => total + curr.rating!, 0) / 2
-    const game_questions = await getQuestions(question_repo, data.league, avg_elo, data.question_number, data.game_mode)
-
-
-    // how do we determine the number of rounds in a game ??
-    /**ROUND ENTITY */
-    const round_entity = createEntity();
-    createRound(round_entity, match_entity, questions, 5); // set to 5 minutes just for now
-    return {
-        id: match_entity,
-        questions: game_questions
-    }
-        ;
-}
-
-const getQuestions = async (question_repo: IQuestionRepository, league: string, avg_elo: number, question_number: number, game_mode: GameMode) => {
-    const mapping = leagueMapping(league, avg_elo);
-
-    if (!mapping) throw new Error("League not found")
-
-    const easy_count: number = Math.round(question_number * (mapping.easy.percentage!));
-    const medium_count: number = Math.round(question_number * (mapping.medium.percentage!));
-    const hard_count: number = Math.round(question_number * mapping.hard.percentage!);
-
-    const easy_questions = await question_repo.getRandQuestions(easy_count, mapping.easy.difficulty, game_mode);
-    const medium_questions = await question_repo.getRandQuestions(medium_count, mapping.medium.difficulty, game_mode);
-    const hard_questions = await question_repo.getRandQuestions(hard_count, mapping.hard.difficulty, game_mode);
-
-    return {
-        easy: easy_questions,
-        medium: medium_questions,
-        hard: hard_questions
-    }
-
-}
-
-const createPlayer = (player_entity: number, player_life: number, player_rank: number, elo: number, league: string) => {
-    const { addPlayerComponent } = World();
-
-    const life: LifeComponent = {
-        current_life: player_life,
-        max_life: 100,
-    }
-
-    const rank: RankComponent = {
-        rank: player_rank,    //needs to be fetched
-        elo: elo,   //needs to be fetched
-        league: league
-    }
-
-
-    addPlayerComponent(player_entity, "Life", life);
-    addPlayerComponent(player_entity, 'Rank', rank);
-}
-
-const createRound = (round_entity: number, match_id: number, question_ids: number[], duration: number) => {
-    const { addRoundComponent } = World();
-
-    const start_time = new Date();
-
-    const round: RoundComponent = {
-        match_id: match_id,
-        question_ids: question_ids,
-        start_time: start_time,
-        end_time: new Date(start_time.getTime() + (duration * 60000)),
-        question_number: question_ids.length
-    }
-
-    addRoundComponent(round_entity, "Round", round);
 }

@@ -1,7 +1,7 @@
-import { IUserRepository } from "src/application/interfaces/IUserRepository";
-import { UserDTO } from "src/entities/dtos/user.dto";
-import { Repository } from "typeorm";
+import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 import { Users } from "src/entities/db-entities/user.entities";
+import { UserDTO } from "src/interface-adapters/dtos/user.dto";
+import { Repository } from "typeorm";
 
 
 
@@ -31,7 +31,6 @@ export class UserRepository implements IUserRepository {
         const data: UserDTO = {
             user_id: id.user_id
         }
-
         return data
     }
 
@@ -42,7 +41,7 @@ export class UserRepository implements IUserRepository {
     }
 
     async getUsers(user_ids: string[]): Promise<UserDTO[] | null> {
-        let users: UserDTO[] | null = [];
+        const users: UserDTO[] | null = [];
 
         for (const id of user_ids) {
             const user = await this.userRepository.findOneBy({ user_id: id })
@@ -76,6 +75,7 @@ export class UserRepository implements IUserRepository {
     }
 
     async getUserData(user_id: string, stat: keyof UserDTO): Promise<UserDTO | null> {
+       
         const user = await this.userRepository.findOneBy({ user_id: user_id })
 
         if (!user) return null;

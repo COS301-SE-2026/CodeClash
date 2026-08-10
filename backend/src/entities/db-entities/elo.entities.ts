@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, OneToOne, JoinColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, OneToOne, JoinColumn, UpdateDateColumn,CreateDateColumn } from "typeorm";
 import { Users } from "./user.entities";
+import { Match } from "./match.entities";
 
 
 @Entity()
@@ -13,6 +14,9 @@ export class EloRatings {
 
     @Column({ nullable: false })
     rating!: number
+
+    @UpdateDateColumn()
+    updated_at!: Date
 }
 
 @Entity()
@@ -23,4 +27,16 @@ export class EloHistory {
     @ManyToOne(() => Users)
     user!: Users
 
+    @ManyToOne(() => Match)
+    @JoinColumn({name: 'match_id'})
+    match!: Match;
+
+    @Column()
+    old_rating!: number
+
+    @Column()
+    new_rating!: number;
+
+    @CreateDateColumn()
+    changed_at!: Date;
 }

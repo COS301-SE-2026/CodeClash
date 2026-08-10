@@ -26,13 +26,17 @@ CREATE TABLE IF NOT EXISTS questions (
   time_limit TIME(2) NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS answers (
+  answer_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  question_id UUID REFERENCES questions(question_id),
+  answer TEXT NOT NULL
+);
 
 CREATE TABLE IF NOT EXISTS matches(
   match_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   player1_id UUID REFERENCES users(user_id),
   player2_id UUID REFERENCES users(user_id),
-  mode VARCHAR(10) CHECK (mode IN ('ranked', 'casual')) NOT NULL,
-  queue_start TIMESTAMP DEFAULT NOW() NOT NULL,
+  match_type VARCHAR(10) CHECK (match_type IN ('ranked', 'casual')) NOT NULL,
   match_start TIMESTAMP,
   status VARCHAR(20) CHECK (status IN ('waiting', 'starting','in_progress', 'completed', 'abandoned')) DEFAULT 'waiting' -- check is there a function to set a found match status to starting?
 );
@@ -48,8 +52,7 @@ CREATE TABLE IF NOT EXISTS match_log(
   match_id UUID REFERENCES matches(match_id),
   winner_id UUID REFERENCES users(user_id),
   loser_id UUID REFERENCES users(user_id),
-  elo_gained INTEGER, --can be null incase it's a casual match
-  elo_lost INTEGER
+  elo_change INTEGER --can be null incase it's a casual match
 );
 
 CREATE TABLE IF NOT EXISTS elo_ratings (

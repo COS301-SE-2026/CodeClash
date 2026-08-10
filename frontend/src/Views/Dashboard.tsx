@@ -1,26 +1,31 @@
 import { Search, Bot, UserCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useUser } from 'src/context/User/hooks/useUser';
 
 import backgroundImg from '../assets/Background/dashboard.png'
 import brainIcon from '../assets/Icons/Brain.png';
-import { useShowPopUp } from '../ViewModels/DashboardViewModel';
-
+import profileIcon from '../assets/Icons/Profile.png';
+import searchIcon from '../assets/Icons/Search.png';
+import { useDashboardViewModel } from '../ViewModels/DashboardViewModel';
 
 import Popup from './Popup'
 
+
 import GlassCard from '@/components/shared/GlassCard'
+import Loading from '@/components/shared/Loading';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 
-// View Model
-
 
 const Dashboard = () => {
-  const { isOpen, openPopUp, closePopUp } = useShowPopUp();
-  const { username, elo, league, avatar } = useUser();
+  const { isOpen, openPopUp, closePopUp, username, elo, league, avatar, isLoading } = useDashboardViewModel();
+
+  if (isLoading) {
+    return (
+      <Loading isOpen={isLoading}></Loading>
+    )
+  }
 
   return (
     <div style={{ backgroundImage: `url(${backgroundImg})` }} className='w-full h-[20] h-screen bg-cover bg-center flex flex-col items-center'>
@@ -70,11 +75,11 @@ const Dashboard = () => {
             <CardContent className='flex'>
               <CardAction className='flex flex-col w-[100%] h-[6rem] justify-between'>
                 <Button variant={'default'} className='h-[45%] bg-pink-300 text-sm font-semibold'
-                  onClick={openPopUp}>
+                  onClick={() => openPopUp('ranked')}>
                   Ranked Play
                 </Button>
                 <Button variant={'secondary'} className='h-[45%] bg-secondary text-primary text-sm font-semibold hover:bg-[#C0AF9C]'
-                  onClick={openPopUp}>
+                  onClick={() => openPopUp('casual')}>
                   Casual Play
                 </Button>
               </CardAction>

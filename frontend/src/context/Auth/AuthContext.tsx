@@ -1,14 +1,14 @@
-import { 
-  signIn as amplifySignIn, 
-  signUp as amplifySignUp, 
-  signOut as amplifySignOut, 
+import {
+  signIn as amplifySignIn,
+  signUp as amplifySignUp,
+  signOut as amplifySignOut,
   getCurrentUser,
-   confirmSignUp as amplifyConfirmSignUp, 
-   resendSignUpCode as amplifyResendSignUpCode, 
-   resetPassword as amplifyResetPassword, 
-   confirmResetPassword as amplifyConfirmResetPassword,
+  confirmSignUp as amplifyConfirmSignUp,
+  resendSignUpCode as amplifyResendSignUpCode,
+  resetPassword as amplifyResetPassword,
+  confirmResetPassword as amplifyConfirmResetPassword,
   fetchAuthSession
-  } from 'aws-amplify/auth'
+} from 'aws-amplify/auth'
 import React, { useEffect, useState, useCallback, type ReactNode } from 'react'
 
 import { AuthContext, type AuthUser } from './AuthContextValue'
@@ -19,31 +19,35 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [error, setError] = useState<string | null>(null)
   const [token, setToken] = useState<string | undefined>('');
 
-  const getToken = async () => {
-    const session = await fetchAuthSession();
-    const idToken = session.tokens?.idToken?.toString();
-
-    setToken(idToken);
-  }
-
   useEffect(() => {
-    getCurrentUser()
-      .then(async (cognitoUser) => {
 
-        setUser({
-          username: cognitoUser.username,
-          userId: cognitoUser.userId,
+    const loadUser = async () => {
+      getCurrentUser()
+        .then(async (cognitoUser) => {
+
+          setUser({
+            username: cognitoUser.username,
+            userId: cognitoUser.userId,
+          })
+
         })
+        .catch(() => {
+          setUser(null);
+        })
+        .finally(() => {
+          setIsLoading(false)
+        });
+    }
 
-      })
-      .catch(() => {
-        setUser(null);
-      })
-      .finally(() => {
-        setIsLoading(false)
-      });
+    const fetchToken = async () => {
+      const session = await fetchAuthSession();
+      const idToken = session.tokens?.idToken?.toString();
 
-    getToken();
+      setToken(idToken);
+    }
+
+    void loadUser();
+    void fetchToken()
   }, [])
 
   const clearError = useCallback(() => setError(null), []);
@@ -111,22 +115,22 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const forgotPassword = useCallback(async (email: string) => {
     setError(null);
     try {
-      await amplifyResetPassword({username: email});
+      await amplifyResetPassword({ username: email });
     }
-    catch (err:any) {
+    catch (err: any) {
       setError(err?.message ?? "Failed to send reset code");
       throw err;
     }
   }, []);
 
   const confirmForgotPassword = useCallback(async (
-    email:string,
+    email: string,
     code: string,
     newPassword: string,
   ) => {
     setError(null);
     try {
-      await amplifyConfirmResetPassword ({username: email, confirmationCode: code, newPassword,});
+      await amplifyConfirmResetPassword({ username: email, confirmationCode: code, newPassword, });
     }
     catch (err: any) {
       setError(err?.message ?? "Failed to reset password");

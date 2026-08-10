@@ -2,9 +2,11 @@
 
 /* MATCH ENTITY */
 
+import { GameType } from "./db-entities/questions.entities"
+
 // Player Component holds array of ids for a match
 export interface PlayersComponent {
-    player_ids: string[]
+    players: Map<string, number>    // <player_id, player_entity>
 }
 
 // Match Components stores data about the match
@@ -12,8 +14,33 @@ export interface MatchComponent {
     title: string,
     status: string,
     game_mode: string,
+    match_type: GameType
     difficulty: number,
-    winner: number
+    winner: number,
+    rounds: number[],
+    start_time: Date,
+    end_time: Date,
+    question_number: number,
+}
+
+// SubmissionRegistryComponent maps player_id-question_id -> submission entity
+
+export interface SubmissionRegistryComponent{
+    submissions: Map<string, number>
+}
+
+
+// Result component 
+export interface ResultComponent{
+    winner: {
+        id: string,
+        elo: number
+    },
+    loser: {
+        id: string,
+        elo: number
+    }
+    stats: Record<string, {num_correct: number, total_time:number}>
 }
 
 /********************************** */
@@ -27,10 +54,14 @@ export interface LifeComponent {
     max_life: number
 }
 
+export interface PlayerInfoComponent {
+    id: string,
+    elo: number
+}
+
 // Rank Components stores the players rank,elo, league and streaks
 export interface RankComponent {
     rank: number,
-    elo: number,
     league: string
 }
 
@@ -45,10 +76,7 @@ export interface BadgeComponent {
 /** ROUND ENTITY */
 
 export interface RoundComponent {
-    match_id: number,
-    question_ids: number[],
-    start_time: Date,
-    end_time: Date,
+    question_ids: string[],
     question_number: number
 }
 
@@ -57,52 +85,29 @@ export interface RoundComponent {
 /** SUBMISSION ENTITY */
 
 export interface SubmissionComponent {
-    player_id: number,
-    round_id: number,
-    question_id: number,
+    player_id: string,
+    question_id: string,
+    started_at: Date,
     attempt_number: number,
     answer: string,
-    language: string
-    status: string,
-    submitted_at: Date
+    language?: string
+    submitted_at: Date | null,
+    correct:boolean | null
 }
 
 /********************************** */
 
-/** RESULT ENTITY */
 
-export interface MathsResultComponent {
-    player_id: number,
-    submission_id: number,
-    correct: boolean
-}
-
-/** QUESTION ENTITY */
-
-export interface MathsQuestionComponent {
-    answer: string,
-    question: string
-}
-
-export interface ProgQuestionComponent {
-    question: string,
-    test_cases: string[],
-    expected_output: string[]
-}
 
 
 // union for all components - for the map
 
-export type PlayerComponentTypes = LifeComponent | RankComponent | BadgeComponent;
-export type MatchComponentTypes = PlayersComponent | MatchComponent;
-export type ResultComponentTypes = MathsResultComponent;
-export type QuestionComponentTypes = MathsQuestionComponent | ProgQuestionComponent;
+export type PlayerComponentTypes = LifeComponent | PlayerInfoComponent | RankComponent | BadgeComponent;
+export type MatchComponentTypes = PlayersComponent | MatchComponent | SubmissionRegistryComponent |ResultComponent;
 
 export type Component =
     PlayerComponentTypes |
     MatchComponentTypes |
     RoundComponent |
-    SubmissionComponent |
-    ResultComponentTypes |
-    QuestionComponentTypes;
+    SubmissionComponent 
 

@@ -2,9 +2,11 @@
 
 import React from "react";
 
+
 import type { BrandStyleGuideContent } from "../../Models/BrandStyleGuideModel";
 
 import SharedLayout from "./SharedLayout";
+
 
 interface Props {
     content: BrandStyleGuideContent;

@@ -11,8 +11,14 @@ const actionButtonClass =
   'h-auto min-w-[18rem] cursor-pointer rounded-[1.75rem] px-8 py-4 text-[1.75rem] font-bold shadow-[0_18px_40px_rgba(0,0,0,0.28)] transition-all duration-300 hover:-translate-y-1 md:min-w-[24rem] md:text-[2rem]';
 
 const MatchFound = () => {
-  const { content, players, details, decline, accept, loading, closeLoading } =
+  const { content, players, matchDetails, decline, accept, loading } =
     MatchFoundViewModelFunction();
+
+  if (!players) {
+    return (
+      <Loading></Loading>
+    )
+  }
 
   const leftPlayer = players.find((player) => player.side === 'left');
   const rightPlayer = players.find((player) => player.side === 'right');
@@ -102,7 +108,7 @@ const MatchFound = () => {
         <div className="w-full max-w-[54rem]">
           <div className="rounded-[2rem] border border-white/15 bg-white/14 px-8 py-7 backdrop-blur-[18px] shadow-[0_24px_80px_rgba(0,0,0,0.32)]">
             <div className="flex flex-col gap-6">
-              {details.map((detail) => (
+              {matchDetails?.map((detail) => (
                 <div
                   key={detail.label}
                   className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 text-center md:gap-8"
@@ -151,7 +157,7 @@ const MatchFound = () => {
       </div>
 
 
-      {loading && <Loading isOpen={loading} onClose={closeLoading}></Loading>}
+      {loading && <Loading isOpen={loading} ></Loading>}
     </div>
   );
 };

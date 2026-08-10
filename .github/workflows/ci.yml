@@ -59,8 +59,8 @@ jobs:
     - name: Test and coverage frontend
       run: npm run test:frontend:coverage
       env:
-        VITE_COGNITO_USER_POOL_ID: ${{secrects.VITE_COGNITO_USER_POOL_ID}}
-        VITE_COGNITO_CLIENT_ID: ${{secrects.VITE_COGNITO_CLIENT_ID}}
+        VITE_COGNITO_USER_POOL_ID: ${{secrets.VITE_COGNITO_USER_POOL_ID}}
+        VITE_COGNITO_CLIENT_ID: ${{secrets.VITE_COGNITO_CLIENT_ID}}
 
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@75cd11691c0faa626561e295848008c8a7dddffe

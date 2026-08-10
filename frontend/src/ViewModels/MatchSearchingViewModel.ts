@@ -1,16 +1,22 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSocket } from "src/context/Socket/hooks/useSocket";
+import { useUser } from 'src/context/User/hooks/useUser';
 
 import {
   formatMatchSearchTime,
   matchSearchingContent,
-  mockMatchSearchingPlayer,
+  type MatchSearchingPlayer,
 } from '../Models/MatchSearchingModel';
+import { useMatchmaking } from 'src/context/Socket/hooks/useMatchmaking';
+import { useSocket } from 'src/context/Socket/hooks/useSocket';
 
 export function MatchSearchingViewModelFunction() {
   const navigate = useNavigate();
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
+  const { elo, username } = useUser();
+
+  const { socket } = useSocket()
+  const { leaveMatchQueue, matched } = useMatchmaking()
 
   useEffect(() => {
     const intervalId = window.setInterval(() => {
@@ -23,20 +29,31 @@ export function MatchSearchingViewModelFunction() {
   }, []);
 
   const handleCancel = () => {
+
+    if (!socket) throw new Error("500 Internal Server Error")
+
+    leaveMatchQueue(socket)
     navigate('/dashboard');
   };
+
+  const user: MatchSearchingPlayer = {
+    username: username,
+    elo: elo,
+    side: 'left'
+  }
+
+  useEffect(() => {
+    if (matched) {
+      navigate('/match-found')
+    }
+  }, [matched])
 
   return {
     elapsedSeconds,
     formattedTime: formatMatchSearchTime(elapsedSeconds),
     content: matchSearchingContent,
-    players: mockMatchSearchingPlayer,
+    players: [user],
     handleCancel,
   };
 }
 
-export function useSearch() {
-  const { matched } = useSocket();
-
-  return { matched };
-}
