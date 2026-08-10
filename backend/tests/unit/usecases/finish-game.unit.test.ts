@@ -208,6 +208,42 @@ describe('FinishGame', () => {
         }); 
 
         it('writes a Result component to the ECS world with winner/loser elo and stats', async () => {
+            //copied above
+            world.getMatchComponent.mockReturnValue({
+                submissions: new Map([
+                    ['player-a::q1', 1],
+                    ['player-a::q2', 2]
+                ])
+            });
+
+            //copied above
+            world.getSubmissionComponent.mockImplementation((entity: number) => {
+                const data: Record<number, any> ={
+                    1: { correct: true, submitted_at: new Date('2026-01-01T00:00:05Z'), started_at: new Date('2026-01-01T00:00:00Z') },
+                    2: { correct: false, submitted_at: new Date('2026-01-01T00:00:10Z'), started_at: new Date('2026-01-01T00:00:00Z') }
+                };
+                return data[entity];
+            });
+
+            //copied from above
+            match_result_service.finaliseMatch.mockResolvedValueOnce({
+                players: [
+                    { user_id: 'player-a', eloEffect: 16 },
+                    { user_id: 'player-b', eloEffect: -16 }
+                ]
+            });
+
+            await finish_game.execute(match_id, player_ids, GameType.ranked, pair_id);
+
+            expect(world.addMatchComponent).toHaveBeenCalledWith(
+                match_id,
+                'Result',
+                expect.objectContaining({
+                    winner: { id: 'player-a', elo: 16},
+                    loser: { id: 'player-b', elo: -16},
+                    stats: expect.any(Object)
+                })
+            );
 
         });
 
