@@ -53,7 +53,11 @@ describe('MatchStatsRepository', () => {
         });
 
         it('returns an ampty array when no stats exist for the match', async () => {
+            mockRepo.find.mockResolvedValueOnce([]);
 
+            const result = await repository.getStatsByMatch('match-empty');
+
+            expect(result).toEqual([]);
         });
     });
 
