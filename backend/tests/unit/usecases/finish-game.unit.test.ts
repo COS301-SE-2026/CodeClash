@@ -1,10 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { FinishGame } from '../../../src/application/usecases/systems/finish-game';
 import { GameType } from '../../../src/entities/db-entities/questions.entities';
-import { Any } from 'typeorm';
-import { match } from 'node:assert';
-import { ECDH } from 'node:crypto';
-import { addUncaughtExceptionCaptureCallback } from 'node:process';
 
 describe('FinishGame', () => {
     let world: any;
