@@ -3,6 +3,8 @@ import { FinishGame } from '../../../src/application/usecases/systems/finish-gam
 import { GameType } from '../../../src/entities/db-entities/questions.entities';
 import { Any } from 'typeorm';
 import { match } from 'node:assert';
+import { ECDH } from 'node:crypto';
+import { addUncaughtExceptionCaptureCallback } from 'node:process';
 
 describe('FinishGame', () => {
     let world: any;
@@ -177,8 +179,33 @@ describe('FinishGame', () => {
         });
 
         it('passes is_ranked=false for casual matches', async () => {
+            world.getMatchComponent.mockReturnValue({
+                submissions: new Map([
+                    ['player-a::q1', 1],
+                    ['player-a::q2', 2]
+                ])
+            });
 
-        });
+            world.getSubmissionComponent.mockReturnValue({ correct: true, submitted_at: new Date('2026-01-01T00:00:05Z'), started_at: new Date('2026-01-01T00:00:00Z')});
+
+            //copied from above
+            match_result_service.finaliseMatch.mockResolvedValueOnce({
+                players: [
+                    { user_id: 'player-a', eloEffect: 0 },
+                    { user_id: 'player-b', eloEffect: 0 }
+                ]
+            });
+
+            await finish_game.execute(match_id, player_ids, GameType.casual, pair_id);
+
+            expect(match_result_service.finaliseMatch).toHaveBeenCalledWith(
+                db_match_id,
+                expect.any(String),
+                expect.any(String),
+                false,
+                expect.any(Array)
+            );
+        }); 
 
         it('writes a Result component to the ECS world with winner/loser elo and stats', async () => {
 
