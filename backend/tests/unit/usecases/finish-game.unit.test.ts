@@ -145,7 +145,7 @@ describe('FinishGame', () => {
             world.getMatchComponent.mockReturnValue({
                 submissions: new Map([
                     ['player-a::q1', 1],
-                    ['player-a::q2', 2]
+                    ['player-b::q2', 2]
                 ])
             });
 
@@ -182,7 +182,7 @@ describe('FinishGame', () => {
             world.getMatchComponent.mockReturnValue({
                 submissions: new Map([
                     ['player-a::q1', 1],
-                    ['player-a::q2', 2]
+                    ['player-b::q2', 2]
                 ])
             });
 
@@ -212,7 +212,7 @@ describe('FinishGame', () => {
             world.getMatchComponent.mockReturnValue({
                 submissions: new Map([
                     ['player-a::q1', 1],
-                    ['player-a::q2', 2]
+                    ['player-b::q2', 2]
                 ])
             });
 
@@ -275,7 +275,27 @@ describe('FinishGame', () => {
 
     describe ('getStats', () => {
         it('correctly aggregates num_correct and total_time per player', () =>{
+            const submissions =  new Map([
+                    ['player-a::q1', 1],
+                    ['player-a::q2', 2],
+                    ['player-b::q1', 3]
+                ]);
 
+            //copied above
+            world.getSubmissionComponent.mockImplementation((entity: number) => {
+                const started = new Date('2026-01-01T00:00:00Z');
+                const data: Record<number, any> ={
+                    1: { correct: true, submitted_at: new Date('2026-01-01T00:00:03Z'), started_at: started },
+                    2: { correct: false, submitted_at: new Date('2026-01-01T00:00:4Z'), started_at: started },
+                    3: { correct: true, submitted_at: new Date('2026-01-01T00:00:07Z'), started_at: started }
+                };
+                return data[entity];
+            });
+
+            const result = finish_game.getStats(submissions, player_ids);
+
+            expect(result.get('player-a')).toEqual({ num_correct: 1, total_time: 7000});
+            expect(result.get('player-b')).toEqual({ num_correct: 1, total_time: 7000});
         });
 
         it('initialises all player_ids with zero stats even if they have nosubmissions', () => {
