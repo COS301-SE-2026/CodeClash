@@ -24,7 +24,7 @@ describe('MatchStatsRepository', () => {
             await repository.saveStats('match-1', 'user-1', 4, 12000);
 
             expect(mockRepo.create).toHaveBeenCalledWith({
-                match: { match_id: 'match-1' },
+                match: { db_match_id: 'match-1' },
                 user: { user_id: 'user-1' },
                 num_correct: 4,
                 total_time: 12000
@@ -48,7 +48,7 @@ describe('MatchStatsRepository', () => {
             });
             expect(result).toEqual([
                 { user_id: 'user-1' , num_correct: 4, total_time: 12000 },
-                { user: { user_id: 'user-2' }, num_correct: 3, total_time: 15000 }
+                { user_id: 'user-2', num_correct: 3, total_time: 15000 }
             ]);
         });
 
