@@ -14,16 +14,16 @@ interface MatchHistoryViewModel {
     handleCloseDetails: () => void;
 }
 
-export function MatchHistoryViewModelFunction(user_id: string): MatchHistoryViewModel {
+export function MatchHistoryViewModelFunction(): MatchHistoryViewModel {
     const [selected, setSelected] = useState<MatchRow | null>(null);
     const [isDetails, setIsDetails] = useState(false);
     const [matches, setMatches] = useState<MatchRow[]>([]);
     const { token } = useAuth();
 
     useEffect( () => {
-        if( !token || !user_id) return;
+        if( !token) return;
 
-        axios.get(url.concat(`users/${user_id}/matches`), {
+        axios.get(url.concat(`matches`), {
             headers: { Authorization: `Bearer ${token}` }
         }).then(res => {
             setMatches(res.data.map((m: any) => ({
@@ -35,12 +35,12 @@ export function MatchHistoryViewModelFunction(user_id: string): MatchHistoryView
                 details: null
             })));
         }).catch(err => console.error('Error fetching match history:', err));
-    }, [user_id, token]);
+    }, [token]);
 
     const handleRowClick = useCallback(async (match: MatchRow) => {
         if (!token) return;
         try {
-            const res = await axios.get(url.concat(`users/${user_id}/matches/${match.id}`), {
+            const res = await axios.get(url.concat(`matches/${match.id}`), {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
@@ -59,7 +59,7 @@ export function MatchHistoryViewModelFunction(user_id: string): MatchHistoryView
             console.error('Error fetching match details:', err);
         }
         
-    }, [user_id, token]);
+    }, [token]);
 
     const handleCloseDetails = useCallback(() => {
         setIsDetails(false);
