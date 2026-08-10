@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
 import { MatchHistoryRepository} from '../repositories/match-history.repository';
 import { AppDataSource } from 'src/frameworks-drivers/config/data-source';
-import { Match, MatchLog } from 'src/entities/db-entities/match.entities';
+import { Matches, MatchLog } from 'src/entities/db-entities/match.entities';
 import { MatchStats } from 'src/entities/db-entities/match-stats.entities'; 
 
 const matchHistoryRepo = new MatchHistoryRepository(
-    AppDataSource.getRepository(Match),
+    AppDataSource.getRepository(Matches),
     AppDataSource.getRepository(MatchLog),
     AppDataSource.getRepository(MatchStats)
 );

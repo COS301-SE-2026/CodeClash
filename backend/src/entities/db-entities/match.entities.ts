@@ -10,7 +10,7 @@ export class MatchProblems{
 }
 
 @Entity()
-export class Match {
+export class Matches {
     @PrimaryGeneratedColumn('uuid')
     match_id!: string;
 
@@ -40,9 +40,9 @@ export class MatchLog {
     @PrimaryGeneratedColumn('uuid')
     log_id!: string;
 
-    @OneToOne(() => Match)
+    @OneToOne(() => Matches)
     @JoinColumn({ name: 'match_id' })
-    match!: Match;
+    match!: Matches;
 
     @ManyToOne(() => Users)
     @JoinColumn({ name: 'winner_id' })

@@ -1,9 +1,9 @@
 import { Repository } from 'typeorm';
-import { Match } from 'src/entities/db-entities/match.entities';
+import { Matches } from 'src/entities/db-entities/match.entities';
 import { IMatchRepository } from 'src/application/interfaces/repositories/IMatchRepository';
 
 export class MatchRepository implements IMatchRepository {
-    constructor(private readonly matchRepository: Repository<Match>) { }
+    constructor(private readonly matchRepository: Repository<Matches>) { }
 
     async createMatch(players: string[], mode: 'ranked' | 'casual', game_mode: 'math' | 'programming', match_start: Date): Promise<string> {
 

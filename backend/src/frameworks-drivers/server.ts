@@ -42,7 +42,7 @@ import { AppDataSource } from "./config/data-source"
 import { OpponentProgress } from 'src/application/usecases/systems/opponent-progress';
 import { IMatchRepository } from 'src/application/interfaces/repositories/IMatchRepository';
 import { MatchRepository } from 'src/interface-adapters/repositories/match.repository';
-import { Match, MatchLog } from 'src/entities/db-entities/match.entities';
+import { Matches, MatchLog } from 'src/entities/db-entities/match.entities';
 import { MatchResultService } from 'src/application/usecases/services/match-result.service';
 import { IMatchResultRepository } from 'src/application/interfaces/repositories/IMatchResultRepository';
 import { MatchResultRepository } from 'src/interface-adapters/repositories/match-result.repository';
@@ -64,7 +64,7 @@ AppDataSource.initialize()
         const elo_repo: IEloRepository = new EloRepository(AppDataSource.getRepository(EloRatings));
         const question_repo: IQuestionRepository = new QuestionRepository(AppDataSource.getRepository(Questions));
         const answer_repo: IAnswerRepository = new AnswerRepository(AppDataSource.getRepository(Answers))
-        const match_repo: IMatchRepository = new MatchRepository(AppDataSource.getRepository(Match))
+        const match_repo: IMatchRepository = new MatchRepository(AppDataSource.getRepository(Matches))
         const match_results_repo: IMatchResultRepository = new MatchResultRepository(
             AppDataSource.getRepository(MatchLog),
             AppDataSource.getRepository(Users)

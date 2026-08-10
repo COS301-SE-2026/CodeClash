@@ -1,11 +1,11 @@
 import { Repository } from 'typeorm';
-import { Match, MatchLog } from 'src/entities/db-entities/match.entities';
+import { Matches, MatchLog } from 'src/entities/db-entities/match.entities';
 import { MatchStats } from 'src/entities/db-entities/match-stats.entities';
 import { IMatchHistoryRepository, MatchHistoryRow, MatchHistoryDetail, MatchHistoryQuestionStat } from 'src/application/interfaces/repositories/IMatchHistoryRepository';
 
 export class MatchHistoryRepository implements IMatchHistoryRepository {
     constructor(
-        private readonly matchRepo: Repository<Match>,
+        private readonly matchRepo: Repository<Matches>,
         private readonly matchLogRepo: Repository<MatchLog>,
         private readonly matchStatsRepo: Repository<MatchStats>
     ) {}

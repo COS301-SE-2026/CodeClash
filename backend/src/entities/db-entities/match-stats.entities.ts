@@ -1,15 +1,15 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn } from 'typeorm';
 import { Users } from './user.entities';
-import { Match } from './match.entities';
+import { Matches } from './match.entities';
 
 @Entity()
 export class MatchStats{
     @PrimaryGeneratedColumn('uuid')
     stat_id!: string;
 
-    @ManyToOne(() => Match)
+    @ManyToOne(() => Matches)
     @JoinColumn({ name: 'match_id' })
-    match!: Match;
+    match!: Matches;
 
     @ManyToOne(() => Users)
     @JoinColumn({ name: 'user_id' })
