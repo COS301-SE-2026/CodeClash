@@ -634,6 +634,12 @@
     background: rgba(232, 163, 61, 0.15);
     color: var(--warning);
     border: 1px solid rgba(232, 163, 61, 0.35);
+    transition: all 0.2s ease-in-out;
+  }
+
+  .badge-status-pending:hover, .badge-status-correct:hover, .badge-status-wrong:hover {
+     background: rgba(252, 236, 221, 0.03);
+     cursor: pointer;
   }
 
   .badge-status-wrong {
