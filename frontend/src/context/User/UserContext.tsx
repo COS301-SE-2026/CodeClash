@@ -91,36 +91,22 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 case elo < 2400:
                     setLeague("Earth");
                     break;
-                case elo
-            }
-
-            if(elo >= 600 && elo < 1200){ //change this to "elo >= 600", the lowest is 600, but test_user has an elo of 0 so that needs to be changed then this should be changed
-                setLeague("Mercury");
-            }
-            else if(elo >= 1200 && elo < 1800){
-                setLeague("Venus");
-            }
-            else if(elo >= 1800 && elo < 2400){
-                setLeague("Earth");
-            }
-            else if(elo >= 2400 && elo < 3000){
-                setLeague("Mars");
-            }
-            else if(elo >= 3000 && elo < 3600){
-                setLeague("Jupiter");
-            }
-            else if(elo >= 3600 && elo < 4200){
-                setLeague("Saturn");
-            }
-            else if(elo >= 4200 && elo < 4800){
-                setLeague("Uranus");
-            }
-            else if(elo >= 4800 && elo <= 5400){
-                setLeague("Neptune");
-            }
-            else{
-                setError('Error: Invalid League');
-            }
+                case elo < 3000:
+                    setLeague("Mars");
+                    break;
+                case elo < 3600:
+                    setLeague("Jupiter");
+                    break;
+                case elo < 4200:
+                    setLeague("Saturn");
+                    break;
+                case elo < 4800:
+                    setLeague("Uranus");
+                    break;
+                case elo <= 5400:
+                    setLeague("Neptune");
+                    break;
+                }
 
         }
         catch (error) {
