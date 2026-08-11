@@ -80,17 +80,19 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
 
         try {
-            // await axios.get(url.concat('user/league'), {
-            //     headers: { Authorization: `Bearer ${token}` }
-            // })
-            //     .then((res) => {
-            //         if (res.status === 200) {
-            //             setLeague(res.data.league);
-            //         }
-            //         else {
-            //             setError(`Error: ${res.status} ${res.data}`);
-            //         }
-            //     })
+
+            switch(true){
+                case elo < 1200:
+                    setLeague("Mercury");
+                    break;
+                case elo < 1800:
+                    setLeague("Venus");
+                    break;
+                case elo < 2400:
+                    setLeague("Earth");
+                    break;
+                case elo
+            }
 
             if(elo >= 600 && elo < 1200){ //change this to "elo >= 600", the lowest is 600, but test_user has an elo of 0 so that needs to be changed then this should be changed
                 setLeague("Mercury");
