@@ -17,10 +17,8 @@ const router = Router();
 const user_repo = new UserRepository(AppDataSource.getRepository(Users))
 const elo_repo = new EloRepository(AppDataSource.getRepository(EloRatings))
 
-const leaderboard_system = new LeaderboardSystem(elo_repo);
-
 router.get('/elo-get', getUserElo(elo_repo));
-router.get('/rank', getUserRank(leaderboard_system));
+router.get('/rank', getUserRank(elo_repo));
 
 // user routes
 router.get('/:stat', getUserStat(user_repo)); // this must be last, it's a generic function that fetches any attribute directly in the users table

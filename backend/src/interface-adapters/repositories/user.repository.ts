@@ -2,6 +2,7 @@ import { IUserRepository } from "src/application/interfaces/repositories/IUserRe
 import { Users } from "src/entities/db-entities/user.entities";
 import { UserDTO } from "src/interface-adapters/dtos/user.dto";
 import { Repository } from "typeorm";
+import { RankDTO } from "../dtos/rank.dto";
 
 
 
@@ -86,5 +87,4 @@ export class UserRepository implements IUserRepository {
         
         return data
     }
-
 }
