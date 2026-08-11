@@ -1,0 +1,19 @@
+frontend/src/context/User/UserContext.tsx
+  h_b13c5d77534129 84-95
+  h_b13c5d77534129 83
+package-lock.json
+  h_b13c5d77534129 17,3166-3174,3318-3326,4012-4024,4415-4423,4901-4909,4924-4940,5173-5193,8510-8518,8555-8563,9398-9425,10447-10455
+package.json
+  h_b13c5d77534129 53
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "5a99986b34d23cadc3859c6c3d6c3161ff571451",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
