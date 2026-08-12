@@ -4,17 +4,11 @@ import backgroundImg from '../assets/Background/dashboard.png'
 import { useDashboardViewModel } from '../ViewModels/DashboardViewModel';
 import Popup from './Popup'
 import Loading from '@/components/shared/Loading';
-import { useMemo } from 'react';
+import Starfield from '@/components/ui/Starfield';
 
 type SkillMetric = {
   label: string;
   value: number;
-}
-
-const secureRandom = ()=> {
-  const arr = new Uint32Array(1);
-  window.crypto.getRandomValues(arr);
-  return arr[0] / (0xffffffff + 1);
 }
 
 const SkillProgressCard = ({
@@ -55,12 +49,6 @@ const SkillProgressCard = ({
 const Dashboard = () => {
   const { isOpen, openPopUp, closePopUp, username, elo, league, avatar, isLoading } = useDashboardViewModel();
 
-  const stars = useMemo (
-    () => Array.from({length: 40}, (_,i) => ({
-      id: i, top: secureRandom() *100, left: secureRandom() *100, delay: secureRandom() * 3,
-    })), []
-  )
-
   if (isLoading) {
     return (
       <Loading isOpen={isLoading}></Loading>
@@ -71,11 +59,7 @@ const Dashboard = () => {
     <div className='relative w-full min-h-screen bg-cover bg-center overflow-hidden'
       style={{backgroundImage: `url(${backgroundImg})`}}>
       <div className='absolute inset-0 bg-gradient-to-b from-background/85 via-background/75 to-background'/>
-      <div className="starfield">
-        {stars.map((star) => (
-            <span key={star.id} style={{top: `${star.top}%`, left: `${star.left}%`, animationDelay: `${star.delay}s`}}/>
-        ))}
-      </div>
+      <Starfield/>
 
         <div className='relative z-10'>
           <div className='grid grid-cols-1 lg:grid-cols-[1.1fr_1fr_1.2fr] gap-6 max-w-[1400px] mx-auto items-start'>

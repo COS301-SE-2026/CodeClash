@@ -1,16 +1,10 @@
-import React, {useMemo} from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ArrowRight, Mail, Lock} from "lucide-react";
 import { SignInViewModelFunction } from "../ViewModels/SignInViewModel";
 
 import SymbolBackground from "../assets/Background/SymbolBackground.png";
-
-{/*Copied from dashboard */}
-const secureRandom = ()=> {
-  const arr = new Uint32Array(1);
-  window.crypto.getRandomValues(arr);
-  return arr[0] / (0xffffffff + 1);
-}
+import Starfield from "@/components/ui/Starfield";
 
 const SignIn: React.FC= () => {
     const {
@@ -21,24 +15,12 @@ const SignIn: React.FC= () => {
         handleSubmit,
     } = SignInViewModelFunction();
 
-    {/*Copied from dashboard */}
-      const stars = useMemo (
-        () => Array.from({length: 40}, (_,i) => ({
-          id: i, top: secureRandom() *100, left: secureRandom() *100, delay: secureRandom() * 3,
-        })), []
-      )
-
     return (
         <div className="relative w-full min-h-screen flex items-center justify-center overflow-hidden px-6 py-16" 
             style={{background: "radial-gradient(circle at 50% 12%, #b91551 0%, #850f3b 22%, #630b3c 34%, #0a0008 62%)"}}>
             
             <img src = {SymbolBackground} alt="" className="absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none"/>
-            {/*Starfield copied from dashboard */}
-            <div className="starfield">
-                {stars.map((star) => (
-                    <span key={star.id} style={{top: `${star.top}%`, left: `${star.left}%`, animationDelay: `${star.delay}s`}}/>
-                ))}
-            </div>
+            <Starfield/>
 
             {/*Back Button*/}
             <Link to='/' className="btn btn-ghost primary-back-button flex items-center gap-2 z-20">
