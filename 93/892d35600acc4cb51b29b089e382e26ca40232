@@ -1,0 +1,14 @@
+backend/tests/unit/usecases/services/matchmaking.service.test.ts
+  h_58e143dc25f856 7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "93892d35600acc4cb51b29b089e382e26ca40232",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
