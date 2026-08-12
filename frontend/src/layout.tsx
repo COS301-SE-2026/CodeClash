@@ -33,7 +33,6 @@ export default function Layout() {
                         </main>
                     </div>
             </SidebarInset>
-            <Outlet />
         </SidebarProvider>
     )
 }
