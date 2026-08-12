@@ -141,7 +141,7 @@ const SignUp: React.FC= () => {
                         <label className='field-label'>Phone number</label>
                         <div className='relative'>
                             <Phone size={16} className='absolute left-4 top-1/2 -translate-y-1/2 text-muted-text'/>
-                            <input className='input pl-10' type='tel' placeholder='012 345 6789' value={form.phoneNumber} onChange={(e) => setField('phoneNumber', e.target.value)} disabled={isLoading}/>
+                            <input className='input pl-10' type='tel' placeholder='+27 12 345 6789' value={form.phoneNumber} onChange={(e) => setField('phoneNumber', e.target.value)} disabled={isLoading}/>
                         </div>
                     </div>
                     <div className='mb-4'>
