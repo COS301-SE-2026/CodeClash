@@ -1,13 +1,9 @@
-import { Search, Bot, UserCircle, ChevronRight, Swords, Users2, Trophy, Flame, Sparkles } from 'lucide-react';
+import {ChevronRight, Swords, Users2, Trophy, Flame, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import backgroundImg from '../assets/Background/dashboard.png'
 import { useDashboardViewModel } from '../ViewModels/DashboardViewModel';
-
 import Popup from './Popup'
 import Loading from '@/components/shared/Loading';
-
-import { AppSidebar} from '@/components/Sidebar';
-import { SidebarProvider, SidebarInset, SidebarTrigger } from '@/components/ui/sidebar/sidebar';
 import { useMemo } from 'react';
 
 type SkillMetric = {
@@ -72,9 +68,6 @@ const Dashboard = () => {
   }
 
   return (
-    <SidebarProvider>
-    <AppSidebar/>
-    <SidebarInset>
     <div className='relative w-full min-h-screen bg-cover bg-center overflow-hidden'
       style={{backgroundImage: `url(${backgroundImg})`}}>
       <div className='absolute inset-0 bg-gradient-to-b from-background/85 via-background/75 to-background'/>
@@ -83,31 +76,8 @@ const Dashboard = () => {
             <span key={star.id} style={{top: `${star.top}%`, left: `${star.left}%`, animationDelay: `${star.delay}s`}}/>
         ))}
       </div>
-      <div className='relative z-10 flex flex-col min-h-screen'>
-        <header className='w-full flex items-center justify-between gap-4 px-8 py-4 border-b border-border bg-background/60 backdrop-blur-md'>
-        <div className='flex items-center gap-3 w-full max-w-md'>
-          <SidebarTrigger className='btn btn-ghost btn-icon shrink-0'/>
-          <div className='flex items-center gap-2 w-full rounded-3xl border border-border bg-card px-4 py-2.5'>
-            <Search size={18} className='text-muted-text shrink-0'/>
-            <input type='text' placeholder='Search' className='bg-transparent outline-none text-xsm text-primary-text placeholder:text-muted-text w-full'/>
-          </div>
-        </div>
 
-          <div className='flex items-center gap-5 shrink-0'>
-            <button className='btn btn-ghost btn-icon' aria-label='Ask CodeClash AI (coming soon)' type='button'>
-              <Bot size={20}/>
-            </button>
-            <Link to='/profile' className='avatar w-10 h-10 flex items-center justify-center overflow-hidden'>
-              {avatar ? (
-                <img src={avatar} alt='Your CodeClash avatar' className='w-full h-full object-cover'/>
-              ) : (
-                <UserCircle size={22} className='text-muted-text'/>
-              )}
-            </Link>
-          </div>
-        </header>
-
-        <main className='flex-1 px-8 py-8'>
+        <div className='relative z-10'>
           <div className='grid grid-cols-1 lg:grid-cols-[1.1fr_1fr_1.2fr] gap-6 max-w-[1400px] mx-auto items-start'>
             {/*Profile + Play */}
             <div className='flex flex-col gap-6'>
@@ -191,13 +161,10 @@ const Dashboard = () => {
                 ]}/>
               </div>
           </div>
-        </main>
-      </div>
+        </div>
 
       {isOpen && <Popup isOpen={isOpen} onClose={closePopUp}/>}
     </div>
-    </SidebarInset>
-    </SidebarProvider>
   )
 }
 
