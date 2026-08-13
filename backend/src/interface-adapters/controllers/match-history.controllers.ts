@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { MatchHistoryRepository} from '../repositories/match-history.repository';
-import { Match } from 'src/entities/ecs-entities';
 
 export const getMatchHistory = (match_history_repo: MatchHistoryRepository) => {
     return async (req: Request, res: Response) => {

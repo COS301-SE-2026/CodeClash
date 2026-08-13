@@ -25,7 +25,18 @@ describe('match-history controllers', () => {
 
     describe('getMatchHistory', () => {
         it('returns 200 with the user\'s match  history', async () => {
+            const mockMatches = [
+                { match_id: 'match-1', mode: 'ranked', game_type: 'math', match_start: new Date(), result: 'WIN', score: '3-2' }
+            ];
 
+            mockRepo.getMatchHistory.mockResolvedValueOnce(mockMatches);
+
+            const handler = getMatchHistory(mockRepo);
+            await handler(req, res);
+
+            expect(mockRepo.getMatchHistory).toHaveBeenCalledWith('user-1');
+            expect(res.status).toHaveBeenCalledWith(200);
+            expect(res.json).toHaveBeenCalledWith(mockMatches);
         });
 
         it('returns 200 with an empty array when the user has no matches', async () => {
