@@ -1,0 +1,19 @@
+.github/workflows/ci.yml
+  s_4e574f764a6c4a::t_79dcffa43c6e48 51
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "0a5eccd8bc6d6f976ed87f2ce17b5fd1d1ea4b77",
+  "prompts": {},
+  "sessions": {
+    "s_4e574f764a6c4a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_026d55badffev4VDeY4gSHM8Pf",
+        "model": "big-pickle"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
