@@ -55,7 +55,7 @@ describe('FinishGame', () => {
 
         it('persists match stats for both players before determining a winner', async () => {
             const SubmissionRegistry = {
-                submission: new Map([
+                submissions: new Map([
                     ['player-a::q1', 1],
                     ['player-a::q2', 2],
                     ['player-b::q1', 3]
@@ -282,7 +282,7 @@ describe('FinishGame', () => {
                 const started = new Date('2026-01-01T00:00:00Z');
                 const data: Record<number, any> ={
                     1: { correct: true, submitted_at: new Date('2026-01-01T00:00:03Z'), started_at: started },
-                    2: { correct: false, submitted_at: new Date('2026-01-01T00:00:4Z'), started_at: started },
+                    2: { correct: false, submitted_at: new Date('2026-01-01T00:00:04Z'), started_at: started },
                     3: { correct: true, submitted_at: new Date('2026-01-01T00:00:07Z'), started_at: started }
                 };
                 return data[entity];
@@ -290,8 +290,8 @@ describe('FinishGame', () => {
 
             const result = finish_game.getStats(submissions, player_ids);
 
-            expect(result.get('player-a')).toEqual({ num_correct: 1, total_time: '7000'});
-            expect(result.get('player-b')).toEqual({ num_correct: 1, total_time: '7000'});
+            expect(result.get('player-a')).toEqual({ num_correct: 1, total_time: 7000});
+            expect(result.get('player-b')).toEqual({ num_correct: 1, total_time: 7000});
         });
 
         it('initialises all player_ids with zero stats even if they have nosubmissions', () => {
