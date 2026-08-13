@@ -1,0 +1,26 @@
+frontend/src/ViewModels/SignUpViewModel.ts
+  h_94c952a9e14c58 7-8,30,47-48,55-58,74-93
+  h_94c952a9e14c58 33
+backend/src/interface-adapters/controllers/user.controllers.ts
+  h_94c952a9e14c58 30-35
+  h_94c952a9e14c58 29
+backend/src/application/usecases/services/user-creation.service.ts
+  h_94c952a9e14c58 1-15
+backend/src/application/interfaces/repositories/IEloRepository.ts
+  h_94c952a9e14c58 5
+backend/src/frameworks-drivers/routes/api.routes.ts
+  h_94c952a9e14c58 7,22
+backend/src/interface-adapters/repositories/user.repository.ts
+  h_94c952a9e14c58 78
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "8a1afadae45cf0d455998886ea3add57b3b18fca",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
