@@ -50,11 +50,17 @@ describe('match-history controllers', () => {
         });
 
         it('returns 500 if the repository throws', async () => {
+            mockRepo.getMatchHistory.mockRejectedValueOnce(new Error('DB error'));
 
+            const handler = getMatchHistory(mockRepo);
+            await handler(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(500);
+            expect(res.json).toHaveBeenCalledWith({ message: 'Internal server error' });
         });
 
         it('always scopes the query to the authenticated user, not a URL param', async () => {
-
+            
         });
 
 
