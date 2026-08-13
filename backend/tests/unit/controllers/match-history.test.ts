@@ -60,7 +60,16 @@ describe('match-history controllers', () => {
         });
 
         it('always scopes the query to the authenticated user, not a URL param', async () => {
-            
+            mockRepo.getMatchHistory.mockResolvedValueOnce([]);
+
+            req.user.id = 'authenticated-user-uuid';
+            req.param = { user_id: 'some-other-user-uuid' };
+
+            const handler = getMatchHistory(mockRepo);
+            await handler(req, res);
+
+            expect(mockRepo.getMatchHistory).toHaveBeenCalledWith('authenticated-user-uuid');
+            expect(mockRepo.getMatchHistory).not.toHaveBeenCalledWith('some-other-user-uuid');
         });
 
 
