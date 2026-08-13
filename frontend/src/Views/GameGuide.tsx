@@ -19,7 +19,7 @@ const GameGuide = () => {
                 <div className="text-center flex flex-col items-center gap-4">
                     <span className="eyebrow mt-8">Competitive - Coding - Mathematics</span>
                     <h1 className="text-3xl md:text-4xl font-black text-primary-text">CodeClash Game Guide</h1>
-                    <p className="text-muted max-w-2xl leading-relaxed">
+                    <p className="text-muted max-w-3xl leading-relaxed">
                         {/*Copied from Morgans previously written gameguide code */}
                         This game guide serves to provide everything needed to get started with CodeClash. Learn how matches work, understand the scoring system, explore the game rules, and discover tips to improve your performance. Whether you are a first time player or a seasoned competitor, this guide will help you navigate the platform, make the most of every challenge, and compete with confidence.
                     </p>
@@ -60,33 +60,26 @@ const GameGuide = () => {
                         Success in ranked play rewards players with progression through the league system, allowing them to climb the leaderboard while competing against opponents of similar skill levels. Along the way, players unlock achievements and earn badges that celebrate milestones such as winning matches, maintaining high accuracy, answering quickly, or demonstrating consistent improvement.
                     </p>
                 </section>
+
+                {/*How to pley - Steps */}
+                <section>
+                    <div className="flex item-center gap-3 mb-4">
+                        <Gamepad2 size={30} className="text-primary shrink-0"/>
+                        <h2 className="text-xl font-black text-primary-text">How to Play</h2>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {Steps.map((step, i) => (
+                            <div key={i} className="card-elevated p-5 flex gap-4 items-start">
+                                <div className="w-11 h-11 rounded-full border-2 border-primary flex items-center justify-center shrink-0">
+                                    <span className="score-display text-lg text-primary">{i+1}</span>
+                                </div>
+                                <p className="text-muted leading-relaxed">{step}</p>
+                            </div> 
+                        ))}
+                    </div>
+                </section>
             </div>
         </div>
     )
 }
 export default GameGuide;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{/*This is kept from Morgans previous game guide!!
-
-Every answer submitted is automatically compared against the correct solution using the game's validation system. Correct answers earn points, while incorrect answers receive no score. If multiple players answer correctly, the player who submits the correct solution in the shortest amount of time receives a higher score, rewarding quick thinking under pressure. This balanced scoring system ensures that success is determined not only by being fast, but also by writing accurate and correct solutions. At the end of each match, players can review their results, compare their performance, and identify areas for improvement before taking on their next challenge
-
-Casual matches provide a safe space to practice, build confidence, and develop problem-solving skills without the pressure of rankings. As players gain experience, improve their accuracy, and become more confident in solving challenges, they can progress into ranked matches where every game contributes to their competitive standing.
-Success in ranked play rewards players with progression through the league system, allowing them to climb the leaderboard while competing against opponents of similar skill levels. Along the way, players unlock achievements and earn badges that celebrate milestones such as winning matches, maintaining high accuracy, answering quickly, or demonstrating consistent improvement.*/}
