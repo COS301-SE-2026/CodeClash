@@ -38,8 +38,20 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    # container:
-    #   image: node:20-alpine
+    services:
+        postgres:
+            image: postgres:15-alpine
+            env:
+                POSTGRES_USER: ${{secrets.POSTGRES_TEST_USER}}
+                POSTGRES_PASSWORD: ${{secrets.POSTGRES_TEST_PASS}}
+                POSTGRES_DB: ${{secrets.POSTGRES_TEST_DB}}
+            ports:
+                - 5432:5432
+            options: >-
+                --health-cmd "pg_isready -U testuser -d testdb"
+                --health-interval 10s
+                --health-timeout 5s
+                --health-retries 5
 
     steps:
     - uses: actions/checkout@v4
@@ -55,6 +67,12 @@ jobs:
    
     - name: Test and coverage backend
       run: npm run test:backend:coverage
+      env:
+        DB_TEST_HOST: ${{secrets.DB_TEST_HOST}}
+        DB_TEST_PORT: ${{secrets.DB_TEST_PORT}}
+        DB_TEST_USER: ${{secrets.DB_TEST_USER}}
+        DB_TEST_PASSWORD: ${{secrets.DB_TEST_PASSWORD}}
+        DB_TEST_NAME: ${{secrets.DB_TEST_NAME}}
 
     - name: Test and coverage frontend
       run: npm run test:frontend:coverage
