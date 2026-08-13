@@ -1,0 +1,63 @@
+import { it, Mock, describe, expect, vi, beforeEach } from "vitest";
+import { getMatchHistory, getMatchDetails } from '../../../src/interface-adapters/controllers/match-history.controllers';
+
+describe('match-history controllers', () => {
+    let mockRepo: any;
+    let req: any;
+    let res: any;
+
+    beforeEach(() => {
+        mockRepo = {
+            getMatchHistory: vi.fn(),
+            getMatchDetails: vi.fn()
+        };
+
+        req = {
+            user: { id: 'user-1'},
+            params: {}
+        };
+
+        res = {
+            status: vi.fn().mockReturnThis(),
+            json: vi.fn().mockReturnThis()
+        };
+    });
+
+    describe('getMatchHistory', () => {
+        it('returns 200 with the user\'s match  history', async () => {
+
+        });
+
+        it('returns 200 with an empty array when the user has no matches', async () => {
+
+        });
+
+        it('returns 500 if the repository throws', async () => {
+
+        });
+
+        it('always scopes the query to the authenticated user, not a URL param', async () => {
+
+        });
+
+
+    });
+
+    describe('getMatchDetails', () => {
+        it('returns 200 with match details for a valid match_id', async () => {
+
+        });
+
+        it('returns 400 if match_id is missing from the params', async () => {
+
+        });
+
+        it('returns 404 if the repository throws (e.g. match not found)', async () => {
+
+        });
+
+        it('passes both match_id and the authenticated user_id to the repository', async () => {
+
+        });
+    });
+});

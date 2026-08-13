@@ -4,9 +4,9 @@ import { Match } from 'src/entities/ecs-entities';
 
 export const getMatchHistory = (match_history_repo: MatchHistoryRepository) => {
     return async (req: Request, res: Response) => {
-        const user_id = req.user.id;
 
         try{
+            const user_id = req.user.id;
             const matches = await match_history_repo.getMatchHistory(user_id);
             res.status(200).json(matches);
         }catch (error){
