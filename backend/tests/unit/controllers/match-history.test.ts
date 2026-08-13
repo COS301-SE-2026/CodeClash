@@ -71,13 +71,30 @@ describe('match-history controllers', () => {
             expect(mockRepo.getMatchHistory).toHaveBeenCalledWith('authenticated-user-uuid');
             expect(mockRepo.getMatchHistory).not.toHaveBeenCalledWith('some-other-user-uuid');
         });
-
-
     });
 
     describe('getMatchDetails', () => {
         it('returns 200 with match details for a valid match_id', async () => {
+            const mockDetails = {
+                match_id: 'match-1',
+                mode: 'ranked',
+                game_type: 'math',
+                match_start: new Date();
+                result: 'WIN',
+                score: '3-2',
+                quesitons: [{ label: 'QUESTION 1', correctness: true }],
+                totalTime: '00:45'
+            };
 
+            req.params = { match_id: 'match-1' };
+            mockRepo.getMatchDetails.mockResolvedValueOnce(mockDetails);
+
+            const handler = getMatchDetails(mockRepo);
+            await handler(req, res);
+
+            expect(mockRepo.getMatchDetails).toHaveBeenCalledWith('match-1', 'user-1');
+            expect(res.status).toHaveBeenNthCalledWith(200);
+            expect(res.json).toHaveBeenCalledWith(mockDetails);
         });
 
         it('returns 400 if match_id is missing from the params', async () => {
