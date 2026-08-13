@@ -1,0 +1,20 @@
+backend/src/frameworks-drivers/routes/api.routes.ts
+  h_b13c5d77534129 21
+frontend/src/context/User/UserContext.tsx
+  h_b13c5d77534129 125
+backend/src/interface-adapters/controllers/rank.controllers.ts
+  h_b13c5d77534129 2,5,15
+backend/src/interface-adapters/repositories/user.repository.ts
+  h_b13c5d77534129 5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "79fb2ab7a86dde749dabecfaaf5038443271c63c",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

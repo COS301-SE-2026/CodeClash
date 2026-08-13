@@ -1,0 +1,19 @@
+docker-compose.yml
+  s_4e574f764a6c4a::t_95fff3e081402f 46
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "65202833f083bb9bdf985f45705daf21bf8d560e",
+  "prompts": {},
+  "sessions": {
+    "s_4e574f764a6c4a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_026d55badffev4VDeY4gSHM8Pf",
+        "model": "big-pickle"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
