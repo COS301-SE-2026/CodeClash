@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/Auth/hooks/useAuth";
 import { formData } from "../Models/SignUpModel";
 import type { SignUpForm } from "../Models/SignUpModel";
+import axios from "axios";
+import { fetchAuthSession } from "aws-amplify/auth";
 
 
 export function validateSignUpForm(data: SignUpForm): string | null {
@@ -25,7 +27,9 @@ export function SignUpViewModelFunction() {
     const [needsConfirmation, setNeedsConfirmation] = useState(false);
     const [localError, setLocalError] = useState<string | null>(null);
     const [resendMessage, setResendMessage] = useState<string | null>(null);
+    const [signupData, setSignupData] = useState<SignUpForm | null>(null);
     const nav = useNavigate();
+
 
     const setField = useCallback((field: keyof SignUpForm, value: string | boolean) => {
         setForm(prev => ({ ...prev, [field]: value })); //...prev will keep all exisiting values untouched and allow changes only to a specific field
@@ -40,14 +44,18 @@ export function SignUpViewModelFunction() {
             return;
         }
         try {
-            await signUp({ //If the form validation is passed, call Amplify's signUp with the values for the form
+
+            const data: SignUpForm = {
                 username: form.username.trim(),
                 firstName: form.firstName,
                 lastName: form.lastName,
                 email: form.email.trim(),
                 phoneNumber: form.phoneNumber.trim(),
                 password: form.password,
-            });
+                acceptedTerms: form.acceptedTerms
+            }
+            await signUp(data);
+            setSignupData(data);
             setNeedsConfirmation(true); //If signUp succeeds, set UI to confirmation code screen
         } catch {
             console.error("Sign up error")
@@ -63,7 +71,26 @@ export function SignUpViewModelFunction() {
         }
         try {
             await confirmSignUp(form.username.trim(), confirmationCode.trim()); //If the validation is passed, Amplify will be called
-            nav('/dashboard')
+
+            const session = await fetchAuthSession({ forceRefresh: true });
+            const token = session.tokens?.idToken?.toString();
+
+            const req_data = {
+                username: signupData?.username,
+                email: signupData?.email,
+            }
+            axios.post("/create-user", req_data, {
+                headers: { Authorization: `Bearer ${token}` }
+            })
+                .then((res) => {
+                    if (res.status === 200) {
+                        nav('/dashboard');
+                    }
+                    else {
+                        throw new Error();
+                    }
+                })
+
         } catch {
             console.error("Sign up confirmation error")
         }

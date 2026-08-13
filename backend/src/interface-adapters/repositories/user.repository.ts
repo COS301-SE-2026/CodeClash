@@ -75,7 +75,7 @@ export class UserRepository implements IUserRepository {
     }
 
     async getUserData(user_id: string, stat: keyof UserDTO): Promise<UserDTO | null> {
-       
+       console.log("GET USER DATAL: ",user_id);
         const user = await this.userRepository.findOneBy({ user_id: user_id })
 
         if (!user) return null;

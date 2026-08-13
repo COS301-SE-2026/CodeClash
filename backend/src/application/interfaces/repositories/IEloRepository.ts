@@ -2,7 +2,7 @@ import { EloDTO, EloUpdateResultDTO } from "src/interface-adapters/dtos/elo.dto"
 
 
 export interface IEloRepository {
-    // Creat
+    // Create
     createUserElo(user_id: string): Promise<void>
 
     // Read

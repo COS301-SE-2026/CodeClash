@@ -27,3 +27,10 @@ export const getUserStat = (user_repo: UserRepository) => {
     }
     //    
 }
+
+
+export const createUser = (user_repo: UserRepository) => {
+    return async (req: Request, res: Response) => {
+        
+    }
+}
