@@ -79,6 +79,8 @@ jobs:
       env:
         VITE_COGNITO_USER_POOL_ID: ${{secrets.VITE_COGNITO_USER_POOL_ID}}
         VITE_COGNITO_CLIENT_ID: ${{secrets.VITE_COGNITO_CLIENT_ID}}
+        VITE_INTEGRATION_TEST_USER: ${{secrets.INTEGRATION_TEST_USER}}
+        VITE_INTEGRATION_TEST_PASS: ${{secrets.INTEGRATION_TEST_PASS}}
 
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@75cd11691c0faa626561e295848008c8a7dddffe
