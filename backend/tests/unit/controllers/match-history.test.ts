@@ -40,7 +40,13 @@ describe('match-history controllers', () => {
         });
 
         it('returns 200 with an empty array when the user has no matches', async () => {
+            mockRepo.getMatchHistory.mockResolvedValueOnce([]);
 
+            const handler = getMatchHistory(mockRepo);
+            await handler(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(200);
+            expect(res.json).toHaveBeenCalledWith([]);
         });
 
         it('returns 500 if the repository throws', async () => {
