@@ -4,7 +4,7 @@ import backgroundImg from '../assets/Background/dashboard.png'
 import { useDashboardViewModel } from '../ViewModels/DashboardViewModel';
 import Popup from './Popup'
 import Loading from '@/components/shared/Loading';
-import Starfield from '@/components/ui/Starfield';
+import Starfield from '@/components/ui/animations/Starfield';
 
 type SkillMetric = {
   label: string;

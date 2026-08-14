@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowRight, Mail, Lock} from "lucide-react";
 import { SignInViewModelFunction } from "../ViewModels/SignInViewModel";
 
 import SymbolBackground from "../assets/Background/SymbolBackground.png";
-import Starfield from "@/components/ui/Starfield";
+import Starfield from "@/components/ui/animations/Starfield";
 
 const SignIn: React.FC= () => {
     const {

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowLeft, User, AtSign, Mail, Phone, Lock } from 'lucide-react';
 import { SignUpViewModelFunction } from '../ViewModels/SignUpViewModel.ts';
 import symbolBackground from "../assets/Background/SymbolBackground.png";
-import Starfield from '@/components/ui/Starfield.tsx';
+import Starfield from '@/components/ui/animations/Starfield.tsx';
 
 const SignUp: React.FC= () => {
     const { //this is to destructure the elements that the viewmodel returns, so that the view can access them
