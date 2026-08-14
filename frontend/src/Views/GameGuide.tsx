@@ -1,20 +1,23 @@
+import Starfield from "@/components/ui/animations/Starfield";
 import bg from "../../src/assets/Background/solar_system.jpg"
 import {Users, Monitor, Trophy, TrendingUp, Gamepad2} from 'lucide-react';
 
 {/*All copied from Morgans previously written gameguide code*/}
 const Steps = [ 
-    "As you play and win more ranked matches, your ELO will increase until you're able to play in a new, more advanced league",
-    "Casual Play is for players who want to practise without impacting their ELO. Ranked Play is for players who want to put their skills to the test by battling against others (Be careful! This impacts your ELO!)",
+    "As you play and win more ranked matches, your ELO will increase until you're able to play in a new, more advanced league.",
+    "Casual Play is for players who want to practise without impacting their ELO. Ranked Play is for players who want to put their skills to the test by battling against others (Be careful! This impacts your ELO!).",
     "After selecting Play Now, wait until we find someone for you to battle against. Your opponent's ELO will be similar to yours!",
     "Now you're in a match! Make sure you answer questions quickly to score more points than your opponent, but make sure they're correct first else you get no points!",
     "Make sure to pick up Powerups to boost your score and detriment your opponent's score, along the way!",
-    "If you suspect your opponent of cheating, please select the Report a Match option in your Dashboard",
-    "As you play and win more ranked matches, your ELO will increase until you're able to play in a new, more advanced league"
+    "If you suspect your opponent of cheating, please select the Report a Match option in your Dashboard.",
+    "As you play and win more ranked matches, your ELO will increase until you're able to play in a new, more advanced league."
 ]
 
 const GameGuide = () => {
     return(
         <div style={{backgroundImage: `url(${bg})`}} className="relative w-full min-h-screen bg-cover bg-center overflow-hidden -m-8 p-8">
+            <div className="absolute inset-0 bg-background/30"/>
+            <Starfield/>
             <div className="relative z-10 max-w-[1100px] mx-auto flex flex-col gap-10 pb-10">
                 <div className="text-center flex flex-col items-center gap-4">
                     <span className="eyebrow mt-8">Competitive - Coding - Mathematics</span>
@@ -37,7 +40,7 @@ const GameGuide = () => {
                 <section className="card-elevated p-6 md:p-8">
                     <div className="flex items-center gap-3 mb-4">
                         <Trophy size={30} className="text-primary shrink-0"/>
-                        <h2 className="text-xl font-black text-primary-text">Scoring System</h2>
+                        <h2 className="text-l font-black text-primary-text">Scoring System</h2>
                     </div>
                     <p className="text-muted leading-relaxed">
                         {/*Copied from Morgans previously written gameguide code */}
@@ -49,7 +52,7 @@ const GameGuide = () => {
                 <section className="card-elevated p-6 md:p-8">
                     <div className="flex items-center gap-3 mb-4">
                         <TrendingUp size={30} className="text-primary shrink-0"/>
-                        <h2 className="text-xl font-black text-primary-text">Player Journey</h2>
+                        <h2 className="text-l font-black text-primary-text">Player Journey</h2>
                     </div>
                     <p className="text-muted leading-relaxed">
                         {/*Copied from Morgans previously written gameguide code */}
@@ -63,9 +66,9 @@ const GameGuide = () => {
 
                 {/*How to pley - Steps */}
                 <section>
-                    <div className="flex item-center gap-3 mb-4">
+                    <div className="flex items-center gap-3 mb-4">
                         <Gamepad2 size={30} className="text-primary shrink-0"/>
-                        <h2 className="text-xl font-black text-primary-text">How to Play</h2>
+                        <h2 className="text-l font-black text-primary-text">How to Play</h2>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {Steps.map((step, i) => (
