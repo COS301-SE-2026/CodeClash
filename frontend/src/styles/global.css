@@ -132,6 +132,22 @@
   }
 }
 
+@keyframes drift-up {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-140px) scale(0.5);
+    opacity: 0;
+  }
+}
+
 @theme inline {
   /* radius */
   --radius-sm: calc(var(--radius) - 4px);
@@ -719,5 +735,13 @@
     border: 2px solid var(--border);
     background: var(--background-card);
     object-fit: cover;
+  }
+
+  /*For the confetti effect*/
+  .confetti-particle {
+    position: absolute;
+    border-radius: 999px;
+    pointer-events: none;
+    animation: drift-up 3s ease-in infinite;
   }
 }
