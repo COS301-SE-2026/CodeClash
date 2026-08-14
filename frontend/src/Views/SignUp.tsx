@@ -92,7 +92,7 @@ const SignUp: React.FC= () => {
                             <label className='field-label'>First Name</label>
                             <div className='relative'>
                                 <User size={16} className='absolute left-4 top-1/2 -translate-y-1/2 text-muted-text'/>
-                                <input className='input pl-10' type='text' placeholder='John' value={form.firstName} onChange={(e) => setField('firstName', e.target.value)} disabled={isLoading}/>
+                                <input className='input pl-10' type='text' placeholder='Name' value={form.firstName} onChange={(e) => setField('firstName', e.target.value)} disabled={isLoading}/>
                             </div>
                         </div>
                         {/*Copying above field and changing what needs to be changed */}
@@ -100,7 +100,7 @@ const SignUp: React.FC= () => {
                             <label className='field-label'>Last Name</label>
                             <div className='relative'>
                                 <User size={16} className='absolute left-4 top-1/2 -translate-y-1/2 text-muted-text'/>
-                                <input className='input pl-10' type='text' placeholder='Doe' value={form.lastName} onChange={(e) => setField('lastName', e.target.value)} disabled={isLoading}/>
+                                <input className='input pl-10' type='text' placeholder='Surname' value={form.lastName} onChange={(e) => setField('lastName', e.target.value)} disabled={isLoading}/>
                             </div>
                         </div>
                     </div>
@@ -108,7 +108,7 @@ const SignUp: React.FC= () => {
                         <label className='field-label'>Username</label>
                         <div className='relative'>
                             <AtSign size={16} className='absolute left-4 top-1/2 -translate-y-1/2 text-muted-text'/>
-                            <input className='input pl-10' type='text' placeholder='JohnDoe' value={form.username} onChange={(e) => setField('username', e.target.value)} disabled={isLoading}/>
+                            <input className='input pl-10' type='text' placeholder='NameSurname' value={form.username} onChange={(e) => setField('username', e.target.value)} disabled={isLoading}/>
                         </div>
                     </div>
                     {/*Copying above field and changing what needs to be */}

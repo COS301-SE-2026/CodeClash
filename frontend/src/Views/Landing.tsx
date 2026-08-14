@@ -42,9 +42,7 @@ const Landing:React.FC = ()=>{
             {/*landing page navigation */}
             <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-4"
                 style={{background: scrollY > 50 ? "rgba(10,0,8,0.95)" : "transparent", backdropFilter: scrollY > 50 ? "blur(12px)" : "none", transition: "background 0.3s ease", borderBottom: scrollY > 50 ? "1px solid rgba(252, 236, 221, 0.08)": "none",}}>
-                <span style={{color: '#fcecdd', fontWeight: 900, fontSize: "1.2rem", letterSpacing: "0.05rem",}}>CODE
-                    <span style={{color: '#c0395a', fontWeight: 900, fontSize: "1.2rem", letterSpacing: "0.05rem"}}>CLASH</span>
-                </span>
+                <span style={{color: 'var(--primary)', fontWeight: 900, fontSize: "1.2rem", letterSpacing: "0.05rem",}}>CODECLASH</span>
 
                 <div style={{display: "flex", alignItems: "center", gap: "3rem"}}>
                     <a href="#home">Home</a>
@@ -69,7 +67,7 @@ const Landing:React.FC = ()=>{
                     </div>
                     <h1 style={{fontSize: "clamp(2.5rem, 5vw, 4.5rem)", fontWeight: 900, lineHeight: 1.05, margin: 0,}}>Code.
                         <br/> Calculate. <br/>
-                        <span style={{color: "var(--primary)"}}>Conquer.</span>
+                        <span>Conquer.</span>
                     </h1>
                     <p style={{color: "#ffffff", maxWidth: 420, lineHeight: 2, fontSize: "1rem"}}>
                         Battle opponents in real-time coding and mathematics challenges. Climb the leaderboard. Earn your rank. 
@@ -130,7 +128,7 @@ const Landing:React.FC = ()=>{
             </section>
 
             {/*Features of the game */}
-            <section id="features" style = {{padding: "6 rem 8%", background: "linear-gradient(to bottom, #0a0008, #1a0610"}}>
+            <section id="features" style = {{padding: "3rem 8%", background: "linear-gradient(to bottom, #0a0008, #1a0610"}}>
                 <div style={{textAlign: "center", marginBottom: "4rem"}}>
                     <p style={{ color: "var(--primary)", fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.15rem", textTransform: "uppercase", marginBottom: "0.75rem"}}>Features</p>
                     <h2 style={{fontSize: "clamp(1.8rem, 4vw, 2.8rem)", fontWeight: 900, color: "var(--primary-text)", margin: 0}}>Built for competitors</h2>
@@ -153,7 +151,7 @@ const Landing:React.FC = ()=>{
             <section id="audience" style = {{display: "grid", gridTemplateColumns: "1fr 1fr", gap: "5rem", alignItems: "center"}}>
                 <div>
                     <p style={{color: "rgba(252, 236, 221, 0.55)", fontSize: "1rem", fontWeight: 600, margin: "1rem 1.5rem", letterSpacing: "0.15rem", textTransform: "uppercase"}}>Who It's For</p>
-                    <h2 style={{fontSize: "clamp(2rem, 3vw, 2.7rem)", fontWeight: 900, lineHeight: 1.15, margin: "1rem 1.5rem", color: "var(--primary-text)"}}>For students who want <br/>to win, not just pass</h2>
+                    <h2 style={{fontSize: "clamp(2rem, 3vw, 2.7rem)", fontWeight: 900, lineHeight: 1.15, margin: "1rem 1.5rem", color: "var(--primary-text)"}}>For students who want to win</h2>
                     <p style={{color: "var(--muted)", lineHeight: 1.8, marginBottom: "2rem", margin: "1rem 1.5rem"}}>CodeClash is build for beginners and early career developers where math and programming practice sessions become a competitive match against another player.</p>
                     <div style={{display: "flex", flexDirection: "column"}}>
                         {audience.map((item) => (
@@ -167,7 +165,7 @@ const Landing:React.FC = ()=>{
             </section>
 
             {/*for docs*/}
-            <section id="documentation" style={{padding: "6rem 8%", background: "var(--background)"}}>
+            <section id="documentation" style={{padding: "5rem 8%", background: "var(--background)"}}>
                 <div style={{ textAlign: "center", marginBottom: "4rem",}}>
                     <p style={{color: "var(--primary)", fontSize: "0.75rem", letterSpacing: "0.15rem", textTransform: "uppercase", fontWeight: 700}}>Documentation</p>
                     <h2 style={{color: "var(--primary-text)", fontSize: "clamp(2rem,4vw, 2.8rem", fontWeight: 900, margin: "1rem 0"}}>Learn more about CodeClash</h2>
@@ -192,8 +190,7 @@ const Landing:React.FC = ()=>{
             <section id="get-started" style={{position: "relative", padding:"8rem 8% ", textAlign: "center", background: "radial-gradient(circle at center, #530a24 0%, #01008 70%", overflow: "hidden"}}>
                 <img src= {symbolBackground} alt= "" style={{position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", pointerEvents: "none"}}/>
                 <div style={{position: "relative", zIndex: 1}}>
-                    <h2 style={{fontSize: "clamp(2.2rem, 5vw, 3.6rem)", fontWeight: 900, color: "var(--primary-text)", lineHeight: 1.1, marginBottom: "1.5rem"}}>Ready to enter <br/>
-                    <span style={{color: "var(--primary)"}}>the CodeClash Arena?</span>
+                    <h2 style={{fontSize: "clamp(2.2rem, 5vw, 3.6rem)", fontWeight: 900, color: "var(--primary)", lineHeight: 1.1, marginBottom: "1.5rem"}}>Ready to enter <br/> the CodeClash Arena?
                     </h2>
                     {/*copied from buttons above */}
                     <div style={{display: "flex", justifyContent: "center", gap: "18px", flexWrap: "wrap"}}>
@@ -214,8 +211,7 @@ const Landing:React.FC = ()=>{
             <footer style={{background: "var(--background)", borderTop: "1px solid rgba(252, 235, 221, 0.08)", padding: "2rem 8%"}}>
                 <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1.5rem"}}>
                     <div>
-                        <span style={{fontSize: "1.3rem", fontWeight: 900, color: "var(--primary-text)", letterSpacing: '0.05rem'}}>CODE
-                            <span style={{color: "var(--primary)"}}>CLASH</span>
+                        <span style={{fontSize: "1.3rem", fontWeight: 900, color: "var(--primary)", letterSpacing: '0.05rem'}}>CODECLASH
                         </span>
                         < p style={{color: "rgba(252,236, 221, 0.35)", marginTop: "0.5rem", fontSize: "0.9rem"}}>Competitive Programming & Mathematic Battles</p>
                     </div>
