@@ -3,7 +3,7 @@ import { Answers } from '../../../src/entities/db-entities/answers.entities'
 import { AnswerRepository } from '../../../src/interface-adapters/repositories/answer.repository'
 import { beforeAll, describe, expect, it } from "vitest";
 import { Questions } from "../../../src/entities/db-entities/questions.entities";
-import { createTestDataSource } from "./test-data-source";
+import { createTestDataSource } from "../../test-data-source";
 import { mock_questions } from "./mocks/mock-questions";
 import { mock_answers } from "./mocks/mock-answers";
 import { randomUUID } from "node:crypto";

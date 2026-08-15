@@ -1,9 +1,9 @@
 import { DataSource } from 'typeorm'
-import { Users } from '../../../src/entities/db-entities/user.entities'
-import { EloRatings } from '../../../src/entities/db-entities/elo.entities'
+import { Users } from '../src/entities/db-entities/user.entities'
+import { EloRatings } from '../src/entities/db-entities/elo.entities'
 import dotenv from 'dotenv'
-import { Questions } from '../../../src/entities/db-entities/questions.entities'
-import { Answers } from '../../../src/entities/db-entities/answers.entities'
+import { Questions } from '../src/entities/db-entities/questions.entities'
+import { Answers } from '../src/entities/db-entities/answers.entities'
 dotenv.config()
 
 const env = process.env

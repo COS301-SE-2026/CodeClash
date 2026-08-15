@@ -20,6 +20,7 @@ export const validateToken = async (token: string | undefined) => {
 
   try {
     const payload = await verifier.verify(token);
+  
     return {
       user_Id: payload.sub,
       email: payload.email
@@ -31,13 +32,28 @@ export const validateToken = async (token: string | undefined) => {
 
 };
 
+export const creationRequireAuth = () => {
+  return async (req: Request, res: Response, next: NextFunction) => {
+    const token = req.headers.authorization?.split(' ')[1];
+
+    const validate = await validateToken(token)
+
+    if (validate?.email === undefined) {
+      res.status(401).json({ message: 'Missing or Invalid Token' });
+      return null;
+    }
+
+    next();
+  }
+}
+
 export const requireAuth = (user_repo: IUserRepository) => {
 
   return async (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization?.split(' ')[1];
 
     const validate = await validateToken(token)
-
+  
     if (validate?.email === undefined) {
       res.status(401).json({ message: 'Missing or Invalid Token' });
       return null;

@@ -12,7 +12,6 @@ export const cognito_identity_client = new CognitoIdentityProviderClient({
 
 export async function fetchCognitoUser(attributes: string[], user_id: string) {
     let input: ListUsersCommandInput;
-
     const client = cognito_identity_client;
 
 
@@ -28,6 +27,21 @@ export async function fetchCognitoUser(attributes: string[], user_id: string) {
     const user = response.Users;
 
     return user;
+}
+
+export async function fetchCognitoId(email: string) {
+    let input: ListUsersCommandInput;
+    const client = cognito_identity_client;
+
+    input = {
+        "AttributesToGet": ['sub'],
+        "UserPoolId": process.env.COGNITO_USER_POOL_ID,
+        "Filter": `email = "${email}"`
+    }
+
+    const command = new ListUsersCommand(input);
+    const response = await client.send(command);
+    return response.Users;  
 }
 
 

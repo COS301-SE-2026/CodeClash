@@ -1,5 +1,5 @@
 import { DataSource, Repository } from "typeorm";
-import { createTestDataSource } from "./test-data-source";
+import { createTestDataSource } from "../../test-data-source";
 import { describe, beforeAll, afterAll, it, expect } from "vitest";
 import { Users } from '../../../src/entities/db-entities/user.entities'
 import { EloRatings } from '../../../src/entities/db-entities/elo.entities'
