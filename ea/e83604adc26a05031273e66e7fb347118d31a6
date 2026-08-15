@@ -1,0 +1,47 @@
+backend/src/interface-adapters/controllers/leaderboard.controller.ts
+  h_94c952a9e14c58 2,4
+backend/tests/integration/repositories/answer.repository.test.ts
+  h_94c952a9e14c58 6
+backend/tests/test-data-source.ts
+  h_94c952a9e14c58 1-27
+backend/tests/integration/repositories/user.repository.test.ts
+  h_94c952a9e14c58 5
+backend/src/application/usecases/services/leaderboard.service.ts
+  h_94c952a9e14c58 4
+backend/tests/integration/repositories/question.repository.test.ts
+  h_94c952a9e14c58 5
+backend/src/frameworks-drivers/api.routes.ts
+  h_94c952a9e14c58 1-40
+backend/tests/unit/usecases/services/cognito.service.test.ts
+  h_94c952a9e14c58 1-31
+backend/src/application/usecases/services/cognito.service.ts
+  h_94c952a9e14c58 32-46
+backend/tests/integration/repositories/elo.repository.test.ts
+  h_94c952a9e14c58 2
+backend/src/application/usecases/services/user-creation.service.ts
+  h_94c952a9e14c58 2-3,7,10-11,14-15,17-27,29,31
+  h_94c952a9e14c58 6,9,12
+backend/tests/integration/services/user-creation.service.test.ts
+  h_94c952a9e14c58 1-84
+backend/src/frameworks-drivers/app.ts
+  h_94c952a9e14c58 4,19
+backend/tests/unit/usecases/services/matchmaking.service.test.ts
+  h_94c952a9e14c58 7
+backend/src/interface-adapters/controllers/user.controllers.ts
+  h_94c952a9e14c58 6,17,21,23,33,35-49
+backend/src/interface-adapters/repositories/user.repository.ts
+  h_94c952a9e14c58 14,35,80
+backend/src/interface-adapters/auth/auth.service.ts
+  h_94c952a9e14c58 23,35-49,56
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "eae83604adc26a05031273e66e7fb347118d31a6",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
