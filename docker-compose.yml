@@ -7,9 +7,9 @@ services:
       - DATABASE_URL=postgresql://postgres:password@db:5432/codeclash
     depends_on:
       - db
-    # volumes:
-    #   - ./backend:/app
-    #   - /app/node_modules
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
     networks:
       - pgnetwork
 
@@ -17,10 +17,9 @@ services:
     build: ./frontend
     ports:
       - "80:80"
-    # volumes:
-    #   - ./frontend:/app
-    #   - /app/node_modules
-    #commented out for production
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
     networks:
       - pgnetwork
   #TODO IMPORTANT return this when we want to containerise the front end for deployment
@@ -32,10 +31,21 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASS}
       POSTGRES_DB: ${POSTGRES_DB}
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./database:/docker-entrypoint-initdb.d
+    networks:
+      - pgnetwork
+
+  test-db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_TEST_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_TEST_PASS}
+      POSTGRES_DB: ${POSTGRES_TEST_DB}
+    ports:
+      - "5434:5432"
     networks:
       - pgnetwork
 

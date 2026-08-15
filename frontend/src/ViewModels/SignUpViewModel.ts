@@ -5,7 +5,7 @@ import { useAuth } from "../context/Auth/hooks/useAuth";
 import { formData } from "../Models/SignUpModel";
 import type { SignUpForm } from "../Models/SignUpModel";
 import axios from "axios";
-import { fetchAuthSession } from "aws-amplify/auth";
+import { fetchAuthSession} from "aws-amplify/auth";
 
 
 export function validateSignUpForm(data: SignUpForm): string | null {
@@ -21,7 +21,7 @@ export function validateSignUpForm(data: SignUpForm): string | null {
 
 export function SignUpViewModelFunction() {
 
-    const { signUp, confirmSignUp, resendSignUpCode, error, clearError, isLoading } = useAuth();
+    const { signUp, confirmSignUp, resendSignUpCode, error, clearError, isLoading , signIn} = useAuth();
     const [form, setForm] = useState<SignUpForm>(formData);
     const [confirmationCode, setConfirmationCode] = useState('');
     const [needsConfirmation, setNeedsConfirmation] = useState(false);
@@ -71,15 +71,17 @@ export function SignUpViewModelFunction() {
         }
         try {
             await confirmSignUp(form.username.trim(), confirmationCode.trim()); //If the validation is passed, Amplify will be called
+            await signIn(form.email.trim(), form.password.trim());
 
             const session = await fetchAuthSession({ forceRefresh: true });
             const token = session.tokens?.idToken?.toString();
 
+
             const req_data = {
                 username: signupData?.username,
-                email: signupData?.email,
+                email: signupData?.email
             }
-            axios.post("/create-user", req_data, {
+            axios.post(`${import.meta.env.VITE_API_URL}user/create-user`, req_data, {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {
@@ -90,6 +92,7 @@ export function SignUpViewModelFunction() {
                         throw new Error();
                     }
                 })
+            nav('/dashboard');
 
         } catch {
             console.error("Sign up confirmation error")

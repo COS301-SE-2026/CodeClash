@@ -4,7 +4,7 @@ import { type PaginatedLeaderboardResponse, type LeaderboardUserProps } from 'sr
 
 
 export async function fetchLeaderboard(limit: number, page: number): Promise<PaginatedLeaderboardResponse> {
-  const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}elo/leaderboard?limit=${limit}&page=${page}`);
+  const response = await fetch(`leaderboard/leaderboard?limit=${limit}&page=${page}`);
   if (!response.ok) throw new Error('Failed to fetch leaderboard')
   return await response.json();
 }

@@ -18,17 +18,20 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
 
     const getElo = async () => {
+
         if (!token) {
             setError('Missing or Invalid Token');
             return;
         }
 
+
         try {
-            axios.get('/api/elo/elo-get', {
+            axios.get(`/api/elo/elo-get`, {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {
                     if (res.status === 200) {
+                      
                         setElo(res.data.rating)
                         setError('');
                     }
@@ -111,7 +114,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
 
         try {
-            await axios.get('user/rank', {
+            await axios.get('/api/user/rank', {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {
