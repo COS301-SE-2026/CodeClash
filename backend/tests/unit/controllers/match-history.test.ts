@@ -93,7 +93,7 @@ describe('match-history controllers', () => {
             await handler(req, res);
 
             expect(mockRepo.getMatchDetails).toHaveBeenCalledWith('match-1', 'user-1');
-            expect(res.status).toHaveBeenNthCalledWith(200);
+            expect(res.status).toHaveBeenCalledWith(200);
             expect(res.json).toHaveBeenCalledWith(mockDetails);
         });
 
@@ -115,7 +115,7 @@ describe('match-history controllers', () => {
             const handler = getMatchDetails(mockRepo);
             await handler(req, res);
 
-            expect(res.status).toHaveBeenCalledWith(400);
+            expect(res.status).toHaveBeenCalledWith(404);
             expect(res.json).toHaveBeenCalledWith({ message: 'Match not found' });
         });
 
