@@ -109,7 +109,14 @@ describe('match-history controllers', () => {
         });
 
         it('returns 404 if the repository throws (e.g. match not found)', async () => {
+            req.params = { match_id: 'nonexistent-match' };
+            mockRepo.getMatchDetails.mockRejectedValueOnce(new Error('Match nonexistent-match not found'));
 
+            const handler = getMatchDetails(mockRepo);
+            await handler(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(400);
+            expect(res.json).toHaveBeenCalledWith({ message: 'Match not found' });
         });
 
         it('passes both match_id and the authenticated user_id to the repository', async () => {
