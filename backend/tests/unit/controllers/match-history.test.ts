@@ -120,7 +120,14 @@ describe('match-history controllers', () => {
         });
 
         it('passes both match_id and the authenticated user_id to the repository', async () => {
+            req.params = { match_id: 'match-42' };
+            req.user.id = 'user-42';
+            mockRepo.getMatchDetails.mockResolvedValueOnce({});
 
+            const handler = getMatchDetails(mockRepo);
+            await handler(req, res);
+
+            expect(mockRepo.getMatchDetails).toHaveBeenCalledWith('match-42', 'user-42');
         });
     });
 });
