@@ -1,4 +1,4 @@
-import { it, Mock, describe, expect, vi, beforeEach } from "vitest";
+import { it, Mock, describe, expect, vi, beforeEach, expectTypeOf } from "vitest";
 import { getMatchHistory, getMatchDetails } from '../../../src/interface-adapters/controllers/match-history.controllers';
 
 describe('match-history controllers', () => {
@@ -79,7 +79,7 @@ describe('match-history controllers', () => {
                 match_id: 'match-1',
                 mode: 'ranked',
                 game_type: 'math',
-                match_start: new Date();
+                match_start: new Date(),
                 result: 'WIN',
                 score: '3-2',
                 quesitons: [{ label: 'QUESTION 1', correctness: true }],
@@ -98,7 +98,14 @@ describe('match-history controllers', () => {
         });
 
         it('returns 400 if match_id is missing from the params', async () => {
+            req.params = {};
 
+            const handler = getMatchDetails(mockRepo);
+            await handler(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(400);
+            expect(res.json).toHaveBeenCalledWith({ message: 'match ID is required' });
+            expect(mockRepo.getMatchDetails).not.toHaveBeenCalled();
         });
 
         it('returns 404 if the repository throws (e.g. match not found)', async () => {
