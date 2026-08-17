@@ -81,7 +81,7 @@ export function SignUpViewModelFunction() {
                 username: signupData?.username,
                 email: signupData?.email
             }
-            axios.post(`${import.meta.env.VITE_API_URL}user/create-user`, req_data, {
+            axios.post(`/api/user/create-user`, req_data, {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {
