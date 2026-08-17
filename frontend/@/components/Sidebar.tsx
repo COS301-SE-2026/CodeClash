@@ -32,13 +32,11 @@ export function AppSidebar() {
                 <Link to='/dashboard' className='flex items-center justify-center group-data-[state=expanded]:justify-start gap-2'>
                     <span className='hidden group-data-[state=collapsed]:flex text-md items-center justify-center'
                         style={{fontFamily: 'var(--font-logo)', fontWeight: 900}}>
-                        <span className='text-sidebar-text'>C</span>
-                        <span className='text-primary'>C</span>
+                        <span className='text-primary'>CC</span>
                     </span>
                     <span className='group-data-[state=collapsed]:hidden text-md tracking-wide whitespace-nowrap'
                         style={{fontFamily: 'var(--font-logo)', fontWeight: 900}}>
-                        <span className='text-sidebar-text'>CODE</span>
-                        <span className='text-primary'>CLASH</span>
+                        <span className='text-sidebar-text'>CODECLASH</span>
                     </span>
                 </Link>
             </SidebarHeader>
