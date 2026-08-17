@@ -31,11 +31,15 @@ describe("Rank Controller Test", () => {
 
     })
 
-    it("Returns 404 for an invalid user", async () => {
+    it("Returns 404 for an invalid user or an invalid rating", async () => {
 
         const req = {
-            
+            user: {
+                id: '2000'
+            }
         }
+
+        
     })
 
 
