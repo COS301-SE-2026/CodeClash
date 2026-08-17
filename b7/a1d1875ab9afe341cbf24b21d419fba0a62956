@@ -1,0 +1,14 @@
+judge0-v1.13.1/docker-compose.yml
+  h_94c952a9e14c58 1-47
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "b7a1d1875ab9afe341cbf24b21d419fba0a62956",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
