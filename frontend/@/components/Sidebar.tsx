@@ -36,7 +36,7 @@ export function AppSidebar() {
                     </span>
                     <span className='group-data-[state=collapsed]:hidden text-md tracking-wide whitespace-nowrap'
                         style={{fontFamily: 'var(--font-logo)', fontWeight: 900}}>
-                        <span className='text-sidebar-text'>CODECLASH</span>
+                        <span className='text-primary'>CODECLASH</span>
                     </span>
                 </Link>
             </SidebarHeader>
