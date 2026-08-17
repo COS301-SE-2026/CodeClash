@@ -1,0 +1,22 @@
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 25,140
+backend/src/application/usecases/services/marking.service.ts
+  h_94c952a9e14c58 1-62
+backend/tests/unit/socket-handlers/game.handler.unit.test.ts
+  h_94c952a9e14c58 3-4,21,23,33
+backend/src/interface-adapters/socket-handlers/game.handler.ts
+  h_94c952a9e14c58 2,16,20
+frontend/src/ViewModels/MatchViewModel.ts
+  h_94c952a9e14c58 198-201
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "190aea7a7ae0f2188e8b02c48f4cf72d99ebc3d8",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
