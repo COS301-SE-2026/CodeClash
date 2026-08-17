@@ -18,7 +18,10 @@ describe("Rank Controller Test", () => {
 
         const controller = getUserRank(elo_repo as any)
 
-        
+        const res = {
+            status: vi.fn().mockReturnThis(),
+            json: vi.fn()
+        } as any
 
     })
 
