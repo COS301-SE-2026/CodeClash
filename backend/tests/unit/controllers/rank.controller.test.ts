@@ -37,7 +37,7 @@ describe("Rank Controller Test", () => {
             user: {
                 id: '2000'
             }
-        }
+        } as any
 
         const elo_repo = {
             getUserRank: vi.fn().mockResolvedValue(null)
@@ -50,7 +50,11 @@ describe("Rank Controller Test", () => {
             json: vi.fn()
         } as any
 
-        
+        await rankController(req, res);
+
+        expect(res.status).toHaveBeenCalledWith(404);
+        expect(res.json).toHaveBeenCalledWith({ error: 'Invalid Rating and/or user not found'})
+
     })
 
 
