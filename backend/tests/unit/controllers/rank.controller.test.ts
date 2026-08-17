@@ -31,6 +31,13 @@ describe("Rank Controller Test", () => {
 
     })
 
+    it("Returns 404 for an invalid user", async () => {
+
+        const req = {
+            
+        }
+    })
+
 
 
 
