@@ -1,13 +1,13 @@
 import { MatchComponent, PlayersComponent } from "src/entities/components";
 import { World } from "src/entities/World";
 
-import { IGameCache } from "../interfaces/cache/IGameCache";
+import { IGameCache } from "../../interfaces/cache/IGameCache";
 
-import { LifeSystem } from "./systems/life.system";
-import { SubmissionSystem } from "./systems/submission.system";
+import { LifeSystem } from "../systems/life.system";
+import { SubmissionSystem } from "../systems/submission.system";
 
 
-export class CheckAnswer {
+export class MarkingService {
     private readonly getMatchComponent;
 
     constructor(

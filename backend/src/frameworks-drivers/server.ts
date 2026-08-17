@@ -22,7 +22,7 @@ import { MatchmakingService } from 'src/application/usecases/services/matchmakin
 import { IMatchmakingCache } from 'src/application/interfaces/cache/IMatchmakingCache';
 import { IEloRepository } from 'src/application/interfaces/repositories/IEloRepository';
 import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
-import { CheckAnswer } from 'src/application/usecases/check-answer';
+import { MarkingService } from 'src/application/usecases/services/marking.service';
 import { initDB } from 'src/application/usecases/init-db';
 import { LifeSystem } from 'src/application/usecases/systems/life.system';
 import { StartQuestionDTO } from 'src/interface-adapters/dtos/question.dto';
@@ -137,7 +137,7 @@ AppDataSource.initialize()
         const finish_game = new FinishGame(world, match_results, game_store, delete_game);
         const opponent_progress = new OpponentProgress(world);
 
-        const check_answer = new CheckAnswer(game_cache, submission_system, life_system, world)
+        const check_answer = new MarkingService(game_cache, submission_system, life_system, world)
 
         // initialise database with users and elos
         await initDB(user_repo, elo_repo);

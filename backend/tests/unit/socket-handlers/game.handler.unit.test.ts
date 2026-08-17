@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, type Mock, vi } from 'vitest';
 import { submitQuestion } from '../../../src/interface-adapters/socket-handlers/game.handler';
-import { CheckAnswer } from '../../../src/application/usecases/check-answer';
-import { SubmissionDTO } from '../../../src/entities/dtos/components.dto';
+import { MarkingService } from '../../../src/application/usecases/services/marking.service';
+import { SubmissionDTO } from '../../../src/interface-adapters/dtos/components.dto';
 import { OpponentProgress } from '../../../src/application/usecases/systems/opponent-progress'
 
 
@@ -18,9 +18,9 @@ const mockSocket = (user_id: string) => ({
     data: { user_id },
 } as any);
 
-const mockCheckAnswer = (): CheckAnswer => ({
+const mockCheckAnswer = (): MarkingService=> ({
     execute: vi.fn(),
-} as unknown as CheckAnswer);
+} as unknown as MarkingService);
 
 
 const mockOpponentProgress = () => ({
@@ -30,7 +30,7 @@ const mockOpponentProgress = () => ({
 
 describe('submitQuestion socket handler', () => {
     let io: ReturnType<typeof mockIo>;
-    let check_answer: CheckAnswer;
+    let check_answer: MarkingService;
     let opponent_progress: OpponentProgress
 
     const data: SubmissionDTO = {

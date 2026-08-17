@@ -1,4 +1,3 @@
-
 import { MathfieldElement } from 'mathlive';
 import { useEffect, useState, useMemo, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -52,7 +51,6 @@ export const useMatch = () => {
 
 
     // TIMER
-
     const expiry_time = useMemo(() => {
         const time = new Date();
         time.setSeconds(time.getSeconds() + matchDuration * 60);
@@ -197,6 +195,10 @@ export const useMatch = () => {
 
         const player_index = players_ref.current.findIndex(p => p.id === result.player_id)
 
+        if (result.life_update <= 0) {
+            finishGame();
+        }
+        
         setPlayerLife((prev) => {
             const next = [...prev];
             next[player_index] = result.life_update;

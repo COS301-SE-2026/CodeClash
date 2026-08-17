@@ -1,5 +1,5 @@
 import { Server, Socket } from "socket.io";
-import { CheckAnswer } from "src/application/usecases/check-answer";
+import {MarkingService} from "src/application/usecases/services/marking.service";
 import { FinishGame } from "src/application/usecases/systems/finish-game";
 import { SubmissionSystem } from "src/application/usecases/systems/submission.system";
 import { SubmissionDTO } from "src/interface-adapters/dtos/components.dto";
@@ -13,11 +13,11 @@ import { DeleteGame } from "src/application/usecases/systems/delete-game";
 export const submitQuestion = async (
     io: Server, socket: Socket,
     data: SubmissionDTO,
-    check_answer: CheckAnswer,
+    mark: MarkingService,
     opponent_progress: OpponentProgress
 ) => {
     try {
-        const result = await check_answer.execute(data.match_id, socket.data.user_id, data.question_id, data.answer)
+        const result = await mark.execute(data.match_id, socket.data.user_id, data.question_id, data.answer)
 
         io.to(socket.data.user_id).emit('submission_result', result);
 
