@@ -16,12 +16,18 @@ describe("Rank Controller Test", () => {
             getUserRank: vi.fn().mockResolvedValue({ rank: 7 })
         }
 
-        const controller = getUserRank(elo_repo as any)
+        const rankController = getUserRank(elo_repo as any)
 
         const res = {
             status: vi.fn().mockReturnThis(),
             json: vi.fn()
         } as any
+
+        await rankController(req, res);
+
+        expect(elo_repo.getUserRank).toHaveBeenCalledWith('2000');
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.json).toHaveBeenCalledWith({ rank: 7 });
 
     })
 
