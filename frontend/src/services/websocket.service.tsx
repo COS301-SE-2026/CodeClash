@@ -3,7 +3,7 @@ import { io, Socket } from 'socket.io-client'
 
 
 
- const env = import.meta.env;
+//  const env = import.meta.env;
 
 export async function createSocket(): Promise<Socket> {
     const session = await fetchAuthSession({ forceRefresh: true })
@@ -15,7 +15,7 @@ export async function createSocket(): Promise<Socket> {
         }
     }
 
-    const conn = io(env.VITE_WEBSOCKET_URL, options);
+    const conn = io( options);
 
 
     conn.on("connect_error", (err) => {
