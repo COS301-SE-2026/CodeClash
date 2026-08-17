@@ -1,0 +1,14 @@
+frontend/test/unit/PopUp.test.tsx
+  h_58e143dc25f856 12,14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "6812b5472ccb7174e36b3d1c1a34b7497c76a080",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
