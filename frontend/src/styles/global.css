@@ -15,16 +15,136 @@
 }
 
 @keyframes pop {
-  0% {
+  0%, 100% {
     transform: scale(1);
   }
 
   50% {
     transform: scale(1.15);
   }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    opacity: 0.2;
+  }
+
+  50% {
+    opacity: 0.45;
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.15;
+    transform: scale(0.9);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes orbit {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes thinking {
+  0%, 80%, 100% {
+    opacity: 0.25;
+    transform: translateY(0);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translateX(-1px);
+  }
+
+  20%, 80% {
+    transform: translateX(2px);
+  }
+
+  30%, 50%, 70% {
+    transform: translateX(-4px);
+  }
+
+  40%, 60% {
+    transform: translateX(4px);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes progress-fill {
+  from {
+    width: 0;
+  }
+}
+
+@keyframes sweep {
+  0% {
+    background-position: -200% 0;
+  }
 
   100% {
-    transform: scale(1);
+    background-position: 200% 0;
+  }
+}
+
+@keyframes drift-up {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-140px) scale(0.5);
+    opacity: 0;
   }
 }
 
@@ -49,6 +169,8 @@
   --color-muted-text: var(--muted-text);
   --color-success: var(--success);
   --color-danger: var(--danger);
+  --color-warning: var(--warning);
+  --color-info: var(--info)
   --color-muted: var(--muted);
   --colour-secondary-muted: var(--secondary-muted);
 
@@ -68,6 +190,7 @@
   --color-button-secondary: var(--button-secondary);
   --color-button-text-primary: var(--button-text-primary);
   --color-button-text-secondary: var(--button-text-secondary);
+
   /* accents */
   --color-accent: var(--accent);
   --color-accent-text: var(--accent-text);
@@ -93,6 +216,11 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
+  /*Difficulty of the questions*/
+  --color-difficulty-easy: var(--difficulty-easy);
+  --color-difficulty-medium: var(--difficulty-medium);
+  --color-difficulty-hard: var(--difficulty-hard);
+
   /* font  */
   --font-body: var(--font);
   --font-heading: var(--heading);
@@ -115,6 +243,7 @@
   /* shadows */
   --shadow-badge: var(--badge-shadow);
   --shadow-card: var(--card-shadow);
+  --shadow-glow: var(--glow-shadow);
 
   /* Life bars */
   --color-life-primary: var(--life-primary);
@@ -123,28 +252,67 @@
 
 :root {
 
-  --background: radial-gradient(circle at 38%, #530A24 100%);
   --radius: 20px;
 
-  /* colours */
-  --primary: #530a23;
-  --secondary: #FFEFE0;
+  /*Backgrounds*/
+  --background: #0a0008;
+  --background-elevated: rgba(252, 236, 221, 0.03);
+  --background-card: rgba(252, 236, 221, 0.05);
+
+  /*Brand Colours */
+  --primary: #c0395a;
+  --primary-dark: #530a23;
+  --secondary: #fcecdd;
+
+  /*Text*/
+  --text: #fcecdd;
   --primary-text: #FCECDD;
   --secondary-text: #530a23;
+  --muted: rgba(252, 236, 221, 0.65);
+  --muted-text: rgba(252, 236, 221, 0.50);
+
+  /*Borders*/
+  --border: rgba(252, 236, 221, 0.08);
+  --border-hover: rgba(252, 236, 221, 0.18);
+
+  /*Cards*/
+  --card: var(--background-card);
+  --card-text: var(--primary-text);
+
+  /*Sidebar*/
+  --sidebar: #0a0008;
+  --sidebar-text: var(--primary-text);
+  --sidebar-primary: #c0395a;
+  --sidebar-primary-text: #ffffff;
+  --sidebar-accent: rgba(252, 236, 221, 0.06);
+  --sidebar-accent-text: var(--primary-text);
+  --sidebar-border: rgba(252, 236, 221, 0.08);
+  --sidebar-ring: #c0395a;
+
+  /* Buttons */
+  --button-primary: #C0395A;
+  --button-secondary: transparent;
+  --button-text-primary: #FFFFFF;
+  --button-text-secondary: #fcecdd;
+
+  /*Inputs*/
+  --input: rgba(252, 236, 221, 0.06);
+  --ring: #c0395a;
+  --accent: #e93577;
+  --accent-text: #fcecdd;
+  --destructive: #e53935;
+
+  /*Status*/
   --success: #4caf50;
   --danger: #e53935;
-  --muted: rgba(252, 236, 221, 0.4);
-  --muted-text: rgba(252, 236, 221, 0.5);
-  --secondary-muted: #e0d0c2;
+  --warning: #e8a33d;
+  --info: #3d9be8;
+  --secondary-muted: rgba(252,236, 221, 0.4);
 
-  /* buttons */
-  --button-primary: #C0395A;
-  --button-secondary: #FFEFE0;
-  --button-text-primary: #FFFFFF;
-  --button-text-secondary: #9D2644;
-
-
-  --text: #FFFFFF;
+  /*Difficulty for questions*/
+  --difficulty-easy: #4caf50;
+  --difficulty-medium: #e8a33d;
+  --difficulty-hard: #e53935;
 
   /* fonts */
   --font: 'Roboto', sans-serif;
@@ -156,14 +324,12 @@
   --heading-size: 3rem;
   --heading-big-size: 5rem;
 
-  --badge-font-size-sm: 0.75rem;
-  --badge-font-size-md: 1rem;
-  --badge-font-size-l: 1.25rem;
-  --badge-font-weight: 700;
-
+  /*Shadows*/
   --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   --card-shadow: 0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25);
+  --glow-shadow: 0 0 24px rgba(192, 57, 90, 0.45);
 
+  /*Font sizes*/
   --font-size-xsm: 1rem;
   --font-size-sm: 1.3rem;
   --font-size-md: 1.9rem;
@@ -172,16 +338,14 @@
   --font-size-2xl: 3.3rem;
   --font-size-3xl: 3.6rem;
 
-  --font-weight: 500;
-
   --life-primary: #C0395A;
 }
 
 @layer base {
 
-
   .badge {
     box-shadow: var(--badge-shadow);
+
   }
 
   .heading {
@@ -212,39 +376,6 @@
     font-size: var(--font-size-sm);
   }
 
-  .primary-back-button {
-    position: absolute;
-    top: 15px;
-    left: 40px;
-    border-radius: 5px;
-    padding: 4px 2px;
-    color: var(--primary-text);
-    font-family: var(--heading);
-    font-weight: var(--heading-sub-weight);
-    font-size: var(--font-size-md);
-    white-space: nowrap;
-    transition: transform 0.3s ease;
-  }
-
-  .secondary-back-button {
-    position: absolute;
-    top: 15px;
-    left: 40px;
-    border-radius: 5px;
-    padding: 4px 2px;
-    color: var(--secondary-text);
-    font-family: var(--heading);
-    font-weight: var(--heading-sub-weight);
-    font-size: var(--font-size-md);
-    white-space: nowrap;
-    transition: transform 0.3s ease;
-  }
-
-  .primary-back-button:hover,
-  .secondary-back-button:hover {
-    transform: scale(1.2);
-  }
-
   .badge-shadow {
     box-shadow: var(--badge-shadow);
   }
@@ -257,4 +388,360 @@
     animation: pop 0.35s ease-out forwards;
   }
 
+  .card-glass {
+    background: var(--background-card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    transition: all 0.2s ease;
+  }
+
+  card-glass:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-2px);
+  }
+
+  .section-title {
+    color: var(--primary-text);
+    font-weight: 900;
+  }
+
+  .section-description {
+    color: var(--muted-text);
+  }
+
+  .eyebrow {
+    color: var(--primary);
+    letter-spacing: 0.15rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 0.75rem;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--text);
+    font-family: var(--font);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm, 4px);
+  }
+
+  ::selection {
+    background: var(--primary);
+    color: #FFFFFF;
+  }
+
+  /*A scroll bar for the leaderboard and match history etc*/
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(252, 236, 221, 0.15);
+    border-radius: 999px;
+    border: 2px solid var(--background);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(252, 236, 221, 0.3);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /*Buttons*/
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 12px 24px;
+    border-radius: var(--radius-lg, 20px);
+    font-weight: 800;
+    font-size: 0.95rem;
+    font-family: var(--heading);
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+  }
+
+  .btn:disabled, .btn[aria-disabled="true"] {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none !important;
+  }
+
+  .btn-primary {
+    background: var(--button-primary);
+    color: var(--button-text-primary);
+    box-shadow: 0 4px 20px rgba(192, 57, 90, 0.35);
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background: var(--pink-200, #e93577);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    background: var(--secondary);
+    color: var(--secondary-text);
+    border: 1px solid rgba(252, 236, 221, 0.25);
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    transform: translateY(-1px);
+  }
+
+  .primary-back-button {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    z-index: 20;
+  }
+
+  .btn-ghost { /*Used for back button - top left*/
+    background: transparent;
+    color: var(--primary-text);
+    border: 1px solid var(--border);
+  }
+
+  .btn-ghost:hover:not(:disabled) {
+    border-color: var(--border-hover);
+    background: var(--background-card);
+  }
+
+  .btn-danger {
+    background: var(--danger);
+    color: #ffffff;
+  }
+
+  .btn-danger:hover:not(:disabled) {
+    filter: brightness(1.1);
+  }
+
+  .btn-icon {
+    padding: 10px;
+    border-radius: 999px;
+  }
+
+  .btn-sm {
+    padding: 8px 16px;
+    font-size: 0.8rem;
+  }
+
+  .btn-lg {
+    padding: 15px 48px;
+    font-size: 1.05rem;
+  }
+
+  /*Inputs and FOrms - this is copied, my previous clone broke and didnt track these changes*/
+  .input, .select, .textarea {
+    width: 100%;
+    background: var(--input);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 12px 16px;
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 0.95rem;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .input::placeholder, .textarea::placeholder {
+    color: rgba(252,235,221, 0.35);
+  }
+
+  .input:hover, .select:hover, .textarea:hover {
+    border-color: var(--border-hover);
+  }
+
+  .input:focus, .select:focus, .textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: rgba(252, 236, 221, 0.08);
+  }
+
+  .input-error {
+    border-color: var(--danger);
+    animation: shake 0.35s ease-in-out;
+  }
+
+  .field-label {
+    display: block;
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .field-hint {
+    color: rgba(252, 236, 221, 0.4);
+    font-size: 0.8rem;
+    margin-top: 0.4rem;
+  }
+
+  .field-error-text {
+    color: var(--danger);
+    font-size: 0.8rem;
+    margin-top: 0.4rem;
+  }
+
+  /*Difficulty for questions and Status - this is copied, my previous clone broke*/
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    flex: none;
+    height: fit-content;
+    gap: 0.4rem;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.03rem;
+    box-shadow: var(--badge-shadow);
+  }
+
+  .badge-difficulty-easy {
+    background: rgba(76, 175, 80, 0.15);
+    color: var(--difficulty-easy);
+    border: 1px solid rgba(76, 175, 80, 0.35);
+  }
+
+  .badge-difficulty-medium {
+    background: rgba(232, 163, 61, 0.15);
+    color: var(--difficulty-medium);
+    border: 1px solid rgba(232, 163, 61, 0.35);
+  }
+
+  .badge-difficulty-hard {
+    background: rgba(229, 57, 53, 0.15);
+    color: var(--difficulty-hard);
+    border: 1px solid rgba(229, 57, 53, 0.35);
+  }
+
+  /*Copied from above*/
+  .badge-status-correct {
+    background: rgba(76, 175, 80, 0.15);
+    color: var(--success);
+    border: 1px solid rgba(76, 175, 80, 0.35);
+  }
+
+  .badge-status-pending {
+    background: rgba(232, 163, 61, 0.15);
+    color: var(--warning);
+    border: 1px solid rgba(232, 163, 61, 0.35);
+    transition: all 0.2s ease-in-out;
+  }
+
+  .badge-status-pending:hover, .badge-status-correct:hover, .badge-status-wrong:hover {
+     background: rgba(252, 236, 221, 0.03);
+     cursor: pointer;
+  }
+
+  .badge-status-wrong {
+    background: rgba(229, 57, 53, 0.15);
+    color: var(--danger);
+    border: 1px solid rgba(229, 57, 53, 0.35);
+  }
+
+  /*Divider*/
+  .divider {
+    height: 1px;
+    width: 100%;
+    background: var(--border);
+    border: none;
+  }
+
+  /*Cards*/
+  .card-elevated {
+    background: var(--popover);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: var(--card-shadow);
+  }
+
+  .card-glow {
+    background: var(--background-card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: var(--card-shadow);
+  }
+
+  /*A space themes star bg*/
+  .starfield {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .starfield span {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: var(--primary-text);
+    border-radius: 999px;
+    animation: twinkle 3s ease-in-out infinite;
+  }
+
+  /*Animations for float and glow*/
+  .animate-float {
+    animation: float 5s ease-in-out infinite;
+  }
+
+  .animate-glow {
+    animation: glow 3s ease-in-out infinite;
+  }
+
+  /*The progress stuff*/
+  .progress-track {
+    width: 100%;
+    height: 8px;
+    background: rgba(252, 236, 221, 0.08);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--pink-200, #e93577));
+    border-radius: 999px;
+    animation: progress-fill 0.6s ease-out;
+  }
+
+  /*Avatars/Robots*/
+  .avatar {
+    border-radius: 999px;
+    border: 2px solid var(--border);
+    background: var(--background-card);
+    object-fit: cover;
+  }
+
+  /*For the confetti effect*/
+  .confetti-particle {
+    position: absolute;
+    border-radius: 999px;
+    pointer-events: none;
+    animation: drift-up 3s ease-in infinite;
+  }
 }

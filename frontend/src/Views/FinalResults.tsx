@@ -32,7 +32,6 @@ const FinalResults: React.FC = () => {
         )
     }
 
-
     return (
         <div className="bg-secondary min-h-screen w-full flex items-center justify-center">
 
