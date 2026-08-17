@@ -7,14 +7,18 @@ describe("Rank Controller Test", () => {
 
         const req ={
             user: {
-                id: '56789'
+                id: '2000'
             }
         } as any
 
-        
+
         const elo_repo = {
-            getUserRank
+            getUserRank: vi.fn().mockResolvedValue({ rank: 7 })
         }
+
+        const controller = getUserRank(elo_repo as any)
+
+        
 
     })
 
