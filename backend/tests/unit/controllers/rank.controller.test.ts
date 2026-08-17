@@ -39,7 +39,11 @@ describe("Rank Controller Test", () => {
             }
         }
 
-        
+        const elo_repo = {
+            getUserRank: vi.fn().mockResolvedValue(null)
+        }
+
+        const rankController = getUserRank(elo_repo as any)
     })
 
 
