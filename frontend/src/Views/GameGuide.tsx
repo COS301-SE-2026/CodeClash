@@ -1,43 +1,54 @@
 import Starfield from "@/components/ui/animations/Starfield";
 import bg from "../../src/assets/Background/solar_system.jpg"
-import {Users, Monitor, Trophy, TrendingUp, Gamepad2} from 'lucide-react';
+import { Trophy, TrendingUp, Gamepad2, ArrowLeft} from 'lucide-react';
+import { Link } from "react-router";
 
 {/*All copied from Morgans previously written gameguide code*/}
 const Steps = [ 
     "As you play and win more ranked matches, your ELO will increase until you're able to play in a new, more advanced league.",
     "Casual Play is for players who want to practise without impacting their ELO. Ranked Play is for players who want to put their skills to the test by battling against others (Be careful! This impacts your ELO!).",
     "After selecting Play Now, wait until we find someone for you to battle against. Your opponent's ELO will be similar to yours!",
-    "Now you're in a match! Make sure you answer questions quickly to score more points than your opponent, but make sure they're correct first else you get no points!",
-    "Make sure to pick up Powerups to boost your score and detriment your opponent's score, along the way!",
-    "If you suspect your opponent of cheating, please select the Report a Match option in your Dashboard.",
-    "As you play and win more ranked matches, your ELO will increase until you're able to play in a new, more advanced league."
+    "Now you're in a match! Make sure you answer questions quickly to score more points than your opponent, but don't forget about the correctness of your answers!",
+    "Make sure to pick up Powerups to boost your score or deal damage to your opponent during the match!",
+    "If you suspect your opponent of cheating, please select the 'Report a Match' option in your dashboard, match history or immediately after your game.",
+    "As you play and win more ranked matches, your ELO will increase and you will progress into higher, more challenging leagues!."
 ]
 
 const GameGuide = () => {
     return(
-        <div style={{backgroundImage: `url(${bg})`}} className="relative w-full min-h-screen bg-cover bg-center overflow-hidden -m-8 p-8">
-            <div className="absolute inset-0 bg-background/30"/>
+        <div style={{backgroundImage: `url(${bg})`}} className="relative w-full min-h-screen bg-cover bg-center overflow-hidden p-8">
+            <div className="absolute inset-0 bg-background/75"/>
             <Starfield/>
+            <Link to="/help-menu" className="btn btn-ghost primary-back-button">
+            <ArrowLeft size={18}/>Back
+            </Link>
             <div className="relative z-10 max-w-[1100px] mx-auto flex flex-col gap-10 pb-10">
-                <div className="text-center flex flex-col items-center gap-4">
-                    <span className="eyebrow mt-8">Competitive - Coding - Mathematics</span>
-                    <h1 className="text-3xl md:text-4xl font-black text-primary-text">CodeClash Game Guide</h1>
+                <div className="items-center flex flex-col gap-4 pt-13">
+                    <h1 className="text-l font-black text-primary-text">CodeClash Game Guide</h1>
                     <p className="text-muted max-w-3xl leading-relaxed">
                         {/*Copied from Morgans previously written gameguide code */}
                         This game guide serves to provide everything needed to get started with CodeClash. Learn how matches work, understand the scoring system, explore the game rules, and discover tips to improve your performance. Whether you are a first time player or a seasoned competitor, this guide will help you navigate the platform, make the most of every challenge, and compete with confidence.
                     </p>
-                    <div className="flex flex-wrap items-center justify-center gap-3 mt-2">
-                        <span className="badge border border-border bg-card text-primary-text">
-                            <Users size={14}/>Age 13+
-                        </span>
-                        <span className="badge border border-border bg-card text-primary-text">
-                            <Monitor size={14}/>Windows &amp; Mac OS
-                        </span>
+                    <div className="flex flex-col gap-3">
+                        <div className="flex items-center gap-2">
+                            <span className="bg-primary text-white font-bold text-xsm px-4 py-1 rounded-md shrink-0">
+                                AGE:
+                            </span>
+                            <span className="text-primary-text font-semibold">
+                                13+
+                            </span>
+                            <span className="bg-primary text-white font-bold text-xsm px-4 py-1 rounded-md shrink-0">
+                                PLATFORM:
+                            </span>
+                            <span className="text-primary-text font-semibold">
+                                Windows &amp; Mac OS
+                            </span>
+                        </div>
                     </div>
                 </div>
 
                 {/*The scoring system */}
-                <section className="card-elevated p-6 md:p-8">
+                <section>
                     <div className="flex items-center gap-3 mb-4">
                         <Trophy size={30} className="text-primary shrink-0"/>
                         <h2 className="text-l font-black text-primary-text">Scoring System</h2>
@@ -49,7 +60,7 @@ const GameGuide = () => {
                 </section>
 
                 {/*The player journey*/}
-                <section className="card-elevated p-6 md:p-8">
+                <section>
                     <div className="flex items-center gap-3 mb-4">
                         <TrendingUp size={30} className="text-primary shrink-0"/>
                         <h2 className="text-l font-black text-primary-text">Player Journey</h2>
