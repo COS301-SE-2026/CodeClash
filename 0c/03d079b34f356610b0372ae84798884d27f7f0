@@ -1,0 +1,30 @@
+frontend/src/context/User/UserContext.tsx
+  h_94c952a9e14c58 21,29,34,117
+  h_94c952a9e14c58 27
+frontend/test/unit/ViewModels/SignUpViewModel.test.ts
+  h_94c952a9e14c58 1-11
+frontend/src/ViewModels/LeaderboardViewModel.ts
+  h_94c952a9e14c58 7
+frontend/src/ViewModels/SignUpViewModel.ts
+  h_94c952a9e14c58 24,74,79,84,95
+  h_94c952a9e14c58 8,82
+frontend/src/context/Auth/AuthContext.tsx
+  h_94c952a9e14c58 99
+frontend/src/services/websocket.service.tsx
+  h_94c952a9e14c58 18
+  h_94c952a9e14c58 6
+docker-compose.yml
+  h_94c952a9e14c58 34,41-48
+  h_94c952a9e14c58 10-12,20-22,49-51
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "0c03d079b34f356610b0372ae84798884d27f7f0",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

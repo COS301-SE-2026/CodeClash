@@ -1,0 +1,14 @@
+backend/tests/unit/controllers/rank.controller.test.ts
+  h_b13c5d77534129 21-24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "c71ee3c9f596840ad93a995d3b7c66e6ed24d954",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
