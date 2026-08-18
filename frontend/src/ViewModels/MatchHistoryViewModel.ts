@@ -30,7 +30,10 @@ export function MatchHistoryViewModelFunction(): MatchHistoryViewModel {
                 id: m.match_id,
                 mode: m.mode.toUpperCase(),
                 type: m.game_type.toUpperCase(),
-                timestamp: m.match_start,
+                timestamp: new Date(m.match_start).toLocaleString('en-US', {
+                    month: 'long', day: 'numeric', year: 'numeric',
+                    hour:'2-digit', minute:'2-digit'
+                }),
                 result: m.result,
                 details: null
             })));
@@ -43,7 +46,7 @@ export function MatchHistoryViewModelFunction(): MatchHistoryViewModel {
             const res = await axios.get(url.concat(`matches/${match.id}`), {
                 headers: { Authorization: `Bearer ${token}` }
             });
-
+            console.log(res.data)
             setSelected({
                 ...match,
                 details: {

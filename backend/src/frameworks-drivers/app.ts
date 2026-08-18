@@ -11,11 +11,11 @@ app.get('/health', (req: Request, res: Response) => {
 app.use(cors({ origin: process.env.FRONTEND_URL || 'http://localhost:5173' }));
 app.use(express.json());
 
-
-// app.use('/api/elo', routes);
-// app.use('/api/match', routes);
-// app.use('/api/user', routes);
-// N.B. All the routes will automatically mount onto /api/. If routing problems show up this will need to be refactored
+// N.B. Might have to refactor routes to mount only onto api/ for clealiness
+app.use('/api/elo', routes);
+app.use('/api/match', routes);
+app.use('/api/user', routes);
+app.use('/api/qustion', routes);
 app.use('/api', routes);
 
 
