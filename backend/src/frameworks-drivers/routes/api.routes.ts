@@ -16,11 +16,21 @@ import { AppDataSource } from '../config/data-source';
 import { getMatchDetails, getMatchHistory } from 'src/interface-adapters/controllers/match-history.controllers';
 
 const router = Router();
-
 const user_repo = new UserRepository(AppDataSource.getRepository(Users))
 const elo_repo = new EloRepository(AppDataSource.getRepository(EloRatings))
 const match_history_repo = new MatchHistoryRepository( AppDataSource.getRepository(Matches), AppDataSource.getRepository(MatchLog), AppDataSource.getRepository(MatchStats));
+
+//--- Changes to come from deployment branch
+// const create_user_service = new CreateUser(user_repo, elo_repo);
+// router.post('/create-user', creationRequireAuth(), createUser(create_user_service));
+
+router.use(requireAuth(user_repo))
+
 router.get('/elo-get', getUserElo(elo_repo));
+//--- Changes to come from deployment branch
+// const leaderboard_service = new LeaderboardService(elo_repo);
+// router.get("/leaderboard-get", getLeaderboard(leaderboard_service));
+
 router.get('/matches', getMatchHistory(match_history_repo));
 router.get('/matches/:match_id', getMatchDetails(match_history_repo));
 
