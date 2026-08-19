@@ -1,139 +1,102 @@
-import React, { useState } from 'react';
+import type React from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
 
-import { useAuth } from './context/useAuth';
-import { mock_match } from './mocks/prog-match.mock';
-import Dashboard from './pages/Dashboard';
-import MathFieldTest from './pages/MathFieldTest';
-import Profile from './pages/Profile';
-import ProgMatch from './pages/ProgMatch';
-import Found from './pages/queuePages/found';
-import Searching from './pages/queuePages/searching';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
-import Welcome from './pages/Welcome';
-type QueueType = 'math' | 'programming' | null;
+import { useAuth } from "./context/Auth/hooks/useAuth";
+import Layout from "./layout";
+import ProgMatch from "./pages/ProgMatch";
+import BrandStyleGuide from "./Views/BrandStyleGuide";
+import Dashboard from "./Views/Dashboard";
+import MatchFound from "./Views/MatchFound";
+import MathMatch from "./Views/MathsMatch";
 
-type Page =
-  | 'welcome'
-  | 'signin'
-  | 'signup'
-  | 'dashboard'
-  | 'profile'
-  | 'searching'
-  | 'found'
-  | 'mathfieldtest'
-  | 'prog-match';
+import MatchHistory from "./Views/MatchHistory";
+import ForgotPassword from "./Views/ForgotPassword";
+import TermsAndConditions from "./Views/TermsAndConditions";
+import FinalResults from "./Views/FinalResults";
+import Landing from "./Views/Landing";
+import GameGuide from "./Views/GameGuide"
+import HelpMenu from "./Views/HelpMenu";
+import Leaderboard from "./Views/Leaderboard";
+import MatchSearching from "./Views/MatchSearching";
+import Profile from "./Views/Profile";
+import SignIn from "./Views/SignIn";
+import SignUp from "./Views/SignUp";
+
+import Loading from "@/components/shared/Loading";
+
 
 const App: React.FC = () => {
-  const { isAuthenticated, isLoading, signOut } = useAuth();
 
-  const [page, setPage] = useState<Page>('welcome');
-  const [queueType, setQueueType] = useState<QueueType>(null);
+    const { user, isLoading } = useAuth();
+    if (isLoading) {
+        return <Loading isOpen={isLoading} />
+    }
+   
 
-  if (isLoading) return null;
+    const logged_in = user !== null
 
-  if (isAuthenticated && (page === 'welcome' || page === 'signin' || page === 'signup')) {
+    const base_path = logged_in ? <Dashboard /> : <Landing />
+
+    if (!logged_in) {
+        return (
+            <Routes>
+                <Route path='/' element={<Landing />} />
+                <Route path='/sign-in' element={<SignIn />} />
+                <Route path='/sign-up' element={<SignUp />} />
+                <Route path='terms' element={<TermsAndConditions/>}/>
+                <Route path= '/brand-style-guide' element={<BrandStyleGuide/>}/>
+                {/*<Route path='/game-guide' element={<Guidebook/>}/> */}
+            <Route path='/help-menu' element={<HelpMenu />} />
+            <Route path='/leaderboard' element={<Leaderboard />} />
+                <Route path='*' element={<Navigate to='/sign-in' replace />} />
+
+
+                {/* Pages with sidebar inside the app */}
+                <Route element={<Layout />}>
+                    <Route path='/dashboard' element={<Dashboard />} />
+                    <Route path='/game-guide' />
+                    <Route path='/tournaments' />
+                    <Route path='/leaderboard' />
+                    <Route path='/badges' />
+                    <Route path='/friends' />
+                </Route>
+            </Routes>
+        )
+    }
+
     return (
-      <Dashboard
-        onProfileClick={() => setPage('profile')}
-        onRankedPlay={(topic) => {
-          console.log('Topic selected:', topic);
+        <Routes>
+            <Route path='/' element={<Dashboard/>} />
+            <Route path='/' element={base_path} />
+            <Route path='/sign-in' element={<SignIn />} />
+            <Route path='/sign-up' element={<SignUp />} />
+            <Route path='/profile' element={<Profile />} />
+            <Route path='/match-searching' element={<MatchSearching />} />
+            <Route path='/match-found' element={<MatchFound />} />
+            <Route path='/maths-match' element={<MathMatch />} />
+            {/*<Route path='/leaderboard' element={<Leaderboard />} />*/}
+            <Route path='/prog-match' element={<ProgMatch language="javascript" />} />
+            <Route path='/results' element={<FinalResults/>} />
+            {/* <Route path='/prog-match' element={<ProgMatch language="javascript"/>}/> */}
 
-          if (topic.toLowerCase().includes('math')) {
-            setQueueType('math');
-          } else {
-            setQueueType('programming');
-          }
+            <Route path= '/results' element= {<FinalResults/>}/>
 
-          setPage('searching');
-        }}
-        onCasualPlay={() => {
-          setQueueType('programming');
-          setPage('searching');
-        }}
-      />
-    );
-  }
+            <Route path= '/forgot-password' element= {<ForgotPassword/>}/>
+            <Route path='/terms' element={<TermsAndConditions/>}/>
+            <Route path="/brand-style-guide" element= {<BrandStyleGuide/>}/>
 
-  return (
-    <>
-      {page === 'prog-match' && (
-        <ProgMatch language="java" match={mock_match} back={() => setPage('dashboard')} />
-      )}
-
-      {page === 'mathfieldtest' && <MathFieldTest back={() => setPage('dashboard')} />}
-
-      {page === 'welcome' && (
-        <Welcome
-          onSignIn={() => setPage('signin')}
-          onSignUp={() => setPage('signup')}
-        />
-      )}
-
-      {page === 'signin' && (
-        <SignIn
-          onBack={() => setPage('welcome')}
-          onSignUp={() => setPage('signup')}
-          onSignIn={() => setPage('dashboard')}
-        />
-      )}
-
-      {page === 'signup' && (
-        <SignUp
-          onBack={() => setPage('welcome')}
-          onSignIn={() => setPage('dashboard')}
-        />
-      )}
-
-      {page === 'dashboard' && (
-        <Dashboard
-          onProfileClick={() => setPage('profile')}
-          onRankedPlay={(topic) => {
-            console.log('Topic selected:', topic);
-
-            if (topic.toLowerCase().includes('math')) {
-              setQueueType('math');
-            } else {
-              setQueueType('programming');
-            }
-
-            setPage('searching');
-          }}
-          onCasualPlay={() => {
-            setQueueType('programming');
-            setPage('searching');
-          }}
-        />
-      )}
-
-      {page === 'profile' && (
-        <Profile
-          onBack={() => setPage('dashboard')}
-          onLogout={async () => { await signOut(); setPage('welcome'); }}
-        />
-      )}
-
-      {page === 'searching' && (
-        <Searching
-          onCancel={() => setPage('dashboard')}
-          onFound={() => setPage('found')}
-        />
-      )}
-
-      {page === 'found' && (
-        <Found
-          onDecline={() => setPage('dashboard')}
-          onAccept={() => {
-            if (queueType === 'math') {
-              setPage('mathfieldtest');
-            } else {
-              setPage('prog-match');
-            }
-          }}
-        />
-      )}
-    </>
-  );
-};
+            {/* Pages with sidebar inside the app */}
+            <Route element={<Layout />}>
+                <Route path='/dashboard' element={<Dashboard />} />
+                <Route path='/game-guide' element={<GameGuide/>}/>
+                <Route path='/tournaments' />
+                <Route path='/leaderboard' element={<Leaderboard/>}/>
+                <Route path='/badges' />
+                <Route path='/friends' />
+                <Route path='/match-history' element={<MatchHistory/>}/>
+            </Route>
+        </Routes>
+    )
+}
 
 export default App;

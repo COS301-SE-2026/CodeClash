@@ -1,0 +1,16 @@
+import { EloDTO, EloUpdateResultDTO } from "src/interface-adapters/dtos/elo.dto"
+
+
+export interface IEloRepository {
+    // Creat
+    createUserElo(user_id: string): Promise<void>
+
+    // Read
+    getElo(user_id: string): Promise<EloDTO | null>
+    getUsersElo(user_ids: string[]): Promise<EloDTO[] | null>
+    updateRatingsAfterMatch(
+        match_id: string,
+        winner_id: string,
+        loser_id: string
+    ): Promise<{ winner: EloUpdateResultDTO; loser: EloUpdateResultDTO }>;
+}

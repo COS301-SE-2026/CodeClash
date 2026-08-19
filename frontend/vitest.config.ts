@@ -6,26 +6,34 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
   plugins: [react()],
   test: {
+    server: {
+      deps: {
+        inline: ['aws-amplify', '@aws-amplify/core', '@aws-amplify/auth'],
+      }
+    },
+
     //use jsdom for react components to render in browser
     environment: 'jsdom',
 
     //runs setupTests.ts before every test file 
-    setupFiles: ['./setupTests.ts'],
+    setupFiles: ['./test/setupTests.ts'],
 
     //collect coverage 
     coverage: {
-      provider: 'v8',
-      reporter: ['text', 'lcov'],
-      include: ['@/components/**/*.tsx'],
-      exclude: ['@/components/ui/**', '@/hooks/**', '**/node_modules/**','**/*.config.*'],
+      provider: 'istanbul',
+      reporter: ['text', 'html', 'lcov'],
+      include: ['**/*.tsx'],
+      exclude: ['**/@/components/ui/**', '**/@/hooks/**', '**/node_modules/**', '**/*.config.*'],
     },
 
     globals: true,
     exclude: ['@/components/ui/**', '@/hooks/**', '**/node_modules/**'],  // exclude shadcn ui components
-  },
+    },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': path.resolve(__dirname, './@'),
+      'root': path.resolve('../'),
+      'src': path.resolve(__dirname, './src')
     },
   },
 });

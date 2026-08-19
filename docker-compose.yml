@@ -32,7 +32,21 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./database:/docker-entrypoint-initdb.d
+    networks:
+      - pgnetwork
+
+  test-db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_TEST_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_TEST_PASS}
+      POSTGRES_DB: ${POSTGRES_TEST_DB}
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_test_data:/var/lib/postgresql/data
+      - ./database:/docker-entrypoint-initdb.d
     networks:
       - pgnetwork
 
@@ -54,9 +68,11 @@ services:
       - ./backend/src/config/redis.conf:/etc/redis/redis.conf
     command: ["redis-server", "/etc/redis/redis.conf"]
     restart: unless-stopped
+    networks:
+      - pgnetwork
 
   pgadmin:
-    image: dpage/pgadmin4:9.15
+    image: dpage/pgadmin4:9.16
     container_name: pgadmin
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
@@ -73,9 +89,11 @@ services:
 
 volumes:
   postgres_data:
+  postgres_test_data:
   pgadmin_data:
   redis-data:
     driver: local
 
 networks:
   pgnetwork:
+  

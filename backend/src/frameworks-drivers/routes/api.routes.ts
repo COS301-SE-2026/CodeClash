@@ -1,18 +1,27 @@
 import { Router } from 'express';
-import { 
-  getMatches, 
-  getMatchById, 
-  createMatch, 
-  updateMatchStatus, 
-  getMatchLog,
-  createMatchLog
-} from '../../interface-adapters/controllers/matches.controllers';
+import { EloRatings } from 'src/entities/db-entities/elo.entities';
+import { Users } from 'src/entities/db-entities/user.entities';
 import {
   getUserElo,
-  getEloHistory,
-  updateEloAfterMatch,
-  getLeaderboard
-} from '../../interface-adapters/controllers/elo.controllers';
+} from 'src/interface-adapters/controllers/elo.controllers';
+import { getUserStat } from 'src/interface-adapters/controllers/user.controllers';
+import { EloRepository } from 'src/interface-adapters/repositories/elo.repository';
+import { UserRepository } from 'src/interface-adapters/repositories/user.repository';
+
+
+import { AppDataSource } from '../config/data-source';
+
+const router = Router();
+
+const user_repo = new UserRepository(AppDataSource.getRepository(Users))
+const elo_repo = new EloRepository(AppDataSource.getRepository(EloRatings))
+router.get('/elo-get', getUserElo(elo_repo));
+
+// user routes
+router.get('/:stat', getUserStat(user_repo)); // this must be last, it's a generic function that fetches any attribute directly in the users table
+
+export default router;
+
 import {
   getFriendsById,
   getFriendRequests,
@@ -21,15 +30,6 @@ import {
   respondToFriendRequest,
   removeFriend
 } from '../../interface-adapters/controllers/friends.controllers';
-
-import{
-  createSubmission,
-  getSubmissionsByMatch,
-  getSubmissionsByUser,
-  getSubmissionById,
-  updateSubmissionStatus,
-  createExecutionResult
-}from '../../interface-adapters/controllers/submissions.controllers'
 
 import{
   getPowerups,
@@ -41,145 +41,6 @@ import{
 } from '../../interface-adapters/controllers/powerups.controllers'
 const router = Router();
 
-// Match routes
-
-/** 
- * @swagger
- * /api/matches:
- *  get:
- *    summary: Returns a paginated list of matches for the authenticated user. Optionally filter by status or game mode.
- *    tags: [Matches]
- *    parameters: 
- *      - in: query
- *        name: status
- *        required: false
- *        schema:
- *          type: string
- *          enum: [waiting, in_progress, completed, abandonded]
- *        description: Filter matches by status
- *      - in: query
- *        name: mode
- *        required: false
- *        schema:
- *          type: string
- *          enum: [ranked, casual]
- *        description: Filter by game mode
- *      - in: query
- *        name: limit
- *        required: false
- *        schema:
- *          type: int
- *          default: 0
- *        description: Number of matches to return
- *      - in: query
- *        name: offset
- *        required: false
- *        schema: 
- *          type: integer
- *          default: 0
- *        description: Number of matches to skip for pagination
- *    responses:
- *      200:
- *        description: List of matches returned successfully
- *      500: 
- *        description: Internal server error
-*/
-
-router.get('/matches', getMatches);
-/**
-*  @swagger
-*  /api/matches/{match_id}:
-*    get:
-*      summary: Gets single match by its id
-*      tags: [Matches]
-*      parameters: 
-*        - in: path
-*          name: match_id
-*          required: true
-*          schema:
-*            type: string
-*      responses:
-*        200:
-*          description: Match found
-*        404:
-*          description: Match not found
-*        500: 
-*          description: Internal server error
-*/
-router.get('/matches/:match_id', getMatchById);
-/**
- * @swagger
- * /api/matches:
- *  post:
- *    summary: Creates a match when two people are connected in the queue
- *    tags: [Matches]
- *    requestBody:
- *      required: true
- *      content:
- *        application/json:
- *          schema:
- *            type: object
- *            required:
- *              - player1_id
- *              - player2_id
- *              - mode
- *              - match_problems_id
- *            properties:
- *              player1_id:
- *                type: string
- *                format: uuid
- *              player2_id:
- *                type: string
- *                format: uuid
- *              mode:
- *                type: string
- *                enum: [ranked, casual]
- *              match_problems_id:
- *                type: string
- *                format: uuid
- *    responses:
- *      201:
- *        description: Match created successfully
- *      500: 
- *        description: Internal server error 
- *          
- */
-router.post('/matches', createMatch);
-/**
- * @swagger
- * /api/matches/{match_id}/status:
- *  patch:
- *    summary: Updates the status of a match; sets match_start at the beginning of a match
- *    tags: [Matches]
- *    parameters:
- *      - in: path
- *        name: match_id
- *        required: true
- *        schema:
- *          type: string
- *          format: uuid
- *    requestBody:
- *      required: true
- *      content:
- *        application/json:
- *          schema:
- *            type: object
- *            required: 
- *              - status
- *            properties:
- *              status:
- *                type: string
- *                enum: [waiting, starting, in_progress, completed, abandonded]
- *    responses:
- *      200:
- *        description: Match status updated successfully
- *      404:
- *        description: Match not found to update status
- *      500:
- *        description: Internal server error
- *      
- */
-router.patch('/matches/:match_id/status', updateMatchStatus);
 /** 
  * @swagger
  * /api/matches/{match_id}/log:
@@ -201,45 +62,8 @@ router.patch('/matches/:match_id/status', updateMatchStatus);
  *      500:
  *        description: Internal server error
 */
-router.get('/matches/:match_id/log', getMatchLog);
-/**
- * @swagger
- * /api/matches/{match_id}/log:
- *  post:
- *    summary: Creates a match log for a casual match
- *    tags: [Matches]
- *    parameters:
- *      - in: path
- *        name: match_id
- *        required: true
- *        schema:
- *          type: string
- *          format: uuid
- *    requestBody:
- *      required: true
- *      content:
- *        application/json:
- *          schema:
- *            type: object
- *            required:
- *              - winner_id
- *              - loser_id
- *            properties:
- *              winner_id:
- *                type: string
- *                format: uuid
- *              loser_id:
- *                type: string
- *                format: uuid
- *    responses:
- *      201:
- *        description: Match log created successfully
- *      500:
- *        description: Internal server error
- */
-router.post('/matches/:match_id/log', createMatchLog);
+//router.get('/matches/:match_id/log', getMatchLog);
 
-//elo routes
 /**
  * @swagger
  * /api/elo/leaderboard:
@@ -252,88 +76,8 @@ router.post('/matches/:match_id/log', createMatchLog);
  *      500:
  *        description: Internal server error
  */
-router.get('/elo/leaderboard', getLeaderboard);
+//router.get('/elo/leaderboard', getLeaderboard);
 /**
- * @swagger
- * /api/elo/update:
- *  post:
- *    summary: Update elo ratings for both players after a ranked match
- *    tags: [Elo]
- *    requestBody:
- *      required: true
- *      content:
- *        application/json:
- *          schema:
- *            type: object
- *            required:
- *              - match_id
- *              - winner_id
- *              - loser_id
- *            properties:
- *              match_id:
- *                type: string
- *                format: uuid
- *              winner_id:
- *                type: string
- *                format: uuid
- *              loser_id:
- *                type: string
- *                format: uuid
- *    responses:
- *      200:
- *        description: Elo ratings updated successfully
- *      400:
- *        description: Missing required fields or match is not ranked
- *      404:
- *        description: Match or player elo rating not found
- *      500:
- *         description: Internal server error
- */
-router.post('/elo/update', updateEloAfterMatch);
-/**
- * @swagger
- * /api/elo/{user_id}:
- *  get:
- *    summary: Get current elo rating for a user
- *    tags: [Elo]
- *    parameters:
- *      - in: path
- *        name: user_id
- *        required: true
- *        schema:
- *          type: string
- *          format: uuid
- *    responses:
- *      200:
- *        description: Elo rating for use returned successfully
- *      404:
- *        description: Elo rating for user not found
- *      500:
- *        description: Internal server error
- */
-router.get('/elo/:user_id', getUserElo);
-/**
- * @swagger
- * /api/elo/{user_id}/history:
- *  get:
- *    summary: Get elo rating history for a user
- *    tags: [Elo]
- *    parameters:
- *      - in: path
- *        name: user_id
- *        required: true
- *        schema:
- *          type: string
- *          format: uuid
- *    responses:
- *      200:
- *        description: Elo rating history for use returned successfully
- *      404:
- *        description: Elo rating history for user not found
- *      500:
- *        description: Internal server error
- */
-router.get('/elo/:user_id/history', getEloHistory);
 
 //friends routes
 /**
@@ -503,198 +247,6 @@ router.get('/friends/:user_id', getFriendsById);
  * 
  */
 router.delete('/friends/:friendship_id', removeFriend);
-
-//submissions
-
-/**
- * @swagger
- * /api/submissions
- *  post:
- *    summary: Creates a submission
- *    tags: [Submissions]
- *    parameters:
- *      - in: query
- *        name: type
- *        required: true
- *        schema:
- *          type: string
- *          enum: [math, programming]
- *    requestBody:
- *      required: true
- *      content:
- *        application/json:
- *          schema:
- *            type: object
- *            required:
- *              - user_id
- *              - match_id
- *              - problem_id
- *              - entry
- *            properties:
- *              user_id:
- *                type: string
- *                format: uuid
- *              match_id:
- *                type: string
- *                format: uuid
- *              problem_id:
- *                type: string
- *                format: uuid
- *              entry:
- *                type: string
- *                enum: [mathsText, codeText]
- *    responses:
- *      200:
- *        description: Submission successfully created
- *      500:
- *        description: Internal server error
- */
-router.post('/submissions', createSubmission);
-/**
- * @swagger
- * /api/submissions/match/{match_id}
- *  get:
- *    summary: Gets all submissions of a specified match
- *    tags: [Submissions]
- *    parameters:
- *      - in: path
- *        name: match_id
- *        required: true
- *        schema:
- *          type: string
- *          format: uuid
- *    responses:
- *      200:
- *        description: Found all submissions of the specified match
- *      404:
- *        description: Match not found
- *      500:
- *        description: Internal server error
- * 
- *  
- */
-router.get('/submissions/match/:match_id', getSubmissionsByMatch);
-/**
- * @swagger
- * /api/submissions/user/{user_id}
- *  get:
- *    summary: Gets submissions by a user
- *    tags: [Submissions]
- *    parameters:
- *      - in: path
- *        name: user_id
- *        required: true
- *        schema:
- *          type: string
- *          format: uuid
- *    responses:
- *      200:
- *        description: Found submissions of specified user successfully
- *      404:
- *        description: User not found
- *      500:
- *        description: Internal server error
- */
-router.get('/submissions/user/:user_id', getSubmissionsByUser);
-/**
- * @swagger
- * /api/submissions/{submission_id}
- *  get:
- *    summary: Gets a submission by its id
- *    tags: [Submissions]
- *    parameters:
- *      - in: path
- *        name: submission_id
- *        required: true
- *        schema:
- *          type: string
- *          format: uuid
- *    responses:
- *      200:
- *        description: Found submission by given id successfully
- *      404:
- *        description: Submission not found
- *      500:
- *        description: Internal server error
- */
-router.get('/submissions/:submission_id', getSubmissionById);
-/**
- * @swagger
- * /api/submission/{submission_id}/status
- *  patch:
- *    summary: Updates status of submission
- *    tags: [Submissions]
- *    requestBody:
- *      required: true
- *      content:
- *        application/json:
- *          schema:
- *            type: object
- *            required:
- *              - status
- *              - submission_id
- *            properties:
- *              status:
- *                type: string
- *                enum: [waiting, starting, in_progress, completed, abandoned]
- *    responses:
- *      200:
- *        description: Updated status of submission successfully
- *      404:
- *        description: Submission or its status not found
- *      500:
- *        description: Internal server error
- */
-router.patch('/submissions/:submission_id/status', updateSubmissionStatus);
-/**
- * @swagger
- * /api/submissions/{submission_id}/result
- *  post:
- *    summary: Create the result of the execution of a submission
- *    tags: [Submissions]
- *    requestBody:
- *      required: true
- *      content:
- *        application/json:
- *          schema:
- *            type: object
- *            required:
- *              - submission_id
- *              - passed_cases
- *              - total_cases
- *              - execution_time
- *              - memory_used
- *              - error_message
- *            properties:
- *              submission_id:
- *                type: string
- *                format: uuid
- *              passed_cases:
- *                type: number
- *                format: integer
- *              total_cases:    
- *                type: number
- *                format: integer
- *              execution_time:
- *                 type: number
- *                 format: integer
- *              memory_used:
- *                 type: number
- *                 format: integer
- *              error_message:
- *                 type: string
- *                 format: text
- *    responses:
- *      200:  
- *        description: Result created after execution successfully
- *      404:
- *        description: Submission not found
- *      500:
- *        description: Internal server error
- *              
- *          
- */
-router.post('/submissions/:submission_id/result', createExecutionResult);
 
 // powerups
 

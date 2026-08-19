@@ -1,103 +1,92 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from "vitest";
 
-import PopUp from '../../@/components/shared/PopUp'
+import PopUp from '../../src/Views/Popup'
 
+const mock_nav = vi.fn();
+vi.mock('react-router-dom', () => ({
+    useNavigate: () => mock_nav
+}))
+
+const mock_select_topic = vi.fn();
+vi.mock('src/ViewModels/PopUpViewModel', () => ({
+    useSelectTopic: () => mock_select_topic
+}))
 
 describe("PopUp", () => {
     it('Checks that popup opens', () => {
         render(<PopUp
             isOpen={true}
             onClose={vi.fn()}
-            onSelectTopic={vi.fn()}
         >
         </PopUp>)
 
-        expect(screen.getByRole('button',{name: 'outer-div'})).toBeInTheDocument();
+        expect(screen.getByText('Choose a Topic')).toBeInTheDocument();
+
     })
 
-    it('Check that popup closes', ()=>{
+    it('Check that popup closes', () => {
         render(<PopUp
             isOpen={false}
             onClose={vi.fn()}
-            onSelectTopic={vi.fn()}
         >
         </PopUp>)
 
-        expect(screen.queryByRole('button',{name: 'outer-div'})).toBeNull();
+        expect(screen.queryByText('Choose a Topic')).toBeNull();
     })
 
-    it('Checks onClose is working', ()=>{
+    it('Checks onClose is working', () => {
         const click = vi.fn();
         render(<PopUp
             isOpen={true}
             onClose={click}
-            onSelectTopic={vi.fn()}
         >
         </PopUp>)
 
-        fireEvent.click(screen.getByRole('button',{name: 'outer-div'}))
+        fireEvent.click(screen.getByRole('button', { name: 'cancel' }))
         expect(click).toHaveBeenCalled();
     })
 
-    it('Check enter key closes', ()=>{
-        const enter = vi.fn();
-        render(<PopUp
-        isOpen={true}
-        onClose={enter}
-        onSelectTopic={vi.fn()}
-        >
-        </PopUp>)
 
-        fireEvent.keyDown(screen.getByRole('button',{name: 'outer-div'}), {key: 'Enter'})
-        expect(enter).toHaveBeenCalled();
-    })
-
-    it('Checks the Escape key closes', ()=>{
+    it('Checks the Escape key closes', () => {
         const esc = vi.fn();
         render(<PopUp
             isOpen={true}
             onClose={esc}
-            onSelectTopic={vi.fn()}
         ></PopUp>)
 
-        fireEvent.keyDown(screen.getByLabelText('Choose a topic'), {key: 'Escape'})
+        fireEvent.keyDown(screen.getByLabelText('cancel'), { key: 'Esc' })
         expect(esc).toHaveBeenCalled()
     })
 
-    it('Closes when X is clicked', ()=>{
-        const x = vi.fn();
+    it('Closes when cancel is clicked', () => {
+        const cancel = vi.fn();
         render(<PopUp
             isOpen={true}
-            onClose={x}
-            onSelectTopic={vi.fn()}
+            onClose={cancel}
         ></PopUp>)
 
-        fireEvent.click(screen.getByText('X'))
-        expect(x).toHaveBeenCalled()
+        fireEvent.click(screen.getByRole('button', { name: 'cancel' }))
+        expect(cancel).toHaveBeenCalled()
     })
 
-    it("Selects maths topic", ()=>{
-        const maths = vi.fn()
+    it("Selects maths topic", () => {
         render(<PopUp
-        isOpen={true}
-        onClose={vi.fn()}
-        onSelectTopic={maths}
+            isOpen={true}
+            onClose={vi.fn()}
         ></PopUp>)
 
-        fireEvent.click(screen.getByRole('button',{name: 'topic-math'}))
-        expect(maths).toHaveBeenCalled();
+        fireEvent.click(screen.getByRole('button', { name: 'math-selector' }))
+        expect(mock_select_topic).toHaveBeenCalledWith('maths');
     })
 
-    it("Checks cancel button closes", ()=>{
-        const cancel = vi.fn()
+    it("Selects programming topic", () => {
         render(<PopUp
-        isOpen={true}
-        onClose={cancel}
-        onSelectTopic={vi.fn()}
+            isOpen={true}
+            onClose={vi.fn()}
         ></PopUp>)
 
-        fireEvent.click(screen.getByRole('button', {name: 'cancel-button'}))
-        expect(cancel).toHaveBeenCalled();
+        fireEvent.click(screen.getByRole('button', { name: 'prog-selector' }))
+        expect(mock_select_topic).toHaveBeenCalledWith('programming');
     })
 })

@@ -1,13 +1,16 @@
 //Page containing the virtual math keyboard
 
 import { MathfieldElement } from 'mathlive';
-import { useEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
+import { Keyboard } from 'lucide-react';
 
 interface VirtualKeyboardProps {
   mathfieldRef: React.RefObject<MathfieldElement | null>;
 }
 
 const VirtualKeyboard = ({ mathfieldRef }: VirtualKeyboardProps) => {
+  const [open, setOpen] = useState(false);
+
   useEffect(() => {
     const mf = mathfieldRef.current;
 
@@ -16,30 +19,29 @@ const VirtualKeyboard = ({ mathfieldRef }: VirtualKeyboardProps) => {
     // Set keyboard policy to manual so we control when it shows
     mf.mathVirtualKeyboardPolicy = 'manual';
 
-    // const handleFocusIn = () => {
-    //   window.mathVirtualKeyboard.show();
-    // };
-
-    // const handleFocusOut = () => {
-    //   window.mathVirtualKeyboard.hide();
-    // };
     // Tell MathLive to attach the keyboard to a specific container
     window.mathVirtualKeyboard.container = document.body;
 
-    const handleFocusIn = () => window.mathVirtualKeyboard.show();
-    const handleFocusOut = () => window.mathVirtualKeyboard.hide();
-    
-    mf.addEventListener('focusin', handleFocusIn);
-    mf.addEventListener('focusout', handleFocusOut);
+    const handleChange = () => {
+      setOpen(window.mathVirtualKeyboard.visible);
+    };
+
+    window.mathVirtualKeyboard.addEventListener(
+      'virtual-keyboard-change',
+      handleChange
+    );
 
     // Cleanup event listeners when component unmounts
     return () => {
-      mf.removeEventListener('focusin', handleFocusIn);
-      mf.removeEventListener('focusout', handleFocusOut);
+
+      window.mathVirtualKeyboard.removeEventListener(
+        'virtual-keyboard-change',
+        handleChange
+      )
     };
   }, [mathfieldRef]);
 
-  return null;
+  return null
 };
 
 export default VirtualKeyboard;
