@@ -19,9 +19,9 @@ export default function Layout() {
                                 </div>
                             </div>
                             <div className="flex items-center gap-2 shrink-0 rounded-full border border-border bg-card pl-1 pr-1.5 py-1">
-                                <button className="btn btn-ghost btn-icon" aria-label="CodeClash AI (coming soon)" type="button">
+                                <Link to="/agent" className="btn btn-ghost btn-icon" aria-label="CodeClash AI Agent" type="button">
                                     <Bot size={20}/>
-                                </button>
+                                </Link>
                                 <span className="w-px h-6 bg-border"/>
                                 <Link to="/profile" className="avatar w-9 h-9 flex items-center justify-center overflow-hidden">
                                 <UserCircle size={22} className="text-muted-text"/>
