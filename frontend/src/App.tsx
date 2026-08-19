@@ -23,6 +23,8 @@ import SignIn from "./Views/SignIn";
 import SignUp from "./Views/SignUp";
 
 import Loading from "@/components/shared/Loading";
+import Tournaments from "./Views/Tournaments";
+import Agent from "./Views/AIAgent";
 
 
 const App: React.FC = () => {
@@ -32,7 +34,6 @@ const App: React.FC = () => {
         return <Loading isOpen={isLoading} />
     }
    
-
     const logged_in = user !== null
 
     const base_path = logged_in ? <Dashboard /> : <Landing />
@@ -43,23 +44,13 @@ const App: React.FC = () => {
                 <Route path='/' element={<Landing />} />
                 <Route path='/sign-in' element={<SignIn />} />
                 <Route path='/sign-up' element={<SignUp />} />
-                <Route path='terms' element={<TermsAndConditions/>}/>
+                <Route path='/terms' element={<TermsAndConditions/>}/>
                 <Route path= '/brand-style-guide' element={<BrandStyleGuide/>}/>
-                {/*<Route path='/game-guide' element={<Guidebook/>}/> */}
-            <Route path='/help-menu' element={<HelpMenu />} />
-            <Route path='/leaderboard' element={<Leaderboard />} />
+                <Route path='/game-guide' element={<GameGuide/>}/>
+                <Route path="/help-menu" element={<HelpMenu/>}/>
+
                 <Route path='*' element={<Navigate to='/sign-in' replace />} />
 
-
-                {/* Pages with sidebar inside the app */}
-                <Route element={<Layout />}>
-                    <Route path='/dashboard' element={<Dashboard />} />
-                    <Route path='/game-guide' />
-                    <Route path='/tournaments' />
-                    <Route path='/leaderboard' />
-                    <Route path='/badges' />
-                    <Route path='/friends' />
-                </Route>
             </Routes>
         )
     }
@@ -74,22 +65,21 @@ const App: React.FC = () => {
             <Route path='/match-searching' element={<MatchSearching />} />
             <Route path='/match-found' element={<MatchFound />} />
             <Route path='/maths-match' element={<MathMatch />} />
-            {/*<Route path='/leaderboard' element={<Leaderboard />} />*/}
             <Route path='/prog-match' element={<ProgMatch language="javascript" />} />
             <Route path='/results' element={<FinalResults/>} />
-            {/* <Route path='/prog-match' element={<ProgMatch language="javascript"/>}/> */}
 
             <Route path= '/results' element= {<FinalResults/>}/>
 
             <Route path= '/forgot-password' element= {<ForgotPassword/>}/>
             <Route path='/terms' element={<TermsAndConditions/>}/>
             <Route path="/brand-style-guide" element= {<BrandStyleGuide/>}/>
+            <Route path="/agent" element={<Agent/>}/>
 
             {/* Pages with sidebar inside the app */}
             <Route element={<Layout />}>
                 <Route path='/dashboard' element={<Dashboard />} />
-                <Route path='/game-guide' element={<GameGuide/>}/>
-                <Route path='/tournaments' />
+                <Route path='/help-menu' element={<HelpMenu/>}/>
+                <Route path='/tournaments' element={<Tournaments/>}/>
                 <Route path='/leaderboard' element={<Leaderboard/>}/>
                 <Route path='/badges' />
                 <Route path='/friends' />
