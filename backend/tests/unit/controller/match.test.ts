@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { vi, Mocked, describe, it, expect, afterEach } from 'vitest'
 
-import pool from '../../src/frameworks-drivers/config/db';
+import pool from '../../../src/frameworks-drivers/config/db';
 import {
   getMatches,
   getMatchById,
@@ -9,7 +9,7 @@ import {
   updateMatchStatus,
   getMatchLog,
   createMatchLog,
-} from '../../src/interface-adapters/controllers/matches.controllers';
+} from '../../../src/interface-adapters/controllers/matches.controllers';
 
 vi.mock('../../src/config/db', () => ({
   default: {

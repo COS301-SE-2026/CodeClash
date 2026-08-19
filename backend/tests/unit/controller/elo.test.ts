@@ -1,8 +1,8 @@
 import request from 'supertest';
 import { vi, Mock, describe, beforeEach, it, expect, afterAll } from 'vitest'
 
-import app from '../../src/frameworks-drivers/app';
-import pool from '../../src/frameworks-drivers/config/db';
+import app from '../../../src/frameworks-drivers/app';
+import pool from '../../../src/frameworks-drivers/config/db';
 
 // Mock the database so tests don't need a real PostgreSQL connection
 vi.mock('../../src/config/db', () => ({

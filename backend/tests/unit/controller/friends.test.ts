@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { vi, Mock, describe, beforeEach, it, expect, afterAll } from 'vitest'
-import pool from '../../src/frameworks-drivers/config/db';
-import app from '../../src/frameworks-drivers/app';
+import pool from '../../../src/frameworks-drivers/config/db';
+import app from '../../../src/frameworks-drivers/app';
 
 vi.mock('../../src/config/db', () => ({
   default: {
