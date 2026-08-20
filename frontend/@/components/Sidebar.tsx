@@ -1,4 +1,4 @@
-import { LayoutDashboard, HelpCircle, Trophy, BarChart2, Medal, Users, Settings, History } from 'lucide-react'
+import { LayoutDashboard, HelpCircle, Trophy, BarChart2, Medal, Users, Settings, History, Store } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
 
 import {
@@ -20,6 +20,7 @@ const navItems = [
     { to: '/leaderboard', label: 'Leaderboard', icon: BarChart2 },
     { to: '/badges', label: 'Badges', icon: Medal },
     { to: '/friends', label: 'Friends', icon: Users },
+    { to: '/shop', label: 'Shop', icon: Store},
     { to: '/help-menu', label: 'Help Menu', icon: HelpCircle},
     {to: '/settings', label: 'Settings', icon: Settings},
 ]

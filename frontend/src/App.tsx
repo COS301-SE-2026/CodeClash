@@ -25,6 +25,7 @@ import SignUp from "./Views/SignUp";
 import Loading from "@/components/shared/Loading";
 import Tournaments from "./Views/Tournaments";
 import Agent from "./Views/AIAgent";
+import Shop from "./Views/CodeClashShop";
 
 
 const App: React.FC = () => {
@@ -84,6 +85,7 @@ const App: React.FC = () => {
                 <Route path='/badges' />
                 <Route path='/friends' />
                 <Route path='/match-history' element={<MatchHistory/>}/>
+                <Route path="/shop" element={<Shop/>}/>
             </Route>
         </Routes>
     )
