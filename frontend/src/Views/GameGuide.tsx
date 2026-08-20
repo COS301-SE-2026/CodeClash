@@ -1,5 +1,6 @@
 import bg from "../../src/assets/Background/solar_system.jpg"
-
+import { MyComponent } from "src/animations/wave";
+import { motion } from "framer-motion"
 import "../../src/styles/global.css"
 import GameGuideCard, { GameGuideCardText } from "@/components/ui/gameGuideCard";
 import GameGuideHeading from "@/components/ui/gameGuideHeading";

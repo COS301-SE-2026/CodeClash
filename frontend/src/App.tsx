@@ -8,7 +8,7 @@ import BrandStyleGuide from "./Views/BrandStyleGuide";
 import Dashboard from "./Views/Dashboard";
 import MatchFound from "./Views/MatchFound";
 import MathMatch from "./Views/MathsMatch";
-
+import { MyComponent } from "./animations/wave";
 import MatchHistory from "./Views/MatchHistory";
 import ForgotPassword from "./Views/ForgotPassword";
 import TermsAndConditions from "./Views/TermsAndConditions";
@@ -21,7 +21,6 @@ import MatchSearching from "./Views/MatchSearching";
 import Profile from "./Views/Profile";
 import SignIn from "./Views/SignIn";
 import SignUp from "./Views/SignUp";
-
 import Loading from "@/components/shared/Loading";
 
 
@@ -52,6 +51,7 @@ const App: React.FC = () => {
                 <Route path='/leaderboard' element={<Leaderboard/>}/>
                 <Route path='/final-results' element={<FinalResults/>}/>
                 <Route path='match' element={<ProgMatch/>}/>
+                <Route path='/animations' element={<MyComponent/>}/> 
 
                 <Route path='*' element={<Navigate to='/sign-in' replace />} />
 
@@ -62,7 +62,7 @@ const App: React.FC = () => {
                     <Route path='/game-guide' />
                     <Route path='/tournaments' />
                     <Route path='/leaderboard' />
-                    <Route path='/badges' />
+                    <Route path='/badges'/>
                     <Route path='/friends' />
                 </Route>
             </Routes>
