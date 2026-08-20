@@ -83,3 +83,52 @@ CREATE TABLE IF NOT EXISTS elo_history (
   new_rating INTEGER,
   changed_at TIMESTAMP DEFAULT NOW()
 );
+
+--copied over from original implementation of tables
+CREATE TYPE friendship_status AS ENUM ('pending', 'accepted', 'declined', 'blocked');
+CREATE TABLE IF NOT EXISTS friendships (
+ friendship_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+ requester_id UUID REFERENCES users(user_id),
+ receiver_id UUID REFERENCES users(user_id),
+ status friendship_status DEFAULT 'pending',
+ created_at TIMESTAMP DEFAULT NOW(),
+ updated_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS friend_invites (
+  invite_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  sender_id UUID REFERENCES users(user_id),
+  invite_code VARCHAR(50) UNIQUE NOT NULL,
+  expires_at TIMESTAMP NOT NULL,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS achievements (
+  achievement_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  achievement_name VARCHAR(30) NOT NULL,
+  description VARCHAR(70) NOT NULL
+);
+
+--virtual table for m to n players to achievements
+CREATE TABLE IF NOT EXISTS player_achievements (
+  user_id UUID REFERENCES users(user_id),
+  achievement_id UUID REFERENCES achievements(achievement_id),
+  PRIMARY KEY (user_id, achievement_id)
+);
+
+-- Wow factor added in the CodeClash shop
+CREATE TYPE powerup_type AS ENUM ('add_time_opponent', 'reduce_type_self', 'add_bug_opponent'); --more could be added
+-- manually add different levels of the same powerup ??
+CREATE TABLE IF NOT EXISTS powerups (
+  powerup_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  type powerup_type NOT NULL,
+  description VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS match_powerups (
+  match_powerup_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  match_id UUID REFERENCES matches(match_id),
+  user_id UUID REFERENCES users(user_id),
+  powerup_id UUID REFERENCES powerups(powerup_id),
+  used_at TIMESTAMP DEFAULT NOW()
+);
