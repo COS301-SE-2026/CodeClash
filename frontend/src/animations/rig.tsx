@@ -30,19 +30,28 @@ import wrong from "../svgs/wrong.svg"
 export const MyComponent = () => {
     return(
         <div className="bg-[#000000] min-h-screen w-full">
-        <svg viewBox="0 0 200 400" width="200" height="200">
+        <svg viewBox="0 0 100 100" width="300" height="300"> 
+            {/* keep above values as constants */}
+
+        <motion.g>
+            <image
+        </motion.g>
+
+        <motion.g>
+            <image href={leftArm} width="30%" x="24%" y="44%" height="30%"></image>
+        </motion.g>
         <motion.g
         // style={{ originX: 0.5, originY: 0.5}}
         
         
         
         >
-            <image href={happy} width="100" height="100"/>
+            <image href={torso} width="30%" x="6%" y="34%" height="30%"/>
         </motion.g>
         <motion.g
         // style={{ originX: -0.5, originY: -0.5}}
         >
-            <image href={torso} width="150" x="10" y="30" height="150"/>
+            <image href={head} width="30%" x="6%" y="12%" height="30%"/>
         </motion.g>
         </svg>
         </div>
@@ -50,7 +59,7 @@ export const MyComponent = () => {
 }
 
 //let's make individual bone class, and build a bass class for a standing avatar, in the bone class we will have width and height and x and y, href={part} for img and 
-
+//allow svg view box width and height value (NOT PERCENT REMEMBER) to be edited
 interface BoneProps {
     id: string, //id of variant
     part: string, //leg, arm, body etc.
