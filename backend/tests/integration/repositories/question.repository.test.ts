@@ -26,6 +26,6 @@ describe("Question Repository Queries", () => {
         const fetched = await question_repo.getRandQuestions(3, 4, GameMode.Maths);
 
         expect(fetched).toHaveLength(2);
-        expect(fetched.map(f=>f.id)).toEqual([mock_questions[0], mock_questions[2]].map(q=>q.question_id))
+        expect(fetched.map(f=>f.id).sort()).toEqual([mock_questions[0], mock_questions[2]].map(q=>q.question_id).sort())
     })
 })
