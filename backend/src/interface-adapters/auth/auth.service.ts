@@ -6,25 +6,13 @@ import { IUserRepository } from 'src/application/interfaces/repositories/IUserRe
 import { STATS, UserDTO } from 'src/interface-adapters/dtos/user.dto'
 dotenv.config()
 
-// const verifier = CognitoJwtVerifier.create({
-//   userPoolId: `${process.env.COGNITO_USER_POOL_ID}`,
-//   tokenUse: "id",
-//   clientId: `${process.env.COGNITO_CLIENT_ID}`, //client ID of app, not a userId
-// });
+const verifier = CognitoJwtVerifier.create({
+  userPoolId: `${process.env.COGNITO_USER_POOL_ID}`,
+  tokenUse: "id",
+  clientId: `${process.env.COGNITO_CLIENT_ID}`, //client ID of app, not a userId
+});
 
-const verifier = (() => {
-  let instance: ReturnType<typeof CognitoJwtVerifier.create> | null = null;
-  return () => {
-    if (!instance) {
-      instance = CognitoJwtVerifier.create({
-        userPoolId: `${process.env.COGNITO_USER_POOL_ID}`,
-        tokenUse: "id",
-        clientId: `${process.env.COGNITO_CLIENT_ID}`, //client ID of app, not a userId
-      });
-    }
-    return instance;
-  };
-})();
+
 
 
 export const validateToken = async (token: string | undefined) => {
