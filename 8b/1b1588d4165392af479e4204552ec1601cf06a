@@ -1,0 +1,14 @@
+backend/src/entities/league-mapping.ts
+  h_58e143dc25f856 12-13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "8b1b1588d4165392af479e4204552ec1601cf06a",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
