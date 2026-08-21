@@ -32,5 +32,19 @@ export class Friendship {
 
 @Entity('friend_invites')
 export class FriendInvite {
+    @PrimaryGeneratedColumn('uuid')
+    invite_id!: string;
 
+    @ManyToOne(() => Users)
+    @JoinColumn({ name: 'sender_id' })
+    sender!: Users;
+
+    @Column({ length: 50, unique:true })
+    invite_code!: string;
+
+    @Column()
+    expires_at!: Date;
+
+    @CreateDateColumn()
+    created_at!: Date;
 }
