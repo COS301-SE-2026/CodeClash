@@ -6,9 +6,9 @@ export interface ExecutionResult{
     status_id: number,
     time: string | null,
     memory: number | null,
-    compile_output: string | null
+    compile_output: string | null,
 }
 
 export interface ICodeExecutor{
-    execute(source_code: string, language_id: number, stdin: string): Promise<ExecutionResult>;
+    execute(source_code: string, language_id: number, stdin: string, expected_output: string): Promise<ExecutionResult>;
 }
