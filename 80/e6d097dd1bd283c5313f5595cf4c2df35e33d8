@@ -1,0 +1,36 @@
+backend/tests/test-data-source.ts
+  h_94c952a9e14c58 14
+dockerfile/docker-compose.prod.yml
+  h_94c952a9e14c58 1-88
+backend/src/application/interfaces/repositories/IEloRepository.ts
+  h_94c952a9e14c58 2-3,18
+frontend/src/ViewModels/DashboardViewModel.ts
+  h_94c952a9e14c58 1,30-31
+dockerfile/docker-compose.test.yml
+  h_94c952a9e14c58 1-61
+backend/tests/unit/controllers/user.controller.test.ts
+  h_94c952a9e14c58 55,82
+frontend/src/Views/Dashboard.tsx
+  h_94c952a9e14c58 17,21-27
+backend/vitest.config.ts
+  h_94c952a9e14c58 16-23
+  h_94c952a9e14c58 14-15,24
+frontend/src/context/User/UserContext.tsx
+  h_94c952a9e14c58 102
+  h_94c952a9e14c58 15-16
+.github/workflows/ci.yml
+  h_94c952a9e14c58 45-47,51
+backend/tests/integration/repositories/answer.repository.test.ts
+  h_94c952a9e14c58 23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "80e6d097dd1bd283c5313f5595cf4c2df35e33d8",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
