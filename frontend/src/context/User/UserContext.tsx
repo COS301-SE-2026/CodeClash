@@ -12,8 +12,8 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [error, setError] = useState('');
     const [league, setLeague] = useState('');
     const { user, token} = useAuth();
- const [rank, setRank] = useState('');
-  const userId = user?.userId ?? ""
+    const [rank, setRank] = useState('');
+    const userId = user?.userId ?? ""
     const username = user?.username ?? '';
 
 
@@ -99,6 +99,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
 
     const refresh = async () => {
+        console.log("refreshing")
         await Promise.all([
             getElo(),
             getAvatarUrl(),

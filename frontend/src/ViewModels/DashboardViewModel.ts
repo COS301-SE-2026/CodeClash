@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import {  useState } from "react"
 import { useAuth } from "src/context/Auth/hooks/useAuth";
 import { useMatchmaking } from "src/context/Socket/hooks/useMatchmaking";
 import { useUser } from "src/context/User/hooks/useUser";
@@ -9,10 +9,6 @@ export function useDashboardViewModel() {
     const {setGameType} = useMatchmaking();
     const {username, elo, avatar, league, refresh} = useUser()
     const {isLoading} = useAuth()
-
-    useEffect(()=>{
-        refresh();
-    },[isLoading])
 
     const openPopUp = (type: GameType) => {
         setGameType(type)
@@ -31,7 +27,8 @@ export function useDashboardViewModel() {
         elo,
         avatar,
         league,
-        isLoading
+        isLoading,
+        refresh
     };
 }
 

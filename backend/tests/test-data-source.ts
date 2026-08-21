@@ -11,7 +11,7 @@ const env = process.env
 export async function createTestDataSource() {
     const data_source = new DataSource({
         type: 'postgres',
-        host: env.DB_TEST_HOST,
+        host: 'localhost',
         port: Number(env.DB_TEST_PORT),
         username: env.DB_TEST_USER!,
         password: env.DB_TEST_PASSWORD!,
@@ -20,7 +20,6 @@ export async function createTestDataSource() {
         entities: [EloRatings, Users, Questions, Answers],
         dropSchema: true,
     })
-
 
     await data_source.initialize();
     return data_source;

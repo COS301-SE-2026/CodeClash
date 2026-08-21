@@ -14,10 +14,17 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
+import { useEffect } from 'react';
 
 
 const Dashboard = () => {
-  const { isOpen, openPopUp, closePopUp, username, elo, league, avatar, isLoading } = useDashboardViewModel();
+  const { isOpen, openPopUp, closePopUp, username, elo, league, avatar, isLoading, refresh } = useDashboardViewModel();
+
+  useEffect(() => {
+    console.log("Dashboard use efect firing")
+    refresh();
+  },[isLoading])
+
 
   if (isLoading) {
     return (
