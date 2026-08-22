@@ -29,7 +29,25 @@ export class FriendRepository implements IFriendRepository {
     }
 
     async getFriendRequests(user_id: string, type: "sent" | "received"): Promise<FriendRequestDTO[]> {
-        
+        const where = type === 'sent'
+        ? { requester: { user_id }, status: 'pending' as const }
+        : { receiver: { user_id }, status: 'pending' as const };
+
+        const friendships = await this. friendshipRepo.find({
+            where,
+            relations: { requester: true, receiver: true }
+        });
+
+        return friendships.map(f => {
+            const other = type === 'sent' ? f.receiver : f.requester;
+            return {
+                friendship_id: f.friendship_id,
+                user_id: other.user_id,
+                username: other.username,
+                status: f.status,
+                created_at: f.created_at
+            };
+        });
     }
 
     async sendFriendRequest(requester_id: string, receiver_id: string): Promise<void> {
