@@ -90,10 +90,21 @@ export class FriendRepository implements IFriendRepository {
     }
 
     async getInviteByCode(invite_code: string): Promise<FriendInviteDTO | null> {
-        
+        const invite = await this.inviteRepo.findOne({ where: {invite_code } });
+        if(!invite) return null;
+        return {
+            invite_id: invite.invite_id,
+            invite_code: invite.invite_code,
+            expires_at: invite.expires_at
+        };
     }
 
     async getFriendCount(user_id: string): Promise<number> {
-        
+        return this.friendshipRepo.count({
+            where: [
+                { requester: { user_id }, status: 'accepted' },
+                { receiver: { user_id }, status: 'accepted' }
+            ]
+        });
     }
 }
