@@ -83,6 +83,14 @@ jobs:
         DB_TEST_USER: ${{secrets.DB_TEST_USER}}
         DB_TEST_PASSWORD: ${{secrets.DB_TEST_PASSWORD}}
         DB_TEST_NAME: ${{secrets.DB_TEST_NAME}}
+        COGNITO_USER_POOL_ID: ${{secrets.COGNITO_USER_POOL_ID}}
+        COGNITO_CLIENT_ID: ${{secrets.COGNITO_CLIENT_ID}}
+        COGNITO_REGION: ${{secrets.COGNITO_REGION}}
+        AWS_ACCESS_KEY: ${{secrets.AWS_ACCESS_KEY}}
+        AWS_SECRET_KEY: ${{secrets.AWS_SECRET_KEY}}
+        COGNITO_JWKS_URI: ${{secrets.COGNITO_JWKS_URI}}
+        VITE_COGNITO_USER_POOL_ID: ${{secrets.VITE_COGNITO_USER_POOL_ID}}
+        VITE_COGNITO_CLIENT_ID: ${{secrets.VITE_COGNITO_CLIENT_ID}}
 
     - name: Test and coverage frontend
       run: npm run test:frontend:coverage
