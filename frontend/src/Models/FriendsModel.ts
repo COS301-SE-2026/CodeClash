@@ -16,7 +16,7 @@ export interface FriendRequest {
     fromUser: string;
 }
 
-export type Relation = 'none' | 'friend' | 'pennding-sent' | 'pending-received' | 'self';
+export type Relation = 'none' | 'friend' | 'pending-sent' | 'pending-received' | 'self';
 
 export interface Search {
     id: string;
@@ -44,14 +44,13 @@ export interface Invite {
         friendId?: string;
         avatar?: string;
         status?: FriendStatus;
-    }
+    } [];
     expires: number; //This is to not leave the invite hanging forever if it doesnt get accepted - **API needs to add support this, for now I will add a 10 minute client-side approx
 }
 
 export interface Summary {
     id: string;
     username: string;
-    handle: string;
     avatar: string;
     league: string;
 }
