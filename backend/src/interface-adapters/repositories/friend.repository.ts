@@ -51,7 +51,20 @@ export class FriendRepository implements IFriendRepository {
     }
 
     async sendFriendRequest(requester_id: string, receiver_id: string): Promise<void> {
-        
+        const existing = await this.friendshipRepo.findOne({
+            where: [
+                { requester: { user_id: requester_id }, receiver: { user_id: receiver_id }},
+                { requester: { user_id: receiver_id }, receiver: { user_id: requester_id }}
+            ]
+        });
+
+        if (existing) throw new Error('Friend request already exists');
+
+        await this.friendshipRepo.save(this.friendshipRepo.create({
+            requester: { user_id: requester_id } as any,
+            receiver: { user_id: receiver_id } as any,
+            statis: 'pending'
+        }));
     }
 
     async respondToRequest(friendship_id: string, status: "accepted" | "declined"): Promise<void> {
