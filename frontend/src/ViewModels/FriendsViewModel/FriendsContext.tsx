@@ -251,4 +251,31 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
     const sendFriendRequest = useCallback((id: string) => {
         setSentRequest((prev) => new Set(prev).add(id))
     }, [])
+
+    /*Requests - needs accept and decline endpoint */
+    const acceptRequest = useCallback((id: string) => {
+        const req = requests.find((r) => r.id === id);
+        if (!req) {
+            return;
+        }
+        setRequests((prev) => prev.filter((r) => r.id !== id));
+        setFriend((prev) => [
+            ...prev, {
+                id: req.fromUser, 
+                username: req.username,
+                avatar: req.avatar,
+                status: 'offline',
+                elo: 1000
+            }
+        ])
+    }, [requests])
+
+    const declineRequest = useCallback((id: string) => {
+        setRequests((prev) => prev.filter((r) => r.id !== id));
+    }, [])
+
+    /*Friends - needs remove friend endpoint */
+    const removeFriend = useCallback((id: string) => {
+        setFriend((prev) => prev.filter((f) => f.id !== id));
+    }, [])
 }
