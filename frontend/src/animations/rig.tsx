@@ -27,18 +27,31 @@ import winning from "../svgs/winning.svg"
 import worried from "../svgs/worried.svg"
 import wrong from "../svgs/wrong.svg"
 
+export const Avatar = {
+    leftLeg: Bone
+}
+
 export const MyComponent = () => {
     return(
         <div className="bg-[#000000] min-h-screen w-full">
-        <svg viewBox="0 0 100 100" width="300" height="300"> 
+        <svg viewBox="0 0 100 100" width="400" height="300"> 
             {/* keep above values as constants */}
 
+        <motion.g
+        >
+            <image href={rightLeg} width="30%" x="-3%" y="62%" height="30%"/>
+        </motion.g>
         <motion.g>
-            <image
+            <image href={leftLeg} width="30%" x="15%" y="62%" height="30%"/>
+        </motion.g>
+        <motion.g>
+            <image href={rightArm} width="30%" x="-11%" y="44%" height="30%"></image>
         </motion.g>
 
-        <motion.g>
-            <image href={leftArm} width="30%" x="24%" y="44%" height="30%"></image>
+        <motion.g
+            initial={{opacity: 0, y:-50}}
+            animate={{ opacity: 1, y:0}}>
+            <image href={leftArm} width="30%" x="23%" y="44%" height="30%"></image>
         </motion.g>
         <motion.g
         // style={{ originX: 0.5, originY: 0.5}}
@@ -60,13 +73,13 @@ export const MyComponent = () => {
 
 //let's make individual bone class, and build a bass class for a standing avatar, in the bone class we will have width and height and x and y, href={part} for img and 
 //allow svg view box width and height value (NOT PERCENT REMEMBER) to be edited
-interface BoneProps {
-    id: string, //id of variant
-    part: string, //leg, arm, body etc.
-    variants: string[],
-    animateState: string,
-    children: React.ReactNode
-}
+// interface Bone {
+//     id: string, //id of variant
+//     part: string, //leg, arm, body etc.
+//     // variants: string[],
+//     // animateState: string,
+//     // children: React.ReactNode
+// }
 
 
 //there will be a "bone" for every body part, that will be used in every rig that exists per animation - variations exist so that it can be swapped out
