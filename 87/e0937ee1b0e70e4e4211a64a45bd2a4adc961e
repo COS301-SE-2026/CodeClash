@@ -1,0 +1,14 @@
+.github/workflows/ci.yml
+  h_94c952a9e14c58 47,81
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "87e0937ee1b0e70e4e4211a64a45bd2a4adc961e",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
