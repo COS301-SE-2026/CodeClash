@@ -1,11 +1,11 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import robot from 'src/assets/Robots/Pink_fighting.png'
+import robot from 'src/assets/Robots/pink_celebrate.png'
 import { AuthProvider } from "src/context/Auth/AuthContext";
 import { useUser } from "src/context/User/hooks/useUser";
 import { UserProvider } from "src/context/User/UserContext";
 import { beforeAll, afterAll, describe, beforeEach, vi } from "vitest";
 
-import { getToken, login, logout } from "../../test-utils";
+import {  login, logout } from "../../test-utils";
 
 
 const MockComponent: React.FC = () => {
