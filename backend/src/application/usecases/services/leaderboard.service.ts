@@ -1,5 +1,5 @@
 import { PaginatedLeaderboardResponse } from "src/interface-adapters/dtos/leaderboard.dto";
-import { IEloRepository } from "../../interfaces/IEloRepository";
+import { IEloRepository } from "../../interfaces/repositories/IEloRepository";
 
 export class LeaderboardService {
     constructor(private eloRepository: IEloRepository) {}
