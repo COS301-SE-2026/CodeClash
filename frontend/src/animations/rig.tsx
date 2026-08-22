@@ -27,7 +27,16 @@ import winning from "../svgs/winning.svg"
 import worried from "../svgs/worried.svg"
 import wrong from "../svgs/wrong.svg"
 
-export const Avatar = {
+const headVariants = {
+    variants: ["angry", "confused", "excited", "happy", "head", "neutral", "sad", "surprised", "thinking", "wink", "winning", "worried", "wrong"]
+}
+
+interface Bone{
+    id: number,
+    variants: string[]
+}
+
+export interface Avatar{
     leftLeg: Bone
 }
 
