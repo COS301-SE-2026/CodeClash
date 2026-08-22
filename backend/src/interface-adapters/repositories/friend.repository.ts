@@ -68,15 +68,25 @@ export class FriendRepository implements IFriendRepository {
     }
 
     async respondToRequest(friendship_id: string, status: "accepted" | "declined"): Promise<void> {
-        
+        await this.friendshipRepo.update({ friendship_id }, { status, updated_at: new Date() });
+
     }
 
     async removeFriend(friendship_id: string): Promise<void> {
-        
+        await this.friendshipRepo.delete({ friendship_id });
     }
 
     async createInvite(sender_id: string, invite_code: string, expires_at: Date): Promise<FriendInviteDTO> {
-        
+        const invite = await this.inviteRepo.save(this.inviteRepo.create({
+            sender: { user_id: sender_id } as any,
+            invite_code,
+            expires_at
+        }));
+        return{
+            invite_id: invite.invite_id,
+            invite_code: invite.invite_code,
+            expires_at: invite.expires_at
+        };
     }
 
     async getInviteByCode(invite_code: string): Promise<FriendInviteDTO | null> {
