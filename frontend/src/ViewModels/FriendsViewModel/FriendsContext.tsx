@@ -13,7 +13,7 @@ import type {
 import { useAuth } from "../../context/Auth/hooks/useAuth";
 
 const API_BASE = '/api'; 
-const INVITE_POPUP = 5000; // **Needs to be swapped with a real socket listener for incoming invites pop up
+const INVITE_POLL = 5000; // **Needs to be swapped with a real socket listener for incoming invites pop up
 const INVITE_EXPIRY = 10 * 60 * 1000; // **We need an expires field on the invite response, this is currently just a client side approx based on the recieved time of invite
 
 /*This data is mocked, all real endpoints need to replace this - !!For the profile, we can use the existing user context from FinalResults? */
@@ -123,7 +123,7 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
 
     const activeInviteIdRef = useRef<string | null>(null); //tracks the current id for Invites, so we can differentiate same invite to new invite without resetting local countdown
 
-    const enrichInvite = useCallback((raw: GameInvite, recievedAt: number): Invite => ({
+    const enrichInvite = useCallback((raw: GameInvite, expires: number): Invite => ({
         id: raw.invite_id,
         mode: 'casual',
         participants: raw.friends.map((p) => {
@@ -136,7 +136,7 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
                 status: match?.status,
             }
         }),
-        expires: 500, //NB
+        expires,
     }), []);
 
     useEffect(() => {
@@ -148,4 +148,55 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
         }, 400);
         return () => clearTimeout(timeout);
     }, []);
+
+    /*GET /api/friend/invite for an incoming friend invite */
+    useEffect(() => {
+        if (isLoading || !token) {
+            return;
+        }
+        let cancelled = false;
+
+        const poll =  async () => {
+            try {
+                const res = await fetch(`${API_BASE}/friend/invite`, {
+                    headers: {Authorization: `Bearer ${token}`},
+                })
+                //No active invites
+                if (res.status === 404) {
+                    if(!cancelled) {
+                        activeInviteIdRef.current = null;
+                        setActiveInvite(null);
+                    }
+                    return;
+                }
+                if (!res.ok) {
+                    return;
+                }
+                const raw: GameInvite = await res.json();
+                if (cancelled) {
+                    return;
+                }
+                if(raw.invite_id !== activeInviteIdRef.current) {
+                    activeInviteIdRef.current = raw.invite_id;
+                    setActiveInvite(enrichInvite(raw, Date.now()))
+                }
+            }
+            catch {}
+        }
+
+        poll();
+        const interval = setInterval(poll, INVITE_POLL);
+        return () => {
+            cancelled = true;
+            clearInterval(interval);
+        }
+    }, [isLoading, token, enrichInvite])
+
+    useEffect(() => {
+        if (!activeInvite) {
+            return;
+        }
+        const interval = setInterval(() => setNow(Date.now()), 1000);
+        return () => clearInterval(interval);
+    }, [activeInvite])
 }
