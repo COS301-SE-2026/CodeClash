@@ -78,3 +78,74 @@ const MOCKED_SEARCHPOOL: Omit <Search, 'relationship'>[] = [
         avatar: 's3Avatar'
     },
 ]
+
+interface FriendsContext {
+    isLoading: boolean;
+    profile: Summary | null;
+    friends: Friend[];
+    removeFriend: (id: string) => void;
+
+    requests: FriendRequest[];
+    requestCount: number;
+    acceptRequest: (id: string) => void;
+    declineRequest: (id: string) => void;
+
+    searchQuery: string;
+    setSearchQuery: (query: string) => void;
+    searchResults: Search[];
+    sendFriendRequest: (id: string) => void;
+
+    sendInvite: (id: string) => void;
+    activeInvite: Invite | null;
+    inviteCountdown: number;
+    inviteError: string | null;
+    acceptInvite: () => void;
+    declineInvite: () => void;
+    dismissInviteError: () => void;
+}
+
+export const FriendsContextFunc = createContext<FriendsContext | null>(null);
+
+export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
+    const {token, user} = useAuth();
+    const [isLoading, setIsLoading] = useState(true);
+    const [profile, setProfile] = useState<Summary | null>(null);
+    const [friend, setFriend] = useState<Friend[]>([]);
+    const [requests, setRequests] = useState<FriendRequest[]>([]);
+    const [sentRequest, setSentRequest] = useState<Set<string>>(new Set());
+    const [searchQuery, setSearchQuery] = useState('');
+    const [activeInvite, setActiveInvite] = useState<Invite | null>(null);
+    const [inviteError, setInviteError] = useState<string | null>(null);
+    const [now, setNow] = useState(() => Date.now());
+
+    const friendsRef = useRef(friend); //this is so closures dont capture a stale list
+    friendsRef.current = friend;
+
+    const activeInviteIdRef = useRef<string | null>(null); //tracks the current id for Invites, so we can differentiate same invite to new invite without resetting local countdown
+
+    const enrichInvite = useCallback((raw: GameInvite, recievedAt: number): Invite => ({
+        id: raw.invite_id,
+        mode: 'casual',
+        participants: raw.friends.map((p) => {
+            const match = friendsRef.current.find((f) => f.username === p.name);
+            return {
+                name: p.name,
+                elo: p.elo,
+                friendId: match?.id,
+                avatar: match?.avatar,
+                status: match?.status,
+            }
+        }),
+        expires: 500, //NB
+    }), []);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setProfile(MOCKED_PROFILE);
+            setFriend(MOCKED_FRIENDS);
+            setRequests(MOCKED_REQ);
+            setIsLoading(false);
+        }, 400);
+        return () => clearTimeout(timeout);
+    }, []);
+}
