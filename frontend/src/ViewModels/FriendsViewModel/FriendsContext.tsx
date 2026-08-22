@@ -1,4 +1,3 @@
-import React from "react";
 import {
     createContext, useCallback, useEffect, 
     useMemo, useRef, useState,
@@ -11,7 +10,6 @@ import type {
 } from "../../Models/FriendsModel";
 
 import { useAuth } from "../../context/Auth/hooks/useAuth";
-import { Search } from "lucide-react";
 
 const API_BASE = '/api'; 
 const INVITE_POLL = 5000; // **Needs to be swapped with a real socket listener for incoming invites pop up
@@ -84,7 +82,7 @@ const MOCKED_SEARCHPOOL: Omit <Search, 'relationship'>[] = [
 interface FriendsContext {
     isLoading: boolean;
     profile: Summary | null;
-    friends: Friend[];
+    friend: Friend[];
     removeFriend: (id: string) => void;
 
     requests: FriendRequest[];
@@ -218,7 +216,7 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
     }, [activeInvite, now]);
 
     /*SEARCH - needs endpoint */
-    const search: Search[] = useMemo(() => {
+    const searchResults: Search[] = useMemo(() => {
         const query = searchQuery.trim().toLowerCase();
         if (!query) {
             return [];
@@ -278,4 +276,86 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
     const removeFriend = useCallback((id: string) => {
         setFriend((prev) => prev.filter((f) => f.id !== id));
     }, [])
+
+    /*Invites */
+    const sendInvite = useCallback(async (friendId: string) => {
+        const target = friendsRef.current.find((f) => f.id === friendId);
+        if (!target || !token || !user) {
+            return;
+        }
+
+        try {
+            await fetch(`{API_BASE}/friend/invite`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    user_id: user.userId,
+                    friend: [friendId],
+                    game_mode: 'casual'
+                })
+            })
+        }
+        catch {}
+    }, [token, user])
+
+    const acceptInvite = useCallback(() => {
+        if (!activeInvite) {
+            return;
+        }
+        const senderPlaying = activeInvite.participants.some((p) => p.status === 'playing');
+        if (senderPlaying) {
+            setInviteError(friendContent.inviteInvalid);
+            activeInviteIdRef.current = null;
+            setActiveInvite(null);
+            return;
+        }
+
+        //backend needs a way to actually accept/consume an invite
+        activeInviteIdRef.current = null;
+        setActiveInvite(null);
+    }, [activeInvite])
+
+    const declineInvite = useCallback(() => {
+        if (!activeInvite) {
+            return;
+        }
+        activeInviteIdRef.current = null;
+        setActiveInvite(null);
+    }, [activeInvite])
+
+    const dismissInviteError = useCallback(() => setInviteError(null), []);
+
+    const value: FriendsContext = {
+        isLoading,
+        profile,
+        friend,
+        removeFriend,
+
+        requests,
+        requestCount: requests.length,
+        acceptRequest,
+        declineRequest,
+
+        searchQuery,
+        setSearchQuery,
+        searchResults,
+        sendFriendRequest,
+
+        sendInvite,
+        activeInvite,
+        inviteCountdown,
+        inviteError,
+        acceptInvite,
+        declineInvite,
+        dismissInviteError,
+    }
+
+    return (
+        <FriendsContextFunc.Provider value={value}>
+            {children}
+        </FriendsContextFunc.Provider>
+    )
 }
