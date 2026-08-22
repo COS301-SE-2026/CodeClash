@@ -49,11 +49,23 @@ export class AchievementRepository implements IAchievementRepository {
     }
 
     async hasAchievement(user_id: string, achievement_id: string): Promise<boolean> {
-        
+        const user = await this.userRepo.findOne({
+            where: { user_id },
+            relations: { achievements: true }
+        });
+        return user?.achievements?.some(a => a.achievement_id === achievement_id) ?? false;
     }
 
     async getAchievementByName(name: string): Promise<AchievementDTO | null> {
-        
+        const achievement = await this.achievementRepo.findOne({
+            where: { achievement_name: name }
+        });
+        if (!achievement) return null;
+        return {
+            achievement_id: achievement.achievement_id,
+            achievement_name: achievement.achievement_name,
+            description:  achievement.description
+        };
     }
     
 }
