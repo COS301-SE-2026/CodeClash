@@ -1,0 +1,14 @@
+frontend/src/Views/BrandStyleGuide/ComponentSection.tsx
+  h_58e143dc25f856 131-132
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "e1b5a0d1afda6e548edac35e0bb29c2e752634dd",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
