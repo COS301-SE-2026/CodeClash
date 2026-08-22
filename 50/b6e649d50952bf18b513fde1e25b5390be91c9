@@ -1,0 +1,14 @@
+backend/src/application/usecases/services/leaderboard.service.ts
+  h_94c952a9e14c58 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "50b6e649d50952bf18b513fde1e25b5390be91c9",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

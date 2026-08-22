@@ -1,0 +1,15 @@
+backend/src/interface-adapters/auth/auth.service.ts
+  h_94c952a9e14c58 9-12,15
+  h_94c952a9e14c58 13-14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "cd7e21de29784463d165ac49ed2cb95af2e2eaa5",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

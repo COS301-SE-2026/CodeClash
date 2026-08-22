@@ -1,0 +1,20 @@
+backend/src/application/interfaces/ICodeExecutor.ts
+  h_94c952a9e14c58 9,13
+backend/src/interface-adapters/CodeExecutor.ts
+  h_94c952a9e14c58 5-8,15,17,19-25
+  h_94c952a9e14c58 45
+backend/tests/integration/CodeExecutor.test.ts
+  h_94c952a9e14c58 3,11-29
+  h_94c952a9e14c58 2,30
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "058bb69fe0e2f2bdd7515c8ac10bc0dd0c5711f3",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
