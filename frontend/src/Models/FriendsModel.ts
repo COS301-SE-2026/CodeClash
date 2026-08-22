@@ -53,6 +53,7 @@ export interface Summary {
     username: string;
     avatar: string;
     league: string;
+    handle: string;
 }
 
 export interface FriendContent {

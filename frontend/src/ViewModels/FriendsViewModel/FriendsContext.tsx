@@ -11,6 +11,7 @@ import type {
 } from "../../Models/FriendsModel";
 
 import { useAuth } from "../../context/Auth/hooks/useAuth";
+import { Search } from "lucide-react";
 
 const API_BASE = '/api'; 
 const INVITE_POLL = 5000; // **Needs to be swapped with a real socket listener for incoming invites pop up
@@ -21,7 +22,8 @@ const MOCKED_PROFILE: Summary = {
     id: 'user',
     username: 'mockUser22',
     avatar: 'avatar',
-    league: 'Venus'
+    league: 'Venus',
+    handle: 'userHandle'
 }
 
 /*Need an endpont for - GET /api/friends (list)*/
@@ -65,17 +67,17 @@ const MOCKED_SEARCHPOOL: Omit <Search, 'relationship'>[] = [
     {
         id: 's1',
         username: 's1Username',
-        avatar: 's1Avatar'
+        avatar: 's1Avatar',
     },
     {
         id: 's2',
         username: 's2Username',
-        avatar: 's2Avatar'
+        avatar: 's2Avatar',
     },
     {
         id: 's3',
         username: 's3Username',
-        avatar: 's3Avatar'
+        avatar: 's3Avatar',
     },
 ]
 
@@ -199,4 +201,54 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
         const interval = setInterval(() => setNow(Date.now()), 1000);
         return () => clearInterval(interval);
     }, [activeInvite])
+
+    useEffect(() => {
+        if (activeInvite && now - activeInvite.expires >= INVITE_EXPIRY) {
+            activeInviteIdRef.current = null;
+            setActiveInvite(null);
+        }
+    }, [activeInvite, now])
+
+    const inviteCountdown = useMemo(() => {
+        if (!activeInvite) {
+            return 0;
+        }
+        const remaining = INVITE_EXPIRY - (now - activeInvite.expires);
+        return Math.max(0, Math.ceil(remaining/1000));
+    }, [activeInvite, now]);
+
+    /*SEARCH - needs endpoint */
+    const search: Search[] = useMemo(() => {
+        const query = searchQuery.trim().toLowerCase();
+        if (!query) {
+            return [];
+        }
+        const friendId = new Set(friend.map((f) => f.id));
+        const incomingReqs = new Set(requests.map((r) => r.fromUser));
+        return MOCKED_SEARCHPOOL.filter((u) => u.username.toLowerCase().includes(query)).map((u): Search => {
+            let relationship: Relation = 'none';
+            if (u.username === profile?.handle) {
+                relationship = 'self';
+            }
+            else if (friendId.has(u.id)) {
+                relationship = 'friend';
+            }
+            else if (sentRequest.has(u.id)) {
+                relationship = 'pending-sent';
+            }
+            else if (incomingReqs.has(u.id)) {
+                relationship = 'pending-received';
+            }
+            return {
+                id: u.id,
+                username: u.username, 
+                avatar: u.avatar,
+                relationship
+            }
+        })
+    }, [searchQuery, friend, requests, sentRequest, profile])
+
+    const sendFriendRequest = useCallback((id: string) => {
+        setSentRequest((prev) => new Set(prev).add(id))
+    }, [])
 }
