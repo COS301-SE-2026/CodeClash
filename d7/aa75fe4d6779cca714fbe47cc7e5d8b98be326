@@ -1,0 +1,17 @@
+frontend/test/integration/Providers/UserProvider.test.tsx
+  h_94c952a9e14c58 2
+  h_94c952a9e14c58 8
+frontend/test/test-utils.ts
+  h_94c952a9e14c58 18-21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "d7aa75fe4d6779cca714fbe47cc7e5d8b98be326",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
