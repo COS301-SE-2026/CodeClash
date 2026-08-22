@@ -43,7 +43,7 @@ jobs:
             image: postgres:15-alpine
             env:
                 POSTGRES_USER: ${{secrets.DB_TEST_USER}}
-                POSTGRES_PASSWORD: ${{secrets.DB_TEST_PASS}}
+                POSTGRES_PASSWORD: ${{secrets.DB_TEST_PASSWORD}}
                 POSTGRES_DB: ${{secrets.DB_TEST_DB}}
             ports:
                 - 5432:5432
@@ -74,7 +74,15 @@ jobs:
     - name: Frontend dependencies
       run: npm ci --ignore-scripts
       working-directory: frontend
-   
+
+    - name: Start test containers
+      run: docker compose -f dockerfile/docker-compose.test.yml up -d
+      env: 
+        DB_TEST_PORT: ${{secrets.DB_TEST_PORT}}
+        DB_TEST_USER: ${{secrets.DB_TEST_USER}}
+        DB_TEST_PASSWORD: ${{secrets.DB_TEST_PASSWORD}}
+        DB_TEST_NAME: ${{secrets.DB_TEST_NAME}}
+
     - name: Test and coverage backend
       run: npm run test:backend:coverage
       env:
