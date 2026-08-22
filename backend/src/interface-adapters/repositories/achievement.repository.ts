@@ -33,7 +33,19 @@ export class AchievementRepository implements IAchievementRepository {
     }
 
     async awardAchievement(user_id: string, achievement_id: string): Promise<void> {
-        
+        const already = await this.hasAchievement(user_id, achievement_id);
+        if (already) return;
+
+        const user = await this.userRepo.findOne({
+            where: { user_id },
+            relations: { achievements: true }
+        });
+        const achievement = await this.achievementRepo.findOne({ where: { achievement_id }});
+
+        if(!user || !achievement) throw new Error('User or achievement not found');
+
+        user.achievements = [...(user.achievements ?? []), achievement];
+        await this.userRepo.save(user);
     }
 
     async hasAchievement(user_id: string, achievement_id: string): Promise<boolean> {
