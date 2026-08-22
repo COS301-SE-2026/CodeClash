@@ -63,7 +63,7 @@ export class FriendRepository implements IFriendRepository {
         await this.friendshipRepo.save(this.friendshipRepo.create({
             requester: { user_id: requester_id } as any,
             receiver: { user_id: receiver_id } as any,
-            statis: 'pending'
+            status: 'pending'
         }));
     }
 

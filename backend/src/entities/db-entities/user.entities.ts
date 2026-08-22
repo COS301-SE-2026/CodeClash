@@ -33,7 +33,6 @@ export class Users {
     })
     winning_streak!: number
 
-    @ManyToMany(() => Achievement)
-    @JoinColumn({ name: 'achievement_id'})
-    achievements!: Achievement;
+    @ManyToMany(() => Achievement, achievement => achievement.users)
+    achievements!: Achievement[];
 }

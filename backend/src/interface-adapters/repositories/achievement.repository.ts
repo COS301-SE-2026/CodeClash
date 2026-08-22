@@ -11,11 +11,25 @@ export class AchievementRepository implements IAchievementRepository {
     ){}
 
     async getAllAchievements(): Promise<AchievementDTO[]> {
-        
+        const achievements = await this.achievementRepo.find();
+        return achievements.map(a => ({
+            achievement_id: a.achievement_id,
+            achievement_name: a.achievement_name,
+            description: a.description
+        }));
     }
 
     async getUserAchievements(user_id: string): Promise<AchievementDTO[]> {
-        
+        const user = await this.userRepo.findOne({
+            where: { user_id },
+            relations: { achievements: true }
+        });
+        if (!user || !user.achievements) return [];
+        return user.achievements.map(a => ({
+            achievement_id: a.achievement_id,
+            achievement_name: a.achievement_name,
+            description: a.description
+        }));
     }
 
     async awardAchievement(user_id: string, achievement_id: string): Promise<void> {
