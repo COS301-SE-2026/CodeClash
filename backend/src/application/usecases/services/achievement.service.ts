@@ -41,7 +41,7 @@ const CONDITIONS: AchievementCondition[] = [
 
 export class AchievementService {
     constructor(
-        private readonly achievement_repo: IAchievementRepository;
+        private readonly achievement_repo: IAchievementRepository
     ) {}
 
     async getAllAchievements(): Promise<AchievementDTO[]> {
