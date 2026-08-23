@@ -38,3 +38,38 @@ const CONDITIONS: AchievementCondition[] = [
     { name: 'Legend',           check: s => s.league === 'Neptune' }
     //{ name: 'Comeback Kid',   check: s => s.life_lost_before_win >= 60 },
 ]
+
+export class AchievementService {
+    constructor(
+        private readonly achievement_repo: IAchievementRepository;
+    ) {}
+
+    async getAllAchievements(): Promise<AchievementDTO[]> {
+        return this.achievement_repo.getAllAchievements();
+    }
+
+    async getUserAchievements(user_id: string): Promise<AchievementDTO[]> {
+        return this.achievement_repo.getUserAchievements(user_id);
+    }
+
+    // TODO Called after a match, passing user's current status
+    async evaluateAndAward(user_id: string, stats: AchievementStats): Promise<AchievementDTO[]> {
+        const awarded: AchievementDTO[] =  [];
+
+        for (const condition of CONDITIONS) {
+            if (!condition.check(stats)) continue
+
+            const achievement = await this.achievement_repo.getAchievementByName(condition.name);
+
+            if(!achievement) continue;
+
+            const already = await this.achievement_repo.hasAchievement(user_id, achievement.achievement_id);
+            if(already) continue;
+
+            await this.achievement_repo.awardAchievement(user_id, achievement.achievement_id);
+            awarded.push(achievement);
+        }
+
+        return awarded;
+    }
+}
