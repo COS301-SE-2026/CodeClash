@@ -1,6 +1,12 @@
 services:
   backend:
     build: ../backend
+    healthcheck:
+      test: ["CMD", "wget", "-q0-", "http://localhost:3000/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 30s
     ports:
       - "3001:3000"
     environment: #Copied from deployment branch

@@ -48,7 +48,7 @@ jobs:
             ports:
                 - 5432:5432
             options: >-
-                --health-cmd "pg_isready -U ${DB_USER} -d ${DB_NAME}"
+                --health-cmd "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"
                 --health-interval 10s
                 --health-timeout 5s
                 --health-retries 5
@@ -94,7 +94,7 @@ jobs:
         PORT: ${{secrets.PORT}}
 
     - name: Start backend container
-      run: docker compose -f dockerfile/docker-compose.test.yml up -d 
+      run: docker compose -f dockerfile/docker-compose.test.yml up -d --wait
       env: 
        DB_TEST_HOST: ${{secrets.DB_TEST_HOST}}
        DB_TEST_PORT: ${{secrets.DB_TEST_PORT}}
