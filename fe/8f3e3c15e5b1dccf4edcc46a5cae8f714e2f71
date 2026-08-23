@@ -1,0 +1,14 @@
+dockerfile/docker-compose.test.yml
+  h_94c952a9e14c58 5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "fe8f3e3c15e5b1dccf4edcc46a5cae8f714e2f71",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
