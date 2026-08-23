@@ -91,6 +91,7 @@ jobs:
         COGNITO_JWKS_URI: ${{secrets.COGNITO_JWKS_URI}}
         VITE_COGNITO_USER_POOL_ID: ${{secrets.VITE_COGNITO_USER_POOL_ID}}
         VITE_COGNITO_CLIENT_ID: ${{secrets.VITE_COGNITO_CLIENT_ID}}
+        PORT: ${{secrets.PORT}}
 
     - name: Start backend container
       run: docker compose -f dockerfile/docker-compose.test.yml up -d 
@@ -109,6 +110,7 @@ jobs:
        VITE_COGNITO_USER_POOL_ID: ${{secrets.VITE_COGNITO_USER_POOL_ID}}
        VITE_COGNITO_CLIENT_ID: ${{secrets.VITE_COGNITO_CLIENT_ID}}
        VITE_API_URL: ${{secrets.VITE_API_URL}}
+       PORT: ${{secrets.PORT}}
 
 
     - name: Test and coverage frontend
