@@ -1,0 +1,24 @@
+frontend/src/services/api.service.tsx
+  h_94c952a9e14c58 1-7
+backend/src/frameworks-drivers/app.ts
+  h_94c952a9e14c58 12
+.github/workflows/ci.yml
+  h_94c952a9e14c58 111,121
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 174
+dockerfile/docker-compose.test.yml
+  h_94c952a9e14c58 20
+frontend/src/context/User/UserContext.tsx
+  h_94c952a9e14c58 3,27-28,54,81,117
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "538707cdb9577f3bf856280a4a74bcbd5cbd70cc",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
