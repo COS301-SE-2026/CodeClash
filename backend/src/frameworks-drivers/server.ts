@@ -171,7 +171,7 @@ AppDataSource.initialize()
 
 
         // start server
-        httpServer.listen(3000, () => {
+        httpServer.listen(process.env.PORT, () => {
             console.log("Server listening")
         });
     }).catch(error => console.error(error))

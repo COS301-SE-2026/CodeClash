@@ -1,10 +1,8 @@
-import axios from "axios";
 import React, { useEffect, useMemo, useState, type ReactNode } from "react";
 import { robot_map } from "src/assets/Robots";
-
+import { API } from "src/services/api.service";
 import { useAuth } from "../Auth/hooks/useAuth";
 import { UserContext } from "./UserContextValue";
-
 
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [elo, setElo] = useState(0);
@@ -26,7 +24,8 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
 
         try {
-            axios.get(`/api/elo/elo-get`, {
+            
+            API.get('elo/elo-get', {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {
@@ -52,7 +51,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
 
         try {
-            axios.get('/api/user/avatar_id', {
+           API.get('user/avatar_id', {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {
@@ -79,7 +78,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
 
         try {
-            axios.get('/api/user/league', {
+            API.get('user/league', {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {
@@ -115,7 +114,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
 
         try {
-            await axios.get('/api/user/rank', {
+            API.get('user/rank', {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {

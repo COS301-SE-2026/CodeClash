@@ -17,6 +17,7 @@ services:
       - AWS_SECRET_KEY=${AWS_SECRET_KEY}
       - FRONTEND_URL=${FRONTEND_URL}
       - COGNITO_JWKS_URI=${COGNITO_JWKS_URI} 
+      - VITE_API_URL=${VITE_API_URL}
     depends_on:
       test-db:
         condition: service_healthy

@@ -9,7 +9,7 @@ app.get('/health', (req: Request, res: Response) => {
   res.json({ status: 'ok' });
 });
 
-app.use(cors({ origin:[ process.env.FRONTEND_URL!, process.env.PROD_FRONTEND_URL!]}));
+app.use(cors({ origin:[ process.env.FRONTEND_URL!]}));
 app.use(express.json());
 
 app.use('/api/elo', routes);
