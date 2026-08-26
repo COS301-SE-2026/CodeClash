@@ -3,7 +3,7 @@ services:
     build: ./backend
     ports:
       - "3000:3000"
-    environment: #Copied from deployment branch
+    environment: 
       - DB_HOST=${DB_HOST}
       - DB_PORT=${DB_PORT}
       - DB_USER=${DB_USER}
@@ -45,7 +45,7 @@ services:
     ports:
       - "5433:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_DB}"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
       interval: 5s
       timeout: 30s
       retries: 5
@@ -55,14 +55,6 @@ services:
       - ./database:/docker-entrypoint-initdb.d
     networks:
       - pgnetwork
-
-  # judge0:
-  #   image: judge0/judge0:latest
-  #   ports:
-  #     - "2358:2358"
-  #   privileged: true
-  #TODO IMPORTANT return this when we want to start implementing code execution
-
 
   redis:
     image: redis:8.6.3-alpine

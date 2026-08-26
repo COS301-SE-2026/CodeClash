@@ -46,8 +46,8 @@ const App: React.FC = () => {
                 <Route path='terms' element={<TermsAndConditions/>}/>
                 <Route path= '/brand-style-guide' element={<BrandStyleGuide/>}/>
                 {/*<Route path='/game-guide' element={<Guidebook/>}/> */}
-            <Route path='/help-menu' element={<HelpMenu />} />
-            <Route path='/leaderboard' element={<Leaderboard />} />
+                <Route path='/help-menu' element={<HelpMenu />} />
+                <Route path='/leaderboard' element={<Leaderboard />} />
                 <Route path='*' element={<Navigate to='/sign-in' replace />} />
 
 
