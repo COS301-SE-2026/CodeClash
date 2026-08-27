@@ -19,7 +19,7 @@ export async function login() {
 
     if (error.name == 'NotAuthorizedError') {
       console.error("Incorrect username or password")
-      throw ("Incorrect username or password")
+      throw new Error ("Incorrect username or password")
     }
 
     throw error

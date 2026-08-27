@@ -89,11 +89,9 @@ export function SignUpViewModelFunction() {
                         nav('/dashboard');
                     }
                     else {
-                        throw new Error();
+                        throw new Error("Error creating user.");
                     }
                 })
-            nav('/dashboard');
-
         } catch {
             console.error("Sign up confirmation error")
         }
