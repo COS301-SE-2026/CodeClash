@@ -1,0 +1,21 @@
+backend/Dockerfile.dev
+  h_94c952a9e14c58 8-9
+frontend/index.html
+  h_94c952a9e14c58 5
+frontend/src/ViewModels/ProfileViewModel.ts
+  h_94c952a9e14c58 53
+  h_94c952a9e14c58 33,44
+frontend/src/context/User/UserContext.tsx
+  h_94c952a9e14c58 116,125-126
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "f1154e5e0dceb19b204067675637488fa4161bfa",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
