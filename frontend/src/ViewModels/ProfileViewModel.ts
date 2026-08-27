@@ -30,7 +30,7 @@ export function useEdit() {
 
 export function getProfile() {
 
-    const {username, elo, avatar, league, rank} = useUser();
+    const {username, elo, avatar, league} = useUser();
     const [userData, setUserData] = useState<ProfileProps | null>(null);
     const [loadingData, setLoadingData] = useState(true);
     const [error, setError] = useState<Error | null>(null);
@@ -41,8 +41,7 @@ export function getProfile() {
                     username,
                     elo,
                     avatar, 
-                    league,
-                    rank
+                    league
                 };
                 setUserData(user);
             } catch (err) {
@@ -51,7 +50,7 @@ export function getProfile() {
             finally {
                 setLoadingData(false);
             }
-    }, [username, elo, avatar, league, rank]);
+    }, [username, elo, avatar, league]);
 
     return {userData, loadingData, error};
 }

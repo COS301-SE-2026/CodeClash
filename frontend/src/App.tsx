@@ -36,7 +36,6 @@ const App: React.FC = () => {
     const logged_in = user !== null
 
     const base_path = logged_in ? <Dashboard /> : <Landing />
-    console.log(logged_in)
 
     if (!logged_in) {
         return (
@@ -64,8 +63,6 @@ const App: React.FC = () => {
             </Routes>
         )
     }
-
-    console.log("default to dashboard");
 
     return (
         <Routes>

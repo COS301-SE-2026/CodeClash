@@ -4,7 +4,6 @@ export interface ProfileProps {
     elo: number;
     avatar: string;
     league: string;
-    rank: string;
     
 }
 

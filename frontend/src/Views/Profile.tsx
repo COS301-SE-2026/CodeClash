@@ -42,9 +42,6 @@ function ProfileView(){
         <div className="text-xl font-semibold ">{userData?.username}</div>
         <div className=" text-md font-semibold ">ELO - {userData?.elo}</div>
         <div className="text-md font-semibold">League - {userData?.league}</div>
-        <div>
-          <p className="text-[1.5rem] ">Current Rank - {userData?.rank}</p>
-        </div>
 
         <div className="profile-divider" />
 

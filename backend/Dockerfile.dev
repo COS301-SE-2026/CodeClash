@@ -5,7 +5,8 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci --ignore-scripts
 
-COPY . .
+COPY src ./src
+COPY tsconfig.json ./
 
 RUN npm run build 
 

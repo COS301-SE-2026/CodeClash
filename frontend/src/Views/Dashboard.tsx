@@ -21,7 +21,6 @@ const Dashboard = () => {
   const { isOpen, openPopUp, closePopUp, username, elo, league, avatar, isLoading, refresh } = useDashboardViewModel();
 
   useEffect(() => {
-    console.log("Dashboard use efect firing")
     refresh();
   },[isLoading])
 
