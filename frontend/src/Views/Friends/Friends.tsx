@@ -5,7 +5,7 @@ import type { FriendStatus, Relation, Search } from "../../Models/FriendsModel";
 import Loading from "../../../@/components/shared/Loading"
 import Starfield from "../../../@/components/ui/animations/Starfield";
 import { robot_map } from "../../assets/Robots";
-import { Check, X } from "lucide-react";
+import { Check, Clock3, Flame, Swords, UserMinus, X } from "lucide-react";
 
 const status: Record<FriendStatus, string> = {
     online: 'bg-sucess',
@@ -119,6 +119,42 @@ const Friends: React.FC = () => {
                         </div>
                     </section>
                 )}
+
+                {/*list of friends */}
+                <section>
+                    <h2 className="text-md font-bold text-primary mb-3">{friendContent.friendsHeading}</h2>
+                    {friend.length === 0 ? (
+                        <div className="card-elevated empty-state">
+                            <p>{friendContent.friendsEmpty}</p>
+                        </div>
+                    ) : (
+                        <div className="flex flex-col gap-3">
+                            {friend.map((f) => (
+                                <div key={f.id} className="card-elevated p-4 flex items-center gap-4">
+                                    <div className="relative shrink-0">
+                                        <img src={robot_map[f.avatar]} alt={f.username} className="avatar w-16 h-16 object-cover"/>
+                                        <span className= {`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-background ${status[f.status]}`}/>
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                        <p className="text-primary-text font-semibold truncate">{f.username}</p>
+                                        <div className="flex items-center gap-1.5 text-sm text-muted">
+                                            <span className="score-display text-primary-text text-xsm">{f.elo}</span> {/*Need to add icon here ? */}
+                                        </div>
+                                    </div>
+                                    <button className="btn btn-ghost btn-sm" onClick={() => sendInvite(f.id)} disabled={f.status === 'playing'} 
+                                        title={f.status === 'playing' ? 'Already in a match' : undefined} type="button">
+                                        {f.status === 'playing' ? <Clock3 size={16}/> : <Swords size={16}/>}
+                                        {friendContent.inviteToPlay}
+                                    </button>
+                                    <button className="btn btn-ghost bg-danger btn-icon" onClick={() => removeFriend(f.id)} 
+                                        aria-label= {`${friendContent.removeLabel} ${f.username}`} type="button">
+                                        <X size={18}/>
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </section>
             </div>
         </div>
     )
