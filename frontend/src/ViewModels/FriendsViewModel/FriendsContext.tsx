@@ -19,7 +19,7 @@ const INVITE_EXPIRY = 10 * 60 * 1000; // **We need an expires field on the invit
 const MOCKED_PROFILE: Summary = {
     id: 'user',
     username: 'mockUser22',
-    avatar: 'avatar',
+    avatar: 0,
     league: 'Venus',
     handle: 'userHandle'
 }
@@ -29,21 +29,21 @@ const MOCKED_FRIENDS: Friend[] = [
     {
         id: 'u1',
         username: 'u1Username',
-        avatar: 'u1Avatar',
+        avatar: 0,
         status: 'online',
         elo: 900,
     },
     {
         id: 'u2',
         username: 'u2Username',
-        avatar: 'u2Avatar',
+        avatar: 1,
         status: 'offline',
         elo: 909,
     },
     {
         id: 'u3',
         username: 'u3Username',
-        avatar: 'u3Avatar',
+        avatar: 2,
         status: 'playing',
         elo: 999,
     },
@@ -54,7 +54,7 @@ const MOCKED_REQ: FriendRequest[] = [
     {
         id: 'req1',
         username: 'reqUser1',
-        avatar: 'avatar',
+        avatar: 1,
         sentAt: new Date(Date.now() - 1000 * 60 * 60 * 3).toISOString(), 
         fromUser: 'sendingUser'
     }
@@ -65,17 +65,17 @@ const MOCKED_SEARCHPOOL: Omit <Search, 'relationship'>[] = [
     {
         id: 's1',
         username: 's1Username',
-        avatar: 's1Avatar',
+        avatar: 2,
     },
     {
         id: 's2',
         username: 's2Username',
-        avatar: 's2Avatar',
+        avatar: 3,
     },
     {
         id: 's3',
         username: 's3Username',
-        avatar: 's3Avatar',
+        avatar: 0,
     },
 ]
 
@@ -327,6 +327,34 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
     }, [activeInvite])
 
     const dismissInviteError = useCallback(() => setInviteError(null), []);
+
+    //********TO DELETE - FOR TEST ONLY
+    useEffect(() => {
+        if (!import.meta.env.DEV) return;
+ 
+        (window as unknown as { __testInvite: (opts?: { name?: string; status?: Friend['status'] }) => void }).__testInvite = (opts) => {
+            const expires = Date.now();
+            const testId = `test-${expires}`;
+            activeInviteIdRef.current = testId;
+            setActiveInvite({
+                id: testId,
+                mode: 'casual',
+                participants: [{
+                    name: opts?.name ?? 'ada_codes',
+                    elo: 1420,
+                    friendId: 'f1',
+                    avatar: 2,
+                    status: opts?.status ?? 'online',
+                }],
+                expires,
+            });
+        };
+ 
+        return () => {
+            delete (window as unknown as Record<string, unknown>).__testInvite;
+        };
+    }, []);
+    //**************TO DELETE - FOR TEST ONLY
 
     const value: FriendsContext = {
         isLoading,
