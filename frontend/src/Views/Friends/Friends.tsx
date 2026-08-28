@@ -5,6 +5,7 @@ import type { FriendStatus, Relation, Search } from "../../Models/FriendsModel";
 import Loading from "../../../@/components/shared/Loading"
 import Starfield from "../../../@/components/ui/animations/Starfield";
 import { robot_map } from "../../assets/Robots";
+import { Check, X } from "lucide-react";
 
 const status: Record<FriendStatus, string> = {
     online: 'bg-sucess',
@@ -17,16 +18,16 @@ function timeTracker (iso: string): string {
 
     const mins = Math.floor(difference/60000);
     if (mins < 60) {
-        return `${mins}mins ago`;
+        return `${mins}m ago`;
     }
 
     const hours = Math.floor(mins/60);
     if (hours < 24) {
-        return `${hours}hours ago`;
+        return `${hours}h ago`;
     }
 
     const days = Math.floor(hours/24);
-    return `${days}days ago`;
+    return `${days}d ago`;
 }
 
 const RelationResult: React.FC<{ relationship: Relation; onAdd: () => void}> = ({relationship, onAdd}) => {
@@ -83,7 +84,7 @@ const Friends: React.FC = () => {
                             ) : (
                                 searchResults.map((result) => (
                                     <div key={result.id} className="card-elevated p-4 flex items-center gap-4">
-                                        <img src={robot_map[result.avatar]} alt={result.username} className="avatar w-16 h-16 object-cober shrink-0"/>
+                                        <img src={robot_map[result.avatar]} alt={result.username} className="avatar w-16 h-16 object-cover shrink-0"/>
                                         <p className="text-primary-text font-semibold truncate flex-1 min-w-0">{result.username}</p>
                                         <RelationResult relationship={result.relationship} onAdd={() => sendFriendRequest(result.id)}/>
                                     </div>
@@ -92,6 +93,32 @@ const Friends: React.FC = () => {
                         </div>
                     )}
                 </section>
+
+                {/*Friend requests */}
+                {requests.length > 0 && (
+                    <section>
+                        <h2 className="text-md font-bold text-primary mb-3">{friendContent.requestsHeading}</h2>
+                        <div className="flex flex-col gap-3">
+                            {requests.map((request) => (
+                                <div key={request.id} className="card-elevated p-4 flex items-center gap-4">
+                                    <img src={robot_map[request.avatar]} alt={request.username} className="avatar w-16 h-16 object-cover shrink-0"/>
+                                    <div className="flex-1 min-w-0">
+                                        <p className="text-primary-text font-semibold truncate">{request.username}</p>
+                                        <p className="text-xsm text-muted">Sent {timeTracker(request.sentAt)}</p>
+                                    </div>
+                                    <button className="btn btn-primary btn-sm" onClick={() => acceptRequest(request.id)} type="button">
+                                        <Check size={16}/>
+                                        {friendContent.acceptLabel}
+                                    </button>
+                                    <button className="btn btn-secondary btn-sm" onClick={() => declineRequest(request.id)} type="button">
+                                        <X size={16}/>
+                                        {friendContent.declineLabel}
+                                    </button>
+                                </div> 
+                            ))}
+                        </div>
+                    </section>
+                )}
             </div>
         </div>
     )
