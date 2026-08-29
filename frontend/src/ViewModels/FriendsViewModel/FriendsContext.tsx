@@ -328,34 +328,6 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
 
     const dismissInviteError = useCallback(() => setInviteError(null), []);
 
-    //********TO DELETE - FOR TEST ONLY
-    useEffect(() => {
-        if (!import.meta.env.DEV) return;
- 
-        (window as unknown as { __testInvite: (opts?: { name?: string; status?: Friend['status'] }) => void }).__testInvite = (opts) => {
-            const expires = Date.now();
-            const testId = `test-${expires}`;
-            activeInviteIdRef.current = testId;
-            setActiveInvite({
-                id: testId,
-                mode: 'casual',
-                participants: [{
-                    name: opts?.name ?? 'ada_codes',
-                    elo: 1420,
-                    friendId: 'f1',
-                    avatar: 2,
-                    status: opts?.status ?? 'online',
-                }],
-                expires,
-            });
-        };
- 
-        return () => {
-            delete (window as unknown as Record<string, unknown>).__testInvite;
-        };
-    }, []);
-    //**************TO DELETE - FOR TEST ONLY
-
     const value: FriendsContext = {
         isLoading,
         profile,
