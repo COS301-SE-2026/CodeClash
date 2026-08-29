@@ -1,11 +1,11 @@
 import React from "react";
-import { useFriends } from "../../ViewModels/FriendsViewModel/useFriends";
+import { useFriends } from "../../context/Friends/useFriends";
 import { friendContent } from "../../Models/FriendsModel";
-import type { FriendStatus, Relation, Search } from "../../Models/FriendsModel";
+import type { FriendStatus, Relation } from "../../Models/FriendsModel";
 import Loading from "../../../@/components/shared/Loading"
 import Starfield from "../../../@/components/ui/animations/Starfield";
 import { robot_map } from "../../assets/Robots";
-import { Check, Clock3, Flame, Swords, UserMinus, X } from "lucide-react";
+import { Check, Clock3, Swords, X } from "lucide-react";
 
 const status: Record<FriendStatus, string> = {
     online: 'bg-sucess',
