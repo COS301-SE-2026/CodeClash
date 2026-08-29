@@ -4,7 +4,7 @@ import { useFriends } from "../../context/Friends/useFriends";
 import { friendContent } from "src/Models/FriendsModel";
 import { useMatchmaking } from "src/context/Socket/hooks/useMatchmaking";
 import { robot_map } from "src/assets/Robots";
-import { UserCircle } from "lucide-react";
+import { Clock, UserCircle } from "lucide-react";
 
 function formatCountdown(totalSeconds: number): string { //This will turn a raw number of seconds into a display string of m:s, it helps format how many seconds are left to accept the invite
     const min = Math.floor(totalSeconds/60);
@@ -50,6 +50,17 @@ const FriendInvitePopup = () => {
                     <p className="eyebrow">{friendContent.inviteTitle}</p>
                     <h3 className="text-md font-black text-primary-text">{names} wants to play</h3>
                     <p className="text-xsm text-muted-text">This is a casual match, your elo is safe</p>
+                </div>
+
+                <div className="flex items-center justify-center gap-2 text-muted mb-6">
+                    <Clock size={16}/>
+                    <span className="score-display text-lg text-primary">{formatCountdown(inviteCountdown)}</span>
+                    <span className="text-sm">remaining</span>
+                </div>
+
+                <div className="flex gap-3">
+                    <button className="btn btn-secondary flex-1" onClick={declineInvite} type="button">{friendContent.declineLabel}</button>
+                    <button className="btn btn-primary flex-1" onClick={acceptInvite}type="button">{friendContent.inviteAcceptLabel}</button>
                 </div>
             </div>
         </div>
