@@ -12,7 +12,7 @@ export class CodeExecutor implements ICodeExecutor {
         private readonly auth: string
     ) { }
 
-    async execute(source_code: string, language_id: number, stdin: string, expected_output: string): Promise<ExecutionResult> {
+    async execute(source_code: string, language_id: number, stdin: string | null, expected_output: string): Promise<ExecutionResult> {
 
         // !!!! Submission queue can be full, we need to plan for this
         const data = JSON.stringify({
@@ -25,7 +25,7 @@ export class CodeExecutor implements ICodeExecutor {
             "max_file_size": this.max_file_size
         })
 
-        const result = await axios.post(`${this.url}/submissions?wait=true`, data,
+        const result = await axios.post(`${this.url}/submissions?wait=false`, data,
             {
                 headers: {
                     "Content-Type": "application/json",

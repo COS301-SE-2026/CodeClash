@@ -1,9 +1,7 @@
-
 import { CodeExecutor } from "../../src/interface-adapters/CodeExecutor"
-import { describe, it } from "vitest"
+import { describe, expect, test } from "vitest"
 import dotenv from 'dotenv'
 dotenv.config();
-
 
 
 const executor = new CodeExecutor(process.env.JUDGE_0_URL!, process.env.JUDGE_0_TOKEN!);
@@ -19,7 +17,7 @@ const source_code =
     '}' +
 
     'public static void main(String[] args) {' +
-    'String s = "abdcfe";' +
+    'String s = "abcdef";' +
     'String res = reverseString(s);' +
     'System.out.print(res);' +
     '}' +
@@ -27,6 +25,23 @@ const source_code =
 
 const lang_id = 62  // java
 
+const stdin = null;
+
+const expected_output = "fedcba";
+
 describe("Tests Judge0 Integration Into Backend", () => {
 
+    test("Creates submission", async () => {
+        const expected_result = {
+            output: '',
+            error: '',
+            status_id: '',
+            compile_output: ''
+        }
+
+        const submission = await executor.execute(source_code, lang_id, stdin, expected_output);
+
+        expect(submission.output).toBe(expected_result.output);
+
+    })
 })

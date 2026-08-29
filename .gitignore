@@ -465,6 +465,9 @@ sketch
 **/*.pem
 pem
 
+*.env.*
+env
+
 judge0.conf*
 
 !frontend/@/lib/
