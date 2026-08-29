@@ -26,7 +26,7 @@ import Loading from "@/components/shared/Loading";
 import Tournaments from "./Views/Tournaments";
 import Agent from "./Views/AIAgent";
 import Shop from "./Views/Shop";
-
+import Friends from "./Views/Friends/Friends";
 
 const App: React.FC = () => {
 
@@ -83,7 +83,7 @@ const App: React.FC = () => {
                 <Route path='/tournaments' element={<Tournaments/>}/>
                 <Route path='/leaderboard' element={<Leaderboard/>}/>
                 <Route path='/badges' />
-                <Route path='/friends' />
+                <Route path='/friends' element={<Friends/>}/>
                 <Route path='/match-history' element={<MatchHistory/>}/>
                 <Route path="/shop" element={<Shop/>}/>
             </Route>
