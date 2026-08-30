@@ -4,7 +4,8 @@ export interface PlayerFinalResults {
     correctness: number; //this can be a % foe example if the user gets 3 of 5 questions completely correct, this correctness % will be 60%
     speed: string; //this will be formated as mm:ss
     eloEffect: number; //the effect of the in or loss on their elo
-    position: 1 | 2;
+  position: 1 | 2;
+  rank?: number | null;
 }
 
 export interface FinalResultsContent {
