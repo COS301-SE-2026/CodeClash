@@ -93,11 +93,25 @@ describe('achievement controllers', () => {
         });
 
         it('returns 500 if service throws', async () => {
+            mockService.getUserAchievements.mockRejectedValueOnce(new Error('DB error'));
 
+            const handler = getUserAchievements(mockService);
+            await handler(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(500);
+            expect(res.json).toHaveBeenCalledWith({ message: 'Internal server error'});
         });
 
         it('scopes query to authenticated user not a URL param', async () => {
+            mockService.getUserAchievements.mockResolvedValueOnce([]);
+            req.user.user_id = 'authenticated-user';
+            req.params = { user_id: 'some-other-user' };
+            
+            const handler = getUserAchievements(mockService);
+            await handler(req, res);
 
+            expect(mockService.getUserAchievements).toHaveBeenCalledWith('authenticated-user');
+            expect(mockService.getUserAchievements).not.toHaveBeenCalledWith('some-other-user');
         });
     });
 });
