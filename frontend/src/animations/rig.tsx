@@ -9,12 +9,14 @@ import fist from "../svgs/fist.svg"
 import happy from "../svgs/happy.svg"
 import head from "../svgs/head.svg"
 import leftArm from "../svgs/left-arm.svg"
+import leftHand from "../svgs/left-hand.svg"
 import leftLeg from "../svgs/left-leg.svg"
 import losing from "../svgs/losing.svg"
 import neutral from "../svgs/neutral.svg"
 import ok from "../svgs/ok.svg"
 import peace from "../svgs/peace.svg"
 import rightArm from "../svgs/right-arm.svg"
+import rightHand from "../svgs/left-hand.svg"
 import rightLeg from "../svgs/right-leg.svg"
 import sad from "../svgs/sad.svg"
 import surprised from "../svgs/surprised.svg"
@@ -28,8 +30,16 @@ import worried from "../svgs/worried.svg"
 import wrong from "../svgs/wrong.svg"
 
 const headVariants = {
-    variants: ["angry", "confused", "excited", "happy", "head", "neutral", "sad", "surprised", "thinking", "wink", "winning", "worried", "wrong"]
+    variants: ["angry", "confused", "excited", "happy", "head", "losing", "neutral", "sad", "surprised", "thinking", "wink", "winning", "worried", "wrong"]
 }
+
+const rightHandVariants = { //from the avatar's perspective
+    variants: ["peace", "thinkingHand", "wave"]
+}
+
+const 
+
+const
 
 interface Bone{
     id: number,
