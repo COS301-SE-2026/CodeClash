@@ -41,3 +41,28 @@ const MOCKED_EARNED: Earned[] = [
         earnedAt: new Date(Date.now() - 1000 * 60 * 60 *24 * 6).toISOString()
     }
 ]
+
+interface AchievementsViewModel {
+    content: AchievementsContent;
+    isLoading: boolean;
+    earned: (Achievements & {earnedAt: string})[];
+    locked: Achievements[];
+    totalNum: number;
+    earnedNum: number;
+}
+
+export function AchievementsViewModelFunc(): AchievementsViewModel {
+    const [isLoading, setIsloading] = useState(true);
+    const [achievements, setAchievements] = useState<Achievements[]>([]);
+    const [earnedRecord, setEarnedRecord] = useState<Earned[]>([]);
+    
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setAchievements(MOCK_ACHIEVEMENTS);
+            setEarnedRecord(MOCKED_EARNED);
+            setIsloading(false);
+        }, 300);
+
+        return () => clearTimeout(timeout);
+    }, [])
+}
