@@ -190,7 +190,7 @@ const FinalResults: React.FC = () => {
 
                             {/*Column for the users position (1st or 2nd) */}
                             <div className="px-3 py-4 mt-2">
-                                <Badge position={2} />
+                                <Badge position={loser.position} rank={loser.rank} />
                             </div>
                         </div>
 
