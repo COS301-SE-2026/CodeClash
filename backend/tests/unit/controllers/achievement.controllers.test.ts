@@ -48,15 +48,27 @@ describe('achievement controllers', () => {
         });
 
         it('returns 500 if service throws', async () => {
-            
+            mockService.getAllAchievements.mockRejectedValueOnce(new Error('DB error'));
+
+            const handler = getAllAchievements(mockService);
+            await handler(res, res);
+
+            expect(res.status).toHaveResolvedWith(500);
+            expect(res.json).toHaveResolvedWith({ message: 'Internal server error'});
         });
-
-
     });
 
     describe('getUserAchievements', () => {
         it('returns 200 with user achievements', async () => {
+            const mockAchievements = [ { achievement_id: 'a-1', achievement_name: 'First Blood', description: 'Win your first ranked match' }];
+            mockService.getUserAchievements.mockResolvedValueOnce(mockAchievements);
 
+            const handler = getUserAchievements(mockService);
+            await handler(req, res);
+
+            expect(mockService.getUserAchievements).toHaveBeenCalledWith('user-1');
+            expect(res.status).toHaveBeenCalledWith(200);
+            expect(res.json).toHaveBeenCalledWith(mockAchievements);
         });
 
         it('returns 200 with empty array when user has no achievemnts', async () => {
