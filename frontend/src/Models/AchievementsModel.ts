@@ -18,3 +18,21 @@ export interface Earned {
     id: string;
     earnedAt: string; //ISO timestamp so user can see when exactly they earned an achievement badge
 }
+
+export interface AchievementsContent {
+    title: string;
+    subtitle: string;
+    earnedTitle: string;
+    lockedTitle: string; //for the achievments that can be earned but arent yet, like kind of clickup style
+    lockedHint: string; //just telling the user that they need to continue playing to unlock this achievement eg Zap in ranked, they need to play and win in a row
+    progressLabel: string;
+}
+
+export const achievementContent: AchievementsContent = {
+    title: 'Achievements', //badges or achievements? need to confirm wording
+    subtitle: 'Achievements you have unlocked/earned',
+    earnedTitle: 'Earned',
+    lockedTitle: 'Locked',
+    lockedHint: 'Keep playing to unlock',
+    progressLabel: 'unlocked'
+}
