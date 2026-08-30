@@ -9,8 +9,9 @@ vi.mock('react-router-dom', () => ({
 }))
 
 const mock_select_topic = vi.fn();
+const mock_cancel = vi.fn();
 vi.mock('src/ViewModels/PopUpViewModel', () => ({
-    useSelectTopic: () => mock_select_topic
+    useSelectTopic: () => ({selectTopic: mock_select_topic, cancel: vi.fn()})
 }))
 
 describe("PopUp", () => {
