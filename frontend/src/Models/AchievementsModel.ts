@@ -30,7 +30,7 @@ export interface AchievementsContent {
 
 export const achievementContent: AchievementsContent = {
     title: 'Achievements', //badges or achievements? need to confirm wording
-    subtitle: 'Achievements you have unlocked/earned',
+    subtitle: 'Earned Achievements and yet to Unlock',
     earnedTitle: 'Earned',
     lockedTitle: 'Locked',
     lockedHint: 'Keep playing to unlock',

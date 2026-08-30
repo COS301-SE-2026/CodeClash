@@ -27,3 +27,28 @@ function timeTracker(iso:string): string {
 
     return `${days} days ago`;
 }
+
+const Achievements: React.FC = () => {
+    const {content, isLoading, earned, locked, totalNum, earnedNum} = AchievementsViewModelFunc();
+
+    if (isLoading) {
+        return <Loading isOpen={true}/>;
+    }
+
+    return (
+        <div className="relative min-h-[100vh-80px] overflow-hidden">
+            <Starfield count={30}/>
+            <div className="relative z-10 max-w-xl items-center justify-center mx-auto flex flex-col gap-6">
+                {/*Header */}
+                <div className="flex flex-col items-center justify-center gap-4">
+                    <div>
+                        <h1 className="text-xl font-black text-primary-text mb-3">{content.title}</h1>
+                        <p className="text-muted text-xsm leading-relaxed">{content.subtitle}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default Achievements;
