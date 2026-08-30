@@ -1,0 +1,28 @@
+.github/workflows/ci.yml
+  h_b13c5d77534129 41-64,80-85,92-93
+.husky/pre-commit
+  h_b13c5d77534129 1
+backend/src/entities/league-mapping.ts
+  h_b13c5d77534129 12-13
+backend/src/interface-adapters/auth/auth.service.ts
+  h_b13c5d77534129 9-27
+backend/tests/integration/repositories/question.repository.test.ts
+  h_b13c5d77534129 29
+backend/tests/unit/usecases/services/matchmaking.service.test.ts
+  h_b13c5d77534129 7
+docker-compose.yml
+  h_b13c5d77534129 68
+frontend/test/unit/PopUp.test.tsx
+  h_b13c5d77534129 12,14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "2f520ad33182e7878b164f4a6443665e636023af",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

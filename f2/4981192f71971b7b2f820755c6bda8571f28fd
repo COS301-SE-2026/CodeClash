@@ -1,0 +1,20 @@
+frontend/src/Views/Profile.tsx
+  h_b13c5d77534129 45
+frontend/src/context/User/UserContext.tsx
+  h_b13c5d77534129 16,75-116,125,148,161,172-173
+frontend/src/context/User/UserContextValue.tsx
+  h_b13c5d77534129 8
+frontend/src/ViewModels/ProfileViewModel.ts
+  h_b13c5d77534129 33,44,54
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "f24981192f71971b7b2f820755c6bda8571f28fd",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
