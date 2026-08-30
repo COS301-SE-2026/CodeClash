@@ -40,10 +40,13 @@ const Achievements: React.FC = () => {
             <Starfield count={30}/>
             <div className="relative z-10 max-w-xl items-center justify-center mx-auto flex flex-col gap-6">
                 {/*Header */}
-                <div className="flex flex-col items-center justify-center gap-4">
+                <div className="flex flex-col items-center justify-center gap-2">
                     <div>
-                        <h1 className="text-xl font-black text-primary-text mb-3">{content.title}</h1>
-                        <p className="text-muted text-xsm leading-relaxed">{content.subtitle}</p>
+                        <h1 className="text-xl font-black text-primary-text mb-2">{content.title}</h1>
+                        <div className="px-5 py-3 flex items-center justify-center gap-3 shrink-0">
+                            <span className="score-display text-sm text-primary">{earnedNum/totalNum}</span>
+                            <span className="text-xsm uppercase tracking-wide text-primary">{content.progressLabel}</span>
+                        </div>
                     </div>
                 </div>
             </div>
