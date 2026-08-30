@@ -1,0 +1,16 @@
+frontend/src/svgs/left-hand.svg
+  h_b13c5d77534129 1-258
+frontend/src/svgs/right-hand.svg
+  h_b13c5d77534129 1-258
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "8f62bac6950303c9a1d5822f640d6bfd336ce38b",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
