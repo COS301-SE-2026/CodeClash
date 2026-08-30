@@ -34,7 +34,11 @@ const headVariants = {
 }
 
 const rightHandVariants = { //from the avatar's perspective
-    variants: ["peace", "thinkingHand", "wave"]
+    variants: ["peace", "rightHand", "thinkingHand", "wave"]
+}
+
+const leftHandVariants = {
+    variants: ["fist", "leftHand", "ok"]
 }
 
 const 
