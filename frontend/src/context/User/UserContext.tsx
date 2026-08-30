@@ -13,6 +13,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [elo, setElo] = useState(0);
     const [avatar, setAvatar] = useState('');
     const [error, setError] = useState('');
+    const [league, setLeague] = useState('');
     const [rank, setRank] = useState(0);
     const { user, token, isLoading } = useAuth();
  
@@ -71,6 +72,48 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
     }
 
+
+    const getLeague = async () => {
+        if (!token) {
+            setError('Missing or Invalid Token');
+            return;
+        }
+
+        try {
+
+            switch(true){
+                case elo < 1200:
+                    setLeague("Mercury");
+                    break;
+                case elo < 1800:
+                    setLeague("Venus");
+                    break;
+                case elo < 2400:
+                    setLeague("Earth");
+                    break;
+                case elo < 3000:
+                    setLeague("Mars");
+                    break;
+                case elo < 3600:
+                    setLeague("Jupiter");
+                    break;
+                case elo < 4200:
+                    setLeague("Saturn");
+                    break;
+                case elo < 4800:
+                    setLeague("Uranus");
+                    break;
+                case elo <= 5400:
+                    setLeague("Neptune");
+                    break;
+                }
+
+        }
+        catch (error) {
+            setError(`Error Getting User League: ${error}`);
+        }
+    }
+
     const getRank = async () => {
 
         if (!token) {
@@ -79,7 +122,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
 
         try {
-            await axios.get(url.concat('elo/rank'), {
+            await axios.get(url.concat('user/rank'), {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {
@@ -102,6 +145,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         await Promise.all([
             getElo(),
             getAvatarUrl(),
+            getLeague(),
             getRank()
         ])
     }
@@ -114,6 +158,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         const load = async () => {
             await Promise.all([
                 getAvatarUrl(),
+                getLeague(),
                 getElo(),
                 getRank(),
             ]);
@@ -124,8 +169,8 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
 
     const value = useMemo(() => ({
-        username, elo, avatar, error, userId, refresh, rank
-    }), [username, elo, avatar, error, userId, rank])
+        username, elo, avatar, error, league, userId, refresh, rank
+    }), [username, elo, avatar, error, league, userId, rank])
 
     return (
         <UserContext.Provider
