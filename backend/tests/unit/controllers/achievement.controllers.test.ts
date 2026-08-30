@@ -23,15 +23,32 @@ describe('achievement controllers', () => {
 
     describe('getAllAchievements', () => {
         it('returns 200 with all achievemnts', async () => {
+            const mockAchievements = [
+                { achievement_id: 'a-1', achievement_name: 'First Blood', description: 'Win your first ranked match' },
+                { achievement_id: 'a-2', achievement_name: 'On a Roll', description: 'Win 3 ranked matches in a row' }
+            ];
+            mockService.getAllAchievements.mockResolvedValueOnce(mockAchievements);
 
+            const handler = getAllAchievements(mockService);
+            await handler(req, res);
+
+            expect(mockService.getAllAchievements).toHaveBeenCalled();
+            expect(res.status).toHaveBeenCalledWith(200);
+            expect(res.json).toHaveBeenCalledWith(mockAchievements);
         });
 
         it('returns 200 with empty array when no achievements exist', async () => {
+            mockService.getAllAchievements.mockResolvedValueOnce([]);
 
+            const handler = getAllAchievements(mockService);
+            await handler(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(200);
+            expect(res.json).toHaveBeenCalledWith([]);
         });
 
         it('returns 500 if service throws', async () => {
-
+            
         });
 
 
