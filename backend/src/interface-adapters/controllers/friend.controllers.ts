@@ -66,19 +66,27 @@ export const respondToFriendRequest = (service: FriendService) =>
 // copied structure
 export const removeFriend = (service: FriendService) => 
     async (req: Request, res: Response): Promise<void> => {
+        const { friendship_id } = req.params;
+        if(!friendship_id || Array.isArray(friendship_id)) { res.status(400).json({ message: 'friendship_id is required' }); return; }
         try{
-
+            await service.removeFriend(friendship_id);
+            res.status(200).json({ message: "Friend removed"});
         }catch (error) {
-
+            console.error('Error removing friend:', error);
+            res.status(500).json({message: 'Internal server error'});
         }
     };
 
 // copied structure
 export const createInvite = (service: FriendService) => 
     async (req: Request, res: Response): Promise<void> => {
+        const user_id = req.user?.id;
+        if(!user_id) { res.status(401).json({ message: 'Unauthorized' }); return; }
         try{
-
+            const invite = await service.createInvite(user_id);
+            res.status(201).json(invite);
         }catch (error) {
-
+            console.error('Error creating invite:', error);
+            res.status(500).json({message: 'Internal server error'});
         }
     };
