@@ -79,7 +79,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
 
         try {
-            await axios.get(url.concat('user/rank'), {
+            await axios.get(url.concat('elo/rank'), {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {

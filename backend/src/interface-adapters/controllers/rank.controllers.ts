@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { EloRepository } from "../repositories/elo.repository";
+import { LeaderboardSystem } from "src/application/usecases/services/leaderboard.service";
 
 
-export const getUserRank = (repo: EloRepository) => {
+export const getUserRank = (service: LeaderboardSystem) => {
     return async(req: Request, res: Response) => {
         try{
             const userId = req.user?.id //after checking auth.service.ts and the other controllers, this id value is the same as user_id
@@ -12,7 +12,7 @@ export const getUserRank = (repo: EloRepository) => {
                 return;
             }
 
-            const rank = await repo.getUserRank(userId);
+            const rank = await service.getUserRank(userId);
 
             if(!rank){
                 res.status(404).json({ message: "Rank not found"});
