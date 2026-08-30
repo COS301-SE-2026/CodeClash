@@ -213,21 +213,45 @@ const FinalResults: React.FC = () => {
     );
 };
 
-const Badge: React.FC<{ position: 1 | 2 }> = ({ position }) => {
-    if (position === 1) return (
-        <div className="flex flex-col items-center gap-1">
-            <div className="w-12 h-12 rounded-full bg-yellow-400 border-4 border-yellow-600 flex items-center justify-center shadow-md">
-                <span className="text-yellow-900 font-black text-xs">1st</span>
-            </div>
-        </div>
-    );
-    return (
-        <div className="flex flex-col items-center gap-1">
-            <div className="w-12 h-12 rounded-full bg-gray-400 border-4 border-gray-600 flex items-center justify-center shadow-md">
-                <span className="text-gray-700 font-black text-xs">2nd</span>
-            </div>
-        </div>
-    );
+const ordinal = (rank: number) => {
+  const tens = rank % 100;
+  if (tens >= 11 && tens <= 13) return `${rank}th`;
+
+  switch (rank % 10) {
+    case 1: return `${rank}st`;
+    case 2: return `${rank}nd`;
+    case 3: return `${rank}rd`;
+    default: return `${rank}th`; 
+  }
+}
+
+const Badge: React.FC<{ position: 1 | 2, rank?: number | null }> = ({ position, rank }) => {
+    // if (position === 1) return (
+    //     <div className="flex flex-col items-center gap-1">
+    //         <div className="w-12 h-12 rounded-full bg-yellow-400 border-4 border-yellow-600 flex items-center justify-center shadow-md">
+    //             <span className="text-yellow-900 font-black text-xs">1st</span>
+    //         </div>
+    //     </div>
+    // );
+    // return (
+    //     <div className="flex flex-col items-center gap-1">
+    //         <div className="w-12 h-12 rounded-full bg-gray-400 border-4 border-gray-600 flex items-center justify-center shadow-md">
+    //             <span className="text-gray-700 font-black text-xs">2nd</span>
+    //         </div>
+    //     </div>
+    // );
+  <div className="flex flex-col items-center gap-1">
+    <div className={`w-12 h-12 rounded-full flex items-center justify-center shadow-md ${position === 1 ? 'bg-yellow-400 border-4 border-yellow-600' : 'bg-gray-400 border-4 border-gray-600'}`}>
+      <span className={`font-black text-xs ${position === 1 ? 'text-yellow-900' : 'text-gray-700'}`}>
+        {position === 1 ? '1st' : '2nd'}
+      </span>
+    </div>
+    {rank ? (
+      <span className="text-secondary-text font-semibold opacity-70 text-centrer" style={{ fontSize: 'var(--font-size-xsm' }}>
+        {ordinal(rank)} on leaderboard
+      </span>
+    ) : null}
+    </div>
 };
 
 export default FinalResults;
