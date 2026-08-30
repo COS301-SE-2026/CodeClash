@@ -30,20 +30,16 @@ import worried from "../svgs/worried.svg"
 import wrong from "../svgs/wrong.svg"
 
 const headVariants = {
-    variants: ["angry", "confused", "excited", "happy", "head", "losing", "neutral", "sad", "surprised", "thinking", "wink", "winning", "worried", "wrong"]
+    variants: [head, angry, confused, excited, happy, losing, neutral, sad, surprised, thinking, wink, winning, worried, wrong]
 }
 
 const rightHandVariants = { //from the avatar's perspective
-    variants: ["peace", "rightHand", "thinkingHand", "wave"]
+    variants: [rightHand, peace, thinkingHand, wave]
 }
 
 const leftHandVariants = {
-    variants: ["fist", "leftHand", "ok"]
+    variants: [leftHand, fist, ok]
 }
-
-const 
-
-const
 
 interface Bone{
     id: number,
@@ -51,7 +47,9 @@ interface Bone{
 }
 
 export interface Avatar{
-    leftLeg: Bone
+    head: Bone,
+    rightHand: Bone,
+    leftHand: Bone
 }
 
 export const MyComponent = () => {
@@ -87,7 +85,7 @@ export const MyComponent = () => {
         <motion.g
         // style={{ originX: -0.5, originY: -0.5}}
         >
-            <image href={head} width="30%" x="6%" y="12%" height="30%"/>
+            <image href={headVariants.variants[4]} width="30%" x="6%" y="12%" height="30%"/>
         </motion.g>
         </svg>
         </div>
