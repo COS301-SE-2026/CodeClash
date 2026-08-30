@@ -32,8 +32,9 @@ import { leftHandVariants } from "./rig";
 import { rightHandVariants } from "./rig";
 
 
-export const fistBump = () => {
+export const FistBump = () => {
     return(
+        <div className="bg-[#000000] min-h-screen w-full">
         <svg viewBox="0 0 100 100" width="400" height="300">
         
         <motion.g>
@@ -51,6 +52,13 @@ export const fistBump = () => {
         <motion.g>
             <image href={torso} width="30%" x="6%" y="34%" height="30%"/>
         </motion.g>
+        <motion.g>
+            <image href={head} width="30%" x="6%" y="12%" height="30%"/>
+        </motion.g>
+        <motion.g>
+            <image href={rightHand} width="30%" x="22%" y="67%" height="13%"/>
+        </motion.g>
         </svg>
+        </div>
     );
 }
