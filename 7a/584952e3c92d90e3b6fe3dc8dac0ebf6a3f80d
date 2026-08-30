@@ -1,0 +1,14 @@
+frontend/src/Views/FinalResults.tsx
+  h_58e143dc25f856 216-254
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "7a584952e3c92d90e3b6fe3dc8dac0ebf6a3f80d",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
