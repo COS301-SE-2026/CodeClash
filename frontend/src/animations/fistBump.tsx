@@ -30,3 +30,16 @@ import wrong from "../svgs/wrong.svg"
 import { headVariants } from "./rig";
 import { leftHandVariants } from "./rig";
 import { rightHandVariants } from "./rig";
+
+
+export const fistBump = () => {
+    return(
+        <svg viewBox="0 0 100 100" width="400" height="300">
+        
+        <motion.g>
+            <image href={rightLeg} width="30%" x="-3%" y="62%" height="30%"/>
+        </motion.g>
+
+        </svg>
+    );
+}
