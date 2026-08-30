@@ -29,15 +29,15 @@ import winning from "../svgs/winning.svg"
 import worried from "../svgs/worried.svg"
 import wrong from "../svgs/wrong.svg"
 
-const headVariants = {
+export const headVariants = {
     variants: [head, angry, confused, excited, happy, losing, neutral, sad, surprised, thinking, wink, winning, worried, wrong]
 }
 
-const rightHandVariants = { //from the avatar's perspective
+export const rightHandVariants = { //from the avatar's perspective
     variants: [rightHand, peace, thinkingHand, wave]
 }
 
-const leftHandVariants = {
+export const leftHandVariants = {
     variants: [leftHand, fist, ok]
 }
 
