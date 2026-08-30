@@ -1,0 +1,20 @@
+frontend/.dockerignore
+  h_94c952a9e14c58 19
+frontend/src/ViewModels/SignUpViewModel.ts
+  h_94c952a9e14c58 92
+backend/.dockerignore
+  h_94c952a9e14c58 9,20-21
+frontend/test/test-utils.ts
+  h_94c952a9e14c58 22
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "7ff40b87d130c2aeeeb1659b1eb8013b0c4107fa",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

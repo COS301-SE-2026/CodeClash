@@ -1,0 +1,20 @@
+.gitignore
+  h_94c952a9e14c58 468-470
+backend/src/application/interfaces/ICodeExecutor.ts
+  h_94c952a9e14c58 13
+backend/src/interface-adapters/CodeExecutor.ts
+  h_94c952a9e14c58 15,28
+backend/tests/integration/CodeExecutor.test.ts
+  h_94c952a9e14c58 2,20,28-31,34-46
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "bf17863f466d153453835a2b71a15a2ab6396824",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

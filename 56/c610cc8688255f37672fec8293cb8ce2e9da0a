@@ -1,0 +1,14 @@
+backend/Dockerfile.dev
+  h_94c952a9e14c58 12-13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "56c610cc8688255f37672fec8293cb8ce2e9da0a",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

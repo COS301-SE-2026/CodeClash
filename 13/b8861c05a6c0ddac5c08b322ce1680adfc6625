@@ -1,0 +1,26 @@
+dockerfile/docker-compose.prod.yml
+  h_94c952a9e14c58 48
+  h_94c952a9e14c58 6
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 175
+backend/src/entities/db-entities/questions.entities.ts
+  h_94c952a9e14c58 4
+backend/Dockerfile.dev
+  h_94c952a9e14c58 1-14
+dockerfile/docker-compose.dev.yml
+  h_94c952a9e14c58 3-5,8-21,26,32-38,40,42,50-52,55-60,63,69,71,74,82
+  h_94c952a9e14c58 22
+frontend/src/App.tsx
+  h_94c952a9e14c58 49-50
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "13b8861c05a6c0ddac5c08b322ce1680adfc6625",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
