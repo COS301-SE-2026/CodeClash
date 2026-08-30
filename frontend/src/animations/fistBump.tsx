@@ -39,7 +39,12 @@ export const fistBump = () => {
         <motion.g>
             <image href={rightLeg} width="30%" x="-3%" y="62%" height="30%"/>
         </motion.g>
-
+        <motion.g>
+            <image href={leftLeg} width="30%" x="15%" y="62%" height="30%"/>
+        </motion.g>
+        <motion.g>
+            <image href={rightArm} width="30%" x="-11%" y="44%" height="30%"/>
+        </motion.g>
         </svg>
     );
 }
