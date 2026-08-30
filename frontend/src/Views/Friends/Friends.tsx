@@ -5,7 +5,8 @@ import type { FriendStatus, Relation } from "../../Models/FriendsModel";
 import Loading from "../../../@/components/shared/Loading"
 import Starfield from "../../../@/components/ui/animations/Starfield";
 import { robot_map } from "../../assets/Robots";
-import { Check, Clock3, Swords, X } from "lucide-react";
+import { Check, Clock3, Search, Swords, X } from "lucide-react";
+import { useExtraLayout } from "src/extra-layout";
 
 const status: Record<FriendStatus, string> = {
     online: 'bg-sucess',
@@ -52,6 +53,15 @@ const Friends: React.FC = () => {
         searchResults, sendFriendRequest, sendInvite
     } = useFriends();
 
+    useExtraLayout(
+        <div className="flex items-center gap-2 w-full rounded-full border border-border bg-card px-4 py-2.5">
+            <Search size={18} className="text-muted-text shrink-0"/>
+            <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder= {friendContent.searchPlaceholder} className="bg-transparent outline-none text-xsm text-primary-text placeholder:text-muted-text w-full"
+            />
+        </div>
+    )
+
     if (isLoading || !profile) {
         return <Loading isOpen={true}/>
     }
@@ -70,15 +80,11 @@ const Friends: React.FC = () => {
                 </div>
 
                 {/*Search for and add friends */}
-                <section>
-                    <div className="flex items-center gap-2 rounded-xl border border-border bg-card px-4 py-2.5">
-                        <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder={friendContent.searchPlaceholder} 
-                            className="bg-transparent outline-none text-sm text-primary-text placeholder:text-muted-text w-full"/>
-                    </div>
-                    {searchQuery.trim() !== '' && (
-                        <div className="flex flex-col gap-3 mt-3">
+                {searchQuery.trim() !== '' && (
+                    <section>
+                        <div className="flex flex-col gap-3">
                             {searchResults.length === 0 ? (
-                                <div className="card-elevated empty-state py-8">
+                                <div className="text-danger text-sm empty-state py-8">
                                     <p>{friendContent.searchEmpty}</p>
                                 </div>
                             ) : (
@@ -91,8 +97,8 @@ const Friends: React.FC = () => {
                                 ))
                             )}
                         </div>
-                    )}
-                </section>
+                    </section>
+                )}
 
                 {/*Friend requests */}
                 {requests.length > 0 && (
