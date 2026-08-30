@@ -5,7 +5,6 @@ export interface UserContextValue {
     elo: number,
     avatar: string,
     error: string,
-    league: string,
     userId: string,
     refresh: () => Promise<void>
     rank: number
