@@ -72,11 +72,24 @@ describe('achievement controllers', () => {
         });
 
         it('returns 200 with empty array when user has no achievemnts', async () => {
+            mockService.getUserAchievements.mockResolvedValueOnce([]);
 
+            const handler = getUserAchievements(mockService);
+            await handler(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(200);
+            expect(res.json).toHaveBeenCalledWith([]);
         });
 
         it('returns 401 if user is not authenticate', async ()=> {
+            req.user = undefined;
 
+            const handler = getUserAchievements(mockService);
+            await handler(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(401);
+            expect(res.json).toHaveBeenCalledWith({ message: 'Unauthorized' });
+            expect(mockService.getUserAchievements).not.toHaveBeenCalled();
         });
 
         it('returns 500 if service throws', async () => {
