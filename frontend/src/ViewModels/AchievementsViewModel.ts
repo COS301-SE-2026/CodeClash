@@ -65,4 +65,21 @@ export function AchievementsViewModelFunc(): AchievementsViewModel {
 
         return () => clearTimeout(timeout);
     }, [])
+
+    const earnedId = new Set(earnedRecord.map((r) => r.id));
+    const earned = achievements.filter((a) => earnedId.has(a.id)).map((a) => ({
+        ...a, earnedAt: earnedRecord.find((r) => r.id === a.id)!.earnedAt
+    }))
+    .sort((a,b) => new Date(b.earnedAt).getTime() - new Date(a.earnedAt).getTime());
+
+    const locked = achievements.filter((a) => !earnedId.has(a.id));
+
+    return {
+        content: achievementContent,
+        isLoading,
+        earned,
+        locked,
+        totalNum: achievements.length,
+        earnedNum: earned.length
+    }
 }
