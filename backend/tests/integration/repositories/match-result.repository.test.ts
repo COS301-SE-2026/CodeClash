@@ -75,4 +75,22 @@ describe("Match result ranking", () => {
           { user_id: winner.user_id, correctness: 80, speed: 150 },
           { user_id: loser.user_id, correctness: 60, speed: 190 },
       ]) 
+
+  it("Reports the rank each player held before the match and the rank they hold after it", async () => {
+          const winner = mock_user[0]
+          const loser = mock_user[2]
+  
+          const result = await service.finaliseMatch(
+              'match-uuid', winner.user_id, loser.user_id, true, statsFor(winner, loser)
+          )
+  
+          const winner_result = result.players.find(p => p.user_id === winner.user_id)!
+          const loser_result = result.players.find(p => p.user_id === loser.user_id)!
+  
+          // winner 600 -> 800, loser 800 -> 600
+          expect(winner_result.rank_before).toBe(3)
+          expect(winner_result.rank).toBe(1)
+          expect(loser_result.rank_before).toBe(1)
+          expect(loser_result.rank).toBe(3)
+      })
 })
