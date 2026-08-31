@@ -16,10 +16,15 @@ export class MatchResultService {
         is_ranked: boolean,
         playerStats: PlayerStatsDTO[]
     ): Promise<MatchResultDTO> {
-        let eloEffects = new Map<string, number>();
+      let eloEffects = new Map<string, number>();
 
-        // save match log
-        if (is_ranked) {
+      const ranks_before = new Map<string, number | null>();
+      for (const stat of playerStats) {
+        ranks_before.set(stat.user_id, await this.elo_repo.getUserRank(stat.user_id));
+      }
+
+      // save match log
+      if (is_ranked) {
 
             // calculate and store new elo
             const { winner, loser } = await this.elo_repo.updateRatingsAfterMatch(match_id, winner_id, loser_id);
