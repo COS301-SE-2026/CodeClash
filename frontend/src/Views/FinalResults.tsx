@@ -114,7 +114,10 @@ const FinalResults: React.FC = () => {
                                     </div>
                                     <span className="text-secondary-text font-medium text-center truncate w-full"
                                         style={{ fontSize: 'var(--font-size-xsm)' }}>{winner.username}</span>
-                                </div>
+                                    <span className="px-2 py-0.5 rounded-full bg-yellow-400 text-yellow-900 font-black uppercase tracking-wide" style={{ fontSize: 'var(--font-size-xsm)' }}> 
+                                      {content.labelWinner}
+                                    </span>
+                  </div>
 
                                 {/*The column for correctness */}
                                 <div className="px-3 py-4 flex items-center justify-center border-r border-secondary-text h-full">
