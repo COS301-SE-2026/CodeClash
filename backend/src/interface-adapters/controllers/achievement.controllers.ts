@@ -25,7 +25,7 @@ export const getUserAchievements = (service: AchievementService) =>
             res.status(200).json(achievements);
         }catch (error) {
             console.error("Error fetching user achievements:", error);
-            res.status(500).json({ message: 'nternal server error' });
+            res.status(500).json({ message: 'Internal server error' });
         }
     };
 
