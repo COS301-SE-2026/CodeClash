@@ -16,6 +16,7 @@ export interface FinalResultsContent {
     tableHeaders: string[];
     labelPlayAgain: string;
     labelReturn: string;
+    labelWinner: string;
     titleError: string;
     messageError: string;
 }
@@ -24,9 +25,10 @@ export const finalResultsContent: FinalResultsContent = {
     titleLoading: 'Calculating Results',
     labelLoading: 'Loading...',
     titleResults: 'Final Results',
-    tableHeaders: ['User', 'Correctness', 'Speed (minutes)', 'Effect on Elo', 'Position'],
+    tableHeaders: ['User', 'Correctness', 'Speed (minutes)', 'Effect on Elo', 'Placement'],
     labelPlayAgain: 'Play Again',
     labelReturn: 'Return',
+    labelWinner: 'Winner',
     titleError: 'Results Not Ready',
     messageError: 'The final results are still being calculated. Please come back later.',
 }
