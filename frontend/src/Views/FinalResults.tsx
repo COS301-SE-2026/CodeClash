@@ -233,13 +233,15 @@ const RankChange: React.FC<{ before: number, after: number }> = ({ before, after
 
   if (moved === 0) return (
     <span className="text-secondary-text font-semibold opacity-60" style={{ fontSize: 'var(--font-size-xsm)' }}>
+      <Minus className="w-4 h-4" />
       No change
     </span>
   );
 
   return (
-    <span className={`font-bold ${moved > 0 ? 'text-success' : 'text-danger'}`} style={{ fontSize: 'var(--font-size-xsm)' }}>
-      {moved > 0 ? `▲ ${moved}` : `▼ ${Math.abs(moved)}`}
+    <span className={`flex items-center gap-1 font-bold ${moved > 0 ? 'text-success' : 'text-danger'}`} style={{ fontSize: 'var(--font-size-xsm)' }}>
+      {moved > 0 ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
+      {Math.abs(moved)}
     </span>
   );
 };
