@@ -33,6 +33,6 @@ export const achievementContent: AchievementsContent = {
     subtitle: 'Congratulations! You have earned this achievement.',
     earnedTitle: 'Earned',
     lockedTitle: 'Locked',
-    lockedHint: 'Keep playing to unlock',
+    lockedHint: 'Keep playing to unlock this achievement.',
     progressLabel: 'unlocked'
 }

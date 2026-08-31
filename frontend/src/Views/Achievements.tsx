@@ -43,10 +43,6 @@ const Achievements: React.FC = () => {
                 <div className="flex flex-col items-center justify-center gap-2">
                     <div>
                         <h1 className="text-xl font-black text-primary-text mb-2">{content.title}</h1>
-                        <div className="px-5 py-3 flex items-center justify-center gap-3 shrink-0">
-                            <span className="score-display text-sm text-primary">{earnedNum/totalNum}</span>
-                            <span className="text-xsm uppercase tracking-wide text-primary">{content.progressLabel}</span>
-                        </div>
                     </div>
                 </div>
 
@@ -71,7 +67,29 @@ const Achievements: React.FC = () => {
                         </div>
                     </section>
                 )}
-                
+
+                {/*The locked achievements */}
+                {locked.length > 0 && (
+                    <section>
+                        {/*Copied above earned achievements code and editing as it is essentially similar */}
+                        <h2 className="text-md font-bold text-primary-text mb-1">{content.lockedTitle}</h2>
+                        <p className="text-xsm text-muted mb-4">{content.lockedHint}</p>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                            {locked.map((achievement) => {
+                                const Icon = AchIcons[achievement.icon];
+                                return (
+                                    <div key={achievement.id} className="card-glow p-5 flex flex-col items-center text-center gap-2 opacity-50">
+                                        <div className="w-16 h-16 rounded-full border-2 border-border flex items-center justify-center shrink-0">
+                                            <Icon size={28} className="text-muted-text"/>
+                                        </div>
+                                        <p className="text-primary-text font-bold truncate">{achievement.name}</p>
+                                        <p className="text-xsm text-muted-text mt-1 whitespace-nowrap">Locked</p>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </section>
+                )}
             </div>
         </div>
     )
