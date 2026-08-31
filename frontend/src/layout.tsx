@@ -3,7 +3,7 @@ like the search usernames/friends in the friends system. Also has sidebar. */
 
 import { Outlet, Link } from "react-router-dom";
 import { AppSidebar } from "@/components/Sidebar";
-import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar/sidebar";
+import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar/sidebar";
 import {Bot, UserCircle} from 'lucide-react';
 import React from "react";
 import { useMemo, useState } from "react";
@@ -22,7 +22,6 @@ export default function Layout() {
                     <div className='flex flex-col min-h-screen'>
                         <header className='w-full flex items-center justify-between gap-4 px-8 py-4 border-b border-border bg-background/60 backdrop-blur-md'>
                             <div className='flex items-center gap-3 w-full max-w-md'>
-                                <SidebarTrigger className='btn btn-ghost btn-icon shrink-0' />
                                 {layoutExtra}
                             </div>
                             <div className="flex items-center gap-2 shrink-0 rounded-full border border-border bg-card pl-1 pr-1.5 py-1">
