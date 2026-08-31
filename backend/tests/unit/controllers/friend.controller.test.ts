@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { getFriends, getFriendRequests, sendFriendRequest, respondToFriendRequest, removeFriend, createInvite } from '../../../src/interface-adapters/controllers/friend.controllers';
 import { FriendService } from '../../../src/application/usecases/services/friend.service';
 import { execPath } from 'node:process';
+import { create } from 'node:domain';
 
 describe('friend controllers', () => {
     let mockService: any;
@@ -299,11 +300,23 @@ describe('friend controllers', () => {
         });
 
         it('returns 401 if user is not authenticated', async () => {
+            req.user = undefined;
 
-        });
+            const handler = createInvite(mockService);
+            await handler(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(201);
+            expect(mockService.createInvite).not.toHaveBeenCalled();
+        }); 
 
         it('returns 500 if service throws', async () => {
+             // copied from above
+            mockService.sendFriendsRequest.mockRejectedValueOnce(new Error('DB error'));
 
+            const handler = createInvite(mockService);
+            await handler(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(500);
         });
     });// end createInvite
 });
