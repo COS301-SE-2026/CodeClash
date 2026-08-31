@@ -107,7 +107,8 @@ export const Fist = () => {
             </motion.g> */}
 
             <motion.g>
-
+                <image href={rightLeg} width="50" x="40" y="122" height="57"/>
+                <image href={leftLeg} width="50" x="80" y="122" height="57"/>
                 <image href={rightShoulder} width="50" x="28" y="92" height="55"/>
                 <image href={rightArm} width="50" x="26" y="117" height="25"/>
                 <image href={rightHand} width="50" x="27" y="132" height="17"/>
