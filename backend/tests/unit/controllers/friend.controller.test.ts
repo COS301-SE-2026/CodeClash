@@ -1,8 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { getFriends, getFriendRequests, sendFriendRequest, respondToFriendRequest, removeFriend, createInvite } from '../../../src/interface-adapters/controllers/friend.controllers';
 import { FriendService } from '../../../src/application/usecases/services/friend.service';
-import { AnyARecord } from 'node:dns';
-import { remove } from 'aws-amplify/storage';
 
 describe('friend controllers', () => {
     let mockService: any;
@@ -34,11 +32,28 @@ describe('friend controllers', () => {
 
     describe('getFriends', () => {
         it('returns 200 with friends list', async () => {
+            const mockFriends = [
+                { user_id: 'user-2', username: 'alice', friendship_id: 'f-1' },
+                { user_id: 'user-3', username: 'bob', friendship_id: 'f-2' }
+            ];
+            mockService.getFriends.mockResolvedValueOnce(mockFriends);
 
+            const handler = getFriends(mockService);
+            await handler(req, res);
+
+            expect(mockService.getFriends).toHaveBeenCalledWith('user-1');
+            expect(res.status).toHaveBeenCalledWith(200);
+            expect(res.json).toHaveBeenCalledWith(mockFriends);
         });
 
         it('return 200 with empty array when user has no friends', async () => {
+            mockService.getFriends.mockResolvedValueOnce([]);
 
+            const handler = getFriends(mockService);
+            await handler(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(200);
+            expect(res.json).toHaveBeenCalledWith([]);
         });
 
         it('returns 401 if user is not authenticated', async () => {
