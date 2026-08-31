@@ -105,6 +105,18 @@ describe("Elo Repository Queries", () => {
    
            expect(await elo_repo.getUserRank(user_without_elo.user_id)).toBeNull()
        })
+
+    it("Returns the leaderboard ordered by rating then username", async () => {
+        const { data, total } = await elo_repo.getLeaderboard(10, 0)
+
+        expect(total).toBe(3)
+        expect(data.map(entry => entry.username)).toEqual([
+            'integration_test_user_02', // 1200
+            'integration_test_user_03', // 900
+            'integration_test_user_01', // 600
+        ])
+        expect(data.map(entry => entry.rating)).toEqual([1200, 900, 600])
+    })
   
 
 
