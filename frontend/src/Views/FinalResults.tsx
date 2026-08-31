@@ -144,7 +144,7 @@ const FinalResults: React.FC = () => {
 
                                 {/*Column for the users position (1st or 2nd) */}
                                 <div className="px-3 py-4 mt-2">
-                                  <Badge position={winner.position} rankBefore={winner.rank_before} rank={winner.rank}/>
+                                  <Badge rankBefore={winner.rank_before} rank={winner.rank}/>
                                 </div>
                             </div>
 
@@ -193,7 +193,7 @@ const FinalResults: React.FC = () => {
 
                             {/*Column for the users position (1st or 2nd) */}
                             <div className="px-3 py-4 mt-2">
-                                <Badge position={loser.position} rankBefore={loser.rank_before} rank={loser.rank} />
+                                <Badge rankBefore={loser.rank_before} rank={loser.rank} />
                             </div>
                         </div>
 
@@ -233,7 +233,7 @@ const RankChange: React.FC<{ before: number, after: number }> = ({ before, after
 
   if (moved === 0) return (
     <span className="text-secondary-text font-semibold opacity-60" style={{ fontSize: 'var(--font-size-xsm)' }}>
-      {ordinal(before)}
+      No change
     </span>
   );
 
@@ -244,7 +244,7 @@ const RankChange: React.FC<{ before: number, after: number }> = ({ before, after
   );
 };
 
-const Badge: React.FC<{ position: 1 | 2, rankBefore?: number | null, rank?: number | null }> = ({ position, rankBefore, rank  }) => (
+const Badge: React.FC<{ rankBefore?: number | null, rank?: number | null }> = ({ rankBefore, rank }) => (
   <div className="flex flex-col items-center gap-1">
     {/*<div className={`w-12 h-12 rounded-full flex items-center justify-center shadow-md ${position
       ? 'bg-yellow-400 border-4 border-yellow-600'
