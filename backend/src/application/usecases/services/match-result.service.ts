@@ -54,6 +54,7 @@ export class MatchResultService {
                 speed: stat.speed,
                 eloEffect: eloEffects.get(stat.user_id) ?? 0,
                 position: stat.user_id === winner_id ? 1 : 2,
+                rank_before: ranks_before.get(stat.user_id) ?? null,
                 rank: rank
             });
         }
