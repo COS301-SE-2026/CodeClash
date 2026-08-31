@@ -70,15 +70,15 @@ describe("Elo Repository Queries", () => {
     })
 
     it("Ranks tied users by username so ranks are stable and unique", async () => {
-        const ranks = await Promise.all(mock_user.map(u => elo_repo.getUser(u.user_id)))
+        const ranks = await Promise.all(mock_user.map(u => elo_repo.getUserRank(u.user_id)))
         expect(ranks).toEqual([1,2,3])
     })
 
     it("Ranks a higher rated user above everyone else", async () => {
-        await elo_entity.update({ user: { user_id: mock_user[2].user_id } }, { rating: 1000 })
+        await elo_entity.update({ user: { user_id: mock_user[2].user_id } }, { rating: 900 })
         expect(await elo_repo.getUserRank(mock_user[2].user_id)).toBe(1)
-               expect(await elo_repo.getUserRank(mock_user[0].user_id)).toBe(2)
-               expect(await elo_repo.getUserRank(mock_user[1].user_id)).toBe(3)
+        expect(await elo_repo.getUserRank(mock_user[0].user_id)).toBe(2)
+        expect(await elo_repo.getUserRank(mock_user[1].user_id)).toBe(3)
     })
 
     it("Moves a user's rank when their rating changes", async () => {
@@ -111,9 +111,9 @@ describe("Elo Repository Queries", () => {
 
         expect(total).toBe(3)
         expect(data.map(entry => entry.username)).toEqual([
-            'integration_test_user_02', // 1200
-            'integration_test_user_03', // 900
-            'integration_test_user_01', // 600
+            'integration_test_user_02', 
+            'integration_test_user_03', 
+            'integration_test_user_01', 
         ])
         expect(data.map(entry => entry.rating)).toEqual([1200, 900, 600])
     })
