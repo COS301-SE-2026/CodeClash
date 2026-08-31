@@ -238,8 +238,8 @@ const RankChange: React.FC<{ before: number, after: number }> = ({ before, after
   );
 
   return (
-    <span className="text-secondary-text font-semibold opacity-60" style={{ fontSize: 'var(--font-size-xsm)' }}>
-      {ordinal(before)} → {ordinal(after)}
+    <span className={`font-bold ${moved > 0 ? 'text-success' : 'text-danger'}`} style={{ fontSize: 'var(--font-size-xsm)' }}>
+      {moved > 0 ? `▲ ${moved}` : `▼ ${Math.abs(moved)}`}
     </span>
   );
 };
