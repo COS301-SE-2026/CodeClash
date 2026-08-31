@@ -8,14 +8,16 @@ import excited from "../svgs/excited.svg"
 import fist from "../svgs/fist.svg"
 import happy from "../svgs/happy.svg"
 import head from "../svgs/head.svg"
-import leftArm from "../svgs/left-arm.svg"
+import leftShoulder from "../svgs/left-shoulder.svg"
+import leftArm from "../svgs/left-forearm.svg"
 import leftHand from "../svgs/left-hand.svg"
 import leftLeg from "../svgs/left-leg.svg"
 import losing from "../svgs/losing.svg"
 import neutral from "../svgs/neutral.svg"
 import ok from "../svgs/ok.svg"
 import peace from "../svgs/peace.svg"
-import rightArm from "../svgs/right-arm.svg"
+import rightShoulder from "../svgs/right-shoulder.svg"
+import rightArm from "../svgs/right-forearm.svg"
 import rightHand from "../svgs/right-hand.svg"
 import rightLeg from "../svgs/right-leg.svg"
 import sad from "../svgs/sad.svg"
@@ -74,34 +76,35 @@ export const FistBump = () => {
 }
 
 export const Fist = () => {
-    const shoulderX = 120; //THIS IS IN PERCENT
-    const shoulderY = 80;
+    const shoulderX = 100; //THIS IS IN PERCENT
+    const shoulderY = 100;
 
     return(
         <div className="bg-[#000000] min-h-screen w-full">
         <svg viewBox="0 0 300 400" width="600" height="700" preserveAspectRatio="xMidYMid meet">
 
-            <motion.g>
+            
             <image href={torso} width="50" x="60" y="40" height="120"/>
-            </motion.g>
-
-            <motion.g>
             <image href={head} width="50" x="60" y="40" height="45"/>
-            </motion.g>
+            
 
             <motion.g
             
                 style={{transformOrigin: `${shoulderX}px ${shoulderY}px`}}
                 initial={{ rotate: 0 }}
-                // animate={{rotate: 100}}
+                // animate={{rotate: [0, -20, -75, -60]}}
                 transition={{
-                    type: "spring",
-                    stiffness: 300,
-                    damping: 15,
-                }}>
+                    // type: "spring",
+                    // stiffness: 300,
+                    // damping: 15,
+                    // duration: 0.9,
+                    // times: [0, 0.2, 0.6, 1],
+                    // ease: ["easeOut", "easeIn", "easeOut"],
+                }
+                }>
 
-                    <image href={leftArm} width="50" x="92" y="90" height="55"/>
-                    <image href={leftHand} width="50" x="92" y="132.5" height="20"/>
+                    <image href={leftArm} width="50" x="94" y="92" height="55"/>
+                    <image href={leftHand} width="50" x="94" y="134.5" height="20"/>
             </motion.g>
         </svg>
         </div>
