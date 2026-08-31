@@ -172,13 +172,29 @@ describe('friend controllers', () => {
         });
 
         it('returns 500 on unexpected error', async () => {
+            // copied from above
+            mockService.sendFriendsRequest.mockRejectedValueOnce(new Error('DB error'));
+            req.body = { receiver_id: 'user-2' };
 
+            const handler = sendFriendRequest(mockService);
+            await handler(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(500);
         });
     });
 
     describe('respondToFriendRequest', () => {
         it('returns 200 on accepted', async () => {
+            mockService.respondToRequest.mockResolvedValueOnce(undefined);
+            req.params = { friendship_id: 'f-1' };
+            req.body = { status: 'accepted' };
 
+            const handler = respondToFriendRequest(mockService);
+            await handler(req, res);
+
+            expect(mockService.respondToRequest).toHaveBeenCalledWith('f-1', 'accepted');
+            expect(res.status).toHaveBeenCalledWith(200);
+            expect(res.json).toHaveBeenCalledWith({ message: 'Friend request accepted' });
         });
 
         it('returns 200 on declined', async () => {
