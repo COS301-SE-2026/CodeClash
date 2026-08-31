@@ -81,6 +81,32 @@ describe("Elo Repository Queries", () => {
                expect(await elo_repo.getUserRank(mock_user[1].user_id)).toBe(3)
     })
 
+    it("Moves a user's rank when their rating changes", async () => {
+            const before = await elo_repo.getUserRank(mock_user[1].user_id)
+    
+            await elo_entity.update({ user: { user_id: mock_user[1].user_id } }, { rating: 1200 })
+    
+            const after = await elo_repo.getUserRank(mock_user[1].user_id)
+    
+            expect(before).toBe(3)
+            expect(after).toBe(1)
+        })
+  
+    it("Returns null for a user that has no elo record", async () => {
+           const [user_without_elo] = await data_source.getRepository(Users).save([{
+               cognito_id: 'cognito-user-id_no_elo',
+               username: 'integration_test_user_no_elo',
+               email: 'integration_no_elo@test.com',
+               avatar_id: 0,
+               league: "Mercury",
+               current_streal: 0,
+               winning_streak: 0
+           }])
+   
+           expect(await elo_repo.getUserRank(user_without_elo.user_id)).toBeNull()
+       })
+  
+
 
     afterAll(async () => {
         await data_source.destroy()
