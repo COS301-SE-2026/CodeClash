@@ -114,6 +114,7 @@ describe('friend controllers', () => {
         });
 
         it('returns 500 if service throws', async () => {
+            // copied from above
             mockService.getFriendsRequests.mockRejectedValueOnce(new Error('DB error'));
 
             const handler = getFriendRequests(mockService);
@@ -125,12 +126,27 @@ describe('friend controllers', () => {
     });
 
     describe('sendFriendRequest', async () => {
-        it('returns 301 on successful request', async () => {
+        it('returns 201 on successful request', async () => {
+            mockService.sendFriendRequest.mockResolvedValueOnce(undefined);
+            req.body = { receiver_id: 'user-2' };
 
+            const handler = sendFriendRequest(mockService);
+            await handler(req, res);
+
+            expect(mockService.sendFriendRequest).toHaveBeenCalledWith('user-1', 'user-2');
+            expect(res.status).toHaveBeenCalledWith(201);
+            expect(res.json).toHaveBeenCalledWith({ message: 'Friend request sent' });
         });
 
         it('returns 400 if receiver_id is missing', async () => {
+            req.body = {};
 
+            const handler = sendFriendRequest(mockService);
+            await handler(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(400);
+            expect(res.json).toHaveBeenCalledWith({ message: 'receiver_id is required' });
+            expect(mockService.sendFriendRequest).not.toHaveBeenCalledWith();
         });
 
         it('returns 401 if user is not authenticated', async () => {
