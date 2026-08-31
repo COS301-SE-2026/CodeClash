@@ -38,7 +38,7 @@ export function useProfile() {
 
   // useEffect(() => {
   try {
-    const user: ProfileProps = {
+    const userData: ProfileProps = {
       username,
       elo,
       avatar,
@@ -46,7 +46,7 @@ export function useProfile() {
       rank
     };
     // setUserData(user);
-    return { user, LoadingData: false, error: null };
+    return { userData, LoadingData: false, error: null };
   } catch (err) {
     // setError(err as Error);
     // }
@@ -55,6 +55,6 @@ export function useProfile() {
     // }
     // }, [username, elo, avatar, league, rank]);
 
-    return { user: null, loadingData: false, error: err as Error };
+    return { userData: null, loadingData: false, error: err as Error };
   }
 }
