@@ -103,4 +103,18 @@ describe("Match result ranking", () => {
              'integration_test_user_03', // 600
          ])
      })
+
+  it("Leaves both ranks unchanged for a casual match", async () => {
+         const winner = mock_user[1]
+         const loser = mock_user[2]
+ 
+         const result = await service.finaliseMatch(
+             'match-uuid-casual', winner.user_id, loser.user_id, false, statsFor(winner, loser)
+         )
+ 
+         for (const player of result.players) {
+             expect(player.rank).toBe(player.rank_before)
+             expect(player.eloEffect).toBe(0)
+         }
+     })
 })
