@@ -117,4 +117,29 @@ describe("Match result ranking", () => {
              expect(player.eloEffect).toBe(0)
          }
      })
+
+  it("Reports a null rank for a player with no elo record", async () => {
+         const [unranked_user] = await data_source.getRepository(Users).save([{
+             cognito_id: 'cognito-user-id_unranked',
+             username: 'integration_test_user_unranked',
+             email: 'integration_unranked@test.com',
+             avatar_id: 0,
+             league: "Mercury",
+             current_streal: 0,
+             winning_streak: 0
+         }])
+ 
+         vi.mocked(mockMatchResultRepo.getUserDetails).mockResolvedValueOnce({ username: 'integration_test_user_unranked', avatar: 0 })
+ 
+         const result = await service.finaliseMatch(
+             'match-uuid-unranked', unranked_user.user_id, mock_user[1].user_id, false,
+             statsFor(unranked_user, mock_user[1])
+         )
+ 
+         const unranked_result = result.players.find(p => p.user_id === unranked_user.user_id)!
+ 
+         expect(unranked_result.rank_before).toBeNull()
+         expect(unranked_result.rank).toBeNull()
+     })
+  
 })
