@@ -1,13 +1,25 @@
 import { Router } from 'express';
 import { EloRatings } from 'src/entities/db-entities/elo.entities';
 import { Users } from 'src/entities/db-entities/user.entities';
-import {
-  getUserElo,
-} from 'src/interface-adapters/controllers/elo.controllers';
+import { getUserElo } from 'src/interface-adapters/controllers/elo.controllers';
 import { getUserStat } from 'src/interface-adapters/controllers/user.controllers';
 import { EloRepository } from 'src/interface-adapters/repositories/elo.repository';
 import { UserRepository } from 'src/interface-adapters/repositories/user.repository';
-
+import { Achievement } from 'src/entities/db-entities/achievement.entities';
+import { Friendship, FriendInvite } from 'src/entities/db-entities/friendship.entities';
+import { AchievementRepository } from 'src/interface-adapters/repositories/achievement.repository';
+import { FriendRepository } from 'src/interface-adapters/repositories/friend.repository';
+import { AchievementService } from 'src/application/usecases/services/achievement.service';
+import { FriendService } from 'src/application/usecases/services/friend.service';
+import { getAllAchievements, getUserAchievements } from 'src/interface-adapters/controllers/achievement.controllers';
+import {
+  getFriends,
+  getFriendRequests,
+  sendFriendRequest,
+  respondToFriendRequest,
+  removeFriend,
+  createInvite
+} from '../../interface-adapters/controllers/friend.controllers';
 
 import { AppDataSource } from '../config/data-source';
 
@@ -15,31 +27,12 @@ const router = Router();
 
 const user_repo = new UserRepository(AppDataSource.getRepository(Users))
 const elo_repo = new EloRepository(AppDataSource.getRepository(EloRatings))
+const achievement_repo = new AchievementRepository(AppDataSource.getRepository(Achievement), AppDataSource.getRepository(Users));
+const friend_repo = new FriendRepository(AppDataSource.getRepository(Friendship), AppDataSource.getRepository(FriendInvite));
+const achievement_service = new AchievementService(achievement_repo);
+const friend_service = new FriendService(friend_repo);
+
 router.get('/elo-get', getUserElo(elo_repo));
-
-// user routes
-router.get('/:stat', getUserStat(user_repo)); // this must be last, it's a generic function that fetches any attribute directly in the users table
-
-export default router;
-
-import {
-  getFriendsById,
-  getFriendRequests,
-  addFriendInvite,
-  sendFriendRequest,
-  respondToFriendRequest,
-  removeFriend
-} from '../../interface-adapters/controllers/friends.controllers';
-
-import{
-  getPowerups,
-  getMatchPowerups,
-  usePowerup,
-  getAchievements,
-  awardAchievement,
-  getUserAchievements
-} from '../../interface-adapters/controllers/powerups.controllers'
-const router = Router();
 
 /** 
  * @swagger
@@ -248,7 +241,7 @@ router.get('/friends/:user_id', getFriendsById);
  */
 router.delete('/friends/:friendship_id', removeFriend);
 
-// powerups
+// ---------- Powerups: Commented out until demo 4 -----------------
 
 /**
  * @swagger
@@ -262,7 +255,7 @@ router.delete('/friends/:friendship_id', removeFriend);
  *      500:
  *        description: Internal server error
  */
-router.get('/powerups', getPowerups);
+//router.get('/powerups', getPowerups);
 /**
  * @swagger
  * /api/powerups/match/{match_id}
@@ -285,7 +278,7 @@ router.get('/powerups', getPowerups);
  *        description: Internal server error
  *      
  */
-router.get('/powerups/match/:match_id', getMatchPowerups);
+//router.get('/powerups/match/:match_id', getMatchPowerups);
 /**
  * @swagger
  * /api/powerups/use
@@ -320,7 +313,7 @@ router.get('/powerups/match/:match_id', getMatchPowerups);
  *      500:
  *        description: Internal server error
  */
-router.post('/powerups/use', usePowerup);
+//router.post('/powerups/use', usePowerup);
 
 // achievements
 
@@ -337,7 +330,7 @@ router.post('/powerups/use', usePowerup);
  *        Internal server error
  * 
  */
-router.get('/achievements', getAchievements);
+router.get('/achievements', getAllAchievements(achievement_service));
 
 /**
  * @swagger
@@ -360,38 +353,8 @@ router.get('/achievements', getAchievements);
  *      500:
  *        description: Internal Server Error
  */
-router.get('/achievements/user/:user_id', getUserAchievements);
+router.get('/achievements/me', getUserAchievements(achievement_service));
 
-//for the comment below, because, at least on this branch, achievements haven't been added to the 
-// database, i can only assume achievement_id is of uuid format, change if necessary
-
-/** 
- * @swagger
- * /api/achievements/award:
- *  post:
- *    summary: Awards the player with an achievement
- *    tags: [Achievements]
- *    parameters:
- *      - in: path
- *        name: user_id
- *        required: true
- *        schema:
- *          type: string
- *          format: uuid
- *      - in: path
- *        name: achievement_id
- *        required: true
- *        schema:
- *          type: string
- *          format: uuid 
- *    responses:
- *     200:
- *      description: Player awarded with the desired achievement successfully
- *     404:
- *      description: Player not found
- *     500:
- *      description: Internal Server Error
-*/
-router.post('/submissions/award', awardAchievement);
-
+// user routes
+router.get('/:stat', getUserStat(user_repo)); // this must be last, it's a generic function that fetches any attribute directly in the users table
 export default router;
