@@ -57,11 +57,23 @@ describe('friend controllers', () => {
         });
 
         it('returns 401 if user is not authenticated', async () => {
+            req.user = undefined;
 
+            const handler = getFriends(mockService);
+            await handler(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(401);
+            expect(mockService.getFriends).not.toHaveBeenCalledWith();
         });
 
         it('returns 500 if service throws', async () => {
+            mockService.getFriends.mockRejectedValueOnce(new Error('DB error'));
 
+            const handler = getFriends(mockService);
+            await handler(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(500);
+            expect(res.json).toHaveBeenCalledWith({ message: 'Internal server error' });
         });
 
     });
