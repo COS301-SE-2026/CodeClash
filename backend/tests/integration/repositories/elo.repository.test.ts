@@ -117,6 +117,14 @@ describe("Elo Repository Queries", () => {
         ])
         expect(data.map(entry => entry.rating)).toEqual([1200, 900, 600])
     })
+
+    it("Gives every leaderboard entry the same rank getUserRank reports", async () => {
+        const { data } = await elo_repo.getLeaderboard(10, 0)
+
+        for (const entry of data) {
+            expect(entry.rank).toBe(await elo_repo.getUserRank(entry.user_id))
+        }
+    })
   
 
 
