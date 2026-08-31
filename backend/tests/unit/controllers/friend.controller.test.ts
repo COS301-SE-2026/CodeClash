@@ -270,13 +270,32 @@ describe('friend controllers', () => {
         });
 
         it('returns 500 if service throws', async () => {
+             // copied from above
+            mockService.removeFriend.mockRejectedValueOnce(new Error('DB error'));
+            req.pramas = { friendship_id: 'f-1' };
 
+            const handler = removeFriend(mockService);
+            await handler(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(500);
         });
     }); //end removeFriend
 
     describe('createInvite', () => {
         it('returns 201 with invite details', async () => {
+            const mockInvite = {
+                invite_id: 'inv-1',
+                invite_code: 'abc123',
+                expires_at: new Date()
+            };
+            mockService.createInvite.mockResolvedValueOnce(mockInvite);
 
+            const handler = createInvite(mockService);
+            await handler(req, res);
+
+            expect(mockService.createInvite).toHaveBeenCalledWith('user-1');
+            expect(res.status).toHaveBeenCalledWith(201);
+            expect(res.json).toHaveBeenCalledWith(mockInvite);
         });
 
         it('returns 401 if user is not authenticated', async () => {
