@@ -141,5 +141,8 @@ describe("Match result ranking", () => {
          expect(unranked_result.rank_before).toBeNull()
          expect(unranked_result.rank).toBeNull()
      })
-  
+
+  afterAll(async () => {
+      await data_source.destroy()
+    })
 })
