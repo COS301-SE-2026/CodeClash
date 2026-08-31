@@ -98,7 +98,7 @@ router.get('/elo-get', getUserElo(elo_repo));
  *      500:
  *        description: Internal server error
  */
-router.get('/friends/requests/:user_id', getFriendRequests);
+router.get('/friends/requests', getFriendRequests(friend_service));
 /**
  * @swagger
  * /api/friends/invite:
@@ -130,7 +130,7 @@ router.get('/friends/requests/:user_id', getFriendRequests);
  *      500:
  *        description: Internal server error
  */
-router.post('/friends/invite', addFriendInvite);
+router.post('/friends/invite', createInvite(friend_service));
 /**
  * @swagger
  * /api/friends/request
@@ -160,7 +160,7 @@ router.post('/friends/invite', addFriendInvite);
  *        description: Internal server error
  *            
  */
-router.post('/friends/request', sendFriendRequest);
+router.post('/friends/request', sendFriendRequest(friend_service));
 /**
  * @swagger
  * /api/friends/request/{friendship_id}
@@ -194,7 +194,7 @@ router.post('/friends/request', sendFriendRequest);
  *      500:
  *        description: Internal server error
  */
-router.patch('/friends/request/:friendship_id', respondToFriendRequest);
+router.patch('/friends/request/:friendship_id', respondToFriendRequest(friend_service));
 /**
  * @swagger
  * /api/friends/{user_id}:
@@ -216,7 +216,7 @@ router.patch('/friends/request/:friendship_id', respondToFriendRequest);
  *      500:
  *        description: Internal server error
  */
-router.get('/friends/:user_id', getFriendsById);
+router.get('/friends', getFriends(friend_service));
 /**
  * @swagger
  * /api/friends/{friendship_id}
@@ -239,7 +239,7 @@ router.get('/friends/:user_id', getFriendsById);
  *        description: Internal server error
  * 
  */
-router.delete('/friends/:friendship_id', removeFriend);
+router.delete('/friends/:friendship_id', removeFriend(friend_service));
 
 // ---------- Powerups: Commented out until demo 4 -----------------
 
