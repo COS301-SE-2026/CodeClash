@@ -93,4 +93,14 @@ describe("Match result ranking", () => {
           expect(loser_result.rank_before).toBe(1)
           expect(loser_result.rank).toBe(3)
       })
+
+  it("Reports the ranks the leaderboard would show after the match", async () => {
+         const { data } = await elo_repo.getLeaderboard(10, 0)
+ 
+         expect(data.map(entry => entry.username)).toEqual([
+             'integration_test_user_01', // 800
+             'integration_test_user_02', // 700
+             'integration_test_user_03', // 600
+         ])
+     })
 })
