@@ -1,4 +1,5 @@
-import {motion} from 'framer-motion';
+import {motion, useMotionValue, animate} from 'framer-motion';
+import {useRef, useEffect} from "react";
 import angry from "../svgs/angry.svg"
 import antenna from "../svgs/antenna.svg"
 import celebrate from "../svgs/celebrate.svg"
@@ -15,7 +16,7 @@ import neutral from "../svgs/neutral.svg"
 import ok from "../svgs/ok.svg"
 import peace from "../svgs/peace.svg"
 import rightArm from "../svgs/right-arm.svg"
-import rightHand from "../svgs/left-hand.svg"
+import rightHand from "../svgs/right-hand.svg"
 import rightLeg from "../svgs/right-leg.svg"
 import sad from "../svgs/sad.svg"
 import surprised from "../svgs/surprised.svg"
@@ -44,10 +45,10 @@ export const FistBump = () => {
             <image href={leftLeg} width="30%" x="15%" y="62%" height="30%"/>
         </motion.g>
         <motion.g>
-            <image href={rightArm} width="30%" x="-11%" y="44%" height="30%"/>
+            <image href={rightArm} width="30%" x="-11%" y="44%" height="25%"/>
         </motion.g>
         <motion.g>
-            <image href={leftArm} width="30%" x="23%" y="44%" height="30%"/>
+            <image href={leftArm} width="30%" x="23%" y="44%" height="25%"/>
         </motion.g>
         <motion.g>
             <image href={torso} width="30%" x="6%" y="34%" height="30%"/>
@@ -56,9 +57,93 @@ export const FistBump = () => {
             <image href={head} width="30%" x="6%" y="12%" height="30%"/>
         </motion.g>
         <motion.g>
-            <image href={rightHand} width="30%" x="22%" y="67%" height="13%"/>
+            <image href={rightHand} width="30%" x="-10.5%" y="63%" height="10%"/>
+        </motion.g>
+        <motion.g
+            transition={{duration: 0.6}}>
+            <image href={leftHand} width="30%" x="22.5%" y="63%" height="10%"/>
+            <motion.path
+            d="M20,100 Q100,20 180,100"
+            initial={{pathLength: 0}}
+            animate={{pathLength: 1}}
+            transition={{}}/>
         </motion.g>
         </svg>
         </div>
     );
 }
+
+export const Fist = () => {
+    const shoulderX = 23; //THIS IS IN PERCENT
+    const shoulderY = 44;
+
+    return(
+        <svg viewBox="0 0 100 100" width="400" height="300">
+            <image href={torso} width="30%" x="6%" y="12%" height="30%"/>
+            <image href={head} width="30%" x="6%" y="12%" height="30%"/>
+
+            <motion.g
+            
+            style={{transformOrigin}}>
+
+            </motion.g>
+        </svg>
+    )
+}
+
+
+
+// function Path(){
+//     const pathRef = useRef(null);
+//     const progress = useMotionValue(0);
+//     const x = useMotionValue(0);
+//     const y = useMotionValue(0);
+
+//     useEffect(() => {
+//         const path = pathRef.current;
+//         const length = path.getTotalLength();
+
+//         const unsubscribe = progress.on("change", (latest) => {
+//             const point = path.getPointAtLength(latest * length);
+//             x.set(point.x);
+//             y.set(point.y);
+
+//         });
+
+
+//         const controls = animate(progress, 1, {
+//             duration: 3,
+//             ease: "easeInOut",
+//             repeat: Infinity,
+//             repeatType: "loop"
+//         });
+
+
+//         return () => {
+//             unsubscribe();
+//             controls.stop();
+//         };
+//     }, []);
+
+//     return(
+//         <svg viewBox="0 0 200 200" width={300} height={300}>
+//             <path
+//             ref={pathRef}
+//             d="M20,100 Q100,20 180,100 Q100,180 20,100"
+//             fill="none"
+//             stroke="#ccc"
+//             strokeWidth={1}/>
+
+//             <motion.image
+//             href={leftArm}
+//             width={20}
+//             height={20}
+//             style={{
+//                 x,
+//                 y,
+//                 translateX: -10,
+//                 translateY: -10,
+//             }}/>
+//         </svg>
+//     );
+// }
