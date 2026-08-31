@@ -97,7 +97,7 @@ describe('friend controllers', () => {
         });
 
         it('returns 200 on declined', async => () {
-            mockService.respond
+            //mockService.respond
         });
     });
 });
