@@ -1,0 +1,19 @@
+frontend/src/ViewModels/ProfileViewModel.ts
+  s_4e574f764a6c4a::t_e2ef617f1b95a7 6,32-59
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "5b923ee301e9ae3cec28dd574fd5b6e6ba56556d",
+  "prompts": {},
+  "sessions": {
+    "s_4e574f764a6c4a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_026d55badffev4VDeY4gSHM8Pf",
+        "model": "unknown"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+frontend/src/ViewModels/ProfileViewModel.ts
+  h_58e143dc25f856 41,49,58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "7600f9709de0815857627307acc2482666525c28",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

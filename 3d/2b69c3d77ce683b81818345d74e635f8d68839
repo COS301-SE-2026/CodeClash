@@ -1,0 +1,16 @@
+backend/src/interface-adapters/repositories/elo.repository.ts
+  h_58e143dc25f856 75
+frontend/src/Views/Leaderboard.tsx
+  h_58e143dc25f856 31-32,38-39
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "3d2b69c3d77ce683b81818345d74e635f8d68839",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

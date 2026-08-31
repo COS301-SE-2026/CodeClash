@@ -1,0 +1,19 @@
+backend/tests/integration/repositories/match-result.repository.test.ts
+  s_6de3b3947b4630::t_739c28279190bc 1-18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "b61626eac699178c549adbfc463b417bd924ea7d",
+  "prompts": {},
+  "sessions": {
+    "s_6de3b3947b4630": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f56d00a6-4dbf-4ba5-8ef8-9fcb3ac20316",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
