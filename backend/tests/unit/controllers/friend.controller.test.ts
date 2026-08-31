@@ -222,12 +222,27 @@ describe('friend controllers', () => {
             expect(mockService.respondToRequest).not.toHaveBeenCalled();
         });
 
-        it('returns 400 if friendshup_id is missing', async () => {
+        it('returns 400 if friendship_id is missing', async () => {
+            req.params = {};
+            req.body = { status: 'accepted' };
 
+            const handler = respondToFriendRequest(mockService);
+            await handler(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(400);
+            expect(mockService.respondToRequest).not.toHaveBeenCalled();
         });
 
         it('returns 500 if service throws', async () => {
+            // copied from above
+            mockService.sendFriendsRequest.mockRejectedValueOnce(new Error('DB error'));
+            req.pramas = { friendship_id: 'f-1' };
+            req.body = { status: 'accepted' };
 
+            const handler = sendFriendRequest(mockService);
+            await handler(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(500);
         });
     });
 
