@@ -108,17 +108,27 @@ export const Fist = () => {
 
 
             <motion.g
-                style={{transformOrigin: `${JOINTS.shoulder.x}px ${JOINTS.shoulder.y}px`}}>
+                style={{originX: "224px", originY: "23px"}}
+                animate={{rotate: 70}}
+                transition={{
+                    type: "spring",
+                    delay: 0.5,
+                    times: [0.5, 0.6, 1]
+                }}
+                >
 
                 <image href={leftShoulder} width="50" x="93" y="92" height="55"/>
 
                 <motion.g
                     style={{originX: "30px", originY: "2px"}}
-                    animate={{rotate: [0,20,80,85]}}>
+                    animate={{rotate: [0, 20, 80, 87]}}
+                    transition={{
+                        type: "spring",
+                    }}>
                     <image href={leftArm} width="50" x="95" y="117" height="25"/>
 
                     <motion.g
-                    style={{transformOrigin: `${JOINTS.wrist.x}px ${JOINTS.wrist.y}px`}}>
+                    >
                         
                         <image href={leftHand} width="50" x="94" y="132" height="17"/>
                     </motion.g>
