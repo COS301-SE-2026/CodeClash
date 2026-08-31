@@ -51,12 +51,12 @@ export const respondToFriendRequest = (service: FriendService) =>
         if(!friendship_id || Array.isArray(friendship_id)) { res.status(400).json({ message: 'friendship_id is required' }); return; }
         
         if(!['accepted', 'declined'].includes(status)){
-            res.status(400).json({ message: 'status must be accepted or decliend' });
+            res.status(400).json({ message: 'status must be accepted or declined' });
             return;
         }
         try{
             await service.respondToRequest(friendship_id, status);
-            res.status(200).json({ message: `Friend requests ${status}`});
+            res.status(200).json({ message: `Friend request ${status}`});
         }catch (error) {
              console.error('Error responding to friend requests:', error);
             res.status(500).json({message: 'Internal server error'});

@@ -14,7 +14,7 @@ describe('achievement controllers', () => {
             evaluateAndAward: vi.fn()
         };
 
-        req = { user: { user_id: 'user-1' } };
+        req = { user: { id: 'user-1' } };
         res = {
             status: vi.fn().mockReturnThis(),
             json: vi.fn().mockReturnThis()
@@ -53,8 +53,8 @@ describe('achievement controllers', () => {
             const handler = getAllAchievements(mockService);
             await handler(res, res);
 
-            expect(res.status).toHaveResolvedWith(500);
-            expect(res.json).toHaveResolvedWith({ message: 'Internal server error'});
+            expect(res.status).toHaveBeenCalledWith(500);
+            expect(res.json).toHaveBeenCalledWith({ message: 'Internal server error'});
         });
     });
 
@@ -104,8 +104,8 @@ describe('achievement controllers', () => {
 
         it('scopes query to authenticated user not a URL param', async () => {
             mockService.getUserAchievements.mockResolvedValueOnce([]);
-            req.user.user_id = 'authenticated-user';
-            req.params = { user_id: 'some-other-user' };
+            req.user.id = 'authenticated-user';
+            req.params = { id: 'some-other-user' };
             
             const handler = getUserAchievements(mockService);
             await handler(req, res);

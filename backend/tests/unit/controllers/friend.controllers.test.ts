@@ -1,8 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { getFriends, getFriendRequests, sendFriendRequest, respondToFriendRequest, removeFriend, createInvite } from '../../../src/interface-adapters/controllers/friend.controllers';
 import { FriendService } from '../../../src/application/usecases/services/friend.service';
-import { execPath } from 'node:process';
-import { create } from 'node:domain';
 
 describe('friend controllers', () => {
     let mockService: any;
@@ -14,13 +12,13 @@ describe('friend controllers', () => {
             getFriends: vi.fn(),
             getFriendRequests: vi.fn(),
             sendFriendRequest: vi.fn(),
-            respondToFriendRequest: vi.fn(),
+            respondToRequest: vi.fn(),
             removeFriend: vi.fn(),
             createInvite: vi.fn()
         };
 
         req = { 
-            user: { user_id: 'user-1' },
+            user: { id: 'user-1' },
             params: {},
             body: {},
             query: {}
@@ -35,8 +33,8 @@ describe('friend controllers', () => {
     describe('getFriends', () => {
         it('returns 200 with friends list', async () => {
             const mockFriends = [
-                { user_id: 'user-2', username: 'alice', friendship_id: 'f-1' },
-                { user_id: 'user-3', username: 'bob', friendship_id: 'f-2' }
+                { id: 'user-2', username: 'alice', friendship_id: 'f-1' },
+                { id: 'user-3', username: 'bob', friendship_id: 'f-2' }
             ];
             mockService.getFriends.mockResolvedValueOnce(mockFriends);
 
@@ -83,7 +81,7 @@ describe('friend controllers', () => {
     describe('getFriendRequests', () => {
         it('returns received requests by default', async () => {
             const mockRequests = [
-                { friendship_id: 'f-1', user_id: 'user-2', username: 'alice', status: 'pending', created_at: new Date() }
+                { friendship_id: 'f-1', id: 'user-2', username: 'alice', status: 'pending', created_at: new Date() }
             ];
             mockService.getFriendRequests.mockResolvedValueOnce(mockRequests);
             req.query = {};
@@ -92,7 +90,8 @@ describe('friend controllers', () => {
             await handler(req, res);
 
             expect(mockService.getFriendRequests).toHaveBeenCalledWith('user-1', 'received');
-            expect(res.status).toHaveBeenCalledWith(mockRequests);
+            expect(res.status).toHaveBeenCalledWith(200);
+            expect(res.json).toHaveBeenCalledWith(mockRequests);
         });
         
         it('returns sent requests when type=sent', async () => {
@@ -117,7 +116,7 @@ describe('friend controllers', () => {
 
         it('returns 500 if service throws', async () => {
             // copied from above
-            mockService.getFriendsRequests.mockRejectedValueOnce(new Error('DB error'));
+            mockService.getFriendRequests.mockRejectedValueOnce(new Error('DB error'));
 
             const handler = getFriendRequests(mockService);
             await handler(req, res);
@@ -175,7 +174,7 @@ describe('friend controllers', () => {
 
         it('returns 500 on unexpected error', async () => {
             // copied from above
-            mockService.sendFriendsRequest.mockRejectedValueOnce(new Error('DB error'));
+            mockService.sendFriendRequest.mockRejectedValueOnce(new Error('DB error'));
             req.body = { receiver_id: 'user-2' };
 
             const handler = sendFriendRequest(mockService);
@@ -219,7 +218,7 @@ describe('friend controllers', () => {
             await handler(req, res);
 
             expect(res.status).toHaveBeenCalledWith(400);
-            expect(res.json).toHaveBeenCalledWith({ message: 'status must be accpeted or declined' });
+            expect(res.json).toHaveBeenCalledWith({ message: 'status must be accepted or declined' });
             expect(mockService.respondToRequest).not.toHaveBeenCalled();
         });
 
@@ -236,7 +235,7 @@ describe('friend controllers', () => {
 
         it('returns 500 if service throws', async () => {
             // copied from above
-            mockService.sendFriendsRequest.mockRejectedValueOnce(new Error('DB error'));
+            mockService.sendFriendRequest.mockRejectedValueOnce(new Error('DB error'));
             req.pramas = { friendship_id: 'f-1' };
             req.body = { status: 'accepted' };
 
@@ -305,13 +304,13 @@ describe('friend controllers', () => {
             const handler = createInvite(mockService);
             await handler(req, res);
 
-            expect(res.status).toHaveBeenCalledWith(201);
+            expect(res.status).toHaveBeenCalledWith(401);
             expect(mockService.createInvite).not.toHaveBeenCalled();
         }); 
 
         it('returns 500 if service throws', async () => {
              // copied from above
-            mockService.sendFriendsRequest.mockRejectedValueOnce(new Error('DB error'));
+            mockService.sendFriendRequest.mockRejectedValueOnce(new Error('DB error'));
 
             const handler = createInvite(mockService);
             await handler(req, res);
