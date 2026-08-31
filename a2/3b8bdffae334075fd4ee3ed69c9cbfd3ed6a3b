@@ -1,0 +1,14 @@
+backend/package-lock.json
+  h_58e143dc25f856 927
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "a23b8bdffae334075fd4ee3ed69c9cbfd3ed6a3b",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
