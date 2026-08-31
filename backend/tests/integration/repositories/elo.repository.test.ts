@@ -125,6 +125,17 @@ describe("Elo Repository Queries", () => {
             expect(entry.rank).toBe(await elo_repo.getUserRank(entry.user_id))
         }
     })
+
+    it("Paginates the leaderboard with the given limit and offset", async () => {
+        const first_page = await elo_repo.getLeaderboard(2, 0)
+        const second_page = await elo_repo.getLeaderboard(2, 2)
+
+        expect(first_page.data).toHaveLength(2)
+        expect(first_page.total).toBe(3)
+        expect(second_page.data).toHaveLength(1)
+        expect(second_page.total).toBe(3)
+        expect(second_page.data[0].username).toBe('integration_test_user_01')
+    })
   
 
 
