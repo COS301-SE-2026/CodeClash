@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../src/context/Auth/hooks/useAuth";
 import { useUser } from "../../src/context/User/hooks/useUser";
 import type { ProfileProps } from "src/Models/ProfileModel";
+import Loading from '@/components/shared/Loading';
 
 export function useLogOut() {
     const { signOut } = useAuth();
@@ -28,30 +29,32 @@ export function useEdit() {
     return edit;
 }
 
-export function getProfile() {
+export function useProfile() {
 
-    const {username, elo, avatar, league, rank} = useUser();
-    const [userData, setUserData] = useState<ProfileProps | null>(null);
-    const [loadingData, setLoadingData] = useState(true);
-    const [error, setError] = useState<Error | null>(null);
+  const { username, elo, avatar, league, rank } = useUser();
+  // const [userData, setUserData] = useState<ProfileProps | null>(null);
+  // const [loadingData, setLoadingData] = useState(true);
+  // const [error, setError] = useState<Error | null>(null);
 
-    useEffect(() => {
-            try{
-                const user : ProfileProps = {
-                    username,
-                    elo,
-                    avatar, 
-                    league,
-                    rank
-                };
-                setUserData(user);
-            } catch (err) {
-                setError(err as Error);
-            }
-            finally {
-                setLoadingData(false);
-            }
-    }, [username, elo, avatar, league, rank]);
+  // useEffect(() => {
+  try {
+    const user: ProfileProps = {
+      username,
+      elo,
+      avatar,
+      league,
+      rank
+    };
+    // setUserData(user);
+    return { user, LoadingData: false, error: null };
+  } catch (err) {
+    // setError(err as Error);
+    // }
+    // finally {
+    // setLoadingData(false);
+    // }
+    // }, [username, elo, avatar, league, rank]);
 
-    return {userData, loadingData, error};
+    return { user: null, loadingData: false, error: err as Error };
+  }
 }
