@@ -69,6 +69,18 @@ describe("Elo Repository Queries", () => {
         expect(fetched_elos).toBeNull();
     })
 
+    it("Ranks tied users by username so ranks are stable and unique", async () => {
+        const ranks = await Promise.all(mock_user.map(u => elo_repo.getUser(u.user_id)))
+        expect(ranks).toEqual([1,2,3])
+    })
+
+    it("Ranks a higher rated user above everyone else", async () => {
+        await elo_entity.update({ user: { user_id: mock_user[2].user_id } }, { rating: 1000 })
+        expect(await elo_repo.getUserRank(mock_user[2].user_id)).toBe(1)
+               expect(await elo_repo.getUserRank(mock_user[0].user_id)).toBe(2)
+               expect(await elo_repo.getUserRank(mock_user[1].user_id)).toBe(3)
+    })
+
 
     afterAll(async () => {
         await data_source.destroy()
