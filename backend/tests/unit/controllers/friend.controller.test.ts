@@ -248,11 +248,25 @@ describe('friend controllers', () => {
 
     describe('removeFriend', () => {
         it('return 200 on successful removal', async () => {
+            mockService.removeFriend.mockResolvedValueOnce(undefined);
+            req.params = { friendship_id: 'f-1' };
 
+            const handler = removeFriend(mockService);
+            await handler(req, res);
+
+            expect(mockService.removeFriend).toHaveBeenCalledWith('f-1');
+            expect(res.status).toHaveBeenCalledWith(200);
+            expect(res.json).toHaveBeenCalledWith({ message: 'Friend removed'});
         });
 
         it('returns 400 if friendship_id is missing', async () => {
+            req.params = {};
 
+            const handler = removeFriend(mockService);
+            await handler(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(400);
+            expect(mockService.removeFriend).not.toHaveBeenCalled();
         });
 
         it('returns 500 if service throws', async () => {
