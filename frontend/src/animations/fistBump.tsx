@@ -74,20 +74,37 @@ export const FistBump = () => {
 }
 
 export const Fist = () => {
-    const shoulderX = 23; //THIS IS IN PERCENT
-    const shoulderY = 44;
+    const shoulderX = 120; //THIS IS IN PERCENT
+    const shoulderY = 80;
 
     return(
-        <svg viewBox="0 0 100 100" width="400" height="300">
-            <image href={torso} width="30%" x="6%" y="12%" height="30%"/>
-            <image href={head} width="30%" x="6%" y="12%" height="30%"/>
+        <div className="bg-[#000000] min-h-screen w-full">
+        <svg viewBox="0 0 300 400" width="600" height="700" preserveAspectRatio="xMidYMid meet">
+
+            <motion.g>
+            <image href={torso} width="50" x="60" y="40" height="120"/>
+            </motion.g>
+
+            <motion.g>
+            <image href={head} width="50" x="60" y="40" height="45"/>
+            </motion.g>
 
             <motion.g
             
-            style={{transformOrigin}}>
+                style={{transformOrigin: `${shoulderX}px ${shoulderY}px`}}
+                initial={{ rotate: 0 }}
+                // animate={{rotate: 100}}
+                transition={{
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 15,
+                }}>
 
+                    <image href={leftArm} width="50" x="92" y="90" height="55"/>
+                    <image href={leftHand} width="50" x="92" y="132.5" height="20"/>
             </motion.g>
         </svg>
+        </div>
     )
 }
 
