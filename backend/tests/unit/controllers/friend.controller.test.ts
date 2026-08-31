@@ -80,11 +80,27 @@ describe('friend controllers', () => {
 
     describe('getFriendRequests', () => {
         it('returns received requests by default', async () => {
+            const mockRequests = [
+                { friendship_id: 'f-1', user_id: 'user-2', username: 'alice', status: 'pending', created_at: new Date() }
+            ];
+            mockService.getFriendRequests.mockResolvedValueOnce(mockRequests);
+            req.query = {};
 
+            const handler = getFriendRequests(mockService);
+            await handler(req, res);
+
+            expect(mockService.getFriendRequests).toHaveBeenCalledWith('user-1', 'received');
+            expect(res.status).toHaveBeenCalledWith(mockRequests);
         });
         
         it('returns sent requests when type=sent', async () => {
+            mockService.getFriendRequests.mockResolvedValueOnce([]);
+            req.query = { type: 'sent' };
 
+            const handler = getFriendRequests(mockService);
+            await handler(req, res);
+
+            expect(mockService.getFriendRequests).toHaveBeenCalledWith('user-1', 'sent');
         });
 
         it('returns 401 if user is not authenticated', async () => {
