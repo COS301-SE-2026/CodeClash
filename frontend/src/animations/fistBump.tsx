@@ -76,35 +76,53 @@ export const FistBump = () => {
 }
 
 export const Fist = () => {
-    const shoulderX = 100; //THIS IS IN PERCENT
-    const shoulderY = 100;
 
     return(
         <div className="bg-[#000000] min-h-screen w-full">
+
         <svg viewBox="0 0 300 400" width="600" height="700" preserveAspectRatio="xMidYMid meet">
 
             
             <image href={torso} width="50" x="60" y="40" height="120"/>
             <image href={head} width="50" x="60" y="40" height="45"/>
-            
+            {/* <image href={leftShoulder} width="50" x="93" y="92" height="55"/>
 
             <motion.g
             
-                style={{transformOrigin: `${shoulderX}px ${shoulderY}px`}}
+                style={{transformOrigin: "0px 0px"}}
+                transform={`translate(${shoulderX}, ${shoulderY})`}
                 initial={{ rotate: 0 }}
-                // animate={{rotate: [0, -20, -75, -60]}}
+                animate={{rotate: [0, 20, 80, 85]}}
                 transition={{
                     // type: "spring",
                     // stiffness: 300,
                     // damping: 15,
-                    // duration: 0.9,
-                    // times: [0, 0.2, 0.6, 1],
-                    // ease: ["easeOut", "easeIn", "easeOut"],
+                    duration: 0.9,
+                    times: [0, 0.2, 0.6, 1],
+                    ease: ["easeOut", "easeIn", "easeOut"],
                 }
                 }>
+                    <image href={leftArm} width="50" x="95" y="117" height="25"/>
+                    <image href={leftHand} width="50" x="94" y="132" height="17"/>
+            </motion.g> */}
 
-                    <image href={leftArm} width="50" x="94" y="92" height="55"/>
-                    <image href={leftHand} width="50" x="94" y="134.5" height="20"/>
+
+            <motion.g
+                style={{transformOrigin: `${JOINTS.shoulder.x}px ${JOINTS.shoulder.y}px`}}>
+
+                <image href={leftShoulder} width="50" x="93" y="92" height="55"/>
+
+                <motion.g
+                    style={{originX: "30px", originY: "2px"}}
+                    animate={{rotate: [0,20,80,85]}}>
+                    <image href={leftArm} width="50" x="95" y="117" height="25"/>
+
+                    <motion.g
+                    style={{transformOrigin: `${JOINTS.wrist.x}px ${JOINTS.wrist.y}px`}}>
+                        
+                        <image href={leftHand} width="50" x="94" y="132" height="17"/>
+                    </motion.g>
+                </motion.g>
             </motion.g>
         </svg>
         </div>
