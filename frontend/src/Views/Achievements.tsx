@@ -49,6 +49,29 @@ const Achievements: React.FC = () => {
                         </div>
                     </div>
                 </div>
+
+                {/**Earned achievemnets */}
+                {earned.length > 0 && (
+                    <section>
+                        <h2 className="text-md font-bold text-primary-text mb-1">{content.earnedTitle}</h2>
+                        <p className="text-xsm text-muted mb-4">{content.subtitle}</p>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                            {earned.map((achievement) => {
+                                const Icon = AchIcons[achievement.icon];
+                                return (
+                                    <div key={achievement.id} className="card-glow p-5 flex flex-col items-center text-center gap-2">
+                                        <div className="w-16 h-16 rounded-full border-2 border-secondary flex items-center justify-center shrink-0">
+                                            <Icon size={28} className="text-primary-text"/>
+                                        </div>
+                                        <p className="text-primary-text font-bold truncate">{achievement.name}</p>
+                                        <p className="text-xsm text-muted mt-1 whitespace-nowrap">{timeTracker(achievement.earnedAt)}</p>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </section>
+                )}
+                
             </div>
         </div>
     )
