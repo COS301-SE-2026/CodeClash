@@ -200,5 +200,45 @@ describe('friend controllers', () => {
         it('returns 200 on declined', async () => {
             //mockService.respond
         });
+
+        it('returns 400 if status is invalid', async () => {
+
+        });
+
+        it('returns 400 if friendshup_id is missing', async () => {
+
+        });
+
+        it('returns 500 if service throws', async () => {
+
+        });
     });
+
+    describe('removeFriend', () => {
+        it('return 200 on successful removal', async () => {
+
+        });
+
+        it('returns 400 if friendship_id is missing', async () => {
+
+        });
+
+        it('returns 500 if service throws', async () => {
+
+        });
+    }); //end removeFriend
+
+    describe('createInvite', () => {
+        it('returns 201 with invite details', async () => {
+
+        });
+
+        it('returns 401 if user is not authenticated', async () => {
+
+        });
+
+        it('returns 500 if service throws', async () => {
+
+        });
+    });// end createInvite
 });
