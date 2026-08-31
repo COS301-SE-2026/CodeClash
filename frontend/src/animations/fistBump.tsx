@@ -106,17 +106,24 @@ export const Fist = () => {
                     <image href={leftHand} width="50" x="94" y="132" height="17"/>
             </motion.g> */}
 
+            <motion.g>
+
+                <image href={rightShoulder} width="50" x="28" y="92" height="55"/>
+                <image href={rightArm} width="50" x="26" y="117" height="25"/>
+                <image href={rightHand} width="50" x="27" y="132" height="17"/>
+            </motion.g>
+
 
             <motion.g
                 style={{originX: "224px", originY: "23px"}}
-                animate={{rotate: 80}}
+                animate={{rotate: 90}}
                 transition={{
                     type: "spring",
-                    delay: 0.6,
+                    delay: 0.5,
                 }}
                 >
 
-                <image href={leftShoulder} width="50" x="90" y="91" height="55"/>
+                <image href={leftShoulder} width="50" x="93" y="92" height="55"/>
 
                 <motion.g
                     style={{originX: "30px", originY: "2px"}}
@@ -124,7 +131,7 @@ export const Fist = () => {
                     transition={{
                         type: "spring",
                     }}>
-                    <image href={leftArm} width="50" x="95" y="115" height="25"/>
+                    <image href={leftArm} width="50" x="95" y="117" height="25"/>
 
                     <motion.g
                     >
