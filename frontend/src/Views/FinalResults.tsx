@@ -1,4 +1,4 @@
-import { TrendingUp, TrendingDown, Clock } from "lucide-react";
+import { TrendingUp, TrendingDown, Minus, Clock } from "lucide-react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -244,25 +244,20 @@ const RankChange: React.FC<{ before: number, after: number }> = ({ before, after
   );
 };
 
-const Badge: React.FC<{ rankBefore?: number | null, rank?: number | null }> = ({ rankBefore, rank }) => (
-  <div className="flex flex-col items-center gap-1">
-    {/*<div className={`w-12 h-12 rounded-full flex items-center justify-center shadow-md ${position
-      ? 'bg-yellow-400 border-4 border-yellow-600'
-      : 'bg-gray-400 border-4 border-gray-600'}`}>
-      <span className={`font-black text-xs ${position === 1 ? 'text-yellow-900' : 'text-gray-700'}`}>
-        {position === 1 ? '1st' : '2nd'}
-      </span>
-    </div>*/}
+const Badge: React.FC<{ rankBefore?: number | null, rank?: number | null }> = ({ rankBefore, rank }) => {
+  const changed = !!rankBefore && rankBefore !== rank;
+  return (
+    <div className="flex flex-col items-center gap-1">
+      {rank ? (
+        <span className="text-secondary-text font-semibold flex items-center opacity-70 text-center justify-center"
+              style={{ fontSize: 'var(--font-size-xsm)' }}>
+                  {changed ? `${ordinal(rankBefore)} → ${ordinal(rank)}` : ordinal(rank)}
+        </span>
+      ) : null}
 
-    {rank ? (
-      <span className="text-secondary-text font-semibold flex items-center opacity-70 text-center justify-center"
-        style={{ fontSize: 'var(--font-size-xsm)' }}>
-        {rankBefore ? `${ordinal(rankBefore)} → ${ordinal(rank)}` : ordinal(rank)}
-      </span>
-    ) : null}
-
-    {rank && rankBefore ? <RankChange before={rankBefore} after={rank} /> : null}
-  </div>
-);
+      {rank && rankBefore ? <RankChange before={rankBefore} after={rank} /> : null}
+    </div>
+  );
+};
 
 export default FinalResults;
