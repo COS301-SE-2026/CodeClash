@@ -46,3 +46,33 @@ const mockMatchResultRepo: IMatchResultRepository = {
     getUserDetails: vi.fn(),
     buildMatchResult: vi.fn(),
 }
+
+describe("Match result ranking", () => {
+  beforeAll(async () => {
+    data_source = await createTestDataSource()
+
+    mock_user = await data_source.getRepository(Users).save(mock_users_array)
+    elo_entity = data_source.getRepository(EloRatings)
+    elo_repo = new EloRepository(elo_entity)
+
+    for (const user of mock_user) {
+      await elo_repo.createUserElo(user.user_id)
+    }
+
+    await elo_entity.update({ user: { user_id: mock_user[1].user_id } }, { rating: 700 })
+    await elo_entity.update({ user: { user_id: mock_user[2].user_id } }, { rating: 800 })
+
+    vi.mocked(mockMatchResultRepo.getUserDetails).mockImplementation(async (user_id: string) => ({
+      username: mock_user.find(u => u.user_id === user_id)!.username,
+      avatar: 0,
+    }))
+
+    service = new MatchResultService(testEloRepository(elo_repo, elo_entity), mockMatchResultRepo)
+    
+  })
+
+  const statsFor = (winner: Users, loser: Users) => ([
+          { user_id: winner.user_id, correctness: 80, speed: 150 },
+          { user_id: loser.user_id, correctness: 60, speed: 190 },
+      ]) 
+})
