@@ -72,7 +72,7 @@ export class EloRepository implements IEloRepository {
         .createQueryBuilder('elo')
         .innerJoinAndSelect('elo.user', 'user')
         .orderBy('elo.rating', 'DESC')
-        .addOrderBy(' user.username', 'ASC')
+        .addOrderBy('user.username', 'ASC')
         .skip(offset)
         .take(limit)
         .getManyAndCount()
