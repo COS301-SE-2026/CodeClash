@@ -7,6 +7,7 @@ export interface PlayerResultDTO {
     speed: number; 
     eloEffect: number; //signed 
     position: 1 | 2; 
+    rank_before?: number | null;
     rank?: number | null;
 }
 
