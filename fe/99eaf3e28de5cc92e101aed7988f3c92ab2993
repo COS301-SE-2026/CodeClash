@@ -1,0 +1,20 @@
+frontend/src/svgs/left-forearm.svg
+  h_b13c5d77534129 1-254
+frontend/src/svgs/left-shoulder.svg
+  h_b13c5d77534129 1-254
+frontend/src/svgs/right-forearm.svg
+  h_b13c5d77534129 1-254
+frontend/src/svgs/right-shoulder.svg
+  h_b13c5d77534129 1-254
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "fe99eaf3e28de5cc92e101aed7988f3c92ab2993",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
