@@ -33,11 +33,11 @@ const MOCK_ACHIEVEMENTS: Achievements[] = [
 
 const MOCKED_EARNED: Earned[] = [
     {
-        id: 'AchEarned1',
+        id: 'Ach1',
         earnedAt: new Date(Date.now() - 1000 * 60 * 60 *24 * 20).toISOString()
     },
     {
-        id: 'AchEarned2',
+        id: 'Ach2',
         earnedAt: new Date(Date.now() - 1000 * 60 * 60 *24 * 6).toISOString()
     }
 ]
