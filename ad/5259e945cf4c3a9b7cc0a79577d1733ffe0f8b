@@ -1,0 +1,21 @@
+frontend/src/animations/fistBump.tsx
+  h_b13c5d77534129 1-2,19,48,51,60,62-69,75-149
+  h_b13c5d77534129 61,74
+frontend/src/Views/BrandStyleGuide/SharedLayout.tsx
+  h_b13c5d77534129 24
+frontend/src/animations/rig.tsx
+  h_b13c5d77534129 69,75,86-91
+frontend/src/Models/ProfileModel.ts
+  h_b13c5d77534129 7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "ad5259e945cf4c3a9b7cc0a79577d1733ffe0f8b",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
