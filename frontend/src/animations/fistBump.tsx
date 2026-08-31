@@ -109,15 +109,14 @@ export const Fist = () => {
 
             <motion.g
                 style={{originX: "224px", originY: "23px"}}
-                animate={{rotate: 70}}
+                animate={{rotate: 80}}
                 transition={{
                     type: "spring",
-                    delay: 0.5,
-                    times: [0.5, 0.6, 1]
+                    delay: 0.6,
                 }}
                 >
 
-                <image href={leftShoulder} width="50" x="93" y="92" height="55"/>
+                <image href={leftShoulder} width="50" x="90" y="91" height="55"/>
 
                 <motion.g
                     style={{originX: "30px", originY: "2px"}}
@@ -125,7 +124,7 @@ export const Fist = () => {
                     transition={{
                         type: "spring",
                     }}>
-                    <image href={leftArm} width="50" x="95" y="117" height="25"/>
+                    <image href={leftArm} width="50" x="95" y="115" height="25"/>
 
                     <motion.g
                     >
