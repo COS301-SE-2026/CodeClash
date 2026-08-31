@@ -144,7 +144,7 @@ const FinalResults: React.FC = () => {
 
                                 {/*Column for the users position (1st or 2nd) */}
                                 <div className="px-3 py-4 mt-2">
-                                    <Badge position={winner.position} rank={winner.rank} />
+                                  <Badge position={winner.position} rankBefore={winner.rank_before} rank={winner.rank}/>
                                 </div>
                             </div>
 
@@ -193,7 +193,7 @@ const FinalResults: React.FC = () => {
 
                             {/*Column for the users position (1st or 2nd) */}
                             <div className="px-3 py-4 mt-2">
-                                <Badge position={loser.position} rank={loser.rank} />
+                                <Badge position={loser.position} rankBefore={loser.rank_before} rank={loser.rank} />
                             </div>
                         </div>
 
@@ -228,21 +228,23 @@ const ordinal = (rank: number) => {
   }
 }
 
-const Badge: React.FC<{ position: 1 | 2, rank?: number | null }> = ({ position, rank }) => {
-    // if (position === 1) return (
-    //     <div className="flex flex-col items-center gap-1">
-    //         <div className="w-12 h-12 rounded-full bg-yellow-400 border-4 border-yellow-600 flex items-center justify-center shadow-md">
-    //             <span className="text-yellow-900 font-black text-xs">1st</span>
-    //         </div>
-    //     </div>
-    // );
-    // return (
-    //     <div className="flex flex-col items-center gap-1">
-    //         <div className="w-12 h-12 rounded-full bg-gray-400 border-4 border-gray-600 flex items-center justify-center shadow-md">
-    //             <span className="text-gray-700 font-black text-xs">2nd</span>
-    //         </div>
-    //     </div>
-    // );
+const RankChange: React.FC<{ before: number, after: number }> = ({ before, after }) => {
+  const moved = before - after;
+
+  if (moved === 0) return (
+    <span className="text-secondary-text font-semibold opacity-60" style={{ fontSize: 'var(--font-size-xsm)' }}>
+      No change
+    </span>
+  );
+
+  return (
+    <span className="text-secondary-text font-semibold opacity-60" style={{ fontSize: 'var(--font-size-xsm)' }}>
+      {ordinal(before)} → {ordinal(after)}
+    </span>
+  );
+};
+
+const Badge: React.FC<{ position: 1 | 2, rankBefore?: number | null, rank?: number | null }> = ({ position, rankBefore, rank }) => {
   <div className="flex flex-col items-center gap-1">
     <div className={`w-12 h-12 rounded-full flex items-center justify-center shadow-md ${position === 1 ? 'bg-yellow-400 border-4 border-yellow-600' : 'bg-gray-400 border-4 border-gray-600'}`}>
       <span className={`font-black text-xs ${position === 1 ? 'text-yellow-900' : 'text-gray-700'}`}>
