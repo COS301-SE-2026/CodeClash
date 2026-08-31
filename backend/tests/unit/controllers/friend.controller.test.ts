@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { getFriends, getFriendRequests, sendFriendRequest, respondToFriendRequest, removeFriend, createInvite } from '../../../src/interface-adapters/controllers/friend.controllers';
 import { FriendService } from '../../../src/application/usecases/services/friend.service';
+import { execPath } from 'node:process';
 
 describe('friend controllers', () => {
     let mockService: any;
@@ -198,11 +199,27 @@ describe('friend controllers', () => {
         });
 
         it('returns 200 on declined', async () => {
-            //mockService.respond
+            mockService.respondToRequest.mockResolvedValueOnce(undefined);
+            req.params = { friendship_id: 'f-1' };
+            req.body = { status: 'declined' };
+
+            const handler = respondToFriendRequest(mockService);
+            await handler(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(200);
+            expect(res.json).toHaveBeenCalledWith({ message: 'Friend request declined' });
         });
 
         it('returns 400 if status is invalid', async () => {
+            req.params = { friendship_id: 'f-1' };
+            req.body = { status: 'blocked' };
 
+            const handler = respondToFriendRequest(mockService);
+            await handler(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(400);
+            expect(res.json).toHaveBeenCalledWith({ message: 'status must be accpeted or declined' });
+            expect(mockService.respondToRequest).not.toHaveBeenCalled();
         });
 
         it('returns 400 if friendshup_id is missing', async () => {
