@@ -70,11 +70,30 @@ const Friends: React.FC = () => {
     const showDropdown = isDropDownOpen && searchQuery.trim() != '';
 
     useExtraLayout(
-        <div className="flex items-center gap-2 w-full rounded-full border border-border bg-card px-4 py-2.5">
-            <Search size={18} className="text-muted-text shrink-0"/>
-            <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder= {friendContent.searchPlaceholder} className="bg-transparent outline-none text-xsm text-primary-text placeholder:text-muted-text w-full"
-            />
+        <div ref={searchRef} className="relative w-full">
+            <div className="flex items-center gap-2 w-full rounded-full border border-border bg-card px-4 py-2.5">
+                <Search size={18} className="text-muted-text shrink-0"/>
+                <input type="text" value={searchQuery} onChange={(e) => {setSearchQuery(e.target.value); setIsDropDownOpen(true);}}
+                    onFocus={() => setIsDropDownOpen(true)} placeholder={friendContent.searchPlaceholder} className="bg-transparent outline-none text-xsm text-primary-text placeholder:text-muted-text w-full"
+                />
+            </div>
+            {showDropdown && (
+                <div className="modal-panel absolute top-full left-0 mt-2 w-full max-h-80 overflow-y-auto p-2 flex flex-col gap-2 z-50">
+                    {searchResults.length === 0 ? (
+                        <div className="empty-state py-6">
+                            <p className="text-sm text-danger">{friendContent.searchEmpty}!</p>
+                        </div>
+                    ) : (
+                        searchResults.map((result) => (
+                            <div key={result.id} className="p-2 rounded-full flex items-center gap-3 hover:bg-background-elevated">
+                                <img src={robot_map[result.avatar]} alt={result.username} className="avatar w-10 h-10 object-cover shrink-0"/>
+                                <p className="text-primary-text text-sm font-semibold truncate flex-1 min-w-0">{result.username}</p>
+                                <RelationResult relationship={result.relationship} onAdd={() => sendFriendRequest(result.id)}/>
+                            </div>
+                        ))
+                    )}
+                </div>
+            )}
         </div>
     )
 
@@ -91,30 +110,9 @@ const Friends: React.FC = () => {
                     <img src={robot_map[profile.avatar]} alt={profile.username} className="avatar w-16 h-16 object-cover shrink-0"/>
                     <div className="flex-1 min-w-0">
                         <p className="text-primary-text font-black text-md truncate">{profile.username}</p>
-                        <p className="text-muted text-sm truncate">{profile.handle}</p>
+                        <p className="text-muted text-sm truncate">@{profile.handle}</p>
                     </div>
                 </div>
-
-                {/*Search for and add friends */}
-                {searchQuery.trim() !== '' && (
-                    <section>
-                        <div className="flex flex-col gap-3">
-                            {searchResults.length === 0 ? (
-                                <div className="text-danger text-sm empty-state py-8">
-                                    <p>{friendContent.searchEmpty}</p>
-                                </div>
-                            ) : (
-                                searchResults.map((result) => (
-                                    <div key={result.id} className="card-elevated p-4 flex items-center gap-4">
-                                        <img src={robot_map[result.avatar]} alt={result.username} className="avatar w-16 h-16 object-cover shrink-0"/>
-                                        <p className="text-primary-text font-semibold truncate flex-1 min-w-0">{result.username}</p>
-                                        <RelationResult relationship={result.relationship} onAdd={() => sendFriendRequest(result.id)}/>
-                                    </div>
-                                ))
-                            )}
-                        </div>
-                    </section>
-                )}
 
                 {/*Friend requests */}
                 {requests.length > 0 && (
