@@ -150,11 +150,25 @@ describe('friend controllers', () => {
         });
 
         it('returns 401 if user is not authenticated', async () => {
+            req.user = undefined;
+            res.body = { receiver_id: 'user-2' };
 
+            const handler = sendFriendRequest(mockService);
+            await handler(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(401);
+            expect(mockService.sendFriendRequest).not.toHaveBeenCalled();
         });
 
-        it('returns 609 if request already exists', async () => {
+        it('returns 409 if request already exists', async () => {
+            mockService.sendFriendRequest.mockRejectedValueOnce(new Error('Friend request already exists' ));
+            req.body = { receiver_id: 'user-2' };
 
+            const handler = sendFriendRequest(mockService);
+            await handler(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(409);
+            expect(res.json).toHaveBeenCalledWith({ message: 'Friend request already exists' });
         });
 
         it('returns 500 on unexpected error', async () => {
