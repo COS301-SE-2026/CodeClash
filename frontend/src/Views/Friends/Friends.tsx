@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useFriends } from "../../context/Friends/useFriends";
 import { friendContent } from "../../Models/FriendsModel";
 import type { FriendStatus, Relation } from "../../Models/FriendsModel";
@@ -52,6 +52,22 @@ const Friends: React.FC = () => {
         isLoading, profile, friend, removeFriend, requests, acceptRequest, declineRequest, searchQuery, setSearchQuery, 
         searchResults, sendFriendRequest, sendInvite
     } = useFriends();
+
+    const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+    const searchRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const handleClickOutside  = (e:MouseEvent) => {
+            if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
+                setIsDropDownOpen(false);
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside)
+    }, [])
+
+    const showDropdown = isDropDownOpen && searchQuery.trim() != '';
 
     useExtraLayout(
         <div className="flex items-center gap-2 w-full rounded-full border border-border bg-card px-4 py-2.5">
