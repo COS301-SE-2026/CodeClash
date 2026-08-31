@@ -233,7 +233,7 @@ const RankChange: React.FC<{ before: number, after: number }> = ({ before, after
 
   if (moved === 0) return (
     <span className="text-secondary-text font-semibold opacity-60" style={{ fontSize: 'var(--font-size-xsm)' }}>
-      No change
+      {ordinal(before)}
     </span>
   );
 
@@ -244,19 +244,25 @@ const RankChange: React.FC<{ before: number, after: number }> = ({ before, after
   );
 };
 
-const Badge: React.FC<{ position: 1 | 2, rankBefore?: number | null, rank?: number | null }> = ({ position, rankBefore, rank }) => {
+const Badge: React.FC<{ position: 1 | 2, rankBefore?: number | null, rank?: number | null }> = ({ position, rankBefore, rank  }) => (
   <div className="flex flex-col items-center gap-1">
-    <div className={`w-12 h-12 rounded-full flex items-center justify-center shadow-md ${position === 1 ? 'bg-yellow-400 border-4 border-yellow-600' : 'bg-gray-400 border-4 border-gray-600'}`}>
+    {/*<div className={`w-12 h-12 rounded-full flex items-center justify-center shadow-md ${position
+      ? 'bg-yellow-400 border-4 border-yellow-600'
+      : 'bg-gray-400 border-4 border-gray-600'}`}>
       <span className={`font-black text-xs ${position === 1 ? 'text-yellow-900' : 'text-gray-700'}`}>
         {position === 1 ? '1st' : '2nd'}
       </span>
-    </div>
+    </div>*/}
+
     {rank ? (
-      <span className="text-secondary-text font-semibold opacity-70 text-centrer" style={{ fontSize: 'var(--font-size-xsm' }}>
-        {ordinal(rank)} on leaderboard
+      <span className="text-secondary-text font-semibold flex items-center opacity-70 text-center justify-center"
+        style={{ fontSize: 'var(--font-size-xsm)' }}>
+        {rankBefore ? `${ordinal(rankBefore)} → ${ordinal(rank)}` : ordinal(rank)}
       </span>
     ) : null}
-    </div>
-};
+
+    {rank && rankBefore ? <RankChange before={rankBefore} after={rank} /> : null}
+  </div>
+);
 
 export default FinalResults;
