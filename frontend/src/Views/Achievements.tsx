@@ -29,7 +29,7 @@ function timeTracker(iso:string): string {
 }
 
 const Achievements: React.FC = () => {
-    const {content, isLoading, earned, locked, totalNum, earnedNum} = AchievementsViewModelFunc();
+    const {content, isLoading, earned, locked} = AchievementsViewModelFunc();
 
     if (isLoading) {
         return <Loading isOpen={true}/>;

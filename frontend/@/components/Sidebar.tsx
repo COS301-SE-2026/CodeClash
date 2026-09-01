@@ -37,8 +37,8 @@ export function AppSidebar() {
                         style={{fontFamily: 'var(--font-logo)', fontWeight: 900}}>
                         <span className='text-primary'>CODECLASH</span>
                     </span>
-                    <SidebarTrigger className='flex-shrink-0 items-center justify-center'/>
                 </Link>
+                <SidebarTrigger className='flex-shrink-0 items-center justify-center'/>
                 </div>
             </SidebarHeader>
 
