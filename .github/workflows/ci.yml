@@ -42,9 +42,9 @@ jobs:
         postgres:
             image: postgres:15-alpine
             env:
-                POSTGRES_USER: ${{secrets.POSTGRES_TEST_USER}}
-                POSTGRES_PASSWORD: ${{secrets.POSTGRES_TEST_PASS}}
-                POSTGRES_DB: ${{secrets.POSTGRES_TEST_DB}}
+                POSTGRES_TEST_USER: ${{secrets.POSTGRES_TEST_USER}}
+                POSTGRES_TEST_PASS: ${{secrets.POSTGRES_TEST_PASS}}
+                POSTGRES_TEST_DB: ${{secrets.POSTGRES_TEST_DB}}
             ports:
                 - 5432:5432
             options: >-
