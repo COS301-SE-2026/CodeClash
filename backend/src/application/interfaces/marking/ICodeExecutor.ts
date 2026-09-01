@@ -3,7 +3,7 @@
 export interface ExecutionResult{
     output: string | null,
     error: string | null,
-    status_id: number,
+    status: {id: number, description: string},
     time: string | null,
     memory: number | null,
     compile_output: string | null,

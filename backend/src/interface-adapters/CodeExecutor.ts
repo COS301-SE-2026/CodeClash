@@ -42,7 +42,7 @@ export class CodeExecutor implements ICodeExecutor {
         const response: ExecutionResult = {
             output: result.data.stdout,
             error: result.data.stderr,
-            status_id:result.data.status.id ,
+            status:result.data.status ,
             time:result.data.time ,
             memory:result.data.memory ,
             compile_output:result.data.compile_output

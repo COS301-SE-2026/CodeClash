@@ -7,7 +7,7 @@ export class MarkProg implements MarkingStrategy {
 
     private readonly executor;
 
-    constructor(code_executor: ICodeExecutor){
+    constructor(code_executor: ICodeExecutor) {
         this.executor = code_executor;
     }
 
@@ -15,39 +15,54 @@ export class MarkProg implements MarkingStrategy {
 
         const result: ExecutionResult = await this.executor.execute(submission.source_code, submission.language_id, submission.source_code, answer);
 
-        switch(result.status_id){
+        switch (result.status.id) {
             case 1: // submission is queued
-            const queued : NotificationDTO = {
-                message : 'Submitted',
-                type: NotificationTypes.Info
-            }
+                const queued: NotificationDTO = {
+                    message: 'Submitted.',
+                    type: NotificationTypes.Info
+                }
 
-            return queued;
+                return queued;
 
             case 2: // submission is being marked
-            break;
+                const pending: NotificationDTO = {
+                    message: 'Marking...',
+                    type: NotificationTypes.Info
+                }
+                return pending;
 
             case 3: // answer is correct 
-            break;
+                const correct: NotificationDTO = {
+                    message: "Correct!",
+                    type: NotificationTypes.Success
+                }
+                return correct;
 
             case 4: // answer is wrong
-            break;
+                const wrong: NotificationDTO = {
+                    message: 'Incorrect!',
+                    type: NotificationTypes.Error
+                }
+                return wrong;
 
             case 5: // execution timed out
-            break;
-
             case 6: // compilation error 
-            break; 
+                const error: NotificationDTO = {
+                    message: "Execution Error!",
+                    type: NotificationTypes.Error
+                }
+                return error;
 
             // Runtime Errors
-            case 7:
-            case 8:
-            case 9:
-            case 10: 
-            case 11:
-            case 12:
-            break;            
+            default:
+                const runtime_errors: NotificationDTO = {
+                    message: result.status.description,
+                    type: NotificationTypes.Error
+                }
+                return runtime_errors;
+
+
         }
-        
+
     }
 }
