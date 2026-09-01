@@ -20,7 +20,7 @@ export class MatchResultService {
 
       const ranks_before = new Map<string, number | null>();
       for (const stat of playerStats) {
-        ranks_before.set(stat.user_id, (await this.elo_repo.getUserRank(stat.user_id))?.rank ?? null);
+        ranks_before.set(stat.user_id, await this.elo_repo.getUserRank(stat.user_id));
       }
 
       // save match log
@@ -44,7 +44,7 @@ export class MatchResultService {
         // store player results
         for (const stat of playerStats) {
           const user_details = await this.match_result_repo.getUserDetails(stat.user_id);
-          const rank = (await this.elo_repo.getUserRank(stat.user_id))?.rank ?? null;
+          const rank = await this.elo_repo.getUserRank(stat.user_id);
 
             players.push({
                 user_id: stat.user_id,
