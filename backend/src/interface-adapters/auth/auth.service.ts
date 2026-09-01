@@ -31,7 +31,7 @@ export const validateToken = async (token: string | undefined) => {
     return null;
 
   try {
-    const payload = await verifier.verify(token);
+    const payload = await verifier().verify(token);
     return {
       user_Id: payload.sub,
       email: payload.email

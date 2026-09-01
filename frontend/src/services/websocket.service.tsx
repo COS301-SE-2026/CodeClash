@@ -1,8 +1,6 @@
 import { fetchAuthSession } from 'aws-amplify/auth';
 import { io, Socket } from 'socket.io-client'
 
-
-
 const env = import.meta.env;
 
 export async function createSocket(): Promise<Socket> {
@@ -15,6 +13,7 @@ export async function createSocket(): Promise<Socket> {
         }
     }
 
+    console.log(env.VITE_WEBSOCKET_URL);
     const conn = io(env.VITE_WEBSOCKET_URL, options);
 
 

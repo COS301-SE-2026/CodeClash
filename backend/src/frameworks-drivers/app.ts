@@ -19,7 +19,7 @@ export const createApp = (
     res.json({ status: 'ok' });
   });
 
-  app.use(cors({ origin: process.env.FRONTEND_URL || 'http://localhost:5173' }));
+  app.use(cors({ origin: [process.env.FRONTEND_URL!, 'http://localhost:5173'] }));
   app.use(express.json());
 
   app.use(requireAuth(user_repo))
