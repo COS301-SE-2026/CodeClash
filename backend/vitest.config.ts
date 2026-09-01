@@ -11,7 +11,17 @@ export default defineConfig({
             provider: 'v8',
             reporter: ['text', 'lcov'],
             include: ['src/**'],
-            exclude: ['src/tests/**', '**/config/**']
+            exclude: [
+                'src/tests/**', 
+                '**/config/**', 
+                'src/**/*.dto.*', 
+                'src/application/interfaces/**', 
+                'src/entities/db-entities/**',
+                'src/entities/components.ts',
+                'src/entities/ecs-entities.ts',
+                'src/frameworks-drivers/config/**',
+                'src/interface-adapters/auth/index.d.ts'
+            ]
         },
         setupFiles: ['./tests/setup.ts'],
         fileParallelism: false,

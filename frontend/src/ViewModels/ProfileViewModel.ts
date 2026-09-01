@@ -51,7 +51,7 @@ export function getProfile() {
             finally {
                 setLoadingData(false);
             }
-    }, [username, elo, avatar, league, rank]);
+    }, [username, elo, avatar, league]);
 
     return {userData, loadingData, error};
 }

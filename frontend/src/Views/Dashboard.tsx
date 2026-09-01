@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 
 import backgroundImg from '../assets/Background/dashboard.png'
 import brainIcon from '../assets/Icons/Brain.png';
-import profileIcon from '../assets/Icons/Profile.png';
-import searchIcon from '../assets/Icons/Search.png';
 import { useDashboardViewModel } from '../ViewModels/DashboardViewModel';
 
 import Popup from './Popup'
@@ -16,10 +14,16 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
+import { useEffect } from 'react';
 
 
 const Dashboard = () => {
-  const { isOpen, openPopUp, closePopUp, username, elo, league, avatar, isLoading } = useDashboardViewModel();
+  const { isOpen, openPopUp, closePopUp, username, elo, league, avatar, isLoading, refresh } = useDashboardViewModel();
+
+  useEffect(() => {
+    refresh();
+  },[isLoading])
+
 
   if (isLoading) {
     return (

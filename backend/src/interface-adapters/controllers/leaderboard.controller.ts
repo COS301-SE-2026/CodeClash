@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { LeaderboardService } from "src/application/usecases/services/leaderboard.service";
 
-export const getLeaderboardController = (useCase: LeaderboardService) => {
+export const getLeaderboard = (useCase: LeaderboardService) => {
     return async (req: Request, res: Response) => {
       const limit = parseInt(req.query.limit as string) || 10
       const page = parseInt(req.query.page as string) || 1

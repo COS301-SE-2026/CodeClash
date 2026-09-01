@@ -119,7 +119,7 @@ AppDataSource.initialize()
             if (valid) {
 
                 // get db id from cognito id
-                const db_id = (await user_repo.getUserId(valid.user_Id))!.user_id;
+                const db_id = (await user_repo.getUserId(valid.user_Id))?.user_id;
                 const username = (await user_repo.getUserData(db_id!, 'username'))!.username
 
 
@@ -178,9 +178,7 @@ AppDataSource.initialize()
 
 
         // start server
-        httpServer.listen(3000, () => {
-            console.log("Server listening")
+        httpServer.listen(process.env.PORT, () => {
+            console.log(`Server listening`)
         });
     }).catch(error => console.error(error))
-
-// export default httpServer

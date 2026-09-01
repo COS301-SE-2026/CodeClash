@@ -31,7 +31,7 @@ const App: React.FC = () => {
     if (isLoading) {
         return <Loading isOpen={isLoading} />
     }
-   
+
 
     const logged_in = user !== null
 
@@ -43,16 +43,10 @@ const App: React.FC = () => {
                 <Route path='/' element={<Landing />} />
                 <Route path='/sign-in' element={<SignIn />} />
                 <Route path='/sign-up' element={<SignUp />} />
-                <Route path='terms' element={<TermsAndConditions/>}/>
-                <Route path= '/brand-style-guide' element={<BrandStyleGuide/>}/>
-                <Route path='/game-guide' element={<GameGuide/>}/> 
-                <Route path= '/help-menu' element={<HelpMenu/>}/>
-                <Route path='/dashboard' element={<Dashboard/>}/>
-                <Route path='/profile' element={<Profile/>}/>
-                <Route path='/leaderboard' element={<Leaderboard/>}/>
-                <Route path='/final-results' element={<FinalResults/>}/>
-                <Route path='match' element={<ProgMatch/>}/>
-
+                <Route path='terms' element={<TermsAndConditions />} />
+                <Route path='/brand-style-guide' element={<BrandStyleGuide />} />
+                <Route path='/game-guide' element={<GameGuide />} />
+                <Route path='/help-menu' element={<HelpMenu />} />
                 <Route path='*' element={<Navigate to='/sign-in' replace />} />
 
 
@@ -71,34 +65,30 @@ const App: React.FC = () => {
 
     return (
         <Routes>
-            <Route path='/' element={<Dashboard/>} />
-            <Route path='/' element={base_path} />
             <Route path='/sign-in' element={<SignIn />} />
             <Route path='/sign-up' element={<SignUp />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/match-searching' element={<MatchSearching />} />
             <Route path='/match-found' element={<MatchFound />} />
-            <Route path='/maths-match' element={<MathMatch />} />
-            {/*<Route path='/leaderboard' element={<Leaderboard />} />*/}
+            <Route path='/math-match' element={<MathMatch />} />
+            <Route path='/leaderboard' element={<Leaderboard />} />
             <Route path='/prog-match' element={<ProgMatch language="javascript" />} />
-            <Route path='/results' element={<FinalResults/>} />
-            {/* <Route path='/prog-match' element={<ProgMatch language="javascript"/>}/> */}
-
-            <Route path= '/results' element= {<FinalResults/>}/>
-
-            <Route path= '/forgot-password' element= {<ForgotPassword/>}/>
-            <Route path='/terms' element={<TermsAndConditions/>}/>
-            <Route path="/brand-style-guide" element= {<BrandStyleGuide/>}/>
+            <Route path='/results' element={<FinalResults />} />
+            <Route path='/results' element={<FinalResults />} />
+            <Route path='/forgot-password' element={<ForgotPassword />} />
+            <Route path='/terms' element={<TermsAndConditions />} />
+            <Route path="/brand-style-guide" element={<BrandStyleGuide />} />
 
             {/* Pages with sidebar inside the app */}
             <Route element={<Layout />}>
+                <Route path='/' element={base_path} />
                 <Route path='/dashboard' element={<Dashboard />} />
-                <Route path='/game-guide' element={<GameGuide/>}/>
+                <Route path='/game-guide' element={<GameGuide />} />
                 <Route path='/tournaments' />
-                <Route path='/leaderboard' element={<Leaderboard/>}/>
+                <Route path='/leaderboard' element={<Leaderboard />} />
                 <Route path='/badges' />
                 <Route path='/friends' />
-                <Route path='/match-history' element={<MatchHistory/>}/>
+                <Route path='/match-history' element={<MatchHistory />} />
             </Route>
         </Routes>
     )

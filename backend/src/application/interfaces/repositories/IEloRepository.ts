@@ -3,7 +3,7 @@ import { LeaderboardEntryDTO } from "src/entities/dtos/leaderboard.dto"
 import { RankDTO } from "src/entities/dtos/rank.dto"
 
 export interface IEloRepository {
-    // Creat
+    // Create
     createUserElo(user_id: string): Promise<void>
 
     // Read

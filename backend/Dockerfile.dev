@@ -5,10 +5,13 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci --ignore-scripts
 
-COPY . .
+COPY src ./src
+COPY tsconfig.json ./
 
 RUN npm run build 
 
+USER node
+
 EXPOSE 3000
 
-CMD ["npm","run", "prod"]
+CMD ["npm","run", "dev"]

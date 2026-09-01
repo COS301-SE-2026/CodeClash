@@ -1,27 +1,48 @@
 services:
   backend:
-    build: ./backend
+    build: 
+      context: ../backend
+      dockerfile: Dockerfile.dev
     ports:
       - "3000:3000"
-    environment:
+    environment: 
       - DB_HOST=${DB_HOST}
-      - DB-NAME=${DB_NAME}
-      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_PORT=${DB_PORT}
       - DB_USER=${DB_USER}
-      - COGNITO_REGION=${COGNITO_REGION}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - REDIS_URL=${REDIS_URL}
       - COGNITO_USER_POOL_ID=${COGNITO_USER_POOL_ID}
       - COGNITO_CLIENT_ID=${COGNITO_CLIENT_ID}
-      - REDIS_URL=${REDIS_URL}
+      - COGNITO_REGION=${COGNITO_REGION}
       - AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
       - AWS_SECRET_KEY=${AWS_SECRET_KEY}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - COGNITO_JWKS_URI=${COGNITO_JWKS_URI} 
+      - PORT=${PORT}
     depends_on:
       - db
     volumes:
-      - ./backend:/app
+      - ../backend:/app
       - /app/node_modules
     networks:
       - pgnetwork
-      - codeclash-net
+
+  frontend:
+    build: 
+      context: ../frontend
+      args:
+      - VITE_COGNITO_USER_POOL_ID=${VITE_COGNITO_USER_POOL_ID}
+      - VITE_COGNITO_CLIENT_ID=${VITE_COGNITO_CLIENT_ID}
+      - VITE_API_URL=${VITE_API_URL}
+      - VITE_WEBSOCKET_URL=${VITE_WEBSOCKET_URL}
+    ports:
+      - "80:8080"
+    volumes:
+      - ../frontend:/app
+      - /app/node_modules
+    networks:
+      - pgnetwork
 
   db:
     image: postgres:15-alpine
@@ -30,35 +51,27 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
     ports:
-      - "5432:5432"
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 5s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./database:/docker-entrypoint-initdb.d
+      - ../database:/docker-entrypoint-initdb.d
     networks:
       - pgnetwork
 
-  # test-db:
-  #   image: postgres:15-alpine
-  #   environment:
-  #     POSTGRES_USER: ${DB_TEST_USER}
-  #     POSTGRES_PASSWORD: ${DB_TEST_PASSWORD}
-  #     POSTGRES_DB: ${DB_TEST_NAME}
-  #   ports:
-  #     - "5433:5432"
-  #   volumes:
-  #     - postgres_test_data:/var/lib/postgresql/data
-  #     - ./database:/docker-entrypoint-initdb.d
-  #   networks:
-  #     - pgnetwork
-
   redis:
     image: redis:8.6.3-alpine
-    container_name: codeclash-redis
+    container_name: codeclash-redis-dev
     ports:
-      - '6379:6379'
+      - '6380:6379'
     volumes:
       - redis-data:/data
-      - ./backend/src/frameworks-drivers/config/redis.conf:/etc/redis/redis.conf
+      - ../backend/src/frameworks-drivers/config/redis.conf:/etc/redis/redis.conf
     command: ["redis-server", "/etc/redis/redis.conf"]
     restart: unless-stopped
     networks:
@@ -66,14 +79,14 @@ services:
 
   pgadmin:
     image: dpage/pgadmin4:9.16
-    container_name: pgadmin
+    container_name: pgadmin-dev
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASS}
       PGADMIN_LISTEN_PORT: ${PGADMIN_PORT}
     ports:
       - "${PGADMIN_PORT}:5151"
-    volumes:
+    volumes: 
       - pgadmin_data:/var/lib/pgadmin
     depends_on:
       - db
@@ -82,12 +95,10 @@ services:
 
 volumes:
   postgres_data:
-  postgres_test_data:
   pgadmin_data:
   redis-data:
     driver: local
 
 networks:
   pgnetwork:
-  codeclash-net:
-    external: true
+  

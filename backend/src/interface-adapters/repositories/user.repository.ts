@@ -11,6 +11,7 @@ export class UserRepository implements IUserRepository {
     ) { }
 
     async createUser(username: string, email: string, cognito_id: string, avatar_id: number, league: string): Promise<UserDTO | null> {
+   
         const insert = await this.userRepository.createQueryBuilder()
             .insert()
             .into(Users)
@@ -31,6 +32,7 @@ export class UserRepository implements IUserRepository {
         const data: UserDTO = {
             user_id: id.user_id
         }
+
         return data
     }
 
@@ -75,7 +77,7 @@ export class UserRepository implements IUserRepository {
     }
 
     async getUserData(user_id: string, stat: keyof UserDTO): Promise<UserDTO | null> {
-       
+
         const user = await this.userRepository.findOneBy({ user_id: user_id })
 
         if (!user) return null;
