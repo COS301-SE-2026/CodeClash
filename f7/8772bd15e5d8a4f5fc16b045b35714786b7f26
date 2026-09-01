@@ -1,0 +1,14 @@
+frontend/test/test-utils.ts
+  h_58e143dc25f856 19-20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "f78772bd15e5d8a4f5fc16b045b35714786b7f26",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
