@@ -58,7 +58,11 @@ export const Lose = () => {
             <motion.g
             
                 initial={{y: 0}}
-                animate={{y: 2}}>
+                animate={{y: 3}}
+                transition={{
+                    delay: 0.4,
+                    duration: 0.4
+                }}>
 
             <image href={wrong} width="50" x="60" y="40" height="45"/>
             </motion.g>
@@ -84,17 +88,26 @@ export const Lose = () => {
             <motion.g
             
             style={{originX: "108px", originY: "100px", transformBox: "view-box"}}
-            animate={{rotate: -70}}
+            animate={{rotate: -110}}
+            transition={{
+                duration: 0.4
+            }}
             >
 
-                <image href={leftShoulder} width="50" x="93" y="92" height="55"/>
+                <image href={leftShoulder} width="50" x="93" y="95" height="55"/>
 
-                <motion.g>
-                    <image href={leftArm} width="50" x="95" y="117" height="25"/>
+                <motion.g
+                    style={{originX: "122px", originY: "120px", transformBox: "view-box"}}
+                    animate={{rotate: -110}}
+                    transition={{
+                        delay: 0.3,
+                        duration: 0.3
+                    }}>
+                    <image href={leftArm} width="50" x="92" y="117" height="25"/>
 
                     <motion.g
                     initial={{rotate: 190}}>
-                        <image href={wave} width="50" x="104" y="129" height="25"/>
+                        <image href={wave} width="50" x="100" y="129" height="25"/>
                     </motion.g>
                 </motion.g>
             </motion.g>
