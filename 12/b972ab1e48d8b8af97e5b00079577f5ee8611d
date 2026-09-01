@@ -1,0 +1,14 @@
+backend/tests/integration/repositories/elo.repository.test.ts
+  h_58e143dc25f856 125
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "12b972ab1e48d8b8af97e5b00079577f5ee8611d",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
