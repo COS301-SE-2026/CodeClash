@@ -1,7 +1,7 @@
-import { PaginatedLeaderboardResponse } from "src/interface-adapters/dtos/leaderboard.dto";
-import { IEloRepository } from "../../interfaces/IEloRepository";
+import { PaginatedLeaderboardResponse } from "src/entities/dtos/leaderboard.dto";
+import { IEloRepository } from "src/application/interfaces/repositories/IEloRepository";
 
-export class LeaderboardSystem {
+export class LeaderboardService {
     constructor(private eloRepository: IEloRepository) {}
 
     async execute(limit: number, page: number): Promise<PaginatedLeaderboardResponse> {

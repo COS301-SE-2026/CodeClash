@@ -12,6 +12,7 @@ services:
       - /app/node_modules
     networks:
       - pgnetwork
+      - codeclash-net
 
   # frontend:
   #   build: ./frontend
@@ -66,7 +67,7 @@ services:
     volumes:
       - redis-data:/data
       - ./backend/src/config/redis.conf:/etc/redis/redis.conf
-    command: ["redis-server", "/etc/redis/redis.conf"]
+    command: [ "redis-server", "/etc/redis/redis.conf" ]
     restart: unless-stopped
     networks:
       - pgnetwork
@@ -80,7 +81,7 @@ services:
       PGADMIN_LISTEN_PORT: ${PGADMIN_PORT}
     ports:
       - "${PGADMIN_PORT}:5151"
-    volumes: 
+    volumes:
       - pgadmin_data:/var/lib/pgadmin
     depends_on:
       - db
@@ -96,4 +97,5 @@ volumes:
 
 networks:
   pgnetwork:
-  
+  codeclash-net:
+    external: true

@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
-import { UserDTO } from 'src/interface-adapters/dtos/user.dto';
+import { UserDTO } from 'src/entities/dtos/user.dto';
 
 import { validStat } from '../auth/auth.service';
-import { UserRepository } from '../repositories/user.repository';
+import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
 
 
 /// GET api/user/:stat
-export const getUserStat = (user_repo: UserRepository) => {
+export const getUserStat = (user_repo: IUserRepository) => {
 
     return async (req: Request, res: Response) => {
 

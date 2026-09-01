@@ -1,23 +1,27 @@
 import { Router } from 'express';
-import { EloRatings } from 'src/entities/db-entities/elo.entities';
-import { Users } from 'src/entities/db-entities/user.entities';
-import {
-  getUserElo,
-} from 'src/interface-adapters/controllers/elo.controllers';
+import { getUserElo } from 'src/interface-adapters/controllers/elo.controllers';
 import { getUserStat } from 'src/interface-adapters/controllers/user.controllers';
-import { EloRepository } from 'src/interface-adapters/repositories/elo.repository';
-import { UserRepository } from 'src/interface-adapters/repositories/user.repository';
+import { IEloRepository } from 'src/application/interfaces/repositories/IEloRepository';
+import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
+import { LeaderboardService } from 'src/application/usecases/services/leaderboard.service';
+import { getLeaderboardController } from 'src/interface-adapters/controllers/leaderboard.controller';
+
+export const createAPIRoutes = (
+  elo_repo: IEloRepository,
+  user_repo: IUserRepository,
+  leaderboard_service: LeaderboardService
+) => {
+
+  const router = Router();
+
+  // elo
+  router.get('/elo/elo-get', getUserElo(elo_repo));
+  router.get('/elo/leaderboard', getLeaderboardController(leaderboard_service));
+
+  // user
+  router.get('/user/:stat', getUserStat(user_repo));
 
 
-import { AppDataSource } from '../config/data-source';
+  return router;
 
-const router = Router();
-
-const user_repo = new UserRepository(AppDataSource.getRepository(Users))
-const elo_repo = new EloRepository(AppDataSource.getRepository(EloRatings))
-router.get('/elo-get', getUserElo(elo_repo));
-
-// user routes
-router.get('/:stat', getUserStat(user_repo)); // this must be last, it's a generic function that fetches any attribute directly in the users table
-
-export default router;
+}

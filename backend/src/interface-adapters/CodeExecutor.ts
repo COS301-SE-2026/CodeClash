@@ -1,5 +1,7 @@
 import { ICodeExecutor, ExecutionResult } from 'src/application/interfaces/marking/ICodeExecutor'
 import axios from 'axios'
+import dotenv from 'dotenv'
+dotenv.config();
 
 export class CodeExecutor implements ICodeExecutor {
     // these can be updated as needed
@@ -22,7 +24,8 @@ export class CodeExecutor implements ICodeExecutor {
             "expected_output":expected_output,
             "memory_limit":this.memory_limit,
             "stack_limit": this.stack_limit,
-            "max_file_size": this.max_file_size
+            "max_file_size": this.max_file_size,
+            "callback_url": `http://backend:${process.env.PORT}/api/marking/result` 
         })
 
         const result = await axios.post(`${this.url}/submissions?wait=false&base64_encoded=true`, data,

@@ -7,7 +7,7 @@ import { IQuestionRepository } from 'src/application/interfaces/repositories/IQu
 import { QuestionRepository } from 'src/interface-adapters/repositories/question.repository';
 import { GameType, Questions } from 'src/entities/db-entities/questions.entities';
 import { cleanUp, gameDone, sendResults, startQuestion, submitQuestion } from 'src/interface-adapters/socket-handlers/game.handler';
-import { SubmissionDTO } from 'src/interface-adapters/dtos/components.dto';
+import { SubmissionDTO } from 'src/entities/dtos/components.dto';
 import { IAnswerRepository } from 'src/application/interfaces/repositories/IAnswerRepository';
 import { AnswerRepository } from 'src/interface-adapters/repositories/answer.repository';
 import { Answers } from 'src/entities/db-entities/answers.entities';
@@ -25,7 +25,7 @@ import { IUserRepository } from 'src/application/interfaces/repositories/IUserRe
 import { MarkingService } from 'src/application/usecases/services/marking.service';
 import { initDB } from 'src/application/usecases/init-db';
 import { LifeSystem } from 'src/application/usecases/systems/life.system';
-import { StartQuestionDTO } from 'src/interface-adapters/dtos/question.dto';
+import { StartQuestionDTO } from 'src/entities/dtos/question.dto';
 import { FinishGame } from 'src/application/usecases/systems/finish-game';
 import { SubmissionSystem } from 'src/application/usecases/systems/submission.system';
 import { World } from 'src/entities/World';
@@ -37,7 +37,7 @@ import { sendGameQuestions, joinMatchQueue, leaveMatchQueue, matchAccepted, matc
 import { Users } from "../entities/db-entities/user.entities"
 import { validateToken } from '../interface-adapters/auth/auth.service';
 
-import  app from './app';
+import { createApp } from './app';
 import { AppDataSource } from "./config/data-source"
 import { OpponentProgress } from 'src/application/usecases/systems/opponent-progress';
 import { IMatchRepository } from 'src/application/interfaces/repositories/IMatchRepository';
@@ -49,6 +49,7 @@ import { MatchResultRepository } from 'src/interface-adapters/repositories/match
 import { MatchedUsersService } from 'src/application/usecases/services/matched-users.service';
 import { GameStore } from 'src/application/usecases/services/game-store.service';
 import { DeleteGame } from 'src/application/usecases/systems/delete-game';
+import { LeaderboardService } from 'src/application/usecases/services/leaderboard.service';
 
 dotnev.config()
 
@@ -68,8 +69,38 @@ AppDataSource.initialize()
             AppDataSource.getRepository(Users)
         )
 
+        // initialise ecs world 
+        const world = World();
 
-        const httpServer = createServer(app)     // can update to https
+        // initialise use cases 
+        const create_player_entity = new CreatePlayerEntity(world);
+        const create_match_entity = new CreateMatchEntity(world);
+        const create_round_entity = new CreateRoundEntity(world);
+
+
+        const get_questions = new GetQuestions(question_repo);
+        const get_answers = new GetAnswers(answer_repo);
+        const get_difficulty = new GetDifficulty();
+        const get_total_time = new GetTotalTime();
+
+        const create_game = new CreateGame(create_player_entity, create_match_entity, create_round_entity);
+
+        // create game cache
+        const game_cache: IGameCache = new GameCache(redis);
+        const matchmaking_cache: IMatchmakingCache = new MatchmakingCache(redis);
+
+
+
+        // initialise services 
+        const game_service = new GameService(create_game, get_questions, get_difficulty, get_total_time, get_answers, game_cache, match_repo, user_repo);
+        const matchmkaing_service = new MatchmakingService(matchmaking_cache);
+        const match_results = new MatchResultService(elo_repo, match_results_repo)
+        const matched_users_service = new MatchedUsersService();
+        const game_store = new GameStore(user_repo);
+        const leaderboard_service = new LeaderboardService(elo_repo);
+
+
+        const httpServer = createServer(createApp(elo_repo, user_repo,leaderboard_service))     // can update to https
         const io = new Server(httpServer, {
             cors: {
                 origin: [process.env.FRONTEND_URL!],
@@ -101,39 +132,14 @@ AppDataSource.initialize()
             else next(new Error("Authentication error: Invalid token"));
         })
 
-        // initialise ecs world 
-        const world = World();
 
 
 
-        // initialise use cases 
-        const create_player_entity = new CreatePlayerEntity(world);
-        const create_match_entity = new CreateMatchEntity(world);
-        const create_round_entity = new CreateRoundEntity(world);
-
-        const get_questions = new GetQuestions(question_repo);
-        const get_answers = new GetAnswers(answer_repo);
-        const get_difficulty = new GetDifficulty();
-        const get_total_time = new GetTotalTime();
-
-        const create_game = new CreateGame(create_player_entity, create_match_entity, create_round_entity);
-
-        // create game cache
-        const game_cache: IGameCache = new GameCache(redis);
-        const matchmaking_cache: IMatchmakingCache = new MatchmakingCache(redis);
-
-
-        // initialise services 
-        const game_service = new GameService(create_game, get_questions, get_difficulty, get_total_time, get_answers, game_cache, match_repo, user_repo);
-        const matchmkaing_service = new MatchmakingService(matchmaking_cache);
-        const match_results = new MatchResultService(elo_repo, match_results_repo)
-        const matched_users_service = new MatchedUsersService();
-        const game_store = new GameStore(user_repo);
 
         // initialise systems 
         const submission_system = new SubmissionSystem(world);
         const life_system = new LifeSystem(world);
-        const delete_game = new DeleteGame(world,game_store,matched_users_service);
+        const delete_game = new DeleteGame(world, game_store, matched_users_service);
         const finish_game = new FinishGame(world, match_results, game_store, delete_game);
         const opponent_progress = new OpponentProgress(world);
 
@@ -160,13 +166,13 @@ AppDataSource.initialize()
 
             socket.on('submit_question', (data: SubmissionDTO) => submitQuestion(io, socket, data, check_answer, opponent_progress));
 
-            socket.on('question_started', (data: StartQuestionDTO) => startQuestion(socket.data.user_id,submission_system, data));
+            socket.on('question_started', (data: StartQuestionDTO) => startQuestion(socket.data.user_id, submission_system, data));
 
-            socket.on('game_done', ( game_id: number, game_type: GameType, pair_id:string) => gameDone(io, socket, game_id,game_type, pair_id,finish_game, game_store));
+            socket.on('game_done', (game_id: number, game_type: GameType, pair_id: string) => gameDone(io, socket, game_id, game_type, pair_id, finish_game, game_store));
 
             socket.on('send_results', (game_id: number, pair_id: string) => sendResults(io, game_id, pair_id, game_store))
 
-            socket.on('clean_up', (game_id: number, pair_id: string)=> cleanUp(game_id, pair_id, delete_game, game_store))
+            socket.on('clean_up', (game_id: number, pair_id: string) => cleanUp(game_id, pair_id, delete_game, game_store))
         })
 
 
