@@ -65,7 +65,7 @@ describe("Tests user Provider", () => {
     })
 
     it("Set Username", async () => {
-        const expected = 'codeclash';
+        const expected = `${process.env.VITE_INTEGRATION_TEST_USER}`;
 
         await waitFor(() => {
             expect(screen.getByTestId('username-test')).toHaveTextContent(expected);
