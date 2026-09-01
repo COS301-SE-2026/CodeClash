@@ -737,6 +737,13 @@
     object-fit: cover;
   }
 
+  .score-display {
+    font-family: var(--font-dseg);
+    color: var(--primary);
+    letter-spacing: 0.05rem;
+    text-shadow: 0 0 12px rgba(192, 57, 90, 0.5);
+  }
+
   /*For the confetti effect*/
   .confetti-particle {
     position: absolute;

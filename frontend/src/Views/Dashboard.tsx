@@ -121,7 +121,7 @@ const Dashboard = () => {
                 <div className='card-elevated p-5'>
                   <div className='flex items-center justify-between mb-3'>
                     <p className='text-sm font-bold text-primary-text'>Recently Earned</p>
-                    <Link to='/badges' className='badge badge-status-pending'>
+                    <Link to='/achievements' className='badge badge-status-pending'>
                     See all 
                     <ChevronRight size={12}/>
                     </Link>

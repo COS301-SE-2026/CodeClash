@@ -8,6 +8,8 @@ import './styles/global.css'
 import { SocketProvider } from './context/Socket/SocketContext'
 import { UserProvider } from './context/User/UserContext'
 import { MatchmakingProvider } from './context/Socket/MatchmakingContext'
+import { FriendsProvider } from './ViewModels/FriendsViewModel/FriendsContext'
+import FriendInvitePopup from './Views/Friends/FriendInvitePopup'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   // <React.StrictMode>
@@ -16,9 +18,12 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <SocketProvider>
       <UserProvider>
         <MatchmakingProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
+          <FriendsProvider>
+            <BrowserRouter>
+              <App />
+              <FriendInvitePopup/>
+            </BrowserRouter>
+          </FriendsProvider>
         </MatchmakingProvider>
       </UserProvider>
     </SocketProvider>
