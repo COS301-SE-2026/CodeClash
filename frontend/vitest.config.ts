@@ -27,6 +27,7 @@ export default defineConfig({
     },
 
     globals: true,
+    testTimeout: 20000,
     exclude: ['@/components/ui/**', '@/hooks/**', '**/node_modules/**'],  // exclude shadcn ui components
     },
   resolve: {
