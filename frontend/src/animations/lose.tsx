@@ -39,8 +39,6 @@ import { rightHandVariants } from "./rig";
 export const Lose = () => {
 
     return(
-        <div className="bg-[#000000] min-h-screen w-full">
-
         <svg viewBox="0 0 300 400" width="600" height="700" preserveAspectRatio="xMidYMid meet">
 
             <motion.g>
@@ -114,6 +112,5 @@ export const Lose = () => {
 
            
         </svg>
-        </div>
     )
 }
