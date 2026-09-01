@@ -57,15 +57,22 @@ export const ArmRaise = () => {
 
              <motion.g
                 style={{originX: "40px", originY: "0px"}}
-                animate={{rotate: 10}}
+                animate={{rotate: 15}}
                 transition={{
                     delay: 0.3
                 }}
                 >
                 <image href={rightLeg} width="50" x="40" y="121" height="57"/>
             </motion.g>
-                <image href={leftLeg} width="50" x="75" y="121" height="57"/>
-            <motion.g>
+            
+            <motion.g
+            
+                animate={{rotate:-10}}
+                transition={{
+                    delay: 0.2
+                }}>
+
+                <image href={leftLeg} width="50" x="80" y="121" height="57"/>
 
             </motion.g>
 
@@ -78,7 +85,7 @@ export const ArmRaise = () => {
                     <image href={leftArm} width="50" x="95" y="117" height="25"/>
 
                     <motion.g>
-                        <image href={leftHand} width="50" x="94" y="132" height="17"/>
+                        <image href={leftHand} width="50" x="94" y="131" height="17"/>
                     </motion.g>
                 </motion.g>
             </motion.g>
@@ -106,7 +113,7 @@ export const ArmRaise = () => {
                 <image href={rightArm} width="50" x="26" y="117" height="25"/>
 
                 <motion.g>
-                <image href={rightHand} width="50" x="25" y="131" height="17"/>
+                <image href={rightHand} width="50" x="26" y="131" height="17"/>
                 </motion.g>
 
                 </motion.g>

@@ -10,6 +10,7 @@ import MatchFound from "./Views/MatchFound";
 import MathMatch from "./Views/MathsMatch";
 import { ArmRaise } from "./animations/armRaise";
 import { Yes } from "./animations/yes";
+import {Lose} from "./animations/lose"
 import MatchHistory from "./Views/MatchHistory";
 import ForgotPassword from "./Views/ForgotPassword";
 import TermsAndConditions from "./Views/TermsAndConditions";

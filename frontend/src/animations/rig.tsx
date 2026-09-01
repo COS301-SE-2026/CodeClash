@@ -34,11 +34,11 @@ export const headVariants = {
 }
 
 export const rightHandVariants = { //from the avatar's perspective
-    variants: [rightHand, peace, thinkingHand, wave]
+    variants: [rightHand, peace, thinkingHand]
 }
 
 export const leftHandVariants = {
-    variants: [leftHand, fist, ok]
+    variants: [leftHand, fist, ok, wave]
 }
 
 interface Bone{
