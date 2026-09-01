@@ -1,0 +1,15 @@
+frontend/src/animations/armRaise.tsx
+  h_b13c5d77534129 80,99
+  h_b13c5d77534129 100-104
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "a3ae9564963e81fe564422d8ea385eb197ef7bd2",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
