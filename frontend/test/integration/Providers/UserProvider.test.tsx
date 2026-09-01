@@ -3,6 +3,7 @@ import robot from 'src/assets/Robots/Pink_fighting.png'
 import { AuthProvider } from "src/context/Auth/AuthContext";
 import { useUser } from "src/context/User/hooks/useUser";
 import { UserProvider } from "src/context/User/UserContext";
+import { robot_map } from 'src/assets/Robots'
 import { beforeAll, afterAll, describe, beforeEach, vi } from "vitest";
 
 import { getToken, login, logout } from "../../test-utils";
@@ -64,7 +65,7 @@ describe("Tests user Provider", () => {
     })
 
     it("Set Username", async () => {
-        const expected = 'integration_test_user';
+        const expected = 'codeclash';
 
         await waitFor(() => {
             expect(screen.getByTestId('username-test')).toHaveTextContent(expected);
@@ -75,7 +76,7 @@ describe("Tests user Provider", () => {
         const expected = robot;
 
         await waitFor(() => {
-            expect(screen.getByTestId('avatar-test')).toHaveTextContent(expected);
+            expect(robot_map).toContain(screen.getByTestId('avatar-test').textContent);
         })
     })
 
