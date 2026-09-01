@@ -23,7 +23,7 @@ describe('MatchResultService', () => {
 
     beforeEach(() =>{
       vi.clearAllMocks();
-      (mockEloRepo.getUserRank as Mock).mockResolvedValue(1);
+      (mockEloRepo.getUserRank as Mock).mockResolvedValue({rank: 1});
         service = new MatchResultService(mockEloRepo, mockMatchResultRepo);
     });
 
