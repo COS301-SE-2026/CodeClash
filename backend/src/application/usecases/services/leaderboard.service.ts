@@ -1,5 +1,6 @@
-import { PaginatedLeaderboardResponse } from "src/entities/dtos/leaderboard.dto";
-import { IEloRepository } from "src/application/interfaces/repositories/IEloRepository";
+import { PaginatedLeaderboardResponse } from "src/interface-adapters/dtos/leaderboard.dto";
+import { IEloRepository } from "src/application/interfaces/IEloRepository";
+import { RankDTO } from "src/interface-adapters/dtos/rank.dto";
 
 export class LeaderboardService {
     constructor(private eloRepository: IEloRepository) {}
@@ -24,4 +25,12 @@ export class LeaderboardService {
         pageSize: limit,
       };
     }
+
+
+    async getUserRank(userId: string): Promise<RankDTO | null>{
+      return this.eloRepository.getUserRank(userId);
+    }
+
+
+
 }

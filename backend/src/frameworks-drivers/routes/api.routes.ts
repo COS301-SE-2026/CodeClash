@@ -6,6 +6,7 @@ import { IUserRepository } from 'src/application/interfaces/repositories/IUserRe
 import { LeaderboardService } from 'src/application/usecases/services/leaderboard.service';
 import { getLeaderboardController } from 'src/interface-adapters/controllers/leaderboard.controller';
 import { handleMarkingResult } from 'src/interface-adapters/controllers/marking.controller';
+import { getUserRank } from 'src/interface-adapters/controllers/rank.controllers';
 
 export const createAPIRoutes = (
   elo_repo: IEloRepository,
@@ -18,6 +19,7 @@ export const createAPIRoutes = (
   // elo
   router.get('/elo/elo-get', getUserElo(elo_repo));
   router.get('/elo/leaderboard', getLeaderboardController(leaderboard_service));
+  router.get('/rank', getUserRank(leaderboard_service));
 
   // user
   router.get('/user/:stat', getUserStat(user_repo));
