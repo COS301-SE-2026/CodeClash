@@ -122,7 +122,7 @@ describe("Elo Repository Queries", () => {
         const { data } = await elo_repo.getLeaderboard(10, 0)
 
         for (const entry of data) {
-            expect(entry.rank).toBe(await elo_repo.getUserRank(entry.user_id))
+            expect(entry.rank).toBe((await elo_repo.getUserRank(entry.user_id))!.rank)
         }
     })
 
