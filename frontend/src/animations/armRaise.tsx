@@ -47,8 +47,6 @@ export const ArmRaise = () => {
                 style={{originX: "150px", originY: "200px", transformBox: "view-box"}}
                 animate={{rotate: 15}}
                 transition={{
-                    // repeat: Infinity, 
-                    // repeatType: "loop",
                     ease: "easeInOut",
                     type: "tween",
                     duration: 0.8,
@@ -69,29 +67,14 @@ export const ArmRaise = () => {
             </motion.g>
 
             
-            <motion.g
-                // style={{originX: "224px", originY: "23px"}}
-                // animate={{rotate: 80}}
-                // transition={{
-                //     type: "spring",
-                //     delay: 0.4,
-                // }}
-                >
+            <motion.g>
 
                 <image href={leftShoulder} width="50" x="93" y="92" height="55"/>
 
-                <motion.g
-                    // style={{originX: "30px", originY: "2px", transformBox: "view-box"}}
-                    // animate={{rotate: [0, 20, 80, 87]}}
-                    // transition={{
-                    //     type: "spring",
-                    // }}
-                    >
+                <motion.g>
                     <image href={leftArm} width="50" x="95" y="117" height="25"/>
 
-                    <motion.g
-                    >
-                        
+                    <motion.g>
                         <image href={leftHand} width="50" x="94" y="132" height="17"/>
                     </motion.g>
                 </motion.g>
@@ -115,14 +98,11 @@ export const ArmRaise = () => {
                     transition={{
                         delay: 0.2,
                         duration: 0.8,
-                        // times: [0, 0.4, 0.5]
                     }}
                     >
                 <image href={rightArm} width="50" x="26" y="117" height="25"/>
 
-                <motion.g
-                //initial={{rotate: 180}}
-                >
+                <motion.g>
                 <image href={rightHand} width="50" x="25" y="131" height="17"/>
                 </motion.g>
 
