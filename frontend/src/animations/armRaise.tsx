@@ -59,11 +59,14 @@ export const ArmRaise = () => {
                 style={{originX: "40px", originY: "0px"}}
                 animate={{rotate: 10}}
                 transition={{
-                    delay: 0.2
+                    delay: 0.3
                 }}
                 >
                 <image href={rightLeg} width="50" x="40" y="121" height="57"/>
+            </motion.g>
                 <image href={leftLeg} width="50" x="75" y="121" height="57"/>
+            <motion.g>
+
             </motion.g>
 
             
