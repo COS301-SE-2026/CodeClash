@@ -51,14 +51,18 @@ export const ArmRaise = () => {
                     // repeatType: "loop",
                     ease: "easeInOut",
                     type: "tween",
-                    duration: 0.4
+                    duration: 0.8,
+                    delay: 0.3
                 }}>
             <image href={torso} width="50" x="60" y="40" height="120"/>
             <image href={happy} width="50" x="60" y="40" height="45"/>
 
              <motion.g
                 style={{originX: "40px", originY: "0px"}}
-                animate={{rotate: -15}}
+                animate={{rotate: 10}}
+                transition={{
+                    delay: 0.2
+                }}
                 >
                 <image href={rightLeg} width="50" x="40" y="121" height="57"/>
                 <image href={leftLeg} width="50" x="75" y="121" height="57"/>
@@ -99,18 +103,20 @@ export const ArmRaise = () => {
                 style={{originX: "58px", originY: "100px", transformBox: "view-box"}}
                 animate={{rotate: -180}}
                 transition={{
-                    delay: 0.4,
-                    duration: 0.3
+                    delay: 0.5,
+                    duration: 0.5
                 }}
                 >
             <image href={rightShoulder} width="50" x="28" y="92" height="55"/>
 
                 <motion.g
-                    // style={{originX: 0.42, originY: 0.1}}
-                    // animate={{rotate: -140}}
-                    // transition={{
-                    //     duration: 0.4,
-                    // }}
+                    style={{originX: "50px", originY: "120px", transformBox: "view-box"}}
+                    animate={{rotate: [0, -140, 0]}}
+                    transition={{
+                        delay: 0.2,
+                        duration: 0.8,
+                        // times: [0, 0.4, 0.5]
+                    }}
                     >
                 <image href={rightArm} width="50" x="26" y="117" height="25"/>
 
