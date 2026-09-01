@@ -1,0 +1,14 @@
+frontend/src/Views/Leaderboard.tsx
+  h_58e143dc25f856 9,31,37,42
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "4dd1d89bc08a7b5b8cd90bcdc1ecc501d91735ef",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

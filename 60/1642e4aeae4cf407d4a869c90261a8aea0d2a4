@@ -1,0 +1,14 @@
+frontend/src/animations/rig.tsx
+  h_b13c5d77534129 33,37,41,50-52,88
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "601642e4aeae4cf407d4a869c90261a8aea0d2a4",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

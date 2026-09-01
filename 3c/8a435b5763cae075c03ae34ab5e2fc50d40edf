@@ -1,0 +1,14 @@
+backend/tests/integration/repositories/match-result.repository.test.ts
+  h_58e143dc25f856 106-119
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "3c8a435b5763cae075c03ae34ab5e2fc50d40edf",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

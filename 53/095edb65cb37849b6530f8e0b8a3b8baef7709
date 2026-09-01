@@ -1,0 +1,14 @@
+frontend/src/animations/fistBump.tsx
+  h_b13c5d77534129 112,115,119,127
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "53095edb65cb37849b6530f8e0b8a3b8baef7709",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
