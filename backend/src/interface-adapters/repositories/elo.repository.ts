@@ -91,26 +91,6 @@ export class EloRepository implements IEloRepository {
       }
     }
 
-  // async getUserRank(user_id: string): Promise<number | null> {
-  //   const row = await this.eloRepository.findOne({
-  //     where: { user: { user_id: user_id } },
-  //     relations: { user: true }
-      
-  //   })
-
-  //   if (!row) return null;
-
-  //   const ahead = await this.eloRepository
-  //     .createQueryBuilder('elo')
-  //     .innerJoin('elo.user', 'user')
-  //     .where('elo.rating > :rating', { rating: row.rating })
-  //     .orWhere('elo.rating = :rating AND user.username < :username',
-  //     { rating: row.rating, username: row.user.username })
-  //     .getCount()
-
-  //   return ahead + 1;
-  // }
-
     async updateRatingsAfterMatch(
         match_id: string,
         winner_id: string,
