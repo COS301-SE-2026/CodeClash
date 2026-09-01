@@ -1,4 +1,4 @@
-import { TrendingUp, TrendingDown, Clock } from "lucide-react";
+import { TrendingUp, TrendingDown, Clock, UserCircle } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FinalResultsViewModelFunction } from "../ViewModels/FinalResultsViewModel";
@@ -6,6 +6,7 @@ import { robot_map } from "src/assets/Robots";
 import Loading from "@/components/shared/Loading";
 import Starfield from "@/components/ui/animations/Starfield";
 import Confetti from "@/components/ui/animations/Confetti";
+import type { PlayerFinalResults } from "src/Models/FinalResultsModel";
 
 const FinalResults: React.FC = () => {
     const navigate = useNavigate();
@@ -224,21 +225,25 @@ const FinalResults: React.FC = () => {
     );
 };
 
-const Badge: React.FC<{ position: 1 | 2 }> = ({ position }) => {
-    if (position === 1) return (
-        <div className="flex flex-col items-center gap-1">
-            <div className="w-12 h-12 rounded-full bg-yellow-400 border-4 border-yellow-600 flex items-center justify-center shadow-md">
-                <span className="text-yellow-900 font-black text-xs">1st</span>
-            </div>
-        </div>
-    );
+const PlayerResultCard: React.FC<{
+    player: PlayerFinalResults;
+    emphasize?: boolean; //emphasis on the winners card, so its somewhat more visible and different to loser card
+}> = ({player, emphasize}) => {
+    const [avatarFailed, setAvatarFailed] = useState(false);
     return (
-        <div className="flex flex-col items-center gap-1">
-            <div className="w-12 h-12 rounded-full bg-gray-400 border-4 border-gray-600 flex items-center justify-center shadow-md">
-                <span className="text-gray-700 font-black text-xs">2nd</span>
+        <div className={`${emphasize? 'card-glow' : 'card-elevated'} p-4 flex flex-col sm:flex-row items-center gap-4`}>
+            <div className="flex flex-col items-center gap-1 shrink-0 w-20">
+                <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-primary flex items-center justify-center bg-card">
+                    {avatarFailed ? (
+                        <UserCircle size={26} className="text-muted-text"/>
+                    ): (
+                        <img src={robot_map[player.avatar]} alt = {player.username} className="w-full h-full object-cover" onError={() => setAvatarFailed(true)}/>
+                    )}
+                </div>
+                <span className="text-primary-text font-semibold text-center truncate w-full text-xs">{player.username}</span>
             </div>
         </div>
-    );
-};
+    )
+}
 
 export default FinalResults;
