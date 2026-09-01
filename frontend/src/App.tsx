@@ -11,6 +11,7 @@ import MathMatch from "./Views/MathsMatch";
 import { ArmRaise } from "./animations/armRaise";
 import { Yes } from "./animations/yes";
 import {Lose} from "./animations/lose"
+import {Peace} from "./animations/poses/peace"
 import MatchHistory from "./Views/MatchHistory";
 import ForgotPassword from "./Views/ForgotPassword";
 import TermsAndConditions from "./Views/TermsAndConditions";
@@ -53,7 +54,7 @@ const App: React.FC = () => {
                 <Route path='/leaderboard' element={<Leaderboard/>}/>
                 <Route path='/final-results' element={<FinalResults/>}/>
                 <Route path='match' element={<ProgMatch/>}/>
-                <Route path='/animations' element={<ArmRaise/>}/> 
+                <Route path='/animations' element={<Peace/>}/> 
 
                 <Route path='*' element={<Navigate to='/sign-in' replace />} />
 
