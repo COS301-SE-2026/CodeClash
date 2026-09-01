@@ -10,6 +10,7 @@ import type {
 } from "../../Models/FriendsModel";
 
 import { useAuth } from "../../context/Auth/hooks/useAuth";
+import { convertMathJsonToLatex } from "mathlive";
 
 const API_BASE = '/api'; 
 const INVITE_EXPIRY = 10 * 60 * 1000; // **We need an expires field on the invite response, this is currently just a client side approx based on the recieved time of invite
@@ -87,11 +88,25 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
                     fromUser: r.user_id
                 })));
 
-            }catch{
-
+                // build profile from auth user
+                if (user) {
+                    setProfile({
+                        id: user.userId ?? '',
+                        username: user.username ?? '',
+                        avatar: user.avatar_id ?? 0,
+                        league: user.league ?? 'Mercury',
+                        handle: user.username ?? ''
+                    });
+                }
+            }catch(err){
+                console.error('Error fetching friends data:', err);
+            } finally {
+                setIsLoading(false);
             }
-        } //end fetchAll
-    })//end useEffect
+        }; //end fetchAll
+        fetchAll();
+    }, [token, user]);//end useEffect
+    
     const enrichInvite = useCallback((raw: GameInvite, expires: number): Invite => ({
         id: raw.invite_id,
         mode: 'casual',
