@@ -5,7 +5,7 @@ import { IEloRepository } from 'src/application/interfaces/repositories/IEloRepo
 import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
 import { LeaderboardService } from 'src/application/usecases/services/leaderboard.service';
 import { getLeaderboardController } from 'src/interface-adapters/controllers/leaderboard.controller';
-import { handleMarking } from 'src/interface-adapters/controllers/marking.controller';
+import { handleMarkingResult } from 'src/interface-adapters/controllers/marking.controller';
 
 export const createAPIRoutes = (
   elo_repo: IEloRepository,
@@ -23,7 +23,7 @@ export const createAPIRoutes = (
   router.get('/user/:stat', getUserStat(user_repo));
 
   // marking
-  router.put('/marking/result',handleMarking())
+  router.put('/marking/result',handleMarkingResult())
 
   return router;
 

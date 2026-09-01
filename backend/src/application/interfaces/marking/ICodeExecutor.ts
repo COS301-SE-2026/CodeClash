@@ -10,5 +10,5 @@ export interface ExecutionResult{
 }
 
 export interface ICodeExecutor{
-    execute(source_code: string, language_id: number, stdin: string | null, expected_output: string): Promise<ExecutionResult>;
+    execute(source_code: string, language_id: number, stdin: string | null, expected_output: string): Promise<string>;
 }

@@ -14,7 +14,7 @@ export class CodeExecutor implements ICodeExecutor {
         private readonly auth: string
     ) { }
 
-    async execute(source_code: string, language_id: number, stdin: string | null, expected_output: string): Promise<ExecutionResult> {
+    async execute(source_code: string, language_id: number, stdin: string | null, expected_output: string): Promise<string> {
 
         // !!!! Submission queue can be full, we need to plan for this
         const data = JSON.stringify({
@@ -39,14 +39,7 @@ export class CodeExecutor implements ICodeExecutor {
         if (result.status !== 201)
             throw new Error("Error Marking Submission"); 
 
-        const response: ExecutionResult = {
-            output: result.data.stdout,
-            error: result.data.stderr,
-            status:result.data.status ,
-            time:result.data.time ,
-            memory:result.data.memory ,
-            compile_output:result.data.compile_output
-        }
-        return response;
+   
+        return result.data.token;
     }
 }

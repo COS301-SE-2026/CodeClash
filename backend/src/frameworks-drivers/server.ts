@@ -22,7 +22,7 @@ import { MatchmakingService } from 'src/application/usecases/services/matchmakin
 import { IMatchmakingCache } from 'src/application/interfaces/cache/IMatchmakingCache';
 import { IEloRepository } from 'src/application/interfaces/repositories/IEloRepository';
 import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
-import { MarkingService } from 'src/application/usecases/services/marking.service';
+import { MarkingService } from 'src/application/usecases/services/marking/marking.service';
 import { initDB } from 'src/application/usecases/init-db';
 import { LifeSystem } from 'src/application/usecases/systems/life.system';
 import { StartQuestionDTO } from 'src/entities/dtos/question.dto';
@@ -50,6 +50,7 @@ import { MatchedUsersService } from 'src/application/usecases/services/matched-u
 import { GameStore } from 'src/application/usecases/services/game-store.service';
 import { DeleteGame } from 'src/application/usecases/systems/delete-game';
 import { LeaderboardService } from 'src/application/usecases/services/leaderboard.service';
+import { NotificationService } from 'src/application/usecases/services/notification.service';
 
 dotnev.config()
 
@@ -99,8 +100,7 @@ AppDataSource.initialize()
         const game_store = new GameStore(user_repo);
         const leaderboard_service = new LeaderboardService(elo_repo);
 
-
-        const httpServer = createServer(createApp(elo_repo, user_repo,leaderboard_service))     // can update to https
+        const httpServer = createServer(createApp(elo_repo, user_repo, leaderboard_service))     // can update to https
         const io = new Server(httpServer, {
             cors: {
                 origin: [process.env.FRONTEND_URL!],
@@ -133,8 +133,7 @@ AppDataSource.initialize()
         })
 
 
-
-
+        const notification = new NotificationService(io);
 
         // initialise systems 
         const submission_system = new SubmissionSystem(world);
@@ -150,6 +149,8 @@ AppDataSource.initialize()
 
         // attach socket handlers
         io.on("connection", (socket) => {
+
+            socket.join(`user:${socket.data.user_id}`);
 
             // SOCKET HANDLERS MUST MOOVE TO interface-adapter/
             socket.on('join_match_queue', async (data) => await joinMatchQueue(io, socket, data, matchmkaing_service, matched_users_service, user_repo));
