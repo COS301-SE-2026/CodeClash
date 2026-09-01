@@ -35,12 +35,13 @@ export const Peace = () => {
                 </motion.g>
 
                 <motion.g
-                    style={{originX: "58px", originY: "100px", transformBox: "view-box"}}>
-                    
+                    style={{originX: "58px", originY: "100px", transformBox: "view-box"}}
+                    initial={{rotate: 20}}
+                    >
                     <image href={rightShoulder} width="50" x="28" y="92" height="55"/>
                     <motion.g
                         style={{originX: "50px", originY: "120px", transformBox: "view-box"}}
-                        initial={{rotate: 120}}>
+                        initial={{rotate: 125}}>
                         <image href={rightArm} width="50" x="26" y="117" height="25"/>
                         <motion.g
                             initial={{rotate: 180}}
