@@ -1,4 +1,4 @@
-import { ICodeExecutor, ExecutionResult } from 'src/application/interfaces/ICodeExecutor'
+import { ICodeExecutor, ExecutionResult } from 'src/application/interfaces/marking/ICodeExecutor'
 import axios from 'axios'
 
 export class CodeExecutor implements ICodeExecutor {
@@ -25,7 +25,7 @@ export class CodeExecutor implements ICodeExecutor {
             "max_file_size": this.max_file_size
         })
 
-        const result = await axios.post(`${this.url}/submissions?wait=false`, data,
+        const result = await axios.post(`${this.url}/submissions?wait=false&base64_encoded=true`, data,
             {
                 headers: {
                     "Content-Type": "application/json",
