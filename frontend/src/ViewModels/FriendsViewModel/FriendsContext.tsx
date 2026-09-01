@@ -12,72 +12,7 @@ import type {
 import { useAuth } from "../../context/Auth/hooks/useAuth";
 
 const API_BASE = '/api'; 
-const INVITE_POLL = 5000; // **Needs to be swapped with a real socket listener for incoming invites pop up
 const INVITE_EXPIRY = 10 * 60 * 1000; // **We need an expires field on the invite response, this is currently just a client side approx based on the recieved time of invite
-
-/*This data is mocked, all real endpoints need to replace this - !!For the profile, we can use the existing user context from FinalResults? */
-const MOCKED_PROFILE: Summary = {
-    id: 'user',
-    username: 'mockUser22',
-    avatar: 0,
-    league: 'Venus',
-    handle: 'userHandle'
-}
-
-/*Need an endpont for - GET /api/friends (list)*/
-const MOCKED_FRIENDS: Friend[] = [
-    {
-        id: 'u1',
-        username: 'u1Username',
-        avatar: 0,
-        status: 'online',
-        elo: 900,
-    },
-    {
-        id: 'u2',
-        username: 'u2Username',
-        avatar: 1,
-        status: 'offline',
-        elo: 909,
-    },
-    {
-        id: 'u3',
-        username: 'u3Username',
-        avatar: 2,
-        status: 'playing',
-        elo: 999,
-    },
-]
-
-/*Need an endpoint for - GET /api/friend/requests */
-const MOCKED_REQ: FriendRequest[] = [
-    {
-        id: 'req1',
-        username: 'reqUser1',
-        avatar: 1,
-        sentAt: new Date(Date.now() - 1000 * 60 * 60 * 3).toISOString(), 
-        fromUser: 'sendingUser'
-    }
-]
-
-/*Need an endpoint for - user search */
-const MOCKED_SEARCHPOOL: Omit <Search, 'relationship'>[] = [
-    {
-        id: 's1',
-        username: 's1Username',
-        avatar: 2,
-    },
-    {
-        id: 's2',
-        username: 's2Username',
-        avatar: 3,
-    },
-    {
-        id: 's3',
-        username: 's3Username',
-        avatar: 0,
-    },
-]
 
 interface FriendsContext {
     isLoading: boolean;
@@ -97,11 +32,11 @@ interface FriendsContext {
 
     sendInvite: (id: string) => void;
     activeInvite: Invite | null;
-    inviteCountdown: number;
+    inviteColumn: number;
     inviteError: string | null;
     acceptInvite: () => void;
     declineInvite: () => void;
-    dismissInviteError: () => void;
+    dimissInviteError: () => void;
 }
 
 export const FriendsContextFunc = createContext<FriendsContext | null>(null);
@@ -117,12 +52,46 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
     const [activeInvite, setActiveInvite] = useState<Invite | null>(null);
     const [inviteError, setInviteError] = useState<string | null>(null);
     const [now, setNow] = useState(() => Date.now());
+    const [allUsers, setAllUsers] = useState<Omit<Search, 'relationship'>[]>([]);
 
     const friendsRef = useRef(friend); //this is so closures dont capture a stale list
     friendsRef.current = friend;
 
     const activeInviteIdRef = useRef<string | null>(null); //tracks the current id for Invites, so we can differentiate same invite to new invite without resetting local countdown
 
+    useEffect(()=> {
+        if(!token) return;
+
+        const fetchAll = async () => {
+            try {
+                const [friendsRes, requestRes] = await Promise.all([
+                    fetch(`${API_BASE}/friends`, { headers: { Authorization: `Bearer ${token}` } }),
+                    fetch(`${API_BASE}/friends/requests?type=received`, { headers: { Authorization: `Bearer ${token}` } })
+                ]);
+                const friendsData = friendsRes.ok ? await friendsRes.json() : [];
+                const requestsData = requestRes.ok ? await requestRes.json() : [];
+
+                setFriend(friendsData.map((f: any) => ({
+                    id: f.user_id,
+                    username: f.username,
+                    avatar: f.avatar_id ?? 0,
+                    status: 'offline' as const, // status not stored in DB, defailt offline
+                    elo: f.elo ?? 600
+                })));
+
+                setRequests(requestsData.map((r: any) => ({
+                    id: r.friendship_id,
+                    username: r.username,
+                    avatar: r.avatar_id ?? 0,
+                    sentAt: r.created_at,
+                    fromUser: r.user_id
+                })));
+
+            }catch{
+
+            }
+        } //end fetchAll
+    })//end useEffect
     const enrichInvite = useCallback((raw: GameInvite, expires: number): Invite => ({
         id: raw.invite_id,
         mode: 'casual',
@@ -139,15 +108,6 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
         expires,
     }), []);
 
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            setProfile(MOCKED_PROFILE);
-            setFriend(MOCKED_FRIENDS);
-            setRequests(MOCKED_REQ);
-            setIsLoading(false);
-        }, 400);
-        return () => clearTimeout(timeout);
-    }, []);
 
     /*GET /api/friend/invite for an incoming friend invite */
     useEffect(() => {
