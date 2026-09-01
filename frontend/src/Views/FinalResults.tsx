@@ -91,124 +91,28 @@ const FinalResults: React.FC = () => {
 
             {state === 'results' && (
                 <div className="relative z-10 w-full max-w-2xl flex flex-col gap-4 p-6">
-                    <div className="w-[90%] max-w-6xl flex flex-col gap-6 p-10">
-                        <h1 className="text-primary-text font-bold text-center"
-                            style={{ fontSize: 'var(--heading-size)' }}>{content.titleResults}</h1>
+                        <h1 className="text-primary-text font-bold text-center text-xl">{content.titleResults}</h1>
 
                         {/*Table of results */}
                         <div className="flex flex-col gap-4">
-                            {/*Header */}
-                            <div className="grid rounded-lg border border-secondary-text bg-secondary"
-                                style={{ gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr' }}>
-                                {content.tableHeaders.map(header => (
-                                    <div key={header} className="px-3 py-3 text-center border-r border-secondary-text last:border-r-0">
-                                        <span className="text-secondary-text font-bold"
-                                            style={{ fontSize: 'var(--font-size-xsm)' }}>{header}</span>
-                                    </div>
-                                ))}
-                            </div>
-
-                            {/*Rows */}
-
-                            {/* winner */}
-
-                            <div className="grid rounded-lg border border-secondary-text bg-secondary"
-                                style={{ gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr' }}>
-
-                                {/*The user name + user robot/icon */}
-                                <div className="px-3 py-4 flex flex-col items-center justify-center gap-1 border-r border-secondary-text h-full">
-                                    <div className="w-15 h-[6rem] rounded-full overflow-hidden flex-shrink-0">
-                                        {winner ? (
-                                            <img src={robot_map[winner.avatar]} alt={winner.username} className="w-full h-[5.5rem]  object-cover" />
-                                        ) : (
-                                            <div className="w-full h-full bg-secondary-text" />
-                                        )}
-                                    </div>
-                                    <span className="text-secondary-text font-medium text-center truncate w-full"
-                                        style={{ fontSize: 'var(--font-size-xsm)' }}>{winner.username}</span>
-                                </div>
-
-                                {/*The column for correctness */}
-                                <div className="px-3 py-4 flex items-center justify-center border-r border-secondary-text h-full">
-                                    <span className="text-secondary-text font-semibold"
-                                        style={{ fontSize: 'var(--font-size-sm)' }}>{winner.correctness} questions</span>
-                                </div>
-
-                                {/*The column for speed - copied from above*/}
-                                <div className="px-3 py-4 flex items-center justify-center border-r border-secondary-text h-full">
-                                    <span className="text-secondary-text font-semibold"
-                                        style={{ fontSize: 'var(--font-size-sm)' }}>{formatTime(winner.speed)}</span>
-                                </div>
-
-                                {/*Column for elo effect */}
-                                <div className="px-3 py-4 flex  flex-col items-center justify-center border-r border-secondary-text h-full">
-                                    {winner.eloEffect >= 0 ? (
-                                        <TrendingUp className="w-9 h-9 text-success" />
-                                    ) : (
-                                        <TrendingDown className="w-9 h-9 text-danger" />
-                                    )}
-                                    <span className={`font-bold ${winner.eloEffect >= 0 ? 'text-success' : 'text-danger'}`}
-                                        style={{ fontSize: 'var(--font-size-sm)' }}>{winner.eloEffect}</span>
-                                </div>
-
-                                {/*Column for the users position (1st or 2nd) */}
-                                <div className="px-3 py-4 mt-2">
-                                    <Badge position={1} />
-                                </div>
-                            </div>
-
+                            <PlayerResultCard player={{
+                                username: winner.username, avatar: winner.avatar,
+                                correctness: winner.correctness, speed: formatTime(winner.speed),
+                                eloEffect: winner.eloEffect, position: 1
+                                }}
+                                emphasize
+                            />
+                            {/*copied from above and mod for loser */}
+                            <PlayerResultCard player={{
+                                username: loser.username, avatar: loser.avatar,
+                                correctness: loser.correctness, speed: formatTime(loser.speed),
+                                eloEffect: loser.eloEffect, position: 2
+                                }}
+                            />
                         </div>
-
-                        {/* loser */}
-
-                        <div className="grid rounded-lg border border-secondary-text bg-secondary"
-                            style={{ gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr' }}>
-
-                            {/*The user name + user robot/icon */}
-                            <div className="px-3 py-4 flex flex-col items-center justify-center gap-1 border-r border-secondary-text h-full">
-                                <div className="w-15 h-25 rounded-full overflow-hidden flex-shrink-0">
-                                    {loser ? (
-                                            <img src={robot_map[loser.avatar]} alt={loser.username} className="w-full h-full object-cover" />
-                                        ) : (
-                                            <div className="w-full h-full bg-secondary-text" />
-                                        )}
-                                </div>
-                                <span className="text-secondary-text font-medium text-center truncate w-full"
-                                    style={{ fontSize: 'var(--font-size-xsm)' }}>{loser.username}</span>
-                            </div>
-
-                            {/*The column for correctness */}
-                            <div className="px-3 py-4 flex items-center justify-center border-r border-secondary-text h-full">
-                                <span className="text-secondary-text font-semibold"
-                                    style={{ fontSize: 'var(--font-size-sm)' }}>{loser.correctness} questions</span>
-                            </div>
-
-                            {/*The column for speed - copied from above*/}
-                            <div className="px-3 py-4 flex items-center justify-center border-r border-secondary-text h-full">
-                                <span className="text-secondary-text font-semibold"
-                                    style={{ fontSize: 'var(--font-size-sm)' }}>{formatTime(loser.speed)}</span>
-                            </div>
-
-                            {/*Column for elo effect */}
-                            <div className="px-3 py-4 flex  flex-col items-center justify-center border-r border-secondary-text h-full">
-                                {loser.eloEffect >= 0 ? (
-                                    <TrendingUp className="w-9 h-9 text-success" />
-                                ) : (
-                                    <TrendingDown className="w-9 h-9 text-danger" />
-                                )}
-                                <span className={`font-bold ${loser.eloEffect >= 0 ? 'text-success' : 'text-danger'}`}
-                                    style={{ fontSize: 'var(--font-size-sm)' }}>{loser.eloEffect}</span>
-                            </div>
-
-                            {/*Column for the users position (1st or 2nd) */}
-                            <div className="px-3 py-4 mt-2">
-                                <Badge position={2} />
-                            </div>
-                        </div>
-
 
                         {/*Buttons for return and try again*/}
-                        <div className="flex gap-4 mt-2">
+                        <div className="flex gap-3 mt-1">
                             <button className="flex-1 flex items-center justify-center gap-2 rounded-2xl bg-secondary text-secondary-text font-bold hover:opacity-80 transition-opacity"
                                 style={{ fontSize: 'var(--font-size-sm)' }} onClick={() => navigate('/dashboard')} type="button">
                                 {content.labelReturn}
@@ -219,7 +123,6 @@ const FinalResults: React.FC = () => {
                             </button>
                         </div>
                     </div>
-                </div>
             )}
         </div>
     );
