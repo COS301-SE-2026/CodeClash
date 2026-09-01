@@ -35,45 +35,45 @@ import { leftHandVariants } from "./rig";
 import { rightHandVariants } from "./rig";
 
 
-export const FistBump = () => {
-    return(
-        <div className="bg-[#000000] min-h-screen w-full">
-        <svg viewBox="0 0 100 100" width="400" height="300">
+// export const FistBump = () => {
+//     return(
+//         <div className="bg-[#000000] min-h-screen w-full">
+//         <svg viewBox="0 0 100 100" width="400" height="300">
         
-        <motion.g>
-            <image href={rightLeg} width="30%" x="-3%" y="62%" height="30%"/>
-        </motion.g>
-        <motion.g>
-            <image href={leftLeg} width="30%" x="15%" y="62%" height="30%"/>
-        </motion.g>
-        <motion.g>
-            <image href={rightArm} width="30%" x="-11%" y="44%" height="25%"/>
-        </motion.g>
-        <motion.g>
-            <image href={leftArm} width="30%" x="23%" y="44%" height="25%"/>
-        </motion.g>
-        <motion.g>
-            <image href={torso} width="30%" x="6%" y="34%" height="30%"/>
-        </motion.g>
-        <motion.g>
-            <image href={head} width="30%" x="6%" y="12%" height="30%"/>
-        </motion.g>
-        <motion.g>
-            <image href={rightHand} width="30%" x="-10.5%" y="63%" height="10%"/>
-        </motion.g>
-        <motion.g
-            transition={{duration: 0.6}}>
-            <image href={leftHand} width="30%" x="22.5%" y="63%" height="10%"/>
-            <motion.path
-            d="M20,100 Q100,20 180,100"
-            initial={{pathLength: 0}}
-            animate={{pathLength: 1}}
-            transition={{}}/>
-        </motion.g>
-        </svg>
-        </div>
-    );
-}
+//         <motion.g>
+//             <image href={rightLeg} width="30%" x="-3%" y="62%" height="30%"/>
+//         </motion.g>
+//         <motion.g>
+//             <image href={leftLeg} width="30%" x="15%" y="62%" height="30%"/>
+//         </motion.g>
+//         <motion.g>
+//             <image href={rightArm} width="30%" x="-11%" y="44%" height="25%"/>
+//         </motion.g>
+//         <motion.g>
+//             <image href={leftArm} width="30%" x="23%" y="44%" height="25%"/>
+//         </motion.g>
+//         <motion.g>
+//             <image href={torso} width="30%" x="6%" y="34%" height="30%"/>
+//         </motion.g>
+//         <motion.g>
+//             <image href={excited} width="30%" x="6%" y="12%" height="30%"/>
+//         </motion.g>
+//         <motion.g>
+//             <image href={rightHand} width="30%" x="-10.5%" y="63%" height="10%"/>
+//         </motion.g>
+//         <motion.g
+//             transition={{duration: 0.6}}>
+//             <image href={leftHand} width="30%" x="22.5%" y="63%" height="10%"/>
+//             <motion.path
+//             d="M20,100 Q100,20 180,100"
+//             initial={{pathLength: 0}}
+//             animate={{pathLength: 1}}
+//             transition={{}}/>
+//         </motion.g>
+//         </svg>
+//         </div>
+//     );
+// }
 
 export const Yes = () => {
 
@@ -84,7 +84,7 @@ export const Yes = () => {
 
             
             <image href={torso} width="50" x="60" y="40" height="120"/>
-            <image href={head} width="50" x="60" y="40" height="45"/>
+            <image href={excited} width="50" x="60" y="40" height="45"/>
             {/* <image href={leftShoulder} width="50" x="93" y="92" height="55"/>
 
             <motion.g
@@ -116,28 +116,35 @@ export const Yes = () => {
 
 
             <motion.g
-                style={{originX: "224px", originY: "23px"}}
-                animate={{rotate: 80}}
+                style={{originX: "115px", originY: "100px", transformBox: "view-box"}}
+                animate={{rotate: 70}}
                 transition={{
                     type: "spring",
-                    delay: 0.4,
+                    delay: 0.3,
                 }}
                 >
 
                 <image href={leftShoulder} width="50" x="93" y="92" height="55"/>
 
                 <motion.g
-                    style={{originX: "30px", originY: "2px"}}
-                    animate={{rotate: [0, 20, 80, 87]}}
-                    transition={{
-                        type: "spring",
-                    }}>
+                    // style={{originX: "30px", originY: "2px"}}
+                    // animate={{rotate: [0, 20, 80, 87]}}
+                    // transition={{
+                    //     type: "spring",
+                    // }}
+                    style={{originX: "123px", originY: "117px", transformBox: "view-box"}}
+                    animate={{rotate: 80}}
+                    >
                     <image href={leftArm} width="50" x="95" y="117" height="25"/>
 
                     <motion.g
+                    animate={{rotate: 40}}
+                    transition={{
+                        
+                    }}
                     >
                         
-                        <image href={leftHand} width="50" x="94" y="132" height="17"/>
+                        <image href={leftHand} width="50" x="92" y="126" height="17"/>
                     </motion.g>
                 </motion.g>
             </motion.g>
