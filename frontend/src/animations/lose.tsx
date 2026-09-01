@@ -43,16 +43,7 @@ export const Lose = () => {
 
         <svg viewBox="0 0 300 400" width="600" height="700" preserveAspectRatio="xMidYMid meet">
 
-            <motion.g
-                // style={{originX: "150px", originY: "200px", transformBox: "view-box"}}
-                // animate={{rotate: 15}}
-                // transition={{
-                //     ease: "easeInOut",
-                //     type: "tween",
-                //     duration: 0.8,
-                //     delay: 0.3
-                // }}
-                >
+            <motion.g>
             <image href={torso} width="50" x="60" y="40" height="120"/>
 
             <motion.g
@@ -68,13 +59,7 @@ export const Lose = () => {
             </motion.g>
 
 
-             <motion.g
-                // style={{originX: "40px", originY: "0px"}}
-                // animate={{rotate: 10}}
-                // transition={{
-                //     delay: 0.3
-                // }}
-                >
+             <motion.g>
                 <image href={rightLeg} width="50" x="40" y="121" height="57"/>
             </motion.g>
 
@@ -113,30 +98,13 @@ export const Lose = () => {
             </motion.g>
 
             
-            <motion.g
-            
-                // style={{originX: "58px", originY: "100px", transformBox: "view-box"}}
-                // animate={{rotate: 120}}
-                // transition={{
-                //     delay: 0.5,
-                //     duration: 0.5
-                // }}
-                >
+            <motion.g>
             <image href={rightShoulder} width="50" x="28" y="92" height="55"/>
 
-                <motion.g
-                    // style={{originX: "50px", originY: "120px", transformBox: "view-box"}}
-                    // animate={{rotate: -280}}
-                    // transition={{
-                    //     delay: 0.2,
-                    //     duration: 0.8,
-                    // }}
-                    >
+                <motion.g>
                 <image href={rightArm} width="50" x="26" y="117" height="25"/>
 
-                <motion.g
-                    //initial={{rotate: 210}}
-                    >
+                <motion.g>
                 <image href={rightHand} width="50" x="26" y="131" height="17"/>
                 </motion.g>
 
