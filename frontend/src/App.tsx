@@ -8,8 +8,8 @@ import BrandStyleGuide from "./Views/BrandStyleGuide";
 import Dashboard from "./Views/Dashboard";
 import MatchFound from "./Views/MatchFound";
 import MathMatch from "./Views/MathsMatch";
-import { MyComponent } from "./animations/rig";
-import { Fist } from "./animations/fistBump";
+import { ArmRaise } from "./animations/armRaise";
+import { Yes } from "./animations/yes";
 import MatchHistory from "./Views/MatchHistory";
 import ForgotPassword from "./Views/ForgotPassword";
 import TermsAndConditions from "./Views/TermsAndConditions";
@@ -52,7 +52,7 @@ const App: React.FC = () => {
                 <Route path='/leaderboard' element={<Leaderboard/>}/>
                 <Route path='/final-results' element={<FinalResults/>}/>
                 <Route path='match' element={<ProgMatch/>}/>
-                <Route path='/animations' element={<Fist/>}/> 
+                <Route path='/animations' element={<ArmRaise/>}/> 
 
                 <Route path='*' element={<Navigate to='/sign-in' replace />} />
 
