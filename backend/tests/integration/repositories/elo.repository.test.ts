@@ -88,8 +88,8 @@ describe("Elo Repository Queries", () => {
     
             const after = await elo_repo.getUserRank(mock_user[1].user_id)
     
-            expect(before).toBe(3)
-            expect(after).toBe(1)
+            expect(before!.rank).toBe(3)
+            expect(after!.rank).toBe(1)
         })
   
     it("Returns null for a user that has no elo record", async () => {
