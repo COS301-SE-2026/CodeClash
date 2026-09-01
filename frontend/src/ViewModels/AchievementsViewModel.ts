@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "src/context/Auth/hooks/useAuth";
 import { achievementContent } from "src/Models/AchievementsModel";
-import type { Achievements, AchievementsContent, Earned } from "src/Models/AchievementsModel";
+import type { Achievements, AchievementsContent } from "src/Models/AchievementsModel";
 
 const API_BASE = '/api';
 
@@ -24,34 +24,60 @@ interface AchievementsViewModel {
 }
 
 export function AchievementsViewModelFunc(): AchievementsViewModel {
+    const { token } = useAuth();
     const [isLoading, setIsloading] = useState(true);
-    const [achievements, setAchievements] = useState<Achievements[]>([]);
-    const [earnedRecord, setEarnedRecord] = useState<Earned[]>([]);
+    const [earned, setEarned] = useState<(Achievements & { earnedAt: string })[]>([]);
+    const [locked, setLocked] = useState<Achievements[]>([]);
     
     useEffect(() => {
-        const timeout = setTimeout(() => {
-            setAchievements(MOCK_ACHIEVEMENTS);
-            setEarnedRecord(MOCKED_EARNED);
+        if(!token) return;
+
+    const fetchAchievements = async() => {
+        try{
+            // fetch all achievements and user's earned achievements in parallel
+            const [allRes, earnedRes] = await Promise.all([
+                fetch(`{API_BASE}/achievements`, { headers: { Authorizations: `Bearer ${token}` }}),
+                fetch(`${API_BASE}/achievements/me`, { headers: { Autorization: `Bearer ${token}` }})
+            ]);
+
+            const allData = await allRes.json();
+            const earnedData = earnedRes.ok ? await earnedRes.json() : [];
+
+            const earnedIds = new Set(earnedData.map((a: any) => a.achievement_id));
+            const earnedList: (Achievements & { earnedAt: string })[] = earnedData.map((a:any) => ({
+                id: a.achievement_id,
+                name: a.achievement_name,
+                description: a.description,
+                icnon: getIcon(a.achievement_name),
+                earnedAt: a.earned_at ?? new Date().toISOString()
+            })).sort((a: any, b: any) => new Date(b.earnedAt).getTime() - new Date(a.earnedAt).getTime());
+
+            const lockedList: Achievements[] = allData
+            .filter((a: any) => !earnedIds.has(a.achievement_id))
+            .map((a:any) => ({
+                id: a.achievement_id,
+                name: a.achievement_name,
+                description: a.description,
+                icon: getIcon(a.achievement_name)
+            }));
+
+            setEarned(earnedList);
+            setLocked(lockedList);
+        }catch(err){
+            console.error('Error fetching achievements:', err);
+        } finally {
             setIsloading(false);
-        }, 300);
-
-        return () => clearTimeout(timeout);
-    }, [])
-
-    const earnedId = new Set(earnedRecord.map((r) => r.id));
-    const earned = achievements.filter((a) => earnedId.has(a.id)).map((a) => ({
-        ...a, earnedAt: earnedRecord.find((r) => r.id === a.id)!.earnedAt
-    }))
-    .sort((a,b) => new Date(b.earnedAt).getTime() - new Date(a.earnedAt).getTime());
-
-    const locked = achievements.filter((a) => !earnedId.has(a.id));
+        }
+    };
+    fetchAchievements();
+}, [token]);
 
     return {
         content: achievementContent,
         isLoading,
         earned,
         locked,
-        totalNum: achievements.length,
+        totalNum: earned.length + locked.length, 
         earnedNum: earned.length
-    }
+    };
 }
