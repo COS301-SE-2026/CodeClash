@@ -77,7 +77,7 @@ export const ArmRaise = () => {
                 <image href={leftShoulder} width="50" x="93" y="92" height="55"/>
 
                 <motion.g
-                    // style={{originX: "30px", originY: "2px"}}
+                    // style={{originX: "30px", originY: "2px", transformBox: "view-box"}}
                     // animate={{rotate: [0, 20, 80, 87]}}
                     // transition={{
                     //     type: "spring",
@@ -96,12 +96,12 @@ export const ArmRaise = () => {
             
             <motion.g
             
-                // style={{originX: 0.6, originY: 0.15}}
-                // animate={{rotate: -180}}
-                // transition={{
-                //     delay: 0.4,
-                //     duration: 0.3
-                // }}
+                style={{originX: "58px", originY: "100px", transformBox: "view-box"}}
+                animate={{rotate: -180}}
+                transition={{
+                    delay: 0.4,
+                    duration: 0.3
+                }}
                 >
             <image href={rightShoulder} width="50" x="28" y="92" height="55"/>
 
