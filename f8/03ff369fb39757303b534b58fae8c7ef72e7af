@@ -1,0 +1,14 @@
+backend/src/application/interfaces/repositories/IEloRepository.ts
+  h_58e143dc25f856 2,13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "f803ff369fb39757303b534b58fae8c7ef72e7af",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
