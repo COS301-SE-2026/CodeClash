@@ -76,9 +76,9 @@ describe("Elo Repository Queries", () => {
 
     it("Ranks a higher rated user above everyone else", async () => {
         await elo_entity.update({ user: { user_id: mock_user[2].user_id } }, { rating: 900 })
-        expect(await elo_repo.getUserRank(mock_user[2].user_id)).toBe(1)
-        expect(await elo_repo.getUserRank(mock_user[0].user_id)).toBe(2)
-        expect(await elo_repo.getUserRank(mock_user[1].user_id)).toBe(3)
+        expect((await elo_repo.getUserRank(mock_user[2].user_id))!.rank).toBe(1)
+        expect((await elo_repo.getUserRank(mock_user[0].user_id))!.rank).toBe(2)
+        expect((await elo_repo.getUserRank(mock_user[1].user_id))!.rank).toBe(3)
     })
 
     it("Moves a user's rank when their rating changes", async () => {
