@@ -1,51 +1,23 @@
 import { useEffect, useState } from "react";
+import { useAuth } from "src/context/Auth/hooks/useAuth";
 import { achievementContent } from "src/Models/AchievementsModel";
 import type { Achievements, AchievementsContent, Earned } from "src/Models/AchievementsModel";
 
-//This system needs an api and integration, so I am using mock data
+const API_BASE = '/api';
 
-const MOCK_ACHIEVEMENTS: Achievements[] = [
-    {
-        id: 'Ach1',
-        name: 'Ach1 Name',
-        description: 'Ach1 description - what does this badge do and how it was earned...',
-        icon: 'trophy'
-    },
-    {
-        id: 'Ach2',
-        name: 'Ach2 Name',
-        description: 'Ach2 description - what does this badge do and how it was earned...',
-        icon: 'flame'
-    },
-    {
-        id: 'Ach3',
-        name: 'Ach3 Name',
-        description: 'Ach3 description - what does this badge do and how it was earned...',
-        icon: 'zap'
-    },
-    {
-        id: 'Ach4',
-        name: 'Ach4 Name',
-        description: 'Ach4 description - what does this badge do and how it was earned...',
-        icon: 'medal'
-    }
-]
-
-const MOCKED_EARNED: Earned[] = [
-    {
-        id: 'Ach1',
-        earnedAt: new Date(Date.now() - 1000 * 60 * 60 *24 * 20).toISOString()
-    },
-    {
-        id: 'Ach2',
-        earnedAt: new Date(Date.now() - 1000 * 60 * 60 *24 * 6).toISOString()
-    }
-]
+// mapping achievement names to icons. More can be added
+function getIcon(name:string): 'trophy' | 'flame' | 'zap' | 'medal' {
+    const n = name.toLowerCase();
+    if(n.includes('league') || n.includes('champion') || n.includes('legend') || n.includes('elite') || n.includes('challenger')) return 'trophy';
+    if(n.includes('streak') || n.includes('roll') || n.includes('unstoppable') || n.includes('veteran') || n.includes('century')) return 'flame';
+    if(n.includes('speed') || n.includes('shooter') || n.includes('blood') || n.includes('wizard') || n.includes('breaker')) return 'zap';
+    return 'medal';
+}
 
 interface AchievementsViewModel {
     content: AchievementsContent;
     isLoading: boolean;
-    earned: (Achievements & {earnedAt: string})[];
+    earned: (Achievements & { earnedAt: string }) [];
     locked: Achievements[];
     totalNum: number;
     earnedNum: number;
