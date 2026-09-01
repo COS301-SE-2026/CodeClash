@@ -44,7 +44,7 @@ export const ArmRaise = () => {
         <svg viewBox="0 0 300 400" width="600" height="700" preserveAspectRatio="xMidYMid meet">
 
             <motion.g
-                style={{originX: 0.85, originY: 1.2}}
+                style={{originX: "150px", originY: "200px", transformBox: "view-box"}}
                 animate={{rotate: 15}}
                 transition={{
                     // repeat: Infinity, 
@@ -54,7 +54,7 @@ export const ArmRaise = () => {
                     duration: 0.4
                 }}>
             <image href={torso} width="50" x="60" y="40" height="120"/>
-            <image href={head} width="50" x="60" y="40" height="45"/>
+            <image href={happy} width="50" x="60" y="40" height="45"/>
 
              <motion.g
                 style={{originX: "40px", originY: "0px"}}
@@ -94,15 +94,23 @@ export const ArmRaise = () => {
             </motion.g>
 
             
-            <motion.g>
+            <motion.g
+            
+                // style={{originX: 0.6, originY: 0.15}}
+                // animate={{rotate: -180}}
+                // transition={{
+                //     delay: 0.4,
+                //     duration: 0.3
+                // }}
+                >
             <image href={rightShoulder} width="50" x="28" y="92" height="55"/>
 
                 <motion.g
-                    style={{originX: 0.42, originY: 0.1}}
-                    animate={{rotate: -140}}
-                    transition={{
-                        duration: 0.4,
-                    }}
+                    // style={{originX: 0.42, originY: 0.1}}
+                    // animate={{rotate: -140}}
+                    // transition={{
+                    //     duration: 0.4,
+                    // }}
                     >
                 <image href={rightArm} width="50" x="26" y="117" height="25"/>
 
