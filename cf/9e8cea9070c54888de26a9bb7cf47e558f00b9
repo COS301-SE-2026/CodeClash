@@ -1,0 +1,14 @@
+backend/src/interface-adapters/repositories/elo.repository.ts
+  h_58e143dc25f856 94-97,99,101,103-109,111-112,161-163,165-175,178-180,185-186
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "cf9e8cea9070c54888de26a9bb7cf47e558f00b9",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
