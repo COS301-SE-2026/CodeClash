@@ -1,5 +1,5 @@
 import { TrendingUp, TrendingDown, Clock } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FinalResultsViewModelFunction } from "../ViewModels/FinalResultsViewModel";
 import { robot_map } from "src/assets/Robots";
@@ -30,6 +30,16 @@ const FinalResults: React.FC = () => {
             <Loading></Loading>
         )
     }
+
+    const [res, setRes] = useState(false);
+    useEffect(() => {
+        if (state !== 'results') {
+            setRes(false);
+            return;
+        }
+        const anim = requestAnimationFrame(() => setRes(true));
+        return () => cancelAnimationFrame(anim);
+    }, [state]);
 
     return (
         <div className="bg-background min-h-screen w-full flex items-center justify-center">
@@ -71,7 +81,7 @@ const FinalResults: React.FC = () => {
             )}
 
             {state === 'results' && (
-                <div className="min-h-screen w-full flex items-center justify-center">
+                <div className="relative z-10 w-full max-w-2xl flex flex-col gap-4 p-6">
                     <div className="w-[90%] max-w-6xl flex flex-col gap-6 p-10">
                         <h1 className="text-primary-text font-bold text-center"
                             style={{ fontSize: 'var(--heading-size)' }}>{content.titleResults}</h1>
