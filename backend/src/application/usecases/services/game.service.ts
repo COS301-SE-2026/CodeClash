@@ -85,8 +85,7 @@ export class GameService {
 
 
         const ids = players.map((p) => p.id);
-        const db_match_id = await this.match_repo.createMatch(ids, game_type, game_mode, start
-        );
+        const db_match_id = await this.match_repo.createMatch(ids, game_type, game_mode, start);
 
 
         return {
