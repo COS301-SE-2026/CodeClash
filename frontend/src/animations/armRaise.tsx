@@ -44,10 +44,21 @@ export const ArmRaise = () => {
         <svg viewBox="0 0 300 400" width="600" height="700" preserveAspectRatio="xMidYMid meet">
 
             <motion.g
-                style={{originX: "100px", originY: "250px"}}
-                animate={{rotate: 15}}>
+                style={{originX: "40px", originY: "20px"}}
+                animate={{rotate: 15}}
+                transition={{
+                    ease: "easeInOut",
+                    type: "tween",
+                }}>
             <image href={torso} width="50" x="60" y="40" height="120"/>
             <image href={head} width="50" x="60" y="40" height="45"/>
+
+             <motion.g
+                style={{originX: "45px", originY: "-2px"}}
+                animate={{rotate: -15}}>
+                <image href={rightLeg} width="50" x="40" y="122" height="57"/>
+                <image href={leftLeg} width="50" x="80" y="122" height="57"/>
+            </motion.g>
             
             <motion.g
                 // style={{originX: "224px", originY: "23px"}}
@@ -76,20 +87,32 @@ export const ArmRaise = () => {
                     </motion.g>
                 </motion.g>
             </motion.g>
+
+            
+            <motion.g>
             <image href={rightShoulder} width="50" x="28" y="92" height="55"/>
+
+                <motion.g
+                    // style={{originX: "66px", originY: "249px"}}
+                    // animate={{rotate: -140}}
+                    // transition={{
+                    //     duration: 0.4,
+                    // }}
+                    >
                 <image href={rightArm} width="50" x="26" y="117" height="25"/>
 
                 <motion.g
-                initial={{rotate: 180}}>
+                //initial={{rotate: 180}}
+                >
                 <image href={fist} width="50" x="19" y="131" height="17"/>
                 </motion.g>
+
+                </motion.g>
+            </motion.g>
             </motion.g>
 
 
-            <motion.g>
-                <image href={rightLeg} width="50" x="40" y="122" height="57"/>
-                <image href={leftLeg} width="50" x="80" y="122" height="57"/>
-            </motion.g>
+           
         </svg>
         </div>
     )
