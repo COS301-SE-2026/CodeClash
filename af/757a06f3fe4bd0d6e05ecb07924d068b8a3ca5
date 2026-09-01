@@ -1,0 +1,29 @@
+backend/src/application/usecases/services/user-creation.service.ts
+  h_94c952a9e14c58 2-3,9-10
+backend/src/interface-adapters/controllers/user.controllers.ts
+  h_94c952a9e14c58 6
+backend/src/frameworks-drivers/api.routes.ts
+  h_94c952a9e14c58 11-12,14-19,22-23,25,27-29,32-34,36-37
+  h_94c952a9e14c58 2
+backend/src/interface-adapters/auth/auth.service.ts
+  h_94c952a9e14c58 60,63,65,67-69,72-78,83,85-88
+  h_94c952a9e14c58 70-71,79-82,84
+backend/src/application/usecases/services/marking/mark-maths.ts
+  h_94c952a9e14c58 1-2,5,7,9-10
+backend/src/application/usecases/services/marking/mark-prog.ts
+  h_94c952a9e14c58 1-4,6,8,10-12,14,16,18-23,25,27-32,34-39,41-46,48-54,56-62,65,67-68
+backend/src/frameworks-drivers/app.ts
+  h_94c952a9e14c58 3-5,7-8,11-17,19-20,22-23,25-29
+  h_94c952a9e14c58 18,24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "af757a06f3fe4bd0d6e05ecb07924d068b8a3ca5",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
