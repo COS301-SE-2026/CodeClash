@@ -22,15 +22,15 @@ const GameGuide = () => {
                         This game guide serves to provide everything needed to get started with CodeClash. Learn how matches work, understand the scoring system, explore the game rules, and discover tips to improve your performance. Whether you’re a first time player or a seasoned competitor, this guide will help you navigate the platform, make the most of every challenge, and compete with confidence.
                     </div>
                     <div className="ml-[6%] flex flex-col grid grid-cols-2">
-                    <div className="bg-[var(--color-pink-700)] w-[20%] h-[11%] text-[#FFFFFF] text-[160%] font-bold font-font text-center ml-[50%]">AGE:</div>
+                    <div className="bg-[var(--color-pink-700)] w-[20%] h-[25%] text-[#FFFFFF] text-[160%] font-bold font-font text-center ml-[50%]">AGE:</div>
                         <div className="text-[#FFFFFF] text-[160%] font-bold font-font -ml-[20%]">13+ Years</div>
                     
-                    <div className="bg-[var(--color-pink-700)] w-[40%] h-[12%] text-[#FFFFFF] text-[160%] font-bold font-font text-center ml-[50%] -mt-[50%]">PLATFORM:</div>
-                        <div className="text-[#FFFFFF] text-[160%] font-bold font-font ml-[2%] -mt-[50%]">WINDOWS & MAC OS</div>
+                    <div className="bg-[var(--color-pink-700)] w-[40%] h-[30%] text-[#FFFFFF] text-[160%] font-bold font-font text-center ml-[50%] -mt-[10%]">PLATFORM:</div>
+                        <div className="text-[#FFFFFF] text-[160%] font-bold font-font ml-[2%] -mt-[10%]">WINDOWS & MAC OS</div>
                     </div>
                 </div>
 
-                <div className="bg-[var(--color-pink-700)] w-[22%] h-[3%] text-[#FFFFFF] text-[260%] font-bold font-font text-center -mt-[15%] ml-[2%]">SCORING SYSTEM</div>
+                <div className="bg-[var(--color-pink-700)] w-[22%] h-[3%] text-[#FFFFFF] text-[260%] font-bold font-font text-center mt-[5%] ml-[2%]">SCORING SYSTEM</div>
                 
                 {/* the text below was copied and pasted from a wireframe, no AI was used to generate any of this code */}
                 
@@ -49,8 +49,8 @@ const GameGuide = () => {
                 <div className="flex flex-col grid grid-cols-2 h-[38.5%]">
                     <div className="flex flex-row grid grid-rows-4">
                     <GameGuideCard className="ml-[5%] mt-[5%] w-[80%] h-[50%]">
-                        <GameGuideNumberCard className="h-[60%]">
-                            <GameGuideHeading className="-mt-[10%] my-auto">
+                        <GameGuideNumberCard className="h-[60%] -mt-[1%]">
+                            <GameGuideHeading className="-mt-[15%] my-auto">
                                 1
                             </GameGuideHeading>
                         </GameGuideNumberCard>
@@ -61,8 +61,8 @@ const GameGuide = () => {
                     </GameGuideCard>
 
                     <GameGuideCard className="ml-[5%] -mt-[1%] w-[80%] h-[50%]">
-                        <GameGuideNumberCard className="h-[60%] my-auto">
-                            <GameGuideHeading className="-mt-[10%]">
+                        <GameGuideNumberCard className="h-[40%] -mt-[1%]">
+                            <GameGuideHeading className="-mt-[15%] my-auto">
                                 2
                             </GameGuideHeading>
                         </GameGuideNumberCard>
@@ -73,8 +73,8 @@ const GameGuide = () => {
                     </GameGuideCard>
 
                     <GameGuideCard className="ml-[5%] -mt-[7%] w-[80%] h-[50%]">
-                        <GameGuideNumberCard className="h-[60%] my-auto">
-                            <GameGuideHeading className="-mt-[10%]">
+                        <GameGuideNumberCard className="h-[60%] -mt-[2%]">
+                            <GameGuideHeading className="-mt-[15%]">
                                 3
                             </GameGuideHeading>
                         </GameGuideNumberCard>
@@ -85,8 +85,8 @@ const GameGuide = () => {
                     </GameGuideCard>
 
                     <GameGuideCard className="ml-[5%] -mt-[13%] w-[80%] h-[50%]">
-                        <GameGuideNumberCard className="h-[60%] my-auto">
-                            <GameGuideHeading className="-mt-[12%]">
+                        <GameGuideNumberCard className="h-[60%] -mt-[2%]">
+                            <GameGuideHeading className="-mt-[17%]">
                                 4
                             </GameGuideHeading>
                         </GameGuideNumberCard>

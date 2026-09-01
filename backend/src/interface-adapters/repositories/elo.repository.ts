@@ -4,7 +4,8 @@ import { EloHistory, EloRatings } from "src/entities/db-entities/elo.entities";
 import { EloDTO, EloUpdateResultDTO } from "src/interface-adapters/dtos/elo.dto";
 import { AppDataSource } from "src/frameworks-drivers/config/data-source";
 
-import { LeaderboardEntryDTO } from "src/interface-adapters/dtos/leaderboard.dto"
+import { LeaderboardEntryDTO } from "../dtos/leaderboard.dto";
+import { RankDTO } from "../dtos/rank.dto";
 
 const K_FACTOR = 32
 
@@ -153,5 +154,28 @@ export class EloRepository implements IEloRepository {
             winner: { user_id: winner_id, old_rating: winnerRating.rating, new_rating: newWinnerRating, elo_gained: eloGained },
             loser: { user_id: loser_id, old_rating: loserRating.rating, new_rating: newLoserRating, elo_gained: -eloLost }
         }
+    }
+
+    async getUserRank(userId: string): Promise<RankDTO | null> {
+
+        const sorted = await this.eloRepository
+        .createQueryBuilder('elo')
+        .innerJoinAndSelect('elo.user', 'user')
+        .orderBy('elo.rating', 'DESC')
+        .getMany();
+        
+        const index = sorted.findIndex(e => e.user.user_id === userId);
+
+        if(index < 0){
+            return null;
+        }
+
+        const data : RankDTO = {
+            user_id: userId,
+            rank: index + 1
+        };
+
+        return data;
+        
     }
 }
