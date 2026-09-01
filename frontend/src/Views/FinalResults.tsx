@@ -1,4 +1,4 @@
-import { TrendingUp, TrendingDown, Clock, UserCircle } from "lucide-react";
+import { TrendingUp, TrendingDown, Clock, UserCircle, Trophy, Medal } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FinalResultsViewModelFunction } from "../ViewModels/FinalResultsViewModel";
@@ -241,6 +241,39 @@ const PlayerResultCard: React.FC<{
                     )}
                 </div>
                 <span className="text-primary-text font-semibold text-center truncate w-full text-xs">{player.username}</span>
+            </div>
+
+            <div className="grid grid-cols-4 gap-2 flex-1 w-full">
+                <div className="flex flex-col items-center gap-0.5">
+                    <span className="text-xsm uppercase tracking-wide text-muted">Correct</span>
+                    <span className="score-display text-base text-primary-text">{player.correctness}%</span>
+                </div>
+                {/*Copied from above and modified */}
+                <div className="flex flex-col items-center gap-0.5">
+                    <span className="text-xsm uppercase tracking-wide text-muted">Time</span>
+                    <span className="score-display text-base text-primary-text">{player.speed}</span>
+                </div>
+                <div className="flex flex-col items-center gap-0.5">
+                    <span className="text-xsm uppercase tracking-wide text-muted">ELO</span>
+                    <span className={`flex items-center gap-1 text-sm font-bold ${player.eloEffect >= 0 ? 'text-success' : 'text-danger'}`}>
+                        {player.eloEffect >= 0 ? (
+                            <TrendingUp size={16}/>
+                        ): (
+                            <TrendingDown size={16}/>
+                        )}
+                        {player.eloEffect}
+                    </span>
+                </div>
+                {/*Copied from above and modified */}
+                <div className="flex flex-col items-center gap-0.5">
+                    <span className="text-xsm uppercase tracking-wide text-muted">Position</span>
+                    <span className="flex items-center gap-1 text-sm font-bold">
+                        {player.position === 1 ? 
+                            <Trophy size={16}/> : <Medal size={16}/>
+                        }
+                        {player.position === 1 ? '1st': '2nd'}
+                    </span>
+                </div>
             </div>
         </div>
     )
