@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 
 import { EloRepository } from '../repositories/elo.repository';
 
-
 // GET /api/elo/elo-get
 // Get current elo rating for a user
 export const getUserElo = (elo_repo: EloRepository) => {

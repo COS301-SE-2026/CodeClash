@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Achievement } from "./achievement.entities";
 
 @Entity()
 export class Users {
@@ -31,4 +32,7 @@ export class Users {
         nullable: false
     })
     winning_streak!: number
+
+    @ManyToMany(() => Achievement, achievement => achievement.users)
+    achievements!: Achievement[];
 }
