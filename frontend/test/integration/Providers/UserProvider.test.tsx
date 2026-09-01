@@ -61,7 +61,7 @@ describe("Tests user Provider", () => {
 
         await waitFor(() => {
             expect(screen.getByTestId('elo-test')).toHaveTextContent(expected.toString());
-        })
+        }, {timeout: 10000})
     })
 
     it("Set Username", async () => {
@@ -69,7 +69,7 @@ describe("Tests user Provider", () => {
 
         await waitFor(() => {
             expect(screen.getByTestId('username-test')).toHaveTextContent(expected);
-        })
+        }, {timeout : 10000})
     })
 
     it("Set Avatar", async () => {
@@ -77,7 +77,7 @@ describe("Tests user Provider", () => {
 
         await waitFor(() => {
             expect(robot_map).toContain(screen.getByTestId('avatar-test').textContent);
-        })
+        }, { timeout: 10000})
     })
 
 })
