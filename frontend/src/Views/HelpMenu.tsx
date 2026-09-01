@@ -19,9 +19,8 @@ const HelpMenu: React.FC = () => {
     return (
         <div className="min-h-screen" style={{background: "#0a0008", color: "#fcecdd", fontFamily: "Roboto, sans-serif"}}>
             <section style={{padding: "3rem 8% 5rem", textAlign: "center"}}>
-                <HelpCircle size = {60} color="#c0395a" style={{marginBottom: "1rem"}}/>
-                <h1 style={{fontSize: "clamp(2.5rem, 5vw, 4rem)", fontWeight: 900, marginBottom: "1rem"}}>Help Menu</h1>
-                <p style={{color: "rgba(252, 235, 221, 0.65)", maxWidth: "700px", margin: "0 auto", lineHeight: 1.8}}>Everything you need to get started with CodeClash. Browse our game guide, frequently asked questions, tutorials and support resources.</p>
+                <h1 className="text-xl font-black text-primary-text mb-3">Help Menu</h1>
+                <p className="text-muted text-xsm leading-relaxed">Everything you need to get started with CodeClash. Browse our game guide, frequently asked questions, tutorials and support resources.</p>
             </section>
 
             <section style={{padding: "0 8% 6rem"}}>

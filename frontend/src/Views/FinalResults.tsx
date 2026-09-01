@@ -1,8 +1,6 @@
 import { TrendingUp, TrendingDown, Clock } from "lucide-react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
-import ResultsBackground from '../assets/Background/FinalResults.jpg';
 import { FinalResultsViewModelFunction } from "../ViewModels/FinalResultsViewModel";
 import { robot_map } from "src/assets/Robots";
 import Loading from "@/components/shared/Loading";
@@ -31,7 +29,6 @@ const FinalResults: React.FC = () => {
             <Loading></Loading>
         )
     }
-
 
     return (
         <div className="bg-secondary min-h-screen w-full flex items-center justify-center">
@@ -77,8 +74,7 @@ const FinalResults: React.FC = () => {
             )}
 
             {state === 'results' && (
-                <div className="min-h-screen w-full flex items-center justify-center"
-                    style={{ backgroundImage: `url(${ResultsBackground})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', }}>
+                <div className="min-h-screen w-full flex items-center justify-center">
                     <div className="w-[90%] max-w-6xl flex flex-col gap-6 p-10">
                         <h1 className="text-primary-text font-bold text-center"
                             style={{ fontSize: 'var(--heading-size)' }}>{content.titleResults}</h1>
