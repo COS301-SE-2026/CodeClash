@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { FinalResultsViewModelFunction } from "../ViewModels/FinalResultsViewModel";
 import { robot_map } from "src/assets/Robots";
 import Loading from "@/components/shared/Loading";
-
+import Starfield from "@/components/ui/animations/Starfield";
+import Confetti from "@/components/ui/animations/Confetti";
 
 const FinalResults: React.FC = () => {
     const navigate = useNavigate();
@@ -31,27 +32,23 @@ const FinalResults: React.FC = () => {
     }
 
     return (
-        <div className="bg-secondary min-h-screen w-full flex items-center justify-center">
+        <div className="bg-background min-h-screen w-full flex items-center justify-center">
 
             {state === 'loading' && (
-                <div className="bg-secondary rounded-3xl p-12 w-[90%] max-w-[550px] flex flex-col gap-6">
-                    <h1 className="text-secondary-text font-bold"
-                        style={{ fontSize: 'var(--heading-size)' }}>{content.titleLoading}</h1>
-
+                <div className="p-5 w-full max-w-[550px] flex flex-col gap-6">
                     <div className="flex flex-col gap-3">
                         <div className="flex justify-between items-center">
-                            <span className="text-secondary-text font-medium"
+                            <span className="text-primary-text font-medium"
                                 style={{ fontSize: 'var(--font-size-sm)' }}>
                                 {content.labelLoading}
                             </span>
-                            <span className="text-secondary-text font-bold"
-                                style={{ fontSize: 'var(--font-size-sm)' }}>
+                            <span className="score-display text-primary-text text-md">
                                 {Math.min(Math.round(loadingProgress), 100)}%
                             </span>
                         </div>
 
-                        <div className="w-full h-8 border-2 border-secondary-text rounded-sm overflow-hidden">
-                            <div className="h-full bg-secondary-text transition-all duration-500 ease-out"
+                        <div className="progress-track h-4">
+                            <div className="progress-fill"
                                 style={{ width: `${Math.min(loadingProgress, 100)}%` }} />
                         </div>
                     </div>
@@ -60,13 +57,13 @@ const FinalResults: React.FC = () => {
 
             {/*Error state */}
             {state === 'error' && (
-                <div className="bg-secondary rounded-3xl p-12 w-[90%] max-w-[550px] flex flex-col items-center gap-6 text-center">
-                    <Clock className="w-16 h-16 text-black opacity-60" />
-                    <h1 className="text-secondary-text font-extrabold"
-                        style={{ fontSize: 'var(--heading-size)' }}>{content.titleError}</h1>
-                    <p className="text-secondary-text iopacity-70 leading-relaxed"
+                <div className="p-12 w-full max-w-[550px] flex flex-col items-center gap-6 text-center">
+                    <div className="w-16 h-16 rounded-full bg-danger/10 border border-danger/30 flex items-center justify-center">
+                        <Clock className="w-8 h-8 text-danger"/>
+                    </div>
+                    <p className="text-primary-text leading-relaxed whitespace-nowrap"
                         style={{ fontSize: 'var(--font-size-sm)' }}>{content.messageError}</p>
-                    <button className="w-full py-3 rounded-2xl bg-button-primary text-button-text-primary font-bold hover:opacity-90 transition-opacity shadow-badge flex items-center justify-center gap-2"
+                    <button className="w-full btn btn-primary"
                         style={{ fontSize: 'var(--font-size-sm)' }} onClick={() => navigate('/dashboard')} type="button">
                         {content.labelReturn}
                     </button>

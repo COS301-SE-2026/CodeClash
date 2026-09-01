@@ -20,11 +20,11 @@ export interface FinalResultsContent {
 
 export const finalResultsContent: FinalResultsContent = {
     titleLoading: 'Calculating Results',
-    labelLoading: 'Loading...',
+    labelLoading: 'Results Loading...',
     titleResults: 'Final Results',
     tableHeaders: ['User', 'Correctness', 'Speed (minutes)', 'Effect on Elo', 'Position'],
     labelPlayAgain: 'Play Again',
     labelReturn: 'Return',
-    titleError: 'Results Not Ready',
-    messageError: 'The final results are still being calculated. Please come back later.',
+    titleError: 'Not Ready',
+    messageError: 'Your results are still being calculated. Please come back later.',
 }
