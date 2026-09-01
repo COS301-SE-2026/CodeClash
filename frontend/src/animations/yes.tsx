@@ -85,26 +85,6 @@ export const Yes = () => {
             
             <image href={torso} width="50" x="60" y="40" height="120"/>
             <image href={excited} width="50" x="60" y="40" height="45"/>
-            {/* <image href={leftShoulder} width="50" x="93" y="92" height="55"/>
-
-            <motion.g
-            
-                style={{transformOrigin: "0px 0px"}}
-                transform={`translate(${shoulderX}, ${shoulderY})`}
-                initial={{ rotate: 0 }}
-                animate={{rotate: [0, 20, 80, 85]}}
-                transition={{
-                    // type: "spring",
-                    // stiffness: 300,
-                    // damping: 15,
-                    duration: 0.9,
-                    times: [0, 0.2, 0.6, 1],
-                    ease: ["easeOut", "easeIn", "easeOut"],
-                }
-                }>
-                    <image href={leftArm} width="50" x="95" y="117" height="25"/>
-                    <image href={leftHand} width="50" x="94" y="132" height="17"/>
-            </motion.g> */}
 
             <motion.g>
                 <image href={rightLeg} width="50" x="40" y="122" height="57"/>
@@ -117,30 +97,26 @@ export const Yes = () => {
 
             <motion.g
                 style={{originX: "115px", originY: "100px", transformBox: "view-box"}}
-                animate={{rotate: 70}}
+                animate={{rotate: [0, 35, 80, 70]}}
                 transition={{
                     type: "spring",
-                    delay: 0.3,
+                    delay: 0.1,
                 }}
                 >
 
                 <image href={leftShoulder} width="50" x="93" y="92" height="55"/>
 
                 <motion.g
-                    // style={{originX: "30px", originY: "2px"}}
-                    // animate={{rotate: [0, 20, 80, 87]}}
-                    // transition={{
-                    //     type: "spring",
-                    // }}
                     style={{originX: "123px", originY: "117px", transformBox: "view-box"}}
-                    animate={{rotate: 80}}
+                    animate={{rotate: [0, 40, 80, 87]}}
                     >
                     <image href={leftArm} width="50" x="95" y="117" height="25"/>
 
                     <motion.g
                     animate={{rotate: 40}}
                     transition={{
-                        
+                        delay: 0.6,
+                        duration: 0.4
                     }}
                     >
                         
