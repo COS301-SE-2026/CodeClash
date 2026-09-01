@@ -16,7 +16,8 @@ export async function login() {
     await signIn({ username: env.VITE_INTEGRATION_TEST_USER!, password: env.VITE_INTEGRATION_TEST_PASS! })
   }
   catch (error) {
-    console.log(`Error signing user in: ${error}`)
+    // console.log(`Error signing user in: ${error}`)
+    throw new Error(`Error signing user in: ${error}`, {cause: error})
   }
 
 }
