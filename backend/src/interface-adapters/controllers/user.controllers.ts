@@ -2,8 +2,8 @@ import { Request, Response } from 'express';
 import { UserDTO } from 'src/entities/dtos/user.dto';
 
 import { validStat } from '../auth/auth.service';
-import { UserRepository } from '../repositories/user.repository';
 import { CreateUser } from 'src/application/usecases/services/user-creation.service';
+import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
 
 
 /// GET api/user/:stat

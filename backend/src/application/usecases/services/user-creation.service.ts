@@ -1,14 +1,13 @@
-import { UserRepository } from "src/interface-adapters/repositories/user.repository";
 import { fetchCognitoId } from "./cognito.service";
-import { EloRepository } from "src/interface-adapters/repositories/elo.repository";
-
+import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
+import { IEloRepository } from "src/application/interfaces/repositories/IEloRepository";
 
 export class CreateUser {
     private avatar_index = 0;
 
     constructor(
-        private readonly user_repo: UserRepository,
-        private readonly elo_repo: EloRepository
+        private readonly user_repo: IUserRepository,
+        private readonly elo_repo: IEloRepository
     ) { }
 
     async create(username: string, email: string) {
