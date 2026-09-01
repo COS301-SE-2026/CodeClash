@@ -1,4 +1,5 @@
 import { EloDTO, EloUpdateResultDTO } from "src/interface-adapters/dtos/elo.dto"
+import { RankDTO } from "src/interface-adapters/dtos/rank.dto"
 
 
 export interface IEloRepository {
@@ -8,7 +9,7 @@ export interface IEloRepository {
     // Read
     getElo(user_id: string): Promise<EloDTO | null>
     getUsersElo(user_ids: string[]): Promise<EloDTO[] | null>
-    getUserRank(user_id: string): Promise<number | null>
+    getUserRank(user_id: string): Promise<RankDTO | null>
     updateRatingsAfterMatch(
         match_id: string,
         winner_id: string,
