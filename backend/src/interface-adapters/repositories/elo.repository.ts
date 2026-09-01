@@ -91,25 +91,25 @@ export class EloRepository implements IEloRepository {
       }
     }
 
-  async getUserRank(user_id: string): Promise<number | null> {
-    const row = await this.eloRepository.findOne({
-      where: { user: { user_id: user_id } },
-      relations: { user: true }
+  // async getUserRank(user_id: string): Promise<number | null> {
+  //   const row = await this.eloRepository.findOne({
+  //     where: { user: { user_id: user_id } },
+  //     relations: { user: true }
       
-    })
+  //   })
 
-    if (!row) return null;
+  //   if (!row) return null;
 
-    const ahead = await this.eloRepository
-      .createQueryBuilder('elo')
-      .innerJoin('elo.user', 'user')
-      .where('elo.rating > :rating', { rating: row.rating })
-      .orWhere('elo.rating = :rating AND user.username < :username',
-      { rating: row.rating, username: row.user.username })
-      .getCount()
+  //   const ahead = await this.eloRepository
+  //     .createQueryBuilder('elo')
+  //     .innerJoin('elo.user', 'user')
+  //     .where('elo.rating > :rating', { rating: row.rating })
+  //     .orWhere('elo.rating = :rating AND user.username < :username',
+  //     { rating: row.rating, username: row.user.username })
+  //     .getCount()
 
-    return ahead + 1;
-  }
+  //   return ahead + 1;
+  // }
 
     async updateRatingsAfterMatch(
         match_id: string,
@@ -158,24 +158,29 @@ export class EloRepository implements IEloRepository {
 
     async getUserRank(userId: string): Promise<RankDTO | null> {
 
-        const sorted = await this.eloRepository
-        .createQueryBuilder('elo')
-        .innerJoinAndSelect('elo.user', 'user')
-        .orderBy('elo.rating', 'DESC')
-        .getMany();
+      const row = await this.eloRepository.findOne({
+        where: { user: { user_id: userId } },
+        relations: { user: true }
         
-        const index = sorted.findIndex(e => e.user.user_id === userId);
-
-        if(index < 0){
-            return null;
-        }
+      })
+      
+      if (!row) return null;
+      
+      const ahead = await this.eloRepository
+        .createQueryBuilder('elo')
+        .innerJoin('elo.user', 'user')
+        .where('elo.rating > :rating', { rating: row.rating })
+        .orWhere('elo.rating = :rating AND user.username < :username',
+        { rating: row.rating, username: row.user.username })
+        .getCount()
 
         const data : RankDTO = {
-            user_id: userId,
-            rank: index + 1
-        };
+        user_id: userId,
+        rank: ahead + 1
+      };
 
         return data;
         
     }
 }
+
