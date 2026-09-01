@@ -93,6 +93,27 @@ jobs:
         VITE_COGNITO_CLIENT_ID: ${{secrets.VITE_COGNITO_CLIENT_ID}}
         PORT: ${{secrets.PORT}}
 
+    - name: Starting backend
+      run: npx ts-node -r tsconfig-paths/register src/frameworks-drivers/server.ts &
+      working-directory: backend
+      env:
+        DB_HOST: ${{secrets.DB_TEST_HOST}}
+        DB_PORT: ${{secrets.DB_TEST_PORT}}
+        DB_USER: ${{secrets.DB_TEST_USER}}
+        DB_PASSWORD: ${{secrets.DB_TEST_PASSWORD}}
+        DB_NAME: ${{secrets.DB_TEST_NAME}}
+        COGNITO_USER_POOL_ID: ${{secrets.COGNITO_USER_POOL_ID}}
+        COGNITO_CLIENT_ID: ${{secrets.COGNITO_CLIENT_ID}}
+        COGNITO_REGION: ${{secrets.COGNITO_REGION}}
+        AWS_ACCESS_KEY: ${{secrets.AWS_ACCESS_KEY}}
+        AWS_SECRET_KEY: ${{secrets.AWS_SECRET_KEY}}
+        COGNITO_JWKS_URI: ${{secrets.COGNITO_JWKS_URI}}
+        REDIS_URL: ${{secrets.REDIS_URL}}
+        FRONTEND_URL: ${{secrets.FRONTEND_URL}}
+
+    - name: Waiting for backend to be ready for the frontend integration tests
+      run: npx wait-on http://localhost:${{secrets.PORT}}/health -t 90000
+        
     - name: Test and coverage frontend
       run: npm run test:frontend:coverage
       env:
