@@ -1,6 +1,6 @@
 import { World } from "src/entities/World";
 import { PlayersComponent} from "src/entities/components";
-import { SubmissionDTO } from "src/interface-adapters/dtos/components.dto";
+import { SubmissionDTO } from "src/entities/dtos/components.dto";
 
 
 export class OpponentProgress {

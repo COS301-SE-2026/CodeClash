@@ -14,21 +14,12 @@ services:
       - pgnetwork
       - codeclash-net
 
-  # frontend:
-  #   build: ./frontend
-  #   ports:
-  #     - "5173:5173"
-  #   volumes:
-  #     - ./frontend:/app
-  #     - /app/node_modules
-  #TODO IMPORTANT return this when we want to containerise the front end for deployment
-
   db:
     image: postgres:15-alpine
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASS}
-      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     ports:
       - "5432:5432"
     volumes:
@@ -40,9 +31,9 @@ services:
   test-db:
     image: postgres:15-alpine
     environment:
-      POSTGRES_USER: ${POSTGRES_TEST_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_TEST_PASS}
-      POSTGRES_DB: ${POSTGRES_TEST_DB}
+      POSTGRES_USER: ${DB_TEST_USER}
+      POSTGRES_PASSWORD: ${DB_TEST_PASSWORD}
+      POSTGRES_DB: ${DB_TEST_NAME}
     ports:
       - "5433:5432"
     volumes:
@@ -50,14 +41,6 @@ services:
       - ./database:/docker-entrypoint-initdb.d
     networks:
       - pgnetwork
-
-  # judge0:
-  #   image: judge0/judge0:latest
-  #   ports:
-  #     - "2358:2358"
-  #   privileged: true
-  #TODO IMPORTANT return this when we want to start implementing code execution
-
 
   redis:
     image: redis:8.6.3-alpine

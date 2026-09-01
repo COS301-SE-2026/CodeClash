@@ -1,10 +1,10 @@
 import { MatchComponent, PlayersComponent } from "src/entities/components";
 import { World } from "src/entities/World";
 
-import { IGameCache } from "../../interfaces/cache/IGameCache";
+import { IGameCache } from "src/application/interfaces/cache/IGameCache";
 
-import { LifeSystem } from "../systems/life.system";
-import { SubmissionSystem } from "../systems/submission.system";
+import { LifeSystem } from "src/application/usecases/systems/life.system";
+import { SubmissionSystem } from "src/application/usecases/systems/submission.system";
 
 
 export class MarkingService {

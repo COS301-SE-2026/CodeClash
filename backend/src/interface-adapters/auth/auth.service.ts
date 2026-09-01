@@ -3,7 +3,7 @@ import { CognitoJwtVerifier } from 'aws-jwt-verify'
 import dotenv from "dotenv"
 import { NextFunction, Request, Response } from 'express';
 import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
-import { STATS, UserDTO } from 'src/interface-adapters/dtos/user.dto'
+import { STATS, UserDTO } from 'src/entities/dtos/user.dto'
 dotenv.config()
 
 const verifier = CognitoJwtVerifier.create({
@@ -11,7 +11,6 @@ const verifier = CognitoJwtVerifier.create({
   tokenUse: "id",
   clientId: `${process.env.COGNITO_CLIENT_ID}`, //client ID of app, not a userId
 });
-
 
 
 export const validateToken = async (token: string | undefined) => {

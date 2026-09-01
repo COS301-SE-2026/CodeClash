@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, type Mock, vi } from 'vitest';
 import { submitQuestion } from '../../../src/interface-adapters/socket-handlers/game.handler';
-import { MarkingService } from '../../../src/application/usecases/services/marking.service';
-import { SubmissionDTO } from '../../../src/interface-adapters/dtos/components.dto';
+import { MarkingService } from '../../../src/application/usecases/services/marking/marking.service';
+import { SubmissionDTO } from '../../../src/entities/dtos/components.dto';
 import { OpponentProgress } from '../../../src/application/usecases/systems/opponent-progress'
 
 

@@ -1,5 +1,5 @@
 import { Server, Socket } from "socket.io";
-import {MarkingService} from "src/application/usecases/services/marking/marking.service";
+import { MarkingService } from "src/application/usecases/services/marking/marking.service";
 import { FinishGame } from "src/application/usecases/systems/finish-game";
 import { SubmissionSystem } from "src/application/usecases/systems/submission.system";
 import { SubmissionDTO } from "src/entities/dtos/components.dto";
@@ -9,6 +9,8 @@ import { OpponentProgress } from "src/application/usecases/systems/opponent-prog
 import { GameStore } from "src/application/usecases/services/game-store.service";
 import { GameType } from "src/entities/db-entities/questions.entities";
 import { DeleteGame } from "src/application/usecases/systems/delete-game";
+
+import { PlayerResultDTO } from 'src/entities/dtos/match-result.dto'
 
 export const submitQuestion = async (
     io: Server, socket: Socket,
@@ -89,7 +91,7 @@ export const sendResults = (io: Server, game_id: number, pair_id: string, game_s
         return;
     }
 
-    const ids = result.result.players.map(player => player.user_id);
+    const ids = result.result.players.map((player: PlayerResultDTO) => player.user_id);
     for (const id of ids) {
         io.to(id).emit('get_result', result);
     }
