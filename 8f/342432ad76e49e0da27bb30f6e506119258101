@@ -1,0 +1,19 @@
+frontend/test/integration/Providers/UserProvider.test.tsx
+  s_798fb3fad498cd::t_60b22cf7075c89 64,72,80
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "8f342432ad76e49e0da27bb30f6e506119258101",
+  "prompts": {},
+  "sessions": {
+    "s_798fb3fad498cd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cd5a4f28-5a24-4558-8a04-e98ee86009a8",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
