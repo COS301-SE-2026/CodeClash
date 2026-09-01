@@ -1,0 +1,23 @@
+backend/src/application/interfaces/marking/ICodeExecutor.ts
+  h_94c952a9e14c58 6
+backend/src/application/usecases/services/marking/mark-prog.ts
+  h_94c952a9e14c58 18,21,28-32,35-39,42-46,50-54,57-64,66
+  h_94c952a9e14c58 10,20,22-23,25
+backend/src/interface-adapters/CodeExecutor.ts
+  h_94c952a9e14c58 45
+backend/src/frameworks-drivers/routes/api.routes.ts
+  h_94c952a9e14c58 8,25-26
+backend/src/interface-adapters/controllers/marking.controller.ts
+  h_94c952a9e14c58 5,7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "59f22bc922f06ffe972a331bb44134d6cfed7180",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
