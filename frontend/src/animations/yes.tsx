@@ -78,8 +78,6 @@ import { rightHandVariants } from "./rig";
 export const Yes = () => {
 
     return(
-        <div className="bg-[#000000] min-h-screen w-full">
-
         <svg viewBox="0 0 300 400" width="600" height="700" preserveAspectRatio="xMidYMid meet">
 
             
@@ -97,7 +95,7 @@ export const Yes = () => {
 
             <motion.g
                 style={{originX: "115px", originY: "100px", transformBox: "view-box"}}
-                animate={{rotate: [0, 35, 80, 70]}}
+                animate={{rotate: -5}}
                 transition={{
                     type: "spring",
                     delay: 0.1,
@@ -108,24 +106,23 @@ export const Yes = () => {
 
                 <motion.g
                     style={{originX: "123px", originY: "117px", transformBox: "view-box"}}
-                    animate={{rotate: [0, 40, 80, 87]}}
+                    animate={{rotate: 150}}
                     >
                     <image href={leftArm} width="50" x="95" y="117" height="25"/>
 
                     <motion.g
-                    animate={{rotate: 40}}
+                    animate={{rotate: 5}}
                     transition={{
-                        delay: 0.6,
+                        delay: 0.4,
                         duration: 0.4
                     }}
                     >
                         
-                        <image href={leftHand} width="50" x="92" y="126" height="17"/>
+                        <image href={leftHand} width="50" x="92" y="130" height="17"/>
                     </motion.g>
                 </motion.g>
             </motion.g>
         </svg>
-        </div>
     )
 }
 
