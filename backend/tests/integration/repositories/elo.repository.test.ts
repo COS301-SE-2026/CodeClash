@@ -71,7 +71,7 @@ describe("Elo Repository Queries", () => {
 
     it("Ranks tied users by username so ranks are stable and unique", async () => {
         const ranks = await Promise.all(mock_user.map(u => elo_repo.getUserRank(u.user_id)))
-        expect(ranks).toEqual([1,2,3])
+        expect(ranks.map(r => r!.rank)).toEqual([1,2,3])
     })
 
     it("Ranks a higher rated user above everyone else", async () => {
