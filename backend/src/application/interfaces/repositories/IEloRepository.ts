@@ -1,7 +1,7 @@
-import { EloDTO, EloUpdateResultDTO } from "src/interface-adapters/dtos/elo.dto"
-import { LeaderboardEntryDTO } from "src/interface-adapters/dtos/leaderboard.dto"
+import { EloDTO, EloUpdateResultDTO } from "src/entities/dtos/elo.dto"
+import { LeaderboardEntryDTO } from "src/entities/dtos/leaderboard.dto"
 
-
+import { RankDTO } from "src/entities/dtos/rank.dto"
 
 export interface IEloRepository {
     // Create
@@ -15,5 +15,7 @@ export interface IEloRepository {
         winner_id: string,
         loser_id: string
     ): Promise<{ winner: EloUpdateResultDTO; loser: EloUpdateResultDTO }>;
-        getLeaderboard(limit: number, offset: number): Promise<{ data: LeaderboardEntryDTO[]; total: number }>
+    getLeaderboard(limit: number, offset: number): Promise<{ data: LeaderboardEntryDTO[]; total: number }>
+    getUserRank(user_id: string): Promise<RankDTO | null>;
+
 }

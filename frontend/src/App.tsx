@@ -45,9 +45,8 @@ const App: React.FC = () => {
                 <Route path='/sign-up' element={<SignUp />} />
                 <Route path='terms' element={<TermsAndConditions />} />
                 <Route path='/brand-style-guide' element={<BrandStyleGuide />} />
-                {/*<Route path='/game-guide' element={<Guidebook/>}/> */}
+                <Route path='/game-guide' element={<GameGuide />} />
                 <Route path='/help-menu' element={<HelpMenu />} />
-                <Route path='/leaderboard' element={<Leaderboard />} />
                 <Route path='*' element={<Navigate to='/sign-in' replace />} />
 
 
@@ -71,11 +70,10 @@ const App: React.FC = () => {
             <Route path='/profile' element={<Profile />} />
             <Route path='/match-searching' element={<MatchSearching />} />
             <Route path='/match-found' element={<MatchFound />} />
-            <Route path='/maths-match' element={<MathMatch />} />
-            {/*<Route path='/leaderboard' element={<Leaderboard />} />*/}
+            <Route path='/math-match' element={<MathMatch />} />
+            <Route path='/leaderboard' element={<Leaderboard />} />
             <Route path='/prog-match' element={<ProgMatch language="javascript" />} />
             <Route path='/results' element={<FinalResults />} />
-            {/* <Route path='/prog-match' element={<ProgMatch language="javascript"/>}/> */}
             <Route path='/results' element={<FinalResults />} />
             <Route path='/forgot-password' element={<ForgotPassword />} />
             <Route path='/terms' element={<TermsAndConditions />} />

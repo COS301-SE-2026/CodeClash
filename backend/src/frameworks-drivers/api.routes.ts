@@ -15,6 +15,7 @@ import { getLeaderboard } from 'src/interface-adapters/controllers/leaderboard.c
 import { CreateUser } from 'src/application/usecases/services/user-creation.service';
 import { creationRequireAuth, requireAuth } from 'src/interface-adapters/auth/auth.service';
 
+import { getUserRank } from 'src/interface-adapters/controllers/rank.controllers';
 
 const router = Router();
 const user_repo = new UserRepository(AppDataSource.getRepository(Users))
@@ -30,6 +31,7 @@ router.use(requireAuth(user_repo));
 router.get('/elo-get', getUserElo(elo_repo));
 const leaderboard_service = new LeaderboardService(elo_repo);
 router.get("/leaderboard-get", getLeaderboard(leaderboard_service));
+router.get('/rank', getUserRank(leaderboard_service));
 
 // user routes
 

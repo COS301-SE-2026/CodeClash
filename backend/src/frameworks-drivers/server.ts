@@ -7,7 +7,7 @@ import { IQuestionRepository } from 'src/application/interfaces/repositories/IQu
 import { QuestionRepository } from 'src/interface-adapters/repositories/question.repository';
 import { GameType, Questions } from 'src/entities/db-entities/questions.entities';
 import { cleanUp, gameDone, sendResults, startQuestion, submitQuestion } from 'src/interface-adapters/socket-handlers/game.handler';
-import { SubmissionDTO } from 'src/interface-adapters/dtos/components.dto';
+import { SubmissionDTO } from 'src/entities/dtos/components.dto';
 import { IAnswerRepository } from 'src/application/interfaces/repositories/IAnswerRepository';
 import { AnswerRepository } from 'src/interface-adapters/repositories/answer.repository';
 import { Answers } from 'src/entities/db-entities/answers.entities';
@@ -25,7 +25,7 @@ import { IUserRepository } from 'src/application/interfaces/repositories/IUserRe
 import { CheckAnswer } from 'src/application/usecases/check-answer';
 import { initDB } from 'src/application/usecases/init-db';
 import { LifeSystem } from 'src/application/usecases/systems/life.system';
-import { StartQuestionDTO } from 'src/interface-adapters/dtos/question.dto';
+import { StartQuestionDTO } from 'src/entities/dtos/question.dto';
 import { FinishGame } from 'src/application/usecases/systems/finish-game';
 import { SubmissionSystem } from 'src/application/usecases/systems/submission.system';
 import { World } from 'src/entities/World';

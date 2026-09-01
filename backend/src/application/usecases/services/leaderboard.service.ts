@@ -1,8 +1,9 @@
-import { PaginatedLeaderboardResponse } from "src/interface-adapters/dtos/leaderboard.dto";
-import { IEloRepository } from "../../interfaces/repositories/IEloRepository";
+import { PaginatedLeaderboardResponse } from "src/entities/dtos/leaderboard.dto";
+import { IEloRepository } from "src/application/interfaces/repositories/IEloRepository";
+import { RankDTO } from "src/entities/dtos/rank.dto";
 
 export class LeaderboardService {
-    constructor(private eloRepository: IEloRepository) {}
+    constructor(private readonly eloRepository: IEloRepository) {}
 
     async execute(limit: number, page: number): Promise<PaginatedLeaderboardResponse> {
       const offset = (page - 1) * limit;
@@ -18,4 +19,12 @@ export class LeaderboardService {
         pageSize: limit,
       };
     }
+
+
+    async getUserRank(userId: string): Promise<RankDTO | null>{
+      return this.eloRepository.getUserRank(userId);
+    }
+
+
+
 }
