@@ -1,0 +1,20 @@
+backend/src/application/usecases/services/match-result.service.ts
+  s_4e574f764a6c4a::t_27c0ea3f02e5dc 47
+  s_4e574f764a6c4a::t_864c1084c72cbc 23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "7e0441c67ccb9adc8d90fb5ec1a5b274f12a6237",
+  "prompts": {},
+  "sessions": {
+    "s_4e574f764a6c4a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_026d55badffev4VDeY4gSHM8Pf",
+        "model": "big-pickle"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
