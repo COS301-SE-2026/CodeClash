@@ -1,0 +1,30 @@
+backend/src/application/interfaces/repositories/IEloRepository.ts
+  h_94c952a9e14c58 3,18
+frontend/src/services/websocket.service.tsx
+  h_94c952a9e14c58 16
+backend/src/interface-adapters/controllers/rank.controllers.ts
+  h_94c952a9e14c58 2,5
+docker-compose.yml
+  h_94c952a9e14c58 7-16,40-52
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 106
+backend/src/interface-adapters/auth/auth.service.ts
+  h_94c952a9e14c58 34
+backend/src/application/usecases/services/leaderboard.service.ts
+  h_94c952a9e14c58 1-3
+backend/src/frameworks-drivers/app.ts
+  h_94c952a9e14c58 22
+backend/src/interface-adapters/controllers/leaderboard.controller.ts
+  h_94c952a9e14c58 2,4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "cce3cc0f6467c690d0a52e1db7c3f6f441b2c47a",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
