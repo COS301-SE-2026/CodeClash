@@ -43,6 +43,14 @@ const FinalResults: React.FC = () => {
 
     return (
         <div className="bg-background min-h-screen w-full flex items-center justify-center">
+            <div className="absolute inset-0 transition-opacity duration-700 ease-out pointer-events-none"
+                style={{opacity: res ? 1:0, background: 'radial-gradient(circle at 50% 15%, #b91551 0%, #850f3b 22%, #630b3c 34%, #0a0008 62%'}}>
+                <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background"/>
+                <div style={{position: 'absolute', width: 420, height: 420, top: '5%', left: '-8%', background: 'var(--primary)', borderRadius: '9999px', filter: 'blur(70px), opacity: 0.45'}}/>
+                <div style={{position: 'absolute', width: 320, height: 320, bottom: '0%', right: '-6%', background: 'var(--color-pink-300)', borderRadius: '9999px', filter: 'blur(70px)', opacity: 0.45}}/>
+                {state === 'results' && <Starfield count={60}/>}
+            </div>
+            {state === 'results' && <Confetti count={35}/>}
 
             {state === 'loading' && (
                 <div className="p-5 w-full max-w-[550px] flex flex-col gap-6">
