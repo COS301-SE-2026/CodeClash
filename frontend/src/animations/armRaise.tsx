@@ -44,7 +44,7 @@ export const ArmRaise = () => {
         <svg viewBox="0 0 300 400" width="600" height="700" preserveAspectRatio="xMidYMid meet">
 
             <motion.g
-                style={{originX: "40px", originY: "20px"}}
+                style={{originX: 0.25, originY: 0.25}}
                 animate={{rotate: 15}}
                 transition={{
                     ease: "easeInOut",
@@ -54,11 +54,13 @@ export const ArmRaise = () => {
             <image href={head} width="50" x="60" y="40" height="45"/>
 
              <motion.g
-                style={{originX: "45px", originY: "-2px"}}
-                animate={{rotate: -15}}>
-                <image href={rightLeg} width="50" x="40" y="122" height="57"/>
-                <image href={leftLeg} width="50" x="80" y="122" height="57"/>
+                style={{originX: "40px", originY: "0px"}}
+                animate={{rotate: -15}}
+                >
+                <image href={rightLeg} width="50" x="40" y="121" height="57"/>
+                <image href={leftLeg} width="50" x="75" y="121" height="57"/>
             </motion.g>
+
             
             <motion.g
                 // style={{originX: "224px", originY: "23px"}}
@@ -104,13 +106,12 @@ export const ArmRaise = () => {
                 <motion.g
                 //initial={{rotate: 180}}
                 >
-                <image href={fist} width="50" x="19" y="131" height="17"/>
+                <image href={rightHand} width="50" x="25" y="131" height="17"/>
                 </motion.g>
 
                 </motion.g>
             </motion.g>
             </motion.g>
-
 
            
         </svg>
