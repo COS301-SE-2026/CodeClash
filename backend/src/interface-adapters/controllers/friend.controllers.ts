@@ -36,7 +36,7 @@ export const sendFriendRequest = (service: FriendService) =>
         if (!receiver_id) { res.status(400).json({ message: 'receiver_id is required' }); return; }
         try{
            await service.sendFriendRequests(requester_id, receiver_id);
-            res.status(200).json({ message: 'Friend request sent' });
+            res.status(201).json({ message: 'Friend request sent' });
         }catch (error: any) {
             console.error('Error sending friend requests:', error);
             const status = error.message.includes('already exists') ? 409 : 500;
@@ -66,8 +66,8 @@ export const respondToFriendRequest = (service: FriendService) =>
 // copied structure
 export const removeFriend = (service: FriendService) => 
     async (req: Request, res: Response): Promise<void> => {
-        const { friendship_id } = req.params;
-        if(!friendship_id || Array.isArray(friendship_id)) { res.status(400).json({ message: 'friendship_id is required' }); return; }
+        const friendship_id  = req.params['friendship_id'] as string;
+        if(!friendship_id ) { res.status(400).json({ message: 'friendship_id is required' }); return; }
         try{
             await service.removeFriend(friendship_id);
             res.status(200).json({ message: "Friend removed"});
