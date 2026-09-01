@@ -35,7 +35,7 @@ import { leftHandVariants } from "./rig";
 import { rightHandVariants } from "./rig";
 
 
-//The following code and the above imports though pasted, are all hand-written portions of code and are not copied from any genertaive ai chat, to save a great amount of time i have elected to paste my prvious work and just change it
+//The following code and the above imports though pasted, are all hand-written portions of code and are not copied from any generative ai chat, to save a great amount of time i have elected to paste my previous work and just change it
 export const Lose = () => {
 
     return(
