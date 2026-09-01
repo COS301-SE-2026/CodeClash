@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 't
 import { Users } from './user.entities';
 
 @Entity('achievements')
-export class Achievements {
+export class Achievement {
     @PrimaryGeneratedColumn('uuid')
     achievement_id!: string;
 
