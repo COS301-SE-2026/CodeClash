@@ -5,6 +5,7 @@ import { getUserElo } from 'src/interface-adapters/controllers/elo.controllers';
 import { getUserStat } from 'src/interface-adapters/controllers/user.controllers';
 import { EloRepository } from 'src/interface-adapters/repositories/elo.repository';
 import { UserRepository } from 'src/interface-adapters/repositories/user.repository';
+import { getUserRank } from 'src/interface-adapters/controllers/rank.controllers';
 import { Achievement } from 'src/entities/db-entities/achievement.entities';
 import { Friendship, FriendInvite } from 'src/entities/db-entities/friendship.entities';
 import { AchievementRepository } from 'src/interface-adapters/repositories/achievement.repository';
@@ -22,15 +23,14 @@ import {
 } from '../../interface-adapters/controllers/friend.controllers';
 
 import { AppDataSource } from '../config/data-source';
+import { LeaderboardSystem } from 'src/application/usecases/services/leaderboard.service';
 
 const router = Router();
 
 const user_repo = new UserRepository(AppDataSource.getRepository(Users))
 const elo_repo = new EloRepository(AppDataSource.getRepository(EloRatings))
-const achievement_repo = new AchievementRepository(AppDataSource.getRepository(Achievement), AppDataSource.getRepository(Users));
-const friend_repo = new FriendRepository(AppDataSource.getRepository(Friendship), AppDataSource.getRepository(FriendInvite));
-const achievement_service = new AchievementService(achievement_repo);
-const friend_service = new FriendService(friend_repo);
+
+const leaderboard_system = new LeaderboardSystem(elo_repo);
 
 router.get('/elo-get', getUserElo(elo_repo));
 
@@ -354,7 +354,9 @@ router.get('/achievements', getAllAchievements(achievement_service));
  *        description: Internal Server Error
  */
 router.get('/achievements/me', getUserAchievements(achievement_service));
+router.get('/rank', getUserRank(leaderboard_system));
 
 // user routes
 router.get('/:stat', getUserStat(user_repo)); // this must be last, it's a generic function that fetches any attribute directly in the users table
+
 export default router;

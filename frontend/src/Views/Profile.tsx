@@ -35,14 +35,14 @@ function ProfileView(){
         ← Back
       </Link>
 
-      <Card className="w-[40%] h-[40rem] flex items-center justify-center bg-[#F8E5DD]">
+      <Card className="w-[40%] h-[50%] flex items-center justify-center bg-[#F8E5DD]">
 
         <div className="w-[35%]" >
           <img src={userData?.avatar} alt="avatarImage" className="" />
         </div>
         <div className="text-xl font-semibold ">{userData?.username}</div>
         <div className=" text-md font-semibold ">ELO - {userData?.elo}</div>
-        <div className="text-md font-semibold">League - {userData?.league}</div>
+        <div className="text-md font-semibold">{userData?.league}</div>
         <div>
           <p className="text-[1.5rem] ">Current Rank - {userData?.rank}</p>
         </div>
