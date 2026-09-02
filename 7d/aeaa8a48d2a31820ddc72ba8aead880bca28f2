@@ -1,0 +1,33 @@
+backend/src/application/usecases/services/notification.service.ts
+  h_94c952a9e14c58 1-13
+backend/src/interface-adapters/socket-handlers/game.handler.ts
+  h_94c952a9e14c58 2,5,7
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 25,53,136,153-154
+  h_94c952a9e14c58 103
+backend/src/entities/dtos/submission-result.dto.ts
+  h_94c952a9e14c58 1-6
+backend/src/interface-adapters/controllers/marking.controller.ts
+  h_94c952a9e14c58 1,3,7-9
+judge0-v1.13.1/docker-compose.yml
+  h_94c952a9e14c58 18-19,48-49
+backend/src/application/interfaces/marking/ICodeExecutor.ts
+  h_94c952a9e14c58 13
+backend/src/frameworks-drivers/routes/api.routes.ts
+  h_94c952a9e14c58 8,26
+backend/src/application/usecases/services/marking/marking-result.ts
+  h_94c952a9e14c58 1-9
+backend/src/interface-adapters/CodeExecutor.ts
+  h_94c952a9e14c58 17,42-43
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "7daeaa8a48d2a31820ddc72ba8aead880bca28f2",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

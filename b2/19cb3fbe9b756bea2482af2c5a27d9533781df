@@ -1,0 +1,137 @@
+backend/src/frameworks-drivers/app.ts
+  h_94c952a9e14c58 4,6-10,12-13,15-19,21
+backend/src/application/interfaces/repositories/IEloRepository.ts
+  h_94c952a9e14c58 6
+backend/src/interface-adapters/auth/auth.service.ts
+  h_94c952a9e14c58 46-55,57-60,67
+  h_94c952a9e14c58 56
+frontend/src/services/websocket.service.tsx
+  h_94c952a9e14c58 4
+.gitignore
+  h_94c952a9e14c58 410-414
+backend/src/interface-adapters/controllers/user.controllers.ts
+  h_94c952a9e14c58 5-6,17,21,23,30-50
+backend/src/interface-adapters/controllers/leaderboard.controller.ts
+  h_94c952a9e14c58 4
+backend/src/application/usecases/services/leaderboard.service.ts
+  h_94c952a9e14c58 4-6
+.github/workflows/ci.yml
+  h_94c952a9e14c58 45-47,51,77,81,86-94,103
+.husky/pre-commit
+  h_94c952a9e14c58 1
+backend/.dockerignore
+  h_94c952a9e14c58 9,20-21
+backend/Dockerfile
+  h_94c952a9e14c58 10-11,14
+backend/Dockerfile.dev
+  h_94c952a9e14c58 1-17
+backend/package-lock.json
+  h_94c952a9e14c58 41,1203-1240,2385-2394,2851-2860,3124-3136,3650-3679,3742-3751,4066-4078,4106-4126,5118-5127,5138-5151,5222-5235,5538-5547,5685-5697,5843-5873,5996-6016,6067-6090,6306-6315,6789-6810
+backend/package.json
+  h_94c952a9e14c58 10-12,62
+backend/src/application/usecases/services/cognito.service.ts
+  h_94c952a9e14c58 32-46
+backend/src/application/usecases/services/user-creation.service.ts
+  h_94c952a9e14c58 1-33
+backend/src/entities/db-entities/questions.entities.ts
+  h_94c952a9e14c58 4
+backend/src/frameworks-drivers/api.routes.ts
+  h_94c952a9e14c58 2-12,14-17,20-28,30-34,36,39,42
+backend/src/frameworks-drivers/config/data-source.ts
+  h_94c952a9e14c58 4-9,23
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 122,181-182
+backend/src/interface-adapters/repositories/user.repository.ts
+  h_94c952a9e14c58 14,35,80
+backend/tests/integration/repositories/answer.repository.test.ts
+  h_94c952a9e14c58 6,23
+backend/tests/integration/repositories/elo.repository.test.ts
+  h_94c952a9e14c58 2
+backend/tests/integration/repositories/question.repository.test.ts
+  h_94c952a9e14c58 5
+backend/tests/integration/repositories/user.repository.test.ts
+  h_94c952a9e14c58 5
+backend/tests/integration/services/user-creation.service.test.ts
+  h_94c952a9e14c58 1-33,36-40,42,47,49-52,56-68,71-74,77,79-81,83
+backend/tests/test-data-source.ts
+  h_94c952a9e14c58 2-3,5-6,14
+backend/tests/unit/controllers/user.controller.test.ts
+  h_94c952a9e14c58 55,82
+backend/tests/unit/usecases/services/cognito.service.test.ts
+  h_94c952a9e14c58 1-31
+backend/tests/unit/usecases/services/matchmaking.service.test.ts
+  h_94c952a9e14c58 7
+backend/tsconfig.json
+  h_94c952a9e14c58 25-27,34
+backend/vitest.config.ts
+  h_94c952a9e14c58 14-24
+database/01-init.sql
+  h_94c952a9e14c58 3
+database/02-init-questions.sql
+  h_94c952a9e14c58 13,40,67,94,121,148,175,202,229,256
+dockerfile/docker-compose.dev.yml
+  h_94c952a9e14c58 3-5,8,10,12-14,17,20-22,26-42,54-60,63,69,71,74,82,89,104
+dockerfile/docker-compose.prod.yml
+  h_94c952a9e14c58 1-81
+dockerfile/docker-compose.test.yml
+  h_94c952a9e14c58 1-68
+frontend/.dockerignore
+  h_94c952a9e14c58 19
+frontend/@/components/features/VirtualKeyboard.tsx
+  h_94c952a9e14c58 4
+frontend/Dockerfile
+  h_94c952a9e14c58 1-34
+frontend/index.html
+  h_94c952a9e14c58 5
+frontend/nginx.conf
+  h_94c952a9e14c58 1-41
+frontend/package-lock.json
+  h_94c952a9e14c58 17,40,4619-4635,5829-5849
+frontend/package.json
+  h_94c952a9e14c58 24,47
+frontend/src/App.tsx
+  h_94c952a9e14c58 34,46-49,73-74,76-80,84,86,88,91
+frontend/src/Models/ProfileModel.ts
+  h_94c952a9e14c58 7
+frontend/src/ViewModels/DashboardViewModel.ts
+  h_94c952a9e14c58 1,10,30-31
+frontend/src/ViewModels/LeaderboardViewModel.ts
+  h_94c952a9e14c58 7
+frontend/src/ViewModels/ProfileViewModel.ts
+  h_94c952a9e14c58 54
+frontend/src/ViewModels/SignUpViewModel.ts
+  h_94c952a9e14c58 7-8,24,30,33,47-48,55-58,74-94
+frontend/src/Views/Dashboard.tsx
+  h_94c952a9e14c58 17,21-26
+frontend/src/Views/Leaderboard.tsx
+  h_94c952a9e14c58 9,85
+frontend/src/Views/MathsMatch.tsx
+  h_94c952a9e14c58 23
+frontend/src/Views/Popup.tsx
+  h_94c952a9e14c58 45,48
+frontend/src/Views/Profile.tsx
+  h_94c952a9e14c58 44
+frontend/src/context/Auth/AuthContext.tsx
+  h_94c952a9e14c58 99
+frontend/src/context/User/UserContext.tsx
+  h_94c952a9e14c58 3,12,19,25,27-28,33,54,81-91,99-107,116,144,153-154
+frontend/src/dtos/matchmaking.dto.ts
+  h_94c952a9e14c58 18
+frontend/src/services/api.service.tsx
+  h_94c952a9e14c58 1-7
+frontend/test/test-utils.ts
+  h_94c952a9e14c58 18-25
+frontend/test/unit/PopUp.test.tsx
+  h_94c952a9e14c58 81
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "b219cb3fbe9b756bea2482af2c5a27d9533781df",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
