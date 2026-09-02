@@ -31,7 +31,17 @@ export const Thinking = () => {
                         </motion.g>
                 </motion.g>
             
-                </motion.g>
+            <motion.g>
+
+                <image href={rightShoulder} width="50" x="28" y="92" height="55"/>
+                    <motion.g>
+                        <image href={rightArm} width="50" x="26" y="117" height="25"/>
+                            {/* <motion.g>
+                                <image={rightHand} width="50" x="26" y="131" height="17"/>
+                            </motion.g> */}
+                    </motion.g>
+            </motion.g>
+            </motion.g>
 
 
         </svg>
