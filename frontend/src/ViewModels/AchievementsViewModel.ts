@@ -36,11 +36,11 @@ export function AchievementsViewModelFunc(): AchievementsViewModel {
         try{
             // fetch all achievements and user's earned achievements in parallel
             const [allRes, earnedRes] = await Promise.all([
-                fetch(`{API_BASE}/achievements`, { headers: { Authorizations: `Bearer ${token}` }}),
-                fetch(`${API_BASE}/achievements/me`, { headers: { Autorization: `Bearer ${token}` }})
+                fetch(`${API_BASE}/achievements`, { headers: { Authorization: `Bearer ${token}` }}),
+                fetch(`${API_BASE}/achievements/me`, { headers: { Authorization: `Bearer ${token}` }})
             ]);
 
-            const allData = await allRes.json();
+            const allData = allRes.ok ? await allRes.json() : [];
             const earnedData = earnedRes.ok ? await earnedRes.json() : [];
 
             const earnedIds = new Set(earnedData.map((a: any) => a.achievement_id));
@@ -48,7 +48,7 @@ export function AchievementsViewModelFunc(): AchievementsViewModel {
                 id: a.achievement_id,
                 name: a.achievement_name,
                 description: a.description,
-                icnon: getIcon(a.achievement_name),
+                icon: getIcon(a.achievement_name),
                 earnedAt: a.earned_at ?? new Date().toISOString()
             })).sort((a: any, b: any) => new Date(b.earnedAt).getTime() - new Date(a.earnedAt).getTime());
 

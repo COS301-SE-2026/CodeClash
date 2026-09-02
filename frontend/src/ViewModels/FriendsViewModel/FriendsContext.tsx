@@ -17,6 +17,7 @@ const INVITE_EXPIRY = 10 * 60 * 1000;
 interface FriendsContext {
     isLoading: boolean;
     profile: Summary | null;
+    error: string | null;
     friend: Friend[];
     removeFriend: (id: string) => void;
 
@@ -53,6 +54,7 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
     const [inviteError, setInviteError] = useState<string | null>(null);
     const [now, setNow] = useState(() => Date.now());
     const [allUsers, setAllUsers] = useState<Omit<Search, 'relationship'>[]>([]);
+    const [error, setError] = useState<string | null>(null);
 
     const friendsRef = useRef(friend); //this is so closures dont capture a stale list
     friendsRef.current = friend;
@@ -111,6 +113,7 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
                 }
             }catch(err){
                 console.error('Error fetching friends data:', err);
+                setError('Failed to load friends. Please try again.');
             } finally {
                 setIsLoading(false);
             }
@@ -294,6 +297,7 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
     const value: FriendsContext = {
         isLoading,
         profile,
+        error,
         friend,
         removeFriend,
 

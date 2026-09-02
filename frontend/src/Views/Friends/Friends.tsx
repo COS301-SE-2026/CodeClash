@@ -49,8 +49,8 @@ const RelationResult: React.FC<{ relationship: Relation; onAdd: () => void}> = (
 
 const Friends: React.FC = () => {
     const {
-        isLoading, profile, friend, removeFriend, requests, acceptRequest, declineRequest, searchQuery, setSearchQuery, 
-        searchResults, sendFriendRequest, sendInvite
+        isLoading, profile, error, friend, removeFriend, requests, acceptRequest, declineRequest, searchQuery, setSearchQuery, 
+        allUsers, sendFriendRequest, sendInvite
     } = useFriends();
 
     const [isDropDownOpen, setIsDropDownOpen] = useState(false);
@@ -79,12 +79,12 @@ const Friends: React.FC = () => {
             </div>
             {showDropdown && (
                 <div className="modal-panel absolute top-full left-0 mt-2 w-full max-h-80 overflow-y-auto p-2 flex flex-col gap-2 z-50">
-                    {searchResults.length === 0 ? (
+                    {allUsers.length === 0 ? (
                         <div className="empty-state py-6">
                             <p className="text-sm text-danger">{friendContent.searchEmpty}!</p>
                         </div>
                     ) : (
-                        searchResults.map((result) => (
+                        allUsers.map((result) => (
                             <div key={result.id} className="p-2 rounded-full flex items-center gap-3 hover:bg-background-elevated">
                                 <img src={robot_map[result.avatar]} alt={result.username} className="avatar w-10 h-10 object-cover shrink-0"/>
                                 <p className="text-primary-text text-sm font-semibold truncate flex-1 min-w-0">{result.username}</p>
@@ -100,7 +100,14 @@ const Friends: React.FC = () => {
     if (isLoading || !profile) {
         return <Loading isOpen={true}/>
     }
-
+    if (error) {
+        return(
+            <div className="empty-state">
+                <p className="text-danger">{error}</p>
+                <button className="btn btn-secondary" onClick={() => window.location.reload()} type="button">Retry</button>
+            </div>
+        )
+    }
     return (
         <div className="relative min-h-[100vh-80px] overflow-hidden">
             <Starfield count={30}/>
