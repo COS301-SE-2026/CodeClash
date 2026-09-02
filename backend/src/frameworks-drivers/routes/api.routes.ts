@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { EloRatings } from 'src/entities/db-entities/elo.entities';
 import { Users } from 'src/entities/db-entities/user.entities';
 import { getUserElo } from 'src/interface-adapters/controllers/elo.controllers';
-import { getUserStat } from 'src/interface-adapters/controllers/user.controllers';
+import { getUserStat, searchUsers } from 'src/interface-adapters/controllers/user.controllers';
 import { EloRepository } from 'src/interface-adapters/repositories/elo.repository';
 import { UserRepository } from 'src/interface-adapters/repositories/user.repository';
 import { Achievement } from 'src/entities/db-entities/achievement.entities';
@@ -356,5 +356,6 @@ router.get('/achievements', getAllAchievements(achievement_service));
 router.get('/achievements/me', getUserAchievements(achievement_service));
 
 // user routes
+router.get('/search', searchUsers(user_repo));
 router.get('/:stat', getUserStat(user_repo)); // this must be last, it's a generic function that fetches any attribute directly in the users table
 export default router;

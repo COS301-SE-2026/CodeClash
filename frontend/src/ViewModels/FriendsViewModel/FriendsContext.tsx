@@ -10,6 +10,7 @@ import type {
 } from "../../Models/FriendsModel";
 
 import { useAuth } from "../../context/Auth/hooks/useAuth";
+import { Leaf } from "lucide-react";
 
 const API_BASE = '/api'; 
 const INVITE_EXPIRY = 10 * 60 * 1000; 
@@ -27,16 +28,16 @@ interface FriendsContext {
 
     searchQuery: string;
     setSearchQuery: (query: string) => void;
-    searchResults: Search[];
+    allUsers: Search[];
     sendFriendRequest: (id: string) => void;
 
     sendInvite: (id: string) => void;
     activeInvite: Invite | null;
-    activeCountdown: number,
+    inviteCountdown: number,
     inviteError: string | null;
     acceptInvite: () => void;
     declineInvite: () => void;
-    dimissInviteError: () => void;
+    dismissInviteError: () => void;
 }
 
 export const FriendsContextFunc = createContext<FriendsContext | null>(null);
@@ -88,14 +89,26 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
                 })));
 
                 // build profile from auth user
-                if (user) {
-                    setProfile({
-                        id: user.userId ?? '',
-                        username: user.username ?? '',
-                        avatar: user.avatar_id ?? 0,
-                        league: user.league ?? 'Mercury',
-                        handle: user.username ?? ''
-                    });
+                if (user && token) {
+                    try {
+                        const [avatarRes, leagueRes] = await Promise.all([
+                            fetch(`${API_BASE}/user/avatar_id`, {headers: { Authorization: `Bearer ${token}` }}),
+                            fetch(`${API_BASE}/user/league`, {headers: { Authorization: `Bearer ${token}` }}),
+                        ]);
+                        const avatarData = avatarRes.ok ? await avatarRes.json() : null;
+                        const leagueData = leagueRes.ok ? await leagueRes.json() : null;
+
+                        setProfile({
+                            id: user.userId ?? '',
+                            username: user.username ?? '',
+                            avatar: avatarData?.avatar_id ?? 0,
+                            league: leagueData?.league ?? 'Mercury',
+                            handle: user.username ?? ''
+                        });
+                        
+                    } catch (err) {
+                        console.error('Error fetching profile data:', err);
+                    }
                 }
             }catch(err){
                 console.error('Error fetching friends data:', err);
@@ -145,36 +158,29 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
         return Math.max(0, Math.ceil(remaining/1000));
     }, [activeInvite, now]);
 
-    /*SEARCH - needs endpoint */
-    const searchResults: Search[] = useMemo(() => {
-        const query = searchQuery.trim().toLowerCase();
-        if (!query) {
-            return [];
+    /*SEARCH */
+    useEffect(() => {
+        if(!token || searchQuery.trim().length < 2 ) {
+            setAllUsers([]);
+            return;
         }
-        const friendId = new Set(friend.map((f) => f.id));
-        const incomingReqs = new Set(requests.map((r) => r.fromUser));
-        return allUsers.filter((u) => u.username.toLowerCase().includes(query)).map((u): Search => {
-            let relationship: Relation = 'none';
-            if (u.username === profile?.handle) {
-                relationship = 'self';
+        const timeout = setTimeout(async () => {
+            try {
+                const res = await fetch(`${API_BASE}/user/search?q=${encodeURIComponent(searchQuery)}`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                const data = res.ok ? await res.json() : [];
+                setAllUsers(data.map((u: any) => ({
+                    id: u.user_id,
+                    username: u.username,
+                    avatar: u.avatar_id ?? 0
+                })));
+            } catch {
+                setAllUsers([]);
             }
-            else if (friendId.has(u.id)) {
-                relationship = 'friend';
-            }
-            else if (sentRequest.has(u.id)) {
-                relationship = 'pending-sent';
-            }
-            else if (incomingReqs.has(u.id)) {
-                relationship = 'pending-received';
-            }
-            return {
-                id: u.id,
-                username: u.username, 
-                avatar: u.avatar,
-                relationship
-            };
-        });
-    }, [searchQuery, friend, requests, sentRequest, profile, allUsers]);
+        }, 300); // debounce
+        return () => clearTimeout(timeout);
+    }, [searchQuery, token]);
 
     const sendFriendRequest = useCallback(async (id: string) => {
         if(!token) return;
@@ -299,7 +305,7 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
 
         searchQuery,
         setSearchQuery,
-        searchResults,
+        allUsers,
         sendFriendRequest,
 
         sendInvite,
