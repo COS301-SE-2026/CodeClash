@@ -1,0 +1,26 @@
+backend/src/application/usecases/services/marking/mark-prog.ts
+  h_94c952a9e14c58 4,14,16,18-22
+  h_94c952a9e14c58 1-3,6,8,10-12,24-25
+backend/src/application/usecases/services/marking/mark-maths.ts
+  h_94c952a9e14c58 3,7,9-13
+  h_94c952a9e14c58 1-2,5,14-15
+judge0-v1.13.1/docker-compose.yml
+  h_94c952a9e14c58 19-20,50-54
+  h_94c952a9e14c58 18
+backend/src/application/interfaces/marking/IMarkingStategy.ts
+  h_94c952a9e14c58 2,5
+backend/src/interface-adapters/CodeExecutor.ts
+  h_94c952a9e14c58 28
+  h_94c952a9e14c58 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "1cdc83414fada1ea93e1f978dec3d4fb99ccf17f",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
