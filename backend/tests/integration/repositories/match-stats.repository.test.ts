@@ -24,7 +24,7 @@ describe('MatchStatsRepository', () => {
             await repository.saveStats('match-1', 'user-1', 4, 12000);
 
             expect(mockRepo.create).toHaveBeenCalledWith({
-                match: { db_match_id: 'match-1' },
+                match: { match_id: 'match-1' },
                 user: { user_id: 'user-1' },
                 num_correct: 4,
                 total_time: 12000
