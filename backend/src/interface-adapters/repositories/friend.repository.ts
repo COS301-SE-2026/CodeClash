@@ -23,7 +23,9 @@ export class FriendRepository implements IFriendRepository {
             return {
                 user_id: friend.user_id,
                 username: friend.username,
-                friendship_id: f.friendship_id
+                friendship_id: f.friendship_id,
+                elo: friend.elo ?? 600,
+                avatar_id: friend.avatar_id
             };
         });
     }

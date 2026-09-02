@@ -25,5 +25,6 @@ export const getUserStat = (user_repo: UserRepository) => {
 
         res.status(200).json(data);
     }
-    //    
 }
+
+//GET api/users/search?q=username
