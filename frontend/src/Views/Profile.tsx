@@ -45,7 +45,7 @@ function ProfileView(){
         </div>
         <div className="text-xl font-semibold ">{userData?.username}</div>
         <div className=" text-md font-semibold ">ELO - {userData?.elo}</div>
-        <div className="text-md font-semibold">League - {userData?.league}</div>
+        <div className="text-md font-semibold">{userData?.league}</div>
         <div>
           <p className="text-[1.5rem] ">Current Rank - {userData?.rank}</p>
         </div>

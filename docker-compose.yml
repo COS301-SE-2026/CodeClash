@@ -6,7 +6,8 @@ services:
     environment:
       - DATABASE_URL=postgresql://postgres:password@db:5432/codeclash
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     volumes:
       - ./backend:/app
       - /app/node_modules
@@ -35,6 +36,11 @@ services:
       - ./database:/docker-entrypoint-initdb.d
     networks:
       - pgnetwork
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   test-db:
     image: postgres:15-alpine
@@ -44,9 +50,6 @@ services:
       POSTGRES_DB: ${POSTGRES_TEST_DB}
     ports:
       - "5433:5432"
-    volumes:
-      - postgres_test_data:/var/lib/postgresql/data
-      - ./database:/docker-entrypoint-initdb.d
     networks:
       - pgnetwork
 
@@ -65,7 +68,7 @@ services:
       - '6379:6379'
     volumes:
       - redis-data:/data
-      - ./backend/src/config/redis.conf:/etc/redis/redis.conf
+      - ./backend/src/frameworks-drivers/config/redis.conf:/etc/redis/redis.conf
     command: ["redis-server", "/etc/redis/redis.conf"]
     restart: unless-stopped
     networks:
