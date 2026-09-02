@@ -1,0 +1,14 @@
+frontend/src/animations/poses/okay.tsx
+  h_b13c5d77534129 24-33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "549d2fa9b29fba6a31ccc58c6159f3d2f38d65f6",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
