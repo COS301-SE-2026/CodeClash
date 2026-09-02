@@ -82,7 +82,7 @@ export const Yes = () => {
 
         <motion.g animate={{y: [0, -1.2, 0], scaleY: [1, 1.04, 1]}}
         transition={
-           {duration: 2.2,
+           {duration: 3,
             repeat: Infinity,
             ease: "easeInOut"}
         }
@@ -104,7 +104,7 @@ export const Yes = () => {
                 initial={{y: 0}}
                 animate={{rotate: -5, y: 1}}
                 transition={{
-                    duration: 0.4,
+                    duration: 1.1,
                     type: "spring",
                     delay: 0.1,
                 }}
@@ -118,7 +118,7 @@ export const Yes = () => {
                     animate={{y: 7}}
                     transition={{
                         type: "spring",
-                        duration: 0.3
+                        duration: 1.5
                     }}
                     >
                     <image href={leftArm} width="50" x="95" y="117" height="25"/>
@@ -127,7 +127,7 @@ export const Yes = () => {
                     animate={{rotate: 5}}
                     transition={{
                         delay: 0.4,
-                        duration: 0.4
+                        duration: 0.8
                     }}
                     >
                         

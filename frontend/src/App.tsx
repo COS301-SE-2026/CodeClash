@@ -54,7 +54,7 @@ const App: React.FC = () => {
                 <Route path='/leaderboard' element={<Leaderboard/>}/>
                 <Route path='/final-results' element={<FinalResults/>}/>
                 <Route path='match' element={<ProgMatch/>}/>
-                <Route path='/animations' element={<Yes/>}/> 
+                <Route path='/animations' element={<ArmRaise/>}/> 
 
                 <Route path='*' element={<Navigate to='/sign-in' replace />} />
 

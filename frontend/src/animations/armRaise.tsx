@@ -1,5 +1,5 @@
-import {motion, useMotionValue, animate} from 'framer-motion';
-import {useRef, useEffect} from "react";
+import { motion, useMotionValue, animate } from 'framer-motion';
+import { useRef, useEffect } from "react";
 import angry from "../svgs/angry.svg"
 import antenna from "../svgs/antenna.svg"
 import celebrate from "../svgs/celebrate.svg"
@@ -38,87 +38,92 @@ import { rightHandVariants } from "./rig";
 //The following code and the above imports though pasted, are all hand-written portions of code and are not copied from any generative ai chat, to save a great amount of time i have elected to paste my previous work and just change it
 export const ArmRaise = () => {
 
-    return(
+    return (
         <svg viewBox="0 0 300 400" width="600" height="700" preserveAspectRatio="xMidYMid meet">
 
+        <motion.g animate={{y: [0, -1.2, 0], scaleY: [1, 1.04, 1]}}
+            transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut"
+            }}>
             <motion.g
-                style={{originX: "150px", originY: "200px", transformBox: "view-box"}}
-                animate={{rotate: 15}}
+                style={{ originX: "150px", originY: "200px", transformBox: "view-box" }}
+                animate={{ rotate: 15 }}
                 transition={{
                     ease: "easeInOut",
                     type: "tween",
                     duration: 0.3,
                     delay: 0.2
                 }}>
-            <image href={torso} width="50" x="60" y="40" height="120"/>
-            <image href={happy} width="50" x="60" y="40" height="45"/>
+                <image href={torso} width="50" x="60" y="40" height="120" />
+                <image href={happy} width="50" x="60" y="40" height="45" />
 
-             <motion.g
-                style={{originX: "40px", originY: "0px"}}
-                animate={{rotate: 15}}
-                transition={{
-                    delay: 0.1
-                }}
+                <motion.g
+                    style={{ originX: "40px", originY: "0px" }}
+                    animate={{ rotate: 15 }}
+                    transition={{
+                        delay: 0.1
+                    }}
                 >
-                <image href={rightLeg} width="50" x="40" y="121" height="57"/>
-            </motion.g>
-            
-            <motion.g
-            
-                animate={{rotate:-10}}
-                transition={{
-                    delay: 0.1
-                }}>
+                    <image href={rightLeg} width="50" x="40" y="121" height="57" />
+                </motion.g>
 
-                <image href={leftLeg} width="50" x="80" y="121" height="57"/>
+                <motion.g
 
-            </motion.g>
+                    animate={{ rotate: -10 }}
+                    transition={{
+                        delay: 0.1
+                    }}>
 
-            
-            <motion.g>
+                    <image href={leftLeg} width="50" x="80" y="121" height="57" />
 
-                <image href={leftShoulder} width="50" x="93" y="92" height="55"/>
+                </motion.g>
+
 
                 <motion.g>
-                    <image href={leftArm} width="50" x="95" y="117" height="25"/>
+
+                    <image href={leftShoulder} width="50" x="93" y="92" height="55" />
 
                     <motion.g>
-                        <image href={leftHand} width="50" x="94" y="131" height="17"/>
+                        <image href={leftArm} width="50" x="95" y="117" height="25" />
+
+                        <motion.g>
+                            <image href={leftHand} width="50" x="94" y="131" height="17" />
+                        </motion.g>
+                    </motion.g>
+                </motion.g>
+
+
+                <motion.g
+
+                    style={{ originX: "58px", originY: "100px", transformBox: "view-box" }}
+                    animate={{ rotate: -180 }}
+                    transition={{
+                        delay: 0.3,
+                        duration: 0.3
+                    }}
+                >
+                    <image href={rightShoulder} width="50" x="28" y="92" height="55" />
+
+                    <motion.g
+                        style={{ originX: "50px", originY: "120px", transformBox: "view-box" }}
+                        animate={{ rotate: [0, -140, 0] }}
+                        transition={{
+                            delay: 0.1,
+                            duration: 0.4,
+                        }}
+                    >
+                        <image href={rightArm} width="50" x="26" y="117" height="25" />
+
+                        <motion.g>
+                            <image href={rightHand} width="50" x="26" y="131" height="17" />
+                        </motion.g>
+
                     </motion.g>
                 </motion.g>
             </motion.g>
-
-            
-            <motion.g
-            
-                style={{originX: "58px", originY: "100px", transformBox: "view-box"}}
-                animate={{rotate: -180}}
-                transition={{
-                    delay: 0.3,
-                    duration: 0.3
-                }}
-                >
-            <image href={rightShoulder} width="50" x="28" y="92" height="55"/>
-
-                <motion.g
-                    style={{originX: "50px", originY: "120px", transformBox: "view-box"}}
-                    animate={{rotate: [0, -140, 0]}}
-                    transition={{
-                        delay: 0.1,
-                        duration: 0.4,
-                    }}
-                    >
-                <image href={rightArm} width="50" x="26" y="117" height="25"/>
-
-                <motion.g>
-                <image href={rightHand} width="50" x="26" y="131" height="17"/>
-                </motion.g>
-
-                </motion.g>
-            </motion.g>
-            </motion.g>
-
-           
+        </motion.g>                
         </svg>
     )
 }
