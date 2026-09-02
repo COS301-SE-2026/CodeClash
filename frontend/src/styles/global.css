@@ -341,6 +341,35 @@
   --life-primary: #C0395A;
 }
 
+/*These are copied from :root and adjusted for light mode*/
+:root-light, [data-theme = 'light'] {
+
+    /*Backgrounds*/
+    --background: #fff7f5;
+    --background-elevated: rgba(83, 10, 35, 0.035);
+    --background-card: rgba(83, 10, 35, 0.045);
+
+    /*Brand Colours - these can still work well with light mode on whiter backgrounds */
+    --primary: #c0395a;
+    --primary-dark: #530a23;
+    --secondary: #fcecdd;
+
+    /*Text*/
+    --text: #2b0a15;
+    --primary-text: #2b0a15;
+    --secondary-text: #530a23;
+    --muted: rgba(43, 10, 21, 0.62);
+    --muted-text: rgba(43, 10, 21, 0.48);
+
+    /*Borders*/
+    --border: rgba(83, 10, 35, 0.10);
+    --border-hover: rgba(83, 10, 35, 0.20);
+
+    /*Cards*/
+    --card: var(--background-card);
+    --card-text: var(--primary-text);
+}
+
 @layer base {
 
   .badge {
