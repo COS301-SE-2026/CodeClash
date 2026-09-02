@@ -4,7 +4,8 @@ import { EloHistory, EloRatings } from "src/entities/db-entities/elo.entities";
 import { EloDTO, EloUpdateResultDTO } from "src/interface-adapters/dtos/elo.dto";
 import { AppDataSource } from "src/frameworks-drivers/config/data-source";
 
-import { LeaderboardEntryDTO } from "src/interface-adapters/dtos/leaderboard.dto"
+import { LeaderboardEntryDTO } from "../dtos/leaderboard.dto";
+import { RankDTO } from "../dtos/rank.dto";
 
 const K_FACTOR = 32
 
@@ -72,6 +73,7 @@ export class EloRepository implements IEloRepository {
         .createQueryBuilder('elo')
         .innerJoinAndSelect('elo.user', 'user')
         .orderBy('elo.rating', 'DESC')
+        .addOrderBy('user.username', 'ASC')
         .skip(offset)
         .take(limit)
         .getManyAndCount()
@@ -133,4 +135,32 @@ export class EloRepository implements IEloRepository {
             loser: { user_id: loser_id, old_rating: loserRating.rating, new_rating: newLoserRating, elo_gained: -eloLost }
         }
     }
+
+    async getUserRank(userId: string): Promise<RankDTO | null> {
+
+      const row = await this.eloRepository.findOne({
+        where: { user: { user_id: userId } },
+        relations: { user: true }
+        
+      })
+      
+      if (!row) return null;
+      
+      const ahead = await this.eloRepository
+        .createQueryBuilder('elo')
+        .innerJoin('elo.user', 'user')
+        .where('elo.rating > :rating', { rating: row.rating })
+        .orWhere('elo.rating = :rating AND user.username < :username',
+        { rating: row.rating, username: row.user.username })
+        .getCount()
+
+        const data : RankDTO = {
+        user_id: userId,
+        rank: ahead + 1
+      };
+
+        return data;
+        
+    }
 }
+

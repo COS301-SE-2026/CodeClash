@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom';
 
 
 const Leaderboard = () => {
-  const { userData, topThree, isLoadingData, error, page, totalPages, nextPage, prevPage } = LeaderboardViewModel('earth');
+  const { userData, topThree, isLoadingData, error, page, totalPages, setPage, nextPage, prevPage } = LeaderboardViewModel('earth');
 
   if (isLoadingData) return <div className="text-white">Loading...</div>;
   if (error) return <div className="text-white">Error: {error}</div>;
@@ -28,21 +28,18 @@ const Leaderboard = () => {
               {/*<div style={{backgroundImage: `url(${profile})`}} className="w-[90px] h-[90px] bg-no-repeat rounded-full bg-size-[auto_180px] bg-center -mt-10"></div>*/}
                     
                         <div className="text-[64px] text-muted-text text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">2</div>
-                        <div className="text-[32px]  text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{user(0).username}</div>
-                        <div className="text-[32px]  text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{user(0).elo}</div>
+                        <div className="max-w-[85%] text-[32px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[...] truncate px-4">{user(1).username}</div>                        <div className="text-[32px]  text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{user(1).elo}</div>
                     </div>
                     <div className="w-[320px] h-[400px] rounded-[20px] bg-white/10 backdrop-blur-xl border-4 border-secondary drop-shadow-[0px_10px_6px_rgba(0,0,0,0.25)] flex flex-col items-center justify-center">
 
                         {/*<div style={{backgroundImage: `url(${profile})`}} className="w-[120px] h-[120px] bg-no-repeat rounded-full bg-white/10 backdrop-blur-xl bg-size-[auto_240px] bg-[right_-60px_top_-60px] -mt-20"></div>*/}
                         <div className="text-[64px]  text-primary-text text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">1</div>
-                        <div className="text-[32px]  text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{user(1).username}</div>
-                        <div className="text-[32px]  text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{user(1).elo}</div>
+                        <div className="max-w-[85%] text-[32px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[...] truncate px-4">{user(0).username}</div>
                     </div>
                     <div className="w-[239px] h-[304px] rounded-[20px] bg-white/10 backdrop-blur-xl border-4 border-secondary drop-shadow-[-10px_10px_6px_rgba(0,0,0,0.25)] flex flex-col items-center justify-center">
                         {/*<div style={{backgroundImage: `url(${profile})`}} className="w-[90px] h-[90px] bg-no-repeat rounded-full bg-size-[auto_180px] bg-center -mt-10"></div>*/}
                         <div className="text-[64px] text-[#B36548] text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">3</div>
-                        <div className="text-[32px]  text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{user(2).username}</div>
-                        <div className="text-[32px]  text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{user(2).elo}</div>
+                        <div className="max-w-[85%] text-[32px] text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[...] truncate px-4">{user(2).username}</div>                        <div className="text-[32px]  text-button-primary text-center font-[var(--font)] font-semibold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{user(2).elo}</div>
                     </div>
                   </div>
 
