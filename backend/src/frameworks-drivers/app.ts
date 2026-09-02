@@ -31,9 +31,7 @@ app.use(requireAuth(user_repo))
 app.use('/api/elo', routes);
 app.use('/api/match', routes);
 app.use('/api/user', routes);
-app.use('/api/qustion', routes);
-
-
-
+app.use('/api/question', routes);
+app.use('/api', routes);
 
 export default app;

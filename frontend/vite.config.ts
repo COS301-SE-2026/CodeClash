@@ -1,28 +1,24 @@
 import path from 'path'
-
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import dotenv from 'dotenv'
-import { defineConfig } from 'vitest/config'
-import { loadEnv } from 'vite'
+import { defineConfig } from 'vite'
+import { mergeConfig } from 'vite'
+import { defineConfig as defineVitestConfig } from 'vitest/config'
+
 dotenv.config();
 
-export default defineConfig({
+const viteConfig = defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./@"),
-      "root": path.resolve(__dirname, "../",),
+      "root": path.resolve(__dirname, "../"),
       "src": path.resolve(__dirname, "./src")
     },
   },
-  test: {
-    globals: true,
-    environment: "jsdom",
-    setupFiles: "./test/setup.ts",
-  },
   optimizeDeps: {
-    exclude: ['@monaco-aditor/react', 'mathlive'],
+    exclude: ['@monaco-editor/react', 'mathlive'],
   },
   server: {
     proxy: {
@@ -32,4 +28,12 @@ export default defineConfig({
       },
     },
   }
-})
+});
+
+export default mergeConfig(viteConfig, defineVitestConfig({
+  test: {
+    globals: true,
+    environment: "jsdom",
+    setupFiles: "./test/setup.ts",
+  }
+}));
