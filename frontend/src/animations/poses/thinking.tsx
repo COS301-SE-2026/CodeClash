@@ -49,6 +49,11 @@ export const Thinking = () => {
             </motion.g>
             </motion.g>
 
+            <motion.g>
+                <image href={rightLeg} width="50" x="40" y="121" height="57"/>
+                 <image href={leftLeg} width="50" x="80" y="121" height="57"/>               
+            </motion.g>
+
 
         </svg>
     )
