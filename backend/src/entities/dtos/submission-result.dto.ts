@@ -1,5 +1,6 @@
 
 export interface CompleteSubmissionResult {
+    status: 'complete',
     question_id: string,
     correct: boolean | null,
     speed: string,
@@ -7,7 +8,16 @@ export interface CompleteSubmissionResult {
 }
 
 export interface PendingSubmissionResult{
+    status: 'pending',
     token: string
 }
 
 export type SubmissionResult = CompleteSubmissionResult | PendingSubmissionResult
+
+
+export interface OpponentProgressDTO{
+    player_id: string,
+    correct: boolean,
+    opponent_life: number,
+    question: number
+}

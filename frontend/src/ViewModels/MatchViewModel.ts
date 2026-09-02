@@ -279,7 +279,7 @@ export const useMatch = () => {
 
             socket.on('get_questions', loadQuestions)
             socket.on('get_players', setPlayers)
-            socket.on('submission_result', submission_result);
+            socket.on('marking_complete', submission_result);
             socket.on("submission_error", submission_error);
             socket.on('waiting_opponent', waiting_opponent);
             socket.on('both_done', both_done)
@@ -296,7 +296,7 @@ export const useMatch = () => {
 
             return () => {
                 socket.off("get_questions", loadQuestions);
-                socket.off("submission_result", submission_result);
+                socket.off("marking_complete", submission_result);
                 socket.off("submission_error", submission_error);
                 socket.off('get_players', setPlayers);
                 socket.off('waiting_opponent', waiting_opponent)

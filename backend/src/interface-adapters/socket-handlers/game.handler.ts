@@ -5,7 +5,6 @@ import { SubmissionSystem } from "src/application/usecases/systems/submission.sy
 import { SubmissionDTO } from "src/entities/dtos/components.dto";
 
 import { StartQuestionDTO } from "src/entities/dtos/question.dto";
-import { OpponentProgress } from "src/application/usecases/systems/opponent-progress";
 import { GameStore } from "src/application/usecases/services/game-store.service";
 import { GameType } from "src/entities/db-entities/questions.entities";
 import { DeleteGame } from "src/application/usecases/systems/delete-game";
@@ -15,28 +14,11 @@ import { PlayerResultDTO } from 'src/entities/dtos/match-result.dto'
 export const submitQuestion = async (
     io: Server, socket: Socket,
     data: SubmissionDTO,
-    mark: MarkingService,
-    opponent_progress: OpponentProgress
+    mark: MarkingService
 ) => {
     try {
-        const result = await mark.execute(data.match_id, socket.data.user_id, data.question_id, data.answer)
-
-        io.to(socket.data.user_id).emit('submission_result', result);
-
-        const opponent_id = opponent_progress.execute(data, socket.data.user_id);
-
-        if (opponent_id === undefined) throw new Error("Couldn't get opponent")
-
-        //notify the opponent that this player answered
-        io.to(opponent_id).emit('opponent_progress', {
-            player_id: result.player_id,
-            correct: result.result,
-            opponent_life: result.life_update,
-            question: data.question_number
-        });
+        await mark.execute(data.match_id, socket.data.user_id, data.question_id, data.question_number!, data.answer)
     }
-
-
     catch (error: unknown) {
         io.to(socket.data.user_id).emit('submission_error', error);
         return;

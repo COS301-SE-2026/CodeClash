@@ -24,7 +24,6 @@ export interface RoundDTO {
     question_ids: string[],
 }
 
-
 export interface SubmissionDTO {
     match_id: number,
     player_id: string,

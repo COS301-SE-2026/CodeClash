@@ -52,6 +52,7 @@ import { DeleteGame } from 'src/application/usecases/systems/delete-game';
 import { LeaderboardService } from 'src/application/usecases/services/leaderboard.service';
 import { NotificationService } from 'src/application/usecases/services/notification.service';
 import { handleMarkingResult } from 'src/interface-adapters/controllers/marking.controller';
+import { MarkingStrategy } from 'src/application/interfaces/marking/IMarkingStategy';
 
 dotnev.config()
 
@@ -106,7 +107,7 @@ AppDataSource.initialize()
         const life_system = new LifeSystem(world);
         const delete_game = new DeleteGame(world, game_store, matched_users_service);
         const finish_game = new FinishGame(world, match_results, game_store, delete_game);
-        const opponent_progress = new OpponentProgress(world);
+
 
 
         const app = createApp(elo_repo, user_repo, leaderboard_service);
@@ -119,8 +120,11 @@ AppDataSource.initialize()
         }
         );
 
+  
+
         const notification = new NotificationService(io);
-        const check_answer = new MarkingService(game_cache, submission_system, life_system, world, notification)
+        const opponent_progress = new OpponentProgress(world);
+        const check_answer = new MarkingService(game_cache, submission_system, life_system, notification, opponent_progress)
         app.put('/api/marking/result', handleMarkingResult(check_answer))
 
         // auth middleware 
