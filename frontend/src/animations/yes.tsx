@@ -77,16 +77,16 @@ import { rightHandVariants } from "./rig";
 
 export const Yes = () => {
 
-    const sx = useSpring(useMotionValue(0), {stiffness: 120, damping: 20, mass: 0.6});
-    const sy = useSpring(useMotionValue(0), {stiffness: 120, damping: 20, mass: 0.6});
-
-    const leanX= useTransform(sx, [-1,1], [-4,4]);
-    const leanY = useTransform(sy, [-1,1], [-2,2]);
-
     return(
         <svg viewBox="0 0 300 400" width="600" height="700" preserveAspectRatio="xMidYMid meet">
 
-            
+        <motion.g animate={{y: [0, -1.2, 0], scaleY: [1, 1.04, 1]}}
+        transition={
+           {duration: 2.2,
+            repeat: Infinity,
+            ease: "easeInOut"}
+        }
+        >
             <image href={torso} width="50" x="60" y="40" height="120"/>
             <image href={excited} width="50" x="60" y="40" height="45"/>
 
@@ -96,13 +96,15 @@ export const Yes = () => {
                 <image href={rightShoulder} width="50" x="28" y="92" height="55"/>
                 <image href={rightArm} width="50" x="26" y="117" height="25"/>
                 <image href={rightHand} width="50" x="27" y="132" height="17"/>
-            </motion.g>
+            
 
 
             <motion.g
                 style={{originX: "115px", originY: "100px", transformBox: "view-box"}}
-                animate={{rotate: -5}}
+                initial={{y: 0}}
+                animate={{rotate: -5, y: 1}}
                 transition={{
+                    duration: 0.4,
                     type: "spring",
                     delay: 0.1,
                 }}
@@ -113,10 +115,10 @@ export const Yes = () => {
                 <motion.g
                     style={{originX: "123px", originY: "117px", transformBox: "view-box"}}
                     initial={{rotate: 150, y: 0}}
-                    animate={{y: 5}}
+                    animate={{y: 7}}
                     transition={{
                         type: "spring",
-                        duration: 0.5
+                        duration: 0.3
                     }}
                     >
                     <image href={leftArm} width="50" x="95" y="117" height="25"/>
@@ -132,6 +134,8 @@ export const Yes = () => {
                         <image href={leftHand} width="50" x="92" y="130" height="17"/>
                     </motion.g>
                 </motion.g>
+                </motion.g>
+            </motion.g>
             </motion.g>
         </svg>
     )
