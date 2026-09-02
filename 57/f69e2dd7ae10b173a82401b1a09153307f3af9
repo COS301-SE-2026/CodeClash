@@ -1,0 +1,22 @@
+backend/src/application/usecases/services/marking/marking.service.ts
+  h_94c952a9e14c58 8,18-19
+backend/src/frameworks-drivers/api.routes.ts
+  h_94c952a9e14c58 13,24
+  h_94c952a9e14c58 27
+backend/src/interface-adapters/controllers/marking.controller.ts
+  h_94c952a9e14c58 2,4,8-15
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 54,103-113,122-125
+  h_94c952a9e14c58 116
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "57f69e2dd7ae10b173a82401b1a09153307f3af9",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
