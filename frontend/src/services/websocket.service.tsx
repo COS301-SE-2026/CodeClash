@@ -21,10 +21,6 @@ export async function createSocket(): Promise<Socket> {
     })
 
 
-    conn.on("back_to_dash", ()=>{
-        
-    })
-
     return conn;
 }
 

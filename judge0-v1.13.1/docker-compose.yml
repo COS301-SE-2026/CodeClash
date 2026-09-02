@@ -15,8 +15,9 @@ services:
     privileged: true
     <<: *default-logging
     restart: always
-    # networks:
-    #   - codeclash-net
+    networks:
+      - default
+      - dockerfile_pgnetwork
 
   workers:
     image: judge0/judge0:1.13.1
@@ -45,6 +46,9 @@ services:
     restart: always
 
 volumes:
-  codeclash-net:
-    external: true
   data:
+
+networks:
+  dockerfile_pgnetwork:
+    external: true
+
