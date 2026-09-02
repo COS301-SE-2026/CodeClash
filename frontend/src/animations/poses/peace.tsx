@@ -1,16 +1,16 @@
 import {motion, useMotionValue, animate} from 'framer-motion';
 
-import happy from "../../svgs/happy.svg"
-import leftShoulder from "../../svgs/left-shoulder.svg"
-import leftArm from "../../svgs/left-forearm.svg"
-import leftHand from "../../svgs/left-hand.svg"
-import leftLeg from "../../svgs/left-leg.svg"
-import rightShoulder from "../../svgs/right-shoulder.svg"
-import rightArm from "../../svgs/right-forearm.svg"
-import rightHand from "../../svgs/right-hand.svg"
-import rightLeg from "../../svgs/right-leg.svg"
-import torso from "../../svgs/torso.svg"
-import peace from "../../svgs/peace.svg"
+import happy from "../../assets/svgs/happy.svg"
+import leftShoulder from "../../assets/svgs/left-shoulder.svg"
+import leftArm from "../../assets/svgs/left-forearm.svg"
+import leftHand from "../../assets/svgs/left-hand.svg"
+import leftLeg from "../../assets/svgs/left-leg.svg"
+import rightShoulder from "../../assets/svgs/right-shoulder.svg"
+import rightArm from "../../assets/svgs/right-forearm.svg"
+import rightHand from "../../assets/svgs/right-hand.svg"
+import rightLeg from "../../assets/svgs/right-leg.svg"
+import torso from "../../assets/svgs/torso.svg"
+import peace from "../../assets/svgs/peace.svg"
 
 
 //The above imports though pasted, were all hand-written and are not copied from any generative ai chat

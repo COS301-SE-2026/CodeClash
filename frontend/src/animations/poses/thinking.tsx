@@ -1,14 +1,14 @@
 import {motion} from 'framer-motion';
-import thinking from "../../svgs/thinking.svg"
-import leftShoulder from "../../svgs/left-shoulder.svg"
-import leftArm from "../../svgs/left-forearm.svg"
-import leftHand from "../../svgs/left-hand.svg"
-import leftLeg from "../../svgs/left-leg.svg"
-import rightShoulder from "../../svgs/right-shoulder.svg"
-import rightArm from "../../svgs/right-forearm.svg"
-import rightHand from "../../svgs/right-hand.svg"
-import rightLeg from "../../svgs/right-leg.svg"
-import torso from "../../svgs/torso.svg"
+import thinking from "../../assets/svgs/thinking.svg"
+import leftShoulder from "../../assets/svgs/left-shoulder.svg"
+import leftArm from "../../assets/svgs/left-forearm.svg"
+import leftHand from "../../assets/svgs/left-hand.svg"
+import leftLeg from "../../assets/svgs/left-leg.svg"
+import rightShoulder from "../../assets/svgs/right-shoulder.svg"
+import rightArm from "../../assets/svgs/right-forearm.svg"
+import rightHand from "../../assets/svgs/right-hand.svg"
+import rightLeg from "../../assets/svgs/right-leg.svg"
+import torso from "../../assets/svgs/torso.svg"
 
 export const Thinking = () => {
     return(
