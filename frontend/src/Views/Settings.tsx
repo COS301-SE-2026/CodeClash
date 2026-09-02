@@ -18,6 +18,14 @@ const Settings: React.FC = () => {
                             <h3 style={{marginBottom: '0.35rem', color: 'var(--primary-text)', fontWeight: 700}}>Theme</h3>
                             <p className="section-description text-xsm" style={{lineHeight: 1.6}}>Switch to light mode</p>
                         </div>
+                
+                        <button type="button" role="switch" aria-checked={isLight} aria-label= {`Switch to ${isLight ? 'dark' : 'light'} mode`}
+                            onClick={toggleTheme} style={{position: 'relative', width: '64px', height: '34px', borderRadius: '999px', border: '1px solid var(--border)', 
+                            background: isLight ? 'var(--secondary)' : 'rgba(252,236, 221, 0.08)', flexShrink: 0, cursor: 'pointer', transition: 'background 0.2s ease'}}>
+                            <span style={{position: 'absolute', top: '3px', left: isLight ? '33px' : '3px', width: '26px', height: '26px', borderRadius: '999px', 
+                                background: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)', transition: 'left 0.2s ease'}}>
+                            </span>
+                        </button>
                     </div>
                 </div>
             </section>
