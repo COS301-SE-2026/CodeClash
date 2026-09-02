@@ -28,7 +28,7 @@ const router = Router();
 const user_repo = new UserRepository(AppDataSource.getRepository(Users))
 const elo_repo = new EloRepository(AppDataSource.getRepository(EloRatings))
 const achievement_repo = new AchievementRepository(AppDataSource.getRepository(Achievement), AppDataSource.getRepository(Users));
-const friend_repo = new FriendRepository(AppDataSource.getRepository(Friendship), AppDataSource.getRepository(FriendInvite));
+const friend_repo = new FriendRepository(AppDataSource.getRepository(Friendship), AppDataSource.getRepository(FriendInvite), AppDataSource.getRepository(EloRatings));
 const achievement_service = new AchievementService(achievement_repo);
 const friend_service = new FriendService(friend_repo);
 

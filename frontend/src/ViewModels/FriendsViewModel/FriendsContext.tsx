@@ -10,7 +10,6 @@ import type {
 } from "../../Models/FriendsModel";
 
 import { useAuth } from "../../context/Auth/hooks/useAuth";
-import { Leaf } from "lucide-react";
 
 const API_BASE = '/api'; 
 const INVITE_EXPIRY = 10 * 60 * 1000; 
@@ -28,7 +27,7 @@ interface FriendsContext {
 
     searchQuery: string;
     setSearchQuery: (query: string) => void;
-    allUsers: Search[];
+    allUsers: Omit<Search, 'relationship'>[];
     sendFriendRequest: (id: string) => void;
 
     sendInvite: (id: string) => void;

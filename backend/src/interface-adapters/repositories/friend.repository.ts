@@ -2,11 +2,13 @@ import { Repository } from "typeorm";
 import { Friendship, FriendInvite } from "src/entities/db-entities/friendship.entities";
 import { IFriendRepository } from "src/application/interfaces/repositories/IFriendRepository";
 import { FriendDTO, FriendRequestDTO, FriendInviteDTO } from "../dtos/friendship.dto";
+import { EloRatings } from "src/entities/db-entities/elo.entities";
 
 export class FriendRepository implements IFriendRepository {
     constructor (
         private readonly friendshipRepo: Repository<Friendship>,
-        private readonly inviteRepo: Repository<FriendInvite>
+        private readonly inviteRepo: Repository<FriendInvite>,
+        private readonly elo_repo: Repository<EloRatings>
     ){}
 
     async getFriends(user_id: string): Promise<FriendDTO[]> {
@@ -18,13 +20,25 @@ export class FriendRepository implements IFriendRepository {
             relations: { requester: true, receiver: true }
         });
 
+        // fetch friends user_ids to get their elos
+        const friendUsers = friendships.map(f => f.requester.user_id === user_id ? f.receiver : f.requester );
+
+        // fetch friend's elo ratings
+        const eloMap = new Map<string, number>();
+        for (const friend of friendUsers) {
+            const elo = await this.elo_repo.findOne({ 
+                where: { user: { user_id: friend.user_id } }
+            });
+            eloMap.set(friend.user_id, elo?.rating ?? 600);
+        }
+
         return friendships.map(f => {
             const friend = f.requester.user_id === user_id ? f.receiver : f.requester;
             return {
                 user_id: friend.user_id,
                 username: friend.username,
                 friendship_id: f.friendship_id,
-                elo: friend.elo ?? 600,
+                elo: eloMap.get(friend.user_id) ?? 600,
                 avatar_id: friend.avatar_id
             };
         });
