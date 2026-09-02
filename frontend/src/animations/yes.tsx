@@ -30,9 +30,9 @@ import wink from "../svgs/wink.svg"
 import winning from "../svgs/winning.svg"
 import worried from "../svgs/worried.svg"
 import wrong from "../svgs/wrong.svg"
-import { headVariants } from "./rig";
-import { leftHandVariants } from "./rig";
-import { rightHandVariants } from "./rig";
+import { headVariants } from "./poses/rig";
+import { leftHandVariants } from "./poses/rig";
+import { rightHandVariants } from "./poses/rig";
 
 
 // export const FistBump = () => {
@@ -78,7 +78,7 @@ import { rightHandVariants } from "./rig";
 export const Yes = () => {
 
     return(
-        <svg viewBox="0 0 300 400" width="600" height="700" preserveAspectRatio="xMidYMid meet">
+        <svg viewBox="0 0 250 170" width="390" height="300" preserveAspectRatio="xMidYMid meet">
 
         <motion.g animate={{y: [0, -1.2, 0], scaleY: [1, 1.04, 1]}}
         transition={

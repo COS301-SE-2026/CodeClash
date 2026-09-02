@@ -5,6 +5,8 @@ import { useLogOut, getProfile  } from '../ViewModels/ProfileViewModel';
 
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { Stand } from 'src/animations/poses/rig';
+import { Peace } from 'src/animations/poses/peace';
 
 
 
@@ -38,7 +40,8 @@ function ProfileView(){
       <Card className="w-[40%] h-[50%] flex items-center justify-center bg-[#F8E5DD]">
 
         <div className="w-[35%]" >
-          <img src={userData?.avatar} alt="avatarImage" className="" />
+          {/* <img src={userData?.avatar} alt="avatarImage" className="" /> */}
+          <Peace/>
         </div>
         <div className="text-xl font-semibold ">{userData?.username}</div>
         <div className=" text-md font-semibold ">ELO - {userData?.elo}</div>

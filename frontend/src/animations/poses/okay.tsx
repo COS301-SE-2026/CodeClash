@@ -17,7 +17,7 @@ import peace from "../../svgs/peace.svg"
 
 export const Okay = () => {
     return(
-        <svg viewBox="0 0 300 400" width="600" height="700" preserveAspectRatio="xMidYMid meet">
+        <svg viewBox="0 0 250 170" width="390" height="300" preserveAspectRatio="xMidYMid meet">
             <motion.g>
                 <image href={torso} width="50" x="60" y="40" height="120"/>
                 <image href={wink} width="50" x="60" y="40" height="45"/>
