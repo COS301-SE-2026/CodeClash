@@ -7,7 +7,7 @@ export class MatchStatsRepository implements IMatchStatsRepository {
 
     async saveStats(db_match_id: string, user_id: string, num_correct: number, total_time: number): Promise<void> {
         await this.matchStatsRepo.save(this.matchStatsRepo.create({
-            match: { db_match_id } as any,
+            match: { match_id: db_match_id } as any,
             user: { user_id } as any,
             num_correct,
             total_time

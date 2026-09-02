@@ -119,8 +119,12 @@ export class FinishGame {
 
             if (!component) throw new Error("Couldn't get player submissions")
 
-            if (component.correct) stat.num_correct += 1;
-            const time = component.submitted_at!.getTime() - component.started_at!.getTime();
+            const correct = component.correct ?? false; // null -> false
+            if (correct) stat.num_correct += 1;
+            
+            const time = component.submitted_at && component.started_at 
+            ? component.submitted_at!.getTime() - component.started_at!.getTime()
+            : 0; // unanswered questions are treated as 0 time
             stat.total_time += time
         }
 
