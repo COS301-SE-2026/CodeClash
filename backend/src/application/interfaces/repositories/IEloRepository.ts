@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { EloDTO, EloUpdateResultDTO } from "src/interface-adapters/dtos/elo.dto"
 
 
@@ -14,3 +15,25 @@ export interface IEloRepository {
         loser_id: string
     ): Promise<{ winner: EloUpdateResultDTO; loser: EloUpdateResultDTO }>;
 }
+=======
+import { EloDTO, EloUpdateResultDTO } from "src/interface-adapters/dtos/elo.dto"
+import { LeaderboardEntryDTO } from "src/interface-adapters/dtos/leaderboard.dto"
+import { RankDTO } from "src/interface-adapters/dtos/rank.dto"
+
+
+export interface IEloRepository {
+    // Creat
+    createUserElo(user_id: string): Promise<void>
+
+    // Read
+    getElo(user_id: string): Promise<EloDTO | null>
+    getUsersElo(user_ids: string[]): Promise<EloDTO[] | null>
+    getLeaderboard(limit: number, offset: number): Promise<{data: LeaderboardEntryDTO[], total: number}>
+    getUserRank(user_id: string): Promise<RankDTO | null>
+    updateRatingsAfterMatch(
+        match_id: string,
+        winner_id: string,
+        loser_id: string
+    ): Promise<{ winner: EloUpdateResultDTO; loser: EloUpdateResultDTO }>;
+}
+>>>>>>> ad1ab0d84e3533b8b7e3793a64fb8a8243fb47de
