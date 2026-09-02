@@ -113,6 +113,7 @@ CREATE TABLE IF NOT EXISTS achievements (
 CREATE TABLE IF NOT EXISTS player_achievements (
   user_id UUID REFERENCES users(user_id),
   achievement_id UUID REFERENCES achievements(achievement_id),
+  earned_at TIMESTAMP DEFAULT NOW(),
   PRIMARY KEY (user_id, achievement_id)
 );
 
