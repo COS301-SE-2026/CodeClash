@@ -267,3 +267,128 @@ SELECT
     '252'
 FROM
     q;
+
+-- PROGAMMING QUESTIONS 
+
+WITH q AS (
+    INSERT INTO 
+        questions(
+             game_mode,
+            difficulty,
+            title,
+            description,
+            time_limit
+        )
+    VALUES
+        (
+            'programming', --NOSONAR,
+            3,
+            'Reverse a String',
+            'Given a string "s", return the string reversed.\n Example: input "hello" -> output "olleh".',
+            "00:05:00" --NOSONAR
+
+        ) RETURNING question_id
+)
+INSERT INTO 
+answers(question_id, answer)
+SELECT 
+    question_id,
+    'olleh'
+FROM 
+    q;
+
+WITH q AS (
+    INSERT INTO 
+        questions(
+             game_mode,
+            difficulty,
+            title,
+            description,
+            time_limit
+        )
+    VALUES
+        (
+             'programming', --NOSONAR,
+             4,
+             'Nth Fibonacci Number',
+             'Write a function that outputs the nth Fibonacci number.\nExample" fibonacci(10) -> output 55.',
+             "00:05:00" --NoSonar
+
+        ) RETURNING question_id
+)
+INSERT INTO 
+answers(question_id, answer)
+SELECT 
+    question_id,
+    ''
+FROM 
+    q;
+
+WITH q AS (
+    INSERT INTO 
+        questions(
+             game_mode,
+            difficulty,
+            title,
+            description,
+            time_limit
+        )
+    VALUES
+        (
+             'programming', --NOSONAR
+
+        ) RETURNING question_id
+)
+INSERT INTO 
+answers(question_id, answer)
+SELECT 
+    question_id,
+    ''
+FROM 
+    q;
+
+WITH q AS (
+    INSERT INTO 
+        questions(
+             game_mode,
+            difficulty,
+            title,
+            description,
+            time_limit
+        )
+    VALUES
+        (
+             'programming', --NOSONAR
+
+        ) RETURNING question_id
+)
+INSERT INTO 
+answers(question_id, answer)
+SELECT 
+    question_id,
+    ''
+FROM 
+    q;
+
+WITH q AS (
+    INSERT INTO 
+        questions(
+             game_mode,
+            difficulty,
+            title,
+            description,
+            time_limit
+        )
+    VALUES
+        (
+             'programming', --NOSONAR
+
+        ) RETURNING question_id
+)
+INSERT INTO 
+answers(question_id, answer)
+SELECT 
+    question_id,
+    ''
+FROM 
+    q;

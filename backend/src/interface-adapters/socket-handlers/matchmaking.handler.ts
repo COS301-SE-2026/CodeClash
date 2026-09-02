@@ -1,7 +1,7 @@
 import { Socket, Server } from "socket.io"
 import { GameService } from 'src/application/usecases/services/game.service';
 import { MatchmakingService } from 'src/application/usecases/services/matchmaking.service';
-import { GameDataDTO} from "src/entities/dtos/match-data.dto";
+import { GameDataDTO } from "src/entities/dtos/match-data.dto";
 import MatchmakingUserDTO from 'src/entities/dtos/matchmaking.dto';
 import { MatchedUsersService } from "src/application/usecases/services/matched-users.service";
 import { GameStore } from "src/application/usecases/services/game-store.service";
@@ -34,8 +34,8 @@ export const joinMatchQueue = (
 
         const result = {
             players: {
-                player_1:{ ...match.player_1, username: player_1_username?.username},
-                player_2:{...match.player_2, username: Player_2_username?.username}
+                player_1: { ...match.player_1, username: player_1_username?.username },
+                player_2: { ...match.player_2, username: Player_2_username?.username }
             },
             pair_id: pair_id,
             game_mode: data.game_mode
@@ -64,14 +64,13 @@ export const matchAccepted = (
         matched_users_service: MatchedUsersService,
         game_store: GameStore
     ) => {
-
         matched_users_service.accept(data.pair_id, socket.data.user_id);
 
         if (matched_users_service.bothAccepted(data.pair_id)) {
             const players = matched_users_service.getPlayers(data.pair_id);
 
             const setup = await game_service.execute(players, data.game_mode, data.league, data.game_type);
-            await game_store.create(setup.match_enitity, setup.match_id,players, setup.questions);
+            await game_store.create(setup.match_enitity, setup.match_id, players, setup.questions);
 
 
             const keys = matched_users_service.getKeys(data.pair_id);

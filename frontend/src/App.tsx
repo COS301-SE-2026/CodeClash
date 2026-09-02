@@ -3,7 +3,6 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import { useAuth } from "./context/Auth/hooks/useAuth";
 import Layout from "./layout";
-import ProgMatch from "./pages/ProgMatch";
 import BrandStyleGuide from "./Views/BrandStyleGuide";
 import Dashboard from "./Views/Dashboard";
 import MatchFound from "./Views/MatchFound";
@@ -21,6 +20,7 @@ import MatchSearching from "./Views/MatchSearching";
 import Profile from "./Views/Profile";
 import SignIn from "./Views/SignIn";
 import SignUp from "./Views/SignUp";
+import { ProgMatch } from "./Views/ProgMatch";
 
 import Loading from "@/components/shared/Loading";
 
@@ -72,7 +72,7 @@ const App: React.FC = () => {
             <Route path='/match-found' element={<MatchFound />} />
             <Route path='/math-match' element={<MathMatch />} />
             <Route path='/leaderboard' element={<Leaderboard />} />
-            <Route path='/prog-match' element={<ProgMatch language="javascript" />} />
+            <Route path='/programming-match' element={<ProgMatch/>} />
             <Route path='/results' element={<FinalResults />} />
             <Route path='/results' element={<FinalResults />} />
             <Route path='/forgot-password' element={<ForgotPassword />} />
