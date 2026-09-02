@@ -87,4 +87,18 @@ export class UserRepository implements IUserRepository {
         return data
     }
 
+    async searchByUsername(query: string): Promise<UserDTO[]> {
+        const users = await this.userRepository
+        .createQueryBuilder('u')
+        .where('LOWER(u.username) LIKE :query', { query: `%${query.toLowerCase()}%` })
+        .limit(20)
+        .getMany();
+
+        return users.map(u => ({
+            user_id: u.user_id,
+            username: u.username,
+            avatar_id: u.avatar_id,
+            league: u.league
+        }));
+    }
 }
