@@ -1,0 +1,14 @@
+.github/workflows/ci.yml
+  h_58e143dc25f856 97,115-127
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "f664af6c6debfe7f37463b874cde3867f58e22dd",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

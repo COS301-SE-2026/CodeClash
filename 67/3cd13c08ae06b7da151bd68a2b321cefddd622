@@ -1,0 +1,14 @@
+backend/package.json
+  h_58e143dc25f856 11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "673cd13c08ae06b7da151bd68a2b321cefddd622",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

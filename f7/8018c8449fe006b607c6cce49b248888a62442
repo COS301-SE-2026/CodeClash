@@ -1,0 +1,14 @@
+frontend/test/integration/Providers/UserProvider.test.tsx
+  h_58e143dc25f856 64,72,80
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "f78018c8449fe006b607c6cce49b248888a62442",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

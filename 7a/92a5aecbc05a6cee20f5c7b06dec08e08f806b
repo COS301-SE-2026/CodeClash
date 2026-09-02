@@ -1,0 +1,19 @@
+frontend/src/animations/armRaise.tsx
+  h_b13c5d77534129 44-49,72,74,79,81,85-86,89-93,99-101,103-104,106-115,123,126
+  h_b13c5d77534129 1-2,41,51-52,59-60,62-67,69-70,75-78,117,119-121
+frontend/src/animations/yes.tsx
+  h_b13c5d77534129 85,107,121,130
+frontend/src/App.tsx
+  h_b13c5d77534129 57
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "7a92a5aecbc05a6cee20f5c7b06dec08e08f806b",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
