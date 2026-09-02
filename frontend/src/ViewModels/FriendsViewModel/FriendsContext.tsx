@@ -189,34 +189,61 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
         } catch (err) {
             console.error('Error sending friends request:', err);
         }
-    }, [token])
+    }, [token]);
 
     /*Requests - needs accept and decline endpoint */
-    const acceptRequest = useCallback((id: string) => {
+    const acceptRequest = useCallback( async (id: string) => {
+        if(!token) return;
         const req = requests.find((r) => r.id === id);
         if (!req) {
             return;
         }
-        setRequests((prev) => prev.filter((r) => r.id !== id));
-        setFriend((prev) => [
-            ...prev, {
-                id: req.fromUser, 
-                username: req.username,
-                avatar: req.avatar,
-                status: 'offline',
-                elo: 1000
-            }
-        ])
-    }, [requests])
+        try {
+            await fetch(`${API_BASE}/friends/request/${id}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'appplication/json', Authorization: `Bearer ${token}` },
+                body: JSON.stringify({ status: 'accepted' })
+            });
+            setRequests((prev) => prev.filter((r) => r.id !== id));
+            setFriend((prev) => [
+                ...prev, {
+                    id: req.fromUser, 
+                    username: req.username,
+                    avatar: req.avatar,
+                    status: 'offline',
+                    elo: 600
+                }
+            ]);
+        } catch (err) {
+            console.error('Error accepting friend request:', err);
+        }
+    }, [token, requests])
 
-    const declineRequest = useCallback((id: string) => {
-        setRequests((prev) => prev.filter((r) => r.id !== id));
-    }, [])
+    const declineRequest = useCallback( async (id: string) => {
+        if (!token) return;
+        try{
+            await fetch(`${API_BASE}/friends/request/${id}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'appplication/json', Authorization: `Bearer ${token}` },
+                body: JSON.stringify({ status: 'declined' })
+            });
+            setRequests((prev) => prev.filter((r) => r.id !== id));
+        } catch (err) {
+            console.error('Error declining friend request:', err);
+        }
+    }, [token])
 
-    /*Friends - needs remove friend endpoint */
-    const removeFriend = useCallback((id: string) => {
-        setFriend((prev) => prev.filter((f) => f.id !== id));
-    }, [])
+    const removeFriend = useCallback( async (id: string) => {
+        if (!token) return;
+        const f = friend.find((fr) => fr.id === id);
+        if(!f) return;
+        try{
+            // need to find a way to retrieve missus
+            setFriend((prev) => prev.filter((r) => r.id !== id));
+        } catch (err) {
+            console.error('Error removing friend:', err);
+        }
+    }, [token, friend])
 
     /*Invites */
     const sendInvite = useCallback(async (friendId: string) => {
