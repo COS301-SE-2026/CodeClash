@@ -82,40 +82,12 @@ export const Stand = () => {
             </motion.g>
           </motion.g>
           
+          <motion.g>
+            <image href={rightLeg} width="50" x="40" y="121" height="57"/>
+            <image href={leftLeg} width="50" x="80" y="121" height="57"/>
+          </motion.g>
           </motion.g>
 
-
-        <motion.g
-        >
-            <image href={rightLeg} width="30%" x="-3%" y="62%" height="30%"/>
-        </motion.g>
-        <motion.g>
-            <image href={leftLeg} width="30%" x="15%" y="62%" height="30%"/>
-        </motion.g>
-        <motion.g>
-            <image href={rightArm} width="30%" x="-11%" y="44%" height="25%"></image>
-        </motion.g>
-
-        <motion.g
-            initial={{opacity: 0, y:-50}}
-            animate={{ opacity: 1, y:0}}>
-            <image href={leftArm} width="30%" x="23%" y="44%" height="25%"></image>
-        </motion.g>
-        <motion.g
-        >
-            <image href={torso} width="30%" x="6%" y="34%" height="30%"/>
-        </motion.g>
-        <motion.g
-        // style={{ originX: -0.5, originY: -0.5}}
-        >
-            <image href={headVariants.variants[4]} width="30%" x="6%" y="12%" height="30%"/>
-        </motion.g>
-        <motion.g>
-            <image href={rightHand} width="30%" x="-10.5" y="63%" height="10%"/>
-        </motion.g>
-        <motion.g>
-            <image href={leftHand} width="30%" x="22.5%" y="63%" height="10%"/>
-        </motion.g>
         </svg>
     );
 }
