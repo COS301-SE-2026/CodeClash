@@ -341,6 +341,77 @@
   --life-primary: #C0395A;
 }
 
+/*These are copied from :root and adjusted for light mode*/
+:root-light, [data-theme = 'light'] {
+
+    /*Backgrounds*/
+    --background: #fff7f5;
+    --background-elevated: rgba(83, 10, 35, 0.035);
+    --background-card: rgba(83, 10, 35, 0.045);
+
+    /*Brand Colours - these can still work well with light mode on whiter backgrounds */
+    --primary: #c0395a;
+    --primary-dark: #530a23;
+    --secondary: #fcecdd;
+
+    /*Text*/
+    --text: #2b0a15;
+    --primary-text: #2b0a15;
+    --secondary-text: #530a23;
+    --muted: rgba(43, 10, 21, 0.62);
+    --muted-text: rgba(43, 10, 21, 0.48);
+
+    /*Borders*/
+    --border: rgba(83, 10, 35, 0.10);
+    --border-hover: rgba(83, 10, 35, 0.20);
+
+    /*Cards*/
+    --card: var(--background-card);
+    --card-text: var(--primary-text);
+
+    /*Sidebar*/
+    --sidebar: #ffffff;
+    --sidebar-text: var(--primary-text);
+    --sidebar-primary: #c0395a;
+    --sidebar-primary-text: #ffffff;
+    --sidebar-accent: rgba(83, 10, 35, 0.05);
+    --sidebar-accent-text: var(--primary-text);
+    --sidebar-border: rgba(83, 10, 35, 0.10);
+    --sidebar-ring: #c0395a;
+
+    /* Buttons */
+    --button-primary: #C0395A;
+    --button-secondary: transparent;
+    --button-text-primary: #FFFFFF;
+    --button-text-secondary: #520a23;
+
+    /*Inputs*/
+    --input: rgba(83, 10, 35, 0.05);
+    --ring: #c0395a;
+    --accent: #e93577;
+    --accent-text: #ffffff;
+    --destructive: #c62828;
+
+    /*Status*/
+    --success: #2e7d32;
+    --danger: #c62828;
+    --warning: #b76e00;
+    --info: #1565c0;
+    --secondary-muted: rgba(83,10, 35, 0.35);
+
+    /*Difficulty for questions*/
+    --difficulty-easy: #2e7d32;
+    --difficulty-medium: #b76e00;
+    --difficulty-hard: #c62828;
+
+     /*Shadows*/
+    --badge-shadow: 0 2px 6px rgba(83, 10, 35, 0.10);
+    --card-shadow: 0rem 0.2rem 0.5rem rgba(83, 10, 35, 0.08);
+    --glow-shadow: 0 0 24px rgba(192, 57, 90, 0.22);
+
+    --life-primary: #C0395A;
+}
+
 @layer base {
 
   .badge {
@@ -450,8 +521,17 @@
     border: 2px solid var(--background);
   }
 
+  :root.light ::-webkit-scrollbar-thumb, [data-theme = 'light'] ::-webkit-scrollbar-thumb {
+    background: rgba(83, 10, 35, 0.15);
+    border: 2px solid var(--background);
+  }
+
   ::-webkit-scrollbar-thumb:hover {
     background: rgba(252, 236, 221, 0.3);
+  }
+
+  :root.light ::-webkit-scrollbar-thumb:hover, [data-theme = 'light'] ::-webkit-scrollbar-thumb:hover {
+    background: rgba(83, 10, 35, 0.28);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -735,6 +815,13 @@
     border: 2px solid var(--border);
     background: var(--background-card);
     object-fit: cover;
+  }
+
+  .score-display {
+    font-family: var(--font-dseg);
+    color: var(--primary);
+    letter-spacing: 0.05rem;
+    text-shadow: 0 0 12px rgba(192, 57, 90, 0.5);
   }
 
   /*For the confetti effect*/
