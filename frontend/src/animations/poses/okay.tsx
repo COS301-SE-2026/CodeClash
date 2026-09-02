@@ -22,15 +22,21 @@ export const Okay = () => {
                 <image href={torso} width="50" x="60" y="40" height="120"/>
                 <image href={wink} width="50" x="60" y="40" height="45"/>
 
-                <motion.g>
-                    <image href={leftShoulder} width="50" x="92" y="91" height="55"/>
-                    <motion.g>
-                        <image href={leftArm} width="50" x="94" y="116" height="25"/>
+                <motion.g
+                    style={{originX: "108px", originY: "100px", transformBox: "view-box"}}
+                    initial={{rotate: -45}}
+                    >
+                    <image href={leftShoulder} width="50" x="91" y="92" height="55"/>
+                    <motion.g
+                        style={{originX: "120px", originY: "117px", transformBox: "view-box"}}
+                        initial={{rotate: -120}}
+                        >
+                        <image href={leftArm} width="50" x="93" y="116" height="25"/>
                         <motion.g
                         //style={{originX: "50px", originY: ""}}
                         initial={{rotate: 170}}
                         >
-                            <image href={okay} width="50" x="101" y="130" height="25"/>
+                            <image href={okay} width="50" x="100.5" y="130" height="25"/>
                         </motion.g>
                     </motion.g>
                 </motion.g>
