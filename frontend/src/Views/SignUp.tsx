@@ -89,48 +89,48 @@ const SignUp: React.FC= () => {
                     {/*Fields */}
                     <div className='grid grid-cols-2 gap-4 mb-4'>
                         <div>
-                            <label className='field-label'>First Name</label>
+                            <label className='field-label' htmlFor='first-input'>First Name</label>
                             <div className='relative'>
                                 <User size={16} className='absolute left-4 top-1/2 -translate-y-1/2 text-muted-text'/>
-                                <input className='input pl-10' type='text' placeholder='Name' value={form.firstName} onChange={(e) => setField('firstName', e.target.value)} disabled={isLoading}/>
+                                <input id='first-input' className='input pl-10' type='text' placeholder='Name' value={form.firstName} onChange={(e) => setField('firstName', e.target.value)} disabled={isLoading}/>
                             </div>
                         </div>
                         {/*Copying above field and changing what needs to be changed */}
                         <div>
-                            <label className='field-label'>Last Name</label>
+                            <label className='field-label' htmlFor='last-input'>Last Name</label>
                             <div className='relative'>
                                 <User size={16} className='absolute left-4 top-1/2 -translate-y-1/2 text-muted-text'/>
-                                <input className='input pl-10' type='text' placeholder='Surname' value={form.lastName} onChange={(e) => setField('lastName', e.target.value)} disabled={isLoading}/>
+                                <input id='last-input' className='input pl-10' type='text' placeholder='Surname' value={form.lastName} onChange={(e) => setField('lastName', e.target.value)} disabled={isLoading}/>
                             </div>
                         </div>
                     </div>
                     <div className='mb-4'>
-                        <label className='field-label'>Username</label>
+                        <label className='field-label' htmlFor='user-input'>Username</label>
                         <div className='relative'>
                             <AtSign size={16} className='absolute left-4 top-1/2 -translate-y-1/2 text-muted-text'/>
-                            <input className='input pl-10' type='text' placeholder='NameSurname' value={form.username} onChange={(e) => setField('username', e.target.value)} disabled={isLoading}/>
+                            <input id='user-input' className='input pl-10' type='text' placeholder='NameSurname' value={form.username} onChange={(e) => setField('username', e.target.value)} disabled={isLoading}/>
                         </div>
                     </div>
                     {/*Copying above field and changing what needs to be */}
                     <div className='mb-4'>
-                        <label className='field-label'>Email address</label>
+                        <label className='field-label' htmlFor='email-input'>Email address</label>
                         <div className='relative'>
                             <Mail size={16} className='absolute left-4 top-1/2 -translate-y-1/2 text-muted-text'/>
-                            <input className='input pl-10' type='email' placeholder='email@example.com' value={form.email} onChange={(e) => setField('email', e.target.value)} disabled={isLoading}/>
+                            <input id='email-input' className='input pl-10' type='email' placeholder='email@example.com' value={form.email} onChange={(e) => setField('email', e.target.value)} disabled={isLoading}/>
                         </div>
                     </div>
                     <div className='mb-4'>
-                        <label className='field-label'>Phone number</label>
+                        <label className='field-label' htmlFor='phone-input'>Phone number</label>
                         <div className='relative'>
                             <Phone size={16} className='absolute left-4 top-1/2 -translate-y-1/2 text-muted-text'/>
-                            <input className='input pl-10' type='tel' placeholder='+27 12 345 6789' value={form.phoneNumber} onChange={(e) => setField('phoneNumber', e.target.value)} disabled={isLoading}/>
+                            <input id='phone-input' className='input pl-10' type='tel' placeholder='+27 12 345 6789' value={form.phoneNumber} onChange={(e) => setField('phoneNumber', e.target.value)} disabled={isLoading}/>
                         </div>
                     </div>
                     <div className='mb-4'>
-                        <label className='field-label'>Password</label>
+                        <label className='field-label' htmlFor='password-input'>Password</label>
                         <div className='relative'>
                             <Lock size={16} className='absolute left-4 top-1/2 -translate-y-1/2 text-muted-text'/>
-                            <input className='input pl-10' type='password' placeholder='Create a password' value={form.password} onChange={(e) => setField('password', e.target.value)} disabled={isLoading}/>
+                            <input id='password-input' className='input pl-10' type='password' placeholder='Create a password' value={form.password} onChange={(e) => setField('password', e.target.value)} disabled={isLoading}/>
                         </div>
                     </div>
                     {/*Terms and Conditions */}

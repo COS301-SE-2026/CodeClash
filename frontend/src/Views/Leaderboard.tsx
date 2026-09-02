@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom';
 
 
 const Leaderboard = () => {
-  const { userData, topThree, isLoadingData, error, page, totalPages, nextPage, prevPage } = LeaderboardViewModel('earth');
+  const { userData, topThree, isLoadingData, error, page, totalPages, setPage, nextPage, prevPage } = LeaderboardViewModel('earth');
 
   if (isLoadingData) return <div className="text-white">Loading...</div>;
   if (error) return <div className="text-white">Error: {error}</div>;
