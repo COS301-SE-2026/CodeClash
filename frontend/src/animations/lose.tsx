@@ -41,6 +41,13 @@ export const Lose = () => {
     return(
         <svg viewBox="0 0 300 400" width="600" height="700" preserveAspectRatio="xMidYMid meet">
 
+            <motion.g animate={{y: [0, -1.2, 0], scaleY: [1, 1.04, 1]}}
+            transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut"
+            }}
+            >
             <motion.g>
             <image href={torso} width="50" x="60" y="40" height="120"/>
 
@@ -110,7 +117,7 @@ export const Lose = () => {
             </motion.g>
             </motion.g>
 
-           
+        </motion.g>   
         </svg>
     )
 }
