@@ -1,0 +1,16 @@
+frontend/src/animations/yes.tsx
+  h_b13c5d77534129 1,80-85,115-120
+frontend/src/App.tsx
+  h_b13c5d77534129 15,58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "1f3ff1cf86fa777211c6a8a90cffa298f48499b8",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
