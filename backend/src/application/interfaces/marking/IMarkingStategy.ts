@@ -2,5 +2,5 @@ import { MathsSubmissionDTO, ProgSubmissionDTO } from "src/entities/dtos/compone
 import { SubmissionResult } from "src/entities/dtos/submission-result.dto";
 
 export interface MarkingStrategy{
-    mark(submission: MathsSubmissionDTO | ProgSubmissionDTO, answer: string | string): Promise<SubmissionResult>;
+    mark(submission: MathsSubmissionDTO | ProgSubmissionDTO, answer: string): Promise<SubmissionResult>;
 }

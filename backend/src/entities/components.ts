@@ -92,7 +92,8 @@ export interface SubmissionComponent {
     answer: string,
     language?: string
     submitted_at: Date | null,
-    correct:boolean | null
+    correct:boolean | null,
+    token?: string
 }
 
 /********************************** */

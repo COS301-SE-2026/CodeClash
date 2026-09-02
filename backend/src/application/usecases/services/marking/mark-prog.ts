@@ -15,10 +15,8 @@ export class MarkProg implements MarkingStrategy {
 
         const submission_token = await this.executor.execute(submission.source_code, submission.language_id, submission.stdin, answer);
 
-         return {
-            question_id: '',
-            correct: true,
-            speed: ''
+        return {
+            token: submission_token
         }
 
     }

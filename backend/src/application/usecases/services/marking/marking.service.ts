@@ -6,21 +6,25 @@ import { IGameCache } from "src/application/interfaces/cache/IGameCache";
 import { LifeSystem } from "src/application/usecases/systems/life.system";
 import { SubmissionSystem } from "src/application/usecases/systems/submission.system";
 import { NotificationService } from "../notification.service";
+import { MarkingStrategy } from "src/application/interfaces/marking/IMarkingStategy";
 
 
 export class MarkingService {
     private readonly getMatchComponent;
+    private readonly marking_strategy;
 
     constructor(
         private readonly game_cache: IGameCache,
         private readonly submission_system: SubmissionSystem,
         private readonly life_System: LifeSystem,
         private readonly world: ReturnType<typeof World>,
-        private readonly notifications: NotificationService
+        private readonly notifications: NotificationService,
+        private readonly markingStrategy: MarkingStrategy
     ) {
 
         const { getMatchComponent } = this.world;
         this.getMatchComponent = getMatchComponent
+        this.marking_strategy = markingStrategy;
     }
 
     async execute(match_id: number, player_id: string, question_id: string, answer: string) {
@@ -30,13 +34,14 @@ export class MarkingService {
 
             if (!correct_answer) throw new Error("Invalid question id");
 
-            // 2. compare correct vs submitted answer 
-            const correct = correct_answer === answer;
+            // 2. create submission
+            const submission = this.submission_system.saveSubmission(match_id, player_id, question_id, null, answer);
+            const correct = await this.marking_strategy.mark(submission!, correct_answer);
 
 
-            // 3. save answer with submission system
-            this.submission_system.saveSubmission(match_id, player_id, question_id, correct, answer);
 
+
+            // TODO: Move life update into it's own system
             // 4. update player life
             const match = this.getMatchComponent<MatchComponent>(match_id, 'Match');
             const players = this.getMatchComponent<PlayersComponent>(match_id, 'Players');
