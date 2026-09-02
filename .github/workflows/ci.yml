@@ -94,7 +94,7 @@ jobs:
         PORT: ${{secrets.PORT}}
 
     - name: Starting backend
-      run: npx ts-node -r tsconfig-paths/register src/frameworks-drivers/server.ts &
+      run: npm run start:server > /tmp/backend.log 2>&1 &
       working-directory: backend
       env:
         DB_HOST: ${{secrets.DB_TEST_HOST}}
@@ -112,7 +112,19 @@ jobs:
         FRONTEND_URL: ${{secrets.FRONTEND_URL}}
 
     - name: Waiting for backend to be ready for the frontend integration tests
-      run: npx wait-on http://localhost:${{secrets.PORT}}/health -t 90000
+      run: |
+          for i in $(seq 1 90); do
+            if curl -fs --connect-timeout 2 --max-time 5 "http://localhost:${PORT}/health" >/dev/null 2>&1; then
+              echo "backend read after ${is}s"
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "backend didnt get ready in time" >&2
+          cat /tmp/backend.log >&2 || true
+          exit 1
+      env:
+        PORT: ${{secrets.PORT}}
         
     - name: Test and coverage frontend
       run: npm run test:frontend:coverage
