@@ -10,10 +10,9 @@ import type {
 } from "../../Models/FriendsModel";
 
 import { useAuth } from "../../context/Auth/hooks/useAuth";
-import { convertMathJsonToLatex } from "mathlive";
 
 const API_BASE = '/api'; 
-const INVITE_EXPIRY = 10 * 60 * 1000; // **We need an expires field on the invite response, this is currently just a client side approx based on the recieved time of invite
+const INVITE_EXPIRY = 10 * 60 * 1000; 
 
 interface FriendsContext {
     isLoading: boolean;
@@ -33,7 +32,7 @@ interface FriendsContext {
 
     sendInvite: (id: string) => void;
     activeInvite: Invite | null;
-    inviteColumn: number;
+    activeCountdown: number,
     inviteError: string | null;
     acceptInvite: () => void;
     declineInvite: () => void;
@@ -238,12 +237,12 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
         const f = friend.find((fr) => fr.id === id);
         if(!f) return;
         try{
-            // need to find a way to retrieve missus
+            // need to find a way to retrieve friendship_id
             setFriend((prev) => prev.filter((r) => r.id !== id));
         } catch (err) {
             console.error('Error removing friend:', err);
         }
-    }, [token, friend])
+    }, [token, friend]);
 
     /*Invites */
     const sendInvite = useCallback(async (friendId: string) => {
@@ -251,22 +250,18 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
         if (!target || !token || !user) {
             return;
         }
-
         try {
-            await fetch(`{API_BASE}/friend/invite`, {
+            await fetch(`${API_BASE}/friend/invite`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`
                 },
-                body: JSON.stringify({
-                    user_id: user.userId,
-                    friend: [friendId],
-                    game_mode: 'casual'
-                })
-            })
+                body: JSON.stringify({ user_id: user.userId })
+            });
+        } catch (err) {
+            console.error('Error sending invite:', err);
         }
-        catch {}
     }, [token, user])
 
     const acceptInvite = useCallback(() => {
@@ -280,19 +275,14 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
             setActiveInvite(null);
             return;
         }
-
-        //backend needs a way to actually accept/consume an invite
         activeInviteIdRef.current = null;
         setActiveInvite(null);
     }, [activeInvite])
 
     const declineInvite = useCallback(() => {
-        if (!activeInvite) {
-            return;
-        }
         activeInviteIdRef.current = null;
         setActiveInvite(null);
-    }, [activeInvite])
+    }, [])
 
     const dismissInviteError = useCallback(() => setInviteError(null), []);
 
@@ -319,11 +309,11 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
         acceptInvite,
         declineInvite,
         dismissInviteError,
-    }
+    };
 
     return (
         <FriendsContextFunc.Provider value={value}>
             {children}
         </FriendsContextFunc.Provider>
-    )
-}
+    );
+};
