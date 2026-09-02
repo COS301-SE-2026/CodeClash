@@ -106,7 +106,7 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
         }; //end fetchAll
         fetchAll();
     }, [token, user]);//end useEffect
-    
+
     const enrichInvite = useCallback((raw: GameInvite, expires: number): Invite => ({
         id: raw.invite_id,
         mode: 'casual',
@@ -126,54 +126,10 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
 
     /*GET /api/friend/invite for an incoming friend invite */
     useEffect(() => {
-        if (isLoading || !token) {
-            return;
-        }
-        let cancelled = false;
-
-        const poll =  async () => {
-            try {
-                const res = await fetch(`${API_BASE}/friend/invite`, {
-                    headers: {Authorization: `Bearer ${token}`},
-                })
-                //No active invites
-                if (res.status === 404) {
-                    if(!cancelled) {
-                        activeInviteIdRef.current = null;
-                        setActiveInvite(null);
-                    }
-                    return;
-                }
-                if (!res.ok) {
-                    return;
-                }
-                const raw: GameInvite = await res.json();
-                if (cancelled) {
-                    return;
-                }
-                if(raw.invite_id !== activeInviteIdRef.current) {
-                    activeInviteIdRef.current = raw.invite_id;
-                    setActiveInvite(enrichInvite(raw, Date.now()))
-                }
-            }
-            catch {}
-        }
-
-        poll();
-        const interval = setInterval(poll, INVITE_POLL);
-        return () => {
-            cancelled = true;
-            clearInterval(interval);
-        }
-    }, [isLoading, token, enrichInvite])
-
-    useEffect(() => {
-        if (!activeInvite) {
-            return;
-        }
+        if (!activeInvite) return;
         const interval = setInterval(() => setNow(Date.now()), 1000);
         return () => clearInterval(interval);
-    }, [activeInvite])
+    }, [activeInvite]);
 
     useEffect(() => {
         if (activeInvite && now - activeInvite.expires >= INVITE_EXPIRY) {
@@ -198,7 +154,7 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
         }
         const friendId = new Set(friend.map((f) => f.id));
         const incomingReqs = new Set(requests.map((r) => r.fromUser));
-        return MOCKED_SEARCHPOOL.filter((u) => u.username.toLowerCase().includes(query)).map((u): Search => {
+        return allUsers.filter((u) => u.username.toLowerCase().includes(query)).map((u): Search => {
             let relationship: Relation = 'none';
             if (u.username === profile?.handle) {
                 relationship = 'self';
@@ -217,13 +173,23 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
                 username: u.username, 
                 avatar: u.avatar,
                 relationship
-            }
-        })
-    }, [searchQuery, friend, requests, sentRequest, profile])
+            };
+        });
+    }, [searchQuery, friend, requests, sentRequest, profile, allUsers]);
 
-    const sendFriendRequest = useCallback((id: string) => {
-        setSentRequest((prev) => new Set(prev).add(id))
-    }, [])
+    const sendFriendRequest = useCallback(async (id: string) => {
+        if(!token) return;
+        try{
+            await fetch(`${API_BASE}/friends/request`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'appplication/json', Authorization: `Bearer ${token}` },
+                body: JSON.stringify({ receiver_id: id })
+            });
+            setSentRequest((prev) => new Set(prev).add(id))
+        } catch (err) {
+            console.error('Error sending friends request:', err);
+        }
+    }, [token])
 
     /*Requests - needs accept and decline endpoint */
     const acceptRequest = useCallback((id: string) => {
