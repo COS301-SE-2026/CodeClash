@@ -1,0 +1,27 @@
+import {motion, useMotionValue, animate} from 'framer-motion';
+
+import wink from "../../svgs/wink.svg"
+import leftShoulder from "../../svgs/left-shoulder.svg"
+import leftArm from "../../svgs/left-forearm.svg"
+import okay from "../../svgs/ok.svg"
+import leftLeg from "../../svgs/left-leg.svg"
+import rightShoulder from "../../svgs/right-shoulder.svg"
+import rightArm from "../../svgs/right-forearm.svg"
+import rightHand from "../../svgs/right-hand.svg"
+import rightLeg from "../../svgs/right-leg.svg"
+import torso from "../../svgs/torso.svg"
+import peace from "../../svgs/peace.svg"
+
+
+//The above imports though pasted, were all hand-written and are not copied from any generative ai chat
+
+export const Okay = () => {
+    return(
+        <svg viewBox="0 0 300 400" width="600" height="700" preserveAspectRatio="xMidYMid meet">
+            <motion.g>
+                <image href={torso} width="50" x="60" y="40" height="120"/>
+                <image href={wink} width="50" x="60" y="40" height="45"/>
+            </motion.g>
+        </svg>
+    )
+}
