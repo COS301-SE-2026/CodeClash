@@ -51,6 +51,7 @@ import { GameStore } from 'src/application/usecases/services/game-store.service'
 import { DeleteGame } from 'src/application/usecases/systems/delete-game';
 import { LeaderboardService } from 'src/application/usecases/services/leaderboard.service';
 import { NotificationService } from 'src/application/usecases/services/notification.service';
+import { handleMarkingResult } from 'src/interface-adapters/controllers/marking.controller';
 
 dotnev.config()
 
@@ -91,7 +92,6 @@ AppDataSource.initialize()
         const matchmaking_cache: IMatchmakingCache = new MatchmakingCache(redis);
 
 
-
         // initialise services 
         const game_service = new GameService(create_game, get_questions, get_difficulty, get_total_time, get_answers, game_cache, match_repo, user_repo);
         const matchmkaing_service = new MatchmakingService(matchmaking_cache);
@@ -100,14 +100,28 @@ AppDataSource.initialize()
         const game_store = new GameStore(user_repo);
         const leaderboard_service = new LeaderboardService(elo_repo);
 
-        const httpServer = createServer(createApp(elo_repo, user_repo, leaderboard_service))     // can update to https
+
+        // initialise systems 
+        const submission_system = new SubmissionSystem(world);
+        const life_system = new LifeSystem(world);
+        const delete_game = new DeleteGame(world, game_store, matched_users_service);
+        const finish_game = new FinishGame(world, match_results, game_store, delete_game);
+        const opponent_progress = new OpponentProgress(world);
+
+
+        const app = createApp(elo_repo, user_repo, leaderboard_service);
+        const httpServer = createServer(app)     // can update to https
         const io = new Server(httpServer, {
             cors: {
-                origin: [process.env.FRONTEND_URL!,'http://localhost:5173'],
+                origin: [process.env.FRONTEND_URL!, 'http://localhost:5173'],
                 credentials: true
             },
         }
         );
+
+        const notification = new NotificationService(io);
+        const check_answer = new MarkingService(game_cache, submission_system, life_system, world, notification)
+        app.put('/api/marking/result', handleMarkingResult(check_answer))
 
         // auth middleware 
         io.use(async (socket, next) => {
@@ -131,18 +145,6 @@ AppDataSource.initialize()
             }
             else next(new Error("Authentication error: Invalid token"));
         })
-
-
-        const notification = new NotificationService(io);
-
-        // initialise systems 
-        const submission_system = new SubmissionSystem(world);
-        const life_system = new LifeSystem(world);
-        const delete_game = new DeleteGame(world, game_store, matched_users_service);
-        const finish_game = new FinishGame(world, match_results, game_store, delete_game);
-        const opponent_progress = new OpponentProgress(world);
-
-        const check_answer = new MarkingService(game_cache, submission_system, life_system, world)
 
         // initialise database with users and elos
         await initDB(user_repo, elo_repo);
@@ -175,7 +177,6 @@ AppDataSource.initialize()
 
             socket.on('clean_up', (game_id: number, pair_id: string) => cleanUp(game_id, pair_id, delete_game, game_store))
         })
-
 
         // start server
         httpServer.listen(process.env.PORT, () => {

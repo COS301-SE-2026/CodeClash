@@ -7,7 +7,6 @@ import { IUserRepository } from 'src/application/interfaces/repositories/IUserRe
 import { createAPIRoutes } from './api.routes';
 import { LeaderboardService } from 'src/application/usecases/services/leaderboard.service';
 
-
 export const createApp = (
   elo_repo: IEloRepository,
   user_repo: IUserRepository,

@@ -5,6 +5,7 @@ import { IGameCache } from "src/application/interfaces/cache/IGameCache";
 
 import { LifeSystem } from "src/application/usecases/systems/life.system";
 import { SubmissionSystem } from "src/application/usecases/systems/submission.system";
+import { NotificationService } from "../notification.service";
 
 
 export class MarkingService {
@@ -14,7 +15,8 @@ export class MarkingService {
         private readonly game_cache: IGameCache,
         private readonly submission_system: SubmissionSystem,
         private readonly life_System: LifeSystem,
-        private readonly world: ReturnType<typeof World>
+        private readonly world: ReturnType<typeof World>,
+        private readonly notifications: NotificationService
     ) {
 
         const { getMatchComponent } = this.world;

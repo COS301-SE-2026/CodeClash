@@ -10,6 +10,7 @@ import { creationRequireAuth, requireAuth } from 'src/interface-adapters/auth/au
 import { getUserRank } from 'src/interface-adapters/controllers/rank.controllers';
 import { IEloRepository } from 'src/application/interfaces/repositories/IEloRepository';
 import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
+import { MarkingService } from 'src/application/usecases/services/marking/marking.service';
 
 export const createAPIRoutes = (
   elo_repo: IEloRepository,
@@ -20,7 +21,9 @@ export const createAPIRoutes = (
 
 
   const create_user_service = new CreateUser(user_repo, elo_repo);
+ 
   router.post('/create-user', creationRequireAuth(), createUser(create_user_service));
+
 
   router.use(requireAuth(user_repo));
 
