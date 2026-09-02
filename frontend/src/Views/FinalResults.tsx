@@ -1,4 +1,4 @@
-import { TrendingUp, TrendingDown, Clock } from "lucide-react";
+import { TrendingUp, TrendingDown, Minus, Clock } from "lucide-react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -114,7 +114,10 @@ const FinalResults: React.FC = () => {
                                     </div>
                                     <span className="text-secondary-text font-medium text-center truncate w-full"
                                         style={{ fontSize: 'var(--font-size-xsm)' }}>{winner.username}</span>
-                                </div>
+                                    <span className="px-2 py-0.5 rounded-full bg-yellow-400 text-yellow-900 font-black uppercase tracking-wide" style={{ fontSize: 'var(--font-size-xsm)' }}> 
+                                      {content.labelWinner}
+                                    </span>
+                  </div>
 
                                 {/*The column for correctness */}
                                 <div className="px-3 py-4 flex items-center justify-center border-r border-secondary-text h-full">
@@ -141,7 +144,7 @@ const FinalResults: React.FC = () => {
 
                                 {/*Column for the users position (1st or 2nd) */}
                                 <div className="px-3 py-4 mt-2">
-                                    <Badge position={1} />
+                                  <Badge rankBefore={winner.rank_before} rank={winner.rank}/>
                                 </div>
                             </div>
 
@@ -190,7 +193,7 @@ const FinalResults: React.FC = () => {
 
                             {/*Column for the users position (1st or 2nd) */}
                             <div className="px-3 py-4 mt-2">
-                                <Badge position={2} />
+                                <Badge rankBefore={loser.rank_before} rank={loser.rank} />
                             </div>
                         </div>
 
@@ -213,21 +216,50 @@ const FinalResults: React.FC = () => {
     );
 };
 
-const Badge: React.FC<{ position: 1 | 2 }> = ({ position }) => {
-    if (position === 1) return (
-        <div className="flex flex-col items-center gap-1">
-            <div className="w-12 h-12 rounded-full bg-yellow-400 border-4 border-yellow-600 flex items-center justify-center shadow-md">
-                <span className="text-yellow-900 font-black text-xs">1st</span>
-            </div>
-        </div>
-    );
-    return (
-        <div className="flex flex-col items-center gap-1">
-            <div className="w-12 h-12 rounded-full bg-gray-400 border-4 border-gray-600 flex items-center justify-center shadow-md">
-                <span className="text-gray-700 font-black text-xs">2nd</span>
-            </div>
-        </div>
-    );
+const ordinal = (rank: number) => {
+  const tens = rank % 100;
+  if (tens >= 11 && tens <= 13) return `${rank}th`;
+
+  switch (rank % 10) {
+    case 1: return `${rank}st`;
+    case 2: return `${rank}nd`;
+    case 3: return `${rank}rd`;
+    default: return `${rank}th`; 
+  }
+}
+
+const RankChange: React.FC<{ before: number, after: number }> = ({ before, after }) => {
+  const moved = before - after;
+
+  if (moved === 0) return (
+    <span className="text-secondary-text font-semibold opacity-60" style={{ fontSize: 'var(--font-size-xsm)' }}>
+      <Minus className="w-4 h-4" />
+      No change
+    </span>
+  );
+
+  return (
+    <span className={`flex items-center gap-1 font-bold ${moved > 0 ? 'text-success' : 'text-danger'}`} style={{ fontSize: 'var(--font-size-xsm)' }}>
+      {moved > 0 ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
+      {Math.abs(moved)}
+    </span>
+  );
+};
+
+const Badge: React.FC<{ rankBefore?: number | null, rank?: number | null }> = ({ rankBefore, rank }) => {
+  const changed = !!rankBefore && rankBefore !== rank;
+  return (
+    <div className="flex flex-col items-center gap-1">
+      {rank ? (
+        <span className="text-secondary-text font-semibold flex items-center opacity-70 text-center justify-center"
+              style={{ fontSize: 'var(--font-size-xsm)' }}>
+                  {changed ? `${ordinal(rankBefore)} → ${ordinal(rank)}` : ordinal(rank)}
+        </span>
+      ) : null}
+
+      {rank && rankBefore ? <RankChange before={rankBefore} after={rank} /> : null}
+    </div>
+  );
 };
 
 export default FinalResults;

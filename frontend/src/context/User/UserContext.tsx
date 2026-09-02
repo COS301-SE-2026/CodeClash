@@ -28,7 +28,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
 
         try {
-            axios.get(url.concat('elo/elo-get'), {
+            await axios.get(url.concat('elo/elo-get'), {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {
@@ -53,7 +53,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
 
         try {
-            axios.get(url.concat('user/avatar_id'), {
+            await axios.get(url.concat('user/avatar_id'), {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {
