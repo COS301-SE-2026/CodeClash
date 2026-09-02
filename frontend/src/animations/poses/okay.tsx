@@ -21,6 +21,16 @@ export const Okay = () => {
             <motion.g>
                 <image href={torso} width="50" x="60" y="40" height="120"/>
                 <image href={wink} width="50" x="60" y="40" height="45"/>
+
+                <motion.g>
+                    <image href={leftShoulder} width="50" x="93" y="95" height="55"/>
+                    <motion.g>
+                        <image href={leftArm} width="50" x="92" y="117" height="25"/>
+                        <motion.g>
+                            <image href={okay} width="50" x="100" y="129" height="25"/>
+                        </motion.g>
+                    </motion.g>
+                </motion.g>
             </motion.g>
         </svg>
     )
