@@ -1,0 +1,26 @@
+backend/src/entities/components.ts
+  h_94c952a9e14c58 95-96
+backend/src/application/usecases/services/marking/marking.service.ts
+  h_94c952a9e14c58 9,14,21-22,27,37-39,43-44
+backend/src/application/usecases/services/marking/mark-prog.ts
+  h_94c952a9e14c58 19
+  h_94c952a9e14c58 18
+backend/src/application/usecases/systems/submission.system.ts
+  h_94c952a9e14c58 24,29,45,60
+  h_94c952a9e14c58 33
+backend/src/entities/dtos/submission-result.dto.ts
+  h_94c952a9e14c58 2,4,6,8-13
+backend/src/application/interfaces/marking/IMarkingStategy.ts
+  h_94c952a9e14c58 5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "bcad3612f3628239177d72626765fd33e083332f",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
