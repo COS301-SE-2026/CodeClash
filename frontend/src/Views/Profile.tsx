@@ -41,7 +41,7 @@ function ProfileView(){
 
         <div className="w-[35%]" >
           {/* <img src={userData?.avatar} alt="avatarImage" className="" /> */}
-          <Peace/>
+          <Stand/>
         </div>
         <div className="text-xl font-semibold ">{userData?.username}</div>
         <div className=" text-md font-semibold ">ELO - {userData?.elo}</div>
