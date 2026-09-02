@@ -1,4 +1,4 @@
-import {motion, useMotionValue, animate} from 'framer-motion';
+import {motion, useMotionValue, animate, useTransform, useSpring} from 'framer-motion';
 import {useRef, useEffect} from "react";
 import angry from "../svgs/angry.svg"
 import antenna from "../svgs/antenna.svg"
@@ -77,6 +77,12 @@ import { rightHandVariants } from "./rig";
 
 export const Yes = () => {
 
+    const sx = useSpring(useMotionValue(0), {stiffness: 120, damping: 20, mass: 0.6});
+    const sy = useSpring(useMotionValue(0), {stiffness: 120, damping: 20, mass: 0.6});
+
+    const leanX= useTransform(sx, [-1,1], [-4,4]);
+    const leanY = useTransform(sy, [-1,1], [-2,2]);
+
     return(
         <svg viewBox="0 0 300 400" width="600" height="700" preserveAspectRatio="xMidYMid meet">
 
@@ -106,7 +112,12 @@ export const Yes = () => {
 
                 <motion.g
                     style={{originX: "123px", originY: "117px", transformBox: "view-box"}}
-                    animate={{rotate: 150}}
+                    initial={{rotate: 150, y: 0}}
+                    animate={{y: 5}}
+                    transition={{
+                        type: "spring",
+                        duration: 0.5
+                    }}
                     >
                     <image href={leftArm} width="50" x="95" y="117" height="25"/>
 
