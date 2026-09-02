@@ -48,7 +48,7 @@ export const ArmRaise = () => {
                 ease: "easeInOut"
             }}>
             <motion.g
-                style={{ originX: "150px", originY: "200px", transformBox: "view-box" }}
+                style={{ originX: "90px", originY: "115px", transformBox: "view-box" }}
                 animate={{ rotate: 15 }}
                 transition={{
                     ease: "easeInOut",
@@ -58,27 +58,6 @@ export const ArmRaise = () => {
                 }}>
                 <image href={torso} width="50" x="60" y="40" height="120" />
                 <image href={happy} width="50" x="60" y="40" height="45" />
-
-                <motion.g
-                    style={{ originX: "40px", originY: "0px" }}
-                    animate={{ rotate: 15 }}
-                    transition={{
-                        delay: 0.1
-                    }}
-                >
-                    <image href={rightLeg} width="50" x="40" y="121" height="57" />
-                </motion.g>
-
-                <motion.g
-
-                    animate={{ rotate: -10 }}
-                    transition={{
-                        delay: 0.1
-                    }}>
-
-                    <image href={leftLeg} width="50" x="80" y="121" height="57" />
-
-                </motion.g>
 
 
                 <motion.g>
@@ -123,7 +102,30 @@ export const ArmRaise = () => {
                     </motion.g>
                 </motion.g>
             </motion.g>
-        </motion.g>                
+        </motion.g>  
+
+        <motion.g
+                    style={{ originX: "40px", originY: "0px" }}
+                    animate={{ rotate: 10 }}
+                    transition={{
+                        delay: 0.1,
+                        duration: 0.2
+                    }}
+                >
+                    <image href={rightLeg} width="50" x="40" y="121" height="57" />
+                </motion.g>
+
+                <motion.g
+
+                    animate={{ rotate: -10 }}
+                    transition={{
+                        delay: 0.1,
+                        duration: 0.2
+                    }}>
+
+                    <image href={leftLeg} width="50" x="80" y="121" height="57" />
+
+                </motion.g>              
         </svg>
     )
 }
