@@ -1,0 +1,34 @@
+backend/src/application/usecases/systems/life.system.ts
+  h_94c952a9e14c58 2-3,7-9,14-16,24-28,39-43,58-73
+backend/src/application/usecases/services/marking/mark-prog.ts
+  h_94c952a9e14c58 4,18,21
+backend/src/application/usecases/systems/opponent-progress.ts
+  h_94c952a9e14c58 4-5,10,18,32-45
+  h_94c952a9e14c58 2,14,19
+backend/src/application/usecases/services/notification.service.ts
+  h_94c952a9e14c58 2,10-11,13-21
+backend/src/entities/dtos/submission-result.dto.ts
+  h_94c952a9e14c58 3,11,16-23
+backend/src/interface-adapters/socket-handlers/game.handler.ts
+  h_94c952a9e14c58 20
+  h_94c952a9e14c58 17
+frontend/src/ViewModels/MatchViewModel.ts
+  h_94c952a9e14c58 282,299
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 55,123-124,126-127
+  h_94c952a9e14c58 110
+backend/src/application/usecases/services/marking/marking.service.ts
+  h_94c952a9e14c58 6-7,17-18,21,23,29,32-37,39-42,44-45,48
+  h_94c952a9e14c58 19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "156c8e60144459f9897fcd304a8d26733e3cbb5a",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
