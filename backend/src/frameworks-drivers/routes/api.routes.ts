@@ -32,6 +32,9 @@ const elo_repo = new EloRepository(AppDataSource.getRepository(EloRatings))
 
 const leaderboard_system = new LeaderboardSystem(elo_repo);
 
+const friend_service = new FriendService(new FriendRepository(AppDataSource.getRepository(Friendship), AppDataSource.getRepository(FriendInvite)));
+const achievement_service = new AchievementService(new AchievementRepository(AppDataSource.getRepository(Achievement), AppDataSource.getRepository(Users)));
+
 router.get('/elo-get', getUserElo(elo_repo));
 
 /** 
