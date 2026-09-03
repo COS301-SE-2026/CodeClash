@@ -28,6 +28,18 @@ function finalAvatarDisplay({pose, bg, onClick}){
   
   const poseData = poses.find((p) => p.id === pose) ?? poses[0];
   const bgData = colours.find((c) => c.id === bg)?? colours[0];
+
+  return(
+    <button
+      onClick={onClick}
+    >
+      <Card>
+        <span>
+          <poseData.preview/>
+        </span>
+      </Card>
+    </button>
+  )
 }
 
 
