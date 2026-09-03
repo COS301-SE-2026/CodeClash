@@ -150,7 +150,7 @@ const PlayerResultCard: React.FC<{
             <div className="grid grid-cols-4 gap-2 flex-1 w-full">
                 <div className="flex flex-col items-center gap-0.5">
                     <span className="text-xsm uppercase tracking-wide text-muted">Correctness</span>
-                    <span className="score-display text-base text-primary-text">{player.correctness} correct</span>
+                    <span className="score-display text-base text-primary-text">{player.correctness}</span>
                 </div>
                 {/*Copied from above and modified */}
                 <div className="flex flex-col items-center gap-0.5">

@@ -1,6 +1,7 @@
-import React, { createContext, useCallback, useContext, useState } from "react";
+import React, { createContext, useCallback, useContext, useState, useEffect, useRef } from "react";
 import { AchievementToast } from "src/context/Achievement/AchievementToast";
 import type { Icons } from "src/Models/AchievementsModel";
+import { useAuth } from "../Auth/hooks/useAuth";
 
 interface ToastData {
     name: string;
@@ -22,10 +23,37 @@ export const useAchievementToast = () => {
 
 export const AchievementToastProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [queue, setQueue] = useState<ToastData[]>([]);
+    const { token } = useAuth();
+    const prevEarnedIds = useRef<Set<string>>(new Set());
 
     const showAchievement = useCallback((data: ToastData) => {
         setQueue(prev => [...prev, data]);
     }, []);
+
+    useEffect(() => {
+        if (!token) return;
+        
+        const checkAchievements = async () => {
+            try {
+                const res = await fetch('/api/achievements/me', {
+                    headers: { Authorization: `Bearer ${token}`}
+                });
+                if (!res.ok) return;
+                const data = await res.json();
+
+                const newlyEarned = data.filter((a: any) => !prevEarnedIds.current.has(a.id));
+                for (const a of newlyEarned) {
+                    showAchievement({ name: a.name, description: a.description, icon:a.icon });
+                }
+                prevEarnedIds.current = new Set(data.map((a: any) => a.id));
+            }catch (err) {
+                console.error('Error checking achievements:', err);
+            }
+        };
+        checkAchievements();
+        const interval = setInterval(checkAchievements, 30_000); // poll every 30s
+        return () => clearInterval(interval);
+    }, [token, showAchievement]);
 
     const dismiss =useCallback(() => {
         setQueue(prev => prev.slice(1));

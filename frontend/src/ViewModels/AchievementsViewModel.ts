@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, use } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useAuth } from "src/context/Auth/hooks/useAuth";
 import { achievementContent } from "src/Models/AchievementsModel";
 import type { Achievements, AchievementsContent } from "src/Models/AchievementsModel";
@@ -64,11 +64,6 @@ export function AchievementsViewModelFunc(): AchievementsViewModel {
                 icon: getIcon(a.achievement_name)
             }));
 
-            const newlyEarned = earnedList.filter(a => !prevEarnedIds.current.has(a.id));
-            for (const a of newlyEarned) {
-                showAchievement({ name: a.name, description: a.description, icon:a.icon });
-            }
-            prevEarnedIds.current = new Set(earnedList.map(a => a.id));
             setEarned(earnedList);
             setLocked(lockedList);
         }catch(err){
@@ -78,8 +73,6 @@ export function AchievementsViewModelFunc(): AchievementsViewModel {
         }
     };
     fetchAchievements();
-    const interval = setInterval(fetchAchievements, 30_000); // poll every 30s
-    return () => clearInterval(interval);
 }, [token, showAchievement]);
 
     return {
