@@ -24,7 +24,6 @@ export const useGameTimer = (duration: number, onExpire: () => void) => {
     })
 }
 
-
 function shuffle(array: Question[]) {
     let curr = array.length;
     let random;
@@ -83,9 +82,9 @@ export const useGameQuestions = (
         }
     }
 
-    const submitQuestion = (question_id: string, answer: string) => {
+    const submitQuestion = (question_id: string, answer: string, game_type:string) => {
         question_idx.current = currentQuestion;
-        submitAnswer(socket, parseInt(match_id), question_id, answer, question_idx.current);
+        submitAnswer(socket, parseInt(match_id), question_id, answer, question_idx.current,game_type);
     }
 
     const finishGame = () => {

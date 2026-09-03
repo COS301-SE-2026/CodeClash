@@ -177,7 +177,7 @@ AppDataSource.initialize()
 
             socket.on('send_players', (game_id: number) => { sendGamePlayers(io, game_id, game_store) })
 
-            socket.on('submit_maths_question', (data: PlayerSubmissionDTO) => submitQuestion(io, socket, data,maths_marking_service));
+            socket.on('submit_math_question', (data: PlayerSubmissionDTO) => submitQuestion(io, socket, data,maths_marking_service));
 
             socket.on('submit_prog_question', (data: PlayerSubmissionDTO)=>submitQuestion(io,socket, data, prog_marking_service));
 

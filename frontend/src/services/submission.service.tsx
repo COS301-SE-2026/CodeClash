@@ -1,6 +1,6 @@
 import { Socket } from "socket.io-client";
 
-export const submitAnswer = (socket: Socket | null, match_id: number, question_id: string, answer: string, index: number) => {
+export const submitAnswer = (socket: Socket | null, match_id: number, question_id: string, answer: string, index: number, game_type: string) => {
     if (!socket) return;
 
     const data = {
@@ -10,5 +10,5 @@ export const submitAnswer = (socket: Socket | null, match_id: number, question_i
         question_number: index
     }
 
-    socket.emit('submit_question', data);
+    socket.emit(`submit_${game_type}_question`, data);
 }
