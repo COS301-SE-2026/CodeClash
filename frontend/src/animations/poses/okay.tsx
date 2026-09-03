@@ -1,4 +1,4 @@
-import {motion, useMotionValue, animate} from 'framer-motion';
+import {motion} from 'framer-motion';
 
 import wink from "../../assets/svgs/wink.svg"
 import leftShoulder from "../../assets/svgs/left-shoulder.svg"
@@ -10,7 +10,6 @@ import rightArm from "../../assets/svgs/right-forearm.svg"
 import rightHand from "../../assets/svgs/right-hand.svg"
 import rightLeg from "../../assets/svgs/right-leg.svg"
 import torso from "../../assets/svgs/torso.svg"
-import peace from "../../assets/svgs/peace.svg"
 
 
 //The above imports though pasted, were all hand-written and are not copied from any generative ai chat

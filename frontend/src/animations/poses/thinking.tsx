@@ -6,7 +6,6 @@ import leftHand from "../../assets/svgs/left-hand.svg"
 import leftLeg from "../../assets/svgs/left-leg.svg"
 import rightShoulder from "../../assets/svgs/right-shoulder.svg"
 import rightArm from "../../assets/svgs/right-forearm.svg"
-import rightHand from "../../assets/svgs/right-hand.svg"
 import rightLeg from "../../assets/svgs/right-leg.svg"
 import torso from "../../assets/svgs/torso.svg"
 

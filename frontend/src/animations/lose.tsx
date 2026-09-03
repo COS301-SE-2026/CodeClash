@@ -1,38 +1,14 @@
-import {motion, useMotionValue, animate} from 'framer-motion';
-import {useRef, useEffect} from "react";
-import angry from "../assets/svgs/angry.svg"
-import antenna from "../assets/svgs/antenna.svg"
-import celebrate from "../assets/svgs/celebrate.svg"
-import confused from "../assets/svgs/confused.svg"
-import excited from "../assets/svgs/excited.svg"
-import fist from "../assets/svgs/fist.svg"
-import happy from "../assets/svgs/happy.svg"
-import head from "../assets/svgs/head.svg"
+import {motion} from 'framer-motion';
 import leftShoulder from "../assets/svgs/left-shoulder.svg"
 import leftArm from "../assets/svgs/left-forearm.svg"
-import leftHand from "../assets/svgs/left-hand.svg"
 import leftLeg from "../assets/svgs/left-leg.svg"
-import losing from "../assets/svgs/losing.svg"
-import neutral from "../assets/svgs/neutral.svg"
-import ok from "../assets/svgs/ok.svg"
-import peace from "../assets/svgs/peace.svg"
 import rightShoulder from "../assets/svgs/right-shoulder.svg"
 import rightArm from "../assets/svgs/right-forearm.svg"
 import rightHand from "../assets/svgs/right-hand.svg"
 import rightLeg from "../assets/svgs/right-leg.svg"
-import sad from "../assets/svgs/sad.svg"
-import surprised from "../assets/svgs/surprised.svg"
-import thinkingHand from "../assets/svgs/thinking-hand.svg"
-import thinking from "../assets/svgs/thinking.svg"
 import torso from "../assets/svgs/torso.svg"
 import wave from "../assets/svgs/wave.svg"
-import wink from "../assets/svgs/wink.svg"
-import winning from "../assets/svgs/winning.svg"
-import worried from "../assets/svgs/worried.svg"
 import wrong from "../assets/svgs/wrong.svg"
-import { headVariants } from "./poses/rig";
-import { leftHandVariants } from "./poses/rig";
-import { rightHandVariants } from "./poses/rig";
 
 
 //The following code and the above imports though pasted, are all hand-written portions of code and are not copied from any generative ai chat, to save a great amount of time i have elected to paste my previous work and just change it
