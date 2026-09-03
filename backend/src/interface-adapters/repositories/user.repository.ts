@@ -103,7 +103,32 @@ export class UserRepository implements IUserRepository {
     }
 
     async updateStreaks(user_id: string, won: boolean): Promise<void> {
-        
+        const user = await this.userRepository.findOneBy({ user_id });
+        if (!user) return;
+
+        const today = new Date().toDateString();
+        const lastPlayed = (user as any).last_played_at;
+        const lastePlayedDate = lastPlayed ? new Date(lastPlayed).toDateString() : null;
+
+        // current streakincremenet if played yesterday or today otherise reset
+        let current_streak = user.current_streak;
+        if (lastePlayedDate === today) {
+            // they already played today
+        } else if (lastePlayedDate === new Date(Date.now() - 86400000).toDateString()) {
+            current_streak += 1;
+        }else {
+            // streak broken so reset to 1
+            current_streak = 1; 
+        }
+
+        // winning_streak incremented if they won, reset if they lost
+        const winning_streak = won ? user.winning_streak +1 : 0;
+
+        await this.userRepository.update(user_id, {
+            current_streak,
+            winning_streak,
+            last_played_at: new Date() as any
+        });
     }
 
     async getTotalStats(user_id: string): Promise<{ total_wins: number; total_matches: number; winning_streak: number; league: string; }> {
