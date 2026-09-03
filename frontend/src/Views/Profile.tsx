@@ -10,6 +10,9 @@ import { Peace } from 'src/animations/poses/peace';
 import { Okay } from 'src/animations/poses/okay';
 import { Thinking } from 'src/animations/poses/thinking';
 import {X, Check} from "lucide-react"
+import Starfield from '@/components/ui/animations/Starfield';
+import Confetti from '@/components/ui/animations/Confetti';
+import GlassCard from '@/components/shared/GlassCard';
 import "../styles/global.css"
 
 const colours = [
@@ -184,9 +187,8 @@ function ProfileView(){
 
 
   return (
-    <div className="w-full min-h-screen bg-secondary flex flex-col items-center justify-center text-secondary-text">
-
-      <Link className="secondary-back-button font-semibold" to={'/dashboard'}
+    <div className="w-full min-h-screen bg-primary-dark flex flex-col items-center justify-center text-secondary-text">
+      <Link className="secondary-back-button font-semibold w-full absolute top-5 text-primary" to={'/dashboard'}
         onKeyDown={(e) => {
           const shift = e.shiftKey;
           if (shift && e.key === 'Esc') {
@@ -197,13 +199,16 @@ function ProfileView(){
         ← Back
       </Link>
 
-      <Card className="w-[40%] h-[50%] flex items-center justify-center bg-[#F8E5DD]">
+      <Starfield/>
 
-        <div className="w-[35%] flex items-center justify-center" >
+
+      <div className='card-glow w-[50%] h-[50%] grid grid-rows-2 items-center justify-center p-8'>
+
+        <div className="" >
           {/* <img src={userData?.avatar} alt="avatarImage" className="" /> */}
-          <FinalAvatarDisplay pose={pose} bg={colour} vb1={170} vb2={195} onClick={() => setEditOpen(true)} leftMargin={0}/>
+          <FinalAvatarDisplay pose={pose} bg={colour} vb1={170} vb2={195} onClick={() => setEditOpen(true)} leftMargin={8}/>
         </div>
-        <div className="text-xl font-semibold">{userData?.username}</div>
+        <p className='eyebrow mb-4'>{userData?.username}</p>
         <div className=" text-md font-semibold ">ELO - {userData?.elo}</div>
         <div className="text-md font-semibold">{userData?.league}</div>
         <div>
@@ -221,7 +226,7 @@ function ProfileView(){
           Log Out
         </Button>
 
-      </Card>
+      </div>
 
         <AnimatePresence>
           {editOpen && (
