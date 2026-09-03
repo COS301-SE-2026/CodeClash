@@ -79,8 +79,8 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
         className="bg-white rounded-[20px] w-[80%] h-[85%] flex flex-col justify-center items-center"
       >
 
-        <div className="relative">
-          <button onClick={onClose} className="left-1 text-gray-400 hover:text-gray-700">
+        <div className="w-[100%]">
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-700">
             <X size={50}></X>
           </button>
         </div>
