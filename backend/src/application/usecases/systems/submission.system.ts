@@ -19,11 +19,13 @@ export class SubmissionSystem {
         this.getSubmissionComponent = getSubmissionComponent
     }
 
-    saveSubmission(match_id: number, player_id: string, question_id: string, is_correct: boolean | null, answer: MathsSubmissionDTO | ProgSubmissionDTO, question_number: number) {
+    saveSubmission(match_id: number, player_id: string, question_id: string, is_correct: boolean | null, answer: MathsSubmissionDTO | ProgSubmissionDTO|null, question_number: number) {
 
         // 1 lookup submission entity
         const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(match_id, "Submission");
 
+        console.log("Saving submission for match ", match_id)
+        console.log("registry ", submission_registry)
         if (!submission_registry) { throw new Error("Error saving submission") }
 
         const key = `${player_id}::${question_id}`

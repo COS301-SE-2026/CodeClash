@@ -4,8 +4,6 @@ import { AdminDeleteUserCommand, AdminConfirmSignUpCommand } from '@aws-sdk/clie
 import { signUp } from "@aws-amplify/auth";
 import { cognito_identity_client } from "src/application/usecases/services/cognito.service";
 import { CreateUser } from 'src/application/usecases/services/user-creation.service';
-import { AppDataSource } from 'src/frameworks-drivers/config/data-source';
-import { IEloRepository } from 'src/application/interfaces/repositories/IEloRepository';
 import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
 import { EloRepository } from 'src/interface-adapters/repositories/elo.repository';
 import { UserRepository } from 'src/interface-adapters/repositories/user.repository';
@@ -36,7 +34,7 @@ describe("Tests user creation ", () => {
         data_source = await createTestDataSource();
         user_repo = data_source.getRepository(Users);
 
-        users = new UserRepository(data_source.getRepository(Users));
+        users = new UserRepository(user_repo);
         elo = new EloRepository(data_source.getRepository(EloRatings));
 
         create_user = new CreateUser(users, elo);

@@ -29,7 +29,7 @@ export class MarkingService {
 
             const submission = this.submission_system.saveSubmission(player_submission.match_id, player_submission.player_id, player_submission.question_id, null, player_submission.submission, player_submission.question_number!);
             
-            const result: SubmissionResult = await this.marking_strategy.mark(submission!.answer, correct_answer,submission!.question_id);
+            const result: SubmissionResult = await this.marking_strategy.mark(submission!.answer!, correct_answer,submission!.question_id);
 
             if (result.status === 'pending') {
                 submission!.token = result.token;

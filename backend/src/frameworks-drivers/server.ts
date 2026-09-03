@@ -7,7 +7,7 @@ import { IQuestionRepository } from 'src/application/interfaces/repositories/IQu
 import { QuestionRepository } from 'src/interface-adapters/repositories/question.repository';
 import { GameType, Questions } from 'src/entities/db-entities/questions.entities';
 import { cleanUp, gameDone, sendResults, startQuestion, submitQuestion } from 'src/interface-adapters/socket-handlers/game.handler';
-import { SubmissionDTO } from 'src/entities/dtos/components.dto';
+import { PlayerSubmissionDTO, SubmissionDTO } from 'src/entities/dtos/components.dto';
 import { IAnswerRepository } from 'src/application/interfaces/repositories/IAnswerRepository';
 import { AnswerRepository } from 'src/interface-adapters/repositories/answer.repository';
 import { Answers } from 'src/entities/db-entities/answers.entities';
@@ -180,9 +180,9 @@ AppDataSource.initialize()
 
             socket.on('send_players', (game_id: number) => { sendGamePlayers(io, game_id, game_store) })
 
-            socket.on('submit_maths_question', (data: SubmissionDTO) => submitQuestion(io, socket, data,maths_marking_service));
+            socket.on('submit_maths_question', (data: PlayerSubmissionDTO) => submitQuestion(io, socket, data,maths_marking_service));
 
-            socket.on('submit_prog_question', (data: SubmissionDTO)=>submitQuestion(io,socket, data, prog_marking_service));
+            socket.on('submit_prog_question', (data: PlayerSubmissionDTO)=>submitQuestion(io,socket, data, prog_marking_service));
 
             socket.on('question_started', (data: StartQuestionDTO) => startQuestion(socket.data.user_id, submission_system, data));
 

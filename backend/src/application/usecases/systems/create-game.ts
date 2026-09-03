@@ -144,6 +144,9 @@ export class CreateMatchEntity {
         this.addMatchComponent(entity, 'Match', match_component);
         this.addMatchComponent(entity, 'Submission', submission);
 
+        
+        console.log("Added match components ")
+
         return entity;
     }
 
