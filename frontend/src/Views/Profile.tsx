@@ -189,7 +189,7 @@ function ProfileView(){
 
   return (
     <div className="w-full min-h-screen bg-primary-dark flex flex-col items-center justify-center text-secondary-text">
-      <Link className="badge badge-status-pending ml-2" to={'/dashboard'}
+      <Link className="badge badge-status-pending ml-4" to={'/dashboard'}
         onKeyDown={(e) => {
           const shift = e.shiftKey;
           if (shift && e.key === 'Esc') {
