@@ -1,0 +1,42 @@
+backend/src/entities/components.ts
+  h_94c952a9e14c58 95
+backend/src/interface-adapters/socket-handlers/game.handler.ts
+  h_94c952a9e14c58 10,15,19,28
+backend/src/interface-adapters/socket-handlers/matchmaking.handler.ts
+  h_94c952a9e14c58 73,78
+backend/tests/setup.ts
+  h_94c952a9e14c58 3
+backend/tests/test-data-source.ts
+  h_94c952a9e14c58 7-8,16-19,21
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 10,183,185
+backend/src/application/usecases/systems/create-game.ts
+  h_94c952a9e14c58 147-149
+backend/tests/integration/services/user-creation.service.test.ts
+  h_94c952a9e14c58 37
+backend/src/application/usecases/services/marking/marking.service.ts
+  h_94c952a9e14c58 32
+backend/src/interface-adapters/repositories/user.repository.ts
+  h_94c952a9e14c58 14,87
+backend/tests/mocks/mock-answers.ts
+  h_94c952a9e14c58 1-17
+backend/tests/mocks/mock-questions.ts
+  h_94c952a9e14c58 1-53
+backend/src/application/usecases/systems/submission.system.ts
+  h_94c952a9e14c58 22,27-28
+backend/tests/integration/services/marking.service.test.ts
+  h_94c952a9e14c58 1-148
+backend/src/application/usecases/services/game.service.ts
+  h_94c952a9e14c58 93
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "bfc163c6fdab77b3832397a25cf1cab4cf51ffba",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
