@@ -109,19 +109,24 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
                   )} */}
                 </button>
               )))}
+              </div>
+          
+
+              <div className="flex grid grid-cols-3 justify-center gap-2">
+                {colours.map((c) => (
+                  <button
+                    key={c.id}
+                    onClick={() => setSelectedColour(c.id)}
+                    style={{ backgroundColor: c.value}}
+                    className={`rounded-[20px] flex items-center transition-transform
+                      ${selectedColour === c.id ? "" : "opacity-70 hover:opacity-100"}`}
+                      title={c.label}
+                  >
+                      {c.value}
+                  </button>
+                ))}
+              
             </div>
-          </div>
-
-          <div className="flex gap-2">
-              {colours.map((c) => (
-                <button
-                  key={c.id}
-                  onClick={() => setSelectedColour(c.id)}
-                  style={{ backgroundColor: c.value}}
-                
-                />
-
-              ))}
           </div>
 
 
