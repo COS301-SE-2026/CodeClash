@@ -38,7 +38,7 @@ function FinalAvatarDisplay({pose, bg, onClick, vb1, vb2, leftMargin}){
     <button
       onClick={onClick}
       style={{ backgroundColor: bgData.value}}
-      className={`w-[80%] rounded-[20px] ml-${leftMargin}`}
+      className={`w-[80%] rounded-[20px] ml-${leftMargin} [text-shadow:0px_0px_12px_${bgData.value}]`}
     >
       
         <span   
