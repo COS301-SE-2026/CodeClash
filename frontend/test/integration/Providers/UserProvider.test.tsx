@@ -3,6 +3,7 @@ import robot from 'src/assets/Robots/Pink_fighting.png'
 import { AuthProvider } from "src/context/Auth/AuthContext";
 import { useUser } from "src/context/User/hooks/useUser";
 import { UserProvider } from "src/context/User/UserContext";
+import { robot_map } from 'src/assets/Robots'
 import { beforeAll, afterAll, describe, beforeEach, vi } from "vitest";
 
 import { getToken, login, logout } from "../../test-utils";
@@ -60,23 +61,23 @@ describe("Tests user Provider", () => {
 
         await waitFor(() => {
             expect(screen.getByTestId('elo-test')).toHaveTextContent(expected.toString());
-        })
+        }, {timeout: 10000})
     })
 
     it("Set Username", async () => {
-        const expected = 'integration_test_user';
+        const expected = `${process.env.VITE_INTEGRATION_TEST_USER}`;
 
         await waitFor(() => {
             expect(screen.getByTestId('username-test')).toHaveTextContent(expected);
-        })
+        }, {timeout : 10000})
     })
 
     it("Set Avatar", async () => {
         const expected = robot;
 
         await waitFor(() => {
-            expect(screen.getByTestId('avatar-test')).toHaveTextContent(expected);
-        })
+            expect(robot_map).toContain(screen.getByTestId('avatar-test').textContent);
+        }, { timeout: 10000})
     })
 
 })

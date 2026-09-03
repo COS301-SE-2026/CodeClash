@@ -1,5 +1,5 @@
 import { PaginatedLeaderboardResponse } from "src/interface-adapters/dtos/leaderboard.dto";
-import { IEloRepository } from "../../interfaces/IEloRepository";
+import { IEloRepository } from "../../interfaces/repositories/IEloRepository";
 import { RankDTO } from "src/interface-adapters/dtos/rank.dto";
 
 export class LeaderboardSystem {
