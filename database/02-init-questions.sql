@@ -161,15 +161,19 @@ WITH q AS (
             difficulty,
             title,
             description,
-            time_limit
+            time_limit,
+            answer_format,
+            answer_precision
         )
     VALUES
         (
             'math', --NOSONAR
             3,
             'Solve Exponential Equation',
-            'Solve for x:\n5^(x + 1) = 125',
-            '00:02:00' --NOSONAR
+            'Solve for x:\n5^(x + 1) = 125\nAnswer format: x=.... using exact fractions where necessary, e.g. x=4',
+            '00:02:00', --NOSONAR
+            'variables',
+            NULL
         ) RETURNING question_id
 )
 INSERT INTO
