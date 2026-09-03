@@ -32,12 +32,14 @@ function FinalAvatarDisplay({pose, bg, onClick}){
   return(
     <button
       onClick={onClick}
+      style={{ backgroundColor: bgData.value}}
+      className="w-[100%] h-[80%] justify-center items-center"
     >
-      <Card>
-        <span>
-          <poseData.preview/>
-        </span>
-      </Card>
+      
+        <div className="flex items-center justify-center">
+          <poseData.preview vb1={170} vb2={250}/>
+        </div>
+      
     </button>
   )
 }
@@ -79,7 +81,7 @@ function ProfileView(){
           {/* <img src={userData?.avatar} alt="avatarImage" className="" /> */}
           <FinalAvatarDisplay pose={pose} bg={colour} onClick={() => setEditOpen(true)}/>
         </div>
-        <div className="text-xl font-semibold ">{userData?.username}</div>
+        <div className="text-xl font-semibold -mt-20">{userData?.username}</div>
         <div className=" text-md font-semibold ">ELO - {userData?.elo}</div>
         <div className="text-md font-semibold">{userData?.league}</div>
         <div>

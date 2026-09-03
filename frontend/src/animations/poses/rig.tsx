@@ -55,8 +55,8 @@ export interface Avatar{
 export const Stand = ({
     vb1 = 250,
     vb2 = 170,
-    width = 390,
-    height= 300
+    width = "100%",
+    height= "100%"
 }) => {
     return(
         <svg viewBox={`0 0 ${vb1} ${vb2}`} width={width} height={height} preserveAspectRatio="xMidYMid meet"> 

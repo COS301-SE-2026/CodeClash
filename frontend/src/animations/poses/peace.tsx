@@ -17,8 +17,8 @@ import peace from "../../assets/svgs/peace.svg"
 export const Peace = ({
     vb1= 250,
     vb2 = 170,
-    width= 390,
-    height = 300
+    width= "100%",
+    height = "100%"
 }) => {
 
     return(
