@@ -134,7 +134,7 @@ AppDataSource.initialize()
         const maths_marking_service = new MarkingService(game_cache, submission_system, life_system, notification,maths_marker ,opponent_progress);
         const prog_marking_service = new MarkingService(game_cache,submission_system, life_system,notification, prog_marker, opponent_progress);
 
-        app.put('/api/marking/result', handleMarkingResult( prog_marking_service))
+        app.put('/api/marking/result', handleMarkingResult( prog_marking_service, submission_system))
 
         // auth middleware 
         io.use(async (socket, next) => {

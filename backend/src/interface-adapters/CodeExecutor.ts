@@ -1,6 +1,7 @@
 import { ICodeExecutor } from 'src/application/interfaces/marking/ICodeExecutor'
 import axios from 'axios'
 import dotenv from 'dotenv'
+import { SubmissionResult } from 'src/entities/dtos/submission-result.dto';
 dotenv.config();
 
 export class CodeExecutor implements ICodeExecutor {
@@ -11,7 +12,7 @@ export class CodeExecutor implements ICodeExecutor {
 
     constructor() { }
 
-    async execute(source_code: string, language_id: number, stdin: string | null, expected_output: string): Promise<string> {
+    async execute(source_code: string, language_id: number, stdin: string | null, expected_output: string): Promise<SubmissionResult> {
 
         // !!!! Submission queue can be full, we need to plan for this
         const data = JSON.stringify({
@@ -21,11 +22,10 @@ export class CodeExecutor implements ICodeExecutor {
             "expected_output": expected_output,
             "memory_limit": this.memory_limit,
             "stack_limit": this.stack_limit,
-            "max_file_size": this.max_file_size,
-            "callback_url": process.env.JUDGE_0_CALLBACK
+            "max_file_size": this.max_file_size
         })
 
-        const result = await axios.post(`${process.env.JUDGE_0_URL}/submissions?wait=false&base64_encoded=true`, data,
+        const result = await axios.post(`${process.env.JUDGE_0_URL}/submissions?wait=true&base64_encoded=true`, data,
             {
                 headers: {
                     "Content-Type": "application/json",
@@ -37,6 +37,6 @@ export class CodeExecutor implements ICodeExecutor {
             throw new Error("Error Marking Submission");
 
 
-        return result.data.token;
+        return result.data;
     }
 }
