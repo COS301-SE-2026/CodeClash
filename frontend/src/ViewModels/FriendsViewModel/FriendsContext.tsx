@@ -6,7 +6,7 @@ import {
 import {friendContent} from "../../Models/FriendsModel";
 import type {
     Friend, FriendRequest, Invite, 
-    Search, Summary
+    Search, Summary, Relation
 } from "../../Models/FriendsModel";
 
 import { useAuth } from "../../context/Auth/hooks/useAuth";
@@ -188,17 +188,27 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
     const sendFriendRequest = useCallback(async (id: string) => {
         if(!token) return;
         try{
-            await fetch(`${API_BASE}/friends/request`, {
+            const res = await fetch(`${API_BASE}/friends/request`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
                 body: JSON.stringify({ receiver_id: id })
             });
-            setSentRequest((prev) => new Set(prev).add(id))
+
+            if (!res.ok) {
+                const err = await res.json();
+                if (err.message?.includes('24 hours')) {
+                    setError('You need to wait 24 hours before sending another request to this person.');
+                    setTimeout(() => setError(null), 4000);
+                    return;
+                }
+            }
+
+            setSentRequest((prev) => new Set(prev).add(id));
+            await fetchAll();
         } catch (err) {
             console.error('Error sending friends request:', err);
         }
-        await fetchAll();
-    }, [token]);
+    }, [token, fetchAll]);
 
     /*Requests - needs accept and decline endpoint */
     const acceptRequest = useCallback( async (id: string) => {
