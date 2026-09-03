@@ -6,10 +6,12 @@ import {
 import {friendContent} from "../../Models/FriendsModel";
 import type {
     Friend, FriendRequest, Invite, GameInvite, 
-    Relation, Search, Summary
+    Search, Summary
 } from "../../Models/FriendsModel";
 
 import { useAuth } from "../../context/Auth/hooks/useAuth";
+import { Socket } from "socket.io-client";
+import { useSocket } from "src/context/Socket/hooks/useSocket";
 
 const API_BASE = '/api'; 
 const INVITE_EXPIRY = 10 * 60 * 1000; 
@@ -44,6 +46,7 @@ export const FriendsContextFunc = createContext<FriendsContext | null>(null);
 
 export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
     const {token, user} = useAuth();
+    const { socket } = useSocket();
     const [isLoading, setIsLoading] = useState(true);
     const [profile, setProfile] = useState<Summary | null>(null);
     const [friend, setFriend] = useState<Friend[]>([]);
@@ -61,10 +64,8 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
 
     const activeInviteIdRef = useRef<string | null>(null); //tracks the current id for Invites, so we can differentiate same invite to new invite without resetting local countdown
 
-    useEffect(()=> {
-        if(!token) return;
-
-        const fetchAll = async () => {
+        const fetchAll = useCallback(async () => {
+            if(!token) return;
             try {
                 const [friendsRes, requestRes] = await Promise.all([
                     fetch(`${API_BASE}/friends`, { headers: { Authorization: `Bearer ${token}` } }),
@@ -109,6 +110,7 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
                         
                     } catch (err) {
                         console.error('Error fetching profile data:', err);
+                        setError('Failed to load friend. Please try again');
                     }
                 }
             }catch(err){
@@ -117,26 +119,14 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
             } finally {
                 setIsLoading(false);
             }
-        }; //end fetchAll
+        }, [token, user]); //end fetchAll
+   
+    useEffect(()=> {
+        if(!token) return;
         fetchAll();
-    }, [token, user]);//end useEffect
-
-    const enrichInvite = useCallback((raw: GameInvite, expires: number): Invite => ({
-        id: raw.invite_id,
-        mode: 'casual',
-        participants: raw.friends.map((p) => {
-            const match = friendsRef.current.find((f) => f.username === p.name);
-            return {
-                name: p.name,
-                elo: p.elo,
-                friendId: match?.id,
-                avatar: match?.avatar,
-                status: match?.status,
-            }
-        }),
-        expires,
-    }), []);
-
+        const interval = setInterval(fetchAll, 30_000);
+        return () => clearInterval(interval);
+    }, [fetchAll, token]);//end useEffect
 
     /*GET /api/friend/invite for an incoming friend invite */
     useEffect(() => {
@@ -189,13 +179,14 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
         try{
             await fetch(`${API_BASE}/friends/request`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'appplication/json', Authorization: `Bearer ${token}` },
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
                 body: JSON.stringify({ receiver_id: id })
             });
             setSentRequest((prev) => new Set(prev).add(id))
         } catch (err) {
             console.error('Error sending friends request:', err);
         }
+        await fetchAll();
     }, [token]);
 
     /*Requests - needs accept and decline endpoint */
@@ -208,7 +199,7 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
         try {
             await fetch(`${API_BASE}/friends/request/${id}`, {
                 method: 'PATCH',
-                headers: { 'Content-Type': 'appplication/json', Authorization: `Bearer ${token}` },
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
                 body: JSON.stringify({ status: 'accepted' })
             });
             setRequests((prev) => prev.filter((r) => r.id !== id));
@@ -224,6 +215,7 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
         } catch (err) {
             console.error('Error accepting friend request:', err);
         }
+        await fetchAll();
     }, [token, requests])
 
     const declineRequest = useCallback( async (id: string) => {
@@ -231,13 +223,14 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
         try{
             await fetch(`${API_BASE}/friends/request/${id}`, {
                 method: 'PATCH',
-                headers: { 'Content-Type': 'appplication/json', Authorization: `Bearer ${token}` },
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
                 body: JSON.stringify({ status: 'declined' })
             });
             setRequests((prev) => prev.filter((r) => r.id !== id));
         } catch (err) {
             console.error('Error declining friend request:', err);
         }
+        await fetchAll();
     }, [token])
 
     const removeFriend = useCallback( async (id: string) => {
@@ -250,16 +243,17 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
         } catch (err) {
             console.error('Error removing friend:', err);
         }
+        await fetchAll();
     }, [token, friend]);
 
     /*Invites */
     const sendInvite = useCallback(async (friendId: string) => {
         const target = friendsRef.current.find((f) => f.id === friendId);
-        if (!target || !token || !user) {
+        if (!target || !token || !user || !socket) {
             return;
         }
         try {
-            await fetch(`${API_BASE}/friend/invite`, {
+            const res = await fetch(`${API_BASE}/friends/invite`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -267,10 +261,18 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
                 },
                 body: JSON.stringify({ user_id: user.userId })
             });
+            const invite = await res.json();
+
+            socket.emit('send_friend_invite', {
+                receiver_id: friendId,
+                invite_code: invite.invite_code,
+                sender_name: user.username,
+                expires_at: invite.expires_at
+            });
         } catch (err) {
             console.error('Error sending invite:', err);
         }
-    }, [token, user])
+    }, [token, user, socket])
 
     const acceptInvite = useCallback(() => {
         if (!activeInvite) {
