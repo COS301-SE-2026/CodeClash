@@ -55,7 +55,14 @@ const Friends: React.FC = () => {
 
     const [isDropDownOpen, setIsDropDownOpen] = useState(false);
     const [tooltipId, setTooltipId] = useState<string | null>(null);
+    const tooltipTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
     const searchRef = useRef<HTMLDivElement>(null);
+
+    const showTooltip = (id: string) => {
+        setTooltipId(id);
+        if (tooltipTimeout.current) clearTimeout(tooltipTimeout.current);
+        tooltipTimeout.current = setTimeout(() => setTooltipId(null), 2500);
+    };
 
     useEffect(() => {
         const handleClickOutside  = (e:MouseEvent) => {
@@ -178,7 +185,7 @@ const Friends: React.FC = () => {
                                     <div className="relative">
                                         <button
                                             className="btn btn-ghost btn-sm"
-                                            onClick={() => setTooltipId(tooltipId === f.id ? null : f.id)}
+                                            onClick={() => showTooltip(f.id)}
                                             type="button"
                                          >
                                             {f.status === 'playing' ? <Clock3 size={16}/> : <Swords size={16}/>}
