@@ -1,6 +1,7 @@
 --very generic tables that can be changed later, just trying not to keep the file empty
 
 CREATE TYPE GAME_MODES AS ENUM ('math', 'programming');
+CREATE TYPE ANSWER_FORMATS AS ENUM ('numeric', 'decimal', 'set', 'variable', 'expression', 'simplified', 'factored', 'equation');
 CREATE TYPE supported_languages AS ENUM('java','c++');
 
 CREATE TABLE IF NOT EXISTS leagues(
@@ -23,7 +24,9 @@ CREATE TABLE IF NOT EXISTS questions (
   difficulty INTEGER NOT NULL CHECK (difficulty >= 1 AND difficulty <= 24),
   title TEXT NOT NULL,
   description TEXT NOT NULL,
-  time_limit TIME(2) NOT NULL
+  time_limit TIME(2) NOT NULL,
+  answer_format ANSWER_FORMATS, 
+  answer_precision INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS answers (
