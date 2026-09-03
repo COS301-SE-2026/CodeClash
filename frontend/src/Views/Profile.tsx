@@ -16,9 +16,9 @@ import GlassCard from '@/components/shared/GlassCard';
 import "../styles/global.css"
 
 const colours = [
-  {id: "bg1", label: "Dark Pink", value: "#c0395a"},
-  {id: "bg2", label: "Medium Pink", value: "#cf6d86"},
-  {id: "bg3", label: "Light Pink", value: "#F8E5DD"}
+  {id: "bg1", label: "Dark Pink", value: "#532833"},
+  {id: "bg2", label: "Medium Pink", value: "#75404d"},
+  {id: "bg3", label: "Light Pink", value: "#a5697d"}
 ]
 
 const poses = [
@@ -79,7 +79,7 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
         exit={{ opacity: 0, scale: 0.95, y:10}}
         transition={{duration: 0.18, ease: "easeOut"}}
         onClick={(e) => e.stopPropagation()} //stops a user from repeatedly clicking on final avatar display to pull up a new popup
-        className="bg-white rounded-[20px] w-[80%] h-[85%] flex flex-col justify-center items-center"
+        className="bg-[#141414]/10 backdrop-blur-sm border border-white/30 rounded-[20px] w-[80%] h-[85%] flex flex-col justify-center items-center"
       >
 
         <div className="w-[100%]">
@@ -106,7 +106,7 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
                   {/* below is to add a check mark by the selected pose but it looks wonky and i don't have time to fix it for now */}
                   
                   {/* {selectedPose === pose.id && (
-                    <span className=" bg-secondary-text rounded-full">
+                    <span className="absolute top-30 bg-secondary-text rounded-full">
                       <Check size={10} className="text-black"/>
                     </span>
                   )} */}
