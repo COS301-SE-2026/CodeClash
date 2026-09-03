@@ -342,7 +342,7 @@
 }
 
 /*These are copied from :root and adjusted for light mode*/
-:root-light, [data-theme = 'light'] {
+:root.light, [data-theme = 'light'] {
 
     /*Backgrounds*/
     --background: #fff7f5;
