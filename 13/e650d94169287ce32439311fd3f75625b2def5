@@ -1,0 +1,14 @@
+backend/src/interface-adapters/auth/auth.service.ts
+  h_58e143dc25f856 35
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "13e650d94169287ce32439311fd3f75625b2def5",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
