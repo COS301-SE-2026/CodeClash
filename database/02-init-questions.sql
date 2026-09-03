@@ -6,15 +6,19 @@ WITH q AS (
             difficulty,
             title,
             description,
-            time_limit
+            time_limit,
+            answer_format,
+            answer_precision
         )
     VALUES
         (
             'math', --NOSONAR
             2,
             'Linear Equations',
-            'Solve the following system of equations:\n2x + 3y = 11\n4x - y = 7',
-            '00:02:00' --NOSONAR
+            'Solve the following system of equations:\n2x + 3y = 11\n4x - y = 7\nAnswer format: x=..., y=... using exact fractions, e.g. x=3/4, y=-1/2',
+            '00:02:00', --NOSONAR
+            'variables',
+            NULL
         ) RETURNING question_id
 )
 INSERT INTO
@@ -33,7 +37,9 @@ WITH q AS (
             difficulty,
             title,
             description,
-            time_limit
+            time_limit,
+            answer_format,
+            answer_precision
         )
     VALUES
         (
@@ -41,7 +47,9 @@ WITH q AS (
             1,
             'Evaluate Quadratic Function',
             'If f(x) = 3x² - 5x + 2, find the value of f(-2).',
-            '00:01:00' --NOSONAR
+            '00:01:00', --NOSONAR
+            'numeric',
+            NULL
         ) RETURNING question_id
 )
 INSERT INTO
