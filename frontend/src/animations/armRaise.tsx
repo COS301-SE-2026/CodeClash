@@ -16,10 +16,15 @@ import { rightHandVariants } from "./poses/rig";
 
 
 //The following code and the above imports though pasted, are all hand-written portions of code and are not copied from any generative ai chat, to save a great amount of time i have elected to paste my previous work and just change it
-export const ArmRaise = () => {
+export const ArmRaise = ({
+    vb1 = 250,
+    vb2 = 170,
+    width = 390,
+    height = 300
+}) => {
 
     return (
-        <svg viewBox="0 0 250 170" width="390" height="300" preserveAspectRatio="xMidYMid meet">
+        <svg viewBox={`0 0 ${vb1} ${vb2}`} width={width} height={height} preserveAspectRatio="xMidYMid meet">
 
         <motion.g animate={{y: [0, -1.2, 0], scaleY: [1, 1.04, 1]}}
             transition={{
