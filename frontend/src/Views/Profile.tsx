@@ -66,23 +66,31 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
       initial={{ opacity: 0}}
       animate={{ opacity: 1}}
       exit={{opacity: 0}}
-      className="w-full min-h-screen bg-black/50 items-center flex justify-center"
+      className="fixed inset-0 w-full min-h-screen bg-black/50 items-center flex justify-center" //fixed inset-0 allows overlay to be over page and not come underneath the previous parts of the page
       onClick={onClose}
     >
 
       <motion.div
-        initial={{opacity: 0, scale: 0, y: 10}}
+        initial={{opacity: 0, scale: 0.95, y: 10}}
         animate={{ opacity: 1, scale: 1, y: 0}}
-        exit={{ opacity: 0, scale: 0, y:10}}
+        exit={{ opacity: 0, scale: 0.95, y:10}}
         transition={{duration: 0.18, ease: "easeOut"}}
         onClick={(e) => e.stopPropagation()}
-        className="bg-white rounded-[20px] w-[50%]"
+        className="bg-white rounded-[20px] w-[30%]"
       >
 
-        <div className="flex items-center justify-between mb-5">
+        <div className="flex items-center justify-between mt-2 mb-2 ml-2">
           <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
             <X size={20}></X>
           </button>
+        </div>
+
+        <div className="flex grid grid-cols-2 justify-center">
+
+          <div>
+          <FinalAvatarDisplay pose={selectedPose} bg={selectedColour} onClick={() => {}}/>
+          </div>
+
         </div>
 
       </motion.div>
