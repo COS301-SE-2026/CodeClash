@@ -9,9 +9,12 @@ import { Stand } from 'src/animations/poses/rig';
 import { Peace } from 'src/animations/poses/peace';
 import { Okay } from 'src/animations/poses/okay';
 import { Thinking } from 'src/animations/poses/thinking';
+import "../styles/global.css"
 
 const colours = [
-  
+  {id: "bg1", label: "Dark Pink", value: "[val(--primary-dark)]"},
+  {id: "bg2", label: "Medium Pink", value: "[val(--primary)]"},
+  {id: "bg3", label: "Light Pink", value: "[val(--primary-text)]"}
 ]
 
 const poses = [
