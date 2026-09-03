@@ -168,7 +168,7 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
 
 function ProfileView(){
 
-  //local storage for demo, will be updated to backend endpoints 
+  //local storage for demo, will be updated to being controlled by backend endpoints per user
   const [pose, setPose] = useState(() => localStorage.getItem("avatarPose") ?? "rig");
   const [colour, setColour] = useState(() => localStorage.getItem("avatarColour") ?? "bg3");
   const [editOpen, setEditOpen] = useState(false);
