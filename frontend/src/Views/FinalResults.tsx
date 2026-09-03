@@ -16,6 +16,17 @@ const FinalResults: React.FC = () => {
         winner, loser
     } = FinalResultsViewModelFunction();
 
+    const [res, setRes] = useState(false); // moved
+
+    useEffect(() => {
+        if (state !== 'results') {
+            setRes(false);
+            return;
+        }
+        const anim = requestAnimationFrame(() => setRes(true));
+        return () => cancelAnimationFrame(anim);
+    }, [state]);
+
     const formatTime = (ms: number|undefined) => {
 
         if(ms === undefined) return 'Error getting time'
@@ -28,19 +39,9 @@ const FinalResults: React.FC = () => {
 
     if(!winner || !loser){
         return(
-            <Loading></Loading>
+            <Loading />
         )
     }
-
-    const [res, setRes] = useState(false);
-    useEffect(() => {
-        if (state !== 'results') {
-            setRes(false);
-            return;
-        }
-        const anim = requestAnimationFrame(() => setRes(true));
-        return () => cancelAnimationFrame(anim);
-    }, [state]);
 
     return (
         <div className="bg-background min-h-screen w-full flex items-center justify-center">
@@ -148,8 +149,8 @@ const PlayerResultCard: React.FC<{
 
             <div className="grid grid-cols-4 gap-2 flex-1 w-full">
                 <div className="flex flex-col items-center gap-0.5">
-                    <span className="text-xsm uppercase tracking-wide text-muted">Correct</span>
-                    <span className="score-display text-base text-primary-text">{player.correctness}%</span>
+                    <span className="text-xsm uppercase tracking-wide text-muted">Correctness</span>
+                    <span className="score-display text-base text-primary-text">{player.correctness} correct</span>
                 </div>
                 {/*Copied from above and modified */}
                 <div className="flex flex-col items-center gap-0.5">
