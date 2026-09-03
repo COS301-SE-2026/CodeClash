@@ -15,10 +15,15 @@ import peace from "../../assets/svgs/peace.svg"
 
 //The above imports though pasted, were all hand-written and are not copied from any generative ai chat
 
-export const Peace = () => {
+export const Peace = ({
+    vb1= 250,
+    vb2 = 170,
+    width= 390,
+    height = 300
+}) => {
 
     return(
-        <svg viewBox="0 0 250 170" width="390" height="300" preserveAspectRatio="xMidYMid meet">
+        <svg viewBox={`0 0 ${vb1} ${vb2}`} width={width} height={height} preserveAspectRatio="xMidYMid meet">
             <motion.g>
                 <image href={torso} width="50" x="60" y="40" height="120"/>
                 <image href={happy} width="50" x="60" y="40" height="45"/>
