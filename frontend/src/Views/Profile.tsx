@@ -87,14 +87,20 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
 
         <div className="flex grid grid-cols-2 justify-center">
 
-          <div className="flex grid grid-cols-4 justify-center">
+          <div className="flex grid grid-cols-4 justify-center gap-2">
             {poses.map((pose => (
               <button
                 key={pose.id}
                 onClick={() => setSelectedPose(pose.id)}
                 style={{ backgroundColor: bgData.value }}
-                className={`rounded-[20px] flex items-center transition-all`}
+                className={`rounded-[20px] flex items-center transition-all
+                  ${selectedPose === pose.id ? "" : "opacity-70 hover:opacity-100"}`}
+                  title={pose.label}
               >
+                <pose.preview/>
+                {selectedPose === pose.id && (
+                  
+                )}
               </button>
             )))}
           </div>
