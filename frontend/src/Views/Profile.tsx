@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useUser } from 'src/context/User/hooks/useUser';
 import { useState } from 'react';
 import { useLogOut, getProfile  } from '../ViewModels/ProfileViewModel';
-
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Stand } from 'src/animations/poses/rig';
@@ -54,6 +54,28 @@ function FinalAvatarDisplay({pose, bg, onClick}){
 function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
   const [selectedPose, setSelectedPose] = useState(currentPose);
   const [selectedColour, setSelectedColour] = useState(currentColour);
+
+  const bgData = colours.find((c) => c.id === selectedColour) ?? colours[2];
+
+  return(
+
+    //the below motion.div is an overlay background for the entire screen for when the popup appears, it has a dimming effect
+
+    <motion.div
+      initial={{ opacity: 0}}
+      animate={{ opacity: 1}}
+      exit={{opacity: 0}}
+      className="w-full min-h-screen bg-black/50 items-center flex justify-center"
+      onClick={onClose}
+    >
+
+
+
+    </motion.div>
+
+
+
+  );
 }
 
 
