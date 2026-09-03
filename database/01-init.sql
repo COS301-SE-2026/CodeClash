@@ -12,7 +12,10 @@ CREATE TABLE IF NOT EXISTS users (
   username VARCHAR(50) UNIQUE NOT NULL,
   email VARCHAR(100) UNIQUE NOT NULL,
   avatar_id Integer,
-  league VARCHAR(10) NOT NULL DEFAULT 'Mercury'
+  league VARCHAR(10) NOT NULL DEFAULT 'Mercury',
+  current_streak INTEGER NOT NULL DEFAULT 0,
+  winning_streak INTEGER NOT NULL DEFAULT 0,
+  last_played_at TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS questions (

@@ -141,7 +141,7 @@ AppDataSource.initialize()
         const submission_system = new SubmissionSystem(world);
         const life_system = new LifeSystem(world);
         const delete_game = new DeleteGame(world,game_store,matched_users_service);
-        const finish_game = new FinishGame(world, match_results, game_store, delete_game, match_stats_repo, achievement_service);
+        const finish_game = new FinishGame(world, match_results, game_store, delete_game, match_stats_repo, achievement_service, user_repo);
         const opponent_progress = new OpponentProgress(world);
 
         const check_answer = new CheckAnswer(game_cache, submission_system, life_system, world)
