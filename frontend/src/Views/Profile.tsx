@@ -7,8 +7,14 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Stand } from 'src/animations/poses/rig';
 import { Peace } from 'src/animations/poses/peace';
+import { Okay } from 'src/animations/poses/okay';
+import { Thinking } from 'src/animations/poses/thinking';
 
-
+const poses = [
+  {id: "okay", label: "Okay", preview: Okay},
+  {id: "peace", label: "Peace", preview: Peace},
+  {id: "thinking", label: "Thinking", preview: Thinking}
+]
 
 
 function ProfileView(){
