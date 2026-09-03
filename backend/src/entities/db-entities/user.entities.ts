@@ -35,4 +35,7 @@ export class Users {
 
     @ManyToMany(() => Achievement, achievement => achievement.users)
     achievements!: Achievement[];
+
+    @ManyToMany(() => Achievement, achievement => achievement.users)
+    achievements!: Achievement[];
 }
