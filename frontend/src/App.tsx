@@ -72,6 +72,7 @@ const App: React.FC = () => {
             <Route path='/terms' element={<TermsAndConditions/>}/>
             <Route path="/brand-style-guide" element= {<BrandStyleGuide/>}/>
             <Route path="/agent" element={<Agent/>}/>
+            <Route path='/game-guide' element={<GameGuide/>}/>
 
             {/* Pages with sidebar inside the app */}
             <Route element={<Layout />}>
