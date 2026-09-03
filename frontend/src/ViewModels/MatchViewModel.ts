@@ -73,14 +73,14 @@ export const useMatch = () => {
     const nextQuestion = (curr: number) => {
         if (curr < questions.length - 1) {
             setCurrentQuestion(curr + 1);
-            startQuestion(userId, questions[curr].id!)
+            startQuestion(userId, questions[curr].id!, curr + 1)
         }
     }
 
     const prevQuestion = (curr: number) => {
         if (curr > 0) {
             setCurrentQuestion(curr - 1)
-            startQuestion(userId, questions[curr].id!)
+            startQuestion(userId, questions[curr].id!, curr - 1)
         }
     }
 
@@ -96,11 +96,12 @@ export const useMatch = () => {
         }
     }
 
-    const startQuestion = (player_id: string, question_id: string) => {
+    const startQuestion = (player_id: string, question_id: string, question_number: number) => {
         const data = {
             match_id: id,
             player: player_id,
-            question: question_id
+            question: question_id,
+            question_number: question_number
         }
 
         socket?.emit('question_started', data);
@@ -177,7 +178,7 @@ export const useMatch = () => {
 
 
         // first question ready 
-        startQuestion(userId, final[0].id!);
+        startQuestion(userId, final[0].id!, 0);
     }
 
     ///////////////////////////////////////
@@ -198,7 +199,7 @@ export const useMatch = () => {
         if (result.life_update <= 0) {
             finishGame();
         }
-        
+
         setPlayerLife((prev) => {
             const next = [...prev];
             next[player_index] = result.life_update;

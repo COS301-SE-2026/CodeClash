@@ -4,7 +4,8 @@ export interface CompleteSubmissionResult {
     question_id: string,
     correct: boolean | null,
     speed: string,
-    token?: string
+    token?: string,
+    message?:string
 }
 
 export interface PendingSubmissionResult{

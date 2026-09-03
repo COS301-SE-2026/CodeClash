@@ -6,6 +6,7 @@ export class SubmissionSystem {
     private readonly getSubmissionComponent
     private readonly createEntity
     private readonly addSubmissionComponent
+    private token_registry = new Map<string,SubmissionComponent>();
 
     constructor(
         private readonly world: ReturnType<typeof World>
@@ -17,7 +18,7 @@ export class SubmissionSystem {
         this.getSubmissionComponent = getSubmissionComponent
     }
 
-    saveSubmission(match_id: number, player_id: string, question_id: string, is_correct: boolean | null, answer: string) {
+    saveSubmission(match_id: number, player_id: string, question_id: string, is_correct: boolean | null, answer: string, question_number: number) {
 
         // 1 lookup submission entity
         const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(match_id, "Submission");
@@ -26,7 +27,7 @@ export class SubmissionSystem {
 
         const key = `${player_id}::${question_id}`
         const submission_entity = submission_registry.submissions.get(key);
-        let submission_component:SubmissionComponent | null;
+        let submission_component: SubmissionComponent | null;
 
         // 2 if found update component with new submission  -- an extra step would be added here to save submission later on for history
         if (submission_entity !== undefined) {
@@ -43,13 +44,16 @@ export class SubmissionSystem {
             //  3.2 attach submission component
 
             submission_component = {
+                match_id: match_id,
                 player_id: player_id,
                 question_id: question_id,
+                question_number: question_number,
                 started_at: new Date(),
                 attempt_number: is_correct === null ? 0 : 1,
                 answer: answer,
                 submitted_at: is_correct === null ? null : new Date(),
-                correct: is_correct
+                correct: is_correct,
+                token: undefined
             }
 
             this.addSubmissionComponent(submission, 'Submission', submission_component);
@@ -58,6 +62,18 @@ export class SubmissionSystem {
             submission_registry.submissions.set(key, submission);
         }
         return submission_component;
+    }
+
+    registerSubmissionToken(token:string, submission: SubmissionComponent){
+        this.token_registry.set(token, submission);
+    }
+
+    deregiserSubmissionToken(token:string){
+        this.token_registry.delete(token);
+    }
+
+    getSubmissionByToken(token:string){
+        return this.token_registry.get(token);
     }
 
 }

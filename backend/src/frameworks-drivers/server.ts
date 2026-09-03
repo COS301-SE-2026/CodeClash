@@ -53,6 +53,9 @@ import { LeaderboardService } from 'src/application/usecases/services/leaderboar
 import { NotificationService } from 'src/application/usecases/services/notification.service';
 import { handleMarkingResult } from 'src/interface-adapters/controllers/marking.controller';
 import { MarkingStrategy } from 'src/application/interfaces/marking/IMarkingStategy';
+import { MarkMaths } from 'src/application/usecases/services/marking/mark-maths';
+import { MarkProg } from 'src/application/usecases/services/marking/mark-prog';
+import { CodeExecutor } from 'src/interface-adapters/CodeExecutor';
 
 dotnev.config()
 
@@ -121,11 +124,17 @@ AppDataSource.initialize()
         );
 
   
+        const maths_marker: MarkingStrategy = new MarkMaths();
+
+        const code_executor = new CodeExecutor();
+        const prog_marker: MarkingStrategy = new MarkProg(code_executor);
 
         const notification = new NotificationService(io);
         const opponent_progress = new OpponentProgress(world);
-        const check_answer = new MarkingService(game_cache, submission_system, life_system, notification, opponent_progress)
-        app.put('/api/marking/result', handleMarkingResult(check_answer))
+        const maths_marking_service = new MarkingService(game_cache, submission_system, life_system, notification,maths_marker ,opponent_progress);
+        const prog_marking_service = new MarkingService(game_cache,submission_system, life_system,notification, prog_marker, opponent_progress);
+
+        app.put('/api/marking/result', handleMarkingResult( prog_marking_service))
 
         // auth middleware 
         io.use(async (socket, next) => {
@@ -171,7 +180,9 @@ AppDataSource.initialize()
 
             socket.on('send_players', (game_id: number) => { sendGamePlayers(io, game_id, game_store) })
 
-            socket.on('submit_question', (data: SubmissionDTO) => submitQuestion(io, socket, data, check_answer, opponent_progress));
+            socket.on('submit_maths_question', (data: SubmissionDTO) => submitQuestion(io, socket, data,maths_marking_service));
+
+            socket.on('submit_prog_question', (data: SubmissionDTO)=>submitQuestion(io,socket, data, prog_marking_service));
 
             socket.on('question_started', (data: StartQuestionDTO) => startQuestion(socket.data.user_id, submission_system, data));
 

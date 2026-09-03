@@ -85,15 +85,17 @@ export interface RoundComponent {
 /** SUBMISSION ENTITY */
 
 export interface SubmissionComponent {
+    match_id: number,
     player_id: string,
     question_id: string,
+    question_number: number,
     started_at: Date,
     attempt_number: number,
     answer: string,
     language?: string
     submitted_at: Date | null,
     correct:boolean | null,
-    token?: string
+    token: string | undefined
 }
 
 /********************************** */

@@ -7,7 +7,7 @@ export class MarkProg implements MarkingStrategy {
 
     private readonly executor;
 
-    constructor(code_executor: ICodeExecutor) {
+    constructor(private readonly code_executor: ICodeExecutor) {
         this.executor = code_executor;
     }
 

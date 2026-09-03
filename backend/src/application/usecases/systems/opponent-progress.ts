@@ -1,8 +1,6 @@
 import { World } from "src/entities/World";
 import { PlayersComponent } from "src/entities/components";
-import { SubmissionDTO } from "src/entities/dtos/components.dto";
 import { CompleteSubmissionResult, OpponentProgressDTO } from "src/entities/dtos/submission-result.dto";
-import { NotificationService } from "../services/notification.service";
 
 export class OpponentProgress {
 
