@@ -36,8 +36,14 @@ function FinalAvatarDisplay({pose, bg, onClick}){
       className="w-[100%] h-[80%] justify-center items-center"
     >
       
-        <div className="flex items-center justify-center">
-          <poseData.preview vb1={170} vb2={250}/>
+        <span className="flex items-center justify-center w-[100%] h-[100%]">
+          <poseData.preview vb1={170} vb2={225}/>
+        </span>
+
+        <div className="w-[100%] h-[100%]">
+        <span className="opacity-0 group-hover:opacity-100 transition-opacity font-font font-semibold text-white fonst-size-xl">
+          Edit
+        </span>
         </div>
       
     </button>
@@ -81,7 +87,7 @@ function ProfileView(){
           {/* <img src={userData?.avatar} alt="avatarImage" className="" /> */}
           <FinalAvatarDisplay pose={pose} bg={colour} onClick={() => setEditOpen(true)}/>
         </div>
-        <div className="text-xl font-semibold -mt-20">{userData?.username}</div>
+        <div className="text-xl font-semibold -mt-[10%]">{userData?.username}</div>
         <div className=" text-md font-semibold ">ELO - {userData?.elo}</div>
         <div className="text-md font-semibold">{userData?.league}</div>
         <div>
