@@ -188,7 +188,7 @@ function ProfileView(){
 
   return (
     <div className="w-full min-h-screen bg-primary-dark flex flex-col items-center justify-center text-secondary-text">
-      <Link className="secondary-back-button font-semibold w-full absolute top-5 text-primary" to={'/dashboard'}
+      <Link className="secondary-back-button font-semibold w-[98%] absolute top-5 text-primary" to={'/dashboard'}
         onKeyDown={(e) => {
           const shift = e.shiftKey;
           if (shift && e.key === 'Esc') {
