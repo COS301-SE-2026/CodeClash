@@ -86,7 +86,7 @@ const Friends: React.FC = () => {
                 />
             </div>
             {showDropdown && (
-                <div className="modal-panel absolute top-full left-0 mt-2 w-full max-h-80 overflow-y-auto p-2 flex flex-col gap-2 z-50">
+                <div className="absolute top-full left-0 mt-2 w-full max-h-80 overflow-y-auto p-2 flex flex-col gap-2 z-50 rounded-2xl border border-border backdrop-blur-md bg-card/90 shadow-lg">
                     {allUsers.length === 0 ? (
                         <div className="empty-state py-6">
                             <p className="text-sm text-danger">{friendContent.searchEmpty}!</p>
