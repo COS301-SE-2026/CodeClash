@@ -15,28 +15,34 @@ export class CodeExecutor implements ICodeExecutor {
     async execute(source_code: string, language_id: number, stdin: string | null, expected_output: string): Promise<SubmissionResult> {
 
         // !!!! Submission queue can be full, we need to plan for this
+
+        const encoded_source = Buffer.from(source_code, 'utf-8').toString('base64');
+        const encoded_expected = Buffer.from(expected_output, 'utf-8').toString('base64');
+        const encoded_stdin = (stdin) ? Buffer.from(stdin, 'utf-8').toString('base64') : null;
+
         const data = JSON.stringify({
-            "source_code": source_code,
+            "source_code": encoded_source,
             "language_id": language_id,
-            "stdin": stdin,
-            "expected_output": expected_output,
+            "stdin": encoded_stdin,
+            "expected_output": encoded_expected,
             "memory_limit": this.memory_limit,
             "stack_limit": this.stack_limit,
             "max_file_size": this.max_file_size
         })
 
-        const result = await axios.post(`${process.env.JUDGE_0_URL}/submissions?wait=true&base64_encoded=true`, data,
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-Auth-Token": process.env.JUDGE_0_TOKEN
-                }
-            });
+        try {
+            const result = await axios.post(`${process.env.JUDGE_0_URL}/submissions?wait=true&base64_encoded=true`, data,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-Auth-Token": process.env.JUDGE_0_TOKEN
+                    }
+                });
 
-        if (result.status !== 201)
+            return result.data;
+        }
+        catch {
             throw new Error("Error Marking Submission");
-
-
-        return result.data;
+        }
     }
 }

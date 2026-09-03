@@ -1,5 +1,4 @@
 import { describe, expect, it, vi } from 'vitest'
-import { CodeExecutor } from '../../../src/interface-adapters/CodeExecutor'
 import { MarkProg } from '../../../src/application/usecases/services/marking/mark-prog'
 import { ProgSubmissionDTO } from '../../../src/entities/dtos/components.dto'
 
