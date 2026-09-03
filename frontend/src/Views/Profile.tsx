@@ -257,3 +257,10 @@ const Profile = () => {
 }
 
 export default Profile;
+
+export function useUserAvatar(){
+  const{ userData, loadingData, error} = getProfile();
+
+  const [pose, setPose] = useState("rig");
+  const [colour, setColour] = useState("bg3");
+}
