@@ -101,4 +101,12 @@ export class UserRepository implements IUserRepository {
             league: u.league
         }));
     }
+
+    async updateStreaks(user_id: string, won: boolean): Promise<void> {
+        
+    }
+
+    async getTotalStats(user_id: string): Promise<{ total_wins: number; total_matches: number; winning_streak: number; league: string; }> {
+        
+    }
 }
