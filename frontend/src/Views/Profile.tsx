@@ -10,11 +10,16 @@ import { Peace } from 'src/animations/poses/peace';
 import { Okay } from 'src/animations/poses/okay';
 import { Thinking } from 'src/animations/poses/thinking';
 
+const colours = [
+  
+]
+
 const poses = [
   {id: "okay", label: "Okay", preview: Okay},
   {id: "peace", label: "Peace", preview: Peace},
   {id: "thinking", label: "Thinking", preview: Thinking}
-]
+];
+
 
 
 function ProfileView(){
