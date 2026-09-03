@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useUser } from 'src/context/User/hooks/useUser';
-
+import { useState } from 'react';
 import { useLogOut, getProfile  } from '../ViewModels/ProfileViewModel';
 
 import { Button } from '@/components/ui/button';
@@ -24,7 +24,7 @@ const poses = [
   {id: "thinking", label: "Thinking", preview: Thinking}
 ];
 
-function finalAvatarDisplay({pose, bg, onClick}){
+function FinalAvatarDisplay({pose, bg, onClick}){
   
   const poseData = poses.find((p) => p.id === pose) ?? poses[0];
   const bgData = colours.find((c) => c.id === bg)?? colours[0];
@@ -44,6 +44,10 @@ function finalAvatarDisplay({pose, bg, onClick}){
 
 
 function ProfileView(){
+
+  const [pose, setPose] = useState("rig");
+  const [colour, setColour] = useState("bg3");
+  const [editOpen, setEditOpen] = useState(false);
   
   const { userData, loadingData, error} = getProfile();
 
@@ -73,7 +77,7 @@ function ProfileView(){
 
         <div className="w-[35%]" >
           {/* <img src={userData?.avatar} alt="avatarImage" className="" /> */}
-          <Stand/>
+          <FinalAvatarDisplay pose={pose} bg={colour} onClick={() => setEditOpen(true)}/>
         </div>
         <div className="text-xl font-semibold ">{userData?.username}</div>
         <div className=" text-md font-semibold ">ELO - {userData?.elo}</div>
