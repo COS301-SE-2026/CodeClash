@@ -78,7 +78,7 @@ const Friends: React.FC = () => {
                 />
             </div>
             {showDropdown && (
-                <div className="modal-panel absolute top-full left-0 mt-2 w-full max-h-80 overflow-y-auto p-2 flex flex-col gap-2 z-50">
+                <div className="modal-panel absolute top-full left-0 mt-2 w-full max-h-80 overflow-y-auto p-2 flex flex-col gap-2 z-50 bg-background card-glow">
                     {searchResults.length === 0 ? (
                         <div className="empty-state py-6">
                             <p className="text-sm text-danger">{friendContent.searchEmpty}!</p>
@@ -87,7 +87,7 @@ const Friends: React.FC = () => {
                         searchResults.map((result) => (
                             <div key={result.id} className="p-2 rounded-full flex items-center gap-3 hover:bg-background-elevated">
                                 <img src={robot_map[result.avatar]} alt={result.username} className="avatar w-10 h-10 object-cover shrink-0"/>
-                                <p className="text-primary-text text-sm font-semibold truncate flex-1 min-w-0">{result.username}</p>
+                                <p className="text-primary-text text-xsm font-semibold truncate flex-1 min-w-0">{result.username}</p>
                                 <RelationResult relationship={result.relationship} onAdd={() => sendFriendRequest(result.id)}/>
                             </div>
                         ))
