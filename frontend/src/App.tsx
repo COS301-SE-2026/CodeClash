@@ -78,7 +78,7 @@ const App: React.FC = () => {
             <Route path='/profile' element={<Profile />} />
             <Route path='/match-searching' element={<MatchSearching />} />
             <Route path='/match-found' element={<MatchFound />} />
-            <Route path='/maths-match' element={<MathMatch />} />
+            <Route path='/math-match' element={<MathMatch />} />
             {/*<Route path='/leaderboard' element={<Leaderboard />} />*/}
             <Route path='/prog-match' element={<ProgMatch language="javascript" />} />
             <Route path='/results' element={<FinalResults/>} />

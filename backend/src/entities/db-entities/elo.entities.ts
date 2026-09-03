@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, OneToOne, JoinColumn, UpdateDateColumn,CreateDateColumn } from "typeorm";
 import { Users } from "./user.entities";
-import { Match } from "./match.entities";
+import { Matches } from "./match.entities";
 
 
 @Entity()
@@ -27,9 +27,9 @@ export class EloHistory {
     @ManyToOne(() => Users)
     user!: Users
 
-    @ManyToOne(() => Match)
+    @ManyToOne(() => Matches)
     @JoinColumn({name: 'match_id'})
-    match!: Match;
+    match!: Matches;
 
     @Column()
     old_rating!: number
