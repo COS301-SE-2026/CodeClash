@@ -1,0 +1,14 @@
+frontend/src/animations/lose.tsx
+  h_b13c5d77534129 39-44,47
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "5feb4f7c284f0d00abe43198cec0288283433126",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
