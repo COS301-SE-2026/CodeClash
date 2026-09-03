@@ -26,11 +26,9 @@ export class MarkingService {
 
             if (!correct_answer) throw new Error("Invalid question id");
 
-            const submission = this.submission_system.saveSubmission(player_submission.match_id, player_submission.player_id, player_submission.question_id, null, player_submission.submission, player_submission.question_number!);
-            const result = await this.marking_strategy.mark(submission!.answer!, correct_answer, submission!.question_id);
-
+            const result = await this.marking_strategy.mark(player_submission.submission, correct_answer, player_submission.question_id);
+            const submission = this.submission_system.saveSubmission(player_submission.match_id, player_submission.player_id, player_submission.question_id, result, player_submission.submission, player_submission.question_number!);
             this.handleResult(result, submission!);
-
         }
         catch (error) {
             console.error(`Error Checking answer: ${error}`);
@@ -39,7 +37,6 @@ export class MarkingService {
     }
 
     handleResult(result: boolean, submission: SubmissionComponent) {
-        this.submission_system.deregiserSubmissionToken(submission?.token!);
         const new_life = this.life_System.updatePlayerLife(submission.match_id, submission.player_id, result);
         const progress = this.opponent_progress.updateOpponent(submission.match_id, submission.player_id, submission.question_number, result, new_life);
         const opponent = this.opponent_progress.getOpponent(submission.match_id, submission.player_id);

@@ -38,6 +38,7 @@ import { QuestionDTO } from '../../../src/entities/dtos/question.dto'
 import { AnswerDTO } from '../../../src/entities/dtos/answer.dto'
 import { mock_questions } from '../../mocks/mock-questions'
 import { mock_answers } from '../../mocks/mock-answers'
+import { SubmissionComponent } from '../../../src/entities/components'
 
 const io = {
     to: vi.fn().mockReturnValue({
@@ -111,6 +112,7 @@ let game: {
 
 
 
+
 describe("Tests Marking Services", () => {
 
     beforeAll(async () => {
@@ -129,7 +131,29 @@ describe("Tests Marking Services", () => {
 
     })
 
+
+
     it('Mark a Programming Submission', async () => {
+        const submission = {
+            match_id: game.match_entity,
+            player_id: players[0].id,
+            question_id: game.questions.medium[0].id,
+            question_number: 1,
+            submission: {
+                source_code: 'print("Answer Question 5")',
+                language_id: 71,
+                stdin: null
+            }
+        }
+
+        await prog_marking_service.execute(submission);
+        const saved_submission: SubmissionComponent = submission_system.getSubmission(game.match_entity, players[0].id, game.questions.medium[0].id);
+
+        expect(io.to).toHaveBeenCalled();
+        expect(saved_submission.correct).toBe(true);
+    })
+
+    it('Rejects an incorrect submission', async () => {
         const submission = {
             match_id: game.match_entity,
             player_id: players[0].id,
@@ -143,6 +167,26 @@ describe("Tests Marking Services", () => {
         }
 
         await prog_marking_service.execute(submission);
+        const saved_submission: SubmissionComponent = submission_system.getSubmission(game.match_entity, players[0].id, game.questions.medium[0].id);
+
         expect(io.to).toHaveBeenCalled();
+        expect(saved_submission.correct).toBe(false);
+
+    })
+
+    it('Rejects a submission for invalid question', async () => {
+        const submission = {
+            match_id: game.match_entity,
+            player_id: players[0].id,
+            question_id: crypto.randomUUID(),
+            question_number: 1,
+            submission: {
+                source_code: 'print("Programming marking integration test")',
+                language_id: 71,
+                stdin: null
+            }
+        }
+
+        await expect(prog_marking_service.execute(submission)).rejects.toThrow('Invalid question id');
     })
 })  
