@@ -136,6 +136,24 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
 
         </div>
 
+        <div className="flex gap-3">
+
+          <Button
+            onClick={onClose}
+
+          >
+            Cancel
+          </Button>
+
+          
+          <Button
+            onClick={() => onSave(selectedPose, selectedColour)}
+          >
+            Save
+          </Button>
+
+        </div>
+
       </motion.div>
 
 
