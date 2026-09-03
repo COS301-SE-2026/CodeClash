@@ -5,6 +5,7 @@ import { useDashboardViewModel } from '../ViewModels/DashboardViewModel';
 import Popup from './Popup'
 import Loading from '@/components/shared/Loading';
 import Starfield from '@/components/ui/animations/Starfield';
+import { UseUserAvatar } from './Profile';
 import Profile from './Profile';
 
 type SkillMetric = {
@@ -67,7 +68,9 @@ const Dashboard = () => {
             {/*Profile + Play */}
             <div className='flex flex-col gap-6'>
               <div className='card-elevated flex items-center gap-4 p-6'>
-                <img src = {avatar} alt='' className='w-16 h-16 rounded-full border-2 border-primary object-cover shrink-0'/>
+                <div className='w-16 h-16 rounded-full border-2 border-primary object-cover shrink-0'>
+                  <UseUserAvatar vb1={100} vb2={100} lm={0} round={200}/>
+                </div>
                 
                 <div>
                   <span>League - {league}</span>
