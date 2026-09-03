@@ -68,8 +68,8 @@ const Dashboard = () => {
             {/*Profile + Play */}
             <div className='flex flex-col gap-6'>
               <div className='card-elevated flex items-center gap-4 p-6'>
-                <div className='w-16 h-16 rounded-full border-2 border-primary object-cover shrink-0'>
-                  <UseUserAvatar vb1={100} vb2={100} lm={0} round={200}/>
+                <div className='w-25 h-29 flex items-center justify-center rounded-[20px] border-2 border-primary object-cover shrink-0 '>
+                  <UseUserAvatar vb1={170} vb2={186} lm={1.5} round={20}/>
                 </div>
                 
                 <div>
