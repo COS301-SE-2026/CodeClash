@@ -4,6 +4,7 @@ import door from 'src/assets/Decor/door.png'
 
 import { Badge } from '../ui/badge'
 import { Progress } from '../ui/progress'
+import { UseUserPose } from 'src/Views/Profile'
 
 
 interface MatchScreenProps {
@@ -44,22 +45,23 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
             {/* Header */}
             <div className='flex w-full h-[20%] justify-between items-center '>
                 {/* Player 1 Progress */}
-                <div className="flex w-[50%] h-[60%] items-center m-2">
-                    <img
+                <div className="flex flex-col-2 w-[40%] h-[90%] items-center m-2 mt-[2%]">
+                    {/* <img
                         src={avatars[0]}
                         alt="user 1 avatar"
                         className='h-[120%] flex items-center'
-                    />
-                    <div className=' w-[70%] flex flex-col items-start h-[70%] justify-between self-end '>
+                    /> */}
+                    <UseUserPose vb1={750} vb2={220}/>
+                    <div className='w-[100%] flex flex-col items-start h-[70%] justify-between self-end -ml-[60%] my-auto'>
                         <Progress
                             value={player_life[0]}
                             progress_colour={colour}
                             className='w-full h-9 shadow-[0_4px_6px_rgba(0,0,0,0.3)]'
                         />
-                        <Badge variant={'default'} className='text-[1.25rem] w-[50%] h-[35%]'>{usernames[0]}</Badge>
+                        <Badge variant={'default'} className='text-[1.25rem] w-[50%] h-[25%] my-auto mt-[2%]'>{usernames[0]}</Badge>
                     </div></div>
                 {/* Clock */}
-                <div className='text-white font-dseg w-[15%] h-20 flex items-center justify-center text-5xl font-semibold border-6 rounded-l'>
+                <div className='text-white font-dseg w-[15%] h-20 flex items-center justify-center text-5xl font-semibold border-6 rounded-l ml-5'>
                     <span>
                         {String(minutes).padStart(2, "0")}:
                         {String(seconds).padStart(2, "0")}
