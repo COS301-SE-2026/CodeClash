@@ -14,7 +14,7 @@ import "../styles/global.css"
 
 const colours = [
   {id: "bg1", label: "Dark Pink", value: "#c0395a"},
-  {id: "bg2", label: "Medium Pink", value: "#e93577"},
+  {id: "bg2", label: "Medium Pink", value: "#cf6d86"},
   {id: "bg3", label: "Light Pink", value: "#F8E5DD"}
 ]
 
@@ -34,7 +34,7 @@ function FinalAvatarDisplay({pose, bg, onClick, vb1, vb2, leftMargin}){
     <button
       onClick={onClick}
       style={{ backgroundColor: bgData.value}}
-      className={`w-[80%] justify-center items-center rounded-[20px] ml-${leftMargin}`}
+      className={`w-[80%] rounded-[20px] ml-${leftMargin}`}
     >
       
         <span   
@@ -76,25 +76,25 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
         exit={{ opacity: 0, scale: 0.95, y:10}}
         transition={{duration: 0.18, ease: "easeOut"}}
         onClick={(e) => e.stopPropagation()} //stops a user from repeatedly clicking on final avatar display to pull up a new popup
-        className="bg-white rounded-[20px] w-[50%] h-[55%] justify-center items-center"
+        className="bg-white rounded-[20px] w-[80%] h-[85%] flex flex-col justify-center items-center"
       >
 
-        <div className="flex items-center justify-between mt-3 mb-3 ml-2">
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
-            <X size={30}></X>
+        <div className="relative">
+          <button onClick={onClose} className="left-1 text-gray-400 hover:text-gray-700">
+            <X size={50}></X>
           </button>
         </div>
 
-        <div className="flex grid grid-cols-2 justify-center gap-10 ml-[4.5%]">
+        <div className="grid grid-cols-2 justify-center gap-10 ml-[5.5%]">
 
-          <div className="flex grid ml-7 grid-rows-2 justify-center">
-            <div className="flex grid grid-cols-4 justify-center gap-3 mb-3">
+          <div className="grid ml-5 grid-rows-2 justify-center mt-10">
+            <div className="grid grid-cols-4 justify-center gap-10 mb-3">
               {poses.map((pose => (
                 <button
                   key={pose.id}
                   onClick={() => setSelectedPose(pose.id)}
                   style={{ backgroundColor: bgData.value }}
-                  className={`rounded-[20px] flex items-center transition-all
+                  className={`rounded-full flex items-center transition-all w-[110%]
                     ${selectedPose === pose.id ? "" : "opacity-70 hover:opacity-100"}`}
                     title={pose.label}
                 >
@@ -112,13 +112,13 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
               </div>
           
 
-              <div className="flex grid grid-cols-3 justify-center gap-2">
+              <div className="grid grid-cols-3 justify-center gap-2 mt-10">
                 {colours.map((c) => (
                   <button
                     key={c.id}
                     onClick={() => setSelectedColour(c.id)}
                     style={{ backgroundColor: c.value}}
-                    className={`rounded-full flex items-center transition-transform h-[50%] w-[80%]
+                    className={`rounded-full flex items-center transition-transform h-[70%] w-[80%] mt-5 ml-6
                       ${selectedColour === c.id ? "" : "opacity-70 hover:opacity-100"}`}
                       title={c.label}
                   >
@@ -130,17 +130,17 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
           </div>
 
 
-          <div className="items-center">
+          <div className="items-center ml-10">
           <FinalAvatarDisplay pose={selectedPose} bg={selectedColour} vb1={170} vb2={200} onClick={() => {}} leftMargin={10}/>
           </div>
 
         </div>
 
-        <div className="flex gap-3">
+        <div className="-ml-[25%] flex gap-40 mt-5 mb-5">
 
           <Button
             onClick={onClose}
-
+            className="w-[80%]"
           >
             Cancel
           </Button>
@@ -148,6 +148,7 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
           
           <Button
             onClick={() => onSave(selectedPose, selectedColour)}
+            className="w-[80%]"
           >
             Save
           </Button>
@@ -167,8 +168,9 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
 
 function ProfileView(){
 
-  const [pose, setPose] = useState("rig");
-  const [colour, setColour] = useState("bg3");
+  //local storage for demo, will be updated to backend endpoints 
+  const [pose, setPose] = useState(() => localStorage.getItem("avatarPose") ?? "rig");
+  const [colour, setColour] = useState(() => localStorage.getItem("avatarColour") ?? "bg3");
   const [editOpen, setEditOpen] = useState(false);
   
   const { userData, loadingData, error} = getProfile();
@@ -230,6 +232,8 @@ function ProfileView(){
               onSave={(newPose, newColour) => {
                 setPose(newPose);
                 setColour(newColour);
+                localStorage.setItem("avatarPose", newPose);
+                localStorage.setItem("avatarColour", newColour);
                 setEditOpen(false);
               }}
             />
