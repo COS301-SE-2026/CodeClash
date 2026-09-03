@@ -11,6 +11,7 @@ import { MatchmakingProvider } from './context/Socket/MatchmakingContext'
 import { FriendsProvider } from './ViewModels/FriendsViewModel/FriendsContext'
 import FriendInvitePopup from './Views/Friends/FriendInvitePopup'
 import { ThemeProvider } from './context/ThemeContext'
+import { AchievementToastProvider } from './context/Achievement/AchievementToastContext'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   // <React.StrictMode>
@@ -21,10 +22,12 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <MatchmakingProvider>
           <FriendsProvider>
             <BrowserRouter>
+            <AchievementToastProvider>
             <ThemeProvider>
               <App />
               </ThemeProvider>
               <FriendInvitePopup/>
+              </AchievementToastProvider>
             </BrowserRouter>
           </FriendsProvider>
         </MatchmakingProvider>
