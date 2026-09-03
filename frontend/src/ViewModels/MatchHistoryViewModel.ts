@@ -4,7 +4,7 @@ import type { MatchRow } from "../Models/MatchHistoryModel";
 import { useAuth } from "src/context/Auth/hooks/useAuth";
 //import { formatMatchSearchTime } from "src/Models/MatchSearchingModel";
 
-const url = 'http://localhost:3000/api/';
+const url = '/api/';
 
 interface MatchHistoryViewModel {
     matches: MatchRow[];
