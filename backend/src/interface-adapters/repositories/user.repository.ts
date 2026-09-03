@@ -132,6 +132,13 @@ export class UserRepository implements IUserRepository {
     }
 
     async getTotalStats(user_id: string): Promise<{ total_wins: number; total_matches: number; winning_streak: number; league: string; }> {
-        
+        const user = await this.userRepository.findOneBy({ user_id });
+        if (!user) return { total_wins: 0, total_matches: 0, winning_streak: 0, league: 'Mercury' };
+        return {
+            total_wins: (user as any).total_wins ?? 0,
+            total_matches: (user as any).total_matches ?? 0,
+            winning_streak: user?.winning_streak,
+            league: user.league
+        };
     }
 }
