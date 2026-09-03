@@ -16,9 +16,9 @@ import GlassCard from '@/components/shared/GlassCard';
 import "../styles/global.css"
 
 const colours = [
-  {id: "bg1", label: "Dark Pink", value: "#532833"},
-  {id: "bg2", label: "Medium Pink", value: "#75404d"},
-  {id: "bg3", label: "Light Pink", value: "#a5697d"}
+  {id: "bg1", label: "Dark Pink", value: "#580e21"},
+  {id: "bg2", label: "Medium Pink", value: "#C0395A"},
+  {id: "bg3", label: "Light Pink", value: "#a14f6a"}
 ]
 
 const poses = [
@@ -199,21 +199,20 @@ function ProfileView(){
         ← Back
       </Link>
 
-      <Starfield/>
-
-
-      <div className='card-glow w-[50%] h-[50%] grid grid-rows-2 items-center justify-center p-8'>
-
-        <div className="mt-4" >
+        <div className="flex items-center w-[25%] mb-10 ml-4" >
           {/* <img src={userData?.avatar} alt="avatarImage" className="" /> */}
-          <FinalAvatarDisplay pose={pose} bg={colour} vb1={170} vb2={195} onClick={() => setEditOpen(true)} leftMargin={8}/>
+          <FinalAvatarDisplay pose={pose} bg={colour} vb1={170} vb2={195} onClick={() => setEditOpen(true)} leftMargin={10}/>
         </div>
-        <p className="eyebrow text-center text-xl -mt-50 [text-shadow:0px_0px_12px_#D6405B]">{userData?.username}</p>
-        <p className="eyebrow text-center text-md -mt-99 [text-shadow:0px_0px_12px_#c0395a80]">ELO</p>
-        <p className="score-display text-center text-md -mt-77">{userData?.elo}</p>
-        <div className="text-md font-semibold text-center uppercase text-primary-text -mt-45 [text-shadow:0px_0px_12px_#FFFFFF]">{userData?.league}</div>
+
+        <Starfield/>
+
+        <div className='card-glow w-[50%] h-[70%] grid grid-rows-2 items-center justify-center'>
+        <p className="eyebrow text-center text-md mt-5 [text-shadow:0px_0px_12px_#D6405B]">{userData?.username}</p>
+        <p className="eyebrow text-center text-sm [text-shadow:0px_0px_12px_#c0395a80] mt-2">ELO</p>
+        <p className="score-display text-center text-sm -mt-2">{userData?.elo}</p>
+        <div className="text-md font-semibold text-center uppercase text-primary-text mt-5">{userData?.league}</div>
         <div>
-          <p className="text-[1.5rem] text-center uppercase font-semibold text-primary-text -mt-19 mb-10 [text-shadow:0px_0px_12px_#FFFFFF]">Current Rank - {userData?.rank}</p>
+          <p className="text-[1.5rem] text-center uppercase font-semibold text-primary-text mb-7">Current Rank - {userData?.rank}</p>
         </div>
 
         <div className="profile-divider" />
@@ -222,7 +221,7 @@ function ProfileView(){
           variant={"default"}
           type="button"
           onClick={onLogout}
-          className="w-[100%] py-5 mx-auto mb-5"
+          className="w-[100%] py-5 mx-auto mb-6"
         >
           Log Out
         </Button>
