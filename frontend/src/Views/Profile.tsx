@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useUser } from 'src/context/User/hooks/useUser';
 import { useState } from 'react';
 import { useLogOut, getProfile  } from '../ViewModels/ProfileViewModel';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Stand } from 'src/animations/poses/rig';
@@ -69,6 +69,16 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
       onClick={onClose}
     >
 
+      <motion.div
+        initial={{opacity: 0, scale: 0, y: 10}}
+        animate={{ opacity: 1, scale: 1, y: 0}}
+        exit={{ opacity: 0, scale: 0, y:10}}
+        transition={{duration: 0.18, ease: "easeOut"}}
+        onClick={(e) => e.stopPropagation()}
+
+      >
+
+      </motion.div>
 
 
     </motion.div>
