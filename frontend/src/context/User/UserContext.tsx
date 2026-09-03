@@ -97,14 +97,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
     }
 
-     const refresh = async () => {
-        await Promise.all([
-            getElo(),
-            getAvatarUrl(),
-            getLeague()
-        ]);
-    }
-
     const getRank = async () => {
 
         if (!token) {
