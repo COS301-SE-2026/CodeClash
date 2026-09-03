@@ -130,15 +130,19 @@ WITH q AS (
             difficulty,
             title,
             description,
-            time_limit
+            time_limit,
+            answer_format,
+            answer_precision
         )
     VALUES
         (
             'math', --NOSONAR
             1,
             'Arithmetic Sequence',
-            'Given that the first term of an arithmetic sequence is 5 and the common difference is 3, find the 15th term.',
-            '00:03:00' --NOSONAR
+            'Given that the first term of an arithmetic sequence is 5 and the common difference is 3, find the 15th term.\nAnswer format: a single number, e.g. 47',
+            '00:03:00', --NOSONAR
+            'numeric',
+            NULL
         ) RETURNING question_id
 )
 INSERT INTO
