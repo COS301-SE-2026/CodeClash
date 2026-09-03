@@ -10,6 +10,17 @@ export enum GameType{
     casual = 'casual'
 }
 
+export enum AnswerFormat {
+  Numeric = "numeric",
+  Decimal = "decimal",
+  Set = "set",
+  Variables = "variables",
+  Expression = "expression",
+  Simplified = "simplified",
+  Factored = "factored",
+  Equation = "equation"
+}
+
 
 @Entity()
 export class Questions {
