@@ -77,7 +77,7 @@ WITH q AS (
             'math', --NOSONAR
             2,
             'Algebraic Simplification',
-            'Simplify the expression:\n((x² - 4)(x + 1)) / ((x - 2)(x² - 1))\nAnswer format: a fully simplified expression of x, e.g. (x+2)/(x-1)',
+            'Simplify the expression:\n((x² - 4)(x + 1)) / ((x - 2)(x² - 1))\nAnswer format: a fully simplified expression of x, e.g. (x+8)/(x-9)',
             '00:02:00', --NOSONAR
             'simplified',
             NULL
