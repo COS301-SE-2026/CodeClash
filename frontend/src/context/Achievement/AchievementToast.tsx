@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Trophy, Flame, Zap, Medal, type IconNode } from "lucide-react";
+import { Trophy, Flame, Zap, Medal } from "lucide-react";
 import type { Icons } from "src/Models/AchievementsModel";
 
 const AchIcons: Record<Icons, React.ComponentType<{ size?: number; className?: string }>> = {

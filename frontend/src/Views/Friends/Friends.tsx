@@ -50,7 +50,7 @@ const RelationResult: React.FC<{ relationship: Relation; onAdd: () => void}> = (
 const Friends: React.FC = () => {
     const {
         isLoading, profile, error, friend, removeFriend, requests, acceptRequest, declineRequest, searchQuery, setSearchQuery, 
-        allUsers, sendFriendRequest, sendInvite
+        allUsers, sendFriendRequest
     } = useFriends();
 
     const [isDropDownOpen, setIsDropDownOpen] = useState(false);
