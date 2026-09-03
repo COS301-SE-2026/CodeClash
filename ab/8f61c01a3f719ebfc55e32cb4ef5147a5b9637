@@ -1,0 +1,42 @@
+backend/src/interface-adapters/socket-handlers/game.handler.ts
+  h_94c952a9e14c58 29
+  h_94c952a9e14c58 28
+backend/src/interface-adapters/CodeExecutor.ts
+  h_94c952a9e14c58 28,32
+  h_94c952a9e14c58 1,10,12,18-22,37-38
+backend/src/interface-adapters/controllers/marking.controller.ts
+  h_94c952a9e14c58 3-4,6,11-30,37
+  h_94c952a9e14c58 7,10,32,34
+backend/src/entities/dtos/question.dto.ts
+  h_94c952a9e14c58 13-14
+backend/src/entities/dtos/submission-result.dto.ts
+  h_94c952a9e14c58 7-8
+judge0-v1.13.1/docker-compose.yml
+  h_94c952a9e14c58 11,26
+frontend/src/ViewModels/MatchViewModel.ts
+  h_94c952a9e14c58 76,83,99,103-104,181,202
+backend/src/application/usecases/services/marking/mark-prog.ts
+  h_94c952a9e14c58 10
+backend/src/application/usecases/systems/submission.system.ts
+  h_94c952a9e14c58 9,21,47,50,55-56,67-78
+  h_94c952a9e14c58 30
+backend/src/application/usecases/services/marking/marking.service.ts
+  h_94c952a9e14c58 8,29,32-35,37,46-51,53-63
+  h_94c952a9e14c58 20,22
+backend/src/entities/components.ts
+  h_94c952a9e14c58 88,91,98
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 56-58,127-130,134-137,183,185
+  h_94c952a9e14c58 184
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "ab8f61c01a3f719ebfc55e32cb4ef5147a5b9637",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

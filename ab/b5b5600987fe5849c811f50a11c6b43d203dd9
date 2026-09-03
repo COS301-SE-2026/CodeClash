@@ -1,0 +1,20 @@
+frontend/src/animations/poses/peace.tsx
+  h_b13c5d77534129 1
+frontend/src/animations/lose.tsx
+  h_b13c5d77534129 1
+frontend/src/animations/armRaise.tsx
+  h_b13c5d77534129 1
+frontend/src/animations/poses/okay.tsx
+  h_b13c5d77534129 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "abb5b5600987fe5849c811f50a11c6b43d203dd9",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
