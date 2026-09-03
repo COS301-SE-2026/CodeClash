@@ -264,7 +264,7 @@ export const UseUserAvatar = ({vb1, vb2, lm, round}) => {
   const [pose, setPose] = useState("rig");
   const [colour, setColour] = useState("bg3");
 
-  useEffect(() =>{
+  useEffect(() => {
     if(userData){
       setPose(localStorage.getItem("avatarPose") ?? "rig");
       setColour(localStorage.getItem("avatarColour") ?? "bg3");
@@ -276,9 +276,21 @@ export const UseUserAvatar = ({vb1, vb2, lm, round}) => {
   );
 }
 
-export const UseUserPose = () => {
+export const UseUserPose = ({vb1, vb2}) => {
 
   const {userData, loadingData, error} = getProfile();
     const [pose, setPose] = useState("rig");
+
+    useEffect(() => {
+      if(userData){
+        setPose(localStorage.getItem("avatarPose") ?? "rig");
+      }
+    }, [userData]);
+
+    const poseData = poses.find((p) => p.id === pose) ?? poses[0];
     
+    return(
+      <poseData.preview vb1={vb1} vb2={vb2}/>
+    )
+
 }
