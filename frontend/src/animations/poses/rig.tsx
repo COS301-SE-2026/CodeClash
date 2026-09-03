@@ -54,9 +54,15 @@ export interface Avatar{
     leftHand: Bone
 }
 
-export const Stand = () => {
+//for profile page, vb1 is 250, vb2 is 170, width is 390 and height is 300
+export const Stand = ({
+    vb1 = 250,
+    vb2 = 170,
+    width = 390,
+    height= 300
+}) => {
     return(
-        <svg viewBox="0 0 250 170" width="390" height="300" preserveAspectRatio="xMidYMid meet"> 
+        <svg viewBox={`0 0 ${vb1} ${vb2}`} width={width} height={height} preserveAspectRatio="xMidYMid meet"> 
           
           <motion.g>
             <image href={torso} width="50" x="60" y="40" height="120"/>
