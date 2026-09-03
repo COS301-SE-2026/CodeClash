@@ -1,0 +1,37 @@
+backend/src/entities/dtos/submission-result.dto.ts
+  h_94c952a9e14c58 2-13,16-17,20
+  h_94c952a9e14c58 23
+backend/src/interface-adapters/CodeExecutor.ts
+  h_94c952a9e14c58 4,15,19-25,29,39-40
+  h_94c952a9e14c58 18,26
+backend/src/application/usecases/systems/opponent-progress.ts
+  h_94c952a9e14c58 3,31
+  h_94c952a9e14c58 37
+backend/src/application/interfaces/marking/IMarkingStategy.ts
+  h_94c952a9e14c58 5
+backend/src/application/usecases/services/marking/mark-maths.ts
+  h_94c952a9e14c58 6,8
+backend/tests/integration/services/marking.service.test.ts
+  h_94c952a9e14c58 43-45,134,146
+  h_94c952a9e14c58 120-121
+backend/src/application/usecases/services/marking/mark-prog.ts
+  h_94c952a9e14c58 4,14-15,17
+backend/src/application/usecases/services/marking/marking.service.ts
+  h_94c952a9e14c58 6,30,41,43
+  h_94c952a9e14c58 9,42,44-45,47-48
+backend/src/application/usecases/services/notification.service.ts
+  h_94c952a9e14c58 2,10
+backend/src/application/interfaces/marking/ICodeExecutor.ts
+  h_94c952a9e14c58 1,4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "90556e5e3ed37fc12ec82c1660e2ba35c571be1f",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
