@@ -99,15 +99,19 @@ WITH q AS (
             difficulty,
             title,
             description,
-            time_limit
+            time_limit,
+            answer_format,
+            answer_precision
         )
     VALUES
         (
             'math', --NOSONAR
             2,
             'Solve Quadratic Equation',
-            'Find the roots of the quadratic equation:\nx² - 7x + 10 = 0',
-            '00:02:00' --NOSONAR
+            'Find the roots of the quadratic equation:\nx² - 7x + 10 = 0\nAnswer format: x=...., x=.... using exact fractions where necessary, e.g. x=4, x=8',
+            '00:02:00', --NOSONAR
+            'variables',
+            NULL
         ) RETURNING question_id
 )
 INSERT INTO
