@@ -9,6 +9,7 @@ import { Stand } from 'src/animations/poses/rig';
 import { Peace } from 'src/animations/poses/peace';
 import { Okay } from 'src/animations/poses/okay';
 import { Thinking } from 'src/animations/poses/thinking';
+import {X, Check} from "lucide-react"
 import "../styles/global.css"
 
 const colours = [
@@ -75,8 +76,14 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
         exit={{ opacity: 0, scale: 0, y:10}}
         transition={{duration: 0.18, ease: "easeOut"}}
         onClick={(e) => e.stopPropagation()}
-
+        className="bg-white rounded-[20px] w-[50%]"
       >
+
+        <div className="flex items-center justify-between mb-5">
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
+            <X size={20}></X>
+          </button>
+        </div>
 
       </motion.div>
 
@@ -144,6 +151,22 @@ function ProfileView(){
         </Button>
 
       </Card>
+
+        <AnimatePresence>
+          {editOpen && (
+            <AvatarPicker
+              currentPose={pose}
+              currentColour={colour}
+              onClose={() => setEditOpen(false)}
+              onSave={(newPose, newColour) => {
+                setPose(newPose);
+                setColour(newColour);
+                setEditOpen(false);
+              }}
+            />
+          )}
+        </AnimatePresence>
+
     </div>
   );
 };
