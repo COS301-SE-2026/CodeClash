@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useUser } from 'src/context/User/hooks/useUser';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLogOut, getProfile  } from '../ViewModels/ProfileViewModel';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -263,4 +263,13 @@ export function useUserAvatar(){
 
   const [pose, setPose] = useState("rig");
   const [colour, setColour] = useState("bg3");
+
+  useEffect(() =>{
+    if(userData){
+      setPose(localStorage.getItem("avatarPose") ?? "rig");
+      setColour(localStorage.getItem("avatarColour") ?? "bg3");
+    }
+  }, [userData]);
+
+  return { pose, colour, loading: loadingData || pose === null, error };
 }
