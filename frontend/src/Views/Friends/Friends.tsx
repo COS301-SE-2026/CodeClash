@@ -42,7 +42,7 @@ const RelationResult: React.FC<{ relationship: Relation; onAdd: () => void}> = (
             return <span className="badge badge-status-pending shrink-0">{friendContent.respondLabel}</span>;
         default:
             return (
-                <button className="btn btn-primary btn-sm shirnk-0" onClick={onAdd} type="button">{friendContent.sendRequestLabel}</button>
+                <button className="btn btn-primary btn-sm shrink-0" onClick={onAdd} type="button">{friendContent.sendRequestLabel}</button>
             )
     }
 }
