@@ -1,20 +1,13 @@
-import Starfield from "@/components/ui/animations/Starfield";
 import bg from "../../src/assets/Background/solar_system.jpg"
-import { Trophy, TrendingUp, Gamepad2, ArrowLeft} from 'lucide-react';
-import { Link } from "react-router";
 
-{/*All copied from Morgans previously written gameguide code*/}
-const Steps = [ 
-    "As you play and win more ranked matches, your ELO will increase until you're able to play in a new, more advanced league.",
-    "Casual Play is for players who want to practise without impacting their ELO. Ranked Play is for players who want to put their skills to the test by battling against others (Be careful! This impacts your ELO!).",
-    "After selecting Play Now, wait until we find someone for you to battle against. Your opponent's ELO will be similar to yours!",
-    "Now you're in a match! Make sure you answer questions quickly to score more points than your opponent, but don't forget about the correctness of your answers!",
-    "Make sure to pick up Powerups to boost your score or deal damage to your opponent during the match!",
-    "If you suspect your opponent of cheating, please select the 'Report a Match' option in your dashboard, match history or immediately after your game.",
-    "As you play and win more ranked matches, your ELO will increase and you will progress into higher, more challenging leagues!."
-]
+import "../../src/styles/global.css"
+import GameGuideCard, { GameGuideCardText } from "@/components/ui/gameGuideCard";
+import GameGuideHeading from "@/components/ui/gameGuideHeading";
+import GameGuideNumberCard from "@/components/ui/gameGuideNumber";
 
 const GameGuide = () => {
+
+
     return(
 
         <div style={{backgroundImage: `url(${bg})`}} className="w-full min-h-screen overflow-y-auto bg-no-repeat object-cover bg-no-repeat bg-size-[auto_200%]">
@@ -49,18 +42,7 @@ const GameGuide = () => {
                 <div className="bg-[var(--color-pink-700)] w-[22%] h-[3%] text-[#FFFFFF] text-[260%] font-bold font-font text-center mt-[5%] ml-[2%]">PLAYER JOURNEY</div>
                     <div className="w-[95%] text-[#FFFFFF] text-[190%] font-bold font-font ml-[2%] mt-[1%] mx-auto">
                         Casual matches provide a safe space to practice, build confidence, and develop problem-solving skills without the pressure of rankings. As players gain experience, improve their accuracy, and become more confident in solving challenges, they can progress into ranked matches where every game contributes to their competitive standing.
-                    </p>
-                    <p className="text-muted leading-relaxed">
-                        {/*Copied from Morgans previously written gameguide code */}
-                        Success in ranked play rewards players with progression through the league system, allowing them to climb the leaderboard while competing against opponents of similar skill levels. Along the way, players unlock achievements and earn badges that celebrate milestones such as winning matches, maintaining high accuracy, answering quickly, or demonstrating consistent improvement.
-                    </p>
-                </section>
-
-                {/*How to pley - Steps */}
-                <section>
-                    <div className="flex items-center gap-3 mb-4">
-                        <Gamepad2 size={30} className="text-primary shrink-0"/>
-                        <h2 className="text-l font-black text-primary-text">How to Play</h2>
+                            Success in ranked play rewards players with progression through the league system, allowing them to climb the leaderboard while competing against opponents of similar skill levels. Along the way, players unlock achievements and earn badges that celebrate milestones such as winning matches, maintaining high accuracy, answering quickly, or demonstrating consistent improvement.
                     </div>
                 
                 <div className="bg-[var(--color-pink-700)] w-[22%] h-[3%] text-[#FFFFFF] text-[260%] font-bold font-font text-center mt-[5%] ml-[2%]">HOW TO PLAY</div>
@@ -152,9 +134,19 @@ const GameGuide = () => {
                             </GameGuideCardText>
                         </GameGuideCard>
                     </div>
-                </section>
+                </div>
+            
             </div>
+
+
         </div>
-    )
+    
+
+    );
+
+
+
 }
+
+
 export default GameGuide;
