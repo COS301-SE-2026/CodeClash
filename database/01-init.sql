@@ -1,6 +1,4 @@
---very generic tables that can be changed later, just trying not to keep the file empty
-
-CREATE TYPE GAME_MODES AS ENUM ('math', 'programming');
+CREATE TYPE GAME_MODES AS ENUM ('math', 'programming'); -- NB KEEP THIS AS 'math'
 CREATE TYPE supported_languages AS ENUM('java','c++');
 
 CREATE TABLE IF NOT EXISTS leagues(
@@ -37,6 +35,7 @@ CREATE TABLE IF NOT EXISTS matches(
   player1_id UUID REFERENCES users(user_id),
   player2_id UUID REFERENCES users(user_id),
   match_type VARCHAR(10) CHECK (match_type IN ('ranked', 'casual')) NOT NULL,
+  game_mode VARCHAR(15) CHECK (game_mode IN ('math', 'programming')) NOT NULL,
   match_start TIMESTAMP,
   status VARCHAR(20) CHECK (status IN ('waiting', 'starting','in_progress', 'completed', 'abandoned')) DEFAULT 'waiting' -- check is there a function to set a found match status to starting?
 );
@@ -52,7 +51,8 @@ CREATE TABLE IF NOT EXISTS match_log(
   match_id UUID REFERENCES matches(match_id),
   winner_id UUID REFERENCES users(user_id),
   loser_id UUID REFERENCES users(user_id),
-  elo_change INTEGER --can be null incase it's a casual match
+  elo_gained INTEGER, -- nullable
+  elo_lost INTEGER -- nullable
 );
 
 CREATE TABLE IF NOT EXISTS elo_ratings (
@@ -82,53 +82,4 @@ CREATE TABLE IF NOT EXISTS elo_history (
   match_id UUID REFERENCES matches(match_id),
   new_rating INTEGER,
   changed_at TIMESTAMP DEFAULT NOW()
-);
-
---copied over from original implementation of tables
-CREATE TYPE friendship_status AS ENUM ('pending', 'accepted', 'declined', 'blocked');
-CREATE TABLE IF NOT EXISTS friendships (
- friendship_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
- requester_id UUID REFERENCES users(user_id),
- receiver_id UUID REFERENCES users(user_id),
- status friendship_status DEFAULT 'pending',
- created_at TIMESTAMP DEFAULT NOW(),
- updated_at TIMESTAMP DEFAULT NOW()
-);
-
-CREATE TABLE IF NOT EXISTS friend_invites (
-  invite_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  sender_id UUID REFERENCES users(user_id),
-  invite_code VARCHAR(50) UNIQUE NOT NULL,
-  expires_at TIMESTAMP NOT NULL,
-  created_at TIMESTAMP DEFAULT NOW()
-);
-
-CREATE TABLE IF NOT EXISTS achievements (
-  achievement_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  achievement_name VARCHAR(30) NOT NULL,
-  description VARCHAR(70) NOT NULL
-);
-
---virtual table for m to n players to achievements
-CREATE TABLE IF NOT EXISTS player_achievements (
-  user_id UUID REFERENCES users(user_id),
-  achievement_id UUID REFERENCES achievements(achievement_id),
-  PRIMARY KEY (user_id, achievement_id)
-);
-
--- Wow factor added in the CodeClash shop
-CREATE TYPE powerup_type AS ENUM ('add_time_opponent', 'reduce_type_self', 'add_bug_opponent'); --more could be added
--- manually add different levels of the same powerup ??
-CREATE TABLE IF NOT EXISTS powerups (
-  powerup_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  type powerup_type NOT NULL,
-  description VARCHAR(100) NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS match_powerups (
-  match_powerup_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  match_id UUID REFERENCES matches(match_id),
-  user_id UUID REFERENCES users(user_id),
-  powerup_id UUID REFERENCES powerups(powerup_id),
-  used_at TIMESTAMP DEFAULT NOW()
 );
