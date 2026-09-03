@@ -43,9 +43,9 @@ function FinalAvatarDisplay({pose, bg, onClick}){
         </span>
 
         <div className="w-[100%] h-[100%]">
-        <span className="opacity-0 hover:opacity-100 transition-opacity font-font font-semibold text-secondary-text fonst-size-xl">
+        {/* <span className="opacity-0 hover:opacity-100 transition-opacity font-font font-semibold text-secondary-text text-md">
           Edit
-        </span>
+        </span> */}
         </div>
       
     </button>
@@ -87,23 +87,35 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
 
         <div className="flex grid grid-cols-2 justify-center">
 
-          <div className="flex grid grid-cols-4 justify-center gap-2">
-            {poses.map((pose => (
-              <button
-                key={pose.id}
-                onClick={() => setSelectedPose(pose.id)}
-                style={{ backgroundColor: bgData.value }}
-                className={`rounded-[20px] flex items-center transition-all
-                  ${selectedPose === pose.id ? "" : "opacity-70 hover:opacity-100"}`}
-                  title={pose.label}
-              >
-                <pose.preview/>
-                {selectedPose === pose.id && (
+          <div className="flex grid grid-rows-2 justify-center">
+            <div className="flex grid grid-cols-4 justify-center gap-2">
+              {poses.map((pose => (
+                <button
+                  key={pose.id}
+                  onClick={() => setSelectedPose(pose.id)}
+                  style={{ backgroundColor: bgData.value }}
+                  className={`rounded-[20px] flex items-center transition-all
+                    ${selectedPose === pose.id ? "" : "opacity-70 hover:opacity-100"}`}
+                    title={pose.label}
+                >
+                  <pose.preview/>
+
+                  {/* below is to add a check mark by the selected pose but it looks wonky and i don't have time to fix it for now */}
                   
-                )}
-              </button>
-            )))}
+                  {/* {selectedPose === pose.id && (
+                    <span className=" bg-secondary-text rounded-full">
+                      <Check size={10} className="text-black"/>
+                    </span>
+                  )} */}
+                </button>
+              )))}
+            </div>
           </div>
+
+          <div className="flex gap-2">
+
+          </div>
+
 
           <div>
           <FinalAvatarDisplay pose={selectedPose} bg={selectedColour} onClick={() => {}}/>
