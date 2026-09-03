@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useUser } from 'src/context/User/hooks/useUser';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLogOut, getProfile  } from '../ViewModels/ProfileViewModel';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -29,7 +29,7 @@ const poses = [
   {id: "thinking", label: "Thinking", preview: Thinking}
 ];
 
-function FinalAvatarDisplay({pose, bg, onClick, vb1, vb2, leftMargin}){
+function FinalAvatarDisplay({pose, bg, onClick, vb1, vb2, leftMargin, rounded}){
   
   const poseData = poses.find((p) => p.id === pose) ?? poses[0];
   const bgData = colours.find((c) => c.id === bg)?? colours[0];
@@ -38,7 +38,7 @@ function FinalAvatarDisplay({pose, bg, onClick, vb1, vb2, leftMargin}){
     <button
       onClick={onClick}
       style={{ backgroundColor: bgData.value}}
-      className={`w-[80%] rounded-[20px] ml-${leftMargin} [text-shadow:0px_0px_12px_${bgData.value}]`}
+      className={`w-[80%] rounded-[${rounded}px] ml-${leftMargin} [text-shadow:0px_0px_12px_${bgData.value}]`}
     >
       
         <span   
@@ -135,7 +135,7 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
 
 
           <div className="items-center ml-10">
-          <FinalAvatarDisplay pose={selectedPose} bg={selectedColour} vb1={170} vb2={200} onClick={() => {}} leftMargin={10}/>
+          <FinalAvatarDisplay pose={selectedPose} bg={selectedColour} vb1={170} vb2={200} onClick={() => {}} leftMargin={10} rounded={20}/>
           </div>
 
         </div>
@@ -204,7 +204,7 @@ function ProfileView(){
 
         <div className="flex items-center w-[25%] mb-10 ml-4" >
           {/* <img src={userData?.avatar} alt="avatarImage" className="" /> */}
-          <FinalAvatarDisplay pose={pose} bg={colour} vb1={170} vb2={195} onClick={() => setEditOpen(true)} leftMargin={10}/>
+          <FinalAvatarDisplay pose={pose} bg={colour} vb1={170} vb2={195} onClick={() => setEditOpen(true)} leftMargin={10} rounded={20}/>
         </div>
 
         <Starfield/>
@@ -257,3 +257,21 @@ const Profile = () => {
 }
 
 export default Profile;
+
+export const UseUserAvatar = ({vb1, vb2, lm, round}) => {
+  const{ userData, loadingData, error} = getProfile();
+
+  const [pose, setPose] = useState("rig");
+  const [colour, setColour] = useState("bg3");
+
+  useEffect(() =>{
+    if(userData){
+      setPose(localStorage.getItem("avatarPose") ?? "rig");
+      setColour(localStorage.getItem("avatarColour") ?? "bg3");
+    }
+  }, [userData]);
+
+  return(
+    <FinalAvatarDisplay pose={pose} bg={colour} onClick={() => {}} vb1={vb1} vb2={vb2} leftMargin={lm} rounded={round}/>
+  );
+}
