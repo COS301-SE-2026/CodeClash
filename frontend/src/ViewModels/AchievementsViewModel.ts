@@ -3,17 +3,9 @@ import { useAuth } from "src/context/Auth/hooks/useAuth";
 import { achievementContent } from "src/Models/AchievementsModel";
 import type { Achievements, AchievementsContent } from "src/Models/AchievementsModel";
 import { useAchievementToast } from "src/context/Achievement/AchievementToastContext";
+import { getIcon } from "src/utils/achievementIcon";
 
 const API_BASE = '/api';
-
-// mapping achievement names to icons. More can be added
-function getIcon(name:string): 'trophy' | 'flame' | 'zap' | 'medal' {
-    const n = name.toLowerCase();
-    if(n.includes('league') || n.includes('champion') || n.includes('legend') || n.includes('elite') || n.includes('challenger')) return 'trophy';
-    if(n.includes('streak') || n.includes('roll') || n.includes('unstoppable') || n.includes('veteran') || n.includes('century')) return 'flame';
-    if(n.includes('speed') || n.includes('shooter') || n.includes('blood') || n.includes('wizard') || n.includes('breaker')) return 'zap';
-    return 'medal';
-}
 
 interface AchievementsViewModel {
     content: AchievementsContent;
@@ -29,7 +21,6 @@ export function AchievementsViewModelFunc(): AchievementsViewModel {
     const [isLoading, setIsloading] = useState(true);
     const [earned, setEarned] = useState<(Achievements & { earnedAt: string })[]>([]);
     const [locked, setLocked] = useState<Achievements[]>([]);
-    const prevEarnedIds = useRef<Set<string>>(new Set());
     const { showAchievement } = useAchievementToast();
 
     useEffect(() => {

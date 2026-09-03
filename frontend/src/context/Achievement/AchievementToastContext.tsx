@@ -2,6 +2,7 @@ import React, { createContext, useCallback, useContext, useState, useEffect, use
 import { AchievementToast } from "src/context/Achievement/AchievementToast";
 import type { Icons } from "src/Models/AchievementsModel";
 import { useAuth } from "../Auth/hooks/useAuth";
+import { getIcon } from "src/utils/achievementIcon";
 
 interface ToastData {
     name: string;
@@ -41,11 +42,11 @@ export const AchievementToastProvider: React.FC<{ children: React.ReactNode }> =
                 if (!res.ok) return;
                 const data = await res.json();
 
-                const newlyEarned = data.filter((a: any) => !prevEarnedIds.current.has(a.id));
+                const newlyEarned = data.filter((a: any) => !prevEarnedIds.current.has(a.achievement_id));
                 for (const a of newlyEarned) {
-                    showAchievement({ name: a.name, description: a.description, icon:a.icon });
+                    showAchievement({ name: a.achievement_name, description: a.description, icon:getIcon(a.achievement_name) });
                 }
-                prevEarnedIds.current = new Set(data.map((a: any) => a.id));
+                prevEarnedIds.current = new Set(data.map((a: any) => a.achievement_id));
             }catch (err) {
                 console.error('Error checking achievements:', err);
             }
@@ -64,11 +65,11 @@ export const AchievementToastProvider: React.FC<{ children: React.ReactNode }> =
             {children}
             {queue[0] && (
                 <AchievementToast
-                key={queue[0].name}
-                name={queue[0].name}
-                description={queue[0].description}
-                icon={queue[0].icon}
-                onDismiss={dismiss}
+                    key={queue[0].name}
+                    name={queue[0].name}
+                    description={queue[0].description}
+                    icon={queue[0].icon}
+                    onDismiss={dismiss}
                 />
             )}
         </AchievementToastContext.Provider>
