@@ -1,0 +1,14 @@
+database/02-init-questions.sql
+  h_58e143dc25f856 9-11,18-21,40-42,50-52
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "b35adc33956f6a2f0487c01b065017dbce1f5e24",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
