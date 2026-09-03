@@ -42,13 +42,18 @@ import { AppDataSource } from "./config/data-source"
 import { OpponentProgress } from 'src/application/usecases/systems/opponent-progress';
 import { IMatchRepository } from 'src/application/interfaces/repositories/IMatchRepository';
 import { MatchRepository } from 'src/interface-adapters/repositories/match.repository';
-import { Match, MatchLog } from 'src/entities/db-entities/match.entities';
+import { Matches, MatchLog } from 'src/entities/db-entities/match.entities';
 import { MatchResultService } from 'src/application/usecases/services/match-result.service';
 import { IMatchResultRepository } from 'src/application/interfaces/repositories/IMatchResultRepository';
 import { MatchResultRepository } from 'src/interface-adapters/repositories/match-result.repository';
 import { MatchedUsersService } from 'src/application/usecases/services/matched-users.service';
 import { GameStore } from 'src/application/usecases/services/game-store.service';
 import { DeleteGame } from 'src/application/usecases/systems/delete-game';
+import { MatchStatsRepository } from 'src/interface-adapters/repositories/match-stats.repository';
+import { MatchStats } from 'src/entities/db-entities/match-stats.entities';
+import { Achievement } from 'src/entities/db-entities/achievement.entities';
+import { AchievementService } from 'src/application/usecases/services/achievement.service';
+import { AchievementRepository } from 'src/interface-adapters/repositories/achievement.repository';
 
 dotnev.config()
 
@@ -62,12 +67,14 @@ AppDataSource.initialize()
         const elo_repo: IEloRepository = new EloRepository(AppDataSource.getRepository(EloRatings));
         const question_repo: IQuestionRepository = new QuestionRepository(AppDataSource.getRepository(Questions));
         const answer_repo: IAnswerRepository = new AnswerRepository(AppDataSource.getRepository(Answers))
-        const match_repo: IMatchRepository = new MatchRepository(AppDataSource.getRepository(Match))
+        const match_repo: IMatchRepository = new MatchRepository(AppDataSource.getRepository(Matches))
         const match_results_repo: IMatchResultRepository = new MatchResultRepository(
             AppDataSource.getRepository(MatchLog),
             AppDataSource.getRepository(Users)
         )
-
+        const match_stats_repo = new MatchStatsRepository(AppDataSource.getRepository(MatchStats));
+        const achievementRepo = new AchievementRepository(AppDataSource.getRepository(Achievement), AppDataSource.getRepository(Users));
+        const achievement_service = new AchievementService(achievementRepo);
 
         const httpServer = createServer(app)     // can update to https
         const io = new Server(httpServer, {
@@ -134,7 +141,7 @@ AppDataSource.initialize()
         const submission_system = new SubmissionSystem(world);
         const life_system = new LifeSystem(world);
         const delete_game = new DeleteGame(world,game_store,matched_users_service);
-        const finish_game = new FinishGame(world, match_results, game_store, delete_game);
+        const finish_game = new FinishGame(world, match_results, game_store, delete_game, match_stats_repo, achievement_service);
         const opponent_progress = new OpponentProgress(world);
 
         const check_answer = new CheckAnswer(game_cache, submission_system, life_system, world)
@@ -167,6 +174,14 @@ AppDataSource.initialize()
             socket.on('send_results', (game_id: number, pair_id: string) => sendResults(io, game_id, pair_id, game_store))
 
             socket.on('clean_up', (game_id: number, pair_id: string)=> cleanUp(game_id, pair_id, delete_game, game_store))
+
+            socket.on('send_friend_invite', (data) => {
+                io.to(data.receiver_id).emit('friend_invite_received', {
+                    invite_id: data.invite_code,
+                    sender_name: data.sender_name,
+                    expires_at: data.expires_at
+                });
+            });
         })
 
 

@@ -43,17 +43,17 @@ const SignIn: React.FC= () => {
                     )}
                     {/*FIelds */}
                     <div className="mb-5">
-                        <label className="field-label">Email address</label>
+                        <label className="field-label" htmlFor="email-input">Email address</label>
                         <div className="relative">
                             <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-text"/>
-                            <input className="input pl-11" type="email" placeholder="email@example.com" value={form.email} onChange={(e) => setField("email", e.target.value)} disabled={isLoading}/>
+                            <input id="email-input" className="input pl-11" type="email" placeholder="email@example.com" value={form.email} onChange={(e) => setField("email", e.target.value)} disabled={isLoading}/>
                         </div>
                     </div>
                     <div>
-                        <label className="field-label">Password</label>
+                        <label className="field-label" htmlFor="password-input">Password</label>
                         <div className="relative">
                             <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-text"/>
-                            <input className="input pl-11" type="password" placeholder="Enter your password" value={form.password} onChange={(e) => setField("password", e.target.value)} disabled= {isLoading}/>
+                            <input id="password-input" className="input pl-11" type="password" placeholder="Enter your password" value={form.password} onChange={(e) => setField("password", e.target.value)} disabled= {isLoading}/>
                         </div>
                     </div>
                     {/*Forgot Password */}

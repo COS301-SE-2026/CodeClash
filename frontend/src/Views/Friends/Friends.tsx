@@ -49,12 +49,20 @@ const RelationResult: React.FC<{ relationship: Relation; onAdd: () => void}> = (
 
 const Friends: React.FC = () => {
     const {
-        isLoading, profile, friend, removeFriend, requests, acceptRequest, declineRequest, searchQuery, setSearchQuery, 
-        searchResults, sendFriendRequest, sendInvite
+        isLoading, profile, error, friend, removeFriend, requests, acceptRequest, declineRequest, searchQuery, setSearchQuery, 
+        allUsers, sendFriendRequest, sendInvite
     } = useFriends();
 
     const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+    const [tooltipId, setTooltipId] = useState<string | null>(null);
+    const tooltipTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
     const searchRef = useRef<HTMLDivElement>(null);
+
+    const showTooltip = (id: string) => {
+        setTooltipId(id);
+        if (tooltipTimeout.current) clearTimeout(tooltipTimeout.current);
+        tooltipTimeout.current = setTimeout(() => setTooltipId(null), 2500);
+    };
 
     useEffect(() => {
         const handleClickOutside  = (e:MouseEvent) => {
@@ -78,13 +86,13 @@ const Friends: React.FC = () => {
                 />
             </div>
             {showDropdown && (
-                <div className="modal-panel absolute top-full left-0 mt-2 w-full max-h-80 overflow-y-auto p-2 flex flex-col gap-2 z-50">
-                    {searchResults.length === 0 ? (
+                <div className="absolute top-full left-0 mt-2 w-full max-h-80 overflow-y-auto p-2 flex flex-col gap-2 z-50 rounded-2xl border border-border backdrop-blur-md bg-card/90 shadow-lg">
+                    {allUsers.length === 0 ? (
                         <div className="empty-state py-6">
                             <p className="text-sm text-danger">{friendContent.searchEmpty}!</p>
                         </div>
                     ) : (
-                        searchResults.map((result) => (
+                        allUsers.map((result) => (
                             <div key={result.id} className="p-2 rounded-full flex items-center gap-3 hover:bg-background-elevated">
                                 <img src={robot_map[result.avatar]} alt={result.username} className="avatar w-10 h-10 object-cover shrink-0"/>
                                 <p className="text-primary-text text-sm font-semibold truncate flex-1 min-w-0">{result.username}</p>
@@ -100,7 +108,14 @@ const Friends: React.FC = () => {
     if (isLoading || !profile) {
         return <Loading isOpen={true}/>
     }
-
+    if (error) {
+        return(
+            <div className="empty-state">
+                <p className="text-danger">{error}</p>
+                <button className="btn btn-secondary" onClick={() => window.location.reload()} type="button">Retry</button>
+            </div>
+        )
+    }
     return (
         <div className="relative min-h-[100vh-80px] overflow-hidden">
             <Starfield count={30}/>
@@ -161,11 +176,28 @@ const Friends: React.FC = () => {
                                             <span className="score-display text-primary-text text-xsm">{f.elo}</span> {/*Need to add icon here ? */}
                                         </div>
                                     </div>
-                                    <button className="btn btn-ghost btn-sm" onClick={() => sendInvite(f.id)} disabled={f.status === 'playing'} 
+                                    {/* return when casual gaming is implemented */}
+                                    {/* <button className="btn btn-ghost btn-sm" onClick={() => sendInvite(f.id)} disabled={f.status === 'playing'} 
                                         title={f.status === 'playing' ? 'Already in a match' : undefined} type="button">
                                         {f.status === 'playing' ? <Clock3 size={16}/> : <Swords size={16}/>}
                                         {friendContent.inviteToPlay}
-                                    </button>
+                                    </button> */}
+                                    <div className="relative">
+                                        <button
+                                            className="btn btn-ghost btn-sm"
+                                            onClick={() => showTooltip(f.id)}
+                                            type="button"
+                                         >
+                                            {f.status === 'playing' ? <Clock3 size={16}/> : <Swords size={16}/>}
+                                            {friendContent.inviteToPlay}
+                                        </button> 
+                                        {tooltipId === f.id && (
+                                            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 rounded-x1 bg-card border border-border text-xsm tex-primary-text whitespace-nowrap z-50 shadow-lg">
+                                                Casual gaming coming soon!
+                                                <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-card"/>
+                                            </div>
+                                        )}  
+                                    </div>
                                     <button className="btn btn-ghost bg-danger btn-icon" onClick={() => removeFriend(f.id)} 
                                         aria-label= {`${friendContent.removeLabel} ${f.username}`} type="button">
                                         <X size={18}/>

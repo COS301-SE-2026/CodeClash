@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, CreateDateColumn } from 'typeorm';
 import { Users } from './user.entities';
 
 @Entity('achievements')
@@ -11,6 +11,9 @@ export class Achievement {
 
     @Column({ length:70 })
     description!: string;
+
+    @CreateDateColumn()
+    earned_at!: Date;
 
     @ManyToMany(() => Users, user => user.achievements)
     @JoinTable({ 

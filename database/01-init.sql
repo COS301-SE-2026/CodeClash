@@ -1,6 +1,4 @@
---very generic tables that can be changed later, just trying not to keep the file empty
-
-CREATE TYPE GAME_MODES AS ENUM ('math', 'programming');
+CREATE TYPE GAME_MODES AS ENUM ('math', 'programming'); -- NB KEEP THIS AS 'math'
 CREATE TYPE supported_languages AS ENUM('java','c++');
 
 CREATE TABLE IF NOT EXISTS leagues(
@@ -37,6 +35,7 @@ CREATE TABLE IF NOT EXISTS matches(
   player1_id UUID REFERENCES users(user_id),
   player2_id UUID REFERENCES users(user_id),
   match_type VARCHAR(10) CHECK (match_type IN ('ranked', 'casual')) NOT NULL,
+  game_mode VARCHAR(15) CHECK (game_mode IN ('math', 'programming')) NOT NULL,
   match_start TIMESTAMP,
   status VARCHAR(20) CHECK (status IN ('waiting', 'starting','in_progress', 'completed', 'abandoned')) DEFAULT 'waiting' -- check is there a function to set a found match status to starting?
 );
@@ -52,7 +51,8 @@ CREATE TABLE IF NOT EXISTS match_log(
   match_id UUID REFERENCES matches(match_id),
   winner_id UUID REFERENCES users(user_id),
   loser_id UUID REFERENCES users(user_id),
-  elo_change INTEGER --can be null incase it's a casual match
+  elo_gained INTEGER, -- nullable
+  elo_lost INTEGER -- nullable
 );
 
 CREATE TABLE IF NOT EXISTS elo_ratings (
@@ -84,6 +84,15 @@ CREATE TABLE IF NOT EXISTS elo_history (
   changed_at TIMESTAMP DEFAULT NOW()
 );
 
+CREATE TABLE IF NOT EXISTS match_stats (
+  stat_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  match_id UUID REFERENCES matches(match_id),
+  user_id UUID REFERENCES users(user_id),
+  num_correct INTEGER NOT NULL,
+  total_time INTEGER NOT NULL, -- milliseconds
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
 --copied over from original implementation of tables
 CREATE TYPE friendship_status AS ENUM ('pending', 'accepted', 'declined', 'blocked');
 CREATE TABLE IF NOT EXISTS friendships (
@@ -113,6 +122,7 @@ CREATE TABLE IF NOT EXISTS achievements (
 CREATE TABLE IF NOT EXISTS player_achievements (
   user_id UUID REFERENCES users(user_id),
   achievement_id UUID REFERENCES achievements(achievement_id),
+  earned_at TIMESTAMP DEFAULT NOW(),
   PRIMARY KEY (user_id, achievement_id)
 );
 

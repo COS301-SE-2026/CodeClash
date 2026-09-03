@@ -27,13 +27,10 @@ app.get('/api/elo/leaderboard', getLeaderboardController(leaderboard_system));
 const user_repo = new UserRepository(AppDataSource.getRepository(Users))
 app.use(requireAuth(user_repo))
 
-
 app.use('/api/elo', routes);
 app.use('/api/match', routes);
 app.use('/api/user', routes);
-app.use('/api/qustion', routes);
-
-
-
+app.use('/api/question', routes);
+app.use('/api', routes);
 
 export default app;

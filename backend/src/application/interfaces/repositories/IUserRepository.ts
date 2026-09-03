@@ -11,4 +11,5 @@ export interface IUserRepository {
     getAllUsers(): Promise<UserDTO[] | null>
     getUserId(cognito_id: string): Promise<UserDTO | null>
     getUserData(user_id: string, stat: keyof UserDTO): Promise<UserDTO | null>
+    searchByUsername(query: string): Promise<UserDTO[]>
 }

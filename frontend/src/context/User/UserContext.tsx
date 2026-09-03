@@ -80,34 +80,17 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
 
         try {
-
-            switch(true){
-                case elo < 1200:
-                    setLeague("Mercury");
-                    break;
-                case elo < 1800:
-                    setLeague("Venus");
-                    break;
-                case elo < 2400:
-                    setLeague("Earth");
-                    break;
-                case elo < 3000:
-                    setLeague("Mars");
-                    break;
-                case elo < 3600:
-                    setLeague("Jupiter");
-                    break;
-                case elo < 4200:
-                    setLeague("Saturn");
-                    break;
-                case elo < 4800:
-                    setLeague("Uranus");
-                    break;
-                case elo <= 5400:
-                    setLeague("Neptune");
-                    break;
-                }
-
+            axios.get(url.concat('user/league'), {
+                headers: { Authorization: `Bearer ${token}` }
+            })
+                .then((res) => {
+                    if (res.status === 200) {
+                        setLeague(res.data.league);
+                    }
+                    else {
+                        setError(`Error: ${res.status} ${res.data}`);
+                    }
+                })
         }
         catch (error) {
             setError(`Error Getting User League: ${error}`);

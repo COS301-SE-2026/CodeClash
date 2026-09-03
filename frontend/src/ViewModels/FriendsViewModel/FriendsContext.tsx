@@ -5,83 +5,20 @@ import {
 
 import {friendContent} from "../../Models/FriendsModel";
 import type {
-    Friend, FriendRequest, Invite, GameInvite, 
-    Relation, Search, Summary
+    Friend, FriendRequest, Invite, 
+    Search, Summary, Relation
 } from "../../Models/FriendsModel";
 
 import { useAuth } from "../../context/Auth/hooks/useAuth";
+import { useSocket } from "src/context/Socket/hooks/useSocket";
 
 const API_BASE = '/api'; 
-const INVITE_POLL = 5000; // **Needs to be swapped with a real socket listener for incoming invites pop up
-const INVITE_EXPIRY = 10 * 60 * 1000; // **We need an expires field on the invite response, this is currently just a client side approx based on the recieved time of invite
-
-/*This data is mocked, all real endpoints need to replace this - !!For the profile, we can use the existing user context from FinalResults? */
-const MOCKED_PROFILE: Summary = {
-    id: 'user',
-    username: 'mockUser22',
-    avatar: 0,
-    league: 'Venus',
-    handle: 'userHandle'
-}
-
-/*Need an endpont for - GET /api/friends (list)*/
-const MOCKED_FRIENDS: Friend[] = [
-    {
-        id: 'u1',
-        username: 'u1Username',
-        avatar: 0,
-        status: 'online',
-        elo: 900,
-    },
-    {
-        id: 'u2',
-        username: 'u2Username',
-        avatar: 1,
-        status: 'offline',
-        elo: 909,
-    },
-    {
-        id: 'u3',
-        username: 'u3Username',
-        avatar: 2,
-        status: 'playing',
-        elo: 999,
-    },
-]
-
-/*Need an endpoint for - GET /api/friend/requests */
-const MOCKED_REQ: FriendRequest[] = [
-    {
-        id: 'req1',
-        username: 'reqUser1',
-        avatar: 1,
-        sentAt: new Date(Date.now() - 1000 * 60 * 60 * 3).toISOString(), 
-        fromUser: 'sendingUser'
-    }
-]
-
-/*Need an endpoint for - user search */
-const MOCKED_SEARCHPOOL: Omit <Search, 'relationship'>[] = [
-    {
-        id: 's1',
-        username: 's1Username',
-        avatar: 2,
-    },
-    {
-        id: 's2',
-        username: 's2Username',
-        avatar: 3,
-    },
-    {
-        id: 's3',
-        username: 's3Username',
-        avatar: 0,
-    },
-]
+const INVITE_EXPIRY = 10 * 60 * 1000; 
 
 interface FriendsContext {
     isLoading: boolean;
     profile: Summary | null;
+    error: string | null;
     friend: Friend[];
     removeFriend: (id: string) => void;
 
@@ -92,12 +29,12 @@ interface FriendsContext {
 
     searchQuery: string;
     setSearchQuery: (query: string) => void;
-    searchResults: Search[];
+    allUsers: Search[];
     sendFriendRequest: (id: string) => void;
 
     sendInvite: (id: string) => void;
     activeInvite: Invite | null;
-    inviteCountdown: number;
+    inviteCountdown: number,
     inviteError: string | null;
     acceptInvite: () => void;
     declineInvite: () => void;
@@ -108,6 +45,7 @@ export const FriendsContextFunc = createContext<FriendsContext | null>(null);
 
 export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
     const {token, user} = useAuth();
+    const { socket } = useSocket();
     const [isLoading, setIsLoading] = useState(true);
     const [profile, setProfile] = useState<Summary | null>(null);
     const [friend, setFriend] = useState<Friend[]>([]);
@@ -117,88 +55,84 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
     const [activeInvite, setActiveInvite] = useState<Invite | null>(null);
     const [inviteError, setInviteError] = useState<string | null>(null);
     const [now, setNow] = useState(() => Date.now());
+    const [allUsers, setAllUsers] = useState<Search[]>([]);
+    const [error, setError] = useState<string | null>(null);
 
     const friendsRef = useRef(friend); //this is so closures dont capture a stale list
     friendsRef.current = friend;
 
     const activeInviteIdRef = useRef<string | null>(null); //tracks the current id for Invites, so we can differentiate same invite to new invite without resetting local countdown
 
-    const enrichInvite = useCallback((raw: GameInvite, expires: number): Invite => ({
-        id: raw.invite_id,
-        mode: 'casual',
-        participants: raw.friends.map((p) => {
-            const match = friendsRef.current.find((f) => f.username === p.name);
-            return {
-                name: p.name,
-                elo: p.elo,
-                friendId: match?.id,
-                avatar: match?.avatar,
-                status: match?.status,
-            }
-        }),
-        expires,
-    }), []);
+        const fetchAll = useCallback(async () => {
+            if(!token) return;
+            try {
+                const [friendsRes, requestRes] = await Promise.all([
+                    fetch(`${API_BASE}/friends`, { headers: { Authorization: `Bearer ${token}` } }),
+                    fetch(`${API_BASE}/friends/requests?type=received`, { headers: { Authorization: `Bearer ${token}` } })
+                ]);
+                const friendsData = friendsRes.ok ? await friendsRes.json() : [];
+                const requestsData = requestRes.ok ? await requestRes.json() : [];
 
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            setProfile(MOCKED_PROFILE);
-            setFriend(MOCKED_FRIENDS);
-            setRequests(MOCKED_REQ);
-            setIsLoading(false);
-        }, 400);
-        return () => clearTimeout(timeout);
-    }, []);
+                setFriend(friendsData.map((f: any) => ({
+                    id: f.user_id,
+                    username: f.username,
+                    avatar: f.avatar_id ?? 0,
+                    status: 'offline' as const, // status not stored in DB, defailt offline
+                    elo: f.elo ?? 600
+                })));
+
+                setRequests(requestsData.map((r: any) => ({
+                    id: r.friendship_id,
+                    username: r.username,
+                    avatar: r.avatar_id ?? 0,
+                    sentAt: r.created_at,
+                    fromUser: r.user_id
+                })));
+
+                // build profile from auth user
+                if (user && token) {
+                    try {
+                        const [avatarRes, leagueRes] = await Promise.all([
+                            fetch(`${API_BASE}/user/avatar_id`, {headers: { Authorization: `Bearer ${token}` }}),
+                            fetch(`${API_BASE}/user/league`, {headers: { Authorization: `Bearer ${token}` }}),
+                        ]);
+                        const avatarData = avatarRes.ok ? await avatarRes.json() : null;
+                        const leagueData = leagueRes.ok ? await leagueRes.json() : null;
+
+                        setProfile({
+                            id: user.userId ?? '',
+                            username: user.username ?? '',
+                            avatar: avatarData?.avatar_id ?? 0,
+                            league: leagueData?.league ?? 'Mercury',
+                            handle: user.username ?? ''
+                        });
+                        
+                    } catch (err) {
+                        console.error('Error fetching profile data:', err);
+                        setError('Failed to load friend. Please try again');
+                    }
+                }
+            }catch(err){
+                console.error('Error fetching friends data:', err);
+                setError('Failed to load friends. Please try again.');
+            } finally {
+                setIsLoading(false);
+            }
+        }, [token, user]); //end fetchAll
+   
+    useEffect(()=> {
+        if(!token) return;
+        fetchAll();
+        const interval = setInterval(fetchAll, 30_000);
+        return () => clearInterval(interval);
+    }, [fetchAll, token]);//end useEffect
 
     /*GET /api/friend/invite for an incoming friend invite */
     useEffect(() => {
-        if (isLoading || !token) {
-            return;
-        }
-        let cancelled = false;
-
-        const poll =  async () => {
-            try {
-                const res = await fetch(`${API_BASE}/friend/invite`, {
-                    headers: {Authorization: `Bearer ${token}`},
-                })
-                //No active invites
-                if (res.status === 404) {
-                    if(!cancelled) {
-                        activeInviteIdRef.current = null;
-                        setActiveInvite(null);
-                    }
-                    return;
-                }
-                if (!res.ok) {
-                    return;
-                }
-                const raw: GameInvite = await res.json();
-                if (cancelled) {
-                    return;
-                }
-                if(raw.invite_id !== activeInviteIdRef.current) {
-                    activeInviteIdRef.current = raw.invite_id;
-                    setActiveInvite(enrichInvite(raw, Date.now()))
-                }
-            }
-            catch {}
-        }
-
-        poll();
-        const interval = setInterval(poll, INVITE_POLL);
-        return () => {
-            cancelled = true;
-            clearInterval(interval);
-        }
-    }, [isLoading, token, enrichInvite])
-
-    useEffect(() => {
-        if (!activeInvite) {
-            return;
-        }
+        if (!activeInvite) return;
         const interval = setInterval(() => setNow(Date.now()), 1000);
         return () => clearInterval(interval);
-    }, [activeInvite])
+    }, [activeInvite]);
 
     useEffect(() => {
         if (activeInvite && now - activeInvite.expires >= INVITE_EXPIRY) {
@@ -215,91 +149,151 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
         return Math.max(0, Math.ceil(remaining/1000));
     }, [activeInvite, now]);
 
-    /*SEARCH - needs endpoint */
-    const searchResults: Search[] = useMemo(() => {
-        const query = searchQuery.trim().toLowerCase();
-        if (!query) {
-            return [];
+    /*SEARCH */
+    useEffect(() => {
+        if(!token || searchQuery.trim().length < 2 ) {
+            setAllUsers([]);
+            return;
         }
-        const friendId = new Set(friend.map((f) => f.id));
-        const incomingReqs = new Set(requests.map((r) => r.fromUser));
-        return MOCKED_SEARCHPOOL.filter((u) => u.username.toLowerCase().includes(query)).map((u): Search => {
-            let relationship: Relation = 'none';
-            if (u.username === profile?.handle) {
-                relationship = 'self';
-            }
-            else if (friendId.has(u.id)) {
-                relationship = 'friend';
-            }
-            else if (sentRequest.has(u.id)) {
-                relationship = 'pending-sent';
-            }
-            else if (incomingReqs.has(u.id)) {
-                relationship = 'pending-received';
-            }
-            return {
-                id: u.id,
-                username: u.username, 
-                avatar: u.avatar,
-                relationship
-            }
-        })
-    }, [searchQuery, friend, requests, sentRequest, profile])
+        const timeout = setTimeout(async () => {
+            try {
+                const res = await fetch(`${API_BASE}/user/search?q=${encodeURIComponent(searchQuery)}`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                const data = res.ok ? await res.json() : [];
 
-    const sendFriendRequest = useCallback((id: string) => {
-        setSentRequest((prev) => new Set(prev).add(id))
-    }, [])
+                const friendIds = new Set(friend.map((f) => f.id));
+                const incomingReqs = new Set(requests.map((r) => r.fromUser));
+
+                setAllUsers(data.map((u: any): Search => {
+                    let relationship: Relation = 'none';
+                    if (u.user_id === profile?.id) relationship = 'self';
+                    else if (friendIds.has(u.user_id)) relationship = 'friend';
+                    else if (sentRequest.has(u.user_id)) relationship = 'pending-sent';
+                    else if (incomingReqs.has(u.user_id)) relationship = 'pending-received';
+                    return {
+                        id: u.user_id,
+                        username: u.username,
+                        avatar: u.avatar_id ?? 0,
+                        relationship
+                    };
+                }));
+            } catch {
+                setAllUsers([]);
+            }
+        }, 300); // debounce
+        return () => clearTimeout(timeout);
+    }, [searchQuery, token, friend, requests, sentRequest, profile]);
+
+    const sendFriendRequest = useCallback(async (id: string) => {
+        if(!token) return;
+        try{
+            const res = await fetch(`${API_BASE}/friends/request`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                body: JSON.stringify({ receiver_id: id })
+            });
+
+            if (!res.ok) {
+                const err = await res.json();
+                if (err.message?.includes('24 hours')) {
+                    setError('You need to wait 24 hours before sending another request to this person.');
+                    setTimeout(() => setError(null), 4000);
+                    return;
+                }
+            }
+
+            setSentRequest((prev) => new Set(prev).add(id));
+            await fetchAll();
+        } catch (err) {
+            console.error('Error sending friends request:', err);
+        }
+    }, [token, fetchAll]);
 
     /*Requests - needs accept and decline endpoint */
-    const acceptRequest = useCallback((id: string) => {
+    const acceptRequest = useCallback( async (id: string) => {
+        if(!token) return;
         const req = requests.find((r) => r.id === id);
         if (!req) {
             return;
         }
-        setRequests((prev) => prev.filter((r) => r.id !== id));
-        setFriend((prev) => [
-            ...prev, {
-                id: req.fromUser, 
-                username: req.username,
-                avatar: req.avatar,
-                status: 'offline',
-                elo: 1000
-            }
-        ])
-    }, [requests])
+        try {
+            await fetch(`${API_BASE}/friends/request/${id}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                body: JSON.stringify({ status: 'accepted' })
+            });
+            setRequests((prev) => prev.filter((r) => r.id !== id));
+            setFriend((prev) => [
+                ...prev, {
+                    id: req.fromUser, 
+                    username: req.username,
+                    avatar: req.avatar,
+                    status: 'offline',
+                    elo: 600
+                }
+            ]);
+        } catch (err) {
+            console.error('Error accepting friend request:', err);
+        }
+        await fetchAll();
+    }, [token, requests])
 
-    const declineRequest = useCallback((id: string) => {
-        setRequests((prev) => prev.filter((r) => r.id !== id));
-    }, [])
+    const declineRequest = useCallback( async (id: string) => {
+        if (!token) return;
+        try{
+            await fetch(`${API_BASE}/friends/request/${id}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                body: JSON.stringify({ status: 'declined' })
+            });
+            setRequests((prev) => prev.filter((r) => r.id !== id));
+        } catch (err) {
+            console.error('Error declining friend request:', err);
+        }
+        await fetchAll();
+    }, [token])
 
-    /*Friends - needs remove friend endpoint */
-    const removeFriend = useCallback((id: string) => {
-        setFriend((prev) => prev.filter((f) => f.id !== id));
-    }, [])
+    const removeFriend = useCallback( async (id: string) => {
+        if (!token) return;
+        const f = friend.find((fr) => fr.id === id);
+        if(!f) return;
+        try{
+            // need to find a way to retrieve friendship_id
+            setFriend((prev) => prev.filter((r) => r.id !== id));
+        } catch (err) {
+            console.error('Error removing friend:', err);
+        }
+        await fetchAll();
+    }, [token, friend]);
 
     /*Invites */
     const sendInvite = useCallback(async (friendId: string) => {
         const target = friendsRef.current.find((f) => f.id === friendId);
-        if (!target || !token || !user) {
+        if (!target || !token || !user || !socket) {
             return;
         }
-
         try {
-            await fetch(`{API_BASE}/friend/invite`, {
+            const res = await fetch(`${API_BASE}/friends/invite`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`
                 },
-                body: JSON.stringify({
-                    user_id: user.userId,
-                    friend: [friendId],
-                    game_mode: 'casual'
-                })
-            })
+                body: JSON.stringify({ user_id: user.userId })
+            });
+            const invite = await res.json();
+
+            socket.emit('send_friend_invite', {
+                receiver_id: friendId,
+                invite_code: invite.invite_code,
+                sender_name: user.username,
+                expires_at: invite.expires_at
+            });
+        } catch (err) {
+            console.error('Error sending invite:', err);
         }
-        catch {}
-    }, [token, user])
+    }, [token, user, socket])
 
     const acceptInvite = useCallback(() => {
         if (!activeInvite) {
@@ -312,25 +306,21 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
             setActiveInvite(null);
             return;
         }
-
-        //backend needs a way to actually accept/consume an invite
         activeInviteIdRef.current = null;
         setActiveInvite(null);
     }, [activeInvite])
 
     const declineInvite = useCallback(() => {
-        if (!activeInvite) {
-            return;
-        }
         activeInviteIdRef.current = null;
         setActiveInvite(null);
-    }, [activeInvite])
+    }, [])
 
     const dismissInviteError = useCallback(() => setInviteError(null), []);
 
     const value: FriendsContext = {
         isLoading,
         profile,
+        error,
         friend,
         removeFriend,
 
@@ -341,7 +331,7 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
 
         searchQuery,
         setSearchQuery,
-        searchResults,
+        allUsers,
         sendFriendRequest,
 
         sendInvite,
@@ -351,11 +341,11 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
         acceptInvite,
         declineInvite,
         dismissInviteError,
-    }
+    };
 
     return (
         <FriendsContextFunc.Provider value={value}>
             {children}
         </FriendsContextFunc.Provider>
-    )
-}
+    );
+};
