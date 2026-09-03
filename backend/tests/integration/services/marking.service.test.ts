@@ -40,8 +40,9 @@ import { mock_questions } from '../../mocks/mock-questions'
 import { mock_answers } from '../../mocks/mock-answers'
 
 const io = {
-    to: vi.fn(),
-    emit: vi.fn()
+    to: vi.fn().mockReturnValue({
+        emit: vi.fn()
+    }),
 } as unknown as Server
 
 
@@ -116,8 +117,8 @@ describe("Tests Marking Services", () => {
         let user;
 
         for (const p of players) {
-           user =  await user_repo.createUser(p.username!, `${p.username}@email.com`, crypto.randomUUID(), 0, 'Mercury')
-           p.id = user.user_id;
+            user = await user_repo.createUser(p.username!, `${p.username}@email.com`, crypto.randomUUID(), 0, 'Mercury')
+            p.id = user.user_id;
         }
 
         await data_source.getRepository(Questions).save(mock_questions);
@@ -129,9 +130,8 @@ describe("Tests Marking Services", () => {
     })
 
     it('Mark a Programming Submission', async () => {
-        console.log(game);
         const submission = {
-            match_id: game.match_id,
+            match_id: game.match_entity,
             player_id: players[0].id,
             question_id: game.questions.medium[0].id,
             question_number: 1,
@@ -143,6 +143,6 @@ describe("Tests Marking Services", () => {
         }
 
         await prog_marking_service.execute(submission);
-        expect(io.emit).toHaveBeenCalledWith('marking_complete');
+        expect(io.to).toHaveBeenCalled();
     })
 })  

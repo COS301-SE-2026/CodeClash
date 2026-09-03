@@ -51,7 +51,6 @@ import { GameStore } from 'src/application/usecases/services/game-store.service'
 import { DeleteGame } from 'src/application/usecases/systems/delete-game';
 import { LeaderboardService } from 'src/application/usecases/services/leaderboard.service';
 import { NotificationService } from 'src/application/usecases/services/notification.service';
-import { handleMarkingResult } from 'src/interface-adapters/controllers/marking.controller';
 import { MarkingStrategy } from 'src/application/interfaces/marking/IMarkingStategy';
 import { MarkMaths } from 'src/application/usecases/services/marking/mark-maths';
 import { MarkProg } from 'src/application/usecases/services/marking/mark-prog';
@@ -133,8 +132,6 @@ AppDataSource.initialize()
         const opponent_progress = new OpponentProgress(world);
         const maths_marking_service = new MarkingService(game_cache, submission_system, life_system, notification,maths_marker ,opponent_progress);
         const prog_marking_service = new MarkingService(game_cache,submission_system, life_system,notification, prog_marker, opponent_progress);
-
-        app.put('/api/marking/result', handleMarkingResult( prog_marking_service, submission_system))
 
         // auth middleware 
         io.use(async (socket, next) => {

@@ -24,8 +24,6 @@ export class SubmissionSystem {
         // 1 lookup submission entity
         const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(match_id, "Submission");
 
-        console.log("Saving submission for match ", match_id)
-        console.log("registry ", submission_registry)
         if (!submission_registry) { throw new Error("Error saving submission") }
 
         const key = `${player_id}::${question_id}`

@@ -1,23 +1,26 @@
 
-export interface CompleteSubmissionResult {
-    status: 'complete',
-    question_id: string,
-    correct: boolean | null,
-    speed: string,
-    token?: string,
-    message?:string
-}
-
-export interface PendingSubmissionResult{
-    status: 'pending',
+export interface ProgSubmissionResult {
+    stdout: string
+    time: string,
+    memory: number,
+    stderr: number | null,
     token: string,
-    question_id: string,
+    compile_output: string | null,
+    message: string | null,
+    status: {
+        id: number,
+        description: string
+    },
 }
 
-export type SubmissionResult = CompleteSubmissionResult | PendingSubmissionResult
+export interface MathsSubmissionResult{
+    correct: boolean;
+}
+
+export type SubmissionResult = ProgSubmissionResult | MathsSubmissionResult
 
 
-export interface OpponentProgressDTO{
+export interface OpponentProgressDTO {
     player_id: string,
     correct: boolean,
     opponent_life: number,

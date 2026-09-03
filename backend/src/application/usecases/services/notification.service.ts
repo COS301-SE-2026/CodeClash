@@ -1,5 +1,5 @@
 import { Server } from "socket.io";
-import { CompleteSubmissionResult, OpponentProgressDTO, SubmissionResult } from "src/entities/dtos/submission-result.dto";
+import {  OpponentProgressDTO } from "src/entities/dtos/submission-result.dto";
 
 
 export class NotificationService {
@@ -7,7 +7,7 @@ export class NotificationService {
         private readonly io: Server
     ) { }
 
-    markingComplete(user_id: string, result: CompleteSubmissionResult, life_update: number) {
+    markingComplete(user_id: string, result: boolean, life_update: number) {
         this.io.to(`user:${user_id}`).emit('marking_complete', {result: result, life: life_update});
     }
 
