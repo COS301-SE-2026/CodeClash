@@ -189,7 +189,7 @@ function ProfileView(){
 
   return (
     <div className="w-full min-h-screen bg-primary-dark flex flex-col items-center justify-center text-secondary-text">
-      <Link className="badge badge-status-pending ml-4" to={'/dashboard'}
+      <Link className="badge badge-status-pending absolute top-3 left-3" to={'/dashboard'}
         onKeyDown={(e) => {
           const shift = e.shiftKey;
           if (shift && e.key === 'Esc') {
@@ -274,4 +274,11 @@ export const UseUserAvatar = ({vb1, vb2, lm, round}) => {
   return(
     <FinalAvatarDisplay pose={pose} bg={colour} onClick={() => {}} vb1={vb1} vb2={vb2} leftMargin={lm} rounded={round}/>
   );
+}
+
+export const UseUserPose = () => {
+
+  const {userData, loadingData, error} = getProfile();
+    const [pose, setPose] = useState("rig");
+    
 }
