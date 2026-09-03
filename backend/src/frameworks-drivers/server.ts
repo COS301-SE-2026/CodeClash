@@ -51,6 +51,9 @@ import { GameStore } from 'src/application/usecases/services/game-store.service'
 import { DeleteGame } from 'src/application/usecases/systems/delete-game';
 import { MatchStatsRepository } from 'src/interface-adapters/repositories/match-stats.repository';
 import { MatchStats } from 'src/entities/db-entities/match-stats.entities';
+import { Achievement } from 'src/entities/db-entities/achievement.entities';
+import { AchievementService } from 'src/application/usecases/services/achievement.service';
+import { AchievementRepository } from 'src/interface-adapters/repositories/achievement.repository';
 
 dotnev.config()
 
@@ -70,7 +73,8 @@ AppDataSource.initialize()
             AppDataSource.getRepository(Users)
         )
         const match_stats_repo = new MatchStatsRepository(AppDataSource.getRepository(MatchStats));
-
+        const achievementRepo = new AchievementRepository(AppDataSource.getRepository(Achievement), AppDataSource.getRepository(Users));
+        const achievement_service = new AchievementService(achievementRepo);
 
         const httpServer = createServer(app)     // can update to https
         const io = new Server(httpServer, {
@@ -137,7 +141,7 @@ AppDataSource.initialize()
         const submission_system = new SubmissionSystem(world);
         const life_system = new LifeSystem(world);
         const delete_game = new DeleteGame(world,game_store,matched_users_service);
-        const finish_game = new FinishGame(world, match_results, game_store, delete_game, match_stats_repo);
+        const finish_game = new FinishGame(world, match_results, game_store, delete_game, match_stats_repo, achievement_service);
         const opponent_progress = new OpponentProgress(world);
 
         const check_answer = new CheckAnswer(game_cache, submission_system, life_system, world)
