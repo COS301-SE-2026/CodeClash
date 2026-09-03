@@ -45,4 +45,9 @@ export class Questions {
 
     @Column({ nullable: false, type: "time" })
     time_limit!: string
-}
+
+    @Column({ nullable: true, type: "enum", enum: AnswerFormat })
+    answer_format!: AnswerFormat | null
+  
+    @Column({ nullable: true, type: "integer" })
+    answer_precision!: number | null }
