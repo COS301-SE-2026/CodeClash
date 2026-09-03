@@ -113,7 +113,15 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
           </div>
 
           <div className="flex gap-2">
+              {colours.map((c) => (
+                <button
+                  key={c.id}
+                  onClick={() => setSelectedColour(c.id)}
+                  style={{ backgroundColor: c.value}}
+                
+                />
 
+              ))}
           </div>
 
 
