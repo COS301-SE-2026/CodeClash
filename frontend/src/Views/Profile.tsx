@@ -25,7 +25,7 @@ const poses = [
   {id: "thinking", label: "Thinking", preview: Thinking}
 ];
 
-function FinalAvatarDisplay({pose, bg, onClick}){
+function FinalAvatarDisplay({pose, bg, onClick, vb1, vb2, leftMargin}){
   
   const poseData = poses.find((p) => p.id === pose) ?? poses[0];
   const bgData = colours.find((c) => c.id === bg)?? colours[0];
@@ -34,12 +34,12 @@ function FinalAvatarDisplay({pose, bg, onClick}){
     <button
       onClick={onClick}
       style={{ backgroundColor: bgData.value}}
-      className="w-[80%] justify-center items-center rounded-[20px]"
+      className={`w-[80%] justify-center items-center rounded-[20px] ml-${leftMargin}`}
     >
       
         <span   
           className="flex items-center justify-center w-[100%] h-[100%] -ml-1">
-          <poseData.preview vb1={170} vb2={195}/>
+          <poseData.preview vb1={vb1} vb2={vb2}/>
         </span>
 
         <div className="w-[100%] h-[100%]">
@@ -76,19 +76,19 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
         exit={{ opacity: 0, scale: 0.95, y:10}}
         transition={{duration: 0.18, ease: "easeOut"}}
         onClick={(e) => e.stopPropagation()} //stops a user from repeatedly clicking on final avatar display to pull up a new popup
-        className="bg-white rounded-[20px] w-[45%] h-[55%]"
+        className="bg-white rounded-[20px] w-[50%] h-[55%] justify-center items-center"
       >
 
-        <div className="flex items-center justify-between mt-2 mb-2 ml-2">
+        <div className="flex items-center justify-between mt-3 mb-3 ml-2">
           <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
-            <X size={20}></X>
+            <X size={30}></X>
           </button>
         </div>
 
-        <div className="flex grid grid-cols-2 justify-center">
+        <div className="flex grid grid-cols-2 border justify-center">
 
-          <div className="flex grid grid-rows-2 justify-center">
-            <div className="flex grid grid-cols-4 justify-center gap-2">
+          <div className="flex grid ml-7 grid-rows-2 justify-center">
+            <div className="flex grid grid-cols-4 justify-center gap-3 mb-3">
               {poses.map((pose => (
                 <button
                   key={pose.id}
@@ -98,7 +98,7 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
                     ${selectedPose === pose.id ? "" : "opacity-70 hover:opacity-100"}`}
                     title={pose.label}
                 >
-                  <pose.preview/>
+                  <pose.preview vb1={160} vb2={200}/>
 
                   {/* below is to add a check mark by the selected pose but it looks wonky and i don't have time to fix it for now */}
                   
@@ -118,11 +118,11 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
                     key={c.id}
                     onClick={() => setSelectedColour(c.id)}
                     style={{ backgroundColor: c.value}}
-                    className={`rounded-[20px] flex items-center transition-transform
+                    className={`rounded-full flex items-center transition-transform h-[50%] w-[50%]
                       ${selectedColour === c.id ? "" : "opacity-70 hover:opacity-100"}`}
                       title={c.label}
                   >
-                      {c.value}
+                      {/* {c.value} */}
                   </button>
                 ))}
               
@@ -130,8 +130,8 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
           </div>
 
 
-          <div>
-          <FinalAvatarDisplay pose={selectedPose} bg={selectedColour} onClick={() => {}}/>
+          <div className="items-center border">
+          <FinalAvatarDisplay pose={selectedPose} bg={selectedColour} vb1={160} vb2={180} onClick={() => {}} leftMargin={10}/>
           </div>
 
         </div>
@@ -199,7 +199,7 @@ function ProfileView(){
 
         <div className="w-[35%] flex items-center justify-center" >
           {/* <img src={userData?.avatar} alt="avatarImage" className="" /> */}
-          <FinalAvatarDisplay pose={pose} bg={colour} onClick={() => setEditOpen(true)}/>
+          <FinalAvatarDisplay pose={pose} bg={colour} vb1={170} vb2={195} onClick={() => setEditOpen(true)} leftMargin={0}/>
         </div>
         <div className="text-xl font-semibold">{userData?.username}</div>
         <div className=" text-md font-semibold ">ELO - {userData?.elo}</div>
