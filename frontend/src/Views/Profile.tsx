@@ -38,7 +38,7 @@ function FinalAvatarDisplay({pose, bg, onClick, vb1, vb2, leftMargin}){
     >
       
         <span   
-          className="flex items-center justify-center w-[100%] h-[100%] -ml-1">
+          className="flex items-center justify-center w-[100%] h-[100%] mt-2">
           <poseData.preview vb1={vb1} vb2={vb2}/>
         </span>
 
@@ -85,7 +85,7 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
           </button>
         </div>
 
-        <div className="flex grid grid-cols-2 border justify-center">
+        <div className="flex grid grid-cols-2 justify-center gap-10 ml-[4.5%]">
 
           <div className="flex grid ml-7 grid-rows-2 justify-center">
             <div className="flex grid grid-cols-4 justify-center gap-3 mb-3">
@@ -98,7 +98,7 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
                     ${selectedPose === pose.id ? "" : "opacity-70 hover:opacity-100"}`}
                     title={pose.label}
                 >
-                  <pose.preview vb1={160} vb2={200}/>
+                  <pose.preview vb1={170} vb2={210}/>
 
                   {/* below is to add a check mark by the selected pose but it looks wonky and i don't have time to fix it for now */}
                   
@@ -118,7 +118,7 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
                     key={c.id}
                     onClick={() => setSelectedColour(c.id)}
                     style={{ backgroundColor: c.value}}
-                    className={`rounded-full flex items-center transition-transform h-[50%] w-[50%]
+                    className={`rounded-full flex items-center transition-transform h-[50%] w-[80%]
                       ${selectedColour === c.id ? "" : "opacity-70 hover:opacity-100"}`}
                       title={c.label}
                   >
@@ -130,8 +130,8 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
           </div>
 
 
-          <div className="items-center border">
-          <FinalAvatarDisplay pose={selectedPose} bg={selectedColour} vb1={160} vb2={180} onClick={() => {}} leftMargin={10}/>
+          <div className="items-center">
+          <FinalAvatarDisplay pose={selectedPose} bg={selectedColour} vb1={170} vb2={200} onClick={() => {}} leftMargin={10}/>
           </div>
 
         </div>
