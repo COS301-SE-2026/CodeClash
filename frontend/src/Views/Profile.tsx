@@ -18,11 +18,17 @@ const colours = [
 ]
 
 const poses = [
+  {id: "rig", label: "Original", preview: Stand},
   {id: "okay", label: "Okay", preview: Okay},
   {id: "peace", label: "Peace", preview: Peace},
   {id: "thinking", label: "Thinking", preview: Thinking}
 ];
 
+function finalAvatarDisplay({pose, bg, onClick}){
+  
+  const poseData = poses.find((p) => p.id === pose) ?? poses[0];
+  const bgData = colours.find((c) => c.id === bg)?? colours[0];
+}
 
 
 function ProfileView(){
