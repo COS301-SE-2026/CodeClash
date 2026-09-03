@@ -13,6 +13,7 @@ import {X, Check} from "lucide-react"
 import Starfield from '@/components/ui/animations/Starfield';
 import Confetti from '@/components/ui/animations/Confetti';
 import GlassCard from '@/components/shared/GlassCard';
+import { ChevronLeft } from 'lucide-react';
 import "../styles/global.css"
 
 const colours = [
@@ -83,14 +84,14 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
       >
 
         <div className="w-[100%]">
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-700">
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-700 mt-5 ml-3">
             <X size={50}></X>
           </button>
         </div>
 
-        <div className="grid grid-cols-2 justify-center gap-10 ml-[5.5%]">
+        <div className="grid grid-cols-2 justify-center gap-10 ml-[5.5%] -mb-15 -mt-5">
 
-          <div className="grid ml-5 grid-rows-2 justify-center mt-10">
+          <div className="grid ml-5 grid-rows-2 justify-center mt-7">
             <div className="grid grid-cols-4 justify-center gap-10 mb-3">
               {poses.map((pose => (
                 <button
@@ -115,7 +116,7 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
               </div>
           
 
-              <div className="grid grid-cols-3 justify-center gap-2 mt-10">
+              <div className="grid grid-cols-3 justify-center gap-2 mt-8 mb-4">
                 {colours.map((c) => (
                   <button
                     key={c.id}
@@ -139,7 +140,7 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
 
         </div>
 
-        <div className="-ml-[25%] flex gap-40 mt-5 mb-5">
+        <div className="-ml-[65%] flex gap-40 mt-10 mb-15">
 
           <Button
             onClick={onClose}
@@ -188,15 +189,17 @@ function ProfileView(){
 
   return (
     <div className="w-full min-h-screen bg-primary-dark flex flex-col items-center justify-center text-secondary-text">
-      <Link className="secondary-back-button font-semibold w-[98%] absolute top-5 text-primary" to={'/dashboard'}
+      <Link className="badge badge-status-pending ml-2" to={'/dashboard'}
         onKeyDown={(e) => {
           const shift = e.shiftKey;
           if (shift && e.key === 'Esc') {
             // nav('/dashboard');
           }
         }}
-      >
-        ← Back
+      > 
+      <ChevronLeft/>
+      Back
+      
       </Link>
 
         <div className="flex items-center w-[25%] mb-10 ml-4" >
