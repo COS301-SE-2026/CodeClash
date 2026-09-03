@@ -74,7 +74,22 @@ export class FriendRepository implements IFriendRepository {
             ]
         });
 
-        if (existing) throw new Error('Friend request already exists');
+        if (existing) {
+            // allow re-requesting if previously declined
+            if (existing.status === 'declined') {
+                // rate limit to only be able to send again after 24 hours
+                const hoursSince = (Date.now() - existing.updated_at.getTime()) / (1000 * 60 * 60);
+                if( hoursSince < 24) throw new Error('Please wait 24 hours before sending another request');
+
+                // reset to pending
+                await this.friendshipRepo.update(
+                    { friendship_id: existing.friendship_id },
+                    { status: 'pending', updated_at: new Date() }
+                );
+                return;
+            }
+            throw new Error('Friend request already exists');
+        }
 
         await this.friendshipRepo.save(this.friendshipRepo.create({
             requester: { user_id: requester_id } as any,
