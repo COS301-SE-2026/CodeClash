@@ -27,10 +27,10 @@ export const Thinking = ({
                 <motion.g>
                     <image href={leftShoulder} width="50" x="93" y="92" height="55"/>
                         <motion.g>
-                            <image href={leftArm} width="50" x="95" y="117" height="23"/>
+                            <image href={leftArm} width="50" x="95" y="117" height="25"/>
             
                                 <motion.g>
-                                    <image href={leftHand} width="50" x="94.5" y="130" height="15"/>
+                                    <image href={leftHand} width="50" x="94" y="131" height="17"/>
                                 </motion.g>
                         </motion.g>
                 </motion.g>
