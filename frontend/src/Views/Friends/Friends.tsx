@@ -54,6 +54,7 @@ const Friends: React.FC = () => {
     } = useFriends();
 
     const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+    const [tooltipId, setTooltipId] = useState<string | null>(null);
     const searchRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -168,11 +169,28 @@ const Friends: React.FC = () => {
                                             <span className="score-display text-primary-text text-xsm">{f.elo}</span> {/*Need to add icon here ? */}
                                         </div>
                                     </div>
-                                    <button className="btn btn-ghost btn-sm" onClick={() => sendInvite(f.id)} disabled={f.status === 'playing'} 
+                                    {/* return when casual gaming is implemented */}
+                                    {/* <button className="btn btn-ghost btn-sm" onClick={() => sendInvite(f.id)} disabled={f.status === 'playing'} 
                                         title={f.status === 'playing' ? 'Already in a match' : undefined} type="button">
                                         {f.status === 'playing' ? <Clock3 size={16}/> : <Swords size={16}/>}
                                         {friendContent.inviteToPlay}
-                                    </button>
+                                    </button> */}
+                                    <div className="relative">
+                                        <button
+                                            className="btn btn-ghost btn-sm"
+                                            onClick={() => setTooltipId(tooltipId === f.id ? null : f.id)}
+                                            type="button"
+                                         >
+                                            {f.status === 'playing' ? <Clock3 size={16}/> : <Swords size={16}/>}
+                                            {friendContent.inviteToPlay}
+                                        </button> 
+                                        {tooltipId === f.id && (
+                                            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 rounded-x1 bg-card border border-border text-xsm tex-primary-text whitespace-nowrap z-50 shadow-lg">
+                                                Casual gaming coming soon!
+                                                <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-card"/>
+                                            </div>
+                                        )}  
+                                    </div>
                                     <button className="btn btn-ghost bg-danger btn-icon" onClick={() => removeFriend(f.id)} 
                                         aria-label= {`${friendContent.removeLabel} ${f.username}`} type="button">
                                         <X size={18}/>
