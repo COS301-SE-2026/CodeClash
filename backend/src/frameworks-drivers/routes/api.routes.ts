@@ -7,6 +7,7 @@ import { getUserElo } from 'src/interface-adapters/controllers/elo.controllers';
 import { getUserStat, searchUsers } from 'src/interface-adapters/controllers/user.controllers';
 import { EloRepository } from 'src/interface-adapters/repositories/elo.repository';
 import { UserRepository } from 'src/interface-adapters/repositories/user.repository';
+import { getUserRank } from 'src/interface-adapters/controllers/rank.controllers';
 import { MatchHistoryRepository } from 'src/interface-adapters/repositories/match-history.repository';
 import { requireAuth } from 'src/interface-adapters/auth/auth.service';
 import { Achievement } from 'src/entities/db-entities/achievement.entities';
@@ -24,7 +25,6 @@ import {
   removeFriend,
   createInvite
 } from '../../interface-adapters/controllers/friend.controllers';
-import { getUserRank } from 'src/interface-adapters/controllers/rank.controllers';
 
 import { AppDataSource } from '../config/data-source';
 import { getMatchDetails, getMatchHistory } from 'src/interface-adapters/controllers/match-history.controllers';
@@ -368,6 +368,7 @@ router.get('/achievements', getAllAchievements(achievement_service));
  *        description: Internal Server Error
  */
 router.get('/achievements/me', getUserAchievements(achievement_service));
+router.get('/rank', getUserRank(leaderboard_system));
 
 // user routes
 router.get('/search', searchUsers(user_repo));

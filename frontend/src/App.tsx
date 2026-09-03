@@ -28,6 +28,7 @@ import Agent from "./Views/AIAgent";
 import Shop from "./Views/Shop";
 import Friends from "./Views/Friends/Friends";
 import Achievements from "./Views/Achievements";
+import Settings from "./Views/Settings";
 
 const App: React.FC = () => {
 
@@ -87,6 +88,7 @@ const App: React.FC = () => {
                 <Route path='/friends' element={<Friends/>}/>
                 <Route path='/match-history' element={<MatchHistory/>}/>
                 <Route path="/shop" element={<Shop/>}/>
+                <Route path='/settings' element={<Settings/>}/>
             </Route>
         </Routes>
     )
