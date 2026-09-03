@@ -30,7 +30,6 @@ export const startQuestion = (player_id: string, submission_system: SubmissionSy
 
 export const gameDone = async (io: Server, socket: Socket, game_id: number, game_type: GameType, pair_id: string, finish_game: FinishGame, game_store: GameStore) => {
     // wait for both players to be done
-
     const game = game_store.get(game_id);
 
     if (!game) {

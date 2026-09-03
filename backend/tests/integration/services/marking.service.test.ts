@@ -10,7 +10,6 @@ import { Server } from 'socket.io'
 import { MarkProg } from '../../../src/application/usecases/services/marking/mark-prog'
 import { CodeExecutor } from '../../../src/interface-adapters/CodeExecutor'
 import { OpponentProgress } from '../../../src/application/usecases/systems/opponent-progress'
-import { MarkMaths } from '../../../src/application/usecases/services/marking/mark-maths'
 import { GameService } from '../../../src/application/usecases/services/game.service'
 import { CreateGame } from '../../../src/application/usecases/systems/create-game'
 import { CreatePlayerEntity } from '../../../src/application/usecases/systems/create-game'
@@ -56,11 +55,8 @@ const notification_service = new NotificationService(io);
 
 const executor = new CodeExecutor();
 const prog_marker = new MarkProg(executor);
-const maths_marker = new MarkMaths();
-
 
 const prog_marking_service = new MarkingService(game_cache, submission_system, life_system, notification_service, prog_marker, opponent_progress);
-const maths_marking_service = new MarkingService(game_cache, submission_system, life_system, notification_service, maths_marker, opponent_progress);
 
 const create_player_entity = new CreatePlayerEntity(world);
 const create_match_entity = new CreateMatchEntity(world);
@@ -71,7 +67,6 @@ const question_repo: IQuestionRepository = new QuestionRepository(data_source.ge
 const answer_repo: IAnswerRepository = new AnswerRepository(data_source.getRepository(Answers))
 const match_repo: IMatchRepository = new MatchRepository(data_source.getRepository(Match))
 const user_repo: IUserRepository = new UserRepository(data_source.getRepository(Users));
-
 
 const get_questions = new GetQuestions(question_repo);
 const get_answers = new GetAnswers(answer_repo);
