@@ -46,7 +46,7 @@ WITH q AS (
             'math', --NOSONAR
             1,
             'Evaluate Quadratic Function',
-            'If f(x) = 3x² - 5x + 2, find the value of f(-2).',
+            'If f(x) = 3x² - 5x + 2, find the value of f(-2).\nAnswer format: a signle number, e.g. 243',
             '00:01:00', --NOSONAR
             'numeric',
             NULL
@@ -68,15 +68,19 @@ WITH q AS (
             difficulty,
             title,
             description,
-            time_limit
+            time_limit,
+            answer_format,
+            answer_precision
         )
     VALUES
         (
             'math', --NOSONAR
             2,
             'Algebraic Simplification',
-            'Simplify the expression:\n((x² - 4)(x + 1)) / ((x - 2)(x² - 1))',
-            '00:02:00' --NOSONAR
+            'Simplify the expression:\n((x² - 4)(x + 1)) / ((x - 2)(x² - 1))\nAnswer format: a fully simplified expression of x, e.g. (x+2)/(x-1)',
+            '00:02:00', --NOSONAR
+            'simplified',
+            NULL
         ) RETURNING question_id
 )
 INSERT INTO
