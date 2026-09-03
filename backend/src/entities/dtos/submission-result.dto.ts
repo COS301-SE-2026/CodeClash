@@ -10,7 +10,8 @@ export interface CompleteSubmissionResult {
 
 export interface PendingSubmissionResult{
     status: 'pending',
-    token: string
+    token: string,
+    question_id: string,
 }
 
 export type SubmissionResult = CompleteSubmissionResult | PendingSubmissionResult

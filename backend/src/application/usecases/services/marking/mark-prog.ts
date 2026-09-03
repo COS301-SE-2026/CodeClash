@@ -11,7 +11,7 @@ export class MarkProg implements MarkingStrategy {
         this.executor = code_executor;
     }
 
-    async mark(submission: ProgSubmissionDTO, answer: string): Promise<SubmissionResult> {
+    async mark(submission: ProgSubmissionDTO, answer: string, question_id: string): Promise<SubmissionResult> {
 
         // const submission_token = await this.executor.execute(submission.source_code, submission.language_id, submission.stdin, answer);
 
@@ -23,7 +23,10 @@ export class MarkProg implements MarkingStrategy {
 
         const result = await this.executor.execute(submission.source_code, submission.language_id, submission.stdin, answer);
 
-        return result
+        return {
+            ...result,
+            question_id
+        }
 
 
     }

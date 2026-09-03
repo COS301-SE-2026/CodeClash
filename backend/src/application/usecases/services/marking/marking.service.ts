@@ -6,6 +6,7 @@ import { MarkingStrategy } from "src/application/interfaces/marking/IMarkingStat
 import { SubmissionResult } from "src/entities/dtos/submission-result.dto";
 import { OpponentProgress } from "../../systems/opponent-progress";
 import { SubmissionComponent } from "src/entities/components";
+import { PlayerSubmissionDTO, ProgSubmissionDTO } from "src/entities/dtos/components.dto";
 
 
 export class MarkingService {
@@ -19,19 +20,26 @@ export class MarkingService {
         private readonly opponent_progress: OpponentProgress
     ) { }
 
-    async execute(match_id: number, player_id: string, question_id: string, question_number: number, answer: string) {
+    async execute(player_submission: PlayerSubmissionDTO) {
         try {
 
-            const correct_answer = await this.game_cache.getAnswer(question_id);
+            const correct_answer = await this.game_cache.getAnswer(player_submission.question_id);
 
             if (!correct_answer) throw new Error("Invalid question id");
 
-            const submission = this.submission_system.saveSubmission(match_id, player_id, question_id, null, answer, question_number);
-            const result: SubmissionResult = await this.marking_strategy.mark(submission!, correct_answer);
+            const submission = this.submission_system.saveSubmission(player_submission.match_id, player_submission.player_id, player_submission.question_id, null, player_submission.submission, player_submission.question_number!);
+            
+            const result: SubmissionResult = await this.marking_strategy.mark(submission!.answer, correct_answer,submission!.question_id);
 
             if (result.status === 'pending') {
                 submission!.token = result.token;
                 this.submission_system.registerSubmissionToken(result.token, submission!);
+            }
+
+            if(result.status === 'complete'){
+                const speed = (submission!.submitted_at!.getTime() - submission!.started_at.getTime())/1000;
+
+                result.speed = speed.toString();
             }
 
             this.handleResult(result, submission!);

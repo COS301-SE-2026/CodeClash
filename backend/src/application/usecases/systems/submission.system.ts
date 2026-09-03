@@ -1,4 +1,5 @@
 import { SubmissionComponent, SubmissionRegistryComponent } from "src/entities/components";
+import { MathsSubmissionDTO, ProgSubmissionDTO } from "src/entities/dtos/components.dto";
 import { World } from "src/entities/World";
 
 export class SubmissionSystem {
@@ -18,7 +19,7 @@ export class SubmissionSystem {
         this.getSubmissionComponent = getSubmissionComponent
     }
 
-    saveSubmission(match_id: number, player_id: string, question_id: string, is_correct: boolean | null, answer: string, question_number: number) {
+    saveSubmission(match_id: number, player_id: string, question_id: string, is_correct: boolean | null, answer: MathsSubmissionDTO | ProgSubmissionDTO, question_number: number) {
 
         // 1 lookup submission entity
         const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(match_id, "Submission");
@@ -51,7 +52,7 @@ export class SubmissionSystem {
                 started_at: new Date(),
                 attempt_number: is_correct === null ? 0 : 1,
                 answer: answer,
-                submitted_at: is_correct === null ? null : new Date(),
+                submitted_at: new Date(),
                 correct: is_correct,
                 token: undefined
             }
