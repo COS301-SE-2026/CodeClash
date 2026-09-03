@@ -5,6 +5,8 @@ export interface PlayerFinalResults {
     speed: string; //this will be formated as mm:ss
     eloEffect: number; //the effect of the in or loss on their elo
     position: 1 | 2;
+    rank_before?: number | null;
+  rank?: number | null;
 }
 
 export interface FinalResultsContent {
@@ -14,6 +16,7 @@ export interface FinalResultsContent {
     tableHeaders: string[];
     labelPlayAgain: string;
     labelReturn: string;
+    labelWinner: string;
     titleError: string;
     messageError: string;
 }
@@ -22,9 +25,10 @@ export const finalResultsContent: FinalResultsContent = {
     titleLoading: 'Calculating Results',
     labelLoading: 'Loading...',
     titleResults: 'Final Results',
-    tableHeaders: ['User', 'Correctness', 'Speed (minutes)', 'Effect on Elo', 'Position'],
+    tableHeaders: ['User', 'Correctness', 'Speed (minutes)', 'Effect on Elo', 'Placement'],
     labelPlayAgain: 'Play Again',
     labelReturn: 'Return',
+    labelWinner: 'Winner',
     titleError: 'Results Not Ready',
     messageError: 'The final results are still being calculated. Please come back later.',
 }

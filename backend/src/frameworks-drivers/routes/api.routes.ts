@@ -20,8 +20,10 @@ import {
   removeFriend,
   createInvite
 } from '../../interface-adapters/controllers/friend.controllers';
+import { getUserRank } from 'src/interface-adapters/controllers/rank.controllers';
 
 import { AppDataSource } from '../config/data-source';
+import { LeaderboardSystem } from 'src/application/usecases/services/leaderboard.service';
 
 const router = Router();
 
@@ -31,8 +33,10 @@ const achievement_repo = new AchievementRepository(AppDataSource.getRepository(A
 const friend_repo = new FriendRepository(AppDataSource.getRepository(Friendship), AppDataSource.getRepository(FriendInvite), AppDataSource.getRepository(EloRatings));
 const achievement_service = new AchievementService(achievement_repo);
 const friend_service = new FriendService(friend_repo);
+const leaderboard_system = new LeaderboardSystem(elo_repo);
 
 router.get('/elo-get', getUserElo(elo_repo));
+router.get('/rank', getUserRank(leaderboard_system));
 
 /** 
  * @swagger

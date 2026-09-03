@@ -5,6 +5,8 @@ import { robot_map } from "src/assets/Robots";
 import { useAuth } from "../Auth/hooks/useAuth";
 import { UserContext } from "./UserContextValue";
 
+
+
 const url = import.meta.env.VITE_API_URL;
 
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -12,9 +14,10 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [avatar, setAvatar] = useState('');
     const [error, setError] = useState('');
     const [league, setLeague] = useState('');
+    const [rank, setRank] = useState(0);
     const { user, token, isLoading } = useAuth();
- const [rank, setRank] = useState('');
-  const userId = user?.userId ?? ""
+ 
+    const userId = user?.userId ?? ""
     const username = user?.username ?? '';
 
 
@@ -25,7 +28,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
 
         try {
-            axios.get(url.concat('elo/elo-get'), {
+            await axios.get(url.concat('elo/elo-get'), {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {
@@ -50,7 +53,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
 
         try {
-            axios.get(url.concat('user/avatar_id'), {
+            await axios.get(url.concat('user/avatar_id'), {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {
@@ -88,15 +91,13 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                         setError(`Error: ${res.status} ${res.data}`);
                     }
                 })
-
         }
         catch (error) {
             setError(`Error Getting User League: ${error}`);
         }
     }
 
-
-    const refresh = async () => {
+     const refresh = async () => {
         await Promise.all([
             getElo(),
             getAvatarUrl(),
@@ -125,9 +126,19 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 })
         }
         catch (error) {
+            console.error('getRank failed', error);
             setError(`Error Getting User Rank: ${error}`);
         }
 
+    }
+
+    const refresh = async () =>{
+        await Promise.all([
+            getElo(),
+            getAvatarUrl(),
+            getLeague(),
+            getRank()
+        ])
     }
 
 
@@ -140,6 +151,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 getAvatarUrl(),
                 getLeague(),
                 getElo(),
+                getRank(),
             ]);
         }
 

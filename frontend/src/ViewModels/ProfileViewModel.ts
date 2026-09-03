@@ -1,4 +1,3 @@
-import {useState, useEffect} from 'react'
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../src/context/Auth/hooks/useAuth";
 import { useUser } from "../../src/context/User/hooks/useUser";
@@ -28,30 +27,32 @@ export function useEdit() {
     return edit;
 }
 
-export function getProfile() {
+export function useProfile() {
 
-    const {username, elo, avatar, league, rank} = useUser();
-    const [userData, setUserData] = useState<ProfileProps | null>(null);
-    const [loadingData, setLoadingData] = useState(true);
-    const [error, setError] = useState<Error | null>(null);
+  const { username, elo, avatar, league, rank } = useUser();
+  // const [userData, setUserData] = useState<ProfileProps | null>(null);
+  // const [loadingData, setLoadingData] = useState(true);
+  // const [error, setError] = useState<Error | null>(null);
 
-    useEffect(() => {
-            try{
-                const user : ProfileProps = {
-                    username,
-                    elo,
-                    avatar, 
-                    league,
-                    rank
-                };
-                setUserData(user);
-            } catch (err) {
-                setError(err as Error);
-            }
-            finally {
-                setLoadingData(false);
-            }
-    }, [username, elo, avatar, league, rank]);
+  // useEffect(() => {
+  try {
+    const userData: ProfileProps = {
+      username,
+      elo,
+      avatar,
+      league,
+      rank
+    };
+    // setUserData(user);
+    return { userData, LoadingData: false, error: null };
+  } catch (err) {
+    // setError(err as Error);
+    // }
+    // finally {
+    // setLoadingData(false);
+    // }
+    // }, [username, elo, avatar, league, rank]);
 
-    return {userData, loadingData, error};
+    return { userData: null, loadingData: false, error: err as Error };
+  }
 }
