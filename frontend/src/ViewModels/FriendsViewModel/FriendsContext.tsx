@@ -29,7 +29,7 @@ interface FriendsContext {
 
     searchQuery: string;
     setSearchQuery: (query: string) => void;
-    allUsers: Omit<Search, 'relationship'>[];
+    allUsers: Search[];
     sendFriendRequest: (id: string) => void;
 
     sendInvite: (id: string) => void;
@@ -55,7 +55,7 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
     const [activeInvite, setActiveInvite] = useState<Invite | null>(null);
     const [inviteError, setInviteError] = useState<string | null>(null);
     const [now, setNow] = useState(() => Date.now());
-    const [allUsers, setAllUsers] = useState<Omit<Search, 'relationship'>[]>([]);
+    const [allUsers, setAllUsers] = useState<Search[]>([]);
     const [error, setError] = useState<string | null>(null);
 
     const friendsRef = useRef(friend); //this is so closures dont capture a stale list
@@ -161,17 +161,29 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 const data = res.ok ? await res.json() : [];
-                setAllUsers(data.map((u: any) => ({
-                    id: u.user_id,
-                    username: u.username,
-                    avatar: u.avatar_id ?? 0
-                })));
+
+                const friendIds = new Set(friend.map((f) => f.id));
+                const incomingReqs = new Set(requests.map((r) => r.fromUser));
+
+                setAllUsers(data.map((u: any): Search => {
+                    let relationship: Relation = 'none';
+                    if (u.user_id === profile?.id) relationship = 'self';
+                    else if (friendIds.has(u.user_id)) relationship = 'friend';
+                    else if (sentRequest.has(u.user_id)) relationship = 'pending-sent';
+                    else if (incomingReqs.has(u.user_id)) relationship = 'pending-received';
+                    return {
+                        id: u.user_id,
+                        username: u.username,
+                        avatar: u.avatar_id ?? 0,
+                        relationship
+                    };
+                }));
             } catch {
                 setAllUsers([]);
             }
         }, 300); // debounce
         return () => clearTimeout(timeout);
-    }, [searchQuery, token]);
+    }, [searchQuery, token, friend, requests, sentRequest, profile]);
 
     const sendFriendRequest = useCallback(async (id: string) => {
         if(!token) return;
