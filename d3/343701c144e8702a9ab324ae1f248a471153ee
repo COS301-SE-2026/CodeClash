@@ -1,0 +1,14 @@
+backend/src/application/usecases/services/marking/maths-marking/expression-marker.ts
+  h_58e143dc25f856 1-2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "d3343701c144e8702a9ab324ae1f248a471153ee",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
