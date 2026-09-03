@@ -16,10 +16,15 @@ export class MatchResultService {
         is_ranked: boolean,
         playerStats: PlayerStatsDTO[]
     ): Promise<MatchResultDTO> {
-        let eloEffects = new Map<string, number>();
+      let eloEffects = new Map<string, number>();
 
-        // save match log
-        if (is_ranked) {
+      const ranks_before = new Map<string, number | null>();
+      for (const stat of playerStats) {
+        ranks_before.set(stat.user_id, (await this.elo_repo.getUserRank(stat.user_id))?.rank ?? null);
+      }
+
+      // save match log
+      if (is_ranked) {
 
             // calculate and store new elo
             const { winner, loser } = await this.elo_repo.updateRatingsAfterMatch(match_id, winner_id, loser_id);
@@ -38,7 +43,8 @@ export class MatchResultService {
 
         // store player results
         for (const stat of playerStats) {
-            const user_details = await this.match_result_repo.getUserDetails(stat.user_id);
+          const user_details = await this.match_result_repo.getUserDetails(stat.user_id);
+          const rank = (await this.elo_repo.getUserRank(stat.user_id))?.rank ?? null;
 
             players.push({
                 user_id: stat.user_id,
@@ -47,7 +53,9 @@ export class MatchResultService {
                 correctness: stat.correctness,
                 speed: stat.speed,
                 eloEffect: eloEffects.get(stat.user_id) ?? 0,
-                position: stat.user_id === winner_id ? 1 : 2
+                position: stat.user_id === winner_id ? 1 : 2,
+                rank_before: ranks_before.get(stat.user_id) ?? null,
+                rank: rank
             });
         }
 
