@@ -12,9 +12,9 @@ import { Thinking } from 'src/animations/poses/thinking';
 import "../styles/global.css"
 
 const colours = [
-  {id: "bg1", label: "Dark Pink", value: "#530a23"},
-  {id: "bg2", label: "Medium Pink", value: "#c0395a"},
-  {id: "bg3", label: "Light Pink", value: "#FCECDD"}
+  {id: "bg1", label: "Dark Pink", value: "#c0395a"},
+  {id: "bg2", label: "Medium Pink", value: "#e93577"},
+  {id: "bg3", label: "Light Pink", value: "#F8E5DD"}
 ]
 
 const poses = [
@@ -38,11 +38,11 @@ function FinalAvatarDisplay({pose, bg, onClick}){
       
         <span   
           className="flex items-center justify-center w-[100%] h-[100%] -ml-1">
-          <poseData.preview vb1={170} vb2={225}/>
+          <poseData.preview vb1={170} vb2={195}/>
         </span>
 
         <div className="w-[100%] h-[100%]">
-        <span className="opacity-0 group-hover:opacity-100 transition-opacity font-font font-semibold text-white fonst-size-xl">
+        <span className="group-hover:opacity-100 transition-opacity font-font font-semibold text-secondary-text fonst-size-xl">
           Edit
         </span>
         </div>
@@ -51,11 +51,16 @@ function FinalAvatarDisplay({pose, bg, onClick}){
   )
 }
 
+function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
+  const [selectedPose, setSelectedPose] = useState(currentPose);
+  const [selectedColour, setSelectedColour] = useState(currentColour);
+}
+
 
 function ProfileView(){
 
   const [pose, setPose] = useState("rig");
-  const [colour, setColour] = useState("bg2");
+  const [colour, setColour] = useState("bg3");
   const [editOpen, setEditOpen] = useState(false);
   
   const { userData, loadingData, error} = getProfile();
