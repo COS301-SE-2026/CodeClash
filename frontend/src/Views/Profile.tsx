@@ -208,12 +208,12 @@ function ProfileView(){
           {/* <img src={userData?.avatar} alt="avatarImage" className="" /> */}
           <FinalAvatarDisplay pose={pose} bg={colour} vb1={170} vb2={195} onClick={() => setEditOpen(true)} leftMargin={8}/>
         </div>
-        <p className="eyebrow text-center text-xl -mt-40 [text-shadow:0px_0px_12px_#D6405B]">{userData?.username}</p>
-        <p className="eyebrow text-center text-md -mt-85 [text-shadow:0px_0px_12px_#c0395a80]">ELO</p>
-        <p className="score-display text-center text-md -mt-60">{userData?.elo}</p>
-        <div className="text-md font-semibold text-center uppercase text-primary-text -mt-25 [text-shadow:0px_0px_12px_#FFFFFF]">{userData?.league}</div>
+        <p className="eyebrow text-center text-xl -mt-50 [text-shadow:0px_0px_12px_#D6405B]">{userData?.username}</p>
+        <p className="eyebrow text-center text-md -mt-99 [text-shadow:0px_0px_12px_#c0395a80]">ELO</p>
+        <p className="score-display text-center text-md -mt-77">{userData?.elo}</p>
+        <div className="text-md font-semibold text-center uppercase text-primary-text -mt-45 [text-shadow:0px_0px_12px_#FFFFFF]">{userData?.league}</div>
         <div>
-          <p className="text-[1.5rem] text-center uppercase font-semibold text-primary-text -mt-7 mb-5 [text-shadow:0px_0px_12px_#FFFFFF]">Current Rank - {userData?.rank}</p>
+          <p className="text-[1.5rem] text-center uppercase font-semibold text-primary-text -mt-19 mb-10 [text-shadow:0px_0px_12px_#FFFFFF]">Current Rank - {userData?.rank}</p>
         </div>
 
         <div className="profile-divider" />
@@ -222,7 +222,7 @@ function ProfileView(){
           variant={"default"}
           type="button"
           onClick={onLogout}
-          className="w-[100%] py-5 mx-auto"
+          className="w-[100%] py-5 mx-auto mb-5"
         >
           Log Out
         </Button>
