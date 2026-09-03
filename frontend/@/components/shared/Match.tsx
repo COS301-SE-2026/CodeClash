@@ -61,7 +61,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                         <Badge variant={'default'} className='text-[1.25rem] w-[50%] h-[25%] my-auto mt-[2%]'>{usernames[0]}</Badge>
                     </div></div>
                 {/* Clock */}
-                <div className='text-white font-dseg w-[15%] h-20 flex items-center justify-center text-5xl font-semibold border-6 rounded-l ml-5'>
+                <div className='text-white font-dseg w-[15%] h-20 flex items-center justify-center text-5xl font-semibold border-6 rounded-l -ml-9.5'>
                     <span>
                         {String(minutes).padStart(2, "0")}:
                         {String(seconds).padStart(2, "0")}
@@ -69,14 +69,14 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 </div>
 
                 {/* Player 2 Progress */}
-                <div className='flex w-[50%] h-[60%] items-center justify-end'>
-                    <div className=' w-[70%] flex flex-col items-end h-[70%] justify-between self-end'>
+                <div className='flex flex-col-2 w-[40%] h-[90%] items-center m-2 mt-[2%]'>
+                    <div className=' w-[100%] flex flex-col items-end h-[70%] justify-between self-end -ml-[6%] my-auto'>
                         <Progress
                             value={player_life[1]}
                             progress_colour={colour}
                             className='w-full h-9 shadow-[0_4px_6px_rgba(0,0,0,0.3)] scale-x-[-1]'
                         />
-                        <Badge variant={'secondary'} className='font-body text-[1.25rem] w-[50%] h-[35%]'>{usernames[1]}</Badge>
+                        <Badge variant={'secondary'} className='text-[1.25rem] w-[50%] h-[25%] my-auto mt-[2%]'>{usernames[1]}</Badge>
                     </div>
 
                     <img

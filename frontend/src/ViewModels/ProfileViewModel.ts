@@ -13,7 +13,7 @@ export function useLogOut() {
         try {
 
             await signOut();
-            nav('/welcome');
+            nav('/');
         } catch (err) {
             console.error(`Error logging out: ${err}`)
         }
