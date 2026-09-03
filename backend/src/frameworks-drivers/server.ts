@@ -167,6 +167,14 @@ AppDataSource.initialize()
             socket.on('send_results', (game_id: number, pair_id: string) => sendResults(io, game_id, pair_id, game_store))
 
             socket.on('clean_up', (game_id: number, pair_id: string)=> cleanUp(game_id, pair_id, delete_game, game_store))
+
+            socket.on('send_friend_invite', (data) => {
+                io.to(data.receiver_id).emit('friend_invite_received', {
+                    invite_id: data.invite_code,
+                    sender_name: data.sender_name,
+                    expires_at: data.expires_at
+                });
+            });
         })
 
 

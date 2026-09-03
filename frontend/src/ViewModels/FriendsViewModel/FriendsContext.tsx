@@ -5,12 +5,11 @@ import {
 
 import {friendContent} from "../../Models/FriendsModel";
 import type {
-    Friend, FriendRequest, Invite, GameInvite, 
+    Friend, FriendRequest, Invite, 
     Search, Summary
 } from "../../Models/FriendsModel";
 
 import { useAuth } from "../../context/Auth/hooks/useAuth";
-import { Socket } from "socket.io-client";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
 
 const API_BASE = '/api'; 
