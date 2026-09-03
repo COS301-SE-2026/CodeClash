@@ -90,7 +90,7 @@ export class FinishGame {
                 total_wins: is_winner ? 1 : 0,
                 win_streak: is_winner ? 1 : 0,
                 total_matches: 1,
-                perfect_math: false, //stat.num_correct === submission_registry.submissions.size / 2,
+                perfect_math: false, //stat.num_correct === submission_registry.submissions.size / 2, TODO: compare against total questions when available
                 perfect_code: false,
                 match_duration_ms,
                 correct_in_match: stat.num_correct,
