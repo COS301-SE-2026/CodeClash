@@ -12,9 +12,9 @@ import { Thinking } from 'src/animations/poses/thinking';
 import "../styles/global.css"
 
 const colours = [
-  {id: "bg1", label: "Dark Pink", value: "[val(--primary-dark)]"},
-  {id: "bg2", label: "Medium Pink", value: "[val(--primary)]"},
-  {id: "bg3", label: "Light Pink", value: "[val(--primary-text)]"}
+  {id: "bg1", label: "Dark Pink", value: "#530a23"},
+  {id: "bg2", label: "Medium Pink", value: "#c0395a"},
+  {id: "bg3", label: "Light Pink", value: "#FCECDD"}
 ]
 
 const poses = [
@@ -33,10 +33,11 @@ function FinalAvatarDisplay({pose, bg, onClick}){
     <button
       onClick={onClick}
       style={{ backgroundColor: bgData.value}}
-      className="w-[100%] h-[80%] justify-center items-center"
+      className="w-[80%] justify-center items-center rounded-[20px]"
     >
       
-        <span className="flex items-center justify-center w-[100%] h-[100%]">
+        <span   
+          className="flex items-center justify-center w-[100%] h-[100%] -ml-1">
           <poseData.preview vb1={170} vb2={225}/>
         </span>
 
@@ -54,7 +55,7 @@ function FinalAvatarDisplay({pose, bg, onClick}){
 function ProfileView(){
 
   const [pose, setPose] = useState("rig");
-  const [colour, setColour] = useState("bg3");
+  const [colour, setColour] = useState("bg2");
   const [editOpen, setEditOpen] = useState(false);
   
   const { userData, loadingData, error} = getProfile();
@@ -83,11 +84,11 @@ function ProfileView(){
 
       <Card className="w-[40%] h-[50%] flex items-center justify-center bg-[#F8E5DD]">
 
-        <div className="w-[35%]" >
+        <div className="w-[35%] flex items-center justify-center" >
           {/* <img src={userData?.avatar} alt="avatarImage" className="" /> */}
           <FinalAvatarDisplay pose={pose} bg={colour} onClick={() => setEditOpen(true)}/>
         </div>
-        <div className="text-xl font-semibold -mt-[10%]">{userData?.username}</div>
+        <div className="text-xl font-semibold">{userData?.username}</div>
         <div className=" text-md font-semibold ">ELO - {userData?.elo}</div>
         <div className="text-md font-semibold">{userData?.league}</div>
         <div>
