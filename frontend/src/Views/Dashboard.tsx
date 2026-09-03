@@ -68,7 +68,7 @@ const Dashboard = () => {
             {/*Profile + Play */}
             <div className='flex flex-col gap-6'>
               <div className='card-elevated flex items-center gap-4 p-6'>
-                <div className='w-25 h-29 flex items-center justify-center rounded-[20px] border-2 border-primary object-cover shrink-0 '>
+                <div className='w-28 h-32.5 flex items-center justify-center rounded-[20px] object-cover shrink-0 '>
                   <UseUserAvatar vb1={170} vb2={186} lm={1.5} round={20}/>
                 </div>
                 
