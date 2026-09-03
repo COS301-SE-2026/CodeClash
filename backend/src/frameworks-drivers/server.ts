@@ -7,7 +7,7 @@ import { IQuestionRepository } from 'src/application/interfaces/repositories/IQu
 import { QuestionRepository } from 'src/interface-adapters/repositories/question.repository';
 import { GameType, Questions } from 'src/entities/db-entities/questions.entities';
 import { cleanUp, gameDone, sendResults, startQuestion, submitQuestion } from 'src/interface-adapters/socket-handlers/game.handler';
-import { SubmissionDTO } from 'src/entities/dtos/components.dto';
+import { PlayerSubmissionDTO, SubmissionDTO } from 'src/entities/dtos/components.dto';
 import { IAnswerRepository } from 'src/application/interfaces/repositories/IAnswerRepository';
 import { AnswerRepository } from 'src/interface-adapters/repositories/answer.repository';
 import { Answers } from 'src/entities/db-entities/answers.entities';
@@ -51,7 +51,6 @@ import { GameStore } from 'src/application/usecases/services/game-store.service'
 import { DeleteGame } from 'src/application/usecases/systems/delete-game';
 import { LeaderboardService } from 'src/application/usecases/services/leaderboard.service';
 import { NotificationService } from 'src/application/usecases/services/notification.service';
-import { handleMarkingResult } from 'src/interface-adapters/controllers/marking.controller';
 import { MarkingStrategy } from 'src/application/interfaces/marking/IMarkingStategy';
 import { MarkMaths } from 'src/application/usecases/services/marking/mark-maths';
 import { MarkProg } from 'src/application/usecases/services/marking/mark-prog';
@@ -134,8 +133,6 @@ AppDataSource.initialize()
         const maths_marking_service = new MarkingService(game_cache, submission_system, life_system, notification,maths_marker ,opponent_progress);
         const prog_marking_service = new MarkingService(game_cache,submission_system, life_system,notification, prog_marker, opponent_progress);
 
-        app.put('/api/marking/result', handleMarkingResult( prog_marking_service, submission_system))
-
         // auth middleware 
         io.use(async (socket, next) => {
             const token = socket.handshake.auth.token;
@@ -180,9 +177,9 @@ AppDataSource.initialize()
 
             socket.on('send_players', (game_id: number) => { sendGamePlayers(io, game_id, game_store) })
 
-            socket.on('submit_maths_question', (data: SubmissionDTO) => submitQuestion(io, socket, data,maths_marking_service));
+            socket.on('submit_maths_question', (data: PlayerSubmissionDTO) => submitQuestion(io, socket, data,maths_marking_service));
 
-            socket.on('submit_prog_question', (data: SubmissionDTO)=>submitQuestion(io,socket, data, prog_marking_service));
+            socket.on('submit_prog_question', (data: PlayerSubmissionDTO)=>submitQuestion(io,socket, data, prog_marking_service));
 
             socket.on('question_started', (data: StartQuestionDTO) => startQuestion(socket.data.user_id, submission_system, data));
 

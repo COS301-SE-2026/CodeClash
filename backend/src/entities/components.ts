@@ -92,7 +92,7 @@ export interface SubmissionComponent {
     question_number: number,
     started_at: Date,
     attempt_number: number,
-    answer: MathsSubmissionDTO | ProgSubmissionDTO,
+    answer: MathsSubmissionDTO | ProgSubmissionDTO | null,
     language?: string
     submitted_at: Date | null,
     correct:boolean | null,

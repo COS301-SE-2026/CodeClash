@@ -1,17 +1,14 @@
 import { MathfieldElement } from 'mathlive';
-import { useEffect, useState, useMemo, useRef } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useTimer } from "react-timer-hook";
+import { useEffect, useState, useRef } from "react";
+import { useLocation } from "react-router-dom";
 import { useMatchmaking } from "src/context/Socket/hooks/useMatchmaking";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
 import { useUser } from "src/context/User/hooks/useUser";
-import type { GameQuestionsDTO } from "src/dtos/game-questionDTO";
 import type { SubmissionDTO } from "src/dtos/submission.dto";
-import type { Player, Question, MatchProgress } from "src/Models/MatchModel";
+import type { Player } from "src/Models/MatchModel";
 import { endGame } from "src/services/result.service";
-import { submitAnswer } from "src/services/submission.service";
-import type { OpponentDTO } from "src/dtos/opponent.dto";
 import { robot_map } from 'src/assets/Robots';
+import { useGameQuestions, useGameTimer, useMatchProgress } from 'src/services/match.service';
 
 
 export const useMatch = () => {
@@ -19,171 +16,48 @@ export const useMatch = () => {
     const location = useLocation();
     const { id } = location.state;
     const { userId } = useUser();
-    const nav = useNavigate();
-    const { gameType } = useMatchmaking()
+    const closeLoading = () => setLoading(false);
+    const { gameType } = useMatchmaking();
+
+    const {
+        questions,
+        duration,
+        currentQuestion,
+        questionsReady,
+        nextQuestion,
+        prevQuestion,
+        submitQuestion,
+        finishGame,
+        loadQuestions,
+        waitingOpponent,
+        waiting_opponent,
+        both_done
+    } = useGameQuestions(id, userId, socket!, gameType);
+
+    const { seconds, minutes } = useGameTimer(duration, () => {
+        setGameOver(true);
+        endGame(id, gameType, socket);
+    })
+
 
     const [players, setPlayers] = useState<Player[]>([]);
-    const [questions, setQuestions] = useState<Question[]>([]);
-    const [matchDuration, setMatchDuration] = useState(0);
-    const [playerLife, setPlayerLife] = useState<number[]>([]);
+
+    const {
+        playerLife, opponentCurrent, opponent_progress, opponent_done, opponentDone, updatePlayerLife
+    } = useMatchProgress(questions.length, players);
+
     const [avatars, setAvatars] = useState<string[]>([]);
     const [usernames, setUsernames] = useState<string[]>([]);
-    const [currentQuestion, setCurrentQuestion] = useState(0);
-    const [opponentCurrent, setOpponentCurrent] = useState(0);
     const [loading, setLoading] = useState(false);
-    const [questionsReady, setQuestionsReady] = useState(false)
     const [answers, setAnswers] = useState<Record<string, string>>();
     const [results, setResults] = useState<(boolean | null)[]>([]);
     const [gameOver, setGameOver] = useState(false);
-    const [waitingOpponent, setWaitingOpponent] = useState(false);
-    const [opponentDone, setOpponentDone] = useState(false)
 
     const mathfieldRef = useRef<MathfieldElement | null>(null)
-    const q_index = useRef<number | null>(null);
     const players_ref = useRef(players);
-
-    const progress: MatchProgress = {
-        player_progress: [0, 0],
-        question_number: 0
-    }
-
-    const closeLoading = () => setLoading(false);
+    const q_index = useRef<number | null>(null);
 
 
-    // TIMER
-    const expiry_time = useMemo(() => {
-        const time = new Date();
-        time.setSeconds(time.getSeconds() + matchDuration * 60);
-        return time;
-    }, [matchDuration])
-
-    const { seconds, minutes, restart } = useTimer({
-        expiryTimestamp: expiry_time,
-        autoStart: false,
-        onExpire: () => {
-            setGameOver(true);
-            endGame(id, gameType, socket);
-        }
-    });
-
-    //////////////////////////////////////////
-
-
-    //  Question Handling
-    const nextQuestion = (curr: number) => {
-        if (curr < questions.length - 1) {
-            setCurrentQuestion(curr + 1);
-            startQuestion(userId, questions[curr].id!, curr + 1)
-        }
-    }
-
-    const prevQuestion = (curr: number) => {
-        if (curr > 0) {
-            setCurrentQuestion(curr - 1)
-            startQuestion(userId, questions[curr].id!, curr - 1)
-        }
-    }
-
-    const submitQuestion = (question_id: string, answer: string) => {
-        q_index.current = currentQuestion;
-        submitAnswer(socket, id, question_id, answer, q_index.current);
-    }
-
-    const finishGame = () => {
-        if (q_index.current === questions.length - 1) {
-            setWaitingOpponent(true)
-            endGame(id, gameType, socket);
-        }
-    }
-
-    const startQuestion = (player_id: string, question_id: string, question_number: number) => {
-        const data = {
-            match_id: id,
-            player: player_id,
-            question: question_id,
-            question_number: question_number
-        }
-
-        socket?.emit('question_started', data);
-    }
-
-
-    // load questions helper
-    function shuffle(array: Question[]) {
-        let curr = array.length;
-        let random;
-
-        while (curr !== 0) {
-            random = Math.floor(Math.random() * curr);  // NOSONAR - Math.random() is just to shuffle questions
-            curr--;
-
-            [array[curr], array[random]] = [array[random], array[curr]]
-        }
-        return array;
-    }
-
-    const loadQuestions = (data: GameQuestionsDTO) => {
-        let temp_arr: Question[] = [];
-        let sumtime = 0;
-
-        for (const q of data.easy) {
-            temp_arr.push({
-                id: q.id,
-                title: q.title!,
-                difficulty: "Easy",
-                description: q.description,
-            })
-
-            sumtime += Number(q.time_limit!.split(":")[1])
-        }
-
-        for (const q of data.medium) {
-            temp_arr.push({
-                id: q.id,
-                title: q.title,
-                difficulty: "Medium",
-                description: q.description
-            })
-            sumtime += Number(q.time_limit!.split(":")[1])
-        }
-
-        for (const q of data.hard) {
-            temp_arr.push({
-                id: q.id,
-                title: q.title,
-                difficulty: "Hard",
-                description: q.description
-            })
-            sumtime += Number(q.time_limit!.split(":")[1])
-        }
-
-        setMatchDuration(sumtime);
-
-        temp_arr = shuffle(temp_arr);
-
-        const final: Question[] = []
-        for (const t of temp_arr) {
-            const q: Question = {
-                id: t.id,
-                title: t.title!,
-                difficulty: t.difficulty,
-                description: t.description
-            }
-
-            final.push(q);
-        }
-
-        setQuestions(final);
-        setQuestionsReady(true);
-
-
-        // first question ready 
-        startQuestion(userId, final[0].id!, 0);
-    }
-
-    ///////////////////////////////////////
-
-    // Result Handling
     const submission_result = (result: SubmissionDTO) => {
         const index = q_index.current
         if (index === null) return;
@@ -194,17 +68,12 @@ export const useMatch = () => {
             return next
         });
 
-        const player_index = players_ref.current.findIndex(p => p.id === result.player_id)
+        updatePlayerLife(result.player_id, result.life_update);
 
         if (result.life_update <= 0) {
             finishGame();
+            return;
         }
-
-        setPlayerLife((prev) => {
-            const next = [...prev];
-            next[player_index] = result.life_update;
-            return next
-        })
 
         if (result.result === true) nextQuestion(index)
     }
@@ -213,63 +82,12 @@ export const useMatch = () => {
         console.error(error)
     }
 
-    const waiting_opponent = () => {
-        setWaitingOpponent(true);
-    }
-
-    const both_done = () => {
-        setWaitingOpponent(false);
-        nav('/results', {
-            replace: true,
-            state: {
-                id: id
-            }
-        });
-    }
-
-    const opponent_progress = (data: OpponentDTO) => {
-
-
-        setOpponentCurrent((prev) => {
-
-            const next = data.question + 1
-
-            if (next < questions.length) return next
-            else return prev
-        });
-
-        const player_index = players_ref.current.findIndex(p => p.id === data.player_id)
-        if (player_index === -1) return
-
-        setPlayerLife((prev) => {
-            const next = [...prev];
-            next[player_index] = data.opponent_life;
-            return next
-        })
-    }
-
-    const opponent_done = () => {
-        setOpponentDone(true)
-    }
-    // Use Effects
-
-    useEffect(() => {
-        if (matchDuration > 0) {
-            restart(expiry_time);
-        }
-    }, [matchDuration])
-
-
     useEffect(() => {
         players_ref.current = players
 
-        const initPLayers = async () => {
-            setPlayerLife(players.map(p => p.life))
-            setAvatars(players.map(p => robot_map[p.avatar_id]));
-            setUsernames(players.map(p => p.username));
-        }
+        setAvatars(players.map(p => robot_map[p.avatar_id]));
+        setUsernames(players.map(p => p.username));
 
-        void initPLayers();
     }, [players])
 
     useEffect(() => {
@@ -313,7 +131,6 @@ export const useMatch = () => {
         players,
         questions,
         answers,
-        progress,
         playerLife,
         avatars,
         seconds,
@@ -322,7 +139,7 @@ export const useMatch = () => {
         currentQuestion,
         nextQuestion,
         prevQuestion,
-        matchDuration,
+        duration,
         loading,
         closeLoading,
         submitQuestion,

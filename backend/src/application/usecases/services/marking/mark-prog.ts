@@ -1,7 +1,7 @@
 import { ProgSubmissionDTO } from "src/entities/dtos/components.dto";
 import { MarkingStrategy } from "src/application/interfaces/marking/IMarkingStategy";
 import { ICodeExecutor } from "src/application/interfaces/marking/ICodeExecutor";
-import { SubmissionResult } from "src/entities/dtos/submission-result.dto";
+import { ProgSubmissionResult,  } from "src/entities/dtos/submission-result.dto";
 
 export class MarkProg implements MarkingStrategy {
 
@@ -11,23 +11,9 @@ export class MarkProg implements MarkingStrategy {
         this.executor = code_executor;
     }
 
-    async mark(submission: ProgSubmissionDTO, answer: string, question_id: string): Promise<SubmissionResult> {
+    async mark(submission: ProgSubmissionDTO, answer: string): Promise<boolean> {
+        const result: ProgSubmissionResult = await this.executor.execute(submission.source_code, submission.language_id, submission.stdin, answer);
 
-        // const submission_token = await this.executor.execute(submission.source_code, submission.language_id, submission.stdin, answer);
-
-
-        // return {
-        //     token: submission_token
-        // } as PendingSubmissionResult
-
-
-        const result = await this.executor.execute(submission.source_code, submission.language_id, submission.stdin, answer);
-
-        return {
-            ...result,
-            question_id
-        }
-
-
+        return result.status.id === 3;
     }
 }

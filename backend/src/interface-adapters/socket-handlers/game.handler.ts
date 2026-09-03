@@ -2,22 +2,21 @@ import { Server, Socket } from "socket.io";
 import { MarkingService } from "src/application/usecases/services/marking/marking.service";
 import { FinishGame } from "src/application/usecases/systems/finish-game";
 import { SubmissionSystem } from "src/application/usecases/systems/submission.system";
-import { SubmissionDTO } from "src/entities/dtos/components.dto";
 
 import { StartQuestionDTO } from "src/entities/dtos/question.dto";
 import { GameStore } from "src/application/usecases/services/game-store.service";
 import { GameType } from "src/entities/db-entities/questions.entities";
 import { DeleteGame } from "src/application/usecases/systems/delete-game";
-
+import { PlayerSubmissionDTO } from "src/entities/dtos/components.dto";
 import { PlayerResultDTO } from 'src/entities/dtos/match-result.dto'
 
 export const submitQuestion = async (
     io: Server, socket: Socket,
-    data: SubmissionDTO,
+    data: PlayerSubmissionDTO,
     mark: MarkingService
 ) => {
     try {
-        await mark.execute(data.match_id, socket.data.user_id, data.question_id, data.question_number!, data.answer)
+        await mark.execute(data);
     }
     catch (error: unknown) {
         io.to(socket.data.user_id).emit('submission_error', error);
@@ -26,12 +25,11 @@ export const submitQuestion = async (
 }
 
 export const startQuestion = (player_id: string, submission_system: SubmissionSystem, data: StartQuestionDTO) => {
-    submission_system.saveSubmission(data.match_id, player_id, data.question, null, '',data.question_number);
+    submission_system.saveSubmission(data.match_id, player_id, data.question, null, null,data.question_number);
 }
 
 export const gameDone = async (io: Server, socket: Socket, game_id: number, game_type: GameType, pair_id: string, finish_game: FinishGame, game_store: GameStore) => {
     // wait for both players to be done
-
     const game = game_store.get(game_id);
 
     if (!game) {

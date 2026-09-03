@@ -1,5 +1,5 @@
 import { DeepPartial } from "typeorm";
-import { Answers } from "../../../../src/entities/db-entities/answers.entities";
+import { Answers } from "../../src/entities/db-entities/answers.entities";
 import { mock_questions } from "./mock-questions";
 
 

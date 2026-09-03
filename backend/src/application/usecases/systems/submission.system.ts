@@ -7,7 +7,6 @@ export class SubmissionSystem {
     private readonly getSubmissionComponent
     private readonly createEntity
     private readonly addSubmissionComponent
-    private token_registry = new Map<string,SubmissionComponent>();
 
     constructor(
         private readonly world: ReturnType<typeof World>
@@ -19,7 +18,7 @@ export class SubmissionSystem {
         this.getSubmissionComponent = getSubmissionComponent
     }
 
-    saveSubmission(match_id: number, player_id: string, question_id: string, is_correct: boolean | null, answer: MathsSubmissionDTO | ProgSubmissionDTO, question_number: number) {
+    saveSubmission(match_id: number, player_id: string, question_id: string, is_correct: boolean | null, answer: MathsSubmissionDTO | ProgSubmissionDTO | null, question_number: number) {
 
         // 1 lookup submission entity
         const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(match_id, "Submission");
@@ -65,16 +64,19 @@ export class SubmissionSystem {
         return submission_component;
     }
 
-    registerSubmissionToken(token:string, submission: SubmissionComponent){
-        this.token_registry.set(token, submission);
-    }
+    getSubmission(match_id: number, player_id: string, question_id: string) {
 
-    deregiserSubmissionToken(token:string){
-        this.token_registry.delete(token);
-    }
+        const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(match_id, "Submission");
+        
+        if (!submission_registry) { throw new Error("Error saving submission") }
 
-    getSubmissionByToken(token:string){
-        return this.token_registry.get(token);
+        const key = `${player_id}::${question_id}`
+        const submission_entity = submission_registry.submissions.get(key);
+
+        if (submission_entity === undefined) return null;
+
+        const submission_component = this.getSubmissionComponent(submission_entity, 'Submission')
+        return submission_component;
     }
 
 }

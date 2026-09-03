@@ -1,6 +1,6 @@
 import { World } from "src/entities/World";
 import { PlayersComponent } from "src/entities/components";
-import { CompleteSubmissionResult, OpponentProgressDTO } from "src/entities/dtos/submission-result.dto";
+import { OpponentProgressDTO } from "src/entities/dtos/submission-result.dto";
 
 export class OpponentProgress {
 
@@ -28,13 +28,13 @@ export class OpponentProgress {
 
     }
 
-    updateOpponent(match_id: number, player_id: string, question_number: number,result: CompleteSubmissionResult,life: number) {
+    updateOpponent(match_id: number, player_id: string, question_number: number,result: boolean,life: number) {
         const opponent = this.getOpponent(match_id, player_id);
         if (!opponent) throw new Error("Error updating opponent");
 
         const progress: OpponentProgressDTO = {
             player_id: player_id,
-            correct: result.correct!,
+            correct: result,
             opponent_life: life,
             question: question_number
         }
