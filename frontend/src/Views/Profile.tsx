@@ -43,7 +43,7 @@ function FinalAvatarDisplay({pose, bg, onClick}){
         </span>
 
         <div className="w-[100%] h-[100%]">
-        <span className="group-hover:opacity-100 transition-opacity font-font font-semibold text-secondary-text fonst-size-xl">
+        <span className="opacity-0 hover:opacity-100 transition-opacity font-font font-semibold text-secondary-text fonst-size-xl">
           Edit
         </span>
         </div>
@@ -75,8 +75,8 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
         animate={{ opacity: 1, scale: 1, y: 0}}
         exit={{ opacity: 0, scale: 0.95, y:10}}
         transition={{duration: 0.18, ease: "easeOut"}}
-        onClick={(e) => e.stopPropagation()}
-        className="bg-white rounded-[20px] w-[30%]"
+        onClick={(e) => e.stopPropagation()} //stops a user from repeatedly clicking on final avatar display to pull up a new popup
+        className="bg-white rounded-[20px] w-[45%] h-[55%]"
       >
 
         <div className="flex items-center justify-between mt-2 mb-2 ml-2">
@@ -86,6 +86,18 @@ function AvatarPicker({currentPose, currentColour, onClose, onSave}) {
         </div>
 
         <div className="flex grid grid-cols-2 justify-center">
+
+          <div className="flex grid grid-cols-4 justify-center">
+            {poses.map((pose => (
+              <button
+                key={pose.id}
+                onClick={() => setSelectedPose(pose.id)}
+                style={{ backgroundColor: bgData.value }}
+                className={`rounded-[20px] flex items-center transition-all`}
+              >
+              </button>
+            )))}
+          </div>
 
           <div>
           <FinalAvatarDisplay pose={selectedPose} bg={selectedColour} onClick={() => {}}/>
