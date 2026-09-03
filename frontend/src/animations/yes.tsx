@@ -1,84 +1,27 @@
-import {motion, useMotionValue, animate, useTransform, useSpring} from 'framer-motion';
-import {useRef, useEffect} from "react";
-import angry from "../assets/svgs/angry.svg"
-import antenna from "../assets/svgs/antenna.svg"
-import celebrate from "../assets/svgs/celebrate.svg"
-import confused from "../assets/svgs/confused.svg"
+import {motion} from 'framer-motion';
+
 import excited from "../assets/svgs/excited.svg"
-import fist from "../assets/svgs/fist.svg"
-import happy from "../assets/svgs/happy.svg"
-import head from "../assets/svgs/head.svg"
 import leftShoulder from "../assets/svgs/left-shoulder.svg"
 import leftArm from "../assets/svgs/left-forearm.svg"
 import leftHand from "../assets/svgs/left-hand.svg"
 import leftLeg from "../assets/svgs/left-leg.svg"
-import losing from "../assets/svgs/losing.svg"
-import neutral from "../assets/svgs/neutral.svg"
-import ok from "../assets/svgs/ok.svg"
-import peace from "../assets/svgs/peace.svg"
 import rightShoulder from "../assets/svgs/right-shoulder.svg"
 import rightArm from "../assets/svgs/right-forearm.svg"
 import rightHand from "../assets/svgs/right-hand.svg"
 import rightLeg from "../assets/svgs/right-leg.svg"
-import sad from "../assets/svgs/sad.svg"
-import surprised from "../assets/svgs/surprised.svg"
-import thinkingHand from "../assets/svgs/thinking-hand.svg"
-import thinking from "../assets/svgs/thinking.svg"
 import torso from "../assets/svgs/torso.svg"
-import wave from "../assets/svgs/wave.svg"
-import wink from "../assets/svgs/wink.svg"
-import winning from "../assets/svgs/winning.svg"
-import worried from "../assets/svgs/worried.svg"
-import wrong from "../assets/svgs/wrong.svg"
-import { headVariants } from "./poses/rig";
-import { leftHandVariants } from "./poses/rig";
-import { rightHandVariants } from "./poses/rig";
 
 
-// export const FistBump = () => {
-//     return(
-//         <div className="bg-[#000000] min-h-screen w-full">
-//         <svg viewBox="0 0 100 100" width="400" height="300">
-        
-//         <motion.g>
-//             <image href={rightLeg} width="30%" x="-3%" y="62%" height="30%"/>
-//         </motion.g>
-//         <motion.g>
-//             <image href={leftLeg} width="30%" x="15%" y="62%" height="30%"/>
-//         </motion.g>
-//         <motion.g>
-//             <image href={rightArm} width="30%" x="-11%" y="44%" height="25%"/>
-//         </motion.g>
-//         <motion.g>
-//             <image href={leftArm} width="30%" x="23%" y="44%" height="25%"/>
-//         </motion.g>
-//         <motion.g>
-//             <image href={torso} width="30%" x="6%" y="34%" height="30%"/>
-//         </motion.g>
-//         <motion.g>
-//             <image href={excited} width="30%" x="6%" y="12%" height="30%"/>
-//         </motion.g>
-//         <motion.g>
-//             <image href={rightHand} width="30%" x="-10.5%" y="63%" height="10%"/>
-//         </motion.g>
-//         <motion.g
-//             transition={{duration: 0.6}}>
-//             <image href={leftHand} width="30%" x="22.5%" y="63%" height="10%"/>
-//             <motion.path
-//             d="M20,100 Q100,20 180,100"
-//             initial={{pathLength: 0}}
-//             animate={{pathLength: 1}}
-//             transition={{}}/>
-//         </motion.g>
-//         </svg>
-//         </div>
-//     );
-// }
 
-export const Yes = () => {
+export const Yes = ({
+    vb1 = 250,
+    vb2 = 170,
+    width = 390,
+    height = 300
+}) => {
 
     return(
-        <svg viewBox="0 0 250 170" width="390" height="300" preserveAspectRatio="xMidYMid meet">
+        <svg viewBox={`0 0 ${vb1} ${vb2}`} width={width} height={height} preserveAspectRatio="xMidYMid meet">
 
         <motion.g animate={{y: [0, -1.2, 0], scaleY: [1, 1.04, 1]}}
         transition={
@@ -140,60 +83,3 @@ export const Yes = () => {
         </svg>
     )
 }
-
-
-
-// function Path(){
-//     const pathRef = useRef(null);
-//     const progress = useMotionValue(0);
-//     const x = useMotionValue(0);
-//     const y = useMotionValue(0);
-
-//     useEffect(() => {
-//         const path = pathRef.current;
-//         const length = path.getTotalLength();
-
-//         const unsubscribe = progress.on("change", (latest) => {
-//             const point = path.getPointAtLength(latest * length);
-//             x.set(point.x);
-//             y.set(point.y);
-
-//         });
-
-
-//         const controls = animate(progress, 1, {
-//             duration: 3,
-//             ease: "easeInOut",
-//             repeat: Infinity,
-//             repeatType: "loop"
-//         });
-
-
-//         return () => {
-//             unsubscribe();
-//             controls.stop();
-//         };
-//     }, []);
-
-//     return(
-//         <svg viewBox="0 0 200 200" width={300} height={300}>
-//             <path
-//             ref={pathRef}
-//             d="M20,100 Q100,20 180,100 Q100,180 20,100"
-//             fill="none"
-//             stroke="#ccc"
-//             strokeWidth={1}/>
-
-//             <motion.image
-//             href={leftArm}
-//             width={20}
-//             height={20}
-//             style={{
-//                 x,
-//                 y,
-//                 translateX: -10,
-//                 translateY: -10,
-//             }}/>
-//         </svg>
-//     );
-// }
