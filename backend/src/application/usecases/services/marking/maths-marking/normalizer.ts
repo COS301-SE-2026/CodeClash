@@ -132,3 +132,12 @@ export function variablesIn(...nodes: (MathNode | null)[]): string[] {
     }
     return [...names];
 }
+
+function evaluateAt(node: MathNode, values: Record<string, number>): number | null {
+  try {
+    const value: unknown = node.evaluate(values);
+    return typeof value === "number" && Number.isFinite(value) ? value : null;
+  } catch {
+    return null;
+  }
+}
