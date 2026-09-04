@@ -8,6 +8,8 @@ import { endGame } from "src/services/result.service";
 import type { GameQuestionsDTO } from "src/dtos/game-questionDTO";
 import { useNavigate } from "react-router-dom";
 import type { OpponentDTO } from "src/dtos/opponent.dto";
+import type { MathsSubmissionDTO, ProgSubmissionDTO } from "src/dtos/submission.dto";
+
 
 export const useGameTimer = (duration: number, onExpire: () => void) => {
     const expiry_time = useMemo(() => {
@@ -19,7 +21,7 @@ export const useGameTimer = (duration: number, onExpire: () => void) => {
 
     return useTimer({
         expiryTimestamp: expiry_time,
-        autoStart: false,
+        autoStart: duration > 0,
         onExpire
     })
 }
@@ -51,7 +53,6 @@ export const useGameQuestions = (
     const [questionsReady, setQuestionsReady] = useState(false);
     const [waitingOpponent, setWaitingOpponent] = useState(false);
 
-    const question_idx = useRef(0);
 
     const startQuestion = (
         player_id: string,
@@ -82,13 +83,12 @@ export const useGameQuestions = (
         }
     }
 
-    const submitQuestion = (question_id: string, answer: string, game_type:string) => {
-        question_idx.current = currentQuestion;
-        submitAnswer(socket, parseInt(match_id), question_id, answer, question_idx.current,game_type);
+    const submitQuestion = (question_id: string, game_type: string, submission: ProgSubmissionDTO | MathsSubmissionDTO) => {
+        submitAnswer(socket, parseInt(match_id), question_id, currentQuestion, game_type, submission);
     }
 
     const finishGame = () => {
-        if (question_idx.current === questions.length - 1) {
+        if (currentQuestion === questions.length - 1) {
             setWaitingOpponent(true)
             endGame(parseInt(match_id), game_type, socket);
         }
@@ -225,5 +225,17 @@ export const useMatchProgress = (
         opponent_done,
         opponentDone,
         updatePlayerLife
+    }
+}
+
+export const useMathSubmission = (answer: string): MathsSubmissionDTO => {
+    return { answer: answer };
+}
+
+export const useProgSubmission = (source_code: string, language_id: number, stdin: string | null): ProgSubmissionDTO => {
+    return {
+        source_code: source_code,
+        language_id: language_id,
+        stdin: stdin
     }
 }

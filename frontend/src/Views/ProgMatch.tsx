@@ -34,7 +34,6 @@ export const ProgMatch = () => {
         )
     }
 
-    console.log(questions)
     return (
         <MatchScreen
             player_life={playerLife}
@@ -71,7 +70,15 @@ export const ProgMatch = () => {
                 </div>
                 <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem] hover:-translate-y-1'
                     onClick={() => {
-                        submitQuestion(curr.id!, code, 'prog')
+                        if (code.trim()) {
+                            submitQuestion(curr.id!, 'prog',
+                                {
+
+                                    source_code: code,
+                                    language_id: 54,
+                                    stdin: null
+                                })
+                        }
                     }}
                 >
                     SUBMIT

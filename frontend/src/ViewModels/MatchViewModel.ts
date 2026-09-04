@@ -4,11 +4,12 @@ import { useLocation } from "react-router-dom";
 import { useMatchmaking } from "src/context/Socket/hooks/useMatchmaking";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
 import { useUser } from "src/context/User/hooks/useUser";
-import type { SubmissionDTO } from "src/dtos/submission.dto";
+import type { SubmissionResultDTO } from "src/dtos/submission.dto";
 import type { Player } from "src/Models/MatchModel";
 import { endGame } from "src/services/result.service";
 import { robot_map } from 'src/assets/Robots';
 import { useGameQuestions, useGameTimer, useMatchProgress } from 'src/services/match.service';
+import type { MathsSubmissionDTO, ProgSubmissionDTO } from "src/dtos/submission.dto";
 
 
 export const useMatch = () => {
@@ -57,8 +58,12 @@ export const useMatch = () => {
     const players_ref = useRef(players);
     const q_index = useRef<number | null>(null);
 
+    const handleSubmitQuestion = (question_id: string,  game_type: string, submission: ProgSubmissionDTO | MathsSubmissionDTO) => {
+        q_index.current = currentQuestion;
+        submitQuestion(question_id, game_type,submission);
+    }
 
-    const submission_result = (result: SubmissionDTO) => {
+    const submission_result = (result: SubmissionResultDTO) => {
         const index = q_index.current
         if (index === null) return;
 
@@ -71,7 +76,8 @@ export const useMatch = () => {
         updatePlayerLife(result.player_id, result.life_update);
 
         if (result.life_update <= 0) {
-            finishGame();
+            setGameOver(true);
+            endGame(id, gameType, socket);
             return;
         }
 
@@ -142,7 +148,7 @@ export const useMatch = () => {
         duration,
         loading,
         closeLoading,
-        submitQuestion,
+        submitQuestion: handleSubmitQuestion,
         mathfieldRef,
         setAnswers,
         results,
