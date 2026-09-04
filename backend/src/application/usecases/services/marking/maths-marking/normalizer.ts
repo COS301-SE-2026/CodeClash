@@ -97,9 +97,38 @@ function isSafe(node: MathNode): boolean {
                 break;
             }
             default:
-                // Assignments, blocks and function definitions have no place in an answer.
+                // assignments and blocks and functin definitions wouldnt be in a typical answer so it'd be sus
                 safe = false;
         }
     });
     return safe;
+}
+
+export function safeParse(source: string): MathNode | null {
+    const normalized = normalize(source);
+    if (normalized === "") return null;
+
+    let node: MathNode;
+    try {
+        node = parse(normalized);
+    } catch {
+        return null;
+    }
+
+    return isSafe(node) ? node : null;
+}
+
+export function variablesIn(...nodes: (MathNode | null)[]): string[] {
+    const names = new Set<string>();
+    for (const node of nodes) {
+        if (node === null) continue;
+        node.traverse((child, _path, parent) => {
+            if (child.type !== "SymbolNode") return;
+            // The callee of sqrt(x) is a SymbolNode too, but it is not a variable.
+            if (parent !== null && parent.type === "FunctionNode" && (parent as FunctionLike).fn === child) return;
+            const name = (child as SymbolLike).name;
+            if (!CONSTANTS.has(name)) names.add(name);
+        });
+    }
+    return [...names];
 }
