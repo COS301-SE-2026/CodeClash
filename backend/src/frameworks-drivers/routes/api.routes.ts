@@ -42,7 +42,7 @@ const match_history_repo = new MatchHistoryRepository(AppDataSource.getRepositor
 router.use(requireAuth(user_repo))
 
 const leaderboard_system = new LeaderboardSystem(elo_repo);
-
+router.get('/rank', getUserRank(leaderboard_system));
 /**
  * @swagger
  * /api/elo-get:
