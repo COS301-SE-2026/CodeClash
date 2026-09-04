@@ -1,0 +1,14 @@
+backend/src/application/usecases/services/game.service.ts
+  h_58e143dc25f856 83
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "83238f86ba28475975fbe71c46142929f1d5d16b",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
