@@ -141,3 +141,32 @@ function evaluateAt(node: MathNode, values: Record<string, number>): number | nu
     return null;
   }
 }
+
+function samplePoints(variables: string[]): Record<string, number>[] {
+    let seed = 20260903;
+    const nextRandom = () => {
+        seed = (seed * 1103515245 + 12345) % 2147483648;
+        return seed / 2147483648;
+    };
+
+    const points: Record<string, number>[] = [];
+    for (let index = 0; index < SAMPLE_COUNT; index++) {
+        const scope: Record<string, number> = {};
+        // The 0.137 offset keeps samples off the small integers that tend to be roots.
+        for (const variable of variables) scope[variable] = Number((nextRandom() * 8 - 4 + 0.137).toFixed(6));
+        points.push(scope);
+    }
+    return points;
+}
+
+export function closeRelative(left: number, right: number, tolerance = EQUIVALENCE_TOLERANCE): boolean {
+    return Math.abs(left - right) <= tolerance * Math.max(1, Math.abs(left), Math.abs(right));
+}
+
+export function closeAbsolute(left: number, right: number, tolerance: number): boolean {
+    return Math.abs(left - right) <= tolerance;
+}
+
+export function evaluateConstant(node: MathNode): number | null {
+    return variablesIn(node).length === 0 ? evaluateAt(node, {}) : null;
+}
