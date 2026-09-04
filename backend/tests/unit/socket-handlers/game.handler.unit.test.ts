@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, type Mock, vi } from 'vitest';
 import { submitQuestion } from '../../../src/interface-adapters/socket-handlers/game.handler';
 import { CheckAnswer } from '../../../src/application/usecases/check-answer';
-import { SubmissionDTO } from '../../../src/entities/dtos/components.dto';
+import { SubmissionDTO } from '../../../src/interface-adapters/dtos/components.dto';
 import { OpponentProgress } from '../../../src/application/usecases/systems/opponent-progress'
 
 

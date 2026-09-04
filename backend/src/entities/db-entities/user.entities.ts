@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Achievement } from "./achievement.entities";
 
 @Entity()

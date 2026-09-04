@@ -38,6 +38,7 @@ export interface ChangelogEntries { //This will show what changed from Demo 1 an
     category: string;
     changes: string[];
     rationale: string;
+    version: string; //cause I have to keep the chnagelog from d1 to d2, i will use this to show which demo transition I am speaking of
 }
 
 export interface Accessibility {
@@ -99,19 +100,20 @@ export interface BrandStyleGuideContent {
     };
 }
 
-
 const palette = {
-    primary: '#530A24',
-    secondary: '#FFEFE0',
+    primary: '#c0395a',
+    primaryDark: '#530a23',
+    secondary: '#Fcecdd',
     buttonPrimary: '#C0395A',
-    buttonSecondary: '#FFEFE0',
+    buttonSecondary: 'transparent',
     buttonPrimaryText: '#FFFFFF',
-    buttonSecondaryText: '#9D2644',
+    buttonSecondaryText: '#fcecdd',
     textPrimary: '#FCECDD',
     textSecondary: '#530A24',
     success: '#4CAF50',
     danger: '#E53935',
-
+    warning: '#e8a33d',
+    info: '#3d9be8'
 }
 
 function hexToRGB(hex: string) {
@@ -124,20 +126,32 @@ function hexToHSL(hex: string) {
 
 export const brandStyleGuideContent: BrandStyleGuideContent = {
     meta: {
-        version: '2.0',
-        date: 'July 2026',
+        version: '3.0',
+        date: 'September 2026',
         project: 'CodeClash',
         team: 'QuantDevs',
     },
 
-
-
     colors: [
+        {
+            name: 'Background',
+            hex: '#0a0008',
+            usage: 'Default page background, sidebar base',
+            wcag: 'AAA with Text Primary (17.9:1)',
+            on: 'light' as const,
+        },
         {
             name: 'Primary',
             hex: palette.primary,
-            usage: 'Page background, primary surface, sidebar base',
-            wcag: 'AAA on #FCEDD (12.4:1)',
+            usage: 'Buttons, sidebar active highlight, brand accent --primary',
+            wcag: 'AA with White (5.3:1)',
+            on: 'light' as const,
+        },
+        {
+            name: 'Primary Dark',
+            hex: palette.primaryDark,
+            usage: 'Depth accents, gradients, --primary-dark',
+            wcag: 'AAA with Text Primary (12.7:1)',
             on: 'light' as const,
         },
 
@@ -145,7 +159,7 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
             name: 'Secondary',
             hex: '#FFEFE0',
             usage: 'Soft card surfaces, light backgrounds',
-            wcag: 'AAA on #530A24 (10.2:1)',
+            wcag: 'AAA with Secondary Text (12.7:1)',
             on: 'dark' as const,
         },
 
@@ -167,39 +181,46 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
 
         {
             name: 'Button Primary Text',
-            hex: '#FFFFFF',
-            usage: 'Primary button labels',
-            wcag: 'AA on #C0395A (4.6:1)',
+            hex: palette.buttonPrimaryText,
+            usage: 'Primary button text',
+            wcag: 'AA on Button Primary (5.3:1)',
             on: 'dark' as const,
         },
 
         {
             name: 'Button Secondary Text',
-            hex: '#9D2644',
-            usage: 'Secondary button labels, link accents',
-            wcag: 'AA on #FFEFE0 (4.8:1)',
-            on: 'light' as const
+            hex: palette.buttonSecondaryText,
+            usage: 'Secondary button text, link accents',
+            wcag: 'AAA on Background (17.9:1)',
+            on: 'dark' as const
         },
 
         {
             name: 'Text Primary',
-            hex: '#FCECDD',
+            hex: palette.textPrimary,
             usage: 'Primary text on all dark backgrounds',
-            wcag: 'AAA on #530A24 (12.4:1)',
+            wcag: 'AAA on Background (17.9:1)',
             on: 'dark' as const,
         },
 
         {
             name: 'Text Secondary',
-            hex: '#530A24',
+            hex: palette.textSecondary,
             usage: 'Text on light/secondary surfaces',
-            wcag: 'AAA on #FFEFE0 (10.2:1)',
+            wcag: 'AAA on Secondary (12.7:1)',
+            on: 'light' as const,
+        },
+        {
+            name: 'Accent',
+            hex: '#e93577',
+            usage: 'HOver state for brimary buttons',
+            wcag: 'AA on White (4.0:1)',
             on: 'light' as const,
         },
 
         {
             name: 'Success',
-            hex: '#4CAF50',
+            hex: palette.success,
             usage: 'Success states, confirmations, positive feedback',
             wcag: 'AA on dark (4.5:1)',
             on: 'light' as const,
@@ -207,9 +228,23 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
 
         {
             name: 'Danger',
-            hex: '#E53935',
+            hex: palette.danger,
             usage: 'Destructive actions, errors, validation fails',
             wcag: 'AA on white (4.5:1)',
+            on: 'light' as const,
+        },
+        {
+            name: 'Warning',
+            hex: palette.warning,
+            usage: 'Warning states, medium difficulty, pending status',
+            wcag: 'AAA on itself (7.8:1)',
+            on: 'light' as const,
+        },
+        {
+            name: 'Info',
+            hex: palette.info,
+            usage: 'Information',
+            wcag: 'AA on itself (6.0:1)',
             on: 'light' as const,
         },
     ].map((c) => ({ ...c, rgb: hexToRGB(c.hex), hsl: hexToHSL(c.hex) })),
@@ -289,19 +324,47 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
             sample: 'Select a game mode and start competing',
             usage: 'Statistics, small UI labels - text-xsm',
         },
+        {
+            name: 'Score Display',
+            cssVar: '--font-dseg',
+            size: '1.9rem',
+            weight: 400,
+            sample: '2026',
+            usage: 'Digital, game type numerals for ELO, streaks, scores - .score-display',
+        },
     ],
 
     tokens: {
         color: [ //ColorTokens shows the design view for designers to see visual identity, this will be used by developers as the code view. So its "how to use this color" rather than "what does the color look like"
             {
+                token: '--background',
+                value: '#0a0008',
+                description: 'Default page background, sidebar base',
+            },
+            {
+                token: '--background-elevated',
+                value: 'rgba(252, 236, 221, 0.03)',
+                description: 'Elevated surface overlay',
+            },
+            {
+                token: '--background-card',
+                value: 'rgba(252, 236, 221, 0.05)',
+                description: 'Card surfaces',
+            },
+            {
                 token: '--primary',
-                value: '#530A24',
-                description: 'Page background, primary surfaces',
+                value: '#c0395a',
+                description: 'Brand accent, sidebar active highlight',
             },
 
             {
+                token: '--primary-dark',
+                value: '#530a23',
+                description: 'Depth accents, gradients',
+            },
+            {
                 token: '--secondary',
-                value: '#FFEFE0',
+                value: '#Fcecdd',
                 description: 'Secondary buttons, soft card surfaces',
             },
 
@@ -325,7 +388,7 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
 
             {
                 token: '--button-secondary',
-                value: '#FFEFE0',
+                value: 'transparent',
                 description: 'Secondary buttons',
             },
 
@@ -337,8 +400,18 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
 
             {
                 token: '--button-text-secondary',
-                value: '#9D2644',
+                value: '#fcecdd',
                 description: 'Text on secondary buttons',
+            },
+            {
+                token: '--accent',
+                value: '#e93577',
+                description: 'Hover state for brimary buttons',
+            },
+            {
+                token: '--accent-text',
+                value: '#fcecdd',
+                description: 'Text on accent surfaces',
             },
 
             {
@@ -352,10 +425,30 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
                 value: '#E53935',
                 description: 'Destructive actions, errors, validation fails',
             },
+            {
+                token: '--warning',
+                value: '#e9a33d',
+                description: 'Warning states, medium difficulty, pending status',
+            },
+            {
+                token: '--info',
+                value: '#3d9be8',
+                description: 'Information',
+            },
+            {
+                token: '--difficulty-easy/medium/hard',
+                value: 'success.warning/danger',
+                description: 'Question difficulty badges',
+            },
+            {
+                token: '--life-primary',
+                value: '#c0395a',
+                description: 'Life bar',
+            },
 
             {
                 token: '--text',
-                value: '#FFFFFF',
+                value: '#Fcecdd',
                 description: 'White text fallback',
             },
 
@@ -369,6 +462,26 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
                 token: '--muted-text',
                 value: 'rgba(252, 236, 221, 0.5)',
                 description: 'Muted text on dark backgrounds',
+            },
+            {
+                token: '--secondary-muted',
+                value: 'rgba(252,236, 221, 0.4)',
+                description: 'Muted secondary backgrounds',
+            },
+            {
+                token: '--border/--border-hover',
+                value: 'rgba(252, 236, 221, 0.08)/rgba(252, 236, 221, 0.18)',
+                description: 'Default and hover border colour',
+            },
+            {
+                token: '--input',
+                value: 'rgba(252, 236, 221, 0.06)',
+                description: 'Form input background',
+            },
+            {
+                token: '--ring',
+                value: '#c0395a',
+                description: 'Focus ring color',
             },
         ],
 
@@ -488,6 +601,11 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
                 value: '3.6rem',
                 description: '3X large',
             },
+            {
+                token: '--font-dseg',
+                value: 'DSEG7, monospace',
+                description: 'Digital, game type numerals for ELO, streaks, scores',
+            },
         ],
 
         shadow: [
@@ -501,6 +619,11 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
                 token: '--card-shadow',
                 value: '0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25)',
                 description: 'Cards and elevated surfaces - .card-shadow',
+            },
+            {
+                token: '--glow-shadow',
+                value: '0 0 24px rgba(192, 57, 90, 0.45)',
+                description: 'Animated glow effects - .animate-glow',
             },
         ],
     },
@@ -554,10 +677,25 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
             classes: ['Progress component', 'bg-[#E4BBCA]', 'shadow-badge', 'h-[60%]'],
             notes: 'shadcn Progress component with custom progress_colour prop for fill',
         },
+
+        {
+            name: 'Badges',
+            vars: ['Difficulty: Easy, Medium, Hard', 'Status: Correct, Pending, Wrong'],
+            classes: ['.badge', '.badge-difficulty-easy', '.badge-difficulty-medium', '.badge-difficulty-hard', '.badge-status-correct', '.badge-status-pending', '.badge-status-wrong'],
+            notes: 'Badges for difficulty levels and statuses of questions',
+        },
+
+        {
+            name: 'Score Display',
+            vars: ['Default'],
+            classes: ['.score-display', '.font-dseg'],
+            notes: 'DSEG7 digital font with a var(--primary) text shadow glow. Used for digital, game type numerals for ELO, streaks, scores',
+        },
     ],
 
     changelog: [
         {
+            version: 'Demo 1 -> Demo 2',
             category: 'Colors',
             changes: [
                 'New color palette - pinkColors documented as named Tailwind tokens',
@@ -570,6 +708,7 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
         },
 
         {
+            version: 'Demo 1 -> Demo 2',
             category: 'Typography',
             changes: [
                 '--heading corrected from Baloo Bhai 2 to Roboto',
@@ -582,6 +721,7 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
         },
 
         {
+            version: 'Demo 1 -> Demo 2',
             category: 'Styling Architecture',
             changes: [
                 'Migrated from per-file CSS to a single global.css with Tailwind v4',
@@ -594,6 +734,7 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
         },
 
         {
+            version: 'Demo 1 -> Demo 2',
             category: 'Architecture',
             changes: [
                 'Adopted MVVM - Model, View Model and View seperation',
@@ -605,6 +746,7 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
         },
 
         {
+            version: 'Demo 1 -> Demo 2',
             category: 'Pages and Visual Design',
             changes: [
                 'Complete visual redesign from Demo 1',
@@ -613,6 +755,48 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
                 'Theme related assets introduced such as UFO, planets, new robot mascot, symbol background texture, light beam effects',
             ],
             rationale: 'Demo 1 screens had no visual identity, Demo 2 now fully establishes a cosmos theme that runs consistently across the App.',
+        },
+
+        {
+            version: 'Demo 2 -> Demo 3',
+            category: 'Colors',
+            changes: [
+                'New color palette - documented in the new Brand Style Guide',
+                'Added --warning and --info status colors alongside --success and --danger',
+                'Added --difficulty-easy/medium/hard mirroring success/warning and danger for question status and difficulty',
+                'Added a light mode palette via :root-light',
+            ],
+            rationale: 'The new color palette seperates background from brand accent and introduces a more layered look with consistent colors.',
+        },
+
+        {
+            version: 'Demo 2 -> Demo 3',
+            category: 'Typography',
+            changes: [
+                '--font-dseg for digital, game type numerals for ELO, streaks, scores',
+            ],
+            rationale: 'For the app to have some kind of spacey/game feel and to make these stats and Elo ratings stand out.',
+        },
+
+        {
+            version: 'Demo 2 -> Demo 3',
+            category: 'Styling Architecture',
+            changes: [
+                'Animated effects (.animate-glow)',
+                'Card surfaces split into 3 variants - glass, elevated and glow',
+                'Added .starfield and .confetti classes to reinforce the robots in space theme'
+            ],
+            rationale: 'These were added to give the UI more depth, glow effects, motion.'
+        },
+
+        {
+            version: 'Demo 2 -> Demo 3',
+            category: 'Pages and Visual Design',
+            changes: [
+                'Light theme introduced as an alternative look to the app',
+                'A more black-ish cosmic theme with layered surfaces'
+            ],
+            rationale: 'Demo 3 refines the robots in space theme with a more consistent language and introduces a light mode option for slight variety.',
         },
     ],
 
@@ -632,7 +816,7 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
         ],
     },
 
-    accessibilityRules: [ //Need to add more here
+    accessibilityRules: [ 
         'Conformance target: WCAG 2.2 AA minimum, AAA achieved for all body text pairings',
         'All form inputs have visible labels or aria-label attributes',
         'Buttons use type="button" explicitly to prevent unintended form submissions',
@@ -647,29 +831,25 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
             },
             {
                 label: 'Body Text Contrast',
-                value: '12.4:1',
+                value: '17.9:1',
             },
             {
                 label: 'Button Contrast',
-                value: '4.6:1',
+                value: '5.3:1',
+            },
+            {
+                label: 'Theme Support',
+                value: 'Dark(default) and Light',
             },
         ],
 
         contrastPairs: [
             {
                 fg: '#FCECDD',
-                bg: '#530A24',
+                bg: '#0a0008',
                 fgLabel: 'Primary Text',
-                bgLabel: 'Primary',
-                ratio: '12.4:1',
-                level: 'AAA',
-            },
-            {
-                fg: '#FFEFE0',
-                bg: '#520A24',
-                fgLabel: 'Secondary',
-                bgLabel: 'Primary',
-                ratio: '10.2:1',
+                bgLabel: 'Background',
+                ratio: '17.9:1',
                 level: 'AAA',
             },
             {
@@ -682,10 +862,10 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
             },
             {
                 fg: '#530A24',
-                bg: '#FFEFE0',
+                bg: '#Fcecdd',
                 fgLabel: 'Secondary Text',
                 bgLabel: 'Secondary',
-                ratio: '10.2:1',
+                ratio: '12.7:1',
                 level: 'AAA',
             },
             {
@@ -737,6 +917,13 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
                     "Animations are decorative only",
                     "Users can navigate without animation"
                 ]
+            },
+            {
+                title: 'Theme Support',
+                items: [
+                    "Light mode available via .light class",
+                    "Decorative elements like starfield adapt to active theme"
+                ]
             }
         ]
     },
@@ -749,7 +936,7 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
 
         forbidden: [
             'Stretch or distort the logo in any dimension',
-            'Visual effects such as shadowns, glows or outlines',
+            'Visual effects such as shadows, glows or outlines',
             'Color outside of the approved palette',
             'Place on clashing background',
             'Rotate, skew or transform',

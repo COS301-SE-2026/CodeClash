@@ -39,8 +39,6 @@ const App: React.FC = () => {
    
     const logged_in = user !== null
 
-    const base_path = logged_in ? <Dashboard /> : <Landing />
-
     if (!logged_in) {
         return (
             <Routes>
@@ -60,23 +58,22 @@ const App: React.FC = () => {
 
     return (
         <Routes>
-            <Route path='/' element={<Dashboard/>} />
-            <Route path='/' element={base_path} />
+            <Route path='/' element={<Navigate to='/dashboard' replace/>} />
+
             <Route path='/sign-in' element={<SignIn />} />
             <Route path='/sign-up' element={<SignUp />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/match-searching' element={<MatchSearching />} />
             <Route path='/match-found' element={<MatchFound />} />
-            <Route path='/maths-match' element={<MathMatch />} />
+            <Route path='/math-match' element={<MathMatch />} />
+            {/*<Route path='/leaderboard' element={<Leaderboard />} />*/}
             <Route path='/prog-match' element={<ProgMatch language="javascript" />} />
             <Route path='/results' element={<FinalResults/>} />
-
-            <Route path= '/results' element= {<FinalResults/>}/>
-
             <Route path= '/forgot-password' element= {<ForgotPassword/>}/>
             <Route path='/terms' element={<TermsAndConditions/>}/>
             <Route path="/brand-style-guide" element= {<BrandStyleGuide/>}/>
             <Route path="/agent" element={<Agent/>}/>
+            <Route path='/game-guide' element={<GameGuide/>}/>
 
             {/* Pages with sidebar inside the app */}
             <Route element={<Layout />}>
@@ -90,6 +87,8 @@ const App: React.FC = () => {
                 <Route path="/shop" element={<Shop/>}/>
                 <Route path='/settings' element={<Settings/>}/>
             </Route>
+
+            <Route path="*" element={<Navigate to='/dashboard' replace/>}/>
         </Routes>
     )
 }

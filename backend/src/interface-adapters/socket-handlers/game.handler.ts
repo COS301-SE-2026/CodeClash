@@ -83,7 +83,11 @@ export const gameDone = async (io: Server, socket: Socket, game_id: number, game
 export const sendResults = (io: Server, game_id: number, pair_id: string, game_store: GameStore) => {
 
     const result = game_store.getResult(game_id);
-
+    const game = game_store.get(game_id);
+    if(!game) {
+        console.warn(`send_results: game ${game_id} not found`);
+        return;
+    }
     if (!result?.result) {
         console.error("No result foud")
         return;

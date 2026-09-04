@@ -10,7 +10,7 @@ export class MatchProblems{
 }
 
 @Entity()
-export class Match {
+export class Matches {
     @PrimaryGeneratedColumn('uuid')
     match_id!: string;
 
@@ -25,6 +25,9 @@ export class Match {
     @Column({ type: 'varchar', length: 10})
     match_type!: 'ranked' | 'casual';
 
+    @Column({ type: 'varchar', length: 10})
+    game_mode!: 'math' | 'programming';
+
     @Column({ type: 'timestamp', nullable: true })
     match_start!: Date | null;
 
@@ -37,9 +40,9 @@ export class MatchLog {
     @PrimaryGeneratedColumn('uuid')
     log_id!: string;
 
-    @OneToOne(() => Match)
+    @OneToOne(() => Matches)
     @JoinColumn({ name: 'match_id' })
-    match!: Match;
+    match!: Matches;
 
     @ManyToOne(() => Users)
     @JoinColumn({ name: 'winner_id' })
@@ -50,5 +53,8 @@ export class MatchLog {
     loser!: Users;
 
     @Column( { nullable: true })
-    elo_change!: number;
+    elo_gained!: number;
+
+    @Column( { nullable: true })
+    elo_lost!: number;
 }
