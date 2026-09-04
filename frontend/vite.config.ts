@@ -3,7 +3,9 @@ import path from 'path'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import dotenv from 'dotenv'
+// eslint-disable-next-line import/no-duplicates
 import { defineConfig, mergeConfig  } from 'vite'
+// eslint-disable-next-line import/no-duplicates
 import { defineConfig as defineVitestConfig } from 'vitest/config'
 
 dotenv.config();

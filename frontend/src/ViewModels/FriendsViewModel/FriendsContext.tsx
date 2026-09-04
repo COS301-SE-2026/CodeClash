@@ -40,7 +40,7 @@ interface FriendsContext {
     declineInvite: () => void;
     dismissInviteError: () => void;
 }
-
+// eslint-disable-next-line react-refresh/only-export-components
 export const FriendsContextFunc = createContext<FriendsContext | null>(null);
 
 export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children}) => {

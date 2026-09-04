@@ -5,6 +5,7 @@ or than adding username/friend searches to the 'global' search bar. Its just a m
 import React, { useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 
+// eslint-disable-next-line react-refresh/omly-export-components
 export type OutletContext = {
     setExtra: (node: React.ReactNode) => void;
 }
