@@ -1,0 +1,14 @@
+docker-compose.yml
+  h_58e143dc25f856 9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "abe687982c5c84cbd94a44c87d59c0c25fe795c0",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
