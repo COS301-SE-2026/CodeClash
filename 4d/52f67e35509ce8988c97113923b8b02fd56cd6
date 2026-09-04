@@ -1,0 +1,19 @@
+backend/src/application/usecases/services/marking/marking-result.ts
+  s_2da99668bdf811::t_bb89a61fde3381 13,17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "4d52f67e35509ce8988c97113923b8b02fd56cd6",
+  "prompts": {},
+  "sessions": {
+    "s_2da99668bdf811": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "18d5a8d1-7c32-4944-a7b9-280a0cd61b4a",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
