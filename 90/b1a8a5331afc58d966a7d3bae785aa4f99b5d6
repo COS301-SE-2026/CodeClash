@@ -1,0 +1,14 @@
+backend/src/entities/db-entities/questions.entities.ts
+  h_58e143dc25f856 33-34,50
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "90b1a8a5331afc58d966a7d3bae785aa4f99b5d6",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
