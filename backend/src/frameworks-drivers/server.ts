@@ -185,13 +185,21 @@ AppDataSource.initialize()
                 });
             });
 
-            socket.on("avatar:requestAll", (pair_id) => {
+            socket.on('avatar:requestAll', (pair_id) => {
                 const pair = io.sockets.adapter.rooms.get(pair_id);
                 const avatarsInPair = {};
                 if(pair){
-                    
+                    for (const socketId of pair){
+                        const sid = io.sockets.sockets.get(socketId);
+                        const uid = sid?.data?.user_id;
+                        if(uid && playerAvatars.has(uid)){
+                            avatarsInPair[uid] = playerAvatars.get(uid);
+                        }
+                    }
                 }
-            })
+
+                socket.emit('avatar:allData', avatarsInPair);
+            });
         })
 
 
