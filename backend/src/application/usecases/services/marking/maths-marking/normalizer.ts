@@ -79,3 +79,27 @@ export function normalize(input: string): string {
   return text.trim();
 }
 
+function isSafe(node: MathNode): boolean {
+    let safe = true;
+    node.traverse((child) => {
+        if (!safe) return;
+        switch (child.type) {
+            case "OperatorNode":
+            case "ConstantNode":
+            case "ParenthesisNode":
+                break;
+            case "SymbolNode":
+                if (BLOCKED_SYMBOLS.has((child as SymbolLike).name)) safe = false;
+                break;
+            case "FunctionNode": {
+                const name = (child as FunctionLike).fn?.name;
+                if (name === undefined || !ALLOWED_FUNCTIONS.has(name)) safe = false;
+                break;
+            }
+            default:
+                // Assignments, blocks and function definitions have no place in an answer.
+                safe = false;
+        }
+    });
+    return safe;
+}
