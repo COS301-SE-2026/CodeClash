@@ -32,6 +32,17 @@ const MIN_SAMPLES = 5;
 
 export function toleranceFor(precision: number | null): number {
     if (precision === null) return EQUIVALENCE_TOLERANCE;
-    return precision;
+  return 0.5 * Math.pow(10, precision);;
 }
+
+function repeatReplace(input: string, pattern: RegExp, replacement: string): string {
+  let current = input;
+  for (let pass = 0; pass < 20; pass++) {
+    const next = current.replace(pattern, replacement);
+    if (next === current) return current;
+    current = next;
+  }
+  return current; // linnked list implementatoin, 
+}
+
 
