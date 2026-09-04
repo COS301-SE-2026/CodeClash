@@ -1,5 +1,7 @@
 import Redis from "ioredis";
 import { IGameCache } from "src/application/interfaces/cache/IGameCache";
+import { AnswerDTO } from "../../../entities/dtos/answer.dto";
+
 
 
 export class GameCache implements IGameCache {
@@ -12,16 +14,20 @@ export class GameCache implements IGameCache {
     }
 
     // correct answers
-    async saveAnswer(question_id: string, answer: string): Promise<void> {
-        this.redis.set(`question:${question_id}`, `answer:${answer}`)
+    async saveAnswer(answer: AnswerDTO): Promise<void> {
+        this.redis.set(`question:${answer.question_id}`, JSON.stringify(answer))
 
     }
 
-    async getAnswer(question_id: string): Promise<string | null> {
-        const answer = await this.redis.get(`question:${question_id}`);
+    async getAnswer(question_id: string): Promise<AnswerDTO | null> {
+        const cached = await this.redis.get(`question:${question_id}`);
 
-        if (!answer) return null;
+        if (!cached) return null;
 
-        return answer.split(":")[1]!;
+      try {
+        return JSON.parse(cached) as AnswerDTO;
+      } catch {
+        return null;
+        }
     }
 }
