@@ -4,8 +4,8 @@ import { AnswerRepository } from '../../../src/interface-adapters/repositories/a
 import { beforeAll, describe, expect, it } from "vitest";
 import { Questions } from "../../../src/entities/db-entities/questions.entities";
 import { createTestDataSource } from "../../test-data-source";
-import { mock_questions } from "./mocks/mock-questions";
-import { mock_answers } from "./mocks/mock-answers";
+import { mock_questions } from "../../mocks/mock-questions";
+import { mock_answers } from "../../mocks/mock-answers";
 import { randomUUID } from "node:crypto";
 
 let data_source: DataSource

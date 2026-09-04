@@ -3,9 +3,9 @@ import { createTestDataSource } from "../../test-data-source";
 import { describe, beforeAll, afterAll, it, expect } from "vitest";
 import { Users } from '../../../src/entities/db-entities/user.entities'
 import { EloRatings } from '../../../src/entities/db-entities/elo.entities'
-import { mock_users_array } from "./mocks/mock-user";
+import { mock_users_array } from "../../mocks/mock-user";
 import { EloRepository } from '../../../src/interface-adapters/repositories/elo.repository'
-
+import {RankDTO} from '../../../src/entities/dtos/rank.dto';
 
 let data_source: DataSource
 let elo_entity: Repository<EloRatings>
@@ -70,7 +70,7 @@ describe("Elo Repository Queries", () => {
     })
 
     it("Ranks tied users by username so ranks are stable and unique", async () => {
-        const ranks = await Promise.all(mock_user.map(u => elo_repo.getUserRank(u.user_id)))
+        const ranks:RankDTO[] = await Promise.all(mock_user.map(u => elo_repo.getUserRank(u.user_id)))
         expect(ranks.map(r => r!.rank)).toEqual([1,2,3])
     })
 

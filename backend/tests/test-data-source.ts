@@ -4,7 +4,15 @@ import { EloRatings } from '../src/entities/db-entities/elo.entities'
 import dotenv from 'dotenv'
 import { Questions } from '../src/entities/db-entities/questions.entities'
 import { Answers } from '../src/entities/db-entities/answers.entities'
-import { Match } from '../src/entities/db-entities/match.entities'
+import { Matches } from '../src/entities/db-entities/match.entities'
+import { MatchLog } from '../src/entities/db-entities/match.entities'
+import { MatchProblems } from '../src/entities/db-entities/match.entities'
+import { EloHistory } from '../src/entities/db-entities/elo.entities'
+import {Submission} from '../src/entities/db-entities/submission.entities'
+import { Achievement } from '../src/entities/db-entities/achievement.entities'
+import {MatchStats} from '../src/entities/db-entities/match-stats.entities'
+
+
 dotenv.config({path: '.env.test'})
 
 const env = process.env
@@ -18,7 +26,17 @@ export async function createTestDataSource() {
         password: env.DB_PASSWORD!,
         database: env.DB_NAME!,
         synchronize: true,
-        entities: [EloRatings, Users, Questions, Answers, Match],
+        entities: [ Matches,
+        MatchLog,
+        MatchProblems,
+        Answers,
+        EloRatings,
+        EloHistory,
+        Questions,
+        Submission,
+        Users,
+        Achievement,
+        MatchStats],
         dropSchema: true,
     })
 

@@ -26,7 +26,7 @@ import { GameMode, GameType, Questions } from '../../../src/entities/db-entities
 import { Answers } from '../../../src/entities/db-entities/answers.entities'
 import { QuestionRepository } from '../../../src/interface-adapters/repositories/question.repository'
 import { AnswerRepository } from '../../../src/interface-adapters/repositories/answer.repository'
-import { Match } from '../../../src/entities/db-entities/match.entities'
+import { Matches } from '../../../src/entities/db-entities/match.entities'
 import { IMatchRepository } from '../../../src/application/interfaces/repositories/IMatchRepository'
 import { MatchRepository } from '../../../src/interface-adapters/repositories/match.repository'
 import { IUserRepository } from '../../../src/application/interfaces/repositories/IUserRepository'
@@ -65,7 +65,7 @@ const create_round_entity = new CreateRoundEntity(world);
 const data_source = await createTestDataSource();
 const question_repo: IQuestionRepository = new QuestionRepository(data_source.getRepository(Questions));
 const answer_repo: IAnswerRepository = new AnswerRepository(data_source.getRepository(Answers))
-const match_repo: IMatchRepository = new MatchRepository(data_source.getRepository(Match))
+const match_repo: IMatchRepository = new MatchRepository(data_source.getRepository(Matches))
 const user_repo: IUserRepository = new UserRepository(data_source.getRepository(Users));
 
 const get_questions = new GetQuestions(question_repo);
