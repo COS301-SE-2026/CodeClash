@@ -24,8 +24,8 @@ export class EquationMarker implements MathsMarker {
     const sides = splitTopLevel(normalize(source), "=") // grabs the equation
     if (sides.length !== 2) return null;
 
-    const left = safeParse(sides[0]);
-    const right = safeParse(sides[1]);
+    const left = safeParse(sides[0]!);
+    const right = safeParse(sides[1]!);
     if (left === null || right === null) return null;
 
     try {
