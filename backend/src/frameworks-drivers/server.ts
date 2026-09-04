@@ -199,13 +199,16 @@ AppDataSource.initialize()
                 const pair = io.sockets.adapter.rooms.get(pair_id);
                 if(pair){
                     for (const socketId of pair){
-                        if(socketId === socket.id) continue;
-                        
-                    }
-                }
+                            if(socketId === socket.id) continue;
+                                const oppSocket = io.sockets.sockets.get(socketId);
+                                const oppId = oppSocket?.data?.user_id;
 
-                socket.emit('avatar_all_data', avatarsInPair);
-            });
+                           if(oppId && playerAvatars.has(oppId)){
+                                socket.emit('share_avatar', {userId: oppId, ...playerAvatars.get(oppId)});
+                            }  
+                        } 
+                    }
+                });
 
             socket.on('avatar_updated', ({ pose, colour }) => {
                 playerAvatars.set(userId, {pose, colour});
