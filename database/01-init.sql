@@ -1,7 +1,7 @@
 --very generic tables that can be changed later, just trying not to keep the file empty
 
 CREATE TYPE GAME_MODES AS ENUM ('math', 'programming');
-CREATE TYPE ANSWER_FORMATS AS ENUM ('numeric', 'decimal', 'set', 'variable', 'expression', 'simplified', 'factored', 'equation');
+CREATE TYPE ANSWER_FORMATS AS ENUM ('numeric', 'decimal', 'set', 'variables', 'expression', 'simplified', 'factored', 'equation');
 CREATE TYPE supported_languages AS ENUM('java','c++');
 
 CREATE TABLE IF NOT EXISTS leagues(
