@@ -1,0 +1,14 @@
+backend/src/interface-adapters/repositories/answer.repository.ts
+  h_58e143dc25f856 34,36,51,63-64
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "04db92978e683d95bb2c10188cb99d8ab8a1d48b",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
