@@ -48,7 +48,7 @@ export class AnswerRepository implements IAnswerRepository {
                 answer_id: true,
                 question: {
                     question_id: true,
-                    answerformat: true,
+                    answer_format: true,
                     answer_precision: true
                 }
             },
