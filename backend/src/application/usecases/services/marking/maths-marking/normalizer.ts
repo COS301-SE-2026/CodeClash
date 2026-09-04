@@ -170,3 +170,98 @@ export function closeAbsolute(left: number, right: number, tolerance: number): b
 export function evaluateConstant(node: MathNode): number | null {
     return variablesIn(node).length === 0 ? evaluateAt(node, {}) : null;
 }
+
+export function equivalent(left: MathNode, right: MathNode): boolean {
+    const variables = variablesIn(left, right);
+
+    if (variables.length === 0) {
+        const leftValue = evaluateAt(left, {});
+        const rightValue = evaluateAt(right, {});
+        return leftValue !== null && rightValue !== null && closeRelative(leftValue, rightValue);
+    }
+
+    let agreed = 0;
+    for (const point of samplePoints(variables)) {
+        const leftValue = evaluateAt(left, point);
+        const rightValue = evaluateAt(right, point);
+        // A pole or a domain error tells us nothing, so it is skipped rather than failed.
+        if (leftValue === null || rightValue === null) continue;
+        if (!closeRelative(leftValue, rightValue)) return false;
+        agreed++;
+    }
+
+    return agreed >= MIN_SAMPLES;
+}
+
+export function splitTopLevel(source: string, separator: string): string[] {
+    const parts: string[] = [];
+    let depth = 0;
+    let current = "";
+
+    for (const char of source) {
+        if (char === "(" || char === "[" || char === "{") depth++;
+        else if (char === ")" || char === "]" || char === "}") depth--;
+
+        if (char === separator && depth === 0) {
+            parts.push(current);
+            current = "";
+            continue;
+        }
+        current += char;
+    }
+    parts.push(current);
+
+    return parts.map((part) => part.trim()).filter((part) => part !== "");
+}
+
+export function degreeOf(node: MathNode): number {
+    let degree = 0;
+    node.traverse((child) => {
+        if (child.type === "OperatorNode" && (child as OperatorLike).op === "^") {
+            const args = (child as OperatorLike).args;
+            const base = args[0];
+            const exponent = args[1];
+            if (base !== undefined && exponent !== undefined
+                && variablesIn(base).length > 0 && exponent.type === "ConstantNode") {
+                degree = Math.max(degree, Number((exponent as ConstantLike).value));
+            }
+        } else if (child.type === "SymbolNode" && !CONSTANTS.has((child as SymbolLike).name)) {
+            degree = Math.max(degree, 1);
+        }
+    });
+    return degree;
+}
+
+export function factorsOf(node: MathNode): MathNode[] {
+    const factors: MathNode[] = [];
+
+    const walk = (current: MathNode) => {
+        if (current.type === "ParenthesisNode") {
+            walk((current as MathNode & { content: MathNode }).content);
+            return;
+        }
+        if (current.type === "OperatorNode") {
+            const operator = current as OperatorLike;
+            const [first, second] = operator.args;
+            if (operator.op === "*" && first !== undefined && second !== undefined) {
+                walk(first);
+                walk(second);
+                return;
+            }
+            // Dividing by a constant does not change whether the answer is factored.
+            if (operator.op === "/" && first !== undefined && second !== undefined
+                && variablesIn(second).length === 0) {
+                walk(first);
+                return;
+            }
+            if (operator.op === "-" && operator.args.length === 1 && first !== undefined) {
+                walk(first);
+                return;
+            }
+        }
+        factors.push(current);
+    };
+
+    walk(node);
+    return factors;
+}
