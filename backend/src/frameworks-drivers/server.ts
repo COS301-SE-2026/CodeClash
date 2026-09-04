@@ -190,17 +190,17 @@ AppDataSource.initialize()
 
             socket.on('match_join', ({pair_id, pose, colour}) => {
 
-                socket.join(matchId);
-                
+                socket.join(pair_id);
+                playerAvatars.set(userId, {pose, colour});
+
+                //send avatar to opponent in match
+                socket.to(pair_id).emit('share_avatar', {userId, pose, colour});
+
                 const pair = io.sockets.adapter.rooms.get(pair_id);
-                const avatarsInPair = {};
                 if(pair){
                     for (const socketId of pair){
-                        const sid = io.sockets.sockets.get(socketId);
-                        const uid = sid?.data?.user_id;
-                        if(uid && playerAvatars.has(uid)){
-                            avatarsInPair[uid] = playerAvatars.get(uid);
-                        }
+                        if(socketId === socket.id) continue;
+                        
                     }
                 }
 
