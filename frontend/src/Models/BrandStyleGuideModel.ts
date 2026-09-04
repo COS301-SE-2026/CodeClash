@@ -756,6 +756,48 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
             ],
             rationale: 'Demo 1 screens had no visual identity, Demo 2 now fully establishes a cosmos theme that runs consistently across the App.',
         },
+
+        {
+            version: 'Demo 2 -> Demo 3',
+            category: 'Colors',
+            changes: [
+                'New color palette - documented in the new Brand Style Guide',
+                'Added --warning and --info status colors alongside --success and --danger',
+                'Added --difficulty-easy/medium/hard mirroring success/warning and danger for question status and difficulty',
+                'Added a light mode palette via :root-light',
+            ],
+            rationale: 'The new color palette seperates background from brand accent and introduces a more layered look with consistent colors.',
+        },
+
+        {
+            version: 'Demo 2 -> Demo 3',
+            category: 'Typography',
+            changes: [
+                '--font-dseg for digital, game type numerals for ELO, streaks, scores',
+            ],
+            rationale: 'For the app to have some kind of spacey/game feel and to make these stats and Elo ratings stand out.',
+        },
+
+        {
+            version: 'Demo 2 -> Demo 3',
+            category: 'Styling Architecture',
+            changes: [
+                'Animated effects (.animate-glow)',
+                'Card surfaces split into 3 variants - glass, elevated and glow',
+                'Added .starfield and .confetti classes to reinforce the robots in space theme'
+            ],
+            rationale: 'These were added to give the UI more depth, glow effects, motion.'
+        },
+
+        {
+            version: 'Demo 2 -> Demo 3',
+            category: 'Pages and Visual Design',
+            changes: [
+                'Light theme introduced as an alternative look to the app',
+                'A more black-ish cosmic theme with layered surfaces'
+            ],
+            rationale: 'Demo 3 refines the robots in space theme with a more consistent language and introduces a light mode option for slight variety.',
+        },
     ],
 
     voiceRules: {
@@ -774,7 +816,7 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
         ],
     },
 
-    accessibilityRules: [ //Need to add more here
+    accessibilityRules: [ 
         'Conformance target: WCAG 2.2 AA minimum, AAA achieved for all body text pairings',
         'All form inputs have visible labels or aria-label attributes',
         'Buttons use type="button" explicitly to prevent unintended form submissions',
@@ -789,29 +831,25 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
             },
             {
                 label: 'Body Text Contrast',
-                value: '12.4:1',
+                value: '17.9:1',
             },
             {
                 label: 'Button Contrast',
-                value: '4.6:1',
+                value: '5.3:1',
+            },
+            {
+                label: 'Theme Support',
+                value: 'Dark(default) and Light',
             },
         ],
 
         contrastPairs: [
             {
                 fg: '#FCECDD',
-                bg: '#530A24',
+                bg: '#0a0008',
                 fgLabel: 'Primary Text',
-                bgLabel: 'Primary',
-                ratio: '12.4:1',
-                level: 'AAA',
-            },
-            {
-                fg: '#FFEFE0',
-                bg: '#520A24',
-                fgLabel: 'Secondary',
-                bgLabel: 'Primary',
-                ratio: '10.2:1',
+                bgLabel: 'Background',
+                ratio: '17.9:1',
                 level: 'AAA',
             },
             {
@@ -824,10 +862,10 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
             },
             {
                 fg: '#530A24',
-                bg: '#FFEFE0',
+                bg: '#Fcecdd',
                 fgLabel: 'Secondary Text',
                 bgLabel: 'Secondary',
-                ratio: '10.2:1',
+                ratio: '12.7:1',
                 level: 'AAA',
             },
             {
@@ -879,6 +917,13 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
                     "Animations are decorative only",
                     "Users can navigate without animation"
                 ]
+            },
+            {
+                title: 'Theme Support',
+                items: [
+                    "Light mode available via .light class",
+                    "Decorative elements like starfield adapt to active theme"
+                ]
             }
         ]
     },
@@ -891,7 +936,7 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
 
         forbidden: [
             'Stretch or distort the logo in any dimension',
-            'Visual effects such as shadowns, glows or outlines',
+            'Visual effects such as shadows, glows or outlines',
             'Color outside of the approved palette',
             'Place on clashing background',
             'Rotate, skew or transform',
