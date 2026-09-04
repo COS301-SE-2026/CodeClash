@@ -19,6 +19,7 @@ const SkillProgressCard = ({
   seeAll: string;
 }) => (
   <div className='card-elevated p-5'>
+    <div className='blur-[1px] pointer-events-none select-none opacity-60'>
     <div className='flex items-center justify-between mb-3'>
       <div>
         <p className='text-sm font-bold text-primary-text'>Skills Progress</p>
@@ -41,6 +42,7 @@ const SkillProgressCard = ({
           </div>
         </div>
       ))}
+    </div>
     </div>
   </div>
 )
