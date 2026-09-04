@@ -57,6 +57,10 @@ import { MarkProg } from 'src/application/usecases/services/marking/mark-prog';
 import { CodeExecutor } from 'src/interface-adapters/CodeExecutor';
 import { MatchStats } from 'src/entities/db-entities/match-stats.entities';
 import { MatchStatsRepository } from 'src/interface-adapters/repositories/match-stats.repository';
+import { Achievement } from 'src/entities/db-entities/achievement.entities';
+import { AchievementService } from 'src/application/usecases/services/achievement.service';
+import { AchievementRepository } from 'src/interface-adapters/repositories/achievement.repository';
+
 dotnev.config()
 
 // create server instance
@@ -75,6 +79,8 @@ AppDataSource.initialize()
             AppDataSource.getRepository(Users)
         )
         const match_stats_repo = new MatchStatsRepository(AppDataSource.getRepository(MatchStats));
+        const achievementRepo = new AchievementRepository(AppDataSource.getRepository(Achievement), AppDataSource.getRepository(Users));
+        const achievement_service = new AchievementService(achievementRepo);
 
         // initialise ecs world 
         const world = World();
@@ -110,7 +116,7 @@ AppDataSource.initialize()
         const submission_system = new SubmissionSystem(world);
         const life_system = new LifeSystem(world);
         const delete_game = new DeleteGame(world, game_store, matched_users_service);
-        const finish_game = new FinishGame(world, match_results, game_store, delete_game,match_stats_repo);
+        const finish_game = new FinishGame(world, match_results, game_store, delete_game,match_stats_repo,achievement_service,user_repo);
 
 
 
@@ -189,7 +195,15 @@ AppDataSource.initialize()
 
             socket.on('send_results', (game_id: number, pair_id: string) => sendResults(io, game_id, pair_id, game_store))
 
-            socket.on('clean_up', (game_id: number, pair_id: string) => cleanUp(game_id, pair_id, delete_game, game_store))
+            socket.on('clean_up', (game_id: number, pair_id: string)=> cleanUp(game_id, pair_id, delete_game, game_store))
+
+            socket.on('send_friend_invite', (data) => {
+                io.to(data.receiver_id).emit('friend_invite_received', {
+                    invite_id: data.invite_code,
+                    sender_name: data.sender_name,
+                    expires_at: data.expires_at
+                });
+            });
         })
 
         // start server
