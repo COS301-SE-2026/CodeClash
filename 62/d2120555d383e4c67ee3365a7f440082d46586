@@ -1,0 +1,21 @@
+backend/src/interface-adapters/repositories/answer.repository.ts
+  s_2da99668bdf811::t_43f0199401af58 26,36,63-64
+  s_2da99668bdf811::t_23aedd0602cdcd 52
+  s_2da99668bdf811::t_1754bb928d4a5a 24-25,50-51,62
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "62d2120555d383e4c67ee3365a7f440082d46586",
+  "prompts": {},
+  "sessions": {
+    "s_2da99668bdf811": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "18d5a8d1-7c32-4944-a7b9-280a0cd61b4a",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
