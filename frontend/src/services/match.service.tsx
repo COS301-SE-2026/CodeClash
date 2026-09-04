@@ -8,6 +8,7 @@ import { endGame } from "src/services/result.service";
 import type { GameQuestionsDTO } from "src/dtos/game-questionDTO";
 import { useNavigate } from "react-router-dom";
 import type { OpponentDTO } from "src/dtos/opponent.dto";
+import type { MathsSubmissionDTO, ProgSubmissionDTO } from "src/dtos/submission.dto";
 
 export const useGameTimer = (duration: number, onExpire: () => void) => {
     const expiry_time = useMemo(() => {
@@ -83,9 +84,9 @@ export const useGameQuestions = (
         }
     }
 
-    const submitQuestion = (question_id: string, answer: string) => {
+    const submitQuestion = (question_id: string, game_type: string, submission: ProgSubmissionDTO | MathsSubmissionDTO) => {
         question_idx.current = currentQuestion;
-        submitAnswer(socket, parseInt(match_id), question_id, answer, question_idx.current);
+        submitAnswer(socket, parseInt(match_id), question_id, question_idx.current, game_type, submission);
     }
 
     const finishGame = () => {
@@ -96,7 +97,7 @@ export const useGameQuestions = (
     }
 
     const loadQuestions = (data: GameQuestionsDTO) => {
-        let temp_arr: Question[] = [];
+        const temp_arr: Question[] = [];
         let sumtime = 0;
 
         for (const q of data.easy) {
@@ -160,6 +161,7 @@ export const useGameQuestions = (
         nextQuestion,
         prevQuestion,
         submitQuestion,
+        question_idx,
         finishGame,
         loadQuestions,
         waitingOpponent,
