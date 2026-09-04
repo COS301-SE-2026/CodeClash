@@ -21,5 +21,11 @@ export function useMatchAvatars({pair_id, myUserId, myPose, myColour}) {
         };
 
         socket.on('share_avatar', handleOpponentAvatar);
-    })
+
+        return () => {
+            socket.off('share_avatar', handleOpponentAvatar);
+        };
+    }, [pair_id, myUserId, myPose, myColour]);
+
+    return {opponent};
 }
