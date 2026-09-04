@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
-import { getUserStat } from '../../../src/interface-adapters/controllers/user.controllers'
-import { UserDTO } from '../../../src/entities/dtos/user.dto'
+import { getUserStat } from '../../../src/interface-adapters/controllers/user.controllers';
+import { UserDTO } from '../../../src/interface-adapters/dtos/user.dto';
 
 describe("User Controller Test", () => {
     it("Returns value of valid stat req", async () => {
@@ -52,7 +52,7 @@ describe("User Controller Test", () => {
         await controller(req, res);
 
         expect(res.status).toHaveBeenCalledWith(400);
-        expect(res.json).toHaveBeenCalledWith({ error: 'Invalid request' })
+        expect(res.json).toHaveBeenCalledWith({ message: 'Invalid request' })
 
     })
 
@@ -79,7 +79,7 @@ describe("User Controller Test", () => {
         await controller(req, res);
 
         expect(res.status).toHaveBeenCalledWith(404);
-        expect(res.json).toHaveBeenCalledWith({ error: 'User not found' })
+        expect(res.json).toHaveBeenCalledWith({ message: 'User not found' })
 
     })
 })

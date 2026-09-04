@@ -20,7 +20,7 @@ const MathsMatch = () => {
         loading, submitQuestion,
         mathfieldRef, setAnswers, answers,
         results, gameOver, waitingOpponent,
-        finishGame, opponentDone
+        finishGame
     } = useMatch();
 
     const curr = questions[currentQuestion];
@@ -62,7 +62,6 @@ const MathsMatch = () => {
             opponent_progress={opponentCurrent}
             question_number={questions.length}
             question_results={results}
-            opponent_done={opponentDone}
         >
 
             <Question
@@ -89,7 +88,7 @@ const MathsMatch = () => {
                 <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem] hover:-translate-y-1'
                     onClick={() => {
                         const answer = mathfieldRef.current?.value ?? '';
-                        submitQuestion(curr.id!, answer)
+                        submitQuestion(curr.id!, 'math',{answer: answer})
                     }}
                 >
                     SUBMIT
@@ -106,16 +105,17 @@ const MathsMatch = () => {
             </div>
 
             {waitingOpponent && (
-                <div className="fixed inset-0 z-50  bg-black/50 flex items-center justify-center  ">
+                <div className="fixed inset-0 z-50  bg-background/60 flex items-center justify-center p-4 ">
 
-                    <Card className="relative bg-primary h-[35rem] w-[50%] rounded-3xl  text-center flex items-center absolute">
-                        <h1 className="text-[3rem] heading text-primary-text font-extrabold">
+                    <Card className="relative w-full max-w-lg rounded-3xl  text-center flex flex-col items-center gap-4 p-8 overflow-hidden"
+                        style={{background: 'radial-gradient(circle at 50% 15%, #b91551 0%, #850f3b 22%, #630b3c 34%, #0a0008 62%)'}}>
+                        <h1 className="text-md text-primary-text font-extrabold whitespace-nowrap">
                             Waiting For Opponent To Finish
                         </h1>
-                        <h2 className="text-[24rem] font-heading text-md text-primary-text text-center justify-center">
+                        <h2 className="text-sm text-primary-text/80 text-center">
                             Hang on while your opponent finishes up
                         </h2>
-                        <Spinner className={` size-120 text-secondary`}></Spinner>
+                        <Spinner className='w-12 h-12 text-secondary'></Spinner>
                     </Card>
                 </div>
             )

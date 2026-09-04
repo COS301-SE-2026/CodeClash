@@ -1,13 +1,13 @@
 import '../styles/global.css'
 import React from "react"
 import { useNavigate } from 'react-router-dom';
+import type { GameMode } from 'src/dtos/matchmaking.dto';
 
 import robot from '../assets/Robots/arms_up.png'
 import { type PopupProps } from '../Models/PopUpModel';
 import { useSelectTopic } from '../ViewModels/PopUpViewModel';
 
 import { Card } from '@/components/ui/card'
-import type { GameMode } from 'src/dtos/matchmaking.dto';
 
 
 const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
@@ -42,10 +42,10 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
                             onKeyDown={(e) => {
                                 const shift = e.shiftKey;
                                 if (shift && e.key === 'L') {
-                                    selecthandler('maths')
+                                    selecthandler('math')
                                 }
                             }}
-                            onClick={() => selecthandler('maths')}
+                            onClick={() => selecthandler('math')}
                             aria-label='math-selector'
                         >
                             <h1 className="text-[3rem] text-secondary-text heading font-bold  group-hover:text-white">+ -</h1>

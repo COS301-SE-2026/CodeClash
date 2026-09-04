@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
-import { useUser } from 'src/context/User/hooks/useUser';
 
-import { useLogOut, getProfile  } from '../ViewModels/ProfileViewModel';
+import { useLogOut, useProfile } from '../ViewModels/ProfileViewModel';
 
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -11,7 +10,7 @@ import { Card } from '@/components/ui/card';
 
 function ProfileView(){
   
-  const { userData, loadingData, error} = getProfile();
+  const { userData, loadingData, error} = useProfile();
 
   const onLogout = useLogOut();
 
@@ -35,7 +34,7 @@ function ProfileView(){
         ← Back
       </Link>
 
-      <Card className="w-[40%] h-[40rem] flex items-center justify-center bg-[#F8E5DD]">
+      <Card className="w-[40%] h-[50%] flex items-center justify-center bg-[#F8E5DD]">
 
         <div className="w-[35%]" >
           <img src={userData?.avatar} alt="avatarImage" className="" />

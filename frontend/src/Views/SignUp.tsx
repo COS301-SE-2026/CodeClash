@@ -1,13 +1,11 @@
+import { ArrowRight, ArrowLeft, User, AtSign, Mail, Phone, Lock } from 'lucide-react';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import lightBeam from '../assets/Background/SignUpBeam.png';
-import ufoImage from '../assets/RedUFO.png';
+import symbolBackground from "../assets/Background/SymbolBackground.png";
 import { SignUpViewModelFunction } from '../ViewModels/SignUpViewModel.ts';
 
-
-const fieldClass = "fields w-[100%] max-w-[90vw] h-[3rem] bg-white rounded-lg px-[2%] border-[0.5px] border-primary outline-none transition-all duration-200 focus:border-pink-400 focus:shadow-[0_0_0_3px_rgba(185,21,81,0.15)] disabled:opacity-50 text-primary font-medium placeholder:text-primary/60 focus:text-primary";
-const buttonPrimaryClass = "w-[100%] max-w-[90vw] h-[3rem] text-[1.5rem] rounded-lg font-bold cursor-pointer flex items-center justify-center transition-all duration-200 hover:-translate-y-px active:translate-y-0 disabled:opacity-50 bg-button-primary text-button-text-primary shadow-badge";
+import Starfield from '@/components/ui/animations/Starfield.tsx';
 
 const SignUp: React.FC= () => {
     const { //this is to destructure the elements that the viewmodel returns, so that the view can access them
@@ -26,146 +24,143 @@ const SignUp: React.FC= () => {
 
     if (needsConfirmation) {
         return (
-            <div className="relative w-full h-screen flex items-center justify-center overflow-x-hidden"
-                style={{ background: 'var(--background)' }} >
-                <Link className="absolute top-10 left-10 bg-primary rounded-lg px-4 py-2 heading-sub hover:opacity-80"
-                    to='/'
-                >
-                    ← Back
+            <div className='relativew-full min-h-screen flex items-center justify-center overflow-hidden px-6 py-16'
+                style={{background: "radial-gradient(circle at 50% 12%, #b91551 0%, #850f3b 22%, #630b3c 34%, #0a0008 62%)"}}>
+                <img src= {symbolBackground} alt='' className='absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none'/>
+
+                {/*Back Btn */}
+                <Link to='/' className='btn btn-ghost primary-back-button flex items-center gap-2 z-20'>
+                    <ArrowLeft size={18}/>
+                    Back
                 </Link>
 
-                <div className="relative z-10 flex flex-col items-center gap-4 w-[100%]" >
-                    <h1 className="text-center"> Please verify your email </h1>
-                    <p> Enter the code sent to {form.email} </p>2
-
+                {/*Content */}
+                <div className='relative z-10 flex flex-col items-center backdrop-blur-md'>
+                    <div className='eyebrow mb-2'>One last step</div>
+                    <div className='flex justify-center mb-2'>
+                        <h1 className='w-fit mx-auto text-xl font-black text-primary-text whitespace-nowrap'>Verify your email</h1>
+                    </div>
+                    <p className='text-muted text-xsm text-center mb-8 whitespace-nowrap'>We sent a code to{" "}
+                        <span className='text-primary-text font-semibold'>{form.email}</span>
+                    </p>
                     {displayError && (
-                        <p className="text-danger text-center"> {displayError} </p>
+                        <div className='mb-6 rounded-3xl border border-danger/30 bg-danger/10 px-5 py-4'>
+                            <p className='text-sm text-danger font-semibold'>{displayError}</p>
+                        </div>
                     )}
                     {resendMessage && (
-                        <p className="text-success text-center"> {resendMessage} </p>
+                        <div className='mb-6 rounded-3xl border border-success/30 bg-success/10 px-5 py-4'>
+                            <p className='text-sm text-sucess font-semibold'>{resendMessage}</p>
+                        </div>
                     )}
-
-                    <input className={fieldClass}
-                        type="text"
-                        placeholder="Confirmation code"
-                        value={confirmationCode}
-                        onChange={(e) => setConfirmationCode(e.target.value)}
-                        disabled={isLoading}
-                    />
-
-                    <button className={buttonPrimaryClass}
-                        type="button"
-                        onClick={handleConfirm}
-                        disabled={isLoading} >
-                        {isLoading ? 'Verifying..' : 'Confirm'}
+                    <input className='input text-center tracking-[0.4rem] font-bold mb-6' type='text' placeholder='000000' value={confirmationCode} onChange={(e) => setConfirmationCode(e.target.value)} disabled={isLoading}/>
+                    <button className='btn btn-primary btn-md w-full' type='button' onClick={handleConfirm} disabled={isLoading}>
+                        {isLoading ? "Verifying..." : "Confirm"}
                     </button>
-
-                    <button className="heading-sub underline hover:opacity-80"
-                        type="button"
-                        onClick={handleResend}
-                        disabled={isLoading} >
-                        Resend code
-                    </button>
+                    <button className='mt-5 text-sm underline text-muted-text hover:text-primary transition-colors disabled:opacity-50' type='button' onClick={handleResend} disabled={isLoading}>Resend code</button>
                 </div>
             </div>
-        );
+        )
     }
 
+    {/*The main signup page */}
     return (
-        <div className="relative w-full h-screen flex items-center justify-center overflow-hidden"
-            style={{ background: 'var(--background)' }} >
-            <Link className="absolute top-10 left-10 bg-primary rounded-lg px-4 py-2 heading-sub hover:opacity-80"
-                to='/welcome'
-            >
-                ← Back
+        <div className='relative w-full min-h-screen flex items-center justify-center overflow-hidden px-6 py-16'
+            style={{background: "radial-gradient(circle at 50% 12%, #b91551 0%, #850f3b 22%, #630b3c 34%, #0a0008 62%)"}}>
+            <img src={symbolBackground} alt='' className='absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none'/>
+            <Starfield/>
+
+            {/*Back Button - copied from signin*/}
+            <Link to='/' className="btn btn-ghost primary-back-button flex items-center gap-2 z-20">
+                <ArrowLeft size={18}/>
+                Back
             </Link>
 
-            <div className="relative z-10 flex flex-col items-center" >
-
-                {/*UFO image*/}
-                <div className="relative w-full flex flex-col items-center -mt-17">
-                    <img src={ufoImage} alt="UFO" className="w-[480px] h-auto object-contain z-30" />
-                    <img src={lightBeam} alt="" className="absolute top-[40%] w-full h-full pointer-events-none z-10" style={{ objectFit: 'cover', transform: 'scaleX(2.5) scaleY(3)', transformOrigin: 'top center', }} />
-                </div>
-
-                <div className="relative z-20 flex flex-col items-center gap-4 w-full -mt-[12%] mb-[2%]">
-                    <h1 className="heading text-center -mb-2"> Create Your Account </h1>
-                    <p className="heading-sub mb-2"> Build your skills. Earn your rank. </p>
-
+            <div className='relative z-10 flex flex-col items-center w-full max-w-md'>
+                <div className='relative w-full px-8 backdrop-blur-md'>
+                    <div className='eyebrow text-center mb-2'>Join the arena</div>
+                    <div className='flex justify-center mb-2'>
+                        <h1 className='w-fit mx-auto text-xl font-black text-primary-text text-center whitespace-nowrap'>Create your account</h1>
+                    </div>
+                    <p className='text-muted text-xsm text-center mb-8 whitespace-nowrap'>Build your skills. Earn your rank.</p>
                     {displayError && (
-                        <p className="text-danger text-center"> {displayError} </p>
+                        <div className='mb-6 rounded-3xl border border-danger/30 bg-danger/10 px-5 py-4'>
+                            <p className='text-sm text-danger'>{displayError}!</p>
+                        </div>
                     )}
-
-                    <input className={fieldClass}
-                        type="text"
-                        placeholder="First name"
-                        value={form.firstName}
-                        onChange={(e) => setField('firstName', e.target.value)}
-                        disabled={isLoading}
-                    />
-                    <input className={fieldClass}
-                        type="text"
-                        placeholder="Last name"
-                        value={form.lastName}
-                        onChange={(e) => setField('lastName', e.target.value)}
-                        disabled={isLoading}
-                    />
-                    <input className={fieldClass}
-                        type="text"
-                        placeholder="Username"
-                        value={form.username}
-                        onChange={(e) => setField('username', e.target.value)}
-                        disabled={isLoading}
-                    />
-                    <input className={fieldClass}
-                        type="email"
-                        placeholder="Email address"
-                        value={form.email}
-                        onChange={(e) => setField('email', e.target.value)}
-                        disabled={isLoading}
-                    />
-                    <input className={fieldClass}
-                        type="tel"
-                        placeholder="Phone number"
-                        value={form.phoneNumber}
-                        onChange={(e) => setField('phoneNumber', e.target.value)}
-                        disabled={isLoading}
-                    />
-                    <input className={fieldClass}
-                        type="password"
-                        placeholder="Password"
-                        value={form.password}
-                        onChange={(e) => setField('password', e.target.value)}
-                        disabled={isLoading}
-                    />
-
-
-                    <div className="w-[500px] max-w-[90vw] flex items-center gap-3" >
-                        <input className="w-8 h-8 rounded-sm cursor-pointer accent-button-primary"
-                            type="checkbox"
-                            id="acceptTerms"
-                            checked={form.acceptedTerms}
-                            onChange={(e) => setField('acceptedTerms', e.target.checked)}
-                            disabled={isLoading}
-                        />
-                        <label className="cursor-pointer text-primary-text" htmlFor="acceptTerms" style={{ fontSize: 'var(--font-size-sm' }}>
+                    {/*Fields */}
+                    <div className='grid grid-cols-2 gap-4 mb-4'>
+                        <div>
+                            <label className='field-label' htmlFor='first-input'>First Name</label>
+                            <div className='relative'>
+                                <User size={16} className='absolute left-4 top-1/2 -translate-y-1/2 text-muted-text'/>
+                                <input id='first-input' className='input pl-10' type='text' placeholder='Name' value={form.firstName} onChange={(e) => setField('firstName', e.target.value)} disabled={isLoading}/>
+                            </div>
+                        </div>
+                        {/*Copying above field and changing what needs to be changed */}
+                        <div>
+                            <label className='field-label' htmlFor='last-input'>Last Name</label>
+                            <div className='relative'>
+                                <User size={16} className='absolute left-4 top-1/2 -translate-y-1/2 text-muted-text'/>
+                                <input id='last-input' className='input pl-10' type='text' placeholder='Surname' value={form.lastName} onChange={(e) => setField('lastName', e.target.value)} disabled={isLoading}/>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='mb-4'>
+                        <label className='field-label' htmlFor='user-input'>Username</label>
+                        <div className='relative'>
+                            <AtSign size={16} className='absolute left-4 top-1/2 -translate-y-1/2 text-muted-text'/>
+                            <input id='user-input' className='input pl-10' type='text' placeholder='NameSurname' value={form.username} onChange={(e) => setField('username', e.target.value)} disabled={isLoading}/>
+                        </div>
+                    </div>
+                    {/*Copying above field and changing what needs to be */}
+                    <div className='mb-4'>
+                        <label className='field-label' htmlFor='email-input'>Email address</label>
+                        <div className='relative'>
+                            <Mail size={16} className='absolute left-4 top-1/2 -translate-y-1/2 text-muted-text'/>
+                            <input id='email-input' className='input pl-10' type='email' placeholder='email@example.com' value={form.email} onChange={(e) => setField('email', e.target.value)} disabled={isLoading}/>
+                        </div>
+                    </div>
+                    <div className='mb-4'>
+                        <label className='field-label' htmlFor='phone-input'>Phone number</label>
+                        <div className='relative'>
+                            <Phone size={16} className='absolute left-4 top-1/2 -translate-y-1/2 text-muted-text'/>
+                            <input id='phone-input' className='input pl-10' type='tel' placeholder='+27 12 345 6789' value={form.phoneNumber} onChange={(e) => setField('phoneNumber', e.target.value)} disabled={isLoading}/>
+                        </div>
+                    </div>
+                    <div className='mb-4'>
+                        <label className='field-label' htmlFor='password-input'>Password</label>
+                        <div className='relative'>
+                            <Lock size={16} className='absolute left-4 top-1/2 -translate-y-1/2 text-muted-text'/>
+                            <input id='password-input' className='input pl-10' type='password' placeholder='Create a password' value={form.password} onChange={(e) => setField('password', e.target.value)} disabled={isLoading}/>
+                        </div>
+                    </div>
+                    {/*Terms and Conditions */}
+                    <div className='flex items-center gap-3 mb-8'>
+                        <input className='w-5 h-5 rounded-sm cursor-pointer accent-primary shrink-0' type='checkbox' id='acceptTerms' checked={form.acceptedTerms} onChange={(e) => setField('acceptedTerms', e.target.checked)} disabled={isLoading}/>
+                        <label className='cursor-pointer text-xsm text-muted-text' htmlFor='acceptTerms'>
                             Accept{' '}
-                            <Link
-                                className="underline text-primary-text hover:text-[#FF6299]"
-                                to='/terms'
-                                target="_blank"
-                            >
-                                Terms &amp; Conditions
-                            </Link>
+                            <Link className='underline text-muted-text hover:text-primary transition-colors text-xsm' to='/terms' target='_blank'>Terms &amp; Conditions</Link>
                         </label>
                     </div>
-
-                    <button className={buttonPrimaryClass}
-                        type="button"
-                        onClick={handleSubmit}
-                        disabled={isLoading} >
-                        {isLoading ? 'Signing up..' : 'Sign up'}
+                    <button className='btn btn-primary btn-md w-full group' type='button' onClick={handleSubmit} disabled={isLoading}>
+                        {isLoading ? ("Signing up...") : (
+                            <>
+                                <span>Sign Up</span>
+                                <ArrowRight size={20} className='transition-transform duration-300 group-hover:translate-x-1'/>
+                            </>
+                        )}
                     </button>
+                    {/*Copied from Signin */}
+                    <div className="flex items-center gap-3 my-8">
+                        <span className="divider flex-1"/>
+                        <span className="text-xsm uppercase tracking-[0.2rem] text-muted-text whitespace-nowrap">Have an account?</span>
+                        <span className="divider flex-1"/>
+                    </div>
+                    <Link to='/sign-in' className="btn btn-secondary w-full group">
+                        <span>Continue to CodeClash</span>
+                        <ArrowRight size={18} className="transition-transform duration-300 group:hover:translate-x-1"/>
+                    </Link>
                 </div>
             </div>
         </div>

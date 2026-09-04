@@ -38,8 +38,30 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    # container:
-    #   image: node:20-alpine
+    services:
+        postgres:
+            image: postgres:15-alpine
+            env:
+                POSTGRES_USER: ${{secrets.DB_TEST_USER}}
+                POSTGRES_PASSWORD: ${{secrets.DB_TEST_PASSWORD}}
+                POSTGRES_DB: ${{secrets.DB_TEST_NAME}}
+            ports:
+                - 5432:5432
+            options: >-
+                --health-cmd "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"
+                --health-interval 10s
+                --health-timeout 5s
+                --health-retries 5
+        redis:
+            image: redis:7-alpine
+            ports:
+                - 6379:6379
+            options: >-
+                --name redis
+                --health-cmd "redis-cli ping"
+                --health-interval 10s
+                --health-timeout 5s
+                --health-retries 5
 
     steps:
     - uses: actions/checkout@v4
@@ -52,15 +74,66 @@ jobs:
     - name: Frontend dependencies
       run: npm ci --ignore-scripts
       working-directory: frontend
-   
+
     - name: Test and coverage backend
       run: npm run test:backend:coverage
+      env:
+        DB_TEST_HOST: localhost
+        DB_TEST_PORT: ${{secrets.DB_TEST_PORT}}
+        DB_TEST_USER: ${{secrets.DB_TEST_USER}}
+        DB_TEST_PASSWORD: ${{secrets.DB_TEST_PASSWORD}}
+        DB_TEST_NAME: ${{secrets.DB_TEST_NAME}}
+        COGNITO_USER_POOL_ID: ${{secrets.COGNITO_USER_POOL_ID}}
+        COGNITO_CLIENT_ID: ${{secrets.COGNITO_CLIENT_ID}}
+        COGNITO_REGION: ${{secrets.COGNITO_REGION}}
+        AWS_ACCESS_KEY: ${{secrets.AWS_ACCESS_KEY}}
+        AWS_SECRET_KEY: ${{secrets.AWS_SECRET_KEY}}
+        COGNITO_JWKS_URI: ${{secrets.COGNITO_JWKS_URI}}
+        VITE_COGNITO_USER_POOL_ID: ${{secrets.VITE_COGNITO_USER_POOL_ID}}
+        VITE_COGNITO_CLIENT_ID: ${{secrets.VITE_COGNITO_CLIENT_ID}}
+        PORT: ${{secrets.PORT}}
 
+    - name: Starting backend
+      run: npm run start:server > /tmp/backend.log 2>&1 &
+      working-directory: backend
+      env:
+        DB_HOST: ${{secrets.DB_TEST_HOST}}
+        DB_PORT: ${{secrets.DB_TEST_PORT}}
+        DB_USER: ${{secrets.DB_TEST_USER}}
+        DB_PASSWORD: ${{secrets.DB_TEST_PASSWORD}}
+        DB_NAME: ${{secrets.DB_TEST_NAME}}
+        COGNITO_USER_POOL_ID: ${{secrets.COGNITO_USER_POOL_ID}}
+        COGNITO_CLIENT_ID: ${{secrets.COGNITO_CLIENT_ID}}
+        COGNITO_REGION: ${{secrets.COGNITO_REGION}}
+        AWS_ACCESS_KEY: ${{secrets.AWS_ACCESS_KEY}}
+        AWS_SECRET_KEY: ${{secrets.AWS_SECRET_KEY}}
+        COGNITO_JWKS_URI: ${{secrets.COGNITO_JWKS_URI}}
+        REDIS_URL: ${{secrets.REDIS_URL}}
+        FRONTEND_URL: ${{secrets.FRONTEND_URL}}
+
+    - name: Waiting for backend to be ready for the frontend integration tests
+      run: |
+          for i in $(seq 1 90); do
+            if curl -fs --connect-timeout 2 --max-time 5 "http://localhost:${PORT}/health" >/dev/null 2>&1; then
+              echo "backend read after ${is}s"
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "backend didnt get ready in time" >&2
+          cat /tmp/backend.log >&2 || true
+          exit 1
+      env:
+        PORT: ${{secrets.PORT}}
+        
     - name: Test and coverage frontend
       run: npm run test:frontend:coverage
       env:
-        VITE_COGNITO_USER_POOL_ID: ${{secrects.VITE_COGNITO_USER_POOL_ID}}
-        VITE_COGNITO_CLIENT_ID: ${{secrects.VITE_COGNITO_CLIENT_ID}}
+        VITE_COGNITO_USER_POOL_ID: ${{secrets.VITE_COGNITO_USER_POOL_ID}}
+        VITE_COGNITO_CLIENT_ID: ${{secrets.VITE_COGNITO_CLIENT_ID}}
+        VITE_INTEGRATION_TEST_USER: ${{secrets.INTEGRATION_TEST_USER}}
+        VITE_INTEGRATION_TEST_PASS: ${{secrets.INTEGRATION_TEST_PASS}}
+        VITE_API_URL: ${{secrets.VITE_API_URL}}
 
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@75cd11691c0faa626561e295848008c8a7dddffe

@@ -8,6 +8,7 @@ const mockEloRepo: IEloRepository = {
     createUserElo: vi.fn(),
     getElo: vi.fn(),
     getUsersElo: vi.fn(),
+    getUserRank: vi.fn(),
     updateRatingsAfterMatch: vi.fn(),
 };
 
@@ -21,7 +22,8 @@ describe('MatchResultService', () => {
     let service: MatchResultService;
 
     beforeEach(() =>{
-        vi.clearAllMocks();
+      vi.clearAllMocks();
+      (mockEloRepo.getUserRank as Mock).mockResolvedValue({rank: 1});
         service = new MatchResultService(mockEloRepo, mockMatchResultRepo);
     });
 

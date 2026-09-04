@@ -3,9 +3,9 @@ import { Answers } from '../../../src/entities/db-entities/answers.entities'
 import { AnswerRepository } from '../../../src/interface-adapters/repositories/answer.repository'
 import { beforeAll, describe, expect, it } from "vitest";
 import { Questions } from "../../../src/entities/db-entities/questions.entities";
-import { createTestDataSource } from "./test-data-source";
-import { mock_questions } from "./mocks/mock-questions";
-import { mock_answers } from "./mocks/mock-answers";
+import { createTestDataSource } from "../../test-data-source";
+import { mock_questions } from "../../mocks/mock-questions";
+import { mock_answers } from "../../mocks/mock-answers";
 import { randomUUID } from "node:crypto";
 
 let data_source: DataSource
@@ -20,7 +20,7 @@ describe("Answer Repository Queries", () => {
 
     beforeAll(async () => {
         data_source = await createTestDataSource();
-
+       
         questions = await data_source.getRepository(Questions).save(mock_questions);
         answers = await data_source.getRepository(Answers).save(mock_answers)
 
