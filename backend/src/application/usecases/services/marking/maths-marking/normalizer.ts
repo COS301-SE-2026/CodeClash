@@ -45,4 +45,37 @@ function repeatReplace(input: string, pattern: RegExp, replacement: string): str
   return current; // linnked list implementatoin, 
 }
 
+function expandBracedCommands(input: string): string {
+    let current = repeatReplace(input, /\\frac\{([^{}]*)\}\{([^{}]*)\}/g, "(($1)/($2))");
+    current = repeatReplace(current, /\\sqrt\[([^\][]*)\]\{([^{}]*)\}/g, "nthRoot(($2),($1))");
+    current = repeatReplace(current, /\\sqrt\{([^{}]*)\}/g, "sqrt($1)");
+    return current;
+}
+
+// converting teh ascii / latex into plain inifix notation that mathjs can handle
+export function normalize(input: string): string {
+  let text = input.trim();
+  if (text === "") return "";
+
+  text = text.replace(/^\$+|\$+$/g, "");
+      text = text.replaceAll("\\left", "").replaceAll("\\right", "");
+      text = text.replace(/\\[,;:!]/g, "").replace(/\\q?quad/g, "").replace(/\\ /g, " ");
+      text = text.replace(/\\cdot|\\times/g, "*").replace(/\\div/g, "/");
+  text = text.replace(/\\pi/g, "pi");
+
+  text = text.replace(/[−–—]/g, "-")
+          .replace(/[×⋅·]/g, "*")
+          .replace(/÷/g, "/");
+  
+      text = text.replace(/[⁰¹²³⁴-⁹⁺⁻]+/g, (run) =>
+          "^(" + [...run].map((char) => SUPERSCRIPTS[char] ?? "").join("") + ")");
+  
+      text = expandBracedCommands(text);
+      text = repeatReplace(text, /\^\{([^{}]*)\}/g, "^($1)");
+      text = repeatReplace(text, /_\{([^{}]*)\}/g, "$1");
+  text = text.replace(/_/g, "");
+
+  text = text.replaceAll("{", "(").replaceAll("}", ")");
+  return text.trim();
+}
 
