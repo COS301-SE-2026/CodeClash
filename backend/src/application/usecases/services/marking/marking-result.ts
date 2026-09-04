@@ -10,11 +10,11 @@ export class MarkingResult{
         
     }
 
-    static right(reason = "correct"): MarkingResult {
+    static correct(reason = "correct"): MarkingResult {
         return new MarkingResult(true, reason);
     }
 
-    static wrong(reason: string): MarkingResult {
+    static incrorect(reason: string): MarkingResult {
         return new MarkingResult(false, reason);
     }
 }
