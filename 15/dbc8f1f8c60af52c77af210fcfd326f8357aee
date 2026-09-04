@@ -1,0 +1,24 @@
+frontend/src/services/submission.service.tsx
+  s_2da99668bdf811::t_a5ea330a0f338f 15
+  s_2da99668bdf811::t_a95dab9a4386a1 14
+frontend/src/services/match.service.tsx
+  s_2da99668bdf811::t_2433b08bf2ada3 11,87,89,100,164
+frontend/test/test-utils.ts
+  s_2da99668bdf811::t_8172d1318c290d 20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "15dbc8f1f8c60af52c77af210fcfd326f8357aee",
+  "prompts": {},
+  "sessions": {
+    "s_2da99668bdf811": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "18d5a8d1-7c32-4944-a7b9-280a0cd61b4a",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
