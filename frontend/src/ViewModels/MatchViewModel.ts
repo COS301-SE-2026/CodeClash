@@ -1,5 +1,5 @@
 import { MathfieldElement } from 'mathlive';
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import { useMatchmaking } from "src/context/Socket/hooks/useMatchmaking";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
@@ -35,6 +35,8 @@ export const useMatch = () => {
         both_done
     } = useGameQuestions(id, userId, socket!, gameType);
 
+    const [gameOver, setGameOver] = useState(false);
+
     const { seconds, minutes } = useGameTimer(duration, () => {
         setGameOver(true);
         endGame(id, gameType, socket);
@@ -47,12 +49,12 @@ export const useMatch = () => {
         playerLife, opponentCurrent, opponent_progress, opponent_done, opponentDone, updatePlayerLife
     } = useMatchProgress(questions.length, players);
 
-    const [avatars, setAvatars] = useState<string[]>([]);
-    const [usernames, setUsernames] = useState<string[]>([]);
+    const avatars = useMemo(() => players.map(p => robot_map[p.avatar_id]), [players]);
+    const usernames = useMemo(() => players.map(p => p.username), [players]);
     const [loading, setLoading] = useState(false);
     const [answers, setAnswers] = useState<Record<string, string>>();
     const [results, setResults] = useState<(boolean | null)[]>([]);
-    const [gameOver, setGameOver] = useState(false);
+
 
     const mathfieldRef = useRef<MathfieldElement | null>(null)
     const players_ref = useRef(players);
@@ -84,9 +86,6 @@ export const useMatch = () => {
 
     useEffect(() => {
         players_ref.current = players
-
-        setAvatars(players.map(p => robot_map[p.avatar_id]));
-        setUsernames(players.map(p => p.username));
 
     }, [players])
 
