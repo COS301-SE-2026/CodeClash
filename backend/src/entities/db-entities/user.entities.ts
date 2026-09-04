@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Achievement } from "./achievement.entities";
 
 @Entity()
@@ -35,4 +35,7 @@ export class Users {
 
     @ManyToMany(() => Achievement, achievement => achievement.users)
     achievements!: Achievement[];
+
+    @Column({ nullable: true, type: 'timestamp' })
+    last_played_at?: Date;
 }

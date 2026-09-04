@@ -3,6 +3,7 @@ import React, { useEffect, useMemo, useState, type ReactNode } from "react";
 import { robot_map } from "src/assets/Robots";
 
 import { useAuth } from "../Auth/hooks/useAuth";
+
 import { UserContext } from "./UserContextValue";
 
 
@@ -15,8 +16,10 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [error, setError] = useState('');
     const [league, setLeague] = useState('');
     const [rank, setRank] = useState(0);
-    const { user, token, isLoading } = useAuth();
- 
+    const { user, token } = useAuth();
+    const [current_streak, setCurrentStreak] = useState<number>(0);
+    const [winning_streak, setWinningStreak] = useState<number>(0);
+
     const userId = user?.userId ?? ""
     const username = user?.username ?? '';
 
@@ -80,34 +83,17 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
 
         try {
-
-            switch(true){
-                case elo < 1200:
-                    setLeague("Mercury");
-                    break;
-                case elo < 1800:
-                    setLeague("Venus");
-                    break;
-                case elo < 2400:
-                    setLeague("Earth");
-                    break;
-                case elo < 3000:
-                    setLeague("Mars");
-                    break;
-                case elo < 3600:
-                    setLeague("Jupiter");
-                    break;
-                case elo < 4200:
-                    setLeague("Saturn");
-                    break;
-                case elo < 4800:
-                    setLeague("Uranus");
-                    break;
-                case elo <= 5400:
-                    setLeague("Neptune");
-                    break;
-                }
-
+            axios.get(url.concat('user/league'), {
+                headers: { Authorization: `Bearer ${token}` }
+            })
+                .then((res) => {
+                    if (res.status === 200) {
+                        setLeague(res.data.league);
+                    }
+                    else {
+                        setError(`Error: ${res.status} ${res.data}`);
+                    }
+                })
         }
         catch (error) {
             setError(`Error Getting User League: ${error}`);
@@ -141,12 +127,43 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     }
 
+    const getCurrentStreak =  async () => {
+        if (!token) {
+            setError('Missing or Invalid Token');
+            return;
+        }
+        try{
+            const res = await axios.get(url.concat('user/current_streak'), {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            if (res.status === 200) setCurrentStreak(res.data.current_streak);
+        }catch (error) {
+            console.error('getCurrentRank failed', error);
+        }
+    };
+
+    const getWinningStreak =  async () => {
+        if (!token) {
+            setError('Missing or Invalid Token');
+            return;
+        }
+        try{
+            const res = await axios.get(url.concat('user/winning_streak'), {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            if (res.status === 200) setWinningStreak(res.data.winning_streak);
+        }catch (error) {
+            console.error('getCurrentRank failed', error);
+        }
+    };
     const refresh = async () =>{
         await Promise.all([
             getElo(),
             getAvatarUrl(),
             getLeague(),
-            getRank()
+            getRank(),
+            getCurrentStreak(),
+            getWinningStreak()
         ])
     }
 
@@ -161,6 +178,8 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 getLeague(),
                 getElo(),
                 getRank(),
+                getCurrentStreak(), // copied from above
+                getWinningStreak()
             ]);
         }
 
@@ -169,8 +188,8 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
 
     const value = useMemo(() => ({
-        username, elo, avatar, error, league, userId, refresh, rank
-    }), [username, elo, avatar, error, league, userId, rank])
+        username, elo, avatar, error, league, userId, refresh, rank, current_streak, winning_streak
+    }), [username, elo, avatar, error, league, userId, rank, current_streak, winning_streak])
 
     return (
         <UserContext.Provider

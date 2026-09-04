@@ -6,6 +6,8 @@ import { GameStore } from "../services/game-store.service";
 import { GameType } from "src/entities/db-entities/questions.entities";
 import { DeleteGame } from "./delete-game";
 import { IMatchStatsRepository } from "src/application/interfaces/repositories/IMatchStatsRepository";
+import { AchievementService, AchievementStats } from "../services/achievement.service";
+import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 
 export class FinishGame {
     private readonly getMatchComponent
@@ -17,7 +19,9 @@ export class FinishGame {
         private readonly match_result_service: MatchResultService,
         private readonly game_store: GameStore,
         private readonly delete_game: DeleteGame,
-        private readonly match_stats_repo: IMatchStatsRepository
+        private readonly match_stats_repo: IMatchStatsRepository,
+        private readonly achievement_service: AchievementService,
+        private readonly user_repo: IUserRepository
     ) {
         const { getMatchComponent, getSubmissionComponent, addMatchComponent } = this.world
         this.getMatchComponent = getMatchComponent;
@@ -80,7 +84,33 @@ export class FinishGame {
 
         const result = await this.match_result_service.finaliseMatch(db_match_id!.database_id, winner, loser, game_type === GameType.ranked, [winner_stats!, loser_stat!])
 
+        // evaluate achivements for both players
+        const match_duration_ms = 0; //Date.now() - (result!.start_time?.getTime?.() ?? 0);
+        for(const [user_id, stat] of game_stats) {
+            const is_winner = user_id === winner;
+            const is_ranked = game_type === GameType.ranked;
 
+            // update streaks
+            if(is_ranked){
+                await this.user_repo.updateStreaks(user_id, is_winner);
+            }
+
+            const userStats = await this.user_repo.getTotalStats(user_id);
+
+            const achievementStats: AchievementStats = {
+                total_wins: is_winner ? userStats.total_wins + 1 : userStats.total_wins,
+                win_streak: is_winner ? userStats.winning_streak + 1 : 0,
+                total_matches: userStats.total_matches + 1,
+                perfect_math: stat.num_correct === submission_registry.submissions.size / 2 && game_type !== GameType.ranked,
+                perfect_code: false,
+                match_duration_ms,
+                correct_in_match: stat.num_correct,
+                friend_count: 0,
+                life_lost_before_win: 0,
+                league: userStats.league
+            };
+            await this.achievement_service.evaluateAndAward(user_id, achievementStats);
+        }
         const data: ResultComponent = {
             winner: {
                 id: winner,
@@ -98,7 +128,7 @@ export class FinishGame {
 
 
         return result
-    }
+    }// end execute
 
     getStats(submissions: Map<string, number>, player_ids: string[]) {
         const game_stats = new Map<string, { num_correct: number, total_time: number }>();
