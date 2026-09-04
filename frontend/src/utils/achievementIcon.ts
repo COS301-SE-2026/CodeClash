@@ -1,4 +1,7 @@
 // mapping achievement names to icons. More can be added - copied from achievement view model
+/**
+ *
+ */
 export function getIcon(name:string): 'trophy' | 'flame' | 'zap' | 'medal' {
     const n = name.toLowerCase();
     if(n.includes('league') || n.includes('champion') || n.includes('legend') || n.includes('elite') || n.includes('challenger')) return 'trophy';

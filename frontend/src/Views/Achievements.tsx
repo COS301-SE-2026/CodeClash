@@ -1,7 +1,8 @@
 import { Trophy, Flame, Zap, Medal } from "lucide-react";
 import React, { useState } from "react";
-import { AchievementsViewModelFunc } from "src/ViewModels/AchievementsViewModel";
 import type { Icons } from "src/Models/AchievementsModel";
+import { AchievementsViewModelFunc } from "src/ViewModels/AchievementsViewModel";
+
 import Loading from "@/components/shared/Loading";
 import Starfield from "@/components/ui/animations/Starfield";
 

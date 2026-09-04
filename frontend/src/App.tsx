@@ -4,30 +4,31 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { useAuth } from "./context/Auth/hooks/useAuth";
 import Layout from "./layout";
 import ProgMatch from "./pages/ProgMatch";
+import Achievements from "./Views/Achievements";
+import Agent from "./Views/AIAgent";
 import BrandStyleGuide from "./Views/BrandStyleGuide";
 import Dashboard from "./Views/Dashboard";
-import MatchFound from "./Views/MatchFound";
-import MathMatch from "./Views/MathsMatch";
-
-import MatchHistory from "./Views/MatchHistory";
-import ForgotPassword from "./Views/ForgotPassword";
-import TermsAndConditions from "./Views/TermsAndConditions";
 import FinalResults from "./Views/FinalResults";
-import Landing from "./Views/Landing";
+import ForgotPassword from "./Views/ForgotPassword";
+import Friends from "./Views/Friends/Friends";
 import GameGuide from "./Views/GameGuide"
 import HelpMenu from "./Views/HelpMenu";
+import Landing from "./Views/Landing";
 import Leaderboard from "./Views/Leaderboard";
+import MatchFound from "./Views/MatchFound";
+import MatchHistory from "./Views/MatchHistory";
+import MathMatch from "./Views/MathsMatch";
+
+import TermsAndConditions from "./Views/TermsAndConditions";
 import MatchSearching from "./Views/MatchSearching";
 import Profile from "./Views/Profile";
 import SignIn from "./Views/SignIn";
 import SignUp from "./Views/SignUp";
+import Tournaments from "./Views/Tournaments";
 
 import Loading from "@/components/shared/Loading";
-import Tournaments from "./Views/Tournaments";
-import Agent from "./Views/AIAgent";
+
 import Shop from "./Views/Shop";
-import Friends from "./Views/Friends/Friends";
-import Achievements from "./Views/Achievements";
 import Settings from "./Views/Settings";
 
 const App: React.FC = () => {

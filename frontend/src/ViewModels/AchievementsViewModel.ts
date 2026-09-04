@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef } from "react";
+import { useAchievementToast } from "src/context/Achievement/AchievementToastContext";
 import { useAuth } from "src/context/Auth/hooks/useAuth";
 import { achievementContent } from "src/Models/AchievementsModel";
 import type { Achievements, AchievementsContent } from "src/Models/AchievementsModel";
-import { useAchievementToast } from "src/context/Achievement/AchievementToastContext";
 import { getIcon } from "src/utils/achievementIcon";
 
 const API_BASE = '/api';

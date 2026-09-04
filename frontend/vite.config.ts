@@ -1,9 +1,9 @@
 import path from 'path'
+
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import dotenv from 'dotenv'
-import { defineConfig } from 'vite'
-import { mergeConfig } from 'vite'
+import { defineConfig, mergeConfig  } from 'vite'
 import { defineConfig as defineVitestConfig } from 'vitest/config'
 
 dotenv.config();

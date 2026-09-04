@@ -1,12 +1,14 @@
+import { Check, Clock3, Search, Swords, X } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
-import { useFriends } from "../../context/Friends/useFriends";
-import { friendContent } from "../../Models/FriendsModel";
-import type { FriendStatus, Relation } from "../../Models/FriendsModel";
+import { useExtraLayout } from "src/extra-layout";
+
 import Loading from "../../../@/components/shared/Loading"
 import Starfield from "../../../@/components/ui/animations/Starfield";
 import { robot_map } from "../../assets/Robots";
-import { Check, Clock3, Search, Swords, X } from "lucide-react";
-import { useExtraLayout } from "src/extra-layout";
+import { useFriends } from "../../context/Friends/useFriends";
+import { friendContent } from "../../Models/FriendsModel";
+import type { FriendStatus, Relation } from "../../Models/FriendsModel";
+
 
 const status: Record<FriendStatus, string> = {
     online: 'bg-sucess',

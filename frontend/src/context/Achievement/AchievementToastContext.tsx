@@ -1,8 +1,9 @@
 import React, { createContext, useCallback, useContext, useState, useEffect, useRef } from "react";
 import { AchievementToast } from "src/context/Achievement/AchievementToast";
 import type { Icons } from "src/Models/AchievementsModel";
-import { useAuth } from "../Auth/hooks/useAuth";
 import { getIcon } from "src/utils/achievementIcon";
+
+import { useAuth } from "../Auth/hooks/useAuth";
 
 interface ToastData {
     name: string;

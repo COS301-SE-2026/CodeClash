@@ -1,11 +1,12 @@
 
 
 import React, { useEffect, useMemo, useState, type ReactNode } from "react";
-import { MatchmakingContext } from "./MatchmakingContextValue";
-import type { MatchmakingUserDTO, GameType, GameMode, MatchAcceptedDTO } from "src/dtos/matchmaking.dto";
 import { Socket } from "socket.io-client";
-import { useSocket } from "./hooks/useSocket";
 import type { MatchedUsersDTO } from "src/dtos/matched-user.dto";
+import type { MatchmakingUserDTO, GameType, GameMode, MatchAcceptedDTO } from "src/dtos/matchmaking.dto";
+
+import { useSocket } from "./hooks/useSocket";
+import { MatchmakingContext } from "./MatchmakingContextValue";
 
 export const MatchmakingProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 

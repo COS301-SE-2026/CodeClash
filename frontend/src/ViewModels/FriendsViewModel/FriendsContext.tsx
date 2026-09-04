@@ -2,15 +2,15 @@ import {
     createContext, useCallback, useEffect, 
     useMemo, useRef, useState,
 } from "react";
+import { useSocket } from "src/context/Socket/hooks/useSocket";
 
+import { useAuth } from "../../context/Auth/hooks/useAuth";
 import {friendContent} from "../../Models/FriendsModel";
 import type {
     Friend, FriendRequest, Invite, 
     Search, Summary, Relation
 } from "../../Models/FriendsModel";
 
-import { useAuth } from "../../context/Auth/hooks/useAuth";
-import { useSocket } from "src/context/Socket/hooks/useSocket";
 
 const API_BASE = '/api'; 
 const INVITE_EXPIRY = 10 * 60 * 1000; 

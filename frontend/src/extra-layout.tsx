@@ -2,8 +2,7 @@
 such as Friends system to use its own search bar specific to usernames/friends rather than having double search bar (header and specific)
 or than adding username/friend searches to the 'global' search bar. Its just a matter of separation of concerns.*/
 
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 
 export type OutletContext = {

@@ -1,10 +1,11 @@
 //Popup that will come whereever the user is (besides in a ranked match) to tell them that someone is inviting them.
 
-import { useFriends } from "../../context/Friends/useFriends";
-import { friendContent } from "src/Models/FriendsModel";
-import { useMatchmaking } from "src/context/Socket/hooks/useMatchmaking";
-import { robot_map } from "src/assets/Robots";
 import { Clock, UserCircle } from "lucide-react";
+import { robot_map } from "src/assets/Robots";
+import { useMatchmaking } from "src/context/Socket/hooks/useMatchmaking";
+import { friendContent } from "src/Models/FriendsModel";
+
+import { useFriends } from "../../context/Friends/useFriends";
 
 function formatCountdown(totalSeconds: number): string { //This will turn a raw number of seconds into a display string of m:s, it helps format how many seconds are left to accept the invite
     const min = Math.floor(totalSeconds/60);
