@@ -330,7 +330,7 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
             size: '1.9rem',
             weight: 400,
             sample: '2026',
-            usage: 'Digital, game tyoe numerals for ELO, streaks, scores - .score-display',
+            usage: 'Digital, game type numerals for ELO, streaks, scores - .score-display',
         },
     ],
 
@@ -601,6 +601,11 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
                 value: '3.6rem',
                 description: '3X large',
             },
+            {
+                token: '--font-dseg',
+                value: 'DSEG7, monospace',
+                description: 'Digital, game type numerals for ELO, streaks, scores',
+            },
         ],
 
         shadow: [
@@ -614,6 +619,11 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
                 token: '--card-shadow',
                 value: '0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25)',
                 description: 'Cards and elevated surfaces - .card-shadow',
+            },
+            {
+                token: '--glow-shadow',
+                value: '0 0 24px rgba(192, 57, 90, 0.45)',
+                description: 'Animated glow effects - .animate-glow',
             },
         ],
     },
@@ -666,6 +676,20 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
             vars: ['Default', 'Colored'],
             classes: ['Progress component', 'bg-[#E4BBCA]', 'shadow-badge', 'h-[60%]'],
             notes: 'shadcn Progress component with custom progress_colour prop for fill',
+        },
+
+        {
+            name: 'Badges',
+            vars: ['Difficulty: Easy, Medium, Hard', 'Status: Correct, Pending, Wrong'],
+            classes: ['.badge', '.badge-difficulty-easy', '.badge-difficulty-medium', '.badge-difficulty-hard', '.badge-status-correct', '.badge-status-pending', '.badge-status-wrong'],
+            notes: 'Badges for difficulty levels and statuses of questions',
+        },
+
+        {
+            name: 'Score Display',
+            vars: ['Default'],
+            classes: ['.score-display', '.font-dseg'],
+            notes: 'DSEG7 digital font with a var(--primary) text shadow glow. Used for digital, game type numerals for ELO, streaks, scores',
         },
     ],
 
