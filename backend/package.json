@@ -7,8 +7,9 @@
     "test": "tests"
   },
   "scripts": {
-    "start": "ts-node -r tsconfig-paths/register src/server.ts",
-    "start:server": "ts-node -r tsconfig-paths/register src/frameworks-drivers/server.ts",
+    "start": "ts-node -r tsconfig-paths/register src/frameworks-drivers/server.ts",
+    "prod": "node -r tsconfig-paths/register dist/frameworks-drivers/server.js",
+    "build": "tsc && tsc-alias",
     "dev": "nodemon --exec \"ts-node -r tsconfig-paths/register\" src/frameworks-drivers/server.ts",
     "test": "vitest",
     "coverage": "vitest run --coverage"
@@ -21,12 +22,14 @@
     "@aws-sdk/client-cognito-identity-provider": "^3.1077.0",
     "aws-amplify": "^6.17.0",
     "aws-jwt-verify": "^5.2.1",
+    "axios": "^1.19.0",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
     "pg-query-stream": "^4.16.0",
     "socket.io": "^4.8.3",
+    "swagger-jsdoc": "^6.3.0",
     "ws": "^8.21.0"
   },
   "jest": {
@@ -48,6 +51,7 @@
     "@types/node": "^25.9.5",
     "@types/pg": "^8.20.0",
     "@types/supertest": "^7.2.0",
+    "@types/swagger-jsdoc": "^6.0.4",
     "@types/ws": "^8.18.1",
     "@vitest/coverage-v8": "^4.1.7",
     "eslint-plugin-unicorn": "^72.0.0",
@@ -57,6 +61,7 @@
     "reflect-metadata": "^0.2.2",
     "supertest": "^7.2.2",
     "ts-node": "^10.9.2",
+    "tsc-alias": "^1.9.1",
     "tsconfig-paths": "^4.2.0",
     "typeorm": "^1.1.0",
     "typescript": "^6.0.3",

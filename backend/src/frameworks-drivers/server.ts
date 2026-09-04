@@ -7,7 +7,7 @@ import { IQuestionRepository } from 'src/application/interfaces/repositories/IQu
 import { QuestionRepository } from 'src/interface-adapters/repositories/question.repository';
 import { GameType, Questions } from 'src/entities/db-entities/questions.entities';
 import { cleanUp, gameDone, sendResults, startQuestion, submitQuestion } from 'src/interface-adapters/socket-handlers/game.handler';
-import { SubmissionDTO } from 'src/interface-adapters/dtos/components.dto';
+import { PlayerSubmissionDTO, SubmissionDTO } from 'src/entities/dtos/components.dto';
 import { IAnswerRepository } from 'src/application/interfaces/repositories/IAnswerRepository';
 import { AnswerRepository } from 'src/interface-adapters/repositories/answer.repository';
 import { Answers } from 'src/entities/db-entities/answers.entities';
@@ -22,10 +22,10 @@ import { MatchmakingService } from 'src/application/usecases/services/matchmakin
 import { IMatchmakingCache } from 'src/application/interfaces/cache/IMatchmakingCache';
 import { IEloRepository } from 'src/application/interfaces/repositories/IEloRepository';
 import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
-import { CheckAnswer } from 'src/application/usecases/check-answer';
+import { MarkingService } from 'src/application/usecases/services/marking/marking.service';
 import { initDB } from 'src/application/usecases/init-db';
 import { LifeSystem } from 'src/application/usecases/systems/life.system';
-import { StartQuestionDTO } from 'src/interface-adapters/dtos/question.dto';
+import { StartQuestionDTO } from 'src/entities/dtos/question.dto';
 import { FinishGame } from 'src/application/usecases/systems/finish-game';
 import { SubmissionSystem } from 'src/application/usecases/systems/submission.system';
 import { World } from 'src/entities/World';
@@ -37,7 +37,7 @@ import { sendGameQuestions, joinMatchQueue, leaveMatchQueue, matchAccepted, matc
 import { Users } from "../entities/db-entities/user.entities"
 import { validateToken } from '../interface-adapters/auth/auth.service';
 
-import  app from './app';
+import { createApp } from './app';
 import { AppDataSource } from "./config/data-source"
 import { OpponentProgress } from 'src/application/usecases/systems/opponent-progress';
 import { IMatchRepository } from 'src/application/interfaces/repositories/IMatchRepository';
@@ -49,8 +49,14 @@ import { MatchResultRepository } from 'src/interface-adapters/repositories/match
 import { MatchedUsersService } from 'src/application/usecases/services/matched-users.service';
 import { GameStore } from 'src/application/usecases/services/game-store.service';
 import { DeleteGame } from 'src/application/usecases/systems/delete-game';
-import { MatchStatsRepository } from 'src/interface-adapters/repositories/match-stats.repository';
+import { LeaderboardService } from 'src/application/usecases/services/leaderboard.service';
+import { NotificationService } from 'src/application/usecases/services/notification.service';
+import { MarkingStrategy } from 'src/application/interfaces/marking/IMarkingStategy';
+import { MarkMaths } from 'src/application/usecases/services/marking/mark-maths';
+import { MarkProg } from 'src/application/usecases/services/marking/mark-prog';
+import { CodeExecutor } from 'src/interface-adapters/CodeExecutor';
 import { MatchStats } from 'src/entities/db-entities/match-stats.entities';
+import { MatchStatsRepository } from 'src/interface-adapters/repositories/match-stats.repository';
 import { Achievement } from 'src/entities/db-entities/achievement.entities';
 import { AchievementService } from 'src/application/usecases/services/achievement.service';
 import { AchievementRepository } from 'src/interface-adapters/repositories/achievement.repository';
@@ -76,47 +82,14 @@ AppDataSource.initialize()
         const achievementRepo = new AchievementRepository(AppDataSource.getRepository(Achievement), AppDataSource.getRepository(Users));
         const achievement_service = new AchievementService(achievementRepo);
 
-        const httpServer = createServer(app)     // can update to https
-        const io = new Server(httpServer, {
-            cors: {
-                origin: [process.env.FRONTEND_URL!],
-                credentials: true
-            },
-        }
-        );
-
-        // auth middleware 
-        io.use(async (socket, next) => {
-            const token = socket.handshake.auth.token;
-
-            if (!token) return next(new Error("Authenticaion error: No token provided"));
-
-            const valid = await validateToken(token)
-            if (valid) {
-
-                // get db id from cognito id
-                const db_id = (await user_repo.getUserId(valid.user_Id))!.user_id;
-                const username = (await user_repo.getUserData(db_id!, 'username'))!.username
-
-
-                socket.data = {
-                    user_id: db_id,
-                    username: username
-                }
-                next();
-            }
-            else next(new Error("Authentication error: Invalid token"));
-        })
-
         // initialise ecs world 
         const world = World();
-
-
 
         // initialise use cases 
         const create_player_entity = new CreatePlayerEntity(world);
         const create_match_entity = new CreateMatchEntity(world);
         const create_round_entity = new CreateRoundEntity(world);
+
 
         const get_questions = new GetQuestions(question_repo);
         const get_answers = new GetAnswers(answer_repo);
@@ -136,21 +109,68 @@ AppDataSource.initialize()
         const match_results = new MatchResultService(elo_repo, match_results_repo)
         const matched_users_service = new MatchedUsersService();
         const game_store = new GameStore(user_repo);
+        const leaderboard_service = new LeaderboardService(elo_repo);
+
 
         // initialise systems 
         const submission_system = new SubmissionSystem(world);
         const life_system = new LifeSystem(world);
-        const delete_game = new DeleteGame(world,game_store,matched_users_service);
-        const finish_game = new FinishGame(world, match_results, game_store, delete_game, match_stats_repo, achievement_service, user_repo);
-        const opponent_progress = new OpponentProgress(world);
+        const delete_game = new DeleteGame(world, game_store, matched_users_service);
+        const finish_game = new FinishGame(world, match_results, game_store, delete_game,match_stats_repo,achievement_service,user_repo);
 
-        const check_answer = new CheckAnswer(game_cache, submission_system, life_system, world)
+
+
+        const app = createApp(elo_repo, user_repo, leaderboard_service);
+        const httpServer = createServer(app)     // can update to https
+        const io = new Server(httpServer, {
+            cors: {
+                origin: [process.env.FRONTEND_URL!, 'http://localhost:5173'],
+                credentials: true
+            },
+        }
+        );
+
+  
+        const maths_marker: MarkingStrategy = new MarkMaths();
+
+        const code_executor = new CodeExecutor();
+        const prog_marker: MarkingStrategy = new MarkProg(code_executor);
+
+        const notification = new NotificationService(io);
+        const opponent_progress = new OpponentProgress(world);
+        const maths_marking_service = new MarkingService(game_cache, submission_system, life_system, notification,maths_marker ,opponent_progress);
+        const prog_marking_service = new MarkingService(game_cache,submission_system, life_system,notification, prog_marker, opponent_progress);
+
+        // auth middleware 
+        io.use(async (socket, next) => {
+            const token = socket.handshake.auth.token;
+
+            if (!token) return next(new Error("Authenticaion error: No token provided"));
+
+            const valid = await validateToken(token)
+            if (valid) {
+
+                // get db id from cognito id
+                const db_id = (await user_repo.getUserId(valid.user_Id))?.user_id;
+                const username = (await user_repo.getUserData(db_id!, 'username'))!.username
+
+
+                socket.data = {
+                    user_id: db_id,
+                    username: username
+                }
+                next();
+            }
+            else next(new Error("Authentication error: Invalid token"));
+        })
 
         // initialise database with users and elos
         await initDB(user_repo, elo_repo);
 
         // attach socket handlers
         io.on("connection", (socket) => {
+
+            socket.join(`user:${socket.data.user_id}`);
 
             // SOCKET HANDLERS MUST MOOVE TO interface-adapter/
             socket.on('join_match_queue', async (data) => await joinMatchQueue(io, socket, data, matchmkaing_service, matched_users_service, user_repo));
@@ -165,11 +185,13 @@ AppDataSource.initialize()
 
             socket.on('send_players', (game_id: number) => { sendGamePlayers(io, game_id, game_store) })
 
-            socket.on('submit_question', (data: SubmissionDTO) => submitQuestion(io, socket, data, check_answer, opponent_progress));
+            socket.on('submit_math_question', (data: PlayerSubmissionDTO) => submitQuestion(io, socket, data,maths_marking_service));
 
-            socket.on('question_started', (data: StartQuestionDTO) => startQuestion(socket.data.user_id,submission_system, data));
+            socket.on('submit_prog_question', (data: PlayerSubmissionDTO)=>submitQuestion(io,socket, data, prog_marking_service));
 
-            socket.on('game_done', ( game_id: number, game_type: GameType, pair_id:string) => gameDone(io, socket, game_id,game_type, pair_id,finish_game, game_store));
+            socket.on('question_started', (data: StartQuestionDTO) => startQuestion(socket.data.user_id, submission_system, data));
+
+            socket.on('game_done', (game_id: number, game_type: GameType, pair_id: string) => gameDone(io, socket, game_id, game_type, pair_id, finish_game, game_store));
 
             socket.on('send_results', (game_id: number, pair_id: string) => sendResults(io, game_id, pair_id, game_store))
 
@@ -184,11 +206,8 @@ AppDataSource.initialize()
             });
         })
 
-
         // start server
-        httpServer.listen(3000, () => {
-            console.log("Server listening")
+        httpServer.listen(process.env.PORT, () => {
+            console.log(`Server listening`)
         });
     }).catch(error => console.error(error))
-
-// export default httpServer

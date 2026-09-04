@@ -2,8 +2,8 @@ import { DataSource, Repository } from "typeorm";
 import { GameMode, Questions } from "../../../src/entities/db-entities/questions.entities";
 import { QuestionRepository } from '../../../src/interface-adapters/repositories/question.repository'
 import { beforeAll, describe, expect, it } from "vitest";
-import { createTestDataSource } from "./test-data-source";
-import { mock_questions } from "./mocks/mock-questions";
+import { createTestDataSource } from "../../test-data-source";
+import { mock_questions } from "../../mocks/mock-questions";
 
 let data_source: DataSource
 let question_entity: Repository<Questions>

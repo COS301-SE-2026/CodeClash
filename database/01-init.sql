@@ -1,4 +1,6 @@
-CREATE TYPE GAME_MODES AS ENUM ('math', 'programming'); -- NB KEEP THIS AS 'math'
+--very generic tables that can be changed later, just trying not to keep the file empty
+
+CREATE TYPE GAME_MODES AS ENUM ('math', 'programming');
 CREATE TYPE supported_languages AS ENUM('java','c++');
 
 CREATE TABLE IF NOT EXISTS leagues(
