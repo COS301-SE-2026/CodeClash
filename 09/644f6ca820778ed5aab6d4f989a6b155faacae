@@ -1,0 +1,14 @@
+backend/src/interface-adapters/cache/game-cache.ts
+  h_58e143dc25f856 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "09644f6ca820778ed5aab6d4f989a6b155faacae",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

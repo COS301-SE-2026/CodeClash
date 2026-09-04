@@ -1,0 +1,14 @@
+backend/src/application/usecases/services/marking/maths-marking/numeric-marker.ts
+  h_58e143dc25f856 1-21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "b18bbb11cf0c79f11e6fcab59f4bae08327631ca",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
