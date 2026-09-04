@@ -21,12 +21,6 @@ export const ProgMatch = () => {
     } = useMatch();
 
     const curr = questions[currentQuestion];
-    // const correct = results[currentQuestion];
-    // const result_colour = () => {
-    //     if (correct === true) return 'bg-success/50'
-    //     else if (correct === false) return 'bg-danger/50'
-    //     else return 'bg-white'
-    // }
 
     if (loading || !curr) {
         return (
