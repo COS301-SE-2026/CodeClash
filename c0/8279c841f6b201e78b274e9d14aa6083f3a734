@@ -1,0 +1,19 @@
+frontend/@/components/shared/Match.tsx
+  h_b13c5d77534129 47,52-53,59,62,70-71,77
+  h_b13c5d77534129 48
+frontend/src/Views/Profile.tsx
+  h_b13c5d77534129 32
+frontend/src/context/Socket/hooks/useMatchAvatars.ts
+  h_b13c5d77534129 24-30
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "c08279c841f6b201e78b274e9d14aa6083f3a734",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

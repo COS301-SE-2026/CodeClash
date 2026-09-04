@@ -1,0 +1,113 @@
+frontend/src/Views/FinalResults.tsx
+  h_b13c5d77534129 6-7,9
+  h_b13c5d77534129 8,12
+backend/src/application/interfaces/repositories/IUserRepository.ts
+  h_b13c5d77534129 15-16
+backend/src/application/usecases/systems/finish-game.ts
+  h_b13c5d77534129 10,23-24,91-99,101-104,110,131
+backend/src/entities/db-entities/user.entities.ts
+  h_b13c5d77534129 39-40
+backend/src/frameworks-drivers/server.ts
+  h_b13c5d77534129 145
+backend/src/interface-adapters/repositories/friend.repository.ts
+  h_b13c5d77534129 87-90
+backend/src/interface-adapters/repositories/user.repository.ts
+  h_b13c5d77534129 104-143
+backend/tests/unit/usecases/finish-game.unit.test.ts
+  h_b13c5d77534129 4,12-13,43-56
+backend/vitest.config.ts
+  h_b13c5d77534129 8
+database/01-init.sql
+  h_b13c5d77534129 15-18
+"docs/Demo_3/universityofpretoria-f31-CodeClash_API-1.0.0-resolved (1).json"
+  h_b13c5d77534129 1-340
+frontend/@/components/features/VirtualKeyboard.tsx
+  h_b13c5d77534129 3
+frontend/@/components/ui/animations/Confetti.tsx
+  h_b13c5d77534129 2
+frontend/src/App.tsx
+  h_b13c5d77534129 59-60,66,86-87
+frontend/src/ViewModels/AchievementsViewModel.ts
+  h_b13c5d77534129 1-2,6,24-25,67
+frontend/src/ViewModels/DashboardViewModel.ts
+  h_b13c5d77534129 1,6,11-40,59-60
+frontend/src/ViewModels/FriendsViewModel/FriendsContext.tsx
+  h_b13c5d77534129 5,7,43
+frontend/src/ViewModels/MatchHistoryViewModel.ts
+  h_b13c5d77534129 2,4-6,9
+frontend/src/ViewModels/MatchSearchingViewModel.ts
+  h_b13c5d77534129 3-4
+frontend/src/ViewModels/MatchViewModel.ts
+  h_b13c5d77534129 6,11
+frontend/src/ViewModels/ProfileViewModel.ts
+  h_b13c5d77534129 3-4
+frontend/src/ViewModels/SignInViewModel.ts
+  h_b13c5d77534129 3
+frontend/src/Views/Achievements.tsx
+  h_b13c5d77534129 4-5,63-65,77,94-96,108,115
+frontend/src/Views/Dashboard.tsx
+  h_b13c5d77534129 1-3,5-8,55,105,110,138-153
+frontend/src/Views/Friends/FriendInvitePopup.tsx
+  h_b13c5d77534129 4-8
+frontend/src/Views/Friends/Friends.tsx
+  h_b13c5d77534129 1,3-4,8-11,36,47-52,60,67,69-73,112,124-128
+frontend/src/Views/GameGuide.tsx
+  h_b13c5d77534129 4-7
+frontend/src/Views/MatchSearching.tsx
+  h_b13c5d77534129 3-4
+frontend/src/Views/Popup.tsx
+  h_b13c5d77534129 4
+frontend/src/Views/SignIn.tsx
+  h_b13c5d77534129 2-5
+frontend/src/Views/SignUp.tsx
+  h_b13c5d77534129 2-5,7
+frontend/src/Views/TermsAndConditions.tsx
+  h_b13c5d77534129 3-4
+frontend/src/context/Achievement/AchievementToast.tsx
+  h_b13c5d77534129 1-49
+frontend/src/context/Achievement/AchievementToastContext.tsx
+  h_b13c5d77534129 1-86
+frontend/src/context/Friends/useFriends.ts
+  h_b13c5d77534129 4
+frontend/src/context/Socket/MatchmakingContext.tsx
+  h_b13c5d77534129 3-5,7-9
+frontend/src/context/Socket/hooks/useMatchmaking.tsx
+  h_b13c5d77534129 1-2
+frontend/src/context/ThemeContext.tsx
+  h_b13c5d77534129 48
+frontend/src/context/User/UserContext.tsx
+  h_b13c5d77534129 6,19-22,130-158,164-166,181-182,191-192
+frontend/src/context/User/UserContextValue.tsx
+  h_b13c5d77534129 11-13
+frontend/src/extra-layout.tsx
+  h_b13c5d77534129 5,8
+frontend/src/layout.tsx
+  h_b13c5d77534129 5-7,9-13
+frontend/src/main.tsx
+  h_b13c5d77534129 5,9,11,25,30
+frontend/src/utils/achievementIcon.ts
+  h_b13c5d77534129 1-11
+frontend/test/integration/Providers/UserProvider.test.tsx
+  h_b13c5d77534129 2
+frontend/test/unit/PopUp.test.tsx
+  h_b13c5d77534129 81
+frontend/vite.config.ts
+  h_b13c5d77534129 2,6-8
+package-lock.json
+  h_b13c5d77534129 6469-6471
+tests/nfr/README.md
+  h_b13c5d77534129 1
+tests/nfr/reliability/websocket-disconnect.sh
+  h_b13c5d77534129 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "1ccaff6c40f884f4e74e5d0edd9d60aabae68e4f",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
