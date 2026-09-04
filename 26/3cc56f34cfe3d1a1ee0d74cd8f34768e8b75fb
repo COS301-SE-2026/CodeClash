@@ -1,0 +1,14 @@
+backend/src/application/usecases/services/marking/maths-marking/equation-marker.ts
+  h_58e143dc25f856 27-28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "263cc56f34cfe3d1a1ee0d74cd8f34768e8b75fb",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
