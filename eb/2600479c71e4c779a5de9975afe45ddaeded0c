@@ -1,0 +1,18 @@
+frontend/src/context/Socket/hooks/useMatchAvatars.ts
+  h_b13c5d77534129 1-5
+backend/src/frameworks-drivers/server.ts
+  h_b13c5d77534129 213,215
+frontend/src/context/Socket/AvatarSocketContext.tsx
+  h_b13c5d77534129 45
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "eb2600479c71e4c779a5de9975afe45ddaeded0c",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
