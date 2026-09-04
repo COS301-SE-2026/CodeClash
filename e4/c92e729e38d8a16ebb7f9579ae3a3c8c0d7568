@@ -1,0 +1,14 @@
+frontend/src/Views/MathsMatch.tsx
+  h_58e143dc25f856 91
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "e4c92e729e38d8a16ebb7f9579ae3a3c8c0d7568",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
