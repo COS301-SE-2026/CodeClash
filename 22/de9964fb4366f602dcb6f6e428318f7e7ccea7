@@ -1,0 +1,121 @@
+database/01-init.sql
+  h_94c952a9e14c58 40,56-57,87-95
+frontend/src/ViewModels/ProfileViewModel.ts
+  h_94c952a9e14c58 5,31,56,58
+  h_94c952a9e14c58 33,39-53
+backend/src/entities/db-entities/match.entities.ts
+  h_94c952a9e14c58 13,28-30,43,45,56,59
+  h_94c952a9e14c58 57-58
+backend/src/frameworks-drivers/config/data-source.ts
+  h_94c952a9e14c58 4,10-12,27,35-37
+  h_94c952a9e14c58 26,28-34,38
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 45,58-59,72,77,113
+backend/src/application/interfaces/repositories/IEloRepository.ts
+  h_94c952a9e14c58 12-13
+.github/workflows/ci.yml
+  h_94c952a9e14c58 96-128
+README.md
+  h_94c952a9e14c58 49,76,102,105-109
+backend/src/application/interfaces/repositories/IMatchHistoryRepository.ts
+  h_94c952a9e14c58 1-23
+backend/src/application/interfaces/repositories/IMatchRepository.ts
+  h_94c952a9e14c58 4-5
+backend/src/application/interfaces/repositories/IMatchStatsRepository.ts
+  h_94c952a9e14c58 1-13
+backend/src/application/usecases/init-db.ts
+  h_94c952a9e14c58 21-22
+backend/src/application/usecases/services/game.service.ts
+  h_94c952a9e14c58 88
+backend/src/application/usecases/services/match-result.service.ts
+  h_94c952a9e14c58 19,21-27,46-47,56-58
+backend/src/application/usecases/systems/finish-game.ts
+  h_94c952a9e14c58 8,19-20,37-42,120,122-127
+backend/src/entities/db-entities/achievement.entities.ts
+  h_94c952a9e14c58 1-23
+backend/src/entities/db-entities/elo.entities.ts
+  h_94c952a9e14c58 3,30,32
+backend/src/entities/db-entities/friendship.entities.ts
+  h_94c952a9e14c58 1-5
+backend/src/entities/db-entities/match-stats.entities.ts
+  h_94c952a9e14c58 1-26
+backend/src/entities/db-entities/submission.entities.ts
+  h_94c952a9e14c58 3,10,12
+backend/src/entities/db-entities/user.entities.ts
+  h_94c952a9e14c58 1-2,35-37
+backend/src/entities/dtos/match-result.dto.ts
+  h_94c952a9e14c58 9-10
+backend/src/interface-adapters/controllers/match-history.controllers.ts
+  h_94c952a9e14c58 1-38
+backend/src/interface-adapters/repositories/elo.repository.ts
+  h_94c952a9e14c58 76,141-143,145-155,158-160,165-166
+backend/src/interface-adapters/repositories/match-history.repository.ts
+  h_94c952a9e14c58 1-96
+backend/src/interface-adapters/repositories/match-result.repository.ts
+  h_94c952a9e14c58 17-18,24-25
+backend/src/interface-adapters/repositories/match-stats.repository.ts
+  h_94c952a9e14c58 1-38
+backend/src/interface-adapters/repositories/match.repository.ts
+  h_94c952a9e14c58 2,6,8,17-18
+backend/src/interface-adapters/socket-handlers/game.handler.ts
+  h_94c952a9e14c58 68-72
+backend/tests/integration/repositories/elo.repository.test.ts
+  h_94c952a9e14c58 72-140
+backend/tests/integration/repositories/match-result.repository.test.ts
+  h_94c952a9e14c58 1-148
+backend/tests/integration/repositories/match-stats.repository.test.ts
+  h_94c952a9e14c58 1-82
+backend/tests/unit/controllers/match-history.test.ts
+  h_94c952a9e14c58 1-133
+backend/tests/unit/controllers/match-result.controllers.test.ts
+  h_94c952a9e14c58 2-4
+backend/tests/unit/controllers/user.controller.test.ts
+  h_94c952a9e14c58 2-3
+backend/tests/unit/usecases/finish-game.unit.test.ts
+  h_94c952a9e14c58 1-319
+backend/tests/unit/usecases/services/match-result.service.test.ts
+  h_94c952a9e14c58 11,25-26
+frontend/package-lock.json
+  h_94c952a9e14c58 7014-7016,7520-7522,7984-7986,8767-8769
+frontend/src/Models/FinalResultsModel.ts
+  h_94c952a9e14c58 8-9,19,28,31
+frontend/src/Models/MatchHistoryModel.ts
+  h_94c952a9e14c58 6-8,19
+frontend/src/ViewModels/MatchHistoryViewModel.ts
+  h_94c952a9e14c58 1-2,4-7,20-21,23-65,79-86
+frontend/src/Views/FinalResults.tsx
+  h_94c952a9e14c58 1,117-120,147,196,219-262
+frontend/src/Views/Leaderboard.tsx
+  h_94c952a9e14c58 31,37,42
+frontend/src/Views/MatchHistory.tsx
+  h_94c952a9e14c58 74,100,105,115-117
+frontend/src/Views/Profile.tsx
+  h_94c952a9e14c58 3,13
+frontend/src/dtos/result.dto.ts
+  h_94c952a9e14c58 10-11
+frontend/test/integration/Providers/UserProvider.test.tsx
+  h_94c952a9e14c58 1-83
+frontend/vitest.config.ts
+  h_94c952a9e14c58 30
+package-lock.json
+  h_94c952a9e14c58 8471-8473
+sonar-project.properties
+  h_94c952a9e14c58 1
+tests/nfr/README.md
+  h_94c952a9e14c58 1-183
+tests/nfr/reliability/kill-judge0.sh
+  h_94c952a9e14c58 1-8
+tests/nfr/reliability/websocket-disconnect.sh
+  h_94c952a9e14c58 1-4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "22de9964fb4366f602dcb6f6e428318f7e7ccea7",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

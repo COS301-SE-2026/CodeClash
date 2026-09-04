@@ -1,0 +1,14 @@
+backend/src/application/usecases/services/marking/maths-marking/normalizer.ts
+  h_58e143dc25f856 35,38-48
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "3a2a3bbc1392a45d754524d0adafa1b63a4c82d0",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
