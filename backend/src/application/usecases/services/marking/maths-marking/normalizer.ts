@@ -25,9 +25,13 @@ const SUPERSCRIPTS: Record<string, string> = {
     "⁺": "+", "⁻": "-"
 };
 
+export const EQUIVALENCE_TOLERANCE = 1e-9;
+const SAMPLE_COUNT = 12;
+const MIN_SAMPLES = 5;
+
 
 export function toleranceFor(precision: number | null): number {
     if (precision === null) return EQUIVALENCE_TOLERANCE;
     return precision;
 }
-export const EQUIVALENCE_TOLERANCE = 0.01;
+
