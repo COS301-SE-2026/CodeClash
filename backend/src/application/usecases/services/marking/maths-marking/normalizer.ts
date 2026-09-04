@@ -11,7 +11,19 @@ const ALLOWED_FUNCTIONS = new Set([
     "sin", "cos", "tan", "asin", "acos", "atan",
     "sinh", "cosh", "tanh", "pow", "sign"
 ]);
-\
+
+const BLOCKED_SYMBOLS = new Set([
+    "config", "import", "createUnit", "evaluate", "parse", "simplify",
+    "derivative", "chain", "help", "clone"
+]);
+
+const CONSTANTS = new Set(["pi", "e", "tau", "phi", "i", "Infinity", "NaN"]);
+
+const SUPERSCRIPTS: Record<string, string> = {
+    "⁰": "0", "¹": "1", "²": "2", "³": "3", "⁴": "4",
+    "⁵": "5", "⁶": "6", "⁷": "7", "⁸": "8", "⁹": "9",
+    "⁺": "+", "⁻": "-"
+};
 
 
 export function toleranceFor(precision: number | null): number {
