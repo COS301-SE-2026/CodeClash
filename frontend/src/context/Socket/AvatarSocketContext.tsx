@@ -23,6 +23,24 @@ export function AvatarSocketProvider({pairId, children}){
             setAvatars((prev) => ({...prev, [userId]: {pose, colour}}));
         });
 
-        
-    })
+        return () => {
+            socket.off('avatar_all_data');
+            socket.off('user_updated_avatar');
+        };
+    }, [pairId]);
+
+
+    const updateMyAvatar = (pose, colour) => {
+        socket.emit('avatar_updated', { pose, colour });
+    };
+
+    return(
+        <AvatarSocketContext.Provider value={{ avatars, updateMyAvatar }}>
+            {children}
+        </AvatarSocketContext.Provider>
+    );
+}
+
+export function useAvatarSocket(){
+    return useContext(AvatarSocketContext);
 }

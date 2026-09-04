@@ -188,7 +188,10 @@ AppDataSource.initialize()
                 });
             });
 
-            socket.on('request_all_avatars', (pair_id) => {
+            socket.on('match_join', ({pair_id, pose, colour}) => {
+
+                socket.join(matchId);
+                
                 const pair = io.sockets.adapter.rooms.get(pair_id);
                 const avatarsInPair = {};
                 if(pair){
@@ -204,7 +207,7 @@ AppDataSource.initialize()
                 socket.emit('avatar_all_data', avatarsInPair);
             });
 
-            socket.on("avatar_updated", ({ pose, colour }) => {
+            socket.on('avatar_updated', ({ pose, colour }) => {
                 playerAvatars.set(userId, {pose, colour});
 
                 socket.rooms.forEach((pair) => {
