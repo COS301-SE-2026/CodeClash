@@ -8,9 +8,6 @@ import Loading from "@/components/shared/Loading";
 import Starfield from "@/components/ui/animations/Starfield";
 import Confetti from "@/components/ui/animations/Confetti";
 import type { PlayerFinalResults } from "src/Models/FinalResultsModel";
-import { Lose } from "src/animations/lose";
-import { Yes } from "src/animations/yes";
-import { ArmRaise } from "src/animations/armRaise";
 
 const FinalResults: React.FC = () => {
     const navigate = useNavigate();
@@ -140,17 +137,12 @@ const PlayerResultCard: React.FC<{
     const [avatarFailed, setAvatarFailed] = useState(false);
     return (
         <div className={`${emphasize? 'card-glow' : 'card-elevated'} p-4 flex flex-col sm:flex-row items-center gap-4`}>
-            <div className="flex flex-col items-center gap-1 shrink-0 w-30">
-                <div className="w-30 h-30 rounded-full overflow-hidden border-2 border-primary flex items-center justify-center bg-card">
+            <div className="flex flex-col items-center gap-1 shrink-0 w-20">
+                <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-primary flex items-center justify-center bg-card">
                     {avatarFailed ? (
                         <UserCircle size={26} className="text-muted-text"/>
                     ): (
-                        // <img src={robot_map[player.avatar]} alt = {player.username} className="w-full h-full object-cover" onError={() => setAvatarFailed(true)}/>
-                        <div>
-                        {player.position === 1 ? 
-                            <ArmRaise vb1={175} vb2={220}/> : <Lose vb1={170} vb2={220}/>
-                        } 
-                        </div>
+                        <img src={robot_map[player.avatar]} alt = {player.username} className="w-full h-full object-cover" onError={() => setAvatarFailed(true)}/>
                     )}
                 </div>
                 <span className="text-primary-text font-semibold text-center truncate w-full text-xs">{player.username}</span>
@@ -159,7 +151,7 @@ const PlayerResultCard: React.FC<{
             <div className="grid grid-cols-4 gap-2 flex-1 w-full">
                 <div className="flex flex-col items-center gap-0.5">
                     <span className="text-xsm uppercase tracking-wide text-muted">Correctness</span>
-                    <span className="score-display text-base text-primary-text text-xs mt-1">{player.correctness} correct</span>
+                    <span className="score-display text-base text-primary-text">{player.correctness} correct</span>
                 </div>
                 {/*Copied from above and modified */}
                 <div className="flex flex-col items-center gap-0.5">
