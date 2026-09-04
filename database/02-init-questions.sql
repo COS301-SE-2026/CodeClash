@@ -364,71 +364,71 @@ SELECT
 FROM 
     q;
 
-WITH q AS (
-    INSERT INTO 
-        questions(
-             game_mode,
-            difficulty,
-            title,
-            description,
-            time_limit
-        )
-    VALUES
-        (
-             'programming', --NOSONAR
+-- WITH q AS (
+--     INSERT INTO 
+--         questions(
+--              game_mode,
+--             difficulty,
+--             title,
+--             description,
+--             time_limit
+--         )
+--     VALUES
+--         (
+--              'programming', --NOSONAR
 
-        ) RETURNING question_id
-)
-INSERT INTO 
-answers(question_id, answer)
-SELECT 
-    question_id,
-    ''
-FROM 
-    q;
+--         ) RETURNING question_id
+-- )
+-- INSERT INTO 
+-- answers(question_id, answer)
+-- SELECT 
+--     question_id,
+--     ''
+-- FROM 
+--     q;
 
-WITH q AS (
-    INSERT INTO 
-        questions(
-             game_mode,
-            difficulty,
-            title,
-            description,
-            time_limit
-        )
-    VALUES
-        (
-             'programming', --NOSONAR
+-- WITH q AS (
+--     INSERT INTO 
+--         questions(
+--              game_mode,
+--             difficulty,
+--             title,
+--             description,
+--             time_limit
+--         )
+--     VALUES
+--         (
+--              'programming', --NOSONAR
 
-        ) RETURNING question_id
-)
-INSERT INTO 
-answers(question_id, answer)
-SELECT 
-    question_id,
-    ''
-FROM 
-    q;
+--         ) RETURNING question_id
+-- )
+-- INSERT INTO 
+-- answers(question_id, answer)
+-- SELECT 
+--     question_id,
+--     ''
+-- FROM 
+--     q;
 
-WITH q AS (
-    INSERT INTO 
-        questions(
-             game_mode,
-            difficulty,
-            title,
-            description,
-            time_limit
-        )
-    VALUES
-        (
-             'programming', --NOSONAR
+-- WITH q AS (
+--     INSERT INTO 
+--         questions(
+--              game_mode,
+--             difficulty,
+--             title,
+--             description,
+--             time_limit
+--         )
+--     VALUES
+--         (
+--              'programming', --NOSONAR
 
-        ) RETURNING question_id
-)
-INSERT INTO 
-answers(question_id, answer)
-SELECT 
-    question_id,
-    ''
-FROM 
-    q;
+--         ) RETURNING question_id
+-- )
+-- INSERT INTO 
+-- answers(question_id, answer)
+-- SELECT 
+--     question_id,
+--     ''
+-- FROM 
+--     q;
