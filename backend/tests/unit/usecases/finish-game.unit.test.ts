@@ -42,7 +42,7 @@ describe('FinishGame', () => {
 
         user_repo = {
             updateStreaks: vi.fn().mockResolvedValue(undefined),
-            gotTotalStats: vi.fn().mockResolvedValue({
+            getTotalStats: vi.fn().mockResolvedValue({
                 total_wins: 5,
                 total_matches: 10,
                 winning_streak: 2,
@@ -50,6 +50,9 @@ describe('FinishGame', () => {
             })
         };
 
+        achievement_service = {
+            evaluateAndAward: vi.fn().mockResolvedValue([])
+        };
         finish_game = new FinishGame(world, match_result_service, game_store, delete_game,match_stats_repo, achievement_service, user_repo);
     });
 

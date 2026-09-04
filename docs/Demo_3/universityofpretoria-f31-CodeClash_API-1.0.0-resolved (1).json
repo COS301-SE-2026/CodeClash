@@ -1,0 +1,340 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "CodeClash API",
+    "description": "Outlines API endpoints for CodeClash",
+    "contact": {
+      "email": "quantdevs@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://virtserver.swaggerhub.com/universityofpretoria-f31/CodeClash_API/1.0.0",
+      "description": "SwaggerHub API Auto Mocking"
+    },
+    {
+      "url": "https://virtserver.swaggerhub.com/universityofpretoria-f31/EloAPI/1.0.0",
+      "description": "SwaggerHub API Auto Mocking"
+    }
+  ],
+  "tags": [
+    {
+      "name": "admins",
+      "description": "Secured Admin-only calls"
+    },
+    {
+      "name": "developers",
+      "description": "Operations available to regular developers"
+    }
+  ],
+  "paths": {
+    "/api/elo/elo-get": {
+      "get": {
+        "tags": [
+          "developers"
+        ],
+        "summary": "gets user elo",
+        "description": "By passing in the appropriate paramaters you can fetch users elo\n",
+        "operationId": "gets user elo",
+        "parameters": [
+          {
+            "name": "Authorization:",
+            "in": "header",
+            "description": "Takes in a user token for request authentication",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EloRating"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": " User not found "
+          }
+        }
+      }
+    },
+    "/api/user/:stat": {
+      "get": {
+        "tags": [],
+        "summary": "get user data",
+        "description": "returns the value of the specified stat",
+        "operationId": "get-user-:stat",
+        "parameters": [
+          {
+            "name": ":stat",
+            "in": "query",
+            "description": "User variable to be returned",
+            "required": true,
+            "allowReserved": true,
+            "schema": {
+              "type": "string",
+              "example": "username",
+              "enum": [
+                "username",
+                "email",
+                "avatar_id",
+                "league",
+                "user_id"
+              ]
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_404"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/friend/invite": {
+      "get": {
+        "tags": [],
+        "summary": "Get Invite",
+        "description": "Gets a friend invite from the database",
+        "operationId": "get-api-friend-invite",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Token to authorise request",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_1"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [],
+        "summary": "Create Invite",
+        "operationId": "post-api-friend-invite",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Token to authorise request",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/friend_invite_body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_2"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_404_1"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "EloRating": {
+        "type": "object",
+        "properties": {
+          "rating": {
+            "minimum": 0,
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true,
+            "example": 600
+          }
+        }
+      },
+      "inline_response_200": {
+        "type": "object",
+        "properties": {
+          "<stat>": {
+            "type": "string"
+          }
+        }
+      },
+      "inline_response_400": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "default": "Invalid request"
+          }
+        }
+      },
+      "inline_response_404": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "default": "User not found"
+          }
+        }
+      },
+      "inline_response_200_1": {
+        "type": "object",
+        "properties": {
+          "invite_id": {
+            "type": "string"
+          },
+          "friends": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/inline_response_200_1_friends"
+            }
+          },
+          "game_mode": {
+            "type": "string",
+            "enum": [
+              "math",
+              "prog"
+            ]
+          }
+        }
+      },
+      "friend_invite_body": {
+        "required": [
+          "friends",
+          "game_mode",
+          "user_id"
+        ],
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string"
+          },
+          "friends": {
+            "minItems": 1,
+            "type": "array",
+            "items": {}
+          },
+          "game_mode": {
+            "type": "string",
+            "enum": [
+              "math",
+              "programming"
+            ]
+          }
+        }
+      },
+      "inline_response_200_2": {
+        "type": "object",
+        "properties": {
+          "invite_id": {
+            "type": "string"
+          }
+        }
+      },
+      "inline_response_404_1": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Friend Not Found"
+          }
+        }
+      },
+      "inline_response_200_1_friends": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "elo": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  }
+}
