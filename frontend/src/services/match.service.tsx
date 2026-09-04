@@ -180,10 +180,14 @@ export const useMatchProgress = (
     const [opponentDone, setOpponentDone] = useState(false);
 
     const players_ref = useRef(players);
+  const [prev_players, setPrevPlayers] = useState(players);
 
+  if (players !== prev_players) {
+        setPrevPlayers(players);
+        setPlayerLife(players.map(p => p.life))
+    }
     useEffect(() => {
         players_ref.current = players
-        setPlayerLife(players.map(p => p.life))
 
     }, [players]);
 
