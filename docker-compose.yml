@@ -6,7 +6,7 @@ services:
     environment:
       - DATABASE_URL=postgresql://postgres:password@db:5432/codeclash
       - PORT=3000
-      - DB_HOST=db
+      - DB_HOST=${DB_HOST}
     depends_on:
       db:
         condition: service_healthy
