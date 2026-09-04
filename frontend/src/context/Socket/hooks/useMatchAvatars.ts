@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 import { useSocket } from './useSocket';
 
 
-export function useMatchAvatars({pair_id, myPlayerId, myPose, myColour}) {
+export function useMatchAvatars({pair_id, myUserId, myPose, myColour}) {
     const [opponent, setOpponent] = useState(null);
     const socket = useSocket();
 
@@ -12,5 +12,14 @@ export function useMatchAvatars({pair_id, myPlayerId, myPose, myColour}) {
         }
 
         socket.emit('match_join', {pair_id, pose: myPose, colour: myColour});
+
+        const handleOpponentAvatar = ({user_id, pose, colour}) => {
+            if( user_id === myUserId){
+                return;
+            }
+            setOpponent({ user_id, pose, colour });
+        };
+
+        socket.on('share_avatar', handleOpponentAvatar);
     })
 }
