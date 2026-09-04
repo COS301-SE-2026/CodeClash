@@ -108,9 +108,9 @@ WITH q AS (
             'math', --NOSONAR
             2,
             'Solve Quadratic Equation',
-            'Find the roots of the quadratic equation:\nx² - 7x + 10 = 0\nAnswer format: x=...., x=.... using exact fractions where necessary, e.g. x=4, x=8',
+            'Find the roots of the quadratic equation:\nx² - 7x + 10 = 0\nAnswer format: comma seperated values, any order, e.g. 9,-3',
             '00:02:00', --NOSONAR
-            'variables',
+            'set',
             NULL
         ) RETURNING question_id
 )
