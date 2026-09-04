@@ -12,7 +12,8 @@
     "build": "tsc && tsc-alias",
     "dev": "nodemon --exec \"ts-node -r tsconfig-paths/register\" src/frameworks-drivers/server.ts",
     "test": "vitest",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "generate:api": "ts-node -r tsconfig-paths/register scripts/generate-api-spec.ts"
   },
   "keywords": [],
   "author": "",
