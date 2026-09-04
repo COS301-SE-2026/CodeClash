@@ -27,6 +27,7 @@ export const useMatch = () => {
         nextQuestion,
         prevQuestion,
         submitQuestion,
+        question_idx,
         finishGame,
         loadQuestions,
         waitingOpponent,
@@ -59,8 +60,7 @@ export const useMatch = () => {
 
 
     const submission_result = (result: SubmissionDTO) => {
-        const index = q_index.current
-        if (index === null) return;
+        const index = question_idx.current;
 
         setResults((prev) => {
             const next = [...prev];
