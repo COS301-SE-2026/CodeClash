@@ -2,12 +2,14 @@ import { TrendingUp, TrendingDown, Minus, Clock, UserCircle, Trophy, Medal } fro
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ResultsBackground from '../assets/Background/FinalResults.jpg';
-import { FinalResultsViewModelFunction } from "../ViewModels/FinalResultsViewModel";
 import { robot_map } from "src/assets/Robots";
-import Loading from "@/components/shared/Loading";
-import Starfield from "@/components/ui/animations/Starfield";
-import Confetti from "@/components/ui/animations/Confetti";
 import type { PlayerFinalResults } from "src/Models/FinalResultsModel";
+
+import { FinalResultsViewModelFunction } from "../ViewModels/FinalResultsViewModel";
+
+import Loading from "@/components/shared/Loading";
+import Confetti from "@/components/ui/animations/Confetti";
+import Starfield from "@/components/ui/animations/Starfield";
 import { Lose } from "src/animations/lose";
 import { Yes } from "src/animations/yes";
 import { ArmRaise } from "src/animations/armRaise";

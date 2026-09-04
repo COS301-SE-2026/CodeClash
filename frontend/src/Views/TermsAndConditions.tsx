@@ -1,6 +1,7 @@
 import { Dot, ArrowLeft } from "lucide-react";
 import React from "react";
 import { Link } from "react-router";
+
 import { TermsAndConditionsViewModelFunction } from "../ViewModels/TermsAndConditionsViewModel";
 
 const TermsAndConditions: React.FC = () => {

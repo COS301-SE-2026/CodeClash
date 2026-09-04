@@ -36,4 +36,6 @@ export class Users {
     @ManyToMany(() => Achievement, achievement => achievement.users)
     achievements!: Achievement[];
 
+    @Column({ nullable: true, type: 'timestamp' })
+    last_played_at?: Date;
 }

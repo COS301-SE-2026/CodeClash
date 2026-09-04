@@ -1,7 +1,8 @@
 import { Trophy, Flame, Zap, Medal } from "lucide-react";
 import React, { useState } from "react";
-import { AchievementsViewModelFunc } from "src/ViewModels/AchievementsViewModel";
 import type { Icons } from "src/Models/AchievementsModel";
+import { AchievementsViewModelFunc } from "src/ViewModels/AchievementsViewModel";
+
 import Loading from "@/components/shared/Loading";
 import Starfield from "@/components/ui/animations/Starfield";
 
@@ -59,7 +60,9 @@ const Achievements: React.FC = () => {
                                 const Icon = AchIcons[achievement.icon];
                                 const isExpanded = expandedId === achievement.id;
                                 return (
-                                    <div key={achievement.id} className="card-glow p-5 flex flex-col items-center text-center gap-2">
+                                    <div key={achievement.id} 
+                                        className="card-glow p-5 flex flex-col items-center text-center gap-2"
+                                        onClick={() => toggle(achievement.id)}>
                                         <div className="w-16 h-16 rounded-full border-2 border-secondary flex items-center justify-center shrink-0">
                                             <Icon size={28} className="text-primary-text"/>
                                         </div>
@@ -71,7 +74,7 @@ const Achievements: React.FC = () => {
                                             </p>
                                         )}
                                     </div>
-                                )
+                                );
                             })}
                         </div>
                     </section>
@@ -88,7 +91,9 @@ const Achievements: React.FC = () => {
                                 const Icon = AchIcons[achievement.icon];
                                 const isExpanded = expandedId === achievement.id;
                                 return (
-                                    <div key={achievement.id} className="card-glow p-5 flex flex-col items-center text-center gap-2 opacity-50">
+                                    <div key={achievement.id} 
+                                        className="card-glow p-5 flex flex-col items-center text-center gap-2 opacity-50"
+                                         onClick={() => toggle(achievement.id)}>
                                         <div className="w-16 h-16 rounded-full border-2 border-border flex items-center justify-center shrink-0">
                                             <Icon size={28} className="text-muted-text"/>
                                         </div>
@@ -100,14 +105,14 @@ const Achievements: React.FC = () => {
                                             </p>
                                         )}
                                     </div>
-                                )
+                                );
                             })}
                         </div>
                     </section>
                 )}
             </div>
         </div>
-    )
+    );
 }
 
 export default Achievements;

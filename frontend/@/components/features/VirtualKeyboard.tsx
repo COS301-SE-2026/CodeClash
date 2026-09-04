@@ -1,8 +1,8 @@
 //Page containing the virtual math keyboard
 
+import { Keyboard } from 'lucide-react';
 import { MathfieldElement } from 'mathlive';
 import { useEffect, useState } from 'react';
-import { Keyboard } from 'lucide-react';
 
 interface VirtualKeyboardProps {
   mathfieldRef: React.RefObject<MathfieldElement | null>;
