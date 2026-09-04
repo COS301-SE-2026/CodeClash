@@ -1,7 +1,7 @@
 
-import { describe, it, expect, vi } from 'vitest'
-import { getMatchResults } from '../../../src/interface-adapters/controllers/match-results.controllers'
-import { MatchResultDTO } from '.././../../src/entities/dtos/match-result.dto'
+import { describe, it, expect, vi } from 'vitest';
+import { getMatchResults } from '../../../src/interface-adapters/controllers/match-results.controllers';
+import { MatchResultDTO } from '../../../src/interface-adapters/dtos/match-result.dto';
 
 describe("Match Results Controller", () => {
 

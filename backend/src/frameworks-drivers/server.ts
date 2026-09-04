@@ -42,19 +42,27 @@ import { AppDataSource } from "./config/data-source"
 import { OpponentProgress } from 'src/application/usecases/systems/opponent-progress';
 import { IMatchRepository } from 'src/application/interfaces/repositories/IMatchRepository';
 import { MatchRepository } from 'src/interface-adapters/repositories/match.repository';
-import { Match, MatchLog } from 'src/entities/db-entities/match.entities';
+import { Matches, MatchLog } from 'src/entities/db-entities/match.entities';
 import { MatchResultService } from 'src/application/usecases/services/match-result.service';
 import { IMatchResultRepository } from 'src/application/interfaces/repositories/IMatchResultRepository';
 import { MatchResultRepository } from 'src/interface-adapters/repositories/match-result.repository';
 import { MatchedUsersService } from 'src/application/usecases/services/matched-users.service';
 import { GameStore } from 'src/application/usecases/services/game-store.service';
 import { DeleteGame } from 'src/application/usecases/systems/delete-game';
+<<<<<<< HEAD
 import { LeaderboardService } from 'src/application/usecases/services/leaderboard.service';
 import { NotificationService } from 'src/application/usecases/services/notification.service';
 import { MarkingStrategy } from 'src/application/interfaces/marking/IMarkingStategy';
 import { MarkMaths } from 'src/application/usecases/services/marking/mark-maths';
 import { MarkProg } from 'src/application/usecases/services/marking/mark-prog';
 import { CodeExecutor } from 'src/interface-adapters/CodeExecutor';
+=======
+import { MatchStatsRepository } from 'src/interface-adapters/repositories/match-stats.repository';
+import { MatchStats } from 'src/entities/db-entities/match-stats.entities';
+import { Achievement } from 'src/entities/db-entities/achievement.entities';
+import { AchievementService } from 'src/application/usecases/services/achievement.service';
+import { AchievementRepository } from 'src/interface-adapters/repositories/achievement.repository';
+>>>>>>> 5378a30cd86c953bdc20aa94765d31b947e8a4e4
 
 dotnev.config()
 
@@ -68,11 +76,49 @@ AppDataSource.initialize()
         const elo_repo: IEloRepository = new EloRepository(AppDataSource.getRepository(EloRatings));
         const question_repo: IQuestionRepository = new QuestionRepository(AppDataSource.getRepository(Questions));
         const answer_repo: IAnswerRepository = new AnswerRepository(AppDataSource.getRepository(Answers))
-        const match_repo: IMatchRepository = new MatchRepository(AppDataSource.getRepository(Match))
+        const match_repo: IMatchRepository = new MatchRepository(AppDataSource.getRepository(Matches))
         const match_results_repo: IMatchResultRepository = new MatchResultRepository(
             AppDataSource.getRepository(MatchLog),
             AppDataSource.getRepository(Users)
         )
+<<<<<<< HEAD
+=======
+        const match_stats_repo = new MatchStatsRepository(AppDataSource.getRepository(MatchStats));
+        const achievementRepo = new AchievementRepository(AppDataSource.getRepository(Achievement), AppDataSource.getRepository(Users));
+        const achievement_service = new AchievementService(achievementRepo);
+
+        const httpServer = createServer(app)     // can update to https
+        const io = new Server(httpServer, {
+            cors: {
+                origin: [process.env.FRONTEND_URL!],
+                credentials: true
+            },
+        }
+        );
+
+        // auth middleware 
+        io.use(async (socket, next) => {
+            const token = socket.handshake.auth.token;
+
+            if (!token) return next(new Error("Authenticaion error: No token provided"));
+
+            const valid = await validateToken(token)
+            if (valid) {
+
+                // get db id from cognito id
+                const db_id = (await user_repo.getUserId(valid.user_Id))!.user_id;
+                const username = (await user_repo.getUserData(db_id!, 'username'))!.username
+
+
+                socket.data = {
+                    user_id: db_id,
+                    username: username
+                }
+                next();
+            }
+            else next(new Error("Authentication error: Invalid token"));
+        })
+>>>>>>> 5378a30cd86c953bdc20aa94765d31b947e8a4e4
 
         // initialise ecs world 
         const world = World();
@@ -107,8 +153,14 @@ AppDataSource.initialize()
         // initialise systems 
         const submission_system = new SubmissionSystem(world);
         const life_system = new LifeSystem(world);
+<<<<<<< HEAD
         const delete_game = new DeleteGame(world, game_store, matched_users_service);
         const finish_game = new FinishGame(world, match_results, game_store, delete_game);
+=======
+        const delete_game = new DeleteGame(world,game_store,matched_users_service);
+        const finish_game = new FinishGame(world, match_results, game_store, delete_game, match_stats_repo, achievement_service, user_repo);
+        const opponent_progress = new OpponentProgress(world);
+>>>>>>> 5378a30cd86c953bdc20aa94765d31b947e8a4e4
 
 
 
@@ -187,7 +239,19 @@ AppDataSource.initialize()
 
             socket.on('send_results', (game_id: number, pair_id: string) => sendResults(io, game_id, pair_id, game_store))
 
+<<<<<<< HEAD
             socket.on('clean_up', (game_id: number, pair_id: string) => cleanUp(game_id, pair_id, delete_game, game_store))
+=======
+            socket.on('clean_up', (game_id: number, pair_id: string)=> cleanUp(game_id, pair_id, delete_game, game_store))
+
+            socket.on('send_friend_invite', (data) => {
+                io.to(data.receiver_id).emit('friend_invite_received', {
+                    invite_id: data.invite_code,
+                    sender_name: data.sender_name,
+                    expires_at: data.expires_at
+                });
+            });
+>>>>>>> 5378a30cd86c953bdc20aa94765d31b947e8a4e4
         })
 
         // start server
@@ -195,3 +259,8 @@ AppDataSource.initialize()
             console.log(`Server listening`)
         });
     }).catch(error => console.error(error))
+<<<<<<< HEAD
+=======
+
+// export default httpServer
+>>>>>>> 5378a30cd86c953bdc20aa94765d31b947e8a4e4

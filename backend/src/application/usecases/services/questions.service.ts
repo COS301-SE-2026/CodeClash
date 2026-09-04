@@ -1,5 +1,5 @@
 import { GameMode } from "src/entities/db-entities/questions.entities";
-import { GameQuestionsDTO } from "src/entities/dtos/match-data.dto";
+import { GameQuestionsDTO } from "src/interface-adapters/dtos/match-data.dto";
 import { leagueMapping } from "src/entities/league-mapping";
 
 import { IQuestionRepository } from "../../interfaces/repositories/IQuestionRepository";

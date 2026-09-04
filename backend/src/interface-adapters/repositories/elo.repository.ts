@@ -73,6 +73,7 @@ export class EloRepository implements IEloRepository {
         .createQueryBuilder('elo')
         .innerJoinAndSelect('elo.user', 'user')
         .orderBy('elo.rating', 'DESC')
+        .addOrderBy('user.username', 'ASC')
         .skip(offset)
         .take(limit)
         .getManyAndCount()
@@ -137,24 +138,29 @@ export class EloRepository implements IEloRepository {
 
     async getUserRank(userId: string): Promise<RankDTO | null> {
 
-        const sorted = await this.eloRepository
-        .createQueryBuilder('elo')
-        .innerJoinAndSelect('elo.user', 'user')
-        .orderBy('elo.rating', 'DESC')
-        .getMany();
+      const row = await this.eloRepository.findOne({
+        where: { user: { user_id: userId } },
+        relations: { user: true }
         
-        const index = sorted.findIndex(e => e.user.user_id === userId);
-
-        if(index < 0){
-            return null;
-        }
+      })
+      
+      if (!row) return null;
+      
+      const ahead = await this.eloRepository
+        .createQueryBuilder('elo')
+        .innerJoin('elo.user', 'user')
+        .where('elo.rating > :rating', { rating: row.rating })
+        .orWhere('elo.rating = :rating AND user.username < :username',
+        { rating: row.rating, username: row.user.username })
+        .getCount()
 
         const data : RankDTO = {
-            user_id: userId,
-            rank: index + 1
-        };
+        user_id: userId,
+        rank: ahead + 1
+      };
 
         return data;
         
     }
 }
+
