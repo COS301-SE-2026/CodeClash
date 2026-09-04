@@ -1,0 +1,19 @@
+frontend/src/ViewModels/MatchViewModel.ts
+  s_2da99668bdf811::t_6654f72d913b9d 38-39
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "961cb8aa19eec9215618c517736f544e084e162f",
+  "prompts": {},
+  "sessions": {
+    "s_2da99668bdf811": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "18d5a8d1-7c32-4944-a7b9-280a0cd61b4a",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
