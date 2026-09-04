@@ -38,6 +38,7 @@ export interface ChangelogEntries { //This will show what changed from Demo 1 an
     category: string;
     changes: string[];
     rationale: string;
+    version: string; //cause I have to keep the chnagelog from d1 to d2, i will use this to show which demo transition I am speaking of
 }
 
 export interface Accessibility {
@@ -99,19 +100,20 @@ export interface BrandStyleGuideContent {
     };
 }
 
-
 const palette = {
-    primary: '#530A24',
-    secondary: '#FFEFE0',
+    primary: '#c0395a',
+    primaryDark: '#530a23',
+    secondary: '#Fcecdd',
     buttonPrimary: '#C0395A',
-    buttonSecondary: '#FFEFE0',
+    buttonSecondary: 'transparent',
     buttonPrimaryText: '#FFFFFF',
-    buttonSecondaryText: '#9D2644',
+    buttonSecondaryText: '#fcecdd',
     textPrimary: '#FCECDD',
     textSecondary: '#530A24',
     success: '#4CAF50',
     danger: '#E53935',
-
+    warning: '#e8a33d',
+    info: '#3d9be8'
 }
 
 function hexToRGB(hex: string) {
@@ -124,20 +126,32 @@ function hexToHSL(hex: string) {
 
 export const brandStyleGuideContent: BrandStyleGuideContent = {
     meta: {
-        version: '2.0',
-        date: 'July 2026',
+        version: '3.0',
+        date: 'September 2026',
         project: 'CodeClash',
         team: 'QuantDevs',
     },
 
-
-
     colors: [
+        {
+            name: 'Background',
+            hex: '#0a0008',
+            usage: 'Default page background, sidebar base',
+            wcag: 'AAA with Text Primary (17.9:1)',
+            on: 'light' as const,
+        },
         {
             name: 'Primary',
             hex: palette.primary,
-            usage: 'Page background, primary surface, sidebar base',
-            wcag: 'AAA on #FCEDD (12.4:1)',
+            usage: 'Buttons, sidebar active highlight, brand accent --primary',
+            wcag: 'AA with White (5.3:1)',
+            on: 'light' as const,
+        },
+        {
+            name: 'Primary Dark',
+            hex: palette.primaryDark,
+            usage: 'Depth accents, gradients, --primary-dark',
+            wcag: 'AAA with Text Primary (12.7:1)',
             on: 'light' as const,
         },
 
@@ -145,7 +159,7 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
             name: 'Secondary',
             hex: '#FFEFE0',
             usage: 'Soft card surfaces, light backgrounds',
-            wcag: 'AAA on #530A24 (10.2:1)',
+            wcag: 'AAA with Secondary Text (12.7:1)',
             on: 'dark' as const,
         },
 
@@ -167,39 +181,46 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
 
         {
             name: 'Button Primary Text',
-            hex: '#FFFFFF',
-            usage: 'Primary button labels',
-            wcag: 'AA on #C0395A (4.6:1)',
+            hex: palette.buttonPrimaryText,
+            usage: 'Primary button text',
+            wcag: 'AA on Button Primary (5.3:1)',
             on: 'dark' as const,
         },
 
         {
             name: 'Button Secondary Text',
-            hex: '#9D2644',
-            usage: 'Secondary button labels, link accents',
-            wcag: 'AA on #FFEFE0 (4.8:1)',
-            on: 'light' as const
+            hex: palette.buttonSecondaryText,
+            usage: 'Secondary button text, link accents',
+            wcag: 'AAA on Background (17.9:1)',
+            on: 'dark' as const
         },
 
         {
             name: 'Text Primary',
-            hex: '#FCECDD',
+            hex: palette.textPrimary,
             usage: 'Primary text on all dark backgrounds',
-            wcag: 'AAA on #530A24 (12.4:1)',
+            wcag: 'AAA on Background (17.9:1)',
             on: 'dark' as const,
         },
 
         {
             name: 'Text Secondary',
-            hex: '#530A24',
+            hex: palette.textSecondary,
             usage: 'Text on light/secondary surfaces',
-            wcag: 'AAA on #FFEFE0 (10.2:1)',
+            wcag: 'AAA on Secondary (12.7:1)',
+            on: 'light' as const,
+        },
+        {
+            name: 'Accent',
+            hex: '#e93577',
+            usage: 'HOver state for brimary buttons',
+            wcag: 'AA on White (4.0:1)',
             on: 'light' as const,
         },
 
         {
             name: 'Success',
-            hex: '#4CAF50',
+            hex: palette.success,
             usage: 'Success states, confirmations, positive feedback',
             wcag: 'AA on dark (4.5:1)',
             on: 'light' as const,
@@ -207,9 +228,23 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
 
         {
             name: 'Danger',
-            hex: '#E53935',
+            hex: palette.danger,
             usage: 'Destructive actions, errors, validation fails',
             wcag: 'AA on white (4.5:1)',
+            on: 'light' as const,
+        },
+        {
+            name: 'Warning',
+            hex: palette.warning,
+            usage: 'Warning states, medium difficulty, pending status',
+            wcag: 'AAA on itself (7.8:1)',
+            on: 'light' as const,
+        },
+        {
+            name: 'Info',
+            hex: palette.info,
+            usage: 'Information',
+            wcag: 'AA on itself (6.0:1)',
             on: 'light' as const,
         },
     ].map((c) => ({ ...c, rgb: hexToRGB(c.hex), hsl: hexToHSL(c.hex) })),
@@ -288,6 +323,14 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
             weight: 400,
             sample: 'Select a game mode and start competing',
             usage: 'Statistics, small UI labels - text-xsm',
+        },
+        {
+            name: 'Score Display',
+            cssVar: '--font-dseg',
+            size: '1.9rem',
+            weight: 400,
+            sample: '2026',
+            usage: 'Digital, game tyoe numerals for ELO, streaks, scores - .score-display',
         },
     ],
 
@@ -558,6 +601,7 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
 
     changelog: [
         {
+            version: 'Demo 1 -> Demo 2',
             category: 'Colors',
             changes: [
                 'New color palette - pinkColors documented as named Tailwind tokens',
@@ -570,6 +614,7 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
         },
 
         {
+            version: 'Demo 1 -> Demo 2',
             category: 'Typography',
             changes: [
                 '--heading corrected from Baloo Bhai 2 to Roboto',
@@ -582,6 +627,7 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
         },
 
         {
+            version: 'Demo 1 -> Demo 2',
             category: 'Styling Architecture',
             changes: [
                 'Migrated from per-file CSS to a single global.css with Tailwind v4',
@@ -594,6 +640,7 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
         },
 
         {
+            version: 'Demo 1 -> Demo 2',
             category: 'Architecture',
             changes: [
                 'Adopted MVVM - Model, View Model and View seperation',
@@ -605,6 +652,7 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
         },
 
         {
+            version: 'Demo 1 -> Demo 2',
             category: 'Pages and Visual Design',
             changes: [
                 'Complete visual redesign from Demo 1',
