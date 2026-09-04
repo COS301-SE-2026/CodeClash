@@ -1,0 +1,14 @@
+backend/src/application/interfaces/marking/IMarkingStategy.ts
+  h_58e143dc25f856 2,5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "2cef9bdb339eb8eecff49b999a2f62d7a0fdf6bc",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
