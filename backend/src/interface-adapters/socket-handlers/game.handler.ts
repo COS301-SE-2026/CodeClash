@@ -16,7 +16,7 @@ export const submitQuestion = async (
     mark: MarkingService
 ) => {
     try {
-        await mark.execute(data);
+        await mark.execute({ ...data, player_id: socket.data.user_id});
     }
     catch (error: unknown) {
         io.to(socket.data.user_id).emit('submission_error', error);
