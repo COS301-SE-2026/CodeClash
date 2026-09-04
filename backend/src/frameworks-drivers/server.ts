@@ -144,7 +144,9 @@ AppDataSource.initialize()
         const finish_game = new FinishGame(world, match_results, game_store, delete_game, match_stats_repo, achievement_service);
         const opponent_progress = new OpponentProgress(world);
 
-        const check_answer = new CheckAnswer(game_cache, submission_system, life_system, world)
+        const check_answer = new CheckAnswer(game_cache, submission_system, life_system, world);
+
+        const playerAvatars = new Map();
 
         // initialise database with users and elos
         await initDB(user_repo, elo_repo);
@@ -182,6 +184,14 @@ AppDataSource.initialize()
                     expires_at: data.expires_at
                 });
             });
+
+            socket.on("avatar:requestAll", (pair_id) => {
+                const pair = io.sockets.adapter.rooms.get(pair_id);
+                const avatarsInPair = {};
+                if(pair){
+                    
+                }
+            })
         })
 
 
