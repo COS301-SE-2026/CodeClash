@@ -1,6 +1,6 @@
 import { MathsSubmissionDTO, ProgSubmissionDTO } from "src/entities/dtos/components.dto";
 import { MarkingStrategy } from "src/application/interfaces/marking/IMarkingStategy";
-import { AnswerDTO } from "../../../entities/dtos/answer.dto";
+import { AnswerDTO } from "src/entities/dtos/answer.dto";
 import { MarkerRegistry } from "./maths-marking/marker-registry";
 
 export class MarkMaths implements MarkingStrategy {
@@ -13,6 +13,6 @@ export class MarkMaths implements MarkingStrategy {
 
     const marker = this.registry.markerFor(answer.format); // telling it which marker to use based on the format
     if (marker === null) return false;
-    return marker.mark(submission, answer);
+    return marker.mark(submission.answer, answer);
   }
 }
