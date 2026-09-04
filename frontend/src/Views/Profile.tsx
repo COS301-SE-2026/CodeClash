@@ -29,7 +29,7 @@ const poses = [
   {id: "thinking", label: "Thinking", preview: Thinking}
 ];
 
-export function FinalAvatarDisplay({pose, bg, onClick, vb1, vb2, leftMargin, rounded}){
+function FinalAvatarDisplay({pose, bg, onClick, vb1, vb2, leftMargin, rounded}){
   
   const poseData = poses.find((p) => p.id === pose) ?? poses[0];
   const bgData = colours.find((c) => c.id === bg)?? colours[0];
