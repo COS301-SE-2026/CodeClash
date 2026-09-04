@@ -54,6 +54,7 @@ import { MatchStats } from 'src/entities/db-entities/match-stats.entities';
 import { Achievement } from 'src/entities/db-entities/achievement.entities';
 import { AchievementService } from 'src/application/usecases/services/achievement.service';
 import { AchievementRepository } from 'src/interface-adapters/repositories/achievement.repository';
+import { Socket } from 'node:dgram';
 
 dotnev.config()
 
@@ -154,6 +155,8 @@ AppDataSource.initialize()
         // attach socket handlers
         io.on("connection", (socket) => {
 
+            const userId = socket.data.user_id;
+
             // SOCKET HANDLERS MUST MOOVE TO interface-adapter/
             socket.on('join_match_queue', async (data) => await joinMatchQueue(io, socket, data, matchmkaing_service, matched_users_service, user_repo));
 
@@ -202,10 +205,10 @@ AppDataSource.initialize()
             });
 
             socket.on("avatar_updated", ({ pose, colour }) => {
-                playerAvatars.set(socket.data.user_id, {pose, colour});
+                playerAvatars.set(userId, {pose, colour});
 
                 socket.rooms.forEach((pair) => {
-                    socket.to(pair).emit('user_updated_avatar', {socket.data.user_id, pose, colour});
+                    socket.to(pair).emit('user_updated_avatar', {userId, pose, colour});
                 })
             });
 
