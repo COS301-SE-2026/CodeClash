@@ -1,0 +1,261 @@
+frontend/package.json
+  h_b13c5d77534129 11,24,49
+backend/src/frameworks-drivers/server.ts
+  h_b13c5d77534129 10,25,28,40,52-57,59,94,113,121-124,128,133-140,142-144,148-149,151-160,174,189,191,193,195,211-212
+  h_b13c5d77534129 114,119-120,125-127,129-132,145-147,161-166,190
+frontend/src/ViewModels/ProfileViewModel.ts
+  h_b13c5d77534129 4-5,56,58
+frontend/src/Views/Dashboard.tsx
+  h_b13c5d77534129 3,6,8,11-15,20,55,57-63,69,75,84,90,106,121,133,163,175,180
+  h_b13c5d77534129 1,4,9-10,16-19,21-54,56,64-68,70-74,76-83,85-89,91-105,107-120,122-132,134-162,164-174,176-179
+frontend/src/App.tsx
+  h_b13c5d77534129 22,37,40-41,48,51,65-68,77
+  h_b13c5d77534129 49-50,69-73,79-86,89
+frontend/src/Models/ProfileModel.ts
+  h_b13c5d77534129 7
+.gitignore
+  h_b13c5d77534129 410-414,470-477
+.husky/pre-commit
+  h_b13c5d77534129 1
+backend/.dockerignore
+  h_b13c5d77534129 1-21
+backend/Dockerfile
+  h_b13c5d77534129 10-11,14
+backend/Dockerfile.dev
+  h_b13c5d77534129 1-17
+backend/package-lock.json
+  h_b13c5d77534129 1-7824
+backend/package.json
+  h_b13c5d77534129 10-12,25,32,54,64
+backend/src/application/interfaces/cache/IMatchmakingCache.ts
+  h_b13c5d77534129 1-16
+backend/src/application/interfaces/marking/ICodeExecutor.ts
+  h_b13c5d77534129 1-5
+backend/src/application/interfaces/marking/IMarkingStategy.ts
+  h_b13c5d77534129 1-6
+backend/src/application/interfaces/repositories/IAchievementRepository.ts
+  h_b13c5d77534129 1
+backend/src/application/interfaces/repositories/IAnswerRepository.ts
+  h_b13c5d77534129 1-7
+backend/src/application/interfaces/repositories/IEloRepository.ts
+  h_b13c5d77534129 1-3,6,19-20
+backend/src/application/interfaces/repositories/IFriendRepository.ts
+  h_b13c5d77534129 1
+backend/src/application/interfaces/repositories/IMatchResultRepository.ts
+  h_b13c5d77534129 1-13
+backend/src/application/interfaces/repositories/IQuestionRepository.ts
+  h_b13c5d77534129 1-7
+backend/src/application/interfaces/repositories/IUserRepository.ts
+  h_b13c5d77534129 1-17
+backend/src/application/usecases/services/achievement.service.ts
+  h_b13c5d77534129 2
+backend/src/application/usecases/services/cognito.service.ts
+  h_b13c5d77534129 1-71
+backend/src/application/usecases/services/friend.service.ts
+  h_b13c5d77534129 2
+backend/src/application/usecases/services/game-store.service.ts
+  h_b13c5d77534129 1-88
+backend/src/application/usecases/services/game.service.ts
+  h_b13c5d77534129 3,92
+backend/src/application/usecases/services/leaderboard.service.ts
+  h_b13c5d77534129 1-3,5-6
+backend/src/application/usecases/services/marking/mark-maths.ts
+  h_b13c5d77534129 1-10
+backend/src/application/usecases/services/marking/mark-prog.ts
+  h_b13c5d77534129 1-19
+backend/src/application/usecases/services/marking/marking-result.ts
+  h_b13c5d77534129 1-9
+backend/src/application/usecases/services/marking/marking.service.ts
+  h_b13c5d77534129 1-45
+backend/src/application/usecases/services/match-completion.service.ts
+  h_b13c5d77534129 1-117
+backend/src/application/usecases/services/match-result.service.ts
+  h_b13c5d77534129 3-4
+backend/src/application/usecases/services/matched-users.service.ts
+  h_b13c5d77534129 1-79
+backend/src/application/usecases/services/matchmaking.service.ts
+  h_b13c5d77534129 3
+backend/src/application/usecases/services/notification.service.ts
+  h_b13c5d77534129 1-22
+backend/src/application/usecases/services/questions.service.ts
+  h_b13c5d77534129 1-82
+backend/src/application/usecases/services/user-creation.service.ts
+  h_b13c5d77534129 1-32
+backend/src/application/usecases/systems/create-game.ts
+  h_b13c5d77534129 1-151
+backend/src/application/usecases/systems/finish-game.ts
+  h_b13c5d77534129 2
+backend/src/application/usecases/systems/life.system.ts
+  h_b13c5d77534129 1-73
+backend/src/application/usecases/systems/opponent-progress.ts
+  h_b13c5d77534129 1-43
+backend/src/application/usecases/systems/submission.system.ts
+  h_b13c5d77534129 1-81
+backend/src/entities/components.ts
+  h_b13c5d77534129 1-117
+backend/src/entities/db-entities/match.entities.ts
+  h_b13c5d77534129 28
+backend/src/entities/dtos/components.dto.ts
+  h_b13c5d77534129 1-51
+backend/src/entities/dtos/notification.dto.ts
+  h_b13c5d77534129 1-13
+backend/src/entities/dtos/question.dto.ts
+  h_b13c5d77534129 1-16
+backend/src/entities/dtos/submission-result.dto.ts
+  h_b13c5d77534129 1-28
+backend/src/entities/league-mapping.ts
+  h_b13c5d77534129 1
+backend/src/frameworks-drivers/api.routes.ts
+  h_b13c5d77534129 3,5-8,10-12,14-19,22-24,27,29-31,34-36,38-39
+backend/src/frameworks-drivers/app.ts
+  h_b13c5d77534129 4-5,7-8,10-19,21-22,24-25,27-28
+backend/src/frameworks-drivers/config/data-source.ts
+  h_b13c5d77534129 1-41
+backend/src/interface-adapters/CodeExecutor.ts
+  h_b13c5d77534129 1-60
+backend/src/interface-adapters/auth/auth.service.ts
+  h_b13c5d77534129 6,41,52-54,56,58,60-88
+backend/src/interface-adapters/cache/matchmaking-cache.ts
+  h_b13c5d77534129 1-61
+backend/src/interface-adapters/controllers/elo.controllers.ts
+  h_b13c5d77534129 2-3,7
+backend/src/interface-adapters/controllers/leaderboard.controller.ts
+  h_b13c5d77534129 1-10
+backend/src/interface-adapters/controllers/rank.controllers.ts
+  h_b13c5d77534129 2,5
+backend/src/interface-adapters/controllers/user.controllers.ts
+  h_b13c5d77534129 1-63
+backend/src/interface-adapters/repositories/achievement.repository.ts
+  h_b13c5d77534129 5
+backend/src/interface-adapters/repositories/answer.repository.ts
+  h_b13c5d77534129 1-61
+backend/src/interface-adapters/repositories/elo.repository.ts
+  h_b13c5d77534129 4,7-8
+backend/src/interface-adapters/repositories/friend.repository.ts
+  h_b13c5d77534129 4
+backend/src/interface-adapters/repositories/match-result.repository.ts
+  h_b13c5d77534129 5
+backend/src/interface-adapters/repositories/question.repository.ts
+  h_b13c5d77534129 1-38
+backend/src/interface-adapters/repositories/user.repository.ts
+  h_b13c5d77534129 3,14,35,87
+backend/src/interface-adapters/socket-handlers/game.handler.ts
+  h_b13c5d77534129 2,6,10-11,15-16,19,27-28,78
+backend/src/interface-adapters/socket-handlers/matchmaking.handler.ts
+  h_b13c5d77534129 1-125
+backend/tests/integration/code-executor/CodeExecutor.test.ts
+  h_b13c5d77534129 1-42
+backend/tests/integration/repositories/answer.repository.test.ts
+  h_b13c5d77534129 1-63
+backend/tests/integration/repositories/elo.repository.test.ts
+  h_b13c5d77534129 2,6,8,73
+backend/tests/integration/repositories/match-result.repository.test.ts
+  h_b13c5d77534129 4-5,12-13,26,85,136
+backend/tests/integration/repositories/question.repository.test.ts
+  h_b13c5d77534129 5-6
+backend/tests/integration/repositories/user.repository.test.ts
+  h_b13c5d77534129 1-49
+backend/tests/integration/services/marking.service.test.ts
+  h_b13c5d77534129 1-187
+backend/tests/integration/services/user-creation.service.test.ts
+  h_b13c5d77534129 1-31,34-35,37-40,45,47-50,54-67,69-72,75,77-79
+backend/tests/mocks/mock-answers.ts
+  h_b13c5d77534129 1-17
+backend/tests/mocks/mock-questions.ts
+  h_b13c5d77534129 1-52
+backend/tests/setup.ts
+  h_b13c5d77534129 1-6
+backend/tests/test-data-source.ts
+  h_b13c5d77534129 1-44
+backend/tests/unit/adapters/CodeExecutor.test.ts
+  h_b13c5d77534129 1-41
+backend/tests/unit/controllers/elo.controllers.test.ts
+  h_b13c5d77534129 1-57
+backend/tests/unit/controllers/user.controller.test.ts
+  h_b13c5d77534129 55,82
+backend/tests/unit/services/mark-prog.test.ts
+  h_b13c5d77534129 1-36
+backend/tests/unit/socket-handlers/game.handler.unit.test.ts
+  h_b13c5d77534129 3-4,21,23,33
+backend/tests/unit/usecases/services/cognito.service.test.ts
+  h_b13c5d77534129 1-31
+backend/tests/unit/usecases/services/matchmaking.service.test.ts
+  h_b13c5d77534129 7
+backend/tsconfig.json
+  h_b13c5d77534129 1-35
+backend/vitest.config.ts
+  h_b13c5d77534129 1-34
+database/01-init.sql
+  h_b13c5d77534129 1-3
+database/02-init-questions.sql
+  h_b13c5d77534129 269-326
+dockerfile/docker-compose.dev.yml
+  h_b13c5d77534129 3-5,8-24,26,28,33-40,42,44-45,49,52-54,57-65,71,73,76,84
+dockerfile/docker-compose.prod.yml
+  h_b13c5d77534129 1-81
+dockerfile/docker-compose.test.yml
+  h_b13c5d77534129 1-68
+frontend/.dockerignore
+  h_b13c5d77534129 1-19
+frontend/@/components/features/VirtualKeyboard.tsx
+  h_b13c5d77534129 4
+frontend/@/components/features/code-editor.tsx
+  h_b13c5d77534129 1-26
+frontend/Dockerfile
+  h_b13c5d77534129 1-34
+frontend/index.html
+  h_b13c5d77534129 1-12
+frontend/nginx.conf
+  h_b13c5d77534129 1-41
+frontend/package-lock.json
+  h_b13c5d77534129 17,42,4621-4637,5831-5851
+frontend/src/ViewModels/AchievementsViewModel.ts
+  h_b13c5d77534129 1
+frontend/src/ViewModels/DashboardViewModel.ts
+  h_b13c5d77534129 11,61-62
+frontend/src/ViewModels/LeaderboardViewModel.ts
+  h_b13c5d77534129 1-69
+frontend/src/ViewModels/MatchViewModel.ts
+  h_b13c5d77534129 2-3,8-9,11-13,21-43,46-50,60,62,64,67,77,79-83,95-96,108,125,149,152
+frontend/src/ViewModels/SignUpViewModel.ts
+  h_b13c5d77534129 1-125
+frontend/src/Views/FinalResults.tsx
+  h_b13c5d77534129 1
+frontend/src/Views/Leaderboard.tsx
+  h_b13c5d77534129 9,82
+frontend/src/Views/MathsMatch.tsx
+  h_b13c5d77534129 1-128
+frontend/src/Views/ProgMatch.tsx
+  h_b13c5d77534129 1-109
+frontend/src/context/Auth/AuthContext.tsx
+  h_b13c5d77534129 1-177
+frontend/src/context/User/UserContext.tsx
+  h_b13c5d77534129 3,13,23,29,31-32,37,58,85,96,103,112,136,151
+frontend/src/dtos/submission.dto.ts
+  h_b13c5d77534129 1-15
+frontend/src/services/api.service.tsx
+  h_b13c5d77534129 1-7
+frontend/src/services/match.service.tsx
+  h_b13c5d77534129 1-247
+frontend/src/services/submission.service.tsx
+  h_b13c5d77534129 1-14
+frontend/test/setupTests.ts
+  h_b13c5d77534129 1-10
+frontend/test/test-utils.ts
+  h_b13c5d77534129 18-25
+judge0-v1.13.1/docker-compose.yml
+  h_b13c5d77534129 1-56
+package.json
+  h_b13c5d77534129 6,12-13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "ac0fcaf94a22887b24147158fddef1cff204cf4f",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
