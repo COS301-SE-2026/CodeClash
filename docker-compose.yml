@@ -5,8 +5,11 @@ services:
       - "3000:3000"
     environment:
       - DATABASE_URL=postgresql://postgres:password@db:5432/codeclash
+      - PORT=3000
+      - DB_HOST=db
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     volumes:
       - ./backend:/app
       - /app/node_modules
@@ -35,6 +38,11 @@ services:
       - ./database:/docker-entrypoint-initdb.d
     networks:
       - pgnetwork
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   test-db:
     image: postgres:15-alpine
