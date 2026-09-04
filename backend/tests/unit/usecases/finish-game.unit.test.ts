@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { FinishGame } from '../../../src/application/usecases/systems/finish-game';
 import { GameType } from '../../../src/entities/db-entities/questions.entities';
-
+import { AchievementService } from '../../../src/application/usecases/services/achievement.service';
 describe('FinishGame', () => {
     let world: any;
     let match_result_service: any;
@@ -9,6 +9,8 @@ describe('FinishGame', () => {
     let delete_game: any;
     let match_stats_repo: any;
     let finish_game: FinishGame;
+    let user_repo: any;
+    let achievement_service: any;
 
     const match_id = 42;
     const player_ids = ['player-a', 'player-b'];
@@ -38,7 +40,17 @@ describe('FinishGame', () => {
             saveStats: vi.fn().mockResolvedValue(undefined)
         };
 
-        finish_game = new FinishGame(world, match_result_service, game_store, delete_game,match_stats_repo);
+        user_repo = {
+            updateStreaks: vi.fn().mockResolvedValue(undefined),
+            gotTotalStats: vi.fn().mockResolvedValue({
+                total_wins: 5,
+                total_matches: 10,
+                winning_streak: 2,
+                league: 'Silver'
+            })
+        };
+
+        finish_game = new FinishGame(world, match_result_service, game_store, delete_game,match_stats_repo, achievement_service, user_repo);
     });
 
     describe('execute', () => {
