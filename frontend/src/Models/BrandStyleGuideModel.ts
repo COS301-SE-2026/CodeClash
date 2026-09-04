@@ -337,14 +337,34 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
     tokens: {
         color: [ //ColorTokens shows the design view for designers to see visual identity, this will be used by developers as the code view. So its "how to use this color" rather than "what does the color look like"
             {
+                token: '--background',
+                value: '#0a0008',
+                description: 'Default page background, sidebar base',
+            },
+            {
+                token: '--background-elevated',
+                value: 'rgba(252, 236, 221, 0.03)',
+                description: 'Elevated surface overlay',
+            },
+            {
+                token: '--background-card',
+                value: 'rgba(252, 236, 221, 0.05)',
+                description: 'Card surfaces',
+            },
+            {
                 token: '--primary',
-                value: '#530A24',
-                description: 'Page background, primary surfaces',
+                value: '#c0395a',
+                description: 'Brand accent, sidebar active highlight',
             },
 
             {
+                token: '--primary-dark',
+                value: '#530a23',
+                description: 'Depth accents, gradients',
+            },
+            {
                 token: '--secondary',
-                value: '#FFEFE0',
+                value: '#Fcecdd',
                 description: 'Secondary buttons, soft card surfaces',
             },
 
@@ -368,7 +388,7 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
 
             {
                 token: '--button-secondary',
-                value: '#FFEFE0',
+                value: 'transparent',
                 description: 'Secondary buttons',
             },
 
@@ -380,8 +400,18 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
 
             {
                 token: '--button-text-secondary',
-                value: '#9D2644',
+                value: '#fcecdd',
                 description: 'Text on secondary buttons',
+            },
+            {
+                token: '--accent',
+                value: '#e93577',
+                description: 'Hover state for brimary buttons',
+            },
+            {
+                token: '--accent-text',
+                value: '#fcecdd',
+                description: 'Text on accent surfaces',
             },
 
             {
@@ -395,10 +425,30 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
                 value: '#E53935',
                 description: 'Destructive actions, errors, validation fails',
             },
+            {
+                token: '--warning',
+                value: '#e9a33d',
+                description: 'Warning states, medium difficulty, pending status',
+            },
+            {
+                token: '--info',
+                value: '#3d9be8',
+                description: 'Information',
+            },
+            {
+                token: '--difficulty-easy/medium/hard',
+                value: 'success.warning/danger',
+                description: 'Question difficulty badges',
+            },
+            {
+                token: '--life-primary',
+                value: '#c0395a',
+                description: 'Life bar',
+            },
 
             {
                 token: '--text',
-                value: '#FFFFFF',
+                value: '#Fcecdd',
                 description: 'White text fallback',
             },
 
@@ -412,6 +462,26 @@ export const brandStyleGuideContent: BrandStyleGuideContent = {
                 token: '--muted-text',
                 value: 'rgba(252, 236, 221, 0.5)',
                 description: 'Muted text on dark backgrounds',
+            },
+            {
+                token: '--secondary-muted',
+                value: 'rgba(252,236, 221, 0.4)',
+                description: 'Muted secondary backgrounds',
+            },
+            {
+                token: '--border/--border-hover',
+                value: 'rgba(252, 236, 221, 0.08)/rgba(252, 236, 221, 0.18)',
+                description: 'Default and hover border colour',
+            },
+            {
+                token: '--input',
+                value: 'rgba(252, 236, 221, 0.06)',
+                description: 'Form input background',
+            },
+            {
+                token: '--ring',
+                value: '#c0395a',
+                description: 'Focus ring color',
             },
         ],
 
