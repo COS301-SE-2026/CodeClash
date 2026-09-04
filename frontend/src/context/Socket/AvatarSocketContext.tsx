@@ -42,5 +42,5 @@ export function AvatarSocketProvider({pairId, children}){
 }
 
 export function useAvatarSocket(){
-    return useContext(AvatarSocketContext);
+    return useContext(AvatarSocketContext); 
 }

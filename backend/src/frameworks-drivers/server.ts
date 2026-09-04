@@ -210,12 +210,9 @@ AppDataSource.initialize()
                     }
                 });
 
-            socket.on('avatar_updated', ({ pose, colour }) => {
+            socket.on('avatar_updated', ({ pair_id, pose, colour }) => {
                 playerAvatars.set(userId, {pose, colour});
-
-                socket.rooms.forEach((pair) => {
-                    socket.to(pair).emit('user_updated_avatar', {userId, pose, colour});
-                })
+                socket.to(pair_id).emit('share_avatar', {userId, pose, colour})
             });
 
 
