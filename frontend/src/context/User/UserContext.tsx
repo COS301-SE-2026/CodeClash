@@ -1,22 +1,17 @@
-import axios from "axios";
 import React, { useEffect, useMemo, useState, type ReactNode } from "react";
 import { robot_map } from "src/assets/Robots";
-
+import { API } from "src/services/api.service";
 import { useAuth } from "../Auth/hooks/useAuth";
 
 import { UserContext } from "./UserContextValue";
-
-
-
-const url = import.meta.env.VITE_API_URL;
 
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [elo, setElo] = useState(0);
     const [avatar, setAvatar] = useState('');
     const [error, setError] = useState('');
     const [league, setLeague] = useState('');
+    const { user, token} = useAuth();
     const [rank, setRank] = useState(0);
-    const { user, token } = useAuth();
     const [current_streak, setCurrentStreak] = useState<number>(0);
     const [winning_streak, setWinningStreak] = useState<number>(0);
 
@@ -25,17 +20,21 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
 
     const getElo = async () => {
+
         if (!token) {
             setError('Missing or Invalid Token');
             return;
         }
 
+
         try {
-            await axios.get(url.concat('elo/elo-get'), {
+
+            API.get('elo/elo-get', {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {
                     if (res.status === 200) {
+
                         setElo(res.data.rating)
                         setError('');
                     }
@@ -56,7 +55,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
 
         try {
-            await axios.get(url.concat('user/avatar_id'), {
+            API.get('user/avatar_id', {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {
@@ -83,7 +82,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
 
         try {
-            axios.get(url.concat('user/league'), {
+            API.get('user/league', {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {
@@ -94,11 +93,13 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                         setError(`Error: ${res.status} ${res.data}`);
                     }
                 })
+
         }
         catch (error) {
             setError(`Error Getting User League: ${error}`);
         }
     }
+
 
     const getRank = async () => {
 
@@ -108,7 +109,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
 
         try {
-            await axios.get(url.concat('user/rank'), {
+            await API.get('user/rank', {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {
@@ -121,7 +122,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 })
         }
         catch (error) {
-            console.error('getRank failed', error);
             setError(`Error Getting User Rank: ${error}`);
         }
 
@@ -133,7 +133,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             return;
         }
         try{
-            const res = await axios.get(url.concat('user/current_streak'), {
+            const res = await API.get('user/current_streak', {
                 headers: { Authorization: `Bearer ${token}` }
             });
             if (res.status === 200) setCurrentStreak(res.data.current_streak);
@@ -148,7 +148,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             return;
         }
         try{
-            const res = await axios.get(url.concat('user/winning_streak'), {
+            const res = await API.get('user/winning_streak', {
                 headers: { Authorization: `Bearer ${token}` }
             });
             if (res.status === 200) setWinningStreak(res.data.winning_streak);

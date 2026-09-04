@@ -1,4 +1,4 @@
-import {ChevronRight, Swords, Users2, Trophy, Flame, Sparkles, Zap } from 'lucide-react';
+import {ChevronRight, Swords, Users2, Trophy, Flame, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import backgroundImg from '../assets/Background/dashboard.png'
@@ -8,6 +8,8 @@ import Popup from './Popup'
 
 import Loading from '@/components/shared/Loading';
 import Starfield from '@/components/ui/animations/Starfield';
+
+import { useEffect } from 'react';
 
 type SkillMetric = {
   label: string;
@@ -50,7 +52,12 @@ const SkillProgressCard = ({
 )
 
 const Dashboard = () => {
-  const { isOpen, openPopUp, closePopUp, username, elo, league, avatar, isLoading, current_streak, winning_streak, recentAchievement } = useDashboardViewModel();
+  const { isOpen, openPopUp, closePopUp, username, elo, league, avatar, isLoading, current_streak, winning_streak, recentAchievement ,refresh } = useDashboardViewModel();
+
+    useEffect(() => {
+    refresh();
+  },[isLoading])
+
 
   if (isLoading) {
     return (

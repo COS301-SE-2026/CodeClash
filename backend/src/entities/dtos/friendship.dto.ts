@@ -1,5 +1,4 @@
 import { FriendshipStatus } from "src/entities/db-entities/friendship.entities";
-import { IntegerType } from "typeorm/driver/mongodb/typings.js";
 
 export interface FriendDTO {
     user_id: string;

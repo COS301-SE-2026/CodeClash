@@ -8,7 +8,7 @@ import { getIcon } from "src/utils/achievementIcon";
 export function useDashboardViewModel() {
     const [isOpen, setIsOpen] = useState(false);
     const {setGameType} = useMatchmaking();
-    const {username, elo, avatar, league, current_streak, winning_streak} = useUser()
+    const {username, elo, avatar, league, current_streak, winning_streak, refresh} = useUser()
     const {isLoading, token} = useAuth()
 
     const [recentAchievement, setRecentAchievement] = useState<{
@@ -58,7 +58,8 @@ export function useDashboardViewModel() {
         league,
         current_streak, winning_streak,
         recentAchievement,
-        isLoading
+        isLoading,
+        refresh
     };
 }
 

@@ -2,7 +2,7 @@ import { Repository } from "typeorm";
 import { MatchLog } from "src/entities/db-entities/match.entities";
 import { Users } from "src/entities/db-entities/user.entities";
 import { IMatchResultRepository } from "src/application/interfaces/repositories/IMatchResultRepository";
-import { MatchResultDTO, PlayerResultDTO } from "src/interface-adapters/dtos/match-result.dto";
+import { MatchResultDTO, PlayerResultDTO } from "src/entities/dtos/match-result.dto";
 
 export class MatchResultRepository implements IMatchResultRepository {
     constructor(

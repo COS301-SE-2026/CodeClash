@@ -38,7 +38,6 @@ describe("Elo Controller Test", () => {
 
         const controller = getUserElo(elo_repo as any)
 
-
         const req = {
             user: {
                 id: 'Invalid-user'

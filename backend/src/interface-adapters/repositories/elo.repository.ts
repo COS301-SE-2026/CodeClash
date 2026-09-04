@@ -1,11 +1,11 @@
 import { IEloRepository } from "src/application/interfaces/repositories/IEloRepository";
 import { Repository } from "typeorm";
 import { EloHistory, EloRatings } from "src/entities/db-entities/elo.entities";
-import { EloDTO, EloUpdateResultDTO } from "src/interface-adapters/dtos/elo.dto";
+import { EloDTO, EloUpdateResultDTO } from "src/entities/dtos/elo.dto";
 import { AppDataSource } from "src/frameworks-drivers/config/data-source";
 
-import { LeaderboardEntryDTO } from "../dtos/leaderboard.dto";
-import { RankDTO } from "../dtos/rank.dto";
+import { LeaderboardEntryDTO } from "src/entities/dtos/leaderboard.dto";
+import { RankDTO } from "src/entities/dtos/rank.dto";
 
 const K_FACTOR = 32
 
