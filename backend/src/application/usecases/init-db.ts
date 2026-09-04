@@ -18,8 +18,8 @@ export async function initDB(user_repo: IUserRepository, elo_repo: IEloRepositor
       const cognito_id = user.Attributes!.find(attr => attr.Name === 'sub')?.Value;
 
       if (!email || !cognito_id) {
-        // need to throw some error
-        return;
+        console.warn(`Skipping user ${user.Username} — missing email or cognito_id`);
+        continue;
       }
 
       // add user from cognito

@@ -5,7 +5,7 @@ import { MatchResultService } from "../services/match-result.service";
 import { GameStore } from "../services/game-store.service";
 import { GameType } from "src/entities/db-entities/questions.entities";
 import { DeleteGame } from "./delete-game";
-
+import { IMatchStatsRepository } from "src/application/interfaces/repositories/IMatchStatsRepository";
 
 export class FinishGame {
     private readonly getMatchComponent
@@ -16,7 +16,8 @@ export class FinishGame {
         private readonly world: ReturnType<typeof World>,
         private readonly match_result_service: MatchResultService,
         private readonly game_store: GameStore,
-        private readonly delete_game: DeleteGame
+        private readonly delete_game: DeleteGame,
+        private readonly match_stats_repo: IMatchStatsRepository
     ) {
         const { getMatchComponent, getSubmissionComponent, addMatchComponent } = this.world
         this.getMatchComponent = getMatchComponent;
@@ -33,6 +34,12 @@ export class FinishGame {
         if (!submission_registry) throw new Error('Error finishing game')
 
         const game_stats = this.getStats(submission_registry.submissions, player_ids);
+        const db_match_id = this.game_store.get(match_id);
+
+        //persist match stats
+        for(const [user_id, stat] of game_stats){
+            await this.match_stats_repo.saveStats(db_match_id!.database_id, user_id, stat.num_correct, stat.total_time);
+        }
 
         // calculate winner 
         let winner: string | null = null;
@@ -70,8 +77,6 @@ export class FinishGame {
         // elo updates 
 
         if (!winner || !loser) throw new Error("Error getting user stats")
-
-        const db_match_id = this.game_store.get(match_id);
 
         const result = await this.match_result_service.finaliseMatch(db_match_id!.database_id, winner, loser, game_type === GameType.ranked, [winner_stats!, loser_stat!])
 
@@ -112,10 +117,14 @@ export class FinishGame {
             // get submission component 
             const component = this.getSubmissionComponent(submission, 'Submission');
 
-            if (!component) throw new Error("couldnt get player submissions")
+            if (!component) throw new Error("Couldn't get player submissions")
 
-            if (component.correct) stat.num_correct += 1;
-            const time = component.submitted_at!.getTime() - component.started_at!.getTime();
+            const correct = component.correct ?? false; // null -> false
+            if (correct) stat.num_correct += 1;
+            
+            const time = component.submitted_at && component.started_at 
+            ? component.submitted_at!.getTime() - component.started_at!.getTime()
+            : 0; // unanswered questions are treated as 0 time
             stat.total_time += time
         }
 

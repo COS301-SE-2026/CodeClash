@@ -42,7 +42,7 @@ import { AppDataSource } from "./config/data-source"
 import { OpponentProgress } from 'src/application/usecases/systems/opponent-progress';
 import { IMatchRepository } from 'src/application/interfaces/repositories/IMatchRepository';
 import { MatchRepository } from 'src/interface-adapters/repositories/match.repository';
-import { Match, MatchLog } from 'src/entities/db-entities/match.entities';
+import { Matches, MatchLog } from 'src/entities/db-entities/match.entities';
 import { MatchResultService } from 'src/application/usecases/services/match-result.service';
 import { IMatchResultRepository } from 'src/application/interfaces/repositories/IMatchResultRepository';
 import { MatchResultRepository } from 'src/interface-adapters/repositories/match-result.repository';
@@ -55,7 +55,8 @@ import { MarkingStrategy } from 'src/application/interfaces/marking/IMarkingStat
 import { MarkMaths } from 'src/application/usecases/services/marking/mark-maths';
 import { MarkProg } from 'src/application/usecases/services/marking/mark-prog';
 import { CodeExecutor } from 'src/interface-adapters/CodeExecutor';
-
+import { MatchStats } from 'src/entities/db-entities/match-stats.entities';
+import { MatchStatsRepository } from 'src/interface-adapters/repositories/match-stats.repository';
 dotnev.config()
 
 // create server instance
@@ -68,11 +69,12 @@ AppDataSource.initialize()
         const elo_repo: IEloRepository = new EloRepository(AppDataSource.getRepository(EloRatings));
         const question_repo: IQuestionRepository = new QuestionRepository(AppDataSource.getRepository(Questions));
         const answer_repo: IAnswerRepository = new AnswerRepository(AppDataSource.getRepository(Answers))
-        const match_repo: IMatchRepository = new MatchRepository(AppDataSource.getRepository(Match))
+        const match_repo: IMatchRepository = new MatchRepository(AppDataSource.getRepository(Matches))
         const match_results_repo: IMatchResultRepository = new MatchResultRepository(
             AppDataSource.getRepository(MatchLog),
             AppDataSource.getRepository(Users)
         )
+        const match_stats_repo = new MatchStatsRepository(AppDataSource.getRepository(MatchStats));
 
         // initialise ecs world 
         const world = World();
@@ -108,7 +110,7 @@ AppDataSource.initialize()
         const submission_system = new SubmissionSystem(world);
         const life_system = new LifeSystem(world);
         const delete_game = new DeleteGame(world, game_store, matched_users_service);
-        const finish_game = new FinishGame(world, match_results, game_store, delete_game);
+        const finish_game = new FinishGame(world, match_results, game_store, delete_game,match_stats_repo);
 
 
 

@@ -9,6 +9,8 @@ export interface IEloRepository {
     // Read
     getElo(user_id: string): Promise<EloDTO | null>
     getUsersElo(user_ids: string[]): Promise<EloDTO[] | null>
+    getLeaderboard(limit: number, offset: number): Promise<{data: LeaderboardEntryDTO[], total: number}>
+    getUserRank(user_id: string): Promise<RankDTO | null>
     updateRatingsAfterMatch(
         match_id: string,
         winner_id: string,
