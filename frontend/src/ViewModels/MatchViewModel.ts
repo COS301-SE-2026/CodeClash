@@ -64,7 +64,6 @@ export const useMatch = () => {
     }
 
     const submission_result = (result: SubmissionResultDTO) => {
-        console.log(result)
         const index = q_index.current
         if (index === null) return;
 

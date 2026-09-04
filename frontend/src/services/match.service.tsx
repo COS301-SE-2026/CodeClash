@@ -19,11 +19,17 @@ export const useGameTimer = (duration: number, onExpire: () => void) => {
     }, [duration]);
 
 
-    return useTimer({
+    const timer = useTimer({
         expiryTimestamp: expiry_time,
-        autoStart: duration > 0,
+        autoStart: false,
         onExpire
-    })
+    });
+
+    useEffect(() => {
+        if (duration > 0) timer.restart(expiry_time);
+    }, [duration]);
+
+    return timer;
 }
 
 function shuffle(array: Question[]) {
