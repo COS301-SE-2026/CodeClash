@@ -1,4 +1,4 @@
-import { TrendingUp, TrendingDown, Minus, Clock, UserCircle, Trophy, Medal } from "lucide-react";
+import { TrendingUp, TrendingDown, Clock, UserCircle, Trophy, Medal } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ResultsBackground from '../assets/Background/FinalResults.jpg';

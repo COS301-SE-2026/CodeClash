@@ -1,9 +1,8 @@
-import {useState, useEffect} from 'react'
 import { useNavigate } from "react-router-dom";
-import type { ProfileProps } from "src/Models/ProfileModel";
-
 import { useAuth } from "../../src/context/Auth/hooks/useAuth";
 import { useUser } from "../../src/context/User/hooks/useUser";
+import type { ProfileProps } from "src/Models/ProfileModel";
+import { useState, useEffect } from "react";
 
 export function useLogOut() {
     const { signOut } = useAuth();
@@ -54,5 +53,6 @@ export function getProfile() {
             }
     }, [username, elo, avatar, league, rank]);
 
-    return {userData, loadingData, error};
+    return { userData: userData, loadingData: loadingData, error: error as Error };
 }
+

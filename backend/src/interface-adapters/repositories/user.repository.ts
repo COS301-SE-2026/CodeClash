@@ -1,6 +1,6 @@
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 import { Users } from "src/entities/db-entities/user.entities";
-import { UserDTO } from "src/interface-adapters/dtos/user.dto";
+import { UserDTO } from "src/entities/dtos/user.dto";
 import { Repository } from "typeorm";
 
 
@@ -11,6 +11,7 @@ export class UserRepository implements IUserRepository {
     ) { }
 
     async createUser(username: string, email: string, cognito_id: string, avatar_id: number, league: string): Promise<UserDTO | null> {
+
         const insert = await this.userRepository.createQueryBuilder()
             .insert()
             .into(Users)
@@ -31,6 +32,7 @@ export class UserRepository implements IUserRepository {
         const data: UserDTO = {
             user_id: id.user_id
         }
+
         return data
     }
 
@@ -75,7 +77,6 @@ export class UserRepository implements IUserRepository {
     }
 
     async getUserData(user_id: string, stat: keyof UserDTO): Promise<UserDTO | null> {
-       
         const user = await this.userRepository.findOneBy({ user_id: user_id })
 
         if (!user) return null;
@@ -83,7 +84,7 @@ export class UserRepository implements IUserRepository {
         const data: UserDTO = {
             [stat]: user[stat]
         }
-        
+
         return data
     }
 

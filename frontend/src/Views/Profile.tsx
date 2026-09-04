@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { useUser } from 'src/context/User/hooks/useUser';
 import { useState, useEffect } from 'react';
 import { useLogOut, getProfile  } from '../ViewModels/ProfileViewModel';
 import { motion, AnimatePresence } from 'framer-motion';
