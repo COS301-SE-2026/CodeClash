@@ -1,0 +1,14 @@
+backend/src/application/usecases/services/notification.service.ts
+  h_58e143dc25f856 11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "941379122636214f8d164020156e958be10ccaf5",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
