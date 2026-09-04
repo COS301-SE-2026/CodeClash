@@ -31,7 +31,7 @@ function timeTracker (iso: string): string {
     return `${days}d ago`;
 }
 
-const RelationResult: React.FC<{ relationship: Relation; onAdd: () => void}> = ({relationship, onAdd}) => {
+const RelationResult: React.FC<{ relationship: Relation; onAdd: () => void; isPending?: boolean}> = ({relationship, onAdd, isPending}) => {
     switch (relationship) {
         case 'self': return null;
         case 'friend': 
@@ -42,7 +42,12 @@ const RelationResult: React.FC<{ relationship: Relation; onAdd: () => void}> = (
             return <span className="badge badge-status-pending shrink-0">{friendContent.respondLabel}</span>;
         default:
             return (
-                <button className="btn btn-primary btn-sm shirnk-0" onClick={onAdd} type="button">{friendContent.sendRequestLabel}</button>
+                <button 
+                    className={`btn btn-primary btn-sm shirnk-0 transition-all duration-200 ${isPending ? 'btn-ghost opacity-50' : 'btn-primary'}`}
+                        onClick={onAdd} 
+                        type="button">
+                        {isPending ? 'Sending...' : friendContent.sendRequestLabel}
+                        </button>
             )
     }
 }
@@ -57,7 +62,13 @@ const Friends: React.FC = () => {
     const [tooltipId, setTooltipId] = useState<string | null>(null);
     const tooltipTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
     const searchRef = useRef<HTMLDivElement>(null);
+    const [pendingIds, setPendingIds] = useState<Set<string>>(new Set());
 
+    const handleSendRequest = async (id: string) => {
+        setPendingIds(prev => new Set(prev).add(id));
+        await sendFriendRequest(id);
+        setPendingIds(prev => { const next = new Set(prev); next.delete(id); return next; });
+    }
     const showTooltip = (id: string) => {
         setTooltipId(id);
         if (tooltipTimeout.current) clearTimeout(tooltipTimeout.current);
@@ -96,7 +107,7 @@ const Friends: React.FC = () => {
                             <div key={result.id} className="p-2 rounded-full flex items-center gap-3 hover:bg-background-elevated">
                                 <img src={robot_map[result.avatar]} alt={result.username} className="avatar w-10 h-10 object-cover shrink-0"/>
                                 <p className="text-primary-text text-sm font-semibold truncate flex-1 min-w-0">{result.username}</p>
-                                <RelationResult relationship={result.relationship} onAdd={() => sendFriendRequest(result.id)}/>
+                                <RelationResult relationship={result.relationship} onAdd={() => handleSendRequest(result.id)} isPending={pendingIds.has(result.id)}/>
                             </div>
                         ))
                     )}
@@ -108,14 +119,11 @@ const Friends: React.FC = () => {
     if (isLoading || !profile) {
         return <Loading isOpen={true}/>
     }
-    if (error) {
-        return(
-            <div className="empty-state">
-                <p className="text-danger">{error}</p>
-                <button className="btn btn-secondary" onClick={() => window.location.reload()} type="button">Retry</button>
-            </div>
-        )
-    }
+    {error && (
+        <div className="mb-4 px-4 py-3 rounded-xl bg-danger/10 border border-danger/30 text-xsm text-danger text-center">
+            {error}
+        </div>
+    )}
     return (
         <div className="relative min-h-[100vh-80px] overflow-hidden">
             <Starfield count={30}/>

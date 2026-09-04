@@ -84,7 +84,10 @@ export class FriendRepository implements IFriendRepository {
                 // reset to pending
                 await this.friendshipRepo.update(
                     { friendship_id: existing.friendship_id },
-                    { status: 'pending', updated_at: new Date() }
+                    { 
+                        requester: { user_id: requester_id } as any,
+                        receiver: { user_id: receiver_id } as any,
+                        status: 'pending', updated_at: new Date() }
                 );
                 return;
             }

@@ -26,14 +26,15 @@ export const AchievementToastProvider: React.FC<{ children: React.ReactNode }> =
     const [queue, setQueue] = useState<ToastData[]>([]);
     const { token } = useAuth();
     const prevEarnedIds = useRef<Set<string>>(new Set());
-
+     const isFirstFetch = useRef(true);
+     
     const showAchievement = useCallback((data: ToastData) => {
         setQueue(prev => [...prev, data]);
     }, []);
 
     useEffect(() => {
         if (!token) return;
-        const isFirstFetch = useRef(true);
+       
         const checkAchievements = async () => {
             try {
                 const res = await fetch('/api/achievements/me', {
@@ -47,7 +48,7 @@ export const AchievementToastProvider: React.FC<{ children: React.ReactNode }> =
                     isFirstFetch.current = false;
                     return;
                 }
-                
+
                 const newlyEarned = data.filter((a: any) => !prevEarnedIds.current.has(a.achievement_id));
                 for (const a of newlyEarned) {
                     showAchievement({ name: a.achievement_name, description: a.description, icon:getIcon(a.achievement_name) });
