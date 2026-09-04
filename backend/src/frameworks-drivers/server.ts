@@ -145,9 +145,7 @@ AppDataSource.initialize()
         const finish_game = new FinishGame(world, match_results, game_store, delete_game, match_stats_repo, achievement_service);
         const opponent_progress = new OpponentProgress(world);
 
-        const check_answer = new CheckAnswer(game_cache, submission_system, life_system, world);
-
-        const playerAvatars = new Map();
+        const check_answer = new CheckAnswer(game_cache, submission_system, life_system, world)
 
         // initialise database with users and elos
         await initDB(user_repo, elo_repo);
@@ -187,37 +185,7 @@ AppDataSource.initialize()
                     expires_at: data.expires_at
                 });
             });
-
-            socket.on('match_join', ({pair_id, pose, colour}) => {
-
-                socket.join(pair_id);
-                playerAvatars.set(userId, {pose, colour});
-
-                //send avatar to opponent in match
-                socket.to(pair_id).emit('share_avatar', {userId, pose, colour});
-
-                const pair = io.sockets.adapter.rooms.get(pair_id);
-                if(pair){
-                    for (const socketId of pair){
-                            if(socketId === socket.id) continue;
-                                const oppSocket = io.sockets.sockets.get(socketId);
-                                const oppId = oppSocket?.data?.user_id;
-
-                           if(oppId && playerAvatars.has(oppId)){
-                                socket.emit('share_avatar', {userId: oppId, ...playerAvatars.get(oppId)});
-                            }  
-                        } 
-                    }
-                });
-
-            socket.on('avatar_updated', ({ pair_id, pose, colour }) => {
-                playerAvatars.set(userId, {pose, colour});
-                socket.to(pair_id).emit('share_avatar', {userId, pose, colour})
-            });
-
-
-            
-        });
+        })
 
 
         // start server
