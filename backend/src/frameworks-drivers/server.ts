@@ -60,6 +60,12 @@ import { MatchStatsRepository } from 'src/interface-adapters/repositories/match-
 import { Achievement } from 'src/entities/db-entities/achievement.entities';
 import { AchievementService } from 'src/application/usecases/services/achievement.service';
 import { AchievementRepository } from 'src/interface-adapters/repositories/achievement.repository';
+import { MatchHistoryRepository } from 'src/interface-adapters/repositories/match-history.repository';
+import { FriendService } from 'src/application/usecases/services/friend.service';
+import { FriendRepository } from 'src/interface-adapters/repositories/friend.repository';
+import { FriendInvite, Friendship } from 'src/entities/db-entities/friendship.entities';
+import { IMatchStatsRepository } from 'src/application/interfaces/repositories/IMatchStatsRepository';
+import { IAchievementRepository } from 'src/application/interfaces/repositories/IAchievementRepository';
 
 dotnev.config()
 
@@ -78,9 +84,11 @@ AppDataSource.initialize()
             AppDataSource.getRepository(MatchLog),
             AppDataSource.getRepository(Users)
         )
-        const match_stats_repo = new MatchStatsRepository(AppDataSource.getRepository(MatchStats));
-        const achievementRepo = new AchievementRepository(AppDataSource.getRepository(Achievement), AppDataSource.getRepository(Users));
-        const achievement_service = new AchievementService(achievementRepo);
+        const match_stats_repo: IMatchStatsRepository = new MatchStatsRepository(AppDataSource.getRepository(MatchStats));
+        const achievementRepo: IAchievementRepository = new AchievementRepository(AppDataSource.getRepository(Achievement), AppDataSource.getRepository(Users));
+
+        const match_history_repo = new MatchHistoryRepository(AppDataSource.getRepository(Matches), AppDataSource.getRepository(MatchLog), AppDataSource.getRepository(MatchStats));
+        const friend_repo = new FriendRepository(AppDataSource.getRepository(Friendship),AppDataSource.getRepository(FriendInvite),elo_repo);
 
         // initialise ecs world 
         const world = World();
@@ -110,17 +118,19 @@ AppDataSource.initialize()
         const matched_users_service = new MatchedUsersService();
         const game_store = new GameStore(user_repo);
         const leaderboard_service = new LeaderboardService(elo_repo);
+        const friends_service = new FriendService(friend_repo);
+        const achievement_service = new AchievementService(achievementRepo);
 
 
         // initialise systems 
         const submission_system = new SubmissionSystem(world);
         const life_system = new LifeSystem(world);
         const delete_game = new DeleteGame(world, game_store, matched_users_service);
-        const finish_game = new FinishGame(world, match_results, game_store, delete_game,match_stats_repo,achievement_service,user_repo);
+        const finish_game = new FinishGame(world, match_results, game_store, delete_game, match_stats_repo, achievement_service, user_repo);
 
 
 
-        const app = createApp(elo_repo, user_repo, leaderboard_service);
+        const app = createApp(elo_repo, user_repo, match_history_repo, leaderboard_service, achievement_service, friends_service);
         const httpServer = createServer(app)     // can update to https
         const io = new Server(httpServer, {
             cors: {
@@ -130,7 +140,7 @@ AppDataSource.initialize()
         }
         );
 
-  
+
         const maths_marker: MarkingStrategy = new MarkMaths();
 
         const code_executor = new CodeExecutor();
@@ -138,8 +148,8 @@ AppDataSource.initialize()
 
         const notification = new NotificationService(io);
         const opponent_progress = new OpponentProgress(world);
-        const maths_marking_service = new MarkingService(game_cache, submission_system, life_system, notification,maths_marker ,opponent_progress);
-        const prog_marking_service = new MarkingService(game_cache,submission_system, life_system,notification, prog_marker, opponent_progress);
+        const maths_marking_service = new MarkingService(game_cache, submission_system, life_system, notification, maths_marker, opponent_progress);
+        const prog_marking_service = new MarkingService(game_cache, submission_system, life_system, notification, prog_marker, opponent_progress);
 
         // auth middleware 
         io.use(async (socket, next) => {
@@ -185,9 +195,9 @@ AppDataSource.initialize()
 
             socket.on('send_players', (game_id: number) => { sendGamePlayers(io, game_id, game_store) })
 
-            socket.on('submit_math_question', (data: PlayerSubmissionDTO) => submitQuestion(io, socket, data,maths_marking_service));
+            socket.on('submit_math_question', (data: PlayerSubmissionDTO) => submitQuestion(io, socket, data, maths_marking_service));
 
-            socket.on('submit_prog_question', (data: PlayerSubmissionDTO)=>submitQuestion(io,socket, data, prog_marking_service));
+            socket.on('submit_prog_question', (data: PlayerSubmissionDTO) => submitQuestion(io, socket, data, prog_marking_service));
 
             socket.on('question_started', (data: StartQuestionDTO) => startQuestion(socket.data.user_id, submission_system, data));
 
@@ -195,7 +205,7 @@ AppDataSource.initialize()
 
             socket.on('send_results', (game_id: number, pair_id: string) => sendResults(io, game_id, pair_id, game_store))
 
-            socket.on('clean_up', (game_id: number, pair_id: string)=> cleanUp(game_id, pair_id, delete_game, game_store))
+            socket.on('clean_up', (game_id: number, pair_id: string) => cleanUp(game_id, pair_id, delete_game, game_store))
 
             socket.on('send_friend_invite', (data) => {
                 io.to(data.receiver_id).emit('friend_invite_received', {
