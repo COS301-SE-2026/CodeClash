@@ -1,10 +1,9 @@
 import { RotateCcw} from "lucide-react";
 import React from "react";
 
-//import {Link } from "react-router-dom";
-import Stars from "../assets/Background/Stars.png";
 import type { MatchDetails } from "../Models/MatchHistoryModel";
 import { MatchHistoryViewModelFunction } from "../ViewModels/MatchHistoryViewModel";
+import Starfield from "@/components/ui/animations/Starfield";
 
 const MatchHistory: React.FC = () => {
     const {
@@ -13,17 +12,15 @@ const MatchHistory: React.FC = () => {
     } = MatchHistoryViewModelFunction();
 
     return (
-        <div className="relative min-h-screen w-full flex flex-col overflow-hidden bg-black">
-            <img src = {Stars} alt = "" className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0 opacity-70"/>
+        <div className="bg-background min-h-screen w-full flex flex-col overflow-hidden">
+            <Starfield count={30}/>
             <div className="relative z-10 flex flex-col items-center w-full px-6 pt-16 pb-10">
                 <div className="flex flex-col items-center gap-1 mb-6">
                         <div className="flex items-center gap-3">
-                            <RotateCcw className="w-10 h-10 text-primary-text"/>
-                            <h1 className="text-primary-text font-bold tracking-widest"
-                                style = {{fontSize: 'var(--heading-size)'}}>MATCH HISTORY</h1>
+                            <h1 className="text-primary-text font-black text-center text-xl">Match History</h1>
                         </div>
-                        <p className="text-primary-text opacity-80 tracking-widest"
-                            style = {{fontSize: 'var(--font-size-xsm)'}}>CLICK ON A ROW FOR MORE INFORMATION</p>
+                        <p className="text-primary opacity-80 tracking-widest uppercase"
+                            style = {{fontSize: 'var(--font-size-xsm)'}}>Click on a row for more information</p>
                 </div>
 
                 <div className="flex items-start justify-center gap-8 w-full transition-all duration-100">
@@ -33,29 +30,29 @@ const MatchHistory: React.FC = () => {
                 {/*Headers */}
                 <div className="grid w-full px-6 mb-2 mx-auto"
                     style = {{gridTemplateColumns: '1fr 1fr 1fr 1fr'}}>
-                    {['MODE', 'TYPE', 'TIMESTAMP', 'RESULT'].map(header => (
-                        <p key = {header} className="text-primary-text font-semibold tracking-widest text-center mx-auto"
-                            style={{fontSize: 'var(--font-size-sm)'}}>{header}</p>
+                    {['Mode', 'Type', 'Timestamp', 'Result'].map(header => (
+                        <p key = {header} className="text-primary-text font-semibold text-center mx-auto"
+                            style={{fontSize: 'var(--font-size-md)'}}>{header}</p>
                     ))}
                 </div>
 
                 {/*Table */}
-                <div className="w-full bg-secondary rounded-2xl overflow-y-auto max-h-[420px] flex flex-col">
+                <div className="w-full bg-card card-glow rounded-2xl overflow-y-auto max-h-[420px] flex flex-col">
                     {matches.map((match,i) => (
                     <button key = {match.id} onClick={() => handleRowClick(match)} type="button"
-                        className = {`grid w-full text-center px-6 py-5 cursor-pointer bg-transparent hover:bg-secondary-text/50 transition-colors duration-100 ${i < matches.length - 1 ? 'border-b border-secondary-text': ''}
+                        className = {`grid w-full text-center px-6 py-5 cursor-pointer bg-transparent hover:bg-secondary-text/50 transition-colors duration-100 ${i < matches.length - 1 ? 'border-b border-border': ''}
                         ${selected?.id === match.id ? 'bg-secondary-text': ''}`}
                         style = {{gridTemplateColumns: '1fr 1fr 1fr 1fr', boxShadow: i<matches.length - 1? '0 4px 6px rgba(0,0,0,0.08)': 'none',}}>
-                        <span className="text-secondary-text font-medium tracking-widest"
+                        <span className="text-primary-text font-medium tracking-widest"
                             style={{fontSize: 'var(--font-size-xsm)'}}>
                             {match.mode}
                         </span>
                         {/*Copying the above <span> for the same ones below */}
-                        <span className="text-secondary-text font-medium tracking-widest"
+                        <span className="text-primary-text font-medium tracking-widest"
                             style={{fontSize: 'var(--font-size-xsm)'}}>
                             {match.type}
                         </span>
-                        <span className="text-secondary-text font-medium tracking-widest"
+                        <span className="text-primary-text font-medium tracking-widest"
                             style={{fontSize: 'var(--font-size-xsm)'}}>
                             {match.timestamp}
                         </span>

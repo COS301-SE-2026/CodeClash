@@ -1,4 +1,4 @@
-import {ChevronRight, Swords, Users2, Trophy, Flame, Sparkles } from 'lucide-react';
+import {ChevronRight, Swords, Users2, Flame, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import backgroundImg from '../assets/Background/dashboard.png'
@@ -8,8 +8,7 @@ import Popup from './Popup'
 
 import Loading from '@/components/shared/Loading';
 import Starfield from '@/components/ui/animations/Starfield';
-
-import { useEffect } from 'react';
+import ComingSoon from '@/components/ui/ComingSoon';
 
 type SkillMetric = {
   label: string;
@@ -24,10 +23,10 @@ const SkillProgressCard = ({
   seeAll: string;
 }) => (
   <div className='card-elevated p-5'>
+    <div className='blur-[1px] pointer-events-none select-none opacity-60'>
     <div className='flex items-center justify-between mb-3'>
       <div>
-        <p className='text-sm font-bold text-primary-text'>Skill Progress</p>
-        <p className='text-xsm text-muted uppercase'>{title}</p>
+        <p className='text-sm font-bold text-primary-text'>Skills Progress</p>
       </div>
       <Link to = {seeAll} className='badge badge-status-pending'>
         See all 
@@ -48,6 +47,7 @@ const SkillProgressCard = ({
         </div>
       ))}
     </div>
+    </div>
   </div>
 )
 
@@ -66,8 +66,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className='relative w-full min-h-screen bg-cover bg-center overflow-hidden'
-      style={{backgroundImage: `url(${backgroundImg})`}}>
+    <div className='relative w-full min-h-screen bg-cover bg-center overflow-hidden'>
       <div className='absolute inset-0 bg-gradient-to-b from-background/85 via-background/75 to-background'/>
       <Starfield/>
 
@@ -75,16 +74,15 @@ const Dashboard = () => {
           <div className='grid grid-cols-1 lg:grid-cols-[1.1fr_1fr_1.2fr] gap-6 max-w-[1400px] mx-auto items-start'>
             {/*Profile + Play */}
             <div className='flex flex-col gap-6'>
-              <div className='card-elevated flex items-center gap-4 p-6'>
+              <div className='card-elevated flex items-center gap-4 p-8'>
                 <img src = {avatar} alt='' className='w-16 h-16 rounded-full border-2 border-primary object-cover shrink-0'/>
                 <div>
-                  <span>League - {league}</span>
-                  <p className='text-xl font-black text-primart-text'>{username}</p>
+                  <p className='text-xl font-black text-primary-text'>{username}</p>
+                  <span className='text-sm text-primary-text'>{league}</span>
                 </div>
               </div>
 
               <div className='card-elevated p-6 text-center'>
-                  <p className='eyebrow mb-1'>Play now</p>
                   <h2 className='text-md font-black text-primary-text mb-1 whitespace-nowrap'>Enter the arena</h2>
                   <p className='text-xsm text-muted mb-5'>Select a game mode and start competing</p>
                   <div className='flex flex-col gap-3'>
@@ -92,39 +90,40 @@ const Dashboard = () => {
                       <Swords size= {18}/>
                       Ranked Play
                     </button>
-                    <button className='btn btn-secondary w-full' onClick={() => openPopUp('casual')} type='button'>
+                    <button className='btn btn-secondary w-full' onClick={() => ComingSoon} type='button'  disabled title='Coming Soon!'>
                       <Users2 size= {18}/>
                       Casual Play
                     </button>
                   </div>
                 </div> 
+            </div>
 
-                {/*Stats - copied from below, i just decided to chnage the place cause the RHS was much more populated than LHS */}
+            <div className='relative z-10 flex flex-col gap-6'>
+                {/*Stats - copied from above, i just decided to chnage the place cause the RHS was much more populated than LHS */}
                 <div className='grid grid-cols-2 gap-4'>
                   <div className='card-elevated flex flex-col items-center justify-center gap-1 py-5'>
+                    <Flame size={20} className='font-black mb-1'/>
+                    <p className='text-xsm uppercase tracking-wide font-black text-center justify-center'>Current Streak</p>
+                    <p className='score-display text-2xl font-black'>-</p>
                     <Flame size={20} className='text-primary mb-1'/>
                     <p className='text-xsm uppercase tracking-wide text-muted'>Current Streak</p>
                     <p className='score-display text-2xl'>{current_streak ?? '-'}</p>
                   </div>
                   <div className='card-elevated flex flex-col items-center justify-center gap-1 py-5'>
+                    <Sparkles size={20} className='font-black mb-1'/>
+                    <p className='text-xsm uppercase tracking-wide font-black text-center justify-center'>Winning Streak</p>
+                    <p className='score-display text-2xl font-black'>-</p> 
                     <Sparkles size={20} className='text-primary mb-1'/>
                     <p className='text-xsm uppercase tracking-wide text-muted'>Winning Streak</p>
                     <p className='score-display text-2xl'>{winning_streak ?? '-'}</p>
                   </div>
+                </div> 
+              {/*Skill score */}
+              <div className='card-elevated flex flex-col items-center justify-center p-8 text-center'>
+                <p className='mb-4 text-md font-black'>Elo Rating</p>
+                <p className='score-display text-6xl mb-2 font-black'>{elo}</p>
               </div>
             </div>
-
-              {/*Skill score */}
-              <div className='card-glow flex flex-col items-center justify-center p-8 text-center'>
-                <p className='eyebrow mb-4'>Skill Score</p>
-                <p className='score-display text-6xl mb-2'>{elo}</p>
-                <p className='text-xsm uppercase tracking=[0.2rem] text-muted'>Elo Rating</p>
-                <span className='divider w-full my-6'/>
-                <span>
-                  <Trophy size= {14}/>
-                  {league} League
-                </span>
-              </div>
 
                 {/*Recntly earned */}
               <div className='flex flex-col gap-6'>
@@ -159,10 +158,6 @@ const Dashboard = () => {
                 <SkillProgressCard title='Math' seeAll='/stats' items={[
                   {label: 'Metric Title', value: 65},
                   {label: 'Metric Title', value: 40}
-                ]}/>
-                <SkillProgressCard title='Programming' seeAll='/stats' items={[
-                  {label: 'Metric Title', value: 80},
-                  {label: 'Metric Title', value: 85}
                 ]}/>
               </div>
           </div>

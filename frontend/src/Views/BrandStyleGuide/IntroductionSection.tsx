@@ -46,7 +46,7 @@ const IntroSection: React.FC<Props> = ({content}) => {
                     },
                     {
                         label: 'Aesthetic',
-                        body: 'Deep maroon backgrounds, pink to crimson and maroon gradients, clean typography.',
+                        body: 'A black cosmic background with maroon accents, pink gradients, clean typography and light theme support.',
                     }
                 ].map(pillar => (
                     <div key={pillar.label} className="rounded-xl p-5 transition-colors duration-150 tracking-widest">
