@@ -63,3 +63,29 @@ function setMockFetch() {
         return jsonRes(false, {}) as unknown as Response;
     })
 }
+
+function renderFriends() {
+    return renderHook(() => useContext(FriendsContextFunc), {
+        wrapper: ({children}: {children: React.ReactNode}) => (
+            <FriendsProvider>{children}</FriendsProvider>
+        )
+    })
+}
+
+const base = {
+    userId: 'u1', 
+    username: 'TestUser'
+}
+
+beforeEach(() => {
+    handlers = defaultHandlers();
+    setMockFetch();
+    mockUseAuth.mockReturnValue({token: 'tokenTest', user: base});
+    mockUseSocket.mockReturnValue({socket: {emit: vi.fn()}});
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+})
+
+afterEach(() => {
+    vi.useRealTimers();
+    vi.useFakeTimers();
+})
