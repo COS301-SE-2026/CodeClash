@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import { EloRepository } from '../repositories/elo.repository';
+
+import { IEloRepository } from 'src/application/interfaces/repositories/IEloRepository';
 
 // GET /api/elo/elo-get
 // Get current elo rating for a user
-export const getUserElo = (elo_repo: EloRepository) => {
-
+export const getUserElo = (elo_repo: IEloRepository) => {
   return async (req: Request, res: Response)=>{
       const elo = await elo_repo.getElo(req.user.id);
 

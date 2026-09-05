@@ -1,6 +1,7 @@
 //This will read shared data from FriendsContext and be called by other files like the Friends.tsx and FriendInvites popup. 
 
 import { useContext } from "react";
+
 import { FriendsContextFunc } from "../../ViewModels/FriendsViewModel/FriendsContext";
 
 export function useFriends() {

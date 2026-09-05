@@ -8,7 +8,9 @@ export interface UserContextValue {
     league: string,
     userId: string,
     refresh: () => Promise<void>
-    rank: number
+    rank: number,
+    current_streak: number,
+    winning_streak: number
 }
 
 export const UserContext = createContext<UserContextValue | null>(null);

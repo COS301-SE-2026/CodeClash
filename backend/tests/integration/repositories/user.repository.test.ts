@@ -2,8 +2,8 @@ import { DataSource, Repository } from "typeorm";
 import { Users } from "../../../src/entities/db-entities/user.entities";
 import { UserRepository } from '../../../src/interface-adapters/repositories/user.repository'
 import { beforeAll, describe, expect, it, afterAll } from "vitest";
-import { createTestDataSource } from "./test-data-source";
-import { mock_user } from "./mocks/mock-user";
+import { createTestDataSource } from "../../test-data-source";
+import { mock_user } from "../../mocks/mock-user";
 
 
 

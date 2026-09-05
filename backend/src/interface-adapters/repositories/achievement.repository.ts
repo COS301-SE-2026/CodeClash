@@ -2,7 +2,7 @@ import { Repository } from 'typeorm';
 import { Achievement } from 'src/entities/db-entities/achievement.entities';
 import { Users } from 'src/entities/db-entities/user.entities';
 import { IAchievementRepository } from 'src/application/interfaces/repositories/IAchievementRepository';
-import { AchievementDTO } from '../dtos/achievement.dto';
+import { AchievementDTO } from 'src/entities/dtos/achievement.dto';
 
 export class AchievementRepository implements IAchievementRepository {
     constructor(

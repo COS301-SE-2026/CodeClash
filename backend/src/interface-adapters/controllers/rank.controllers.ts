@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { LeaderboardSystem } from "src/application/usecases/services/leaderboard.service";
+import { LeaderboardService } from "src/application/usecases/services/leaderboard.service";
 
 
-export const getUserRank = (service: LeaderboardSystem) => {
+export const getUserRank = (service: LeaderboardService) => {
     return async(req: Request, res: Response) => {
         try{
             const userId = req.user?.id //after checking auth.service.ts and the other controllers, this id value is the same as user_id

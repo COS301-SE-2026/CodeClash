@@ -1,8 +1,10 @@
+import { ArrowRight, ArrowLeft, User, AtSign, Mail, Phone, Lock } from 'lucide-react';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ArrowLeft, User, AtSign, Mail, Phone, Lock } from 'lucide-react';
-import { SignUpViewModelFunction } from '../ViewModels/SignUpViewModel.ts';
+
 import symbolBackground from "../assets/Background/SymbolBackground.png";
+import { SignUpViewModelFunction } from '../ViewModels/SignUpViewModel.ts';
+
 import Starfield from '@/components/ui/animations/Starfield.tsx';
 
 const SignUp: React.FC= () => {

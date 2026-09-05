@@ -1,10 +1,14 @@
 import {ChevronRight, Swords, Users2, Flame, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useDashboardViewModel } from '../ViewModels/DashboardViewModel';
+
 import Popup from './Popup'
+
 import Loading from '@/components/shared/Loading';
 import Starfield from '@/components/ui/animations/Starfield';
 import ComingSoon from '@/components/ui/ComingSoon';
+
+import { useEffect } from 'react';
 
 type SkillMetric = {
   label: string;
@@ -48,7 +52,12 @@ const SkillProgressCard = ({
 )
 
 const Dashboard = () => {
-  const { isOpen, openPopUp, closePopUp, username, elo, league, avatar, isLoading } = useDashboardViewModel();
+  const { isOpen, openPopUp, closePopUp, username, elo, league, avatar, isLoading, current_streak, winning_streak, recentAchievement ,refresh } = useDashboardViewModel();
+
+    useEffect(() => {
+    refresh();
+  },[isLoading])
+
 
   if (isLoading) {
     return (
@@ -95,12 +104,12 @@ const Dashboard = () => {
                   <div className='card-elevated flex flex-col items-center justify-center gap-1 py-5'>
                     <Flame size={20} className='font-black mb-1'/>
                     <p className='text-xsm uppercase tracking-wide font-black text-center justify-center'>Current Streak</p>
-                    <p className='score-display text-2xl font-black'>-</p>
+                    <p className='score-display text-2xl font-black'>{current_streak ?? '-'}</p>
                   </div>
                   <div className='card-elevated flex flex-col items-center justify-center gap-1 py-5'>
                     <Sparkles size={20} className='font-black mb-1'/>
                     <p className='text-xsm uppercase tracking-wide font-black text-center justify-center'>Winning Streak</p>
-                    <p className='score-display text-2xl font-black'>-</p> 
+                    <p className='score-display text-2xl font-black'>{winning_streak ?? '-'}</p> 
                   </div>
                 </div>
               {/*Skill score */}
@@ -121,10 +130,22 @@ const Dashboard = () => {
                     </Link>
                   </div>
                   <div className='flex items-center gap-4 rounded-2xl bg-background-elevated border border-border p-3'>
-                    <div>
-                      <p className='text-sm font-semibold text-muted'>Badge Name</p>
-                      <p className='text-xsm text-muted-text mt-1'>Description of award</p>
-                    </div>
+                    {recentAchievement ? (
+                      <>
+                        <div className='w-10 h-10 rounded-full border-2 border-primary flex items-center justify-center shrink-0'>
+                          {recentAchievement.icon === 'trophy' && <Trophy size={18} className='text-primary'/>}
+                          {recentAchievement.icon === 'flame' && <Flame size={18} className='text-primary'/>}
+                          {recentAchievement.icon === 'zap' && <Sparkles size={18} className='text-primary'/>}
+                          {recentAchievement.icon === 'medal' && <Trophy size={18} className='text-primary'/>}
+                        </div>
+                        <div>
+                          <p className='text-sm font-semibold text-primary'>{recentAchievement.name}</p>
+                          <p className='text-xsm text-muted-text mt-1'>{recentAchievement.description}</p>
+                        </div>
+                      </>
+                    ) : (
+                      <p className='text-xsm text-muted'>No achievements earned yet. Play a match!</p>
+                    )}
                   </div>
                 </div>
 
