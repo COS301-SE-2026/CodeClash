@@ -38,7 +38,7 @@ export const createAPIRoutes = (
 
   // elo routes
   router.get('/elo/elo-get', getUserElo(elo_repo));
-  router.get("/leaderboard-get", getLeaderboard(leaderboard_service));
+  router.get("/leaderboard", getLeaderboard(leaderboard_service));
 
   router.get('/matches', getMatchHistory(match_history_repo));
   router.get('/matches/:match_id', getMatchDetails(match_history_repo));
