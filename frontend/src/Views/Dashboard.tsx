@@ -1,7 +1,10 @@
 import {ChevronRight, Swords, Users2, Flame, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useDashboardViewModel } from '../ViewModels/DashboardViewModel';
+import { useEffect } from 'react';
+
 import Popup from './Popup'
+
 import Loading from '@/components/shared/Loading';
 import Starfield from '@/components/ui/animations/Starfield';
 import ComingSoon from '@/components/ui/ComingSoon';
@@ -48,7 +51,12 @@ const SkillProgressCard = ({
 )
 
 const Dashboard = () => {
-  const { isOpen, openPopUp, closePopUp, username, elo, league, avatar, isLoading } = useDashboardViewModel();
+  const { isOpen, openPopUp, closePopUp, username, elo, league, avatar, isLoading, current_streak, winning_streak, recentAchievement ,refresh } = useDashboardViewModel();
+
+    useEffect(() => {
+    refresh();
+  },[isLoading])
+
 
   if (isLoading) {
     return (

@@ -1,14 +1,16 @@
 /*This file owns an empty slot in the heder that can get filled by anything specific to a page, 
 like the search usernames/friends in the friends system. Also has sidebar. */
 
+import {Bot, UserCircle} from 'lucide-react';
+import React,  { useMemo, useState} from "react";
 import { Outlet, Link } from "react-router-dom";
+
+import { useFriends } from "./context/Friends/useFriends";
+import type { OutletContext } from "./extra-layout";
+
 import { AppSidebar } from "@/components/Sidebar";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar/sidebar";
-import {Bot, UserCircle} from 'lucide-react';
-import React from "react";
-import { useMemo, useState } from "react";
-import type { OutletContext } from "./extra-layout";
-import { useFriends } from "./context/Friends/useFriends";
+
 
 export default function Layout() {
     const {activeInvite} = useFriends();

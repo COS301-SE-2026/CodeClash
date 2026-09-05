@@ -1,5 +1,5 @@
 import { GameMode } from "src/entities/db-entities/questions.entities";
-import { QuestionDTO } from "src/interface-adapters/dtos/question.dto";
+import { QuestionDTO } from "src/entities/dtos/question.dto";
 
 
 export interface IQuestionRepository{

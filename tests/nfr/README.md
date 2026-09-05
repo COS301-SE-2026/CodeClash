@@ -1,4 +1,4 @@
-# NFR Test Suite — CodeClash
+# NFR Test Suite: CodeClash
 
 This directory contains the Non-Functional Requirement (NFR) tests for CodeClash. Each test is mapped to a quality requirement from the SRS and a corresponding architectural tactic from the SAS.
 

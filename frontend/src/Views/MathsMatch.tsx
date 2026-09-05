@@ -20,7 +20,7 @@ const MathsMatch = () => {
         loading, submitQuestion,
         mathfieldRef, setAnswers, answers,
         results, gameOver, waitingOpponent,
-        finishGame, opponentDone
+        finishGame
     } = useMatch();
 
     const curr = questions[currentQuestion];
@@ -62,7 +62,6 @@ const MathsMatch = () => {
             opponent_progress={opponentCurrent}
             question_number={questions.length}
             question_results={results}
-            opponent_done={opponentDone}
         >
 
             <Question
@@ -89,7 +88,7 @@ const MathsMatch = () => {
                 <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem] hover:-translate-y-1'
                     onClick={() => {
                         const answer = mathfieldRef.current?.value ?? '';
-                        submitQuestion(curr.id!, answer)
+                        submitQuestion(curr.id!, 'math',{answer: answer})
                     }}
                 >
                     SUBMIT

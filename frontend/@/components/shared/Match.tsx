@@ -18,7 +18,6 @@ interface MatchScreenProps {
     current_question: number,
     opponent_progress: number,
     question_results: (boolean | null)[],
-    opponent_done: boolean,
 }
 
 export const MatchScreen: React.FC<MatchScreenProps> = ({
@@ -33,7 +32,6 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
     current_question,
     opponent_progress,
     question_results,
-    opponent_done
 }) => {
 
 

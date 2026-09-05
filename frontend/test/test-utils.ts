@@ -15,9 +15,14 @@ export async function login() {
   try {
     await signIn({ username: env.VITE_INTEGRATION_TEST_USER!, password: env.VITE_INTEGRATION_TEST_PASS! })
   }
-  catch (error) {
-    // console.log(`Error signing user in: ${error}`)
-    throw new Error(`Error signing user in: ${error}`, {cause: error})
+  catch (error: any) {
+
+    if (error.name == 'NotAuthorizedError') {
+      console.error("Incorrect username or password")
+      throw new Error ("Incorrect username or password")
+    }
+
+    throw error
   }
 
 }

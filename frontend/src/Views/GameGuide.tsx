@@ -1,7 +1,9 @@
-import Starfield from "@/components/ui/animations/Starfield";
-import bg from "../../src/assets/Background/solar_system.jpg"
 import { Trophy, TrendingUp, Gamepad2, ArrowLeft} from 'lucide-react';
 import { Link } from "react-router";
+
+import bg from "../../src/assets/Background/solar_system.jpg"
+
+import Starfield from "@/components/ui/animations/Starfield";
 
 {/*All copied from Morgans previously written gameguide code*/}
 const Steps = [ 

@@ -1,4 +1,4 @@
-import { FriendDTO, FriendRequestDTO, FriendInviteDTO } from "src/interface-adapters/dtos/friendship.dto";
+import { FriendDTO, FriendRequestDTO, FriendInviteDTO } from "src/entities/dtos/friendship.dto";
 
 export interface IFriendRepository {
     getFriends(user_id: string): Promise<FriendDTO[]>;

@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, CreateDateColumn } from 'typeorm';
 import { Users } from './user.entities';
 
 @Entity('achievements')
@@ -9,15 +9,17 @@ export class Achievement {
     @Column({ length: 30 })
     achievement_name!: string;
 
-    @Column({ length: 70 })
+    @Column({ length:70 })
     description!: string;
 
+    @CreateDateColumn()
+    earned_at!: Date;
+
     @ManyToMany(() => Users, user => user.achievements)
-    @JoinTable({
-        name: 'player_achievements',
-        joinColumn: { name: 'achievement_id' },
+    @JoinTable({ 
+        name: 'players_achievements',
+        joinColumn: { name: 'achievemnt_id' },
         inverseJoinColumn: { name: 'user_id' }
     })
-    
-    users!: Users[];
+    users!: Users[]
 }

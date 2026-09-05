@@ -1,7 +1,8 @@
 import { Trophy, Flame, Zap, Medal } from "lucide-react";
-import React from "react";
-import { AchievementsViewModelFunc } from "src/ViewModels/AchievementsViewModel";
+import React, { useState } from "react";
 import type { Icons } from "src/Models/AchievementsModel";
+import { AchievementsViewModelFunc } from "src/ViewModels/AchievementsViewModel";
+
 import Loading from "@/components/shared/Loading";
 import Starfield from "@/components/ui/animations/Starfield";
 
@@ -30,6 +31,9 @@ function timeTracker(iso:string): string {
 
 const Achievements: React.FC = () => {
     const {content, isLoading, earned, locked} = AchievementsViewModelFunc();
+    const [expandedId, setExpandedId] = useState<string | null>(null);
+
+    const toggle = (id: string) => setExpandedId(prev => prev === id ? null : id);
 
     if (isLoading) {
         return <Loading isOpen={true}/>;
@@ -54,15 +58,23 @@ const Achievements: React.FC = () => {
                         <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-4">
                             {earned.map((achievement) => {
                                 const Icon = AchIcons[achievement.icon];
+                                const isExpanded = expandedId === achievement.id;
                                 return (
-                                    <div key={achievement.id} className="card-glow p-5 flex flex-col items-center text-center gap-2">
+                                    <div key={achievement.id} 
+                                        className="card-glow p-5 flex flex-col items-center text-center gap-2"
+                                        onClick={() => toggle(achievement.id)}>
                                         <div className="w-16 h-16 rounded-full border-2 border-secondary flex items-center justify-center shrink-0">
                                             <Icon size={28} className="text-primary-text"/>
                                         </div>
                                         <p className="text-primary-text font-bold truncate">{achievement.name}</p>
                                         <p className="text-xsm text-muted mt-1 whitespace-nowrap">{timeTracker(achievement.earnedAt)}</p>
+                                        {isExpanded && (
+                                            <p className="text-xsm text-muted-text mt-1 border-t border-border pt-2 w-full text-center">
+                                                {achievement.description}
+                                            </p>
+                                        )}
                                     </div>
-                                )
+                                );
                             })}
                         </div>
                     </section>
@@ -77,22 +89,30 @@ const Achievements: React.FC = () => {
                         <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-4">
                             {locked.map((achievement) => {
                                 const Icon = AchIcons[achievement.icon];
+                                const isExpanded = expandedId === achievement.id;
                                 return (
-                                    <div key={achievement.id} className="card-glow p-5 flex flex-col items-center text-center gap-2 opacity-50">
+                                    <div key={achievement.id} 
+                                        className="card-glow p-5 flex flex-col items-center text-center gap-2 opacity-50"
+                                         onClick={() => toggle(achievement.id)}>
                                         <div className="w-16 h-16 rounded-full border-2 border-border flex items-center justify-center shrink-0">
                                             <Icon size={28} className="text-muted-text"/>
                                         </div>
                                         <p className="text-primary-text font-bold truncate">{achievement.name}</p>
                                         <p className="text-xsm text-muted-text mt-1 whitespace-nowrap">Locked</p>
+                                        {isExpanded && (
+                                            <p className="text-xsm text-muted-text mt-1 border-t border-border pt-2 w-full text-center">
+                                                {achievement.description}
+                                            </p>
+                                        )}
                                     </div>
-                                )
+                                );
                             })}
                         </div>
                     </section>
                 )}
             </div>
         </div>
-    )
+    );
 }
 
 export default Achievements;
