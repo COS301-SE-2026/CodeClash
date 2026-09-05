@@ -9,6 +9,7 @@ import { Submission } from "src/entities/db-entities/submission.entities";
 import { Users } from "src/entities/db-entities/user.entities";
 import { Achievement } from "src/entities/db-entities/achievement.entities";
 import { MatchStats } from "src/entities/db-entities/match-stats.entities";
+import { FriendInvite, Friendship } from "src/entities/db-entities/friendship.entities";
 
 dotenv.config()
 
@@ -34,7 +35,9 @@ export const AppDataSource = new DataSource({
         Submission,
         Users,
         Achievement,
-        MatchStats
+        MatchStats,
+        Friendship,
+        FriendInvite
     ],
     migrations: [],
     subscribers: [],
