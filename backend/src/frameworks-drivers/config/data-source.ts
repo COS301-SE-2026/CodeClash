@@ -41,4 +41,5 @@ export const AppDataSource = new DataSource({
     ],
     migrations: [],
     subscribers: [],
+    ssl: env.NODE_ENV === 'production'? {rejectUnauthorized: false}: false
 })
