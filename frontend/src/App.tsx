@@ -29,6 +29,7 @@ import Shop from "./Views/Shop";
 import Friends from "./Views/Friends/Friends";
 import Achievements from "./Views/Achievements";
 import Settings from "./Views/Settings";
+import { ProgMatch } from "./Views/ProgMatch";
 
 const App: React.FC = () => {
 
@@ -36,7 +37,8 @@ const App: React.FC = () => {
     if (isLoading) {
         return <Loading isOpen={isLoading} />
     }
-
+   
+   
     const logged_in = user !== null
 
     if (!logged_in) {
@@ -63,9 +65,7 @@ const App: React.FC = () => {
             <Route path='/match-searching' element={<MatchSearching />} />
             <Route path='/match-found' element={<MatchFound />} />
             <Route path='/math-match' element={<MathMatch />} />
-            <Route path='/leaderboard' element={<Leaderboard />} />
             <Route path='/programming-match' element={<ProgMatch />} />
-            <Route path='/results' element={<FinalResults />} />
             <Route path='/results' element={<FinalResults />} />
             <Route path='/forgot-password' element={<ForgotPassword />} />
             <Route path='/terms' element={<TermsAndConditions />} />
@@ -76,7 +76,7 @@ const App: React.FC = () => {
 
             {/* Pages with sidebar inside the app */}
             <Route element={<Layout />}>
-                <Route path='/' element={base_path} />
+                <Route path='/' element={<Dashboard/>} />
                 <Route path='/dashboard' element={<Dashboard />} />
                 <Route path='/help-menu' element={<HelpMenu />} />
                 <Route path='/tournaments' element={<Tournaments />} />

@@ -1,7 +1,6 @@
-import {ChevronRight, Swords, Users2, Flame, Sparkles } from 'lucide-react';
+import {ChevronRight, Swords, Users2, Flame, Sparkles, Trophy} from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useEffect } from "react";
-import { Trophy } from "lucide-react";
 
 import { useDashboardViewModel } from '../ViewModels/DashboardViewModel';
 

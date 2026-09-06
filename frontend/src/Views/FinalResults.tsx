@@ -7,7 +7,6 @@ import { FinalResultsViewModelFunction } from "../ViewModels/FinalResultsViewMod
 
 import Loading from "@/components/shared/Loading";
 import Starfield from "@/components/ui/animations/Starfield";
-import Confetti from "@/components/ui/animations/Confetti";
 import { finalResultsContent, type PlayerFinalResults } from "src/Models/FinalResultsModel";
 
 const FinalResults: React.FC = () => {
@@ -54,7 +53,7 @@ const FinalResults: React.FC = () => {
                 <div style={{position: 'absolute', width: 320, height: 320, bottom: '0%', right: '-6%', background: 'var(--color-pink-300)', borderRadius: '9999px', filter: 'blur(70px)', opacity: 0.45}}/>
                 {state === 'results' && <Starfield count={60}/>}
             </div>
-            {state === 'results' && <Confetti count={35}/>}
+            {/* {state === 'results' && <Confetti count={35}/>} */}
 
             {state === 'loading' && (
                 <div className="p-5 w-full max-w-[550px] flex flex-col gap-6">
