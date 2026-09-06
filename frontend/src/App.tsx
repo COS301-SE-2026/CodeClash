@@ -49,6 +49,7 @@ const App: React.FC = () => {
                 <Route path='terms' element={<TermsAndConditions />} />
                 <Route path='/brand-style-guide' element={<BrandStyleGuide />} />
                 <Route path='/help-menu' element={<HelpMenu />} />
+                <Route path='/game-guide' element={<GameGuide/>}/>
                 <Route path='*' element={<Navigate to='/sign-in' replace />} />
 
             </Routes>
