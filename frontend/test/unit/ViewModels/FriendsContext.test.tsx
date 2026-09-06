@@ -148,3 +148,26 @@ it('accepts a request into friends and removes it from requests list', async () 
         id: 'friendUserId', username: 'friendUsername', avatar: 7, status: 'offline',elo: 600
     })
 })
+
+it('declines a request and removes it from requests list', async () => {
+    let declined = false;
+    handlers.unshift((url, init) => 
+        url === "/api/friends/request/f2" && init?.method === 'PATCH' ? (declined = true, jsonRes(true, {})) :null
+    )
+
+    handlers.unshift((url) => 
+        url.startsWith("/api/friends/requests") ? jsonRes(true, declined? [] : [{
+            friendship_id: 'f2', username: 'friendUsername2', avatar_id: 7, created_at: '2022-05-05', user_id: 'friendUserId2'
+        }]) : null
+    )
+    const {result} = renderFriends();
+    await waitFor(() =>expect(result.current?.isLoading).toBe(false));
+    await act(async() => await result.current?.declineRequest('f2'));
+
+    expect(fetch).toHaveBeenCalledWith("/api/friends/request/f2", expect.objectContaining({
+        method: 'PATCH', body: JSON.stringify({
+            status: 'declined'
+        })
+    }));
+    expect(result.current?.requests).toEqual([]);
+})
