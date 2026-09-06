@@ -1,5 +1,7 @@
-import {ChevronRight, Swords, Users2, Flame, Sparkles } from 'lucide-react';
+import {ChevronRight, Swords, Users2, Flame, Sparkles, Trophy} from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useEffect } from "react";
+
 import { useDashboardViewModel } from '../ViewModels/DashboardViewModel';
 
 import Popup from './Popup'
@@ -16,7 +18,7 @@ type SkillMetric = {
 }
 
 const SkillProgressCard = ({
-  title, items, seeAll,
+  items, seeAll,
 } : {
   title: string;
   items: SkillMetric[];
@@ -111,7 +113,7 @@ const Dashboard = () => {
                     <p className='text-xsm uppercase tracking-wide font-black text-center justify-center'>Winning Streak</p>
                     <p className='score-display text-2xl font-black'>{winning_streak ?? '-'}</p> 
                   </div>
-                </div>
+                </div> 
               {/*Skill score */}
               <div className='card-elevated flex flex-col items-center justify-center p-8 text-center'>
                 <p className='mb-4 text-md font-black'>Elo Rating</p>
