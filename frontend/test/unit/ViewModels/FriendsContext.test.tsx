@@ -87,5 +87,32 @@ beforeEach(() => {
 
 afterEach(() => {
     vi.useRealTimers();
-    vi.useFakeTimers();
+    vi.restoreAllMocks(); 
+})
+
+it('loads and maps friends, requests and header profile', async () => {
+    handlers.unshift((url) => 
+        url === "/api/friends" ? jsonRes(true, [{
+            user_id: 'id1', username: 'usersname1',
+            avatar_id: 2, elo: 888
+        }]) : null
+    )
+    handlers.unshift((url) => 
+        url.startsWith("/api/friends/requests") ? jsonRes(true, [{
+            friendship_id: 'id2', username: 'friends2', 
+            avatr_id: 5, created_at: '2024-05-05', user_id: 'user2'
+        }]): null
+    )
+    const {result} = renderFriends();
+    await waitFor(() => expect(result.current?.isLoading).toBe(false));
+
+    expect(result.current?.friend).toEqual([{
+        id: 'id1', username: 'usersname1', avatar: 2, status: 'offline', elo: 888
+    }])
+    expect(result.current?.requests).toEqual([{
+        id: 'id2', username: 'friends2', avatar: 5, sentAt: '2024-05-05', fromUser: 'user2'
+    }])
+    expect(result.current?.profile).toEqual([{
+        id: 'u1', username: 'TestUser', avatar: 3, league: 'Venus', handle: 'TestHandle'
+    }])
 })
