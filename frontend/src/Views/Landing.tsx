@@ -10,7 +10,7 @@ import { LandingViewModelFunction } from "../ViewModels/LandingViewModel";
 
 const Landing:React.FC = ()=>{
     const {
-        scrollY, stats, steps,
+        scrollY, steps,
         features, audience,
     } = LandingViewModelFunction();
 
@@ -59,12 +59,6 @@ const Landing:React.FC = ()=>{
                 <img src= {symbolBackground} alt="" className="absolute inset-0 w-full h-full object-cover pointer-events-none"/>
                 
                 <div className="relative z-10 flex flex-col gap-6 w-1/2">
-                    <div style={{
-                        display: "inline-block", background: "rgba(192, 57, 90, 0.2)", border: "1px solid rgba(192, 57, 90, 0.4)",
-                        borderRadius: "20px", padding: "4px 14px", width: "fit-content", color: "var(--primary)", fontSize: "1rem", fontWeight: 700,
-                        letterSpacing: "0.1rem", textTransform: "uppercase",}}>
-                        Competitive - Coding - Mathematics
-                    </div>
                     <h1 style={{fontSize: "clamp(2.5rem, 5vw, 4.5rem)", fontWeight: 900, lineHeight: 1.05, margin: 0,}}>Code.
                         <br/> Calculate. <br/>
                         <span>Conquer.</span>
@@ -92,22 +86,10 @@ const Landing:React.FC = ()=>{
                 </div>
             </section>
 
-            {/*Stats for game */}
-            <section id = "stats" style={{background: "#530a24", padding: "2rem 8%"}}>
-                <div className="flex justify-around lfex-wrap gap-8">
-                    {stats.map((stat) => (
-                        <div key = {stat.label} style={{textAlign: "center"}}>
-                            <p style={{fontSize: "2rem", fontWeight: 900, margin: 0}}>{stat.value}</p>
-                            <p style={{color: "#rgba(252, 236, 221, 0.5", textTransform: "uppercase", fontSize: "0.75rem"}}>{stat.label}</p>
-                        </div>
-                    ))}
-                </div>
-            </section>
-
             {/*How the game works */}
             <section id="how-it-works" style={{padding: "6rem 8%", background: "var(--background)"}}>
                 <div style={{textAlign: "center", marginBottom: "4rem"}}>
-                    <p style={{color: "var(--primary)", letterSpacing: "0.15rem", textTransform: "uppercase", fontSize: "0.75rem"}}>How it works</p>
+                    <p style={{color: "var(--primary-text)", letterSpacing: "0.15rem", textTransform: "uppercase", fontSize: "0.75rem"}}>How it works</p>
                     <h2 style={{fontWeight: 900, fontSize: "clamp(1.8rem, 4vw, 2.8rem)"}}>Three steps to the CodeClash Arena</h2>
                 </div>
                 <div style={{display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "2rem"}}>
@@ -128,9 +110,9 @@ const Landing:React.FC = ()=>{
             </section>
 
             {/*Features of the game */}
-            <section id="features" style = {{padding: "3rem 8%", background: "linear-gradient(to bottom, #0a0008, #1a0610"}}>
+            <section id="features" style = {{padding: "3rem 8%", background: "var(--background)"}}>
                 <div style={{textAlign: "center", marginBottom: "4rem"}}>
-                    <p style={{ color: "var(--primary)", fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.15rem", textTransform: "uppercase", marginBottom: "0.75rem"}}>Features</p>
+                    <p style={{ color: "var(--primary-text)", fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.15rem", textTransform: "uppercase", marginBottom: "0.75rem"}}>Features</p>
                     <h2 style={{fontSize: "clamp(1.8rem, 4vw, 2.8rem)", fontWeight: 900, color: "var(--primary-text)", margin: 0}}>Built for competitors</h2>
                 </div>
                 <div style={{display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))", gap: "1.5rem"}}>
@@ -148,26 +130,28 @@ const Landing:React.FC = ()=>{
             </section>
 
             {/*Who the game is for - audience */}
-            <section id="audience" style = {{display: "grid", gridTemplateColumns: "1fr 1fr", gap: "5rem", alignItems: "center"}}>
-                <div>
-                    <p style={{color: "rgba(252, 236, 221, 0.55)", fontSize: "1rem", fontWeight: 600, margin: "1rem 1.5rem", letterSpacing: "0.15rem", textTransform: "uppercase"}}>Who It's For</p>
-                    <h2 style={{fontSize: "clamp(2rem, 3vw, 2.7rem)", fontWeight: 900, lineHeight: 1.15, margin: "1rem 1.5rem", color: "var(--primary-text)"}}>For students who want to win</h2>
+            <section id="audience" style = {{padding: "3rem 8%", background: "var(--background)"}}>
+                <div style={{textAlign: "center", marginBottom: "4rem"}}>
+                    <p style={{color: "var(--primary-text)", letterSpacing: "0.15rem", textTransform: "uppercase", fontSize: "0.75rem"}}>Who It's For</p>
+                    <h2 style={{fontSize: "clamp(1.8rem, 4vw, 2.8rem)", fontWeight: 900, color: "var(--primary-text)", margin: 0}}>For students who want to win</h2>
                     <p style={{color: "var(--muted)", lineHeight: 1.8, marginBottom: "2rem", margin: "1rem 1.5rem"}}>CodeClash is build for beginners and early career developers where math and programming practice sessions become a competitive match against another player.</p>
-                    <div style={{display: "flex", flexDirection: "column"}}>
+                    <div style={{display: "flex", flexDirection: "column", alignItems: 'center'}}>
+                        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
                         {audience.map((item) => (
-                            <div key = {item} style={{display: "flex", gap: "10px", alignItems: "flex-start"}}>
+                            <div key = {item} style={{display: "flex", alignItems: "flex-start"}}>
                                 <CircleCheck size = {18} color= "#c0295a" strokeWidth={2.5} style={{marginTop: "2px", flexShrink: 0 ,margin: "1rem 1.5rem"}}/>
                                 <span style={{color: "rgba(252, 236, 221, 0.72)", lineHeight: 1.5, margin: "0.6rem", gap: "1px"}}>{item}</span>
                             </div>
                         ))}
+                        </div>
                     </div>
                 </div>
             </section>
 
             {/*for docs*/}
-            <section id="documentation" style={{padding: "5rem 8%", background: "var(--background)"}}>
+            <section id="documentation" style={{padding: "3rem 8%", background: "var(--background)"}}>
                 <div style={{ textAlign: "center", marginBottom: "4rem",}}>
-                    <p style={{color: "var(--primary)", fontSize: "0.75rem", letterSpacing: "0.15rem", textTransform: "uppercase", fontWeight: 700}}>Documentation</p>
+                    <p style={{color: "var(--primary-text)", fontSize: "0.75rem", letterSpacing: "0.15rem", textTransform: "uppercase", fontWeight: 700}}>Documentation</p>
                     <h2 style={{color: "var(--primary-text)", fontSize: "clamp(2rem,4vw, 2.8rem", fontWeight: 900, margin: "1rem 0"}}>Learn more about CodeClash</h2>
                 </div>
                 <div style={{display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr)", gap: "1.5rem"}}>
@@ -187,26 +171,6 @@ const Landing:React.FC = ()=>{
                 </div>
             </section>
 
-            <section id="get-started" style={{position: "relative", padding:"8rem 8% ", textAlign: "center", background: "radial-gradient(circle at center, #530a24 0%, #01008 70%", overflow: "hidden"}}>
-                <img src= {symbolBackground} alt= "" style={{position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", pointerEvents: "none"}}/>
-                <div style={{position: "relative", zIndex: 1}}>
-                    <h2 style={{fontSize: "clamp(2.2rem, 5vw, 3.6rem)", fontWeight: 900, color: "var(--primary)", lineHeight: 1.1, marginBottom: "1.5rem"}}>Ready to enter <br/> the CodeClash Arena?
-                    </h2>
-                    {/*copied from buttons above */}
-                    <div style={{display: "flex", justifyContent: "center", gap: "18px", flexWrap: "wrap"}}>
-                        <Link to="/sign-up" style={{
-                            background: "#c0395a", color: "#fffff", textAlign: "center", padding: "15px 60px", borderRadius: "20px", textDecoration: "none", fontWeight: 800, fontSize: "0.95rem", boxShadow: "0 4px 20px rgba(192, 57, 90, 0.35)", transition: "all 0.2s ease"}}>
-                            Start Competing
-                        </Link>
-                        {/*copied link above */}
-                        <Link to="/sign-in" style={{
-                            background: "#fcecdd", color: "#9d2644", border: "1px solid rgba(252, 236, 221, 0.25)", padding: "15px 60px", borderRadius: "20px", textDecoration: "none", fontWeight: 800, transition: "all 0.2s ease"}}>
-                            Already have an account
-                        </Link>
-                    </div>
-                </div>
-            </section>
-
             {/*CLosing footer */}
             <footer style={{background: "var(--background)", borderTop: "1px solid rgba(252, 235, 221, 0.08)", padding: "2rem 8%"}}>
                 <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1.5rem"}}>
@@ -215,7 +179,7 @@ const Landing:React.FC = ()=>{
                         </span>
                         < p style={{color: "rgba(252,236, 221, 0.35)", marginTop: "0.5rem", fontSize: "0.9rem"}}>Competitive Programming & Mathematic Battles</p>
                     </div>
-                    <p style={{color: "var(--primary-text)", fontSize: "0.9rem ", margin: 0, textAlign: "right"}}>2026 CodeClash - QuantDevs</p>
+                    <p style={{color: "var(--primary)", fontSize: "1.3rem ", fontWeight: 900,margin: 0, textAlign: "right"}}>QUANTDEVS</p>
                 </div>
             </footer>
         </div>

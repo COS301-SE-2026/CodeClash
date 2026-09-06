@@ -1,14 +1,13 @@
-import { TrendingUp, TrendingDown, Clock, UserCircle, Trophy, Medal } from "lucide-react";
+import { TrendingUp, TrendingDown, Minus, Clock, UserCircle, ArrowRight} from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { robot_map } from "src/assets/Robots";
-import type { PlayerFinalResults } from "src/Models/FinalResultsModel";
 
 import { FinalResultsViewModelFunction } from "../ViewModels/FinalResultsViewModel";
 
 import Loading from "@/components/shared/Loading";
-import Confetti from "@/components/ui/animations/Confetti";
 import Starfield from "@/components/ui/animations/Starfield";
+import { finalResultsContent, type PlayerFinalResults } from "src/Models/FinalResultsModel";
 
 const FinalResults: React.FC = () => {
     const navigate = useNavigate();
@@ -54,7 +53,7 @@ const FinalResults: React.FC = () => {
                 <div style={{position: 'absolute', width: 320, height: 320, bottom: '0%', right: '-6%', background: 'var(--color-pink-300)', borderRadius: '9999px', filter: 'blur(70px)', opacity: 0.45}}/>
                 {state === 'results' && <Starfield count={60}/>}
             </div>
-            {state === 'results' && <Confetti count={35}/>}
+            {/* {state === 'results' && <Confetti count={35}/>} */}
 
             {state === 'loading' && (
                 <div className="p-5 w-full max-w-[550px] flex flex-col gap-6">
@@ -101,7 +100,7 @@ const FinalResults: React.FC = () => {
                             <PlayerResultCard player={{
                                 username: winner.username, avatar: winner.avatar,
                                 correctness: winner.correctness, speed: formatTime(winner.speed),
-                                eloEffect: winner.eloEffect, position: 1
+                                eloEffect: winner.eloEffect, position: 1, isWinner: true, rank: winner.rank, rank_before: winner.rank_before
                                 }}
                                 emphasize
                             />
@@ -109,7 +108,7 @@ const FinalResults: React.FC = () => {
                             <PlayerResultCard player={{
                                 username: loser.username, avatar: loser.avatar,
                                 correctness: loser.correctness, speed: formatTime(loser.speed),
-                                eloEffect: loser.eloEffect, position: 2
+                                eloEffect: loser.eloEffect, position: 2, isWinner: false, rank: loser.rank, rank_before: loser.rank_before
                                 }}
                             />
                         </div>
@@ -131,6 +130,61 @@ const FinalResults: React.FC = () => {
     );
 };
 
+{/*The following three ordinal, RankChange and Badge are copied from Ntu's version of the FinalResults.tsx */}
+const ordinal = (rank: number) => {
+  const tens = rank % 100;
+  if (tens >= 11 && tens <= 13) return `${rank}th`;
+
+  switch (rank % 10) {
+    case 1: return `${rank}st`;
+    case 2: return `${rank}nd`;
+    case 3: return `${rank}rd`;
+    default: return `${rank}th`; 
+  }
+}
+
+const RankChange: React.FC<{ before: number, after: number }> = ({ before, after }) => {
+  const moved = before - after;
+
+  if (moved === 0) return (
+    <span className="text-muted-text font-semibold flex items-center gap-1 text-muted-text" style={{ fontSize: 'var(--font-size-xsm)' }}>
+      <Minus size={12} />
+      No change
+    </span>
+  );
+
+  return (
+    <span className={`flex items-center gap-1 font-bold ${moved > 0 ? 'text-success' : 'text-danger'}`} style={{ fontSize: 'var(--font-size-xsm)' }}>
+      {moved > 0 ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
+      {Math.abs(moved)}
+    </span>
+  );
+};
+
+const Badge: React.FC<{ rankBefore?: number | null, rank?: number | null }> = ({ rankBefore, rank }) => {
+  const changed = !!rankBefore && rankBefore !== rank;
+  return (
+    <div className="flex flex-col items-center gap-1">
+      {rank ? (
+        <span className="text-primary-text font-semibold flex items-center text-muted text-center justify-center"
+              style={{ fontSize: 'var(--font-size-xsm)' }}>
+                  {changed ? (
+                    <>
+                        {ordinal(rankBefore)}
+                        <ArrowRight size={14}/>
+                        {ordinal(rank)}
+                    </>
+                  ): (
+                    ordinal(rank)
+                  )}
+        </span>
+      ) : null}
+
+      {rank && rankBefore ? <RankChange before={rankBefore} after={rank} /> : null}
+    </div>
+  );
+}
+
 const PlayerResultCard: React.FC<{
     player: PlayerFinalResults;
     emphasize?: boolean; //emphasis on the winners card, so its somewhat more visible and different to loser card
@@ -147,6 +201,9 @@ const PlayerResultCard: React.FC<{
                     )}
                 </div>
                 <span className="text-primary-text font-semibold text-center truncate w-full text-xs">{player.username}</span>
+                {player.isWinner && (
+                    <span className="px-1 py-0 rounded-full bg-yellow-400 text-yellow-900 font-black text-xs uppercase tracking-wide">{finalResultsContent.labelWinner}</span>
+                )}
             </div>
 
             <div className="grid grid-cols-4 gap-2 flex-1 w-full">
@@ -170,15 +227,10 @@ const PlayerResultCard: React.FC<{
                         {player.eloEffect}
                     </span>
                 </div>
-                {/*Copied from above and modified */}
+                {/*Copied from above and modified - placement now, not position*/}
                 <div className="flex flex-col items-center gap-0.5">
-                    <span className="text-xsm uppercase tracking-wide text-muted">Position</span>
-                    <span className="flex items-center gap-1 text-sm font-bold">
-                        {player.position === 1 ? 
-                            <Trophy size={16}/> : <Medal size={16}/>
-                        }
-                        {player.position === 1 ? '1st': '2nd'}
-                    </span>
+                    <span className="text-xsm uppercase tracking-wide text-muted">Placement</span>
+                    <Badge rank={player.rank} rankBefore={player.rank_before}/>
                 </div>
             </div>
         </div>
