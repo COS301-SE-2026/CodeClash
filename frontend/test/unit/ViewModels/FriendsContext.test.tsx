@@ -100,7 +100,7 @@ it('loads and maps friends, requests and header profile', async () => {
     handlers.unshift((url) => 
         url.startsWith("/api/friends/requests") ? jsonRes(true, [{
             friendship_id: 'id2', username: 'friends2', 
-            avatr_id: 5, created_at: '2024-05-05', user_id: 'user2'
+            avatar_id: 5, created_at: '2024-05-05', user_id: 'user2'
         }]): null
     )
     const {result} = renderFriends();
@@ -112,7 +112,39 @@ it('loads and maps friends, requests and header profile', async () => {
     expect(result.current?.requests).toEqual([{
         id: 'id2', username: 'friends2', avatar: 5, sentAt: '2024-05-05', fromUser: 'user2'
     }])
-    expect(result.current?.profile).toEqual([{
-        id: 'u1', username: 'TestUser', avatar: 3, league: 'Venus', handle: 'TestHandle'
-    }])
+    expect(result.current?.profile).toEqual({
+        id: 'u1', username: 'TestUser', avatar: 3, league: 'Venus', handle: 'TestUser'
+    })
+})
+
+it('accepts a request into friends and removes it from requests list', async () => {
+    let accepted = false;
+    handlers.unshift((url, init) => 
+        url === "/api/friends/request/f1" && init?.method === 'PATCH' ? (accepted = true, jsonRes(true, {})) :null
+    )
+
+    handlers.unshift((url) => 
+        url ==="/api/friends" ? jsonRes(true, accepted? [{
+            user_id: 'friendUserId', username: 'friendUsername', avatar_id: 7, elo: 600
+        }]: []) : null
+    )
+
+    handlers.unshift((url) => 
+        url.startsWith("/api/friends/requests") ? jsonRes(true, accepted? [] : [{
+            friendship_id: 'f1', username: 'friendUsername', avatar_id: 7, created_at: '2022-02-02', user_id: 'friendUserId'
+        }]) : null
+    )
+    const {result} = renderFriends();
+    await waitFor(() =>expect(result.current?.isLoading).toBe(false));
+    await act(async() => await result.current?.acceptRequest('f1'));
+
+    expect(fetch).toHaveBeenCalledWith("/api/friends/request/f1", expect.objectContaining({
+        method: 'PATCH', body: JSON.stringify({
+            status: 'accepted'
+        })
+    }));
+    expect(result.current?.requests).toEqual([]);
+    expect(result.current?.friend).toContainEqual({
+        id: 'friendUserId', username: 'friendUsername', avatar: 7, status: 'offline',elo: 600
+    })
 })
