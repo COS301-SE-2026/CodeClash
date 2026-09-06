@@ -65,7 +65,6 @@ const App: React.FC = () => {
             <Route path='/match-searching' element={<MatchSearching />} />
             <Route path='/match-found' element={<MatchFound />} />
             <Route path='/math-match' element={<MathMatch />} />
-            <Route path='/leaderboard' element={<Leaderboard />} />
             <Route path='/programming-match' element={<ProgMatch />} />
             <Route path='/results' element={<FinalResults />} />
             <Route path='/forgot-password' element={<ForgotPassword />} />

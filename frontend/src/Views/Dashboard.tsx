@@ -10,8 +10,6 @@ import Loading from '@/components/shared/Loading';
 import Starfield from '@/components/ui/animations/Starfield';
 import ComingSoon from '@/components/ui/ComingSoon';
 
-import { useEffect } from 'react';
-
 type SkillMetric = {
   label: string;
   value: number;
