@@ -20,7 +20,6 @@ import MatchSearching from "./Views/MatchSearching";
 import Profile from "./Views/Profile";
 import SignIn from "./Views/SignIn";
 import SignUp from "./Views/SignUp";
-import { ProgMatch } from "./Views/ProgMatch";
 
 import Loading from "@/components/shared/Loading";
 import Tournaments from "./Views/Tournaments";
