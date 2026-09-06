@@ -6,7 +6,6 @@ import { robot_map } from "src/assets/Robots";
 import { FinalResultsViewModelFunction } from "../ViewModels/FinalResultsViewModel";
 
 import Loading from "@/components/shared/Loading";
-import Confetti from "@/components/ui/animations/Confetti";
 import Starfield from "@/components/ui/animations/Starfield";
 import { finalResultsContent, type PlayerFinalResults } from "src/Models/FinalResultsModel";
 
