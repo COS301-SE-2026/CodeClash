@@ -1,7 +1,8 @@
-import {ChevronRight, Swords, Users2, Flame, Sparkles } from 'lucide-react';
+import {ChevronRight, Swords, Users2, Flame, Sparkles, Trophy} from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-import backgroundImg from '../assets/Background/dashboard.png'
+import {  useEffect } from 'react'
+
 import { useDashboardViewModel } from '../ViewModels/DashboardViewModel';
 
 import Popup from './Popup'
@@ -16,7 +17,7 @@ type SkillMetric = {
 }
 
 const SkillProgressCard = ({
-  title, items, seeAll,
+  items, seeAll,
 } : {
   title: string;
   items: SkillMetric[];
