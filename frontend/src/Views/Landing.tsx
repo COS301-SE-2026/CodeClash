@@ -36,7 +36,7 @@ const Landing:React.FC = ()=>{
     }
 
     return (
-        <div className="min-h-screen w-full bg-[#0a0008] text-[#fcecdd] overflow-hidden"
+        <div className="min-h-screen w-full bg-background text-primary overflow-hidden"
             style={{fontFamily: "Roboto, sans-serif"}}>
             
             {/*landing page navigation */}
@@ -68,7 +68,7 @@ const Landing:React.FC = ()=>{
                     </p>
                     <div className="flex items-center gap-4 mt-2">
                         <Link to="/sign-up" style={{
-                            background: "#c0395a", color: "#fffff", textAlign: "center", padding: "12px 24px", borderRadius: "20px", textDecoration: "none", fontWeight: 800, fontSize: "0.95rem", boxShadow: "0 4px 20px rgba(192, 57, 90, 0.35)", transition: "all 0.2s ease"}}>
+                            background: "#c0395a", color: "var(--secondary)", textAlign: "center", padding: "12px 24px", borderRadius: "20px", textDecoration: "none", fontWeight: 800, fontSize: "0.95rem", boxShadow: "0 4px 20px rgba(192, 57, 90, 0.35)", transition: "all 0.2s ease"}}>
                             Start Competing
                         </Link>
                         {/*copied link above */}
@@ -101,8 +101,8 @@ const Landing:React.FC = ()=>{
                                     <Icon size = {34} color = "#c0395a"/>
                                     <span style={{color: "rgba(192, 57,90, 0.6)", fontSize: "0.7rem", fontWeight: 700}}>{step.step}</span>
                                 </div>
-                                    <h3>{step.title}</h3>
-                                    <p style={{color: "rgba(252, 236, 221, 0.55)", lineHeight: 1.7}}>{step.desc}</p>
+                                    <h3 style={{color: "var(--primary-text)", fontWeight: 700, fontSize: "1.05rem", marginBottom: "0.75rem"}}>{step.title}</h3>
+                                    <p style={{color: "var(--primary-text)", lineHeight: 1.7}}>{step.desc}</p>
                             </div>
                         )
                     })}
@@ -122,7 +122,7 @@ const Landing:React.FC = ()=>{
                             <div key = {feature.title} style={{background: "var(--background-card)", border: "1px solid rgba(252, 235, 221, 0.07)", borderRadius: "18px", padding: "1.75rem", transition: "0.25"}}>
                                 <Icon size = {34} color = "#c0395a" style={{marginBottom: "1rem"}}/>
                                 <h3 style={{color: "var(--primary-text)", fontWeight: 700, fontSize: "1.05rem", marginBottom: "0.75rem"}}>{feature.title}</h3>
-                                <p style={{color: "rgba(252, 236, 221, 0.55)", lineHeight: 1.7, margin: 0}}>{feature.desc}</p>
+                                <p style={{color: "var(--primary-text)", lineHeight: 1.7, margin: 0}}>{feature.desc}</p>
                             </div>
                         )
                     })}
@@ -140,7 +140,7 @@ const Landing:React.FC = ()=>{
                         {audience.map((item) => (
                             <div key = {item} style={{display: "flex", alignItems: "flex-start"}}>
                                 <CircleCheck size = {18} color= "#c0295a" strokeWidth={2.5} style={{marginTop: "2px", flexShrink: 0 ,margin: "1rem 1.5rem"}}/>
-                                <span style={{color: "rgba(252, 236, 221, 0.72)", lineHeight: 1.5, margin: "0.6rem", gap: "1px"}}>{item}</span>
+                                <span style={{color: "var(--primary-text)", lineHeight: 1.5, margin: "0.6rem", gap: "1px"}}>{item}</span>
                             </div>
                         ))}
                         </div>
@@ -163,7 +163,7 @@ const Landing:React.FC = ()=>{
                                     , padding: "2rem", height: "100%", transition: "all 0.2 ease"}}>
                                         <Icon size = {34} color = "#c0395a"/>
                                         <h3 style={{color: "var(--primary-text)", marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 700}}>{doc.title}</h3>
-                                        <p style={{ color: "rgba(252, 236, 221, 0.55)", lineHeight: 1.7, margin: 0}}>{doc.desc}</p>
+                                        <p style={{ color: "var(--primary-text)", lineHeight: 1.7, margin: 0}}>{doc.desc}</p>
                                     </div>
                             </Link>
                         )
@@ -177,7 +177,7 @@ const Landing:React.FC = ()=>{
                     <div>
                         <span style={{fontSize: "1.3rem", fontWeight: 900, color: "var(--primary)", letterSpacing: '0.05rem'}}>CODECLASH
                         </span>
-                        < p style={{color: "rgba(252,236, 221, 0.35)", marginTop: "0.5rem", fontSize: "0.9rem"}}>Competitive Programming & Mathematic Battles</p>
+                        < p style={{color: "var(--primary-text)", marginTop: "0.5rem", fontSize: "0.9rem"}}>Competitive Programming & Mathematic Battles</p>
                     </div>
                     <p style={{color: "var(--primary)", fontSize: "1.3rem ", fontWeight: 900,margin: 0, textAlign: "right"}}>QUANTDEVS</p>
                 </div>
