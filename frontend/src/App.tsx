@@ -51,11 +51,6 @@ const App: React.FC = () => {
                 <Route path='/game-guide' element={<GameGuide/>}/>
                 <Route path="/help-menu" element={<HelpMenu/>}/>
 
-                <Route path='/terms' element={<TermsAndConditions/>}/>
-                <Route path= '/brand-style-guide' element={<BrandStyleGuide/>}/>
-                <Route path='/game-guide' element={<GameGuide/>}/>
-                <Route path="/help-menu" element={<HelpMenu/>}/>
-
                 <Route path='*' element={<Navigate to='/sign-in' replace />} />
 
             </Routes>
@@ -73,7 +68,6 @@ const App: React.FC = () => {
             <Route path='/match-found' element={<MatchFound />} />
             <Route path='/math-match' element={<MathMatch />} />
             <Route path='/programming-match' element={<ProgMatch />} />
-            <Route path='/results' element={<FinalResults />} />
             <Route path='/results' element={<FinalResults />} />
             <Route path='/forgot-password' element={<ForgotPassword />} />
             <Route path='/terms' element={<TermsAndConditions />} />
