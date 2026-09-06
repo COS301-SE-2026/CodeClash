@@ -10,7 +10,7 @@ import { LandingViewModelFunction } from "../ViewModels/LandingViewModel";
 
 const Landing:React.FC = ()=>{
     const {
-        scrollY, stats, steps,
+        scrollY, steps,
         features, audience,
     } = LandingViewModelFunction();
 
