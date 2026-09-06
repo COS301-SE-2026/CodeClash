@@ -1,0 +1,14 @@
+frontend/src/App.tsx
+  h_94c952a9e14c58 31,40,54-58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "005b463b85511c0fe2e3bb6f0ed518bcd099b469",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

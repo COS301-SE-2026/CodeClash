@@ -1,0 +1,24 @@
+backend/src/frameworks-drivers/app.ts
+  h_94c952a9e14c58 9-12,17-20,32
+backend/src/frameworks-drivers/config/data-source.ts
+  h_94c952a9e14c58 12,38-40
+backend/src/frameworks-drivers/api.routes.ts
+  h_94c952a9e14c58 3,13-18,23-27,33,43-44,46-51,55,58-60
+  h_94c952a9e14c58 45,61
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 63-68,87-91,121-122,133
+  h_94c952a9e14c58 129,143,151-152,198,200,208
+backend/src/interface-adapters/repositories/friend.repository.ts
+  h_94c952a9e14c58 6,12,30
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "bcf5e165dfbec82c03ca73282036cabd25bfb75e",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

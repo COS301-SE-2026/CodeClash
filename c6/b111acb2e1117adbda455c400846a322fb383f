@@ -1,0 +1,21 @@
+backend/src/frameworks-drivers/config/redis.conf
+  h_94c952a9e14c58 1
+frontend/src/Views/Dashboard.tsx
+  h_94c952a9e14c58 3-4
+frontend/src/App.tsx
+  h_94c952a9e14c58 1,6,39,48,51-52,61-62
+  h_94c952a9e14c58 49-50,83-90,93
+.gitignore
+  h_94c952a9e14c58 480-481
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "c6b111acb2e1117adbda455c400846a322fb383f",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
