@@ -1,6 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { getAllAchievements, getUserAchievements } from '../../../src/interface-adapters/controllers/achievement.controllers';
-import { AchievementService } from '../../../src/application/usecases/services/achievement.service';
 
 describe('achievement controllers', () => {
     let mockService: any;

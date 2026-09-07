@@ -6,7 +6,8 @@ export interface PlayerFinalResults {
     eloEffect: number; //the effect of the in or loss on their elo
     position: 1 | 2;
     rank_before?: number | null;
-  rank?: number | null;
+    rank?: number | null;
+    isWinner: boolean;
 }
 
 export interface FinalResultsContent {

@@ -4,39 +4,62 @@ import dotenv from 'dotenv'
 dotenv.config();
 
 
-const executor = new CodeExecutor(process.env.JUDGE_0_URL!, process.env.JUDGE_0_TOKEN!);
+const executor = new CodeExecutor();
 
-const source_code = `
-class Main {
-    static String reverseString(String s){
-        StringBuilder res = new StringBuilder();
-        for(int i = s.length() - 1; i >= 0; i--){
-            res.append(s.charAt(i));
-        }
-            return res.toString();
-    }
-}
-`
-
-const lang_id = 62  // java
-
-const stdin = null;
-
-const expected_output = "fedcba";
 
 describe("Tests Judge0 Integration Into Backend", () => {
 
     test("Creates submission", async () => {
-        const expected_result = {
-            output: '',
-            error: '',
-            status_id: '',
-            compile_output: ''
-        }
+        const source_code = `
+            #include <iostream>
+            #include <string>
+            #include <algorithm>
+            using namespace std;
+
+            int main() {
+                string str = "abcdef";
+
+                reverse(str.begin(), str.end());
+
+                cout << str;
+
+                return 0;
+            }
+            `
+        const lang_id = 52  // C++
+        const stdin = null;
+
+        const expected_output = "fedcba";
 
         const submission = await executor.execute(source_code, lang_id, stdin, expected_output);
 
-        expect(submission.output).toBe(expected_result.output);
+        expect(submission.status.id).toBe(3);
+        expect(Buffer.from(submission.stdout,'base64').toString('utf-8')).toBe(expected_output);
 
+    });
+
+    test("Marks incorrect submissions wrong", async () => {
+        const source_code = `
+            #include <iostream>
+            #include <string>
+            #include <algorithm>
+            using namespace std;
+
+            int main() {
+                string str = "abcdef"
+
+                cout << str;
+
+                return 0;
+            }
+            `
+        const lang_id = 52  // C++
+        const stdin = null;
+
+        const submission = await executor.execute(source_code, lang_id, stdin, "error");
+
+        expect(submission.status.id).toBe(6);
+        expect(submission.status.description).toBe("Compilation Error");
     })
+
 })
