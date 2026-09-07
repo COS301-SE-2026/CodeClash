@@ -18,13 +18,18 @@ export const useGameTimer = (duration: number, onExpire: () => void) => {
     }, [duration]);
 
 
-    return useTimer({
+    const timer = useTimer({
         expiryTimestamp: expiry_time,
         autoStart: false,
         onExpire
-    })
-}
+    });
 
+    useEffect(() => {
+        if (duration > 0) timer.restart(expiry_time);
+    }, [duration]);
+
+    return timer;
+}
 
 function shuffle(array: Question[]) {
     let curr = array.length;
@@ -52,8 +57,8 @@ export const useGameQuestions = (
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [questionsReady, setQuestionsReady] = useState(false);
     const [waitingOpponent, setWaitingOpponent] = useState(false);
-
     const question_idx = useRef(0);
+
 
     const startQuestion = (
         player_id: string,
@@ -232,5 +237,17 @@ export const useMatchProgress = (
         opponent_done,
         opponentDone,
         updatePlayerLife
+    }
+}
+
+export const useMathSubmission = (answer: string): MathsSubmissionDTO => {
+    return { answer: answer };
+}
+
+export const useProgSubmission = (source_code: string, language_id: number, stdin: string | null): ProgSubmissionDTO => {
+    return {
+        source_code: source_code,
+        language_id: language_id,
+        stdin: stdin
     }
 }

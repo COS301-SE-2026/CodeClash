@@ -1,15 +1,16 @@
 import { DataSource, Repository } from "typeorm";
 import { describe, beforeAll, afterAll, it, expect, vi } from "vitest";
 
-import { createTestDataSource } from "../repositories/test-data-source";
-import { mock_users_array } from "../repositories/mocks/mock-user";
+import { createTestDataSource } from "../../test-data-source";
+import { mock_users_array } from "../../mocks/mock-user";
 import { Users } from '../../../src/entities/db-entities/user.entities'
 import { EloRatings } from '../../../src/entities/db-entities/elo.entities'
 import { EloRepository } from '../../../src/interface-adapters/repositories/elo.repository'
 import { MatchResultService } from '../../../src/application/usecases/services/match-result.service'
 import { IEloRepository } from '../../../src/application/interfaces/repositories/IEloRepository'
 import { IMatchResultRepository } from '../../../src/application/interfaces/repositories/IMatchResultRepository'
-import { EloUpdateResultDTO } from '../../../src/interface-adapters/dtos/elo.dto'
+import { EloUpdateResultDTO } from '../../../src/entities/dtos/elo.dto'
+import {MatchResultDTO} from '../../../src/entities/dtos/match-result.dto'
 
 let data_source: DataSource
 let elo_entity: Repository<EloRatings>
@@ -22,6 +23,7 @@ const testEloRepository = (repo: EloRepository, entity: Repository<EloRatings>):
   getElo: (user_id: string) => repo.getElo(user_id),
   getUsersElo: (user_ids: string[]) => repo.getUsersElo(user_ids),
   getUserRank: (user_id: string) => repo.getUserRank(user_id),
+ getLeaderboard: (limit: number, offset: number)=> repo.getLeaderboard(limit,offset),
 
   async updateRatingsAfterMatch(_match_id: string, winner_id: string, loser_id: string) {
     const apply = async (user_id: string, delta: number): Promise<EloUpdateResultDTO> => {
@@ -80,7 +82,7 @@ describe("Match result ranking", () => {
           const winner = mock_user[0]
           const loser = mock_user[2]
   
-          const result = await service.finaliseMatch(
+          const result:MatchResultDTO = await service.finaliseMatch(
               'match-uuid', winner.user_id, loser.user_id, true, statsFor(winner, loser)
           )
   
@@ -131,7 +133,7 @@ describe("Match result ranking", () => {
  
          vi.mocked(mockMatchResultRepo.getUserDetails).mockResolvedValueOnce({ username: 'integration_test_user_unranked', avatar: 0 })
  
-         const result = await service.finaliseMatch(
+         const result:MatchResultDTO = await service.finaliseMatch(
              'match-uuid-unranked', unranked_user.user_id, mock_user[1].user_id, false,
              statsFor(unranked_user, mock_user[1])
          )

@@ -12,13 +12,9 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [league, setLeague] = useState('');
     const { user, token} = useAuth();
     const [rank, setRank] = useState(0);
-<<<<<<< HEAD
-=======
-    const { user, token } = useAuth();
     const [current_streak, setCurrentStreak] = useState<number>(0);
     const [winning_streak, setWinningStreak] = useState<number>(0);
 
->>>>>>> 5378a30cd86c953bdc20aa94765d31b947e8a4e4
     const userId = user?.userId ?? ""
     const username = user?.username ?? '';
 
@@ -32,12 +28,8 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
 
         try {
-<<<<<<< HEAD
 
             API.get('elo/elo-get', {
-=======
-            await axios.get(url.concat('elo/elo-get'), {
->>>>>>> 5378a30cd86c953bdc20aa94765d31b947e8a4e4
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {
@@ -63,11 +55,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
 
         try {
-<<<<<<< HEAD
             API.get('user/avatar_id', {
-=======
-            await axios.get(url.concat('user/avatar_id'), {
->>>>>>> 5378a30cd86c953bdc20aa94765d31b947e8a4e4
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {
@@ -94,11 +82,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
 
         try {
-<<<<<<< HEAD
             API.get('user/league', {
-=======
-            axios.get(url.concat('user/league'), {
->>>>>>> 5378a30cd86c953bdc20aa94765d31b947e8a4e4
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then((res) => {
@@ -109,24 +93,13 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                         setError(`Error: ${res.status} ${res.data}`);
                     }
                 })
-<<<<<<< HEAD
 
-=======
->>>>>>> 5378a30cd86c953bdc20aa94765d31b947e8a4e4
         }
         catch (error) {
             setError(`Error Getting User League: ${error}`);
         }
     }
 
-
-    const refresh = async () => {
-        await Promise.all([
-            getElo(),
-            getAvatarUrl(),
-            getLeague()
-        ]);
-    }
 
     const getRank = async () => {
 
@@ -154,15 +127,13 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     }
 
-<<<<<<< HEAD
-=======
     const getCurrentStreak =  async () => {
         if (!token) {
             setError('Missing or Invalid Token');
             return;
         }
         try{
-            const res = await axios.get(url.concat('user/current_streak'), {
+            const res = await API.get('user/current_streak', {
                 headers: { Authorization: `Bearer ${token}` }
             });
             if (res.status === 200) setCurrentStreak(res.data.current_streak);
@@ -177,7 +148,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             return;
         }
         try{
-            const res = await axios.get(url.concat('user/winning_streak'), {
+            const res = await API.get('user/winning_streak', {
                 headers: { Authorization: `Bearer ${token}` }
             });
             if (res.status === 200) setWinningStreak(res.data.winning_streak);
@@ -196,7 +167,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         ])
     }
 
->>>>>>> 5378a30cd86c953bdc20aa94765d31b947e8a4e4
 
     useEffect(() => {
 
@@ -207,13 +177,9 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 getAvatarUrl(),
                 getLeague(),
                 getElo(),
-<<<<<<< HEAD
-                getRank()
-=======
                 getRank(),
                 getCurrentStreak(), // copied from above
                 getWinningStreak()
->>>>>>> 5378a30cd86c953bdc20aa94765d31b947e8a4e4
             ]);
         }
 
@@ -222,13 +188,8 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
 
     const value = useMemo(() => ({
-<<<<<<< HEAD
-        username, elo, avatar, error, league, userId, refresh,rank
-    }), [username, elo, avatar, error, league, userId,rank])
-=======
         username, elo, avatar, error, league, userId, refresh, rank, current_streak, winning_streak
     }), [username, elo, avatar, error, league, userId, rank, current_streak, winning_streak])
->>>>>>> 5378a30cd86c953bdc20aa94765d31b947e8a4e4
 
     return (
         <UserContext.Provider

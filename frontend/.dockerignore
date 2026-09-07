@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 node_modules
 npm-debug.log
 .git
@@ -18,23 +17,3 @@ build
 coverage
 .nyc_output
 *.pem
-=======
-node_modules
-npm-debug.log
-.git
-.gitignore
-README.md
-.env
-.env.local
-.env.*.local
-dist
-build
-.vscode
-.idea
-*.swp
-*.swo
-*~
-.DS_Store
-coverage
-.nyc_output
->>>>>>> 5378a30cd86c953bdc20aa94765d31b947e8a4e4

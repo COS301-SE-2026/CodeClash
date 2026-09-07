@@ -10,7 +10,6 @@ import { creationRequireAuth, requireAuth } from 'src/interface-adapters/auth/au
 import { getUserRank } from 'src/interface-adapters/controllers/rank.controllers';
 import { IEloRepository } from 'src/application/interfaces/repositories/IEloRepository';
 import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
-import { MarkingService } from 'src/application/usecases/services/marking/marking.service';
 
 export const createAPIRoutes = (
   elo_repo: IEloRepository,

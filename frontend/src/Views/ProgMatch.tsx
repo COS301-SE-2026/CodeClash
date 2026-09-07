@@ -1,4 +1,4 @@
-import { CodeEditor } from "@/components/features/code-rditor";
+import { CodeEditor } from "@/components/features/code-editor";
 import { Question } from "@/components/features/question";
 import { MatchScreen } from "@/components/shared/Match";
 import { useMatch } from "src/ViewModels/MatchViewModel"
@@ -6,17 +6,27 @@ import { ChevronRight, ChevronLeft } from 'lucide-react'
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
+import Loading from '@/components/shared/Loading';
+import { useState } from "react";
 
 export const ProgMatch = () => {
-
-    const { playerLife, seconds, minutes, avatars,
-        usernames, currentQuestion, opponentCurrent,
-        questions, results,
-        prevQuestion, nextQuestion, finishGame,  waitingOpponent
-
+    const [code, setCode] = useState('');
+    const {
+        playerLife, avatars, usernames,
+        seconds, minutes, questions,
+        currentQuestion, opponentCurrent,
+        nextQuestion, prevQuestion,
+        results, waitingOpponent,
+        finishGame, loading, submitQuestion
     } = useMatch();
 
-    // const curr = questions[currentQuestion];
+    const curr = questions[currentQuestion];
+
+    if (loading || !curr) {
+        return (
+            <Loading isOpen={loading}></Loading>
+        )
+    }
 
     return (
         <MatchScreen
@@ -33,16 +43,16 @@ export const ProgMatch = () => {
         >
             <Question
                 className={` h-[10rem]`}
-                difficulty={''}
-                title={''}
-                description={''}
+                difficulty={curr.difficulty!}
+                title={curr.title!}
+                description={curr.description!}
                 number={currentQuestion + 1}
-            
+
             />
 
             <div className="bg-red-300 flex items-center w-[80%] self-center">
                 <CodeEditor
-                    handleChange={() => { }}
+                    handleChange={setCode}
                 />
             </div>
 
@@ -54,8 +64,15 @@ export const ProgMatch = () => {
                 </div>
                 <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem] hover:-translate-y-1'
                     onClick={() => {
-                        // const answer = mathfieldRef.current?.value ?? '';
-                        // submitQuestion(curr.id!, answer)
+                        if (code.trim()) {
+                            submitQuestion(curr.id!, 'prog',
+                                {
+
+                                    source_code: code,
+                                    language_id: 54,
+                                    stdin: null
+                                })
+                        }
                     }}
                 >
                     SUBMIT

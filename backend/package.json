@@ -7,17 +7,13 @@
     "test": "tests"
   },
   "scripts": {
-<<<<<<< HEAD
     "start": "ts-node -r tsconfig-paths/register src/frameworks-drivers/server.ts",
     "prod": "node -r tsconfig-paths/register dist/frameworks-drivers/server.js",
     "build": "tsc && tsc-alias",
-=======
-    "start": "ts-node -r tsconfig-paths/register src/server.ts",
-    "start:server": "ts-node -r tsconfig-paths/register src/frameworks-drivers/server.ts",
->>>>>>> 5378a30cd86c953bdc20aa94765d31b947e8a4e4
     "dev": "nodemon --exec \"ts-node -r tsconfig-paths/register\" src/frameworks-drivers/server.ts",
     "test": "vitest",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "generate:api": "ts-node -r tsconfig-paths/register scripts/generate-api-spec.ts"
   },
   "keywords": [],
   "author": "",
@@ -35,6 +31,7 @@
     "mathjs": "^15.2.0",
     "pg-query-stream": "^4.16.0",
     "socket.io": "^4.8.3",
+    "swagger-jsdoc": "^6.3.0",
     "ws": "^8.21.0"
   },
   "jest": {
@@ -56,6 +53,7 @@
     "@types/node": "^25.9.5",
     "@types/pg": "^8.20.0",
     "@types/supertest": "^7.2.0",
+    "@types/swagger-jsdoc": "^6.0.4",
     "@types/ws": "^8.18.1",
     "@vitest/coverage-v8": "^4.1.7",
     "eslint-plugin-unicorn": "^72.0.0",

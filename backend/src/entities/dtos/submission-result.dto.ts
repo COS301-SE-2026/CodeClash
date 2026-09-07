@@ -1,6 +1,6 @@
 
 export interface ProgSubmissionResult {
-    stdout: string
+    stdout: string | null,
     time: string,
     memory: number,
     stderr: number | null,

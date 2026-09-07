@@ -1,5 +1,5 @@
 import { IAchievementRepository } from "src/application/interfaces/repositories/IAchievementRepository";
-import { AchievementDTO } from "src/interface-adapters/dtos/achievement.dto";
+import { AchievementDTO } from "src/entities/dtos/achievement.dto";
 
 // Achievement conditions -- will be extended as needed
 // N.B I haven't implemented "Comeback Kid" because of how life is calculated at the moment, it's too match dependent

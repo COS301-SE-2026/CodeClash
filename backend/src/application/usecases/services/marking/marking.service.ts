@@ -3,10 +3,9 @@ import { LifeSystem } from "src/application/usecases/systems/life.system";
 import { SubmissionSystem } from "src/application/usecases/systems/submission.system";
 import { NotificationService } from "../notification.service";
 import { MarkingStrategy } from "src/application/interfaces/marking/IMarkingStategy";
-import { ProgSubmissionResult, SubmissionResult } from "src/entities/dtos/submission-result.dto";
 import { OpponentProgress } from "../../systems/opponent-progress";
 import { SubmissionComponent } from "src/entities/components";
-import {  PlayerSubmissionDTO, ProgSubmissionDTO } from "src/entities/dtos/components.dto";
+import {  PlayerSubmissionDTO} from "src/entities/dtos/components.dto";
 
 export class MarkingService {
 
@@ -32,7 +31,7 @@ export class MarkingService {
         }
         catch (error) {
             console.error(`Error Checking answer: ${error}`);
-            throw new Error(`${error}`)
+            throw(`${error}`)
         }
     }
 
@@ -40,7 +39,6 @@ export class MarkingService {
         const new_life = this.life_System.updatePlayerLife(submission.match_id, submission.player_id, result);
         const progress = this.opponent_progress.updateOpponent(submission.match_id, submission.player_id, submission.question_number, result, new_life);
         const opponent = this.opponent_progress.getOpponent(submission.match_id, submission.player_id);
-
         this.notifications.markingComplete(submission.player_id, result, new_life);
         this.notifications.opponentProgress(opponent!, progress);
 

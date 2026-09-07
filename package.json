@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "test": "vitest",
+    "test": "vitest --mode dev",
     "frontend": "npm run dev --prefix frontend",
     "backend": "npm run dev --prefix backend",
     "dev": "npm run frontend && npm run backend",
     "test:backend": "cd backend && npx vitest run",
     "test:backend:coverage": "cd backend && npx vitest run --coverage",
-    "test:frontend": "cd frontend && NODE_OPTIONS=--no-experimental-webstorage npx vitest run",
-    "test:frontend:coverage": "cd frontend && NODE_OPTIONS=--no-experimental-webstorage npx vitest run --coverage",
+    "test:frontend": "cd frontend && NODE_OPTIONS=--no-experimental-webstorage npx vitest run --mode dev ",
+    "test:frontend:coverage": "cd frontend && NODE_OPTIONS=--no-experimental-webstorage npx vitest run --coverage --mode dev",
     "lint": "npm run lint --prefix frontend && npm run lint --prefix backend",
     "lint:staged": "lint-staged",
     "prepare": "husky"

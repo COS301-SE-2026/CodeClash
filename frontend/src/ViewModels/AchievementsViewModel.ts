@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useAchievementToast } from "src/context/Achievement/AchievementToastContext";
 import { useAuth } from "src/context/Auth/hooks/useAuth";
 import { achievementContent } from "src/Models/AchievementsModel";

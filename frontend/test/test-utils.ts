@@ -16,7 +16,6 @@ export async function login() {
   try {
     await signIn({ username: env.VITE_INTEGRATION_TEST_USER!, password: env.VITE_INTEGRATION_TEST_PASS! })
   }
-<<<<<<< HEAD
   catch (error: any) {
 
     if (error.name === 'NotAuthorizedError') {
@@ -25,11 +24,6 @@ export async function login() {
     }
 
     throw error
-=======
-  catch (error) {
-    // console.log(`Error signing user in: ${error}`)
-    throw new Error(`Error signing user in: ${error}`, {cause: error})
->>>>>>> 5378a30cd86c953bdc20aa94765d31b947e8a4e4
   }
 
 }

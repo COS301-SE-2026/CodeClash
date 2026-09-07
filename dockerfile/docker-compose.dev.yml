@@ -20,6 +20,8 @@ services:
       - FRONTEND_URL=${FRONTEND_URL}
       - COGNITO_JWKS_URI=${COGNITO_JWKS_URI} 
       - PORT=${PORT}
+      - JUDGE_0_URL=${JUDGE_0_URL}
+      - JUDGE_0_TOKEN=${JUDGE_0_TOKEN}
     depends_on:
       - db
     volumes:

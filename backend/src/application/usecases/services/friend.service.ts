@@ -1,5 +1,5 @@
 import { IFriendRepository } from "src/application/interfaces/repositories/IFriendRepository";
-import { FriendDTO, FriendRequestDTO, FriendInviteDTO } from "src/interface-adapters/dtos/friendship.dto";
+import { FriendDTO, FriendRequestDTO, FriendInviteDTO } from "src/entities/dtos/friendship.dto";
 import { randomBytes } from "node:crypto";
 
 export class FriendService {
