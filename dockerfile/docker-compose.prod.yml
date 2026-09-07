@@ -18,9 +18,7 @@ services:
       - FRONTEND_URL=${FRONTEND_URL}
       - COGNITO_JWKS_URI=${COGNITO_JWKS_URI} 
       - PORT=${PORT}
-    depends_on:
-      db:
-        condition: service_healthy
+
     networks:
       - pgnetwork
 
@@ -37,25 +35,6 @@ services:
     networks:
       - pgnetwork
 
-  db:
-    image: postgres:15-alpine
-    environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASS}
-      POSTGRES_DB: ${DB_DB}
-    ports:
-      - "5433:5432"
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
-      interval: 5s
-      timeout: 30s
-      retries: 5
-      start_period: 30s
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./database:/docker-entrypoint-initdb.d
-    networks:
-      - pgnetwork
 
   redis:
     image: redis:8.6.3-alpine
@@ -71,8 +50,6 @@ services:
       - pgnetwork
 
 volumes:
-  postgres_data:
-  pgadmin_data:
   redis-data:
     driver: local
 

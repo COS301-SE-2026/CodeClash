@@ -17,17 +17,17 @@ export class CodeExecutor implements ICodeExecutor {
         // !!!! Submission queue can be full, we need to plan for this
 
         const data = {
-            source_code: source_code,
+            source_code: Buffer.from(source_code).toString('base64'),
             language_id: language_id,
             stdin: stdin,
-            expected_output: expected_output,
+            expected_output: Buffer.from(expected_output).toString('base64'),
             memory_limit: this.memory_limit,
             stack_limit: this.stack_limit,
             max_file_size: this.max_file_size
         }
 
         try {
-            const result = await axios.post(`${process.env.JUDGE_0_URL}/submissions?wait=true&base64_encoded=false`, data,
+            const result = await axios.post(`${process.env.JUDGE_0_URL}/submissions?wait=true&base64_encoded=true`, data,
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -35,18 +35,20 @@ export class CodeExecutor implements ICodeExecutor {
                     }
                 });
 
+
             return result.data;
         }
         catch (error) {
             if (axios.isAxiosError(error)) {
+
                 return {
                     stdout: null,
                     time: '',
                     memory: 0,
                     stderr: error.response?.data.stderr ?? null,
                     token: '',
-                    compile_output: error.response?.data.compile_output??null,
-                    message:null,
+                    compile_output: error.response?.data.compile_output ?? null,
+                    message: null,
                     status: {
                         id: 6,
                         description: "Compilation Error"
@@ -54,7 +56,7 @@ export class CodeExecutor implements ICodeExecutor {
                 }
             }
 
-            throw error;
+            throw ('Error Marking Submission');
         }
     }
 }
