@@ -32,13 +32,11 @@ export const Yes = ({
         >
             <image href={torso} width="50" x="60" y="40" height="120"/>
             <image href={excited} width="50" x="60" y="40" height="45"/>
-
-            <motion.g>
-                <image href={rightLeg} width="50" x="40" y="122" height="57"/>
-                <image href={leftLeg} width="50" x="80" y="122" height="57"/>
-                <image href={rightShoulder} width="50" x="28" y="92" height="55"/>
-                <image href={rightArm} width="50" x="26" y="117" height="25"/>
-                <image href={rightHand} width="50" x="27" y="132" height="17"/>
+            <image href={rightLeg} width="50" x="40" y="122" height="57"/>
+            <image href={leftLeg} width="50" x="80" y="122" height="57"/>
+            <image href={rightShoulder} width="50" x="28" y="92" height="55"/>
+            <image href={rightArm} width="50" x="26" y="117" height="25"/>
+            <image href={rightHand} width="50" x="27" y="132" height="17"/>
             
 
 
@@ -78,7 +76,6 @@ export const Yes = ({
                     </motion.g>
                 </motion.g>
                 </motion.g>
-            </motion.g>
             </motion.g>
         </svg>
     )
