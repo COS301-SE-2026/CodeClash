@@ -1,0 +1,16 @@
+frontend/src/animations/poses/rig.tsx
+  h_b13c5d77534129 54-69
+frontend/src/animations/poses/thinking.tsx
+  h_b13c5d77534129 11,26-27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "4f539dfcd70a4b6c9696c9fd4b5dee5444c89f6a",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
