@@ -462,6 +462,15 @@ psd
 thumb
 sketch
 
+*.env.*
+*env*
+
+*.pem
+*/**.pem
+
+*/**.conf
+*.conf
+
 !frontend/@/lib/
 
 # End of https://www.toptal.com/developers/gitignore/api/node,react,java,python,intellij
