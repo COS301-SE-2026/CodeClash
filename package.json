@@ -9,6 +9,7 @@
     "dev": "npm run frontend && npm run backend",
     "test:backend": "cd backend && npx vitest run",
     "test:backend:coverage": "cd backend && npx vitest run --coverage",
+    "test:backend:coverage:ci":"cd backend && npx vitest run --coverage --exclude \"tests/integration/code-executor/**\" --exclude \"tests/integration/services/marking.service.test.ts\"",
     "test:frontend": "cd frontend && NODE_OPTIONS=--no-experimental-webstorage npx vitest run --mode dev ",
     "test:frontend:coverage": "cd frontend && NODE_OPTIONS=--no-experimental-webstorage npx vitest run --coverage --mode dev",
     "lint": "npm run lint --prefix frontend && npm run lint --prefix backend",
