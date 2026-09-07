@@ -48,7 +48,7 @@ jobs:
             ports:
                 - 5432:5432
             options: >-
-                --health-cmd "pg_isready -U ${DB_TEST_USER} -d ${DB_TEST_NAME}"
+                --health-cmd pg_isready
                 --health-interval 10s
                 --health-timeout 5s
                 --health-retries 5
@@ -76,13 +76,13 @@ jobs:
       working-directory: frontend
 
     - name: Test and coverage backend
-      run: npm run test:backend:coverage
+      run: npm run test:backend:coverage:ci
       env:
-        DB_TEST_HOST: localhost
-        DB_TEST_PORT: ${{secrets.DB_TEST_PORT}}
-        DB_TEST_USER: ${{secrets.DB_TEST_USER}}
-        DB_TEST_PASSWORD: ${{secrets.DB_TEST_PASSWORD}}
-        DB_TEST_NAME: ${{secrets.DB_TEST_NAME}}
+        DB_HOST: localhost
+        DB_PORT: ${{secrets.DB_TEST_PORT}}
+        DB_USER: ${{secrets.DB_TEST_USER}}
+        DB_PASSWORD: ${{secrets.DB_TEST_PASSWORD}}
+        DB_NAME: ${{secrets.DB_TEST_NAME}}
         COGNITO_USER_POOL_ID: ${{secrets.COGNITO_USER_POOL_ID}}
         COGNITO_CLIENT_ID: ${{secrets.COGNITO_CLIENT_ID}}
         COGNITO_REGION: ${{secrets.COGNITO_REGION}}
@@ -94,10 +94,10 @@ jobs:
         PORT: ${{secrets.PORT}}
 
     - name: Starting backend
-      run: npm run start:server > /tmp/backend.log 2>&1 &
+      run: npm run start > /tmp/backend.log 2>&1 &
       working-directory: backend
       env:
-        DB_HOST: ${{secrets.DB_TEST_HOST}}
+        DB_HOST: localhost
         DB_PORT: ${{secrets.DB_TEST_PORT}}
         DB_USER: ${{secrets.DB_TEST_USER}}
         DB_PASSWORD: ${{secrets.DB_TEST_PASSWORD}}
@@ -110,11 +110,12 @@ jobs:
         COGNITO_JWKS_URI: ${{secrets.COGNITO_JWKS_URI}}
         REDIS_URL: ${{secrets.REDIS_URL}}
         FRONTEND_URL: ${{secrets.FRONTEND_URL}}
+        PORT: ${{secrets.PORT}}
 
     - name: Waiting for backend to be ready for the frontend integration tests
       run: |
           for i in $(seq 1 90); do
-            if curl -fs --connect-timeout 2 --max-time 5 "http://localhost:${PORT}/health" >/dev/null 2>&1; then
+            if curl -fs --connect-timeout 2 --max-time 5 "http://localhost:${{secrets.PORT}}/health" >/dev/null 2>&1; then
               echo "backend read after ${is}s"
               exit 0
             fi
