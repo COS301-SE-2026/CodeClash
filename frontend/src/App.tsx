@@ -57,6 +57,8 @@ const App: React.FC = () => {
 
     return (
         <Routes>
+            <Route path='/' element={<Navigate to='/dashboard' replace/>} />
+
             <Route path='/sign-in' element={<SignIn />} />
             <Route path='/sign-up' element={<SignUp />} />
             <Route path='/profile' element={<Profile />} />
@@ -69,12 +71,10 @@ const App: React.FC = () => {
             <Route path='/terms' element={<TermsAndConditions />} />
             <Route path="/brand-style-guide" element={<BrandStyleGuide />} />
             <Route path="/agent" element={<Agent />} />
-            <Route path='/game-guide' element={<GameGuide/>}/>
-
+            <Route path='/game-guide' element={<GameGuide />} />
 
             {/* Pages with sidebar inside the app */}
             <Route element={<Layout />}>
-                <Route path='/' element={<Dashboard/>} />
                 <Route path='/dashboard' element={<Dashboard />} />
                 <Route path='/help-menu' element={<HelpMenu />} />
                 <Route path='/tournaments' element={<Tournaments />} />
@@ -86,7 +86,7 @@ const App: React.FC = () => {
                 <Route path='/settings' element={<Settings />} />
             </Route>
 
-            <Route path="*" element={<Navigate to='/dashboard' replace />} />
+            <Route path="*" element={<Navigate to='/dashboard' replace/>}/>
         </Routes>
     )
 }

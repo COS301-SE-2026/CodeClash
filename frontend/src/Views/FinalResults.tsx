@@ -6,9 +6,8 @@ import { FinalResultsViewModelFunction } from "../ViewModels/FinalResultsViewMod
 
 import Loading from "@/components/shared/Loading";
 import Starfield from "@/components/ui/animations/Starfield";
+import Confetti from "@/components/ui/animations/Confetti";
 import { finalResultsContent, type PlayerFinalResults } from "src/Models/FinalResultsModel";
-import { Lose } from "src/animations/lose";
-import { ArmRaise } from "src/animations/armRaise";
 
 const FinalResults: React.FC = () => {
     const navigate = useNavigate();

@@ -1,14 +1,12 @@
-import {ChevronRight, Swords, Users2, Flame, Sparkles, Trophy} from 'lucide-react';
+import {ChevronRight, Swords, Users2, Flame, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useEffect } from "react";
-
 import { useDashboardViewModel } from '../ViewModels/DashboardViewModel';
+import { useEffect } from 'react';
 
 import Popup from './Popup'
 
 import Loading from '@/components/shared/Loading';
 import Starfield from '@/components/ui/animations/Starfield';
-import { UseUserAvatar } from './Profile';
 import ComingSoon from '@/components/ui/ComingSoon';
 
 type SkillMetric = {
@@ -67,7 +65,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className='relative w-full min-h-[calc(100vh-80px)] bg-cover bg-center'>
+    <div className='relative w-full min-h-screen bg-cover bg-center overflow-hidden'>
       <div className='absolute inset-0 bg-gradient-to-b from-background/85 via-background/75 to-background'/>
       <Starfield/>
 
@@ -75,11 +73,8 @@ const Dashboard = () => {
           <div className='grid grid-cols-1 lg:grid-cols-[1.1fr_1fr_1.2fr] gap-6 max-w-[1400px] mx-auto items-start'>
             {/*Profile + Play */}
             <div className='flex flex-col gap-6'>
-              <div className='card-elevated flex items-center gap-4 p-6'>
-                <div className='w-28 h-32.5 flex items-center justify-center rounded-[20px] object-cover shrink-0 '>
-                  <UseUserAvatar vb1={170} vb2={186} lm={1.5} round={20}/>
-                </div>
-                
+              <div className='card-elevated flex items-center gap-4 p-8'>
+                <img src = {avatar} alt='' className='w-16 h-16 rounded-full border-2 border-primary object-cover shrink-0'/>
                 <div>
                   <p className='text-xl font-black text-primary-text'>{username}</p>
                   <span className='text-sm text-primary-text'>{league}</span>
@@ -108,14 +103,14 @@ const Dashboard = () => {
                   <div className='card-elevated flex flex-col items-center justify-center gap-1 py-5'>
                     <Flame size={20} className='font-black mb-1'/>
                     <p className='text-xsm uppercase tracking-wide font-black text-center justify-center'>Current Streak</p>
-                    <p className='score-display text-2xl font-black'>{current_streak ?? '-'}</p>
+                    <p className='score-display text-2xl font-black'>-</p>
                   </div>
                   <div className='card-elevated flex flex-col items-center justify-center gap-1 py-5'>
                     <Sparkles size={20} className='font-black mb-1'/>
                     <p className='text-xsm uppercase tracking-wide font-black text-center justify-center'>Winning Streak</p>
-                    <p className='score-display text-2xl font-black'>{winning_streak ?? '-'}</p> 
+                    <p className='score-display text-2xl font-black'>-</p> 
                   </div>
-                </div> 
+                </div>
               {/*Skill score */}
               <div className='card-elevated flex flex-col items-center justify-center p-8 text-center'>
                 <p className='mb-4 text-md font-black'>Elo Rating</p>
@@ -134,22 +129,10 @@ const Dashboard = () => {
                     </Link>
                   </div>
                   <div className='flex items-center gap-4 rounded-2xl bg-background-elevated border border-border p-3'>
-                    {recentAchievement ? (
-                      <>
-                        <div className='w-10 h-10 rounded-full border-2 border-primary flex items-center justify-center shrink-0'>
-                          {recentAchievement.icon === 'trophy' && <Trophy size={18} className='text-primary'/>}
-                          {recentAchievement.icon === 'flame' && <Flame size={18} className='text-primary'/>}
-                          {recentAchievement.icon === 'zap' && <Sparkles size={18} className='text-primary'/>}
-                          {recentAchievement.icon === 'medal' && <Trophy size={18} className='text-primary'/>}
-                        </div>
-                        <div>
-                          <p className='text-sm font-semibold text-primary'>{recentAchievement.name}</p>
-                          <p className='text-xsm text-muted-text mt-1'>{recentAchievement.description}</p>
-                        </div>
-                      </>
-                    ) : (
-                      <p className='text-xsm text-muted'>No achievements earned yet. Play a match!</p>
-                    )}
+                    <div>
+                      <p className='text-sm font-semibold text-muted'>Badge Name</p>
+                      <p className='text-xsm text-muted-text mt-1'>Description of award</p>
+                    </div>
                   </div>
                 </div>
 
