@@ -203,7 +203,7 @@ function ProfileView(){
   const [colour, setColour] = useState(() => localStorage.getItem("avatarColour") ?? "bg3");
   const [editOpen, setEditOpen] = useState(false);
   
-  const { userData, loadingData, error} = getProfile();
+  const { loadingData, error} = getProfile();
 
   const onLogout = useLogOut();
 
@@ -228,34 +228,29 @@ function ProfileView(){
       
       </Link>
 
-        <div className="flex items-center w-[25%] mb-10 ml-4" >
+        <div className="flex items-center w-[30%] h-[40%] mb-2 ml-4" >
           {/* <img src={userData?.avatar} alt="avatarImage" className="" /> */}
           <FinalAvatarDisplay pose={pose} bg={colour} vb1={170} vb2={195} onClick={() => setEditOpen(true)} leftMargin={10} rounded={20}/>
         </div>
 
         <Starfield/>
 
-        <div className='card-glow w-[50%] h-[70%] grid grid-rows-2 items-center justify-center'>
-        <p className="eyebrow text-center text-md mt-5 [text-shadow:0px_0px_12px_#D6405B]">{userData?.username}</p>
-        <p className="eyebrow text-center text-sm [text-shadow:0px_0px_12px_#c0395a80] mt-2">ELO</p>
-        <p className="score-display text-center text-sm -mt-2">{userData?.elo}</p>
-        <div className="text-md font-semibold text-center uppercase text-primary-text mt-5">{userData?.league}</div>
-        <div>
-          <p className="text-[1.5rem] text-center uppercase font-semibold text-primary-text mb-7">Current Rank - {userData?.rank}</p>
-        </div>
+      
+        <p className="eyebrow text-center text-xsm [text-shadow:0px_0px_12px_#D6405B] mb-10">click avatar to edit</p>
+        
 
-        <div className="profile-divider" />
+        
 
         <Button
           variant={"default"}
           type="button"
           onClick={onLogout}
-          className="w-[100%] py-5 mx-auto mb-6"
+          className="w-[20%] h-[10%] py-5 mx-auto mb-6"
         >
           Log Out
         </Button>
 
-      </div>
+      
 
         <AnimatePresence>
           {editOpen && (
