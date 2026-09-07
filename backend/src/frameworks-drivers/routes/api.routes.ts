@@ -28,7 +28,7 @@ import {
 
 import { AppDataSource } from '../config/data-source';
 import { getMatchDetails, getMatchHistory } from 'src/interface-adapters/controllers/match-history.controllers';
-import { LeaderboardSystem } from 'src/application/usecases/services/leaderboard.service';
+import { LeaderboardService } from 'src/application/usecases/services/leaderboard.service';
 
 const router = Router();
 const user_repo = new UserRepository(AppDataSource.getRepository(Users))
@@ -41,7 +41,7 @@ const match_history_repo = new MatchHistoryRepository(AppDataSource.getRepositor
 
 router.use(requireAuth(user_repo))
 
-const leaderboard_system = new LeaderboardSystem(elo_repo);
+const leaderboard_system = new LeaderboardService(elo_repo);
 router.get('/rank', getUserRank(leaderboard_system));
 /**
  * @swagger
