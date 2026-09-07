@@ -104,18 +104,12 @@ const Dashboard = () => {
                   <div className='card-elevated flex flex-col items-center justify-center gap-1 py-5'>
                     <Flame size={20} className='font-black mb-1'/>
                     <p className='text-xsm uppercase tracking-wide font-black text-center justify-center'>Current Streak</p>
-                    <p className='score-display text-2xl font-black'>-</p>
-                    <Flame size={20} className='text-primary mb-1'/>
-                    <p className='text-xsm uppercase tracking-wide text-muted'>Current Streak</p>
-                    <p className='score-display text-2xl'>{current_streak ?? '-'}</p>
+                    <p className='score-display text-2xl font-black'>{current_streak ?? '-'}</p>
                   </div>
                   <div className='card-elevated flex flex-col items-center justify-center gap-1 py-5'>
                     <Sparkles size={20} className='font-black mb-1'/>
                     <p className='text-xsm uppercase tracking-wide font-black text-center justify-center'>Winning Streak</p>
-                    <p className='score-display text-2xl font-black'>-</p> 
-                    <Sparkles size={20} className='text-primary mb-1'/>
-                    <p className='text-xsm uppercase tracking-wide text-muted'>Winning Streak</p>
-                    <p className='score-display text-2xl'>{winning_streak ?? '-'}</p>
+                    <p className='score-display text-2xl font-black'>{winning_streak ?? '-'}</p> 
                   </div>
                 </div> 
               {/*Skill score */}

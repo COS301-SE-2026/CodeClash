@@ -48,8 +48,8 @@ const App: React.FC = () => {
                 <Route path='/sign-up' element={<SignUp />} />
                 <Route path='terms' element={<TermsAndConditions />} />
                 <Route path='/brand-style-guide' element={<BrandStyleGuide />} />
-                <Route path='/game-guide' element={<GameGuide />} />
                 <Route path='/help-menu' element={<HelpMenu />} />
+                <Route path='/game-guide' element={<GameGuide/>}/>
                 <Route path='*' element={<Navigate to='/sign-in' replace />} />
 
             </Routes>
