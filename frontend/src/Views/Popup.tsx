@@ -3,9 +3,10 @@ import React from "react"
 import { useNavigate } from 'react-router-dom';
 import type { GameMode } from 'src/dtos/matchmaking.dto';
 
-import robot from '../assets/Robots/arms_up.png'
+
 import { type PopupProps } from '../Models/PopUpModel';
 import { useSelectTopic } from '../ViewModels/PopUpViewModel';
+import { Yes } from 'src/animations/yes';
 
 import { Card } from '@/components/ui/card'
 
@@ -26,10 +27,14 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
 
     return (
         <div className="fixed inset-0 z-50  bg-black/50 flex items-center justify-center  ">
-            <img src={robot} alt='robot-background' className='absolute h-[80%] top-0' />
+            {/* <img src={robot} alt='robot-background' className='absolute h-[80%] top-0' /> */}
+           
+            <div className="absolute h-full w-full top-[-12rem] left-[11.5rem]">
+                <Yes/> 
+            </div>
             <div className="relative w-[50%] h-[4rem] top-[-6rem] ">
 
-                <Card className="bg-secondary h-[35rem] w-[100%] rounded-3xl  text-center flex items-center absolute">
+                <Card className="bg-secondary h-[35rem] w-[100%] rounded-3xl  text-center flex items-center absolute inset-0">
                     <h1 className="text-[64px] heading text-secondary-text font-extrabold">
                         Choose a Topic
                     </h1>

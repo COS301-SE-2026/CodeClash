@@ -7,7 +7,6 @@ import BrandStyleGuide from "./Views/BrandStyleGuide";
 import Dashboard from "./Views/Dashboard";
 import MatchFound from "./Views/MatchFound";
 import MathMatch from "./Views/MathsMatch";
-
 import MatchHistory from "./Views/MatchHistory";
 import ForgotPassword from "./Views/ForgotPassword";
 import TermsAndConditions from "./Views/TermsAndConditions";

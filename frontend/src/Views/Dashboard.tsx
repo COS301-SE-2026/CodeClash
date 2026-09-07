@@ -8,6 +8,7 @@ import Popup from './Popup'
 
 import Loading from '@/components/shared/Loading';
 import Starfield from '@/components/ui/animations/Starfield';
+import { UseUserAvatar } from './Profile';
 import ComingSoon from '@/components/ui/ComingSoon';
 
 type SkillMetric = {
@@ -52,7 +53,7 @@ const SkillProgressCard = ({
 )
 
 const Dashboard = () => {
-  const { isOpen, openPopUp, closePopUp, username, elo, league, avatar, isLoading, current_streak, winning_streak, recentAchievement ,refresh } = useDashboardViewModel();
+  const { isOpen, openPopUp, closePopUp, username, elo, league, isLoading, current_streak, winning_streak, recentAchievement ,refresh } = useDashboardViewModel();
 
     useEffect(() => {
     refresh();
@@ -74,8 +75,11 @@ const Dashboard = () => {
           <div className='grid grid-cols-1 lg:grid-cols-[1.1fr_1fr_1.2fr] gap-6 max-w-[1400px] mx-auto items-start'>
             {/*Profile + Play */}
             <div className='flex flex-col gap-6'>
-              <div className='card-elevated flex items-center gap-4 p-8'>
-                <img src = {avatar} alt='' className='w-16 h-16 rounded-full border-2 border-primary object-cover shrink-0'/>
+              <div className='card-elevated flex items-center gap-4 p-6'>
+                <div className='w-28 h-32.5 flex items-center justify-center rounded-[20px] object-cover shrink-0 '>
+                  <UseUserAvatar vb1={170} vb2={186} lm={1.5} round={20}/>
+                </div>
+                
                 <div>
                   <p className='text-xl font-black text-primary-text'>{username}</p>
                   <span className='text-sm text-primary-text'>{league}</span>
