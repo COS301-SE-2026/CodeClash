@@ -7,9 +7,8 @@ import { Stand } from 'src/animations/poses/rig';
 import { Peace } from 'src/animations/poses/peace';
 import { Okay } from 'src/animations/poses/okay';
 import { Thinking } from 'src/animations/poses/thinking';
-import {X} from "lucide-react"
+import {X, ArrowLeft} from "lucide-react"
 import Starfield from '@/components/ui/animations/Starfield';
-import { ArrowLeft } from 'lucide-react';
 import "../styles/global.css"
 
 const colours = [
