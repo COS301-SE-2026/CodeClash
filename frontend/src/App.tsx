@@ -1,4 +1,4 @@
-import type React from "react";
+import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import { useAuth } from "./context/Auth/hooks/useAuth";
@@ -7,7 +7,6 @@ import BrandStyleGuide from "./Views/BrandStyleGuide";
 import Dashboard from "./Views/Dashboard";
 import MatchFound from "./Views/MatchFound";
 import MathMatch from "./Views/MathsMatch";
-
 import MatchHistory from "./Views/MatchHistory";
 import ForgotPassword from "./Views/ForgotPassword";
 import TermsAndConditions from "./Views/TermsAndConditions";
@@ -20,7 +19,6 @@ import MatchSearching from "./Views/MatchSearching";
 import Profile from "./Views/Profile";
 import SignIn from "./Views/SignIn";
 import SignUp from "./Views/SignUp";
-import { ProgMatch } from "./Views/ProgMatch";
 
 import Loading from "@/components/shared/Loading";
 import Tournaments from "./Views/Tournaments";
@@ -29,6 +27,7 @@ import Shop from "./Views/Shop";
 import Friends from "./Views/Friends/Friends";
 import Achievements from "./Views/Achievements";
 import Settings from "./Views/Settings";
+import { ProgMatch } from "./Views/ProgMatch";
 
 const App: React.FC = () => {
 
@@ -36,7 +35,8 @@ const App: React.FC = () => {
     if (isLoading) {
         return <Loading isOpen={isLoading} />
     }
-
+   
+   
     const logged_in = user !== null
 
     if (!logged_in) {
@@ -48,6 +48,7 @@ const App: React.FC = () => {
                 <Route path='terms' element={<TermsAndConditions />} />
                 <Route path='/brand-style-guide' element={<BrandStyleGuide />} />
                 <Route path='/help-menu' element={<HelpMenu />} />
+                <Route path='/game-guide' element={<GameGuide/>}/>
                 <Route path='*' element={<Navigate to='/sign-in' replace />} />
 
             </Routes>
@@ -64,9 +65,7 @@ const App: React.FC = () => {
             <Route path='/match-searching' element={<MatchSearching />} />
             <Route path='/match-found' element={<MatchFound />} />
             <Route path='/math-match' element={<MathMatch />} />
-            <Route path='/leaderboard' element={<Leaderboard />} />
             <Route path='/programming-match' element={<ProgMatch />} />
-            <Route path='/results' element={<FinalResults />} />
             <Route path='/results' element={<FinalResults />} />
             <Route path='/forgot-password' element={<ForgotPassword />} />
             <Route path='/terms' element={<TermsAndConditions />} />
