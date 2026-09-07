@@ -37,7 +37,7 @@ describe('Testing Programming Marker', () => {
         };
         const prog_marker = new MarkProg(executor);
 
-        await prog_marker.mark(submission, answer.answer);
+        await prog_marker.mark(submission, answer);
 
         expect(executor.execute).toHaveBeenCalledWith(submission.source_code, submission.language_id, submission.stdin, answer.answer);
     })
