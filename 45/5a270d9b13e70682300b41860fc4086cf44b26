@@ -1,0 +1,16 @@
+backend/package-lock.json
+  h_58e143dc25f856 21,921-929,2983-2995,3161-3166,3506-3511,4145-4157,4791-4796,5364-5386,6471-6476,7025-7030,7293-7301
+backend/src/frameworks-drivers/routes/api.routes.ts
+  h_58e143dc25f856 31,44
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "455a270d9b13e70682300b41860fc4086cf44b26",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
