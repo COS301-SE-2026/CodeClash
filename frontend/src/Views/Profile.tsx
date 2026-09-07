@@ -69,7 +69,7 @@ function FinalAvatarDisplay({pose, bg, onClick, vb1, vb2, leftMargin, rounded} :
       
         <span   
           className="flex items-center justify-center w-[100%] h-[100%] mt-2">
-          <poseData.preview vb1={vb1} vb2={vb2}/>
+          <poseData.preview vb1={vb1} vb2={vb2} width="100%" height="100%"/>
         </span>
 
         <div className="w-[100%] h-[100%]">
