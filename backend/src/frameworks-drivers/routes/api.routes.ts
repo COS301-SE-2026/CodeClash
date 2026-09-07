@@ -28,20 +28,20 @@ import {
 
 import { AppDataSource } from '../config/data-source';
 import { getMatchDetails, getMatchHistory } from 'src/interface-adapters/controllers/match-history.controllers';
-import { LeaderboardSystem } from 'src/application/usecases/services/leaderboard.service';
+import { LeaderboardService } from 'src/application/usecases/services/leaderboard.service';
 
 const router = Router();
 const user_repo = new UserRepository(AppDataSource.getRepository(Users))
 const elo_repo = new EloRepository(AppDataSource.getRepository(EloRatings))
 const achievement_repo = new AchievementRepository(AppDataSource.getRepository(Achievement), AppDataSource.getRepository(Users));
-const friend_repo = new FriendRepository(AppDataSource.getRepository(Friendship), AppDataSource.getRepository(FriendInvite), AppDataSource.getRepository(EloRatings));
+const friend_repo = new FriendRepository(AppDataSource.getRepository(Friendship), AppDataSource.getRepository(FriendInvite), elo_repo);
 const achievement_service = new AchievementService(achievement_repo);
 const friend_service = new FriendService(friend_repo);
 const match_history_repo = new MatchHistoryRepository(AppDataSource.getRepository(Matches), AppDataSource.getRepository(MatchLog), AppDataSource.getRepository(MatchStats));
 
 router.use(requireAuth(user_repo))
 
-const leaderboard_system = new LeaderboardSystem(elo_repo);
+const leaderboard_system = new LeaderboardService(elo_repo);
 router.get('/rank', getUserRank(leaderboard_system));
 /**
  * @swagger
