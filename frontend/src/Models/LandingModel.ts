@@ -110,12 +110,7 @@ export const docs: Docs[] = [
         icon: 'palette',
         link: '/brand-style-guide',
     },
-    {
-        title: 'Game Guide',
-        desc: 'Learn about game modes, matchmaking, scoring, ELO rankings, badges and everything you need to before entering the CodeClashe Arena.',
-        icon: 'book',
-        link: '/game-guide',
-    },
+
     {
         title: 'Help Menu',
         desc: 'Find answers to common questions, and learn how to use every part of CodeClash',

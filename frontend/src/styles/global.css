@@ -784,6 +784,12 @@
     animation: twinkle 3s ease-in-out infinite;
   }
 
+  :root.light .starfield span, [data-theme= 'light'] .starfield span {
+    width: 3px;
+    height: 3px; 
+    background: rgba(192, 57, 90, 0.35);
+  }
+
   /*Animations for float and glow*/
   .animate-float {
     animation: float 5s ease-in-out infinite;
