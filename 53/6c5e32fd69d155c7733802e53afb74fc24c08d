@@ -1,0 +1,612 @@
+.github/workflows/ci.yml
+  h_58e143dc25f856 96-128
+.github/workflows/lint.yml
+  h_58e143dc25f856 1-113
+.vscode/settings.json
+  h_58e143dc25f856 1-2
+README.md
+  h_58e143dc25f856 49,76,102,105-109
+backend/README.md
+  h_58e143dc25f856 1-206
+backend/eslint.config.mjs
+  h_58e143dc25f856 1-19
+backend/index.ts
+  h_58e143dc25f856 1-5
+backend/package.json
+  h_58e143dc25f856 10,14-17
+backend/src/application/interfaces/cache/IMatchmakingCache.ts
+  h_58e143dc25f856 2
+backend/src/application/interfaces/repositories/IAchievementRepository.ts
+  h_58e143dc25f856 1-9
+backend/src/application/interfaces/repositories/IAnswerRepository.ts
+  h_58e143dc25f856 1
+backend/src/application/interfaces/repositories/IEloRepository.ts
+  h_58e143dc25f856 1-4,13-14
+backend/src/application/interfaces/repositories/IFriendRepository.ts
+  h_58e143dc25f856 1-12
+backend/src/application/interfaces/repositories/IMatchHistoryRepository.ts
+  h_58e143dc25f856 1-23
+backend/src/application/interfaces/repositories/IMatchRepository.ts
+  h_58e143dc25f856 4-5
+backend/src/application/interfaces/repositories/IMatchResultRepository.ts
+  h_58e143dc25f856 1
+backend/src/application/interfaces/repositories/IMatchStatsRepository.ts
+  h_58e143dc25f856 1-13
+backend/src/application/interfaces/repositories/IQuestionRepository.ts
+  h_58e143dc25f856 2
+backend/src/application/interfaces/repositories/IUserRepository.ts
+  h_58e143dc25f856 1,14-16
+backend/src/application/usecases/check-answer.ts
+  h_58e143dc25f856 1-62
+backend/src/application/usecases/init-db.ts
+  h_58e143dc25f856 21-22
+backend/src/application/usecases/services/achievement.service.ts
+  h_58e143dc25f856 1-75
+backend/src/application/usecases/services/answers.service.ts
+  h_58e143dc25f856 1-11
+backend/src/application/usecases/services/cognito.service.ts
+  h_58e143dc25f856 15
+backend/src/application/usecases/services/friend.service.ts
+  h_58e143dc25f856 1-49
+backend/src/application/usecases/services/game-store.service.ts
+  h_58e143dc25f856 2-4
+backend/src/application/usecases/services/game.service.ts
+  h_58e143dc25f856 88
+backend/src/application/usecases/services/leaderboard.service.ts
+  h_58e143dc25f856 1-3
+backend/src/application/usecases/services/match-completion.service.ts
+  h_58e143dc25f856 5
+backend/src/application/usecases/services/match-result.service.ts
+  h_58e143dc25f856 19,21-27,46-47,56-58
+backend/src/application/usecases/services/matched-users.service.ts
+  h_58e143dc25f856 1
+backend/src/application/usecases/services/questions.service.ts
+  h_58e143dc25f856 2
+backend/src/application/usecases/systems/create-game.ts
+  h_58e143dc25f856 2
+backend/src/application/usecases/systems/delete-game.ts
+  h_58e143dc25f856 1-69
+backend/src/application/usecases/systems/finish-game.ts
+  h_58e143dc25f856 8-10,21-24,41-46,87-96,98-113,131,150,152-157
+backend/src/application/usecases/systems/life.system.ts
+  h_58e143dc25f856 2,6,11-12,20
+backend/src/application/usecases/systems/opponent-progress.ts
+  h_58e143dc25f856 2-4,12-13,15,18-19
+backend/src/application/usecases/systems/submission.system.ts
+  h_58e143dc25f856 20,31-33,45,51-52
+backend/src/entities/World.ts
+  h_58e143dc25f856 1-158
+backend/src/entities/db-entities/achievement.entities.ts
+  h_58e143dc25f856 1-25
+backend/src/entities/db-entities/answers.entities.ts
+  h_58e143dc25f856 1-20
+backend/src/entities/db-entities/elo.entities.ts
+  h_58e143dc25f856 3,30,32
+backend/src/entities/db-entities/friendship.entities.ts
+  h_58e143dc25f856 1-50
+backend/src/entities/db-entities/match-stats.entities.ts
+  h_58e143dc25f856 1-26
+backend/src/entities/db-entities/match.entities.ts
+  h_58e143dc25f856 13,28-30,43,45,56-59
+backend/src/entities/db-entities/submission.entities.ts
+  h_58e143dc25f856 3,10,12
+backend/src/entities/db-entities/user.entities.ts
+  h_58e143dc25f856 1-2,35-40
+backend/src/entities/dtos/achievement.dto.ts
+  h_58e143dc25f856 1-10
+backend/src/entities/dtos/auth.dto.ts
+  h_58e143dc25f856 1-5
+backend/src/entities/dtos/elo.dto.ts
+  h_58e143dc25f856 1-10
+backend/src/entities/dtos/friendship.dto.ts
+  h_58e143dc25f856 1-24
+backend/src/entities/dtos/leaderboard.dto.ts
+  h_58e143dc25f856 1-15
+backend/src/entities/dtos/league.dto.ts
+  h_58e143dc25f856 1-5
+backend/src/entities/dtos/match-data.dto.ts
+  h_58e143dc25f856 1-29
+backend/src/entities/dtos/match-result.dto.ts
+  h_58e143dc25f856 9-10
+backend/src/entities/dtos/matchmaking.dto.ts
+  h_58e143dc25f856 20
+backend/src/entities/dtos/player-stats.dto.ts
+  h_58e143dc25f856 1-4
+backend/src/entities/dtos/question.dto.ts
+  h_58e143dc25f856 1,18-34
+backend/src/entities/dtos/user.dto.ts
+  h_58e143dc25f856 1-20
+backend/src/entities/ecs-entities.ts
+  h_58e143dc25f856 1-29
+backend/src/frameworks-drivers/app.ts
+  h_58e143dc25f856 1,31-68
+backend/src/frameworks-drivers/config/amplify-config.ts
+  h_58e143dc25f856 1-23
+backend/src/frameworks-drivers/config/data-source.ts
+  h_58e143dc25f856 1,28-49
+backend/src/frameworks-drivers/config/redis-client.ts
+  h_58e143dc25f856 1-8
+backend/src/frameworks-drivers/config/swagger.ts
+  h_58e143dc25f856 1-24
+backend/src/frameworks-drivers/routes/api.routes.ts
+  h_58e143dc25f856 1-376
+backend/src/frameworks-drivers/server.ts
+  h_58e143dc25f856 45,52,59-65,79,84-121,156,159-163,242,244-254,262-266
+backend/src/interface-adapters/auth/index.d.ts
+  h_58e143dc25f856 1-14
+backend/src/interface-adapters/cache/game-cache.ts
+  h_58e143dc25f856 1,34-61
+backend/src/interface-adapters/cache/matchmaking-cache.ts
+  h_58e143dc25f856 1,63-125
+backend/src/interface-adapters/controllers/achievement.controllers.ts
+  h_58e143dc25f856 1-32
+backend/src/interface-adapters/controllers/elo.controllers.ts
+  h_58e143dc25f856 3,6-7
+backend/src/interface-adapters/controllers/friend.controllers.ts
+  h_58e143dc25f856 1-92
+backend/src/interface-adapters/controllers/leaderboard.controller.ts
+  h_58e143dc25f856 1,12-23
+backend/src/interface-adapters/controllers/match-history.controllers.ts
+  h_58e143dc25f856 1-38
+backend/src/interface-adapters/controllers/match-results.controllers.ts
+  h_58e143dc25f856 1-22
+backend/src/interface-adapters/controllers/user.controllers.ts
+  h_58e143dc25f856 1,52-95
+backend/src/interface-adapters/dtos/answer.dto.ts
+  h_58e143dc25f856 1-6
+backend/src/interface-adapters/repositories/achievement.repository.ts
+  h_58e143dc25f856 1-72
+backend/src/interface-adapters/repositories/answer.repository.ts
+  h_58e143dc25f856 1,69-131
+backend/src/interface-adapters/repositories/elo.repository.ts
+  h_58e143dc25f856 76,141-143,145-155,158-160,165-166
+backend/src/interface-adapters/repositories/friend.repository.ts
+  h_58e143dc25f856 1-144
+backend/src/interface-adapters/repositories/match-history.repository.ts
+  h_58e143dc25f856 1-96
+backend/src/interface-adapters/repositories/match-result.repository.ts
+  h_58e143dc25f856 17-18,24-25
+backend/src/interface-adapters/repositories/match-stats.repository.ts
+  h_58e143dc25f856 1-38
+backend/src/interface-adapters/repositories/match.repository.ts
+  h_58e143dc25f856 2,6,8,17-18
+backend/src/interface-adapters/repositories/question.repository.ts
+  h_58e143dc25f856 1,40-79
+backend/src/interface-adapters/repositories/user.repository.ts
+  h_58e143dc25f856 1,92-236
+backend/src/interface-adapters/socket-handlers/game.handler.ts
+  h_58e143dc25f856 68-72
+backend/src/interface-adapters/socket-handlers/matchmaking.handler.ts
+  h_58e143dc25f856 1,127-254
+backend/tests/integration/repositories/answer.repository.test.ts
+  h_58e143dc25f856 1,65-129
+backend/tests/integration/repositories/elo.repository.test.ts
+  h_58e143dc25f856 72-140
+backend/tests/integration/repositories/match-result.repository.test.ts
+  h_58e143dc25f856 1-148
+backend/tests/integration/repositories/match-stats.repository.test.ts
+  h_58e143dc25f856 1-82
+backend/tests/integration/repositories/mocks/mock-questions.ts
+  h_58e143dc25f856 1-30
+backend/tests/integration/repositories/test-data-source.ts
+  h_58e143dc25f856 1-27
+backend/tests/integration/repositories/user.repository.test.ts
+  h_58e143dc25f856 1,51-101
+backend/tests/mocks/mock-answers.ts
+  h_58e143dc25f856 1,19-37
+backend/tests/mocks/mock-user.ts
+  h_58e143dc25f856 1-41
+backend/tests/setup.ts
+  h_58e143dc25f856 1,8-15
+backend/tests/unit/api/leaderboard.unit.test.ts
+  h_58e143dc25f856 1-40
+backend/tests/unit/api/match-result.unit.test.ts
+  h_58e143dc25f856 1-70
+backend/tests/unit/controllers/achievement.controllers.test.ts
+  h_58e143dc25f856 1-117
+backend/tests/unit/controllers/elo.controllers.test.ts
+  h_58e143dc25f856 1,59-118
+backend/tests/unit/controllers/friend.controllers.test.ts
+  h_58e143dc25f856 1-321
+backend/tests/unit/controllers/match-history.test.ts
+  h_58e143dc25f856 1-133
+backend/tests/unit/controllers/match-result.controllers.test.ts
+  h_58e143dc25f856 2-4
+backend/tests/unit/controllers/user.controller.test.ts
+  h_58e143dc25f856 2-3
+backend/tests/unit/helpers/test-utils.ts
+  h_58e143dc25f856 1-204
+backend/tests/unit/socket-handlers/game.handler.unit.test.ts
+  h_58e143dc25f856 3,6-9
+backend/tests/unit/usecases/finish-game.unit.test.ts
+  h_58e143dc25f856 1-334
+backend/tests/unit/usecases/services/game.service.test.ts
+  h_58e143dc25f856 1,3,5
+backend/tests/unit/usecases/services/match-result.service.test.ts
+  h_58e143dc25f856 11,25-26
+backend/tsconfig.json
+  h_58e143dc25f856 1,37-72
+backend/tsconfig.test.json
+  h_58e143dc25f856 1-21
+backend/vitest.config.ts
+  h_58e143dc25f856 1,36-61
+database/01-init.sql
+  h_58e143dc25f856 1,6-8,22-25,50,66-67,97-155
+database/03-init-achievement.sql
+  h_58e143dc25f856 1-17
+docs/Demo_1/DESIGN.md
+  h_58e143dc25f856 1-310
+docs/Demo_1/Non-Functional_Requirements.md
+  h_58e143dc25f856 1-58
+docs/Demo_1/SRS_CodeClash.md
+  h_58e143dc25f856 1-676
+docs/Demo_1/api-docs.html
+  h_58e143dc25f856 1-1429
+docs/Demo_1/functional_requirements.md
+  h_58e143dc25f856 1-117
+docs/Demo_1/use_cases.md
+  h_58e143dc25f856 1-165
+docs/Demo_1/user_stories.md
+  h_58e143dc25f856 1-54
+docs/Demo_2/SAS.md
+  h_58e143dc25f856 1-269
+docs/Demo_2/architecture-patterns.md
+  h_58e143dc25f856 1-68
+docs/Demo_2/coding-standards.md
+  h_58e143dc25f856 1-32
+docs/Demo_2/testing-policy.md
+  h_58e143dc25f856 1-108
+"docs/Demo_3/universityofpretoria-f31-CodeClash_API-1.0.0-resolved (1).json"
+  h_58e143dc25f856 1-340
+eslint.config.base.js
+  h_58e143dc25f856 1-77
+eslint.config.js
+  h_58e143dc25f856 1-2
+frontend/.dockerignore
+  h_58e143dc25f856 1,21-40
+frontend/@/components/Sidebar.tsx
+  h_58e143dc25f856 1-2,11-13,22,24,26,30,32-42,44-46,49,52,54,64
+frontend/@/components/features/Badge.tsx
+  h_58e143dc25f856 1-9
+frontend/@/components/features/MathPage.tsx
+  h_58e143dc25f856 1-56
+frontend/@/components/features/VirtualKeyboard.tsx
+  h_58e143dc25f856 1,28-75
+frontend/@/components/features/question.tsx
+  h_58e143dc25f856 1-52
+frontend/@/components/shared/GlassCard.tsx
+  h_58e143dc25f856 1-19
+frontend/@/components/shared/Loading.tsx
+  h_58e143dc25f856 1-21
+frontend/@/components/shared/Match.tsx
+  h_58e143dc25f856 1,164-329
+frontend/@/components/shared/PopUp.tsx
+  h_58e143dc25f856 1-53
+frontend/@/components/ui/ComingSoon.tsx
+  h_58e143dc25f856 1-39
+frontend/@/components/ui/animations/Confetti.tsx
+  h_58e143dc25f856 1-36
+frontend/@/components/ui/animations/Starfield.tsx
+  h_58e143dc25f856 1-31
+frontend/@/components/ui/badge-variants.ts
+  h_58e143dc25f856 1-25
+frontend/@/components/ui/badge.tsx
+  h_58e143dc25f856 1-49
+frontend/@/components/ui/button-variants.ts
+  h_58e143dc25f856 1-36
+frontend/@/components/ui/card.tsx
+  h_58e143dc25f856 1-100
+frontend/@/components/ui/gameGuideCard.tsx
+  h_58e143dc25f856 1-40
+frontend/@/components/ui/gameGuideHeading.tsx
+  h_58e143dc25f856 1-15
+frontend/@/components/ui/gameGuideNumber.tsx
+  h_58e143dc25f856 1-23
+frontend/@/components/ui/input.tsx
+  h_58e143dc25f856 1-19
+frontend/@/components/ui/leaderboardCard.tsx
+  h_58e143dc25f856 1-64
+frontend/@/components/ui/progress.tsx
+  h_58e143dc25f856 1-35
+frontend/@/components/ui/separator.tsx
+  h_58e143dc25f856 1-26
+frontend/@/components/ui/sheet.tsx
+  h_58e143dc25f856 1-145
+frontend/@/components/ui/sidebar/sidebar-context-props.tsx
+  h_58e143dc25f856 1-10
+frontend/@/components/ui/sidebar/sidebar-context.tsx
+  h_58e143dc25f856 1-6
+frontend/@/components/ui/sidebar/useSidebar.tsx
+  h_58e143dc25f856 1-11
+frontend/@/components/ui/skeleton.tsx
+  h_58e143dc25f856 1-13
+frontend/@/components/ui/spinner.tsx
+  h_58e143dc25f856 1-11
+frontend/@/components/ui/tooltip.tsx
+  h_58e143dc25f856 1-57
+frontend/@/hooks/use-mobile.ts
+  h_58e143dc25f856 1-24
+frontend/@/lib/utils.ts
+  h_58e143dc25f856 1-9
+frontend/README.md
+  h_58e143dc25f856 1-182
+frontend/brand-style-guide.html
+  h_58e143dc25f856 1-12
+frontend/components.json
+  h_58e143dc25f856 1-25
+frontend/eslint.config.mjs
+  h_58e143dc25f856 1-20
+frontend/index.html
+  h_58e143dc25f856 1,14-27
+frontend/package-lock.json
+  h_58e143dc25f856 45,7014-7019,7523-7525,7987-7989,8770-8772
+frontend/package.json
+  h_58e143dc25f856 1,70-137
+frontend/src/App.tsx
+  h_58e143dc25f856 26-31,39,42-44,53,58-62,64-65,73-77,83,92-100,106,113-122,124-125
+frontend/src/Models/AchievementsModel.ts
+  h_58e143dc25f856 1-38
+frontend/src/Models/BrandStyleGuideModel.ts
+  h_58e143dc25f856 1-757
+frontend/src/Models/ConfirmationModel.ts
+  h_58e143dc25f856 1-14
+frontend/src/Models/FinalResultsModel.ts
+  h_58e143dc25f856 3,8-9,19,26,28,31-33
+frontend/src/Models/ForgotPasswordModel.ts
+  h_58e143dc25f856 1-69
+frontend/src/Models/FriendsModel.ts
+  h_58e143dc25f856 1-115
+frontend/src/Models/HelpMenuModel.ts
+  h_58e143dc25f856 1-69
+frontend/src/Models/LandingModel.ts
+  h_58e143dc25f856 1-124
+frontend/src/Models/LeaderboardModel.ts
+  h_58e143dc25f856 1-31
+frontend/src/Models/MatchFoundModel.ts
+  h_58e143dc25f856 1-36
+frontend/src/Models/MatchHistoryModel.ts
+  h_58e143dc25f856 1-21
+frontend/src/Models/MatchModel.ts
+  h_58e143dc25f856 1-27
+frontend/src/Models/MatchSearchingModel.ts
+  h_58e143dc25f856 1-39
+frontend/src/Models/PopUpModel.ts
+  h_58e143dc25f856 1-21
+frontend/src/Models/ProfileModel.ts
+  h_58e143dc25f856 1-11
+frontend/src/Models/SignInModel.ts
+  h_58e143dc25f856 1-10
+frontend/src/Models/SignUpModel.ts
+  h_58e143dc25f856 1-26
+frontend/src/Models/TermsAndConditionsModel.ts
+  h_58e143dc25f856 1-77
+frontend/src/ViewModels/AchievementsViewModel.ts
+  h_58e143dc25f856 1-77
+frontend/src/ViewModels/BrandStyleGuideViewModel.ts
+  h_58e143dc25f856 1-87
+frontend/src/ViewModels/ConfirmationViewModel.ts
+  h_58e143dc25f856 1-69
+frontend/src/ViewModels/DashboardViewModel.ts
+  h_58e143dc25f856 1,36-101
+frontend/src/ViewModels/FinalResultsViewModel.ts
+  h_58e143dc25f856 1-96
+frontend/src/ViewModels/ForgotPasswordViewModel.ts
+  h_58e143dc25f856 1-85
+frontend/src/ViewModels/FriendsViewModel/FriendsContext.tsx
+  h_58e143dc25f856 1-351
+frontend/src/ViewModels/HelpMenuViewModel.ts
+  h_58e143dc25f856 1-26
+frontend/src/ViewModels/LandingViewModel.ts
+  h_58e143dc25f856 1-40
+frontend/src/ViewModels/LeaderboardViewModel.ts
+  h_58e143dc25f856 1,71-141
+frontend/src/ViewModels/MatchFoundViewModel.ts
+  h_58e143dc25f856 1-168
+frontend/src/ViewModels/MatchHistoryViewModel.ts
+  h_58e143dc25f856 1-3,7-10,22-23,25-67,81-88
+frontend/src/ViewModels/MatchSearchingViewModel.ts
+  h_58e143dc25f856 1-59
+frontend/src/ViewModels/MatchViewModel.ts
+  h_58e143dc25f856 1,155-490
+frontend/src/ViewModels/PopUpViewModel.ts
+  h_58e143dc25f856 1-34
+frontend/src/ViewModels/ProfileViewModel.ts
+  h_58e143dc25f856 2-3
+frontend/src/ViewModels/SettingsViewModel.ts
+  h_58e143dc25f856 1-10
+frontend/src/ViewModels/SignInViewModel.ts
+  h_58e143dc25f856 3
+frontend/src/ViewModels/SignUpViewModel.ts
+  h_58e143dc25f856 1,127-225
+frontend/src/ViewModels/TermsAndConditionsViewModel.ts
+  h_58e143dc25f856 1-11
+frontend/src/Views/AIAgent.tsx
+  h_58e143dc25f856 1-19
+frontend/src/Views/Achievements.tsx
+  h_58e143dc25f856 1-118
+frontend/src/Views/BrandStyleGuide.tsx
+  h_58e143dc25f856 1-65
+frontend/src/Views/BrandStyleGuide/AccessibilitySection.tsx
+  h_58e143dc25f856 1-83
+frontend/src/Views/BrandStyleGuide/ChangelogSection.tsx
+  h_58e143dc25f856 1-67
+frontend/src/Views/BrandStyleGuide/ColorSection.tsx
+  h_58e143dc25f856 1-71
+frontend/src/Views/BrandStyleGuide/ComponentSection.tsx
+  h_58e143dc25f856 1-132
+frontend/src/Views/BrandStyleGuide/IntroductionSection.tsx
+  h_58e143dc25f856 1-61
+frontend/src/Views/BrandStyleGuide/LayoutSection.tsx
+  h_58e143dc25f856 1-118
+frontend/src/Views/BrandStyleGuide/LogoSection.tsx
+  h_58e143dc25f856 1-242
+frontend/src/Views/BrandStyleGuide/SharedLayout.tsx
+  h_58e143dc25f856 1-28
+frontend/src/Views/BrandStyleGuide/TokenSection.tsx
+  h_58e143dc25f856 1-57
+frontend/src/Views/BrandStyleGuide/TypographySection.tsx
+  h_58e143dc25f856 1-70
+frontend/src/Views/BrandStyleGuide/VoiceSection.tsx
+  h_58e143dc25f856 1-73
+frontend/src/Views/Dashboard.tsx
+  h_58e143dc25f856 1,3,7-10,12,14,214-376
+frontend/src/Views/FinalResults.tsx
+  h_58e143dc25f856 1-2,4-5,9-11,21-31,44,49-57,60,63,67,72-73,82-86,88,96-97,101-114,118,134-138,140-182,185-186
+frontend/src/Views/ForgotPassword.tsx
+  h_58e143dc25f856 1-83
+frontend/src/Views/Friends/FriendInvitePopup.tsx
+  h_58e143dc25f856 1-70
+frontend/src/Views/Friends/Friends.tsx
+  h_58e143dc25f856 1-225
+frontend/src/Views/GameGuide.tsx
+  h_58e143dc25f856 1-2,4,6,8-17,19,21-48,52-56,58-68,70-84,86-96,99
+frontend/src/Views/HelpMenu.tsx
+  h_58e143dc25f856 1-119
+frontend/src/Views/Landing.tsx
+  h_58e143dc25f856 1-223
+frontend/src/Views/Leaderboard.tsx
+  h_58e143dc25f856 31,37,42
+frontend/src/Views/MatchFound.tsx
+  h_58e143dc25f856 1-164
+frontend/src/Views/MatchHistory.tsx
+  h_58e143dc25f856 1-130
+frontend/src/Views/MatchSearching.tsx
+  h_58e143dc25f856 1-2,4-110
+frontend/src/Views/MathsMatch.tsx
+  h_58e143dc25f856 1,129-259
+frontend/src/Views/Popup.tsx
+  h_58e143dc25f856 4
+frontend/src/Views/Settings.tsx
+  h_58e143dc25f856 1-36
+frontend/src/Views/Shop.tsx
+  h_58e143dc25f856 1-16
+frontend/src/Views/SignIn.tsx
+  h_58e143dc25f856 1-2,4-86
+frontend/src/Views/SignUp.tsx
+  h_58e143dc25f856 1-2,4-169
+frontend/src/Views/TermsAndConditions.tsx
+  h_58e143dc25f856 1-2,4-48
+frontend/src/Views/Tournaments.tsx
+  h_58e143dc25f856 1-14
+frontend/src/amplify-config.ts
+  h_58e143dc25f856 1-10
+frontend/src/assets/Robots/index.ts
+  h_58e143dc25f856 1-11
+frontend/src/brand-style-guide-main.tsx
+  h_58e143dc25f856 1-10
+frontend/src/context/Achievement/AchievementToast.tsx
+  h_58e143dc25f856 1-49
+frontend/src/context/Achievement/AchievementToastContext.tsx
+  h_58e143dc25f856 1-86
+frontend/src/context/Auth/AuthContext.tsx
+  h_58e143dc25f856 1,179-356
+frontend/src/context/Auth/AuthContextValue.ts
+  h_58e143dc25f856 1-32
+frontend/src/context/Auth/hooks/useAuth.ts
+  h_58e143dc25f856 1-9
+frontend/src/context/Friends/useFriends.ts
+  h_58e143dc25f856 1-15
+frontend/src/context/Socket/MatchmakingContext.tsx
+  h_58e143dc25f856 1-2,6-72
+frontend/src/context/Socket/MatchmakingContextValue.tsx
+  h_58e143dc25f856 1-21
+frontend/src/context/Socket/SocketContext.tsx
+  h_58e143dc25f856 1-52
+frontend/src/context/Socket/SocketContextValue.tsx
+  h_58e143dc25f856 1-10
+frontend/src/context/Socket/hooks/useMatchmaking.tsx
+  h_58e143dc25f856 2-11
+frontend/src/context/Socket/hooks/useSocket.ts
+  h_58e143dc25f856 1-11
+frontend/src/context/ThemeContext.tsx
+  h_58e143dc25f856 1-55
+frontend/src/context/User/UserContext.tsx
+  h_58e143dc25f856 5,15-21,35,38-40,66,68-70,97,99-101,112,114-115,157-199,210,212-216,225,228-231
+frontend/src/context/User/UserContextValue.tsx
+  h_58e143dc25f856 11-13
+frontend/src/context/User/hooks/useUser.tsx
+  h_58e143dc25f856 1-9
+frontend/src/dtos/BadgeDTO.tsx
+  h_58e143dc25f856 1-8
+frontend/src/dtos/DashboardDTO.tsx
+  h_58e143dc25f856 1-12
+frontend/src/dtos/game-questionDTO.tsx
+  h_58e143dc25f856 1-21
+frontend/src/dtos/matched-user.dto.ts
+  h_58e143dc25f856 1-17
+frontend/src/dtos/opponent.dto.ts
+  h_58e143dc25f856 1-5
+frontend/src/dtos/result.dto.ts
+  h_58e143dc25f856 10-11
+frontend/src/dtos/submission.dto.ts
+  h_58e143dc25f856 1,17-23
+frontend/src/extra-layout.tsx
+  h_58e143dc25f856 1-19
+frontend/src/layout.tsx
+  h_58e143dc25f856 1-9,12-13,16-19,21,23-46
+frontend/src/main.tsx
+  h_58e143dc25f856 1-38
+frontend/src/pages/ProgMatch.tsx
+  h_58e143dc25f856 1-230
+frontend/src/services/result.service.tsx
+  h_58e143dc25f856 1-8
+frontend/src/services/submission.service.tsx
+  h_58e143dc25f856 1,16-32
+frontend/src/services/websocket.service.tsx
+  h_58e143dc25f856 1,30-65
+frontend/src/styles/global.css
+  h_58e143dc25f856 1-833
+frontend/src/utils/achievementIcon.ts
+  h_58e143dc25f856 1-11
+frontend/test/integration/Providers/UserProvider.test.tsx
+  h_58e143dc25f856 1-83
+frontend/test/setupTests.ts
+  h_58e143dc25f856 1-9
+frontend/test/test-utils.ts
+  h_58e143dc25f856 19,28-32
+frontend/test/unit/BackButton.test.tsx
+  h_58e143dc25f856 1-18
+frontend/test/unit/InputField.test.tsx
+  h_58e143dc25f856 1-48
+frontend/test/unit/PrimaryButton.test.tsx
+  h_58e143dc25f856 1-87
+frontend/test/unit/SocialButton.test.tsx
+  h_58e143dc25f856 1-54
+frontend/test/unit/ViewModels/ConfirmationViewModel.test.ts
+  h_58e143dc25f856 1-49
+frontend/tsconfig.app.json
+  h_58e143dc25f856 1-34
+frontend/tsconfig.json
+  h_58e143dc25f856 1-7
+frontend/tsconfig.node.json
+  h_58e143dc25f856 1-24
+frontend/vite.config.ts
+  h_58e143dc25f856 1-41
+old-init.sql
+  h_58e143dc25f856 1-172
+package-lock.json
+  h_58e143dc25f856 11,16-19,21,36-37,48,1282-1313,1715,1717-1718,1934-2431,2434-2445,2447,2450-2466,2468-2473,2479-2490,2492,2495-2506,2508,2511-2515,2517-2519,2521-2522,2613-2626,2638-2647,2679-2710,2736-2749,2770-2811,3163,3167-3168,3183,3187-3188,3203,3207-3208,3223,3227-3228,3243,3247-3248,3263,3267-3268,3283,3287-3288,3303,3307-3308,3323,3327-3328,3343,3347-3348,4374-4386,5431-5442,6237-6248,6385-6387,6768-6821,7006-7011,7303-7318,8188
+package.json
+  h_58e143dc25f856 30-31,42,47,52,54
+pnpm-workspace.yaml
+  h_58e143dc25f856 1-2
+sonar-project.properties
+  h_58e143dc25f856 1
+tests/nfr/README.md
+  h_58e143dc25f856 1-183
+tests/nfr/reliability/kill-judge0.sh
+  h_58e143dc25f856 1-8
+tests/nfr/reliability/websocket-disconnect.sh
+  h_58e143dc25f856 1-4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "536c5e32fd69d155c7733802e53afb74fc24c08d",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
