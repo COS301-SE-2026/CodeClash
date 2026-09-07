@@ -1,0 +1,16 @@
+backend/src/interface-adapters/CodeExecutor.ts
+  h_94c952a9e14c58 44-45,61-62
+backend/tests/unit/adapters/CodeExecutor.test.ts
+  h_94c952a9e14c58 4,42-60
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "95e91b7a016119a76c13047028a8055e4b181757",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
