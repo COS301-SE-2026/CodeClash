@@ -75,6 +75,7 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
 
                 setFriend(friendsData.map((f: any) => ({
                     id: f.user_id,
+                    friendship_id: f.friendship_id,
                     username: f.username,
                     avatar: f.avatar_id ?? 0,
                     status: 'offline' as const, // status not stored in DB, defailt offline
@@ -262,7 +263,7 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
         try{
             await fetch(`${API_BASE}/friends/${friendship_id}`, {
                 method: 'DELETE',
-                headers: { Authorizayion: `Bearer ${token}` }
+                headers: { Authorization: `Bearer ${token}` }
             });
             await fetchAll();
         } catch (err) {
