@@ -2,14 +2,12 @@ import { motion } from 'framer-motion';
 
 import happy from "../assets/svgs/happy.svg"
 import torso from "../assets/svgs/torso.svg"
-import leftShoulder from "../assets/svgs/left-shoulder.svg"
-import leftArm from "../assets/svgs/left-forearm.svg"
-import leftHand from "../assets/svgs/left-hand.svg"
 import leftLeg from "../assets/svgs/left-leg.svg"
 import rightShoulder from "../assets/svgs/right-shoulder.svg"
 import rightArm from "../assets/svgs/right-forearm.svg"
 import rightHand from "../assets/svgs/right-hand.svg"
 import rightLeg from "../assets/svgs/right-leg.svg"
+import { StationaryLeftArm } from './poses/rig';
 
 //The following code and the above imports though pasted, are all hand-written portions of code and are not copied from any generative ai chat, to save a great amount of time i have elected to paste my previous work and just change it
 export const ArmRaise = ({
@@ -41,18 +39,7 @@ export const ArmRaise = ({
                 <image href={happy} width="50" x="60" y="40" height="45" />
 
 
-                <motion.g>
-
-                    <image href={leftShoulder} width="50" x="93" y="92" height="55" />
-
-                    <motion.g>
-                        <image href={leftArm} width="50" x="95" y="117" height="25" />
-
-                        <motion.g>
-                            <image href={leftHand} width="50" x="94" y="131" height="17" />
-                        </motion.g>
-                    </motion.g>
-                </motion.g>
+                <StationaryLeftArm/>
 
 
                 <motion.g

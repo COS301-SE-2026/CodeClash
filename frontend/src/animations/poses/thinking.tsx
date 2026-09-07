@@ -1,14 +1,10 @@
 import {motion} from 'framer-motion';
 import thinking from "../../assets/svgs/thinking.svg"
-import leftShoulder from "../../assets/svgs/left-shoulder.svg"
-import leftArm from "../../assets/svgs/left-forearm.svg"
-import leftHand from "../../assets/svgs/left-hand.svg"
-import leftLeg from "../../assets/svgs/left-leg.svg"
 import rightShoulder from "../../assets/svgs/right-shoulder.svg"
 import rightArm from "../../assets/svgs/right-forearm.svg"
-import rightLeg from "../../assets/svgs/right-leg.svg"
 import torso from "../../assets/svgs/torso.svg"
 import { StationaryLeftArm } from './rig';
+import { BothLegs } from './rig';
 
 export const Thinking = ({
     vb1 = 250,
@@ -44,10 +40,8 @@ export const Thinking = ({
             </motion.g>
             </motion.g>
 
-            <motion.g>
-                <image href={rightLeg} width="50" x="40" y="121" height="57"/>
-                 <image href={leftLeg} width="50" x="80" y="121" height="57"/>               
-            </motion.g>
+
+            <BothLegs/>
 
 
         </svg>

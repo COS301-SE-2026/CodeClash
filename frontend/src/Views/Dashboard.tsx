@@ -74,7 +74,7 @@ const Dashboard = () => {
             {/*Profile + Play */}
             <div className='flex flex-col gap-6'>
               <div className='card-elevated flex items-center gap-4 p-8'>
-                <img src = {avatar} alt='' className='w-16 h-16 rounded-full border-2 border-primary object-cover shrink-0'/>
+                {/* <img src = {avatar} alt='' className='w-16 h-16 rounded-full border-2 border-primary object-cover shrink-0'/> */}
                 <div>
                   <p className='text-xl font-black text-primary-text'>{username}</p>
                   <span className='text-sm text-primary-text'>{league}</span>
