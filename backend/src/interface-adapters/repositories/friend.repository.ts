@@ -2,7 +2,6 @@ import { Repository } from "typeorm";
 import { Friendship, FriendInvite } from "src/entities/db-entities/friendship.entities";
 import { IFriendRepository } from "src/application/interfaces/repositories/IFriendRepository";
 import { FriendDTO, FriendRequestDTO, FriendInviteDTO } from "src/entities/dtos/friendship.dto";
-import { EloRatings } from "src/entities/db-entities/elo.entities";
 import { IEloRepository } from "src/application/interfaces/repositories/IEloRepository";
 
 export class FriendRepository implements IFriendRepository {

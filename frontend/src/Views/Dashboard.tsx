@@ -18,7 +18,6 @@ type SkillMetric = {
 const SkillProgressCard = ({
   items, seeAll,
 } : {
-  title: string;
   items: SkillMetric[];
   seeAll: string;
 }) => (
@@ -149,7 +148,7 @@ const Dashboard = () => {
                   </div>
                 </div>
 
-                <SkillProgressCard title='Math' seeAll='/stats' items={[
+                <SkillProgressCard seeAll='/stats' items={[
                   {label: 'Metric Title', value: 65},
                   {label: 'Metric Title', value: 40}
                 ]}/>

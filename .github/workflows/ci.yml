@@ -115,7 +115,7 @@ jobs:
     - name: Waiting for backend to be ready for the frontend integration tests
       run: |
           for i in $(seq 1 90); do
-            if curl -fs --connect-timeout 2 --max-time 5 "http://localhost:${{secrets.PORT}}/health" >/dev/null 2>&1; then
+            if curl -fs --connect-timeout 2 --max-time 5 "http://localhost:${PORT}/health" >/dev/null 2>&1; then
               echo "backend read after ${is}s"
               exit 0
             fi

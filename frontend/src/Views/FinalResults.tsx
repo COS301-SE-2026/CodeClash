@@ -130,7 +130,6 @@ const FinalResults: React.FC = () => {
     );
 };
 
-{/*The following three ordinal, RankChange and Badge are copied from Ntu's version of the FinalResults.tsx */}
 const ordinal = (rank: number) => {
   const tens = rank % 100;
   if (tens >= 11 && tens <= 13) return `${rank}th`;
