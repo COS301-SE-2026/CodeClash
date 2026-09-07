@@ -48,7 +48,7 @@ jobs:
             ports:
                 - 5432:5432
             options: >-
-                --health-cmd "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"
+                --health-cmd "pg_isready -U ${DB_TEST_USER} -d ${DB_TEST_NAME}"
                 --health-interval 10s
                 --health-timeout 5s
                 --health-retries 5
