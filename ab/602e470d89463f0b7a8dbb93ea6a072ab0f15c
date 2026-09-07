@@ -1,0 +1,470 @@
+frontend/src/animations/lose.tsx
+  h_94c952a9e14c58 1-104
+frontend/src/animations/poses/okay.tsx
+  h_94c952a9e14c58 1-65
+frontend/src/assets/svgs/head.svg
+  h_94c952a9e14c58 1-241
+backend/src/application/usecases/services/match-result.service.ts
+  h_94c952a9e14c58 3-4
+frontend/src/assets/svgs/losing.svg
+  h_94c952a9e14c58 1-270
+frontend/src/assets/svgs/right-forearm.svg
+  h_94c952a9e14c58 1-254
+backend/src/application/interfaces/marking/IMarkingStategy.ts
+  h_94c952a9e14c58 1-6
+backend/tests/unit/controllers/user.controller.test.ts
+  h_94c952a9e14c58 55,82
+backend/src/application/usecases/services/marking/mark-maths.ts
+  h_94c952a9e14c58 1-10
+frontend/test/unit/ViewModels/AchievementsViewModel.test.ts
+  h_94c952a9e14c58 1-141
+backend/src/entities/dtos/answer.dto.ts
+  h_94c952a9e14c58 1-5
+backend/.dockerignore
+  h_94c952a9e14c58 1-21
+frontend/src/dtos/submission.dto.ts
+  h_94c952a9e14c58 1-15
+docs/Demo_3/testing-policy.md
+  h_94c952a9e14c58 1-108
+backend/src/interface-adapters/auth/auth.service.ts
+  h_94c952a9e14c58 6,41,52-54,56,58,60-88
+frontend/src/context/Auth/AuthContext.tsx
+  h_94c952a9e14c58 1-177
+frontend/src/Views/MatchSearching.tsx
+  h_94c952a9e14c58 3-4
+backend/src/application/usecases/services/matched-users.service.ts
+  h_94c952a9e14c58 1-79
+backend/src/interface-adapters/CodeExecutor.ts
+  h_94c952a9e14c58 1-62
+frontend/src/context/User/UserContext.tsx
+  h_94c952a9e14c58 3,6,13,15-17,23,29,31-32,37,58,85-95,103,112,130-158,164-166,181-182,191-192
+backend/tests/integration/repositories/elo.repository.test.ts
+  h_94c952a9e14c58 2,6,8,73
+frontend/src/services/submission.service.tsx
+  h_94c952a9e14c58 1-14
+frontend/src/Views/SignUp.tsx
+  h_94c952a9e14c58 2-5,7
+backend/src/frameworks-drivers/app.ts
+  h_94c952a9e14c58 3-5,7-11,14-26,28-29,31-32,34-35
+backend/src/interface-adapters/socket-handlers/game.handler.ts
+  h_94c952a9e14c58 2,6,10-11,15-16,19,27-28,78
+backend/src/application/usecases/systems/life.system.ts
+  h_94c952a9e14c58 1-73
+frontend/src/Views/Leaderboard/components/Pagination.tsx
+  h_94c952a9e14c58 1-35
+frontend/src/Views/Leaderboard.tsx
+  h_94c952a9e14c58 1-2,5-10,12,17,19,21,23,25-43,46,48-54,58
+frontend/nginx.conf
+  h_94c952a9e14c58 1-41
+frontend/package-lock.json
+  h_94c952a9e14c58 17,19,23,39,41,43,322-324,327-333,341-343,353-355,358-364,372-374,384-386,389-395,403-405,415-417,420-421,423,425,434-436,446-448,451-454,462-464,474-476,479-484,492-494,504-506,509-518,520,528-530,540-542,545-549,557-559,569-571,574-581,583,591-593,603-605,608-611,619-621,631-633,636-641,649-651,661-663,666-670,678-680,690-692,695-701,709-711,721-723,726,728,736-738,748-750,753-757,765-767,777-779,782,790-792,802-804,807,815-817,889-891,894-895,1097-1099,1102,1220-1222,1226,1228,1230,1238-1240,1273-1296,1313-1315,1357-1359,1373,1408-1410,1772-1774,1851-1853,1968-1970,1983-2006,2142-2144,2148,3647-3663,3665-3667,3682-3684,3699-3701,3716-3718,3733-3735,3750-3752,3767-3769,3784-3786,3801-3803,3818-3820,3835-3837,3852-3854,3869-3871,3886-3888,3928-3930,3933,3941-3943,3953-3955,3958-3959,3967-3969,3979-3981,3984-3985,3993-3995,4040-4042,4045-4046,4054-4056,4066-4068,4071-4072,4080-4082,4526-4528,4554-4556,4583,4586-4588,4602-4618,4675-4677,4715-4717,4722-4725,4738,4744-4746,4754-4756,4760-4763,4779-4781,4785-4786,4801-4803,4807-4808,4819-4821,4836-4838,4842-4844,4861-4863,4875-4877,4881-4884,4916-4918,4923-4925,4940-4942,4946,4958-4960,4972,4981-4983,4988-4990,5009,5013-5015,5020,5034-5035,5044-5046,5052-5053,5062-5064,5068,5089-5091,5102-5104,5108,5116-5118,5122-5123,5132-5134,5142-5144,5148,5367-5369,5413-5415,5433-5434,5475-5477,5525-5527,5571-5573,5614-5616,5633-5637,5681-5694,5734-5736,5823-5834,5841-5861,6216-6218,6313,6374-6376,6395-6397,6544-6546,6606-6608,6620,6635,6685-6687,6835-6837,6923-6925,7024-7026,7040-7042,7056-7058,7071,7079-7081,7120-7122,7126,7180-7182,7186-7188,7257-7279,7442-7444,7518-7530,7561-7563,7569-7575,7690-7692,7742-7744,7923-7925,8011-8013,8032-8034,8167-8169,8173,8526-8528,8555-8557,8561-8562,8800-8836,8869-8871,8873-8875,8877-8894,8898-8900,9024-9026,9029,9033-9034,9085-9087,9280-9282,9374-9376,9393,9402-9404,9422-9424,9459-9461,9527-9546,9548-9550,9714,9764-9766,9786-9788,9791,9833-9835,9922-9924,9928,9938-9952,10132-10134,10145,10162,10305-10314,10393-10406,10485-10487,10587-10589,10622-10624,10692-10694,10729-10731,10735,10742-10744,10879-10881,10931-10933,10937-10940,10964-10966,11009-11011,11129-11131,11137-11138,11155,11468-11470,11474-11480,11508-11513,11654-11656,11675-11677,11690-11701,11789-11791
+backend/src/application/interfaces/repositories/IMatchResultRepository.ts
+  h_94c952a9e14c58 1-13
+frontend/src/context/User/UserContextValue.tsx
+  h_94c952a9e14c58 11-13
+frontend/src/assets/svgs/wave.svg
+  h_94c952a9e14c58 1-270
+tests/nfr/reliability/websocket-disconnect.sh
+  h_94c952a9e14c58 2
+frontend/src/Views/Landing.tsx
+  h_94c952a9e14c58 13,39,71,104-105,125,143,166,180
+frontend/src/animations/poses/peace.tsx
+  h_94c952a9e14c58 1-67
+frontend/src/assets/svgs/sad.svg
+  h_94c952a9e14c58 1-270
+backend/src/entities/dtos/match-result.dto.ts
+  h_94c952a9e14c58 9-10
+backend/src/application/usecases/systems/opponent-progress.ts
+  h_94c952a9e14c58 1-43
+backend/src/entities/components.ts
+  h_94c952a9e14c58 1-117
+frontend/src/Views/Profile.tsx
+  h_94c952a9e14c58 2-12,14-18,20-82,84-166,168-195,199-203,205,216-217,224-227,230-232,235-241,247,252-270,279-316
+frontend/src/ViewModels/LeaderboardViewModel.ts
+  h_94c952a9e14c58 1-83
+docs/Demo_3/api-spec.json
+  h_94c952a9e14c58 1-573
+frontend/src/assets/svgs/celebrate.svg
+  h_94c952a9e14c58 1-266
+backend/tests/unit/socket-handlers/game.handler.unit.test.ts
+  h_94c952a9e14c58 3-4,19,21,25,27,29,31-35,46,48,57
+.gitignore
+  h_94c952a9e14c58 410-414,481-482
+backend/src/entities/dtos/league.dto.ts
+  h_94c952a9e14c58 1-5
+frontend/src/Views/BrandStyleGuide/SharedLayout.tsx
+  h_94c952a9e14c58 1-28
+frontend/src/main.tsx
+  h_94c952a9e14c58 5,9,11,25,30
+backend/tests/unit/usecases/finish-game.unit.test.ts
+  h_94c952a9e14c58 4,12-13,43-56
+frontend/src/assets/svgs/left-hand.svg
+  h_94c952a9e14c58 1-258
+backend/package-lock.json
+  h_94c952a9e14c58 1-7919
+frontend/.dockerignore
+  h_94c952a9e14c58 1-19
+frontend/src/Views/Friends/FriendInvitePopup.tsx
+  h_94c952a9e14c58 4-8
+backend/src/application/usecases/services/marking/marking.service.ts
+  h_94c952a9e14c58 1-45
+backend/src/interface-adapters/controllers/user.controllers.ts
+  h_94c952a9e14c58 1-63
+frontend/src/assets/svgs/antenna.svg
+  h_94c952a9e14c58 1-60
+backend/src/interface-adapters/repositories/question.repository.ts
+  h_94c952a9e14c58 1-38
+backend/package.json
+  h_94c952a9e14c58 10-12,15-16,26,33,55,65
+backend/src/interface-adapters/repositories/elo.repository.ts
+  h_94c952a9e14c58 4,7-8
+frontend/test/unit/PopUp.test.tsx
+  h_94c952a9e14c58 81
+frontend/src/Views/TermsAndConditions.tsx
+  h_94c952a9e14c58 3-4
+frontend/src/utils/achievementIcon.ts
+  h_94c952a9e14c58 1-11
+backend/src/application/usecases/systems/create-game.ts
+  h_94c952a9e14c58 1-151
+backend/src/application/usecases/services/notification.service.ts
+  h_94c952a9e14c58 1-22
+backend/src/frameworks-drivers/api.routes.ts
+  h_b13c5d77534129 10
+  h_94c952a9e14c58 1-9,11-18,20-29,32-63
+backend/src/interface-adapters/cache/matchmaking-cache.ts
+  h_94c952a9e14c58 1-61
+frontend/src/assets/svgs/confused.svg
+  h_94c952a9e14c58 1-241
+frontend/src/assets/svgs/right-hand.svg
+  h_94c952a9e14c58 1-258
+backend/src/application/usecases/services/marking/mark-prog.ts
+  h_94c952a9e14c58 1-19
+database/01-init.sql
+  h_94c952a9e14c58 15-18,88-146
+backend/src/interface-adapters/repositories/friend.repository.ts
+  h_94c952a9e14c58 4-5,10-11,23-32,38-40,75-93
+backend/tests/integration/services/user-creation.service.test.ts
+  h_94c952a9e14c58 1-82
+frontend/Dockerfile
+  h_94c952a9e14c58 1-34
+frontend/src/context/Socket/hooks/useMatchmaking.tsx
+  h_94c952a9e14c58 1-2
+backend/scripts/generate-api-spec.ts
+  h_94c952a9e14c58 1-7
+backend/tests/unit/controllers/elo.controllers.test.ts
+  h_94c952a9e14c58 1-57
+backend/tests/unit/usecases/services/cognito.service.test.ts
+  h_94c952a9e14c58 2-3,6-7,9-13,15,17,21-25,27-31
+  h_b13c5d77534129 1,4-5,8,14,16,18-20,26
+backend/src/entities/dtos/user.dto.ts
+  h_94c952a9e14c58 1-20
+backend/src/application/usecases/services/marking/marking-result.ts
+  h_94c952a9e14c58 1-9
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 10,25,28,40,52-57,59-68,87-88,90-91,101,120-123,128-149,151-165,167-175,183-184,198,200,202-204,208,210-217,220-221
+backend/src/entities/dtos/friendship.dto.ts
+  h_94c952a9e14c58 1-23
+backend/src/entities/dtos/question.dto.ts
+  h_94c952a9e14c58 1-16
+frontend/src/layout.tsx
+  h_94c952a9e14c58 5-7,9-13
+frontend/@/components/ui/animations/Confetti.tsx
+  h_94c952a9e14c58 2
+backend/src/application/usecases/systems/submission.system.ts
+  h_94c952a9e14c58 1-81
+frontend/src/assets/svgs/ok.svg
+  h_94c952a9e14c58 1-262
+frontend/src/Views/Friends/Friends.tsx
+  h_94c952a9e14c58 1,3-4,8-11,36,47-52,59-60,64-65,67-78,102-103,108,111-112,124-128,189-190,194-210
+backend/src/interface-adapters/socket-handlers/matchmaking.handler.ts
+  h_94c952a9e14c58 1-125
+frontend/src/Views/Leaderboard/components/LeaderboardTable.tsx
+  h_94c952a9e14c58 1-27
+backend/src/entities/dtos/leaderboard.dto.ts
+  h_94c952a9e14c58 1-15
+backend/tests/mocks/mock-user.ts
+  h_94c952a9e14c58 1-41
+frontend/src/context/ThemeContext.tsx
+  h_94c952a9e14c58 48
+backend/src/application/usecases/systems/finish-game.ts
+  h_94c952a9e14c58 2,9-10,22-24,87-91,93-113,131
+backend/tests/unit/usecases/services/matchmaking.service.test.ts
+  h_94c952a9e14c58 7
+backend/src/interface-adapters/controllers/leaderboard.controller.ts
+  h_94c952a9e14c58 1-10
+backend/src/application/usecases/services/cognito.service.ts
+  h_94c952a9e14c58 1-71
+frontend/src/context/Achievement/AchievementToast.tsx
+  h_94c952a9e14c58 1-49
+.github/workflows/ci.yml
+  h_94c952a9e14c58 51,79,81-85,97,100,113
+backend/tests/unit/services/mark-prog.test.ts
+  h_94c952a9e14c58 1-36
+backend/src/application/usecases/services/friend.service.ts
+  h_94c952a9e14c58 2
+backend/src/frameworks-drivers/config/redis-client.ts
+  h_94c952a9e14c58 1-8
+database/02-init-questions.sql
+  h_94c952a9e14c58 269-326
+frontend/src/assets/svgs/wink.svg
+  h_94c952a9e14c58 1-270
+tests/nfr/README.md
+  h_94c952a9e14c58 1
+frontend/src/assets/svgs/thinking.svg
+  h_94c952a9e14c58 1-241
+backend/src/application/interfaces/repositories/IAchievementRepository.ts
+  h_94c952a9e14c58 1
+backend/src/application/usecases/services/match-completion.service.ts
+  h_94c952a9e14c58 1-117
+backend/src/application/usecases/services/achievement.service.ts
+  h_94c952a9e14c58 2
+frontend/src/App.tsx
+  h_94c952a9e14c58 1,30,39,48-50,68-74,79-86
+backend/src/entities/dtos/notification.dto.ts
+  h_94c952a9e14c58 1-13
+frontend/src/assets/svgs/left-shoulder.svg
+  h_94c952a9e14c58 1-254
+frontend/src/Views/GameGuide.tsx
+  h_94c952a9e14c58 4-7
+backend/src/entities/dtos/submission-result.dto.ts
+  h_94c952a9e14c58 2-12,14,16-28
+  h_b13c5d77534129 1,13,15
+frontend/src/ViewModels/SignInViewModel.ts
+  h_94c952a9e14c58 3
+backend/tests/unit/adapters/CodeExecutor.test.ts
+  h_94c952a9e14c58 1-61
+frontend/src/extra-layout.tsx
+  h_94c952a9e14c58 5,8
+docs/Demo_3/coding-standards.md
+  h_94c952a9e14c58 1-176
+frontend/@/components/features/code-editor.tsx
+  h_94c952a9e14c58 1-26
+frontend/src/assets/svgs/left-forearm.svg
+  h_94c952a9e14c58 1-254
+frontend/src/animations/yes.tsx
+  h_94c952a9e14c58 1-82
+backend/src/interface-adapters/repositories/match-result.repository.ts
+  h_94c952a9e14c58 5
+frontend/src/ViewModels/FriendsViewModel/FriendsContext.tsx
+  h_94c952a9e14c58 5,7,10-11,16,21,32,37,43,48,58-59,66-67,69-112,115-119,121-128,130,132,135,152-156,158-182,184-203,206-211,214-215,220-268,273,277,283-294,296,316,323,334,344,350-351
+frontend/src/assets/svgs/fist.svg
+  h_94c952a9e14c58 1-270
+frontend/src/ViewModels/AchievementsViewModel.ts
+  h_94c952a9e14c58 2-3,5-6,8,13,20,22-25,27,29-35,37-38,40-67,74,76
+frontend/src/animations/poses/rig.tsx
+  h_94c952a9e14c58 1-96
+dockerfile/docker-compose.dev.yml
+  h_94c952a9e14c58 3-5,8-24,26,28-45,49,52-54,56-65,71,73,76,84,91,106
+backend/src/application/usecases/services/game.service.ts
+  h_94c952a9e14c58 3,92
+backend/src/application/interfaces/marking/ICodeExecutor.ts
+  h_94c952a9e14c58 1-5
+frontend/src/Views/SignIn.tsx
+  h_94c952a9e14c58 2-5
+backend/tests/test-data-source.ts
+  h_94c952a9e14c58 1-45
+backend/tests/integration/services/marking.service.test.ts
+  h_94c952a9e14c58 1-187
+backend/src/application/interfaces/repositories/IUserRepository.ts
+  h_94c952a9e14c58 1-17
+backend/src/application/usecases/services/user-creation.service.ts
+  h_94c952a9e14c58 1-32
+backend/Dockerfile.dev
+  h_94c952a9e14c58 1-17
+frontend/src/ViewModels/MatchViewModel.ts
+  h_94c952a9e14c58 2-4,8-9,11-13,21-43,46-50,60,62,64,67,77,79-83,95-96,108,125,149,152
+backend/src/entities/dtos/rank.dto.ts
+  h_94c952a9e14c58 1-4
+frontend/src/assets/svgs/angry.svg
+  h_94c952a9e14c58 1-270
+backend/vitest.config.ts
+  h_94c952a9e14c58 1-34
+frontend/src/context/Socket/MatchmakingContext.tsx
+  h_94c952a9e14c58 3-5,7-9
+backend/src/entities/dtos/elo.dto.ts
+  h_94c952a9e14c58 1-10
+frontend/@/components/shared/Match.tsx
+  h_94c952a9e14c58 51-52,76
+backend/src/application/interfaces/repositories/IAnswerRepository.ts
+  h_94c952a9e14c58 1-7
+frontend/test/test-utils.ts
+  h_94c952a9e14c58 18-25
+backend/src/entities/db-entities/match.entities.ts
+  h_94c952a9e14c58 28
+frontend/src/assets/svgs/right-leg.svg
+  h_94c952a9e14c58 1-251
+frontend/src/Views/Leaderboard/components/LeaderboardRow.tsx
+  h_94c952a9e14c58 1-24
+frontend/src/assets/svgs/neutral.svg
+  h_94c952a9e14c58 1-241
+backend/src/application/interfaces/repositories/IFriendRepository.ts
+  h_94c952a9e14c58 1
+frontend/src/ViewModels/ProfileViewModel.ts
+  h_94c952a9e14c58 5,16,31-56,58
+dockerfile/docker-compose.prod.yml
+  h_94c952a9e14c58 1-58
+frontend/src/services/match.service.tsx
+  h_b13c5d77534129 26-27,113-114,117,124,134,202,207
+  h_94c952a9e14c58 1-25,28-112,115-116,118-123,125-133,135-201,203-206,208-247
+frontend/src/assets/svgs/winning.svg
+  h_94c952a9e14c58 1-269
+backend/src/application/usecases/services/leaderboard.service.ts
+  h_94c952a9e14c58 1-3,5-6
+backend/src/entities/dtos/player-stats.dto.ts
+  h_94c952a9e14c58 1-4
+backend/src/entities/dtos/components.dto.ts
+  h_94c952a9e14c58 1-44
+backend/src/entities/dtos/matchmaking.dto.ts
+  h_94c952a9e14c58 20
+frontend/src/Views/Dashboard.tsx
+  h_94c952a9e14c58 1-163
+frontend/src/animations/armRaise.tsx
+  h_94c952a9e14c58 1-112
+backend/src/application/interfaces/repositories/IQuestionRepository.ts
+  h_94c952a9e14c58 1-7
+backend/src/interface-adapters/repositories/user.repository.ts
+  h_94c952a9e14c58 3,14,35,87,91-144
+frontend/src/assets/svgs/worried.svg
+  h_94c952a9e14c58 1-270
+backend/src/entities/dtos/achievement.dto.ts
+  h_94c952a9e14c58 1-10
+frontend/src/ViewModels/DashboardViewModel.ts
+  h_94c952a9e14c58 1,6,11-40,59-62
+README.md
+  h_94c952a9e14c58 77-81
+frontend/src/assets/svgs/left-leg.svg
+  h_94c952a9e14c58 1-254
+frontend/package.json
+  h_94c952a9e14c58 1-71
+frontend/src/Views/MathsMatch.tsx
+  h_94c952a9e14c58 1-128
+backend/src/application/usecases/services/matchmaking.service.ts
+  h_94c952a9e14c58 3
+backend/tests/mocks/mock-questions.ts
+  h_94c952a9e14c58 1-53
+backend/src/interface-adapters/controllers/rank.controllers.ts
+  h_94c952a9e14c58 2,5
+frontend/src/assets/svgs/surprised.svg
+  h_94c952a9e14c58 1-269
+frontend/test/unit/ViewModels/FriendsContext.test.tsx
+  h_94c952a9e14c58 1-197
+frontend/src/Views/Achievements.tsx
+  h_94c952a9e14c58 2,4-5,34-36,61,63-65,71-75,77,92,94-96,102-106,108,115
+frontend/src/services/api.service.tsx
+  h_94c952a9e14c58 1-7
+frontend/src/Views/Leaderboard/components/PodiumCard.tsx
+  h_94c952a9e14c58 1-32
+frontend/src/ViewModels/MatchHistoryViewModel.ts
+  h_94c952a9e14c58 2,4-6,9
+backend/tests/integration/repositories/match-result.repository.test.ts
+  h_94c952a9e14c58 4-5,12-13,26,85,136
+backend/tests/setup.ts
+  h_94c952a9e14c58 1-6
+backend/src/application/usecases/services/game-store.service.ts
+  h_94c952a9e14c58 1-88
+package-lock.json
+  h_94c952a9e14c58 16-17,20-22,4957-4979,5297-5305,6341-6377,6444-6593,6595,6598-6600,6603,6606-6609,6611,6614,6617-6625,6627-6631,6634,6637-6640,6642-6675,6677-6678,6680-6681,6684-6687,6689-6699,6702-6711,6713-6716,6718-6725,6727-6728,6731,6733-6741,6743,6746-6755,6757,6760-6770,6772,6775-6781,6783-6789,6791-6803,6805-6813,6815-6816,6819-6824,6827,6830-6833,6835,6838-8408,8530-8580,8765-8770
+backend/src/application/interfaces/cache/IMatchmakingCache.ts
+  h_94c952a9e14c58 1-16
+backend/src/interface-adapters/repositories/achievement.repository.ts
+  h_94c952a9e14c58 5
+package.json
+  h_94c952a9e14c58 6,12-14,53-54,57-59
+frontend/src/assets/svgs/peace.svg
+  h_94c952a9e14c58 1-270
+frontend/src/Views/Popup.tsx
+  h_94c952a9e14c58 4-5,9,30-34,37
+frontend/src/assets/svgs/wrong.svg
+  h_94c952a9e14c58 1-270
+backend/src/interface-adapters/repositories/answer.repository.ts
+  h_94c952a9e14c58 1-61
+frontend/src/assets/svgs/right-shoulder.svg
+  h_94c952a9e14c58 1-254
+judge0-v1.13.1/docker-compose.yml
+  h_94c952a9e14c58 1-56
+backend/tests/mocks/mock-answers.ts
+  h_94c952a9e14c58 1-17
+backend/src/entities/dtos/auth.dto.ts
+  h_94c952a9e14c58 1-5
+.github/workflows/cd.yml
+  h_94c952a9e14c58 1-20
+backend/src/application/usecases/services/questions.service.ts
+  h_94c952a9e14c58 1-82
+backend/src/frameworks-drivers/config/data-source.ts
+  h_94c952a9e14c58 1-45
+frontend/src/context/Achievement/AchievementToastContext.tsx
+  h_94c952a9e14c58 1-86
+backend/tests/unit/controllers/rank.controller.test.ts
+  h_94c952a9e14c58 1-63
+frontend/src/Models/ProfileModel.ts
+  h_94c952a9e14c58 1-10
+dockerfile/docker-compose.test.yml
+  h_94c952a9e14c58 1-68
+backend/src/entities/dtos/match-data.dto.ts
+  h_94c952a9e14c58 1-29
+frontend/test/setupTests.ts
+  h_94c952a9e14c58 1-10
+frontend/index.html
+  h_94c952a9e14c58 1-12
+backend/Dockerfile
+  h_94c952a9e14c58 10-11,14
+frontend/src/ViewModels/MatchSearchingViewModel.ts
+  h_94c952a9e14c58 3-4
+backend/tests/integration/code-executor/CodeExecutor.test.ts
+  h_94c952a9e14c58 1-64
+  h_b13c5d77534129 65
+"docs/Demo_3/SAS (1).md"
+  h_94c952a9e14c58 1-393
+backend/src/entities/db-entities/achievement.entities.ts
+  h_94c952a9e14c58 1,12,15-17,19-21,24
+backend/tests/integration/repositories/answer.repository.test.ts
+  h_94c952a9e14c58 1-63
+backend/tsconfig.json
+  h_94c952a9e14c58 1-35
+frontend/src/Views/FinalResults.tsx
+  h_94c952a9e14c58 5-6,9,20-30,43,210-211
+frontend/src/ViewModels/SignUpViewModel.ts
+  h_94c952a9e14c58 1-125
+frontend/src/animations/poses/thinking.tsx
+  h_94c952a9e14c58 1-64
+frontend/@/components/features/VirtualKeyboard.tsx
+  h_94c952a9e14c58 4
+backend/tests/integration/repositories/user.repository.test.ts
+  h_94c952a9e14c58 1-49
+frontend/src/Views/ProgMatch.tsx
+  h_94c952a9e14c58 1-110
+frontend/src/assets/svgs/torso.svg
+  h_94c952a9e14c58 1-241
+backend/src/entities/league-mapping.ts
+  h_94c952a9e14c58 1
+frontend/src/assets/svgs/excited.svg
+  h_94c952a9e14c58 1-241
+frontend/src/context/Friends/useFriends.ts
+  h_94c952a9e14c58 4
+backend/src/interface-adapters/controllers/elo.controllers.ts
+  h_94c952a9e14c58 2-3,7
+backend/tests/integration/repositories/question.repository.test.ts
+  h_94c952a9e14c58 5-6
+backend/src/application/interfaces/repositories/IEloRepository.ts
+  h_94c952a9e14c58 1-3,6,19-20
+frontend/src/assets/svgs/happy.svg
+  h_94c952a9e14c58 1-256
+frontend/vite.config.ts
+  h_94c952a9e14c58 6-10,13,18,22-35,41
+backend/src/frameworks-drivers/config/amplify-config.ts
+  h_94c952a9e14c58 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "ab602e470d89463f0b7a8dbb93ea6a072ab0f15c",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    },
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
