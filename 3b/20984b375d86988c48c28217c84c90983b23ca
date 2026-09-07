@@ -1,0 +1,107 @@
+frontend/src/Models/ProfileModel.ts
+  s_7db9f6f714541c::t_3f71c605deff63 7
+  s_7db9f6f714541c::t_50e8740e4dc905 1-6,8-10
+backend/src/application/interfaces/cache/IMatchmakingCache.ts
+  s_7db9f6f714541c::t_58953cb6568fc9 2
+backend/src/application/usecases/services/game-store.service.ts
+  s_7db9f6f714541c::t_58953cb6568fc9 2-4
+backend/src/application/usecases/systems/opponent-progress.ts
+  s_7db9f6f714541c::t_4c03f78f430aae 2-3,8,12,16-17
+  s_7db9f6f714541c::t_cbb3ca73ce932c 30-43
+backend/src/application/interfaces/repositories/IQuestionRepository.ts
+  s_7db9f6f714541c::t_58953cb6568fc9 2
+frontend/src/ViewModels/MatchViewModel.ts
+  s_7db9f6f714541c::t_8633f55207965a 7,63
+frontend/src/ViewModels/ProfileViewModel.ts
+  s_7db9f6f714541c::t_4c03f78f430aae 34-38
+  s_7db9f6f714541c::t_5f6f1beb2d1a5d 5-6,39-57,59
+backend/src/application/usecases/systems/create-game.ts
+  s_7db9f6f714541c::t_58953cb6568fc9 2
+backend/src/application/usecases/services/cognito.service.ts
+  s_7db9f6f714541c::t_58953cb6568fc9 32-44
+  s_7db9f6f714541c::t_ef20b19def83eb 45-46
+backend/src/application/usecases/systems/submission.system.ts
+  s_7db9f6f714541c::t_4c03f78f430aae 2,21,25,30,34,46-47,50,54-56,64,79
+  s_7db9f6f714541c::t_045e0cfb156422 65-78
+backend/.dockerignore
+  s_7db9f6f714541c::t_4c03f78f430aae 9
+  s_7db9f6f714541c::t_03e79d90a8e2ad 20-21
+backend/src/application/usecases/services/match-completion.service.ts
+  s_7db9f6f714541c::t_58953cb6568fc9 5
+docker-compose.yml
+  s_7db9f6f714541c::t_8efce92b6a70a5 55-57
+backend/src/application/usecases/services/questions.service.ts
+  s_7db9f6f714541c::t_58953cb6568fc9 2
+backend/tests/unit/services/mark-prog.test.ts
+  s_7db9f6f714541c::t_cc5c5bec2ffb8d 40
+  s_7db9f6f714541c::t_83f2807e20fdeb 4,14-20,42
+backend/src/application/usecases/systems/life.system.ts
+  s_7db9f6f714541c::t_4c03f78f430aae 2-3,7-9,14-16,24-28,39-43
+  s_7db9f6f714541c::t_701e7164da745b 58-73
+backend/package.json
+  s_7db9f6f714541c::t_f180a2a028c565 15-16,34,56
+backend/src/application/interfaces/repositories/IAnswerRepository.ts
+  s_7db9f6f714541c::t_ca4d690fa9b033 1
+backend/src/application/interfaces/repositories/IEloRepository.ts
+  s_7db9f6f714541c::t_9d6427b46c00b3 1-3
+backend/src/application/interfaces/repositories/IMatchResultRepository.ts
+  s_7db9f6f714541c::t_6ec46944eede6b 1
+backend/src/application/interfaces/repositories/IUserRepository.ts
+  s_7db9f6f714541c::t_e77e0dadd52a9e 1
+backend/src/application/usecases/services/leaderboard.service.ts
+  s_7db9f6f714541c::t_265ac048652ebf 1-3
+backend/src/application/usecases/services/matched-users.service.ts
+  s_7db9f6f714541c::t_99b16aaefdad61 1
+backend/src/frameworks-drivers/app.ts
+  s_7db9f6f714541c::t_f7381f7e4761ed 4-5,7-8,10-19,21-22,24-25,27-28
+backend/src/frameworks-drivers/config/data-source.ts
+  s_7db9f6f714541c::t_821fbc0a1cd3fc 4,10-12,26-38
+backend/src/frameworks-drivers/server.ts
+  s_7db9f6f714541c::t_b6bf06e6eeb22f 59,119
+backend/src/interface-adapters/controllers/user.controllers.ts
+  s_7db9f6f714541c::t_612d78f18e8846 31-44
+backend/src/interface-adapters/repositories/user.repository.ts
+  s_7db9f6f714541c::t_2a32eba35b5d1f 3,14,35,87
+backend/tests/integration/repositories/answer.repository.test.ts
+  s_7db9f6f714541c::t_4814aa9602ae89 7-8
+backend/tests/integration/repositories/user.repository.test.ts
+  s_7db9f6f714541c::t_fb4d0927738d85 6
+backend/vitest.config.ts
+  s_7db9f6f714541c::t_6a9405fa8b2b2e 8
+database/02-init-questions.sql
+  s_7db9f6f714541c::t_174fd70d9cb3c6 327,352,363
+frontend/@/components/features/VirtualKeyboard.tsx
+  s_7db9f6f714541c::t_201052975d3528 4
+frontend/package.json
+  s_7db9f6f714541c::t_23df6ce2296e8b 11,52
+frontend/src/App.tsx
+  s_7db9f6f714541c::t_a72743a3f21718 42-43,69,75,81-82,84-85,87-88,91
+frontend/src/ViewModels/DashboardViewModel.ts
+  s_7db9f6f714541c::t_2370f3c04649c1 11,61-62
+frontend/src/Views/Dashboard.tsx
+  s_7db9f6f714541c::t_762a7617b53ace 1,7,10-11,14-52,55,57,69-82,86-113,117-126,129-157,159-166,171
+frontend/src/Views/MathsMatch.tsx
+  s_7db9f6f714541c::t_36e0687a8051b3 108,110-112,115,118
+frontend/src/context/User/UserContext.tsx
+  s_7db9f6f714541c::t_316dbf5b8886ff 136,151
+frontend/src/dtos/submission.dto.ts
+  s_7db9f6f714541c::t_e4a8cdaf0b3723 2
+frontend/src/services/match.service.tsx
+  s_7db9f6f714541c::t_ec4bc5343d944b 21,25,27-32,62,241-252
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "3b20984b375d86988c48c28217c84c90983b23ca",
+  "prompts": {},
+  "sessions": {
+    "s_7db9f6f714541c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "520a199c-58d3-45e2-9583-9982e39b1ab7",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
