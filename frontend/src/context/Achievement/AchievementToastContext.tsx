@@ -88,6 +88,8 @@ export const AchievementToastProvider: React.FC<{ children: React.ReactNode }> =
                 });
                 if (!res.ok) return;
                 const data = await res.json();
+                console.log('friend requests polled:', data); // ← add this
+                console.log('prev ids:', prevRequestIds.current);
 
                 if(isFriendFirstFetch.current) {
                     prevRequestIds.current = new Set(data.map((r: any) => r.friendship_id));
