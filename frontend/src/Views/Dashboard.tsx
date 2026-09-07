@@ -66,7 +66,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className='relative w-full min-h-screen bg-cover bg-center overflow-hidden'>
+    <div className='relative w-full min-h-[calc(100vh-80px)] bg-cover bg-center'>
       <div className='absolute inset-0 bg-gradient-to-b from-background/85 via-background/75 to-background'/>
       <Starfield/>
 
