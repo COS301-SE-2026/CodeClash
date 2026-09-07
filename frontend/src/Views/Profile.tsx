@@ -9,7 +9,7 @@ import { Okay } from 'src/animations/poses/okay';
 import { Thinking } from 'src/animations/poses/thinking';
 import {X} from "lucide-react"
 import Starfield from '@/components/ui/animations/Starfield';
-import { ChevronLeft } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import "../styles/global.css"
 
 const colours = [
@@ -215,7 +215,7 @@ function ProfileView(){
 
   return (
     <div className="w-full min-h-screen bg-primary-dark flex flex-col items-center justify-center text-secondary-text">
-      <Link className="badge badge-status-pending absolute top-3 left-3" to={'/dashboard'}
+      <Link className="btn btn-ghost primary-back-button absolute top-3 left-3" to={'/dashboard'}
         onKeyDown={(e) => {
           const shift = e.shiftKey;
           if (shift && e.key === 'Esc') {
@@ -223,7 +223,7 @@ function ProfileView(){
           }
         }}
       > 
-      <ChevronLeft/>
+      <ArrowLeft size={18}/>
       Back
       
       </Link>
