@@ -1,0 +1,14 @@
+frontend/package-lock.json
+  h_b13c5d77534129 8844-8846
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "d3ef601a7a56301d9d4e8070653b621d93e5c532",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

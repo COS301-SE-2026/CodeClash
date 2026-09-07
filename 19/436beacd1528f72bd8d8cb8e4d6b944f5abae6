@@ -1,0 +1,20 @@
+backend/vitest.config.ts
+  h_94c952a9e14c58 8
+backend/src/interface-adapters/CodeExecutor.ts
+  h_94c952a9e14c58 20,23,30,38,42
+  h_94c952a9e14c58 50-51
+backend/tests/integration/code-executor/CodeExecutor.test.ts
+  h_94c952a9e14c58 13-17,19-20,22,24-32,36-39,41-62,64
+  h_94c952a9e14c58 7,10,12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "19436beacd1528f72bd8d8cb8e4d6b944f5abae6",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
