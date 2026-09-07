@@ -56,7 +56,7 @@ export class CodeExecutor implements ICodeExecutor {
                 }
             }
 
-            throw ('Error Marking Submission');
+            throw Error('Error Marking Submission');
         }
     }
 }
