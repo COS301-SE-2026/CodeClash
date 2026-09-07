@@ -208,7 +208,7 @@ const Friends: React.FC = () => {
                                             </div>
                                         )}  
                                     </div>
-                                    <button className="btn btn-ghost bg-danger btn-icon" onClick={() => removeFriend(f.id)} 
+                                    <button className="btn btn-ghost bg-danger btn-icon" onClick={() => removeFriend(f.friendship_id)} 
                                         aria-label= {`${friendContent.removeLabel} ${f.username}`} type="button">
                                         <X size={18}/>
                                     </button>

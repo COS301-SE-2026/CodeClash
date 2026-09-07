@@ -2,6 +2,7 @@ export type FriendStatus = 'online' | 'offline' | 'playing';
 
 export interface Friend {
     id: string;
+    friendship_id: string;
     username: string;
     avatar: number;
     status: FriendStatus;

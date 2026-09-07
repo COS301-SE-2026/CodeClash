@@ -227,6 +227,7 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
             setFriend((prev) => [
                 ...prev, {
                     id: req.fromUser, 
+                    friendship_id: req.id,
                     username: req.username,
                     avatar: req.avatar,
                     status: 'offline',
@@ -254,18 +255,20 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
         await fetchAll();
     }, [token])
 
-    const removeFriend = useCallback( async (id: string) => {
+    const removeFriend = useCallback( async (friendship_id: string) => {
         if (!token) return;
-        const f = friend.find((fr) => fr.id === id);
-        if(!f) return;
+        // const f = friend.find((fr) => fr.id === id);
+        // if(!f) return;
         try{
-            // need to find a way to retrieve friendship_id
-            setFriend((prev) => prev.filter((r) => r.id !== id));
+            await fetch(`${API_BASE}/friends/${friendship_id}`, {
+                method: 'DELETE',
+                headers: { Authorizayion: `Bearer ${token}` }
+            });
+            await fetchAll();
         } catch (err) {
             console.error('Error removing friend:', err);
         }
-        await fetchAll();
-    }, [token, friend]);
+    }, [token, fetchAll]);
 
     /*Invites */
     const sendInvite = useCallback(async (friendId: string) => {
