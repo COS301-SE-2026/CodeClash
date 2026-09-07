@@ -3,7 +3,7 @@ import { IEloRepository } from "src/application/interfaces/repositories/IEloRepo
 import { RankDTO } from "src/entities/dtos/rank.dto";
 
 export class LeaderboardService {
-    constructor(private readonly eloRepository: IEloRepository) {}
+    constructor(private eloRepository: IEloRepository) {}
 
     async execute(limit: number, page: number): Promise<PaginatedLeaderboardResponse> {
       const offset = (page - 1) * limit;

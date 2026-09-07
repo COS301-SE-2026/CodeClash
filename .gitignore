@@ -470,8 +470,13 @@ sketch
 **/*.pem
 pem
 
-judge0.conf
+*.env.*
+env
+
+judge0.conf*
 
 !frontend/@/lib/
+
+**/*.conf
 
 # End of https://www.toptal.com/developers/gitignore/api/node,react,java,python,intellij

@@ -10,6 +10,7 @@ export interface QuestionDTO {
 
 export interface StartQuestionDTO {
     match_id: number
-    question: string
+    question: string,
+    question_number:number
 }
 

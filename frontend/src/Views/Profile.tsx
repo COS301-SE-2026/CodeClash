@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { useLogOut, getProfile  } from '../ViewModels/ProfileViewModel';
+import { useLogOut, useProfile } from '../ViewModels/ProfileViewModel';
 
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -10,7 +10,7 @@ import { Card } from '@/components/ui/card';
 
 function ProfileView(){
   
-  const { userData, loadingData, error} = getProfile();
+  const { userData, loadingData, error} = useProfile();
 
   const onLogout = useLogOut();
 

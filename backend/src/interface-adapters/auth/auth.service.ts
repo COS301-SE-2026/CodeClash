@@ -6,22 +6,27 @@ import { IUserRepository } from 'src/application/interfaces/repositories/IUserRe
 import { STATS, UserDTO } from 'src/entities/dtos/user.dto'
 dotenv.config()
 
-const verifier = CognitoJwtVerifier.create({
-  userPoolId: `${process.env.COGNITO_USER_POOL_ID}`,
-  tokenUse: "id",
-  clientId: `${process.env.COGNITO_CLIENT_ID}`, //client ID of app, not a userId
-});
 
-
-
+const verifier = (() => {
+  let instance: ReturnType<typeof CognitoJwtVerifier.create> | null = null;
+  return () => {
+    if (!instance) {
+      instance = CognitoJwtVerifier.create({
+        userPoolId: `${process.env.COGNITO_USER_POOL_ID}`,
+        tokenUse: "id",
+        clientId: `${process.env.COGNITO_CLIENT_ID}`, //client ID of app, not a userId
+      });
+    }
+    return instance;
+  };
+})();
 
 export const validateToken = async (token: string | undefined) => {
   if (token === undefined)
     return null;
 
   try {
-    const payload = await verifier.verify(token);
-  
+    const payload = await verifier().verify(token);
     return {
       user_Id: payload.sub,
       email: payload.email
@@ -51,28 +56,36 @@ export const creationRequireAuth = () => {
 export const requireAuth = (user_repo: IUserRepository) => {
 
   return async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.headers.authorization?.split(' ')[1];
 
-    const validate = await validateToken(token)
-  
-    if (validate?.email === undefined) {
-      res.status(401).json({ message: 'Missing or Invalid Token' });
-      return null;
+    try {
+
+
+      const token = req.headers.authorization?.split(' ')[1];
+
+      const validate = await validateToken(token)
+
+      if (validate?.email === undefined) {
+        res.status(401).json({ message: 'Missing or Invalid Token' });
+        return null;
+      }
+
+      const db_user = await user_repo.getUserId(validate.user_Id);
+
+      if (!db_user) {
+        res.status(404).json({ message: 'Unknown User' });
+        return null
+      }
+
+      req.user = {
+        id: db_user.user_id!,
+        email: validate.email as string
+      };
+
+      next();
+    } catch (error) {
+      console.error('authorisation error: ', error);
+      res.status(500).json({ message: 'Internal server error' });
     }
-
-    const db_user = await user_repo.getUserId(validate.user_Id);
-
-    if (!db_user) {
-      res.status(404).json({ message: 'Unknown User' });
-      return null
-    }
-
-    req.user = {
-      id: db_user.user_id!,
-      email: validate.email as string
-    };
-
-    next();
   }
 
 }

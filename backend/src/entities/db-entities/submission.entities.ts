@@ -1,15 +1,15 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, CreateDateColumn } from "typeorm";
 import { Users } from './user.entities';
-import { Match } from './match.entities';
+import { Matches } from './match.entities';
 
 @Entity()
 export class Submission {
     @PrimaryGeneratedColumn('uuid')
         submission_id!: string;
 
-    @OneToOne(() => Match)
+    @OneToOne(() => Matches)
     @JoinColumn({ name: 'match_id' })
-    match!: Match;
+    match!: Matches;
     
     @OneToOne(() => Users)
     @JoinColumn({ name: 'user_id' })

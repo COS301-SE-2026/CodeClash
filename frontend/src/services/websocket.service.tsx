@@ -2,8 +2,7 @@ import { fetchAuthSession } from 'aws-amplify/auth';
 import { io, Socket } from 'socket.io-client'
 
 
-
-//  const env = import.meta.env;
+const env = import.meta.env;
 
 export async function createSocket(): Promise<Socket> {
     const session = await fetchAuthSession({ forceRefresh: true })
@@ -14,18 +13,13 @@ export async function createSocket(): Promise<Socket> {
             token: token?.toString()
         }
     }
-
-    const conn = io( options);
+    const conn = io(env.VITE_WEBSOCKET_URL, options);
 
 
     conn.on("connect_error", (err) => {
         console.error(`Error connecting to socket: ${err}`);
     })
 
-
-    conn.on("back_to_dash", ()=>{
-        
-    })
 
     return conn;
 }

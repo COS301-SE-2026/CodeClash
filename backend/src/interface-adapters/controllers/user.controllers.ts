@@ -2,12 +2,12 @@ import { Request, Response } from 'express';
 import { UserDTO } from 'src/entities/dtos/user.dto';
 
 import { validStat } from '../auth/auth.service';
-import { UserRepository } from '../repositories/user.repository';
 import { CreateUser } from 'src/application/usecases/services/user-creation.service';
+import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
 
 
 /// GET api/user/:stat
-export const getUserStat = (user_repo: UserRepository) => {
+export const getUserStat = (user_repo: IUserRepository) => {
 
     return async (req: Request, res: Response) => {
 
@@ -26,9 +26,22 @@ export const getUserStat = (user_repo: UserRepository) => {
 
         res.status(200).json(data);
     }
-    //    
 }
 
+//GET api/users/search?q=username
+export const searchUsers = (user_repo: IUserRepository) => {
+    return async (req: Request, res: Response) => {
+        const q = req.query.q as string;
+
+        if (!q || q.trim().length < 2) {
+            res.status(400).json({ error: 'Search query must be at least 3 characters' });
+            return;
+        }
+
+        const results = await user_repo.searchByUsername(q.trim());
+        res.status(200).json(results ?? []);
+    }
+}
 
 export const createUser = (create_user: CreateUser) => {
     return async (req: Request, res: Response) => {

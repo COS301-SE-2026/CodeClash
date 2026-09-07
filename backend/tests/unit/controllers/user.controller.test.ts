@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
-import { getUserStat } from '../../../src/interface-adapters/controllers/user.controllers'
-import { UserDTO } from '../../../src/entities/dtos/user.dto'
+import { getUserStat } from '../../../src/interface-adapters/controllers/user.controllers';
+import { UserDTO } from '../../../src/interface-adapters/dtos/user.dto';
 
 describe("User Controller Test", () => {
     it("Returns value of valid stat req", async () => {

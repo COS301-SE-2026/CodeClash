@@ -1,6 +1,6 @@
 import { Amplify } from 'aws-amplify'
 import dotenv from 'dotenv'
-dotenv.config()
+dotenv.config({path: '.env.test'})
 
 
 const userPoolId = process.env.COGNITO_USER_POOL_ID;
