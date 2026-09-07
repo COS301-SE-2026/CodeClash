@@ -19,14 +19,20 @@ const LogoSection: React.FC<Props> = ({content}) => {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
                 {[
                     {
-                        label: 'Primary - Dark',
-                        bg: '#530a23',
+                        label: 'Background',
+                        bg: '#0a0008',
                         text: '#FCECDD',
                         description: 'Main (default) usage',
                     },
                     {
-                        label: 'Primary - Light', //Should i say 'Secondary - Dark' instead?
-                        bg: '#FFEFE0',
+                        label: 'Primary - Dark',
+                        bg: '#530a23',
+                        text: '#FCECDD',
+                        description: 'Dark surfaces',
+                    },
+                    {
+                        label: 'Primary - Light',
+                        bg: '#Fcecdd',
                         text: '#530a23',
                         description: 'Light surfaces',
                     },

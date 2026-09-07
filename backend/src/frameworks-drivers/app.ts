@@ -6,11 +6,18 @@ import { IUserRepository } from 'src/application/interfaces/repositories/IUserRe
 
 import { createAPIRoutes } from './api.routes';
 import { LeaderboardService } from 'src/application/usecases/services/leaderboard.service';
+import { AchievementService } from 'src/application/usecases/services/achievement.service';
+import { FriendService } from 'src/application/usecases/services/friend.service';
+import { MatchHistoryRepository } from 'src/interface-adapters/repositories/match-history.repository';
+
 
 export const createApp = (
   elo_repo: IEloRepository,
   user_repo: IUserRepository,
-  leaderboard_service: LeaderboardService
+ match_history_repo: MatchHistoryRepository,
+  leaderboard_service: LeaderboardService,
+  achievement_service: AchievementService,
+  friends_service: FriendService
 ) => {
   const app = express();
   app.disable('x-powered-by');
@@ -22,7 +29,7 @@ export const createApp = (
   app.use(express.json());
 
   app.use(requireAuth(user_repo))
-  app.use('/api', createAPIRoutes(elo_repo, user_repo, leaderboard_service));
+  app.use('/api', createAPIRoutes(elo_repo, user_repo,match_history_repo, leaderboard_service,achievement_service,friends_service));
 
   return app;
 }
