@@ -1,5 +1,5 @@
 import { GameMode } from "src/entities/db-entities/questions.entities";
-import MatchmakingUserDTO from "src/interface-adapters/dtos/matchmaking.dto";
+import MatchmakingUserDTO from "src/entities/dtos/matchmaking.dto";
 
 
 export interface IMatchmakingCache {

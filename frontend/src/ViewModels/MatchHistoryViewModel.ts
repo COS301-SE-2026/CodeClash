@@ -1,10 +1,12 @@
-import { useState, useCallback, useEffect} from "react";
 import axios from "axios";
-import type { MatchRow } from "../Models/MatchHistoryModel";
+import { useState, useCallback, useEffect} from "react";
 import { useAuth } from "src/context/Auth/hooks/useAuth";
+
+import type { MatchRow } from "../Models/MatchHistoryModel";
+
 //import { formatMatchSearchTime } from "src/Models/MatchSearchingModel";
 
-const url = 'http://localhost:3000/api/';
+const url = '/api/';
 
 interface MatchHistoryViewModel {
     matches: MatchRow[];

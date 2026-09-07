@@ -4,7 +4,7 @@ import RedisMock from 'ioredis-mock'
 import { IMatchmakingCache } from '../../../../src/application/interfaces/cache/IMatchmakingCache'
 import { MatchmakingService } from '../../../../src/application/usecases/services/matchmaking.service'
 import { GameMode } from '../../../../src/entities/db-entities/questions.entities';
-import UserDto from "../../../../src/interface-adapters/dtos/matchmaking.dto";
+import UserDto from "../../../../src/entities/dtos/matchmaking.dto";
 import { MatchmakingCache } from '../../../../src/interface-adapters/cache/matchmaking-cache'
 import { vi, describe, test, expect, beforeEach, afterEach } from 'vitest';
 

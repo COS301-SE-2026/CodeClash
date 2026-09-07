@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+
 import { secureRandom } from "./Starfield";
 
 type ConfettiProps = {

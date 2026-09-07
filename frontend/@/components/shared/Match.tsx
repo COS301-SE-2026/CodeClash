@@ -18,7 +18,6 @@ interface MatchScreenProps {
     current_question: number,
     opponent_progress: number,
     question_results: (boolean | null)[],
-    opponent_done: boolean,
 }
 
 export const MatchScreen: React.FC<MatchScreenProps> = ({
@@ -33,7 +32,6 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
     current_question,
     opponent_progress,
     question_results,
-    opponent_done
 }) => {
 
 
@@ -50,7 +48,8 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                         alt="user 1 avatar"
                         className='h-[120%] flex items-center'
                     />
-                    <div className=' w-[70%] flex flex-col items-start h-[70%] justify-between self-end '>
+                    
+                    <div className='w-[70%] flex flex-col items-start h-[70%] justify-between self-end'>
                         <Progress
                             value={player_life[0]}
                             progress_colour={colour}
@@ -74,7 +73,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                             progress_colour={colour}
                             className='w-full h-9 shadow-[0_4px_6px_rgba(0,0,0,0.3)] scale-x-[-1]'
                         />
-                        <Badge variant={'secondary'} className='font-body text-[1.25rem] w-[50%] h-[35%]'>{usernames[1]}</Badge>
+                        <Badge variant={'secondary'} className='text-[1.25rem] w-[50%] h-[25%]'>{usernames[1]}</Badge>
                     </div>
 
                     <img

@@ -1,7 +1,7 @@
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
-import { PlayerDTO } from "src/interface-adapters/dtos/components.dto";
-import { GameQuestionsDTO } from "src/interface-adapters/dtos/match-data.dto";
-import { MatchResultDTO } from "src/interface-adapters/dtos/match-result.dto";
+import { PlayerDTO } from "src/entities/dtos/components.dto";
+import { GameQuestionsDTO } from "src/entities/dtos/match-data.dto";
+import { MatchResultDTO } from "src/entities/dtos/match-result.dto";
 
 
 export class GameStore {

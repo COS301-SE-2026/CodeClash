@@ -25,7 +25,7 @@ export class Matches {
     @Column({ type: 'varchar', length: 10})
     match_type!: 'ranked' | 'casual';
 
-    @Column({ type: 'varchar', length: 10})
+    @Column({ type: 'varchar', length: 15})
     game_mode!: 'math' | 'programming';
 
     @Column({ type: 'timestamp', nullable: true })
