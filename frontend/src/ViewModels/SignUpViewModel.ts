@@ -78,22 +78,19 @@ export function SignUpViewModelFunction() {
 
 
             const req_data = {
-                username: signupData?.username,
-                email: signupData?.email
+                username: (signupData?.username ?? form.username).trim(),
+                email: (signupData?.email ?? form.email).trim()
             }
-            axios.post(`/api/user/create-user`, req_data, {
+            const res = await axios.post(`/api/user/create-user`, req_data, {
                 headers: { Authorization: `Bearer ${token}` }
-            })
-                .then((res) => {
-                    if (res.status === 200) {
-                        nav('/dashboard');
-                    }
-                    else {
-                        throw new Error("Error creating user.");
-                    }
-                })
-        } catch {
+            });
+            if (res.status !== 200) {
+                throw new Error("Error creating user.");
+            }
+            nav('/dashboard');
+        } catch (err) {
             console.error("Sign up confirmation error")
+            setLocalError(err instanceof Error ? err.message : "Sign up confirmation failed");
         }
     }, [confirmationCode, form.username, confirmSignUp, clearError, nav]); //Dependency array
 
@@ -102,7 +99,8 @@ export function SignUpViewModelFunction() {
         setLocalError(null);
         setResendMessage(null); //Clear any previous message for code sent, to show that is being resent
         try {
-            await resendSignUpCode(form.username.trim()); //Amplify called to send a confirmation code. The user is id'd by username.
+          await resendSignUpCode(form.username.trim()); //Amplify called to send a confirmation code. The user is id'd by username.
+          setConfirmationCode(''); // getting rid of the old stale confirmation code so that the new one can work
             setResendMessage('Code has been sent! Check your email.'); //If code has been sent, set the success message.
         } catch {
             console.error("Error resending code")
