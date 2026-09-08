@@ -1,0 +1,19 @@
+frontend/src/ViewModels/SignUpViewModel.ts
+  s_cb63807196421f::t_2d4e37ba5cc81d 84,101-102,105-107,127
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "2ab625f69445c5cf47ff4bdfc694ce5a48e1b3c0",
+  "prompts": {},
+  "sessions": {
+    "s_cb63807196421f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4deffe78-84eb-4112-b74f-b72536672616",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
