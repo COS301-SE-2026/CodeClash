@@ -59,6 +59,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
       const cognitoUser = await getCurrentUser();
 
+      const session = await fetchAuthSession({ forceRefresh: true }); // forceully start a sessoin witha token and on sign in we make sure that the page is refreshed so that they can properly get into the dashbaord with values properly updated and stuff
+      
+      setToken(session.tokens?.idToken?.toString()); // setting the token based on the session on sign in
+
       setUser({
         username: cognitoUser.username,
         userId: cognitoUser.userId,
@@ -144,6 +148,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     try {
       await amplifySignOut()
       setUser(null)
+      setToken(undefined) // so the id token doesnt stay in context after sign out
     } catch (err: unknown) {
       setError((err instanceof Error) ? err.message : 'Sign in failed')
       throw err
