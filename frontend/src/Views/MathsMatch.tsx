@@ -23,6 +23,8 @@ const MathsMatch = () => {
         finishGame, lastResultReceived
     } = useMatch();
 
+    console.log('lastResultReceived:', lastResultReceived);
+    
     const curr = questions[currentQuestion];
     const correct = results[currentQuestion];
     const result_colour = () => {

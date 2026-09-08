@@ -49,7 +49,8 @@ export const useGameQuestions = (
     match_id: string,
     user_id: string,
     socket: Socket,
-    game_type: GameType
+    game_type: GameType,
+    results: (boolean | null)[]
 ) => {
     const nav = useNavigate();
 
@@ -78,14 +79,18 @@ export const useGameQuestions = (
     const nextQuestion = (curr: number) => {
         if (curr < questions.length - 1) {
             setCurrentQuestion(curr + 1);
-            startQuestion(user_id, questions[curr + 1].id!, curr + 1)
+            if (results[curr + 1] !== true) {
+                startQuestion(user_id, questions[curr + 1].id!, curr + 1)
+            }
         }
     }
 
     const prevQuestion = (curr: number) => {
         if (curr > 0) {
-            setCurrentQuestion(curr - 1)
-            startQuestion(user_id, questions[curr - 1].id!, curr - 1)
+            setCurrentQuestion(curr - 1);
+            if (results[curr - 1] !== true) {
+                startQuestion(user_id, questions[curr - 1].id!, curr - 1)
+            }
         }
     }
 

@@ -20,6 +20,7 @@ export const ProgMatch = () => {
         finishGame, loading, submitQuestion, lastResultReceived
     } = useMatch();
 
+    console.log('lastResultReceived:', lastResultReceived);
     const curr = questions[currentQuestion];
 
     if (loading || !curr) {

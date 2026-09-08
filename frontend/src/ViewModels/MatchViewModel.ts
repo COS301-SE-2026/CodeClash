@@ -21,6 +21,8 @@ export const useMatch = () => {
     const closeLoading = () => setLoading(false);
     const { gameType } = useMatchmaking();
 
+    const [results, setResults] = useState<(boolean | null)[]>([]);
+
     const {
         questions,
         duration,
@@ -34,7 +36,7 @@ export const useMatch = () => {
         waitingOpponent,
         waiting_opponent,
         both_done
-    } = useGameQuestions(id, userId, socket!, gameType);
+    } = useGameQuestions(id, userId, socket!, gameType, results);
 
     const { seconds, minutes } = useGameTimer(duration, () => {
         setGameOver(true);
@@ -52,7 +54,6 @@ export const useMatch = () => {
     const [usernames, setUsernames] = useState<string[]>([]);
     const [loading, setLoading] = useState(false);
     const [answers, setAnswers] = useState<Record<string, string>>();
-    const [results, setResults] = useState<(boolean | null)[]>([]);
     const [gameOver, setGameOver] = useState(false);
     const [lastResultReceived, setlastResultReceived] = useState(true);
 
@@ -77,6 +78,8 @@ export const useMatch = () => {
             return next
         });
 
+        if (result.result === true) { nextQuestion(index) }
+
         updatePlayerLife(result.player_id, result.life_update);
 
         if (result.life_update <= 0) {
@@ -85,7 +88,6 @@ export const useMatch = () => {
             return;
         }
 
-        if (result.result === true) nextQuestion(index)
     }
 
     const submission_error = (error: string) => {
