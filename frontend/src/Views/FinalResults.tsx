@@ -1,7 +1,6 @@
 import { TrendingUp, TrendingDown, Minus, Clock, UserCircle, ArrowRight} from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { robot_map } from "src/assets/Robots";
 import { FinalResultsViewModelFunction } from "../ViewModels/FinalResultsViewModel";
 import { ArmRaise } from "src/animations/armRaise";
 import { Lose } from "src/animations/lose"
@@ -189,11 +188,11 @@ const PlayerResultCard: React.FC<{
     player: PlayerFinalResults;
     emphasize?: boolean; //emphasis on the winners card, so its somewhat more visible and different to loser card
 }> = ({player, emphasize}) => {
-    const [avatarFailed, setAvatarFailed] = useState(false);
+    const [avatarFailed] = useState(false);
     return (
         <div className={`${emphasize? 'card-glow' : 'card-elevated'} p-4 flex flex-col sm:flex-row items-center gap-4`}>
             <div className="flex flex-col items-center gap-1 shrink-0 w-20">
-                <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-primary flex items-center justify-center bg-card">
+                <div className="w-30 h-30 rounded-full overflow-hidden border-2 border-primary flex items-center justify-center bg-card">
                     {avatarFailed ? (
                         <UserCircle size={26} className="text-muted-text"/>
                     ): (
