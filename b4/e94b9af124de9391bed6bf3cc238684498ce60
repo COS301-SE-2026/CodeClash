@@ -1,0 +1,14 @@
+backend/src/interface-adapters/controllers/user.controllers.ts
+  h_58e143dc25f856 57,61
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "b4e94b9af124de9391bed6bf3cc238684498ce60",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
