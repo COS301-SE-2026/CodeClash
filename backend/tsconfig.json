@@ -2,7 +2,7 @@
   "compilerOptions": {
     "module": "nodenext",
     "target": "esnext",
-    "types": ["ts-node",],
+    "types": ["ts-node", "node"],
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
