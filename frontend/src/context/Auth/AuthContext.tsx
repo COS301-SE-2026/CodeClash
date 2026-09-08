@@ -60,7 +60,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       const cognitoUser = await getCurrentUser();
 
       const session = await fetchAuthSession({ forceRefresh: true }); // forceully start a sessoin witha token and on sign in we make sure that the page is refreshed so that they can properly get into the dashbaord with values properly updated and stuff
-      
+
       setToken(session.tokens?.idToken?.toString()); // setting the token based on the session on sign in
 
       setUser({
@@ -110,7 +110,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const resendSignUpCode = useCallback(async (username: string) => {
     setError(null);
     try {
-      await amplifyResendSignUpCode({ username })
+      return await amplifyResendSignUpCode({ username })
     } catch (err: unknown) {
       setError((err instanceof Error) ? err.message : 'Sign in failed')
       throw err
@@ -178,5 +178,3 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     </AuthContext.Provider>
   );
 };
-
-
