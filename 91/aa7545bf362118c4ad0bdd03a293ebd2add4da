@@ -1,0 +1,14 @@
+backend/src/interface-adapters/socket-handlers/game.handler.ts
+  h_58e143dc25f856 56
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "91aa7545bf362118c4ad0bdd03a293ebd2add4da",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
