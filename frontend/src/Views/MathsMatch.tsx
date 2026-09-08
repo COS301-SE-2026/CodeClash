@@ -87,7 +87,7 @@ const MathsMatch = () => {
                 <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem] hover:-translate-y-1'
                     onClick={() => {
                         const answer = mathfieldRef.current?.value ?? '';
-                        submitQuestion(curr.id!, 'math',{answer: answer})
+                        submitQuestion(curr.id!, 'math', { answer: answer })
                     }}
                 >
                     SUBMIT

@@ -8,7 +8,7 @@ export class NotificationService {
     ) { }
 
     markingComplete(user_id: string, result: boolean, life_update: number) {
-        this.io.to(`user:${user_id}`).emit('marking_complete', {result: result, life: life_update});
+        this.io.to(`user:${user_id}`).emit('marking_complete', {player_id: user_id, result: result, life_update: life_update});
     }
 
     markingPending(user_id: string, question_id: string){

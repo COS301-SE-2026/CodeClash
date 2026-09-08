@@ -12,4 +12,4 @@ export const submitAnswer = (socket: Socket | null, match_id: number, question_i
     }
 
     socket.emit(`submit_${game_type}_question`, data);
-}
+ }
