@@ -46,6 +46,7 @@ CodeClash is a competitive mathematics and coding collaboration platform designe
 
 - [Demo 1](https://drive.google.com/file/d/1jSZ5YmmdEsPccR-M5zBKY4wCI998dGdX/view?usp=sharing)
 - [Demo 2](https://youtu.be/5oXeTaWXfpI)
+- [Demo 3]
 
 ## Documentation
 
@@ -72,7 +73,12 @@ CodeClash is a competitive mathematics and coding collaboration platform designe
 <details>
 <summary>Demo 3</summary>
 
-Coming soon!
+- [NFR Tests & Traceability Matrix](tests/nfr/README.md)
+- [Software Requirements Specification](docs/Demo_3/SRS.md)
+- [Software Architecture Specification](docs/Demo_3/SAS.md)
+- [Coding Standards Document](docs/Demo_3/coding-standards.md)
+- [User Manual](docs/Demo_3/User%20Manual%20Document.pdf)
+- [Testing Policy Document](docs/Demo_3/testing-policy.md)
 
 </details>
 
@@ -98,8 +104,14 @@ CodeClash/
 ├── database/         # PostgreSQL init scripts and schema
 ├── docs/             # Architecture diagrams, requirements and API documentation
 ├── frontend/         # React/Vite client application
+├── tests/            # Tests that need to run on the root level
 ├── docker-compose.yml
 ├── .env.example
+├── eslint.config.base.js
+├── eslint.config.js
+├── package-lock.json
+├── package.json
+├── pnpm-workspace.yaml
 └── README.md
 ```
 

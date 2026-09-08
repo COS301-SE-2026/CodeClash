@@ -96,6 +96,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setError(null);
     try {
       await amplifyConfirmSignUp({ username, confirmationCode: code })
+
     } catch (err: unknown) {
       setError((err instanceof Error) ? err.message : 'Sign in failed')
       throw err

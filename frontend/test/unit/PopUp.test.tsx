@@ -9,8 +9,9 @@ vi.mock('react-router-dom', () => ({
 }))
 
 const mock_select_topic = vi.fn();
+const mock_cancel = vi.fn();
 vi.mock('src/ViewModels/PopUpViewModel', () => ({
-    useSelectTopic: () => mock_select_topic
+    useSelectTopic: () => ({selectTopic: mock_select_topic, cancel: vi.fn()})
 }))
 
 describe("PopUp", () => {
@@ -77,7 +78,7 @@ describe("PopUp", () => {
         ></PopUp>)
 
         fireEvent.click(screen.getByRole('button', { name: 'math-selector' }))
-        expect(mock_select_topic).toHaveBeenCalledWith('maths');
+        expect(mock_select_topic).toHaveBeenCalledWith('math');
     })
 
     it("Selects programming topic", () => {

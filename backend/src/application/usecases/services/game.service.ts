@@ -1,6 +1,6 @@
 import { IGameCache } from "src/application/interfaces/cache/IGameCache";
 import { GameMode, GameType } from "src/entities/db-entities/questions.entities";
-import { MatchDTO, PlayerDTO, RoundDTO } from "src/interface-adapters/dtos/components.dto";
+import { MatchDTO, PlayerDTO, RoundDTO } from "src/entities/dtos/components.dto";
 
 import { CreateGame } from "../systems/create-game";
 
@@ -85,12 +85,11 @@ export class GameService {
 
 
         const ids = players.map((p) => p.id);
-        const db_match_id = await this.match_repo.createMatch(ids, game_type, start
-        );
+        const db_match_id = await this.match_repo.createMatch(ids, game_type, game_mode, start); //mode is math or programming
 
 
         return {
-            match_enitity: match_entity,
+            match_entity: match_entity,
             match_id: db_match_id,
             questions: questions,
             answers: answers

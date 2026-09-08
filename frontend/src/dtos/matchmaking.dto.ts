@@ -15,5 +15,5 @@ export interface MatchAcceptedDTO {
     game_type: GameType
 }
 
-export type GameMode = 'maths' | 'programming' | null
+export type GameMode = 'math' | 'programming' | null
 export type GameType = 'ranked' | 'casual' | null

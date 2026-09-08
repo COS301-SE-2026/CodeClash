@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 export enum GameMode {
-    Maths = "maths",
+    Maths = "math",
     Programming = "programming"
 }
 
