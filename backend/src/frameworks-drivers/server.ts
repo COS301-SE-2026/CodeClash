@@ -153,25 +153,30 @@ AppDataSource.initialize()
 
         // auth middleware 
         io.use(async (socket, next) => {
+          try {
             const token = socket.handshake.auth.token;
 
             if (!token) return next(new Error("Authenticaion error: No token provided"));
 
             const valid = await validateToken(token)
-            if (valid) {
+            if (!valid) return next(new Error("Authentication error: Invalid token")) // token aint working
 
-                // get db id from cognito id
-                const db_id = (await user_repo.getUserId(valid.user_Id))?.user_id;
-                const username = (await user_repo.getUserData(db_id!, 'username'))!.username
+            // getting db id from cognito id
+            const db_id = (await user_repo.getUserId(valid.user_Id))?.user_id;
+            if (!db_id) return next(new Error("Authentication error: User DB ID Not found")) // db id not found
+            
+            const username = (await user_repo.getUserData(db_id, 'username'))!.username
+            if (!(await user_repo.getUserData(db_id, 'username'))) return next(new Error("Authentication error: User not found")) // user not found, not necessarily username innit
 
-
-                socket.data = {
-                    user_id: db_id,
-                    username: username
-                }
-                next();
+            socket.data = {
+                user_id: db_id,
+                username: username
             }
-            else next(new Error("Authentication error: Invalid token"));
+            next();
+          } catch (error) {
+            console.error('Socket authorisation error: ', error);
+            next(new Error("Authentication error: missing values"));
+        }
         })
 
         // initialise database with users and elos
