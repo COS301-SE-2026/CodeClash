@@ -165,12 +165,13 @@ AppDataSource.initialize()
             const db_id = (await user_repo.getUserId(valid.user_Id))?.user_id;
             if (!db_id) return next(new Error("Authentication error: User DB ID Not found")) // db id not found
             
-            const username = (await user_repo.getUserData(db_id, 'username'))!.username
-            if (!(await user_repo.getUserData(db_id, 'username'))) return next(new Error("Authentication error: User not found")) // user not found, not necessarily username innit
+            const user = (await user_repo.getUserData(db_id, 'username'))
+            // if (!(await user_repo.getUserData(db_id, 'username'))) return next(new Error("Authentication error: User not found")) // user not found, not necessarily username innit
+            if (!user) return next(new Error("Authentication error: User not found")) // user not found, not necessarily username innit
 
             socket.data = {
                 user_id: db_id,
-                username: username
+                username: user.username
             }
             next();
           } catch (error) {
