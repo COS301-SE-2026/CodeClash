@@ -81,7 +81,7 @@ export function SignUpViewModelFunction() {
                 username: (signupData?.username ?? form.username).trim(),
                 email: (signupData?.email ?? form.email).trim()
             }
-            const res = await axios.post(`/api/user/create-user`, req_data, {
+            const res = await axios.post(`/api/create-user`, req_data, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             if (res.status !== 200) {
@@ -98,10 +98,13 @@ export function SignUpViewModelFunction() {
         clearError();
         setLocalError(null);
         setResendMessage(null); //Clear any previous message for code sent, to show that is being resent
-        try {
+      try {
+          const delivery = await resendSignUpCode(form.username.trim()); //Amplify called to send a confirmation code. The user is id'd by username.
           await resendSignUpCode(form.username.trim()); //Amplify called to send a confirmation code. The user is id'd by username.
           setConfirmationCode(''); // getting rid of the old stale confirmation code so that the new one can work
-            setResendMessage('Code has been sent! Check your email.'); //If code has been sent, set the success message.
+          const medium = delivery?.deliveryMedium ?? 'UNKNOWN'; //Cognito reports how it claims to have delivered the code
+          const destination = delivery?.destination ?? 'your registered address';
+          setResendMessage(`Code has been sent! Check your ${medium} at ${destination}.`); //If code has been sent, set the success message.
         } catch {
             console.error("Error resending code")
         }
