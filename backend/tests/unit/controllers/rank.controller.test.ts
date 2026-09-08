@@ -53,7 +53,7 @@ describe("Rank Controller Test", () => {
         await rankController(req, res);
 
         expect(res.status).toHaveBeenCalledWith(404);
-        expect(res.json).toHaveBeenCalledWith({ error: 'Invalid Rating and/or user not found'})
+        expect(res.json).toHaveBeenCalledWith({ message: 'Rank not found'})
 
     })
 
