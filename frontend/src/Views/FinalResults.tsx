@@ -191,7 +191,7 @@ const PlayerResultCard: React.FC<{
     const [avatarFailed] = useState(false);
     return (
         <div className={`${emphasize? 'card-glow' : 'card-elevated'} p-4 flex flex-col sm:flex-row items-center gap-4`}>
-            <div className="flex flex-col items-center gap-1 shrink-0 w-20">
+            <div className="flex flex-col items-center gap-1 shrink-0 w-30">
                 <div className="w-30 h-30 rounded-full overflow-hidden border-2 border-primary flex items-center justify-center bg-card">
                     {avatarFailed ? (
                         <UserCircle size={26} className="text-muted-text"/>
