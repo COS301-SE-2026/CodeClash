@@ -9,6 +9,7 @@ import { MatchScreen } from '@/components/shared/Match';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
+import Flash from '@/components/ui/animations/Flash';
 
 
 const MathsMatch = () => {
@@ -72,13 +73,13 @@ const MathsMatch = () => {
                 number={currentQuestion + 1}
             />
 
-            <div className='w-[100%] h-[100%] min-h-[35%] flex items-center justify-center'>
+            <Flash result={correct} className='w-[90%] h-[100%]'>
                 <MathMatch
                     mathfieldRef={mathfieldRef}
                     onValueChange={(val) => setAnswers(prev => ({ ...prev, [currentQuestion]: val }))}
-                    className={`${result_colour()},${read_only}`}
+                    className={`${result_colour()} ${read_only()}`}
                 ></MathMatch>
-            </div>
+            </Flash>
             <div className='w-[100%] h-[6rem]  flex flex-shrink-0 items-center justify-evenly rounded-4xl'>
 
                 <div className='flex items-center justify-evenly text-secondary bg-primary rounded-2xl w-[15%]'>
