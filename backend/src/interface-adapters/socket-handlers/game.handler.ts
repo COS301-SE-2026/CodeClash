@@ -53,7 +53,7 @@ export const gameDone = async (io: Server, socket: Socket, game_id: number, game
         socket.emit('waiting_opponent');
 
         for (const p of game.players) {
-            if (p !== socket.data.user_id) {
+            if (p.id !== socket.data.user_id) {
                 io.to(p.id).emit('opponent_done');
                 return;
             }

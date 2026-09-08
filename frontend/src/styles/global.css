@@ -148,6 +148,26 @@
   }
 }
 
+@keyframes answer-flash-correct {
+  0% , 100%{
+    box-shadow: 0 0 0 transparent;
+  }
+
+  25% {
+    box-shadow: 0 0 30px rgb(34 197 94 / 0.7);
+  }
+}
+
+@keyframes answer-flash-wrong {
+  0% , 100%{
+    box-shadow: 0 0 0 transparent;
+  }
+
+  25% {
+    box-shadow: 0 0 30px rgb(239 68 68 / 0.7);
+  }
+}
+
 @theme inline {
   /* radius */
   --radius-sm: calc(var(--radius) - 4px);
@@ -836,5 +856,13 @@
     border-radius: 999px;
     pointer-events: none;
     animation: drift-up 3s ease-in infinite;
+  }
+
+  .answer-flash-correct {
+    animation: answer-flash-correct 0.7s ease-out;
+  }
+
+  .answer-flash-wrong {
+    animation: answer-flash-wrong 0.7s ease-out;
   }
 }

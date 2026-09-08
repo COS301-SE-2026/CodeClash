@@ -16,9 +16,6 @@ services:
     privileged: true
     <<: *default-logging
     restart: always
-    networks:
-      - default
-      - dockerfile_pgnetwork
 
   workers:
     image: judge0/judge0:1.13.1
@@ -50,7 +47,4 @@ services:
 volumes:
   data:
 
-networks:
-  dockerfile_pgnetwork:
-    external: true
 

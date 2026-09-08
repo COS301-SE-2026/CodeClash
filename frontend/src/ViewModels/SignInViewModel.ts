@@ -7,7 +7,7 @@ import type { SignInForm } from "../Models/SignInModel";
 
 
 export function validateSignInForm(data: SignInForm): string | null {
-    if (!data.email.trim()) return 'Email is required';
+    if (!data.username.trim()) return 'Username is required';
     if (!data.password) return 'Password is required';
     return null;
 }
@@ -33,7 +33,7 @@ export function SignInViewModelFunction() {
         }
         try {
             await signIn( //If validation is passed, Amplifys sign in will be called
-                form.email.trim(),
+                form.username.trim(),
                 form.password,
             );
             nav('/dashboard')

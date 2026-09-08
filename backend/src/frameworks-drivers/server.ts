@@ -153,25 +153,31 @@ AppDataSource.initialize()
 
         // auth middleware 
         io.use(async (socket, next) => {
+          try {
             const token = socket.handshake.auth.token;
 
             if (!token) return next(new Error("Authenticaion error: No token provided"));
 
             const valid = await validateToken(token)
-            if (valid) {
+            if (!valid) return next(new Error("Authentication error: Invalid token")) // token aint working
 
-                // get db id from cognito id
-                const db_id = (await user_repo.getUserId(valid.user_Id))?.user_id;
-                const username = (await user_repo.getUserData(db_id!, 'username'))!.username
+            // getting db id from cognito id
+            const db_id = (await user_repo.getUserId(valid.user_Id))?.user_id;
+            if (!db_id) return next(new Error("Authentication error: User DB ID Not found")) // db id not found
+            
+            const user = (await user_repo.getUserData(db_id, 'username'))
+            // if (!(await user_repo.getUserData(db_id, 'username'))) return next(new Error("Authentication error: User not found")) // user not found, not necessarily username innit
+            if (!user) return next(new Error("Authentication error: User not found")) // user not found, not necessarily username innit
 
-
-                socket.data = {
-                    user_id: db_id,
-                    username: username
-                }
-                next();
+            socket.data = {
+                user_id: db_id,
+                username: user.username
             }
-            else next(new Error("Authentication error: Invalid token"));
+            next();
+          } catch (error) {
+            console.error('Socket authorisation error: ', error);
+            next(new Error("Authentication error: missing values"));
+        }
         })
 
         // initialise database with users and elos
@@ -180,7 +186,15 @@ AppDataSource.initialize()
         // attach socket handlers
         io.on("connection", (socket) => {
 
-            socket.join(`user:${socket.data.user_id}`);
+          socket.join(`user:${socket.data.user_id}`);
+          socket.join(socket.data.user_id) 
+          /*
+            okay lemme explain, so the connection is made when the queue has both users in it, 
+            but once the match starts, that connection is dissolved, and the game continues on, but 
+            the issue is that the game ending on timer thing requires an active connection, but that connection
+            was dissolved once the game befan, so what this is doing is making sure that it survives that disconnect
+            and is disconnected .
+          */
 
             // SOCKET HANDLERS MUST MOOVE TO interface-adapter/
             socket.on('join_match_queue', async (data) => await joinMatchQueue(io, socket, data, matchmkaing_service, matched_users_service, user_repo));
