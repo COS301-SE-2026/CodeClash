@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { robot_map } from "src/assets/Robots";
 import { FinalResultsViewModelFunction } from "../ViewModels/FinalResultsViewModel";
-
+import { ArmRaise } from "src/animations/armRaise";
+import { Lose } from "src/animations/lose"
 import Loading from "@/components/shared/Loading";
 import Confetti from "@/components/ui/animations/Confetti";
 import Starfield from "@/components/ui/animations/Starfield";
@@ -196,7 +197,13 @@ const PlayerResultCard: React.FC<{
                     {avatarFailed ? (
                         <UserCircle size={26} className="text-muted-text"/>
                     ): (
-                        <img src={robot_map[player.avatar]} alt = {player.username} className="w-full h-full object-cover" onError={() => setAvatarFailed(true)}/>
+                        // <img src={robot_map[player.avatar]} alt = {player.username} className="w-full h-full object-cover" onError={() => setAvatarFailed(true)}/>
+                        <div>
+                            {player.position === 1 ?
+                            <ArmRaise vb1={175} vb2={220}/> : <Lose vb1={170} vb2={220}/>
+                            }
+                        </div>
+
                     )}
                 </div>
                 <span className="text-primary-text font-semibold text-center truncate w-full text-xs">{player.username}</span>
