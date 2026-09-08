@@ -28,6 +28,9 @@ export function SignUpViewModelFunction() {
     const [localError, setLocalError] = useState<string | null>(null);
     const [resendMessage, setResendMessage] = useState<string | null>(null);
     const [signupData, setSignupData] = useState<SignUpForm | null>(null);
+    const [isConfirmed, setIsConfirmed] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [confirmMessage, setConfirmMessage] = useState<string | null>(null);
     const nav = useNavigate();
 
 
@@ -69,8 +72,20 @@ export function SignUpViewModelFunction() {
             setLocalError('Confirmation code is required.'); //If the code is empty then give the user an error message and stop
             return;
         }
+        setIsSubmitting(true);
         try {
-            await confirmSignUp(form.username.trim(), confirmationCode.trim()); //If the validation is passed, Amplify will be called
+            //Stage one, the only stage where the code itself can be at fault
+            try {
+                await confirmSignUp(form.username.trim(), confirmationCode.trim()); //If the validation is passed, Amplify will be called
+            } catch (err) {
+                console.error("Confirmation code rejected", err);
+                setLocalError(err instanceof Error ? err.message : 'That confirmation code was not accepted.');
+                return;
+            }
+            setIsConfirmed(true); //the code worked, so stop presenting this screen as a code problem
+            setConfirmMessage('Email verified! Setting up your account...');
+
+            //Stage two, none of this is the user's code being wrong
             await signIn(form.email.trim(), form.password.trim());
 
             const session = await fetchAuthSession({ forceRefresh: true });
@@ -89,24 +104,30 @@ export function SignUpViewModelFunction() {
             }
             nav('/dashboard');
         } catch (err) {
-            console.error("Sign up confirmation error")
-            setLocalError(err instanceof Error ? err.message : "Sign up confirmation failed");
+            console.error("Account setup after confirmation failed", err);
+            setConfirmMessage('Email verified.'); //keep saying so, the verification really did succeed
+            setLocalError(`We could not finish setting up your account: ${err instanceof Error ? err.message : 'unknown error'}`);
+        } finally {
+            setIsSubmitting(false);
         }
-    }, [confirmationCode, form.username, confirmSignUp, clearError, nav]); //Dependency array
+    }, [confirmationCode, form.username, form.email, form.password, signupData, confirmSignUp, signIn, clearError, nav]); //Dependency array
 
     const handleResend = useCallback(async () => {
         clearError();
         setLocalError(null);
         setResendMessage(null); //Clear any previous message for code sent, to show that is being resent
-      try {
-          const delivery = await resendSignUpCode(form.username.trim()); //Amplify called to send a confirmation code. The user is id'd by username.
-          await resendSignUpCode(form.username.trim()); //Amplify called to send a confirmation code. The user is id'd by username.
-          setConfirmationCode(''); // getting rid of the old stale confirmation code so that the new one can work
-          const medium = delivery?.deliveryMedium ?? 'UNKNOWN'; //Cognito reports how it claims to have delivered the code
-          const destination = delivery?.destination ?? 'your registered address';
+        setIsSubmitting(true);
+        try {
+            const delivery = await resendSignUpCode(form.username.trim()); //Amplify called to send a confirmation code. The user is id'd by username.
+            await resendSignUpCode(form.username.trim()); //Amplify called to send a confirmation code. The user is id'd by username.
+            setConfirmationCode(''); // getting rid of the old stale confirmation code so that the new one can work
+            const medium = delivery?.deliveryMedium ?? 'UNKNOWN'; //Cognito reports how it claims to have delivered the code
+            const destination = delivery?.destination ?? 'your registered address';
           setResendMessage(`Code has been sent! Check your ${medium} at ${destination}.`); //If code has been sent, set the success message.
         } catch {
             console.error("Error resending code")
+        } finally {
+            setIsSubmitting(false);
         }
     }, [form.username, resendSignUpCode, clearError]); //Dependancy array
 
@@ -117,6 +138,9 @@ export function SignUpViewModelFunction() {
         displayError: localError ?? error,
         resendMessage,
         isLoading,
+        confirmMessage,
+        isConfirmed,
+        isSubmitting,
 
         setField,
         setConfirmationCode,
