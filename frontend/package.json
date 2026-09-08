@@ -27,7 +27,6 @@
     "lucide-react": "^1.24.0",
     "mathlive": "^0.109.2",
     "mock-socket": "^9.3.1",
-    "motion": "^13.1.0",
     "radix-ui": "^1.4.3",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
