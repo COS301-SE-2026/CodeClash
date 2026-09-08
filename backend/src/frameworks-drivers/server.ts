@@ -186,7 +186,14 @@ AppDataSource.initialize()
         // attach socket handlers
         io.on("connection", (socket) => {
 
-            socket.join(`user:${socket.data.user_id}`);
+          socket.join(`user:${socket.data.user_id}`);
+          socket.join(socket.data.user_id) 
+          /*
+            okay lemme explain, so the connection is made when the queue has both users in it, 
+            but once the match starts, that connection is dissolved, and the game continues on, but 
+            the issue is that the game ending on timer thing requires an active connection, but that connection
+            was dissolved once the game becan, so what this is doing is making sure that its reconnected
+          */
 
             // SOCKET HANDLERS MUST MOOVE TO interface-adapter/
             socket.on('join_match_queue', async (data) => await joinMatchQueue(io, socket, data, matchmkaing_service, matched_users_service, user_repo));
