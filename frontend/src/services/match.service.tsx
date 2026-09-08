@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 import type { OpponentDTO } from "src/dtos/opponent.dto";
 import type { MathsSubmissionDTO, ProgSubmissionDTO } from "src/dtos/submission.dto";
 
-
 export const useGameTimer = (duration: number, onExpire: () => void) => {
     const expiry_time = useMemo(() => {
         const time = new Date();
@@ -58,6 +57,7 @@ export const useGameQuestions = (
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [questionsReady, setQuestionsReady] = useState(false);
     const [waitingOpponent, setWaitingOpponent] = useState(false);
+    const question_idx = useRef(0);
 
 
     const startQuestion = (
@@ -90,18 +90,19 @@ export const useGameQuestions = (
     }
 
     const submitQuestion = (question_id: string, game_type: string, submission: ProgSubmissionDTO | MathsSubmissionDTO) => {
-        submitAnswer(socket, parseInt(match_id), question_id, currentQuestion, game_type, submission);
+        question_idx.current = currentQuestion;
+        submitAnswer(socket, parseInt(match_id), question_id, question_idx.current, game_type, submission);
     }
 
     const finishGame = () => {
-        if (currentQuestion === questions.length - 1) {
+        if (question_idx.current === questions.length - 1) {
             setWaitingOpponent(true)
             endGame(parseInt(match_id), game_type, socket);
         }
     }
 
     const loadQuestions = (data: GameQuestionsDTO) => {
-        let temp_arr: Question[] = [];
+        const temp_arr: Question[] = [];
         let sumtime = 0;
 
         for (const q of data.easy) {
@@ -165,6 +166,7 @@ export const useGameQuestions = (
         nextQuestion,
         prevQuestion,
         submitQuestion,
+        question_idx,
         finishGame,
         loadQuestions,
         waitingOpponent,
@@ -183,10 +185,14 @@ export const useMatchProgress = (
     const [opponentDone, setOpponentDone] = useState(false);
 
     const players_ref = useRef(players);
+  const [prev_players, setPrevPlayers] = useState(players);
 
+  if (players !== prev_players) {
+        setPrevPlayers(players);
+        setPlayerLife(players.map(p => p.life))
+    }
     useEffect(() => {
         players_ref.current = players
-        setPlayerLife(players.map(p => p.life))
 
     }, [players]);
 

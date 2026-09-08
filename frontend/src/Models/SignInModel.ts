@@ -1,10 +1,10 @@
 export interface SignInForm {
-    email: string;
+    username: string;
     password: string;
 }
 
 export const formData: SignInForm = {
-    email: '',
+    username: '',
     password: '',
 };
 

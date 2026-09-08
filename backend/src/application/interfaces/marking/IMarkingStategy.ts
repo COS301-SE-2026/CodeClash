@@ -1,6 +1,6 @@
 import { MathsSubmissionDTO, ProgSubmissionDTO } from "src/entities/dtos/components.dto";
-import { SubmissionResult } from "src/entities/dtos/submission-result.dto";
+import { AnswerDTO } from "../../../entities/dtos/answer.dto";
 
 export interface MarkingStrategy{
-    mark(submission: MathsSubmissionDTO | ProgSubmissionDTO, answer: string,question_id: string): Promise<boolean>;
+    mark(submission: MathsSubmissionDTO | ProgSubmissionDTO, answer: AnswerDTO): Promise<boolean>;
 }

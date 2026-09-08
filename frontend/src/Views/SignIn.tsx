@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, Mail, Lock} from "lucide-react";
+import { ArrowLeft, ArrowRight, Lock, AtSign} from "lucide-react";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -43,11 +43,11 @@ const SignIn: React.FC= () => {
                         </div>
                     )}
                     {/*FIelds */}
-                    <div className="mb-5">
-                        <label className="field-label" htmlFor="email-input">Email address</label>
-                        <div className="relative">
-                            <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-text"/>
-                            <input id="email-input" className="input pl-11" type="email" placeholder="email@example.com" value={form.email} onChange={(e) => setField("email", e.target.value)} disabled={isLoading}/>
+                    <div className='mb-4'>
+                        <label className='field-label' htmlFor='user-input'>Username</label>
+                        <div className='relative'>
+                            <AtSign size={16} className='absolute left-4 top-1/2 -translate-y-1/2 text-muted-text'/>
+                            <input id='user-input' className='input pl-10' type='text' placeholder='NameSurname' value={form.username} onChange={(e) => setField('username', e.target.value)} disabled={isLoading}/>
                         </div>
                     </div>
                     <div>

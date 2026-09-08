@@ -1,7 +1,7 @@
 import {ChevronRight, Swords, Users2, Flame, Sparkles, Trophy} from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useEffect } from "react";
-
+import { UseUserAvatar } from './Profile';
 import { useDashboardViewModel } from '../ViewModels/DashboardViewModel';
 
 import Popup from './Popup'
@@ -51,7 +51,7 @@ const SkillProgressCard = ({
 )
 
 const Dashboard = () => {
-  const { isOpen, openPopUp, closePopUp, username, elo, league, avatar, isLoading, current_streak, winning_streak, recentAchievement ,refresh } = useDashboardViewModel();
+  const { isOpen, openPopUp, closePopUp, username, elo, league, isLoading, current_streak, winning_streak, recentAchievement ,refresh } = useDashboardViewModel();
 
     useEffect(() => {
     refresh();
@@ -74,7 +74,7 @@ const Dashboard = () => {
             {/*Profile + Play */}
             <div className='flex flex-col gap-6'>
               <div className='card-elevated flex items-center gap-4 p-8'>
-                <img src = {avatar} alt='' className='w-16 h-16 rounded-full border-2 border-primary object-cover shrink-0'/>
+                  <UseUserAvatar vb1={170} vb2={186} lm={1.5} round={20}/>
                 <div>
                   <p className='text-xl font-black text-primary-text'>{username}</p>
                   <span className='text-sm text-primary-text'>{league}</span>

@@ -1,16 +1,14 @@
 import { MathfieldElement } from 'mathlive';
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import { useLocation } from "react-router-dom";
-import { robot_map } from 'src/assets/Robots';
 import { useMatchmaking } from "src/context/Socket/hooks/useMatchmaking";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
 import { useUser } from "src/context/User/hooks/useUser";
 import type { SubmissionResultDTO } from "src/dtos/submission.dto";
-import type { Player} from "src/Models/MatchModel";
+import type { Player } from "src/Models/MatchModel";
 import { endGame } from "src/services/result.service";
-
+import { robot_map } from 'src/assets/Robots';
 import { useGameQuestions, useGameTimer, useMatchProgress } from 'src/services/match.service';
-import type { MathsSubmissionDTO, ProgSubmissionDTO } from "src/dtos/submission.dto";
 
 
 export const useMatch = () => {
@@ -29,12 +27,15 @@ export const useMatch = () => {
         nextQuestion,
         prevQuestion,
         submitQuestion,
+        question_idx,
         finishGame,
         loadQuestions,
         waitingOpponent,
         waiting_opponent,
         both_done
     } = useGameQuestions(id, userId, socket!, gameType);
+
+    const [gameOver, setGameOver] = useState(false);
 
     const { seconds, minutes } = useGameTimer(duration, () => {
         setGameOver(true);
@@ -48,25 +49,19 @@ export const useMatch = () => {
         playerLife, opponentCurrent, opponent_progress, opponent_done, opponentDone, updatePlayerLife
     } = useMatchProgress(questions.length, players);
 
-    const [avatars, setAvatars] = useState<string[]>([]);
-    const [usernames, setUsernames] = useState<string[]>([]);
+    const avatars = useMemo(() => players.map(p => robot_map[p.avatar_id]), [players]);
+    const usernames = useMemo(() => players.map(p => p.username), [players]);
     const [loading, setLoading] = useState(false);
     const [answers, setAnswers] = useState<Record<string, string>>();
     const [results, setResults] = useState<(boolean | null)[]>([]);
-    const [gameOver, setGameOver] = useState(false);
+
 
     const mathfieldRef = useRef<MathfieldElement | null>(null)
     const players_ref = useRef(players);
-    const q_index = useRef<number | null>(null);
 
-    const handleSubmitQuestion = (question_id: string,  game_type: string, submission: ProgSubmissionDTO | MathsSubmissionDTO) => {
-        q_index.current = currentQuestion;
-        submitQuestion(question_id, game_type,submission);
-    }
 
     const submission_result = (result: SubmissionResultDTO) => {
-        const index = q_index.current
-        if (index === null) return;
+        const index = question_idx.current;
 
         setResults((prev) => {
             const next = [...prev];
@@ -77,8 +72,7 @@ export const useMatch = () => {
         updatePlayerLife(result.player_id, result.life_update);
 
         if (result.life_update <= 0) {
-            setGameOver(true);
-            endGame(id, gameType, socket);
+            finishGame();
             return;
         }
 
@@ -91,9 +85,6 @@ export const useMatch = () => {
 
     useEffect(() => {
         players_ref.current = players
-
-        setAvatars(players.map(p => robot_map[p.avatar_id]));
-        setUsernames(players.map(p => p.username));
 
     }, [players])
 
@@ -149,7 +140,7 @@ export const useMatch = () => {
         duration,
         loading,
         closeLoading,
-        submitQuestion: handleSubmitQuestion,
+        submitQuestion,
         mathfieldRef,
         setAnswers,
         results,

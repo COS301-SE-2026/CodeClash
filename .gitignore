@@ -412,6 +412,11 @@ env
 *.env
 .env.*
 */.env
+.env
+*.env.*
+*.env
+.env.*
+*/.env
 
 # Spyder project settings
 .spyderproject
@@ -467,16 +472,12 @@ psd
 thumb
 sketch
 
-**/*.pem
-pem
-
-*.env.*
-env
-
-judge0.conf*
-
 !frontend/@/lib/
 
-**/*.conf
+*/**.conf
+*.conf
+
+**/*.pem
+pem
 
 # End of https://www.toptal.com/developers/gitignore/api/node,react,java,python,intellij
