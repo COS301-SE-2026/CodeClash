@@ -192,7 +192,8 @@ AppDataSource.initialize()
             okay lemme explain, so the connection is made when the queue has both users in it, 
             but once the match starts, that connection is dissolved, and the game continues on, but 
             the issue is that the game ending on timer thing requires an active connection, but that connection
-            was dissolved once the game becan, so what this is doing is making sure that its reconnected
+            was dissolved once the game befan, so what this is doing is making sure that it survives that disconnect
+            and is disconnected .
           */
 
             // SOCKET HANDLERS MUST MOOVE TO interface-adapter/
