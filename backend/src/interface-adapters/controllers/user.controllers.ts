@@ -54,11 +54,11 @@ export const createUser = (create_user: CreateUser) => {
         }
 
         try {
-            create_user.create(username, email);
+            await create_user.create(username, email);
             res.status(200);
         }
         catch (error) {
-            res.status(400).json({ message: error });
+            res.status(400).json({ message: (error as Error).message });
         }
     }
 }
