@@ -1,0 +1,21 @@
+backend/src/entities/dtos/match-data.dto.ts
+  h_94c952a9e14c58 30-37
+backend/src/entities/dtos/submission-result.dto.ts
+  h_94c952a9e14c58 29-43
+  h_94c952a9e14c58 16,28
+backend/src/application/interfaces/marking/ICodeExecutor.ts
+  h_94c952a9e14c58 1,4
+backend/src/interface-adapters/CodeExecutor.ts
+  h_94c952a9e14c58 5,8-9,12-25,38-40
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "9d24b3e9d787621eff6482acef9fffbcdeed7973",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
