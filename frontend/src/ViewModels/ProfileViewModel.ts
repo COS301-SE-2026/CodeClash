@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-
 import { useAuth } from "../../src/context/Auth/hooks/useAuth";
 import { useUser } from "../../src/context/User/hooks/useUser";
 import type { ProfileProps } from "src/Models/ProfileModel";
@@ -14,7 +13,7 @@ export function useLogOut() {
         try {
 
             await signOut();
-            nav('/welcome');
+            nav('/');
         } catch (err) {
             console.error(`Error logging out: ${err}`)
         }
@@ -29,30 +28,30 @@ export function useEdit() {
     return edit;
 }
 
-export function useProfile() {
+export function getProfile() {
 
-    const { username, elo, avatar, league, rank } = useUser();
+    const {username, elo, avatar, league, rank} = useUser();
     const [userData, setUserData] = useState<ProfileProps | null>(null);
     const [loadingData, setLoadingData] = useState(true);
     const [error, setError] = useState<Error | null>(null);
 
     useEffect(() => {
-        try {
-            const user: ProfileProps = {
-                username,
-                elo,
-                avatar,
-                league,
-                rank
-            };
-            setUserData(user);
-        } catch (err) {
-            setError(err as Error);
-        }
-        finally {
-            setLoadingData(false);
-        }
-    }, [username, elo, avatar, league]);
+            try{
+                const user : ProfileProps = {
+                    username,
+                    elo,
+                    avatar, 
+                    league,
+                    rank
+                };
+                setUserData(user);
+            } catch (err) {
+                setError(err as Error);
+            }
+            finally {
+                setLoadingData(false);
+            }
+    }, [username, elo, avatar, league, rank]);
 
     return { userData: userData, loadingData: loadingData, error: error as Error };
 }

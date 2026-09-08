@@ -21,7 +21,7 @@ const SharedLayout: React.FC<SharedLayoutProps> = ({
                 )}
             </div>
             {/* //just a spacing for better visual seperation of the page sections - need to test this layout */}
-            <div className="pt-8">{children}</div> 
+0            <div className="pt-8">{children}</div> 
         </section>
     );
 };

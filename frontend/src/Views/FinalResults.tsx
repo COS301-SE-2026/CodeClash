@@ -1,11 +1,11 @@
 import { TrendingUp, TrendingDown, Minus, Clock, UserCircle, ArrowRight} from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { robot_map } from "src/assets/Robots";
-
 import { FinalResultsViewModelFunction } from "../ViewModels/FinalResultsViewModel";
-
+import { ArmRaise } from "src/animations/armRaise";
+import { Lose } from "src/animations/lose"
 import Loading from "@/components/shared/Loading";
+import Confetti from "@/components/ui/animations/Confetti";
 import Starfield from "@/components/ui/animations/Starfield";
 import { finalResultsContent, type PlayerFinalResults } from "src/Models/FinalResultsModel";
 
@@ -53,7 +53,7 @@ const FinalResults: React.FC = () => {
                 <div style={{position: 'absolute', width: 320, height: 320, bottom: '0%', right: '-6%', background: 'var(--color-pink-300)', borderRadius: '9999px', filter: 'blur(70px)', opacity: 0.45}}/>
                 {state === 'results' && <Starfield count={60}/>}
             </div>
-            {/* {state === 'results' && <Confetti count={35}/>} */}
+            {state === 'results' && <Confetti count={35}/>}
 
             {state === 'loading' && (
                 <div className="p-5 w-full max-w-[550px] flex flex-col gap-6">
@@ -188,15 +188,21 @@ const PlayerResultCard: React.FC<{
     player: PlayerFinalResults;
     emphasize?: boolean; //emphasis on the winners card, so its somewhat more visible and different to loser card
 }> = ({player, emphasize}) => {
-    const [avatarFailed, setAvatarFailed] = useState(false);
+    const [avatarFailed] = useState(false);
     return (
         <div className={`${emphasize? 'card-glow' : 'card-elevated'} p-4 flex flex-col sm:flex-row items-center gap-4`}>
-            <div className="flex flex-col items-center gap-1 shrink-0 w-20">
-                <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-primary flex items-center justify-center bg-card">
+            <div className="flex flex-col items-center gap-1 shrink-0 w-30">
+                <div className="w-30 h-30 rounded-full overflow-hidden border-2 border-primary flex items-center justify-center bg-card">
                     {avatarFailed ? (
                         <UserCircle size={26} className="text-muted-text"/>
                     ): (
-                        <img src={robot_map[player.avatar]} alt = {player.username} className="w-full h-full object-cover" onError={() => setAvatarFailed(true)}/>
+                        // <img src={robot_map[player.avatar]} alt = {player.username} className="w-full h-full object-cover" onError={() => setAvatarFailed(true)}/>
+                        <div>
+                            {player.position === 1 ?
+                            <ArmRaise vb1={175} vb2={220}/> : <Lose vb1={170} vb2={220}/>
+                            }
+                        </div>
+
                     )}
                 </div>
                 <span className="text-primary-text font-semibold text-center truncate w-full text-xs">{player.username}</span>
