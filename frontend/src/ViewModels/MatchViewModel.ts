@@ -54,6 +54,7 @@ export const useMatch = () => {
     const [answers, setAnswers] = useState<Record<string, string>>();
     const [results, setResults] = useState<(boolean | null)[]>([]);
     const [gameOver, setGameOver] = useState(false);
+    const [lastResultReceived, setlastResultReceived] = useState(true);
 
     const mathfieldRef = useRef<MathfieldElement | null>(null)
     const players_ref = useRef(players);
@@ -61,12 +62,14 @@ export const useMatch = () => {
 
     const handleSubmitQuestion = (question_id: string,  game_type: string, submission: ProgSubmissionDTO | MathsSubmissionDTO) => {
         q_index.current = currentQuestion;
+        setlastResultReceived(false);
         submitQuestion(question_id, game_type,submission);
     }
 
     const submission_result = (result: SubmissionResultDTO) => {
         const index = q_index.current
         if (index === null) return;
+        setlastResultReceived(true);
 
         setResults((prev) => {
             const next = [...prev];
@@ -157,6 +160,7 @@ export const useMatch = () => {
         waitingOpponent,
         finishGame,
         opponentCurrent,
-        opponentDone
+        opponentDone,
+        lastResultReceived
     }
 }
