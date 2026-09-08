@@ -1,5 +1,5 @@
 import { ChevronRight, ChevronLeft } from 'lucide-react'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useMatch } from 'src/ViewModels/MatchViewModel';
 
 import MathMatch from '@/components/features/MathPage';
@@ -9,6 +9,7 @@ import { MatchScreen } from '@/components/shared/Match';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
+import Flash from '@/components/ui/animations/Flash';
 
 const MathsMatch = () => {
     const {
@@ -30,11 +31,12 @@ const MathsMatch = () => {
         else return 'bg-white'
     }
 
-
     const read_only = () => {
         if (gameOver) return 'read-only'
         else return ''
     }
+
+    const [flashTrigger, setFlashTrigger] = useState(0)
 
     useEffect(() => {
         if (mathfieldRef.current) {
@@ -71,13 +73,13 @@ const MathsMatch = () => {
                 number={currentQuestion + 1}
             />
 
-            <div className='w-[100%] h-[100%] min-h-[35%] flex items-center justify-center'>
+            <Flash result= {correct} trigger={flashTrigger} className='w-[100%] h-[100%] min-h-[35%] flex items-center justify-center'>
                 <MathMatch
                     mathfieldRef={mathfieldRef}
                     onValueChange={(val) => setAnswers(prev => ({ ...prev, [currentQuestion]: val }))}
                     className={`${result_colour()},${read_only}`}
                 ></MathMatch>
-            </div>
+            </Flash>
             <div className='w-[100%] h-[6rem]  flex flex-shrink-0 items-center justify-evenly rounded-4xl'>
 
                 <div className='flex items-center justify-evenly text-secondary bg-primary rounded-2xl w-[15%]'>
@@ -88,6 +90,7 @@ const MathsMatch = () => {
                     onClick={() => {
                         const answer = mathfieldRef.current?.value ?? '';
                         submitQuestion(curr.id!, 'math',{answer: answer})
+                        setFlashTrigger(prev => prev + 1);
                     }}
                 >
                     SUBMIT
