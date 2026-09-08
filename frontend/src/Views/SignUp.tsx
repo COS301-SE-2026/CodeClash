@@ -15,6 +15,9 @@ const SignUp: React.FC= () => {
         displayError,
         resendMessage,
         isLoading,
+        isConfirmed,
+        confirmMessage,
+        isSubmitting,
         setField,
         setConfirmationCode,
         handleSubmit,
@@ -48,16 +51,21 @@ const SignUp: React.FC= () => {
                             <p className='text-sm text-danger font-semibold'>{displayError}</p>
                         </div>
                     )}
-                    {resendMessage && (
+                    {(confirmMessage ?? resendMessage) && (
                         <div className='mb-6 rounded-3xl border border-success/30 bg-success/10 px-5 py-4'>
-                            <p className='text-sm text-success font-semibold'>{resendMessage}</p>
+                            <p className='text-sm text-success font-semibold'>{confirmMessage ?? resendMessage}</p>
                         </div>
                     )}
-                    <input className='input text-center tracking-[0.4rem] font-bold mb-6' type='text' placeholder='000000' value={confirmationCode} onChange={(e) => setConfirmationCode(e.target.value)} disabled={isLoading}/>
-                    <button className='btn btn-primary btn-md w-full' type='button' onClick={handleConfirm} disabled={isLoading}>
-                        {isLoading ? "Verifying..." : "Confirm"}
+                    <input className='input text-center tracking-[0.4rem] font-bold mb-6' type='text' placeholder='000000' value={confirmationCode} onChange={(e) => setConfirmationCode(e.target.value)} disabled={isLoading || isSubmitting || isConfirmed}/>
+                    <button className='btn btn-primary btn-md w-full' type='button' onClick={handleConfirm} disabled={isLoading || isSubmitting || isConfirmed}>
+                        {isSubmitting ? "Verifying..." : isConfirmed ? "Verified" : "Confirm"}
                     </button>
-                    <button className='mt-5 text-sm underline text-muted-text hover:text-primary transition-colors disabled:opacity-50' type='button' onClick={handleResend} disabled={isLoading}>Resend code</button>
+                    {isConfirmed && (
+                        <Link to='/sign-in' className='mt-5 text-sm underline text-muted-text hover:text-primary transition-colors'>Continue to sign in</Link>
+                    )}
+                    {!isConfirmed && (
+                        <button className='mt-5 text-sm underline text-muted-text hover:text-primary transition-colors disabled:opacity-50' type='button' onClick={handleResend} disabled={isLoading || isSubmitting}>Rescode</button>
+                    )}
                 </div>
             </div>
         )
