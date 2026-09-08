@@ -50,7 +50,7 @@ const SignUp: React.FC= () => {
                     )}
                     {resendMessage && (
                         <div className='mb-6 rounded-3xl border border-success/30 bg-success/10 px-5 py-4'>
-                            <p className='text-sm text-sucess font-semibold'>{resendMessage}</p>
+                            <p className='text-sm text-success font-semibold'>{resendMessage}</p>
                         </div>
                     )}
                     <input className='input text-center tracking-[0.4rem] font-bold mb-6' type='text' placeholder='000000' value={confirmationCode} onChange={(e) => setConfirmationCode(e.target.value)} disabled={isLoading}/>
