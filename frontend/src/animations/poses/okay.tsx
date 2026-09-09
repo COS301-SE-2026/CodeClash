@@ -5,8 +5,7 @@ import leftShoulder from "../../assets/svgs/left-shoulder.svg"
 import leftArm from "../../assets/svgs/left-forearm.svg"
 import okay from "../../assets/svgs/ok.svg"
 import torso from "../../assets/svgs/torso.svg"
-import { BothLegs } from './rig';
-import { StationaryRightArm } from './rig';
+import { BothLegs, StationaryRightArm } from './rig';
 
 //The above imports though pasted, were all hand-written and are not copied from any generative ai chat
 

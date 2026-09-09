@@ -80,7 +80,7 @@ export class GameService {
         this.game_cache.saveGame(match_entity, player_ids, question_ids);
 
         for (const answer of answers) {
-            this.game_cache.saveAnswer(answer.question_id, answer.answer)
+            this.game_cache.saveAnswer(answer)
         }
 
 

@@ -10,6 +10,17 @@ export enum GameType{
     casual = 'casual'
 }
 
+export enum AnswerFormat {
+  Numeric = "numeric",
+  Decimal = "decimal",
+  Set = "set",
+  Variables = "variables",
+  Expression = "expression",
+  Simplified = "simplified",
+  Factored = "factored",
+  Equation = "equation"
+}
+
 
 @Entity()
 export class Questions {
@@ -19,7 +30,8 @@ export class Questions {
     @Column({
         nullable: false,
         type: "enum",
-        enum: GameMode
+      enum: GameMode,
+        enumName: "game_modes"
     })
     game_mode!: GameMode
 
@@ -34,4 +46,9 @@ export class Questions {
 
     @Column({ nullable: false, type: "time" })
     time_limit!: string
-}
+
+    @Column({ nullable: true, type: "enum", enum: AnswerFormat, enumName: "answer_formats" })
+    answer_format!: AnswerFormat | null // for prog matches, a prog match wouldnt like, need a numerical answer format requirement
+  
+    @Column({ nullable: true, type: "integer" })
+    answer_precision!: number | null }

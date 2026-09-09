@@ -9,8 +9,6 @@ import { MatchScreen } from '@/components/shared/Match';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
-import Flash from '@/components/ui/animations/Flash';
-
 
 const MathsMatch = () => {
     const {
@@ -73,13 +71,13 @@ const MathsMatch = () => {
                 number={currentQuestion + 1}
             />
 
-            <Flash result={correct} className='w-[90%] h-[100%]'>
+            <div className='w-[100%] h-[100%] min-h-[35%] flex items-center justify-center'>
                 <MathMatch
                     mathfieldRef={mathfieldRef}
                     onValueChange={(val) => setAnswers(prev => ({ ...prev, [currentQuestion]: val }))}
-                    className={`${result_colour()} ${read_only()}`}
+                    className={`${result_colour()},${read_only}`}
                 ></MathMatch>
-            </Flash>
+            </div>
             <div className='w-[100%] h-[6rem]  flex flex-shrink-0 items-center justify-evenly rounded-4xl'>
 
                 <div className='flex items-center justify-evenly text-secondary bg-primary rounded-2xl w-[15%]'>
@@ -89,7 +87,7 @@ const MathsMatch = () => {
                 <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem] hover:-translate-y-1'
                     onClick={() => {
                         const answer = mathfieldRef.current?.value ?? '';
-                        submitQuestion(curr.id!, 'math',{answer: answer})
+                        submitQuestion(curr.id!, 'math', { answer: answer })
                     }}
                 >
                     SUBMIT

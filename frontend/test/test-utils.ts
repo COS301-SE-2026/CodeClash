@@ -1,3 +1,4 @@
+import { getOriginalPosition } from 'vitest/internal/browser';
 import '../src/amplify-config'
 import { fetchAuthSession, signIn, signOut } from "aws-amplify/auth";
 
@@ -17,9 +18,9 @@ export async function login() {
   }
   catch (error: any) {
 
-    if (error.name == 'NotAuthorizedError') {
+    if (error.name === 'NotAuthorizedError') {
       console.error("Incorrect username or password")
-      throw new Error ("Incorrect username or password")
+      throw new Error ("Incorrect username or password", { cause: error})
     }
 
     throw error

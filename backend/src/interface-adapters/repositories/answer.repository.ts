@@ -21,7 +21,9 @@ export class AnswerRepository implements IAnswerRepository {
                     answer: true,
                     answer_id: true,
                     question: {
-                        question_id: true
+                      question_id: true,
+                      answer_format: true,
+                      answer_precision:  true
                     }
                 },
                 relations: {
@@ -29,9 +31,9 @@ export class AnswerRepository implements IAnswerRepository {
                 }
             })
 
-        if (answer?.answer == undefined) return null
+        if (answer?.answer === undefined) return null
 
-        return { answer: answer.answer, question_id: answer.question.question_id };
+        return { answer: answer.answer, question_id: answer.question.question_id, format: answer.question.answer_format, precision: answer.question.answer_precision};
     }
 
     async getAnswers(question_ids: string[]): Promise<AnswerDTO[]> {
@@ -45,7 +47,9 @@ export class AnswerRepository implements IAnswerRepository {
                 answer: true,
                 answer_id: true,
                 question: {
-                    question_id: true
+                    question_id: true,
+                    answer_format: true,
+                    answer_precision: true
                 }
             },
             relations: {
@@ -55,7 +59,9 @@ export class AnswerRepository implements IAnswerRepository {
 
         return answers.map(a => ({
             answer: a.answer,
-            question_id: a.question.question_id
+            question_id: a.question.question_id,
+            format: a.question.answer_format,
+            precision: a.question.answer_precision
         }))
 
     }

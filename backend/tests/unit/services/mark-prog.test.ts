@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 import { MarkProg } from '../../../src/application/usecases/services/marking/mark-prog'
 import { ProgSubmissionDTO } from '../../../src/entities/dtos/components.dto'
+import { AnswerDTO } from '../../../src/entities/dtos/answer.dto'
 
 
 
@@ -8,6 +9,13 @@ const submission: ProgSubmissionDTO = {
     source_code: 'source-code-01',
     language_id: 1,
     stdin: null
+}
+
+const answer: AnswerDTO = {
+  answer: 'correct-answer-01',
+  question_id: 'q1',
+  format: null,
+  precision: null
 }
 
 describe('Testing Programming Marker', () => {
@@ -29,8 +37,8 @@ describe('Testing Programming Marker', () => {
         };
         const prog_marker = new MarkProg(executor);
 
-        await prog_marker.mark(submission, 'correct-answer-01');
+        await prog_marker.mark(submission, answer);
 
-        expect(executor.execute).toHaveBeenCalledWith(submission.source_code, submission.language_id, submission.stdin, 'correct-answer-01');
+        expect(executor.execute).toHaveBeenCalledWith(submission.source_code, submission.language_id, submission.stdin, answer.answer);
     })
 })
