@@ -1,10 +1,18 @@
 import boto3
 import requests 
 import time 
+import os
+from dotenv import load_dotenv, dotenv_values
 
-API_URL = "http://localhost:3001/api/"
+
+load_dotenv()
+
+API_URL = os.getenv("API_URL")
 TOKEN = ""
 
 
-def get_test_token(username, password, client_id):
+def get_test_token(username, password):
     client = boto3.client("cognito-idp", region_name="eu-north-1")
+    resp = client.initiate.auth(
+        ClientId=os.getenv("COGNITO_CLIENT_ID")
+    )
