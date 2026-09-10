@@ -52,7 +52,8 @@ export interface ResultComponent{
 
 export interface LifeComponent {
     current_life: number,
-    max_life: number
+    max_life: number,
+    eliminated_at?: Date
 }
 
 export interface PlayerInfoComponent {

@@ -11,8 +11,6 @@ export class MatchResultService {
 
     async finaliseMatch(
         match_id: string,
-        winner_id: string,
-        loser_id: string,
         is_ranked: boolean,
         playerStats: PlayerStatsDTO[]
     ): Promise<MatchResultDTO> {

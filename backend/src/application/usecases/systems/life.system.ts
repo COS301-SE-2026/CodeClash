@@ -11,7 +11,7 @@ export class LifeSystem {
         private readonly world: ReturnType<typeof World>
 
     ) {
-        const { getPlayerComponent,getMatchComponent } = this.world
+        const { getPlayerComponent, getMatchComponent } = this.world
         this.getPlayerComponents = getPlayerComponent;
         this.getMatchComponent = getMatchComponent;
     }
@@ -19,7 +19,9 @@ export class LifeSystem {
     decrement(player_entity: number, question_number: number) {
         const life = this.getPlayerComponents<LifeComponent>(player_entity, 'Life');
 
-        if (!life) throw new Error('Error updating player life')
+        if (!life) throw new Error('Error updating player life');
+
+        if(life.eliminated_at) return life.current_life;
 
         if (question_number <= 0) {
             return life.current_life;
@@ -27,7 +29,11 @@ export class LifeSystem {
 
         const change = life.max_life / (question_number * 3);
         life.current_life -= change;
-        if (life.current_life < 0) life.current_life = 0
+
+        if (life.current_life <= 0) {
+            life.current_life = 0;
+            life.eliminated_at = new Date();
+        }
 
         return life.current_life;
     }
