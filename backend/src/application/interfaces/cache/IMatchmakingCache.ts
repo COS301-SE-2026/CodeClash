@@ -12,6 +12,6 @@ export interface IMatchmakingCache {
     getUserElo(queue: GameMode, user_id: string): Promise<string | null>;
     getQueueLength(queue: GameMode): Promise<number>
 
-    deletUser(queue: GameMode, user_id: string): Promise<number>;
+    deleteUser(queue: GameMode, user_id: string): Promise<number>;
 
 }
