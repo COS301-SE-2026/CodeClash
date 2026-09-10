@@ -30,7 +30,7 @@ export class FinishGame {
     }
 
 
-    async execute(match_id: number, player_ids: string[], game_type: GameType, pair_id:string) {
+    async execute(match_id: number, player_ids: string[], game_type: GameType, pair_id: string) {
 
         // 1. get submission entities for players
         const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(match_id, 'Submission');
@@ -41,7 +41,7 @@ export class FinishGame {
         const db_match_id = this.game_store.get(match_id);
 
         //persist match stats
-        for(const [user_id, stat] of game_stats){
+        for (const [user_id, stat] of game_stats) {
             await this.match_stats_repo.saveStats(db_match_id!.database_id, user_id, stat.num_correct, stat.total_time);
         }
 
@@ -66,14 +66,16 @@ export class FinishGame {
                 winner_stats = {
                     user_id: id,
                     correctness: stat.num_correct,
-                    speed: stat.total_time
+                    speed: stat.total_time,
+                    placement: 1
                 }
-            }else{
+            } else {
                 loser = id;
                 loser_stat = {
                     user_id: id,
                     correctness: stat.num_correct,
-                    speed: stat.total_time
+                    speed: stat.total_time,
+                    placement: 2
                 }
             }
         }
@@ -82,16 +84,16 @@ export class FinishGame {
 
         if (!winner || !loser) throw new Error("Error getting user stats")
 
-        const result = await this.match_result_service.finaliseMatch(db_match_id!.database_id, winner, loser, game_type === GameType.ranked, [winner_stats!, loser_stat!])
+        const result = await this.match_result_service.finaliseMatch(db_match_id!.database_id, game_type === GameType.ranked, [winner_stats!, loser_stat!])
 
         // evaluate achivements for both players
         const match_duration_ms = 0; //Date.now() - (result!.start_time?.getTime?.() ?? 0);
-        for(const [user_id, stat] of game_stats) {
+        for (const [user_id, stat] of game_stats) {
             const is_winner = user_id === winner;
             const is_ranked = game_type === GameType.ranked;
 
             // update streaks
-            if(is_ranked){
+            if (is_ranked) {
                 await this.user_repo.updateStreaks(user_id, is_winner);
             }
 
@@ -151,10 +153,10 @@ export class FinishGame {
 
             const correct = component.correct ?? false; // null -> false
             if (correct) stat.num_correct += 1;
-            
-            const time = component.submitted_at && component.started_at 
-            ? component.submitted_at!.getTime() - component.started_at!.getTime()
-            : 0; // unanswered questions are treated as 0 time
+
+            const time = component.submitted_at && component.started_at
+                ? component.submitted_at!.getTime() - component.started_at!.getTime()
+                : 0; // unanswered questions are treated as 0 time
             stat.total_time += time
         }
 

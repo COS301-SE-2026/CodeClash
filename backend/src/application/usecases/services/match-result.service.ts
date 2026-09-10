@@ -14,15 +14,27 @@ export class MatchResultService {
         is_ranked: boolean,
         playerStats: PlayerStatsDTO[]
     ): Promise<MatchResultDTO> {
-      let eloEffects = new Map<string, number>();
 
-      const ranks_before = new Map<string, number | null>();
-      for (const stat of playerStats) {
-        ranks_before.set(stat.user_id, (await this.elo_repo.getUserRank(stat.user_id))?.rank ?? null);
-      }
+        if (playerStats.length > 2) {
+            // tournaments still to be implemented 
+            throw new Error("Not yet implemented");
+        }
 
-      // save match log
-      if (is_ranked) {
+        const winner_stat = playerStats.find(p => p.placement === 1);
+        const loswer_stat = playerStats.find(p => p.placement === 2);
+
+        const winner_id = winner_stat!.user_id;
+        const loser_id = loswer_stat!.user_id;
+
+        let eloEffects = new Map<string, number>();
+
+        const ranks_before = new Map<string, number | null>();
+        for (const stat of playerStats) {
+            ranks_before.set(stat.user_id, (await this.elo_repo.getUserRank(stat.user_id))?.rank ?? null);
+        }
+
+        // save match log
+        if (is_ranked) {
 
             // calculate and store new elo
             const { winner, loser } = await this.elo_repo.updateRatingsAfterMatch(match_id, winner_id, loser_id);
@@ -41,8 +53,8 @@ export class MatchResultService {
 
         // store player results
         for (const stat of playerStats) {
-          const user_details = await this.match_result_repo.getUserDetails(stat.user_id);
-          const rank = (await this.elo_repo.getUserRank(stat.user_id))?.rank ?? null;
+            const user_details = await this.match_result_repo.getUserDetails(stat.user_id);
+            const rank = (await this.elo_repo.getUserRank(stat.user_id))?.rank ?? null;
 
             players.push({
                 user_id: stat.user_id,
