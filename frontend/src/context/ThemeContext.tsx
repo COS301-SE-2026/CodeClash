@@ -1,8 +1,9 @@
 import { useEffect, useState, createContext, useContext } from "react";
 import type { ReactNode } from "react";
 
-export type Theme = 'dark' | 'light';
+export type Theme = 'dark' | 'light' | 'frost';
 const themeKey = 'codeclash-themes';
+const Themes: Theme[] = ['dark', 'light', 'frost'];
 
 interface ThemeContextValue {
     theme: Theme;
@@ -13,16 +14,24 @@ interface ThemeContextValue {
 
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
+function isTheme(value: string | null): value is Theme {
+    return !!value && (Themes as string[]).includes(value);
+}
+
 function getDefTheme():Theme {
         if (typeof window === 'undefined') {
             return 'dark';
         }
         const stored = window.localStorage.getItem(themeKey);
-        return stored === 'light' ? 'light' :'dark';
+        return isTheme(stored) ? stored : 'dark';
 }
 
 function applyTheme(theme: Theme) {
-    document.documentElement.classList.toggle('light', theme === 'light');
+    const root = document.documentElement;
+    Themes.forEach((t) => root.classList.remove(t));
+    if (theme !== 'dark') {
+        root.classList.add(theme);
+    }
 }
 
 export const ThemeProvider = ({children}: {children: ReactNode}) => {
