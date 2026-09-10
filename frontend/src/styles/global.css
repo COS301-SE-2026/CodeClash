@@ -432,6 +432,77 @@
     --life-primary: #C0395A;
 }
 
+/*These are copied from :root.light and adjusted for more themes*/
+/*A light blue, frost kind of theme - like winter in space*/
+:root.frost, [data-theme = 'frost'] {
+
+    /*Backgrounds*/
+    --background: #020a14;
+    --background-elevated: rgba(231, 244, 255, 0.03);
+    --background-card: rgba(231, 244, 255, 0.05);
+
+    --primary: #2f8fe0;
+    --primary-dark: #14487a;
+    --secondary: #e2f2fd;
+
+    /*Text*/
+    --text: #e7f4ff;
+    --primary-text: #e7f4ff;
+    --secondary-text: #123a63;
+    --muted:rgba(231, 244, 255, 0.65);
+    --muted-text: rgba(231, 244, 255, 0.50);
+
+    /*Borders*/
+    --border: rgba(231, 244, 255, 0.08);
+    --border-hover: rgba(231, 244, 255, 0.18);
+
+    /*Cards*/
+    --card: var(--background-card);
+    --card-text: var(--primary-text);
+
+    /*Sidebar*/
+    --sidebar: #020a14;
+    --sidebar-text: var(--primary-text);
+    --sidebar-primary: #2f8fe0;
+    --sidebar-primary-text: #ffffff;
+    --sidebar-accent: rgba(231, 244, 255, 0.05);
+    --sidebar-accent-text: var(--primary-text);
+    --sidebar-border: rgba(231, 244, 255, 0.08);
+    --sidebar-ring: #2f8fe0;
+
+    /* Buttons */
+    --button-primary: #2f8fe0;
+    --button-secondary: transparent;
+    --button-text-primary: #FFFFFF;
+    --button-text-secondary: #e7f4ff;
+
+    /*Inputs*/
+    --input: rgba(231, 244, 255, 0.05);
+    --ring: #2f8fe0;
+    --accent: #4fa8f5;
+    --accent-text: #ffffff;
+    --destructive: #c62828;
+
+    /*Status*/
+    --success: #2e7d32;
+    --danger: #c62828;
+    --warning: #b76e00;
+    --info: #1565c0;
+    --secondary-muted: rgba(231, 244, 255, 0.4);
+
+    /*Difficulty for questions*/
+    --difficulty-easy: #2e7d32;
+    --difficulty-medium: #b76e00;
+    --difficulty-hard: #c62828;
+
+     /*Shadows*/
+    --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --card-shadow: 0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25);
+    --glow-shadow: 0 0 24px rgba(47, 143, 224, 0.45);
+
+    --life-primary: #2f8fe0;
+}
+
 @layer base {
 
   .badge {
