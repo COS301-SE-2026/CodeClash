@@ -1,9 +1,9 @@
 import { useEffect, useState, createContext, useContext } from "react";
 import type { ReactNode } from "react";
 
-export type Theme = 'dark' | 'light' | 'frost';
+export type Theme = 'dark' | 'light' | 'frost' | 'gold';
 const themeKey = 'codeclash-themes';
-const Themes: Theme[] = ['dark', 'light', 'frost'];
+const Themes: Theme[] = ['dark', 'light', 'frost', 'gold'];
 
 interface ThemeContextValue {
     theme: Theme;

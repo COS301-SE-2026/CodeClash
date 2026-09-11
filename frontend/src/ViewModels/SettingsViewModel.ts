@@ -23,6 +23,11 @@ const Themes: ThemesContent[] = [
         label: 'Frost',
         swatch: '#2f8fe0'
     },
+    {
+        id: 'gold',
+        label: 'Gold',
+        swatch: '#d4af37'
+    },
 ]
 
 export const SettingsViewModelFunc = () => {
