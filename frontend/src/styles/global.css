@@ -503,6 +503,77 @@
     --life-primary: #2f8fe0;
 }
 
+/*These are copied from :root.light and adjusted for more themes*/
+/*A midnight gold theme - like a more premium space */
+:root.gold, [data-theme = 'gold'] {
+
+    /*Backgrounds*/
+    --background: #05070f;
+    --background-elevated: rgba(242, 236, 216, 0.03);
+    --background-card: rgba(242, 236, 216, 0.05);
+
+    --primary: #d4af37;
+    --primary-dark: #6b5716;
+    --secondary: #f7edcf;
+
+    /*Text*/
+    --text: #f2ecd8;
+    --primary-text: #f2ecd8;
+    --secondary-text: #4a3c10;
+    --muted:rgba(242, 236, 216, 0.65);
+    --muted-text: rgba(242, 236, 216, 0.50);
+
+    /*Borders*/
+    --border: rgba(242, 236, 216, 0.08);
+    --border-hover: rgba(242, 236, 216, 0.18);
+
+    /*Cards*/
+    --card: var(--background-card);
+    --card-text: var(--primary-text);
+
+    /*Sidebar*/
+    --sidebar: #05070f;
+    --sidebar-text: var(--primary-text);
+    --sidebar-primary: #d4af37;
+    --sidebar-primary-text: #ffffff;
+    --sidebar-accent: rgba(242, 236, 216, 0.05);
+    --sidebar-accent-text: var(--primary-text);
+    --sidebar-border: rgba(242, 236, 216, 0.08);
+    --sidebar-ring: #d4af37;
+
+    /* Buttons */
+    --button-primary: #d4af37;
+    --button-secondary: transparent;
+    --button-text-primary: #FFFFFF;
+    --button-text-secondary: #f2ecd8;
+
+    /*Inputs*/
+    --input: rgba(242, 236, 216, 0.05);
+    --ring: #d4af37;
+    --accent: #e8c34a;
+    --accent-text: #ffffff;
+    --destructive: #c62828;
+
+    /*Status*/
+    --success: #2e7d32;
+    --danger: #c62828;
+    --warning: #b76e00;
+    --info: #1565c0;
+    --secondary-muted: rgba(242, 236, 216, 0.4);
+
+    /*Difficulty for questions*/
+    --difficulty-easy: #2e7d32;
+    --difficulty-medium: #b76e00;
+    --difficulty-hard: #c62828;
+
+     /*Shadows*/
+    --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --card-shadow: 0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25);
+    --glow-shadow: 0 0 24px rgba(212, 175, 55, 0.45);
+
+    --life-primary: #d4af37;
+}
+
 @layer base {
 
   .badge {
