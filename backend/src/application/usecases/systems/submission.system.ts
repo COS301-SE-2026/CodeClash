@@ -23,22 +23,35 @@ export class SubmissionSystem {
         // 1 lookup submission entity
         const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(match_id, "Submission");
 
+        console.log("registry: ", submission_registry);
+
         if (!submission_registry) { throw new Error("Error saving submission") }
 
         const key = `${player_id}::${question_id}`
+
+        console.log("submission ", key);
         const submission_entity = submission_registry.submissions.get(key);
         let submission_component: SubmissionComponent | null;
 
+        console.log("submission entity: ", submission_entity);
+
         // 2 if found update component with new submission  -- an extra step would be added here to save submission later on for history
         if (submission_entity !== undefined) {
+            // console.log("submission exists");
+
             submission_component = this.getSubmissionComponent(submission_entity, 'Submission')
+
+            console.log("Old submission ", submission_component);
             submission_component!.attempt_number += 1;
             submission_component!.correct = is_correct;
             submission_component!.answer = answer;
             submission_component!.submitted_at = new Date();
+
+            // console.log("new submission ", submission_component);
         }
         else {  // 3 if not found 
             //  3.1 create submission enity
+            console.log("creating new submission");
             const submission = this.createEntity();
 
             //  3.2 attach submission component
@@ -56,6 +69,7 @@ export class SubmissionSystem {
                 token: undefined
             }
 
+            console.log("new submission ", submission_component);
             this.addSubmissionComponent(submission, 'Submission', submission_component);
 
             //  3.3 register entity in matchs' submission registry

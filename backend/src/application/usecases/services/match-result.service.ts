@@ -20,8 +20,10 @@ export class MatchResultService {
             throw new Error("Not yet implemented");
         }
 
+        console.log(playerStats);
         const winner_stat = playerStats.find(p => p.placement === 1);
         const loswer_stat = playerStats.find(p => p.placement === 2);
+        
 
         const winner_id = winner_stat!.user_id;
         const loser_id = loswer_stat!.user_id;

@@ -24,9 +24,6 @@ export const submitQuestion = async (
     }
 }
 
-export const startQuestion = (player_id: string, submission_system: SubmissionSystem, data: StartQuestionDTO) => {
-    submission_system.saveSubmission(data.match_id, player_id, data.question, null, null,data.question_number);
-}
 
 export const gameDone = async (io: Server, socket: Socket, game_id: number, game_type: GameType, pair_id: string, finish_game: FinishGame, game_store: GameStore) => {
     // wait for both players to be done

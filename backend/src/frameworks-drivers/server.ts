@@ -6,7 +6,7 @@ import { EloRatings } from 'src/entities/db-entities/elo.entities';
 import { IQuestionRepository } from 'src/application/interfaces/repositories/IQuestionRepository';
 import { QuestionRepository } from 'src/interface-adapters/repositories/question.repository';
 import { GameType, Questions } from 'src/entities/db-entities/questions.entities';
-import { cleanUp, gameDone, sendResults, startQuestion, submitQuestion } from 'src/interface-adapters/socket-handlers/game.handler';
+import { cleanUp, gameDone, sendResults, submitQuestion } from 'src/interface-adapters/socket-handlers/game.handler';
 import { PlayerSubmissionDTO } from 'src/entities/dtos/components.dto';
 import { IAnswerRepository } from 'src/application/interfaces/repositories/IAnswerRepository';
 import { AnswerRepository } from 'src/interface-adapters/repositories/answer.repository';
@@ -213,7 +213,6 @@ AppDataSource.initialize()
 
             socket.on('submit_prog_question', (data: PlayerSubmissionDTO) => submitQuestion(io, socket, data, prog_marking_service));
 
-            socket.on('question_started', (data: StartQuestionDTO) => startQuestion(socket.data.user_id, submission_system, data));
 
             socket.on('game_done', (game_id: number, game_type: GameType, pair_id: string) => gameDone(io, socket, game_id, game_type, pair_id, finish_game, game_store));
 

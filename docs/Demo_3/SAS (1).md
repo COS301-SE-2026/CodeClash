@@ -269,7 +269,7 @@ The server validates the JWT and attaches `socket.data.user_id` and `socket.data
 | `send_questions` | `game_id` | Request questions for the match |
 | `send_players` | `game_id` | Request player data for the match |
 | `submit_question` | `{ game_id, question_id, answer, language? }` | Submit an answer |
-| `question_started` | `{ game_id, question_id, started_at }` | Record when a player starts a question |
+| `{ game_id, question_id, started_at }` | Record when a player starts a question |
 | `game_done` | `(game_id, game_type, pair_id)` | Signal match completion |
 | `send_results` | `(game_id, pair_id)` | Request match results |
 | `clean_up` | `(game_id, pair_id)` | Clean up match state from memory |

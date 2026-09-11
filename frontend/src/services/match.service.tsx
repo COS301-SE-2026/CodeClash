@@ -60,32 +60,15 @@ export const useGameQuestions = (
     const question_idx = useRef(0);
 
 
-    const startQuestion = (
-        player_id: string,
-        question_id: string,
-        question_number: number
-    ) => {
-        const data = {
-            match_id: match_id,
-            player: player_id,
-            question: question_id,
-            question_number: question_number
-        }
-
-        socket?.emit('question_started', data);
-    }
-
     const nextQuestion = (curr: number) => {
         if (curr < questions.length - 1) {
             setCurrentQuestion(curr + 1);
-            startQuestion(user_id, questions[curr + 1].id!, curr + 1)
         }
     }
 
     const prevQuestion = (curr: number) => {
         if (curr > 0) {
             setCurrentQuestion(curr - 1)
-            startQuestion(user_id, questions[curr - 1].id!, curr - 1)
         }
     }
 
@@ -141,7 +124,6 @@ export const useGameQuestions = (
         setQuestions(temp_arr);
         setQuestionsReady(true);
 
-        startQuestion(user_id, temp_arr[0].id!, 0);
     }
 
     const waiting_opponent = () => {
