@@ -3,7 +3,6 @@ import React from "react"
 import { useNavigate } from 'react-router-dom';
 import type { GameMode } from 'src/dtos/matchmaking.dto';
 
-
 import { type PopupProps } from '../Models/PopUpModel';
 import { useSelectTopic } from '../ViewModels/PopUpViewModel';
 import { Yes } from 'src/animations/yes';
@@ -26,22 +25,22 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50  bg-black/50 flex items-center justify-center  ">
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4 ">
             {/* <img src={robot} alt='robot-background' className='absolute h-[80%] top-0' /> */}
            
-            <div className="absolute h-full w-full top-[-12rem] left-[11.5rem]">
+            <div className="absolute h-full w-full top-[-6rem] left-[11.5rem] items-center justify-center">
                 <Yes/> 
             </div>
-            <div className="relative w-[50%] h-[4rem] top-[-6rem] ">
+            <div className="relative w-[60%] h-[2rem] top-[-2rem] ">
 
-                <Card className="bg-secondary h-[35rem] w-[100%] rounded-3xl  text-center flex items-center absolute inset-0">
-                    <h1 className="text-[64px] heading text-secondary-text font-extrabold">
+                <Card className="bg-sidebar card-glow h-[18rem] w-[100%] rounded-2xl text-center flex items-center absolute inset-0">
+                    <h1 className="text-l heading text-primary-text font-extrabold">
                         Choose a Topic
                     </h1>
-                    <h2 className="text-[24rem] font-heading text-md text-secondary-text text-center justify-center">What would you like to be challenged on?</h2>
+                    <h2 className="text-sm font-heading text-muted-text text-center justify-center">What would you like to be challenged on?</h2>
 
-                    <div className=" grid grid-flow-col grid-cols-2 gap-7  h-[35%]">
-                        <Card className="group w-[18rem] bg-secondary text-secondary-text transition-all duration-200 hover:bg-primary hover:-translate-y-px active:translate-y-0"
+                    <div className=" grid grid-flow-col grid-cols-2 gap-7 h-[20%]">
+                        <Card className=" btn btn-primary w-full"
                             role="button"
                             tabIndex={0}
                             onKeyDown={(e) => {
@@ -53,10 +52,9 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
                             onClick={() => selecthandler('math')}
                             aria-label='math-selector'
                         >
-                            <h1 className="text-[3rem] text-secondary-text heading font-bold  group-hover:text-white">+ -</h1>
-                            <h2 className="text-[2.1rem] text-secondary-text heading font-bold  group-hover:text-white">Math</h2>
+                            <h1 className="text-sm text-primary-text font-bold group-hover:text-white">Math</h1>
                         </Card>
-                        <Card className="group w-[18rem] bg-secondary text-secondary-text transition-all duration-200 hover:bg-primary hover:-translate-y-px active:translate-y-0"
+                        <Card className="btn btn-primary w-full"
                             role="button"
                             tabIndex={0}
                             onKeyDown={(e) => {
@@ -68,11 +66,10 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
                             onClick={() => selecthandler('programming')}
                             aria-label='prog-selector'
                         >
-                            <h1 className="text-[3rem] text-secondary-text heading font-bold group-hover:text-white">{"</>"}</h1>
-                            <h2 className="text-[2.1rem] text-secondary-text heading font-bold group-hover:text-white">Programming</h2>
+                            <h1 className="text-sm text-primary-text font-bold">Programming</h1>
                         </Card>
                     </div>
-                    <div className="text-[2.3rem] text-black heading font-extrabold underline mt-[4%] rounded-3xl hover:bg-primary hover:text-secondary hover:font-normal w-[80%] "
+                    <div className="text-sm text-primary-text heading font-extrabold underline mt-[0%] rounded-2xl w-[20%] hover:text-primary"
                         onClick={() => {
                             cancel();
                             onClose()
