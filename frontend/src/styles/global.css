@@ -606,6 +606,7 @@
   }
 
   .btn-secondary:hover:not(:disabled) {
+    background: var(--pink-200, #Ffffff);
     transform: translateY(-1px);
   }
 
