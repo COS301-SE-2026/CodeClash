@@ -359,6 +359,11 @@
   --font-size-3xl: 3.6rem;
 
   --life-primary: #C0395A;
+
+  /*for the radial gradients*/
+  --glow-1: #b91551;
+  --glow-2: #850f3b;
+  --glow-3: #630b3c;
 }
 
 /*These are copied from :root and adjusted for light mode*/
@@ -430,6 +435,11 @@
     --glow-shadow: 0 0 24px rgba(192, 57, 90, 0.22);
 
     --life-primary: #C0395A;
+
+    /*for the radial gradients*/
+    --glow-1: #f6c9d6;
+    --glow-2: #f9dde4;
+    --glow-3: #fceef1;
 }
 
 /*These are copied from :root.light and adjusted for more themes*/
@@ -501,6 +511,11 @@
     --glow-shadow: 0 0 24px rgba(47, 143, 224, 0.45);
 
     --life-primary: #2f8fe0;
+
+    /*for the radial gradients*/
+    --glow-1: #4fa8f5;
+    --glow-2: #14487a;
+    --glow-3: #0a2540;
 }
 
 /*These are copied from :root.light and adjusted for more themes*/
