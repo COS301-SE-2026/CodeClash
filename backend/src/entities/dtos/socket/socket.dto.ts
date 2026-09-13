@@ -2,7 +2,7 @@
 export type SocketAck<T = unknown> =
     {
         ok: true;
-        data: T;
+        data?: T;
     } |
     {
         ok: false;

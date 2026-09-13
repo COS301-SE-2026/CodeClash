@@ -9,13 +9,20 @@ export function registerHandler<Req, Res>(
     socket.on(event, async (payload: Req, ack: SocketAckCallback<Res>) => {
         try {
             const data = await handler(socket, payload);
-            ack?.({ ok: true, data });
+
+            if (data === undefined) {
+                ack?.({ ok: true });
+            }
+            else {
+                ack?.({ ok: true, data });
+            }
+
         }
         catch (error: unknown) {
             const message = error instanceof Error ? error.message : String(error);
 
             console.error(`socket: ${event}`, error);
-            ack?.({ok: false, error: message});
+            ack?.({ ok: false, error: message });
         }
     })
 }

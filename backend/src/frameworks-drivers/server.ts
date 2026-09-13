@@ -6,7 +6,7 @@ import { EloRatings } from 'src/entities/database/elo.entities';
 import { IQuestionRepository } from 'src/application/interfaces/repositories/IQuestionRepository';
 import { QuestionRepository } from 'src/interface-adapters/repositories/question.repository';
 import { GameType, Questions } from 'src/entities/database/questions.entities';
-import { cleanUp, gameDone, sendResults, startQuestion, submitQuestion } from 'src/interface-adapters/socket-handlers/game.handler';
+import { cleanUp, gameDone, sendResults, startQuestion, submitQuestion } from 'src/frameworks-drivers/socket/modules/match/handlers';
 import { PlayerSubmissionDTO } from 'src/entities/dtos/components.dto';
 import { IAnswerRepository } from 'src/application/interfaces/repositories/IAnswerRepository';
 import { AnswerRepository } from 'src/interface-adapters/repositories/answer.repository';
