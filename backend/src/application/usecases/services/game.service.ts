@@ -1,5 +1,5 @@
 import { IGameCache } from "src/application/interfaces/cache/IGameCache";
-import { GameMode, GameType } from "src/entities/db-entities/questions.entities";
+import { GameMode, GameType } from "src/entities/database/questions.entities";
 import { MatchDTO, PlayerDTO, RoundDTO } from "src/entities/dtos/components.dto";
 
 import { CreateGame } from "../systems/create-game";

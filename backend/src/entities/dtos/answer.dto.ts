@@ -1,4 +1,4 @@
-import { AnswerFormat } from "../db-entities/questions.entities";
+import { AnswerFormat } from "../database/questions.entities";
 
 export interface AnswerDTO{
     answer: string,

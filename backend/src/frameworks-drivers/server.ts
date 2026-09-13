@@ -2,15 +2,15 @@ import { createServer } from 'node:http';
 
 import dotnev from 'dotenv'
 import { Server } from 'socket.io'
-import { EloRatings } from 'src/entities/db-entities/elo.entities';
+import { EloRatings } from 'src/entities/database/elo.entities';
 import { IQuestionRepository } from 'src/application/interfaces/repositories/IQuestionRepository';
 import { QuestionRepository } from 'src/interface-adapters/repositories/question.repository';
-import { GameType, Questions } from 'src/entities/db-entities/questions.entities';
+import { GameType, Questions } from 'src/entities/database/questions.entities';
 import { cleanUp, gameDone, sendResults, startQuestion, submitQuestion } from 'src/interface-adapters/socket-handlers/game.handler';
 import { PlayerSubmissionDTO } from 'src/entities/dtos/components.dto';
 import { IAnswerRepository } from 'src/application/interfaces/repositories/IAnswerRepository';
 import { AnswerRepository } from 'src/interface-adapters/repositories/answer.repository';
-import { Answers } from 'src/entities/db-entities/answers.entities';
+import { Answers } from 'src/entities/database/answers.entities';
 import { GameService } from 'src/application/usecases/services/game.service';
 import { CreateGame, CreateMatchEntity, CreatePlayerEntity, CreateRoundEntity } from 'src/application/usecases/systems/create-game';
 import { GetDifficulty, GetQuestions, GetTotalTime } from 'src/application/usecases/services/questions.service';
@@ -34,7 +34,7 @@ import { EloRepository } from 'src/interface-adapters/repositories/elo.repositor
 import { UserRepository } from 'src/interface-adapters/repositories/user.repository';
 import { sendGameQuestions, joinMatchQueue, leaveMatchQueue, matchAccepted, matchDeclined, sendGamePlayers } from 'src/interface-adapters/socket-handlers/matchmaking.handler';
 
-import { Users } from "../entities/db-entities/user.entities"
+import { Users } from "../entities/database/user.entities"
 import { validateToken } from '../interface-adapters/auth/auth.service';
 
 import { createApp } from './app';
@@ -42,7 +42,7 @@ import { AppDataSource } from "./config/data-source"
 import { OpponentProgress } from 'src/application/usecases/systems/opponent-progress';
 import { IMatchRepository } from 'src/application/interfaces/repositories/IMatchRepository';
 import { MatchRepository } from 'src/interface-adapters/repositories/match.repository';
-import { Matches, MatchLog } from 'src/entities/db-entities/match.entities';
+import { Matches, MatchLog } from 'src/entities/database/match.entities';
 import { MatchResultService } from 'src/application/usecases/services/match-result.service';
 import { IMatchResultRepository } from 'src/application/interfaces/repositories/IMatchResultRepository';
 import { MatchResultRepository } from 'src/interface-adapters/repositories/match-result.repository';
@@ -55,15 +55,15 @@ import { MarkingStrategy } from 'src/application/interfaces/marking/IMarkingStat
 import { MarkMaths } from 'src/application/usecases/services/marking/mark-maths';
 import { MarkProg } from 'src/application/usecases/services/marking/mark-prog';
 import { CodeExecutor } from 'src/interface-adapters/CodeExecutor';
-import { MatchStats } from 'src/entities/db-entities/match-stats.entities';
+import { MatchStats } from 'src/entities/database/match-stats.entities';
 import { MatchStatsRepository } from 'src/interface-adapters/repositories/match-stats.repository';
-import { Achievement } from 'src/entities/db-entities/achievement.entities';
+import { Achievement } from 'src/entities/database/achievement.entities';
 import { AchievementService } from 'src/application/usecases/services/achievement.service';
 import { AchievementRepository } from 'src/interface-adapters/repositories/achievement.repository';
 import { MatchHistoryRepository } from 'src/interface-adapters/repositories/match-history.repository';
 import { FriendService } from 'src/application/usecases/services/friend.service';
 import { FriendRepository } from 'src/interface-adapters/repositories/friend.repository';
-import { FriendInvite, Friendship } from 'src/entities/db-entities/friendship.entities';
+import { FriendInvite, Friendship } from 'src/entities/database/friendship.entities';
 import { IMatchStatsRepository } from 'src/application/interfaces/repositories/IMatchStatsRepository';
 import { IAchievementRepository } from 'src/application/interfaces/repositories/IAchievementRepository';
 

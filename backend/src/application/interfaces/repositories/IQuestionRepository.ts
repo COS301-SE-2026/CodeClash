@@ -1,4 +1,4 @@
-import { GameMode } from "src/entities/db-entities/questions.entities";
+import { GameMode } from "src/entities/database/questions.entities";
 import { QuestionDTO } from "src/entities/dtos/question.dto";
 
 

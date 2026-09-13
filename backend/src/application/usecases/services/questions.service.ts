@@ -1,4 +1,4 @@
-import { GameMode } from "src/entities/db-entities/questions.entities";
+import { GameMode } from "src/entities/database/questions.entities";
 import { GameQuestionsDTO } from "src/entities/dtos/match-data.dto";
 import { leagueMapping } from "src/entities/league-mapping";
 

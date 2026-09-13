@@ -11,3 +11,4 @@ export type SocketAck<T = unknown> =
 
 export type SocketAckCallback<T> = (res: SocketAck<T>) => void;
 
+

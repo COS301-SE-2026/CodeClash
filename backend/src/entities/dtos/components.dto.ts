@@ -1,4 +1,4 @@
-import { GameMode, GameType } from "../../entities/db-entities/questions.entities"
+import { GameMode, GameType } from "../database/questions.entities"
 
 export interface PlayerDTO {
     id: string,

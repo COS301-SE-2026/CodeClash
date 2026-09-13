@@ -1,5 +1,5 @@
 import { Repository } from "typeorm";
-import { Friendship, FriendInvite } from "src/entities/db-entities/friendship.entities";
+import { Friendship, FriendInvite } from "src/entities/database/friendship.entities";
 import { IFriendRepository } from "src/application/interfaces/repositories/IFriendRepository";
 import { FriendDTO, FriendRequestDTO, FriendInviteDTO } from "src/entities/dtos/friendship.dto";
 import { IEloRepository } from "src/application/interfaces/repositories/IEloRepository";

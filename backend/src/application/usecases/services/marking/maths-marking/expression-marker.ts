@@ -1,6 +1,6 @@
 import { MathNode, rationalize } from "mathjs";
 
-import { AnswerFormat } from "src/entities/db-entities/questions.entities";
+import { AnswerFormat } from "src/entities/database/questions.entities";
 import { AnswerDTO } from "src/entities/dtos/answer.dto";
 
 import { MathsMarker } from "./maths-marker";

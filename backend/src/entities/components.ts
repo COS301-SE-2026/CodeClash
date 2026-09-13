@@ -2,7 +2,7 @@
 
 /* MATCH ENTITY */
 
-import { GameType } from "./db-entities/questions.entities"
+import { GameType } from "./database/questions.entities"
 import { MathsSubmissionDTO, ProgSubmissionDTO } from "./dtos/components.dto"
 
 // Player Component holds array of ids for a match

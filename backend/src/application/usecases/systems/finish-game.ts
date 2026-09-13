@@ -3,7 +3,7 @@ import { PlayerStatsDTO } from "src/entities/dtos/player-stats.dto";
 import { World } from "src/entities/World"
 import { MatchResultService } from "../services/match-result.service";
 import { GameStore } from "../services/game-store.service";
-import { GameType } from "src/entities/db-entities/questions.entities";
+import { GameType } from "src/entities/database/questions.entities";
 import { DeleteGame } from "./delete-game";
 import { IMatchStatsRepository } from "src/application/interfaces/repositories/IMatchStatsRepository";
 import { AchievementService, AchievementStats } from "../services/achievement.service";

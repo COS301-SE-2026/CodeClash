@@ -1,4 +1,4 @@
-import { FriendshipStatus } from "src/entities/db-entities/friendship.entities";
+import { FriendshipStatus } from "src/entities/database/friendship.entities";
 
 export interface FriendDTO {
     user_id: string;

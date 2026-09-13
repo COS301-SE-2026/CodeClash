@@ -5,7 +5,7 @@ import { SubmissionSystem } from "src/application/usecases/systems/submission.sy
 
 import { StartQuestionDTO } from "src/entities/dtos/question.dto";
 import { GameStore } from "src/application/usecases/services/game-store.service";
-import { GameType } from "src/entities/db-entities/questions.entities";
+import { GameType } from "src/entities/database/questions.entities";
 import { DeleteGame } from "src/application/usecases/systems/delete-game";
 import { PlayerSubmissionDTO } from "src/entities/dtos/components.dto";
 import { PlayerResultDTO } from 'src/entities/dtos/match-result.dto'
