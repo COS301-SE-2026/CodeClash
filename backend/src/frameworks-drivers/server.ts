@@ -32,7 +32,7 @@ import { World } from 'src/entities/World';
 import { MatchmakingCache } from 'src/interface-adapters/cache/matchmaking-cache';
 import { EloRepository } from 'src/interface-adapters/repositories/elo.repository';
 import { UserRepository } from 'src/interface-adapters/repositories/user.repository';
-import { sendGameQuestions, joinMatchQueue, leaveMatchQueue, matchAccepted, matchDeclined, sendGamePlayers } from 'src/interface-adapters/socket-handlers/matchmaking.handler';
+import { sendGameQuestions, joinMatchQueue, leaveMatchQueue, matchAccepted, matchDeclined, sendGamePlayers } from 'src/frameworks-drivers/socket/modules/matchmaking/handlers';
 
 import { Users } from "../entities/database/user.entities"
 import { validateToken } from '../interface-adapters/auth/auth.service';

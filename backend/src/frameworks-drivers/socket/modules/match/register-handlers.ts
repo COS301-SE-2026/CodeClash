@@ -4,7 +4,7 @@ import { registerHandler } from "../../dispatch";
 import { PlayerSubmissionDTO } from "src/entities/dtos/components.dto";
 import { cleanUp, gameDone, sendResults, startQuestion, submitQuestion } from "src/frameworks-drivers/socket/modules/match/handlers";
 import { StartQuestionDTO } from "src/entities/dtos/question.dto";
-import { sendGameQuestions } from "src/interface-adapters/socket-handlers/matchmaking.handler";
+import { sendGameQuestions } from "src/frameworks-drivers/socket/modules/matchmaking/handlers";
 import { GameType } from "src/entities/database/questions.entities";
 
 // register handlers 
