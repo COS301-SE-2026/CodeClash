@@ -1,6 +1,6 @@
-import { ArrowRight, ArrowLeft, User, AtSign, Mail, Phone, Lock } from 'lucide-react';
+import { ArrowRight, ArrowLeft, User, AtSign, Mail, Phone, Lock, ChevronDown } from 'lucide-react';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 
 import symbolBackground from "../assets/Background/SymbolBackground.png";
 import { SignUpViewModelFunction } from '../ViewModels/SignUpViewModel.ts';
@@ -131,9 +131,31 @@ const SignUp: React.FC= () => {
                     </div>
                     <div className='mb-4'>
                         <label className='field-label' htmlFor='phone-input'>Phone number</label>
-                        <div className='relative'>
-                            <Phone size={16} className='absolute left-4 top-1/2 -translate-y-1/2 text-muted-text'/>
-                            <input id='phone-input' className='input pl-10' type='tel' placeholder='+27 12 345 6789' value={form.phoneNumber} onChange={(e) => setField('phoneNumber', e.target.value)} disabled={isLoading}/>
+                        <div className='flex gap-2'>
+                            <div className='relative w-[105px] shrink-0'>
+                                <select id='country-code' className='input w-full pl-3 pr-8 appearance-none cursor-pointer' value={form.countryCode}
+                                    onChange={(e) => setField('countryCode', e.target.value)} disabled={isLoading}>
+                                    <option value= '+27'>RSA +27</option>
+                                    <option value= '+44'>UK +44</option>
+                                    <option value= '+1'>USA +1</option>
+                                    <option value= '+61'>AUS +61</option>
+                                    <option value= '+64'>NZ +64</option>
+                                    <option value= '+91'>IND +91</option>
+                                    <option value= '+33'>FRA +33</option>
+                                    <option value= '+49'>GER +49</option>
+                                    <option value= '+81'>JPN +81</option>
+                                    <option value= '+86'>CHN +86</option>
+                                    <option value= '+971'>UAE +971</option>
+                                    <option value= '+234'>NGR +234</option>
+                                    <option value= '+254'>KEN +254</option>
+                                    <option value= '+20'>EGY +20</option>
+                                </select>
+                                <ChevronDown size={16} className='pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-muted-text'/>
+                            </div>
+                            <div className='relative flex-1'>
+                                <Phone size={16} className='absolute left-4 top-1/2 -translate-y-1/2 text-muted-text'/>
+                                <input id='phone-input' className='input w-full pl-10' type='tel' inputMode= 'numeric' placeholder='123456789' value={form.phoneNumber} onChange={(e) => {const value= e.target.value.replace(/\D/g, ''); setField('phoneNumber', value);}} disabled={isLoading}/>
+                            </div>
                         </div>
                     </div>
                     <div className='mb-4'>
