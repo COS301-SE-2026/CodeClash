@@ -66,6 +66,7 @@ import { FriendRepository } from 'src/interface-adapters/repositories/friend.rep
 import { FriendInvite, Friendship } from 'src/entities/database/friendship.entities';
 import { IMatchStatsRepository } from 'src/application/interfaces/repositories/IMatchStatsRepository';
 import { IAchievementRepository } from 'src/application/interfaces/repositories/IAchievementRepository';
+import { attachSocketModules } from './socket';
 
 dotnev.config()
 
@@ -112,11 +113,11 @@ AppDataSource.initialize()
 
 
         // initialise services 
-        const game_service = new GameService(create_game, get_questions, get_difficulty, get_total_time, get_answers, game_cache, match_repo, user_repo);
-        const matchmkaing_service = new MatchmakingService(matchmaking_cache);
+        const match_service = new GameService(create_game, get_questions, get_difficulty, get_total_time, get_answers, game_cache, match_repo, user_repo);
+        const matchmaking_service = new MatchmakingService(matchmaking_cache);
         const match_results = new MatchResultService(elo_repo, match_results_repo)
         const matched_users_service = new MatchedUsersService();
-        const game_store = new GameStore(user_repo);
+        const match_store = new GameStore(user_repo);
         const leaderboard_service = new LeaderboardService(elo_repo);
         const friends_service = new FriendService(friend_repo);
         const achievement_service = new AchievementService(achievementRepo);
@@ -125,8 +126,8 @@ AppDataSource.initialize()
         // initialise systems 
         const submission_system = new SubmissionSystem(world);
         const life_system = new LifeSystem(world);
-        const delete_game = new DeleteGame(world, game_store, matched_users_service);
-        const finish_game = new FinishGame(world, match_results, game_store, delete_game, match_stats_repo, achievement_service, user_repo);
+        const  match_deletion_system = new DeleteGame(world, match_store, matched_users_service);
+        const match_completion_system = new FinishGame(world, match_results, match_store, match_deletion_system, match_stats_repo, achievement_service, user_repo);
 
 
 
@@ -148,7 +149,7 @@ AppDataSource.initialize()
 
         const notification = new NotificationService(io);
         const opponent_progress = new OpponentProgress(world);
-        const maths_marking_service = new MarkingService(game_cache, submission_system, life_system, notification, maths_marker, opponent_progress);
+        const math_marking_service = new MarkingService(game_cache, submission_system, life_system, notification, maths_marker, opponent_progress);
         const prog_marking_service = new MarkingService(game_cache, submission_system, life_system, notification, prog_marker, opponent_progress);
 
         // auth middleware 
@@ -184,47 +185,11 @@ AppDataSource.initialize()
         await initDB(user_repo, elo_repo);
 
         // attach socket handlers
-        io.on("connection", (socket) => {
-
-          socket.join(`user:${socket.data.user_id}`);
-          socket.join(socket.data.user_id) 
-          /*
-            okay lemme explain, so the connection is made when the queue has both users in it, 
-            but once the match starts, that connection is dissolved, and the game continues on, but 
-            the issue is that the game ending on timer thing requires an active connection, but that connection
-            was dissolved once the game befan, so what this is doing is making sure that it survives that disconnect
-            and is disconnected .
-          */
-
-            // SOCKET HANDLERS MUST MOOVE TO interface-adapter/
-            socket.on('join_match_queue', async (data) => await joinMatchQueue(io, socket, data, matchmkaing_service, matched_users_service, user_repo));
-
-            socket.on('leave_match_queue', async () => await leaveMatchQueue(io, socket, matchmkaing_service));
-
-            socket.on('match_accepted', async (data) => { await matchAccepted(io, socket, data, game_service, matched_users_service, game_store) });
-
-            socket.on('match_declined', (pair_id: string) => matchDeclined(io, socket, pair_id, matched_users_service));
-
-            socket.on('send_questions', (game_id: number) => { sendGameQuestions(io, game_id, game_store) });
-
-            socket.on('send_players', (game_id: number) => { sendGamePlayers(io, game_id, game_store) })
-
-            socket.on('submit_math_question', (data: PlayerSubmissionDTO) => submitQuestion(io, socket, data, maths_marking_service));
-
-            socket.on('submit_prog_question', (data: PlayerSubmissionDTO) => submitQuestion(io, socket, data, prog_marking_service));
-
-            socket.on('question_started', (data: StartQuestionDTO) => startQuestion(socket.data.user_id, submission_system, data));
-
-            socket.on('game_done', (game_id: number, game_type: GameType, pair_id: string) => gameDone(io, socket, game_id, game_type, pair_id, finish_game, game_store));
-
-            socket.on('send_results', (game_id: number, pair_id: string) => sendResults(io, game_id, pair_id, game_store))
-
-            socket.on('clean_up', (game_id: number, pair_id: string) => cleanUp(game_id, pair_id, delete_game, game_store))
-
-            socket.on('send_friend_invite', (data) => {
-               
-            });
-        })
+       attachSocketModules(io,{
+        match: {math_marking_service, prog_marking_service, submission_system, match_completion_system, match_deletion_system,match_store},
+        matchmaking: {matchmaking_service, matched_users_service,match_service,match_store,user_repo},
+        friends: {}
+       })
 
         // start server
         httpServer.listen(process.env.PORT, () => {
