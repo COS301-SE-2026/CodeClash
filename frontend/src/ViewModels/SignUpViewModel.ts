@@ -16,6 +16,7 @@ export function validateSignUpForm(data: SignUpForm): string | null {
     if (!data.phoneNumber.trim()) return 'Phone number is required';
     if (!data.password || data.password.length < 8) return 'Password must be atleast 8 characters';
     if (!data.acceptedTerms) return 'Please accept the terms and conditions';
+    if(data.phoneNumber.replace(/\D/g, '').length < 6) return 'Please enter a valid phone number';
     return null;
 }
 
@@ -55,7 +56,8 @@ export function SignUpViewModelFunction() {
                 email: form.email.trim(),
                 phoneNumber: form.phoneNumber.trim(),
                 password: form.password,
-                acceptedTerms: form.acceptedTerms
+                acceptedTerms: form.acceptedTerms,
+                countryCode: form.countryCode
             }
             await signUp(data);
             setSignupData(data);
