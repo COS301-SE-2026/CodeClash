@@ -20,4 +20,6 @@ export interface FriendInviteDTO {
     invite_id: string;
     invite_code: string;
     expires_at: Date;
+    sender_name?: string;
+    receiver_id?: string | string[];
 }
