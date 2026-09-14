@@ -1,8 +1,6 @@
 import { ArrowLeft, ArrowRight, Lock, AtSign, Loader2} from "lucide-react";
 import React from "react";
 import { Link } from "react-router-dom";
-
-import SymbolBackground from "../assets/Background/SymbolBackground.png";
 import { SignInViewModelFunction } from "../ViewModels/SignInViewModel";
 
 import Starfield from "@/components/ui/animations/Starfield";
@@ -21,7 +19,6 @@ const SignIn: React.FC= () => {
         <div className="relative w-full min-h-screen flex items-center justify-center overflow-hidden px-6 py-16" 
             style={{background: "radial-gradient(circle at 50% 12%, #b91551 0%, #850f3b 22%, #630b3c 34%, #0a0008 62%)"}}>
             
-            <img src = {SymbolBackground} alt="" className="absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none"/>
             <Starfield/>
 
             {/*Back Button*/}

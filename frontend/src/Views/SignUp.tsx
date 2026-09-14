@@ -2,7 +2,6 @@ import { ArrowRight, ArrowLeft, User, AtSign, Mail, Phone, Lock, Loader2} from '
 import React from 'react';
 import { Link} from 'react-router-dom';
 
-import symbolBackground from "../assets/Background/SymbolBackground.png";
 import { SignUpViewModelFunction } from '../ViewModels/SignUpViewModel.ts';
 
 import Starfield from '@/components/ui/animations/Starfield.tsx';
@@ -31,7 +30,6 @@ const SignUp: React.FC= () => {
         return (
             <div className='relativew-full min-h-screen flex items-center justify-center overflow-hidden px-6 py-16'
                 style={{background: "radial-gradient(circle at 50% 12%, #b91551 0%, #850f3b 22%, #630b3c 34%, #0a0008 62%)"}}>
-                <img src= {symbolBackground} alt='' className='absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none'/>
 
                 {/*Back Btn */}
                 <Link to='/' className='btn btn-ghost primary-back-button flex items-center gap-2 z-20'>
@@ -77,7 +75,6 @@ const SignUp: React.FC= () => {
     return (
         <div className='relative w-full min-h-screen flex items-center justify-center overflow-hidden px-6 py-16'
             style={{background: "radial-gradient(circle at 50% 12%, #b91551 0%, #850f3b 22%, #630b3c 34%, #0a0008 62%)"}}>
-            <img src={symbolBackground} alt='' className='absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none'/>
             <Starfield/>
 
             {/*Back Button - copied from signin*/}
