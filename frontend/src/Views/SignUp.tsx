@@ -172,7 +172,7 @@ const SignUp: React.FC= () => {
                     {/*Copied from Signin */}
                     <div className="flex items-center gap-3 my-8">
                         <span className="divider flex-1"/>
-                        <span className="text-xsm uppercase tracking-[0.2rem] text-muted-text whitespace-nowrap">Have an account?</span>
+                        <span className="text-xsm  text-muted-text whitespace-nowrap">Have an account?</span>
                         <span className="divider flex-1"/>
                     </div>
                     <Link to='/sign-in' className="btn btn-secondary w-full group">

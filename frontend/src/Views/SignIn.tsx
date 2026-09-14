@@ -62,7 +62,7 @@ const SignIn: React.FC= () => {
                     <div className="flex justify-center mt-4">
                         <Link className="text-xsm underline text-muted-text hover:text-primary transition-colors" to='/forgot-password'>Forgot password?</Link>
                     </div>
-                    <button className='btn btn-primary btn-md w-full group' type='button' onClick={handleSubmit} disabled={isLoading}>
+                    <button className='btn btn-primary btn-md w-full group mt-5' type='button' onClick={handleSubmit} disabled={isLoading}>
                         {isSigningIn ? (
                             <>
                                 <Loader2 size={20} className='animate-spin'/>
@@ -77,7 +77,7 @@ const SignIn: React.FC= () => {
                     </button>
                     <div className="flex items-center gap-3 my-8">
                         <span className="divider flex-1"/>
-                        <span className="text-xsm uppercase tracking-[0.2rem] text-muted-text whitespace-nowrap">New to CodeClash?</span>
+                        <span className="text-xsm  text-muted-text whitespace-nowrap">New to CodeClash?</span>
                         <span className="divider flex-1"/>
                     </div>
                     <Link to='/sign-up' className="btn btn-secondary w-full group">
