@@ -48,13 +48,13 @@ export function SignUpViewModelFunction() {
             return;
         }
         try {
-
+            const formattedNumber = `${form.countryCode}${form.phoneNumber.trim()}`;
             const data: SignUpForm = {
                 username: form.username.trim(),
                 firstName: form.firstName,
                 lastName: form.lastName,
                 email: form.email.trim(),
-                phoneNumber: form.phoneNumber.trim(),
+                phoneNumber: formattedNumber,
                 password: form.password,
                 acceptedTerms: form.acceptedTerms,
                 countryCode: form.countryCode
