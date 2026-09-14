@@ -1,7 +1,7 @@
 import { ICodeExecutor } from 'src/application/interfaces/marking/ICodeExecutor'
 import axios from 'axios'
 import dotenv from 'dotenv'
-import { ProgSubmissionResult } from 'src/entities/dtos/submission-result.dto';
+import { ProgSubmissionResult } from 'src/entities/dtos/marking/submission-result.dto';
 dotenv.config();
 
 export class CodeExecutor implements ICodeExecutor {

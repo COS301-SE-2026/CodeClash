@@ -13,7 +13,7 @@ export interface ProgSubmissionResult {
     },
 }
 
-export interface MathsSubmissionResult{
+export interface MathsSubmissionResult {
     correct: boolean;
 }
 
@@ -25,4 +25,12 @@ export interface OpponentProgressDTO {
     correct: boolean,
     opponent_life: number,
     question: number
+}
+
+export interface MarkingResultDTO {
+    player_id: string,
+    correct: boolean,
+    speed: number,
+    attempt_number: number,
+    life_update: number
 }

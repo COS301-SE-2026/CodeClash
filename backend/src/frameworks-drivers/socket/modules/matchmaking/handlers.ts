@@ -2,7 +2,7 @@ import { Socket, Server } from "socket.io"
 import { GameService } from 'src/application/usecases/services/game.service';
 import { MatchmakingService } from 'src/application/usecases/services/matchmaking.service';
 import { GameDataDTO } from "src/entities/dtos/match-data.dto";
-import MatchmakingUserDTO from 'src/entities/dtos/matchmaking.dto';
+import { MatchmakingUserDTO } from 'src/entities/dtos/matchmaking/matchmaking.dto';
 import { MatchedUsersService } from "src/application/usecases/services/matched-users.service";
 import { GameStore } from "src/application/usecases/services/game-store.service";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
@@ -10,16 +10,16 @@ import { IUserRepository } from "src/application/interfaces/repositories/IUserRe
 
 
 export const joinMatchQueue = (
-    async (io: Server,
-        socket: Socket,
-        data: any,
-        matchmaking_service: MatchmakingService,
-        matched_users_service: MatchedUsersService,
-        user_repo: IUserRepository
-    ) => {
+    async (io: Server, socket: Socket, data: any, matchmaking_service: MatchmakingService, matched_users_service: MatchedUsersService, user_repo: IUserRepository) => {
 
         socket.join(socket.data.user_id)
-        const user = new MatchmakingUserDTO(socket.data.user_id, data.elo, data.game_mode);
+        const user: MatchmakingUserDTO = {
+            id: socket.data.user_id,
+            elo: data.elo,
+            match_mode: data.match_mode,
+            match_attempt: 1,
+            joined_at: new Date()
+        };
 
         let match = null;
 

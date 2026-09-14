@@ -1,11 +1,11 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-export enum GameMode {
+export enum MatchMode {
     Maths = "math",
     Programming = "programming"
 }
 
-export enum GameType{
+export enum MatchType{
     ranked = 'ranked',
     casual = 'casual'
 }
@@ -30,10 +30,10 @@ export class Questions {
     @Column({
         nullable: false,
         type: "enum",
-      enum: GameMode,
-        enumName: "game_modes"
+      enum: MatchMode,
+        enumName: "match_modes"
     })
-    game_mode!: GameMode
+    game_mode!: MatchMode
 
     @Column({ nullable: false })
     difficulty!: number

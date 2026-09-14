@@ -5,9 +5,7 @@ import { Server } from 'socket.io'
 import { EloRatings } from 'src/entities/database/elo.entities';
 import { IQuestionRepository } from 'src/application/interfaces/repositories/IQuestionRepository';
 import { QuestionRepository } from 'src/interface-adapters/repositories/question.repository';
-import { GameType, Questions } from 'src/entities/database/questions.entities';
-import { cleanUp, gameDone, sendResults, startQuestion, submitQuestion } from 'src/frameworks-drivers/socket/modules/match/handlers';
-import { PlayerSubmissionDTO } from 'src/entities/dtos/components.dto';
+import {  Questions } from 'src/entities/database/questions.entities';
 import { IAnswerRepository } from 'src/application/interfaces/repositories/IAnswerRepository';
 import { AnswerRepository } from 'src/interface-adapters/repositories/answer.repository';
 import { Answers } from 'src/entities/database/answers.entities';
@@ -25,14 +23,12 @@ import { IUserRepository } from 'src/application/interfaces/repositories/IUserRe
 import { MarkingService } from 'src/application/usecases/services/marking/marking.service';
 import { initDB } from 'src/application/usecases/init-db';
 import { LifeSystem } from 'src/application/usecases/systems/life.system';
-import { StartQuestionDTO } from 'src/entities/dtos/question.dto';
 import { FinishGame } from 'src/application/usecases/systems/finish-game';
 import { SubmissionSystem } from 'src/application/usecases/systems/submission.system';
 import { World } from 'src/entities/World';
 import { MatchmakingCache } from 'src/interface-adapters/cache/matchmaking-cache';
 import { EloRepository } from 'src/interface-adapters/repositories/elo.repository';
 import { UserRepository } from 'src/interface-adapters/repositories/user.repository';
-import { sendGameQuestions, joinMatchQueue, leaveMatchQueue, matchAccepted, matchDeclined, sendGamePlayers } from 'src/frameworks-drivers/socket/modules/matchmaking/handlers';
 
 import { Users } from "../entities/database/user.entities"
 import { validateToken } from '../interface-adapters/auth/auth.service';
