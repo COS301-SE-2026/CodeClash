@@ -14,6 +14,7 @@ const SignIn: React.FC= () => {
         isLoading,
         setField,
         handleSubmit,
+        isSigningIn
     } = SignInViewModelFunction();
 
     return (
@@ -62,14 +63,14 @@ const SignIn: React.FC= () => {
                         <Link className="text-xsm underline text-muted-text hover:text-primary transition-colors" to='/forgot-password'>Forgot password?</Link>
                     </div>
                     <button className='btn btn-primary btn-md w-full group' type='button' onClick={handleSubmit} disabled={isLoading}>
-                        {isLoading ? (
+                        {isSigningIn ? (
                             <>
                                 <Loader2 size={20} className='animate-spin'/>
-                                <span>Signing up...</span>
+                                <span>Signing in...</span>
                             </>
                         ) : (
                             <>
-                                <span>Sign Up</span>
+                                <span>Sign In</span>
                                 <ArrowRight size={20} className='transition-transform duration-300 group-hover:translate-x-1'/>
                             </>
                         )}
