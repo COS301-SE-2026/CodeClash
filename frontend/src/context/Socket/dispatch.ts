@@ -1,7 +1,7 @@
 import { Socket } from "socket.io-client";
 import type { SocketResponse } from "src/dtos/socket/socket.dto";
 
-export function registerHandler<T>(
+export function on<T>(
     socket: Socket,
     event: string,
     handler: (data: T) => void
@@ -10,17 +10,20 @@ export function registerHandler<T>(
     return () => socket.off(event, handler);
 }
 
-export function registerEmitter<Req, Res>(
+export function emit<Req, Res>(
     socket: Socket,
     event: string,
-    data: Req
+    data?: Req
 ): Promise<SocketResponse<Res>> {
 
-    return new Promise((resolve) => {
-        socket.emit(
-            event,
-            data,
-            (response: SocketResponse<Res>) => { resolve(response) }
+    const timeout = 5000;
+    return new Promise((resolve, reject) => {
+        const timer = setTimeout(() => reject(new Error(`${event} timed out`)), timeout);
+
+        socket.emit(event, data, (response: SocketResponse<Res>) => {
+            clearTimeout(timer);
+            response.ok ? resolve(response) : reject(new Error(response.error));
+        }
         );
     });
 

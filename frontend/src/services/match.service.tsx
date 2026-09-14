@@ -1,14 +1,15 @@
 import { useMemo, useRef, useState, useEffect } from "react";
 import { useTimer } from "react-timer-hook";
 import { Socket } from "socket.io-client";
-import type { GameType } from "src/dtos/matchmaking/matchmaking.dto";
+import type { MatchMode, MatchType } from "src/dtos/match/match.dto";
 import type { Player, Question } from "src/Models/MatchModel";
 import { submitAnswer } from "src/services/submission.service";
 import { endGame } from "src/services/result.service";
 import type { GameQuestionsDTO } from "src/dtos/match/game-questionDTO";
 import { useNavigate } from "react-router-dom";
 import type { OpponentDTO } from "src/dtos/match/opponent.dto";
-import type { MathsSubmissionDTO, ProgSubmissionDTO } from "src/dtos/match/submission.dto";
+import type { MathsSubmissionDTO, ProgSubmissionDTO, SubmissionDto } from "src/dtos/match/submission.dto";
+import type { MatchSocket } from "src/context/Socket/modules/match.socket";
 
 export const useGameTimer = (duration: number, onExpire: () => void) => {
     const expiry_time = useMemo(() => {
@@ -47,8 +48,8 @@ function shuffle(array: Question[]) {
 export const useGameQuestions = (
     match_id: string,
     user_id: string,
-    socket: Socket,
-    game_type: GameType
+    match_socket: MatchSocket | null,
+    game_type: MatchType
 ) => {
     const nav = useNavigate();
 
@@ -63,22 +64,24 @@ export const useGameQuestions = (
     const startQuestion = (
         player_id: string,
         question_id: string,
-        question_number: number
+        match_type: MatchType,
+        match_mode: MatchMode
     ) => {
-        const data = {
-            match_id: match_id,
-            player: player_id,
-            question: question_id,
-            question_number: question_number
+        const data: SubmissionDto = {
+            match_id,
+            player_id,
+            question_id,
+            match_type,
+            match_mode
         }
 
-        socket?.emit('question_started', data);
+        match_socket!.startQuestion(data);
     }
 
     const nextQuestion = (curr: number) => {
         if (curr < questions.length - 1) {
             setCurrentQuestion(curr + 1);
-            startQuestion(user_id, questions[curr + 1].id!, curr + 1)
+            startQuestion(user_id, questions[curr + 1].id!)
         }
     }
 
@@ -185,9 +188,9 @@ export const useMatchProgress = (
     const [opponentDone, setOpponentDone] = useState(false);
 
     const players_ref = useRef(players);
-  const [prev_players, setPrevPlayers] = useState(players);
+    const [prev_players, setPrevPlayers] = useState(players);
 
-  if (players !== prev_players) {
+    if (players !== prev_players) {
         setPrevPlayers(players);
         setPlayerLife(players.map(p => p.life))
     }

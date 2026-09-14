@@ -6,13 +6,13 @@ import { useSocket } from "src/context/Socket/hooks/useSocket";
 import { useUser } from "src/context/User/hooks/useUser";
 import type { SubmissionResultDTO } from "src/dtos/match/submission.dto";
 import type { Player } from "src/Models/MatchModel";
-import { endGame } from "src/services/result.service";
 import { robot_map } from 'src/assets/Robots';
 import { useGameQuestions, useGameTimer, useMatchProgress } from 'src/services/match.service';
 
 
 export const useMatch = () => {
-    const { socket } = useSocket();
+
+    const { match_socket } = useSocket();
     const location = useLocation();
     const { id } = location.state;
     const { userId } = useUser();
@@ -33,13 +33,13 @@ export const useMatch = () => {
         waitingOpponent,
         waiting_opponent,
         both_done
-    } = useGameQuestions(id, userId, socket!, gameType);
+    } = useGameQuestions(id, userId, match_socket, gameType);
 
     const [gameOver, setGameOver] = useState(false);
 
     const { seconds, minutes } = useGameTimer(duration, () => {
         setGameOver(true);
-        endGame(id, gameType, socket);
+        match_socket?.finishMatch({match_id: id, match_mode: gameType!})
     })
 
 
@@ -89,19 +89,22 @@ export const useMatch = () => {
     }, [players])
 
     useEffect(() => {
-        if (socket) {
-            socket.emit('send_questions', id)
-            socket.emit('send_players', id);
+        if (match_socket) {
 
+            match_socket.sendQuestions(id);
+            match_socket.sendPlayers(id);
 
-            socket.on('get_questions', loadQuestions)
-            socket.on('get_players', setPlayers)
-            socket.on('marking_complete', submission_result);
-            socket.on("submission_error", submission_error);
-            socket.on('waiting_opponent', waiting_opponent);
-            socket.on('both_done', both_done)
-            socket.on("opponent_progress", opponent_progress)
-            socket.on("opponent_done", opponent_done);
+            const cleanup = () => {
+                match_socket.getQuestions(loadQuestions)();
+                match_socket.getPlayers(setPlayers)();
+                match_socket.markingComplete(submission_result)();
+                match_socket.submissionError(submission_error)();
+                match_socket.waitingOpponent(waiting_opponent)();
+                match_socket.bothDone(both_done)();
+                match_socket.opponentProgress(opponent_progress)();
+                match_socket.opponentDone(opponent_done)();
+            };
+
 
             const loadLoader = async () => {
                 if (questions.length === 0) setLoading(true)
@@ -111,19 +114,10 @@ export const useMatch = () => {
 
             void loadLoader()
 
-            return () => {
-                socket.off("get_questions", loadQuestions);
-                socket.off("marking_complete", submission_result);
-                socket.off("submission_error", submission_error);
-                socket.off('get_players', setPlayers);
-                socket.off('waiting_opponent', waiting_opponent)
-                socket.off('both_done', both_done)
-                socket.off('opponent_progress', opponent_progress)
-                socket.off('opponent_done', opponent_done)
-            }
+            return () => cleanup();
         }
 
-    }, [socket, questionsReady])
+    }, [match_socket, questionsReady])
 
     return {
         players,

@@ -1,19 +1,18 @@
+import type { MatchMode, MatchType } from "../match/match.dto";
+
 export interface MatchmakingUserDTO {
     elo: number;
-    game_mode: GameMode;
-    game_type: GameType,
-    username: string
+    match_mode: MatchMode;
+    match_type: MatchType;
+    username: string;
 };
 
 
 export interface MatchAcceptedDTO {
     pair_id: string;
-    game_mode: GameMode;
-    league: string,
-    username: string
-    avatar: string,
-    game_type: GameType
+    match_mode: MatchMode;
+    league: string;
+    username: string;
+    avatar: string;
+    match_type: MatchType;
 }
-
-export type GameMode = 'math' | 'programming' | null
-export type GameType = 'ranked' | 'casual' | null

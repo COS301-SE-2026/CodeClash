@@ -1,30 +1,30 @@
+import type { MatchMode, MatchType } from "./match.dto"
 
-export type MatchType = 'ranked' | 'casual';
-
-export type MatchMode = 'math' | 'programming';
-
-export interface SubmissionResultDTO {
+export interface MarkingResultDTO {
     player_id: string,
-    result: boolean,
+    correct: boolean,
+    speed: number,
+    attempt_number: number,
     life_update: number
 }
 
-export interface SubmissionDto {
+export interface SubmissionDTO {
     match_id: string,
     player_id: string,
     question_id: string,
+    question_number: number,
     match_type: MatchType,
-    match_mode: MatchMode
+    match_mode: MatchMode,
+    submission: MathsSubmissionDTO | ProgSubmissionDTO
 }
 
-export interface MathsSubmissionDTO extends SubmissionDto {
+export interface MathsSubmissionDTO {
     answer: string
 }
 
-export interface ProgSubmissionDTO extends SubmissionDto {
+export interface ProgSubmissionDTO {
     source_code: string,
     language_id: number,
     stdin: string | null,
 }
-
 

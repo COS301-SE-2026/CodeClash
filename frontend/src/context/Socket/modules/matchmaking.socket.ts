@@ -1,0 +1,37 @@
+import type { Socket } from "socket.io-client";
+import type { MatchAcceptedDTO, MatchmakingUserDTO } from "src/dtos/matchmaking/matchmaking.dto";
+import { on, emit } from "../dispatch";
+import type { MatchedUsersDTO } from "src/dtos/matchmaking/matched-user.dto";
+
+export class MatchmakingSocket {
+    private socket: Socket;
+
+    constructor(socket: Socket) {
+        this.socket = socket;
+    }
+
+    /************************************** LISTENERS ******************************************* */
+
+    matched(handler: (data: MatchedUsersDTO) => void) {
+        return on<MatchedUsersDTO>(this.socket, 'users_matched', handler);
+    }
+
+    /************************************** EMITTERS ******************************************* */
+
+
+    joinQueue(data: MatchmakingUserDTO) {
+        return emit<MatchmakingUserDTO, void>(this.socket, 'join_match_queue', data);
+    }
+
+    leaveQueue() {
+        return emit(this.socket, 'leave_match_queue');
+    }
+
+    acceptMatch(data: MatchAcceptedDTO) {
+        return emit<MatchAcceptedDTO, void>(this.socket, 'match_accepted', data);
+    }
+
+    declineMatch(pair_id: string) {
+        return emit<string, void>(this.socket, 'match_declined', pair_id);
+    }
+}
