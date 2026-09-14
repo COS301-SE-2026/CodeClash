@@ -2,7 +2,7 @@ import {
     createContext, useCallback, useEffect, 
     useMemo, useRef, useState,
 } from "react";
-import { useSocket } from "src/context/Socket/hooks/useSocket";
+// import { useSocket } from "src/context/Socket/hooks/useSocket";
 
 import { useAuth } from "../../context/Auth/hooks/useAuth";
 import {friendContent} from "../../Models/FriendsModel";
@@ -45,7 +45,7 @@ export const FriendsContextFunc = createContext<FriendsContext | null>(null);
 
 export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
     const {token, user} = useAuth();
-    const { socket } = useSocket();
+    // const { socket } = useSocket();
     const [isLoading, setIsLoading] = useState(true);
     const [profile, setProfile] = useState<Summary | null>(null);
     const [friend, setFriend] = useState<Friend[]>([]);
@@ -274,7 +274,7 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
     /*Invites */
     const sendInvite = useCallback(async (friendId: string) => {
         const target = friendsRef.current.find((f) => f.id === friendId);
-        if (!target || !token || !user || !socket) {
+        if (!target || !token || !user) {
             return;
         }
         try {
@@ -288,16 +288,17 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
             });
             const invite = await res.json();
 
-            socket.emit('send_friend_invite', {
-                receiver_id: friendId,
-                invite_code: invite.invite_code,
-                sender_name: user.username,
-                expires_at: invite.expires_at
-            });
+            // THIS WILL BE REPLACED WITH THE NOTIFICATION SYSTEM
+            // socket.emit('send_friend_invite', {  
+            //     receiver_id: friendId,
+            //     invite_code: invite.invite_code,
+            //     sender_name: user.username,
+            //     expires_at: invite.expires_at
+            // });
         } catch (err) {
             console.error('Error sending invite:', err);
         }
-    }, [token, user, socket])
+    }, [token, user])
 
     const acceptInvite = useCallback(() => {
         if (!activeInvite) {
