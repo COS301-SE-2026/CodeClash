@@ -28,15 +28,32 @@ const Dropdown: React.FC<DropdownProps> = ({value, onChange, disabled}) => {
     }, [])
 
     return (
-        <div className="relative w-[105px] shrink-0" ref={ref}>
-            <button type="button" className="input w-full flex items-center justify-between pl-3 pr-2 cursor-pointer disabled:cursor-not-allowed"
+        <div className="relative w-[84px] shrink-0" ref={ref}>
+            <button type="button" className="input w-full flex items-center justify-between pl-3 pr-2 py-3 cursor-pointer disabled:cursor-not-allowed"
                 onClick={() => setIsOpen((prev) => !prev)} disabled= {disabled}>
-                <span className="flex items-center gap-1.5 text-sm">
-                    <SelectedFlag className='w-5 h-auto rounded-[2px]'/>
+                <span className="flex items-center gap-1.5 text-xsm">
+                    <SelectedFlag className='w-4 h-auto rounded-[2px]'/>
                     <span>{selected.code}</span>
                 </span>
-                <ChevronDown size={16} className={`text-muted-text transition-transform ${isOpen? 'rotate-180' : ''}`}/>
+                <ChevronDown size={18} className={`text-muted-text transition-transform ${isOpen? 'rotate-180' : ''}`}/>
             </button>
+
+            {isOpen && (
+                <div className="absolute z-30 mt-2 w-36 max-h-64 overflow-y-auto rounded-2xl border border-border bg-background backdrop-blur-md shadow-lg">
+                    {CountryCodes.map((country) => {
+                        const Flag = country.flagIcon;
+                        return (
+                            <button key={country.code} type="button" className="w-full flex items-center gap-2 px-4 py-2.5 text-xsm text-left hover:bg-white/10 transition-colors text-primary-text"
+                                onClick={() => { onChange(country.code); setIsOpen(false);}}>
+                                <Flag className="w-4 h-auto rounded-[2px]"/>
+                                <span>{country.code}</span>
+                            </button>
+                        )
+                    })}
+                </div>
+            )}
         </div>
     )
 }
+
+export default Dropdown;
