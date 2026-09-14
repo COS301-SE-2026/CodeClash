@@ -1,5 +1,5 @@
 import { DataSource, Repository } from "typeorm";
-import { GameMode, Questions } from "../../../src/entities/db-entities/questions.entities";
+import { GameMode, Questions } from "../../../src/entities/database/questions.entities";
 import { QuestionRepository } from '../../../src/interface-adapters/repositories/question.repository'
 import { beforeAll, describe, expect, it } from "vitest";
 import { createTestDataSource } from "../../test-data-source";

@@ -1,5 +1,5 @@
 import { GameService } from 'src/application/usecases/services/game.service';
-import { GameMode } from "src/entities/db-entities/questions.entities";
+import { GameMode } from "src/entities/database/questions.entities";
 import { AnswerDTO } from 'src/entities/dtos/answer.dto';
 import { PlayerDTO } from "src/entities/dtos/components.dto";
 import { QuestionDTO } from "../../../../src/interface-adapters/dtos/question.dto";

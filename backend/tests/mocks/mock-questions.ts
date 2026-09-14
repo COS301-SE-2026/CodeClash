@@ -1,5 +1,5 @@
 import { DeepPartial } from "typeorm";
-import { GameMode, Questions } from "../../src/entities/db-entities/questions.entities";
+import { GameMode, Questions } from "../../src/entities/database/questions.entities";
 
 
 export const mock_questions: DeepPartial<Questions>[] = [

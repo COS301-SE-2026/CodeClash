@@ -16,7 +16,7 @@ export default defineConfig({
                 '**/config/**', 
                 'src/**/*.dto.*', 
                 'src/application/interfaces/**', 
-                'src/entities/db-entities/**',
+                'src/entities/database/**',
                 'src/entities/components.ts',
                 'src/entities/ecs-entities.ts',
                 'src/frameworks-drivers/config/**',

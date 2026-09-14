@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { FinishGame } from '../../../src/application/usecases/systems/finish-game';
-import { GameType } from '../../../src/entities/db-entities/questions.entities';
+import { GameType } from '../../../src/entities/database/questions.entities';
 import { AchievementService } from '../../../src/application/usecases/services/achievement.service';
 describe('FinishGame', () => {
     let world: any;
