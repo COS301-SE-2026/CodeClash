@@ -1,7 +1,7 @@
 import '../styles/global.css'
 import React from "react"
 import { useNavigate } from 'react-router-dom';
-import type { GameMode } from 'src/dtos/matchmaking/matchmaking.dto';
+import type { MatchMode } from 'src/dtos/match/match.dto';
 
 
 import { type PopupProps } from '../Models/PopUpModel';
@@ -15,7 +15,7 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
     const { selectTopic, cancel } = useSelectTopic();
     const nav = useNavigate();
 
-    const selecthandler = (t: GameMode) => {
+    const selecthandler = (t: MatchMode) => {
         if (selectTopic === null || t === null)
             nav('/error')
         else {

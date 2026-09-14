@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useMatchmaking } from "src/context/Socket/hooks/useMatchmaking";
 import { useSocket } from "src/context/Socket/hooks/useSocket"
 import { useUser } from "src/context/User/hooks/useUser";
-import type { MatchedUsersDTO } from "src/dtos/matched-user.dto";
+import type { MatchedUsersDTO } from "src/dtos/matchmaking/matched-user.dto";
 import type { MatchmakingUserDTO } from "src/dtos/matchmaking/matchmaking.dto";
 
 import {
@@ -19,7 +19,7 @@ export function MatchFoundViewModelFunction() {
   const nav = useNavigate();
   const { league, username, avatar, elo } = useUser();
   const { socket, } = useSocket()
-  const { gameType, pairId, matchAccepted, matchDeclined, matchedUsers, gameMode, joinMatchQueue } = useMatchmaking()
+  const { gameType, pairId, matchAccepted, matchDeclined, matchedUsers, match_mode, joinMatchQueue } = useMatchmaking()
   const [path, setPath] = useState('');
   const [loading, setLoading] = useState(false);
   const [socketError, setSocketError] = useState('');
@@ -62,8 +62,8 @@ export function MatchFoundViewModelFunction() {
 
         const data: MatchmakingUserDTO = {
           elo: elo, 
-          game_mode: gameMode,
-          game_type: gameType,
+          match_mode: match_mode!,
+          match_type: gameType!,
           username: username
         };
 

@@ -8,7 +8,7 @@ import { MatchmakingContext } from "./MatchmakingContextValue";
 
 export const MatchmakingProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
-    const [gameMode, setGameMode] = useState<MatchMode | null>(null)
+    const [match_mode, set_match_mode] = useState<MatchMode | null>(null)
     const [gameType, setGameType] = useState<MatchType | null>(null);
     const [pairId, setPairId] = useState('');
     const [matched, setMatched] = useState(false);
@@ -32,15 +32,15 @@ export const MatchmakingProvider: React.FC<{ children: ReactNode }> = ({ childre
 
     const value = useMemo(() => ({
         matchedUsers,
-        gameMode,
+        match_mode,
         gameType,
         pairId,
         matched,
         setGameType,
-        setGameMode,
+        set_match_mode,
         matchmaking_socket,
         setMatched
-    }), [gameMode, gameType, pairId, matched, setGameType])
+    }), [match_mode, gameType, pairId, matched, setGameType])
 
     return (
         <MatchmakingContext.Provider

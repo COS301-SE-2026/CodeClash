@@ -5,11 +5,11 @@ import type { MatchmakingSocket } from "./modules/matchmaking.socket";
 
 export interface MatchmakingContextValue {
     matchedUsers: MatchedUsersDTO | null,
-    gameMode: MatchMode | null,
+    match_mode: MatchMode | null,
     gameType: MatchType | null,
     pairId: string,
     matched: boolean,
-    setGameMode: (mode: MatchMode) => void,
+    set_match_mode: (mode: MatchMode) => void,
     setGameType: (type: MatchType) => void,
     matchmaking_socket: MatchmakingSocket | null,
     setMatched: (matched: boolean) => void

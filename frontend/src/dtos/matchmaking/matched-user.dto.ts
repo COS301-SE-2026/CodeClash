@@ -1,4 +1,4 @@
-import type { GameMode } from "./matchmaking.dto"
+import type { MatchMode } from "src/dtos/match/match.dto"
 
 
 export interface PlayerDTO {
@@ -14,5 +14,5 @@ export interface MatchedUsersDTO {
         
     }
     pair_id: string,
-    game_mode: GameMode
+    game_mode: MatchMode
 } 
