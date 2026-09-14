@@ -33,11 +33,11 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
             </div>
             <div className="relative w-[60%] h-[2rem] top-[-2rem] ">
 
-                <Card className="bg-sidebar card-glow h-[18rem] w-[100%] rounded-2xl text-center flex items-center absolute inset-0">
-                    <h1 className="text-l heading text-primary-text font-extrabold">
+                <Card className="bg-secondary card-glow h-[18rem] w-[100%] rounded-2xl text-center flex items-center absolute inset-0">
+                    <h1 className="text-l heading text-secondary-text font-extrabold">
                         Choose a Topic
                     </h1>
-                    <h2 className="text-sm font-heading text-muted-text text-center justify-center">What would you like to be challenged on?</h2>
+                    <h2 className="text-sm font-heading text-secondary-text text-center justify-center">What would you like to be challenged on?</h2>
 
                     <div className=" grid grid-flow-col grid-cols-2 gap-7 h-[20%]">
                         <Card className=" btn btn-primary w-full"
@@ -69,7 +69,7 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
                             <h1 className="text-sm text-primary-text font-bold">Programming</h1>
                         </Card>
                     </div>
-                    <div className="text-sm text-primary-text heading font-extrabold underline mt-[0%] rounded-2xl w-[20%] hover:text-primary"
+                    <div className="text-sm text-secondary-text heading font-extrabold underline mt-[0%] rounded-2xl w-[20%] hover:text-primary"
                         onClick={() => {
                             cancel();
                             onClose()
