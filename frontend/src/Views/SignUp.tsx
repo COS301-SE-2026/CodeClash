@@ -24,6 +24,7 @@ const SignUp: React.FC= () => {
         handleSubmit,
         handleConfirm,
         handleResend,
+        isSigningUp
     } = SignUpViewModelFunction();
 
     if (needsConfirmation) {
@@ -156,7 +157,7 @@ const SignUp: React.FC= () => {
                         </label>
                     </div>
                     <button className='btn btn-primary btn-md w-full group' type='button' onClick={handleSubmit} disabled={isLoading}>
-                        {isLoading ? (
+                        {isSigningUp ? (
                             <>
                                 <Loader2 size={20} className='animate-spin'/>
                                 <span>Signing up...</span>

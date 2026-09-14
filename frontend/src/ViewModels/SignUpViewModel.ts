@@ -32,8 +32,8 @@ export function SignUpViewModelFunction() {
     const [isConfirmed, setIsConfirmed] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [confirmMessage, setConfirmMessage] = useState<string | null>(null);
+    const [isSigningUp, setIsSigningUp] = useState(false);
     const nav = useNavigate();
-
 
     const setField = useCallback((field: keyof SignUpForm, value: string | boolean) => {
         setForm(prev => ({ ...prev, [field]: value })); //...prev will keep all exisiting values untouched and allow changes only to a specific field
@@ -47,6 +47,7 @@ export function SignUpViewModelFunction() {
             setLocalError(validationError);
             return;
         }
+        setIsSigningUp(true);
         try {
             const formattedNumber = `${form.countryCode}${form.phoneNumber.trim()}`;
             const data: SignUpForm = {
@@ -65,6 +66,9 @@ export function SignUpViewModelFunction() {
         } catch {
             console.error("Sign up error")
         } //If Amplify throws an error, AuthContext will catch it and put it in error
+        finally {
+            setIsSigningUp(false);
+        }
     }, [form, signUp, clearError]); //Dependency array
 
     const handleConfirm = useCallback(async () => {
@@ -143,6 +147,7 @@ export function SignUpViewModelFunction() {
         confirmMessage,
         isConfirmed,
         isSubmitting,
+        isSigningUp,
 
         setField,
         setConfirmationCode,
