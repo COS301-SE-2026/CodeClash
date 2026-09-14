@@ -52,7 +52,7 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
                             onClick={() => selecthandler('math')}
                             aria-label='math-selector'
                         >
-                            <h1 className="text-sm text-primary-text font-bold group-hover:text-white">Math</h1>
+                            <h1 className="text-sm text-primary-text font-bold group-hover:text-white">+- Math</h1>
                         </Card>
                         <Card className="btn btn-primary w-full"
                             role="button"
@@ -66,7 +66,7 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
                             onClick={() => selecthandler('programming')}
                             aria-label='prog-selector'
                         >
-                            <h1 className="text-sm text-primary-text font-bold">Programming</h1>
+                            <h1 className="text-sm text-primary-text font-bold">{'</>'} Programming</h1>
                         </Card>
                     </div>
                     <div className="text-sm text-secondary-text heading font-extrabold underline mt-[0%] rounded-2xl w-[20%] hover:text-primary"
