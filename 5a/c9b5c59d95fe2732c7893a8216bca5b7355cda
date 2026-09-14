@@ -1,0 +1,15 @@
+frontend/src/ViewModels/FriendsViewModel/FriendsContext.tsx
+  h_94c952a9e14c58 5,48,277,291-297
+  h_94c952a9e14c58 301
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "5ac9b5c59d95fe2732c7893a8216bca5b7355cda",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
