@@ -1,14 +1,14 @@
 import { useMemo, useRef, useState, useEffect } from "react";
 import { useTimer } from "react-timer-hook";
 import { Socket } from "socket.io-client";
-import type { GameType } from "src/dtos/matchmaking.dto";
+import type { GameType } from "src/dtos/matchmaking/matchmaking.dto";
 import type { Player, Question } from "src/Models/MatchModel";
 import { submitAnswer } from "src/services/submission.service";
 import { endGame } from "src/services/result.service";
-import type { GameQuestionsDTO } from "src/dtos/game-questionDTO";
+import type { GameQuestionsDTO } from "src/dtos/match/game-questionDTO";
 import { useNavigate } from "react-router-dom";
-import type { OpponentDTO } from "src/dtos/opponent.dto";
-import type { MathsSubmissionDTO, ProgSubmissionDTO } from "src/dtos/submission.dto";
+import type { OpponentDTO } from "src/dtos/match/opponent.dto";
+import type { MathsSubmissionDTO, ProgSubmissionDTO } from "src/dtos/match/submission.dto";
 
 export const useGameTimer = (duration: number, onExpire: () => void) => {
     const expiry_time = useMemo(() => {

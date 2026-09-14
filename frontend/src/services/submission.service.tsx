@@ -1,5 +1,5 @@
 import { Socket } from "socket.io-client";
-import type { MathsSubmissionDTO, ProgSubmissionDTO } from "src/dtos/submission.dto";
+import type { MathsSubmissionDTO, ProgSubmissionDTO } from "src/dtos/match/submission.dto";
 
 export const submitAnswer = (socket: Socket | null, match_id: number, question_id: string, index: number, game_type: string, submission: ProgSubmissionDTO | MathsSubmissionDTO) => {
     if (!socket) return;

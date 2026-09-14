@@ -1,7 +1,7 @@
 import '../styles/global.css'
 import React from "react"
 import { useNavigate } from 'react-router-dom';
-import type { GameMode } from 'src/dtos/matchmaking.dto';
+import type { GameMode } from 'src/dtos/matchmaking/matchmaking.dto';
 
 
 import { type PopupProps } from '../Models/PopUpModel';

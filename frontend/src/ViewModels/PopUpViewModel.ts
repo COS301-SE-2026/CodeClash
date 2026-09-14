@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useMatchmaking } from "src/context/Socket/hooks/useMatchmaking";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
 import { useUser } from "src/context/User/hooks/useUser";
-import type { GameMode, MatchmakingUserDTO } from "src/dtos/matchmaking.dto";
+import type { GameMode, MatchmakingUserDTO } from "src/dtos/matchmaking/matchmaking.dto";
 
 
 export function useSelectTopic() {

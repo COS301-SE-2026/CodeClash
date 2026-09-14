@@ -1,5 +1,5 @@
 import type { Socket } from "socket.io-client";
-import type { GameType } from "src/dtos/matchmaking.dto";
+import type { GameType } from "src/dtos/matchmaking/matchmaking.dto";
 
 
 export const endGame = (game_id: number, game_type: GameType,socket: Socket | null) => {

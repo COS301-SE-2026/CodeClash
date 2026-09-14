@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import { useMatchmaking } from "src/context/Socket/hooks/useMatchmaking";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
 import { useUser } from "src/context/User/hooks/useUser";
-import type { SubmissionResultDTO } from "src/dtos/submission.dto";
+import type { SubmissionResultDTO } from "src/dtos/match/submission.dto";
 import type { Player } from "src/Models/MatchModel";
 import { endGame } from "src/services/result.service";
 import { robot_map } from 'src/assets/Robots';

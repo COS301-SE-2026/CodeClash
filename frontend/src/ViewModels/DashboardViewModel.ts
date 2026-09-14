@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useAuth } from "src/context/Auth/hooks/useAuth";
 import { useMatchmaking } from "src/context/Socket/hooks/useMatchmaking";
 import { useUser } from "src/context/User/hooks/useUser";
-import type { GameType } from "src/dtos/matchmaking.dto";
+import type { GameType } from "src/dtos/matchmaking/matchmaking.dto";
 import { getIcon } from "src/utils/achievementIcon";
 
 export function useDashboardViewModel() {

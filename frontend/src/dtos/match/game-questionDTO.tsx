@@ -8,8 +8,7 @@ export interface QuestionDTO {
 
 export interface MatchDTO {
     id: string
-    player_1: string   //username
-    player_2: string
+    players: string[]
     duration: number
     questions: QuestionDTO[]
 }

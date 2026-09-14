@@ -3,7 +3,7 @@
 import React, { useEffect, useMemo, useState, type ReactNode } from "react";
 import { Socket } from "socket.io-client";
 import type { MatchedUsersDTO } from "src/dtos/matched-user.dto";
-import type { MatchmakingUserDTO, GameType, GameMode, MatchAcceptedDTO } from "src/dtos/matchmaking.dto";
+import type { MatchmakingUserDTO, GameType, GameMode, MatchAcceptedDTO } from "src/dtos/matchmaking/matchmaking.dto";
 
 import { useSocket } from "./hooks/useSocket";
 import { MatchmakingContext } from "./MatchmakingContextValue";
