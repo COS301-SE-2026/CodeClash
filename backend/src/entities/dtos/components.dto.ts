@@ -1,4 +1,4 @@
-import { GameMode, GameType } from "../database/questions.entities"
+import { MatchMode, MatchType } from "../database/questions.entities"
 
 export interface PlayerDTO {
     id: string,
@@ -12,8 +12,8 @@ export interface PlayerDTO {
 export interface MatchDTO {
     title: string,
     status: string,
-    game_mode: GameMode,
-    match_type: GameType,
+    game_mode: MatchMode,
+    match_type: MatchType,
     difficulty: number,
     winner: number,
     start_time: Date,

@@ -1,5 +1,5 @@
 import { IGameCache } from "src/application/interfaces/cache/IGameCache";
-import { GameMode, GameType } from "src/entities/database/questions.entities";
+import { MatchMode, MatchType } from "src/entities/database/questions.entities";
 import { MatchDTO, PlayerDTO, RoundDTO } from "src/entities/dtos/components.dto";
 
 import { CreateGame } from "../systems/create-game";
@@ -21,7 +21,7 @@ export class GameService {
         private readonly user_repo: IUserRepository
     ) { }
 
-    async execute(players: PlayerDTO[], game_mode: GameMode, league: string, game_type: GameType) {
+    async execute(players: PlayerDTO[], game_mode: MatchMode, league: string, game_type: MatchType) {
 
         let avg_elo = 0;
         const usernames = await Promise.all(

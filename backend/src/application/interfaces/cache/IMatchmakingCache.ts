@@ -1,17 +1,17 @@
-import { GameMode } from "src/entities/database/questions.entities";
-import MatchmakingUserDTO from "src/entities/dtos/matchmaking.dto";
+import { MatchMode } from "src/entities/database/questions.entities";
+import { MatchmakingUserDTO } from "src/entities/dtos/matchmaking/matchmaking.dto";
 
 
 export interface IMatchmakingCache {
 
-    enqueue(queue: GameMode, user: MatchmakingUserDTO): Promise<void>;
-    dequeue(user_id: string, queue: GameMode): Promise<boolean>;
+    enqueue(queue: MatchMode, user: MatchmakingUserDTO): Promise<void>;
+    dequeue(user_id: string, queue: MatchMode): Promise<boolean>;
 
-    getPlayers(queue: GameMode, elo: number, range: number): Promise<string[]>;
+    getPlayers(queue: MatchMode, elo: number, range: number): Promise<string[]>;
     getJoinedAt(user_id: string): Promise<(string | null)[]>;
-    getUserElo(queue: GameMode, user_id: string): Promise<string | null>;
-    getQueueLength(queue: GameMode): Promise<number>
+    getUserElo(queue: MatchMode, user_id: string): Promise<string | null>;
+    getQueueLength(queue: MatchMode): Promise<number>
 
-    deletUser(queue: GameMode, user_id: string): Promise<number>;
+    deletUser(queue: MatchMode, user_id: string): Promise<number>;
 
 }

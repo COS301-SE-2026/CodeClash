@@ -1,6 +1,6 @@
 import { IMatchmakingCache } from "src/application/interfaces/cache/IMatchmakingCache";
-import { GameMode } from "src/entities/database/questions.entities";
-import MatchmakingUserDTO from "src/entities/dtos/matchmaking.dto";
+import { MatchMode } from "src/entities/database/questions.entities";
+import {MatchmakingUserDTO} from "src/entities/dtos/matchmaking/matchmaking.dto";
 
 
 export class MatchmakingService {
@@ -12,21 +12,21 @@ export class MatchmakingService {
 
 
     // adds player to queue
-    async enqueue(user: MatchmakingUserDTO, queue: GameMode): Promise<boolean> {
+    async enqueue(user: MatchmakingUserDTO, queue: MatchMode): Promise<boolean> {
         await this.cache.enqueue(queue, user);
         return true;
     }
 
 
     // remove player from the queue
-    async dequeue(user_id: string, queue: GameMode): Promise<boolean> {
+    async dequeue(user_id: string, queue: MatchMode): Promise<boolean> {
         return await this.cache.dequeue(user_id, queue);
     }
 
     async matchmaking(user: MatchmakingUserDTO) {
         const range = this.elo_difference * user.match_attempt;
 
-        const elo_range = await this.cache.getPlayers(user.game_mode, user.elo, range);
+        const elo_range = await this.cache.getPlayers(user.match_mode, user.elo, range);
 
         // get joined_at times for all users in the elo_range
         const result = await Promise.all(
@@ -85,10 +85,10 @@ export class MatchmakingService {
     }
 
     async math_queue_length(): Promise<number> {
-        return this.cache.getQueueLength(GameMode.Maths)
+        return this.cache.getQueueLength(MatchMode.Maths)
     }
 
     async prog_queue_length(): Promise<number> {
-        return this.cache.getQueueLength(GameMode.Programming);
+        return this.cache.getQueueLength(MatchMode.Programming);
     }
 }

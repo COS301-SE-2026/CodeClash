@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import { useMatchmaking } from "src/context/Socket/hooks/useMatchmaking";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
 import { useUser } from "src/context/User/hooks/useUser";
-import type { SubmissionResultDTO } from "src/dtos/match/submission.dto";
+import type { MarkingResultDTO } from "src/dtos/match/submission.dto";
 import type { Player } from "src/Models/MatchModel";
 import { robot_map } from 'src/assets/Robots';
 import { useGameQuestions, useGameTimer, useMatchProgress } from 'src/services/match.service';
@@ -17,7 +17,7 @@ export const useMatch = () => {
     const { id } = location.state;
     const { userId } = useUser();
     const closeLoading = () => setLoading(false);
-    const { gameType } = useMatchmaking();
+    const { gameType, match_mode } = useMatchmaking();
 
     const {
         questions,
@@ -33,13 +33,13 @@ export const useMatch = () => {
         waitingOpponent,
         waiting_opponent,
         both_done
-    } = useGameQuestions(id, userId, match_socket, gameType);
+    } = useGameQuestions(id, userId, match_socket, gameType!);
 
     const [gameOver, setGameOver] = useState(false);
 
     const { seconds, minutes } = useGameTimer(duration, () => {
         setGameOver(true);
-        match_socket?.finishMatch({match_id: id, match_mode: gameType!})
+        match_socket?.finishMatch({match_id: id, match_mode: match_mode!})
     })
 
 
@@ -60,12 +60,12 @@ export const useMatch = () => {
     const players_ref = useRef(players);
 
 
-    const submission_result = (result: SubmissionResultDTO) => {
+    const submission_result = (result:  MarkingResultDTO ) => {
         const index = question_idx.current;
 
         setResults((prev) => {
             const next = [...prev];
-            next[index] = result.result;
+            next[index] = result.correct;
             return next
         });
 
@@ -76,7 +76,7 @@ export const useMatch = () => {
             return;
         }
 
-        if (result.result === true) nextQuestion(index)
+        if (result.correct=== true) nextQuestion(index)
     }
 
     const submission_error = (error: string) => {

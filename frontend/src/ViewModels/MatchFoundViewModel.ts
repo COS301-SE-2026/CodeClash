@@ -4,7 +4,7 @@ import { useMatchmaking } from "src/context/Socket/hooks/useMatchmaking";
 import { useSocket } from "src/context/Socket/hooks/useSocket"
 import { useUser } from "src/context/User/hooks/useUser";
 import type { MatchedUsersDTO } from "src/dtos/matchmaking/matched-user.dto";
-import type { MatchmakingUserDTO } from "src/dtos/matchmaking/matchmaking.dto";
+import type { MatchmakingUserDTO, MatchAcceptedDTO } from "src/dtos/matchmaking/matchmaking.dto";
 
 import {
   matchFoundContent,
@@ -18,8 +18,8 @@ import {
 export function MatchFoundViewModelFunction() {
   const nav = useNavigate();
   const { league, username, avatar, elo } = useUser();
-  const { socket, } = useSocket()
-  const { gameType, pairId, matchAccepted, matchDeclined, matchedUsers, match_mode, joinMatchQueue } = useMatchmaking()
+  const { matchmaking_socket } = useSocket()
+  const { gameType, pairId, matchedUsers, match_mode } = useMatchmaking()
   const [path, setPath] = useState('');
   const [loading, setLoading] = useState(false);
   const [socketError, setSocketError] = useState('');
@@ -30,8 +30,8 @@ export function MatchFoundViewModelFunction() {
   const openLoading = () => setLoading(true);
 
   const decline = () => {
-    if (socket) {
-      matchDeclined(socket, pairId);
+    if (matchmaking_socket) {
+      matchmaking_socket.declineMatch(pairId);
       setLoading(true);
     }
     else {
@@ -39,52 +39,52 @@ export function MatchFoundViewModelFunction() {
     }
   }
 
-  const gameReady = (data: { game_id: number }) => {
+  const gameReady = (match_id: string) => {
     setLoading(false);
 
     nav(path, {
       replace: true,
       state: {
-        id: data.game_id
+        id: match_id
       }
     });
   }
 
-    // handler for user that declined the game
+  // handler for user that declined the game
   const declineGame = () => {
-        setLoading(false);
-        nav('/dashboard')
+    setLoading(false);
+    nav('/dashboard')
   }
 
-    // handler for user that was declined
+  // handler for user that was declined
   const gameDeclined = () => {
-        setLoading(false);
+    setLoading(false);
 
-        const data: MatchmakingUserDTO = {
-          elo: elo, 
-          match_mode: match_mode!,
-          match_type: gameType!,
-          username: username
-        };
+    const data: MatchmakingUserDTO = {
+      elo: elo,
+      match_mode: match_mode!,
+      match_type: gameType!,
+      username: username
+    };
 
-        joinMatchQueue(socket!, data);
-        nav('/searching')
+    matchmaking_socket?.joinQueue(data);
+    nav('/searching')
   }
 
   const accept = () => {
-    if (socket && matchedUsers) {
+    if (matchmaking_socket && matchedUsers) {
       const new_path = "/".concat(matchedUsers.game_mode!).concat("-match")
       setPath(new_path);
-      const data = {
+      const data: MatchAcceptedDTO = {
         pair_id: pairId,
-        game_mode: matchedUsers.game_mode!,
+        match_mode: matchedUsers.game_mode!,
         league: league,
         username: username,
         avatar: avatar,
-        game_type: gameType
+        match_type: gameType!
       }
 
-      matchAccepted(socket, data);
+      matchmaking_socket.acceptMatch(data);
       setLoading(true);
     }
     else {
@@ -93,7 +93,7 @@ export function MatchFoundViewModelFunction() {
   }
 
   const set_players = (matched_users: MatchedUsersDTO) => {
-    if(!matchedUsers?.players) return
+    if (!matchedUsers?.players) return
 
     const player_1 = matched_users.players.player_1;
     const p1: MatchFoundPlayer = {
@@ -135,24 +135,19 @@ export function MatchFoundViewModelFunction() {
       set_detais()
     }
 
-    if (socket) {
-      socket.on("game_ready", gameReady);
+    if (matchmaking_socket) {
 
-      socket.on("decline_done", declineGame);
-
-      socket.on("game_declined", gameDeclined);
-
-      socket.on("start_game", gameReady)
-
-
-      return () => {
-        socket.off("game_ready", gameReady);
-        socket.off("decline_done", declineGame);
-        socket.off("game_declined", gameDeclined);
-        socket.off("start_game", gameReady)
+      const cleanup = () => {
+        matchmaking_socket.matchReady(gameReady)();
+        matchmaking_socket.declineDone(declineGame)();
+        matchmaking_socket.gameDeclined(gameDeclined)();
+        matchmaking_socket.startMatch(gameReady)();
       }
+  
+
+      return () => cleanup();
     }
-  }, [socket, path, matchedUsers])
+  }, [matchmaking_socket, path, matchedUsers])
 
   return {
     content: matchFoundContent,

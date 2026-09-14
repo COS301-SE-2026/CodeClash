@@ -1,8 +1,8 @@
-import { GameService } from 'src/application/usecases/services/game.service';
-import { GameMode } from "src/entities/database/questions.entities";
-import { AnswerDTO } from 'src/entities/dtos/answer.dto';
-import { PlayerDTO } from "src/entities/dtos/components.dto";
-import { QuestionDTO } from "../../../../src/interface-adapters/dtos/question.dto";
+import { GameService } from '../../../../src/application/usecases/services/game.service';
+import { MatchMode } from "../../../../src/entities/database/questions.entities";
+import { AnswerDTO } from '../../../../src/entities/dtos/answer.dto';
+import { PlayerDTO } from "../../../../src/entities/dtos/components.dto";
+import { QuestionDTO } from "../../../../src/entities/dtos/question.dto";
 import { vi, describe, test, expect, afterEach } from "vitest";
 
 const mock_dependencies = () => ({ execute: vi.fn() });
@@ -47,24 +47,24 @@ const game_service = new GameService(
 // mock questions 
 const easy: QuestionDTO = {
     id: "easy-01",
-    category: GameMode.Maths,
-    difficculty: 1,
+    category: MatchMode.Maths,
+    difficulty: 1,
     title: "Mock Easy Question",
     description: "this is an easy mock question for testing",
     time_limit: "00:02:00"
 }
 const medium: QuestionDTO = {
     id: "medium-01",
-    category: GameMode.Maths,
-    difficculty: 2,
+    category: MatchMode.Maths,
+    difficulty: 2,
     title: "Mock Medium Question",
     description: "this is an medium mock question for testing",
     time_limit: "00:02:00"
 }
 const hard: QuestionDTO = {
     id: "hard-01",
-    category: GameMode.Maths,
-    difficculty: 3,
+    category: MatchMode.Maths,
+    difficulty: 3,
     title: "Mock Hard Question",
     description: "this is an hard mock question for testing",
     time_limit: "00:02:00"
@@ -123,16 +123,16 @@ describe("Tests Game Creation", () => {
         mock_get_answers.execute.mockResolvedValue(mock_answers)
 
 
-        await game_service.execute([player_1, player_2], GameMode.Maths, "Mercury", 'ranked')
+        await game_service.execute([player_1, player_2], MatchMode.Maths, "Mercury", 'ranked')
 
 
-        expect(mock_get_questions.execute).toHaveBeenCalledWith("Mercury", avg, GameMode.Maths)
+        expect(mock_get_questions.execute).toHaveBeenCalledWith("Mercury", avg, MatchMode.Maths)
         expect(mock_get_difficulty.execute).toHaveBeenCalledWith(mock_questions);
     })
 
 
     test("Testing failure branches", async () => {
         mock_get_questions.execute.mockResolvedValue(null)
-        await expect(game_service.execute([player_1, player_2], GameMode.Maths, "Not A League")).rejects.toThrow("Error fetching questions")
+        await expect(game_service.execute([player_1, player_2], MatchMode.Maths, "Not A League")).rejects.toThrow("Error fetching questions")
     })
 })

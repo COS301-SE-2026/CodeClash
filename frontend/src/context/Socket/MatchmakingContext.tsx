@@ -38,7 +38,6 @@ export const MatchmakingProvider: React.FC<{ children: ReactNode }> = ({ childre
         matched,
         setGameType,
         set_match_mode,
-        matchmaking_socket,
         setMatched
     }), [match_mode, gameType, pairId, matched, setGameType])
 

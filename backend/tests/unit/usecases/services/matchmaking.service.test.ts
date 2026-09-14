@@ -3,8 +3,8 @@
 import RedisMock from 'ioredis-mock'
 import { IMatchmakingCache } from '../../../../src/application/interfaces/cache/IMatchmakingCache'
 import { MatchmakingService } from '../../../../src/application/usecases/services/matchmaking.service'
-import { GameMode } from '../../../../src/entities/database/questions.entities';
-import UserDto from "../../../../src/entities/dtos/matchmaking.dto";
+import { MatchMode } from '../../../../src/entities/database/questions.entities';
+import { MatchmakingUserDTO } from "../../../../src/entities/dtos/matchmaking/matchmaking.dto";
 import { MatchmakingCache } from '../../../../src/interface-adapters/cache/matchmaking-cache'
 import { vi, describe, test, expect, beforeEach, afterEach } from 'vitest';
 
@@ -18,16 +18,35 @@ const matchmaking_service = new MatchmakingService(cache);
 
 
 let ids = 1
-const ideal_math_user = new UserDto((ids++).toString(), 1000, GameMode.Maths);
-const ideal_prog_user = new UserDto((ids++).toString(), 1010, GameMode.Programming);
-const invalid_remove = new UserDto((ids++).toString(), 1020, GameMode.Maths);
+const ideal_math_user: MatchmakingUserDTO = {
+    id: (ids++).toString(),
+    elo: 1000,
+    match_mode: MatchMode.Maths,
+    joined_at: new Date(),
+    match_attempt: 1
+
+};
+const ideal_prog_user: MatchmakingUserDTO = {
+    id: (ids++).toString(),
+    elo: 1010,
+    match_mode: MatchMode.Programming,
+    joined_at: new Date(),
+    match_attempt: 1
+};
+const invalid_remove: MatchmakingUserDTO = {
+    id: (ids++).toString(),
+    elo: 1020,
+    match_mode: MatchMode.Maths,
+    joined_at: new Date(),
+    match_attempt: 1
+};
 
 
 describe('Ideal Users', async () => {
 
     describe('Enqueue Users', () => {
         test('adds a user to the queue', async () => {
-            const add = await matchmaking_service.enqueue(ideal_math_user, ideal_math_user.game_mode);
+            const add = await matchmaking_service.enqueue(ideal_math_user, ideal_math_user.match_mode);
             const math_length = await matchmaking_service.math_queue_length();
             const prog_length = await matchmaking_service.prog_queue_length();
 
@@ -38,7 +57,7 @@ describe('Ideal Users', async () => {
         })
 
         test('add user with different game mode', async () => {
-            const add = await matchmaking_service.enqueue(ideal_prog_user, ideal_prog_user.game_mode);
+            const add = await matchmaking_service.enqueue(ideal_prog_user, ideal_prog_user.match_mode);
             const math_length = await matchmaking_service.math_queue_length();
             const prog_length = await matchmaking_service.prog_queue_length();
 
@@ -52,7 +71,7 @@ describe('Ideal Users', async () => {
 
     describe('Dequeue Users', () => {
         test('removes user from the queue', async () => {
-            const rem = await matchmaking_service.dequeue(ideal_math_user.id, ideal_math_user.game_mode);
+            const rem = await matchmaking_service.dequeue(ideal_math_user.id, ideal_math_user.match_mode);
             const math_length = await matchmaking_service.math_queue_length();
             const prog_length = await matchmaking_service.prog_queue_length();
 
@@ -62,7 +81,7 @@ describe('Ideal Users', async () => {
         })
 
         test('remove user that is not in the queue', async () => {
-            const rem = await matchmaking_service.dequeue(invalid_remove.id, invalid_remove.game_mode);
+            const rem = await matchmaking_service.dequeue(invalid_remove.id, invalid_remove.match_mode);
             const math_length = await matchmaking_service.math_queue_length();
             const prog_length = await matchmaking_service.prog_queue_length();
 
@@ -81,8 +100,20 @@ describe('Ideal Users', async () => {
             let math_length = 0;
             const prog_length = 0;
 
-            const player_1 = new UserDto(player_1_id, 1000, GameMode.Maths);
-            const player_2 = new UserDto(player_2_id, 1050, GameMode.Maths);
+            const player_1: MatchmakingUserDTO = {
+                id: player_1_id, 
+                elo: 1000, 
+                match_mode: MatchMode.Maths,
+                joined_at: new Date(),
+                match_attempt: 1
+            };
+            const player_2: MatchmakingUserDTO = {
+                id: player_2_id, 
+                elo: 1050, 
+                match_mode: MatchMode.Maths,
+                joined_at: new Date(),
+                match_attempt: 1
+            };
 
             const add_p_1 = await matchmaking_service.matchmaking(player_1);  // this should not find a match
             expect(add_p_1).toBeNull();

@@ -22,7 +22,7 @@ import { GetDifficulty } from '../../../src/application/usecases/services/questi
 import { createTestDataSource } from "../../test-data-source";
 import { IQuestionRepository } from '../../../src/application/interfaces/repositories/IQuestionRepository'
 import { IAnswerRepository } from '../../../src/application/interfaces/repositories/IAnswerRepository'
-import { GameMode, GameType, Questions } from '../../../src/entities/database/questions.entities'
+import { MatchMode, MatchType, Questions } from '../../../src/entities/database/questions.entities'
 import { Answers } from '../../../src/entities/database/answers.entities'
 import { QuestionRepository } from '../../../src/interface-adapters/repositories/question.repository'
 import { AnswerRepository } from '../../../src/interface-adapters/repositories/answer.repository'
@@ -122,7 +122,7 @@ describe("Tests Marking Services", () => {
         await data_source.getRepository(Answers).save(mock_answers);
 
 
-        game = await game_service.execute(players, GameMode.Programming, 'Mercury', GameType.ranked);
+        game = await game_service.execute(players, MatchMode.Programming, 'Mercury', MatchType.ranked);
 
     })
 

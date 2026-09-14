@@ -1,4 +1,4 @@
-import { GameMode } from "src/entities/database/questions.entities";
+import { MatchMode } from "src/entities/database/questions.entities";
 import { GameQuestionsDTO } from "src/entities/dtos/match-data.dto";
 import { leagueMapping } from "src/entities/league-mapping";
 
@@ -10,7 +10,7 @@ export class GetQuestions {
         private readonly question_repo: IQuestionRepository,
     ) { }
 
-    async execute(league: string, avg_elo: number, game_mode: GameMode) {
+    async execute(league: string, avg_elo: number, match_mode: MatchMode) {
 
         const mapping = leagueMapping(league, avg_elo);
 
@@ -20,9 +20,9 @@ export class GetQuestions {
         const medium_count: number = Math.round(mapping.question_number * (mapping.medium.percentage!));
         const hard_count: number = Math.round(mapping.question_number * mapping.hard.percentage!);
 
-        const easy_questions = await this.question_repo.getRandQuestions(easy_count, mapping.easy.difficulty, game_mode);
-        const medium_questions = await this.question_repo.getRandQuestions(medium_count, mapping.medium.difficulty, game_mode);
-        const hard_questions = await this.question_repo.getRandQuestions(hard_count, mapping.hard.difficulty, game_mode);
+        const easy_questions = await this.question_repo.getRandQuestions(easy_count, mapping.easy.difficulty, match_mode);
+        const medium_questions = await this.question_repo.getRandQuestions(medium_count, mapping.medium.difficulty, match_mode);
+        const hard_questions = await this.question_repo.getRandQuestions(hard_count, mapping.hard.difficulty, match_mode);
 
 
 

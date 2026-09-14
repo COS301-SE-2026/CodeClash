@@ -1,5 +1,5 @@
 import { IQuestionRepository } from "src/application/interfaces/repositories/IQuestionRepository";
-import { GameMode, Questions } from "src/entities/database/questions.entities";
+import { MatchMode, Questions } from "src/entities/database/questions.entities";
 import { QuestionDTO } from "src/entities/dtos/question.dto";
 import { Repository } from "typeorm";
 
@@ -8,7 +8,7 @@ export class QuestionRepository implements IQuestionRepository {
         private readonly questionRepository: Repository<Questions>
     ) { }
 
-    async getRandQuestions(count: number, difficulty: number, game_mode: GameMode): Promise<QuestionDTO[]> {
+    async getRandQuestions(count: number, difficulty: number, game_mode: MatchMode): Promise<QuestionDTO[]> {
         const questions = await this.questionRepository.createQueryBuilder('q')
             .where("q.difficulty = :difficulty", { difficulty: difficulty })
             .andWhere('q.game_mode = :game_mode', { game_mode: game_mode })
