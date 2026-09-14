@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { UserDTO } from 'src/entities/dtos/user.dto';
+import { UserDTO } from 'src/entities/dtos/user/user.dto';
 
 import { validStat } from '../auth/auth.service';
 import { CreateUser } from 'src/application/usecases/services/user-creation.service';

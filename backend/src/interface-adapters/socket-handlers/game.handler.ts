@@ -3,12 +3,12 @@ import { MarkingService } from "src/application/usecases/services/marking/markin
 import { FinishGame } from "src/application/usecases/systems/finish-game";
 import { SubmissionSystem } from "src/application/usecases/systems/submission.system";
 
-import { StartQuestionDTO } from "src/entities/dtos/question.dto";
+import { StartQuestionDTO } from "src/entities/dtos/questions/question.dto";
 import { GameStore } from "src/application/usecases/services/game-store.service";
 import { GameType } from "src/entities/db-entities/questions.entities";
 import { DeleteGame } from "src/application/usecases/systems/delete-game";
 import { PlayerSubmissionDTO } from "src/entities/dtos/components.dto";
-import { PlayerResultDTO } from 'src/entities/dtos/match-result.dto'
+import { PlayerResultDTO } from 'src/entities/dtos/matches/match-result.dto'
 
 export const submitQuestion = async (
     io: Server, socket: Socket,

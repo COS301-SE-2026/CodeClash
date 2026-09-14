@@ -1,6 +1,6 @@
-import { GameMode, GameType } from "../../entities/db-entities/questions.entities";
+import { GameMode, GameType } from "../../../entities/db-entities/questions.entities";
 
-import { QuestionDTO } from "./question.dto";
+import { QuestionDTO } from "../questions/question.dto";
 
 export interface GameDataDTO {
     pair_id: string,

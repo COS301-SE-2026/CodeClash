@@ -1,6 +1,6 @@
-import { PaginatedLeaderboardResponse } from "src/entities/dtos/leaderboard.dto";
+import { PaginatedLeaderboardResponse } from "src/entities/dtos/leaderboard/leaderboard.dto";
 import { IEloRepository } from "src/application/interfaces/repositories/IEloRepository";
-import { RankDTO } from "src/entities/dtos/rank.dto";
+import { RankDTO } from "src/entities/dtos/user/rank.dto";
 
 export class LeaderboardService {
     constructor(private eloRepository: IEloRepository) {}

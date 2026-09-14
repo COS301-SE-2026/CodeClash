@@ -25,7 +25,7 @@ import { IUserRepository } from 'src/application/interfaces/repositories/IUserRe
 import { MarkingService } from 'src/application/usecases/services/marking/marking.service';
 import { initDB } from 'src/application/usecases/init-db';
 import { LifeSystem } from 'src/application/usecases/systems/life.system';
-import { StartQuestionDTO } from 'src/entities/dtos/question.dto';
+import { StartQuestionDTO } from 'src/entities/dtos/questions/question.dto';
 import { FinishGame } from 'src/application/usecases/systems/finish-game';
 import { SubmissionSystem } from 'src/application/usecases/systems/submission.system';
 import { World } from 'src/entities/World';
