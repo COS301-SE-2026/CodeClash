@@ -117,7 +117,7 @@ const MatchFound = () => {
           <Button
             type="button"
             onClick={decline}
-            className='btn btn-primary w-[30%] group'
+            className='btn btn-primary w-[30%] h-[60px] group'
           >
             {content.declineLabel}
           </Button>
@@ -125,7 +125,7 @@ const MatchFound = () => {
           <Button
             type="button"
             onClick={accept}
-            className='btn btn-secondary w-[30%] group'
+            className='btn btn-secondary w-[30%] h-[60px] group'
           >
             {content.acceptLabel}
           </Button>
