@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, Lock, AtSign} from "lucide-react";
+import { ArrowLeft, ArrowRight, Lock, AtSign, Loader2} from "lucide-react";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -61,11 +61,16 @@ const SignIn: React.FC= () => {
                     <div className="flex justify-center mt-4">
                         <Link className="text-xsm underline text-muted-text hover:text-primary transition-colors" to='/forgot-password'>Forgot password?</Link>
                     </div>
-                    <button className="btn btn-primary btn-lg w-full mt-6 group" type="button" onClick={handleSubmit} disabled={isLoading}>
-                        {isLoading ? ("Signing in...") : (
+                    <button className='btn btn-primary btn-md w-full group' type='button' onClick={handleSubmit} disabled={isLoading}>
+                        {isLoading ? (
                             <>
-                                <span>Sign In</span>
-                                <ArrowRight size={20} className="transition-transform duration-300 group-hover:translate-x-1"/>
+                                <Loader2 size={20} className='animate-spin'/>
+                                <span>Signing up...</span>
+                            </>
+                        ) : (
+                            <>
+                                <span>Sign Up</span>
+                                <ArrowRight size={20} className='transition-transform duration-300 group-hover:translate-x-1'/>
                             </>
                         )}
                     </button>

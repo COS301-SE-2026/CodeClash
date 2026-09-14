@@ -1,4 +1,4 @@
-import { ArrowRight, ArrowLeft, User, AtSign, Mail, Phone, Lock} from 'lucide-react';
+import { ArrowRight, ArrowLeft, User, AtSign, Mail, Phone, Lock, Loader2} from 'lucide-react';
 import React from 'react';
 import { Link} from 'react-router-dom';
 
@@ -156,7 +156,12 @@ const SignUp: React.FC= () => {
                         </label>
                     </div>
                     <button className='btn btn-primary btn-md w-full group' type='button' onClick={handleSubmit} disabled={isLoading}>
-                        {isLoading ? ("Signing up...") : (
+                        {isLoading ? (
+                            <>
+                                <Loader2 size={20} className='animate-spin'/>
+                                <span>Signing up...</span>
+                            </>
+                        ) : (
                             <>
                                 <span>Sign Up</span>
                                 <ArrowRight size={20} className='transition-transform duration-300 group-hover:translate-x-1'/>
