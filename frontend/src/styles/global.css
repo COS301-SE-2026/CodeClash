@@ -210,6 +210,7 @@
   --color-button-secondary: var(--button-secondary);
   --color-button-text-primary: var(--button-text-primary);
   --color-button-text-secondary: var(--button-text-secondary);
+  --color-button-tournament: var(--button-tournament);
 
   /* accents */
   --color-accent: var(--accent);
@@ -314,6 +315,7 @@
   --button-secondary: transparent;
   --button-text-primary: #FFFFFF;
   --button-text-secondary: #fcecdd;
+  --button-tournament: #FF516A;
 
   /*Inputs*/
   --input: rgba(252, 236, 221, 0.06);
@@ -404,6 +406,7 @@
     --button-secondary: transparent;
     --button-text-primary: #FFFFFF;
     --button-text-secondary: #520a23;
+    --button-tournament: #FF516A
 
     /*Inputs*/
     --input: rgba(83, 10, 35, 0.05);
