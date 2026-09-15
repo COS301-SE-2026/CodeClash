@@ -1,6 +1,6 @@
 import React from 'react' 
 import { Card } from "../ui/card"
-import { Calculator, Hourglass } from "lucide-react"
+import { Calculator, Hourglass, ArrowRight } from "lucide-react"
 import "../../../src/styles/global.css"
 import Progress from "./progress"
 import TournamentButton from "./TournamentButton"
@@ -10,6 +10,7 @@ interface TournamentCardProps{
     className?: string
 }
 
+//Any copied and pasted code below was all hand-written and pasted for the sake of saving time, ai did not generate this code
 
 export const MathTournamentCard = ({children, className} : TournamentCardProps) => {
     return(
@@ -39,7 +40,10 @@ export const MathTournamentCard = ({children, className} : TournamentCardProps) 
                 </div>
 
                 <TournamentButton>
-                    
+                    <div className="flex grid grid-cols-2">
+                        <h2 className="font-font font-semibold text-md mb-5 -ml-15 -mt-5">Join Tournament</h2>
+                        <ArrowRight size={50}/>
+                    </div>
                 </TournamentButton>
 
             {children}

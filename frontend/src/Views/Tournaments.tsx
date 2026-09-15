@@ -1,5 +1,5 @@
 //This is a wow factor - i am just calling the coming soon component so the page isnt blank when clicked from dashboard
-//import MathTournamentCard from "@/components/ui/TournamentCard"
+import MathTournamentCard from "@/components/ui/TournamentCard"
 import TournamentButton from "@/components/ui/TournamentButton"
 import FilterButton from "@/components/ui/FilterButton"
 // import ComingSoon from "@/components/ui/ComingSoon";
@@ -31,6 +31,10 @@ const Tournaments = () => {
                         <FilterButton>Programming</FilterButton>
                         <FilterButton>Both</FilterButton>
                     </div>
+                </div>
+
+                <div>
+                    <MathTournamentCard/>
                 </div>
 
             </div> 
