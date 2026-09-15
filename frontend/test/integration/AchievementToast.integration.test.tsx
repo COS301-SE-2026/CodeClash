@@ -94,5 +94,140 @@ describe('AchievementToastProvider integration', () => {
     await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
     expect(screen.queryByText('Achievement Unlocked!')).toBeNull();
   });
+
+  it('toasts an achievement earned between two polls', async () => {
+      fetchMock
+        .mockResolvedValueOnce(jsonResponse([EARNED_FIRST_BLOOD]))
+        .mockResolvedValue(jsonResponse([EARNED_FIRST_BLOOD, EARNED_GOLD_LEAGUE]));
   
+      renderToasts();
+      await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+  
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(30_000);
+      });
+  
+      expect(await screen.findByText('Gold League')).toBeInTheDocument();
+      expect(screen.getByText('Climb to Gold')).toBeInTheDocument();
+      expect(screen.getByText('Achievement Unlocked!')).toBeInTheDocument();
+    });
+  
+    it('picks the icon from the achievement name', async () => {
+      fetchMock
+        .mockResolvedValueOnce(jsonResponse([]))
+        .mockResolvedValue(jsonResponse([EARNED_STREAK]));
+  
+      const { container } = renderToasts();
+      await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+  
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(30_000);
+      });
+  
+      expect(await screen.findByText('Five Day Streak')).toBeInTheDocument();
+      expect(container.querySelector('.lucide-flame')).not.toBeNull();
+    });
+  
+    it('shows queued achievements one at a time', async () => {
+      fetchMock
+        .mockResolvedValueOnce(jsonResponse([]))
+        .mockResolvedValue(jsonResponse([EARNED_FIRST_BLOOD, EARNED_GOLD_LEAGUE]));
+  
+      renderToasts();
+      await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+  
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(30_000);
+      });
+  
+      expect(await screen.findByText('First Blood')).toBeInTheDocument();
+      expect(screen.queryByText('Gold League')).toBeNull();
+  
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(4_300);
+      });
+  
+      expect(await screen.findByText('Gold League')).toBeInTheDocument();
+      expect(screen.queryByText('First Blood')).toBeNull();
+    });
+  
+    it('does not re-toast an achievement that is already known', async () => {
+      fetchMock
+        .mockResolvedValueOnce(jsonResponse([]))
+        .mockResolvedValue(jsonResponse([EARNED_FIRST_BLOOD]));
+  
+      renderToasts();
+      await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+  
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(30_000);
+      });
+      expect(await screen.findByText('First Blood')).toBeInTheDocument();
+  
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(4_300);
+      });
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(30_000);
+      });
+  
+      expect(screen.queryByText('First Blood')).toBeNull();
+    });
+  
+    it('dismisses a toast when it is clicked', async () => {
+      const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+      renderToasts();
+  
+      await user.click(screen.getByRole('button', { name: 'trigger' }));
+      expect(await screen.findByText('Manual Medal')).toBeInTheDocument();
+  
+      await user.click(screen.getByText('Manual Medal'));
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(300);
+      });
+  
+      expect(screen.queryByText('Manual Medal')).toBeNull();
+    });
+  
+    it('ignores a non-ok response', async () => {
+      fetchMock.mockResolvedValue({ ok: false, json: () => Promise.reject(new Error('unreachable')) });
+  
+      renderToasts();
+  
+      await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+      expect(screen.queryByText('Achievement Unlocked!')).toBeNull();
+    });
+  
+    it('logs and keeps polling when the request throws', async () => {
+      const quiet = vi.spyOn(console, 'error').mockImplementation(() => {});
+      fetchMock.mockRejectedValue(new Error('network down'));
+  
+      renderToasts();
+  
+      await waitFor(() => expect(quiet).toHaveBeenCalledWith('Error checking achievements:', expect.any(Error)));
+  
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(30_000);
+      });
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+      quiet.mockRestore();
+    });
+  
+    it('stops polling once the provider unmounts', async () => {
+      const { unmount } = renderToasts();
+      await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+  
+      unmount();
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(90_000);
+      });
+  
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+    });
+  
+    it('throws when useAchievementToast is called outside the provider', () => {
+      const quiet = vi.spyOn(console, 'error').mockImplementation(() => {});
+      expect(() => render(<ManualTrigger />)).toThrow('useAchievementToast must be used withing AchievementToastProvider');
+      quiet.mockRestore();
+    });
 });
