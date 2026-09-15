@@ -94,5 +94,15 @@ describe('UserProvider integration', () => {
     expect(screen.getByTestId('error')).toHaveTextContent('none');
   });
 
+  it('mirrors the identity from the auth context', async () => {
+    renderUser();
+
+    expect(screen.getByTestId('username')).toHaveTextContent('ntu');
+    expect(screen.getByTestId('userId')).toHaveTextContent('user-1');
+    await waitFor(() => expect(api.get).toHaveBeenCalled());
+  });
+
+  
+
   
 });
