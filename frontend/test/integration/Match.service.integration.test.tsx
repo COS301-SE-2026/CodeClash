@@ -72,3 +72,50 @@ const goToLastQuestion = async (user: ReturnType<typeof userEvent.setup>) => {
   await user.click(screen.getByRole('button', { name: 'next' }));
   await user.click(screen.getByRole('button', { name: 'next' }));
 };
+
+describe('useGameQuestions integration', () => {
+  let socket: FakeSocket;
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+    socket = new FakeSocket();
+    vi.spyOn(Math, 'random').mockReturnValue(0);
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('starts empty and not ready', () => {
+    renderQuestions(socket);
+
+    expect(screen.getByTestId('ready')).toHaveTextContent('false');
+    expect(screen.getByTestId('count')).toHaveTextContent('0');
+    expect(screen.getByTestId('duration')).toHaveTextContent('0');
+  });
+
+  it('flattens the difficulty buckets and sums their time limits', async () => {
+    const user = userEvent.setup();
+    renderQuestions(socket);
+
+    await user.click(screen.getByRole('button', { name: 'load' }));
+
+    expect(screen.getByTestId('ready')).toHaveTextContent('true');
+    expect(screen.getByTestId('count')).toHaveTextContent('3');
+    expect(screen.getByTestId('duration')).toHaveTextContent('30');
+    expect(screen.getByTestId('titles')).toHaveTextContent('Two Sum');
+    expect(screen.getByTestId('difficulties').textContent!.split(',').sort()).toEqual(['Easy', 'Hard', 'Medium']);
+  });
+
+  it('announces the first question as soon as the set loads', async () => {
+    const user = userEvent.setup();
+    renderQuestions(socket);
+
+    await user.click(screen.getByRole('button', { name: 'load' }));
+
+    const started = socket.emitsOf('question_started');
+    expect(started).toHaveLength(1);
+    expect(started[0][0]).toMatchObject({ match_id: MATCH_ID, player: USER_ID, question_number: 0 });
+  });
+  
+});
