@@ -149,5 +149,29 @@ describe('AuthProvider integration', () => {
       await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('none'));
     });
 
+  it('maps the sign up form onto Cognito user attributes', async () => {
+      const user = userEvent.setup();
+      renderAuth();
+  
+      await user.click(screen.getByRole('button', { name: 'sign-up' }));
+  
+      await waitFor(() =>
+        expect(amplify.signUp).toHaveBeenCalledWith({
+          username: 'ntu',
+          password: 'Sup3rSecret!',
+          options: {
+            userAttributes: {
+              given_name: 'Ntu',
+              family_name: 'Mbatha',
+              email: 'ntu@codeclash.dev',
+              preferred_username: 'ntu',
+              phone_number: '+27123456789',
+              name: 'Ntu Mbatha',
+            },
+          },
+        }),
+      );
+    });
+
   
 })
