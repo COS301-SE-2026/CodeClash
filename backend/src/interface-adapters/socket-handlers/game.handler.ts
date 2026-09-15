@@ -7,7 +7,7 @@ import { StartQuestionDTO } from "src/entities/dtos/questions/question.dto";
 import { GameStore } from "src/application/usecases/services/game-store.service";
 import { GameType } from "src/entities/db-entities/questions.entities";
 import { DeleteGame } from "src/application/usecases/systems/delete-game";
-import { PlayerSubmissionDTO } from "src/entities/dtos/components.dto";
+import { PlayerSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
 import { PlayerResultDTO } from 'src/entities/dtos/matches/match-result.dto'
 
 export const submitQuestion = async (

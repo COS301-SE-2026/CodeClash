@@ -1,4 +1,4 @@
-import { AnswerDTO } from "../../../entities/dtos/answer.dto";
+import { AnswerDTO } from "../../../entities/dtos/questions/answer.dto";
 
 
 export interface IGameCache{

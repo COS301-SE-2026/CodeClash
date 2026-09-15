@@ -5,7 +5,7 @@ import { NotificationService } from "../notification.service";
 import { MarkingStrategy } from "src/application/interfaces/marking/IMarkingStategy";
 import { OpponentProgress } from "../../systems/opponent-progress";
 import { SubmissionComponent } from "src/entities/components";
-import {  PlayerSubmissionDTO} from "src/entities/dtos/components.dto";
+import {  PlayerSubmissionDTO} from "src/entities/dtos/submissions/submission.dto";
 
 export class MarkingService {
 

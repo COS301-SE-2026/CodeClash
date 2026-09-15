@@ -1,4 +1,4 @@
-import { MathsSubmissionDTO, ProgSubmissionDTO } from "src/entities/dtos/components.dto";
+import { MathsSubmissionDTO, ProgSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
 import { MarkingStrategy } from "src/application/interfaces/marking/IMarkingStategy";
 import { ICodeExecutor } from "src/application/interfaces/marking/ICodeExecutor";
 import { AnswerDTO } from "src/entities/dtos/questions/answer.dto";
