@@ -112,5 +112,63 @@ describe('MatchmakingProvider integration', () => {
       expect(screen.getByTestId('opponent')).toHaveTextContent('rival');
     });
 
+    it('lets a consumer clear the matched flag after a decline', async () => {
+        const user = userEvent.setup();
+        renderMatchmaking(socket);
+        act(() => socket.server('users_matched', MATCHED));
+    
+        await user.click(screen.getByRole('button', { name: 'reset-matched' }));
+    
+        expect(screen.getByTestId('matched')).toHaveTextContent('false');
+        expect(screen.getByTestId('pairId')).toHaveTextContent('pair-42');
+      });
+    
+      it('records the chosen game mode and type', async () => {
+        const user = userEvent.setup();
+        renderMatchmaking(socket);
+    
+        await user.click(screen.getByRole('button', { name: 'set-mode' }));
+        await user.click(screen.getByRole('button', { name: 'set-type' }));
+    
+        expect(screen.getByTestId('mode')).toHaveTextContent('math');
+        expect(screen.getByTestId('type')).toHaveTextContent('ranked');
+      });
+    
+      it('emits the queue join payload', async () => {
+        const user = userEvent.setup();
+        renderMatchmaking(socket);
+    
+        await user.click(screen.getByRole('button', { name: 'join' }));
+    
+        expect(socket.emitsOf('join_match_queue')).toEqual([
+          [{ elo: 1400, game_mode: 'programming', game_type: 'ranked', username: 'ntu' }],
+        ]);
+      });
+
+      it('emits leave, accept and decline on the shared socket', async () => {
+          const user = userEvent.setup();
+          renderMatchmaking(socket);
+      
+          await user.click(screen.getByRole('button', { name: 'leave' }));
+          await user.click(screen.getByRole('button', { name: 'accept' }));
+          await user.click(screen.getByRole('button', { name: 'decline' }));
+      
+          expect(socket.emitsOf('leave_match_queue')).toEqual([[]]);
+          expect(socket.emitsOf('match_accepted')[0][0]).toMatchObject({ pair_id: 'pair-42', league: 'Gold' });
+          expect(socket.emitsOf('match_declined')).toEqual([['pair-42']]);
+        });
+      
+        it('throws when useMatchmaking is called outside the provider', () => {
+          const quiet = vi.spyOn(console, 'error').mockImplementation(() => {});
+          expect(() =>
+            render(
+              <SocketContext.Provider value={{ socket: null, isConnected: false }}>
+                <MatchmakingConsumer socket={socket} />
+              </SocketContext.Provider>,
+            ),
+          ).toThrow('useMatchmaking must be used within a Matchmaking Provider');
+          quiet.mockRestore();
+        });
+
   
 });
