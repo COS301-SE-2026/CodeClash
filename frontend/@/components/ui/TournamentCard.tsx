@@ -1,0 +1,48 @@
+import React from 'react' 
+import { Card } from "../ui/card"
+import { Calculator, Hourglass } from "lucide-react"
+import "../../../src/styles/global.css"
+import Progress from "./progress"
+import TournamentButton from "./TournamentButton"
+
+interface TournamentCardProps{
+    children?: React.ReactNode
+    className?: string
+}
+
+
+export const MathTournamentCard = ({children, className} : TournamentCardProps) => {
+    return(
+        <Card className={`bg-[var(--button-tournament-secondary)] 
+            border-[var(--button-tournament-secondary-border)] border-[0.5px] flex grid grid-cols-5 ${className}`}>
+                
+                <Calculator size={90}/>
+
+                <div className="flex grids grid-rows-2">
+                    <div className="font-font font-semibold text-xl">
+                        Math Tournament
+                    </div>
+                    <div>
+                        <Hourglass size={10}/>
+                        <div className="font-font text-sm">Time Until Start:</div>
+                    </div>
+                </div>
+
+                {/* useless div for separation: */}
+                <div>
+                </div>
+
+                <div className="flex grid grid-rows-3">
+                    <div className="font-font text-sm">Capacity: </div>
+                    <Progress/>
+                    <div className="font-font text-sm">Slots Free</div>
+                </div>
+
+                <TournamentButton>
+                    
+                </TournamentButton>
+
+            {children}
+        </Card>
+    )
+}
