@@ -15,7 +15,7 @@ interface FinalResultsViewModel {
     state: 'loading' | 'results' | 'error';
     loadingProgress: number; //for user to see how far the loading is
     winner: PlayerResultDTO | null,
-    loser:PlayerResultDTO | null
+    loser: PlayerResultDTO | null
 
 }
 
@@ -25,14 +25,14 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
     const [results, setResults] = useState<ResultDTO | null>(null);
     const [winner, setWinner] = useState<PlayerResultDTO | null>(null);
     const [loser, setLoser] = useState<PlayerResultDTO | null>(null);
-    const {refresh} = useUser();
-    const { socket } = useSocket();
+    const { refresh } = useUser();
+    const { match_socket } = useSocket();
     const location = useLocation();
     const { id } = location.state;
-    const { pairId,setMatched } = useMatchmaking()
+    const { pairId, setMatched } = useMatchmaking()
 
     const handleResult = useCallback(async (result: ResultDTO) => {
-    
+
         setResults(result);
 
         setWinner(result.result.players[0]);
@@ -40,9 +40,9 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
         await refresh();
 
         // can start clean up now 
-        socket?.emit('clean_up', result.match_id,pairId )
+        match_socket?.cleanUpMatch({ match_id: result.match_id, pair_id: pairId })
         setMatched(false)
-    },[pairId, refresh, setMatched, socket])
+    }, [pairId, refresh, setMatched, match_socket])
 
 
     useEffect(() => {
@@ -61,17 +61,16 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
 
     useEffect(() => {
 
-        if (!socket) return;
+        if (!match_socket) return;
 
-        socket.emit('send_results', id, pairId);
-        socket.on('get_result', handleResult);
+        match_socket.sendResults({ match_id: id, pair_id: pairId });
+        const clean_up = match_socket.getResults(handleResult);
 
 
-        return () => {
-            socket.off('get_result', handleResult)
-        };
 
-    }, [socket, id, handleResult, pairId]);
+        return () => { clean_up(); }
+
+    }, [match_socket, id, handleResult, pairId]);
 
     useEffect(() => {
         if (results === null) return;

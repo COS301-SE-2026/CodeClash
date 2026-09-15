@@ -2,7 +2,7 @@ import type { Socket } from "socket.io-client";
 import { emit, on } from "../dispatch";
 import type { SubmissionDTO, MarkingResultDTO } from "src/dtos/match/submission.dto";
 import type { GameQuestionsDTO } from "src/dtos/match/game-questionDTO";
-import type { MatchResultDTO } from "src/dtos/match/result.dto";
+import type { MatchResultDTO, ResultDTO } from "src/dtos/match/result.dto";
 import type { MatchMode } from "src/dtos/match/match.dto";
 import type { Player } from "src/Models/MatchModel";
 import type { OpponentDTO } from "src/dtos/match/opponent.dto";
@@ -50,6 +50,10 @@ export class MatchSocket {
         return on(this.socket, 'opponent_done', handler);
     }
 
+    getResults(handler: (data: ResultDTO)=>void){
+        return on(this.socket, 'get_results', handler);
+    }
+
     /************************************** EMITTERS ******************************************* */
 
     sendQuestions(match_id: string) {
@@ -71,7 +75,16 @@ export class MatchSocket {
     finishMatch(data: { match_id: string, match_mode: MatchMode }) {
         return emit<typeof data, MatchResultDTO>(this.socket, 'game_done', data);
     }
+
+    sendResults(data: {match_id: string, pair_id: string}){
+        return emit<{match_id: string, pair_id: string}, void>(this.socket, 'send_results', data);
+    }
+
+    cleanUpMatch(data: {match_id: string, pair_id: string}){
+        return emit<{match_id: string, pair_id: string}, void>(this.socket, 'clean_up', data);
+    }
 }
+
 
 
 

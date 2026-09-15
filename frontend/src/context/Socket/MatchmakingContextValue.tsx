@@ -9,7 +9,7 @@ export interface MatchmakingContextValue {
     pairId: string,
     matched: boolean,
     set_match_mode: (mode: MatchMode) => void,
-    setGameType: (type: MatchType) => void,
+    setGameType: (type: MatchType|null) => void,
     setMatched: (matched: boolean) => void
 }
 

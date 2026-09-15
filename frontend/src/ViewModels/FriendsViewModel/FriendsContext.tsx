@@ -286,7 +286,7 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
                 },
                 body: JSON.stringify({ user_id: user.userId })
             });
-            const invite = await res.json();
+           await res.json();
 
             // THIS WILL BE REPLACED WITH THE NOTIFICATION SYSTEM
             // socket.emit('send_friend_invite', {  

@@ -16,7 +16,8 @@ const MathsMatch = () => {
         seconds, minutes, questions,
         currentQuestion, opponentCurrent,
         nextQuestion, prevQuestion,
-        loading, submitQuestion,
+        loading, 
+        // submitQuestion,
         mathfieldRef, setAnswers, answers,
         results, gameOver, waitingOpponent,
         finishGame
@@ -86,8 +87,8 @@ const MathsMatch = () => {
                 </div>
                 <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem] hover:-translate-y-1'
                     onClick={() => {
-                        const answer = mathfieldRef.current?.value ?? '';
-                        submitQuestion(curr.id!, 'math', { answer: answer })
+                        // const answer = mathfieldRef.current?.value ?? '';
+                        // submitQuestion(curr.id!, 'math', { answer: answer })
                     }}
                 >
                     SUBMIT

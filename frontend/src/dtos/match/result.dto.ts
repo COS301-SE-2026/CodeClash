@@ -17,6 +17,6 @@ export interface MatchResultDTO {
 }
 
 export interface ResultDTO {
-    match_id: number;
+    match_id: string;
     result: MatchResultDTO
 }

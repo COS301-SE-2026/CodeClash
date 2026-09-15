@@ -1,14 +1,11 @@
 import { useMemo, useRef, useState, useEffect } from "react";
 import { useTimer } from "react-timer-hook";
-import { Socket } from "socket.io-client";
-import type { MatchMode, MatchType } from "src/dtos/match/match.dto";
+import type {  MatchType } from "src/dtos/match/match.dto";
 import type { Player, Question } from "src/Models/MatchModel";
-import { submitAnswer } from "src/services/submission.service";
-import { endGame } from "src/services/result.service";
 import type { GameQuestionsDTO } from "src/dtos/match/game-questionDTO";
 import { useNavigate } from "react-router-dom";
 import type { OpponentDTO } from "src/dtos/match/opponent.dto";
-import type { MathsSubmissionDTO, ProgSubmissionDTO, SubmissionDto } from "src/dtos/match/submission.dto";
+import type { MathsSubmissionDTO, ProgSubmissionDTO} from "src/dtos/match/submission.dto";
 import type { MatchSocket } from "src/context/Socket/modules/match.socket";
 
 export const useGameTimer = (duration: number, onExpire: () => void) => {
@@ -60,47 +57,51 @@ export const useGameQuestions = (
     const [waitingOpponent, setWaitingOpponent] = useState(false);
     const question_idx = useRef(0);
 
+    console.error(user_id, game_type, match_socket)
 
-    const startQuestion = (
-        player_id: string,
-        question_id: string,
-        match_type: MatchType,
-        match_mode: MatchMode
-    ) => {
-        const data: SubmissionDto = {
-            match_id,
-            player_id,
-            question_id,
-            match_type,
-            match_mode
-        }
+    // const startQuestion = (
+    //     player_id: string,
+    //     question_id: string,
+    //     match_type: MatchType,
+    //     match_mode: MatchMode,
+    //     question_number: number
+    // ) => {
+    //     const data: SubmissionDTO = {
+    //         match_id,
+    //         player_id,
+    //         question_id,
+    //         match_type,
+    //         match_mode,
+    //         question_number,
+    //         submission: {answer: 'string'}
+    //     }
 
-        match_socket!.startQuestion(data);
-    }
+    //     match_socket!.startQuestion(data);
+    // }
 
     const nextQuestion = (curr: number) => {
         if (curr < questions.length - 1) {
             setCurrentQuestion(curr + 1);
-            startQuestion(user_id, questions[curr + 1].id!)
+            // startQuestion(user_id, questions[curr + 1].id!,match_)
         }
     }
 
     const prevQuestion = (curr: number) => {
         if (curr > 0) {
             setCurrentQuestion(curr - 1)
-            startQuestion(user_id, questions[curr - 1].id!, curr - 1)
+            // startQuestion(user_id, questions[curr - 1].id!, curr - 1)
         }
     }
 
-    const submitQuestion = (question_id: string, game_type: string, submission: ProgSubmissionDTO | MathsSubmissionDTO) => {
-        question_idx.current = currentQuestion;
-        submitAnswer(socket, parseInt(match_id), question_id, question_idx.current, game_type, submission);
-    }
+    // const submitQuestion = (question_id: string, game_type: string, submission: ProgSubmissionDTO | MathsSubmissionDTO) => {
+    //     question_idx.current = currentQuestion;
+    //     // submitAnswer(socket, parseInt(match_id), question_id, question_idx.current, game_type, submission);
+    // }
 
     const finishGame = () => {
         if (question_idx.current === questions.length - 1) {
             setWaitingOpponent(true)
-            endGame(parseInt(match_id), game_type, socket);
+            // endGame(parseInt(match_id), game_type, socket);
         }
     }
 
@@ -144,7 +145,7 @@ export const useGameQuestions = (
         setQuestions(temp_arr);
         setQuestionsReady(true);
 
-        startQuestion(user_id, temp_arr[0].id!, 0);
+        // startQuestion(user_id, temp_arr[0].id!, 0);
     }
 
     const waiting_opponent = () => {
@@ -168,7 +169,7 @@ export const useGameQuestions = (
         questionsReady,
         nextQuestion,
         prevQuestion,
-        submitQuestion,
+       // submitQuestion,
         question_idx,
         finishGame,
         loadQuestions,
