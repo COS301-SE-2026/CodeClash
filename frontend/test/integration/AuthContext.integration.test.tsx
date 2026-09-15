@@ -183,5 +183,19 @@ describe('AuthProvider integration', () => {
       await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('User already exists'));
     });
 
+  it('falls back to generic copy for non-Error rejections across the flows', async () => {
+      amplify.signUp.mockRejectedValue('boom');
+      amplify.confirmSignUp.mockRejectedValue('boom');
+      amplify.resendSignUpCode.mockRejectedValue('boom');
+      amplify.signOut.mockRejectedValue('boom');
+      const user = userEvent.setup();
+      renderAuth();
+  
+      for (const name of ['sign-up', 'confirm', 'resend', 'sign-out']) {
+        await user.click(screen.getByRole('button', { name: 'clear-error' }));
+        await user.click(screen.getByRole('button', { name }));
+        await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Sign in failed'));
+      }
+    });
   
 })
