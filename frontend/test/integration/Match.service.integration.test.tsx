@@ -168,5 +168,127 @@ describe('useGameQuestions integration', () => {
         ],
       ]);
     });
+
+    it('only ends the game from the last question', async () => {
+       const user = userEvent.setup();
+       renderQuestions(socket);
+       await user.click(screen.getByRole('button', { name: 'load' }));
+   
+       await user.click(screen.getByRole('button', { name: 'finish' }));
+       expect(socket.emitsOf('game_done')).toHaveLength(0);
+       expect(screen.getByTestId('waiting')).toHaveTextContent('false');
+   
+       await user.click(screen.getByRole('button', { name: 'next' }));
+       await user.click(screen.getByRole('button', { name: 'next' }));
+       await user.click(screen.getByRole('button', { name: 'finish' }));
+   
+       expect(socket.emitsOf('game_done')).toEqual([[77, 'ranked']]);
+       expect(screen.getByTestId('waiting')).toHaveTextContent('true');
+     });
+   
+     it('flags and clears the waiting-for-opponent state', async () => {
+       const user = userEvent.setup();
+       renderQuestions(socket);
+   
+       await user.click(screen.getByRole('button', { name: 'wait' }));
+       expect(screen.getByTestId('waiting')).toHaveTextContent('true');
+   
+       await user.click(screen.getByRole('button', { name: 'both-done' }));
+       expect(screen.getByTestId('waiting')).toHaveTextContent('false');
+     });
+   
+     it('navigates to the results screen when both players finish', async () => {
+       const user = userEvent.setup();
+       renderQuestions(socket);
+   
+       await user.click(screen.getByRole('button', { name: 'both-done' }));
+   
+       expect(nav).toHaveBeenCalledWith('/results', { replace: true, state: { id: MATCH_ID } });
+     });
+   });
+   
+   const ProgressHarness = ({ players, numQuestions }: { players: Player[]; numQuestions: number }) => {
+     const progress = useMatchProgress(numQuestions, players);
+   
+     return (
+       <div>
+         <span data-testid="life">{progress.playerLife.join(',')}</span>
+         <span data-testid="opponentCurrent">{progress.opponentCurrent}</span>
+         <span data-testid="opponentDone">{String(progress.opponentDone)}</span>
+         <button
+           onClick={() =>
+             progress.opponent_progress({ player_id: 'user-2', correct: true, opponent_life: 80, question: 0 })
+           }
+         >
+           opponent-advances
+         </button>
+         <button
+           onClick={() =>
+             progress.opponent_progress({ player_id: 'ghost', correct: true, opponent_life: 10, question: 1 })
+           }
+         >
+           unknown-player
+         </button>
+         <button
+           onClick={() =>
+             progress.opponent_progress({ player_id: 'user-2', correct: false, opponent_life: 40, question: 9 })
+           }
+         >
+           opponent-overruns
+         </button>
+         <button onClick={progress.opponent_done}>opponent-done</button>
+         <button onClick={() => progress.updatePlayerLife('user-1', 60)}>hurt-me</button>
+         <button onClick={() => progress.updatePlayerLife('ghost', 0)}>hurt-ghost</button>
+       </div>
+     );
+   };
+   
+   describe('useMatchProgress integration', () => {
+     it('seeds each player life from the roster', () => {
+       render(<ProgressHarness players={PLAYERS} numQuestions={3} />);
+   
+       expect(screen.getByTestId('life')).toHaveTextContent('100,100');
+       expect(screen.getByTestId('opponentCurrent')).toHaveTextContent('0');
+       expect(screen.getByTestId('opponentDone')).toHaveTextContent('false');
+     });
+   
+     it('re-seeds when the roster changes', () => {
+       const { rerender } = render(<ProgressHarness players={PLAYERS} numQuestions={3} />);
+   
+       rerender(<ProgressHarness players={[{ id: 'user-1', life: 50 } as Player]} numQuestions={3} />);
+   
+       expect(screen.getByTestId('life')).toHaveTextContent('50');
+     });
+   
+     it('advances the opponent pointer and drops their life', async () => {
+       const user = userEvent.setup();
+       render(<ProgressHarness players={PLAYERS} numQuestions={3} />);
+   
+       await user.click(screen.getByRole('button', { name: 'opponent-advances' }));
+   
+       expect(screen.getByTestId('opponentCurrent')).toHaveTextContent('1');
+       expect(screen.getByTestId('life')).toHaveTextContent('100,80');
+     });
+   
+     it('clamps the opponent pointer to the last question', async () => {
+       const user = userEvent.setup();
+       render(<ProgressHarness players={PLAYERS} numQuestions={3} />);
+   
+       await user.click(screen.getByRole('button', { name: 'opponent-advances' }));
+       await user.click(screen.getByRole('button', { name: 'opponent-overruns' }));
+   
+       expect(screen.getByTestId('opponentCurrent')).toHaveTextContent('1');
+       expect(screen.getByTestId('life')).toHaveTextContent('100,40');
+     });
+   
+     it('ignores progress for a player who is not in the match', async () => {
+       const user = userEvent.setup();
+       render(<ProgressHarness players={PLAYERS} numQuestions={3} />);
+   
+       await user.click(screen.getByRole('button', { name: 'unknown-player' }));
+   
+       expect(screen.getByTestId('opponentCurrent')).toHaveTextContent('0');
+       expect(screen.getByTestId('life')).toHaveTextContent('100,100');
+     });
   
 });
