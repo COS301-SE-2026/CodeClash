@@ -1,0 +1,42 @@
+backend/src/entities/database/questions.entities.ts
+  h_94c952a9e14c58 3,8,33-34,36
+backend/src/frameworks-drivers/socket/modules/match/handlers.ts
+  h_94c952a9e14c58 8,14,22,37
+  h_94c952a9e14c58 13,18,60
+backend/src/interface-adapters/CodeExecutor.ts
+  h_94c952a9e14c58 4
+backend/src/frameworks-drivers/socket/modules/match/register-handlers.ts
+  h_94c952a9e14c58 8,41,43
+  h_94c952a9e14c58 15,21
+backend/src/entities/dtos/matchmaking/matchmaking.dto.ts
+  h_94c952a9e14c58 1-11
+backend/src/frameworks-drivers/socket/modules/matchmaking/handlers.ts
+  h_94c952a9e14c58 5,16-22
+  h_94c952a9e14c58 13
+backend/src/entities/dtos/marking/submission-result.dto.ts
+  h_94c952a9e14c58 1-36
+backend/src/application/usecases/services/notification.service.ts
+  h_94c952a9e14c58 2
+backend/src/application/usecases/services/marking/marking.service.ts
+  h_94c952a9e14c58 9,22,31,39,46-52
+  h_94c952a9e14c58 8,35
+backend/src/application/usecases/services/marking/mark-prog.ts
+  h_94c952a9e14c58 5
+backend/src/application/usecases/systems/opponent-progress.ts
+  h_94c952a9e14c58 3
+backend/src/application/interfaces/marking/ICodeExecutor.ts
+  h_94c952a9e14c58 1
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "16226a0e2e1aaa0f1ec440a599f9069da48038f1",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
