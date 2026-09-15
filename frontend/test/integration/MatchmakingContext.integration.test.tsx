@@ -70,3 +70,47 @@ const renderMatchmaking = (socket: FakeSocket | null) =>
       </MatchmakingProvider>
     </SocketContext.Provider>,
   );
+
+describe('MatchmakingProvider integration', () => {
+  let socket: FakeSocket;
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+    socket = new FakeSocket();
+    
+  });
+
+  it('starts with an empty matchmaking state', () => {
+      renderMatchmaking(socket);
+  
+      expect(screen.getByTestId('matched')).toHaveTextContent('false');
+      expect(screen.getByTestId('pairId')).toHaveTextContent('none');
+      expect(screen.getByTestId('mode')).toHaveTextContent('none');
+      expect(screen.getByTestId('type')).toHaveTextContent('none');
+      expect(screen.getByTestId('opponent')).toHaveTextContent('none');
+    });
+  
+    it('subscribes to users_matched as soon as a socket exists', () => {
+      renderMatchmaking(socket);
+  
+      expect(socket.on).toHaveBeenCalledWith('users_matched', expect.any(Function));
+    });
+  
+    it('does not subscribe when there is no socket yet', () => {
+      renderMatchmaking(null);
+  
+      expect(screen.getByTestId('matched')).toHaveTextContent('false');
+    });
+  
+    it('stores the pair and both players when the server matches users', () => {
+      renderMatchmaking(socket);
+  
+      act(() => socket.server('users_matched', MATCHED));
+  
+      expect(screen.getByTestId('matched')).toHaveTextContent('true');
+      expect(screen.getByTestId('pairId')).toHaveTextContent('pair-42');
+      expect(screen.getByTestId('opponent')).toHaveTextContent('rival');
+    });
+
+  
+});
