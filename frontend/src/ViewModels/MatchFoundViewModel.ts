@@ -126,21 +126,23 @@ export function MatchFoundViewModelFunction() {
   useEffect(() => {
 
     if (matchedUsers) {
-      set_players(matchedUsers)
-      set_detais()
+      set_players(matchedUsers);
+      set_detais();
     }
 
     if (matchmaking_socket) {
 
-      const cleanup = () => {
-        matchmaking_socket.matchReady(gameReady)();
-        matchmaking_socket.declineDone(declineGame)();
-        matchmaking_socket.gameDeclined(gameDeclined)();
-        matchmaking_socket.startMatch(gameReady)();
-      }
-  
+      const unsub_ready = matchmaking_socket.matchReady(gameReady);
+      const unsub_decline_done = matchmaking_socket.declineDone(declineGame);
+      const unsub_match_declined = matchmaking_socket.gameDeclined(gameDeclined);
+      const unsub_start = matchmaking_socket.startMatch(gameReady);
 
-      return () => cleanup();
+      return () => {
+        unsub_ready();
+        unsub_decline_done();
+        unsub_match_declined();
+        unsub_start();
+      }
     }
   }, [matchmaking_socket, path, matchedUsers])
 

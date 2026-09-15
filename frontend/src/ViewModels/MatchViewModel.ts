@@ -100,17 +100,15 @@ export const useMatch = () => {
             match_socket.sendQuestions(id);
             match_socket.sendPlayers(id);
 
-            const cleanup = () => {
-                match_socket.getQuestions(loadQuestions)();
-                match_socket.getPlayers(setPlayers)();
-                match_socket.markingComplete(submission_result)();
-                match_socket.submissionError(submission_error)();
-                match_socket.waitingOpponent(waiting_opponent)();
-                match_socket.bothDone(both_done)();
-                match_socket.opponentProgress(opponent_progress)();
-                match_socket.opponentDone(opponent_done)();
-            };
-
+            const unsub_questions = match_socket.getQuestions(loadQuestions);
+            const unsub_players = match_socket.getPlayers(setPlayers);
+            const unsub_marking = match_socket.markingComplete(submission_result);
+            const unsub_submission_error = match_socket.submissionError(submission_error);
+            const unsub_waiting_opponent = match_socket.waitingOpponent(waiting_opponent);
+            const unsub_done = match_socket.bothDone(both_done);
+            const unsub_opponent_progress = match_socket.opponentProgress(opponent_progress);
+            const unsub_opponent_done = match_socket.opponentDone(opponent_done);
+          
 
             const loadLoader = async () => {
                 if (questions.length === 0) setLoading(true)
@@ -120,7 +118,16 @@ export const useMatch = () => {
 
             void loadLoader()
 
-            return () => cleanup();
+            return () => {
+                unsub_questions();
+                unsub_players();
+                unsub_marking();
+                unsub_submission_error();
+                unsub_waiting_opponent();
+                unsub_done();
+                unsub_opponent_progress();
+                unsub_opponent_done();
+            }
         }
 
     }, [match_socket, questionsReady])
