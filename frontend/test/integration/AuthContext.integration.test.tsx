@@ -222,5 +222,33 @@ describe('AuthProvider integration', () => {
       await user.click(screen.getByRole('button', { name: 'resend' }));
       await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Limit exceeded'));
     });
+
+  it('runs the forgot password round trip', async () => {
+      const user = userEvent.setup();
+      renderAuth();
+  
+      await user.click(screen.getByRole('button', { name: 'forgot' }));
+      expect(amplify.resetPassword).toHaveBeenCalledWith({ username: 'ntu@codeclash.dev' });
+  
+      await user.click(screen.getByRole('button', { name: 'confirm-forgot' }));
+      expect(amplify.confirmResetPassword).toHaveBeenCalledWith({
+        username: 'ntu@codeclash.dev',
+        confirmationCode: '123456',
+        newPassword: 'New!',
+      });
+    });
+
+  it('uses the fallback copy when the reset password rejection carries no message', async () => {
+      amplify.resetPassword.mockRejectedValue({});
+      amplify.confirmResetPassword.mockRejectedValue({});
+      const user = userEvent.setup();
+      renderAuth();
+  
+      await user.click(screen.getByRole('button', { name: 'forgot' }));
+      await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Failed to send reset code'));
+  
+      await user.click(screen.getByRole('button', { name: 'confirm-forgot' }));
+      await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Failed to reset password'));
+    });
   
 })
