@@ -82,5 +82,17 @@ describe('UserProvider integration', () => {
     respondWith();
   });
 
+  it('loads the whole profile once a token is available', async () => {
+    renderUser();
+
+    await waitFor(() => expect(screen.getByTestId('elo')).toHaveTextContent('1420'));
+    expect(screen.getByTestId('league')).toHaveTextContent('Gold');
+    expect(screen.getByTestId('rank')).toHaveTextContent('7');
+    expect(screen.getByTestId('current')).toHaveTextContent('4');
+    expect(screen.getByTestId('winning')).toHaveTextContent('3');
+    expect(screen.getByTestId('avatar')).toHaveTextContent(robot_map[2]);
+    expect(screen.getByTestId('error')).toHaveTextContent('none');
+  });
+
   
 });
