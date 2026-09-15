@@ -52,3 +52,14 @@ const AuthConsumer = () => {
        </div>  
   );
 };
+
+const renderAuth = () => render(
+  <AuthProvider>
+    <AuthConsumer />
+  </AuthProvider>
+);
+
+const session = (idToken?: string) => ({
+  tokens: idToken ? { idToken: { toString: () => idToken } } : undefined,
+});
+
