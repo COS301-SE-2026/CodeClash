@@ -55,7 +55,11 @@ export class MatchSocket {
     }
 
     startMatch(handler: (data: { match_id: string, questions: MatchQuestionsDTO, players: PlayerDTO[] }) => void) {
-        return on(this.socket, 'start_game', handler);
+        return on(this.socket, 'start_match', handler);
+    }
+
+    startMatchError(handler: (data: { error: string }) => void) {
+        return on(this.socket, 'start_match_failed', handler);
     }
 
     /************************************** EMITTERS ******************************************* */

@@ -20,17 +20,11 @@ export class MatchmakingSocket {
         return on<string>(this.socket, 'game_ready', handler);
     }
 
-    declineDone(handler: ()=>void){
-        return on(this.socket, 'decline_done', handler);
-    }
 
     gameDeclined(handler: ()=>void){
-        return on(this.socket, 'game_declined', handler);
+        return on(this.socket, 'match_declined', handler);
     }
 
-    startMatch(handler: (match_id: string)=>void){
-        return on(this.socket, 'start_game', handler);
-    }
 
     /************************************** EMITTERS ******************************************* */
 
