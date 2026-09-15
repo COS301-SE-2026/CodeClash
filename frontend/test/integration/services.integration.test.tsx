@@ -78,4 +78,36 @@ describe('submission.service integration', () => {
       [{ match_id: 12, question_id: 'q-1', question_number: 0, submission: PROG_SUBMISSION }],
     ]);
   });
+
+  it('routes maths submissions to the maths event', () => {
+      submitAnswer(socket.asSocket(), 12, 'q-2', 3, 'math', MATH_SUBMISSION);
+  
+      expect(socket.emitsOf('submit_math_question')).toEqual([
+        [{ match_id: 12, question_id: 'q-2', question_number: 3, submission: MATH_SUBMISSION }],
+      ]);
+    });
+  
+    it('is a no-op without a socket', () => {
+      expect(() => submitAnswer(null, 12, 'q-1', 0, 'prog', PROG_SUBMISSION)).not.toThrow();
+    });
+  });
+  
+  describe('result.service integration', () => {
+    let socket: FakeSocket;
+  
+    beforeEach(() => {
+      socket = new FakeSocket();
+    });
+  
+    it('announces the finished game with its type', () => {
+      endGame(99, 'ranked', socket.asSocket());
+  
+      expect(socket.emitsOf('game_done')).toEqual([[99, 'ranked']]);
+    });
+  
+    it('is a no-op without a socket', () => {
+      expect(() => endGame(99, 'casual', null)).not.toThrow();
+    });
+
+  
 });
