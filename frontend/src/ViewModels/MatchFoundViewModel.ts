@@ -133,15 +133,11 @@ export function MatchFoundViewModelFunction() {
     if (matchmaking_socket) {
 
       const unsub_ready = matchmaking_socket.matchReady(gameReady);
-      const unsub_decline_done = matchmaking_socket.declineDone(declineGame);
       const unsub_match_declined = matchmaking_socket.gameDeclined(gameDeclined);
-      const unsub_start = matchmaking_socket.startMatch(gameReady);
 
       return () => {
         unsub_ready();
-        unsub_decline_done();
         unsub_match_declined();
-        unsub_start();
       }
     }
   }, [matchmaking_socket, path, matchedUsers])

@@ -4,7 +4,7 @@ import { FinishGame } from "src/application/usecases/systems/finish-game";
 import { SubmissionSystem } from "src/application/usecases/systems/submission.system";
 
 import { StartQuestionDTO } from "src/entities/dtos/question.dto";
-import { GameStore } from "src/application/usecases/services/match/match-store.service";
+import { MatchStore } from "src/application/usecases/services/match/match-store.service";
 import { MatchType } from "src/entities/database/questions.entities";
 import { DeleteGame } from "src/application/usecases/systems/delete-game";
 import { PlayerSubmissionDTO } from "src/entities/dtos/components.dto";
@@ -19,23 +19,23 @@ export const startQuestion = (player_id: string, submission_system: SubmissionSy
     return;
 }
 
-export const gameDone = async (io: Server, socket: Socket, game_id: number, match_type: MatchType, pair_id: string, finish_game: FinishGame, game_store: GameStore) => {
+export const gameDone = async (io: Server, socket: Socket, game_id: number, match_type: MatchType, pair_id: string, finish_game: FinishGame, match_store: MatchStore) => {
     // wait for both players to be done
-    const game = game_store.get(game_id);
+    const game = match_store.get(game_id);
 
     if (!game) {
         console.error("No game found");
         return;
     }
 
-    game_store.setDone(socket.data.user_id, game_id);
+    match_store.setDone(socket.data.user_id, game_id);
 
-    if (game_store.bothDone(game_id)) {
+    if (match_store.playersDone(game_id)) {
 
         const ids = game.players.map(player => player.id);
 
         const game_result = await finish_game.execute(game_id, ids, match_type, pair_id);
-        game_store.saveResult(game_id, game_result);
+        match_store.saveResult(game_id, game_result);
 
         for (const id of ids) {
             io.to(id).emit('both_done');
@@ -53,10 +53,10 @@ export const gameDone = async (io: Server, socket: Socket, game_id: number, matc
 
 }
 
-export const sendResults = (io: Server, game_id: number, pair_id: string, game_store: GameStore) => {
+export const sendResults = (io: Server, game_id: number, pair_id: string, match_store: MatchStore) => {
 
-    const result = game_store.getResult(game_id);
-    const game = game_store.get(game_id);
+    const result = match_store.getResult(game_id);
+    const game = match_store.get(game_id);
     if (!game) {
         console.warn(`send_results: game ${game_id} not found`);
         return;
@@ -72,9 +72,9 @@ export const sendResults = (io: Server, game_id: number, pair_id: string, game_s
     }
 }
 
-export const cleanUp = (game_id: number, pair_id: string, delete_game: DeleteGame, game_store: GameStore) => {
+export const cleanUp = (game_id: number, pair_id: string, delete_game: DeleteGame, match_store: MatchStore) => {
 
-    const game = game_store.get(game_id);
+    const game = match_store.get(game_id);
 
     if (game) {
         game.ack_count += 1;

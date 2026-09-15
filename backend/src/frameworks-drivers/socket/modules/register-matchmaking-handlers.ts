@@ -1,6 +1,6 @@
 import { Server, Socket } from "socket.io";
-import { MatchmakingDeps } from "../../dependencies";
-import { joinMatchQueue, leaveMatchQueue, matchAccepted, matchDeclined } from "src/frameworks-drivers/socket/modules/matchmaking/handlers";
+import { MatchmakingDeps } from "../dependencies";
+import { joinMatchQueue, leaveMatchQueue, matchAccepted, matchDeclined } from "src/interface-adapters/socket-handlers/matchmaking-handlers";
 
 // don't need acknowledgments - don't go through registerHandler
 export function registerMatchmakingHndlers(io: Server, socket: Socket, deps: MatchmakingDeps) {

@@ -1,10 +1,10 @@
 // Service dependencies for system modules
 
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
-import { GameStore } from "src/application/usecases/services/match/match-store.service";
-import { GameService } from "src/application/usecases/services/match/match.service";
+import { MatchStore } from "src/application/usecases/services/match/match-store.service";
+import { MatchCreationService } from "src/application/usecases/services/match/match-creation.service";
 import { MarkingService } from "src/application/usecases/services/marking/marking.service";
-import { MatchedUsersService } from "src/application/usecases/services/matched-users.service";
+import { MatchConfirmationService } from "src/application/usecases/services/match/match-confirmation.service";
 import { MatchmakingService } from "src/application/usecases/services/matchmaking.service";
 import { DeleteGame } from "src/application/usecases/systems/delete-game";
 import { FinishGame } from "src/application/usecases/systems/finish-game";
@@ -16,14 +16,14 @@ export interface MatchDeps {
     submission_system: SubmissionSystem;
     match_completion_system: FinishGame;
     match_deletion_system: DeleteGame;
-    match_store: GameStore;
+    match_store: MatchStore;
 };
 
 export interface MatchmakingDeps {
     matchmaking_service: MatchmakingService;
-    matched_users_service: MatchedUsersService;
-    match_service: GameService;
-    match_store: GameStore;
+    matched_users_service: MatchConfirmationService;
+    match_service: MatchCreationService;
+    match_store: MatchStore;
     user_repo: IUserRepository
 };
 
