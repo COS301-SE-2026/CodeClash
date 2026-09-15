@@ -358,3 +358,20 @@ describe('useGameQuestions integration', () => {
          expect(screen.getByTestId('running')).toHaveTextContent('false');
        });
      });
+
+     const SubmissionHarness = () => {
+       const maths = useMathSubmission('42');
+       const prog = useProgSubmission('print(42)', 71, 'stdin-value');
+       return <span data-testid="payload">{JSON.stringify({ maths, prog })}</span>;
+     };
+     
+     describe('submission payload builders', () => {
+       it('shapes both submission DTOs', () => {
+         render(<SubmissionHarness />);
+     
+         expect(JSON.parse(screen.getByTestId('payload').textContent!)).toEqual({
+           maths: { answer: '42' },
+           prog: { source_code: 'print(42)', language_id: 71, stdin: 'stdin-value' },
+         });
+       });
+     });
