@@ -117,5 +117,56 @@ describe('useGameQuestions integration', () => {
     expect(started).toHaveLength(1);
     expect(started[0][0]).toMatchObject({ match_id: MATCH_ID, player: USER_ID, question_number: 0 });
   });
+
+  it('walks forwards and backwards through the questions', async () => {
+      const user = userEvent.setup();
+      renderQuestions(socket);
+      await user.click(screen.getByRole('button', { name: 'load' }));
+  
+      await user.click(screen.getByRole('button', { name: 'next' }));
+      expect(screen.getByTestId('current')).toHaveTextContent('1');
+  
+      await user.click(screen.getByRole('button', { name: 'prev' }));
+      expect(screen.getByTestId('current')).toHaveTextContent('0');
+  
+      expect(socket.emitsOf('question_started').map((a) => a[0].question_number)).toEqual([0, 1, 0]);
+    });
+  
+    it('will not walk past either end of the question list', async () => {
+      const user = userEvent.setup();
+      renderQuestions(socket);
+      await user.click(screen.getByRole('button', { name: 'load' }));
+  
+      await user.click(screen.getByRole('button', { name: 'prev' }));
+      expect(screen.getByTestId('current')).toHaveTextContent('0');
+  
+      await goToLastQuestion(user);
+      expect(screen.getByTestId('current')).toHaveTextContent('2');
+  
+      const before = socket.emitsOf('question_started').length;
+      await user.click(screen.getByRole('button', { name: 'next' }));
+      expect(screen.getByTestId('current')).toHaveTextContent('2');
+      expect(socket.emitsOf('question_started')).toHaveLength(before);
+    });
+  
+    it('submits the answer for the question the player is on', async () => {
+      const user = userEvent.setup();
+      renderQuestions(socket);
+      await user.click(screen.getByRole('button', { name: 'load' }));
+      await user.click(screen.getByRole('button', { name: 'next' }));
+  
+      await user.click(screen.getByRole('button', { name: 'submit' }));
+  
+      expect(socket.emitsOf('submit_prog_question')).toEqual([
+        [
+          {
+            match_id: 77,
+            question_id: 'q-easy',
+            question_number: 1,
+            submission: { source_code: 'x', language_id: 71, stdin: null },
+          },
+        ],
+      ]);
+    });
   
 });
