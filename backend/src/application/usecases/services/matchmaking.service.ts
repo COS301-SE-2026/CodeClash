@@ -40,6 +40,7 @@ export class MatchmakingService {
         // remove null join values
         const players = result.filter(u => u.join !== null);
 
+
         // sort by joined times - ascending
         players.sort((a, b) => Number(a.join) - Number(b.join));
 
@@ -68,8 +69,8 @@ export class MatchmakingService {
 
             // found a match
             // remove players from queue
-            await this.cache.deletUser(user.game_mode, user.id);
-            await this.cache.deletUser(user.game_mode, match.user_id)
+            await this.cache.deleteUser(user.game_mode, user.id);
+            await this.cache.deleteUser(user.game_mode, match.user_id)
 
             return {
                 player_2: {

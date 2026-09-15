@@ -10,14 +10,15 @@ export class MatchmakingCache implements IMatchmakingCache {
 
 
     async enqueue(queue: GameMode, user: MatchmakingUserDTO): Promise<void> {
-        this.redis.zadd(queue, user.elo, user.id);
-        this.redis.hset(`user:${user.id}`, "user_joined_at", user.joined_at)
+       
+        await this.redis.zadd(queue, user.elo, user.id);
+        await this.redis.hset(`user:${user.id}`, "user_joined_at", user.joined_at)
 
 
     }
 
     async dequeue(user_id: string, queue: GameMode): Promise<boolean> {
-
+        
         const rem_joined_hash = await this.redis.hdel(`user:${user_id}`, 'user_joined_at');
         const rem_user = await this.redis.zrem(queue, user_id);
 
@@ -29,7 +30,7 @@ export class MatchmakingCache implements IMatchmakingCache {
 
 
     async getPlayers(queue: GameMode, elo: number, range: number): Promise<string[]> {
-        const lower = Math.min(0, elo - range);
+        const lower = Math.max(0, elo - range);
         const upper = elo + range;
 
         return this.redis.zrangebyscore(queue, lower, upper);
@@ -37,12 +38,12 @@ export class MatchmakingCache implements IMatchmakingCache {
     }
 
     async getUserElo(queue: GameMode, user_id: string): Promise<string | null> {
-        return this.redis.zscore(queue, user_id);
+        return await this.redis.zscore(queue, user_id);
 
     }
 
     async getJoinedAt(user_id: string): Promise<(string | null)[]> {
-        return this.redis.hmget(`user:${ user_id }`, "user_joined_at");
+        return await this.redis.hmget(`user:${user_id}`, "user_joined_at");
     }
 
 
@@ -50,13 +51,12 @@ export class MatchmakingCache implements IMatchmakingCache {
         return await this.redis.zcard(queue);
     }
 
-    async deletUser(queue: GameMode, user_id: string): Promise<number> {
+    async deleteUser(queue: GameMode, user_id: string): Promise<number> {
 
-        const count = this.redis.zrem(queue, user_id);
-        this.redis.hdel(`user:${user_id}`, "user_joined_at");
+        const count = await this.redis.zrem(queue, user_id);
+        await this.redis.hdel(`user:${user_id}`, "user_joined_at");
 
         return count;
     }
-
 
 }
