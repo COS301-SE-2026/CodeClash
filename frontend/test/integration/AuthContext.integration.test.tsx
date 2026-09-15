@@ -250,5 +250,22 @@ describe('AuthProvider integration', () => {
       await user.click(screen.getByRole('button', { name: 'confirm-forgot' }));
       await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Failed to reset password'));
     });
+
+  it('clears the user on sign out and keeps them on a failed sign out', async () => {
+    const user = userEvent.setup();
+    renderAuth();
+    await waitFor(() => expect(screen.getByTestId('authenticated')).toHaveTextContent('true'));
+  
+    await user.click(screen.getByRole('button', { name: 'sign-out' }));
+    await waitFor(() => expect(screen.getByTestId('authenticated')).toHaveTextContent('false'));
+  
+    await user.click(screen.getByRole('button', { name: 'sign-in' }));
+    await waitFor(() => expect(screen.getByTestId('authenticated')).toHaveTextContent('true'));
+  
+    amplify.signOut.mockRejectedValue(new Error('Network error'));
+    await user.click(screen.getByRole('button', { name: 'sign-out' }));
+    await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Network error'));
+    expect(screen.getByTestId('authenticated')).toHaveTextContent('true');
+  });
   
 })
