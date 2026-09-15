@@ -17,10 +17,10 @@ export const MathTournamentCard = ({children, className} : TournamentCardProps) 
         <Card className={`bg-[var(--button-tournament-secondary)] 
             border-[var(--button-tournament-secondary-border)] border-[0.5px] flex grid grid-cols-5 w-[90%] mx-auto ${className}`}>
                 
-                <Calculator size={90} className="ml-5 mt-3"/>
+                <Calculator size={90} className="ml-7 mt-4"/>
 
                 <div className="flex grids grid-rows-2 w-full h-full">
-                    <div className="font-font font-semibold text-md -ml-10 w-full">
+                    <div className="font-font font-semibold text-md -ml-30">
                         Math Tournament
                     </div>
                     <div>
