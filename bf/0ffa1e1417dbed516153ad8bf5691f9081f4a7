@@ -1,0 +1,25 @@
+backend/tests/unit/usecases/finish-game.unit.test.ts
+  h_94c952a9e14c58 3,64,101,141,181,210,247,281
+backend/src/application/usecases/services/matchmaking.service.ts
+  h_94c952a9e14c58 48,53,67,71-72
+backend/src/application/usecases/systems/finish-game.ts
+  h_94c952a9e14c58 6,33,85,91,104
+backend/src/entities/components.ts
+  h_94c952a9e14c58 5,18
+backend/tests/unit/socket-handlers/game.handler.unit.test.ts
+  h_94c952a9e14c58 57
+  h_94c952a9e14c58 46
+backend/tests/test-data-source.ts
+  h_94c952a9e14c58 11,13,16,29-41
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "bf0ffa1e1417dbed516153ad8bf5691f9081f4a7",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
