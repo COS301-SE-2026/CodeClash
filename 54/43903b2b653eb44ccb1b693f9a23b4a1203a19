@@ -1,0 +1,14 @@
+frontend/test/integration/helpers.ts
+  h_58e143dc25f856 1-47
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "5443903b2b653eb44ccb1b693f9a23b4a1203a19",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
