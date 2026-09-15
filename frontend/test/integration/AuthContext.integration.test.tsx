@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi, toHaveTextContent } from 'vitest';
 
 const amplify = vi.hoisted(() => ({
   signIn: vi.fn(),
@@ -77,6 +77,28 @@ describe('AuthProvider integration', () => {
         amplify.confirmResetPassword.mockResolvedValue(undefined);
   });
 
+  it('hydrates the signed-in user and id token on mount', async () => {
+      renderAuth();
+  
+      await waitFor(() => expect(screen.getByTestId('loading')).toHaveTextContent('false'));
+      expect(screen.getByTestId('authenticated')).toHaveTextContent('true');
+      expect(screen.getByTestId('username')).toHaveTextContent('ntu');
+      expect(screen.getByTestId('userId')).toHaveTextContent('user-1');
+      await waitFor(() => expect(screen.getByTestId('token')).toHaveTextContent('id-token-abc'));
+    });
 
+  it('leaves the user null when there is no Cognito session', async () => {
+      amplify.getCurrentUser.mockRejectedValue(new Error('not signed in'));
+      amplify.fetchAuthSession.mockResolvedValue(session(undefined));
+  
+      renderAuth();
+  
+      await waitFor(() => expect(screen.getByTestId('loading')).toHaveTextContent('false'));
+      expect(screen.getByTestId('authenticated')).toHaveTextContent('false');
+      expect(screen.getByTestId('username')).toHaveTextContent('none');
+      expect(screen.getByTestId('token')).toHaveTextContent('none');
+    });
+
+  
   
 })
