@@ -9,10 +9,13 @@ import type { Player } from "src/Models/MatchModel";
 import { robot_map } from 'src/assets/Robots';
 import { useGameQuestions, useGameTimer, useMatchProgress } from 'src/services/match.service';
 
+import { matchStart } from 'src/services/match.service';
+import { useMatchStore } from 'src/stores/match-store';
 
 export const useMatch = () => {
-
     const { match_socket } = useSocket();
+    const status = useMatchStore(state => state.status);
+
     const location = useLocation();
     const { id } = location.state;
     const { userId } = useUser();
@@ -20,6 +23,7 @@ export const useMatch = () => {
     const { gameType, match_mode } = useMatchmaking();
 
     const {
+
         questions,
         duration,
         currentQuestion,
@@ -39,7 +43,7 @@ export const useMatch = () => {
 
     const { seconds, minutes } = useGameTimer(duration, () => {
         setGameOver(true);
-        match_socket?.finishMatch({match_id: id, match_mode: match_mode!})
+        match_socket?.finishMatch({ match_id: id, match_mode: match_mode! })
     })
 
 
@@ -60,7 +64,7 @@ export const useMatch = () => {
     const players_ref = useRef(players);
 
 
-    const submission_result = (result:  MarkingResultDTO ) => {
+    const submission_result = (result: MarkingResultDTO) => {
         const index = question_idx.current;
 
         setResults((prev) => {
@@ -76,7 +80,7 @@ export const useMatch = () => {
             return;
         }
 
-        if (result.correct=== true) nextQuestion(index)
+        if (result.correct === true) nextQuestion(index)
     }
 
     const submission_error = (error: string) => {
@@ -90,6 +94,8 @@ export const useMatch = () => {
 
     useEffect(() => {
         if (match_socket) {
+
+            matchStart(match_socket)();
 
             match_socket.sendQuestions(id);
             match_socket.sendPlayers(id);
@@ -120,6 +126,8 @@ export const useMatch = () => {
     }, [match_socket, questionsReady])
 
     return {
+        status,
+
         players,
         questions,
         answers,

@@ -13,7 +13,7 @@ export interface MatchDTO {
     questions: QuestionDTO[]
 }
 
-export interface GameQuestionsDTO {
+export interface MatchQuestionsDTO {
     easy: QuestionDTO[],
     medium: QuestionDTO[],
     hard: QuestionDTO[]

@@ -12,6 +12,8 @@ import { Spinner } from '@/components/ui/spinner';
 
 const MathsMatch = () => {
     const {
+        status,
+
         playerLife, avatars, usernames,
         seconds, minutes, questions,
         currentQuestion, opponentCurrent,
@@ -44,7 +46,7 @@ const MathsMatch = () => {
     }, [currentQuestion])
 
 
-    if (loading || !curr) {
+    if (status !== 'ready') {
         return (
             <Loading isOpen={loading}></Loading>
         )

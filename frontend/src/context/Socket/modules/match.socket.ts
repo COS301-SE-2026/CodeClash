@@ -1,9 +1,9 @@
 import type { Socket } from "socket.io-client";
 import { emit, on } from "../dispatch";
 import type { SubmissionDTO, MarkingResultDTO } from "src/dtos/match/submission.dto";
-import type { GameQuestionsDTO } from "src/dtos/match/game-questionDTO";
+import type { MatchQuestionsDTO } from "src/dtos/match/match-questionDTO";
 import type { MatchResultDTO, ResultDTO } from "src/dtos/match/result.dto";
-import type { MatchMode } from "src/dtos/match/match.dto";
+import type { MatchMode, PlayerDTO } from "src/dtos/match/match.dto";
 import type { Player } from "src/Models/MatchModel";
 import type { OpponentDTO } from "src/dtos/match/opponent.dto";
 
@@ -18,8 +18,8 @@ export class MatchSocket {
 
     /************************************** LISTENERS ******************************************* */
 
-    getQuestions(handler: (data: GameQuestionsDTO) => void) {
-        return on<GameQuestionsDTO>(this.socket, 'get_questions', handler);
+    getQuestions(handler: (data: MatchQuestionsDTO) => void) {
+        return on<MatchQuestionsDTO>(this.socket, 'get_questions', handler);
     }
 
     getPlayers(handler: (data: Player[]) => void) {
@@ -50,8 +50,12 @@ export class MatchSocket {
         return on(this.socket, 'opponent_done', handler);
     }
 
-    getResults(handler: (data: ResultDTO)=>void){
+    getResults(handler: (data: ResultDTO) => void) {
         return on(this.socket, 'get_results', handler);
+    }
+
+    startMatch(handler: (data: { match_id: string, questions: MatchQuestionsDTO, players: PlayerDTO[] }) => void) {
+        return on(this.socket, 'start_game', handler);
     }
 
     /************************************** EMITTERS ******************************************* */
@@ -76,12 +80,12 @@ export class MatchSocket {
         return emit<typeof data, MatchResultDTO>(this.socket, 'game_done', data);
     }
 
-    sendResults(data: {match_id: string, pair_id: string}){
-        return emit<{match_id: string, pair_id: string}, void>(this.socket, 'send_results', data);
+    sendResults(data: { match_id: string, pair_id: string }) {
+        return emit<{ match_id: string, pair_id: string }, void>(this.socket, 'send_results', data);
     }
 
-    cleanUpMatch(data: {match_id: string, pair_id: string}){
-        return emit<{match_id: string, pair_id: string}, void>(this.socket, 'clean_up', data);
+    cleanUpMatch(data: { match_id: string, pair_id: string }) {
+        return emit<{ match_id: string, pair_id: string }, void>(this.socket, 'clean_up', data);
     }
 }
 

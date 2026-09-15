@@ -42,12 +42,7 @@ export function MatchFoundViewModelFunction() {
   const gameReady = (match_id: string) => {
     setLoading(false);
 
-    nav(path, {
-      replace: true,
-      state: {
-        id: match_id
-      }
-    });
+    nav(`${path}/${match_id}`);
   }
 
   // handler for user that declined the game
