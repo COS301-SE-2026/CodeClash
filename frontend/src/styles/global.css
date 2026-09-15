@@ -211,6 +211,8 @@
   --color-button-text-primary: var(--button-text-primary);
   --color-button-text-secondary: var(--button-text-secondary);
   --color-button-tournament: var(--button-tournament);
+  --color-button-tournament-secondary: var(--button-tournament-secondary);
+  --color-button-tournament-secondary-border: var(--button-tournament-secondary-border);
 
   /* accents */
   --color-accent: var(--accent);
@@ -317,6 +319,9 @@
   --button-text-secondary: #fcecdd;
   --button-tournament: #FF516A;
 
+  --button-tournament-secondary: #5B4041;
+  --button-tournament-secondary-border: #7c6466;
+
   /*Inputs*/
   --input: rgba(252, 236, 221, 0.06);
   --ring: #c0395a;
@@ -406,7 +411,9 @@
     --button-secondary: transparent;
     --button-text-primary: #FFFFFF;
     --button-text-secondary: #520a23;
-    --button-tournament: #FF516A
+    --button-tournament: #FF516A;
+    --button-tournament-secondary: #332631;
+    --button-tournament-secondary-border: #5B4041;
 
     /*Inputs*/
     --input: rgba(83, 10, 35, 0.05);
