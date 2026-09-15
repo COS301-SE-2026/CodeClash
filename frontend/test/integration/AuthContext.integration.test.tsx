@@ -197,5 +197,16 @@ describe('AuthProvider integration', () => {
         await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Sign in failed'));
       }
     });
+
+  it('confirms sign up and resends the confirmation code', async () => {
+    const user = userEvent.setup();
+    renderAuth();
+
+    await user.click(screen.getByRole('button', { name: 'confirm' }));
+    expect(amplify.confirmSignUp).toHaveBeenCalledWith({ username: 'ntu', confirmationCode: '123456' });
+
+    await user.click(screen.getByRole('button', { name: 'resend' }));
+    expect(amplify.resendSignUpCode).toHaveBeenCalledWith({ username: 'ntu' });
+  });
   
 })
