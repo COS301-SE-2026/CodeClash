@@ -58,10 +58,15 @@ const renderToasts = (auth: Partial<AuthContextValue> = {}) =>
 
 describe('AchievementToastProvider integration', () => {
   let fetchMock: ReturnType<typeof vi.fn>;
+  let achievementMock: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
     vi.useFakeTimers({ shouldAdvanceTime: true });
-    fetchMock = vi.fn().mockResolvedValue(jsonResponse([]));
+    achievementMock = vi.fn().mockResolvedValue(jsonResponse([]));
+    fetchMock = vi.fn((url: string, ...rest: unknown[]) => {
+      if (url === '/api/achievements/me') return achievementMock(url, ...rest);
+      return Promise.resolve(jsonResponse([]));
+    });
     vi.stubGlobal('fetch', fetchMock);
   });
 
@@ -87,21 +92,21 @@ describe('AchievementToastProvider integration', () => {
   });
 
   it('treats the first fetch as a baseline and shows no toast', async () => {
-    fetchMock.mockResolvedValue(jsonResponse([EARNED_FIRST_BLOOD]));
+     achievementMock.mockResolvedValue(jsonResponse([EARNED_FIRST_BLOOD]));
 
     renderToasts();
 
-    await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(achievementMock).toHaveBeenCalledTimes(1));
     expect(screen.queryByText('Achievement Unlocked!')).toBeNull();
   });
 
   it('toasts an achievement earned between two polls', async () => {
-      fetchMock
+    achievementMock
         .mockResolvedValueOnce(jsonResponse([EARNED_FIRST_BLOOD]))
         .mockResolvedValue(jsonResponse([EARNED_FIRST_BLOOD, EARNED_GOLD_LEAGUE]));
   
       renderToasts();
-      await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+       await waitFor(() => expect(achievementMock).toHaveBeenCalledTimes(1));
   
       await act(async () => {
         await vi.advanceTimersByTimeAsync(30_000);
@@ -113,12 +118,12 @@ describe('AchievementToastProvider integration', () => {
     });
   
     it('picks the icon from the achievement name', async () => {
-      fetchMock
+      achievementMock
         .mockResolvedValueOnce(jsonResponse([]))
         .mockResolvedValue(jsonResponse([EARNED_STREAK]));
   
       const { container } = renderToasts();
-      await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+      await waitFor(() => expect(achievementMock).toHaveBeenCalledTimes(1));
   
       await act(async () => {
         await vi.advanceTimersByTimeAsync(30_000);
@@ -129,12 +134,12 @@ describe('AchievementToastProvider integration', () => {
     });
   
     it('shows queued achievements one at a time', async () => {
-      fetchMock
+      achievementMock
         .mockResolvedValueOnce(jsonResponse([]))
         .mockResolvedValue(jsonResponse([EARNED_FIRST_BLOOD, EARNED_GOLD_LEAGUE]));
   
       renderToasts();
-      await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+       await waitFor(() => expect(achievementMock).toHaveBeenCalledTimes(1));
   
       await act(async () => {
         await vi.advanceTimersByTimeAsync(30_000);
@@ -152,12 +157,12 @@ describe('AchievementToastProvider integration', () => {
     });
   
     it('does not re-toast an achievement that is already known', async () => {
-      fetchMock
+      achievementMock
         .mockResolvedValueOnce(jsonResponse([]))
         .mockResolvedValue(jsonResponse([EARNED_FIRST_BLOOD]));
   
       renderToasts();
-      await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+       await waitFor(() => expect(achievementMock).toHaveBeenCalledTimes(1));
   
       await act(async () => {
         await vi.advanceTimersByTimeAsync(30_000);
@@ -190,17 +195,17 @@ describe('AchievementToastProvider integration', () => {
     });
   
     it('ignores a non-ok response', async () => {
-      fetchMock.mockResolvedValue({ ok: false, json: () => Promise.reject(new Error('unreachable')) });
+      achievementMock.mockResolvedValue({ ok: false, json: () => Promise.reject(new Error('unreachable')) });
   
       renderToasts();
   
-      await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+      await waitFor(() => expect(achievementMock).toHaveBeenCalledTimes(1));
       expect(screen.queryByText('Achievement Unlocked!')).toBeNull();
     });
   
     it('logs and keeps polling when the request throws', async () => {
       const quiet = vi.spyOn(console, 'error').mockImplementation(() => {});
-      fetchMock.mockRejectedValue(new Error('network down'));
+       achievementMock.mockRejectedValue(new Error('network down'));
   
       renderToasts();
   
@@ -209,20 +214,20 @@ describe('AchievementToastProvider integration', () => {
       await act(async () => {
         await vi.advanceTimersByTimeAsync(30_000);
       });
-      expect(fetchMock).toHaveBeenCalledTimes(2);
+      expect(achievementMock).toHaveBeenCalledTimes(2);
       quiet.mockRestore();
     });
   
     it('stops polling once the provider unmounts', async () => {
       const { unmount } = renderToasts();
-      await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+       await waitFor(() => expect(achievementMock).toHaveBeenCalledTimes(1));
   
       unmount();
       await act(async () => {
         await vi.advanceTimersByTimeAsync(90_000);
       });
   
-      expect(fetchMock).toHaveBeenCalledTimes(1);
+      expect(achievementMock).toHaveBeenCalledTimes(1);
     });
   
     it('throws when useAchievementToast is called outside the provider', () => {

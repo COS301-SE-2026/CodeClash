@@ -7,7 +7,7 @@ const api = vi.hoisted(() => ({
   get: vi.fn()
 }));
 
-vi.mock('src/services/api.services', () => ({ API: api }));
+vi.mock('src/services/api.service', () => ({ API: api }));
 
 import { AuthContext, type AuthContextValue } from 'src/context/Auth/AuthContextValue';
 import { UserProvider } from 'src/context/User/UserContext';

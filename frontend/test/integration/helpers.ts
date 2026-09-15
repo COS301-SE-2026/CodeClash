@@ -20,6 +20,7 @@ export class FakeSocket {
 
   on = vi.fn((event: string, handler: Handler) => {
     const list = this.handlers.get(event) ?? [];
+    list.push(handler);
     this.handlers.set(event, list);
     return this;
   });
