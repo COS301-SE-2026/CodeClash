@@ -3,7 +3,7 @@ import { PlayerStatsDTO } from "src/entities/dtos/player-stats.dto";
 import { World } from "src/entities/World"
 import { MatchResultService } from "../services/match-result.service";
 import { GameStore } from "../services/game-store.service";
-import { GameType } from "src/entities/database/questions.entities";
+import { MatchType } from "src/entities/database/questions.entities";
 import { DeleteGame } from "./delete-game";
 import { IMatchStatsRepository } from "src/application/interfaces/repositories/IMatchStatsRepository";
 import { AchievementService, AchievementStats } from "../services/achievement.service";
@@ -30,7 +30,7 @@ export class FinishGame {
     }
 
 
-    async execute(match_id: number, player_ids: string[], game_type: GameType, pair_id:string) {
+    async execute(match_id: number, player_ids: string[], game_type: MatchType, pair_id:string) {
 
         // 1. get submission entities for players
         const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(match_id, 'Submission');
@@ -82,13 +82,13 @@ export class FinishGame {
 
         if (!winner || !loser) throw new Error("Error getting user stats")
 
-        const result = await this.match_result_service.finaliseMatch(db_match_id!.database_id, winner, loser, game_type === GameType.ranked, [winner_stats!, loser_stat!])
+        const result = await this.match_result_service.finaliseMatch(db_match_id!.database_id, winner, loser, game_type === MatchType.ranked, [winner_stats!, loser_stat!])
 
         // evaluate achivements for both players
         const match_duration_ms = 0; //Date.now() - (result!.start_time?.getTime?.() ?? 0);
         for(const [user_id, stat] of game_stats) {
             const is_winner = user_id === winner;
-            const is_ranked = game_type === GameType.ranked;
+            const is_ranked = game_type === MatchType.ranked;
 
             // update streaks
             if(is_ranked){
@@ -101,7 +101,7 @@ export class FinishGame {
                 total_wins: is_winner ? userStats.total_wins + 1 : userStats.total_wins,
                 win_streak: is_winner ? userStats.winning_streak + 1 : 0,
                 total_matches: userStats.total_matches + 1,
-                perfect_math: stat.num_correct === submission_registry.submissions.size / 2 && game_type !== GameType.ranked,
+                perfect_math: stat.num_correct === submission_registry.submissions.size / 2 && game_type !== MatchType.ranked,
                 perfect_code: false,
                 match_duration_ms,
                 correct_in_match: stat.num_correct,

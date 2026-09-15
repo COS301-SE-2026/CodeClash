@@ -45,12 +45,12 @@ export class MatchmakingService {
 
         if (players.length == 0) {
 
-            const waiting = await this.cache.getUserElo(user.game_mode, user.id);
+            const waiting = await this.cache.getUserElo(user.match_mode, user.id);
 
             if (waiting)   //user is already in the queue
                 ++user.match_attempt;
             else {
-                await this.enqueue(user, user.game_mode);
+                await this.enqueue(user, user.match_mode);
             }
 
             return null;
@@ -64,12 +64,12 @@ export class MatchmakingService {
 
             if (!match) return null;
 
-            const match_elo = Number(await this.cache.getUserElo(user.game_mode, match.user_id));
+            const match_elo = Number(await this.cache.getUserElo(user.match_mode, match.user_id));
 
             // found a match
             // remove players from queue
-            await this.cache.deletUser(user.game_mode, user.id);
-            await this.cache.deletUser(user.game_mode, match.user_id)
+            await this.cache.deletUser(user.match_mode, user.id);
+            await this.cache.deletUser(user.match_mode, match.user_id)
 
             return {
                 player_2: {

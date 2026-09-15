@@ -8,12 +8,12 @@ import { Matches } from '../src/entities/database/match.entities'
 import { MatchLog } from '../src/entities/database/match.entities'
 import { MatchProblems } from '../src/entities/database/match.entities'
 import { EloHistory } from '../src/entities/database/elo.entities'
-import {Submission} from '../src/entities/database/submission.entities'
+import { Submission } from '../src/entities/database/submission.entities'
 import { Achievement } from '../src/entities/database/achievement.entities'
-import {MatchStats} from '../src/entities/database/match-stats.entities'
+import { MatchStats } from '../src/entities/database/match-stats.entities'
 
 
-dotenv.config({path: '.env.test'})
+dotenv.config({ path: '.env.test' })
 
 const env = process.env
 
@@ -26,17 +26,19 @@ export async function createTestDataSource() {
         password: env.DB_PASSWORD!,
         database: env.DB_NAME!,
         synchronize: true,
-        entities: [ Matches,
-        MatchLog,
-        MatchProblems,
-        Answers,
-        EloRatings,
-        EloHistory,
-        Questions,
-        Submission,
-        Users,
-        Achievement,
-        MatchStats],
+        entities: [
+            Matches,
+            MatchLog,
+            MatchProblems,
+            Answers,
+            EloRatings,
+            EloHistory,
+            Questions,
+            Submission,
+            Users,
+            Achievement,
+            MatchStats
+        ],
         dropSchema: true,
     })
 

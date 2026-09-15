@@ -2,7 +2,7 @@
 
 /* MATCH ENTITY */
 
-import { GameType } from "./database/questions.entities"
+import { MatchType } from "./database/questions.entities"
 import { MathsSubmissionDTO, ProgSubmissionDTO } from "./dtos/components.dto"
 
 // Player Component holds array of ids for a match
@@ -15,7 +15,7 @@ export interface MatchComponent {
     title: string,
     status: string,
     game_mode: string,
-    match_type: GameType
+    match_type: MatchType
     difficulty: number,
     winner: number,
     rounds: number[],

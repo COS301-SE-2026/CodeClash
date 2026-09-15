@@ -43,7 +43,7 @@ describe('submitQuestion socket handler', () => {
     it('emits submission_result to the submitting player', async () => {
         const socket = mockSocket('player-a');
 
-        await submitQuestion(io as any, socket, data, check_answer);
+        await submitQuestion(socket, data, check_answer);
 
         expect(check_answer.execute).toHaveBeenCalledWith(data);
     });
@@ -54,11 +54,6 @@ describe('submitQuestion socket handler', () => {
 
         (check_answer.execute as Mock).mockRejectedValueOnce(new Error('Invalid question id'));
 
-        await expect(submitQuestion(io as any, socket, data, check_answer)).resolves.toBeUndefined()
-
-        expect(io.to).toHaveBeenCalledWith('player-a');
-        expect(io._emit).toHaveBeenCalledWith('submission_error', expect.any(Error));
-
-    
+        await expect(submitQuestion( socket, data, check_answer)).rejects.toThrow('Invalid question id')    
     });
 });
