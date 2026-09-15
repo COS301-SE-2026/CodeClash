@@ -33,7 +33,7 @@ const Tournaments = () => {
                     </div>
                 </div>
 
-                <div>
+                <div className="overflow-y-auto">
                     <MathTournamentCard/>
                 </div>
 
