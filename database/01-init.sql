@@ -150,7 +150,51 @@ CREATE TABLE IF NOT EXISTS player_achievements (
   PRIMARY KEY (user_id, achievement_id)
 );
 
--- Wow factor added in the CodeClash shop
+-- ------- SHOP -----------
+CREATE TABLE IF NOT EXISTS shop_items (
+  shop_item_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  category VARCHAR(20) CHECK (category IN ('avatar', 'pose', 'powerup')) NOT NULL,
+  name VARCHAR(50) NOT NULL,
+  description VARCHAR(150),
+  price FLOAT NOT NULL,
+  rarity VARCHAR(20) CHECK (rarity IN ('common', 'rare', 'eic', 'legendary')) DEFAULT 'common',
+  metadata JSONB NOT NULL DEFAULT '{}',
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS transactions (
+  transaction_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(user_id),
+  shop_item_id UUID REFERENCES shop_items(shop_item_id),    -- nullable if they're earning money
+  amount FLOAT NOT NULL,
+  type VARCHAR(10) CHECK (type in ('money_in', 'money_out')) NOT NULL,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS wallets (
+  wallet_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(user_id),
+  balance FLOAT NOT NULL DEFAULT 0,
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS user_items (
+  user_item_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(user_id),
+  shop_item_id UUID REFERENCES shop_items(shop_item_id),
+  acquired_at TIMESTAMP DEFAULT NOW(),
+  UNIQUE(user_id, shop_item_id)   -- stops them owning the same thing twice
+);
+
+CREATE TABLE IF NOT EXISTS equipped_items (
+  equipped_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(user_id),
+  avatar_item_id UUID REFERENCES shop_items(shop_item_id),
+  pose_item_id UUID REFERENCES shop_items(shop_item_id),
+  powerup_item_id UUID REFERENCES shop_items(shop_item_id),
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+
 CREATE TYPE powerup_type AS ENUM ('add_time_opponent', 'reduce_type_self', 'add_bug_opponent'); --more could be added
 -- manually add different levels of the same powerup ??
 CREATE TABLE IF NOT EXISTS powerups (
