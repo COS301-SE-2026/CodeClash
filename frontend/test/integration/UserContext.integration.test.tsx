@@ -169,7 +169,43 @@ describe('UserProvider integration', () => {
     await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Error: 404 no avatar'));
   });
 
+  it('surfaces a non-200 league response as an error', async () => {
+      const user = userEvent.setup();
+      renderUser();
+      await waitFor(() => expect(api.get).toHaveBeenCalledTimes(6));
   
+      respondWith({ 'user/league': { status: 403, data: 'forbidden' } });
+      await user.click(screen.getByRole('button', { name: 'refresh' }));
+  
+      await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Error: 403 forbidden'));
+    });
+  
+    it('surfaces a non-200 rank response as an error', async () => {
+      respondWith({ 'user/rank': { status: 418, data: 'teapot' } });
+  
+      renderUser();
+  
+      await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Error: 418 teapot'));
+    });
+  
+    it('swallows streak failures so the rest of the profile still loads', async () => {
+      const quiet = vi.spyOn(console, 'error').mockImplementation(() => {});
+      api.get.mockImplementation((url: string) => {
+        if (url.endsWith('_streak')) return Promise.reject(new Error('streak service down'));
+        return Promise.resolve({
+          status: 200,
+          data: { rating: 1200, avatar_id: 0, league: 'Bronze', rank: 42 },
+        });
+      });
+  
+      renderUser();
+  
+      await waitFor(() => expect(screen.getByTestId('elo')).toHaveTextContent('1200'));
+      expect(screen.getByTestId('current')).toHaveTextContent('0');
+      expect(screen.getByTestId('winning')).toHaveTextContent('0');
+      expect(quiet).toHaveBeenCalled();
+      quiet.mockRestore();
+    });
   
   
 });
