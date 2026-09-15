@@ -55,3 +55,44 @@ const renderToasts = (auth: Partial<AuthContextValue> = {}) =>
       </AchievementToastProvider>
     </AuthContext.Provider>,
   );
+
+describe('AchievementToastProvider integration', () => {
+  let fetchMock: ReturnType<typeof vi.fn>;
+
+  beforeEach(() => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    fetchMock = vi.fn().mockResolvedValue(jsonResponse([]));
+    vi.stubGlobal('fetch', fetchMock);
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+    vi.unstubAllGlobals();
+  });
+
+  it('requests the earned achievements with the bearer token', async () => {
+    renderToasts();
+
+    await waitFor(() =>
+      expect(fetchMock).toHaveBeenCalledWith('/api/achievements/me', {
+        headers: { Authorization: 'Bearer id-token-abc' },
+      }),
+    );
+  });
+
+  it('does not poll while the user is unauthenticated', () => {
+    renderToasts({ token: undefined });
+
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('treats the first fetch as a baseline and shows no toast', async () => {
+    fetchMock.mockResolvedValue(jsonResponse([EARNED_FIRST_BLOOD]));
+
+    renderToasts();
+
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+    expect(screen.queryByText('Achievement Unlocked!')).toBeNull();
+  });
+  
+});
