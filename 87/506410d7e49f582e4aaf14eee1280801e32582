@@ -1,0 +1,14 @@
+frontend/test/integration/Match.service.integration.test.tsx
+  h_58e143dc25f856 120-170
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "87506410d7e49f582e4aaf14eee1280801e32582",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
