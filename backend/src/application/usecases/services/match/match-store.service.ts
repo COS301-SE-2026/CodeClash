@@ -1,14 +1,14 @@
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 import { PlayerDTO } from "src/entities/dtos/components.dto";
-import { GameQuestionsDTO } from "src/entities/dtos/match-data.dto";
+import { MatchQuestionsDTO } from "src/entities/dtos/match-data.dto";
 import { MatchResultDTO } from "src/entities/dtos/match-result.dto";
 
 
-export class GameStore {
-    private readonly GAME = new Map<number, {
+export class MatchStore {
+    private readonly MATCH = new Map<number, {
         database_id: string,
         players: PlayerDTO[],
-        questions: GameQuestionsDTO,
+        questions: MatchQuestionsDTO,
         result: MatchResultDTO | null,
         ack_count: number
     }>();
@@ -18,7 +18,7 @@ export class GameStore {
     ) { }
 
 
-    async create(match_id: number, db_id: string, players: PlayerDTO[], questions: GameQuestionsDTO) {
+    async create(match_id: number, db_id: string, players: PlayerDTO[], questions: MatchQuestionsDTO) {
 
         const populatePlayerData = await Promise.all(
             players.map(async (player) => {
@@ -33,15 +33,15 @@ export class GameStore {
             })
         )
 
-        this.GAME.set(match_id, { database_id: db_id, players: populatePlayerData, questions: questions, result: null, ack_count: 0 });
+        this.MATCH.set(match_id, { database_id: db_id, players: populatePlayerData, questions: questions, result: null, ack_count: 0 });
     }
 
     get(game_id: number) {
-        return this.GAME.get(game_id)
+        return this.MATCH.get(game_id)
     }
 
     setDone(player_id: string, game_id: number) {
-        const game = this.GAME.get(game_id);
+        const game = this.MATCH.get(game_id);
 
         if (!game) throw new Error("Invalid game id")
 
@@ -52,8 +52,8 @@ export class GameStore {
         })
     }
 
-    bothDone(game_id: number) {
-        const game = this.GAME.get(game_id);
+    playersDone(game_id: number) {
+        const game = this.MATCH.get(game_id);
 
         if (!game) throw new Error("Invalid game id")
 
@@ -61,7 +61,7 @@ export class GameStore {
     }
 
     saveResult(game_id: number, result: MatchResultDTO) {
-        const game = this.GAME.get(game_id);
+        const game = this.MATCH.get(game_id);
 
         if (!game) throw new Error("Invalid game id")
 
@@ -70,17 +70,16 @@ export class GameStore {
     }
 
     getResult(game_id: number) {
-        const game = this.GAME.get(game_id);
+        const game = this.MATCH.get(game_id);
 
         if (!game) return null;
 
         return { match_id: game_id, result: game.result }
     }
 
-    deleteGame(game_id: number) {
+    deleteMatch(game_id: number) {
 
-
-        this.GAME.delete(game_id);
+        this.MATCH.delete(game_id);
 
     }
 }

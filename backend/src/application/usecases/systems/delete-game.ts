@@ -1,6 +1,6 @@
 import { MatchComponent, PlayersComponent, SubmissionRegistryComponent } from "src/entities/components";
 import { World } from "src/entities/World";
-import { GameStore } from "../services/game-store.service";
+import { GameStore } from "../services/match/match-store.service";
 import { MatchedUsersService } from "../services/matched-users.service";
 
 export class DeleteGame {

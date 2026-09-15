@@ -2,7 +2,7 @@ import { MatchMode, MatchType } from "../database/questions.entities";
 
 import { QuestionDTO } from "./question.dto";
 
-export interface GameDataDTO {
+export interface MatchDataDTO {
     pair_id: string,
     username: string,
     league: string,
@@ -11,7 +11,7 @@ export interface GameDataDTO {
     game_type: MatchType
 }
 
-export interface GameQuestionsDTO {
+export interface MatchQuestionsDTO {
     easy: QuestionDTO[],
     medium: QuestionDTO[],
     hard: QuestionDTO[]

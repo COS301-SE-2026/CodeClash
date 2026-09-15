@@ -1,22 +1,22 @@
-import { IGameCache } from "src/application/interfaces/cache/IGameCache";
+import { IMatchCache } from "src/application/interfaces/cache/IGameCache";
 import { MatchMode, MatchType } from "src/entities/database/questions.entities";
 import { MatchDTO, PlayerDTO, RoundDTO } from "src/entities/dtos/components.dto";
 
-import { CreateGame } from "../systems/create-game";
+import { CreateGame } from "../../systems/create-game";
 
-import { GetAnswers } from "./answers.service";
-import { GetDifficulty, GetQuestions, GetTotalTime } from "./questions.service";
+import { GetAnswers } from "../answers.service";
+import { GetDifficulty, GetQuestions, GetTotalTime } from "../questions.service";
 import { IMatchRepository } from "src/application/interfaces/repositories/IMatchRepository";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 
-export class GameService {
+export class MatchCreationService {
     constructor(
         private readonly createGame: CreateGame,
         private readonly getQuestions: GetQuestions,
         private readonly getDifficulty: GetDifficulty,
         private readonly getTotalTime: GetTotalTime,
         private readonly getAnswers: GetAnswers,
-        private readonly game_cache: IGameCache,
+        private readonly match_cache: IMatchCache,
         private readonly match_repo: IMatchRepository,
         private readonly user_repo: IUserRepository
     ) { }
@@ -77,10 +77,10 @@ export class GameService {
 
         const match_entity = this.createGame.execute(players, match, [round], question_ids.length);
 
-        this.game_cache.saveGame(match_entity, player_ids, question_ids);
+        this.match_cache.saveMatch(match_entity, player_ids, question_ids);
 
         for (const answer of answers) {
-            this.game_cache.saveAnswer(answer)
+            await this.match_cache.saveAnswer(answer)
         }
 
 

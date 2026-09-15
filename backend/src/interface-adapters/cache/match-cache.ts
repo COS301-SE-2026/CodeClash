@@ -1,21 +1,21 @@
 import Redis from "ioredis";
-import { IGameCache } from "src/application/interfaces/cache/IGameCache";
+import { IMatchCache } from "src/application/interfaces/cache/IGameCache";
 import { AnswerDTO } from "src/entities/dtos/answer.dto";
 
 
 
-export class GameCache implements IGameCache {
+export class MatchCache implements IMatchCache {
     constructor(
         private readonly redis: Redis
     ) { }
 
-    async saveGame(game_id: number, player_ids: string[], question_ids: string[]): Promise<void> {
-        this.redis.set(`game:${game_id}`, JSON.stringify({ players: player_ids, questions: question_ids }))
+    async saveMatch(match_id: number, player_ids: string[], question_ids: string[]): Promise<void> {
+        await this.redis.set(`match:${match_id}`, JSON.stringify({ players: player_ids, questions: question_ids }))
     }
 
     // correct answers
     async saveAnswer(answer: AnswerDTO): Promise<void> {
-        this.redis.set(`question:${answer.question_id}`, JSON.stringify(answer))
+        await this.redis.set(`question:${answer.question_id}`, JSON.stringify(answer))
 
     }
 

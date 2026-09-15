@@ -1,8 +1,8 @@
 // Service dependencies for system modules
 
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
-import { GameStore } from "src/application/usecases/services/game-store.service";
-import { GameService } from "src/application/usecases/services/game.service";
+import { GameStore } from "src/application/usecases/services/match/match-store.service";
+import { GameService } from "src/application/usecases/services/match/match.service";
 import { MarkingService } from "src/application/usecases/services/marking/marking.service";
 import { MatchedUsersService } from "src/application/usecases/services/matched-users.service";
 import { MatchmakingService } from "src/application/usecases/services/matchmaking.service";

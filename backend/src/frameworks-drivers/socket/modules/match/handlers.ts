@@ -4,7 +4,7 @@ import { FinishGame } from "src/application/usecases/systems/finish-game";
 import { SubmissionSystem } from "src/application/usecases/systems/submission.system";
 
 import { StartQuestionDTO } from "src/entities/dtos/question.dto";
-import { GameStore } from "src/application/usecases/services/game-store.service";
+import { GameStore } from "src/application/usecases/services/match/match-store.service";
 import { MatchType } from "src/entities/database/questions.entities";
 import { DeleteGame } from "src/application/usecases/systems/delete-game";
 import { PlayerSubmissionDTO } from "src/entities/dtos/components.dto";

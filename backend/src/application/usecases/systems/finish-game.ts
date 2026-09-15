@@ -2,7 +2,7 @@ import { ResultComponent, SubmissionRegistryComponent } from "src/entities/compo
 import { PlayerStatsDTO } from "src/entities/dtos/player-stats.dto";
 import { World } from "src/entities/World"
 import { MatchResultService } from "../services/match-result.service";
-import { GameStore } from "../services/game-store.service";
+import { GameStore } from "../services/match/match-store.service";
 import { MatchType } from "src/entities/database/questions.entities";
 import { DeleteGame } from "./delete-game";
 import { IMatchStatsRepository } from "src/application/interfaces/repositories/IMatchStatsRepository";
