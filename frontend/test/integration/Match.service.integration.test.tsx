@@ -290,5 +290,71 @@ describe('useGameQuestions integration', () => {
        expect(screen.getByTestId('opponentCurrent')).toHaveTextContent('0');
        expect(screen.getByTestId('life')).toHaveTextContent('100,100');
      });
+
+     it('marks the opponent as done', async () => {
+         const user = userEvent.setup();
+         render(<ProgressHarness players={PLAYERS} numQuestions={3} />);
+     
+         await user.click(screen.getByRole('button', { name: 'opponent-done' }));
+     
+         expect(screen.getByTestId('opponentDone')).toHaveTextContent('true');
+       });
+     
+       it('updates a known player life and ignores an unknown one', async () => {
+         const user = userEvent.setup();
+         render(<ProgressHarness players={PLAYERS} numQuestions={3} />);
+     
+         await user.click(screen.getByRole('button', { name: 'hurt-me' }));
+         expect(screen.getByTestId('life')).toHaveTextContent('60,100');
+     
+         await user.click(screen.getByRole('button', { name: 'hurt-ghost' }));
+         expect(screen.getByTestId('life')).toHaveTextContent('60,100');
+       });
+     });
+     
+     const TimerHarness = ({ duration, onExpire }: { duration: number; onExpire: () => void }) => {
+       const timer = useGameTimer(duration, onExpire);
+       return (
+         <div>
+           <span data-testid="running">{String(timer.isRunning)}</span>
+           <span data-testid="minutes">{timer.minutes}</span>
+         </div>
+       );
+     };
   
-});
+     describe('useGameTimer integration', () => {
+       beforeEach(() => {
+         vi.useFakeTimers({ shouldAdvanceTime: true });
+       });
+     
+       afterEach(() => {
+         vi.useRealTimers();
+       });
+     
+       it('stays stopped while there is no duration yet', () => {
+         render(<TimerHarness duration={0} onExpire={vi.fn()} />);
+     
+         expect(screen.getByTestId('running')).toHaveTextContent('false');
+       });
+     
+       it('starts counting down once a duration arrives', () => {
+         const { rerender } = render(<TimerHarness duration={0} onExpire={vi.fn()} />);
+     
+         rerender(<TimerHarness duration={2} onExpire={vi.fn()} />);
+     
+         expect(screen.getByTestId('running')).toHaveTextContent('true');
+         expect(Number(screen.getByTestId('minutes').textContent)).toBeGreaterThan(0);
+       });
+     
+       it('calls onExpire when the clock runs out', async () => {
+         const onExpire = vi.fn();
+         render(<TimerHarness duration={1} onExpire={onExpire} />);
+     
+         await act(async () => {
+           await vi.advanceTimersByTimeAsync(61_000);
+         });
+     
+         expect(onExpire).toHaveBeenCalled();
+         expect(screen.getByTestId('running')).toHaveTextContent('false');
+       });
+     });
