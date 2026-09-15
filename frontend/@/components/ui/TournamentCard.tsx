@@ -26,7 +26,7 @@ export const MathTournamentCard = ({children, className} : TournamentCardProps) 
                     
                     <div className="flex grid grid-cols-2 w-full -ml-30">
                         <Hourglass size={50}/>
-                        <div className="font-font text-sm w-full -ml-25">Time Until Start:</div>
+                        <div className="font-font text-[30px] justif-self-start my-auto">Time Until Start:</div>
                     </div>
                     
                 </div>
@@ -37,14 +37,14 @@ export const MathTournamentCard = ({children, className} : TournamentCardProps) 
 
                 <div className="-ml-20 flex grid grid-rows-3">
                     <div className="font-font text-md mt-3">Capacity: </div>
-                    <Progress className="mt-2"/>
-                    <div className="font-font text-md">Slots Free</div>
+                    <Progress className="mt-3"/>
+                    <div className="font-font text-md -mt-2">Slots Free:</div>
                 </div>
 
-                <TournamentButton className="mx-auto h-[50%]">
-                    <div className="flex grid grid-cols-2">
+                <TournamentButton className="mx-auto h-[50%] my-auto">
+                    <div className="flex grid grid-cols-2 my-auto">
                         <h2 className="font-font font-semibold text-md mb-5 -ml-15 -mt-5">Join Tournament</h2>
-                        <ArrowRight size={50}/>
+                        <ArrowRight size={50} className="flex justify-self-end my-auto"/>
                     </div>
                 </TournamentButton>
 
