@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { beforeEach, describe, expect, it, vi, toHaveTextContent } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const amplify = vi.hoisted(() => ({
   signIn: vi.fn(),
@@ -16,8 +16,8 @@ const amplify = vi.hoisted(() => ({
 
 vi.mock('aws-amplify/auth', () => amplify);
 
-import { AuthProvider } from 'src/context/AuthContext';
-import { useAuth } from 'src/context/AuthContext';
+import { AuthProvider } from 'src/context/Auth/AuthContext';
+import { useAuth } from 'src/context/Auth/hooks/useAuth';
 
 const SIGN_UP_DATA = {
   username: 'ntu',
@@ -98,6 +98,20 @@ describe('AuthProvider integration', () => {
       expect(screen.getByTestId('username')).toHaveTextContent('none');
       expect(screen.getByTestId('token')).toHaveTextContent('none');
     });
+
+  it('signs a user in and exposes them as authenticated', async () => {
+      amplify.getCurrentUser.mockRejectedValueOnce(new Error('not signed in'));
+      const user = userEvent.setup();
+      renderAuth();
+      await waitFor(() => expect(screen.getByTestId('loading')).toHaveTextContent('false'));
+  
+      await user.click(screen.getByRole('button', { name: 'sign-in' }));
+  
+      expect(amplify.signIn).toHaveBeenCalledWith({ username: 'ntu@codeclash.dev', password: 'pw' });
+      await waitFor(() => expect(screen.getByTestId('authenticated')).toHaveTextContent('true'));
+      expect(screen.getByTestId('username')).toHaveTextContent('ntu');
+    });
+
 
   
   
