@@ -26,3 +26,15 @@ const renderSocket = () =>
       <SocketConsumer />
     </SocketProvider>,
   );
+
+describe('SocketProvider integration', () => {
+  let socket: FakeSocket
+  
+  beforeEach(() => {
+    vi.clearAllMocks();
+    socket = new FakeSocket();
+    ws.createSocket.mockResolvedValue(socket.asSocket());
+  });
+
+
+});
