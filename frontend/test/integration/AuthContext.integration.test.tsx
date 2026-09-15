@@ -125,6 +125,17 @@ describe('AuthProvider integration', () => {
       expect(screen.getByTestId('authenticated')).toHaveTextContent('false');
     });
 
+  it('falls back to a generic message when the rejection is not an Error', async () => {
+    amplify.getCurrentUser.mockRejectedValue(new Error('not signed in'));
+    amplify.signIn.mockRejectedValue('boom');
+    const user = userEvent.setup();
+    renderAuth();
+
+    await user.click(screen.getByRole('button', { name: 'sign-in' }));
+
+    await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Sign in failed'));
+  });
+
   
   
 })
