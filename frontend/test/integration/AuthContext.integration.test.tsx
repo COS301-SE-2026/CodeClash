@@ -136,6 +136,18 @@ describe('AuthProvider integration', () => {
     await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Sign in failed'));
   });
 
+  it('clears a previous error', async () => {
+      amplify.getCurrentUser.mockRejectedValue(new Error('not signed in'));
+      amplify.signIn.mockRejectedValue(new Error('nope'));
+      const user = userEvent.setup();
+      renderAuth();
   
+      await user.click(screen.getByRole('button', { name: 'sign-in' }));
+      await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('nope'));
+  
+      await user.click(screen.getByRole('button', { name: 'clear-error' }));
+      await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('none'));
+    });
+
   
 })
