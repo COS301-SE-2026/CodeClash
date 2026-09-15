@@ -1,11 +1,11 @@
-import { ArrowRight, ArrowLeft, User, AtSign, Mail, Phone, Lock } from 'lucide-react';
+import { ArrowRight, ArrowLeft, User, AtSign, Mail, Phone, Lock, Loader2} from 'lucide-react';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 
-import symbolBackground from "../assets/Background/SymbolBackground.png";
 import { SignUpViewModelFunction } from '../ViewModels/SignUpViewModel.ts';
 
 import Starfield from '@/components/ui/animations/Starfield.tsx';
+import Dropdown from '@/components/ui/codesDropdown.tsx';
 
 const SignUp: React.FC= () => {
     const { //this is to destructure the elements that the viewmodel returns, so that the view can access them
@@ -23,13 +23,13 @@ const SignUp: React.FC= () => {
         handleSubmit,
         handleConfirm,
         handleResend,
+        isSigningUp
     } = SignUpViewModelFunction();
 
     if (needsConfirmation) {
         return (
             <div className='relativew-full min-h-screen flex items-center justify-center overflow-hidden px-6 py-16'
                 style={{background: "radial-gradient(circle at 50% 12%, #b91551 0%, #850f3b 22%, #630b3c 34%, #0a0008 62%)"}}>
-                <img src= {symbolBackground} alt='' className='absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none'/>
 
                 {/*Back Btn */}
                 <Link to='/' className='btn btn-ghost primary-back-button flex items-center gap-2 z-20'>
@@ -75,7 +75,6 @@ const SignUp: React.FC= () => {
     return (
         <div className='relative w-full min-h-screen flex items-center justify-center overflow-hidden px-6 py-16'
             style={{background: "radial-gradient(circle at 50% 12%, #b91551 0%, #850f3b 22%, #630b3c 34%, #0a0008 62%)"}}>
-            <img src={symbolBackground} alt='' className='absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none'/>
             <Starfield/>
 
             {/*Back Button - copied from signin*/}
@@ -131,9 +130,12 @@ const SignUp: React.FC= () => {
                     </div>
                     <div className='mb-4'>
                         <label className='field-label' htmlFor='phone-input'>Phone number</label>
-                        <div className='relative'>
-                            <Phone size={16} className='absolute left-4 top-1/2 -translate-y-1/2 text-muted-text'/>
-                            <input id='phone-input' className='input pl-10' type='tel' placeholder='+27 12 345 6789' value={form.phoneNumber} onChange={(e) => setField('phoneNumber', e.target.value)} disabled={isLoading}/>
+                        <div className='flex gap-2'>
+                            <Dropdown value={form.countryCode} onChange={(code) => setField('countryCode', code)} disabled={isLoading}/>
+                            <div className='relative flex-1'>
+                                <Phone size={16} className='absolute left-4 top-1/2 -translate-y-1/2 text-muted-text'/>
+                                <input id='phone-input' className='input w-full pl-10' type='tel' inputMode= 'numeric' placeholder='123456789' value={form.phoneNumber} onChange={(e) => {const value= e.target.value.replace(/\D/g, ''); setField('phoneNumber', value);}} disabled={isLoading}/>
+                            </div>
                         </div>
                     </div>
                     <div className='mb-4'>
@@ -152,7 +154,12 @@ const SignUp: React.FC= () => {
                         </label>
                     </div>
                     <button className='btn btn-primary btn-md w-full group' type='button' onClick={handleSubmit} disabled={isLoading}>
-                        {isLoading ? ("Signing up...") : (
+                        {isSigningUp ? (
+                            <>
+                                <Loader2 size={20} className='animate-spin'/>
+                                <span>Signing up...</span>
+                            </>
+                        ) : (
                             <>
                                 <span>Sign Up</span>
                                 <ArrowRight size={20} className='transition-transform duration-300 group-hover:translate-x-1'/>
@@ -162,7 +169,7 @@ const SignUp: React.FC= () => {
                     {/*Copied from Signin */}
                     <div className="flex items-center gap-3 my-8">
                         <span className="divider flex-1"/>
-                        <span className="text-xsm uppercase tracking-[0.2rem] text-muted-text whitespace-nowrap">Have an account?</span>
+                        <span className="text-xsm  text-muted-text whitespace-nowrap">Have an account?</span>
                         <span className="divider flex-1"/>
                     </div>
                     <Link to='/sign-in' className="btn btn-secondary w-full group">
