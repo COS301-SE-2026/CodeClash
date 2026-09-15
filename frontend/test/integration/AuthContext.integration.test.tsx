@@ -208,5 +208,19 @@ describe('AuthProvider integration', () => {
     await user.click(screen.getByRole('button', { name: 'resend' }));
     expect(amplify.resendSignUpCode).toHaveBeenCalledWith({ username: 'ntu' });
   });
+
+
+  it('records errors from confirm sign up and resend code', async () => {
+      amplify.confirmSignUp.mockRejectedValue(new Error('Invalid code'));
+      amplify.resendSignUpCode.mockRejectedValue(new Error('Limit exceeded'));
+      const user = userEvent.setup();
+      renderAuth();
+  
+      await user.click(screen.getByRole('button', { name: 'confirm' }));
+      await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Invalid code'));
+  
+      await user.click(screen.getByRole('button', { name: 'resend' }));
+      await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Limit exceeded'));
+    });
   
 })
