@@ -1,0 +1,19 @@
+frontend/test/integration/MatchmakingContext.integration.test.tsx
+  s_c195aba9126b9c::t_5a657b077f831d 1-72
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "be216a38d4917ae789bb963b00565016e6250f2e",
+  "prompts": {},
+  "sessions": {
+    "s_c195aba9126b9c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f6aafc30effejSlMO9pxgUXQVy",
+        "model": "big-pickle"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
