@@ -112,6 +112,18 @@ describe('AuthProvider integration', () => {
       expect(screen.getByTestId('username')).toHaveTextContent('ntu');
     });
 
+  
+  it('surfaces the Cognito message when sign in fails', async () => {
+      amplify.getCurrentUser.mockRejectedValue(new Error('not signed in'));
+      amplify.signIn.mockRejectedValue(new Error('Incorrect username or password.'));
+      const user = userEvent.setup();
+      renderAuth();
+  
+      await user.click(screen.getByRole('button', { name: 'sign-in' }));
+  
+      await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Incorrect username or password.'));
+      expect(screen.getByTestId('authenticated')).toHaveTextContent('false');
+    });
 
   
   
