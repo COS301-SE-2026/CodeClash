@@ -267,5 +267,11 @@ describe('AuthProvider integration', () => {
     await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Network error'));
     expect(screen.getByTestId('authenticated')).toHaveTextContent('true');
   });
+
+  it('throws when useAuth is called outside the provider', () => {
+      const quiet = vi.spyOn(console, 'error').mockImplementation(() => {});
+      expect(() => render(<AuthConsumer />)).toThrow('useAuth must be used within an AuthProvider');
+      quiet.mockRestore();
+    });
   
 })
