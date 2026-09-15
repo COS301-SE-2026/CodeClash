@@ -78,7 +78,7 @@ const SignIn: React.FC= () => {
                         <span className="divider flex-1"/>
                     </div>
                     <Link to='/sign-up' className="btn btn-secondary w-full group">
-                        <span>Creat an account</span>
+                        <span>Create an account</span>
                         <ArrowRight size={18} className="transition-transform duration-300 group:hover:translate-x-1"/>
                     </Link>
                 </div>
