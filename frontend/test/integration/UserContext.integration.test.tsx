@@ -102,7 +102,42 @@ describe('UserProvider integration', () => {
     await waitFor(() => expect(api.get).toHaveBeenCalled());
   });
 
-  
+  it('falls back to empty identity fields when nobody is signed in', () => {
+    renderUser({ user: null, token: undefined });
 
+    expect(screen.getByTestId('username')).toHaveTextContent('');
+    expect(screen.getByTestId('userId')).toHaveTextContent('');
+  });
+
+
+  it('sends the bearer token on every request', async () => {
+    renderUser();
+
+    await waitFor(() => expect(api.get).toHaveBeenCalledTimes(6));
+    for (const call of api.get.mock.calls) {
+      expect(call[1]).toEqual({ headers: { Authorization: 'Bearer id-token-abc' } });
+    }
+  });
+
+  
+  it('does not fetch anything without a token', async () => {
+    renderUser({ token: undefined });
+
+    await waitFor(() => expect(screen.getByTestId('elo')).toHaveTextContent('0'));
+    expect(api.get).not.toHaveBeenCalled();
+  });
+
+  it('reports the missing token when refresh runs unauthenticated', async () => {
+    const user = userEvent.setup();
+    renderUser({ token: '' });
+
+    await user.click(screen.getByRole('button', { name: 'refresh' }));
+
+    await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Missing or Invalid Token'));
+    expect(api.get).not.toHaveBeenCalled();
+  });
+
+  
+  
   
 });
