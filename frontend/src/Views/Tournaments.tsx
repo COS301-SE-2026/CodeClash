@@ -1,6 +1,7 @@
 //This is a wow factor - i am just calling the coming soon component so the page isnt blank when clicked from dashboard
 //import TournamentCard from "@/components/ui/TournamentCard"
 import TournamentButton from "@/components/ui/TournamentButton"
+import FilterButton from "@/components/ui/FilterButton"
 // import ComingSoon from "@/components/ui/ComingSoon";
 import "../styles/global.css"
 import {PlusIcon} from "lucide-react"
@@ -20,8 +21,16 @@ const Tournaments = () => {
                     <h2 className="font-font text-sm -mt-3 ml-3">Join Tournaments to Compete With Up to 30 Players! Invite Friends to Join in on the Fun!</h2>
                 </div>
 
-                <div className="flex grid grid-rows-2 w-full">
-                    
+                <div className="flex grid grid-cols-2 w-full">
+                    <div className="w-full">
+
+                    </div>
+
+                    <div className="mt-5 flex grid grid-cols-3 gap-5 w-full">
+                        <FilterButton/>
+                        <FilterButton/>
+                        <FilterButton/>
+                    </div>
                 </div>
 
             </div> 
