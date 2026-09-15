@@ -63,3 +63,20 @@ const session = (idToken?: string) => ({
   tokens: idToken ? { idToken: { toString: () => idToken } } : undefined,
 });
 
+describe('AuthProvider integration', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    amplify.getCurrentUser.mockResolvedValue({ username: 'ntu', userId: 'user-1' });
+        amplify.fetchAuthSession.mockResolvedValue(session('id-token-abc'));
+        amplify.signIn.mockResolvedValue({ isSignedIn: true });
+        amplify.signUp.mockResolvedValue({ isSignUpComplete: false });
+        amplify.signOut.mockResolvedValue(undefined);
+        amplify.confirmSignUp.mockResolvedValue({ isSignUpComplete: true });
+        amplify.resendSignUpCode.mockResolvedValue({});
+        amplify.resetPassword.mockResolvedValue({});
+        amplify.confirmResetPassword.mockResolvedValue(undefined);
+  });
+
+
+  
+})
