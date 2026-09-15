@@ -75,3 +75,12 @@ const respondWith = (overrides: Record<string, { status: number; data: any }> = 
     return Promise.resolve(hit);
   });
 };
+
+describe('UserProvider integration', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    respondWith();
+  });
+
+  
+});
