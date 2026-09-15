@@ -157,7 +157,7 @@ CREATE TABLE IF NOT EXISTS shop_items (
   name VARCHAR(50) NOT NULL,
   description VARCHAR(150),
   price FLOAT NOT NULL,
-  rarity VARCHAR(20) CHECK (rarity IN ('common', 'rare', 'eic', 'legendary')) DEFAULT 'common',
+  rarity VARCHAR(20) CHECK (rarity IN ('common', 'rare', 'epic', 'legendary')) DEFAULT 'common',
   metadata JSONB NOT NULL DEFAULT '{}',
   created_at TIMESTAMP DEFAULT NOW()
 );
@@ -195,19 +195,11 @@ CREATE TABLE IF NOT EXISTS equipped_items (
   updated_at TIMESTAMP DEFAULT NOW()
 );
 
-CREATE TYPE powerup_type AS ENUM ('add_time_opponent', 'reduce_type_self', 'add_bug_opponent'); --more could be added
--- manually add different levels of the same powerup ??
-CREATE TABLE IF NOT EXISTS powerups (
-  powerup_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  type powerup_type NOT NULL,
-  description VARCHAR(100) NOT NULL
-);
-
 CREATE TABLE IF NOT EXISTS match_powerups (
   match_powerup_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   match_id UUID REFERENCES matches(match_id),
   user_id UUID REFERENCES users(user_id),
-  powerup_id UUID REFERENCES powerups(powerup_id),
+  powerup_item_id UUID REFERENCES shop_items(shop_item_id),
   used_at TIMESTAMP DEFAULT NOW()
 );
 
