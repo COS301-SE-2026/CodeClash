@@ -36,5 +36,34 @@ describe('SocketProvider integration', () => {
     ws.createSocket.mockResolvedValue(socket.asSocket());
   });
 
+  it('publishes the socket once the connection factory resolves', async () => {
+      renderSocket();
+  
+      expect(screen.getByTestId('socket')).toHaveTextContent('none');
+      await waitFor(() => expect(screen.getByTestId('socket')).toHaveTextContent('ready'));
+      expect(ws.createSocket).toHaveBeenCalledTimes(1);
+    });
+
+  it('tracks the connect and disconnect lifecycle', async () => {
+      renderSocket();
+      await waitFor(() => expect(screen.getByTestId('socket')).toHaveTextContent('ready'));
+  
+      expect(screen.getByTestId('connected')).toHaveTextContent('false');
+  
+      act(() => socket.server('connect'));
+      expect(screen.getByTestId('connected')).toHaveTextContent('true');
+  
+      act(() => socket.server('disconnect'));
+      expect(screen.getByTestId('connected')).toHaveTextContent('false');
+    });
+  
+    it('registers exactly one connect and one disconnect listener', async () => {
+      renderSocket();
+      await waitFor(() => expect(screen.getByTestId('socket')).toHaveTextContent('ready'));
+  
+      expect(socket.handlers.get('connect')).toHaveLength(1);
+      expect(socket.handlers.get('disconnect')).toHaveLength(1);
+    });
+
 
 });
