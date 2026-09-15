@@ -65,5 +65,23 @@ describe('SocketProvider integration', () => {
       expect(socket.handlers.get('disconnect')).toHaveLength(1);
     });
 
+    it('logs and stays unconnected when the factory yields nothing', async () => {
+       const quiet = vi.spyOn(console, 'error').mockImplementation(() => {});
+       ws.createSocket.mockResolvedValue(null);
+   
+       renderSocket();
+   
+       await waitFor(() => expect(quiet).toHaveBeenCalledWith('Error Creating Socket Connection'));
+       expect(screen.getByTestId('socket')).toHaveTextContent('none');
+       expect(screen.getByTestId('connected')).toHaveTextContent('false');
+       quiet.mockRestore();
+     });
+   
+     it('throws when useSocket is called outside the provider', () => {
+       const quiet = vi.spyOn(console, 'error').mockImplementation(() => {});
+       expect(() => render(<SocketConsumer />)).toThrow('useSocket must be used within a SocketProvider');
+       quiet.mockRestore();
+     });
+
 
 });
