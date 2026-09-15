@@ -173,5 +173,15 @@ describe('AuthProvider integration', () => {
       );
     });
 
+  it('records an error when sign up is rejected', async () => {
+      amplify.signUp.mockRejectedValue(new Error('User already exists'));
+      const user = userEvent.setup();
+      renderAuth();
+  
+      await user.click(screen.getByRole('button', { name: 'sign-up' }));
+  
+      await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('User already exists'));
+    });
+
   
 })
