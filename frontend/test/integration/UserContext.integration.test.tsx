@@ -207,5 +207,38 @@ describe('UserProvider integration', () => {
       quiet.mockRestore();
     });
   
-  
+    it('leaves the streaks untouched when the endpoints answer with a non-200', async () => {
+        respondWith({
+          'user/current_streak': { status: 204, data: {} },
+          'user/winning_streak': { status: 204, data: {} },
+        });
+    
+        renderUser();
+    
+        await waitFor(() => expect(screen.getByTestId('league')).toHaveTextContent('Gold'));
+        expect(screen.getByTestId('current')).toHaveTextContent('0');
+        expect(screen.getByTestId('winning')).toHaveTextContent('0');
+      });
+    
+      it('catches a transport error thrown synchronously by axios', async () => {
+        const quiet = vi.spyOn(console, 'error').mockImplementation(() => {});
+        api.get.mockImplementation(() => {
+          throw new Error('axios exploded');
+        });
+    
+        renderUser();
+    
+        await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Error Getting User Rank'));
+        expect(screen.getByTestId('elo')).toHaveTextContent('0');
+        expect(screen.getByTestId('league')).toBeEmptyDOMElement();
+        expect(screen.getByTestId('avatar')).toHaveTextContent('none');
+        expect(quiet).toHaveBeenCalledWith('getCurrentRank failed', expect.any(Error));
+        quiet.mockRestore();
+      });
+    
+      it('throws when useUser is called outside the provider', () => {
+        const quiet = vi.spyOn(console, 'error').mockImplementation(() => {});
+        expect(() => render(<UserConsumer />)).toThrow('useUser must be used within a UserProvider');
+        quiet.mockRestore();
+      });
 });
