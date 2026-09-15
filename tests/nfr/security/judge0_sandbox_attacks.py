@@ -14,5 +14,10 @@ TOKEN = ""
 def get_test_token(username, password):
     client = boto3.client("cognito-idp", region_name="eu-north-1")
     resp = client.initiate.auth(
-        ClientId=os.getenv("COGNITO_CLIENT_ID")
+        ClientId=os.getenv("COGNITO_CLIENT_ID"),
+        AuthFlow="USER_AUTH",
+        AuthParameters={
+            "USERNAME": username,
+            "PREFERRED_CHALLENGE" : "PASSWORD",
+        },
     )
