@@ -137,6 +137,38 @@ describe('UserProvider integration', () => {
     expect(api.get).not.toHaveBeenCalled();
   });
 
+  it('re-fetches the profile when refresh is called', async () => {
+    const user = userEvent.setup();
+    renderUser();
+    await waitFor(() => expect(api.get).toHaveBeenCalledTimes(6));
+
+    respondWith({ 'elo/elo-get': { status: 200, data: { rating: 1500 } } });
+    await user.click(screen.getByRole('button', { name: 'refresh' }));
+
+    await waitFor(() => expect(screen.getByTestId('elo')).toHaveTextContent('1500'));
+    expect(api.get).toHaveBeenCalledTimes(12);
+  });
+
+  it('surfaces a non-200 elo response as an error', async () => {
+    respondWith({ 'elo/elo-get': { status: 500, data: 'server exploded' } });
+
+    renderUser();
+
+    await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Error: 500 server exploded'));
+    expect(screen.getByTestId('elo')).toHaveTextContent('0');
+  });
+
+  it('surfaces a non-200 avatar response as an error', async () => {
+    const user = userEvent.setup();
+    renderUser();
+    await waitFor(() => expect(api.get).toHaveBeenCalledTimes(6));
+
+    respondWith({ 'user/avatar_id': { status: 404, data: 'no avatar' } });
+    await user.click(screen.getByRole('button', { name: 'refresh' }));
+
+    await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Error: 404 no avatar'));
+  });
+
   
   
   
