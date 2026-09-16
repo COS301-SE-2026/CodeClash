@@ -52,3 +52,19 @@ export interface PowerupShopItem extends ShopItemBase {
     effect: PowerupEffectConf;
     quantityGranted: number;
 }
+
+export type ShopItem = AvatarShopItem | AccessoryShopItem | ThemeShopItem | PowerupShopItem;
+
+export interface Wallet {
+    stardust: number;
+}
+
+export interface Owned {
+    category: 'avatar' | 'accessory' | 'theme';
+    acquiredAt: string;
+}
+
+export interface Consumable {
+    category: 'powerup';
+    quantity: number;
+}
