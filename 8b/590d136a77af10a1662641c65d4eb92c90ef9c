@@ -1,0 +1,18 @@
+frontend/src/Views/Dashboard/components/skill-progress.tsx
+  h_94c952a9e14c58 1-43
+frontend/src/Views/Dashboard/Dashboard.tsx
+  h_94c952a9e14c58 1-126
+frontend/src/App.tsx
+  h_94c952a9e14c58 7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "8b590d136a77af10a1662641c65d4eb92c90ef9c",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
