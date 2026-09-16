@@ -1,0 +1,17 @@
+frontend/src/ViewModels/DashboardViewModel.ts
+  h_94c952a9e14c58 42-46
+  h_94c952a9e14c58 10-12,25-39,56-58
+backend/src/application/usecases/services/match/match-completion.service.ts
+  h_94c952a9e14c58 1-118
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "04775e92aac983f9e6b24b946b4b723013dba82f",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
