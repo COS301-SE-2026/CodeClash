@@ -1,7 +1,7 @@
 import { CodeEditor } from "@/components/features/code-editor";
 import { Question } from "@/components/features/question";
 import { MatchScreen } from "@/components/shared/Match";
-import { useMatch } from "src/ViewModels/MatchViewModel"
+import { useMatch } from "src/ViewModels/MatchViewModels/MatchViewModel"
 import { ChevronRight, ChevronLeft } from 'lucide-react'
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';

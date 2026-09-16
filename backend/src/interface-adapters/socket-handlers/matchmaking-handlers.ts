@@ -9,7 +9,7 @@ import { MatchStart } from "src/application/usecases/services/match/match-start.
 
 
 
-export const joinMatchQueue = (async (io: Server, socket: Socket, data: any, matchmaking_service: MatchmakingService, matched_users_service: MatchConfirmationService, user_repo: IUserRepository) => {
+export const joinMatchQueue = (async (io: Server, socket: Socket, data: any, matchmaking_service: MatchmakingService, match_confirmation_service: MatchConfirmationService, user_repo: IUserRepository) => {
 
     socket.join(socket.data.user_id)
     const user: MatchmakingUserDTO = {
@@ -20,28 +20,32 @@ export const joinMatchQueue = (async (io: Server, socket: Socket, data: any, mat
         joined_at: new Date()
     };
 
-    let match = null;
 
-    match = await matchmaking_service.matchmaking(user);
+    const match = await matchmaking_service.matchmaking(user);
 
-    if (!match)
-        return;
+    if (!match) return;
 
-    // const pair_id = matched_users_service.create(match);
-    // const player_1_username = await user_repo.getUserData(match.player_1.id, 'username');
-    // const Player_2_username = await user_repo.getUserData(match.player_2.id, 'username');
+    const group_id = match_confirmation_service.create(match);
 
-    // const result = {
-    //     players: {
-    //         player_1: { ...match.player_1, username: player_1_username?.username },
-    //         player_2: { ...match.player_2, username: Player_2_username?.username }
-    //     },
-    //     pair_id: pair_id,
-    //     game_mode: data.game_mode
-    // }
+    const players = await Promise.all(
+        match.map(async (p) => {
+            const user_data = await user_repo.getUserData(p.id, 'username');
+            return {
+                ...p,
+                username: user_data?.username
+            };
+        })
+    );
 
-    // io.to(match.player_1.id).emit('users_matched', result);
-    // io.to(match.player_2.id).emit('users_matched', result);
+    const result = {
+        players: players,
+        group_id: group_id,
+        match_mode: data.match_mode
+    };
+
+    for (const p of match) {
+        io.to(p.id).emit('users_matched', result);
+    }
 })
 
 export const leaveMatchQueue = (async (io: Server, socket: Socket, matchmaking_service: MatchmakingService) => {

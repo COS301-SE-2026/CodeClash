@@ -50,7 +50,7 @@ export class MatchmakingCache implements IMatchmakingCache {
         return await this.redis.zcard(queue);
     }
 
-    async deletUser(queue: MatchMode, user_id: string): Promise<number> {
+    async deleteUser(queue: MatchMode, user_id: string): Promise<number> {
 
         const count = await this.redis.zrem(queue, user_id);
         await this.redis.hdel(`user:${user_id}`, "user_joined_at");

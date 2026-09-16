@@ -10,7 +10,7 @@ import { MatchmakingProvider } from './context/Socket/MatchmakingContext'
 import { SocketProvider } from './context/Socket/SocketContext'
 import { ThemeProvider } from './context/ThemeContext'
 import { UserProvider } from './context/User/UserContext'
-import { FriendsProvider } from './ViewModels/FriendsViewModel/FriendsContext'
+import { FriendsProvider } from './context/Friends/FriendsContext'
 import FriendInvitePopup from './Views/Friends/FriendInvitePopup'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

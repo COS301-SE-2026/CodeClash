@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import type { MatchMode } from 'src/dtos/match/match.dto';
 
 import { type PopupProps } from '../Models/PopUpModel';
-import { useSelectTopic } from '../ViewModels/PopUpViewModel';
+import { useSelectTopic } from '../ViewModels/MatchViewModels/PopUpViewModel';
 import { Yes } from 'src/animations/yes';
 
 import { Card } from '@/components/ui/card'

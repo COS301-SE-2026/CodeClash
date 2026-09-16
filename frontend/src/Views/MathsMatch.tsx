@@ -1,6 +1,6 @@
 import { ChevronRight, ChevronLeft } from 'lucide-react'
 import { useEffect } from 'react';
-import { useMatch } from 'src/ViewModels/MatchViewModel';
+import { useMatch } from 'src/ViewModels/MatchViewModels/MatchViewModel';
 
 import MathMatch from '@/components/features/MathPage';
 import { Question } from '@/components/features/question';

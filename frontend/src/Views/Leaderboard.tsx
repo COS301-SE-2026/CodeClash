@@ -1,6 +1,6 @@
 import { Trophy } from 'lucide-react'
 
-import { LeaderboardViewModel } from '../ViewModels/LeaderboardViewModel';
+import { LeaderboardViewModel } from '../ViewModels/MatchViewModels/LeaderboardViewModel';
 
 import PodiumCard from './Leaderboard/components/PodiumCard';
 import LeaderboardTable from './Leaderboard/components/LeaderboardTable';

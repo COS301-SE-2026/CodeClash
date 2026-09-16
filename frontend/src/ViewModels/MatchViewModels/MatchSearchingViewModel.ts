@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useMatchmaking } from 'src/context/Socket/hooks/useMatchmaking';
+import { useMatchmaking } from 'src/context/Matchmaking/hooks/useMatchmaking';
 import { useSocket } from 'src/context/Socket/hooks/useSocket';
 import { useUser } from 'src/context/User/hooks/useUser';
 
@@ -8,7 +8,7 @@ import {
   formatMatchSearchTime,
   matchSearchingContent,
   type MatchSearchingPlayer,
-} from '../Models/MatchSearchingModel';
+} from 'src/Models/MatchSearchingModel';
 
 export function MatchSearchingViewModelFunction() {
   const navigate = useNavigate();

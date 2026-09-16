@@ -3,7 +3,7 @@
 import React, { useEffect, useMemo, useState, type ReactNode } from "react";
 import type { MatchedUsersDTO } from "src/dtos/matchmaking/matched-user.dto";
 import type { MatchType, MatchMode } from "src/dtos/match/match.dto";
-import { useSocket } from "./hooks/useSocket";
+import { useSocket } from "src/context/Socket/hooks/useSocket";
 import { MatchmakingContext } from "./MatchmakingContextValue";
 
 export const MatchmakingProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -17,7 +17,7 @@ export const MatchmakingProvider: React.FC<{ children: ReactNode }> = ({ childre
 
     const handleMatched = (data: MatchedUsersDTO) => {
         setMatched(true)
-        setPairId(data.pair_id);
+        setPairId(data.group_id);
         setMatchedUsers(data);
     }
 

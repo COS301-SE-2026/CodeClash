@@ -1,6 +1,6 @@
 import { IMatchmakingCache } from "src/application/interfaces/cache/IMatchmakingCache";
 import { MatchMode } from "src/entities/database/questions.entities";
-import {MatchmakingUserDTO} from "src/entities/dtos/matchmaking/matchmaking.dto";
+import { MatchmakingUserDTO } from "src/entities/dtos/matchmaking/matchmaking.dto";
 
 
 export class MatchmakingService {
@@ -23,9 +23,9 @@ export class MatchmakingService {
         return await this.cache.dequeue(user_id, queue);
     }
 
-    async matchmaking(user: MatchmakingUserDTO) {
+    async matchmaking(user: MatchmakingUserDTO, group_size: number = 2) {
+        const player_count = group_size - 1;
         const range = this.elo_difference * user.match_attempt;
-
         const elo_range = await this.cache.getPlayers(user.match_mode, user.elo, range);
 
         // get joined_at times for all users in the elo_range
@@ -36,16 +36,13 @@ export class MatchmakingService {
             })
         );
 
+        // remove myself just 
+        const candidates = result
+            .filter(p => p.join !== null && p.user_id !== user.id)
+            .sort((a, b) => Number(a.join) - Number(b.join));
 
-        // remove null join values
-        const players = result.filter(u => u.join !== null);
 
-
-        // sort by joined times - ascending
-        players.sort((a, b) => Number(a.join) - Number(b.join));
-
-        if (players.length == 0) {
-
+        if (candidates.length < player_count) {
             const waiting = await this.cache.getUserElo(user.match_mode, user.id);
 
             if (waiting)   //user is already in the queue
@@ -56,33 +53,23 @@ export class MatchmakingService {
 
             return null;
         }
-        else if (players[0]!.user_id == user.id) {
-            return null;
-        }
-        else {
 
-            const match = players[0];
+        const chosen = candidates.slice(0, player_count);
+        const matched_players = await Promise.all(
+            chosen.map(async (c) => {
+                const elo = Number(await this.cache.getUserElo(user.match_mode, c.user_id));
+                await this.cache.deleteUser(user.match_mode, c.user_id);
+                return { id: c.user_id, elo };
+            })
+        )
+        
+        await this.cache.deleteUser(user.match_mode, user.id);
 
-            if (!match) return null;
+        return [{
+            id: user.id, elo: user.elo,
+            ...matched_players
+        }];
 
-            const match_elo = Number(await this.cache.getUserElo(user.match_mode, match.user_id));
-
-            // found a match
-            // remove players from queue
-            await this.cache.deletUser(user.match_mode, user.id);
-            await this.cache.deletUser(user.match_mode, match.user_id)
-
-            return {
-                player_2: {
-                    id: user.id,
-                    elo: user.elo
-                },
-                player_1: {
-                    id: match.user_id,
-                    elo: match_elo
-                }
-            };
-        }
     }
 
     async math_queue_length(): Promise<number> {

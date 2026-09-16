@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom';
-import { useMatchmaking } from "src/context/Socket/hooks/useMatchmaking";
+import { useMatchmaking } from "src/context/Matchmaking/hooks/useMatchmaking";
 import { useSocket } from "src/context/Socket/hooks/useSocket"
 import { useUser } from "src/context/User/hooks/useUser";
 import type { MatchedUsersDTO } from "src/dtos/matchmaking/matched-user.dto";
@@ -10,12 +10,12 @@ import {
   matchFoundContent,
   type MatchFoundDetail,
   type MatchFoundPlayer,
-} from '../Models/MatchFoundModel';
+} from 'src/Models/MatchFoundModel';
 
 
 
 
-export function MatchFoundViewModelFunction() {
+export function useMatchFound() {
   const nav = useNavigate();
   const { league, username, avatar, elo } = useUser();
   const { matchmaking_socket } = useSocket()
@@ -67,11 +67,11 @@ export function MatchFoundViewModelFunction() {
 
   const accept = () => {
     if (matchmaking_socket && matchedUsers) {
-      const new_path = "/".concat(matchedUsers.game_mode!).concat("-match")
+      const new_path = "/".concat(matchedUsers.match_mode!).concat("-match")
       setPath(new_path);
       const data: MatchAcceptedDTO = {
         pair_id: pairId,
-        match_mode: matchedUsers.game_mode!,
+        match_mode: matchedUsers.match_mode!,
         league: league,
         username: username,
         avatar: avatar,
@@ -87,25 +87,16 @@ export function MatchFoundViewModelFunction() {
   }
 
   const set_players = (matched_users: MatchedUsersDTO) => {
-    if (!matchedUsers?.players) return
+    if (!matched_users?.players) return
 
-    const player_1 = matched_users.players.player_1;
-    const p1: MatchFoundPlayer = {
-      id: player_1.id,
-      elo: player_1.elo,
-      side: 'left',
-      username: player_1.username
-    }
+    const players: MatchFoundPlayer[] = matched_users.players.map((player,idx)=>({
+      id: player.id,
+      elo: player.elo,
+      side: idx === 0? 'left': 'right', //TOTO:   tournaments need a grid layout net sides
+      username: player.username
+    }));
 
-    const player_2 = matched_users.players.player_2;
-    const p2: MatchFoundPlayer = {
-      id: player_2.id,
-      elo: player_2.elo,
-      side: 'right',
-      username: player_2.username
-    }
-
-    setPlayers([p1, p2])
+    setPlayers(players)
   }
 
   const set_detais = () => {
@@ -116,7 +107,7 @@ export function MatchFoundViewModelFunction() {
 
     const mode: MatchFoundDetail = {
       label: "Match Mode",
-      value: matchedUsers!.game_mode!
+      value: matchedUsers!.match_mode!
     }
 
     setMatchDetails([type, mode])

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useAuth } from "src/context/Auth/hooks/useAuth";
-import { useMatchmaking } from "src/context/Socket/hooks/useMatchmaking";
+import { useMatchmaking } from "src/context/Matchmaking/hooks/useMatchmaking";
 import { useUser } from "src/context/User/hooks/useUser";
 import type { MatchType } from "src/dtos/match/match.dto";
 import { getIcon } from "src/utils/achievementIcon";

@@ -4,7 +4,7 @@ import {
 } from "react";
 // import { useSocket } from "src/context/Socket/hooks/useSocket";
 
-import { useAuth } from "../../context/Auth/hooks/useAuth";
+import { useAuth } from "../Auth/hooks/useAuth";
 import {friendContent} from "../../Models/FriendsModel";
 import type {
     Friend, FriendRequest, Invite, 

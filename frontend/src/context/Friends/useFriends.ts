@@ -2,7 +2,7 @@
 
 import { useContext } from "react";
 
-import { FriendsContextFunc } from "../../ViewModels/FriendsViewModel/FriendsContext";
+import { FriendsContextFunc } from "./FriendsContext";
 
 export function useFriends() {
     const context = useContext(FriendsContextFunc);
