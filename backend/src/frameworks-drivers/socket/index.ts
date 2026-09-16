@@ -1,8 +1,8 @@
 import { Server } from "socket.io";
 import { SocketDeps } from "./dependencies";
-import { registerMatchHandlers } from "./modules/match/register-handlers";
-import { registerMatchmakingHndlers } from "./modules/matchmaking/register-handlers";
-import { registerFriendHandlers } from "./modules/friends/register-handler";
+import { registerMatchHandlers } from "./modules/register-match-handlers";
+import { registerMatchmakingHndlers } from "./modules/register-matchmaking-handlers";
+import { registerFriendHandlers } from "./modules/register-friends-handler";
 
 
 export function attachSocketModules(io: Server, deps: SocketDeps){

@@ -9,28 +9,30 @@ import { MatchmakingService } from "src/application/usecases/services/matchmakin
 import { DeleteGame } from "src/application/usecases/systems/delete-game";
 import { FinishGame } from "src/application/usecases/systems/finish-game";
 import { SubmissionSystem } from "src/application/usecases/systems/submission.system";
+import { MatchStart } from "src/application/usecases/services/match/match-start.service";
 
 export interface MatchDeps {
-    math_marking_service: MarkingService;
-    prog_marking_service: MarkingService;
-    submission_system: SubmissionSystem;
-    match_completion_system: FinishGame;
-    match_deletion_system: DeleteGame;
-    match_store: MatchStore;
-};
+    math_marking_service: MarkingService,
+    prog_marking_service: MarkingService,
+    submission_system: SubmissionSystem,
+    match_completion_system: FinishGame,
+    match_deletion_system: DeleteGame,
+    match_store: MatchStore,
+}
 
 export interface MatchmakingDeps {
-    matchmaking_service: MatchmakingService;
-    matched_users_service: MatchConfirmationService;
-    match_service: MatchCreationService;
-    match_store: MatchStore;
-    user_repo: IUserRepository
-};
+    matchmaking_service: MatchmakingService,
+    matched_users_service: MatchConfirmationService,
+    match_service: MatchCreationService,
+    match_store: MatchStore,
+    user_repo: IUserRepository,
+    match_start: MatchStart,
+}
 
-export interface FriendDeps { };
+export interface FriendDeps { }
 
 export interface SocketDeps {
-    match: MatchDeps;
-    matchmaking: MatchmakingDeps;
-    friends: FriendDeps;
+    match: MatchDeps,
+    matchmaking: MatchmakingDeps,
+    friends: FriendDeps,
 }

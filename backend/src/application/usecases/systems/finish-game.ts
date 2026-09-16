@@ -2,7 +2,7 @@ import { ResultComponent, SubmissionRegistryComponent } from "src/entities/compo
 import { PlayerStatsDTO } from "src/entities/dtos/player-stats.dto";
 import { World } from "src/entities/World"
 import { MatchResultService } from "../services/match/match-result.service";
-import { GameStore } from "../services/match/match-store.service";
+import { MatchStore } from "../services/match/match-store.service";
 import { MatchType } from "src/entities/database/questions.entities";
 import { DeleteGame } from "./delete-game";
 import { IMatchStatsRepository } from "src/application/interfaces/repositories/IMatchStatsRepository";
@@ -17,8 +17,7 @@ export class FinishGame {
     constructor(
         private readonly world: ReturnType<typeof World>,
         private readonly match_result_service: MatchResultService,
-        private readonly game_store: GameStore,
-        private readonly delete_game: DeleteGame,
+        private readonly game_store: MatchStore,
         private readonly match_stats_repo: IMatchStatsRepository,
         private readonly achievement_service: AchievementService,
         private readonly user_repo: IUserRepository

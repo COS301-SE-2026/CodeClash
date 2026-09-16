@@ -1,4 +1,4 @@
-import { IGameCache } from "src/application/interfaces/cache/IGameCache";
+import { IMatchCache } from "src/application/interfaces/cache/IGameCache";
 import { LifeSystem } from "src/application/usecases/systems/life.system";
 import { SubmissionSystem } from "src/application/usecases/systems/submission.system";
 import { NotificationService } from "../notification.service";
@@ -11,7 +11,7 @@ import type { MarkingResultDTO } from "src/entities/dtos/marking/submission-resu
 export class MarkingService {
 
     constructor(
-        private readonly game_cache: IGameCache,
+        private readonly game_cache: IMatchCache,
         private readonly submission_system: SubmissionSystem,
         private readonly life_System: LifeSystem,
         private readonly notifications: NotificationService,

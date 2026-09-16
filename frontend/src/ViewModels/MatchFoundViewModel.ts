@@ -46,10 +46,10 @@ export function MatchFoundViewModelFunction() {
   }
 
   // handler for user that declined the game
-  const declineGame = () => {
-    setLoading(false);
-    nav('/dashboard')
-  }
+  // const declineGame = () => {
+  //   setLoading(false);
+  //   nav('/dashboard')
+  // }
 
   // handler for user that was declined
   const gameDeclined = () => {
@@ -58,8 +58,7 @@ export function MatchFoundViewModelFunction() {
     const data: MatchmakingUserDTO = {
       elo: elo,
       match_mode: match_mode!,
-      match_type: gameType!,
-      username: username
+      match_type: gameType!
     };
 
     matchmaking_socket?.joinQueue(data);

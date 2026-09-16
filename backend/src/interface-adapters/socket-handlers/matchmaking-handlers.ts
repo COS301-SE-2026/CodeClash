@@ -27,21 +27,21 @@ export const joinMatchQueue = (async (io: Server, socket: Socket, data: any, mat
     if (!match)
         return;
 
-    const pair_id = matched_users_service.create(match);
-    const player_1_username = await user_repo.getUserData(match.player_1.id, 'username');
-    const Player_2_username = await user_repo.getUserData(match.player_2.id, 'username');
+    // const pair_id = matched_users_service.create(match);
+    // const player_1_username = await user_repo.getUserData(match.player_1.id, 'username');
+    // const Player_2_username = await user_repo.getUserData(match.player_2.id, 'username');
 
-    const result = {
-        players: {
-            player_1: { ...match.player_1, username: player_1_username?.username },
-            player_2: { ...match.player_2, username: Player_2_username?.username }
-        },
-        pair_id: pair_id,
-        game_mode: data.game_mode
-    }
+    // const result = {
+    //     players: {
+    //         player_1: { ...match.player_1, username: player_1_username?.username },
+    //         player_2: { ...match.player_2, username: Player_2_username?.username }
+    //     },
+    //     pair_id: pair_id,
+    //     game_mode: data.game_mode
+    // }
 
-    io.to(match.player_1.id).emit('users_matched', result);
-    io.to(match.player_2.id).emit('users_matched', result);
+    // io.to(match.player_1.id).emit('users_matched', result);
+    // io.to(match.player_2.id).emit('users_matched', result);
 })
 
 export const leaveMatchQueue = (async (io: Server, socket: Socket, matchmaking_service: MatchmakingService) => {

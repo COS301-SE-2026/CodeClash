@@ -1,5 +1,5 @@
 import { MatchMode } from "src/entities/database/questions.entities";
-import { GameQuestionsDTO } from "src/entities/dtos/match-data.dto";
+import { MatchQuestionsDTO } from "src/entities/dtos/match-data.dto";
 import { leagueMapping } from "src/entities/league-mapping";
 
 import { IQuestionRepository } from "../../interfaces/repositories/IQuestionRepository";
@@ -36,7 +36,7 @@ export class GetQuestions {
 
 export class GetDifficulty {
 
-    execute(questions: GameQuestionsDTO) {
+    execute(questions: MatchQuestionsDTO) {
 
         let difficulty = 0;
         let count = 0;
@@ -63,7 +63,7 @@ export class GetDifficulty {
 
 export class GetTotalTime {
 
-    execute(questions: GameQuestionsDTO){
+    execute(questions: MatchQuestionsDTO){
         let time = 0;
 
         for(const question of questions.easy){
