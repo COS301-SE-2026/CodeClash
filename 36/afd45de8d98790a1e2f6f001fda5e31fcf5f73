@@ -1,0 +1,20 @@
+frontend/vitest.config.ts
+  s_8afae0042ab150::t_be81646ccecdf8 6
+  s_8afae0042ab150::t_a1552a11d9f9e3 7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "36afd45de8d98790a1e2f6f001fda5e31fcf5f73",
+  "prompts": {},
+  "sessions": {
+    "s_8afae0042ab150": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6af1cb38-6fd2-4c3b-afae-2bf5c3a9dce8",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
