@@ -4,7 +4,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { useAuth } from "./context/Auth/hooks/useAuth";
 import Layout from "./layout";
 import BrandStyleGuide from "./Views/BrandStyleGuide";
-import Dashboard from "./Views/Dashboard";
+import Dashboard from "./Views/Dashboard/Dashboard";
 import MatchFound from "./Views/MatchFound";
 import MathMatch from "./Views/MathsMatch";
 import MatchHistory from "./Views/MatchHistory";
