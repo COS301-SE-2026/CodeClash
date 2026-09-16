@@ -12,3 +12,13 @@ INSERT INTO shop_items (category, name, description, price, rariy, metadata) VAL
 '{ "effect": "restore_life", "value": 1 }'),
 
 -- POWER DOWNS --------
+('powerup', 'Bug Injection', 'Inserts bugs or random characters into your opponent''s current answer.', 150, 'common',
+'{ "effect": "insert_bugs", "scope": "current_answer" }'),
+('powerup', 'Wipe', 'Erases your opponents''s current in-progress answer. Only one allowed per match.', 300, 'legendary',
+'{ "effect": "wipe_answer", "scope": "current_answer", "max_uses-per_match": 1 }'),
+('powerup', 'Question Blackout', 'Hides the opponent''s question from view for a set duration (or permanently).', 200, 'legendary',
+'{ "effect": "block_question", "duration_seconds": 30 }'),
+('powerup', 'Time Sink', 'Increase your opponents''s time taken stat, lowering their score and ELO gain.', 150, 'common',
+'{ "effect": "increase_time", "value_seconds": 10 }' ),
+('powerup', 'Life Drain', 'Removes one life point from your opponent.', 250, 'epic',
+'{ "effect": "drain_life", "value": 1 }');
