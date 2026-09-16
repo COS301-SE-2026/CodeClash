@@ -40,6 +40,7 @@ export class MatchmakingService {
         // remove null join values
         const players = result.filter(u => u.join !== null);
 
+
         // sort by joined times - ascending
         players.sort((a, b) => Number(a.join) - Number(b.join));
 
