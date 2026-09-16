@@ -27,6 +27,33 @@ interface InventoryContextValue {
 
 const InventoryContext = createContext<InventoryContextValue | undefined>(undefined);
 
+export const InventoryProvider = ({children}: {children: ReactNode}) => {
+    const [catalog, setCatalog] = useState<ShopItem[]>([]);
+    const [wallet, setWallet] = useState<Wallet>({stardust: 0});
+    const [inventory, setInventory] = useState<UserInventory | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    const fetchAll = useCallback(async () => {
+        setLoading(true);
+        setError(null);
+        try {
+            const [c,w,i] = await Promise.all([getCatalog(), getWallet(), getInv()]);
+            setCatalog(c);
+            setWallet(w);
+            setInventory(i);
+        }
+        catch (e) {
+            setError(e instanceof Error ? e.message : 'Failed to load inventory');
+        }
+        finally {
+            setLoading(false);
+        }
+    }, [])
+
+    useEffect(() => {fetchAll();}, [fetchAll]);
+}
+
 export const useInventory = (): InventoryContextValue => {
     const ctx = useContext(InventoryContext);
     if (!ctx) {
