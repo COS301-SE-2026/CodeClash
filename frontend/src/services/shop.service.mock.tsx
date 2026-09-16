@@ -1,4 +1,5 @@
 //mocked to see pipline of shop, endpoints still need to be implemented
+//mock file to see pipeline while backend is getting implemented
 
 import type { ShopItem, Wallet, UserInventory } from "src/Models/ShopModel";
 
@@ -62,3 +63,37 @@ const MOCKED: ShopItem[] = [
         effect: {effectType: 'hint', targeting: 'self'}
     },    
 ]
+
+const MOCKED_WALLET: Wallet = {stardust: 1000};
+
+const MOCKED_INV: UserInventory = {
+    owned: [
+        {
+            itemId: 'robot-android',
+            category: 'avatar',
+            acquiredAt: new Date().toISOString()
+        },
+        {
+            itemId: 'theme-cosmos',
+            category: 'theme',
+            acquiredAt: new Date().toISOString()
+        },
+        {
+            itemId: 'acc-cap-01',
+            category: 'accessory',
+            acquiredAt: new Date().toISOString()
+        }
+    ],
+    consumable: [
+        {
+            category: 'powerup',
+            quantity: 2
+        }
+    ],
+    equippedAvatarId: 'robot-android',
+    equippedAccessories: {
+        headwear: 'acc-cap-01'
+    },
+    equippedThemeId: 'theme-cosmos',
+    savedAvatarConf: []
+}
