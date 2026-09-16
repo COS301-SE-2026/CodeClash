@@ -1,7 +1,7 @@
 import { World } from "src/entities/World";
 import { SubmissionRegistryComponent, SubmissionComponent, MatchComponent, PlayersComponent, LifeComponent } from "src/entities/components";
 import { IMatchRepository } from "src/application/interfaces/repositories/IMatchRepository";
-import { MatchResultService } from "./match/match-result.service";
+import { MatchResultService } from "src/application/usecases/services/match/match-result.service";
 import { PlayerStatsDTO } from "src/entities/dtos/player-stats.dto";
 
 export class MatchCompletionService {
