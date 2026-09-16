@@ -13,6 +13,7 @@ interface ShopItemBase {
     category: ShopCategory;
     name: string;
     description?: string;
+    price: Price;
     rarity?: 'common' | 'rare' | 'epic' | 'legendary';
     previewImageUrl?: string; //a thumbnail
 }
