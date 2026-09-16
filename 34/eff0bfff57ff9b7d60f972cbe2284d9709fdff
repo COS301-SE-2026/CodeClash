@@ -1,0 +1,48 @@
+backend/src/interface-adapters/cache/matchmaking-cache.ts
+  h_94c952a9e14c58 13-14,32,40,45,55-56
+backend/src/application/usecases/services/matchmaking.service.ts
+  h_94c952a9e14c58 43
+frontend/@/components/ui/codesDropdown.tsx
+  h_94c952a9e14c58 1-59
+frontend/README.md
+  h_94c952a9e14c58 43
+frontend/package-lock.json
+  h_94c952a9e14c58 18,6069-6074
+frontend/package.json
+  h_94c952a9e14c58 25
+frontend/src/App.tsx
+  h_94c952a9e14c58 48
+frontend/src/Models/SignUpModel.ts
+  h_94c952a9e14c58 9,26
+frontend/src/ViewModels/SignInViewModel.ts
+  h_94c952a9e14c58 21,35,45-47,56
+frontend/src/ViewModels/SignUpViewModel.ts
+  h_94c952a9e14c58 19,35,50,52,58,60-61,69-71,150
+frontend/src/Views/ForgotPassword.tsx
+  h_94c952a9e14c58 1,3,16-21,26-27,33-38,40,48-49,55,58,60,64,73-74,76
+frontend/src/Views/MatchFound.tsx
+  h_94c952a9e14c58 1,23-27,30,36,43,45,50,57,59,72,74,79,87-88,96,101,106,120,128
+frontend/src/Views/MatchSearching.tsx
+  h_94c952a9e14c58 1,3,5,10,14-17,20,25,31,36,38,40,45,54,79-82
+frontend/src/Views/Popup.tsx
+  h_94c952a9e14c58 28,31,34,36-37,40,42-43,55,57,69,72
+frontend/src/Views/SignIn.tsx
+  h_94c952a9e14c58 1,15,62-68,71,77,81
+frontend/src/Views/SignUp.tsx
+  h_94c952a9e14c58 1,3,8,26,133-138,157-162,172
+frontend/src/styles/global.css
+  h_94c952a9e14c58 504,609
+frontend/src/utils/countryCodes.ts
+  h_94c952a9e14c58 1-68
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "34eff0bfff57ff9b7d60f972cbe2284d9709fdff",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
