@@ -1,5 +1,6 @@
 //inventory context to fetch wallet, category, and inventory - sharing it with the app and allowing the correct avata + accessories go all across.
 
+import { Slot } from "radix-ui";
 import { createContext, useContext, useEffect, useState, useCallback, useMemo } from "react";
 import type { ReactNode } from "react";
 import type { ShopItem, Wallet, UserInventory, AccessorySlot, AvatarShopItem, AccessoryShopItem } from "src/Models/ShopModel";
@@ -17,11 +18,11 @@ interface InventoryContextValue {
 
     refetch: () => Promise<void>;
     purchase: (itemId: string) => Promise<void>;
-    equip: (category: 'robot' | 'theme', itemId: string) => Promise<void>;
+    equip: (category: 'avatar' | 'theme', itemId: string) => Promise<void>;
     toggleAcc: (slot: AccessorySlot, itemId: string) => Promise<void>;
 
     isOwned: (itemId: string) => boolean;
-    isEquipped: (category: 'robot' | 'theme', itemId: string) => boolean;
+    isEquipped: (category: 'avatar' | 'theme', itemId: string) => boolean;
     isAccessoryEquipped: (slot: AccessorySlot, itemId: string) => boolean;
 }
 
@@ -52,6 +53,46 @@ export const InventoryProvider = ({children}: {children: ReactNode}) => {
     }, [])
 
     useEffect(() => {fetchAll();}, [fetchAll]);
+
+    const equippedAvatarImage = useMemo(() => {
+        if (!inventory?.equippedAvatarId) {
+            return undefined;
+        }
+        const avatar = catalog.find((i): i is AvatarShopItem => i.category === 'avatar' && i.id === inventory.equippedAvatarId);
+
+        return avatar?.previewImageUrl;
+    }, [catalog, inventory])
+
+    const equippedAccessoryImage = useMemo(() => {
+        if (!inventory) {
+            return {};
+        }
+        const result: Partial<Record<AccessorySlot, string>> = {};
+        Object.entries(inventory.equippedAccessories).forEach(([slot, itemId]) => {
+            const match = catalog.find((i): i is AccessoryShopItem => i.category === 'accessory' && i.id === itemId);
+            if (match?.previewImageUrl) {
+                result[slot as AccessorySlot] = match.previewImageUrl;
+            }
+        })
+        return result;
+    }, [catalog, inventory])
+
+    const purchase = useCallback(async (itemId: string) => {
+        const res = await purchaseItm(itemId);
+        setWallet(res.wallet);
+        setInventory(res.inventory);
+    }, [])
+
+    const equip = useCallback(async (category: 'avatar' | 'theme', itemId: string) => {
+        const updated = await equipItm(category, itemId);
+        setInventory(updated);
+    },[])
+
+    const toggleAcc = useCallback(async (slot: AccessorySlot, itemId: string) => {
+        const already = inventory?.equippedAccessories[slot] === itemId;
+        const updated = await equipAcc(slot, already ? null : itemId);
+        setInventory(updated);
+    }, [inventory])
 }
 
 export const useInventory = (): InventoryContextValue => {
