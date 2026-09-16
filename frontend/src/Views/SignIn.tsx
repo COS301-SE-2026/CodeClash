@@ -1,8 +1,6 @@
-import { ArrowLeft, ArrowRight, Lock, AtSign} from "lucide-react";
+import { ArrowLeft, ArrowRight, Lock, AtSign, Loader2} from "lucide-react";
 import React from "react";
 import { Link } from "react-router-dom";
-
-import SymbolBackground from "../assets/Background/SymbolBackground.png";
 import { SignInViewModelFunction } from "../ViewModels/SignInViewModel";
 
 import Starfield from "@/components/ui/animations/Starfield";
@@ -14,13 +12,13 @@ const SignIn: React.FC= () => {
         isLoading,
         setField,
         handleSubmit,
+        isSigningIn
     } = SignInViewModelFunction();
 
     return (
         <div className="relative w-full min-h-screen flex items-center justify-center overflow-hidden px-6 py-16" 
             style={{background: "radial-gradient(circle at 50% 12%, #b91551 0%, #850f3b 22%, #630b3c 34%, #0a0008 62%)"}}>
             
-            <img src = {SymbolBackground} alt="" className="absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none"/>
             <Starfield/>
 
             {/*Back Button*/}
@@ -61,21 +59,26 @@ const SignIn: React.FC= () => {
                     <div className="flex justify-center mt-4">
                         <Link className="text-xsm underline text-muted-text hover:text-primary transition-colors" to='/forgot-password'>Forgot password?</Link>
                     </div>
-                    <button className="btn btn-primary btn-lg w-full mt-6 group" type="button" onClick={handleSubmit} disabled={isLoading}>
-                        {isLoading ? ("Signing in...") : (
+                    <button className='btn btn-primary btn-md w-full group mt-5' type='button' onClick={handleSubmit} disabled={isLoading}>
+                        {isSigningIn ? (
+                            <>
+                                <Loader2 size={20} className='animate-spin'/>
+                                <span>Signing in...</span>
+                            </>
+                        ) : (
                             <>
                                 <span>Sign In</span>
-                                <ArrowRight size={20} className="transition-transform duration-300 group-hover:translate-x-1"/>
+                                <ArrowRight size={20} className='transition-transform duration-300 group-hover:translate-x-1'/>
                             </>
                         )}
                     </button>
                     <div className="flex items-center gap-3 my-8">
                         <span className="divider flex-1"/>
-                        <span className="text-xsm uppercase tracking-[0.2rem] text-muted-text whitespace-nowrap">New to CodeClash?</span>
+                        <span className="text-xsm  text-muted-text whitespace-nowrap">New to CodeClash?</span>
                         <span className="divider flex-1"/>
                     </div>
                     <Link to='/sign-up' className="btn btn-secondary w-full group">
-                        <span>Creat an account</span>
+                        <span>Create an account</span>
                         <ArrowRight size={18} className="transition-transform duration-300 group:hover:translate-x-1"/>
                     </Link>
                 </div>

@@ -18,6 +18,7 @@ export function SignInViewModelFunction() {
     const [form, setForm] = useState<SignInForm>(formData);
     const [localError, setLocalError] = useState<string | null>(null);
     const nav = useNavigate();
+    const [isSigningIn, setIsSigningIn] = useState(false);
 
     const setField = useCallback((field: keyof SignInForm, value: string) => {
         setForm(prev => ({ ...prev, [field]: value }));
@@ -31,6 +32,7 @@ export function SignInViewModelFunction() {
             setLocalError(validationError);
             return;
         }
+        setIsSigningIn(true);
         try {
             await signIn( //If validation is passed, Amplifys sign in will be called
                 form.username.trim(),
@@ -40,6 +42,9 @@ export function SignInViewModelFunction() {
         } catch (error) {
             console.error(`Sign in error ${error}`)
         }
+        finally {
+            setIsSigningIn(false);
+        }
     }, [form, signIn, clearError, nav]); //Dependency array
 
     return {
@@ -48,5 +53,6 @@ export function SignInViewModelFunction() {
         isLoading,
         setField,
         handleSubmit,
+        isSigningIn
     };
 }
