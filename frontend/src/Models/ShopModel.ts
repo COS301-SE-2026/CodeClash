@@ -68,3 +68,20 @@ export interface Consumable {
     category: 'powerup';
     quantity: number;
 }
+
+export interface SavedAvatarConf {
+    id: string;
+    name: string;
+    avatarId: string;
+    accessories: Partial<Record<AccessorySlot, string>>;
+    createdAt: string;
+}
+
+export interface UserInventory {
+    owned: Owned[];
+    consumable: Consumable[];
+    equippedAvatarId: string | null;
+    equippedAccessories: Partial<Record<AccessorySlot, string>>;
+    equippedThemeId: string | null;
+    savedAvatarConf: SavedAvatarConf[];
+}

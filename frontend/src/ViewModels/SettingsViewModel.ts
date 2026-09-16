@@ -1,5 +1,5 @@
-import { useTheme } from "src/context/ThemeContext";
-import type { Theme } from "src/context/ThemeContext";
+import { useTheme } from "src/context/Shop/ThemeContext";
+import type { Theme } from "src/context/Shop/ThemeContext";
 
 export interface ThemesContent {
     id: Theme;
