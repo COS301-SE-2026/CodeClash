@@ -1,5 +1,4 @@
 //mocked to see pipline of shop, endpoints still need to be implemented
-//mock file to see pipeline while backend is getting implemented
 
 import type { ShopItem, Wallet, UserInventory } from "src/Models/ShopModel";
 
@@ -69,12 +68,12 @@ const MOCKED_WALLET: Wallet = {stardust: 1000};
 const MOCKED_INV: UserInventory = {
     owned: [
         {
-            itemId: 'robot-android',
+            itemId: 'robot-alien',
             category: 'avatar',
             acquiredAt: new Date().toISOString()
         },
         {
-            itemId: 'theme-cosmos',
+            itemId: 'theme-frost',
             category: 'theme',
             acquiredAt: new Date().toISOString()
         },
@@ -90,10 +89,49 @@ const MOCKED_INV: UserInventory = {
             quantity: 2
         }
     ],
-    equippedAvatarId: 'robot-android',
+    equippedAvatarId: 'robot-alient',
     equippedAccessories: {
         headwear: 'acc-cap-01'
     },
-    equippedThemeId: 'theme-cosmos',
+    equippedThemeId: 'theme-frost',
     savedAvatarConf: []
 }
+
+//lets simulate some real net latency to see loading states :)
+const delay = <T,>(value: T) => new Promise<T>((resolve) => setTimeout(() => resolve(value), 400));
+export const getCatalog = () => delay(MOCKED);
+export const getWallet = () => delay(MOCKED_WALLET);
+export const getInv = () => delay(MOCKED_INV);
+
+export const purchase = async (itemId: string) => {
+    const item = MOCKED.find((i) => i.id === itemId);
+    if (!item) {
+        throw new Error('Item not found');
+    }
+
+    MOCKED_WALLET.stardust -= item.price.amount;
+    MOCKED_INV.owned.push(
+        {
+            itemId,
+            category: item?.category as any,
+            acquiredAt: new Date().toISOString()
+        }
+    )
+    return delay({wallet: {...MOCKED_WALLET}, inventory: {...MOCKED_INV}});
+}
+
+export const equip = async (category: 'avatar' | 'theme', itemId: string) => {
+    if (category === 'avatar') MOCKED_INV.equippedAvatarId = itemId;
+    if (category === 'theme') MOCKED_INV.equippedThemeId = itemId;
+    return delay({...MOCKED_INV});
+}
+
+export const equipAcc = async (slot: string, itemId: string | null) => {
+    if (itemId) MOCKED_INV.equippedAccessories[slot as keyof typeof MOCKED_INV.equippedAccessories] = itemId;
+    else delete MOCKED_INV.equippedAccessories[slot as keyof typeof MOCKED_INV.equippedAccessories];
+    return delay({...MOCKED_INV});
+}
+
+export const createSavedAvatar = async (config: any) => delay({...config, id:'mock-' + Date.now(), createdAt: new Date().toISOString()})
+export const updateSavedAvatar = async (_id: string, config: any) => delay(config);
+export const deleteSavedAvatar = async () => delay(undefined);

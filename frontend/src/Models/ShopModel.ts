@@ -61,6 +61,7 @@ export interface Wallet {
 }
 
 export interface Owned {
+    itemId: string;
     category: 'avatar' | 'accessory' | 'theme';
     acquiredAt: string;
 }
