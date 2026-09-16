@@ -103,7 +103,7 @@ export const getCatalog = () => delay(MOCKED);
 export const getWallet = () => delay(MOCKED_WALLET);
 export const getInv = () => delay(MOCKED_INV);
 
-export const purchase = async (itemId: string) => {
+export const purchaseItm = async (itemId: string) => {
     const item = MOCKED.find((i) => i.id === itemId);
     if (!item) {
         throw new Error('Item not found');
@@ -120,7 +120,7 @@ export const purchase = async (itemId: string) => {
     return delay({wallet: {...MOCKED_WALLET}, inventory: {...MOCKED_INV}});
 }
 
-export const equip = async (category: 'avatar' | 'theme', itemId: string) => {
+export const equipItm = async (category: 'avatar' | 'theme', itemId: string) => {
     if (category === 'avatar') MOCKED_INV.equippedAvatarId = itemId;
     if (category === 'theme') MOCKED_INV.equippedThemeId = itemId;
     return delay({...MOCKED_INV});
