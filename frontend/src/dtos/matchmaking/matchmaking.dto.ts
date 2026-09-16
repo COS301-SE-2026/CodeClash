@@ -4,7 +4,6 @@ export interface MatchmakingUserDTO {
     elo: number;
     match_mode: MatchMode;
     match_type: MatchType;
-    username: string;
 };
 
 

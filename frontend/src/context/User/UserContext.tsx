@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState, type ReactNode } from "react";
 import { robot_map } from "src/assets/Robots";
-import { API } from "src/services/api.service";
+import { authGet } from "src/services/api.service";
 import { useAuth } from "../Auth/hooks/useAuth";
 
 import { UserContext } from "./UserContextValue";
@@ -20,139 +20,76 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
 
     const getElo = async () => {
-
-        if (!token) {
-            setError('Missing or Invalid Token');
-            return;
-        }
-
-
         try {
-
-            const res = await API.get('elo/elo-get', {
-                headers: { Authorization: `Bearer ${token}` }
-            })
-
-            if (res.status === 200) {
-                setElo(res.data.rating)
-                setError('');
-            }
-            else {
-                setError(`Error: ${res.status} ${res.data}`);
-            }
-
+            const data = await authGet<{ rating: number }>('elo/elo-get', token!);
+            setElo(data.rating);
         } catch (error) {
-            setError(`Error Getting User Elo: ${error}`);
+            setError(`Error Getting User Elo: ${error}`);  ///TODO: connect to notification system
 
         }
     }
 
     const getAvatarUrl = async () => {
-        if (!token) {
-            setError('Missing or Invalid Token');
-            return;
-        }
 
         try {
-            const res = await API.get('user/avatar_id', {
-                headers: { Authorization: `Bearer ${token}` }
-            })
-            if (res.status === 200) {
+            const data = await authGet<{ avatar_id: number }>('user/avatar_id', token!);
+            setAvatar(robot_map[data.avatar_id]);
 
-                const index = res.data.avatar_id;
-                setAvatar(robot_map[index]);
-            }
-            else {
-                setError(`Error: ${res.status} ${res.data}`);
-            }
         }
         catch (error) {
-            setError(`Error Getting User Avatar: ${error}`);
+            setError(`Error Getting User Avatar: ${error}`); ///TODO: connect to notification system
         }
     }
 
 
     const getLeague = async () => {
-        if (!token) {
-            setError('Missing or Invalid Token');
-            return;
-        }
-
         try {
-            const res = await API.get('user/league', {
-                headers: { Authorization: `Bearer ${token}` }
-            })
-
-            if (res.status === 200) {
-                setLeague(res.data.league);
-            }
-            else {
-                setError(`Error: ${res.status} ${res.data}`);
-            }
+            const data = await authGet<{ league: string }>('user/league', token!);
+            setLeague(data.league);
 
         }
         catch (error) {
-            setError(`Error Getting User League: ${error}`);
+            setError(`Error Getting User League: ${error}`); ///TODO: connect to notification system
         }
     }
 
 
     const getRank = async () => {
 
-        if (!token) {
-            setError('Missing or Invalid Token');
-            return;
-        }
-
         try {
-            const res = await API.get('user/rank', {
-                headers: { Authorization: `Bearer ${token}` }
-            })
-
-            if (res.status === 200) {
-                setRank(res.data.rank);
-            }
-            else {
-                setError(`Error: ${res.status} ${res.data}`)
-            }
-
+            const data = await authGet<{ rank: number }>('user/rank', token!);
+            setRank(data.rank);
         }
         catch (error) {
-            setError(`Error Getting User Rank: ${error}`);
+            setError(`Error Getting User Rank: ${error}`); ///TODO: connect to notification system
         }
 
     }
 
     const getCurrentStreak = async () => {
-        if (!token) {
-            setError('Missing or Invalid Token');
-            return;
-        }
         try {
-            const res = await API.get('user/current_streak', {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            if (res.status === 200) setCurrentStreak(res.data.current_streak);
-        } catch (error) {
+            const data = await authGet<{ current_streak: number }>('user/current_streak', token!);
+            setCurrentStreak(data.current_streak);
+        }
+        catch (error) {
             console.error('getCurrentRank failed', error);
         }
     };
 
     const getWinningStreak = async () => {
-        if (!token) {
-            setError('Missing or Invalid Token');
-            return;
-        }
         try {
-            const res = await API.get('user/winning_streak', {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            if (res.status === 200) setWinningStreak(res.data.winning_streak);
-        } catch (error) {
+            const data = await authGet<{ winning_streak: number }>('/user/winning_streak', token!);
+            setWinningStreak(data.winning_streak);
+        }
+        catch (error) {
             console.error('getCurrentRank failed', error);
         }
     };
+
     const refresh = async () => {
+
+        if (!token) return;
+        
         await Promise.all([
             getElo(),
             getAvatarUrl(),
