@@ -1,6 +1,5 @@
 //inventory context to fetch wallet, category, and inventory - sharing it with the app and allowing the correct avata + accessories go all across.
 
-import { Slot } from "radix-ui";
 import { createContext, useContext, useEffect, useState, useCallback, useMemo } from "react";
 import type { ReactNode } from "react";
 import type { ShopItem, Wallet, UserInventory, AccessorySlot, AvatarShopItem, AccessoryShopItem } from "src/Models/ShopModel";
@@ -93,6 +92,50 @@ export const InventoryProvider = ({children}: {children: ReactNode}) => {
         const updated = await equipAcc(slot, already ? null : itemId);
         setInventory(updated);
     }, [inventory])
+
+    const isOwned = useCallback(
+        (itemId: string) => inventory?.owned.some((o) => o.itemId === itemId) ?? false, [inventory]
+    )
+
+    const isEquipped = useCallback(
+        (category: 'avatar' | 'theme', itemId: string) => {
+            if (!inventory) {
+                return false;
+            }
+            if (category === 'avatar') {
+                return inventory.equippedAvatarId === itemId;
+            }
+            return inventory.equippedThemeId === itemId;
+        }, [inventory]
+    )
+
+    const isAccessoryEquipped = useCallback(
+        (slot: AccessorySlot, itemId: string) => inventory?.equippedAccessories[slot] === itemId, [inventory]
+    )
+
+    return (
+        <InventoryContext.Provider value={{
+            catalog,
+            wallet,
+            inventory,
+            loading,
+            error,
+
+            equippedAvatarImage,
+            equippedAccessoryImage,
+
+            refetch: fetchAll,
+            purchase,
+            equip,
+            toggleAcc,
+
+            isOwned,
+            isEquipped,
+            isAccessoryEquipped,
+        }}>
+            {children}
+        </InventoryContext.Provider>
+    )
 }
 
 export const useInventory = (): InventoryContextValue => {
