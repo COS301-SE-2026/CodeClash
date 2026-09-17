@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { UseUserAvatar } from '../Profile';
 import { useDashboardViewModel } from '../../ViewModels/DashboardViewModel';
 
-import Popup from '../Popup'
+import Popup from 'src/Views/Match/Popup'
 
 import Loading from '@/components/shared/Loading';
 import Starfield from '@/components/ui/animations/Starfield';

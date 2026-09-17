@@ -5,17 +5,17 @@ import { useAuth } from "./context/Auth/hooks/useAuth";
 import Layout from "./layout";
 import BrandStyleGuide from "./Views/BrandStyleGuide";
 import Dashboard from "./Views/Dashboard/Dashboard";
-import MatchFound from "./Views/MatchFound";
-import MathMatch from "./Views/MathsMatch";
-import MatchHistory from "./Views/MatchHistory";
+import MatchFound from "./Views/Match/MatchFound";
+import MathMatch from "./Views/Match/MathsMatch";
+import MatchHistory from "./Views/Match/MatchHistory";
 import ForgotPassword from "./Views/ForgotPassword";
 import TermsAndConditions from "./Views/TermsAndConditions";
-import FinalResults from "./Views/FinalResults";
+import FinalResults from "./Views/Match/FinalResults";
 import Landing from "./Views/Landing";
 import GameGuide from "./Views/GameGuide"
 import HelpMenu from "./Views/HelpMenu";
-import Leaderboard from "./Views/Leaderboard";
-import MatchSearching from "./Views/MatchSearching";
+import Leaderboard from "./Views/Match/Leaderboard/Leaderboard";
+import MatchSearching from "./Views/Match/MatchSearching";
 import Profile from "./Views/Profile";
 import SignIn from "./Views/SignIn";
 import SignUp from "./Views/SignUp";
@@ -27,7 +27,7 @@ import Shop from "./Views/Shop";
 import Friends from "./Views/Friends/Friends";
 import Achievements from "./Views/Achievements";
 import Settings from "./Views/Settings";
-import { ProgMatch } from "./Views/ProgMatch";
+import { ProgMatch } from "./Views/Match/ProgMatch";
 
 const App: React.FC = () => {
 

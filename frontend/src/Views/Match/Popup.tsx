@@ -1,10 +1,9 @@
-import '../styles/global.css'
 import React from "react"
 import { useNavigate } from 'react-router-dom';
 import type { MatchMode } from 'src/dtos/match/match.dto';
 
-import { type PopupProps } from '../Models/PopUpModel';
-import { useSelectTopic } from '../ViewModels/MatchViewModels/PopUpViewModel';
+import { type PopupProps } from 'src/Models/PopUpModel';
+import { useSelectTopic } from 'src/ViewModels/MatchViewModels/PopUpViewModel';
 import { Yes } from 'src/animations/yes';
 
 import { Card } from '@/components/ui/card'

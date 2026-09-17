@@ -1,6 +1,6 @@
 import Starfield from '@/components/ui/animations/Starfield';
-import robot from '../assets/Robots/Pink_fighting.png';
-import { MatchSearchingViewModelFunction } from '../ViewModels/MatchSearchingViewModel';
+import robot from 'src/assets/Robots/Pink_fighting.png';
+import { MatchSearchingViewModelFunction } from 'src/ViewModels/MatchViewModels/MatchSearchingViewModel';
 
 import { Link } from 'react-router-dom';
 

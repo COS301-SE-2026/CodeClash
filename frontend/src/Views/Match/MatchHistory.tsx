@@ -1,7 +1,7 @@
 import React from "react";
 
-import type { MatchDetails } from "../Models/MatchHistoryModel";
-import { MatchHistoryViewModelFunction } from "../ViewModels/MatchHistoryViewModel";
+import type { MatchDetails } from "src/Models/MatchHistoryModel";
+import { MatchHistoryViewModelFunction } from "src/ViewModels/MatchHistoryViewModel";
 import Starfield from "@/components/ui/animations/Starfield";
 
 const MatchHistory: React.FC = () => {

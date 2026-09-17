@@ -36,7 +36,6 @@ export class MatchmakingService {
             })
         );
 
-        // remove myself just 
         const candidates = result
             .filter(p => p.join !== null && p.user_id !== user.id)
             .sort((a, b) => Number(a.join) - Number(b.join));
@@ -46,7 +45,7 @@ export class MatchmakingService {
             const waiting = await this.cache.getUserElo(user.match_mode, user.id);
 
             if (waiting)   //user is already in the queue
-                ++user.match_attempt;
+                this.cache.incrementMatchAttempt(user.id);
             else {
                 await this.enqueue(user, user.match_mode);
             }
@@ -62,14 +61,19 @@ export class MatchmakingService {
                 return { id: c.user_id, elo };
             })
         )
-        
+
+        const not_chosen = candidates.slice(player_count);
+        await Promise.all(
+            not_chosen.map(candidate => this.cache.incrementMatchAttempt(candidate.user_id))
+        );
+
+
         await this.cache.deleteUser(user.match_mode, user.id);
 
-        return [{
-            id: user.id, elo: user.elo,
+        return [
+            { id: user.id, elo: user.elo },
             ...matched_players
-        }];
-
+        ];
     }
 
     async math_queue_length(): Promise<number> {

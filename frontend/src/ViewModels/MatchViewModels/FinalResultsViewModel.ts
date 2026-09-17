@@ -5,8 +5,8 @@ import { useSocket } from "src/context/Socket/hooks/useSocket";
 import { useUser } from "src/context/User/hooks/useUser";
 import { type PlayerResultDTO, type ResultDTO } from "src/dtos/match/result.dto";
 
-import { finalResultsContent } from "../Models/FinalResultsModel";
-import type { FinalResultsContent } from "../Models/FinalResultsModel";
+import { finalResultsContent } from "src/Models/FinalResultsModel";
+import type { FinalResultsContent } from "src/Models/FinalResultsModel";
 
 
 

@@ -1,6 +1,6 @@
 import Starfield from '@/components/ui/animations/Starfield';
-import pinkCelebrate from '../assets/Robots/pink_celebrate.png';
-import { MatchFoundViewModelFunction } from '../ViewModels/MatchFoundViewModel';
+import pinkCelebrate from 'src/assets/Robots/pink_celebrate.png';
+import { useMatchFound } from 'src/ViewModels/MatchViewModels/MatchFoundViewModel';
 
 import Loading from '@/components/shared/Loading';
 import { Button } from '@/components/ui/button';
@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 
 const MatchFound = () => {
   const { content, players, matchDetails, decline, accept, loading } =
-    MatchFoundViewModelFunction();
+    useMatchFound();
 
   if (!players) {
     return (

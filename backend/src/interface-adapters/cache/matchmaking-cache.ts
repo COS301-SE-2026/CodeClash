@@ -1,7 +1,7 @@
 import Redis from "ioredis";
 import { IMatchmakingCache } from "src/application/interfaces/cache/IMatchmakingCache";
 import { MatchMode } from "src/entities/database/questions.entities";
-import {MatchmakingUserDTO} from "src/entities/dtos/matchmaking/matchmaking.dto";
+import { MatchmakingUserDTO } from "src/entities/dtos/matchmaking/matchmaking.dto";
 
 export class MatchmakingCache implements IMatchmakingCache {
     constructor(
@@ -11,9 +11,10 @@ export class MatchmakingCache implements IMatchmakingCache {
 
     async enqueue(queue: MatchMode, user: MatchmakingUserDTO): Promise<void> {
         await this.redis.zadd(queue, user.elo, user.id);
-        await this.redis.hset(`user:${user.id}`, "user_joined_at", user.joined_at.getTime())
-
-
+        await this.redis.hset(`user:${user.id}`, {
+            "user_joined_at": user.joined_at.getTime(),
+            "match_attempt": user.match_attempt
+        });
     }
 
     async dequeue(user_id: string, queue: MatchMode): Promise<boolean> {
@@ -56,6 +57,10 @@ export class MatchmakingCache implements IMatchmakingCache {
         await this.redis.hdel(`user:${user_id}`, "user_joined_at");
 
         return count;
+    }
+
+    async incrementMatchAttempt(user_id: string): Promise<void> {
+        await this.redis.hincrby(`user:${user_id}`, "match_attempt", 1);
     }
 
 }
