@@ -6,7 +6,7 @@ import { mock_users_array } from "../../mocks/mock-user";
 import { Users } from '../../../src/entities/database/user.entities'
 import { EloRatings } from '../../../src/entities/database/elo.entities'
 import { EloRepository } from '../../../src/interface-adapters/repositories/elo.repository'
-import { MatchResultService } from '../../../src/application/usecases/services/match-result.service'
+import { MatchResultService } from '../../../src/application/usecases/services/match/match-result.service'
 import { IEloRepository } from '../../../src/application/interfaces/repositories/IEloRepository'
 import { IMatchResultRepository } from '../../../src/application/interfaces/repositories/IMatchResultRepository'
 import { EloUpdateResultDTO } from '../../../src/entities/dtos/elo.dto'

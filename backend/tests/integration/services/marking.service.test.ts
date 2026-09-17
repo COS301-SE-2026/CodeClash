@@ -1,6 +1,6 @@
 import { describe, expect, vi, it, beforeAll } from 'vitest'
 import { MarkingService } from '../../../src/application/usecases/services/marking/marking.service'
-import { GameCache } from '../../../src/interface-adapters/cache/game-cache'
+import { MatchCache } from '../../../src/interface-adapters/cache/match-cache'
 import redis from '../../../src/frameworks-drivers/config/redis-client'
 import { SubmissionSystem } from '../../../src/application/usecases/systems/submission.system'
 import { World } from '../../../src/entities/World'
@@ -10,7 +10,7 @@ import { Server } from 'socket.io'
 import { MarkProg } from '../../../src/application/usecases/services/marking/mark-prog'
 import { CodeExecutor } from '../../../src/interface-adapters/CodeExecutor'
 import { OpponentProgress } from '../../../src/application/usecases/systems/opponent-progress'
-import { GameService } from '../../../src/application/usecases/services/game.service'
+import { MatchCreationService } from '../../../src/application/usecases/services/match/match-creation.service'
 import { CreateGame } from '../../../src/application/usecases/systems/create-game'
 import { CreatePlayerEntity } from '../../../src/application/usecases/systems/create-game'
 import { CreateMatchEntity } from '../../../src/application/usecases/systems/create-game'
@@ -47,7 +47,7 @@ const io = {
 
 
 const world = World()
-const game_cache = new GameCache(redis);
+const match_cache = new MatchCache(redis);
 const submission_system = new SubmissionSystem(world);
 const life_system = new LifeSystem(world);
 const opponent_progress = new OpponentProgress(world);
@@ -56,7 +56,7 @@ const notification_service = new NotificationService(io);
 const executor = new CodeExecutor();
 const prog_marker = new MarkProg(executor);
 
-const prog_marking_service = new MarkingService(game_cache, submission_system, life_system, notification_service, prog_marker, opponent_progress);
+const prog_marking_service = new MarkingService(match_cache, submission_system, life_system, notification_service, prog_marker, opponent_progress);
 
 const create_player_entity = new CreatePlayerEntity(world);
 const create_match_entity = new CreateMatchEntity(world);
@@ -75,7 +75,7 @@ const get_total_time = new GetTotalTime();
 
 const create_game = new CreateGame(create_player_entity, create_match_entity, create_round_entity);
 
-const game_service = new GameService(create_game, get_questions, get_difficulty, get_total_time, get_answers, game_cache, match_repo, user_repo);
+const match_service = new MatchCreationService(create_game, get_questions, get_difficulty, get_total_time, get_answers, match_cache, match_repo, user_repo);
 
 const players: PlayerDTO[] = [
     {
@@ -122,7 +122,7 @@ describe("Tests Marking Services", () => {
         await data_source.getRepository(Answers).save(mock_answers);
 
 
-        game = await game_service.execute(players, MatchMode.Programming, 'Mercury', MatchType.ranked);
+        game = await match_service.execute(players, MatchMode.Programming, 'Mercury', MatchType.ranked);
 
     })
 

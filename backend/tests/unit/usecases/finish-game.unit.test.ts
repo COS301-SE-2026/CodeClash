@@ -53,7 +53,7 @@ describe('FinishGame', () => {
         achievement_service = {
             evaluateAndAward: vi.fn().mockResolvedValue([])
         };
-        finish_game = new FinishGame(world, match_result_service, game_store, delete_game,match_stats_repo, achievement_service, user_repo);
+        finish_game = new FinishGame(world, match_result_service, game_store,match_stats_repo, achievement_service, user_repo);
     });
 
     describe('execute', () => {

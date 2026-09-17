@@ -24,11 +24,15 @@ export default defineConfig({
       reporter: ['text', 'html', 'lcov'],
       include: ['**/*.tsx'],
       exclude: ['**/@/components/ui/**', '**/@/hooks/**', '**/node_modules/**', '**/*.config.*'],
+      thresholds: {   // initial boundaries to improve coverage - this will be increased
+        branches: 60,
+        functions: 70
+      }
     },
 
     globals: true,
     exclude: ['@/components/ui/**', '@/hooks/**', '**/node_modules/**'],  // exclude shadcn ui components
-    },
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './@'),

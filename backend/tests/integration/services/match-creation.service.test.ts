@@ -1,8 +1,11 @@
-import { GameService } from '../../../../src/application/usecases/services/game.service';
-import { MatchMode } from "../../../../src/entities/database/questions.entities";
-import { AnswerDTO } from '../../../../src/entities/dtos/answer.dto';
-import { PlayerDTO } from "../../../../src/entities/dtos/components.dto";
-import { QuestionDTO } from "../../../../src/entities/dtos/question.dto";
+import { GetAnswers } from '../../../src/application/usecases/services/answers.service';
+import { MatchCreationService } from '../../../src/application/usecases/services/match/match-creation.service';
+import { GetDifficulty, GetQuestions, GetTotalTime } from '../../../src/application/usecases/services/questions.service';
+import { CreateGame } from '../../../src/application/usecases/systems/create-game';
+import { MatchMode } from "../../../src/entities/database/questions.entities";
+import { AnswerDTO } from '../../../src/entities/dtos/answer.dto';
+import { PlayerDTO } from "../../../src/entities/dtos/components.dto";
+import { QuestionDTO } from "../../../src/entities/dtos/question.dto";
 import { vi, describe, test, expect, afterEach } from "vitest";
 
 const mock_dependencies = () => ({ execute: vi.fn() });
@@ -13,8 +16,8 @@ const mock_get_questions = mock_dependencies();
 const mock_get_difficulty = mock_dependencies();
 const mock_get_total_time = mock_dependencies();
 const mock_get_answers = mock_dependencies();
-const mock_game_cache = () => ({
-    saveGame: vi.fn(),
+const mock_match_cache = () => ({
+    saveMatch: vi.fn(),
     saveAnswer: vi.fn(),
     getAnswer: vi.fn()
 })
@@ -28,17 +31,17 @@ const mock_user_repo = () => ({
 })
 
 const user_repo = mock_user_repo();
-user_repo.getUserData.mockResolvedValue({username: 'player'})
+user_repo.getUserData.mockResolvedValue({ username: 'player' })
 
 let ids = 1;
 
-const game_service = new GameService(
-    mock_create_game,
-    mock_get_questions,
-    mock_get_difficulty,
-    mock_get_total_time,
-    mock_get_answers,
-    mock_game_cache(),
+const game_service = new MatchCreationService(
+    mock_create_game as unknown as CreateGame,
+    mock_get_questions as unknown as GetQuestions,
+    mock_get_difficulty as unknown as GetDifficulty,
+    mock_get_total_time as unknown as GetTotalTime,
+    mock_get_answers as unknown as GetAnswers,
+    mock_match_cache(),
     mock_match_repo(),
     user_repo
 )
@@ -78,18 +81,18 @@ const mock_questions = {
 
 // mock answers 
 
-const easy_answer: AnswerDTO = {
+const easy_answer: Partial<AnswerDTO> = {
     answer: "Mock Easy Answer",
     question_id: "easy-01"
 }
 
-const medium_answer: AnswerDTO = {
+const medium_answer: Partial<AnswerDTO> = {
     answer: "Mock Medium Answer",
     question_id: "medium-01"
 }
 
 
-const hard_answer: AnswerDTO = {
+const hard_answer: Partial<AnswerDTO> = {
     answer: "Mock Hard Answer",
     question_id: "hard-01"
 }
@@ -113,14 +116,14 @@ const player_2: PlayerDTO = {
 const avg = (606 + 832) / 2;
 
 
-describe("Tests Game Creation", () => {
+describe("Tests Match Creation", () => {
 
     afterEach(() => {
         vi.clearAllMocks()
     })
     test("Creates Maths games for two players on Mercury", async () => {
-        mock_get_questions.execute.mockResolvedValue(mock_questions)
-        mock_get_answers.execute.mockResolvedValue(mock_answers)
+        mock_get_questions.execute.mockResolvedValue(mock_questions);
+        mock_get_answers.execute.mockResolvedValue(mock_answers);
 
 
         await game_service.execute([player_1, player_2], MatchMode.Maths, "Mercury", 'ranked')
@@ -133,6 +136,6 @@ describe("Tests Game Creation", () => {
 
     test("Testing failure branches", async () => {
         mock_get_questions.execute.mockResolvedValue(null)
-        await expect(game_service.execute([player_1, player_2], MatchMode.Maths, "Not A League")).rejects.toThrow("Error fetching questions")
+        await expect(game_service.execute([player_1, player_2], MatchMode.Maths, "Not A League", 'ranked')).rejects.toThrow("Error fetching questions")
     })
 })

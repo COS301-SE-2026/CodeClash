@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, type Mock, vi } from 'vitest';
-import { submitQuestion } from '../../../src/frameworks-drivers/socket/modules/match/handlers';
+import { submitQuestion } from '../../../src/interface-adapters/socket-handlers/match-handlers';
 import { MarkingService } from '../../../src/application/usecases/services/marking/marking.service';
 import { MathsSubmissionDTO, PlayerSubmissionDTO} from '../../../src/entities/dtos/components.dto';
 
