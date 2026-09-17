@@ -1,6 +1,6 @@
 import React from 'react' 
 import { Card } from "../ui/card"
-import { Calculator, Hourglass, ArrowRight } from "lucide-react"
+import { Calculator, Timer, ArrowRight } from "lucide-react"
 import "../../../src/styles/global.css"
 import { Progress } from "./progress"
 import TournamentButton from "./TournamentButton"
@@ -19,14 +19,14 @@ export const MathTournamentCard = ({children, className} : TournamentCardProps) 
                 
                 <Calculator size={90} className="ml-9 my-auto"/>
 
-                <div className="grid grid-rows-2 w-full h-full mt-2">
+                <div className="grid grid-rows-2 max-w-full h-full mt-2">
                     <div className="font-font font-semibold text-xl -ml-30">
                         Math Tournament
                     </div>
                     
                     <div className="grid grid-cols-2 -ml-30">
-                        <Hourglass size={50}/>
-                        <div className="font-font text-md justify-self-start -ml-[70%] mt-1">Time Until Start:</div>
+                        <Timer size={40} className="text-muted-text mt-1"/>
+                        <div className="font-font text-sm justify-self-start -ml-[75%] mt-3 text-primary">Time Until Start:</div>
                     </div>
                     
                 </div>
@@ -37,10 +37,10 @@ export const MathTournamentCard = ({children, className} : TournamentCardProps) 
 
                 <div className="-ml-40 flex grid grid-rows-2 mt-1">
                     <div className="grid grid-cols-2">
-                    <div className="font-font text-md mt-5">Capacity: </div>
-                    <div className="font-font text-sm mt-7 -ml-9">5/8 Players</div>
+                    <div className="font-font text-sm mt-7 text-primary">Capacity: </div>
+                    <div className="font-font text-sm mt-7 -ml-9 text-primary">5/8 Players</div>
                     </div>
-                    <Progress className="mt-3 w-[65%]"/>
+                    <Progress value={62.5} className="mt-3 w-[65%]"/>
                 </div>
 
                 <TournamentButton className="mx-auto h-[50%] w-85 my-auto -ml-20">

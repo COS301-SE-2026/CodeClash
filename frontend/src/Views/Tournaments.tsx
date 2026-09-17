@@ -26,15 +26,15 @@ const Tournaments = () => {
 
                     </div>
 
-                    <div className="mt-8 flex flex-row gap-10 w-full justify-end -ml-4">
-                        <FilterButton>
-                            <h1 className="text-primary font-semibold text-sm">Math</h1>
+                    <div className="mt-8 flex flex-row gap-10 ml-[45%]">
+                        <FilterButton className="">
+                            <h1 className="text-primary font-semibold text-[90%]">Math</h1>
+                        </FilterButton>
+                        <FilterButton className="w-[40%]">
+                            <h1 className="text-primary font-semibold text-[90%]">Programming</h1>
                         </FilterButton>
                         <FilterButton>
-                            <h1 className="text-primary font-semibold text-sm">Programming</h1>
-                        </FilterButton>
-                        <FilterButton>
-                            <h1 className="text-primary font-semibold text-sm">Both</h1>
+                            <h1 className="text-primary font-semibold text-[90%]">Both</h1>
                         </FilterButton>
                     </div>
                 </div>
