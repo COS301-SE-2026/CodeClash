@@ -35,18 +35,18 @@ export const MathTournamentCard = ({children, className} : TournamentCardProps) 
                 <div>
                 </div>
 
-                <div className="-ml-26 flex grid grid-rows-2">
+                <div className="-ml-40 flex grid grid-rows-2 mt-1">
                     <div className="grid grid-cols-2">
                     <div className="font-font text-md mt-5">Capacity: </div>
-                    <div className="font-font text-sm mt-7 -ml-3">5/8 Players</div>
+                    <div className="font-font text-sm mt-7 -ml-9">5/8 Players</div>
                     </div>
-                    <Progress className="mt-3 w-[70%]"/>
+                    <Progress className="mt-3 w-[65%]"/>
                 </div>
 
-                <TournamentButton className="mx-auto h-[50%] w-[100%] my-auto -ml-13">
-                    <div className="flex grid grid-cols-2 w-full">
-                        <h2 className="font-font font-semibold text-md mb-5 w-full ml-5">Join Tournament</h2>
-                        <ArrowRight size={50} className="flex justify-self-end my-auto -mt-2 -ml-6"/>
+                <TournamentButton className="mx-auto h-[50%] w-[100%] my-auto -ml-17">
+                    <div className="flex grid grid-cols-2 w-full h-full">
+                        <h2 className="font-font font-semibold text-[30px] w-[130%] ml-6 -mt-2">Join Tournament</h2>
+                        <ArrowRight size={50} className="flex justify-self-end my-auto -mt-3 -ml-8 mr-3"/>
                     </div>
                 </TournamentButton>
 

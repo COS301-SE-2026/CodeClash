@@ -11,8 +11,8 @@ interface FilterButtonProps{
 
 const FilterButton = ({children, className} : FilterButtonProps) => {
     return(
-        <Card className={`bg-secondary rounded-lg flex justify-between items-center px-3 py-2 mb-1
-            border-[var(--primary)] border-[0.5px] shadow-[0_0_10px_var(--primary)] h-[20%] w-[40%] text-secondary-text font-semibold text-xsm ${className}`}>
+        <Card className={`bg-secondary rounded-4xl flex items-center
+            border-[var(--primary)] border-[0.5px] shadow-[0_0_10px_var(--primary)] h-[12%] w-[50%] text-secondary-text font-semibold text-xsm ${className}`}>
             {children}
         </Card>
     )
