@@ -54,4 +54,40 @@ export const ShopViewModelFunc = () => {
     const canAfford = useCallback(
         (item: ShopItem) => wallet.stardust >= item.price.amount, [wallet] 
     )
+
+    const purchase = useCallback(async (itemId: string) => {
+        setPurchasingId(itemId);
+        setPurchaseError(null);
+
+        try {
+            await purchaseFromContext(itemId);
+        }
+        catch (e) {
+            setPurchaseError(e instanceof Error ? e.message : 'Purchase failed');
+        }
+        finally {
+            setPurchasingId(null);
+        }
+    }, [purchaseFromContext])
+
+    return {
+        tabs: Tabs,
+        activeTabId,
+        setActiveTabId,
+        items,
+        itemsByCategory,
+        wallet, 
+        inventory,
+        loading,
+        error: inventoryError ?? purchaseError,
+        purchasingId,
+        isOwned,
+        isEquipped,
+        isAccessoryEquipped,
+        powerupQuantity,
+        canAfford,
+        purchase,
+        equip,
+        toggleAcc,
+    }
 }
