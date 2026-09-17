@@ -1,0 +1,25 @@
+backend/src/frameworks-drivers/socket/dependencies.ts
+  h_94c952a9e14c58 14
+backend/src/frameworks-drivers/socket/modules/match/register-handlers.ts
+  h_94c952a9e14c58 1-64
+backend/src/frameworks-drivers/socket/dispatch.ts
+  h_94c952a9e14c58 12-19
+  h_94c952a9e14c58 25
+backend/src/entities/dtos/socket/socket.dto.ts
+  h_94c952a9e14c58 5
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 9
+backend/src/frameworks-drivers/socket/modules/match/handlers.ts
+  h_94c952a9e14c58 29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "def9e68fe490f938d4f55588b05e2025a70b00b8",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

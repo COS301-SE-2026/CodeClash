@@ -1,0 +1,47 @@
+backend/README.md
+  h_94c952a9e14c58 157
+backend/tests/mocks/mock-questions.ts
+  h_94c952a9e14c58 2
+backend/tests/unit/usecases/finish-game.unit.test.ts
+  h_94c952a9e14c58 3
+backend/tests/integration/repositories/user.repository.test.ts
+  h_94c952a9e14c58 2
+backend/tests/mocks/mock-answers.ts
+  h_94c952a9e14c58 2
+backend/tests/test-data-source.ts
+  h_94c952a9e14c58 2-3,5-13
+dockerfile/docker-compose.test.yml
+  h_94c952a9e14c58 13-18,37-39,43,59
+  h_94c952a9e14c58 12
+backend/tests/integration/repositories/match-result.repository.test.ts
+  h_94c952a9e14c58 6-7
+backend/tests/integration/services/user-creation.service.test.ts
+  h_94c952a9e14c58 10-11
+backend/tests/integration/services/marking.service.test.ts
+  h_94c952a9e14c58 25-26,29,34
+backend/tests/integration/repositories/answer.repository.test.ts
+  h_94c952a9e14c58 2,5
+backend/vitest.config.ts
+  h_94c952a9e14c58 19
+backend/tests/integration/repositories/elo.repository.test.ts
+  h_94c952a9e14c58 4-5
+backend/tests/integration/repositories/question.repository.test.ts
+  h_94c952a9e14c58 2
+backend/tests/unit/socket-handlers/game.handler.unit.test.ts
+  h_94c952a9e14c58 2
+backend/tests/unit/usecases/services/game.service.test.ts
+  h_94c952a9e14c58 2
+backend/tests/unit/usecases/services/matchmaking.service.test.ts
+  h_94c952a9e14c58 6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "b9ef1f0c2495f6f16f3b85d18c694f56be3e608b",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

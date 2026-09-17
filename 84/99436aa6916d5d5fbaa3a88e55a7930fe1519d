@@ -1,0 +1,42 @@
+backend/src/interface-adapters/socket-handlers/matchmaking-handlers.ts
+  h_94c952a9e14c58 3,5-6,8,12,14-21,23,25,27-28,30-32,34-41,43-45,61-63,67,69-72,74-76,78-79,81-84,86,89-95,99-100,103-104,107,119
+backend/src/entities/dtos/match-data.dto.ts
+  h_94c952a9e14c58 9,11
+backend/src/application/usecases/services/match-completion.service.ts
+  h_94c952a9e14c58 4
+backend/src/application/usecases/systems/delete-game.ts
+  h_94c952a9e14c58 4
+backend/src/application/usecases/systems/finish-game.ts
+  h_94c952a9e14c58 4
+backend/src/frameworks-drivers/socket/modules/register-matchmaking-handlers.ts
+  h_94c952a9e14c58 2-3
+backend/src/application/usecases/services/match/match-confirmation.service.ts
+  h_94c952a9e14c58 1-78
+backend/src/application/usecases/services/match/match-start.service.ts
+  h_94c952a9e14c58 1-26
+backend/src/interface-adapters/controllers/match-results.controllers.ts
+  h_94c952a9e14c58 2
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 12,42,45
+backend/src/frameworks-drivers/socket/modules/register-friends-handler.ts
+  h_94c952a9e14c58 3-4,6
+backend/src/frameworks-drivers/socket/dependencies.ts
+  h_94c952a9e14c58 4-5,7,19,24-26
+backend/src/frameworks-drivers/socket/modules/register-match-handlers.ts
+  h_94c952a9e14c58 2-3,5,7,33
+backend/src/interface-adapters/socket-handlers/match-handlers.ts
+  h_94c952a9e14c58 7,22,24,31,33,38,56,58-59,75,77
+backend/tsconfig.json
+  h_94c952a9e14c58 5-7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "8499436aa6916d5d5fbaa3a88e55a7930fe1519d",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+frontend/test/integration/AppProviders.integration.test.tsx
+  h_58e143dc25f856 1-143
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ea12cdb470f829f418ea6e9fccd2f5107895bade",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

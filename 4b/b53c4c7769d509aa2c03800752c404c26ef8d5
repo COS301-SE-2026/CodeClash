@@ -1,0 +1,14 @@
+frontend/test/integration/MatchmakingContext.integration.test.tsx
+  h_58e143dc25f856 115-172
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "4bb53c4c7769d509aa2c03800752c404c26ef8d5",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

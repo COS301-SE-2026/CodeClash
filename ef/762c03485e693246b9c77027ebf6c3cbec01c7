@@ -1,0 +1,18 @@
+backend/src/application/usecases/services/matchmaking.service.ts
+  h_94c952a9e14c58 43,72-73
+backend/src/interface-adapters/cache/matchmaking-cache.ts
+  h_94c952a9e14c58 13-15,21,33,41,46,54,56-57
+backend/src/application/interfaces/cache/IMatchmakingCache.ts
+  h_94c952a9e14c58 15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ef762c03485e693246b9c77027ebf6c3cbec01c7",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

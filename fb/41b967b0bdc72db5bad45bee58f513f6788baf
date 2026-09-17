@@ -1,0 +1,47 @@
+frontend/src/ViewModels/MatchViewModel.ts
+  h_94c952a9e14c58 29,137
+frontend/src/services/result.service.tsx
+  h_94c952a9e14c58 2,5
+frontend/src/Views/MathsMatch.tsx
+  h_94c952a9e14c58 20,90-91
+  h_94c952a9e14c58 19
+frontend/src/dtos/match/result.dto.ts
+  h_94c952a9e14c58 20
+frontend/src/context/Socket/modules/match.socket.ts
+  h_94c952a9e14c58 5,53-56,78-85,92
+frontend/src/context/Socket/MatchmakingContextValue.tsx
+  h_94c952a9e14c58 12
+frontend/src/ViewModels/MatchSearchingViewModel.ts
+  h_94c952a9e14c58 18,33,35
+  h_94c952a9e14c58 19
+frontend/src/context/User/UserContext.tsx
+  h_94c952a9e14c58 32,36,43,57,82,85,108,111,117-118
+  h_94c952a9e14c58 13,35,37-42,60,62-67,86-91,112-116,126,131,136,141,146,151,155
+frontend/src/ViewModels/DashboardViewModel.ts
+  h_94c952a9e14c58 5,42
+frontend/src/services/match.service.tsx
+  h_94c952a9e14c58 3,60,62-80,85,92,96-99,104,148,172
+  h_94c952a9e14c58 8,61
+frontend/src/Views/ProgMatch.tsx
+  h_94c952a9e14c58 21,69-70,72-75
+  h_94c952a9e14c58 20
+frontend/src/ViewModels/FinalResultsViewModel.ts
+  h_94c952a9e14c58 29,35,43,45,64,66-67,71,73
+  h_94c952a9e14c58 18,28,32,72
+frontend/src/ViewModels/PopUpViewModel.ts
+  h_94c952a9e14c58 10,15,24,30,32
+  h_94c952a9e14c58 12
+frontend/src/ViewModels/FriendsViewModel/FriendsContext.tsx
+  h_94c952a9e14c58 289
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "fb41b967b0bdc72db5bad45bee58f513f6788baf",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
