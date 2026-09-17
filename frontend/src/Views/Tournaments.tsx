@@ -11,14 +11,14 @@ const Tournaments = () => {
         <div className="w-full min-h-flex">
             <div className="h-full w-full flex grid grid-rows-3">
                 <div className="flex grid grid-cols-2 h-full w-full">
-                    <h1 className="font-font font-semibold text-3xl ml-3 mt-3">Tournaments</h1>
-                    <TournamentButton className="w-lg h-[60%] my-auto ml-[60%]">
+                    <h1 className="font-font font-semibold text-4xl ml-5 mt-4">Tournaments</h1>
+                    <TournamentButton className="w-xl h-[50%] mt-3 ml-70">
                         <div className="grid grid-cols-2 w-full">
-                            <PlusIcon size={60} className="mb-4 ml-3 -mt-3"/>
-                            <h2 className="font-font font-semibold text-xl mb-5 -ml-15 -mt-3">Host Tournament</h2>
+                            <PlusIcon size={60} className="mb-4 ml-3 -mt-2"/>
+                            <h2 className="font-font font-semibold text-xl mb-5 -ml-28 -mt-3">Host Tournament</h2>
                         </div>
                     </TournamentButton>
-                    <h2 className="font-font text-sm -mt-3 ml-3">Join Tournaments to Compete With Up to 30 Players! Invite Friends to Join in on the Fun!</h2>
+                    <h2 className="font-font text-sm -mt-5 ml-5">Join Tournaments to Compete With Up to 30 Players! Invite Friends to Join in on the Fun!</h2>
                 </div>
 
                 <div className="flex grid grid-cols-2 w-full">
