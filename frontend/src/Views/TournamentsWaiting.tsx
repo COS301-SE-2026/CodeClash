@@ -59,18 +59,19 @@ const TournamentsWaiting = () => {
                     <TournamentPlayer/>
                     <TournamentPlayer/>
                     <TournamentPlayer/>
+                    
                 </div>
 
-                <FilterButton className="mt-20 w-[60rem] h-20 mx-auto rounded-[20px]">
+                <FilterButton className="mt-30 w-[60rem] h-20 mx-auto rounded-[20px]">
                     <div className="flex flex-row gap-5">
                         <PlusIcon size={50} className="text-primary my-auto"/>
                         <h1 className="text-[3rem] font-font font-semibold text-primary">Add Friend?</h1>
                     </div>
                 </FilterButton>
 
-                <div className="bg-card border-[var(--button-tournament-secondary)] border-[0.5px]">
-
-                </div>
+                <TournamentButton className="mt-10 h-20 w-[50rem] mx-auto justify-center">
+                    <h1 className="font-semibold my-auto mx-auto text-xl">Click to Show You Are Ready!</h1>
+                </TournamentButton>
 
                 <div className="">
 
