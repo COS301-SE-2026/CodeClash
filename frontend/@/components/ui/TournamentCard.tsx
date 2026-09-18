@@ -65,9 +65,12 @@ export const MathTournamentCard = ({children, className} : TournamentCardProps) 
 export const ProgrammingTournamentCard = ({children, className} : TournamentCardProps) => {
     return(
         <Card className={`bg-card 
-            border-[var(--button-tournament-secondary)] border-[0.5px] flex grid grid-cols-5 w-420 mx-auto h-47  ${className}`}>
+            border-[var(--button-tournament-secondary)] border-[0.5px] flex grid grid-cols-5 w-420 mx-auto h-47 relative  ${className}`}>
                 
-                <CodeXml size={90} className="ml-9 my-auto"/>
+                <div className="flex flex-col">
+                    <div className="inset-0 right-2 text-muted-text ml-4 -mt-4">#tournamentid</div>
+                    <CodeXml size={90} className="ml-9 my-auto mt-1"/>
+                </div>
 
                 <div className="grid grid-rows-2 max-w-full h-full mt-2">
                     <div className="font-font font-semibold text-[2.5rem] -ml-30 w-[170%]">
