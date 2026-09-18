@@ -73,7 +73,6 @@ const App: React.FC = () => {
             <Route path="/brand-style-guide" element={<BrandStyleGuide />} />
             <Route path="/agent" element={<Agent />} />
             <Route path='/game-guide' element={<GameGuide />} />
-            <Route path='/waiting' element={<TournamentsWaiting/>}/>
 
             {/* Pages with sidebar inside the app */}
             <Route element={<Layout />}>
@@ -86,6 +85,7 @@ const App: React.FC = () => {
                 <Route path='/match-history' element={<MatchHistory />} />
                 <Route path="/shop" element={<Shop />} />
                 <Route path='/settings' element={<Settings />} />
+                <Route path='/waiting' element={<TournamentsWaiting/>}/>
             </Route>
 
             <Route path="*" element={<Navigate to='/dashboard' replace/>}/>
