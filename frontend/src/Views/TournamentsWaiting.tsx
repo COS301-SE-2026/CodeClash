@@ -3,6 +3,7 @@ import { Card } from "../../@/components/ui/card"
 import {LogOut, Rocket, Timer} from "lucide-react"
 import TournamentButton from "@/components/ui/TournamentButton"
 import { Progress } from "@/components/ui/progress"
+import { TournamentPlayer } from "@/components/ui/TournamentPlayer"
 
 
 const TournamentsWaiting = () => {
@@ -52,6 +53,9 @@ const TournamentsWaiting = () => {
                     <h2 className="text-lg ml-auto mr-5 mt-1">All Players Ready</h2>
                 </div>
 
+                <div className="grid grid-cols-3 ml-5 mt-6">
+                    <TournamentPlayer/>
+                </div>
             </div>
         </div>
     )
