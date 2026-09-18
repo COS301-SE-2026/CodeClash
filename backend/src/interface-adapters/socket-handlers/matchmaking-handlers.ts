@@ -6,11 +6,11 @@ import { MatchConfirmationService } from "src/application/usecases/services/matc
 import { MatchStore } from "src/application/usecases/services/match/match-store.service";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 import { MatchStart } from "src/application/usecases/services/match/match-start.service";
+import { MatchMode } from "src/entities/database/questions.entities";
 
 
 
 export const joinMatchQueue = (async (io: Server, socket: Socket, data: any, matchmaking_service: MatchmakingService, match_confirmation_service: MatchConfirmationService, user_repo: IUserRepository) => {
-
     socket.join(socket.data.user_id)
     const user: MatchmakingUserDTO = {
         id: socket.data.user_id,
@@ -43,6 +43,8 @@ export const joinMatchQueue = (async (io: Server, socket: Socket, data: any, mat
         match_mode: data.match_mode
     };
 
+    console.log("players ", players)
+    console.log('emitting result: ', result);
     for (const p of match) {
         io.to(p.id).emit('users_matched', result);
     }
@@ -90,10 +92,11 @@ export const matchAccepted = (
         // waiting for other player(s) to accept
     })
 
-export const matchDeclined = (async (io: Server, socket: Socket, data: MatchDataDTO, match_confirmation_service: MatchConfirmationService, matchmaking_service: MatchmakingService) => {
-    const players = match_confirmation_service.getPlayers(data.group_id);   //get all players
-   
-    match_confirmation_service.decline(data.group_id); //delete player grouping
+export const matchDeclined = (async (io: Server, group_id: string, match_mode: MatchMode, match_confirmation_service: MatchConfirmationService, matchmaking_service: MatchmakingService) => {
+    console.log("\n\nMatch declined");
+    const players = match_confirmation_service.getPlayers(group_id);   //get all players
+
+    match_confirmation_service.decline(group_id); //delete player grouping
 
     // requeue players
     if (players) {
@@ -102,11 +105,17 @@ export const matchDeclined = (async (io: Server, socket: Socket, data: MatchData
             const requeue: MatchmakingUserDTO = {
                 id: player.id,
                 elo: player.elo,
-                match_mode: data.match_mode,
+                match_mode: match_mode,
                 match_attempt: 1,
                 joined_at: new Date()   // this is a bit unfair coz they get requeued at the end of the queue but it's fine for now
             }
-            await matchmaking_service.enqueue(requeue, requeue.match_mode);
+
+            const delay = 6000 + Math.random() * 12000;
+
+            setTimeout(() => {
+                console.log("requeuing after ", delay);
+                matchmaking_service.enqueue(requeue, requeue.match_mode);
+            }, delay);
         }
 
     }

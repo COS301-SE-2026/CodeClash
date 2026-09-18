@@ -6,11 +6,16 @@ export class MatchConfirmationService {
     private readonly PLAYERS = new Map<string, { id: string, elo: number, accepted: boolean }[]>();
 
     create(players: PlayerDTO[]) {
-
+        console.log("creating match")
         const sort = players.map(p => p.id).sort().join('::');
-        const key = createHash('sha245').update(sort).digest('hex');
+        const key = createHash('sha256').update(sort).digest('hex');
 
+        console.log("key ", key);
         this.PLAYERS.set(key, players.map(p => ({ id: p.id, elo: p.elo, accepted: false })));
+
+        console.log("Adding players: ", players);
+
+        console.log("Final Map ", this.PLAYERS);
         return key;
     }
 
@@ -42,8 +47,9 @@ export class MatchConfirmationService {
     }
 
     getPlayers(id: string) {
+        console.log("Getting players for ", id);
         const players = this.PLAYERS.get(id);
-
+        console.log(players);
         if (!players) throw new Error("Pair not Found");
 
         const arr: { id: string, elo: number, life: number }[] = [];

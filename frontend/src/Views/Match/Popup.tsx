@@ -3,11 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import type { MatchMode } from 'src/dtos/match/match.dto';
 
 import { type PopupProps } from 'src/Models/PopUpModel';
-import { useSelectTopic } from 'src/ViewModels/Match/PopUpViewModel';
-import { Yes } from 'src/animations/yes';
+import { useSelectTopic } from 'src/ViewModels/Matchmaking/PopUpViewModel';
 
 import { Card } from '@/components/ui/card'
-
+import robot from 'src/assets/Robots/arms_up.png'
 
 const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
     const { selectTopic, cancel } = useSelectTopic();
@@ -24,12 +23,10 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4 ">
-            {/* <img src={robot} alt='robot-background' className='absolute h-[80%] top-0' /> */}
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
+            <img src={robot} alt='robot-background' className='absolute h-[60%] bottom-[200px]' />
            
-            <div className="absolute h-full w-full top-[-6rem] left-[11.5rem] items-center justify-center">
-                <Yes/> 
-            </div>
+        
             <div className="relative w-[60%] h-[2rem] top-[-2rem] ">
 
                 <Card className="bg-secondary card-glow h-[18rem] w-[100%] rounded-2xl text-center flex items-center absolute inset-0">

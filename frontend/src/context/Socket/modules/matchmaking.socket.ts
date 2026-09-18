@@ -16,12 +16,12 @@ export class MatchmakingSocket {
         return on<MatchedUsersDTO>(this.socket, 'users_matched', handler);
     }
 
-    matchReady(handler: (match_id: string)=>void){
+    matchReady(handler: (match_id: string) => void) {
         return on<string>(this.socket, 'game_ready', handler);
     }
 
 
-    gameDeclined(handler: ()=>void){
+    gameDeclined(handler: () => void) {
         return on(this.socket, 'match_declined', handler);
     }
 
@@ -30,6 +30,7 @@ export class MatchmakingSocket {
 
 
     joinQueue(data: MatchmakingUserDTO) {
+        console.log("emitting join")
         return emit<MatchmakingUserDTO, void>(this.socket, 'join_match_queue', data);
     }
 
@@ -41,7 +42,8 @@ export class MatchmakingSocket {
         return emit<MatchAcceptedDTO, void>(this.socket, 'match_accepted', data);
     }
 
-    declineMatch(pair_id: string) {
-        return emit<string, void>(this.socket, 'match_declined', pair_id);
+    declineMatch(data: { group_id: string, match_mode: string }) {
+        console.log("MatchmakingSocket declineMatch: ", data.group_id, data.match_mode)
+        return emit<{ group_id: string, match_mode: string }, void>(this.socket, 'decline_match', data);
     }
 }

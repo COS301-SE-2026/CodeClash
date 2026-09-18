@@ -16,11 +16,12 @@ export function emit<Req, Res>(
     data?: Req
 ): Promise<SocketResponse<Res>> {
 
-    const timeout = 5000;
+    const timeout = 180000;
     return new Promise((resolve, reject) => {
+        console.log("dispatcher emitting ", event);
         const timer = setTimeout(() => reject(new Error(`${event} timed out`)), timeout);
-
         socket.emit(event, data, (response: SocketResponse<Res>) => {
+            console.log("Backend responded")
             clearTimeout(timer);
             response.ok ? resolve(response) : reject(new Error(response.error));
         }

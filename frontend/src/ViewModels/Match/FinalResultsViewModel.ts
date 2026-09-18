@@ -29,7 +29,7 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
     const { match_socket } = useSocket();
     const location = useLocation();
     const { id } = location.state;
-    const { pairId, setMatched } = useMatchmaking()
+    const { group_id, setMatched } = useMatchmaking()
 
     const handleResult = useCallback(async (result: ResultDTO) => {
 
@@ -40,9 +40,9 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
         await refresh();
 
         // can start clean up now 
-        match_socket?.cleanUpMatch({ match_id: result.match_id, pair_id: pairId })
+        match_socket?.cleanUpMatch({ match_id: result.match_id, pair_id: group_id })
         setMatched(false)
-    }, [pairId, refresh, setMatched, match_socket])
+    }, [group_id, refresh, setMatched, match_socket])
 
 
     useEffect(() => {
@@ -63,14 +63,14 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
 
         if (!match_socket) return;
 
-        match_socket.sendResults({ match_id: id, pair_id: pairId });
+        match_socket.sendResults({ match_id: id, pair_id: group_id });
         const clean_up = match_socket.getResults(handleResult);
 
 
 
         return () => { clean_up(); }
 
-    }, [match_socket, id, handleResult, pairId]);
+    }, [match_socket, id, handleResult, group_id]);
 
     useEffect(() => {
         if (results === null) return;

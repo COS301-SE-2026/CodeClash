@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useNavigate } from 'react-router-dom';
 import { useMatchmaking } from "src/context/Matchmaking/hooks/useMatchmaking";
 import { useSocket } from "src/context/Socket/hooks/useSocket"
 import { useUser } from "src/context/User/hooks/useUser";
 import type { MatchedUsersDTO } from "src/dtos/matchmaking/matched-user.dto";
-import type {  MatchAcceptedDTO } from "src/dtos/matchmaking/matchmaking.dto";
+import type { MatchAcceptedDTO } from "src/dtos/matchmaking/matchmaking.dto";
 
 import {
   matchFoundContent,
@@ -14,10 +14,13 @@ import {
 
 
 export function useMatchFound() {
+  const mount_id = useRef(Math.random()).current;
+  console.log('MOUNT ID:', mount_id);
+
   const nav = useNavigate();
   const { league, username, avatar } = useUser();
   const { matchmaking_socket } = useSocket()
-  const { gameType, pairId, matchedUsers } = useMatchmaking()
+  const { gameType, group_id, matchedUsers, match_mode, reset } = useMatchmaking()
   const [path, setPath] = useState('');
   const [loading, setLoading] = useState(false);
   const [socketError, setSocketError] = useState('');
@@ -29,9 +32,17 @@ export function useMatchFound() {
   const openLoading = () => setLoading(true);
 
   const decline = () => {
+    console.log("Found View Model: declining ", group_id);
     if (matchmaking_socket) {
-      matchmaking_socket.declineMatch(pairId);
+      const data = {
+        group_id,
+        match_mode: match_mode!
+      };
+
+      matchmaking_socket.declineMatch(data);
       setLoading(true);
+      reset();
+      nav('/match-searching')
     }
     else {
       setSocketError('Disconnected');
@@ -45,9 +56,13 @@ export function useMatchFound() {
   }
 
   const gameDeclined = () => {
+    console.log("FoundViewModel Match declined", mount_id);
     setLoading(false);
     setMatchDeclined(true);
-    nav('/searching')
+    console.log("navigating");
+    reset();
+    nav('/match-searching');
+    console.log(window.location.pathname);
   }
 
   const accept = () => {
@@ -55,7 +70,7 @@ export function useMatchFound() {
       const new_path = "/".concat(matchedUsers.match_mode!).concat("-match")
       setPath(new_path);
       const data: MatchAcceptedDTO = {
-        pair_id: pairId,
+        pair_id: group_id,
         match_mode: matchedUsers.match_mode!,
         league: league,
         username: username,

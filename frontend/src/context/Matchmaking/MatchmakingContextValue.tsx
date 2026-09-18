@@ -6,11 +6,12 @@ export interface MatchmakingContextValue {
     matchedUsers: MatchedUsersDTO | null,
     match_mode: MatchMode | null,
     gameType: MatchType | null,
-    pairId: string,
+    group_id: string,
     matched: boolean,
     set_match_mode: (mode: MatchMode) => void,
-    setGameType: (type: MatchType|null) => void,
-    setMatched: (matched: boolean) => void
+    setGameType: (type: MatchType | null) => void,
+    setMatched: (matched: boolean) => void,
+    reset: () => void
 }
 
 export const MatchmakingContext = createContext<MatchmakingContextValue | null>(null);
