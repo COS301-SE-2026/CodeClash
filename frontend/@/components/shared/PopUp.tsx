@@ -1,50 +1,31 @@
 import React from "react"
-
+import { Spinner } from "@/components/ui/spinner";
 import { Card } from '@/components/ui/card'
 
 interface PopupProps {
     isOpen: boolean;
-    children?: React.ReactNode;
-    onClose: ()=> void;
     title: string;
     subtitle: string;
-    image?: string;
 }
 
 
-const Popup: React.FC<PopupProps> = ({ isOpen, onClose,  children, title, subtitle, image }) => {
-
+const Popup: React.FC<PopupProps> = ({ isOpen, title, subtitle}) => {
 
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50  bg-black/50 flex items-center justify-center  ">
-            <img src={image} alt='robot-background' className='absolute h-[80%] top-0' />
-            <div className="relative w-[50%] h-[4rem] top-[-6rem] ">
+        <div className="fixed inset-0 z-50  bg-background/60 flex items-center justify-center p-4 ">
 
-                <Card className="bg-secondary h-[35rem] w-[100%] rounded-3xl  text-center flex items-center absolute">
-                    <h1 className="text-[3rem] heading text-secondary-text font-extrabold">
-                        {title}
-                    </h1>
-                    <h2 className="text-[24rem] font-heading text-md text-secondary-text text-center justify-center">
-                        {subtitle}
-                    </h2>
-
-                    <div className=" grid grid-flow-col grid-cols-2 gap-7  h-[35%]">
-                        {children}
-                    </div>
-                    <div className="text-[2.3rem] text-black heading font-extrabold underline mt-[4%] rounded-3xl hover:bg-primary hover:text-secondary hover:font-normal w-[80%] "
-                        onClick={onClose}
-
-                        onKeyDown={(e) => {
-                            if (e.key === 'Esc') {
-                                 onClose();
-                            }
-                        }}
-                    >Cancel
-                    </div>
-                </Card>
-            </div>
+            <Card className="relative w-full max-w-lg rounded-3xl  text-center flex flex-col items-center gap-4 p-8 overflow-hidden"
+                style={{ background: 'radial-gradient(circle at 50% 15%, #b91551 0%, #850f3b 22%, #630b3c 34%, #0a0008 62%)' }}>
+                <h1 className="text-md text-primary-text font-extrabold whitespace-nowrap">
+                    {title}
+                </h1>
+                <h2 className="text-sm text-primary-text/80 text-center">
+                    {subtitle}
+                </h2>
+                <Spinner className='w-12 h-12 text-secondary'></Spinner>
+            </Card>
         </div>
     );
 

@@ -3,7 +3,7 @@ import { MatchMode, MatchType } from "../database/questions.entities";
 import { QuestionDTO } from "./question.dto";
 
 export interface MatchDataDTO {
-    pair_id: string,
+    group_id: string,
     username: string,
     league: string,
     match_mode: MatchMode,

@@ -1,6 +1,6 @@
 import { ChevronRight, ChevronLeft } from 'lucide-react'
 import { useEffect } from 'react';
-import { useMatch } from 'src/ViewModels/MatchViewModels/MatchViewModel';
+import { useMatch } from 'src/ViewModels/Match/MatchViewModel';
 
 import MathMatch from '@/components/features/MathPage';
 import { Question } from '@/components/features/question';
@@ -9,6 +9,8 @@ import { MatchScreen } from '@/components/shared/Match';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
+import Popup from '@/components/shared/PopUp';
+import { title } from 'process';
 
 const MathsMatch = () => {
     const {
@@ -18,7 +20,7 @@ const MathsMatch = () => {
         seconds, minutes, questions,
         currentQuestion, opponentCurrent,
         nextQuestion, prevQuestion,
-        loading, 
+        loading,
         // submitQuestion,
         mathfieldRef, setAnswers, answers,
         results, gameOver, waitingOpponent,
@@ -107,19 +109,12 @@ const MathsMatch = () => {
             </div>
 
             {waitingOpponent && (
-                <div className="fixed inset-0 z-50  bg-background/60 flex items-center justify-center p-4 ">
+                <Popup
 
-                    <Card className="relative w-full max-w-lg rounded-3xl  text-center flex flex-col items-center gap-4 p-8 overflow-hidden"
-                        style={{background: 'radial-gradient(circle at 50% 15%, #b91551 0%, #850f3b 22%, #630b3c 34%, #0a0008 62%)'}}>
-                        <h1 className="text-md text-primary-text font-extrabold whitespace-nowrap">
-                            Waiting For Opponent To Finish
-                        </h1>
-                        <h2 className="text-sm text-primary-text/80 text-center">
-                            Hang on while your opponent finishes up
-                        </h2>
-                        <Spinner className='w-12 h-12 text-secondary'></Spinner>
-                    </Card>
-                </div>
+                    isOpen={waitingOpponent}
+                    title={'Waiting For Opponent To Finish'}
+                    subtitle={'Hang on while your opponent finishes up'}
+                />
             )
 
             }

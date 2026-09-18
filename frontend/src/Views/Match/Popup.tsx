@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import type { MatchMode } from 'src/dtos/match/match.dto';
 
 import { type PopupProps } from 'src/Models/PopUpModel';
-import { useSelectTopic } from 'src/ViewModels/MatchViewModels/PopUpViewModel';
+import { useSelectTopic } from 'src/ViewModels/Match/PopUpViewModel';
 import { Yes } from 'src/animations/yes';
 
 import { Card } from '@/components/ui/card'

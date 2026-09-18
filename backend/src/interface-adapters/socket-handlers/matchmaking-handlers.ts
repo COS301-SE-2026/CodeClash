@@ -63,14 +63,14 @@ export const matchAccepted = (
         io: Server,
         socket: Socket,
         data: MatchDataDTO,
-        matched_users_service: MatchConfirmationService,
+        match_confirmation_service: MatchConfirmationService,
         match_start: MatchStart
     ) => {
-        matched_users_service.accept(data.pair_id, socket.data.user_id);
+        match_confirmation_service.accept(data.group_id, socket.data.user_id);
 
-        if (matched_users_service.bothAccepted(data.pair_id)) { //needs to be updated for tournaments
+        if (match_confirmation_service.bothAccepted(data.group_id)) { //needs to be updated for tournaments
 
-            const players = matched_users_service.getPlayers(data.pair_id);
+            const players = match_confirmation_service.getPlayers(data.group_id);
             let payload = null;
             try {
                 payload = await match_start.execute(players, data.match_mode, data.league, data.match_type);
@@ -90,21 +90,26 @@ export const matchAccepted = (
         // waiting for other player(s) to accept
     })
 
-export const matchDeclined = ((io: Server, socket: Socket, group_id: string, match_confirmation_service: MatchConfirmationService, matchmaking_service: MatchmakingService) => {
+export const matchDeclined = (async (io: Server, socket: Socket, data: MatchDataDTO, match_confirmation_service: MatchConfirmationService, matchmaking_service: MatchmakingService) => {
+    const players = match_confirmation_service.getPlayers(data.group_id);   //get all players
+   
+    match_confirmation_service.decline(data.group_id); //delete player grouping
 
-    // remove user from players list
-    match_confirmation_service.decline(group_id, socket.data.user_id);
-
-    // requeue other player
-    const players = match_confirmation_service.getPlayers(group_id);
-
+    // requeue players
     if (players) {
         for (const player of players) {
             io.to(player.id).emit("match_declined");
-            //requeue users here - matchmaking to be updated
+            const requeue: MatchmakingUserDTO = {
+                id: player.id,
+                elo: player.elo,
+                match_mode: data.match_mode,
+                match_attempt: 1,
+                joined_at: new Date()   // this is a bit unfair coz they get requeued at the end of the queue but it's fine for now
+            }
+            await matchmaking_service.enqueue(requeue, requeue.match_mode);
         }
-    }
 
+    }
     return;
 })
 

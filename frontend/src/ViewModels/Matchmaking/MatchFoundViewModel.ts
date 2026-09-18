@@ -13,18 +13,17 @@ import {
 } from 'src/Models/MatchFoundModel';
 
 
-
-
 export function useMatchFound() {
   const nav = useNavigate();
-  const { league, username, avatar, elo } = useUser();
+  const { league, username, avatar } = useUser();
   const { matchmaking_socket } = useSocket()
-  const { gameType, pairId, matchedUsers, match_mode } = useMatchmaking()
+  const { gameType, pairId, matchedUsers } = useMatchmaking()
   const [path, setPath] = useState('');
   const [loading, setLoading] = useState(false);
   const [socketError, setSocketError] = useState('');
   const [players, setPlayers] = useState<MatchFoundPlayer[] | null>(null);
   const [matchDetails, setMatchDetails] = useState<MatchFoundDetail[] | null>(null);
+  const [matchDeclined, setMatchDeclined] = useState(false);
 
   const closeLoading = () => setLoading(false);
   const openLoading = () => setLoading(true);
@@ -45,23 +44,9 @@ export function useMatchFound() {
     nav(`${path}/${match_id}`);
   }
 
-  // handler for user that declined the game
-  // const declineGame = () => {
-  //   setLoading(false);
-  //   nav('/dashboard')
-  // }
-
-  // handler for user that was declined
   const gameDeclined = () => {
     setLoading(false);
-
-    const data: MatchmakingUserDTO = {
-      elo: elo,
-      match_mode: match_mode!,
-      match_type: gameType!
-    };
-
-    matchmaking_socket?.joinQueue(data);
+    setMatchDeclined(true);
     nav('/searching')
   }
 
@@ -89,10 +74,10 @@ export function useMatchFound() {
   const set_players = (matched_users: MatchedUsersDTO) => {
     if (!matched_users?.players) return
 
-    const players: MatchFoundPlayer[] = matched_users.players.map((player,idx)=>({
+    const players: MatchFoundPlayer[] = matched_users.players.map((player, idx) => ({
       id: player.id,
       elo: player.elo,
-      side: idx === 0? 'left': 'right', //TOTO:   tournaments need a grid layout net sides
+      side: idx === 0 ? 'left' : 'right', //TOTO:   tournaments need a grid layout net sides
       username: player.username
     }));
 
@@ -142,6 +127,7 @@ export function useMatchFound() {
     socketError,
     closeLoading,
     openLoading,
-    matchedUsers
+    matchedUsers,
+    matchDeclined
   };
 }

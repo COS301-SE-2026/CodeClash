@@ -25,11 +25,8 @@ export class MatchConfirmationService {
     }
 
 
-    decline(id: string, user_id: string) {
-        const players = this.PLAYERS.get(id);
-        if (!players) throw new Error("Players not Found");
-
-        this.PLAYERS.set(id, players.filter(p => p.id !== user_id));
+    decline(id: string) {
+        this.PLAYERS.delete(id);
     }
 
     get(pair_id: string) {

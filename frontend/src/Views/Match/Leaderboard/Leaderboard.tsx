@@ -1,10 +1,10 @@
 import { Trophy } from 'lucide-react'
 
-import { LeaderboardViewModel } from 'src/ViewModels/MatchViewModels/LeaderboardViewModel';
+import { LeaderboardViewModel } from 'src/ViewModels/Match/LeaderboardViewModel';
 
 import PodiumCard from './components/PodiumCard';
 import LeaderboardTable from './components/LeaderboardTable';
-import Pagination from './components/Pagination';
+import Pagination from '@/components/shared/Pagination';
 import Loading from '@/components/shared/Loading';
 import Starfield from '@/components/ui/animations/Starfield';
 
