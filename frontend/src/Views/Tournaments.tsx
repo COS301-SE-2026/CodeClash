@@ -9,10 +9,10 @@ import {PlusIcon, Search} from "lucide-react"
 const Tournaments = () => {
     return (
         <div className="w-full max-h-screen">
-            <div className="w-full flex grid grid-rows-3">
+            <div className="w-full flex flex-col">
                 <div className="flex grid grid-cols-2 h-full w-full">
                     <h1 className="font-font font-semibold text-6xl ml-6 mt-6">Tournaments</h1>
-                    <TournamentButton className="w-md h-17 mt-3 ml-[40%]">
+                    <TournamentButton className="w-md h-17 mt-6 ml-[40%]">
                         <div className="grid grid-cols-2 w-full">
                             <PlusIcon size={60} className="mb-4 ml-3 -mt-5.5"/>
                             <h2 className="font-font font-semibold text-[40px] mb-5 -ml-30 -mt-5">Host Tournament</h2>
@@ -22,8 +22,9 @@ const Tournaments = () => {
                 </div>
 
                 <div className="flex grid grid-cols-2 w-full">
-                    <div className="w-[110%]">
-
+                    
+                    <div className="flex items-center gap-2 rounded-full border border-border bg-card px-4 h-15 ml-6 w-[90%]">
+                        <Search size={18} className="text-muted-text shrink-0"/>
                     </div>
 
                     <div className=" flex flex-row gap-10 ml-[45%]">
