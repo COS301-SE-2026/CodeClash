@@ -7,10 +7,7 @@ import { Question } from '@/components/features/question';
 import Loading from '@/components/shared/Loading';
 import { MatchScreen } from '@/components/shared/Match';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Spinner } from '@/components/ui/spinner';
 import Popup from '@/components/shared/PopUp';
-import { title } from 'process';
 
 const MathsMatch = () => {
     const {

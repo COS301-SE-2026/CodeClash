@@ -4,7 +4,7 @@ import { useMatchmaking } from "src/context/Matchmaking/hooks/useMatchmaking";
 import { useSocket } from "src/context/Socket/hooks/useSocket"
 import { useUser } from "src/context/User/hooks/useUser";
 import type { MatchedUsersDTO } from "src/dtos/matchmaking/matched-user.dto";
-import type { MatchmakingUserDTO, MatchAcceptedDTO } from "src/dtos/matchmaking/matchmaking.dto";
+import type {  MatchAcceptedDTO } from "src/dtos/matchmaking/matchmaking.dto";
 
 import {
   matchFoundContent,
