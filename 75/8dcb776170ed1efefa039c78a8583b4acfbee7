@@ -1,0 +1,18 @@
+frontend/src/Views/Tournaments.tsx
+  h_b13c5d77534129 29-31,33-34,37
+frontend/@/components/ui/FilterButton.tsx
+  h_b13c5d77534129 15
+frontend/@/components/ui/TournamentCard.tsx
+  h_b13c5d77534129 3,22,28-29,40-41,43
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "758dcb776170ed1efefa039c78a8583b4acfbee7",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
