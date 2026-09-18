@@ -2,6 +2,7 @@ import "../styles/global.css"
 import { Card } from "../../@/components/ui/card"
 import {LogOut, Rocket} from "lucide-react"
 import TournamentButton from "@/components/ui/TournamentButton"
+import { Progress } from "@/components/ui/progress"
 
 
 const TournamentsWaiting = () => {
@@ -27,6 +28,14 @@ const TournamentsWaiting = () => {
                                 </div>
                             </TournamentButton>
                         </div>
+                    </div>
+
+                    <div className="flex flex-col mt-2">
+                        <div className="flex flex-row">
+                            <div className="font-font font-semibold text-[1.5rem] text-primary ml-5">Room Capacity</div>
+                            <div className="ml-auto font-semibold mr-5 text-[1.5rem]">4/8 Players</div>
+                        </div>
+                        <Progress value={50} className="w-[98%] mx-auto mt-2"/>
                     </div>
                 </Card>
             </div>
