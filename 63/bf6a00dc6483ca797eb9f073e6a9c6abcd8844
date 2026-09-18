@@ -1,0 +1,16 @@
+frontend/src/Views/Tournaments.tsx
+  h_b13c5d77534129 14,21,24,26,30
+frontend/@/components/ui/TournamentCard.tsx
+  h_b13c5d77534129 18,68
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "63bf6a00dc6483ca797eb9f073e6a9c6abcd8844",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
