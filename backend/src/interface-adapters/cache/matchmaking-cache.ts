@@ -10,7 +10,6 @@ export class MatchmakingCache implements IMatchmakingCache {
 
 
     async enqueue(queue: MatchMode, user: MatchmakingUserDTO): Promise<void> {
-        console.log("enqueuing ", user);
         await this.redis.zadd(queue, user.elo, user.id);
         await this.redis.hset(`user:${user.id}`, {
             "user_joined_at": user.joined_at.getTime(),

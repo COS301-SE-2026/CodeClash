@@ -15,7 +15,6 @@ import {
 
 export function useMatchFound() {
   const mount_id = useRef(Math.random()).current;
-  console.log('MOUNT ID:', mount_id);
 
   const nav = useNavigate();
   const { league, username, avatar } = useUser();
@@ -32,7 +31,6 @@ export function useMatchFound() {
   const openLoading = () => setLoading(true);
 
   const decline = () => {
-    console.log("Found View Model: declining ", group_id);
     if (matchmaking_socket) {
       const data = {
         group_id,
@@ -56,13 +54,10 @@ export function useMatchFound() {
   }
 
   const gameDeclined = () => {
-    console.log("FoundViewModel Match declined", mount_id);
     setLoading(false);
     setMatchDeclined(true);
-    console.log("navigating");
     reset();
     nav('/match-searching');
-    console.log(window.location.pathname);
   }
 
   const accept = () => {

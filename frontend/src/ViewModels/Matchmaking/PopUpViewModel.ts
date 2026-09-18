@@ -20,7 +20,6 @@ export function useSelectTopic() {
             match_type: gameType!
         }
 
-        console.log("Joining match queue");
         matchmaking_socket.joinQueue(data);
         navigation('/match-searching');
 

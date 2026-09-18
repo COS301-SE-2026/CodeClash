@@ -29,9 +29,7 @@ export function LeaderboardViewModel(league: string) {
     setIsLoadingData(true);
     setError(null);
     try {
-      console.log("starting")
       const response = await fetchLeaderboard(pageSize, p, token!);
-      console.log("fetched leaderboard")
       // setUserData(response.data);
       // setTotalPages(Math.ceil(response.total / pageSize));
       const mapped: LeaderboardUserProps[] = response.data.map(entry => ({
@@ -39,16 +37,12 @@ export function LeaderboardViewModel(league: string) {
         username: entry.username,
         elo: entry.rating !== undefined ? entry.rating : 0,
       }));
-      console.log("populated map")
       setUserData(mapped);
-      console.log("set user data")
       setTotalPages(Math.max(1, Math.ceil(response.total / pageSize)));
-      console.log("set total pages")
 
       if (p === 1) {
         setTopThree(mapped.slice(0, 3));
       }
-      console.log("set top 3")
     }
     catch (err) {
       setError(`Could not load User Data ${err}`);

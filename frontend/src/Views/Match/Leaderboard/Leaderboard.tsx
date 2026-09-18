@@ -20,8 +20,6 @@ const Leaderboard = () => {
   const displayedRows = page === 1 ? userData.slice(3) : userData;
   const startRank = page === 1 ? 4 : (page - 1) * 10 + 1;
 
-  console.log("Leaderboard page")
-
   return (
     <div className="relative w-full min-h-screen bg-cover bg-center overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/75 to-background" />

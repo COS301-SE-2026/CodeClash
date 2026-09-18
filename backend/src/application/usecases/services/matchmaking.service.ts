@@ -70,8 +70,6 @@ export class MatchmakingService {
 
         await this.cache.deleteUser(user.match_mode, user.id);
 
-        console.log("Matchmaking Service: ", user.id, "\n", matched_players);
-
         return [
             { id: user.id, elo: user.elo },
             ...matched_players

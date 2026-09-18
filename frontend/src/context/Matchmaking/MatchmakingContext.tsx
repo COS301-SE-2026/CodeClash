@@ -17,7 +17,6 @@ export const MatchmakingProvider: React.FC<{ children: ReactNode }> = ({ childre
     const { matchmaking_socket } = useSocket()
 
     const handleMatched = (data: MatchedUsersDTO) => {
-        console.log("Matched: ", data);
         setMatched(true)
         set_group_id(data.group_id);
         setMatchedUsers(data);
