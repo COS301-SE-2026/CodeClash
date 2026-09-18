@@ -43,6 +43,13 @@ const TournamentsWaiting = () => {
                         <div className="font-font font-semibold text-sm mt-6 ml-2">Time Until Start:</div>
                     </div>
                 </Card>
+
+                <div className="flex flex-row mt-10 ml-5">
+                    <h1 className="font-semibold text-xl">Players:</h1>
+                        {/* hidden until true: */}
+                    <h2 className="text-lg ml-auto mr-5 mt-1">All Players Ready</h2>
+                </div>
+
             </div>
         </div>
     )
