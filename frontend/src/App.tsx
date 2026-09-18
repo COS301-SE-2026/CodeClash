@@ -28,6 +28,7 @@ import Friends from "./Views/Friends/Friends";
 import Achievements from "./Views/Achievements";
 import Settings from "./Views/Settings";
 import { ProgMatch } from "./Views/ProgMatch";
+import TournamentsWaiting from "./Views/TournamentsWaiting";
 
 const App: React.FC = () => {
 
@@ -72,6 +73,7 @@ const App: React.FC = () => {
             <Route path="/brand-style-guide" element={<BrandStyleGuide />} />
             <Route path="/agent" element={<Agent />} />
             <Route path='/game-guide' element={<GameGuide />} />
+            <Route path='/waiting' element={<TournamentsWaiting/>}/>
 
             {/* Pages with sidebar inside the app */}
             <Route element={<Layout />}>
