@@ -15,7 +15,7 @@ interface TournamentCardProps{
 export const MathTournamentCard = ({children, className} : TournamentCardProps) => {
     return(
         <Card className={`bg-card 
-            border-[var(--button-tournament-secondary)] border-[0.5px] flex grid grid-cols-5 w-420 mx-auto relative ${className}`}>
+            border-[var(--button-tournament-secondary)] border-[0.5px] flex grid grid-cols-5 w-490 mx-auto relative ${className}`}>
 
                 <div className="flex flex-col">
                     <div className="inset-0 right-2 text-muted-text ml-4 -mt-4">#tournamentid</div>
@@ -65,7 +65,7 @@ export const MathTournamentCard = ({children, className} : TournamentCardProps) 
 export const ProgrammingTournamentCard = ({children, className} : TournamentCardProps) => {
     return(
         <Card className={`bg-card 
-            border-[var(--button-tournament-secondary)] border-[0.5px] flex grid grid-cols-5 w-420 mx-auto h-47 relative  ${className}`}>
+            border-[var(--button-tournament-secondary)] border-[0.5px] flex grid grid-cols-5 w-490 mx-auto h-50 relative  ${className}`}>
                 
                 <div className="flex flex-col">
                     <div className="inset-0 right-2 text-muted-text ml-4 -mt-4">#tournamentid</div>

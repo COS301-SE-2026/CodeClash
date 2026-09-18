@@ -11,23 +11,23 @@ const Tournaments = () => {
         <div className="w-full max-h-screen">
             <div className="w-full flex flex-col">
                 <div className="flex grid grid-cols-2 h-full w-full">
-                    <h1 className="font-font font-semibold text-6xl ml-6 mt-6">Tournaments</h1>
+                    <h1 className="font-font font-semibold text-6xl ml-20 mt-10">Tournaments</h1>
                     <TournamentButton className="w-md h-17 mt-6 ml-[40%]">
                         <div className="grid grid-cols-2 w-full">
                             <PlusIcon size={60} className="mb-4 ml-3 -mt-5.5"/>
                             <h2 className="font-font font-semibold text-[40px] mb-5 -ml-30 -mt-5">Host Tournament</h2>
                         </div>
                     </TournamentButton>
-                    <h2 className="font-font text-sm ml-6 w-full">Join Tournaments to Compete With Up to 30 Players! Invite Friends to Join in on the Fun!</h2>
+                    <h2 className="font-font text-sm ml-20 w-full mt-7">Join Tournaments to Compete With Up to 30 Players! Invite Friends to Join in on the Fun!</h2>
                 </div>
 
-                <div className="flex grid grid-cols-2 w-full">
+                <div className="flex grid grid-cols-2 w-full mt-10">
                     
-                    <div className="flex items-center gap-2 rounded-full border border-border bg-card px-4 h-15 ml-6 w-[90%]">
+                    <div className="flex items-center gap-2 rounded-full border border-border bg-card px-4 h-14 ml-50 mt-7 w-[65%]">
                         <Search size={18} className="text-muted-text shrink-0"/>
                     </div>
 
-                    <div className=" flex flex-row gap-10 ml-[45%]">
+                    <div className=" flex flex-row gap-10 ml-[45%] mt-10">
                         <FilterButton className="">
                             <h1 className="text-primary font-semibold text-[90%]">Math</h1>
                         </FilterButton>
