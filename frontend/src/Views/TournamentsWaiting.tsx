@@ -10,8 +10,10 @@ const TournamentsWaiting = () => {
         <div className="w-full max-h-screen">
             <div className="flex flex-col max-w-[150rem] mx-auto">
                 <Card className="bg-card border-[var(--button-tournament-secondary)] border-[0.5px] flex flex-col ">
+
+                    <div className="inset-0 right-2 text-muted-text ml-4 -mt-2">#tournamentid</div>
                     
-                    <div className="flex flex-row w-full">
+                    <div className="flex flex-row w-full -mt-1">
                         <h1 className="font-font font-semibold text-2xl ml-5">Tournament Title</h1>
 
                         <div className="gap-8 grid grid-cols-2 ml-auto mr-5">
