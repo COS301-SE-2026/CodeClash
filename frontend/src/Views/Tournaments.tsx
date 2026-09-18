@@ -23,7 +23,7 @@ const Tournaments = () => {
 
                 <div className="flex grid grid-cols-2 w-full mt-10">
                     
-                    <div className="flex items-center gap-2 rounded-full border border-border bg-card px-4 h-14 ml-50 mt-7 w-[65%]">
+                    <div className="flex items-center gap-2 rounded-full border border-border bg-card px-4 h-14 ml-20 -mt-3 w-[68%]">
                         <Search size={18} className="text-muted-text shrink-0"/>
                     </div>
 
