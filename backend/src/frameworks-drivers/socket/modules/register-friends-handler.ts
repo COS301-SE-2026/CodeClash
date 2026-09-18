@@ -1,5 +1,4 @@
-import { Socket } from "socket.io";
-import { Server } from "socket.io";
+import { Socket , Server} from "socket.io";
 import { FriendDeps } from "../dependencies";
 import { registerHandler } from "../dispatch";
 import { FriendInviteDTO } from "src/entities/dtos/friends/friendship.dto";

@@ -14,8 +14,6 @@ import {
 
 
 export function useMatchFound() {
-  const mount_id = useRef(Math.random()).current;
-
   const nav = useNavigate();
   const { league, username, avatar } = useUser();
   const { matchmaking_socket } = useSocket()

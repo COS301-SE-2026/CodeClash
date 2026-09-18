@@ -9,7 +9,7 @@ import type { OpponentDTO } from "src/dtos/match/opponent.dto";
 
 
 export class MatchSocket {
-    private socket: Socket;
+    private readonly socket: Socket;
 
     constructor(socket: Socket) {
         this.socket = socket;

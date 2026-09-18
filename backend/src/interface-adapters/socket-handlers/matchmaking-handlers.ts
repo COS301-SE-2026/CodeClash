@@ -88,7 +88,7 @@ export const matchDeclined = (async (io: Server, group_id: string, match_mode: M
                 joined_at: new Date()   // this is a bit unfair coz they get requeued at the end of the queue but it's fine for now
             }
 
-            const delay = 6000 + Math.random() * 12000;
+            const delay = 6000 + Math.random() * 12000; //NOSONAR
 
             setTimeout(async () => {
                 const match = await matchmaking_service.matchmaking(requeue);
@@ -99,7 +99,6 @@ export const matchDeclined = (async (io: Server, group_id: string, match_mode: M
         }
 
     }
-    return;
 })
 
 

@@ -1,12 +1,12 @@
 import { PlayerDTO } from "src/entities/dtos/components.dto";
-import { createHash } from "crypto";
+import { createHash } from "node:crypto";
 
 export class MatchConfirmationService {
 
     private readonly PLAYERS = new Map<string, { id: string, elo: number, accepted: boolean }[]>();
 
     create(players: PlayerDTO[]) {
-        const sort = players.map(p => p.id).sort().join('::');
+        const sort = players.map(p => p.id).sort((a, b) => a.localeCompare(b)).join('::');
         const key = createHash('sha256').update(sort).digest('hex');
 
         this.PLAYERS.set(key, players.map(p => ({ id: p.id, elo: p.elo, accepted: false })));
@@ -43,18 +43,6 @@ export class MatchConfirmationService {
     getPlayers(id: string) {
         const players = this.PLAYERS.get(id);
         if (!players) throw new Error("Pair not Found");
-
-        const arr: { id: string, elo: number, life: number }[] = [];
-
-        players.forEach((key) => {
-            const player = {
-                id: key.id,
-                elo: key.elo,
-                life: 100
-            }
-
-            arr.push(player)
-        })
 
         return players;
     }

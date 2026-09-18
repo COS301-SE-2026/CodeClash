@@ -5,7 +5,6 @@ import type { MatchedUsersDTO } from "src/dtos/matchmaking/matched-user.dto";
 import type { MatchType, MatchMode } from "src/dtos/match/match.dto";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
 import { MatchmakingContext } from "./MatchmakingContextValue";
-import { group } from "console";
 
 export const MatchmakingProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
@@ -46,7 +45,7 @@ export const MatchmakingProvider: React.FC<{ children: ReactNode }> = ({ childre
         set_match_mode,
         setMatched,
         reset
-    }), [match_mode, gameType, group, matched, setGameType])
+    }), [match_mode, gameType, group_id, matched, setGameType])
 
     return (
         <MatchmakingContext.Provider

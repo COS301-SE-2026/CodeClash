@@ -4,7 +4,6 @@ import { World } from "src/entities/World"
 import { MatchResultService } from "../services/match/match-result.service";
 import { MatchStore } from "../services/match/match-store.service";
 import { MatchType } from "src/entities/database/questions.entities";
-import { DeleteGame } from "./delete-game";
 import { IMatchStatsRepository } from "src/application/interfaces/repositories/IMatchStatsRepository";
 import { AchievementService, AchievementStats } from "../services/achievement.service";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";

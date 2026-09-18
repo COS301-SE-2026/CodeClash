@@ -4,7 +4,7 @@ import { on, emit } from "../dispatch";
 import type { MatchedUsersDTO } from "src/dtos/matchmaking/matched-user.dto";
 
 export class MatchmakingSocket {
-    private socket: Socket;
+    private readonly socket: Socket;
 
     constructor(socket: Socket) {
         this.socket = socket;

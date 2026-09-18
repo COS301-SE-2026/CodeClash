@@ -7,9 +7,8 @@ import { useUser } from "src/context/User/hooks/useUser";
 import type { MarkingResultDTO } from "src/dtos/match/submission.dto";
 import type { Player } from "src/Models/MatchModel";
 import { robot_map } from 'src/assets/Robots';
-import { useGameQuestions, useGameTimer, useMatchProgress } from 'src/services/match.service';
+import { useGameQuestions, useGameTimer, useMatchProgress, matchStart } from 'src/services/match.service';
 
-import { matchStart } from 'src/services/match.service';
 import { useMatchStore } from 'src/stores/match-store';
 
 export const useMatch = () => {
