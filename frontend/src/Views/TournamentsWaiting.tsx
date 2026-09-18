@@ -1,9 +1,10 @@
 import "../styles/global.css"
 import { Card } from "../../@/components/ui/card"
-import {LogOut, Rocket, Timer} from "lucide-react"
+import {LogOut, Rocket, Timer, PlusIcon} from "lucide-react"
 import TournamentButton from "@/components/ui/TournamentButton"
 import { Progress } from "@/components/ui/progress"
 import { TournamentPlayer } from "@/components/ui/TournamentPlayer"
+import FilterButton from "@/components/ui/FilterButton"
 
 
 const TournamentsWaiting = () => {
@@ -53,8 +54,26 @@ const TournamentsWaiting = () => {
                     <h2 className="text-lg ml-auto mr-5 mt-1">All Players Ready</h2>
                 </div>
 
-                <div className="grid grid-cols-3 ml-5 mt-6">
+                <div className="grid grid-cols-3 ml-5 mt-6 mr-5 gap-5">
                     <TournamentPlayer/>
+                    <TournamentPlayer/>
+                    <TournamentPlayer/>
+                    <TournamentPlayer/>
+                </div>
+
+                <FilterButton className="mt-20 w-[60rem] h-20 mx-auto rounded-[20px]">
+                    <div className="flex flex-row gap-5">
+                        <PlusIcon size={50} className="text-primary my-auto"/>
+                        <h1 className="text-[3rem] font-font font-semibold text-primary">Add Friend?</h1>
+                    </div>
+                </FilterButton>
+
+                <div className="bg-card border-[var(--button-tournament-secondary)] border-[0.5px]">
+
+                </div>
+
+                <div className="">
+
                 </div>
             </div>
         </div>
