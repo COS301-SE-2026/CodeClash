@@ -18,7 +18,7 @@ const TournamentsWaiting = () => {
                     <div className="flex flex-row w-full -mt-1">
                         <h1 className="font-font font-semibold text-2xl ml-5">Tournament Title</h1>
 
-                        <div className="gap-8 grid grid-cols-2 ml-auto mr-5">
+                        <div className="gap-8 grid grid-cols-2 ml-auto mr-6 -mt-5">
                             <Card className="bg-card border-[var(--button-tournament-secondary)] border-[0.5px]">
                                 <div className="flex flex-row gap-2">
                                     <LogOut size={35} className="text-muted-text ml-3"/>
@@ -34,10 +34,10 @@ const TournamentsWaiting = () => {
                         </div>
                     </div>
 
-                    <div className="flex flex-col mt-1">
+                    <div className="flex flex-col -mt-1">
                         <div className="flex flex-row">
-                            <div className="font-font font-semibold text-[1.5rem] text-primary ml-5">Room Capacity</div>
-                            <div className="ml-auto font-semibold mr-5 text-[1.5rem]">4/8 Players</div>
+                            <div className="font-font font-semibold text-[1.5rem] text-primary ml-6">Room Capacity</div>
+                            <div className="ml-auto font-semibold mr-6 text-[1.5rem]">4/8 Players</div>
                         </div>
                         <Progress value={50} className="w-[98%] mx-auto mt-2"/>
                     </div>
@@ -69,8 +69,8 @@ const TournamentsWaiting = () => {
                     </div>
                 </FilterButton>
 
-                <TournamentButton className="mt-10 h-20 w-[50rem] mx-auto justify-center">
-                    <h1 className="font-semibold my-auto mx-auto text-xl">Click to Show You Are Ready!</h1>
+                <TournamentButton className="mt-10 h-15 w-[30rem] mx-auto justify-center">
+                    <h1 className="font-semibold my-auto mx-auto text-md">Click to Show You Are Ready!</h1>
                 </TournamentButton>
 
                 <div className="">
