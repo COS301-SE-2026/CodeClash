@@ -21,4 +21,4 @@ INSERT INTO shop_items (category, name, description, price, rariy, metadata) VAL
 ('powerup', 'Time Sink', 'Increase your opponents''s time taken stat, lowering their score and ELO gain.', 150, 'common',
 '{ "effect": "increase_time", "value_seconds": 10 }' ),
 ('powerup', 'Life Drain', 'Removes one life point from your opponent.', 250, 'epic',
-'{ "effect": "drain_life", "value": 1 }');
+'{ "effect": "drain_life", "value": 1 }' );
