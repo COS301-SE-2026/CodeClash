@@ -1,0 +1,28 @@
+backend/src/application/usecases/services/match/match-confirmation.service.ts
+  h_94c952a9e14c58 2,9
+frontend/src/context/Socket/modules/match.socket.ts
+  h_94c952a9e14c58 12
+frontend/src/context/Socket/modules/matchmaking.socket.ts
+  h_94c952a9e14c58 7
+backend/tests/test-data-source.ts
+  h_94c952a9e14c58 3,7
+frontend/src/ViewModels/Match/MatchViewModel.ts
+  h_94c952a9e14c58 10
+frontend/src/context/Matchmaking/MatchmakingContext.tsx
+  h_94c952a9e14c58 48
+backend/src/frameworks-drivers/socket/modules/register-friends-handler.ts
+  h_94c952a9e14c58 1
+backend/src/interface-adapters/socket-handlers/matchmaking-handlers.ts
+  h_94c952a9e14c58 91
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "47068da7901d877c7b5371a239402e1e36dd98e9",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
