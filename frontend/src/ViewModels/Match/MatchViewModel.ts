@@ -1,13 +1,13 @@
 import { MathfieldElement } from 'mathlive';
 import { useEffect, useState, useRef, useMemo } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useMatchmaking } from "src/context/Matchmaking/hooks/useMatchmaking";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
 import { useUser } from "src/context/User/hooks/useUser";
 import type { MarkingResultDTO } from "src/dtos/match/submission.dto";
 import type { Player } from "src/Models/MatchModel";
 import { robot_map } from 'src/assets/Robots';
-import { useGameQuestions, useGameTimer, useMatchProgress, matchStart } from 'src/services/match.service';
+import { useGameQuestions, useGameTimer, useMatchProgress} from 'src/services/match.service';
 
 import { useMatchStore } from 'src/stores/match-store';
 
@@ -15,8 +15,7 @@ export const useMatch = () => {
     const { match_socket } = useSocket();
     const status = useMatchStore(state => state.status);
 
-    const location = useLocation();
-    const { id } = location.state;
+    const { id } = useParams();
     const { userId } = useUser();
     const closeLoading = () => setLoading(false);
     const { gameType, match_mode } = useMatchmaking();
@@ -36,13 +35,13 @@ export const useMatch = () => {
         waitingOpponent,
         waiting_opponent,
         both_done
-    } = useGameQuestions(id, userId, match_socket, gameType!);
+    } = useGameQuestions(id!, userId, match_socket, gameType!);
 
     const [gameOver, setGameOver] = useState(false);
 
     const { seconds, minutes } = useGameTimer(duration, () => {
         setGameOver(true);
-        match_socket?.finishMatch({ match_id: id, match_mode: match_mode! })
+        match_socket?.finishMatch({ match_id: id!, match_mode: match_mode! })
     })
 
 
@@ -92,9 +91,9 @@ export const useMatch = () => {
     }, [players])
 
     useEffect(() => {
-        if (match_socket) {
+        if (match_socket && id) {
 
-            matchStart(match_socket)();
+           // matchStart(match_socket)();
 
             match_socket.sendQuestions(id);
             match_socket.sendPlayers(id);

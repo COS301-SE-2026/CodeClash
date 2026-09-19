@@ -11,10 +11,12 @@ import { useMatchStore } from "src/stores/match-store";
 
 
 export function matchStart(match_socket: MatchSocket) {
+
     return match_socket.startMatch((data) => {
         useMatchStore.getState().setMatchData(data);
     })
 }
+
 export const useGameTimer = (duration: number, onExpire: () => void) => {
     const expiry_time = useMemo(() => {
         const time = new Date();

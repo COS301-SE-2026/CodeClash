@@ -47,27 +47,28 @@ export const matchAccepted = (
         match_confirmation_service: MatchConfirmationService,
         match_start: MatchStart
     ) => {
+
         match_confirmation_service.accept(data.group_id, socket.data.user_id);
 
-        if (match_confirmation_service.bothAccepted(data.group_id)) { //needs to be updated for tournaments
+        if (!match_confirmation_service.bothAccepted(data.group_id)) return;
 
-            const players = match_confirmation_service.getPlayers(data.group_id);
-            let payload = null;
-            try {
-                payload = await match_start.execute(players, data.match_mode, data.league, data.match_type);
 
-                for (const player of payload.players) {
-                    io.to(player.id).emit('start_match', payload);
-                }
-            }
-            catch (error) {
-                console.error('Failed to start match:', error);
-
-                for (const player of players) {
-                    io.to(player.id).emit('start_match_failed', { error: 'Failed to start match' });
-                }
+        const players = match_confirmation_service.getPlayers(data.group_id);
+        let payload = null;
+        try {
+            payload = await match_start.execute(players, data.match_mode, data.league, data.match_type);
+            for (const player of payload.players) {
+                io.to(player.id).emit('start_match', payload);
             }
         }
+        catch (error) {
+            console.error('Failed to start match:', error);
+
+            for (const player of players) {
+                io.to(player.id).emit('start_match_failed', { error: 'Failed to start match' });
+            }
+        }
+
         // waiting for other player(s) to accept
     })
 
@@ -120,7 +121,7 @@ export const notifyMatchFound = (async (io: Server, match: PlayerDTO[], match_mo
         group_id: group_id,
         match_mode: match_mode
     };
-    
+
     for (const p of match) {
         io.to(p.id).emit('users_matched', result);
     }

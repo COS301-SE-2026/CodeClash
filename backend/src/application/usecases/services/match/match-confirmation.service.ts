@@ -20,7 +20,7 @@ export class MatchConfirmationService {
         const player = players.find(p => p.id === user_id);
         if (!player) throw new Error("Player not Found");
 
-        player.accepted = true;
+        player.accepted = true;        
     }
 
 
@@ -32,12 +32,12 @@ export class MatchConfirmationService {
         return this.PLAYERS.get(pair_id)
     }
 
-    bothAccepted(pair_id: string) {
+    bothAccepted(group_id: string) {
 
-        const pair = this.PLAYERS.get(pair_id);
+        const players = this.PLAYERS.get(group_id);
 
-        if (!pair) throw new Error("Pair not Found");
-        return [...pair.values()].every(val => val.accepted);
+        if (!players) throw new Error("Pair not Found");
+        return [...players.values()].every(val => val.accepted);
     }
 
     getPlayers(id: string) {

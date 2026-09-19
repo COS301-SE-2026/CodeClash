@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom';
 import { useMatchmaking } from "src/context/Matchmaking/hooks/useMatchmaking";
 import { useSocket } from "src/context/Socket/hooks/useSocket"
@@ -11,12 +11,14 @@ import {
   type MatchFoundDetail,
   type MatchFoundPlayer,
 } from 'src/Models/MatchFoundModel';
+import { matchStart } from "src/services/match.service";
+import { useMatchStore } from "src/stores/match-store";
 
 
 export function useMatchFound() {
   const nav = useNavigate();
   const { league, username, avatar } = useUser();
-  const { matchmaking_socket } = useSocket()
+  const { matchmaking_socket, match_socket } = useSocket()
   const { gameType, group_id, matchedUsers, match_mode, reset } = useMatchmaking()
   const [path, setPath] = useState('');
   const [loading, setLoading] = useState(false);
@@ -24,6 +26,7 @@ export function useMatchFound() {
   const [players, setPlayers] = useState<MatchFoundPlayer[] | null>(null);
   const [matchDetails, setMatchDetails] = useState<MatchFoundDetail[] | null>(null);
   const [matchDeclined, setMatchDeclined] = useState(false);
+  const status = useMatchStore(state => state.status);
 
   const closeLoading = () => setLoading(false);
   const openLoading = () => setLoading(true);
@@ -60,10 +63,12 @@ export function useMatchFound() {
 
   const accept = () => {
     if (matchmaking_socket && matchedUsers) {
+
       const new_path = "/".concat(matchedUsers.match_mode!).concat("-match")
       setPath(new_path);
+
       const data: MatchAcceptedDTO = {
-        pair_id: group_id,
+        group_id: group_id,
         match_mode: matchedUsers.match_mode!,
         league: league,
         username: username,
@@ -107,18 +112,26 @@ export function useMatchFound() {
   }
 
   useEffect(() => {
+    if (status === 'ready') {
+      nav(`${path}/${useMatchStore.getState().match_id}`);
+    }
+  },[status])
+
+  useEffect(() => {
 
     if (matchedUsers) {
       set_players(matchedUsers);
       set_detais();
     }
 
-    if (matchmaking_socket) {
+    if (matchmaking_socket && match_socket) {
 
+      const unsub_start = matchStart(match_socket);
       const unsub_ready = matchmaking_socket.matchReady(gameReady);
       const unsub_match_declined = matchmaking_socket.gameDeclined(gameDeclined);
 
       return () => {
+        unsub_start();
         unsub_ready();
         unsub_match_declined();
       }

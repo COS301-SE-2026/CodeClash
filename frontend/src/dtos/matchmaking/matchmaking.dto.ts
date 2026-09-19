@@ -8,7 +8,7 @@ export interface MatchmakingUserDTO {
 
 
 export interface MatchAcceptedDTO {
-    pair_id: string;
+    group_id: string;
     match_mode: MatchMode;
     league: string;
     username: string;
