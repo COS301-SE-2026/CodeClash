@@ -4,6 +4,7 @@
 
 import { MatchType } from "src/entities/dtos/match/match.dto"
 import { MathsSubmissionDTO, ProgSubmissionDTO } from "./dtos/components.dto"
+import { QuestionDTO } from "./dtos/match/question.dto"
 
 // Player Component holds array of ids for a match
 export interface PlayersComponent {
@@ -18,7 +19,7 @@ export interface MatchComponent {
     match_type: MatchType
     difficulty: number,
     winner: number,
-    rounds: number[],
+    rounds: RoundComponent[]
     start_time: Date,
     end_time: Date,
     question_number: number,
@@ -26,13 +27,12 @@ export interface MatchComponent {
 
 // SubmissionRegistryComponent maps player_id-question_id -> submission entity
 
-export interface SubmissionRegistryComponent{
+export interface SubmissionRegistryComponent {
     submissions: Map<string, number>
 }
 
-
 // Result component 
-export interface ResultComponent{
+export interface ResultComponent {
     winner: {
         id: string,
         elo: number
@@ -41,7 +41,13 @@ export interface ResultComponent{
         id: string,
         elo: number
     }
-    stats: Record<string, {num_correct: number, total_time:number}>
+    stats: Record<string, { num_correct: number, total_time: number }>
+}
+
+// Round Component
+export interface RoundComponent {
+    round_number: number,
+    questions: QuestionDTO[]
 }
 
 /********************************** */
@@ -72,14 +78,7 @@ export interface BadgeComponent {
     unlocked_at: Date
 }
 
-/********************************** */
 
-/** ROUND ENTITY */
-
-export interface RoundComponent {
-    question_ids: string[],
-    question_number: number
-}
 
 /********************************** */
 
@@ -89,14 +88,14 @@ export interface SubmissionComponent {
     match_id: number,
     player_id: string,
     question_id: string,
-    round_id: string,
+    round_number: number,
     question_number: number,
     started_at: Date,
     attempt_number: number,
     answer: MathsSubmissionDTO | ProgSubmissionDTO | null,
     language?: string
     submitted_at: Date | null,
-    correct:boolean | null,
+    correct: boolean | null,
     token: string | undefined
 }
 
@@ -108,11 +107,11 @@ export interface SubmissionComponent {
 // union for all components - for the map
 
 export type PlayerComponentTypes = LifeComponent | PlayerInfoComponent | RankComponent | BadgeComponent;
-export type MatchComponentTypes = PlayersComponent | MatchComponent | SubmissionRegistryComponent |ResultComponent;
+export type MatchComponentTypes = PlayersComponent | MatchComponent | SubmissionRegistryComponent | ResultComponent;
 
 export type Component =
     PlayerComponentTypes |
     MatchComponentTypes |
     RoundComponent |
-    SubmissionComponent 
+    SubmissionComponent
 

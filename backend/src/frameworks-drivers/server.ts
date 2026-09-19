@@ -10,7 +10,7 @@ import { IAnswerRepository } from 'src/application/interfaces/repositories/IAnsw
 import { AnswerRepository } from 'src/interface-adapters/repositories/answer.repository';
 import { Answers } from 'src/entities/database/answers.entities';
 import { MatchCreationService } from 'src/application/usecases/services/match/match-creation.service';
-import { MatchCreationSystem, CreateMatchEntity, CreatePlayerEntity, CreateRoundEntity } from 'src/application/usecases/systems/match-creation.system';
+import { MatchCreationSystem, CreateMatchEntity, CreatePlayerEntity, CreateRound} from 'src/application/usecases/systems/match-creation.system';
 import { GetDifficulty, GetQuestions, GetTotalTime } from 'src/application/usecases/services/questions.service';
 import { GetAnswers } from 'src/application/usecases/services/answers.service';
 import { MatchCache } from 'src/interface-adapters/cache/match-cache';
@@ -94,7 +94,7 @@ AppDataSource.initialize()
         // initialise use cases 
         const create_player_entity = new CreatePlayerEntity(world);
         const create_match_entity = new CreateMatchEntity(world);
-        const create_round_entity = new CreateRoundEntity(world);
+        const create_round_entity = new CreateRound();
 
 
         const get_questions = new GetQuestions(question_repo);

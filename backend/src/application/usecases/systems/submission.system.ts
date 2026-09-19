@@ -25,7 +25,7 @@ export class SubmissionSystem {
 
         if (!submission_registry) { throw new Error("Error saving submission") }
 
-        const key = `${sub.player_id}::${sub.round_id}::${sub.question_id}`;
+        const key = `${sub.player_id}::${sub.round_number}::${sub.question_id}`;
         const submission_entity = submission_registry.submissions.get(key);
         let submission_component: SubmissionComponent | null;
 
@@ -47,7 +47,7 @@ export class SubmissionSystem {
                 match_id: sub.match_id,
                 player_id: sub.player_id,
                 question_id: sub.question_id,
-                round_id: sub.round_id,
+                round_number: sub.round_number,
                 question_number: sub.question_number!,
                 started_at: new Date(),
                 attempt_number: is_correct === null ? 0 : 1,
@@ -57,7 +57,7 @@ export class SubmissionSystem {
                 token: undefined
             }
 
-            this.addSubmissionComponent(submission, 'Submission', submission_component);
+            this.addSubmissionComponent(submission, 'Submission', submission_component!);
 
             //  3.3 register entity in matchs' submission registry
             submission_registry.submissions.set(key, submission);
@@ -71,7 +71,7 @@ export class SubmissionSystem {
 
         if (!submission_registry) { throw new Error("Error saving submission") }
 
-        const key = `${sub.player_id}::${sub.round_id}::${sub.question_id}`;
+        const key = `${sub.player_id}::${sub.round_number}::${sub.question_id}`;
         const submission_entity = submission_registry.submissions.get(key);
 
         if (submission_entity === undefined) return null;

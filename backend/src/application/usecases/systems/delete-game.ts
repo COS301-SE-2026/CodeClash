@@ -28,7 +28,6 @@ export class DeleteGame {
 
         const players = this.getMatchComponent<PlayersComponent>(match_id, 'Players');
         const submission = this.getMatchComponent<SubmissionRegistryComponent>(match_id, 'Submission');
-        const match = this.getMatchComponent<MatchComponent>(match_id, 'Match');
 
         // Get and delete player entities
 
@@ -38,12 +37,6 @@ export class DeleteGame {
             }
         }
 
-        // Get and Delete round entites
-        if (match) {
-            for (const entity of match.rounds) {
-                this.removeRoundEntity(entity)
-            }
-        }
         // Get and Delete submission entities
         if (submission) {
             for (const entity of submission.submissions.values()) {

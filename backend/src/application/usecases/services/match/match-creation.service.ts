@@ -8,6 +8,7 @@ import { GetAnswers } from "../answers.service";
 import { GetDifficulty, GetQuestions, GetTotalTime } from "../questions.service";
 import { IMatchRepository } from "src/application/interfaces/repositories/IMatchRepository";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
+import { round } from "mathjs";
 
 export class MatchCreationService {
     constructor(
@@ -44,16 +45,9 @@ export class MatchCreationService {
         if (!questions) throw new Error("Error fetching questions")
 
         // Rounds 
-
         const q_easy = questions.easy.map(q => q.id);
         const q_medium = questions.medium.map(q => q.id);
         const q_hard = questions.hard.map(q => q.id);
-
-        const rounds: RoundDTO[] = [
-            { questions: questions.easy },
-            { questions: questions.medium },
-            { questions: questions.hard }
-        ];
 
         // get answers 
         const q_ids = [...q_easy, ...q_medium, ...q_hard];
@@ -62,7 +56,7 @@ export class MatchCreationService {
         // Match 
 
         const start = new Date();
-        const match: MatchDTO = {
+        const match_data: MatchDTO = {
             title: title,
             status: 'active',
             match_mode: match_mode,
@@ -73,8 +67,8 @@ export class MatchCreationService {
             end_time: new Date(start.getTime() + (time * 60 * 1000))
         }
 
-        const match_entity = this.create_match.execute(players, match, rounds, q_ids.length);
-        this.match_cache.saveMatch(match_entity, player_ids, q_ids);
+        const match = this.create_match.execute(players, match_data, questions);
+        this.match_cache.saveMatch(match.match_entity, player_ids, q_ids);
 
         for (const answer of answers) {
             await this.match_cache.saveAnswer(answer)
@@ -85,9 +79,9 @@ export class MatchCreationService {
         const db_match_id = await this.match_repo.createMatch(ids, game_type, match_mode, start); //mode is math or programming
 
         return {
-            match_entity: match_entity,
+            match_entity: match.match_entity,
             match_id: db_match_id,
-            rounds: rounds,
+            rounds: match.rounds,
             answers: answers
         }
     }

@@ -1,31 +1,27 @@
 import { LifeComponent, MatchComponent, PlayerInfoComponent, PlayersComponent, RoundComponent, SubmissionRegistryComponent } from "src/entities/components";
 import { PlayerDTO, MatchDTO, RoundDTO } from "src/entities/dtos/components.dto";
+import { MatchQuestionsDTO } from "src/entities/dtos/match/match.dto";
 import { World } from "src/entities/World";
 
 export class MatchCreationSystem {
     constructor(
         private readonly create_players: CreatePlayerEntity,
         private readonly create_match: CreateMatchEntity,
-        private readonly create_round: CreateRoundEntity,
+        private readonly create_rounds: CreateRound
     ) { }
 
 
-    execute(players: PlayerDTO[], match: MatchDTO, rounds: RoundDTO[], question_number: number) {
+    execute(players: PlayerDTO[], match: MatchDTO, questions: MatchQuestionsDTO) {
         // Player entities
         const player_entities = this.create_players.execute(players);
 
-        // Round entities
-        const round_entities: number[] = []
-        for (const round of rounds) {
-            const round_entity = this.create_round.execute(round);
-
-            round_entities.push(round_entity);
-        }
+        // Rounds 
+        const rounds = this.create_rounds.execute(questions, players.length);
 
         // Match entity
-        const match_entity = this.create_match.execute(match, player_entities, round_entities, question_number)
+        const match_entity = this.create_match.execute(match, player_entities, questions, rounds);
 
-        return match_entity
+        return { match_entity, rounds }
     }
 
 }
@@ -74,35 +70,38 @@ export class CreatePlayerEntity {
 }
 
 
-export class CreateRoundEntity {
-    private readonly createEntity;
-    private readonly addRoundComponent;
+export class CreateRound {
+    constructor() { }
 
-    constructor(
-        private readonly world: ReturnType<typeof World>
-    ) {
-        const { createEntity, addRoundComponent } = this.world;
-
-        this.createEntity = createEntity;
-        this.addRoundComponent = addRoundComponent
-    }
-
-
-    execute(round: RoundDTO) {
-        const entity = this.createEntity();
-
-        const ids = round.questions.map(q => q.id);
-        const round_component: RoundComponent = {
-            question_ids: ids,
-            question_number: ids.length
+    execute(question: MatchQuestionsDTO, player_count: number): RoundComponent[] {
+        if (player_count === 2) {
+            return [
+                { round_number: 0, questions: question.easy },
+                { round_number: 1, questions: question.medium },
+                { round_number: 2, questions: question.hard },
+            ];
         }
 
-        this.addRoundComponent(entity, 'Round', round_component);
+        const question_pool = [...question.easy, ...question.medium, ...question.hard];
+        let round_count = Math.ceil(Math.log2(player_count));
+        let q_per_round = Math.floor(question_pool.length / round_count);
 
-        return entity;
+        // ensure at least 5 questions per round
+        while (q_per_round < 5) {
+            --round_count;
+            q_per_round = Math.floor(question_pool.length / round_count);
+        }
+
+        const rounds: RoundComponent[] = [];
+        for (let i = 0; i < round_count; i++) {
+            const start = i * q_per_round;
+            const end = (i === round_count - 1) ? question_pool.length : start + q_per_round;
+
+            rounds.push({ round_number: i, questions: question_pool.slice(start, end) });
+        }
+        return rounds;
     }
 }
-
 
 export class CreateMatchEntity {
     private readonly createEntity;
@@ -116,13 +115,14 @@ export class CreateMatchEntity {
         this.addMatchComponent = addMatchComponent
     }
 
-    execute(match: MatchDTO, players: Map<string, number>, rounds: number[], question_number: number) {
+    execute(match: MatchDTO, players: Map<string, number>, questions: MatchQuestionsDTO, rounds: RoundComponent[]) {
         const entity = this.createEntity();
 
         const players_component: PlayersComponent = {
             players: players
         }
 
+        const question_number = questions.easy.length + questions.medium.length + questions.hard.length;
         const match_component: MatchComponent = {
             title: match.title,
             status: match.status,
@@ -139,7 +139,6 @@ export class CreateMatchEntity {
         const submission: SubmissionRegistryComponent = {
             submissions: new Map<string, number>()
         }
-
 
         this.addMatchComponent(entity, 'Players', players_component);
         this.addMatchComponent(entity, 'Match', match_component);

@@ -11,7 +11,6 @@ import { useMatchStore } from "src/stores/match-store";
 export function matchStart(match_socket: MatchSocket) {
 
     return match_socket.startMatch((data) => {
-        console.log("starting match with data", data);
         useMatchStore.getState().setMatchData(data);
     })
 }
