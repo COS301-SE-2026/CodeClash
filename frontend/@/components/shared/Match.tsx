@@ -4,6 +4,7 @@ import background from 'src/assets/Background/matchScreen.png'
 import { Badge } from '../ui/badge'
 import { Progress } from '../ui/progress'
 import {Check, X, LockKeyhole} from "lucide-react"
+import { MatchCard } from '../ui/MatchCard'
 
 
 interface MatchScreenProps {
@@ -139,14 +140,14 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                             return 'bg-card'
                                         }
                                         const doorSymbol = () => {
-                                            if (doorResult === true) return <Check/>
-                                            if (doorResult === false) return <X/>
+                                            if (doorResult === true) return <Check size={40} className="text-green-300 font-semibold"/>
+                                            if (doorResult === false) return <X size={40} className="text-[var(--progress-bar-symbol)] font-semibold"/>
                                             return <LockKeyhole/>
                                         }
                                         return (
                                             <React.Fragment key={`${question_number}-${idx}`}>
 
-                                                <div className={`${doorColour()} w-[5rem] h-[5rem] flex items-center justify-center col-start-2 rounded-[15px]`}>
+                                                <div className={`${doorColour()} w-[4rem] h-[4rem] flex items-center justify-center col-start-2 rounded-[15px]`}>
                                                     {doorSymbol()}  
                                                 </div>
                                             </React.Fragment>

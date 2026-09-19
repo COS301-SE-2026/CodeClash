@@ -271,6 +271,9 @@
   /* Life bars */
   --color-life-primary: var(--life-primary);
 
+  /*Match Page*/
+  --progress-bar-symbol: var(--progress-bar-symbol)
+
 }
 
 :root {
@@ -366,6 +369,9 @@
   --font-size-3xl: 3.6rem;
 
   --life-primary: #C0395A;
+
+  /* Match Page */
+  --progress-bar-symbol: #1B0F1A;
 }
 
 /*These are copied from :root and adjusted for light mode*/
@@ -440,6 +446,9 @@
     --glow-shadow: 0 0 24px rgba(192, 57, 90, 0.22);
 
     --life-primary: #C0395A;
+
+    /* Match Page */
+  --progress-bar-symbol: #1B0F1A;
 }
 
 @layer base {
