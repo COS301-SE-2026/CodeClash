@@ -28,7 +28,8 @@ export class MatchStore {
                     ...player,
                     username: user_name!.username!,
                     avatar_id: user_avatar!.avatar_id,
-                    done: false
+                    done: false,
+                    life: 100
                 }
             })
         )
