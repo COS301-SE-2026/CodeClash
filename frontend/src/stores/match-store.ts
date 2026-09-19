@@ -1,17 +1,17 @@
 import type { MatchQuestionsDTO } from "src/dtos/match/match-questionDTO";
-import type { PlayerDTO } from "src/dtos/match/match.dto";
+import type { Player } from "src/Models/MatchModel";
 import { create } from 'zustand'
 
 interface MatchState {
     match_id: string | null,
     questions: MatchQuestionsDTO | null,
-    players: PlayerDTO[],
+    players: Player[],
     status: 'idle' | 'loading' | 'ready'
 
     setMatchData: (data: {
         match_id: string,
         questions: MatchQuestionsDTO,
-        players: PlayerDTO[]
+        players: Player[]
     }) => void,
 
     reset: () => void,
@@ -23,12 +23,13 @@ export const useMatchStore = create<MatchState>((set) => ({
     players: [],
     status: 'idle',
 
-    setMatchData: (data) => set({
+    setMatchData: (data) => {
+        set({
         match_id: data.match_id,
         questions: data.questions,
         players: data.players,
         status: 'ready'
-    }),
+    })},
 
     reset: () => set({
         match_id: null,

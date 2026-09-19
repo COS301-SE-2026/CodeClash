@@ -1,9 +1,7 @@
 import { useMemo, useRef, useState, useEffect } from "react";
 import { useTimer } from "react-timer-hook";
-import type { MatchType } from "src/dtos/match/match.dto";
 import type { Player, Question } from "src/Models/MatchModel";
 import type { MatchQuestionsDTO } from "src/dtos/match/match-questionDTO";
-import { useNavigate } from "react-router-dom";
 import type { OpponentDTO } from "src/dtos/match/opponent.dto";
 import type { MathsSubmissionDTO, ProgSubmissionDTO } from "src/dtos/match/submission.dto";
 import type { MatchSocket } from "src/context/Socket/modules/match.socket";
@@ -51,68 +49,7 @@ function shuffle(array: Question[]) {
     return array;
 }
 
-export const useGameQuestions = (
-    match_id: string,
-    user_id: string,
-    match_socket: MatchSocket | null,
-    game_type: MatchType
-) => {
-    const nav = useNavigate();
-
-    const [questions, setQuestions] = useState<Question[]>([]);
-    const [duration, setDuration] = useState(0);
-    const [currentQuestion, setCurrentQuestion] = useState(0);
-    const [questionsReady, setQuestionsReady] = useState(false);
-    const [waitingOpponent, setWaitingOpponent] = useState(false);
-    const question_idx = useRef(0);
-
-    console.error(user_id, game_type, match_socket)
-
-    // const startQuestion = (
-    //     player_id: string,
-    //     question_id: string,
-    //     match_type: MatchType,
-    //     match_mode: MatchMode,
-    //     question_number: number
-    // ) => {
-    //     const data: SubmissionDTO = {
-    //         match_id,
-    //         player_id,
-    //         question_id,
-    //         match_type,
-    //         match_mode,
-    //         question_number,
-    //         submission: {answer: 'string'}
-    //     }
-
-    //     match_socket!.startQuestion(data);
-    // }
-
-    const nextQuestion = (curr: number) => {
-        if (curr < questions.length - 1) {
-            setCurrentQuestion(curr + 1);
-            // startQuestion(user_id, questions[curr + 1].id!,match_)
-        }
-    }
-
-    const prevQuestion = (curr: number) => {
-        if (curr > 0) {
-            setCurrentQuestion(curr - 1)
-            // startQuestion(user_id, questions[curr - 1].id!, curr - 1)
-        }
-    }
-
-    // const submitQuestion = (question_id: string, game_type: string, submission: ProgSubmissionDTO | MathsSubmissionDTO) => {
-    //     question_idx.current = currentQuestion;
-    //     // submitAnswer(socket, parseInt(match_id), question_id, question_idx.current, game_type, submission);
-    // }
-
-    const finishGame = () => {
-        if (question_idx.current === questions.length - 1) {
-            setWaitingOpponent(true)
-            // endGame(parseInt(match_id), game_type, socket);
-        }
-    }
+export const useGameQuestions = () => {
 
     const loadQuestions = (data: MatchQuestionsDTO) => {
         const temp_arr: Question[] = [];
@@ -149,42 +86,16 @@ export const useGameQuestions = (
             sumtime += Number(q.time_limit!.split(":")[1])
         }
 
-        setDuration(sumtime);
         shuffle(temp_arr);
-        setQuestions(temp_arr);
-        setQuestionsReady(true);
 
-        // startQuestion(user_id, temp_arr[0].id!, 0);
+        return {
+            questions: temp_arr,
+            duration: sumtime}
     }
 
-    const waiting_opponent = () => {
-        setWaitingOpponent(true);
-    }
-
-    const both_done = () => {
-        setWaitingOpponent(false);
-        nav('/results', {
-            replace: true,
-            state: {
-                id: match_id
-            }
-        });
-    }
 
     return {
-        questions,
-        duration,
-        currentQuestion,
-        questionsReady,
-        nextQuestion,
-        prevQuestion,
-        // submitQuestion,
-        question_idx,
-        finishGame,
-        loadQuestions,
-        waitingOpponent,
-        waiting_opponent,
-        both_done
+        loadQuestions
     }
 
 }
@@ -198,15 +109,10 @@ export const useMatchProgress = (
     const [opponentDone, setOpponentDone] = useState(false);
 
     const players_ref = useRef(players);
-    const [prev_players, setPrevPlayers] = useState(players);
 
-    if (players !== prev_players) {
-        setPrevPlayers(players);
-        setPlayerLife(players.map(p => p.life))
-    }
     useEffect(() => {
-        players_ref.current = players
-
+        players_ref.current = players;
+        setPlayerLife(players.map(p => p.life));
     }, [players]);
 
 
