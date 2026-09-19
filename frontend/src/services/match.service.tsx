@@ -52,45 +52,61 @@ function shuffle(array: Question[]) {
 export const useGameQuestions = () => {
 
     const loadQuestions = (data: MatchQuestionsDTO) => {
-        const temp_arr: Question[] = [];
-        let sumtime = 0;
 
-        for (const q of data.easy) {
-            temp_arr.push({
-                id: q.id,
-                title: q.title!,
-                difficulty: "Easy",
-                description: q.description,
-            });
+        const { questions, duration } = useMemo(() => {
+            if (!data) {
+                return {
+                    questions: [],
+                    duration: 0
+                }
+            }
 
-            sumtime += Number(q.time_limit!.split(":")[1])
-        }
+            const temp_arr: Question[] = [];
+            let sumtime = 0;
 
-        for (const q of data.medium) {
-            temp_arr.push({
-                id: q.id,
-                title: q.title,
-                difficulty: "Medium",
-                description: q.description
-            });
-            sumtime += Number(q.time_limit!.split(":")[1])
-        }
+            for (const q of data.easy) {
+                temp_arr.push({
+                    id: q.id,
+                    title: q.title!,
+                    difficulty: "Easy",
+                    description: q.description,
+                });
 
-        for (const q of data.hard) {
-            temp_arr.push({
-                id: q.id,
-                title: q.title,
-                difficulty: "Hard",
-                description: q.description
-            });
-            sumtime += Number(q.time_limit!.split(":")[1])
-        }
+                sumtime += Number(q.time_limit!.split(":")[1])
+            }
 
-        shuffle(temp_arr);
+            for (const q of data.medium) {
+                temp_arr.push({
+                    id: q.id,
+                    title: q.title,
+                    difficulty: "Medium",
+                    description: q.description
+                });
+                sumtime += Number(q.time_limit!.split(":")[1])
+            }
+
+            for (const q of data.hard) {
+                temp_arr.push({
+                    id: q.id,
+                    title: q.title,
+                    difficulty: "Hard",
+                    description: q.description
+                });
+                sumtime += Number(q.time_limit!.split(":")[1])
+            }
+
+            shuffle(temp_arr);
+
+            return {
+                questions: temp_arr,
+                duration: sumtime
+            };
+        }, [data]);
 
         return {
-            questions: temp_arr,
-            duration: sumtime}
+            questions, duration
+        }
+
     }
 
 
