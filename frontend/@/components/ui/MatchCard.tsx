@@ -11,8 +11,10 @@ interface MatchCardProps{
 
 export const MatchCard = ({children, className} : MatchCardProps) => {
     return(
-        <Card >
-
+        <Card className={`bg-card border-[var(--button-tournament-secondary)] 
+            border-[0.5px] ${className}`}>
+            
+            {children}
         </Card>
     );
 }
