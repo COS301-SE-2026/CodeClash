@@ -28,6 +28,7 @@ import Friends from "./Views/Friends/Friends";
 import Achievements from "./Views/Achievements";
 import Settings from "./Views/Settings";
 import { ProgMatch } from "./Views/ProgMatch";
+import TournamentsWaiting from "./Views/TournamentsWaiting";
 
 const App: React.FC = () => {
 
@@ -51,7 +52,6 @@ const App: React.FC = () => {
                 <Route path='/help-menu' element={<HelpMenu />} />
                 <Route path='/game-guide' element={<GameGuide/>}/>
                 <Route path='*' element={<Navigate to='/sign-in' replace />} />
-
             </Routes>
         )
     }
@@ -85,6 +85,7 @@ const App: React.FC = () => {
                 <Route path='/match-history' element={<MatchHistory />} />
                 <Route path="/shop" element={<Shop />} />
                 <Route path='/settings' element={<Settings />} />
+                <Route path='/waiting' element={<TournamentsWaiting/>}/>
             </Route>
 
             <Route path="*" element={<Navigate to='/dashboard' replace/>}/>
