@@ -8,3 +8,12 @@ interface MatchCardProps{
     className?: string;
 }
 
+
+export const MatchCard = ({children, className} : MatchCardProps) => {
+    return(
+        <Card >
+
+        </Card>
+    );
+}
+
