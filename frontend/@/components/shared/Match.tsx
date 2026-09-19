@@ -41,11 +41,11 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
             <img src={background} className='absolute w-full -z-10' alt='background' />
             {/* <BackButton page='/dashboard' /> */}
             {/* Header */}
-            <MatchCard className="w-[90%] h-[12%] mb-10 mt-10 mx-auto items-center">
+            <MatchCard className="w-[85%] h-[12%] mb-10 mt-10 mx-auto items-center">
             <div className='flex w-full h-[20%] justify-between items-center '>
                 
                 {/* Player 1 Progress */}
-                <MatchCard>
+                <MatchCard className="w-[25%] h-[90%] ml-3 my-auto">
                 <div className="flex w-[50%] h-[60%] items-center m-2">
                     <img
                         src={avatars[0]}
@@ -64,9 +64,9 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 </MatchCard>
 
                 {/* Clock */}
-                <div className='text-white font-dseg bg-[var(--progress-bar-symbol)] h-20 flex items-center justify-center text-5xl font-semibold rounded-lg px-3 my-auto'>
+                <div className='text-white font-dseg bg-[var(--progress-bar-symbol)] h-10 flex items-center justify-center text-lg font-semibold rounded-md px-4 my-auto mx-auto '>
                     <div className="flex flex-row">
-                        <Timer size={50} className="mr-2"/>
+                        <Timer size={30} className="mr-2 my-auto"/>
                         <span>
                             {String(minutes).padStart(2, "0")}:
                             {String(seconds).padStart(2, "0")}
@@ -75,6 +75,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 </div>
 
                 {/* Player 2 Progress */}
+                <MatchCard className="w-[25%] h-[90%] mr-3 my-auto">
                 <div className='flex w-[50%] h-[60%] items-center justify-end'>
                     <div className=' w-[70%] flex flex-col items-end h-[70%] justify-between self-end'>
                         <Progress
@@ -91,6 +92,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                         className='scale-x-[-1] h-[120%] flex items-center '
                     />
                 </div>
+                </MatchCard>
             </div>
             </MatchCard>
 
