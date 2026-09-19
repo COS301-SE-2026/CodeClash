@@ -1,4 +1,4 @@
-import { UserDTO } from "src/entities/dtos/user.dto"
+import { UserDTO } from "src/entities/dtos/users/user.dto"
 
 export interface IUserRepository {
 

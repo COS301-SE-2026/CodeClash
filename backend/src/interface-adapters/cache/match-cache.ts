@@ -1,6 +1,6 @@
 import Redis from "ioredis";
 import { IMatchCache } from "src/application/interfaces/cache/IGameCache";
-import { AnswerDTO } from "src/entities/dtos/answer.dto";
+import { AnswerDTO } from "src/entities/dtos/match/answer.dto";
 
 
 

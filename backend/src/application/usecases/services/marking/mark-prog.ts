@@ -1,7 +1,7 @@
 import { MathsSubmissionDTO, ProgSubmissionDTO } from "src/entities/dtos/components.dto";
 import { MarkingStrategy } from "src/application/interfaces/marking/IMarkingStategy";
 import { ICodeExecutor } from "src/application/interfaces/marking/ICodeExecutor";
-import { AnswerDTO } from "src/entities/dtos/answer.dto";
+import { AnswerDTO } from "src/entities/dtos/match/answer.dto";
 import { ProgSubmissionResult } from "src/entities/dtos/marking/submission-result.dto";
 
 export class MarkProg implements MarkingStrategy {

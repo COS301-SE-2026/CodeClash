@@ -2,7 +2,7 @@
 
 /* MATCH ENTITY */
 
-import { MatchType } from "./database/questions.entities"
+import { MatchType } from "src/entities/dtos/match/match.dto"
 import { MathsSubmissionDTO, ProgSubmissionDTO } from "./dtos/components.dto"
 
 // Player Component holds array of ids for a match
@@ -89,6 +89,7 @@ export interface SubmissionComponent {
     match_id: number,
     player_id: string,
     question_id: string,
+    round_id: string,
     question_number: number,
     started_at: Date,
     attempt_number: number,

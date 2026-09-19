@@ -1,5 +1,5 @@
 import { MatchMode } from "src/entities/database/questions.entities";
-import { QuestionDTO } from "src/entities/dtos/question.dto";
+import { QuestionDTO } from "src/entities/dtos/match/question.dto";
 
 
 export interface IQuestionRepository{

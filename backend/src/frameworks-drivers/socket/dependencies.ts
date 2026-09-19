@@ -7,7 +7,7 @@ import { MarkingService } from "src/application/usecases/services/marking/markin
 import { MatchConfirmationService } from "src/application/usecases/services/match/match-confirmation.service";
 import { MatchmakingService } from "src/application/usecases/services/matchmaking.service";
 import { DeleteGame } from "src/application/usecases/systems/delete-game";
-import { FinishGame } from "src/application/usecases/systems/finish-game";
+import { FinishGame } from "src/application/usecases/systems/match-completion.system";
 import { SubmissionSystem } from "src/application/usecases/systems/submission.system";
 import { MatchStart } from "src/application/usecases/services/match/match-start.service";
 

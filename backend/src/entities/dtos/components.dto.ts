@@ -1,4 +1,4 @@
-import { MatchMode, MatchType } from "../database/questions.entities"
+import { MatchMode, MatchType } from "src/entities/dtos/match/match.dto"
 
 export interface PlayerDTO {
     id: string,
@@ -12,7 +12,7 @@ export interface PlayerDTO {
 export interface MatchDTO {
     title: string,
     status: string,
-    game_mode: MatchMode,
+    match_mode: MatchMode,
     match_type: MatchType,
     difficulty: number,
     winner: number,
@@ -39,6 +39,7 @@ export interface PlayerSubmissionDTO{
     match_id: number,
     player_id: string,
     question_id: string,
+    round_id: string,
     question_number?: number,
-    submission: MathsSubmissionDTO | ProgSubmissionDTO
+    submission: MathsSubmissionDTO | ProgSubmissionDTO | null
 }

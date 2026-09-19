@@ -2,7 +2,7 @@ import { LifeComponent, MatchComponent, PlayerInfoComponent, PlayersComponent, R
 import { PlayerDTO, MatchDTO, RoundDTO } from "src/entities/dtos/components.dto";
 import { World } from "src/entities/World";
 
-export class CreateGame {
+export class MatchCreationSystem {
     constructor(
         private readonly create_players: CreatePlayerEntity,
         private readonly create_match: CreateMatchEntity,
@@ -125,7 +125,7 @@ export class CreateMatchEntity {
         const match_component: MatchComponent = {
             title: match.title,
             status: match.status,
-            game_mode: match.game_mode,
+            game_mode: match.match_mode,
             match_type: match.match_type,
             difficulty: match.difficulty,
             winner: match.winner,

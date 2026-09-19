@@ -1,14 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-
-export enum MatchMode {
-    Maths = "math",
-    Programming = "programming"
-}
-
-export enum MatchType{
-    ranked = 'ranked',
-    casual = 'casual'
-}
+import { MatchMode, MatchType } from "../dtos/match/match.dto";
 
 export enum AnswerFormat {
   Numeric = "numeric",

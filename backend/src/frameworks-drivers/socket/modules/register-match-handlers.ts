@@ -3,7 +3,7 @@ import { MatchDeps } from "../dependencies";
 import { registerHandler } from "../dispatch";
 import { PlayerSubmissionDTO } from "src/entities/dtos/components.dto";
 import { cleanUp, gameDone, sendResults, startQuestion, submitQuestion } from "src/interface-adapters/socket-handlers/match-handlers";
-import { StartQuestionDTO } from "src/entities/dtos/question.dto";
+import { StartQuestionDTO } from "src/entities/dtos/match/question.dto";
 import { sendMatchQuestions } from "src/interface-adapters/socket-handlers/matchmaking-handlers";
 import { MatchType } from "src/entities/database/questions.entities";
 

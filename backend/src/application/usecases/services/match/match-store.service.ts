@@ -1,7 +1,7 @@
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 import { PlayerDTO } from "src/entities/dtos/components.dto";
 import { MatchQuestionsDTO } from "src/entities/dtos/match-data.dto";
-import { MatchResultDTO } from "src/entities/dtos/match-result.dto";
+import { MatchResultDTO } from "src/entities/dtos/match/match-result.dto";
 
 
 export class MatchStore {

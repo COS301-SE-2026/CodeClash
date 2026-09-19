@@ -1,8 +1,8 @@
 import { IMatchCache } from "src/application/interfaces/cache/IGameCache";
-import { MatchMode, MatchType } from "src/entities/database/questions.entities";
+import { MatchMode, MatchType } from "src/entities/dtos/match/match.dto";
 import { MatchDTO, PlayerDTO, RoundDTO } from "src/entities/dtos/components.dto";
 
-import { CreateGame } from "../../systems/create-game";
+import { MatchCreationSystem} from "../../systems/match-creation.system";
 
 import { GetAnswers } from "../answers.service";
 import { GetDifficulty, GetQuestions, GetTotalTime } from "../questions.service";
@@ -11,7 +11,7 @@ import { IUserRepository } from "src/application/interfaces/repositories/IUserRe
 
 export class MatchCreationService {
     constructor(
-        private readonly createGame: CreateGame,
+        private readonly create_match: MatchCreationSystem,
         private readonly getQuestions: GetQuestions,
         private readonly getDifficulty: GetDifficulty,
         private readonly getTotalTime: GetTotalTime,
@@ -21,7 +21,7 @@ export class MatchCreationService {
         private readonly user_repo: IUserRepository
     ) { }
 
-    async execute(players: PlayerDTO[], game_mode: MatchMode, league: string, game_type: MatchType) {
+    async execute(players: PlayerDTO[], match_mode: MatchMode, league: string, game_type: MatchType) {
 
         let avg_elo = 0;
         const usernames = await Promise.all(
@@ -37,7 +37,7 @@ export class MatchCreationService {
         avg_elo /= players.length;
 
         // get questions
-        const questions = await this.getQuestions.execute(league, avg_elo, game_mode);
+        const questions = await this.getQuestions.execute(league, avg_elo, match_mode);
         const difficulty = this.getDifficulty.execute(questions)
         const time = this.getTotalTime.execute(questions)
 
@@ -67,7 +67,7 @@ export class MatchCreationService {
         const match: MatchDTO = {
             title: title,
             status: 'active',
-            game_mode: game_mode,
+            match_mode: match_mode,
             match_type: game_type,
             difficulty: difficulty,
             winner: -1,
@@ -75,7 +75,7 @@ export class MatchCreationService {
             end_time: new Date(start.getTime() + (time * 60 * 1000))
         }
 
-        const match_entity = this.createGame.execute(players, match, [round], question_ids.length);
+        const match_entity = this.create_match.execute(players, match, [round], question_ids.length);
 
         this.match_cache.saveMatch(match_entity, player_ids, question_ids);
 
@@ -85,7 +85,7 @@ export class MatchCreationService {
 
 
         const ids = players.map((p) => p.id);
-        const db_match_id = await this.match_repo.createMatch(ids, game_type, game_mode, start); //mode is math or programming
+        const db_match_id = await this.match_repo.createMatch(ids, game_type, match_mode, start); //mode is math or programming
 
 
         return {

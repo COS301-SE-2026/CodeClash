@@ -10,7 +10,7 @@ import { IAnswerRepository } from 'src/application/interfaces/repositories/IAnsw
 import { AnswerRepository } from 'src/interface-adapters/repositories/answer.repository';
 import { Answers } from 'src/entities/database/answers.entities';
 import { MatchCreationService } from 'src/application/usecases/services/match/match-creation.service';
-import { CreateGame, CreateMatchEntity, CreatePlayerEntity, CreateRoundEntity } from 'src/application/usecases/systems/create-game';
+import { CreateGame, CreateMatchEntity, CreatePlayerEntity, CreateRoundEntity } from 'src/application/usecases/systems/match-creation.system';
 import { GetDifficulty, GetQuestions, GetTotalTime } from 'src/application/usecases/services/questions.service';
 import { GetAnswers } from 'src/application/usecases/services/answers.service';
 import { MatchCache } from 'src/interface-adapters/cache/match-cache';
@@ -23,7 +23,7 @@ import { IUserRepository } from 'src/application/interfaces/repositories/IUserRe
 import { MarkingService } from 'src/application/usecases/services/marking/marking.service';
 import { initDB } from 'src/application/usecases/init-db';
 import { LifeSystem } from 'src/application/usecases/systems/life.system';
-import { FinishGame } from 'src/application/usecases/systems/finish-game';
+import { FinishGame } from 'src/application/usecases/systems/match-completion.system';
 import { SubmissionSystem } from 'src/application/usecases/systems/submission.system';
 import { World } from 'src/entities/World';
 import { MatchmakingCache } from 'src/interface-adapters/cache/matchmaking-cache';

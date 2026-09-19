@@ -1,14 +1,14 @@
 import { ResultComponent, SubmissionRegistryComponent } from "src/entities/components";
-import { PlayerStatsDTO } from "src/entities/dtos/player-stats.dto";
+import { PlayerStatsDTO } from "src/entities/dtos/users/player-stats.dto";
 import { World } from "src/entities/World"
 import { MatchResultService } from "../services/match/match-result.service";
 import { MatchStore } from "../services/match/match-store.service";
-import { MatchType } from "src/entities/database/questions.entities";
+import { MatchType } from "src/entities/dtos/match/match.dto";
 import { IMatchStatsRepository } from "src/application/interfaces/repositories/IMatchStatsRepository";
 import { AchievementService, AchievementStats } from "../services/achievement.service";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 
-export class FinishGame {
+export class MatchCompletionSystem {
     private readonly getMatchComponent
     private readonly getSubmissionComponent
     private readonly addMatchComponent
@@ -28,7 +28,7 @@ export class FinishGame {
     }
 
 
-    async execute(match_id: number, player_ids: string[], game_type: MatchType, pair_id:string) {
+    async execute(match_id: number, player_ids: string[], game_type: MatchType, pair_id: string) {
 
         // 1. get submission entities for players
         const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(match_id, 'Submission');
@@ -39,7 +39,7 @@ export class FinishGame {
         const db_match_id = this.game_store.get(match_id);
 
         //persist match stats
-        for(const [user_id, stat] of game_stats){
+        for (const [user_id, stat] of game_stats) {
             await this.match_stats_repo.saveStats(db_match_id!.database_id, user_id, stat.num_correct, stat.total_time);
         }
 
@@ -66,7 +66,7 @@ export class FinishGame {
                     correctness: stat.num_correct,
                     speed: stat.total_time
                 }
-            }else{
+            } else {
                 loser = id;
                 loser_stat = {
                     user_id: id,
@@ -84,12 +84,12 @@ export class FinishGame {
 
         // evaluate achivements for both players
         const match_duration_ms = 0; //Date.now() - (result!.start_time?.getTime?.() ?? 0);
-        for(const [user_id, stat] of game_stats) {
+        for (const [user_id, stat] of game_stats) {
             const is_winner = user_id === winner;
             const is_ranked = game_type === MatchType.ranked;
 
             // update streaks
-            if(is_ranked){
+            if (is_ranked) {
                 await this.user_repo.updateStreaks(user_id, is_winner);
             }
 
@@ -149,10 +149,10 @@ export class FinishGame {
 
             const correct = component.correct ?? false; // null -> false
             if (correct) stat.num_correct += 1;
-            
-            const time = component.submitted_at && component.started_at 
-            ? component.submitted_at!.getTime() - component.started_at!.getTime()
-            : 0; // unanswered questions are treated as 0 time
+
+            const time = component.submitted_at && component.started_at
+                ? component.submitted_at!.getTime() - component.started_at!.getTime()
+                : 0; // unanswered questions are treated as 0 time
             stat.total_time += time
         }
 

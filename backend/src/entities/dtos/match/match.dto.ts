@@ -1,6 +1,4 @@
-import { MatchMode, MatchType } from "../database/questions.entities";
-
-import { QuestionDTO } from "./question.dto";
+import { QuestionDTO } from "./question.dto"
 
 export interface MatchDataDTO {
     group_id: string,
@@ -16,3 +14,20 @@ export interface MatchQuestionsDTO {
     medium: QuestionDTO[],
     hard: QuestionDTO[]
 }
+
+export enum MatchMode {
+    Maths = "math",
+    Programming = "programming"
+}
+
+export enum MatchType{
+    ranked = 'ranked',
+    casual = 'casual'
+}
+
+export interface PlayerMatchStats{
+    user_id: string,
+    num_correct: number,
+    
+}
+

@@ -1,4 +1,4 @@
-import { AchievementDTO } from "src/entities/dtos/achievement.dto";
+import { AchievementDTO } from "src/entities/dtos/match/achievement.dto";
 
 export interface IAchievementRepository {
     getAllAchievements(): Promise<AchievementDTO[]>;

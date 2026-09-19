@@ -1,4 +1,4 @@
-import { LeagueDTO } from "src/entities/dtos/league.dto"
+import { LeagueDTO } from "src/entities/dtos/users/league.dto"
 
 
 const leagues = new Map<string, LeagueDTO>();
