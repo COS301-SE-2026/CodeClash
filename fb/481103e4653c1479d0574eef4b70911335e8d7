@@ -1,0 +1,34 @@
+backend/src/interface-adapters/socket-handlers/matchmaking-handlers.ts
+  h_94c952a9e14c58 134
+backend/src/application/usecases/services/match/match-store.service.ts
+  h_94c952a9e14c58 2,10,20,36
+frontend/src/context/Socket/modules/match.socket.ts
+  h_94c952a9e14c58 4,57
+frontend/src/ViewModels/Match/MatchViewModel.ts
+  h_94c952a9e14c58 19,21-22,61
+backend/src/application/usecases/services/match/match-start.service.ts
+  h_94c952a9e14c58 14,22
+frontend/src/services/match.service.tsx
+  h_94c952a9e14c58 4,14,55,68,79,89,115
+backend/src/application/usecases/services/match/match-creation.service.ts
+  h_94c952a9e14c58 53-55,90
+frontend/src/stores/match-store.ts
+  h_94c952a9e14c58 1,7,13,22,29,36
+frontend/src/dtos/match/match-questionDTO.tsx
+  h_94c952a9e14c58 21-24
+backend/src/entities/dtos/components.dto.ts
+  h_94c952a9e14c58 2,25
+backend/src/application/usecases/systems/match-creation.system.ts
+  h_94c952a9e14c58 94,96-97
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "fb481103e4653c1479d0574eef4b70911335e8d7",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
