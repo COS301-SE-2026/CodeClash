@@ -4,6 +4,7 @@ import door from 'src/assets/Decor/door.png'
 
 import { Badge } from '../ui/badge'
 import { Progress } from '../ui/progress'
+import {Check, X} from "lucide-react"
 
 
 interface MatchScreenProps {
@@ -137,6 +138,10 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                             if (doorResult === true) return 'bg-success/50'
                                             if (doorResult === false) return 'bg-danger/50'
                                             return 'bg-transparent'
+                                        }
+                                        const doorSymbol = () => {
+                                            if (doorResult === true) return <Check/>
+                                            if (doorResult === false) return <X/>
                                         }
                                         return (
                                             <React.Fragment key={`${question_number}-${idx}`}>
