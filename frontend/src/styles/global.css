@@ -272,7 +272,8 @@
   --color-life-primary: var(--life-primary);
 
   /*Match Page*/
-  --progress-bar-symbol: var(--progress-bar-symbol)
+  --progress-bar-symbol: var(--progress-bar-symbol);
+  --match-card: var(--match-card);
 
 }
 
@@ -372,6 +373,7 @@
 
   /* Match Page */
   --progress-bar-symbol: #1B0F1A;
+  --match-card: #241822;
 }
 
 /*These are copied from :root and adjusted for light mode*/
@@ -449,6 +451,7 @@
 
     /* Match Page */
   --progress-bar-symbol: #1B0F1A;
+  --match-card: #241822;
 }
 
 @layer base {

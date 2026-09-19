@@ -3,7 +3,7 @@ import background from 'src/assets/Background/matchScreen.png'
 
 import { Badge } from '../ui/badge'
 import { Progress } from '../ui/progress'
-import {Check, X, LockKeyhole} from "lucide-react"
+import {Check, X, LockKeyhole, Timer} from "lucide-react"
 import { MatchCard } from '../ui/MatchCard'
 
 
@@ -41,6 +41,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
             <img src={background} className='absolute w-full -z-10' alt='background' />
             {/* <BackButton page='/dashboard' /> */}
             {/* Header */}
+            <MatchCard className="w-[90%] h-[12%] mb-10 mt-10 mx-auto">
             <div className='flex w-full h-[20%] justify-between items-center '>
                 {/* Player 1 Progress */}
                 <div className="flex w-[50%] h-[60%] items-center m-2">
@@ -59,11 +60,14 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                         <Badge variant={'default'} className='text-[1.25rem] w-[50%] h-[35%]'>{usernames[0]}</Badge>
                     </div></div>
                 {/* Clock */}
-                <div className='text-white font-dseg w-[15%] h-20 flex items-center justify-center text-5xl font-semibold border-6 rounded-l'>
-                    <span>
-                        {String(minutes).padStart(2, "0")}:
-                        {String(seconds).padStart(2, "0")}
-                    </span>
+                <div className='text-white font-dseg bg-[var(--progress-bar-symbol)] h-20 flex items-center justify-center text-5xl font-semibold rounded-lg'>
+                    <div className="flex flex-row">
+                        <Timer size={50} className="mr-2"/>
+                        <span>
+                            {String(minutes).padStart(2, "0")}:
+                            {String(seconds).padStart(2, "0")}
+                        </span>
+                    </div>
                 </div>
 
                 {/* Player 2 Progress */}
@@ -84,6 +88,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                     />
                 </div>
             </div>
+            </MatchCard>
 
 
             {/* Body */}
@@ -92,7 +97,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                     <div className='absolute bg-gradient-to-r from-button-primary to-secondary h-[3%] w-[71%] rounded-4xl shadow-[0_4px_6px_rgba(0,0,0,0.3)]'></div>
                     {/* Question box */}
 
-                    <div className='bg-secondary w-[100%] h-[100%] rounded-4xl ml-1 pt-[2rem] flex flex-col justify-between itmes-center'>
+                    <div className='bg-secondary w-[100%] h-[100%] rounded-4xl ml-1 pt-[2rem] flex flex-col justify-between items-center'>
                         {children}
                     </div>
                 </div>
@@ -104,7 +109,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                     <div className='w-[100%] flex'>
 
 
-                        <div className='grid grid-cols-2 w-[100%]'>
+                        <div className='grid grid-cols-2 w-[100%] mr-2'>
 
                             {/* avatars */}
                             <div className='relative flex flex-row'>
@@ -126,9 +131,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                             </div>
 
                             {/* doors */}
-                            <div className='relative  flex flex-col-reverse items-center justify-between h-[40rem]'>
-                                {/* start badge */}
-                                <Badge variant={'outline'} className='text-white text-sm font-body text-center font-semibold w-[60%] h-[2rem]'>Start</Badge>
+                            <div className='relative bg-card/100 rounded-[20px] flex flex-col-reverse items-center justify-between h-[40rem] w-[5rem] py-6 mt-2'>
                                 <div className="absolute top-0 bg-card h-[90%] w-[5%] -z-10 rounded-3xl "></div>
                                 {
                                     [...Array(question_number)].map((_, idx) => {
