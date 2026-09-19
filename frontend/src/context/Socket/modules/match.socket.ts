@@ -1,7 +1,7 @@
 import type { Socket } from "socket.io-client";
 import { emit, on } from "../dispatch";
 import type { SubmissionDTO, MarkingResultDTO } from "src/dtos/match/submission.dto";
-import type { MatchQuestionsDTO } from "src/dtos/match/match-questionDTO";
+import type { MatchQuestionsDTO, RoundDTO } from "src/dtos/match/match-questionDTO";
 import type { MatchResultDTO, ResultDTO } from "src/dtos/match/result.dto";
 import type { MatchMode } from "src/dtos/match/match.dto";
 import type { Player } from "src/Models/MatchModel";
@@ -54,7 +54,7 @@ export class MatchSocket {
         return on(this.socket, 'get_results', handler);
     }
 
-    startMatch(handler: (data: { match_id: string, questions: MatchQuestionsDTO, players: Player[] }) => void) {
+    startMatch(handler: (data: { match_id: string, rounds: RoundDTO[], players: Player[] }) => void) {
         return on(this.socket, 'start_match', handler);
     }
 

@@ -131,7 +131,7 @@ export const sendMatchQuestions = (io: Server, game_id: number, game_store: Matc
 
     if (data) {
         for (const player of data.players) {
-            io.to(player.id).emit('get_questions', data.questions)
+            io.to(player.id).emit('get_questions', data.rounds)
         }
     } else {
         console.log("Game data null")

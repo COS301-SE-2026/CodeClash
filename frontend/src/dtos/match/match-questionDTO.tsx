@@ -18,3 +18,7 @@ export interface MatchQuestionsDTO {
     medium: QuestionDTO[],
     hard: QuestionDTO[]
 }
+
+export interface RoundDTO {
+    questions: QuestionDTO[]
+}

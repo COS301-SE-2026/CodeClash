@@ -1,4 +1,5 @@
 import { MatchMode, MatchType } from "src/entities/dtos/match/match.dto"
+import { QuestionDTO } from "./match/question.dto"
 
 export interface PlayerDTO {
     id: string,
@@ -21,7 +22,7 @@ export interface MatchDTO {
 }
 
 export interface RoundDTO {
-    question_ids: string[],
+    questions: QuestionDTO[],
 }
 
 

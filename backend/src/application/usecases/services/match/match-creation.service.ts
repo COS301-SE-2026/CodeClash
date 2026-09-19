@@ -50,9 +50,9 @@ export class MatchCreationService {
         const q_hard = questions.hard.map(q => q.id);
 
         const rounds: RoundDTO[] = [
-            { question_ids: q_easy },
-            { question_ids: q_medium },
-            { question_ids: q_hard }
+            { questions: questions.easy },
+            { questions: questions.medium },
+            { questions: questions.hard }
         ];
 
         // get answers 
@@ -84,13 +84,11 @@ export class MatchCreationService {
         const ids = players.map((p) => p.id);
         const db_match_id = await this.match_repo.createMatch(ids, game_type, match_mode, start); //mode is math or programming
 
-
         return {
             match_entity: match_entity,
             match_id: db_match_id,
-            questions: questions,
+            rounds: rounds,
             answers: answers
         }
-
     }
 }

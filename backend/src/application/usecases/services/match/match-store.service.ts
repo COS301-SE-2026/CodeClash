@@ -1,6 +1,5 @@
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
-import { PlayerDTO } from "src/entities/dtos/components.dto";
-import { MatchQuestionsDTO } from "src/entities/dtos/match/match.dto";
+import { PlayerDTO, RoundDTO } from "src/entities/dtos/components.dto";
 import { MatchResultDTO } from "src/entities/dtos/match/match-result.dto";
 
 
@@ -8,7 +7,7 @@ export class MatchStore {
     private readonly MATCH = new Map<number, {
         database_id: string,
         players: PlayerDTO[],
-        questions: MatchQuestionsDTO,
+        rounds: RoundDTO[],
         result: MatchResultDTO | null,
         ack_count: number
     }>();
@@ -18,7 +17,7 @@ export class MatchStore {
     ) { }
 
 
-    async create(match_id: number, db_id: string, players: PlayerDTO[], questions: MatchQuestionsDTO) {
+    async create(match_id: number, db_id: string, players: PlayerDTO[], rounds: RoundDTO[]) {
 
         const populatePlayerData = await Promise.all(
             players.map(async (player) => {
@@ -34,7 +33,7 @@ export class MatchStore {
             })
         )
 
-        this.MATCH.set(match_id, { database_id: db_id, players: populatePlayerData, questions: questions, result: null, ack_count: 0 });
+        this.MATCH.set(match_id, { database_id: db_id, players: populatePlayerData, rounds: rounds, result: null, ack_count: 0 });
     }
 
     get(game_id: number) {

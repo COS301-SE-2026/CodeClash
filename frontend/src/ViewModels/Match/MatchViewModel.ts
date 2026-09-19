@@ -16,10 +16,10 @@ export const useMatch = () => {
     const closeLoading = () => setLoading(false);
     const { match_mode } = useMatchmaking();
     const [gameOver, setGameOver] = useState(false);
-    const { loadQuestions } = useGameQuestions();
+    const { loadRounds } = useGameQuestions();
     const status = useMatchStore(state => state.status);
-    const loaded_questions = loadQuestions(useMatchStore(state => state.questions)!);
-    const questions = loaded_questions.questions;
+    const rounds = loadRounds(useMatchStore(state => state.rounds)!);
+    const questions = rounds.questions;
     const players = useMatchStore(state => state.players);
     const { playerLife, opponentCurrent, opponent_progress, opponent_done, opponentDone, updatePlayerLife } = useMatchProgress(questions.length, players);
     const avatars = useMemo(() => players.map(p => robot_map[p.avatar_id]), [players]);
@@ -58,7 +58,7 @@ export const useMatch = () => {
         });
     }
 
-    const { seconds, minutes } = useGameTimer(loaded_questions.duration, () => {
+    const { seconds, minutes } = useGameTimer(rounds.duration, () => {
         setGameOver(true);
         match_socket?.finishMatch({ match_id: id!, match_mode: match_mode! })
     })

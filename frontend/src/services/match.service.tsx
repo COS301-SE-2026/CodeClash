@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState, useEffect } from "react";
 import { useTimer } from "react-timer-hook";
 import type { Player, Question } from "src/Models/MatchModel";
-import type { MatchQuestionsDTO } from "src/dtos/match/match-questionDTO";
+import type { RoundDTO } from "src/dtos/match/match-questionDTO";
 import type { OpponentDTO } from "src/dtos/match/opponent.dto";
 import type { MathsSubmissionDTO, ProgSubmissionDTO } from "src/dtos/match/submission.dto";
 import type { MatchSocket } from "src/context/Socket/modules/match.socket";
@@ -11,6 +11,7 @@ import { useMatchStore } from "src/stores/match-store";
 export function matchStart(match_socket: MatchSocket) {
 
     return match_socket.startMatch((data) => {
+        console.log("starting match with data", data);
         useMatchStore.getState().setMatchData(data);
     })
 }
@@ -51,7 +52,7 @@ function shuffle(array: Question[]) {
 
 export const useGameQuestions = () => {
 
-    const loadQuestions = (data: MatchQuestionsDTO) => {
+    const loadRounds = (data: RoundDTO[]) => {
 
         const { questions, duration } = useMemo(() => {
             if (!data) {
@@ -64,7 +65,7 @@ export const useGameQuestions = () => {
             const temp_arr: Question[] = [];
             let sumtime = 0;
 
-            for (const q of data.easy) {
+            for (const q of data.at(0)!.questions) {
                 temp_arr.push({
                     id: q.id,
                     title: q.title!,
@@ -75,7 +76,7 @@ export const useGameQuestions = () => {
                 sumtime += Number(q.time_limit!.split(":")[1])
             }
 
-            for (const q of data.medium) {
+            for (const q of data.at(1)!.questions) {
                 temp_arr.push({
                     id: q.id,
                     title: q.title,
@@ -85,7 +86,7 @@ export const useGameQuestions = () => {
                 sumtime += Number(q.time_limit!.split(":")[1])
             }
 
-            for (const q of data.hard) {
+            for (const q of data.at(2)!.questions) {
                 temp_arr.push({
                     id: q.id,
                     title: q.title,
@@ -111,7 +112,7 @@ export const useGameQuestions = () => {
 
 
     return {
-        loadQuestions
+        loadRounds
     }
 
 }

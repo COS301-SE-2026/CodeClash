@@ -91,9 +91,10 @@ export class CreateRoundEntity {
     execute(round: RoundDTO) {
         const entity = this.createEntity();
 
+        const ids = round.questions.map(q => q.id);
         const round_component: RoundComponent = {
-            question_ids: round.question_ids,
-            question_number: round.question_ids.length
+            question_ids: ids,
+            question_number: ids.length
         }
 
         this.addRoundComponent(entity, 'Round', round_component);

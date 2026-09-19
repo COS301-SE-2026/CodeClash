@@ -11,7 +11,7 @@ export class MatchStart {
 
     async execute(players: PlayerDTO[], match_mode: MatchMode, league: string, match_type: MatchType) {
         const setup = await this.match_service.execute(players, match_mode, league, match_type);
-        await this.match_store.create(setup.match_entity, setup.match_id, players, setup.questions);
+        await this.match_store.create(setup.match_entity, setup.match_id, players, setup.rounds);
 
         const match = this.match_store.get(setup.match_entity);
 
@@ -19,7 +19,7 @@ export class MatchStart {
 
         return {
             match_id: setup.match_id,
-            questions: match.questions,
+            rounds: match.rounds,
             players: match.players
         }
     }
