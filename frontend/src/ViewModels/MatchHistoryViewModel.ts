@@ -48,7 +48,6 @@ export function MatchHistoryViewModelFunction(): MatchHistoryViewModel {
             const res = await axios.get(url.concat(`matches/${match.id}`), {
                 headers: { Authorization: `Bearer ${token}` }
             });
-            console.log(res.data)
             setSelected({
                 ...match,
                 details: {

@@ -1,5 +1,5 @@
 import { SubmissionComponent, SubmissionRegistryComponent } from "src/entities/components";
-import { MathsSubmissionDTO, ProgSubmissionDTO } from "src/entities/dtos/components.dto";
+import { PlayerSubmissionDTO } from "src/entities/dtos/components.dto";
 import { World } from "src/entities/World";
 
 export class SubmissionSystem {
@@ -18,14 +18,14 @@ export class SubmissionSystem {
         this.getSubmissionComponent = getSubmissionComponent
     }
 
-    saveSubmission(match_id: number, player_id: string, question_id: string, is_correct: boolean | null, answer: MathsSubmissionDTO | ProgSubmissionDTO | null, question_number: number) {
+    saveSubmission(sub: PlayerSubmissionDTO, is_correct: boolean | null) {
 
         // 1 lookup submission entity
-        const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(match_id, "Submission");
+        const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(sub.match_id, "Submission");
 
         if (!submission_registry) { throw new Error("Error saving submission") }
 
-        const key = `${player_id}::${question_id}`
+        const key = `${sub.player_id}::${sub.round_number}::${sub.question_id}`;
         const submission_entity = submission_registry.submissions.get(key);
         let submission_component: SubmissionComponent | null;
 
@@ -34,7 +34,7 @@ export class SubmissionSystem {
             submission_component = this.getSubmissionComponent(submission_entity, 'Submission')
             submission_component!.attempt_number += 1;
             submission_component!.correct = is_correct;
-            submission_component!.answer = answer;
+            submission_component!.answer = sub.submission;
             submission_component!.submitted_at = new Date();
         }
         else {  // 3 if not found 
@@ -44,19 +44,20 @@ export class SubmissionSystem {
             //  3.2 attach submission component
 
             submission_component = {
-                match_id: match_id,
-                player_id: player_id,
-                question_id: question_id,
-                question_number: question_number,
+                match_id: sub.match_id,
+                player_id: sub.player_id,
+                question_id: sub.question_id,
+                round_number: sub.round_number,
+                question_number: sub.question_number!,
                 started_at: new Date(),
                 attempt_number: is_correct === null ? 0 : 1,
-                answer: answer,
+                answer: sub.submission,
                 submitted_at: new Date(),
                 correct: is_correct,
                 token: undefined
             }
 
-            this.addSubmissionComponent(submission, 'Submission', submission_component);
+            this.addSubmissionComponent(submission, 'Submission', submission_component!);
 
             //  3.3 register entity in matchs' submission registry
             submission_registry.submissions.set(key, submission);
@@ -64,13 +65,13 @@ export class SubmissionSystem {
         return submission_component;
     }
 
-    getSubmission(match_id: number, player_id: string, question_id: string) {
+    getSubmission(sub: PlayerSubmissionDTO) {
 
-        const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(match_id, "Submission");
-        
+        const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(sub.match_id, "Submission");
+
         if (!submission_registry) { throw new Error("Error saving submission") }
 
-        const key = `${player_id}::${question_id}`
+        const key = `${sub.player_id}::${sub.round_number}::${sub.question_id}`;
         const submission_entity = submission_registry.submissions.get(key);
 
         if (submission_entity === undefined) return null;

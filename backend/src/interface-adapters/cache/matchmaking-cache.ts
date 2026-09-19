@@ -1,7 +1,7 @@
 import Redis from "ioredis";
 import { IMatchmakingCache } from "src/application/interfaces/cache/IMatchmakingCache";
-import { GameMode } from "src/entities/db-entities/questions.entities";
-import MatchmakingUserDTO from "src/entities/dtos/matchmaking.dto";
+import { MatchMode } from "src/entities/dtos/match/match.dto";
+import { MatchmakingUserDTO } from "src/entities/dtos/matchmaking/matchmaking.dto";
 
 export class MatchmakingCache implements IMatchmakingCache {
     constructor(
@@ -9,16 +9,16 @@ export class MatchmakingCache implements IMatchmakingCache {
     ) { }
 
 
-    async enqueue(queue: GameMode, user: MatchmakingUserDTO): Promise<void> {
-       
+    async enqueue(queue: MatchMode, user: MatchmakingUserDTO): Promise<void> {
         await this.redis.zadd(queue, user.elo, user.id);
-        await this.redis.hset(`user:${user.id}`, "user_joined_at", user.joined_at)
-
-
+        await this.redis.hset(`user:${user.id}`, {
+            "user_joined_at": user.joined_at.getTime(),
+            "match_attempt": user.match_attempt
+        });
     }
 
-    async dequeue(user_id: string, queue: GameMode): Promise<boolean> {
-        
+    async dequeue(user_id: string, queue: MatchMode): Promise<boolean> {
+
         const rem_joined_hash = await this.redis.hdel(`user:${user_id}`, 'user_joined_at');
         const rem_user = await this.redis.zrem(queue, user_id);
 
@@ -29,7 +29,7 @@ export class MatchmakingCache implements IMatchmakingCache {
     }
 
 
-    async getPlayers(queue: GameMode, elo: number, range: number): Promise<string[]> {
+    async getPlayers(queue: MatchMode, elo: number, range: number): Promise<string[]> {
         const lower = Math.max(0, elo - range);
         const upper = elo + range;
 
@@ -37,7 +37,7 @@ export class MatchmakingCache implements IMatchmakingCache {
 
     }
 
-    async getUserElo(queue: GameMode, user_id: string): Promise<string | null> {
+    async getUserElo(queue: MatchMode, user_id: string): Promise<string | null> {
         return await this.redis.zscore(queue, user_id);
 
     }
@@ -47,16 +47,20 @@ export class MatchmakingCache implements IMatchmakingCache {
     }
 
 
-    async getQueueLength(queue: GameMode): Promise<number> {
+    async getQueueLength(queue: MatchMode): Promise<number> {
         return await this.redis.zcard(queue);
     }
 
-    async deleteUser(queue: GameMode, user_id: string): Promise<number> {
+    async deleteUser(queue: MatchMode, user_id: string): Promise<number> {
 
         const count = await this.redis.zrem(queue, user_id);
         await this.redis.hdel(`user:${user_id}`, "user_joined_at");
 
         return count;
+    }
+
+    async incrementMatchAttempt(user_id: string): Promise<void> {
+        await this.redis.hincrby(`user:${user_id}`, "match_attempt", 1);
     }
 
 }

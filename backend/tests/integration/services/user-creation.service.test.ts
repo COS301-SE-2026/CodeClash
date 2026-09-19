@@ -7,8 +7,8 @@ import { CreateUser } from 'src/application/usecases/services/user-creation.serv
 import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
 import { EloRepository } from 'src/interface-adapters/repositories/elo.repository';
 import { UserRepository } from 'src/interface-adapters/repositories/user.repository';
-import { EloRatings } from 'src/entities/db-entities/elo.entities';
-import { Users } from "src/entities/db-entities/user.entities"
+import { EloRatings } from 'src/entities/database/elo.entities';
+import { Users } from "src/entities/database/user.entities"
 
 import dotenv from 'dotenv'
 import { DataSource, Repository } from "typeorm";

@@ -1,4 +1,5 @@
-import { GameMode, GameType } from "../../entities/db-entities/questions.entities"
+import { MatchMode, MatchType } from "src/entities/dtos/match/match.dto"
+import { QuestionDTO } from "./match/question.dto"
 
 export interface PlayerDTO {
     id: string,
@@ -12,8 +13,8 @@ export interface PlayerDTO {
 export interface MatchDTO {
     title: string,
     status: string,
-    game_mode: GameMode,
-    match_type: GameType,
+    match_mode: MatchMode,
+    match_type: MatchType,
     difficulty: number,
     winner: number,
     start_time: Date,
@@ -21,7 +22,7 @@ export interface MatchDTO {
 }
 
 export interface RoundDTO {
-    question_ids: string[],
+    questions: QuestionDTO[],
 }
 
 
@@ -39,6 +40,7 @@ export interface PlayerSubmissionDTO{
     match_id: number,
     player_id: string,
     question_id: string,
+    round_number: number,
     question_number?: number,
-    submission: MathsSubmissionDTO | ProgSubmissionDTO
+    submission: MathsSubmissionDTO | ProgSubmissionDTO | null
 }

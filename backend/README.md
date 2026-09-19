@@ -154,7 +154,7 @@ backend/
 |   |             ├── services/
 |   |             ├── systems/
 │   ├── entities/                           # System objects and entities 
-|   |       ├── db-entities/
+|   |       ├── database/
 |   |       ├── dtos/
 │   ├── frameworks-drivers/                 # Framework, driver and library config
 |   |       ├── routes/                     # API route wiring      

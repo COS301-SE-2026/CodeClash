@@ -6,11 +6,11 @@ import { AchievementToastProvider } from './context/Achievement/AchievementToast
 import { AuthProvider } from './context/Auth/AuthContext'
 import './amplify-config'
 import './styles/global.css'
-import { MatchmakingProvider } from './context/Socket/MatchmakingContext'
+import { MatchmakingProvider } from './context/Matchmaking/MatchmakingContext'
 import { SocketProvider } from './context/Socket/SocketContext'
 import { ThemeProvider } from './context/ThemeContext'
 import { UserProvider } from './context/User/UserContext'
-import { FriendsProvider } from './ViewModels/FriendsViewModel/FriendsContext'
+import { FriendsProvider } from './context/Friends/FriendsContext'
 import FriendInvitePopup from './Views/Friends/FriendInvitePopup'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

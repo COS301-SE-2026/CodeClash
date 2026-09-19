@@ -1,5 +1,5 @@
 import { Server } from "socket.io";
-import {  OpponentProgressDTO } from "src/entities/dtos/submission-result.dto";
+import {  OpponentProgressDTO } from "src/entities/dtos/marking/submission-result.dto";
 
 
 export class NotificationService {

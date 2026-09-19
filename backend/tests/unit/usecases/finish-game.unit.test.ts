@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { FinishGame } from '../../../src/application/usecases/systems/finish-game';
-import { GameType } from '../../../src/entities/db-entities/questions.entities';
+import { MatchType } from '../../../src/entities/database/questions.entities';
 import { AchievementService } from '../../../src/application/usecases/services/achievement.service';
 describe('FinishGame', () => {
     let world: any;
@@ -53,7 +53,7 @@ describe('FinishGame', () => {
         achievement_service = {
             evaluateAndAward: vi.fn().mockResolvedValue([])
         };
-        finish_game = new FinishGame(world, match_result_service, game_store, delete_game,match_stats_repo, achievement_service, user_repo);
+        finish_game = new FinishGame(world, match_result_service, game_store,match_stats_repo, achievement_service, user_repo);
     });
 
     describe('execute', () => {
@@ -61,7 +61,7 @@ describe('FinishGame', () => {
             world.getMatchComponent.mockReturnValue(null);
 
             await expect(
-                finish_game.execute(match_id, player_ids, GameType.ranked, pair_id)
+                finish_game.execute(match_id, player_ids, MatchType.ranked, pair_id)
             ).rejects.toThrow("Error finishing game");
 
             expect(match_stats_repo.saveStats).not.toHaveBeenCalled();
@@ -98,7 +98,7 @@ describe('FinishGame', () => {
                 ]
             });
 
-            await finish_game.execute(match_id, player_ids, GameType.ranked, pair_id);
+            await finish_game.execute(match_id, player_ids, MatchType.ranked, pair_id);
 
             expect(match_stats_repo.saveStats).toHaveBeenCalledWith(db_match_id, 'player-a', 2, 10000);
             expect(match_stats_repo.saveStats).toHaveBeenCalledWith(db_match_id, 'player-b', 0, 5000);
@@ -138,7 +138,7 @@ describe('FinishGame', () => {
             });
 
             //copied from above
-            await finish_game.execute(match_id, player_ids, GameType.ranked, pair_id);
+            await finish_game.execute(match_id, player_ids, MatchType.ranked, pair_id);
 
             expect(match_result_service.finaliseMatch).toHaveBeenCalledWith(
                 db_match_id,
@@ -178,7 +178,7 @@ describe('FinishGame', () => {
                 ]
             });
 
-            await finish_game.execute(match_id, player_ids, GameType.ranked, pair_id);
+            await finish_game.execute(match_id, player_ids, MatchType.ranked, pair_id);
 
             expect(match_result_service.finaliseMatch).toHaveBeenCalledWith(
                 db_match_id,
@@ -207,7 +207,7 @@ describe('FinishGame', () => {
                 ]
             });
 
-            await finish_game.execute(match_id, player_ids, GameType.casual, pair_id);
+            await finish_game.execute(match_id, player_ids, MatchType.casual, pair_id);
 
             expect(match_result_service.finaliseMatch).toHaveBeenCalledWith(
                 db_match_id,
@@ -244,7 +244,7 @@ describe('FinishGame', () => {
                 ]
             });
 
-            await finish_game.execute(match_id, player_ids, GameType.ranked, pair_id);
+            await finish_game.execute(match_id, player_ids, MatchType.ranked, pair_id);
 
             expect(world.addMatchComponent).toHaveBeenCalledWith(
                 match_id,
@@ -278,7 +278,7 @@ describe('FinishGame', () => {
 
             match_result_service.finaliseMatch.mockResolvedValueOnce(expectedResult);
 
-            const result = await finish_game.execute(match_id, player_ids,GameType.ranked, pair_id);
+            const result = await finish_game.execute(match_id, player_ids,MatchType.ranked, pair_id);
 
             expect(result).toBe(expectedResult);
         });

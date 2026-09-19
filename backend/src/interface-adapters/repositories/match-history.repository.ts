@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm';
-import { Matches, MatchLog } from 'src/entities/db-entities/match.entities';
-import { MatchStats } from 'src/entities/db-entities/match-stats.entities';
+import { Matches, MatchLog } from 'src/entities/database/match.entities';
+import { MatchStats } from 'src/entities/database/match-stats.entities';
 import { IMatchHistoryRepository, MatchHistoryRow, MatchHistoryDetail, MatchHistoryQuestionStat } from 'src/application/interfaces/repositories/IMatchHistoryRepository';
 
 export class MatchHistoryRepository implements IMatchHistoryRepository {

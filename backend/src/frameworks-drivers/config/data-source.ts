@@ -1,15 +1,15 @@
 import "reflect-metadata"
 import dotenv from 'dotenv'
 import { DataSource } from "typeorm"
-import { Matches, MatchLog, MatchProblems } from "src/entities/db-entities/match.entities";
-import { Answers } from "src/entities/db-entities/answers.entities";
-import { EloHistory, EloRatings } from "src/entities/db-entities/elo.entities";
-import { Questions } from "src/entities/db-entities/questions.entities";
-import { Submission } from "src/entities/db-entities/submission.entities";
-import { Users } from "src/entities/db-entities/user.entities";
-import { Achievement } from "src/entities/db-entities/achievement.entities";
-import { MatchStats } from "src/entities/db-entities/match-stats.entities";
-import { FriendInvite, Friendship } from "src/entities/db-entities/friendship.entities";
+import { Matches, MatchLog, MatchProblems } from "src/entities/database/match.entities";
+import { Answers } from "src/entities/database/answers.entities";
+import { EloHistory, EloRatings } from "src/entities/database/elo.entities";
+import { Questions } from "src/entities/database/questions.entities";
+import { Submission } from "src/entities/database/submission.entities";
+import { Users } from "src/entities/database/user.entities";
+import { Achievement } from "src/entities/database/achievement.entities";
+import { MatchStats } from "src/entities/database/match-stats.entities";
+import { FriendInvite, Friendship } from "src/entities/database/friendship.entities";
 
 dotenv.config()
 

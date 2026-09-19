@@ -1,7 +1,7 @@
 import { MatchComponent, PlayersComponent, SubmissionRegistryComponent } from "src/entities/components";
 import { World } from "src/entities/World";
-import { GameStore } from "../services/game-store.service";
-import { MatchedUsersService } from "../services/matched-users.service";
+import { MatchStore } from "../services/match/match-store.service";
+import { MatchConfirmationService } from "../services/match/match-confirmation.service";
 
 export class DeleteGame {
     private readonly getMatchComponent
@@ -11,8 +11,8 @@ export class DeleteGame {
     private readonly removeRoundEntity
     constructor(
         private readonly world: ReturnType<typeof World>,
-        private readonly game_store: GameStore,
-        private readonly matched_users: MatchedUsersService
+        private readonly game_store: MatchStore,
+        private readonly matched_users: MatchConfirmationService
 
     ) {
         const { getMatchComponent, removePlayerEntity, removeMatchEntity, removeSubmissionEntity, removeRoundEntity } = this.world
@@ -28,7 +28,6 @@ export class DeleteGame {
 
         const players = this.getMatchComponent<PlayersComponent>(match_id, 'Players');
         const submission = this.getMatchComponent<SubmissionRegistryComponent>(match_id, 'Submission');
-        const match = this.getMatchComponent<MatchComponent>(match_id, 'Match');
 
         // Get and delete player entities
 
@@ -38,12 +37,6 @@ export class DeleteGame {
             }
         }
 
-        // Get and Delete round entites
-        if (match) {
-            for (const entity of match.rounds) {
-                this.removeRoundEntity(entity)
-            }
-        }
         // Get and Delete submission entities
         if (submission) {
             for (const entity of submission.submissions.values()) {
@@ -58,7 +51,7 @@ export class DeleteGame {
         const stored = this.game_store.get(match_id);
 
         if (stored) {
-            this.game_store.deleteGame(match_id);
+            this.game_store.deleteMatch(match_id);
         }
         // remove from matched_users
         this.matched_users.deletePair(pair_id)
