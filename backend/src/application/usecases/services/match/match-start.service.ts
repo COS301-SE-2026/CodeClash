@@ -1,7 +1,7 @@
 import { PlayerDTO } from "src/entities/dtos/components.dto";
 import { MatchStore } from "./match-store.service";
 import { MatchCreationService } from "./match-creation.service";
-import { MatchMode, MatchType } from "src/entities/database/questions.entities";
+import { MatchMode, MatchType } from "src/entities/dtos/match/match.dto";
 
 export class MatchStart {
     constructor(

@@ -2,10 +2,10 @@ import { Server, Socket } from "socket.io";
 import { MatchDeps } from "../dependencies";
 import { registerHandler } from "../dispatch";
 import { PlayerSubmissionDTO } from "src/entities/dtos/components.dto";
-import { cleanUp, gameDone, sendResults, startQuestion, submitQuestion } from "src/interface-adapters/socket-handlers/match-handlers";
+import { cleanUp, gameDone, sendResults, submitQuestion } from "src/interface-adapters/socket-handlers/match-handlers";
 import { StartQuestionDTO } from "src/entities/dtos/match/question.dto";
 import { sendMatchQuestions } from "src/interface-adapters/socket-handlers/matchmaking-handlers";
-import { MatchType } from "src/entities/database/questions.entities";
+import { MatchType } from "src/entities/dtos/match/match.dto";
 
 // register handlers 
 export function registerMatchHandlers(io: Server, socket: Socket, deps: MatchDeps) {
@@ -21,11 +21,11 @@ export function registerMatchHandlers(io: Server, socket: Socket, deps: MatchDep
         (socket, data: PlayerSubmissionDTO) => submitQuestion(socket, data, deps.prog_marking_service)
     );
 
-    registerHandler(
-        socket,
-        'question_started',
-        async (socket, data: StartQuestionDTO) => startQuestion(socket.data.user_id, deps.submission_system, data)
-    );
+    // registerHandler(
+    //     socket,
+    //     'question_started',
+    //     async (socket, data: StartQuestionDTO) => startQuestion(socket.data.user_id, deps.submission_system, data)
+    // );
 
     registerHandler(
         socket,

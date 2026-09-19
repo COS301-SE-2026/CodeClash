@@ -7,7 +7,7 @@ import { MarkingService } from "src/application/usecases/services/marking/markin
 import { MatchConfirmationService } from "src/application/usecases/services/match/match-confirmation.service";
 import { MatchmakingService } from "src/application/usecases/services/matchmaking.service";
 import { DeleteGame } from "src/application/usecases/systems/delete-game";
-import { FinishGame } from "src/application/usecases/systems/match-completion.system";
+import { MatchCompletionSystem } from "src/application/usecases/systems/match-completion.system";
 import { SubmissionSystem } from "src/application/usecases/systems/submission.system";
 import { MatchStart } from "src/application/usecases/services/match/match-start.service";
 
@@ -15,7 +15,7 @@ export interface MatchDeps {
     math_marking_service: MarkingService,
     prog_marking_service: MarkingService,
     submission_system: SubmissionSystem,
-    match_completion_system: FinishGame,
+    match_completion_system: MatchCompletionSystem,
     match_deletion_system: DeleteGame,
     match_store: MatchStore,
 }

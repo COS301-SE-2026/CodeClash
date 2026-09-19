@@ -1,5 +1,4 @@
-import { MatchMode } from "src/entities/database/questions.entities";
-import { MatchQuestionsDTO } from "src/entities/dtos/match-data.dto";
+import { MatchMode, MatchQuestionsDTO } from "src/entities/dtos/match/match.dto";
 import { leagueMapping } from "src/entities/league-mapping";
 
 import { IQuestionRepository } from "../../interfaces/repositories/IQuestionRepository";

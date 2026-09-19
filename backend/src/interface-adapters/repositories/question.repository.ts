@@ -1,7 +1,8 @@
 import { IQuestionRepository } from "src/application/interfaces/repositories/IQuestionRepository";
-import { MatchMode, Questions } from "src/entities/database/questions.entities";
+import { Questions } from "src/entities/database/questions.entities";
 import { QuestionDTO } from "src/entities/dtos/match/question.dto";
 import { Repository } from "typeorm";
+import { MatchMode } from "src/entities/dtos/match/match.dto";
 
 export class QuestionRepository implements IQuestionRepository {
     constructor(

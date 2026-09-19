@@ -10,7 +10,7 @@ import { IAnswerRepository } from 'src/application/interfaces/repositories/IAnsw
 import { AnswerRepository } from 'src/interface-adapters/repositories/answer.repository';
 import { Answers } from 'src/entities/database/answers.entities';
 import { MatchCreationService } from 'src/application/usecases/services/match/match-creation.service';
-import { CreateGame, CreateMatchEntity, CreatePlayerEntity, CreateRoundEntity } from 'src/application/usecases/systems/match-creation.system';
+import { MatchCreationSystem, CreateMatchEntity, CreatePlayerEntity, CreateRoundEntity } from 'src/application/usecases/systems/match-creation.system';
 import { GetDifficulty, GetQuestions, GetTotalTime } from 'src/application/usecases/services/questions.service';
 import { GetAnswers } from 'src/application/usecases/services/answers.service';
 import { MatchCache } from 'src/interface-adapters/cache/match-cache';
@@ -23,7 +23,7 @@ import { IUserRepository } from 'src/application/interfaces/repositories/IUserRe
 import { MarkingService } from 'src/application/usecases/services/marking/marking.service';
 import { initDB } from 'src/application/usecases/init-db';
 import { LifeSystem } from 'src/application/usecases/systems/life.system';
-import { FinishGame } from 'src/application/usecases/systems/match-completion.system';
+import { MatchCompletionSystem } from 'src/application/usecases/systems/match-completion.system';
 import { SubmissionSystem } from 'src/application/usecases/systems/submission.system';
 import { World } from 'src/entities/World';
 import { MatchmakingCache } from 'src/interface-adapters/cache/matchmaking-cache';
@@ -102,7 +102,7 @@ AppDataSource.initialize()
         const get_difficulty = new GetDifficulty();
         const get_total_time = new GetTotalTime();
 
-        const create_game = new CreateGame(create_player_entity, create_match_entity, create_round_entity);
+        const create_match = new MatchCreationSystem(create_player_entity, create_match_entity, create_round_entity);
 
         // create game cache
         const match_cache: IMatchCache = new MatchCache(redis);
@@ -110,7 +110,7 @@ AppDataSource.initialize()
 
 
         // initialise services 
-        const match_service = new MatchCreationService(create_game, get_questions, get_difficulty, get_total_time, get_answers, match_cache, match_repo, user_repo);
+        const match_service = new MatchCreationService(create_match, get_questions, get_difficulty, get_total_time, get_answers, match_cache, match_repo, user_repo);
         const matchmaking_service = new MatchmakingService(matchmaking_cache);
         const match_results = new MatchResultService(elo_repo, match_results_repo)
         const matched_users_service = new MatchConfirmationService();
@@ -124,7 +124,7 @@ AppDataSource.initialize()
         const submission_system = new SubmissionSystem(world);
         const life_system = new LifeSystem(world);
         const match_deletion_system = new DeleteGame(world, match_store, matched_users_service);
-        const match_completion_system = new FinishGame(world, match_results, match_store, match_stats_repo, achievement_service, user_repo);
+        const match_completion_system = new MatchCompletionSystem(world, match_results, match_store, match_stats_repo, achievement_service, user_repo);
 
 
 

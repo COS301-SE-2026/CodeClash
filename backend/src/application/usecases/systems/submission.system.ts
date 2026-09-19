@@ -1,5 +1,5 @@
 import { SubmissionComponent, SubmissionRegistryComponent } from "src/entities/components";
-import { PlayerSubmissionDTO} from "src/entities/dtos/components.dto";
+import { PlayerSubmissionDTO } from "src/entities/dtos/components.dto";
 import { World } from "src/entities/World";
 
 export class SubmissionSystem {
@@ -18,7 +18,7 @@ export class SubmissionSystem {
         this.getSubmissionComponent = getSubmissionComponent
     }
 
-    saveSubmission(sub: PlayerSubmissionDTO,  is_correct: boolean | null) {
+    saveSubmission(sub: PlayerSubmissionDTO, is_correct: boolean | null) {
 
         // 1 lookup submission entity
         const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(sub.match_id, "Submission");
@@ -65,13 +65,13 @@ export class SubmissionSystem {
         return submission_component;
     }
 
-    getSubmission(match_id: number, player_id: string, question_id: string) {
+    getSubmission(sub: PlayerSubmissionDTO) {
 
-        const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(match_id, "Submission");
-        
+        const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(sub.match_id, "Submission");
+
         if (!submission_registry) { throw new Error("Error saving submission") }
 
-        const key = `${player_id}::${question_id}`
+        const key = `${sub.player_id}::${sub.round_id}::${sub.question_id}`;
         const submission_entity = submission_registry.submissions.get(key);
 
         if (submission_entity === undefined) return null;

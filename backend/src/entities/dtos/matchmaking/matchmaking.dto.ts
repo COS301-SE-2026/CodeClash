@@ -1,4 +1,4 @@
-import { MatchMode } from "../../database/questions.entities";
+import { MatchMode } from "src/entities/dtos/match/match.dto";
 
 export interface MatchmakingUserDTO{
     id: string;

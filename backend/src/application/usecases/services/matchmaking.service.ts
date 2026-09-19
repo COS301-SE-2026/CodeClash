@@ -1,5 +1,5 @@
 import { IMatchmakingCache } from "src/application/interfaces/cache/IMatchmakingCache";
-import { MatchMode } from "src/entities/database/questions.entities";
+import { MatchMode } from "src/entities/dtos/match/match.dto";
 import { MatchmakingUserDTO } from "src/entities/dtos/matchmaking/matchmaking.dto";
 
 

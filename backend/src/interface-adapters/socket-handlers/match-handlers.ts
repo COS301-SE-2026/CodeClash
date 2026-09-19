@@ -1,11 +1,11 @@
 import { Server, Socket } from "socket.io";
 import { MarkingService } from "src/application/usecases/services/marking/marking.service";
-import { FinishGame } from "src/application/usecases/systems/match-completion.system";
-import { SubmissionSystem } from "src/application/usecases/systems/submission.system";
+import { MatchCompletionSystem } from "src/application/usecases/systems/match-completion.system";
+// import { SubmissionSystem } from "src/application/usecases/systems/submission.system";
 
-import { StartQuestionDTO } from "src/entities/dtos/match/question.dto";
+// import { StartQuestionDTO } from "src/entities/dtos/match/question.dto";
 import { MatchStore } from "src/application/usecases/services/match/match-store.service";
-import { MatchType } from "src/entities/database/questions.entities";
+import { MatchType } from "src/entities/dtos/match/match.dto";
 import { DeleteGame } from "src/application/usecases/systems/delete-game";
 import { PlayerSubmissionDTO } from "src/entities/dtos/components.dto";
 import { PlayerResultDTO } from 'src/entities/dtos/match/match-result.dto'
@@ -14,11 +14,11 @@ export const submitQuestion = async (socket: Socket, data: PlayerSubmissionDTO, 
     return mark.execute({ ...data, player_id: socket.data.user_id });
 }
 
-export const startQuestion = (player_id: string, submission_system: SubmissionSystem, data: StartQuestionDTO) => {
-    submission_system.saveSubmission(data.match_id, player_id, data.question, null, null, data.question_number);
-}
+// export const startQuestion = (player_id: string, submission_system: SubmissionSystem, data: StartQuestionDTO) => {
+//     submission_system.saveSubmission(data,data);
+// }
 
-export const gameDone = async (io: Server, socket: Socket, game_id: number, match_type: MatchType, pair_id: string, finish_game: FinishGame, match_store: MatchStore) => {
+export const gameDone = async (io: Server, socket: Socket, game_id: number, match_type: MatchType, pair_id: string, match_completion_system: MatchCompletionSystem, match_store: MatchStore) => {
     // wait for both players to be done
     const game = match_store.get(game_id);
 
@@ -33,7 +33,7 @@ export const gameDone = async (io: Server, socket: Socket, game_id: number, matc
 
         const ids = game.players.map(player => player.id);
 
-        const game_result = await finish_game.execute(game_id, ids, match_type, pair_id);
+        const game_result = await match_completion_system.execute(game_id, ids, match_type, pair_id);
         match_store.saveResult(game_id, game_result);
 
         for (const id of ids) {

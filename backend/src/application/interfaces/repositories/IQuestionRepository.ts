@@ -1,4 +1,4 @@
-import { MatchMode } from "src/entities/database/questions.entities";
+import { MatchMode } from "src/entities/dtos/match/match.dto";
 import { QuestionDTO } from "src/entities/dtos/match/question.dto";
 
 

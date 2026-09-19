@@ -2,7 +2,7 @@ import { IMatchCache } from "src/application/interfaces/cache/IGameCache";
 import { MatchMode, MatchType } from "src/entities/dtos/match/match.dto";
 import { MatchDTO, PlayerDTO, RoundDTO } from "src/entities/dtos/components.dto";
 
-import { MatchCreationSystem} from "../../systems/match-creation.system";
+import { MatchCreationSystem } from "../../systems/match-creation.system";
 
 import { GetAnswers } from "../answers.service";
 import { GetDifficulty, GetQuestions, GetTotalTime } from "../questions.service";
@@ -43,23 +43,21 @@ export class MatchCreationService {
 
         if (!questions) throw new Error("Error fetching questions")
 
-        // Rounds   - creating one round for now, this logic will need to be updated for multiple 
-        const question_ids: string[] = [];
-        for (const question of questions.easy) {
-            question_ids.push(question.id)
-        }
-        for (const question of questions.medium) {
-            question_ids.push(question.id)
-        }
-        for (const question of questions.hard) {
-            question_ids.push(question.id)
-        }
+        // Rounds 
 
-        // need to update for multiple round
-        const round: RoundDTO = { question_ids: question_ids }
+        const q_easy = questions.easy.map(q => q.id);
+        const q_medium = questions.medium.map(q => q.id);
+        const q_hard = questions.hard.map(q => q.id);
+
+        const rounds: RoundDTO[] = [
+            { question_ids: q_easy },
+            { question_ids: q_medium },
+            { question_ids: q_hard }
+        ];
 
         // get answers 
-        const answers = await this.getAnswers.execute(question_ids)
+        const q_ids = [...q_easy, ...q_medium, ...q_hard];
+        const answers = await this.getAnswers.execute(q_ids);
 
         // Match 
 
@@ -75,9 +73,8 @@ export class MatchCreationService {
             end_time: new Date(start.getTime() + (time * 60 * 1000))
         }
 
-        const match_entity = this.create_match.execute(players, match, [round], question_ids.length);
-
-        this.match_cache.saveMatch(match_entity, player_ids, question_ids);
+        const match_entity = this.create_match.execute(players, match, rounds, q_ids.length);
+        this.match_cache.saveMatch(match_entity, player_ids, q_ids);
 
         for (const answer of answers) {
             await this.match_cache.saveAnswer(answer)

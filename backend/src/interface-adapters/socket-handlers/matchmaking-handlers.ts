@@ -1,12 +1,11 @@
 import { Socket, Server } from "socket.io"
 import { MatchmakingService } from 'src/application/usecases/services/matchmaking.service';
-import { MatchDataDTO } from "src/entities/dtos/match-data.dto";
+import { MatchDataDTO, MatchMode } from "src/entities/dtos/match/match.dto";
 import { MatchmakingUserDTO } from 'src/entities/dtos/matchmaking/matchmaking.dto';
 import { MatchConfirmationService } from "src/application/usecases/services/match/match-confirmation.service";
 import { MatchStore } from "src/application/usecases/services/match/match-store.service";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 import { MatchStart } from "src/application/usecases/services/match/match-start.service";
-import { MatchMode } from "src/entities/database/questions.entities";
 import { PlayerDTO } from "src/entities/dtos/components.dto";
 
 

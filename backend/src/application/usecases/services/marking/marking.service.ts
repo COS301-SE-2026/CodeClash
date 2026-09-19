@@ -25,9 +25,10 @@ export class MarkingService {
             const correct_answer = await this.game_cache.getAnswer(player_submission.question_id);
 
             if (!correct_answer) throw new Error("Invalid question id");
+            if (!player_submission.submission) throw new Error("Invalid Submission");
 
             const result = await this.marking_strategy.mark(player_submission.submission, correct_answer);
-            const submission = this.submission_system.saveSubmission(player_submission.match_id, player_submission.player_id, player_submission.question_id, result, player_submission.submission, player_submission.question_number!);
+            const submission = this.submission_system.saveSubmission(player_submission, result);
             return this.handleResult(result, submission!);
         }
         catch (error) {
