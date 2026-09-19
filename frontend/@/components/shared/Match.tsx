@@ -41,9 +41,11 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
             <img src={background} className='absolute w-full -z-10' alt='background' />
             {/* <BackButton page='/dashboard' /> */}
             {/* Header */}
-            <MatchCard className="w-[90%] h-[12%] mb-10 mt-10 mx-auto">
+            <MatchCard className="w-[90%] h-[12%] mb-10 mt-10 mx-auto items-center">
             <div className='flex w-full h-[20%] justify-between items-center '>
+                
                 {/* Player 1 Progress */}
+                <MatchCard>
                 <div className="flex w-[50%] h-[60%] items-center m-2">
                     <img
                         src={avatars[0]}
@@ -59,8 +61,10 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                         />
                         <Badge variant={'default'} className='text-[1.25rem] w-[50%] h-[35%]'>{usernames[0]}</Badge>
                     </div></div>
+                </MatchCard>
+
                 {/* Clock */}
-                <div className='text-white font-dseg bg-[var(--progress-bar-symbol)] h-20 flex items-center justify-center text-5xl font-semibold rounded-lg'>
+                <div className='text-white font-dseg bg-[var(--progress-bar-symbol)] h-20 flex items-center justify-center text-5xl font-semibold rounded-lg px-3 my-auto'>
                     <div className="flex flex-row">
                         <Timer size={50} className="mr-2"/>
                         <span>
