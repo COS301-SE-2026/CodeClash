@@ -46,7 +46,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
             <div className='flex w-full h-full items-center justify-between '>
                 
                 {/* Player 1 Progress */}
-                <MatchCard className="w-lg ml-7 h-[6rem]">
+                <MatchCard className="min-w-lg w-xl ml-7 h-[6rem]">
                     <div className="flex flex-row items-center gap-2 w-full">
                         <TournamentButton className="my-auto w-[6.5rem] h-[4rem] items-center -px-1 -py-4 ml-4 -mt-2.5">
                             <div style={{backgroundImage : `url(${avatars[0]})`}} className="w-full h-full bg-no-repeat bg-cover bg-center">
@@ -68,9 +68,9 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 </MatchCard>
 
                 {/* Clock */}
-                <div className='text-white font-dseg bg-[var(--progress-bar-symbol)] h-15 w-50 flex items-center justify-center text-lg text-center font-semibold rounded-sm px-2 my-auto mx-auto mt-4'>
+                <div className='text-white font-dseg bg-[var(--progress-bar-symbol)] h-20 w-70 flex items-center justify-center text-xl text-center font-semibold rounded-sm px-2 my-auto mx-auto mt-3'>
                     <div className="flex flex-row">
-                        <Timer size={30} className="mr-2 my-auto"/>
+                        <Timer size={50} className="mr-2 my-auto"/>
                         <span>
                             {String(minutes).padStart(2, "0")}:
                             {String(seconds).padStart(2, "0")}
@@ -81,7 +81,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 {/* Player 2 Progress */}
 
                 {/* the code below was copied and rearranged from the human-written code above for the sake of time, none of this code is ai-generated */}
-                <MatchCard className="w-lg mr-7 h-[6rem]">
+                <MatchCard className="min-w-lg w-xl mr-7 h-[6rem]">
                     <div className="flex flex-row items-center gap-2 w-full">
                         <div className='w-full'>
                             <Progress
@@ -148,8 +148,8 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                             </div>
 
                             {/* doors */}
-                            <div className='relative bg-card/100 rounded-[20px] flex flex-col-reverse items-center justify-between h-[40rem] w-[5rem] py-6 mt-2'>
-                                <div className="absolute top-0 bg-card h-[90%] w-[5%] -z-10 rounded-3xl "></div>
+                            <div className='relative bg-card/100 rounded-[20px] flex flex-col-reverse items-center justify-between h-200 w-[5rem] mt-2'>
+                                <div className="absolute top-9 bg-card h-[90%] w-[5%] -z-10 rounded-3xl "></div>
                                 {
                                     [...Array(question_number)].map((_, idx) => {
 
@@ -167,7 +167,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                         return (
                                             <React.Fragment key={`${question_number}-${idx}`}>
 
-                                                <div className={`${doorColour()} w-[4rem] h-[4rem] flex items-center justify-center col-start-2 rounded-[15px]`}>
+                                                <div className={`${doorColour()} w-[4rem] h-[4rem] flex items-center justify-center col-start-2 rounded-[15px] mt-5 mb-5`}>
                                                     {doorSymbol()}  
                                                 </div>
                                             </React.Fragment>
