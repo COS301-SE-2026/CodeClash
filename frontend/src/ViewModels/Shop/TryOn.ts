@@ -1,10 +1,8 @@
 //A try on system for the user to see how an accessory looks before purchasing. 
 
-import { Slot } from "radix-ui";
 import { useState, useCallback, useMemo, useEffect } from "react";
 import type { AccessorySlot, AvatarShopItem, AccessoryShopItem } from "src/Models/ShopModel";
 import { useInventory } from "src/context/Shop/InventoryContext";
-import { it } from "vitest";
 
 export const tryOn = () => {
     const {catalog, inventory, isOwned, equip, toggleAcc, refetch} = useInventory();
