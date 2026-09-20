@@ -23,11 +23,11 @@ const Tournaments = () => {
 
                 <div className="flex grid grid-cols-2 w-full mt-10">
                     
-                    <div className="flex items-center gap-2 rounded-full border border-border bg-card px-4 h-14 ml-20 -mt-3 w-[68%]">
+                    <div className="flex items-center gap-2 rounded-full border border-border bg-card px-4 h-14 ml-20 mb-15 w-[68%]">
                         <Search size={18} className="text-muted-text shrink-0"/>
                     </div>
 
-                    <div className=" flex flex-row gap-10 ml-[45%] mt-10">
+                    <div className=" flex flex-row gap-10 ml-[40%] mb-15">
                         <FilterButton className="">
                             <h1 className="text-primary font-semibold text-[90%]">Math</h1>
                         </FilterButton>
