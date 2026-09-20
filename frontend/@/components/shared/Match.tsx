@@ -42,28 +42,28 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
             <img src={background} className='absolute w-full -z-10' alt='background' />
             {/* <BackButton page='/dashboard' /> */}
             {/* Header */}
-            <MatchCard className="w-8xl h-25 min-h-[10rem] shrink-0 mb-10 mt-10 ml-20 flex items-center">
+            <MatchCard className="w-7xl h-25 min-h-[10rem] shrink-0 mb-10 mt-10 ml-20 flex items-center">
             <div className='flex w-full h-full items-center justify-between '>
                 
                 {/* Player 1 Progress */}
-                <MatchCard className="w-lg ml-7">
-                    <div className="flex flex-row items-center gap-2">
-                        <TournamentButton className="my-auto w-[4rem] h-[4rem]">
+                <MatchCard className="w-lg ml-7 h-[5.5rem]">
+                    <div className="flex flex-row items-center gap-2 w-full">
+                        <TournamentButton className="my-auto w-[5rem] h-[4rem] items-center px-5 ml-4 -mt-3.5">
                             <img
                                 src={avatars[0]}
                                 alt="user 1 avatar"
-                                className='h-[40%] flex items-center'
+                                className='mx-auto my-auto w-[30px] h-[50px] mt-3'
                             />
                         </TournamentButton>
 
-                        <Badge variant={'default'} className="text-[1.25rem] w-[50%] h-[35%]"/>
+                        <Badge variant={'default'} className="text-[1.25rem] w-xsm h-sm">{usernames[1]}</Badge>
 
 
-                        <div className='justify-self-end'>
+                        <div className='w-full'>
                                 <Progress
                                     value={player_life[0]}
-                                    progress_colour={colour}
-                                    className='h-9 shadow-[0_4px_6px_rgba(0,0,0,0.3)]'
+                                    progress_colour="[var(--button-tournament)]"
+                                    className='w-[10rem] h-sm shadow-[0_4px_6px_rgba(0,0,0,0.3)] ml-auto mr-4'
                                 />
                         </div>
                     </div>
