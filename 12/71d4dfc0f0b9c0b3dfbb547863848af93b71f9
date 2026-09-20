@@ -1,0 +1,14 @@
+frontend/@/components/ui/MatchCard.tsx
+  h_b13c5d77534129 11-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "1271d4dfc0f0b9c0b3dfbb547863848af93b71f9",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
