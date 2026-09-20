@@ -6,7 +6,7 @@ export interface Price {
 
 export type ShopCategory = 'avatar' | 'accessory' | 'theme' | 'powerup';
 
-export type AccessorySlot = 'top' | 'outerwear' | 'bottom' | 'dress' | 'headwear' | 'neckwear' | 'belt' | 'facewear' | 'cape';
+export type AccessorySlot = 'headwear' | 'neckwear' | 'belt' | 'facewear' | 'cape';
 
 interface ShopItemBase {
     id: string;
