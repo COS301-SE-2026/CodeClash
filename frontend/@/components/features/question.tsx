@@ -42,7 +42,7 @@ function Question({
         </div>
       </div>
 
-      <div className="ml-8 mb-2 rounded-xl overflow-hidden w-[100%]">
+      <div className="ml-8 bg-[var(--progress-bar-symbol)] rounded-xl overflow-hidden w-[100%]">
         {children}
       </div>
     </div>

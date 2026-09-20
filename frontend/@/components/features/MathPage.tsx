@@ -41,11 +41,11 @@ const MathMatch = ({ onValueChange, mathfieldRef, className }: MathMatchProps) =
   };
 
   return (
-    <div className="flex items-center w-[90%] h-[100%]">
+    <div className="flex items-center w-[90%] h-[100%] bg-card">
       <math-field
         ref={mathfieldRef}
         onInput={handleInput}
-        className={`${className} w-[100%] h-[12rem] rounded-4xl`}
+        className={`${className} w-[100%] h-[12rem] rounded-4xl bg-[var(--progress-bar-symbol)]`}
       >
         {value}
       </math-field>
