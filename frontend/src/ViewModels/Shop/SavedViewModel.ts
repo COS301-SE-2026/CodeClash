@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import type { SavedAvatarConf } from "src/Models/ShopModel";
-import { createSavedAvatar, updateSavedAvatar, deleteSavedAvatar } from "src/services/shop.service.mock";
+import { createSavedAvatar, deleteSavedAvatar } from "src/services/shop.service.mock";
 import { useInventory } from "src/context/Shop/InventoryContext";
 
 export const SavedViewModelFunc = () => {
@@ -23,4 +23,22 @@ export const SavedViewModelFunc = () => {
             setSaving(false);
         }
     }, [refetch])
+
+    const removeSavedAvatar = useCallback(async (id: string) => {
+        try {
+            await deleteSavedAvatar(id);
+            await refetch();
+        }
+        catch (e) {
+            setError(e instanceof Error ? e.message : 'Could not delete');
+        }
+    }, [refetch])
+
+    return {
+        savedAvatars,
+        saving,
+        error,
+        saveCurrentAvatar,
+        removeSavedAvatar
+    }
 }

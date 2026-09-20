@@ -132,6 +132,13 @@ export const equipAcc = async (slot: string, itemId: string | null) => {
     return delay({...MOCKED_INV});
 }
 
-export const createSavedAvatar = async (config: any) => delay({...config, id:'mock-' + Date.now(), createdAt: new Date().toISOString()})
-export const updateSavedAvatar = async (_id: string, config: any) => delay(config);
-export const deleteSavedAvatar = async () => delay(undefined);
+export const createSavedAvatar = async (conf: Omit<UserInventory['savedAvatarConf'][number], 'id' | 'createdAt'>) => {
+    const created = {...conf, id: 'saved-' + Date.now(), createdAt: new Date().toISOString()};
+    MOCKED_INV.savedAvatarConf.push(created);
+    return delay(created)
+}
+
+export const deleteSavedAvatar = async (id:string) =>{
+    MOCKED_INV.savedAvatarConf = MOCKED_INV.savedAvatarConf.filter((c) => c.id !== id);
+    return delay(undefined);
+}
