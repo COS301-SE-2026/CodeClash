@@ -21,11 +21,11 @@ function Question({
   return (
     <div
       className={cn(
-        "flex flex-col justify-between text-primary",
+        "flex flex-col justify-between text-secondary",
         className,
       )}
     >
-      <div className="flex flex-col p-2">
+      <div className="flex flex-col p-2 bg-[var(--match-card)] rounded-lg">
         <div className="flex justify-between w-full">
           <p className="font-bold text-md">Question {number}</p>
           <Badge

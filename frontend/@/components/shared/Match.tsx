@@ -42,7 +42,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
             <img src={background} className='absolute w-full -z-10' alt='background' />
             {/* <BackButton page='/dashboard' /> */}
             {/* Header */}
-            <MatchCard className="max-w-240 w-480 h-25 min-h-[10rem] shrink-0 mb-10 mt-10 ml-15 flex items-center">
+            <MatchCard className="min-w-240 max-w-480 h-25 min-h-[10rem] shrink-0 mb-10 mt-10 ml-15 flex items-center">
             <div className='flex w-full h-full items-center justify-between '>
                 
                 {/* Player 1 Progress */}
@@ -108,10 +108,13 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
             {/* Body */}
             <div className='flex justify-evenly'>
                 <div className='flex flex-col w-[70%] h-[40rem]'>
-                    <div className='absolute bg-gradient-to-r from-button-primary to-secondary h-[3%] w-[71%] rounded-4xl shadow-[0_4px_6px_rgba(0,0,0,0.3)]'></div>
+                    {/* <div className='absolute bg-gradient-to-r from-button-primary to-secondary h-[3%] w-[71%] rounded-4xl shadow-[0_4px_6px_rgba(0,0,0,0.3)]'></div> */}
+                    
                     {/* Question box */}
 
-                    <div className='bg-secondary w-[100%] h-[100%] rounded-4xl ml-1 pt-[2rem] flex flex-col justify-between items-center'>
+                    <div 
+                    // className='bg-[var(--match-card)] w-[100%] h-[100%] rounded-4xl ml-1 pt-[2rem] flex flex-col justify-between items-center'
+                    >
                         {children}
                     </div>
                 </div>
@@ -125,7 +128,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
 
                         <div className='grid grid-cols-2 w-[100%] mr-2'>
 
-                            {/* avatars */}
+                            {/* avatars in bottom corner*/}
                             <div className='relative flex flex-row'>
                                 <img src={avatars[0]}
                                     className=" absolute w-20 h-30 object-cover left-20"
