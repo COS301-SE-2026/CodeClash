@@ -75,4 +75,46 @@ export const tryOn = () => {
     }, [catalog, draftAccessories])
 
     const isAvatarUnowned = draftAvatarId ? !isOwned(draftAvatarId) : false;
+
+    const saveOutfit = useCallback(async () => {
+        if (!inventory) {
+            return;
+        }
+        setSaving(true);
+        try {
+            if (draftAvatarId && draftAvatarId !== inventory.equippedAvatarId && isOwned(draftAvatarId)) {
+                await equip('avatar', draftAvatarId);
+            }
+            const changed = Object.keys(draftAccessories) as AccessorySlot[];
+            for (const slot of changed) {
+                const itemId = draftAccessories[slot];
+                if (itemId && itemId !== inventory.equippedAccessories[slot] && isOwned(itemId)) {
+                    await toggleAcc(slot, itemId);
+                }
+            }
+            const cleared = (Object.keys(inventory.equippedAccessories) as AccessorySlot[]).filter((slot) => !draftAccessories[slot]);
+            for (const slot of cleared) {
+                await toggleAcc(slot, inventory.equippedAccessories[slot]!);
+            }
+            await refetch();
+        }
+        finally {
+            setSaving(false);
+        }
+    }, [inventory, draftAvatarId, draftAccessories, isOwned, equip, toggleAcc, refetch])
+
+    return {
+        draftAvatarId,
+        draftAvatar,
+        draftAvatarImg,
+        draftAccessories,
+        draftAccessoryImg,
+        isAvatarUnowned,
+        hasUnsavedChanges,
+        saving,
+        tryOnAvatar,
+        tryOnAccessories,
+        reset,
+        saveOutfit
+    }
 } 
