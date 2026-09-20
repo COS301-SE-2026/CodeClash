@@ -3,18 +3,19 @@ import { useEffect, useState, useRef, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMatchmaking } from "src/context/Matchmaking/hooks/useMatchmaking";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
-import type { MarkingResultDTO } from "src/dtos/match/submission.dto";
+import type { MarkingResultDTO, MathsSubmissionDTO, ProgSubmissionDTO, SubmissionDTO } from "src/dtos/match/submission.dto";
 import { robot_map } from 'src/assets/Robots';
 import { useGameQuestions, useGameTimer, useMatchProgress } from 'src/services/match.service';
 
 import { useMatchStore } from 'src/stores/match-store';
+import { useUser } from 'src/context/User/hooks/useUser';
 
 export const useMatch = () => {
     const nav = useNavigate();
     const { match_socket } = useSocket();
     const { id } = useParams();
-    const closeLoading = () => setLoading(false);
-    const { match_mode } = useMatchmaking();
+    const { match_mode, gameType } = useMatchmaking();
+    const { userId } = useUser();
     const [gameOver, setGameOver] = useState(false);
     const { loadRounds } = useGameQuestions();
     const status = useMatchStore(state => state.status);
@@ -31,7 +32,7 @@ export const useMatch = () => {
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [waitingOpponent, setWaitingOpponent] = useState(false);
     const question_idx = useRef(0);
-
+    const closeLoading = () => setLoading(false);
 
     const nextQuestion = (curr: number) => {
         if (curr < questions.length - 1) {
@@ -87,7 +88,21 @@ export const useMatch = () => {
         console.error(error)
     }
 
-    // const submit(data: )
+    const submitQuestion = async (data: MathsSubmissionDTO | ProgSubmissionDTO) => {
+        const curr_q = questions[currentQuestion];
+        const submission: SubmissionDTO = {
+            match_id: id!,
+            player_id: userId,
+            question_id: curr_q.id!,
+            round_number: 0,    // to be updated
+            question_number: currentQuestion,
+            match_type: gameType!,
+            match_mode: match_mode!,
+            submission: data
+        }
+
+        match_socket?.submitAnswer(submission);
+    }
 
 
     useEffect(() => {
@@ -135,6 +150,7 @@ export const useMatch = () => {
         waitingOpponent,
         finishGame,
         opponentCurrent,
-        opponentDone
+        opponentDone,
+        submitQuestion
     }
 }

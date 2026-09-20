@@ -64,14 +64,6 @@ export class MatchSocket {
 
     /************************************** EMITTERS ******************************************* */
 
-    sendQuestions(match_id: string) {
-        return emit<string, void>(this.socket, 'send_questions', match_id);
-    }
-
-    sendPlayers(match_id: string) {
-        return emit<string, void>(this.socket, 'send_players', match_id);
-    }
-
     startQuestion(data: SubmissionDTO) {
         return emit<SubmissionDTO, void>(this.socket, 'start_question', data);
     }

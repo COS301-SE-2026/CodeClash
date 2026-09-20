@@ -20,5 +20,6 @@ export interface MatchQuestionsDTO {
 }
 
 export interface RoundDTO {
+    round_number: number,
     questions: QuestionDTO[]
 }
