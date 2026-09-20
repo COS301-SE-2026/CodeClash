@@ -126,18 +126,18 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                     <div className='w-[100%] flex'>
 
 
-                        <div className='grid grid-cols-2 w-[100%] mr-5 mt-auto'>
+                        <div className='grid grid-cols-2 w-[100%] gap-5'>
 
                             {/* avatars in bottom corner*/}
-                            <div className='relative flex flex-row'>
+                            <div className='relative flex flex-row -ml-10'>
                                 <img src={avatars[0]}
-                                    className=" absolute w-20 h-30 object-cover left-20"
+                                    className=" absolute w-35 h-45 object-cover left-22"
                                     style={{ top: `${(question_number - 1 - current_question) * 9.6}rem` }}
                                     alt='progress avatar user 1'
                                 />
                                 <div className='relative w-[50%]'>
                                     <img src={avatars[0]}
-                                        className=" absolute w-20 h-30 object-cover scale-x-[-1]"
+                                        className=" absolute w-35 h-45 object-cover -left-2 scale-x-[-1]"
                                         style={{ top: `${(question_number - 1 - opponent_progress) * 9.6}rem` }}
                                         alt='progress avatar user 2'
                                     />
@@ -148,15 +148,15 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                             </div>
 
                             {/* doors */}
-                            <div className='relative bg-card/100 rounded-[20px] flex flex-col-reverse items-center justify-between h-200 w-[5rem] mt-2'>
+                            <div className='relative bg-card/100 rounded-[20px] flex flex-col-reverse items-center justify-between h-160 w-[5rem] mt-2'>
                                 <div className="absolute top-9 bg-card h-[90%] w-[5%] -z-10 rounded-3xl "></div>
                                 {
                                     [...Array(question_number)].map((_, idx) => {
 
                                         const doorResult = question_results[idx];
                                         const doorColour = () => {
-                                            if (doorResult === true) return 'bg-success/30'
-                                            if (doorResult === false) return 'bg-danger/30'
+                                            if (doorResult === true) return 'bg-success/30 shadow-[0_0_10px_var(--success)]'
+                                            if (doorResult === false) return 'bg-danger/30 shadow-[0_0_10px_var(--danger)]'
                                             return 'bg-card'
                                         }
                                         const doorSymbol = () => {
