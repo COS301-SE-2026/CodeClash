@@ -126,7 +126,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                     <div className='w-[100%] flex'>
 
 
-                        <div className='grid grid-cols-2 w-[100%] mr-2'>
+                        <div className='grid grid-cols-2 w-[100%] mr-5 mt-auto'>
 
                             {/* avatars in bottom corner*/}
                             <div className='relative flex flex-row'>
