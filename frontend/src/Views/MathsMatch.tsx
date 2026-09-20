@@ -71,14 +71,14 @@ const MathsMatch = () => {
                 number={currentQuestion + 1}
             />
 
-            <div className='w-[100%] h-[100%] min-h-[35%] flex flex-col items-center justify-center'>
+            <div className='w-[90%] h-[100%] min-h-[35%] flex flex-col items-center justify-center'>
                 <MathMatch
                     mathfieldRef={mathfieldRef}
                     onValueChange={(val) => setAnswers(prev => ({ ...prev, [currentQuestion]: val }))}
                     className={`${result_colour()},${read_only}`}
                 >
             
-                <div className="flex flex-row gap-6 w-full mx-auto justify-center">
+                <div className="flex flex-row gap-6 w-full mx-auto justify-center my-auto">
                 <div className='flex items-center justify-evenly text-secondary bg-primary rounded-2xl w-[15%]'>
                     <ChevronLeft onClick={() => prevQuestion(currentQuestion)} className='size-[3rem] hover:scale-110  hover:bg-secondary/20 rounded-2xl w-[50%]' />
                     <ChevronRight onClick={() => nextQuestion(currentQuestion)} className='size-[3rem] hover:scale-110 hover:bg-secondary/20 rounded-2xl w-[50%]' />

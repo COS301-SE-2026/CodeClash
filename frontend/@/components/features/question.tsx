@@ -25,11 +25,11 @@ function Question({
         className,
       )}
     >
-      <div className="flex flex-col p-2 bg-[var(--match-card)] rounded-lg">
+      <div className="flex flex-col p-2 bg-[var(--match-card)] rounded-lg w-[90%]">
         <div className="flex justify-between w-full">
-          <p className="font-bold text-md">Question {number}</p>
+          <p className="ml-3 font-bold text-md">Question {number}</p>
           <Badge
-            className="w-[10%] h-[2rem] text-white text-sm"
+            className="w-[10%] h-[2rem] text-white text-sm mt-2 mr-2"
             variant={"default"}
           >
             {difficulty}

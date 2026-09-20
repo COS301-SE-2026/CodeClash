@@ -42,7 +42,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
             <img src={background} className='absolute w-full -z-10' alt='background' />
             {/* <BackButton page='/dashboard' /> */}
             {/* Header */}
-            <MatchCard className="min-w-220 max-w-490 h-25 min-h-[10rem] shrink-0 mb-10 mt-10 ml-[3%] mr-[3%] flex items-center">
+            <MatchCard className="min-w-220 max-w-600 h-25 min-h-[10rem] shrink-0 mb-10 mt-10 ml-[3%] mr-[3%] flex items-center">
             <div className='flex w-full h-full items-center justify-between '>
                 
                 {/* Player 1 Progress */}
