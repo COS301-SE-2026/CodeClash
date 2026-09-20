@@ -30,4 +30,29 @@ export const tryOn = () => {
             return{...prev, [slot]: itemId};
         })
     }, [])
+
+    const reset = useCallback(()=> {
+        if (!inventory) {
+            return;
+        }
+        setDraftAvatarId(inventory.equippedAvatarId);
+        setDraftAccessories(inventory.equippedAccessories);
+    }, [inventory])
+
+    const hasUnsavedChanges = useMemo(() => {
+        if (!inventory) {
+            return false;
+        }
+        if (draftAvatarId !== inventory.equippedAvatarId) {
+            return true;
+        }
+
+        const draft = Object.keys(draftAccessories) as AccessorySlot[];
+        const equipped = Object.keys(inventory.equippedAccessories) as AccessorySlot[];
+        if (draft.length !== equipped.length) {
+            return true;
+        }
+
+        return draft.some((k) => draftAccessories[k] !== inventory.equippedAccessories[k]);
+    }, [draftAvatarId, draftAccessories, inventory])
 } 
