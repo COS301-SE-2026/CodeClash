@@ -52,7 +52,7 @@ const MathsMatch = () => {
     return (
         <MatchScreen
             player_life={playerLife}
-            colour='var(--life-primary)'
+            colour='var(--button-tournament)'
             seconds={seconds}
             minutes={minutes}
             avatars={avatars}

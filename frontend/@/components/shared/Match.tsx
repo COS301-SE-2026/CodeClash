@@ -48,12 +48,10 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 {/* Player 1 Progress */}
                 <MatchCard className="w-lg ml-7 h-[5.5rem]">
                     <div className="flex flex-row items-center gap-2 w-full">
-                        <TournamentButton className="my-auto w-[5rem] h-[4rem] items-center px-5 ml-4 -mt-3.5">
-                            <img
-                                src={avatars[0]}
-                                alt="user 1 avatar"
-                                className='mx-auto my-auto w-[30px] h-[50px] mt-3'
-                            />
+                        <TournamentButton className="my-auto w-[5rem] h-[4rem] items-center px-5 -py-3 ml-4 -mt-3.5">
+                            <div style={{backgroundImage : `url(${avatars[0]})`}} className="w-full h-full bg-no-repeat bg-cover bg-center mt-3">
+
+                            </div>
                         </TournamentButton>
 
                         <Badge variant={'default'} className="text-[1.25rem] w-xsm h-sm">{usernames[1]}</Badge>
@@ -62,7 +60,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                         <div className='w-full'>
                                 <Progress
                                     value={player_life[0]}
-                                    progress_colour="[var(--button-tournament)]"
+                                    progress_colour={colour}
                                     className='w-[10rem] h-sm shadow-[0_4px_6px_rgba(0,0,0,0.3)] ml-auto mr-4'
                                 />
                         </div>
