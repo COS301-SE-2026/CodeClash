@@ -1,6 +1,6 @@
 import type React from 'react'
 
-import { Card } from "../ui/card"
+import { useNavigate } from 'react-router-dom'
 import "../../../src/styles/global.css"
 
 interface TournamentButtonProps{
@@ -9,10 +9,11 @@ interface TournamentButtonProps{
 }
 
 const TournamentButton = ({children, className} : TournamentButtonProps) => {
+    const nav = useNavigate();
     return(
-        <Card className={`bg-[var(--button-tournament)] rounded-2xl shadow-[0_0_10px_var(--button-tournament)] ${className}`}>
+        <button onClick={() => nav('/tournaments/waiting')} className={`bg-[var(--button-tournament)] rounded-2xl shadow-[0_0_10px_var(--button-tournament)] ${className}`}>
         {children}
-        </Card>
+        </button>
     )
 }
 
