@@ -153,7 +153,7 @@ CREATE TABLE IF NOT EXISTS player_achievements (
 -- ------- SHOP -----------
 CREATE TABLE IF NOT EXISTS shop_items (
   shop_item_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  category VARCHAR(20) CHECK (category IN ('avatar', 'pose', 'powerup')) NOT NULL,
+  category VARCHAR(20) CHECK (category IN ('avatar', 'accessory', 'powerup')) NOT NULL,
   name VARCHAR(50) NOT NULL,
   description VARCHAR(150),
   price FLOAT NOT NULL,
@@ -190,7 +190,10 @@ CREATE TABLE IF NOT EXISTS equipped_items (
   equipped_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID REFERENCES users(user_id),
   avatar_item_id UUID REFERENCES shop_items(shop_item_id),
-  pose_item_id UUID REFERENCES shop_items(shop_item_id),
+  top_id UUID REFERENCES shop_items(shop_item_id),
+  bottom_id REFERENCES shop_items(shop_item_id),
+  one_piece_id REFERENCES shop_items(shop_item_id),
+  shoes_id REFERENCES shop_items(shop_item_id),
   powerup_item_id UUID REFERENCES shop_items(shop_item_id),
   updated_at TIMESTAMP DEFAULT NOW()
 );
