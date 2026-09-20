@@ -1,5 +1,6 @@
 //A try on system for the user to see how an accessory looks before purchasing. 
 
+import { Slot } from "radix-ui";
 import { useState, useCallback, useMemo, useEffect } from "react";
 import type { AccessorySlot, AvatarShopItem, AccessoryShopItem } from "src/Models/ShopModel";
 import { useInventory } from "src/context/Shop/InventoryContext";
@@ -55,4 +56,23 @@ export const tryOn = () => {
 
         return draft.some((k) => draftAccessories[k] !== inventory.equippedAccessories[k]);
     }, [draftAvatarId, draftAccessories, inventory])
+
+    const draftAvatar = useMemo(() => 
+        catalog.find((i): i is AvatarShopItem => i.category === 'avatar' && i.id === draftAvatarId), [catalog, draftAvatarId]
+    )
+
+    const draftAvatarImg = draftAvatar?.previewImageUrl;
+
+    const draftAccessoryImg = useMemo(() => {
+        const res: Partial<Record<AccessorySlot,string>> = {};
+        Object.entries(draftAccessories).forEach(([slot, itemId]) => {
+            const match = catalog.find((i): i is AccessoryShopItem => i.category === 'accessory' && i.id === itemId);
+            if (match?.previewImageUrl) {
+                res[slot as AccessorySlot] = match.previewImageUrl;
+            }
+        })
+        return res;
+    }, [catalog, draftAccessories])
+
+    const isAvatarUnowned = draftAvatarId ? !isOwned(draftAvatarId) : false;
 } 
