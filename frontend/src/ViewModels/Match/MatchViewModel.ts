@@ -18,10 +18,16 @@ export const useMatch = () => {
     const { userId } = useUser();
     const [gameOver, setGameOver] = useState(false);
     const { loadRounds } = useGameQuestions();
+
+    const question_idx = useRef(0);
+    const round_idx = useRef(0);
+    const [currentQuestion, setCurrentQuestion] = useState(0);
+
     const status = useMatchStore(state => state.status);
-    const rounds = loadRounds(useMatchStore(state => state.rounds)!);
-    const questions = rounds.questions;
+    const {rounds, duration} = loadRounds(useMatchStore(state => state.rounds)!);
+    const questions = rounds[round_idx.current]?? [];
     const players = useMatchStore(state => state.players);
+
     const { playerLife, opponentCurrent, opponent_progress, opponent_done, opponentDone, updatePlayerLife } = useMatchProgress(questions.length, players);
     const avatars = useMemo(() => players.map(p => robot_map[p.avatar_id]), [players]);
     const usernames = useMemo(() => players.map(p => p.username), [players]);
@@ -29,9 +35,9 @@ export const useMatch = () => {
     const [answers, setAnswers] = useState<Record<string, string>>();
     const [results, setResults] = useState<(boolean | null)[]>([]);
     const mathfieldRef = useRef<MathfieldElement | null>(null)
-    const [currentQuestion, setCurrentQuestion] = useState(0);
+    
     const [waitingOpponent, setWaitingOpponent] = useState(false);
-    const question_idx = useRef(0);
+   
     const closeLoading = () => setLoading(false);
 
     const nextQuestion = (curr: number) => {
@@ -59,7 +65,7 @@ export const useMatch = () => {
         });
     }
 
-    const { seconds, minutes } = useGameTimer(rounds.duration, () => {
+    const { seconds, minutes } = useGameTimer(duration, () => {
         setGameOver(true);
         match_socket?.finishMatch({ match_id: id!, match_mode: match_mode! })
     })

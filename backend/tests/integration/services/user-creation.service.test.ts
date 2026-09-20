@@ -2,13 +2,14 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest"
 import { AdminDeleteUserCommand, AdminConfirmSignUpCommand } from '@aws-sdk/client-cognito-identity-provider';
 import { signUp } from "@aws-amplify/auth";
-import { cognito_identity_client } from "src/application/usecases/services/cognito.service";
-import { CreateUser } from 'src/application/usecases/services/user-creation.service';
-import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
-import { EloRepository } from 'src/interface-adapters/repositories/elo.repository';
-import { UserRepository } from 'src/interface-adapters/repositories/user.repository';
-import { EloRatings } from 'src/entities/database/elo.entities';
-import { Users } from "src/entities/database/user.entities"
+import { cognito_identity_client } from "../../../src/application/usecases/services/cognito.service";
+import { CreateUser } from '../../../src/application/usecases/services/user-creation.service';
+import { IUserRepository } from '../../../src/application/interfaces/repositories/IUserRepository';
+import {IEloRepository} from '../../../src/application/interfaces/repositories/IEloRepository'
+import { EloRepository } from '../../../src/interface-adapters/repositories/elo.repository';
+import { UserRepository } from '../../../src/interface-adapters/repositories/user.repository';
+import { EloRatings } from '../../../src/entities/database/elo.entities';
+import { Users } from "../../../src/entities/database/user.entities"
 
 import dotenv from 'dotenv'
 import { DataSource, Repository } from "typeorm";
@@ -20,7 +21,7 @@ const cognito_client = cognito_identity_client;
 let users_count = 0;
 let data_source: DataSource;
 let users: IUserRepository;
-let elo: Repository<EloRatings>
+let elo: IEloRepository;
 let create_user: CreateUser
 
 let user_repo: Repository<Users>
@@ -76,7 +77,7 @@ describe("Tests user creation ", () => {
 
         const created = await user_repo.findOneBy({ email: email });
         expect(created).not.toBeNull();
-        expect(created.username).toBe(username);
+        expect(created!.username).toBe(username);
 
     })
 })

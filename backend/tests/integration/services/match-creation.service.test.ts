@@ -1,141 +1,117 @@
 import { GetAnswers } from '../../../src/application/usecases/services/answers.service';
 import { MatchCreationService } from '../../../src/application/usecases/services/match/match-creation.service';
 import { GetDifficulty, GetQuestions, GetTotalTime } from '../../../src/application/usecases/services/questions.service';
-import { CreateGame } from '../../../src/application/usecases/systems/create-game';
-import { MatchMode } from "../../../src/entities/database/questions.entities";
-import { AnswerDTO } from '../../../src/entities/dtos/answer.dto';
+import { CreateMatchEntity, CreatePlayerEntity, CreateRound, MatchCreationSystem } from '../../../src/application/usecases/systems/match-creation.system'
+import { MatchMode } from "../../../src/entities/dtos/match/match.dto";
 import { PlayerDTO } from "../../../src/entities/dtos/components.dto";
-import { QuestionDTO } from "../../../src/entities/dtos/question.dto";
-import { vi, describe, test, expect, afterEach } from "vitest";
+import { vi, describe, test, expect, afterEach, beforeAll, afterAll } from "vitest";
+import { World } from '../../../src/entities/World';
+import { createTestDataSource } from '../../test-data-source';
+import { IQuestionRepository } from '../../../src/application/interfaces/repositories/IQuestionRepository';
+import { QuestionRepository } from '../../../src/interface-adapters/repositories/question.repository';
+import { IAnswerRepository } from '../../../src/application/interfaces/repositories/IAnswerRepository';
+import { AnswerRepository } from '../../../src/interface-adapters/repositories/answer.repository';
+import { MatchCache } from '../../../src/interface-adapters/cache/match-cache';
+import redis from '../../../src/frameworks-drivers/config/redis-client'
+import { IMatchRepository } from '../../../src/application/interfaces/repositories/IMatchRepository';
+import { MatchRepository } from '../../../src/interface-adapters/repositories/match.repository';
+import { Matches } from '../../../src/entities/database/match.entities';
+import { Questions } from '../../../src/entities/database/questions.entities';
+import { Answers } from '../../../src/entities/database/answers.entities';
+import { IUserRepository } from '../../../src/application/interfaces/repositories/IUserRepository';
+import { UserRepository } from '../../../src/interface-adapters/repositories/user.repository';
+import { Users } from '../../../src/entities/database/user.entities';
+import { randomUUID } from 'node:crypto';
+import type { UserDTO } from '../../../src/entities/dtos/users/user.dto'
+import { RoundComponent } from '../../../src/entities/components';
+import { AnswerDTO } from '../../../src/entities/dtos/match/answer.dto';
 
-const mock_dependencies = () => ({ execute: vi.fn() });
+const world = World();
 
+const data_source = await createTestDataSource();
+const question_repo: IQuestionRepository = new QuestionRepository(data_source.getRepository(Questions));
+const answer_repo: IAnswerRepository = new AnswerRepository(data_source.getRepository(Answers));
+const match_repo: IMatchRepository = new MatchRepository(data_source.getRepository(Matches));
+const user_repo: IUserRepository = new UserRepository(data_source.getRepository(Users));
 
-const mock_create_game = mock_dependencies();
-const mock_get_questions = mock_dependencies();
-const mock_get_difficulty = mock_dependencies();
-const mock_get_total_time = mock_dependencies();
-const mock_get_answers = mock_dependencies();
-const mock_match_cache = () => ({
-    saveMatch: vi.fn(),
-    saveAnswer: vi.fn(),
-    getAnswer: vi.fn()
-})
+const create_game = new MatchCreationSystem(new CreatePlayerEntity(world), new CreateMatchEntity(world), new CreateRound());
+const get_questions = new GetQuestions(question_repo);
+const get_difficulty = new GetDifficulty();
+const get_total_time = new GetTotalTime();
+const get_answers = new GetAnswers(answer_repo);
+const match_cache = new MatchCache(redis);
 
-const mock_match_repo = () => ({
-    createMatch: vi.fn()
-})
-
-const mock_user_repo = () => ({
-    getUserData: vi.fn()
-})
-
-const user_repo = mock_user_repo();
-user_repo.getUserData.mockResolvedValue({ username: 'player' })
-
-let ids = 1;
 
 const game_service = new MatchCreationService(
-    mock_create_game as unknown as CreateGame,
-    mock_get_questions as unknown as GetQuestions,
-    mock_get_difficulty as unknown as GetDifficulty,
-    mock_get_total_time as unknown as GetTotalTime,
-    mock_get_answers as unknown as GetAnswers,
-    mock_match_cache(),
-    mock_match_repo(),
+    create_game as unknown as MatchCreationSystem,
+    get_questions as unknown as GetQuestions,
+    get_difficulty as unknown as GetDifficulty,
+    get_total_time as unknown as GetTotalTime,
+    get_answers as unknown as GetAnswers,
+    match_cache,
+    match_repo,
     user_repo
 )
 
 
-// mock questions 
-const easy: QuestionDTO = {
-    id: "easy-01",
-    category: MatchMode.Maths,
-    difficulty: 1,
-    title: "Mock Easy Question",
-    description: "this is an easy mock question for testing",
-    time_limit: "00:02:00"
-}
-const medium: QuestionDTO = {
-    id: "medium-01",
-    category: MatchMode.Maths,
-    difficulty: 2,
-    title: "Mock Medium Question",
-    description: "this is an medium mock question for testing",
-    time_limit: "00:02:00"
-}
-const hard: QuestionDTO = {
-    id: "hard-01",
-    category: MatchMode.Maths,
-    difficulty: 3,
-    title: "Mock Hard Question",
-    description: "this is an hard mock question for testing",
-    time_limit: "00:02:00"
-}
 
-const mock_questions = {
-    easy: [easy],
-    medium: [medium],
-    hard: [hard]
-}
+let player_1: PlayerDTO;
+const p1_cognito = randomUUID()
+const p1_username = "player 1";
 
-// mock answers 
-
-const easy_answer: Partial<AnswerDTO> = {
-    answer: "Mock Easy Answer",
-    question_id: "easy-01"
-}
-
-const medium_answer: Partial<AnswerDTO> = {
-    answer: "Mock Medium Answer",
-    question_id: "medium-01"
-}
-
-
-const hard_answer: Partial<AnswerDTO> = {
-    answer: "Mock Hard Answer",
-    question_id: "hard-01"
-}
-
-const mock_answers = [easy_answer, medium_answer, hard_answer]
-
-const player_1_id = (ids++).toString()
-const player_1: PlayerDTO = {
-    id: player_1_id,
-    username: `player ${player_1_id}`,
-    elo: 606
-}
-
-const player_2_id = (ids++).toString()
-const player_2: PlayerDTO = {
-    id: player_2_id,
-    username: `player ${player_2_id}`,
-    elo: 832
-}
+let player_2: PlayerDTO;
+const p2_cognito = randomUUID();
+const p2_username = "player 2";
 
 const avg = (606 + 832) / 2;
 
+let match: {
+    match_entity: number,
+    match_id: string,
+    rounds: RoundComponent[],
+    answers: AnswerDTO[]
+};
+
 
 describe("Tests Match Creation", () => {
+
+    beforeAll(async () => {
+        const save_p1: UserDTO = await user_repo.createUser(p1_username, 'player1@example.com', p1_cognito, 0, 'Mercury');
+        const save_p2: UserDTO = await user_repo.createUser(p2_username, 'player2@example.com', p2_cognito, 0, 'Mercury');
+
+        player_1 = {
+            id: save_p1.user_id!,
+            username: p1_username,
+            elo: 606
+        }
+
+        player_2 = {
+            id: save_p2.user_id!,
+            username: p2_username,
+            elo: 606
+        }
+
+    });
+
+    afterAll(async () => {
+        await data_source.getRepository(Matches).delete({ match_id: match.match_id });
+        await data_source.getRepository(Users).delete({ cognito_id: p1_cognito });
+        await data_source.getRepository(Users).delete({ cognito_id: p2_cognito });
+    })
 
     afterEach(() => {
         vi.clearAllMocks()
     })
     test("Creates Maths games for two players on Mercury", async () => {
-        mock_get_questions.execute.mockResolvedValue(mock_questions);
-        mock_get_answers.execute.mockResolvedValue(mock_answers);
+        match = await game_service.execute([player_1, player_2], MatchMode.Maths, "Mercury", 'ranked')
 
+        expect(match).toBeDefined();
+        expect(match.match_id).toBeDefined();
 
-        await game_service.execute([player_1, player_2], MatchMode.Maths, "Mercury", 'ranked')
-
-
-        expect(mock_get_questions.execute).toHaveBeenCalledWith("Mercury", avg, MatchMode.Maths)
-        expect(mock_get_difficulty.execute).toHaveBeenCalledWith(mock_questions);
     })
 
 
     test("Testing failure branches", async () => {
-        mock_get_questions.execute.mockResolvedValue(null)
-        await expect(game_service.execute([player_1, player_2], MatchMode.Maths, "Not A League", 'ranked')).rejects.toThrow("Error fetching questions")
+        await expect(game_service.execute([player_1, player_2], MatchMode.Maths, "Not A League", 'ranked')).rejects.toThrow("League not found")
     })
 })

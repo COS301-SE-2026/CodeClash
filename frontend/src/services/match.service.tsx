@@ -52,60 +52,31 @@ function shuffle(array: Question[]) {
 export const useGameQuestions = () => {
 
     const loadRounds = (data: RoundDTO[]) => {
-
-        const { questions, duration } = useMemo(() => {
-            if (!data) {
-                return {
-                    questions: [],
-                    duration: 0
-                }
-            }
-
-            const temp_arr: Question[] = [];
-            let sumtime = 0;
-
-            for (const q of data.at(0)!.questions) {
-                temp_arr.push({
-                    id: q.id,
-                    title: q.title!,
-                    difficulty: "Easy",
-                    description: q.description,
-                });
-
-                sumtime += Number(q.time_limit!.split(":")[1])
-            }
-
-            for (const q of data.at(1)!.questions) {
-                temp_arr.push({
-                    id: q.id,
-                    title: q.title,
-                    difficulty: "Medium",
-                    description: q.description
-                });
-                sumtime += Number(q.time_limit!.split(":")[1])
-            }
-
-            for (const q of data.at(2)!.questions) {
-                temp_arr.push({
-                    id: q.id,
-                    title: q.title,
-                    difficulty: "Hard",
-                    description: q.description
-                });
-                sumtime += Number(q.time_limit!.split(":")[1])
-            }
-
-            shuffle(temp_arr);
-
+        if (!data || data.length === 0) {
             return {
-                questions: temp_arr,
-                duration: sumtime
-            };
-        }, [data]);
-
-        return {
-            questions, duration
+                rounds: [] as Question[][],
+                duration: 0
+            }
         }
+
+        const difficulties = ["Easy", "Medium", "Hard"] as const;
+        let sumtime = 0;
+
+
+        const rounds: Question[][] = data.map((round, idx) => {
+            const temp_arr: Question[] = round.questions.map(q => {
+                sumtime += Number(q.time_limit!.split(":")[1]);
+                return {
+                    id: q.id,
+                    title: q.title,
+                    difficulty: difficulties[idx] ?? "Hard",
+                    description: q.description
+                };
+            });
+            return shuffle(temp_arr);
+        });
+
+        return {rounds, duration: sumtime};
 
     }
 

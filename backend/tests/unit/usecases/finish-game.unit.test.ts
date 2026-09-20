@@ -1,14 +1,14 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { FinishGame } from '../../../src/application/usecases/systems/finish-game';
-import { MatchType } from '../../../src/entities/database/questions.entities';
+import { MatchType } from '../../../src/entities/dtos/match/match.dto';
 import { AchievementService } from '../../../src/application/usecases/services/achievement.service';
+import {MatchCompletionSystem} from '../../../src/application/usecases/systems/match-completion.system'
+
 describe('FinishGame', () => {
     let world: any;
     let match_result_service: any;
     let game_store: any;
-    let delete_game: any;
     let match_stats_repo: any;
-    let finish_game: FinishGame;
+    let finish_game: MatchCompletionSystem;
     let user_repo: any;
     let achievement_service: any;
 
@@ -32,9 +32,6 @@ describe('FinishGame', () => {
             get: vi.fn().mockReturnValue({ database_id: db_match_id})
         }
 
-        delete_game = {
-            execute: vi.fn()
-        };
 
         match_stats_repo = {
             saveStats: vi.fn().mockResolvedValue(undefined)
@@ -53,7 +50,7 @@ describe('FinishGame', () => {
         achievement_service = {
             evaluateAndAward: vi.fn().mockResolvedValue([])
         };
-        finish_game = new FinishGame(world, match_result_service, game_store,match_stats_repo, achievement_service, user_repo);
+        finish_game = new MatchCompletionSystem(world, match_result_service, game_store,match_stats_repo, achievement_service, user_repo);
     });
 
     describe('execute', () => {

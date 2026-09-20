@@ -8,7 +8,6 @@ import { GetAnswers } from "../answers.service";
 import { GetDifficulty, GetQuestions, GetTotalTime } from "../questions.service";
 import { IMatchRepository } from "src/application/interfaces/repositories/IMatchRepository";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
-import { round } from "mathjs";
 
 export class MatchCreationService {
     constructor(
@@ -23,7 +22,6 @@ export class MatchCreationService {
     ) { }
 
     async execute(players: PlayerDTO[], match_mode: MatchMode, league: string, game_type: MatchType) {
-
         let avg_elo = 0;
         const usernames = await Promise.all(
             players.map(async (player) => {
