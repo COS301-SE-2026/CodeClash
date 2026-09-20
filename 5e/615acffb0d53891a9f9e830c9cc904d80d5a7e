@@ -1,0 +1,18 @@
+frontend/@/components/shared/Match.tsx
+  h_b13c5d77534129 6,44,63-70,91,100,112,134
+frontend/@/components/ui/MatchCard.tsx
+  h_b13c5d77534129 14
+frontend/src/styles/global.css
+  h_b13c5d77534129 275-276,376,454
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "5e615acffb0d53891a9f9e830c9cc904d80d5a7e",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
