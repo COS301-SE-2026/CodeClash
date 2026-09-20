@@ -42,14 +42,14 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
             <img src={background} className='absolute w-full -z-10' alt='background' />
             {/* <BackButton page='/dashboard' /> */}
             {/* Header */}
-            <MatchCard className="w-7xl h-25 min-h-[10rem] shrink-0 mb-10 mt-10 ml-20 flex items-center">
+            <MatchCard className="max-w-full w-420 h-25 min-h-[10rem] shrink-0 mb-10 mt-10 ml-20 flex items-center">
             <div className='flex w-full h-full items-center justify-between '>
                 
                 {/* Player 1 Progress */}
                 <MatchCard className="w-lg ml-7 h-[5.5rem]">
                     <div className="flex flex-row items-center gap-2 w-full">
-                        <TournamentButton className="my-auto w-[5rem] h-[4rem] items-center px-5 -py-3 ml-4 -mt-3.5">
-                            <div style={{backgroundImage : `url(${avatars[0]})`}} className="w-full h-full bg-no-repeat bg-cover bg-center mt-3">
+                        <TournamentButton className="my-auto w-[5rem] h-[4rem] items-center px-5 -py-4 ml-4 -mt-3.5">
+                            <div style={{backgroundImage : `url(${avatars[0]})`}} className="w-full h-full bg-no-repeat bg-cover bg-center mt-2">
 
                             </div>
                         </TournamentButton>
