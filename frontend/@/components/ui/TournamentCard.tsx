@@ -48,8 +48,8 @@ export const MathTournamentCard = ({children, className} : TournamentCardProps) 
 
                 <TournamentButton className="mx-auto h-[50%] w-85 my-auto -ml-20">
                     <div className="flex grid grid-cols-2 w-full h-full">
-                        <h2 className="font-font font-semibold text-[30px] w-[150%] ml-6 -mt-2">Join Tournament</h2>
-                        <ArrowRight size={50} className="flex justify-self-end my-auto -mt-3 -ml-8 mr-3"/>
+                        <h2 className="font-font font-semibold text-[30px] w-[150%] my-auto ml-6">Join Tournament</h2>
+                        <ArrowRight size={50} className="flex justify-self-end my-auto -ml-8 mr-3"/>
                     </div>
                 </TournamentButton>
 
@@ -98,8 +98,8 @@ export const ProgrammingTournamentCard = ({children, className} : TournamentCard
 
                 <TournamentButton className="mx-auto h-[50%] w-85 my-auto -ml-20">
                     <div className="flex grid grid-cols-2 w-full h-full">
-                        <h2 className="font-font font-semibold text-[30px] w-[150%] ml-6 -mt-2">Join Tournament</h2>
-                        <ArrowRight size={50} className="flex justify-self-end my-auto -mt-3 -ml-8 mr-3"/>
+                        <h2 className="font-font font-semibold text-[30px] w-[150%] ml-6 my-auto">Join Tournament</h2>
+                        <ArrowRight size={50} className="flex justify-self-end my-auto -ml-8 mr-3"/>
                     </div>
                 </TournamentButton>
 

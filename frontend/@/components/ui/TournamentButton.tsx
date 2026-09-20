@@ -9,11 +9,10 @@ interface TournamentButtonProps{
 }
 
 const TournamentButton = ({children, className} : TournamentButtonProps) => {
-    const nav = useNavigate();
     return(
-        <button onClick={() => nav('/tournaments/waiting')} className={`bg-[var(--button-tournament)] rounded-2xl shadow-[0_0_10px_var(--button-tournament)] ${className}`}>
+        <div className={`bg-[var(--button-tournament)] rounded-2xl shadow-[0_0_10px_var(--button-tournament)] text-center items-center ${className}`}>
         {children}
-        </button>
+        </div>
     )
 }
 

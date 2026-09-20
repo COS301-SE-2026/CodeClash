@@ -4,7 +4,8 @@ import TournamentButton from "@/components/ui/TournamentButton"
 import FilterButton from "@/components/ui/FilterButton"
 import "../styles/global.css"
 import {PlusIcon, Search} from "lucide-react"
-import { useNavigate } from "react-router-dom"
+import { Navigate, useNavigate } from "react-router-dom"
+import Popup from "./Popup"
 // import { DefaultTournamentsModel } from "src/Models/TournamentsModel"
 // import type { TournamentsModel } from "src/Models/TournamentsModel"
 
@@ -16,17 +17,17 @@ const Tournaments = (
     // {tournaments = DefaultTournamentsModel} : TournamentProps
 ) => {
     const nav = useNavigate();
-
+    
     return (
         <div className="w-full max-h-screen">
             <div className="w-full flex flex-col">
                 <div className="flex grid grid-cols-2 h-full w-full">
                     <h1 className="font-font font-semibold text-6xl ml-20 mt-10">Tournaments</h1>
                     <TournamentButton className="w-md h-17 mt-6 ml-[40%]">
-                        <button onClick={() => nav('/tournaments/waiting')} className="grid grid-cols-2 w-full">
-                            <PlusIcon size={60} className="mb-4 ml-3 -mt-5.5"/>
-                            <h2 className="font-font font-semibold text-[40px] mb-5 -ml-30 -mt-5">Host Tournament</h2>
-                        </button>
+                        <div className="grid grid-cols-2 w-full">
+                            <PlusIcon size={60} className="mb-4 ml-3"/>
+                            <h2 className="font-font font-semibold text-[40px] mb-5 -ml-30">Host Tournament</h2>
+                        </div>
                     </TournamentButton>
                     <h2 className="font-font text-sm ml-20 w-full mt-7">Join Tournaments to Compete With Up to 30 Players! Invite Friends to Join in on the Fun!</h2>
                 </div>

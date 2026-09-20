@@ -29,7 +29,6 @@ import Friends from "./Views/Friends/Friends";
 import Achievements from "./Views/Achievements";
 import Settings from "./Views/Settings";
 import { ProgMatch } from "./Views/ProgMatch";
-import Popup from "./Views/Popup";
 
 const App: React.FC = () => {
 
