@@ -20,23 +20,23 @@ const MathsMatch = () => {
         loading,
         // submitQuestion,
         mathfieldRef, setAnswers, answers,
-        results, gameOver, waitingOpponent,
+        results, waitingOpponent,
         finishGame
     } = useMatch();
 
     const curr = questions[currentQuestion];
-    const correct = results[currentQuestion];
-    const result_colour = () => {
-        if (correct === true) return 'bg-success/50'
-        else if (correct === false) return 'bg-danger/50'
-        else return 'bg-white'
-    }
+    // const correct = results[currentQuestion];
+    // const result_colour = () => {
+    //     if (correct === true) return 'bg-success/50'
+    //     else if (correct === false) return 'bg-danger/50'
+    //     else return 'bg-white'
+    // }
 
 
-    const read_only = () => {
-        if (gameOver) return 'read-only'
-        else return ''
-    }
+    // const read_only = () => {
+    //     if (gameOver) return 'read-only'
+    //     else return ''
+    // }
 
     useEffect(() => {
         if (mathfieldRef.current) {
@@ -77,7 +77,7 @@ const MathsMatch = () => {
                 <MathMatch
                     mathfieldRef={mathfieldRef}
                     onValueChange={(val) => setAnswers(prev => ({ ...prev, [currentQuestion]: val }))}
-                    className={`${result_colour()},${read_only}`}
+                    // className={`${result_colour()},${read_only}`}
                 ></MathMatch>
             </div>
             <div className='w-[100%] h-[6rem]  flex flex-shrink-0 items-center justify-evenly rounded-4xl'>

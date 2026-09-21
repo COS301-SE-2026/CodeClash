@@ -17,7 +17,7 @@ interface MatchScreenProps {
     question_number: number,
     current_question: number,
     opponent_progress: number,
-    question_results: (boolean | null)[],
+    question_results: (boolean | null)[][],
 }
 
 export const MatchScreen: React.FC<MatchScreenProps> = ({
@@ -31,7 +31,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
     question_number,
     current_question,
     opponent_progress,
-    question_results,
+    // question_results,
 }) => {
 
 
@@ -132,10 +132,10 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                 {
                                     [...Array(question_number)].map((_, idx) => {
 
-                                        const doorResult = question_results[idx];
+                                        // const doorResult = question_results[idx];
                                         const doorColour = () => {
-                                            if (doorResult === true) return 'bg-success/50'
-                                            if (doorResult === false) return 'bg-danger/50'
+                                            // if (doorResult === true) return 'bg-success/50'
+                                            // if (doorResult === false) return 'bg-danger/50'
                                             return 'bg-transparent'
                                         }
                                         return (

@@ -17,7 +17,6 @@ export interface MatchComponent {
     status: string,
     game_mode: string,
     match_type: MatchType
-    difficulty: number,
     winner: number,
     rounds: RoundComponent[]
     start_time: Date,

@@ -4,5 +4,6 @@ export type MatchMode = 'math' | 'programming';
 export interface PlayerDTO {
     id: string,
     elo: number,
-    username?: string
+    username?: string,
+    life?: number
 }

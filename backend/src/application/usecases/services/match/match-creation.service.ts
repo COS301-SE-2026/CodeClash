@@ -5,7 +5,7 @@ import { MatchDTO, PlayerDTO, RoundDTO } from "src/entities/dtos/components.dto"
 import { MatchCreationSystem } from "../../systems/match-creation.system";
 
 import { GetAnswers } from "../answers.service";
-import { GetDifficulty, GetQuestions, GetTotalTime } from "../questions.service";
+import {  GetQuestions, GetTotalTime } from "../questions.service";
 import { IMatchRepository } from "src/application/interfaces/repositories/IMatchRepository";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 
@@ -13,7 +13,6 @@ export class MatchCreationService {
     constructor(
         private readonly create_match: MatchCreationSystem,
         private readonly getQuestions: GetQuestions,
-        private readonly getDifficulty: GetDifficulty,
         private readonly getTotalTime: GetTotalTime,
         private readonly getAnswers: GetAnswers,
         private readonly match_cache: IMatchCache,
@@ -37,7 +36,6 @@ export class MatchCreationService {
 
         // get questions
         const questions = await this.getQuestions.execute(league, avg_elo, match_mode);
-        const difficulty = this.getDifficulty.execute(questions)
         const time = this.getTotalTime.execute(questions)
 
         if (!questions) throw new Error("Error fetching questions")
@@ -59,7 +57,6 @@ export class MatchCreationService {
             status: 'active',
             match_mode: match_mode,
             match_type: game_type,
-            difficulty: difficulty,
             winner: -1,
             start_time: start,
             end_time: new Date(start.getTime() + (time * 60 * 1000))

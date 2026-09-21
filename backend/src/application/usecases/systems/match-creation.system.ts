@@ -128,7 +128,6 @@ export class CreateMatchEntity {
             status: match.status,
             game_mode: match.match_mode,
             match_type: match.match_type,
-            difficulty: match.difficulty,
             winner: match.winner,
             rounds: rounds,
             start_time: match.start_time,

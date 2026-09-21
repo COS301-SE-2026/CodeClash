@@ -1,16 +1,17 @@
 import { useMemo, useRef, useState, useEffect } from "react";
 import { useTimer } from "react-timer-hook";
-import type { Player, Question } from "src/Models/MatchModel";
+import type { Player } from "src/Models/MatchModel";
+import type { QuestionDTO } from "src/dtos/match/match-questionDTO";
 import type { RoundDTO } from "src/dtos/match/match-questionDTO";
 import type { OpponentDTO } from "src/dtos/match/opponent.dto";
 import type { MathsSubmissionDTO, ProgSubmissionDTO } from "src/dtos/match/submission.dto";
 import type { MatchSocket } from "src/context/Socket/modules/match.socket";
 import { useMatchStore } from "src/stores/match-store";
 
-
 export function matchStart(match_socket: MatchSocket) {
 
     return match_socket.startMatch((data) => {
+        console.log("DATA: ", data);
         useMatchStore.getState().setMatchData(data);
     })
 }
@@ -36,7 +37,7 @@ export const useGameTimer = (duration: number, onExpire: () => void) => {
     return timer;
 }
 
-function shuffle(array: Question[]) {
+function shuffle(array: QuestionDTO[]) {
     let curr = array.length;
     let random;
 
@@ -52,34 +53,35 @@ function shuffle(array: Question[]) {
 export const useGameQuestions = () => {
 
     const loadRounds = (data: RoundDTO[]) => {
-        if (!data || data.length === 0) {
-            return {
-                rounds: [] as Question[][],
-                duration: 0
-            }
-        }
-
-        const difficulties = ["Easy", "Medium", "Hard"] as const;
-        let sumtime = 0;
-
-
-        const rounds: Question[][] = data.map((round, idx) => {
-            const temp_arr: Question[] = round.questions.map(q => {
-                sumtime += Number(q.time_limit!.split(":")[1]);
+        const { rounds, duration } = useMemo(() => {
+            if (!data || data.length === 0) {
                 return {
-                    id: q.id,
-                    title: q.title,
-                    difficulty: difficulties[idx] ?? "Hard",
-                    description: q.description
-                };
-            });
-            return shuffle(temp_arr);
-        });
+                    rounds: [] as QuestionDTO[][],
+                    duration: 0
+                }
+            }
 
-        return {rounds, duration: sumtime};
+            let sumtime = 0;
+            const rounds: QuestionDTO[][] = data.map((round) => {
+                const temp_arr: QuestionDTO[] = round.questions.map(q => {
+                    sumtime += Number(q.time_limit!.split(":")[1]);
+                    return {
+                        id: q.id,
+                        title: q.title,
+                        difficulty: q.difficulty,
+                        description: q.description
+                    };
+                });
+                return shuffle(temp_arr);
+            });
+
+            return { rounds, duration: sumtime };
+
+        }, [data]);
+
+        return { rounds, duration }
 
     }
-
 
     return {
         loadRounds
@@ -156,4 +158,13 @@ export const useProgSubmission = (source_code: string, language_id: number, stdi
         language_id: language_id,
         stdin: stdin
     }
+}
+
+export const getRoundScore = (results: (boolean | null)[][], rounds: QuestionDTO[][], round_idx: number) => {
+    const round_results = results[round_idx] ?? [];
+    const correct = round_results.filter(r => r === true).length;
+    return {
+        correct: correct,
+        total: rounds[round_idx]?.length ?? 0
+    };
 }

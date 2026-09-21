@@ -11,7 +11,7 @@ import { AnswerRepository } from 'src/interface-adapters/repositories/answer.rep
 import { Answers } from 'src/entities/database/answers.entities';
 import { MatchCreationService } from 'src/application/usecases/services/match/match-creation.service';
 import { MatchCreationSystem, CreateMatchEntity, CreatePlayerEntity, CreateRound} from 'src/application/usecases/systems/match-creation.system';
-import { GetDifficulty, GetQuestions, GetTotalTime } from 'src/application/usecases/services/questions.service';
+import { GetQuestions, GetTotalTime } from 'src/application/usecases/services/questions.service';
 import { GetAnswers } from 'src/application/usecases/services/answers.service';
 import { MatchCache } from 'src/interface-adapters/cache/match-cache';
 import { IMatchCache } from 'src/application/interfaces/cache/IGameCache';
@@ -99,7 +99,6 @@ AppDataSource.initialize()
 
         const get_questions = new GetQuestions(question_repo);
         const get_answers = new GetAnswers(answer_repo);
-        const get_difficulty = new GetDifficulty();
         const get_total_time = new GetTotalTime();
 
         const create_match = new MatchCreationSystem(create_player_entity, create_match_entity, create_round_entity);
@@ -110,7 +109,7 @@ AppDataSource.initialize()
 
 
         // initialise services 
-        const match_service = new MatchCreationService(create_match, get_questions, get_difficulty, get_total_time, get_answers, match_cache, match_repo, user_repo);
+        const match_service = new MatchCreationService(create_match, get_questions, get_total_time, get_answers, match_cache, match_repo, user_repo);
         const matchmaking_service = new MatchmakingService(matchmaking_cache);
         const match_results = new MatchResultService(elo_repo, match_results_repo)
         const matched_users_service = new MatchConfirmationService();

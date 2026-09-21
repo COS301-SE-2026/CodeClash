@@ -22,10 +22,11 @@ export const useMatch = () => {
     const question_idx = useRef(0);
     const round_idx = useRef(0);
     const [currentQuestion, setCurrentQuestion] = useState(0);
+    const [nextRound, setNextRound] = useState(false);
 
     const status = useMatchStore(state => state.status);
-    const {rounds, duration} = loadRounds(useMatchStore(state => state.rounds)!);
-    const questions = rounds[round_idx.current]?? [];
+    const { rounds, duration } = loadRounds(useMatchStore(state => state.rounds)!);
+    const questions = rounds[round_idx.current] ?? [];
     const players = useMatchStore(state => state.players);
 
     const { playerLife, opponentCurrent, opponent_progress, opponent_done, opponentDone, updatePlayerLife } = useMatchProgress(questions.length, players);
@@ -33,16 +34,24 @@ export const useMatch = () => {
     const usernames = useMemo(() => players.map(p => p.username), [players]);
     const [loading, setLoading] = useState(false);
     const [answers, setAnswers] = useState<Record<string, string>>();
-    const [results, setResults] = useState<(boolean | null)[]>([]);
+    const [results, setResults] = useState<(boolean | null)[][]>([]);
     const mathfieldRef = useRef<MathfieldElement | null>(null)
-    
+
     const [waitingOpponent, setWaitingOpponent] = useState(false);
-   
+
     const closeLoading = () => setLoading(false);
 
     const nextQuestion = (curr: number) => {
         if (curr < questions.length - 1) {
             setCurrentQuestion(curr + 1);
+            return;
+        }
+
+        if (round_idx.current < rounds.length - 1) {
+            round_idx.current += 1;
+            setCurrentQuestion(0);
+            setNextRound(true);
+            setTimeout(() => setNextRound(false), 5000);
         }
     }
 
@@ -76,12 +85,13 @@ export const useMatch = () => {
 
         setResults((prev) => {
             const next = [...prev];
-            next[index] = result.correct;
+            const round_results = [...(next[round_idx.current] ?? [])];
+            round_results[index] = result.correct;
+            next[round_idx.current] = round_results;
             return next
         });
 
         updatePlayerLife(result.player_id, result.life_update);
-
         if (result.life_update <= 0) {
             finishGame();
             return;
@@ -157,6 +167,7 @@ export const useMatch = () => {
         finishGame,
         opponentCurrent,
         opponentDone,
-        submitQuestion
+        submitQuestion,
+        nextRound
     }
 }

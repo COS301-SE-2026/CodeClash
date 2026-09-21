@@ -26,37 +26,10 @@ export class GetQuestions {
 
 
         return {
-            easy: easy_questions,
-            medium: medium_questions,
-            hard: hard_questions
+            easy: easy_questions.map(q=>({...q, difficulty: "Easy"})),
+            medium: medium_questions.map(q=>({...q, difficulty: "Medium"})),
+            hard: hard_questions.map(q=>({...q, difficulty: "Hard"}))
         }
-    }
-}
-
-export class GetDifficulty {
-
-    execute(questions: MatchQuestionsDTO) {
-
-        let difficulty = 0;
-        let count = 0;
-
-        for (const question of questions.easy) {
-            difficulty += question.difficulty;
-        }
-
-        for (const question of questions.medium) {
-            difficulty += question.difficulty;
-        }
-
-        for (const question of questions.hard) {
-            difficulty += question.difficulty;
-        }
-
-        count += (questions.easy.length + questions.medium.length + questions.hard.length)
-
-        difficulty /= count;
-
-        return difficulty;
     }
 }
 
