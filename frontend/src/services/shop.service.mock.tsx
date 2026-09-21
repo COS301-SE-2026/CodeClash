@@ -1,6 +1,6 @@
 //mocked to see pipline of shop, endpoints still need to be implemented
 
-import type { ShopItem, Wallet, UserInventory } from "src/Models/ShopModel";
+import type { ShopItem, Wallet, UserInventory, AccessorySlot } from "src/Models/ShopModel";
 
 const MOCKED: ShopItem[] = [
     {
@@ -103,42 +103,59 @@ export const getCatalog = () => delay(MOCKED);
 export const getWallet = () => delay(MOCKED_WALLET);
 export const getInv = () => delay(MOCKED_INV);
 
-export const purchaseItm = async (itemId: string) => {
+export const purchaseItm = async ( itemId: string, _token: string) => {
     const item = MOCKED.find((i) => i.id === itemId);
     if (!item) {
         throw new Error('Item not found');
     }
+    if(MOCKED_WALLET.stardust < item.price.amount) {
+        throw new Error('Not enough Stardust');
+    }
 
     MOCKED_WALLET.stardust -= item.price.amount;
-    MOCKED_INV.owned.push(
-        {
-            itemId,
-            category: item?.category as any,
-            acquiredAt: new Date().toISOString()
+    if(item.category === 'powerup') {
+        const exist = MOCKED_INV.consumable.find((c) => c.category === 'powerup');
+        if (exist) {
+            exist.quantity += item.quantityGranted;
         }
-    )
+        else {
+            MOCKED_INV.consumable.push({
+                category: 'powerup',
+                quantity: item.quantityGranted
+            })
+        }
+    }
+    else {
+        MOCKED_INV.owned.push(
+            {
+                itemId,
+                category: item?.category as any,
+                acquiredAt: new Date().toISOString()
+            }
+        )
+    }
     return delay({wallet: {...MOCKED_WALLET}, inventory: {...MOCKED_INV}});
 }
 
-export const equipItm = async (category: 'avatar' | 'theme', itemId: string) => {
+export const equipItm = async (category: 'avatar' | 'theme', itemId: string, _token: string) => {
     if (category === 'avatar') MOCKED_INV.equippedAvatarId = itemId;
     if (category === 'theme') MOCKED_INV.equippedThemeId = itemId;
     return delay({...MOCKED_INV});
 }
 
-export const equipAcc = async (slot: string, itemId: string | null) => {
-    if (itemId) MOCKED_INV.equippedAccessories[slot as keyof typeof MOCKED_INV.equippedAccessories] = itemId;
-    else delete MOCKED_INV.equippedAccessories[slot as keyof typeof MOCKED_INV.equippedAccessories];
+export const equipAcc = async (slot: AccessorySlot, itemId: string | null, _token: string) => {
+    if (itemId) MOCKED_INV.equippedAccessories[slot] = itemId;
+    else delete MOCKED_INV.equippedAccessories[slot];
     return delay({...MOCKED_INV});
 }
 
-export const createSavedAvatar = async (conf: Omit<UserInventory['savedAvatarConf'][number], 'id' | 'createdAt'>) => {
+export const createSavedAvatar = async (conf: Omit<UserInventory['savedAvatarConf'][number], 'id' | 'createdAt'>, _token: string) => {
     const created = {...conf, id: 'saved-' + Date.now(), createdAt: new Date().toISOString()};
     MOCKED_INV.savedAvatarConf.push(created);
     return delay(created)
 }
 
-export const deleteSavedAvatar = async (id:string) =>{
+export const deleteSavedAvatar = async (id:string, _token: string) =>{
     MOCKED_INV.savedAvatarConf = MOCKED_INV.savedAvatarConf.filter((c) => c.id !== id);
     return delay(undefined);
 }

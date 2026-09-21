@@ -3,7 +3,10 @@
 import { createContext, useContext, useEffect, useState, useCallback, useMemo } from "react";
 import type { ReactNode } from "react";
 import type { ShopItem, Wallet, UserInventory, AccessorySlot, AvatarShopItem, AccessoryShopItem } from "src/Models/ShopModel";
-import { getCatalog,getWallet, getInv, purchaseItm, equipItm, equipAcc } from "src/services/shop.service.mock";
+import type { BodyType } from "src/avatar/AvatarRenderer";
+import { useAuth } from "../Auth/hooks/useAuth";
+
+import { getCatalog,getWallet, getInv, purchaseItm, equipItm, equipAcc } from "src/services/shop.service.mock"; //to be changed once backedn endpoints implemented
 
 interface InventoryContextValue {
     catalog: ShopItem[];
@@ -14,6 +17,7 @@ interface InventoryContextValue {
 
     equippedAvatarImage?: string;
     equippedAccessoryImage: Partial<Record<AccessorySlot, string>>;
+    equippedAvatarBodyType: BodyType;
 
     refetch: () => Promise<void>;
     purchase: (itemId: string) => Promise<void>;
@@ -28,6 +32,7 @@ interface InventoryContextValue {
 const InventoryContext = createContext<InventoryContextValue | undefined>(undefined);
 
 export const InventoryProvider = ({children}: {children: ReactNode}) => {
+    const {token} = useAuth();
     const [catalog, setCatalog] = useState<ShopItem[]>([]);
     const [wallet, setWallet] = useState<Wallet>({stardust: 0});
     const [inventory, setInventory] = useState<UserInventory | null>(null);
@@ -35,6 +40,10 @@ export const InventoryProvider = ({children}: {children: ReactNode}) => {
     const [error, setError] = useState<string | null>(null);
 
     const fetchAll = useCallback(async () => {
+        if (!token) {
+            setError('Missing or Invalid Token');
+            return;
+        }
         setLoading(true);
         setError(null);
         try {
@@ -49,9 +58,14 @@ export const InventoryProvider = ({children}: {children: ReactNode}) => {
         finally {
             setLoading(false);
         }
-    }, [])
+    }, [token])
 
-    useEffect(() => {fetchAll();}, [fetchAll]);
+    useEffect(() => {
+        if (!token) {
+            return;
+        }
+        void fetchAll();
+    }, [fetchAll, token]);
 
     const equippedAvatarImage = useMemo(() => {
         if (!inventory?.equippedAvatarId) {
@@ -76,22 +90,42 @@ export const InventoryProvider = ({children}: {children: ReactNode}) => {
         return result;
     }, [catalog, inventory])
 
+    const equippedAvatarBodyType = useMemo((): BodyType => {
+        if (!inventory?.equippedAvatarId) {
+            return 'slim';
+        }
+        const avatar = catalog.find((i): i is AvatarShopItem => i.category === 'avatar' && i.id === inventory.equippedAvatarId);
+        return avatar?.bodyType ?? 'slim';
+    }, [catalog, inventory])
+
     const purchase = useCallback(async (itemId: string) => {
-        const res = await purchaseItm(itemId);
+        if (!token) {
+            setError('Missing or Invalid Token');
+            return;
+        }
+        const res = await purchaseItm(itemId, token);
         setWallet(res.wallet);
         setInventory(res.inventory);
-    }, [])
+    }, [token])
 
     const equip = useCallback(async (category: 'avatar' | 'theme', itemId: string) => {
-        const updated = await equipItm(category, itemId);
+        if (!token) {
+            setError('Missing or Invalid Token');
+            return;
+        }
+        const updated = await equipItm(category, itemId, token);
         setInventory(updated);
-    },[])
+    },[token])
 
     const toggleAcc = useCallback(async (slot: AccessorySlot, itemId: string) => {
+        if (!token) {
+            setError('Missing or Invalid Token');
+            return;
+        }
         const already = inventory?.equippedAccessories[slot] === itemId;
-        const updated = await equipAcc(slot, already ? null : itemId);
+        const updated = await equipAcc(slot, already ? null : itemId, token);
         setInventory(updated);
-    }, [inventory])
+    }, [inventory, token])
 
     const isOwned = useCallback(
         (itemId: string) => inventory?.owned.some((o) => o.itemId === itemId) ?? false, [inventory]
@@ -123,6 +157,7 @@ export const InventoryProvider = ({children}: {children: ReactNode}) => {
 
             equippedAvatarImage,
             equippedAccessoryImage,
+            equippedAvatarBodyType,
 
             refetch: fetchAll,
             purchase,
