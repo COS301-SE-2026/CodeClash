@@ -130,14 +130,47 @@ const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasing
                                 <button type="button" onClick={reset} disabled={!hasUnsavedChanges || saving} className="btn btn-primary">
                                     <RotateCcw size={14}/>Reset to Default
                                 </button>
-                                <button type="button" onClick={() => setShowPresetInput((v) => !v)} disabled={!hasUnsavedChanges || saving} className="btn btn-primary">
+                                <button type="button" onClick={() => setShowPresetInput((v) => !v)} className="btn btn-primary">
                                     <BookmarkPlus size={14}/>Save as preset
                                 </button>
                             </div>
-                            
+
+                            {showPreserInput && (
+                                <div style={{display: 'flex', gap: '0.5rem'}}>
+                                    <input type="text" value={presetName} onChange={(e)=> setPresetName(e.target.value)} placeholder="Name this look.." className="input" style={{maxWidth: '220px'}}/>
+                                    <button type="button" onClick={handleSaveAsPreset} disabled={!presetName.trim() || savingPreset} className="btn btn-secondary">
+                                        {savingPreset? <Loader2 size={14} className="animate-spin"/> : 'Save'}
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     )}
                 </div>
+            </div>
+
+            <h2 className="section-title text-md mb-4">Wardrobe & Accessories</h2>
+            <div style={{display: 'flex',gap: '0.5rem', overflowX: 'auto', paddingBottom: '0.5rem', marginBottom: '1.5rem'}}>
+                {accTabs.map((tab) => {
+                    const active = activeSlot === tab.id;
+                    return (
+                        <button key={tab.id} type="button" onClick={()=> setActiveSlot(tab.id)}  
+                            style={{padding: '0.5rem 1rem', borderRadius: '999px', fontSize: 700,border: active ? '2px solid var(--primary)' : '1px solid var(--border)',
+                                    background: active ? 'var(--primary)' : 'var(--background-card)', color: active ? 'var(--muted)' : 'var(--primary)',  cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0
+                                }}>
+                            {tab.label}
+                        </button>
+                    )
+                })}
+            </div>
+
+            <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '1.25rem'}}>
+                {accessories.map((item) => {
+                    const owned = isOwned(item.id);
+                    const inDraft = draftAccessories[item.slot] === item.id;
+                    return (
+                        
+                    )
+                })}
             </div>
         </div>
     )
