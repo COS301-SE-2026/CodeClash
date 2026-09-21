@@ -1,6 +1,6 @@
 import { MathsSubmissionDTO, ProgSubmissionDTO } from "src/entities/dtos/components.dto";
 import { MarkingStrategy } from "src/application/interfaces/marking/IMarkingStategy";
-import { AnswerDTO } from "src/entities/dtos/answer.dto";
+import { AnswerDTO } from "src/entities/dtos/match/answer.dto";
 import { MarkerRegistry } from "./maths-marking/marker-registry";
 
 export class MarkMaths implements MarkingStrategy {

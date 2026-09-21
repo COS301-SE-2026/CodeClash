@@ -1,6 +1,6 @@
 import { MathNode, parse } from "mathjs";
 
-import { AnswerDTO } from "src/entities/dtos/answer.dto";
+import { AnswerDTO } from "src/entities/dtos/match/answer.dto";
 
 import { MathsMarker } from "./maths-marker";
 import { closeRelative, normalize, safeParse, splitTopLevel, variablesIn } from "./normalizer";

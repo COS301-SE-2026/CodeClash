@@ -1,5 +1,5 @@
 import { Repository } from "typeorm";
-import { MatchStats } from "src/entities/db-entities/match-stats.entities";
+import { MatchStats } from "src/entities/database/match-stats.entities";
 import { IMatchStatsRepository } from "src/application/interfaces/repositories/IMatchStatsRepository";
 
 export class MatchStatsRepository implements IMatchStatsRepository {

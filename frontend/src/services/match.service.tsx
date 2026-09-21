@@ -1,14 +1,19 @@
 import { useMemo, useRef, useState, useEffect } from "react";
 import { useTimer } from "react-timer-hook";
-import { Socket } from "socket.io-client";
-import type { GameType } from "src/dtos/matchmaking.dto";
 import type { Player, Question } from "src/Models/MatchModel";
-import { submitAnswer } from "src/services/submission.service";
-import { endGame } from "src/services/result.service";
-import type { GameQuestionsDTO } from "src/dtos/game-questionDTO";
-import { useNavigate } from "react-router-dom";
-import type { OpponentDTO } from "src/dtos/opponent.dto";
-import type { MathsSubmissionDTO, ProgSubmissionDTO } from "src/dtos/submission.dto";
+import type { RoundDTO } from "src/dtos/match/match-questionDTO";
+import type { OpponentDTO } from "src/dtos/match/opponent.dto";
+import type { MathsSubmissionDTO, ProgSubmissionDTO } from "src/dtos/match/submission.dto";
+import type { MatchSocket } from "src/context/Socket/modules/match.socket";
+import { useMatchStore } from "src/stores/match-store";
+
+
+export function matchStart(match_socket: MatchSocket) {
+
+    return match_socket.startMatch((data) => {
+        useMatchStore.getState().setMatchData(data);
+    })
+}
 
 export const useGameTimer = (duration: number, onExpire: () => void) => {
     const expiry_time = useMemo(() => {
@@ -44,134 +49,40 @@ function shuffle(array: Question[]) {
     return array;
 }
 
-export const useGameQuestions = (
-    match_id: string,
-    user_id: string,
-    socket: Socket,
-    game_type: GameType
-) => {
-    const nav = useNavigate();
+export const useGameQuestions = () => {
 
-    const [questions, setQuestions] = useState<Question[]>([]);
-    const [duration, setDuration] = useState(0);
-    const [currentQuestion, setCurrentQuestion] = useState(0);
-    const [questionsReady, setQuestionsReady] = useState(false);
-    const [waitingOpponent, setWaitingOpponent] = useState(false);
-    const question_idx = useRef(0);
-
-
-    const startQuestion = (
-        player_id: string,
-        question_id: string,
-        question_number: number
-    ) => {
-        const data = {
-            match_id: match_id,
-            player: player_id,
-            question: question_id,
-            question_number: question_number
+    const loadRounds = (data: RoundDTO[]) => {
+        if (!data || data.length === 0) {
+            return {
+                rounds: [] as Question[][],
+                duration: 0
+            }
         }
 
-        socket?.emit('question_started', data);
-    }
-
-    const nextQuestion = (curr: number) => {
-        if (curr < questions.length - 1) {
-            setCurrentQuestion(curr + 1);
-            startQuestion(user_id, questions[curr + 1].id!, curr + 1)
-        }
-    }
-
-    const prevQuestion = (curr: number) => {
-        if (curr > 0) {
-            setCurrentQuestion(curr - 1)
-            startQuestion(user_id, questions[curr - 1].id!, curr - 1)
-        }
-    }
-
-    const submitQuestion = (question_id: string, game_type: string, submission: ProgSubmissionDTO | MathsSubmissionDTO) => {
-        question_idx.current = currentQuestion;
-        submitAnswer(socket, parseInt(match_id), question_id, question_idx.current, game_type, submission);
-    }
-
-    const finishGame = () => {
-        if (question_idx.current === questions.length - 1) {
-            setWaitingOpponent(true)
-            endGame(parseInt(match_id), game_type, socket);
-        }
-    }
-
-    const loadQuestions = (data: GameQuestionsDTO) => {
-        const temp_arr: Question[] = [];
+        const difficulties = ["Easy", "Medium", "Hard"] as const;
         let sumtime = 0;
 
-        for (const q of data.easy) {
-            temp_arr.push({
-                id: q.id,
-                title: q.title!,
-                difficulty: "Easy",
-                description: q.description,
+
+        const rounds: Question[][] = data.map((round, idx) => {
+            const temp_arr: Question[] = round.questions.map(q => {
+                sumtime += Number(q.time_limit!.split(":")[1]);
+                return {
+                    id: q.id,
+                    title: q.title,
+                    difficulty: difficulties[idx] ?? "Hard",
+                    description: q.description
+                };
             });
-
-            sumtime += Number(q.time_limit!.split(":")[1])
-        }
-
-        for (const q of data.medium) {
-            temp_arr.push({
-                id: q.id,
-                title: q.title,
-                difficulty: "Medium",
-                description: q.description
-            });
-            sumtime += Number(q.time_limit!.split(":")[1])
-        }
-
-        for (const q of data.hard) {
-            temp_arr.push({
-                id: q.id,
-                title: q.title,
-                difficulty: "Hard",
-                description: q.description
-            });
-            sumtime += Number(q.time_limit!.split(":")[1])
-        }
-
-        setDuration(sumtime);
-        shuffle(temp_arr);
-        setQuestions(temp_arr);
-        setQuestionsReady(true);
-
-        startQuestion(user_id, temp_arr[0].id!, 0);
-    }
-
-    const waiting_opponent = () => {
-        setWaitingOpponent(true);
-    }
-
-    const both_done = () => {
-        setWaitingOpponent(false);
-        nav('/results', {
-            replace: true,
-            state: {
-                id: match_id
-            }
+            return shuffle(temp_arr);
         });
+
+        return {rounds, duration: sumtime};
+
     }
+
 
     return {
-        questions,
-        duration,
-        currentQuestion,
-        questionsReady,
-        nextQuestion,
-        prevQuestion,
-        submitQuestion,
-        question_idx,
-        finishGame,
-        loadQuestions,
-        waitingOpponent,
-        waiting_opponent,
-        both_done
+        loadRounds
     }
 
 }
@@ -185,15 +96,10 @@ export const useMatchProgress = (
     const [opponentDone, setOpponentDone] = useState(false);
 
     const players_ref = useRef(players);
-  const [prev_players, setPrevPlayers] = useState(players);
 
-  if (players !== prev_players) {
-        setPrevPlayers(players);
-        setPlayerLife(players.map(p => p.life))
-    }
     useEffect(() => {
-        players_ref.current = players
-
+        players_ref.current = players;
+        setPlayerLife(players.map(p => p.life));
     }, [players]);
 
 

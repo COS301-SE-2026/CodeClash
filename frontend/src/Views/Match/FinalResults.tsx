@@ -1,0 +1,245 @@
+import { TrendingUp, TrendingDown, Minus, Clock, UserCircle, ArrowRight} from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { FinalResultsViewModelFunction } from "src/ViewModels/Match/FinalResultsViewModel";
+import { ArmRaise } from "src/animations/armRaise";
+import { Lose } from "src/animations/lose"
+import Loading from "@/components/shared/Loading";
+import Confetti from "@/components/ui/animations/Confetti";
+import Starfield from "@/components/ui/animations/Starfield";
+import { finalResultsContent, type PlayerFinalResults } from "src/Models/FinalResultsModel";
+
+const FinalResults: React.FC = () => {
+    const navigate = useNavigate();
+
+    const {
+        content, state, loadingProgress,
+        winner, loser
+    } = FinalResultsViewModelFunction();
+
+    const [res, setRes] = useState(false); // moved
+
+    useEffect(() => {
+        if (state !== 'results') {
+            setRes(false);
+            return;
+        }
+        const anim = requestAnimationFrame(() => setRes(true));
+        return () => cancelAnimationFrame(anim);
+    }, [state]);
+
+    const formatTime = (ms: number|undefined) => {
+
+        if(ms === undefined) return 'Error getting time'
+        const total_sec = Math.floor(ms / 1000);
+        const min = Math.floor(total_sec / 60);
+        const sec = total_sec % 60
+
+        return `${min}:${sec.toString().padStart(2,'0')}`;
+    }
+
+    if(!winner || !loser){
+        return(
+            <Loading />
+        )
+    }
+
+    return (
+        <div className="bg-background min-h-screen w-full flex items-center justify-center">
+            <div className="absolute inset-0 transition-opacity duration-700 ease-out pointer-events-none"
+                style={{opacity: res ? 1:0, background: 'radial-gradient(circle at 50% 15%, #b91551 0%, #850f3b 22%, #630b3c 34%, #0a0008 62%'}}>
+                <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background"/>
+                <div style={{position: 'absolute', width: 420, height: 420, top: '5%', left: '-8%', background: 'var(--primary)', borderRadius: '9999px', filter: 'blur(70px), opacity: 0.45'}}/>
+                <div style={{position: 'absolute', width: 320, height: 320, bottom: '0%', right: '-6%', background: 'var(--color-pink-300)', borderRadius: '9999px', filter: 'blur(70px)', opacity: 0.45}}/>
+                {state === 'results' && <Starfield count={60}/>}
+            </div>
+            {state === 'results' && <Confetti count={35}/>}
+
+            {state === 'loading' && (
+                <div className="p-5 w-full max-w-[550px] flex flex-col gap-6">
+                    <div className="flex flex-col gap-3">
+                        <div className="flex justify-between items-center">
+                            <span className="text-primary-text font-medium"
+                                style={{ fontSize: 'var(--font-size-sm)' }}>
+                                {content.labelLoading}
+                            </span>
+                            <span className="score-display text-primary-text text-md">
+                                {Math.min(Math.round(loadingProgress), 100)}%
+                            </span>
+                        </div>
+
+                        <div className="progress-track h-4">
+                            <div className="progress-fill"
+                                style={{ width: `${Math.min(loadingProgress, 100)}%` }} />
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/*Error state */}
+            {state === 'error' && (
+                <div className="p-12 w-full max-w-[550px] flex flex-col items-center gap-6 text-center">
+                    <div className="w-16 h-16 rounded-full bg-danger/10 border border-danger/30 flex items-center justify-center">
+                        <Clock className="w-8 h-8 text-danger"/>
+                    </div>
+                    <p className="text-primary-text leading-relaxed whitespace-nowrap"
+                        style={{ fontSize: 'var(--font-size-sm)' }}>{content.messageError}</p>
+                    <button className="w-full btn btn-primary"
+                        style={{ fontSize: 'var(--font-size-sm)' }} onClick={() => navigate('/dashboard')} type="button">
+                        {content.labelReturn}
+                    </button>
+                </div>
+            )}
+
+            {state === 'results' && (
+                <div className="relative z-10 w-full max-w-2xl flex flex-col gap-4 p-6">
+                        <h1 className="text-primary-text font-bold text-center text-xl">{content.titleResults}</h1>
+
+                        {/*Table of results */}
+                        <div className="flex flex-col gap-4">
+                            <PlayerResultCard player={{
+                                username: winner.username, avatar: winner.avatar,
+                                correctness: winner.correctness, speed: formatTime(winner.speed),
+                                eloEffect: winner.eloEffect, position: 1, isWinner: true, rank: winner.rank, rank_before: winner.rank_before
+                                }}
+                                emphasize
+                            />
+                            {/*copied from above and mod for loser */}
+                            <PlayerResultCard player={{
+                                username: loser.username, avatar: loser.avatar,
+                                correctness: loser.correctness, speed: formatTime(loser.speed),
+                                eloEffect: loser.eloEffect, position: 2, isWinner: false, rank: loser.rank, rank_before: loser.rank_before
+                                }}
+                            />
+                        </div>
+
+                        {/*Buttons for return and try again*/}
+                        <div className="flex gap-3 mt-1">
+                            <button className="flex-1 flex items-center justify-center gap-2 rounded-2xl bg-secondary text-secondary-text font-bold hover:opacity-80 transition-opacity"
+                                style={{ fontSize: 'var(--font-size-sm)' }} onClick={() => navigate('/dashboard')} type="button">
+                                {content.labelReturn}
+                            </button>
+                            <button className="flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl bg-button-primary text-button-text-primary font-bold hover:opacity-90 transition-opacity"
+                                style={{ fontSize: 'var(--font-size-sm)' }} onClick={() => navigate('/dashboard')} type="button"> {/*Need to fix this navigation cause not sure where this will take the user?? */}
+                                {content.labelPlayAgain}
+                            </button>
+                        </div>
+                    </div>
+            )}
+        </div>
+    );
+};
+
+const ordinal = (rank: number) => {
+  const tens = rank % 100;
+  if (tens >= 11 && tens <= 13) return `${rank}th`;
+
+  switch (rank % 10) {
+    case 1: return `${rank}st`;
+    case 2: return `${rank}nd`;
+    case 3: return `${rank}rd`;
+    default: return `${rank}th`; 
+  }
+}
+
+const RankChange: React.FC<{ before: number, after: number }> = ({ before, after }) => {
+  const moved = before - after;
+
+  if (moved === 0) return (
+    <span className="text-muted-text font-semibold flex items-center gap-1 text-muted-text" style={{ fontSize: 'var(--font-size-xsm)' }}>
+      <Minus size={12} />
+      No change
+    </span>
+  );
+
+  return (
+    <span className={`flex items-center gap-1 font-bold ${moved > 0 ? 'text-success' : 'text-danger'}`} style={{ fontSize: 'var(--font-size-xsm)' }}>
+      {moved > 0 ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
+      {Math.abs(moved)}
+    </span>
+  );
+};
+
+const Badge: React.FC<{ rankBefore?: number | null, rank?: number | null }> = ({ rankBefore, rank }) => {
+  const changed = !!rankBefore && rankBefore !== rank;
+  return (
+    <div className="flex flex-col items-center gap-1">
+      {rank ? (
+        <span className="text-primary-text font-semibold flex items-center text-muted text-center justify-center"
+              style={{ fontSize: 'var(--font-size-xsm)' }}>
+                  {changed ? (
+                    <>
+                        {ordinal(rankBefore)}
+                        <ArrowRight size={14}/>
+                        {ordinal(rank)}
+                    </>
+                  ): (
+                    ordinal(rank)
+                  )}
+        </span>
+      ) : null}
+
+      {rank && rankBefore ? <RankChange before={rankBefore} after={rank} /> : null}
+    </div>
+  );
+}
+
+const PlayerResultCard: React.FC<{
+    player: PlayerFinalResults;
+    emphasize?: boolean; //emphasis on the winners card, so its somewhat more visible and different to loser card
+}> = ({player, emphasize}) => {
+    const [avatarFailed] = useState(false);
+    return (
+        <div className={`${emphasize? 'card-glow' : 'card-elevated'} p-4 flex flex-col sm:flex-row items-center gap-4`}>
+            <div className="flex flex-col items-center gap-1 shrink-0 w-30">
+                <div className="w-30 h-30 rounded-full overflow-hidden border-2 border-primary flex items-center justify-center bg-card">
+                    {avatarFailed ? (
+                        <UserCircle size={26} className="text-muted-text"/>
+                    ): (
+                        // <img src={robot_map[player.avatar]} alt = {player.username} className="w-full h-full object-cover" onError={() => setAvatarFailed(true)}/>
+                        <div>
+                            {player.position === 1 ?
+                            <ArmRaise vb1={175} vb2={220}/> : <Lose vb1={170} vb2={220}/>
+                            }
+                        </div>
+
+                    )}
+                </div>
+                <span className="text-primary-text font-semibold text-center truncate w-full text-xs">{player.username}</span>
+                {player.isWinner && (
+                    <span className="px-1 py-0 rounded-full bg-yellow-400 text-yellow-900 font-black text-xs uppercase tracking-wide">{finalResultsContent.labelWinner}</span>
+                )}
+            </div>
+
+            <div className="grid grid-cols-4 gap-2 flex-1 w-full">
+                <div className="flex flex-col items-center gap-0.5">
+                    <span className="text-xsm uppercase tracking-wide text-muted">Correctness</span>
+                    <span className="score-display text-base text-primary-text">{player.correctness}</span>
+                </div>
+                {/*Copied from above and modified */}
+                <div className="flex flex-col items-center gap-0.5">
+                    <span className="text-xsm uppercase tracking-wide text-muted">Time</span>
+                    <span className="score-display text-base text-primary-text">{player.speed}</span>
+                </div>
+                <div className="flex flex-col items-center gap-0.5">
+                    <span className="text-xsm uppercase tracking-wide text-muted">ELO</span>
+                    <span className={`flex items-center gap-1 text-sm font-bold ${player.eloEffect >= 0 ? 'text-success' : 'text-danger'}`}>
+                        {player.eloEffect >= 0 ? (
+                            <TrendingUp size={16}/>
+                        ): (
+                            <TrendingDown size={16}/>
+                        )}
+                        {player.eloEffect}
+                    </span>
+                </div>
+                {/*Copied from above and modified - placement now, not position*/}
+                <div className="flex flex-col items-center gap-0.5">
+                    <span className="text-xsm uppercase tracking-wide text-muted">Placement</span>
+                    <Badge rank={player.rank} rankBefore={player.rank_before}/>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default FinalResults;

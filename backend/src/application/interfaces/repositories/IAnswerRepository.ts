@@ -1,4 +1,4 @@
-import { AnswerDTO } from "src/entities/dtos/answer.dto"
+import { AnswerDTO } from "src/entities/dtos/match/answer.dto"
 
 
 export interface IAnswerRepository {

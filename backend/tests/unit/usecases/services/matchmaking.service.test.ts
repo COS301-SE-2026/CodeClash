@@ -1,118 +1,133 @@
-// intercepts redis import in the matchmaking services so the tests use a mock redis
-
-import RedisMock from 'ioredis-mock'
-import { IMatchmakingCache } from '../../../../src/application/interfaces/cache/IMatchmakingCache'
+import { MatchmakingUserDTO } from '../../../../src/entities/dtos/matchmaking/matchmaking.dto';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { MatchmakingService } from '../../../../src/application/usecases/services/matchmaking.service'
-import { GameMode } from '../../../../src/entities/db-entities/questions.entities';
-import UserDto from "../../../../src/entities/dtos/matchmaking.dto";
-import { MatchmakingCache } from '../../../../src/interface-adapters/cache/matchmaking-cache'
-import { vi, describe, test, expect, beforeEach, afterEach } from 'vitest';
+import { MatchMode } from '../../../../src/entities/dtos/match/match.dto';
 
-vi.mock("src/frameworks-drivers/config/redis-client", () => {
-    return { default: new RedisMock() };
+const mock_user = (data: Partial<MatchmakingUserDTO> = {}): MatchmakingUserDTO => ({
+    id: 'user-1',
+    elo: 1000,
+    match_mode: MatchMode.Maths,
+    match_attempt: 1,
+    joined_at: new Date(),
+    ...data
 });
 
-const mock = new RedisMock()
-const cache: IMatchmakingCache = new MatchmakingCache(mock)
-const matchmaking_service = new MatchmakingService(cache);
+let mock_cache: {
+    enqueue: ReturnType<typeof vi.fn>,
+    dequeue: ReturnType<typeof vi.fn>,
+    getPlayers: ReturnType<typeof vi.fn>,
+    getJoinedAt: ReturnType<typeof vi.fn>,
+    getUserElo: ReturnType<typeof vi.fn>,
+    getQueueLength: ReturnType<typeof vi.fn>,
+    deleteUser: ReturnType<typeof vi.fn>,
+    incrementMatchAttempt: ReturnType<typeof vi.fn>
+};
 
+let service: MatchmakingService;
 
-let ids = 1
-const ideal_math_user = new UserDto((ids++).toString(), 1000, GameMode.Maths);
-const ideal_prog_user = new UserDto((ids++).toString(), 1010, GameMode.Programming);
-const invalid_remove = new UserDto((ids++).toString(), 1020, GameMode.Maths);
+describe('MatchmakingService', () => {
+    beforeEach(() => {
+        mock_cache = {
+            enqueue: vi.fn().mockResolvedValue(undefined),
+            dequeue: vi.fn().mockResolvedValue(true),
+            getPlayers: vi.fn(),
+            getJoinedAt: vi.fn(),
+            getUserElo: vi.fn(),
+            getQueueLength: vi.fn(),
+            deleteUser: vi.fn().mockResolvedValue(1),
+            incrementMatchAttempt: vi.fn().mockResolvedValue(undefined)
+        };
 
+        service = new MatchmakingService(mock_cache as any);
+    })
 
-describe('Ideal Users', async () => {
+    it("enqueues user when a match isn't found", async () => {
+        mock_cache.getPlayers.mockResolvedValue([]);
+        mock_cache.getUserElo.mockResolvedValue(null);
 
-    describe('Enqueue Users', () => {
-        test('adds a user to the queue', async () => {
-            const add = await matchmaking_service.enqueue(ideal_math_user, ideal_math_user.game_mode);
-            const math_length = await matchmaking_service.math_queue_length();
-            const prog_length = await matchmaking_service.prog_queue_length();
+        const user = mock_user();
+        const result = await service.matchmaking(user);
 
-            expect(add).toBe(true);
-            expect(math_length).toBe(1);
-            expect(prog_length).toBe(0);
+        expect(result).toBeNull();
+        expect(mock_cache.enqueue).toHaveBeenCalledWith(user.match_mode, user);
+    })
 
-        })
+    it("increases users match attempt if they're already waiting", async () => {
+        mock_cache.getPlayers.mockResolvedValue([]);
+        mock_cache.getUserElo.mockResolvedValue(1000);
 
-        test('add user with different game mode', async () => {
-            const add = await matchmaking_service.enqueue(ideal_prog_user, ideal_prog_user.game_mode);
-            const math_length = await matchmaking_service.math_queue_length();
-            const prog_length = await matchmaking_service.prog_queue_length();
+        const user = mock_user();
+        const result = await service.matchmaking(user);
 
-            expect(add).toBe(true);
-            expect(math_length).toBe(1);
-            expect(prog_length).toBe(1);
-        })
+        expect(result).toBeNull();
+        expect(mock_cache.enqueue).not.toHaveBeenCalled();
+        expect(mock_cache.incrementMatchAttempt).toHaveBeenCalledWith(user.id);
+    })
+
+    it("excludes the requesting user from thei own candidate list", async () => {
+        mock_cache.getPlayers.mockResolvedValue(['user-1']);
+        mock_cache.getJoinedAt.mockResolvedValue(['2026-09-15T08:56:42.467Z']);
+        mock_cache.getUserElo.mockResolvedValue(1000);
+
+        const user = mock_user({ id: 'user-1' });
+        const result = await service.matchmaking(user);
+
+        expect(result).toBeNull();
+        expect(mock_cache.enqueue).not.toHaveBeenCalled();
+    })
+
+    it('matches two players', async () => {
+        mock_cache.getPlayers.mockResolvedValue(['user-2']);
+        mock_cache.getJoinedAt.mockResolvedValue(['2026-09-17T08:56:42.467Z']);
+        mock_cache.getUserElo.mockResolvedValue(950);
+
+        const user = mock_user({ id: 'user-1', elo: 1000 });
+        const result = await service.matchmaking(user);
+
+        expect(result).toEqual([
+            { id: 'user-1', elo: 1000 },
+            { id: 'user-2', elo: 950 }
+        ])
+        expect(mock_cache.deleteUser).toHaveBeenCalledWith(user.match_mode, 'user-2');
+        expect(mock_cache.deleteUser).toHaveBeenCalledWith(user.match_mode, 'user-1');
     })
 
 
+    it('matches more than two players', async () => {
+        mock_cache.getPlayers.mockResolvedValue(['user-2', 'user-3', 'user-4']);
+        mock_cache.getJoinedAt
+            .mockResolvedValueOnce(['2026-09-17T08:56:42.467Z'])
+            .mockResolvedValueOnce(['2026-09-17T09:00:42.467Z'])
+            .mockResolvedValueOnce(['2026-09-17T09:03:42.467Z']);
 
-    describe('Dequeue Users', () => {
-        test('removes user from the queue', async () => {
-            const rem = await matchmaking_service.dequeue(ideal_math_user.id, ideal_math_user.game_mode);
-            const math_length = await matchmaking_service.math_queue_length();
-            const prog_length = await matchmaking_service.prog_queue_length();
+        mock_cache.getUserElo
+            .mockResolvedValueOnce(940)
+            .mockResolvedValueOnce(990)
+            .mockResolvedValueOnce(1010);
 
-            expect(rem).toBe(true);
-            expect(math_length).toBe(0);
-            expect(prog_length).toBe(1);
-        })
+        const user = mock_user({ id: 'user-1', elo: 1000 });
+        const result = await service.matchmaking(user, 4);
 
-        test('remove user that is not in the queue', async () => {
-            const rem = await matchmaking_service.dequeue(invalid_remove.id, invalid_remove.game_mode);
-            const math_length = await matchmaking_service.math_queue_length();
-            const prog_length = await matchmaking_service.prog_queue_length();
-
-            expect(rem).toBe(false);
-            expect(math_length).toBe(0);
-            expect(prog_length).toBe(1);
-        })
+        expect(result).toHaveLength(4);
+        expect(result).toEqual(expect.arrayContaining([
+            { id: 'user-1', elo: 1000 },
+            { id: 'user-2', elo: 940 },
+            { id: 'user-3', elo: 990 },
+            { id: 'user-4', elo: 1010 },
+        ]))
     })
 
-    await mock.flushall();
-    describe('Matching ideal users', () => {
+    it("waits for more players when the minimum isn't met", async () => {
+        mock_cache.getPlayers.mockResolvedValue(['user-2']);
+        mock_cache.getJoinedAt.mockResolvedValue(['2026-09-17T08:56:42.467Z']);
+        mock_cache.getUserElo.mockResolvedValue(null);
 
-        test('find a match for a user', async () => {
-            const player_1_id = (ids++).toString();
-            const player_2_id = (ids++).toString();
-            let math_length = 0;
-            const prog_length = 0;
+        const user = mock_user({ id: 'user-1' });
+        const result = await service.matchmaking(user, 4);
 
-            const player_1 = new UserDto(player_1_id, 1000, GameMode.Maths);
-            const player_2 = new UserDto(player_2_id, 1050, GameMode.Maths);
+        expect(result).toBeNull();
+        expect(mock_cache.enqueue).toHaveBeenCalled();
 
-            const add_p_1 = await matchmaking_service.matchmaking(player_1);  // this should not find a match
-            expect(add_p_1).toBeNull();
-
-            math_length = await matchmaking_service.math_queue_length();
-            expect(math_length).toBe(1);
-            expect(prog_length).toBe(0);
-
-            const add_p_2 = await matchmaking_service.matchmaking(player_2);
-            math_length = await matchmaking_service.math_queue_length();
-
-            const expected = {
-                player_2: {
-                    id: player_2_id,
-                    elo: 1050
-                },
-                player_1: {
-                    id: player_1_id,
-                    elo: 1000
-                }
-            }
-
-            expect(add_p_2).toEqual(expected);    // should match players 1 and 2
-            expect(math_length).toBe(0);    // player 1 should be removed from the queue
-            expect(prog_length).toBe(0);
-
-        })
     })
-    await mock.flushall();
+
 })
-
-
-
