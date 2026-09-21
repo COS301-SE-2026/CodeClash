@@ -157,6 +157,15 @@ export class ShopRepository implements IShopRepository {
     }
 
     async getUserPowerups(user_id: string): Promise<UserItemDTO[]> {
-        
+        const items = await this.userItemRepo.find({
+            where: { user: { user_id }, shop_item: { category: 'powerup' } },
+            relations: { shop_item: true }
+        });
+        return items.map(i => ({
+            user_item_id: i.user_item_id,
+            user_id,
+            item: this.toItemDTO(i.shop_item),
+            acquired_at: i.acquired_at
+        }));
     }
 }
