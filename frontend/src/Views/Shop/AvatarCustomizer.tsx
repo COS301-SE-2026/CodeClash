@@ -6,7 +6,7 @@ import { tryOn } from "src/ViewModels/Shop/TryOn";
 import { SavedViewModelFunc } from "src/ViewModels/Shop/SavedViewModel";
 import {AvatarRenderer} from "src/avatar/AvatarRenderer"
 import type { AvatarShopItem, AccessoryShopItem, AccessorySlot, Price } from "src/Models/ShopModel";
-import { BookmarkPlus, Loader2, RotateCcw, Save } from "lucide-react";
+import { BookmarkPlus, Check, Loader2, RotateCcw, Save } from "lucide-react";
 
 const accTabs: {id: AccessorySlot; label: string}[] = [
     {
@@ -168,10 +168,51 @@ const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasing
                     const owned = isOwned(item.id);
                     const inDraft = draftAccessories[item.slot] === item.id;
                     return (
-                        
+                        <AccessoryCards key={item.id} item={item} owned={owned} inDraft={inDraft} purchasing={purchasingId === item.id}
+                            affordable={canAfford(item)} onTryOn={()=> tryOnAccessories(item.slot, item.id)} onBuy={()=> purchase(item.id)}/>
                     )
                 })}
+                {accessories.length === 0 && (
+                    <p className="text-muted text-sm">Nothing in this category yet.</p>
+                )}
             </div>
         </div>
     )
 }
+
+interface AccessoryCardsProps {
+    item: AccessoryShopItem;
+    owned: boolean;
+    inDraft: boolean;
+    purchasing: boolean;
+    affordable: boolean;
+    onTryOn: () => void;
+    onBuy: () => void;
+}
+
+const AccessoryCards: React.FC<AccessoryCardsProps> = ({item,owned, inDraft, purchasing, affordable, onTryOn, onBuy}) => (
+    <div onClick={onTryOn} className="card-glass" style={{padding: '1.1rem', display: 'flex', flexDirection: 'column', 
+        border: inDraft ? '2px solid var(--primary)' : '1px solid var(--border)',gap: '0.6rem',  cursor: 'pointer'}}>
+        {inDraft && (
+            <span className="badge" style={{fontSize: '0.65rem',border: '1px solid var(--primary)',
+                background: 'var(--primary)' , color: 'var(--success)'}}>
+                {owned ? <><Check size={11}/> Equipped</>: 'Previewing'}
+            </span>
+        )}
+        <div style={{height: '90px', borderRadius : 'var(--radius-md, 18px)', background: 'var(--background-elevated)', border: '1px solid var(--border)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden'}}>
+            {item.previewImageUrl && <img src={item.previewImageUrl} alt={item.name} style={{maxHeight: '100%', maxWidth: '100%', objectFit: 'contain'}}/>}
+        </div>
+        <p style={{color: 'var(--primary-text)', fontWeight: 700, fontSize: '0.85rem'}}>{item.name}</p>
+        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+            <span style={{fontSize: '0.75rem', color: 'var(--muted)', fontWeight: 700}}>{item.price.amount}</span>
+            {!owned && (
+                <button type="button" onClick={(e) => {e.stopPropagation(); onBuy();}} disabled={purchasing || !affordable} className="btn btn-primary">
+                    {purchasing ? <Loader2 size={13} className="animate-spin"/> : affordable ? 'Buy': "Can't afford"}
+                </button>
+            )}
+        </div>
+    </div>
+)
+
+export default AvatarCustomizer;
