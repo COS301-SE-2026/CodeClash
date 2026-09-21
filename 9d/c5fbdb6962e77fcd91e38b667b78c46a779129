@@ -1,0 +1,20 @@
+dockerfile/docker-compose.dev.yml
+  h_b13c5d77534129 34
+frontend/@/components/ui/TournamentButton.tsx
+  h_b13c5d77534129 13,15
+frontend/src/Views/Tournaments.tsx
+  h_b13c5d77534129 7-8,20,27-30
+frontend/@/components/ui/TournamentCard.tsx
+  h_b13c5d77534129 51-52,101-102
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "9dc5fbdb6962e77fcd91e38b667b78c46a779129",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
