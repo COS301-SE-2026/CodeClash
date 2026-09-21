@@ -6,6 +6,7 @@ import { tryOn } from "src/ViewModels/Shop/TryOn";
 import { SavedViewModelFunc } from "src/ViewModels/Shop/SavedViewModel";
 import {AvatarRenderer} from "src/avatar/AvatarRenderer"
 import type { AvatarShopItem, AccessoryShopItem, AccessorySlot, Price } from "src/Models/ShopModel";
+import { BookmarkPlus, Loader2, RotateCcw, Save } from "lucide-react";
 
 const accTabs: {id: AccessorySlot; label: string}[] = [
     {
@@ -106,6 +107,38 @@ const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasing
                 })}
             </div>
             
+            <div className="card-glass" style={{padding: '2rem', display: 'flex', gap: '2rem',  flexWrap: 'wrap', alignItems: 'center',marginBottom: '2.5rem'}}>
+                <div style={{flex: '0 0 auto'}}>
+                    <AvatarRenderer avatarImageUrl={draftAvatarImg} bodyType={draftAvatar?.bodyType} accessories={draftAccessoryImg} style={{width: '200px', height: 'auto'}}/>
+                </div>
+                <div style={{flex: '1 1 240px', minWidth: '220px'}}>
+                    <h2 style={{color: 'var(--primary-text)', fontWeight: 800, fontSize: '1.4rem', marginBottom: '0.5rem'}}>{draftAvatar?.name}</h2>
+                    {draftAvatar?.description && (
+                        <p className="text-muted" style={{fontSize: '0.85rem', lineHeight: 1.6, marginBottom: '1.25rem'}}>{draftAvatar.description}</p>
+                    )}
+
+                    {isAvatarUnowned ? (
+                        <button type="button" onClick={() => draftAvatarId && purchase(draftAvatarId)} disabled={purchasingId === draftAvatarId || (draftAvatar ? !canAfford(draftAvatar): true)} className="btn btn-primary">
+                            {purchasingId === draftAvatarId ? <Loader2 size={16} className="animate-spin"/> : `Buy - ${draftAvatar?.price.amount ?? ''}`}
+                        </button> 
+                    ) : (
+                        <div>
+                            <div style={{display: 'flex',gap: '0.75rem', marginBottom: showPreserInput ? '0.75rem' : 0}}>
+                                <button type="button" onClick={saveOutfit} disabled={!hasUnsavedChanges || saving} className="btn btn-primary">
+                                    {saving? <Loader2 size={14} className="animate-spin"/> : <><Save size={14}/>Save Outfit</>}
+                                </button>
+                                <button type="button" onClick={reset} disabled={!hasUnsavedChanges || saving} className="btn btn-primary">
+                                    <RotateCcw size={14}/>Reset to Default
+                                </button>
+                                <button type="button" onClick={() => setShowPresetInput((v) => !v)} disabled={!hasUnsavedChanges || saving} className="btn btn-primary">
+                                    <BookmarkPlus size={14}/>Save as preset
+                                </button>
+                            </div>
+                            
+                        </div>
+                    )}
+                </div>
+            </div>
         </div>
     )
 }
