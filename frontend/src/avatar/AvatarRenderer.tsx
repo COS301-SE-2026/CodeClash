@@ -3,12 +3,18 @@
 import React from "react";
 import type { AccessorySlot } from "src/Models/ShopModel";
 
-const Anchors: Record<AccessorySlot, { //these are roughly based on Vexa, it needs proper tuning for ALL characters
+export type BodyType = 'slim' | 'bulky';
+
+type AnchorBox = {
     x: number;
     y:number;
     w: number;
     h: number;
-}> = {
+}
+
+type AnchorSet = Record<AccessorySlot, AnchorBox>;
+
+const SlimAnchors: AnchorSet = {
     headwear: {
         x: 92, 
         y: 4,
@@ -37,10 +43,46 @@ const Anchors: Record<AccessorySlot, { //these are roughly based on Vexa, it nee
         x: 40, 
         y: 70,
         w: 160,
-        h: 120
+        h: 240
     }
 }
 
+const BulkyAnchors: AnchorSet = {
+    headwear: {
+        x: 84, 
+        y: 2,
+        w: 72,
+        h: 48
+    },
+    neckwear: {
+        x: 82, 
+        y: 78,
+        w: 76,
+        h: 32
+    },
+    belt: {
+        x: 62, 
+        y: 160,
+        w: 116,
+        h: 28
+    },
+    facewear: {
+        x: 88, 
+        y: 34,
+        w: 64,
+        h: 26
+    },
+    cape: {
+        x: 20, 
+        y: 60,
+        w: 200,
+        h: 250
+    }
+}
+
+const anchorSets: Record<BodyType, AnchorSet> = {
+    slim: SlimAnchors, bulky: BulkyAnchors
+}
 const behind: AccessorySlot[] = ['cape']; //cape will need to attach to back and just kinda creep out of the front
 const infront: AccessorySlot[] = ['headwear', 'neckwear', 'facewear', 'belt'];
 
@@ -49,6 +91,7 @@ interface AvatarRendererProps {
     accessories?: Partial<Record<AccessorySlot, string>>;
     className?: string;
     style?: React.CSSProperties;
+    bodyType?: BodyType; 
 }
 
 export const AvatarRenderer: React.FC<AvatarRendererProps> = ({
@@ -56,13 +99,15 @@ export const AvatarRenderer: React.FC<AvatarRendererProps> = ({
     accessories = {},
     className,
     style,
+    bodyType= 'slim'
 }) => {
+    const anchors = anchorSets[bodyType];
     const overlay = (slot: AccessorySlot) => {
         const url = accessories[slot];
         if (!url) {
             return null;
         }
-        const anch = Anchors[slot];
+        const anch = anchors[slot];
         return <image key={slot} href={url} x={anch.x} y={anch.y} width={anch.w} height={anch.h}/>
     }
 
