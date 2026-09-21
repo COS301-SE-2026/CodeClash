@@ -377,6 +377,7 @@
   --card-tournaments: #12080F;
   --progress-bar-symbol: #1B0F1A;
   --match-card: #241822;
+  --profile-tournaments: #1D0E20;
 }
 
 /*These are copied from :root and adjusted for light mode*/
@@ -457,6 +458,7 @@
   --card-tournaments: #12080F;
   --progress-bar-symbol: #1B0F1A;
   --match-card: #241822;
+  --profile-tournaments: #1D0E20;
 }
 
 @layer base {

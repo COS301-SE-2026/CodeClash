@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { Card } from "../ui/card"
 import "../../../src/styles/global.css"
+import { MatchCard } from './MatchCard'
 
 
 interface TournamentPlayerProps{
@@ -12,10 +12,14 @@ interface TournamentPlayerProps{
 export const TournamentPlayer = ({children, className} : TournamentPlayerProps) => {
 
     return(
-        <Card className={`bg-card border-[var(--button-tournament-secondary)] border-[0.5px] flex flex-row ${className}`}>
-            <h1 className="font-semibold text-md ml-5">Username</h1>
-            <h2 className="ml-auto rounded-full bg-card text-green-300 font-semibold mr-5 w-20 text-center mt-auto my-auto">Ready</h2>
+        <MatchCard className={`bg-card border-[var(--button-tournament-secondary)] border-[0.5px] flex flex-row w-auto overflow-x-auto gap-1 min-w-[10%] ${className}`}>
+            <div className="bg-[var(--profile-tournaments)] border-[0.5px] my-auto 
+                border-[var(--button-tournament-secondary)] rounded-sm ml-2 w-10 h-10"
+            >   
+            </div>
+            <h1 className="font-semibold text-sm ml-3">Username</h1>
+            <h2 className="ml-auto rounded-full bg-card text-green-300 text-xs font-semibold w-auto text-center mt-auto my-auto">Ready</h2>
             {children}
-        </Card>
+        </MatchCard>
     )
 }
