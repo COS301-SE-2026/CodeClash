@@ -43,11 +43,11 @@ export class ShopRepository implements IShopRepository {
         return {
             user_id: equipped.user.user_id,
             avatar: equipped.avatar? this.toItemDTO(equipped.avatar) : null,
-            top: equipped.top? this.toItemDTO(equipped.top) : null,
-            bottom: equipped.bottom? this.toItemDTO(equipped.bottom) : null,
+            headwear: equipped.headwear? this.toItemDTO(equipped.headwear) : null,
+            neckwear: equipped.neckwear? this.toItemDTO(equipped.neckwear) : null,
+            facewear: equipped.facewear? this.toItemDTO(equipped.facewear) : null,
             one_piece: equipped.one_piece? this.toItemDTO(equipped.one_piece) : null,
-            shoes: equipped.shoes? this.toItemDTO(equipped.shoes) : null,
-            hat: equipped.hat? this.toItemDTO(equipped.hat) : null,
+            belt: equipped.belt? this.toItemDTO(equipped.belt) : null,
             powerup: equipped.powerup? this.toItemDTO(equipped.powerup) : null,
             updated_at: equipped.updated_at
         };
@@ -127,13 +127,17 @@ export class ShopRepository implements IShopRepository {
     async getEquipped(user_id: string): Promise<EquippedItemsDTO | null> {
         const equipped  = await this.equippedRepo.findOne({
             where: { user: { user_id } },
-            relations: { user: true, avatar: true, top: true, bottom: true, one_piece: true, shoes: true, hat: true, powerup: true }
+            relations: { user: true, avatar: true, headwear: true, neckwear: true, facewear: true, belt: true, one_piece: true, powerup: true }
         });
         return equipped ? this.toEquippedDTO(equipped) : null;
     }
 
     async updateEquipped(user_id: string, updates: UpdatedEquippedDTO): Promise<EquippedItemsDTO> {
-        
+        let equipped = await this. equippedRepo.findOne({ where: { user: { user_id } } });
+
+        const payload: any = {};
+        if (updates.avatar_item_id !== undefined) payload.avatar = { shop_item_id: updates.avatar_item_id };
+        if (updates.headwear_id)
     }
 
     async getUserPowerups(user_id: string): Promise<UserItemDTO[]> {

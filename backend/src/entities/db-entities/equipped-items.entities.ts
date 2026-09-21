@@ -16,24 +16,24 @@ export class EquippedItems {
     avatar!: ShopItem | null;
 
     @ManyToOne(() => ShopItem, { nullable: true })
-    @JoinColumn({ name: 'top_id' })
-    top?: ShopItem | null;
+    @JoinColumn({ name: 'headwear_id' })
+    headwear?: ShopItem | null;
 
     @ManyToOne(() => ShopItem, { nullable: true })
-    @JoinColumn({ name: 'bottom_id' })
-    bottom?: ShopItem | null;
+    @JoinColumn({ name: 'neckwear_id' })
+    neckwear?: ShopItem | null;
+
+    @ManyToOne(() => ShopItem, { nullable: true })
+    @JoinColumn({ name: 'facewear_id' })
+    facewear?: ShopItem | null;
+
+    @ManyToOne(() => ShopItem, { nullable: true })
+    @JoinColumn({ name: 'belt_id' })
+    belt?: ShopItem | null;
 
     @ManyToOne(() => ShopItem, { nullable: true })
     @JoinColumn({ name: 'one_piece_id' })
     one_piece?: ShopItem | null;
-
-    @ManyToOne(() => ShopItem, { nullable: true })
-    @JoinColumn({ name: 'shoes_id' })
-    shoes?: ShopItem | null;
-
-    @ManyToOne(() => ShopItem, { nullable: true })
-    @JoinColumn({ name: 'hat_id' })
-    hat?: ShopItem | null;
 
     @ManyToOne(() => ShopItem, { nullable: true })
     @JoinColumn({ name: 'powerup_item_id' })

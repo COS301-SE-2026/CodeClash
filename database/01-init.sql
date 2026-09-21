@@ -190,10 +190,11 @@ CREATE TABLE IF NOT EXISTS equipped_items (
   equipped_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID REFERENCES users(user_id),
   avatar_item_id UUID REFERENCES shop_items(shop_item_id),
-  top_id UUID REFERENCES shop_items(shop_item_id),
-  bottom_id REFERENCES shop_items(shop_item_id),
+  headwear_id UUID REFERENCES shop_items(shop_item_id),
+  neckwear_id UUID REFERENCES shop_items(shop_item_id),
+  facewear_id UUID REFERENCES shop_items(shop_item_id),
+  belt_id REFERENCES shop_items(shop_item_id),
   one_piece_id REFERENCES shop_items(shop_item_id),
-  shoes_id REFERENCES shop_items(shop_item_id),
   powerup_item_id UUID REFERENCES shop_items(shop_item_id),
   updated_at TIMESTAMP DEFAULT NOW()
 );

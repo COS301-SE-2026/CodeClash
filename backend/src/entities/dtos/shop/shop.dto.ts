@@ -3,7 +3,7 @@ export interface AvatarMetadata {
 }
 
 export interface AccessoryMetadata {
-    slot: 'top' | 'bottom' | ' one_piece' | 'shoes' | 'hat';
+    slot: 'headwear' | 'neckwear' | ' one_piece' | 'belt' | 'facewear';
     asset_key: string;
 }
 

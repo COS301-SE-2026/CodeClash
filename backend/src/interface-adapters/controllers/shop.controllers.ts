@@ -69,14 +69,15 @@ export const getEquipped = (service: ShopService) =>
 export const updateEquipped = (service: ShopService) => 
     async (req: Request, res: Response): Promise<void> => {
         const user_id = req.user?.id;
-        const { avatar_id, powerup_id,top_id, bottom_id, one_piece_id, theme_id } = req.body;
+        const { avatar_id, powerup_id, headwear_id, facewear_id, neckwear_id, belt_id, one_piece_id, theme_id } = req.body;
         if (!user_id) { res.status(401).json({ message: 'Unauthorized' }); return; }
         try {
-            const equipped = await service.updateEquipped(user_id, avatar_id, powerup_id, top_id, bottom_id, one_piece_id, theme_id);
+            const equipped = await service.updateEquipped(user_id, avatar_id, powerup_id, headwear_id, facewear_id, neckwear_id, belt_id, one_piece_id, theme_id);
+            res.status(200).json(equipped);
         } catch (error: any) {
             console.error ('Error updating equipped items:', error);
             const status = error.message === 'Item not owned' ? 403 : 500;
-            res.status(500).json({ message: error.message ??'Internal server error' });
+            res.status(status).json({ message: error.message ??'Internal server error' });
         }
     };
 
