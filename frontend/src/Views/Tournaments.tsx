@@ -29,11 +29,11 @@ const Tournaments = (
     )
     
     return (
-        <div className="w-full min-h-screen overflow-hidden">
+        <div className="w-full max-w-4xl min-h-screen overflow-hidden">
             <div className="w-full flex flex-col">
                 <div className="flex grid grid-cols-2 h-full w-full">
                     <h1 className="font-black text-primary-text text-xl ml-4 mt-1">Tournaments</h1>
-                    <TournamentButton className="w-3xs h-3xs mb-3 mt-3 mr-auto ml-20">
+                    <TournamentButton className="w-3xs h-3xs mb-3 mt-3 justify-self-end mr-2">
                         <div className="flex flex-row w-full">
                             <PlusIcon size={30} className="ml-4 my-auto mt-2"/>
                             <h2 className="font-font text-secondary font-semibold text-sm ml-5 my-auto mt-2">Host Tournament</h2>
@@ -57,7 +57,7 @@ const Tournaments = (
                 </div>
                 
 
-                <div className="overflow-y-auto w-full flex flex-col gap-9">
+                <div className="overflow-y-auto w-full flex flex-col gap-9 items-center">
                     <MathTournamentCard/>
                     <ProgrammingTournamentCard/>
                     <MathTournamentCard/>

@@ -4,6 +4,7 @@ import { Calculator, Timer, ArrowRight, CodeXml } from "lucide-react"
 import "../../../src/styles/global.css"
 import { Progress } from "./progress"
 import TournamentButton from "./TournamentButton"
+import { MatchCard } from './MatchCard'
 
 interface TournamentCardProps{
     children?: React.ReactNode
@@ -14,12 +15,11 @@ interface TournamentCardProps{
 
 export const MathTournamentCard = ({children, className} : TournamentCardProps) => {
     return(
-        <Card className={`bg-card 
-            border-[var(--button-tournament-secondary)] border-[0.5px] flex grid grid-cols-5 w-490 mx-auto relative ${className}`}>
+        <MatchCard className={`flex grid grid-cols-5 w-4xl relative ${className}`}>
 
                 <div className="flex flex-col">
                     <div className="inset-0 right-2 text-muted-text ml-4 -mt-4">#tournamentid</div>
-                    <Calculator size={90} className="ml-9 my-auto mt-2.5"/>
+                    <Calculator size={40} className="ml-9 my-auto mt-2.5"/>
                 </div>
 
                 <div className="grid grid-rows-2 max-w-full h-full mt-2">
@@ -54,7 +54,7 @@ export const MathTournamentCard = ({children, className} : TournamentCardProps) 
                 </TournamentButton>
 
             {children}
-        </Card>
+        </MatchCard>
     )
 }
 
@@ -64,8 +64,7 @@ export const MathTournamentCard = ({children, className} : TournamentCardProps) 
 
 export const ProgrammingTournamentCard = ({children, className} : TournamentCardProps) => {
     return(
-        <Card className={`bg-card 
-            border-[var(--button-tournament-secondary)] border-[0.5px] flex grid grid-cols-5 w-490 mx-auto h-50 relative  ${className}`}>
+        <MatchCard className={`flex grid grid-cols-5 w-4xl h-50 relative  ${className}`}>
                 
                 <div className="flex flex-col">
                     <div className="inset-0 right-2 text-muted-text ml-4 -mt-4">#tournamentid</div>
@@ -104,6 +103,6 @@ export const ProgrammingTournamentCard = ({children, className} : TournamentCard
                 </TournamentButton>
 
             {children}
-        </Card>
+        </MatchCard>
     )
 }

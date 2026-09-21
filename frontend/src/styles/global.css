@@ -271,9 +271,10 @@
   /* Life bars */
   --color-life-primary: var(--life-primary);
 
-  /*Match Page*/
+  /*Match and Tournaments Page*/
   --progress-bar-symbol: var(--progress-bar-symbol);
   --match-card: var(--match-card);
+  --card-tournament: var(--card-tournaments);
 
 }
 
@@ -305,6 +306,7 @@
   /*Cards*/
   --card: var(--background-card);
   --card-text: var(--primary-text);
+  --tournament-card: var(--card-tournaments);
 
   /*Sidebar*/
   --sidebar: #0a0008;
@@ -323,7 +325,7 @@
   --button-text-secondary: #fcecdd;
   --button-tournament: #FF516A;
 
-  --button-tournament-secondary: #332631;
+  --button-tournament-secondary: #281e26;
   --button-tournament-secondary-border: #5B4041;
 
   /*Inputs*/
@@ -371,7 +373,8 @@
 
   --life-primary: #C0395A;
 
-  /* Match Page */
+  /* Match and Tournaments Page */
+  --card-tournaments: #12080F;
   --progress-bar-symbol: #1B0F1A;
   --match-card: #241822;
 }
@@ -403,6 +406,7 @@
     /*Cards*/
     --card: var(--background-card);
     --card-text: var(--primary-text);
+    --tournament-card: var(--card-tournaments);
 
     /*Sidebar*/
     --sidebar: #ffffff;
@@ -420,7 +424,7 @@
     --button-text-primary: #FFFFFF;
     --button-text-secondary: #520a23;
     --button-tournament: #FF516A;
-    --button-tournament-secondary: #332631;
+    --button-tournament-secondary: #281e26;
     --button-tournament-secondary-border: #5B4041;
 
     /*Inputs*/
@@ -449,7 +453,8 @@
 
     --life-primary: #C0395A;
 
-    /* Match Page */
+    /* Match and Tournaments Page */
+  --card-tournaments: #12080F;
   --progress-bar-symbol: #1B0F1A;
   --match-card: #241822;
 }
