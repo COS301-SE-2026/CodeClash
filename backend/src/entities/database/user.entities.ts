@@ -15,10 +15,13 @@ export class Users {
     @Column({ nullable: false })
     email!: string
 
+    @Column({ nullable: false, default: 600 })
+    elo!: number
+
     @Column({ nullable: false })
     avatar_id!: number
 
-    @Column({ nullable: false })
+    @Column({ nullable: false, default: "Mercury" })
     league!: string
 
     @Column({

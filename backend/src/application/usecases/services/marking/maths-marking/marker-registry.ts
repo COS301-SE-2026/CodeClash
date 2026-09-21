@@ -1,4 +1,4 @@
-import { AnswerFormat } from "src/entities/database/questions.entities";
+import { AnswerFormat } from "src/entities/dtos/match/answer.dto";
 
 import { EquationMarker } from "./equation-marker";
 import { ExpressionMarker } from "./expression-marker";

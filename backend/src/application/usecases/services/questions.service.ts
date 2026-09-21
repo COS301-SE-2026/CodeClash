@@ -1,4 +1,4 @@
-import { MatchMode, MatchQuestionsDTO } from "src/entities/dtos/match/match.dto";
+import { MatchMode, MatchQuestionArrays } from "src/entities/dtos/match/match.dto";
 import { leagueMapping } from "src/entities/league-mapping";
 
 import { IQuestionRepository } from "../../interfaces/repositories/IQuestionRepository";
@@ -35,7 +35,7 @@ export class GetQuestions {
 
 export class GetTotalTime {
 
-    execute(questions: MatchQuestionsDTO){
+    execute(questions: MatchQuestionArrays){
         let time = 0;
 
         for(const question of questions.easy){

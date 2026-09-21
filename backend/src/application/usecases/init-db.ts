@@ -23,12 +23,7 @@ export async function initDB(user_repo: IUserRepository, elo_repo: IEloRepositor
       }
 
       // add user from cognito
-      const inserted_user = await user_repo.createUser(user.Username!, email, cognito_id, ((avatar_index++) % 4), "Mercury")
-
-      if (inserted_user) {
-        // add default elo
-        await elo_repo.createUserElo(inserted_user.user_id!)
-      }
+      await user_repo.createUser(user.Username!, email, cognito_id, ((avatar_index++) % 4), "Mercury")
 
     }
   } catch (error) {

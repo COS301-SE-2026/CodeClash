@@ -1,11 +1,11 @@
-import { IEloRepository } from "src/application/interfaces/repositories/IEloRepository";
 import { IMatchResultRepository } from "src/application/interfaces/repositories/IMatchResultRepository";
+import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 import { MatchResultDTO, PlayerResultDTO } from "src/entities/dtos/match/match-result.dto";
 import { PlayerStatsDTO } from "src/entities/dtos/users/player-stats.dto";
 
 export class MatchResultService {
     constructor(
-        private readonly elo_repo: IEloRepository,
+        private readonly user_repo: IUserRepository,
         private readonly match_result_repo: IMatchResultRepository
     ) { }
 
@@ -20,7 +20,7 @@ export class MatchResultService {
 
       const ranks_before = new Map<string, number | null>();
       for (const stat of playerStats) {
-        ranks_before.set(stat.user_id, (await this.elo_repo.getUserRank(stat.user_id))?.rank ?? null);
+        ranks_before.set(stat.user_id, (await this.user_repo.getUserData(stat.user_id, 'rank')));
       }
 
       // save match log

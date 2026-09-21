@@ -1,16 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { MatchMode, MatchType } from "../dtos/match/match.dto";
-
-export enum AnswerFormat {
-  Numeric = "numeric",
-  Decimal = "decimal",
-  Set = "set",
-  Variables = "variables",
-  Expression = "expression",
-  Simplified = "simplified",
-  Factored = "factored",
-  Equation = "equation"
-}
+import { MatchMode } from "../dtos/match/match.dto";
+import { AnswerFormat } from "../dtos/match/answer.dto";
 
 
 @Entity()
@@ -24,7 +14,7 @@ export class Questions {
       enum: MatchMode,
         enumName: "match_modes"
     })
-    game_mode!: MatchMode
+    match_mode!: MatchMode
 
     @Column({ nullable: false })
     difficulty!: number

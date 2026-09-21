@@ -2,7 +2,6 @@ import { createServer } from 'node:http';
 
 import dotnev from 'dotenv'
 import { Server } from 'socket.io'
-import { EloRatings } from 'src/entities/database/elo.entities';
 import { IQuestionRepository } from 'src/application/interfaces/repositories/IQuestionRepository';
 import { QuestionRepository } from 'src/interface-adapters/repositories/question.repository';
 import { Questions } from 'src/entities/database/questions.entities';
@@ -38,7 +37,7 @@ import { AppDataSource } from "./config/data-source"
 import { OpponentProgress } from 'src/application/usecases/systems/opponent-progress';
 import { IMatchRepository } from 'src/application/interfaces/repositories/IMatchRepository';
 import { MatchRepository } from 'src/interface-adapters/repositories/match.repository';
-import { Matches, MatchLog } from 'src/entities/database/match.entities';
+import { Matches} from 'src/entities/database/match.entities';
 import { MatchResultService } from 'src/application/usecases/services/match/match-result.service';
 import { IMatchResultRepository } from 'src/application/interfaces/repositories/IMatchResultRepository';
 import { MatchResultRepository } from 'src/interface-adapters/repositories/match-result.repository';
@@ -51,7 +50,6 @@ import { MarkingStrategy } from 'src/application/interfaces/marking/IMarkingStat
 import { MarkMaths } from 'src/application/usecases/services/marking/mark-maths';
 import { MarkProg } from 'src/application/usecases/services/marking/mark-prog';
 import { CodeExecutor } from 'src/interface-adapters/CodeExecutor';
-import { MatchStats } from 'src/entities/database/match-stats.entities';
 import { MatchStatsRepository } from 'src/interface-adapters/repositories/match-stats.repository';
 import { Achievement } from 'src/entities/database/achievement.entities';
 import { AchievementService } from 'src/application/usecases/services/achievement.service';
@@ -74,12 +72,10 @@ AppDataSource.initialize()
 
         // initialise repos
         const user_repo: IUserRepository = new UserRepository(AppDataSource.getRepository(Users));
-        const elo_repo: IEloRepository = new EloRepository(AppDataSource.getRepository(EloRatings));
         const question_repo: IQuestionRepository = new QuestionRepository(AppDataSource.getRepository(Questions));
         const answer_repo: IAnswerRepository = new AnswerRepository(AppDataSource.getRepository(Answers))
         const match_repo: IMatchRepository = new MatchRepository(AppDataSource.getRepository(Matches))
         const match_results_repo: IMatchResultRepository = new MatchResultRepository(
-            AppDataSource.getRepository(MatchLog),
             AppDataSource.getRepository(Users)
         )
         const match_stats_repo: IMatchStatsRepository = new MatchStatsRepository(AppDataSource.getRepository(MatchStats));
@@ -111,7 +107,7 @@ AppDataSource.initialize()
         // initialise services 
         const match_service = new MatchCreationService(create_match, get_questions, get_total_time, get_answers, match_cache, match_repo, user_repo);
         const matchmaking_service = new MatchmakingService(matchmaking_cache);
-        const match_results = new MatchResultService(elo_repo, match_results_repo)
+        const match_results = new MatchResultService( match_results_repo)
         const matched_users_service = new MatchConfirmationService();
         const match_store = new MatchStore(user_repo);
         const leaderboard_service = new LeaderboardService(elo_repo);

@@ -2,10 +2,11 @@ import { IUserRepository } from "src/application/interfaces/repositories/IUserRe
 import { Users } from "src/entities/database/user.entities";
 import { UserDTO } from "src/entities/dtos/users/user.dto";
 import { Repository } from "typeorm";
-
-
+import { EloUpdateResultDTO } from "src/entities/dtos/users/elo.dto";
+import { LeaderboardEntryDTO } from "src/entities/dtos/match/leaderboard.dto";
 
 export class UserRepository implements IUserRepository {
+    private readonly K_FACTOR = 32;
     constructor(
         private readonly userRepository: Repository<Users>,
     ) { }
@@ -90,10 +91,10 @@ export class UserRepository implements IUserRepository {
 
     async searchByUsername(query: string): Promise<UserDTO[]> {
         const users = await this.userRepository
-        .createQueryBuilder('u')
-        .where('LOWER(u.username) LIKE :query', { query: `%${query.toLowerCase()}%` })
-        .limit(20)
-        .getMany();
+            .createQueryBuilder('u')
+            .where('LOWER(u.username) LIKE :query', { query: `%${query.toLowerCase()}%` })
+            .limit(20)
+            .getMany();
 
         return users.map(u => ({
             user_id: u.user_id,
@@ -117,13 +118,13 @@ export class UserRepository implements IUserRepository {
             // they already played today
         } else if (lastePlayedDate === new Date(Date.now() - 86400000).toDateString()) {
             current_streak += 1;
-        }else {
+        } else {
             // streak broken so reset to 1
-            current_streak = 1; 
+            current_streak = 1;
         }
 
         // winning_streak incremented if they won, reset if they lost
-        const winning_streak = won ? user.winning_streak +1 : 0;
+        const winning_streak = won ? user.winning_streak + 1 : 0;
 
         await this.userRepository.update(user_id, {
             current_streak,
@@ -142,4 +143,85 @@ export class UserRepository implements IUserRepository {
             league: user.league
         };
     }
+
+
+    async updateRatingsAfterMatch(
+        match_id: string,
+        winner_id: string,
+        loser_id: string
+    ): Promise<{ winner: EloUpdateResultDTO; loser: EloUpdateResultDTO }> {
+
+        const winnerRating = await this.getUserData(winner_id, 'elo');
+        const loserRating = await this.getUserData(loser_id, 'elo');
+
+        if (!winnerRating?.elo || !loserRating?.elo) {
+            throw new Error("Players need to have a previous elo to update it");
+        }
+
+        const expectedWinner = 1 / (1 + Math.pow(10, (loserRating.elo - winnerRating.elo) / 400));
+        const expectedLoser = 1 / (1 + Math.pow(10, (winnerRating.elo - loserRating.elo) / 400));
+
+        const newWinnerRating = Math.round(winnerRating.elo + this.K_FACTOR * (1 - expectedWinner));
+        const newLoserRating = Math.round(loserRating.elo + this.K_FACTOR * (0 - expectedLoser));
+
+        const eloGained = newWinnerRating - winnerRating.elo;
+        const eloLost = loserRating.elo - newLoserRating;
+
+
+
+        return {
+            winner: { user_id: winner_id, old_rating: winnerRating.elo, new_rating: newWinnerRating, elo_gained: eloGained },
+            loser: { user_id: loser_id, old_rating: loserRating.elo, new_rating: newLoserRating, elo_gained: -eloLost }
+        }
+    }
+
+    async updateEloAfterTournament(match_id: string, results: { user_id: string, placement: number }[]): Promise<EloUpdateResultDTO[]> {
+        const field_size = results.length;
+        const players = await Promise.all(
+            results.map(r => this.userRepository.findOneBy({ user_id: r.user_id }))
+        );
+
+        const field_avg_elo = players.reduce((sum, p) => sum + (p?.elo ?? 0), 0) / field_size;
+        const updates: EloUpdateResultDTO[] = [];
+        for (let i = 0; i < results.length; i++) {
+            const { user_id, placement } = results[i]!;
+            const player = players[i];
+
+            if (!player) continue;
+
+            const actual_score = field_size > 1 ? 1 - (placement - 1) / (field_size - 1) : 1;
+            const expected_score = 1 / (1 + Math.pow(10, (field_avg_elo - player.elo) / 400));
+            const new_rating = Math.round(player.elo + this.K_FACTOR * (actual_score - expected_score));
+
+            await this.userRepository.update({ user_id }, { elo: new_rating });
+
+            updates.push({ user_id, old_rating: player.elo, new_rating, elo_gained: new_rating - player.elo });
+        }
+        return updates;
+    }
+
+
+    async getLeaderboard(limit: number, offset: number): Promise<{ data: LeaderboardEntryDTO[]; total: number }> {
+        const [results, total] = await this.userRepository
+            .createQueryBuilder('user')
+            .orderBy('user.elo', 'DESC')
+            .addOrderBy('user.username', 'ASC')
+            .skip(offset)
+            .take(limit)
+            .getManyAndCount();
+
+        return {
+            data: results.map((user, index) => ({
+                user_id: user.user_id,
+                username: user.username,
+                avatar_id: user.avatar_id,
+                league: user.league,
+                rating: user.elo,
+                rank: offset + index + 1
+            })),
+            total
+        };
+    }
+
+
 }

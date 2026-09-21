@@ -1,6 +1,6 @@
 import { IEloRepository } from "src/application/interfaces/repositories/IEloRepository";
 import { Repository } from "typeorm";
-import { EloHistory, EloRatings } from "src/entities/database/elo.entities";
+import { EloHistory} from "src/entities/database/elo.entities";
 import { EloDTO, EloUpdateResultDTO } from "src/entities/dtos/users/elo.dto";
 import { AppDataSource } from "src/frameworks-drivers/config/data-source";
 
@@ -68,74 +68,9 @@ export class EloRepository implements IEloRepository {
 
     }
 
-    async getLeaderboard(limit: number, offset: number): Promise<{ data: LeaderboardEntryDTO[]; total: number }> {
-      const [results, total] = await this.eloRepository
-        .createQueryBuilder('elo')
-        .innerJoinAndSelect('elo.user', 'user')
-        .orderBy('elo.rating', 'DESC')
-        .addOrderBy('user.username', 'ASC')
-        .skip(offset)
-        .take(limit)
-        .getManyAndCount()
+    
 
-      return {
-        data: results.map((elo, index) => ({
-          user_id: elo.user.user_id,
-          username: elo.user.username,
-          avatar_id: elo.user.avatar_id,
-          league: elo.user.league,
-          rating: elo.rating,
-          rank: index + 1
-        })),
-        total
-      }
-    }
-
-    async updateRatingsAfterMatch(
-        match_id: string,
-        winner_id: string,
-        loser_id: string
-    ): Promise<{ winner: EloUpdateResultDTO; loser: EloUpdateResultDTO }> {
-        
-        const winnerRating = await this.getElo(winner_id);
-        const loserRating = await this.getElo(loser_id);
-
-        if(!winnerRating?.rating || !loserRating?.rating) {
-            throw new Error("Players need to have a previous elo to update it");
-        }
-
-        const expectedWinner = 1 / (1 + Math.pow(10, (loserRating.rating - winnerRating.rating) /400));
-        const expectedLoser = 1 / (1 + Math.pow(10, (winnerRating.rating - loserRating.rating) /400));
-
-        const newWinnerRating = Math.round(winnerRating.rating + K_FACTOR * (1 - expectedWinner));
-        const newLoserRating = Math.round(loserRating.rating + K_FACTOR * (0 - expectedLoser));
-
-        const eloGained = newWinnerRating - winnerRating.rating;
-        const eloLost  = loserRating.rating - newLoserRating;
-
-        await this.eloRepository.update({ user: { user_id: winner_id } }, { rating: newWinnerRating});
-        await this.eloRepository.update({ user: { user_id: loser_id } }, { rating: newLoserRating});
-
-        await this.historyRepo.save(this.historyRepo.create({
-            user: { user_id: winner_id } as any,
-            match: { match_id } as any,
-            old_rating: winnerRating.rating,
-            new_rating: newWinnerRating
-        }));
-
-        await this.historyRepo.save(this.historyRepo.create({
-            user: { user_id: loser_id } as any,
-            match: { match_id } as any,
-            old_rating: loserRating.rating,
-            new_rating: newLoserRating
-        }));
-
-        return{
-            winner: { user_id: winner_id, old_rating: winnerRating.rating, new_rating: newWinnerRating, elo_gained: eloGained },
-            loser: { user_id: loser_id, old_rating: loserRating.rating, new_rating: newLoserRating, elo_gained: -eloLost }
-        }
-    }
-
+    
     async getUserRank(userId: string): Promise<RankDTO | null> {
 
       const row = await this.eloRepository.findOne({

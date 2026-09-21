@@ -1,60 +1,32 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Users } from './user.entities';
-
-@Entity()
-export class MatchProblems{
-    @PrimaryGeneratedColumn('uuid')
-    match_problems_id!: string
-
-    
-}
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { MatchMode, MatchPlayer, MatchPowerUps, MatchQuestion, MatchStatus, MatchType } from "../dtos/match/match.dto";
 
 @Entity()
 export class Matches {
     @PrimaryGeneratedColumn('uuid')
     match_id!: string;
 
-    @ManyToOne(() => Users)
-    @JoinColumn({ name: 'player1_id'})
-    player1!: Users;
+    @Column({ type: "jsonb", nullable: true })
+    players!: MatchPlayer[];
 
-    @ManyToOne(() => Users)
-    @JoinColumn({ name: 'player2_id'})
-    player2!: Users;
+    @Column({ type: "jsonb", nullable: true })
+    questions!: MatchQuestion[];
 
-    @Column({ type: 'varchar', length: 10})
-    match_type!: 'ranked' | 'casual';
+    @Column({ type: "jsonb", nullable: true })
+    power_ups!: MatchPowerUps[];
 
-    @Column({ type: 'varchar', length: 15})
-    game_mode!: 'math' | 'programming';
+    @Column({ type: 'varchar', length: 10 })
+    match_type!: MatchType;
+
+    @Column({ type: 'varchar', length: 15 })
+    match_mode!: MatchMode;
 
     @Column({ type: 'timestamp', nullable: true })
     match_start!: Date | null;
 
-    @Column({ default: 'waiting'})
-    status!: 'waiting' | 'starting' | 'in_progress' | 'completed' | 'abandoned';
-}
+    @Column({ type: "timestamp", nullable: true })
+    match_end!: Date | null;
 
-@Entity()
-export class MatchLog {
-    @PrimaryGeneratedColumn('uuid')
-    log_id!: string;
-
-    @OneToOne(() => Matches)
-    @JoinColumn({ name: 'match_id' })
-    match!: Matches;
-
-    @ManyToOne(() => Users)
-    @JoinColumn({ name: 'winner_id' })
-    winner!: Users;
-
-    @ManyToOne(() => Users)
-    @JoinColumn({ name: 'loser_id' })
-    loser!: Users;
-
-    @Column( { nullable: true })
-    elo_gained!: number;
-
-    @Column( { nullable: true })
-    elo_lost!: number;
+    @Column({ default: 'waiting' })
+    status!: MatchStatus;
 }

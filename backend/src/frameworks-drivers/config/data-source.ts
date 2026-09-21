@@ -1,14 +1,12 @@
 import "reflect-metadata"
 import dotenv from 'dotenv'
 import { DataSource } from "typeorm"
-import { Matches, MatchLog, MatchProblems } from "src/entities/database/match.entities";
+import { Matches} from "src/entities/database/match.entities";
 import { Answers } from "src/entities/database/answers.entities";
-import { EloHistory, EloRatings } from "src/entities/database/elo.entities";
+import { EloHistory } from "src/entities/database/elo.entities";
 import { Questions } from "src/entities/database/questions.entities";
-import { Submission } from "src/entities/database/submission.entities";
 import { Users } from "src/entities/database/user.entities";
 import { Achievement } from "src/entities/database/achievement.entities";
-import { MatchStats } from "src/entities/database/match-stats.entities";
 import { FriendInvite, Friendship } from "src/entities/database/friendship.entities";
 
 dotenv.config()
@@ -26,16 +24,11 @@ export const AppDataSource = new DataSource({
     logging: ["warn", "error"],
     entities: [
         Matches,
-        MatchLog,
-        MatchProblems,
         Answers,
-        EloRatings,
         EloHistory,
         Questions,
-        Submission,
         Users,
         Achievement,
-        MatchStats,
         Friendship,
         FriendInvite
     ],

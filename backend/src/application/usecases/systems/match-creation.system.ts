@@ -1,6 +1,6 @@
 import { LifeComponent, MatchComponent, PlayerInfoComponent, PlayersComponent, RoundComponent, SubmissionRegistryComponent } from "src/entities/components";
 import { PlayerDTO, MatchDTO, RoundDTO } from "src/entities/dtos/components.dto";
-import { MatchQuestionsDTO } from "src/entities/dtos/match/match.dto";
+import { MatchQuestionArrays } from "src/entities/dtos/match/match.dto";
 import { World } from "src/entities/World";
 
 export class MatchCreationSystem {
@@ -11,7 +11,7 @@ export class MatchCreationSystem {
     ) { }
 
 
-    execute(players: PlayerDTO[], match: MatchDTO, questions: MatchQuestionsDTO) {
+    execute(players: PlayerDTO[], match: MatchDTO, questions: MatchQuestionArrays) {
         // Player entities
         const player_entities = this.create_players.execute(players);
 
@@ -73,7 +73,7 @@ export class CreatePlayerEntity {
 export class CreateRound {
     constructor() { }
 
-    execute(question: MatchQuestionsDTO, player_count: number): RoundComponent[] {
+    execute(question: MatchQuestionArrays, player_count: number): RoundComponent[] {
         if (player_count === 2) {
             return [
                 { round_number: 0, questions: question.easy },
@@ -115,7 +115,7 @@ export class CreateMatchEntity {
         this.addMatchComponent = addMatchComponent
     }
 
-    execute(match: MatchDTO, players: Map<string, number>, questions: MatchQuestionsDTO, rounds: RoundComponent[]) {
+    execute(match: MatchDTO, players: Map<string, number>, questions: MatchQuestionArrays, rounds: RoundComponent[]) {
         const entity = this.createEntity();
 
         const players_component: PlayersComponent = {
