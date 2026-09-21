@@ -43,3 +43,36 @@ const Anchors: Record<AccessorySlot, { //these are roughly based on Vexa, it nee
 
 const behind: AccessorySlot[] = ['cape']; //cape will need to attach to back and just kinda creep out of the front
 const infront: AccessorySlot[] = ['headwear', 'neckwear', 'facewear', 'belt'];
+
+interface AvatarRendererProps {
+    avatarImageUrl?: string;
+    accessories?: Partial<Record<AccessorySlot, string>>;
+    className?: string;
+    style?: React.CSSProperties;
+}
+
+export const AvatarRenderer: React.FC<AvatarRendererProps> = ({
+    avatarImageUrl, 
+    accessories = {},
+    className,
+    style,
+}) => {
+    const overlay = (slot: AccessorySlot) => {
+        const url = accessories[slot];
+        if (!url) {
+            return null;
+        }
+        const anch = Anchors[slot];
+        return <image key={slot} href={url} x={anch.x} y={anch.y} width={anch.w} height={anch.h}/>
+    }
+
+    return (
+        <svg viewBox="0 0 240 340" className={className} style={style}>
+            {behind.map(overlay)}
+            {avatarImageUrl && <image href={avatarImageUrl} x={0} y={0} width={240} height={340}/>}
+            {infront.map(overlay)}
+        </svg>
+    )
+}
+
+export default AvatarRenderer;
