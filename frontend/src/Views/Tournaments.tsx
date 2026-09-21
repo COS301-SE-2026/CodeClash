@@ -6,6 +6,7 @@ import "../styles/global.css"
 import {PlusIcon, Search} from "lucide-react"
 import { Navigate, useNavigate } from "react-router-dom"
 import Popup from "./Popup"
+import { useExtraLayout } from "src/extra-layout"
 // import { DefaultTournamentsModel } from "src/Models/TournamentsModel"
 // import type { TournamentsModel } from "src/Models/TournamentsModel"
 
@@ -17,26 +18,32 @@ const Tournaments = (
     // {tournaments = DefaultTournamentsModel} : TournamentProps
 ) => {
     const nav = useNavigate();
+
+    useExtraLayout(
+        // the code below was handwritten and used to be below this part of the code, i just copied and pasted it here to move it
+        <div className="relative w-full">
+            <div className="flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2.5">
+                <Search size={18} className="text-muted-text shrink-0"/>
+            </div>
+        </div>
+    )
     
     return (
-        <div className="w-full max-h-screen">
+        <div className="w-full min-h-screen overflow-hidden">
             <div className="w-full flex flex-col">
                 <div className="flex grid grid-cols-2 h-full w-full">
-                    <h1 className="font-font font-semibold text-6xl ml-20 mt-10">Tournaments</h1>
-                    <TournamentButton className="w-md h-17 mt-6 ml-[40%]">
-                        <div className="grid grid-cols-2 w-full">
-                            <PlusIcon size={60} className="mb-4 ml-3"/>
-                            <h2 className="font-font font-semibold text-[40px] mb-5 -ml-30">Host Tournament</h2>
+                    <h1 className="font-black text-primary-text text-xl ml-4 mt-1">Tournaments</h1>
+                    <TournamentButton className="w-3xs h-3xs mb-3 mt-3 mr-auto ml-20">
+                        <div className="flex flex-row w-full">
+                            <PlusIcon size={30} className="ml-4 my-auto mt-2"/>
+                            <h2 className="font-font font-semibold text-sm ml-5 my-auto mt-2">Host Tournament</h2>
                         </div>
                     </TournamentButton>
-                    <h2 className="font-font text-sm ml-20 w-full mt-7">Join Tournaments to Compete With Up to 30 Players! Invite Friends to Join in on the Fun!</h2>
+                    <h2 className=" text-primary-text text-sm ml-4 -mt-1 w-full ">Join Live Battles or Clash With Friends</h2>
                 </div>
 
                 <div className="flex grid grid-cols-2 w-full mt-10">
-                    
-                    <div className="flex items-center gap-2 rounded-full border border-border bg-card px-4 h-14 ml-20 mb-15 w-[68%]">
-                        <Search size={18} className="text-muted-text shrink-0"/>
-                    </div>
+                
 
                     <div className=" flex flex-row gap-10 ml-[40%] mb-15">
                         <FilterButton className="">
