@@ -22,6 +22,7 @@ interface ShopItemBase {
 export interface AvatarShopItem extends ShopItemBase {
     category: 'avatar';
     isDefault?: boolean; //for a 'starter' avatar granted to all users at sign up time
+    bodyType?: 'slim' | 'bulky';
 }
 
 export interface AccessoryShopItem extends ShopItemBase {
