@@ -1,6 +1,6 @@
 //this is the shops 'Avatar tab'
 
-import React from "react";
+import React, { useState } from "react";
 import { useInventory } from "src/context/Shop/InventoryContext";
 import { tryOn } from "src/ViewModels/Shop/TryOn";
 import { SavedViewModelFunc } from "src/ViewModels/Shop/SavedViewModel";
@@ -53,4 +53,32 @@ const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasing
         saveOutfit
     } = tryOn();
     const {saveCurrentAvatar, saving: savingPreset} = SavedViewModelFunc();
+
+    const [activeSlot, setActiveSlot] = useState<AccessorySlot>('headwear');
+    const [presetName, setPresetName] = useState('');
+    const [showPreserInput, setShowPresetInput] = useState(false);
+
+    const avatars = catalog.filter((i): i is AvatarShopItem => i.category === 'avatar');
+    const accessories = catalog.filter((i): i is AccessoryShopItem => i.category === 'accessory' && i.slot === activeSlot);
+
+    const handleSaveAsPreset = async () => {
+        if (!presetName.trim() || !draftAvatarId) {
+            return;
+        }
+        await saveOutfit();
+        const ownedAccessories: Partial<Record<AccessorySlot, string>> = {};
+        (Object.keys(draftAccessories) as AccessorySlot[]).forEach((slot) => {
+            const itemId = draftAccessories[slot];
+            if (itemId && isOwned(itemId)) {
+                ownedAccessories[slot] = itemId;
+            }
+        })
+        await saveCurrentAvatar({
+            name: presetName.trim(),
+            avatarId: isOwned(draftAvatarId) ? draftAvatarId : (inventory?.equippedAvatarId ?? draftAvatarId),
+            accessories: ownedAccessories
+        })
+        setPresetName('');
+        setShowPresetInput(false);
+    }
 }
