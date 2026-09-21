@@ -12,26 +12,29 @@ import { ThemeProvider } from './context/Shop/ThemeContext'
 import { UserProvider } from './context/User/UserContext'
 import { FriendsProvider } from './ViewModels/FriendsViewModel/FriendsContext'
 import FriendInvitePopup from './Views/Friends/FriendInvitePopup'
+import { InventoryProvider } from './context/Shop/InventoryContext'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   // <React.StrictMode>
 
   <AuthProvider>
     <SocketProvider>
-      <UserProvider>
-        <MatchmakingProvider>
-          <FriendsProvider>
-            <BrowserRouter>
-            <AchievementToastProvider>
-            <ThemeProvider>
-              <App />
-              </ThemeProvider>
-              <FriendInvitePopup/>
-              </AchievementToastProvider>
-            </BrowserRouter>
-          </FriendsProvider>
-        </MatchmakingProvider>
-      </UserProvider>
+      <InventoryProvider>
+        <UserProvider>
+          <MatchmakingProvider>
+            <FriendsProvider>
+              <BrowserRouter>
+              <AchievementToastProvider>
+              <ThemeProvider>
+                <App />
+                </ThemeProvider>
+                <FriendInvitePopup/>
+                </AchievementToastProvider>
+              </BrowserRouter>
+            </FriendsProvider>
+          </MatchmakingProvider>
+        </UserProvider>
+      </InventoryProvider>
     </SocketProvider>
   </AuthProvider>
 
