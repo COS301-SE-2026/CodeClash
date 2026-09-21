@@ -1,6 +1,5 @@
 //All code below was hand-written and copied and pasted then changed for the sake of saving time, none of it was ai-generated
 import React from 'react' 
-import { Card } from "../ui/card"
 import "../../../src/styles/global.css"
 
 interface FilterButtonProps{
@@ -11,10 +10,10 @@ interface FilterButtonProps{
 
 const FilterButton = ({children, className} : FilterButtonProps) => {
     return(
-        <Card className={`bg-secondary rounded-4xl flex items-center justify-center
-            border-[var(--primary)] border-[0.5px] h-[9%] w-27 ${className}`}>
+        <div className={`bg-secondary rounded-4xl flex text-center items-center justify-center text-primary font-semibold
+            border-[var(--primary)] border-[0.5px] hover:opacity-80 hover:scale-110 transition-transform duration-300 ${className}`}>
             {children}
-        </Card>
+        </div>
     )
 }
 

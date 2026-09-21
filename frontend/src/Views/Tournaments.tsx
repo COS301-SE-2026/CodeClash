@@ -36,27 +36,26 @@ const Tournaments = (
                     <TournamentButton className="w-3xs h-3xs mb-3 mt-3 mr-auto ml-20">
                         <div className="flex flex-row w-full">
                             <PlusIcon size={30} className="ml-4 my-auto mt-2"/>
-                            <h2 className="font-font font-semibold text-sm ml-5 my-auto mt-2">Host Tournament</h2>
+                            <h2 className="font-font text-secondary font-semibold text-sm ml-5 my-auto mt-2">Host Tournament</h2>
                         </div>
                     </TournamentButton>
-                    <h2 className=" text-primary-text text-sm ml-4 -mt-1 w-full ">Join Live Battles or Clash With Friends</h2>
+                    <h2 className=" text-primary-text text-sm ml-4 -mt-1 w-full mb-10 ">Join Live Battles or Clash With Friends</h2>
                 </div>
 
-                <div className="flex grid grid-cols-2 w-full mt-10">
                 
 
-                    <div className=" flex flex-row gap-10 ml-[40%] mb-15">
-                        <FilterButton className="">
-                            <h1 className="text-primary font-semibold text-[90%]">Math</h1>
-                        </FilterButton>
-                        <FilterButton className="w-40">
-                            <h1 className="text-primary font-semibold text-[90%]">Programming</h1>
-                        </FilterButton>
-                        <FilterButton>
-                            <h1 className="text-primary font-semibold text-[90%]">Both</h1>
-                        </FilterButton>
-                    </div>
+                <div className="justify-end w-full flex flex-row gap-2 mb-15 h-8 gap-5">
+                    <FilterButton className="text-xs min-w-[3rem]">
+                       Math   
+                    </FilterButton>
+                    <FilterButton className="text-xs min-w-[6rem]">
+                        Programming
+                    </FilterButton>
+                    <FilterButton className="text-xs min-w-[3rem]">
+                        Both
+                    </FilterButton>
                 </div>
+                
 
                 <div className="overflow-y-auto w-full flex flex-col gap-9">
                     <MathTournamentCard/>
