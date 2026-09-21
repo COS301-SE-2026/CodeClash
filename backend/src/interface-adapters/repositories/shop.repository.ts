@@ -77,11 +77,24 @@ export class ShopRepository implements IShopRepository {
     }
 
     async hasItem(user_id: string, shop_item_id: string): Promise<boolean> {
-        
+        const count = await this.userItemRepo.count({
+            where: { user: { user_id }, shop_item: { shop_item_id } }
+        });
+        return count > 0;
     }
 
     async addUserItem(user_id: string, shop_item_id: string): Promise<UserItemDTO> {
-        
+        const saved = await this.userItemRepo.save(this.userItemRepo.create({
+            user: { user_id } as any,
+            shop_item: { shop_item_id } as any
+        }));
+        const item = await this.getItemById(shop_item_id);
+        return {
+            user_item_id: saved.user_item_id,
+            user_id,
+            item:item!,
+            acquired_at: saved.acquired_at
+        };
     }
 
     async getWallet(user_id: string): Promise<WalletDTO | null> {
