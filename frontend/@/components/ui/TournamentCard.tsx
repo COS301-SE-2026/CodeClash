@@ -15,21 +15,21 @@ interface TournamentCardProps{
 
 export const MathTournamentCard = ({children, className} : TournamentCardProps) => {
     return(
-        <MatchCard className={`flex flex-row w-4xl relative ${className}`}>
+        <MatchCard className={`flex flex-row w-[95%] relative ${className}`}>
 
                 <div className="flex flex-col">
-                    <div className="inset-0 right-2 text-muted-text ml-2 -mt-4 text-xs">#tournamentid</div>
-                    <Calculator size={50} className="ml-9 my-auto"/>
+                    <div className="inset-0 right-2 text-muted-text ml-3 -mt-4.5 text-xs">#tid</div>
+                    <Calculator size={50} className="ml-5 my-auto"/>
                 </div>
 
-                <div className="flex flex-col max-w-full h-full mt-2 ">
+                <div className="flex flex-col max-w-full h-full">
                     <div className="font-font font-semibold text-[1.5rem]">
                         Math Tournament
                     </div>
                     
-                    <div className="grid grid-cols-2">
+                    <div className="flex flex-row gap-2">
                         <Timer size={20} className="text-muted-text my-auto"/>
-                        <div className="font-font text-xs justify-self-start my-auto text-primary">Time Until Start:</div>
+                        <div className="font-font text-xs  my-auto text-primary mt-0.5">Time Until Start:</div>
                     </div>
                     
                 </div>
@@ -38,8 +38,8 @@ export const MathTournamentCard = ({children, className} : TournamentCardProps) 
                 <div>
                 </div>
 
-                <div className="flex flex-col ml-auto -mr-15">
-                    <div className="flex flex-row mt-3">
+                <div className="flex flex-col ml-auto -mr-35">
+                    <div className="flex flex-row mt-1.5">
                     <div className="font-font text-xs text-primary">Capacity: </div>
                     <div className="font-font text-xs text-primary ml-auto">5/8 Players</div>
                     </div>
@@ -64,21 +64,21 @@ export const MathTournamentCard = ({children, className} : TournamentCardProps) 
 
 export const ProgrammingTournamentCard = ({children, className} : TournamentCardProps) => {
     return(
-        <MatchCard className={`flex grid grid-cols-5 w-4xl h-xl relative  ${className}`}>
-                
+        <MatchCard className={`flex flex-row w-[95%] relative ${className}`}>
+
                 <div className="flex flex-col">
-                    <div className="inset-0 right-2 text-muted-text ml-4 -mt-4">#tournamentid</div>
-                    <CodeXml size={90} className="ml-9 my-auto mt-1"/>
+                    <div className="inset-0 right-2 text-muted-text ml-3 -mt-4.5 text-xs">#tid</div>
+                    <CodeXml size={50} className="ml-5 my-auto"/>
                 </div>
 
-                <div className="grid grid-rows-2 max-w-full h-full mt-2">
-                    <div className="font-font font-semibold text-[2.5rem] -ml-30 w-[170%]">
+                <div className="flex flex-col max-w-full h-full">
+                    <div className="font-font font-semibold text-[1.5rem]">
                         Programming Tournament
                     </div>
                     
-                    <div className="grid grid-cols-2 -ml-30">
-                        <Timer size={40} className="text-muted-text mt-1"/>
-                        <div className="font-font text-sm justify-self-start -ml-[75%] mt-3 text-primary">Time Until Start:</div>
+                    <div className="flex flex-row gap-2">
+                        <Timer size={20} className="text-muted-text my-auto"/>
+                        <div className="font-font text-xs  my-auto text-primary mt-0.5">Time Until Start:</div>
                     </div>
                     
                 </div>
@@ -87,18 +87,18 @@ export const ProgrammingTournamentCard = ({children, className} : TournamentCard
                 <div>
                 </div>
 
-                <div className="-ml-40 flex grid grid-rows-2 mt-1">
-                    <div className="grid grid-cols-2">
-                    <div className="font-font text-sm mt-7 text-primary">Capacity: </div>
-                    <div className="font-font text-sm mt-7 -ml-9 text-primary">3/8 Players</div>
+                <div className="flex flex-col ml-auto -mr-12">
+                    <div className="flex flex-row mt-1.5">
+                    <div className="font-font text-xs text-primary">Capacity: </div>
+                    <div className="font-font text-xs text-primary ml-auto">5/8 Players</div>
                     </div>
-                    <Progress value={33.3} className="mt-3 w-[65%]"/>
+                    <Progress value={62.5} className="mt-2 w-[10rem] h-[0.5rem]"/>
                 </div>
 
-                <TournamentButton className="mx-auto h-[50%] w-85 my-auto -ml-20">
-                    <div className="flex grid grid-cols-2 w-full h-full">
-                        <h2 className="font-font font-semibold text-[30px] w-[150%] ml-6 my-auto">Join Tournament</h2>
-                        <ArrowRight size={50} className="flex justify-self-end my-auto -ml-8 mr-3"/>
+                <TournamentButton className="w-[9rem] h-[2.25rem] my-auto rounded-[11px] ml-auto mr-10">
+                    <div className="flex flex-row w-full h-full gap-5">
+                        <h2 className="font-font text-xs font-semibold w-[120%] my-auto">Join Tournament</h2>
+                        <ArrowRight size={25} className="flex justify-self-end my-auto -ml-8 mr-3"/>
                     </div>
                 </TournamentButton>
 

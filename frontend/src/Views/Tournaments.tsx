@@ -44,7 +44,7 @@ const Tournaments = (
 
                 
 
-                <div className="justify-end w-4xl flex flex-row gap-2 mb-15 h-8 gap-5">
+                <div className="justify-end max-w-4xl flex flex-row gap-2 mb-15 h-8 gap-5">
                     <FilterButton className="text-xs min-w-[3rem]">
                        Math   
                     </FilterButton>
