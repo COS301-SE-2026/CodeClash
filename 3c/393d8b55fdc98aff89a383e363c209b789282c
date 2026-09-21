@@ -1,0 +1,37 @@
+backend/tests/integration/services/match-creation.service.test.ts
+  h_94c952a9e14c58 4-5,7-27,29-35,37-42,46-52,58-60,62-64,68-73,78-80,82-86,88-100,106,108-109,115
+  h_94c952a9e14c58 28,36,45,53-54,66,76
+backend/tests/integration/services/user-creation.service.test.ts
+  h_94c952a9e14c58 5-12,24,80
+frontend/test/unit/ViewModels/FriendsContext.test.tsx
+  h_94c952a9e14c58 5
+frontend/src/services/match.service.tsx
+  h_94c952a9e14c58 55-58,60,62-63,66-69,72,74-77,79
+backend/tests/integration/repositories/question.repository.test.ts
+  h_94c952a9e14c58 2,7
+frontend/test/unit/PopUp.test.tsx
+  h_94c952a9e14c58 4,12
+backend/tests/integration/services/marking.service.test.ts
+  h_94c952a9e14c58 14,23,34-35,39,62,75,99,126-137,139-140,142-144,146-157,159-160,162-163,165
+  h_94c952a9e14c58 22,138,141,145,158,161,164
+frontend/src/ViewModels/Match/MatchViewModel.ts
+  h_94c952a9e14c58 21-25,27-28,30,38,40,68
+backend/tests/mocks/mock-questions.ts
+  h_94c952a9e14c58 3
+  h_94c952a9e14c58 2
+backend/tests/unit/usecases/finish-game.unit.test.ts
+  h_94c952a9e14c58 2,4-5,11,53
+backend/tests/unit/usecases/services/matchmaking.service.test.ts
+  h_94c952a9e14c58 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "3c393d8b55fdc98aff89a383e363c209b789282c",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

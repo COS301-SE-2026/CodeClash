@@ -1,0 +1,20 @@
+frontend/src/Views/Tournaments.tsx
+  h_b13c5d77534129 32,36,60
+frontend/src/styles/global.css
+  h_b13c5d77534129 274,277,309,328,376-377,409,427,456-457
+frontend/@/components/ui/TournamentCard.tsx
+  h_b13c5d77534129 7,18,22,57,67,106
+frontend/@/components/ui/MatchCard.tsx
+  h_b13c5d77534129 14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "cbd84836625ca4e6028d8e5bcea1bfd72ff2358b",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
