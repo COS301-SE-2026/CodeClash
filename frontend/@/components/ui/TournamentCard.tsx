@@ -15,7 +15,7 @@ interface TournamentCardProps{
 
 export const MathTournamentCard = ({children, className} : TournamentCardProps) => {
     return(
-        <MatchCard className={`flex flex-row w-[95%] relative ${className}`}>
+        <MatchCard className={`flex flex-row w-[95%] relative ${className} overflow-x-auto`}>
 
                 <div className="flex flex-col">
                     <div className="inset-0 right-2 text-muted-text ml-3 -mt-4.5 text-xs">#tid</div>
@@ -29,7 +29,7 @@ export const MathTournamentCard = ({children, className} : TournamentCardProps) 
                     
                     <div className="flex flex-row gap-2">
                         <Timer size={20} className="text-muted-text my-auto"/>
-                        <div className="font-font text-xs  my-auto text-primary mt-0.5">Time Until Start:</div>
+                        <div className="font-font text-xs my-auto text-primary mt-0.5">Time Until Start:</div>
                     </div>
                     
                 </div>
@@ -38,18 +38,18 @@ export const MathTournamentCard = ({children, className} : TournamentCardProps) 
                 <div>
                 </div>
 
-                <div className="flex flex-col ml-auto -mr-35">
-                    <div className="flex flex-row mt-1.5">
+                <div className="flex flex-col ml-auto mr-5">
+                    <div className="flex flex-row mt-1.5 w-[140%]">
                     <div className="font-font text-xs text-primary">Capacity: </div>
                     <div className="font-font text-xs text-primary ml-auto">5/8 Players</div>
                     </div>
-                    <Progress value={62.5} className="mt-2 w-[10rem] h-[0.5rem]"/>
+                    <Progress value={62.5} className="mt-2 w-[130%] h-[0.5rem]"/>
                 </div>
 
                 <TournamentButton className="w-[9rem] h-[2.25rem] my-auto rounded-[11px] ml-auto mr-10">
                     <div className="flex flex-row w-full h-full gap-5">
                         <h2 className="font-font text-xs font-semibold w-[120%] my-auto">Join Tournament</h2>
-                        <ArrowRight size={25} className="flex justify-self-end my-auto -ml-8 mr-3"/>
+                        <ArrowRight size={25} className="flex justify-self-end my-auto -ml-9 mr-1"/>
                     </div>
                 </TournamentButton>
 
@@ -64,7 +64,7 @@ export const MathTournamentCard = ({children, className} : TournamentCardProps) 
 
 export const ProgrammingTournamentCard = ({children, className} : TournamentCardProps) => {
     return(
-        <MatchCard className={`flex flex-row w-[95%] relative ${className}`}>
+        <MatchCard className={`flex flex-row w-[95%] relative ${className} overflow-x-auto`}>
 
                 <div className="flex flex-col">
                     <div className="inset-0 right-2 text-muted-text ml-3 -mt-4.5 text-xs">#tid</div>
@@ -87,18 +87,18 @@ export const ProgrammingTournamentCard = ({children, className} : TournamentCard
                 <div>
                 </div>
 
-                <div className="flex flex-col ml-auto -mr-12">
-                    <div className="flex flex-row mt-1.5">
-                    <div className="font-font text-xs text-primary">Capacity: </div>
-                    <div className="font-font text-xs text-primary ml-auto">5/8 Players</div>
+                <div className="flex flex-col ml-auto mr-15">
+                    <div className="flex flex-row mt-1.5 w-[140%]">
+                        <div className="font-font text-xs text-primary">Capacity: </div>
+                        <div className="font-font text-xs text-primary ml-auto">5/8 Players</div>
                     </div>
-                    <Progress value={62.5} className="mt-2 w-[10rem] h-[0.5rem]"/>
+                    <Progress value={62.5} className="mt-2 w-[130%] h-[0.5rem]"/>
                 </div>
 
                 <TournamentButton className="w-[9rem] h-[2.25rem] my-auto rounded-[11px] ml-auto mr-10">
                     <div className="flex flex-row w-full h-full gap-5">
                         <h2 className="font-font text-xs font-semibold w-[120%] my-auto">Join Tournament</h2>
-                        <ArrowRight size={25} className="flex justify-self-end my-auto -ml-8 mr-3"/>
+                        <ArrowRight size={30} className="flex justify-self-end my-auto -ml-9 mr-1"/>
                     </div>
                 </TournamentButton>
 

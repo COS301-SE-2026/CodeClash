@@ -29,17 +29,19 @@ const Tournaments = (
     )
     
     return (
-        <div className="w-full max-w-4xl min-h-screen overflow-hidden">
+        <div className="w-full max-w-4xl min-h-screen overflow-hidden relative mx-auto">
             <div className="w-full flex flex-col">
-                <div className="flex grid grid-cols-2 h-full w-full">
-                    <h1 className="font-black text-primary-text text-xl ml-4 mt-1">Tournaments</h1>
-                    <TournamentButton className="w-3xs h-3xs mb-3 mt-3 justify-self-end">
-                        <div className="flex flex-row w-full">
-                            <PlusIcon size={30} className="ml-4 my-auto mt-2"/>
-                            <h2 className="font-font text-secondary font-semibold text-sm ml-5 my-auto mt-2">Host Tournament</h2>
+                <div className="flex flex-row h-full w-full overflow-x-auto gap-3">
+                    <div className="flex flex-col w-full">
+                        <h1 className="font-black text-primary-text text-xl ml-4 mt-1">Tournaments</h1>
+                        <h2 className=" text-primary-text text-sm ml-4 -mt-1 w-full mb-10 ">Join Live Battles or Clash With Friends</h2>
+                    </div>
+                    <TournamentButton className="w-2xs h-auto mb-19 mt-3 mr-3 justify-self-end items-center">
+                        <div className="flex flex-row w-full my-auto">
+                            <PlusIcon size={30} className="ml-2 my-auto mt-2"/>
+                            <h2 className="font-font text-secondary font-semibold text-sm my-auto mt-2 ml-1">Host Tournament</h2>
                         </div>
                     </TournamentButton>
-                    <h2 className=" text-primary-text text-sm ml-4 -mt-1 w-full mb-10 ">Join Live Battles or Clash With Friends</h2>
                 </div>
 
                 
