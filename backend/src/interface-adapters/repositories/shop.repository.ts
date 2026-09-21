@@ -137,7 +137,23 @@ export class ShopRepository implements IShopRepository {
 
         const payload: any = {};
         if (updates.avatar_item_id !== undefined) payload.avatar = { shop_item_id: updates.avatar_item_id };
-        if (updates.headwear_id)
+        if (updates.headwear_id !== undefined) payload.headwear = { shop_item_id: updates.headwear_id };
+        if (updates.neckwear_id !== undefined) payload.neckwear = { shop_item_id: updates.neckwear_id };
+        if (updates.facewear_id !== undefined) payload.facewear = { shop_item_id: updates.facewear_id };
+        if (updates.belt_id !== undefined) payload.belt = { shop_item_id: updates.belt_id };
+        if (updates.one_piece_id !== undefined) payload.one_piece = { shop_item_id: updates.one_piece_id };
+        if (updates.powerup_item_id !== undefined) payload.powerup = { shop_item_id: updates.powerup_item_id };
+
+        if (!equipped) {
+            await this.equippedRepo.save(this.equippedRepo.create({
+                user: { user_id } as any,
+                ...payload
+            }));
+        } else {
+            await this.equippedRepo.save({ equipped_id: equipped.equipped_id, ...payload });
+        }
+
+        return this.getEquipped(user_id) as Promise<EquippedItemsDTO>;
     }
 
     async getUserPowerups(user_id: string): Promise<UserItemDTO[]> {
