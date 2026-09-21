@@ -54,15 +54,26 @@ export class ShopRepository implements IShopRepository {
     }
 
     async getAllItems(): Promise<ShopItemDTO[]> {
-        
+        const items = await this.shopItemRepo.find();
+        return items.map(i => this.toItemDTO(i));
     }
 
     async getItemById(shop_item_id: string): Promise<ShopItemDTO | null> {
-        
+        const item = await this.shopItemRepo.findOne({ where: { shop_item_id } });
+        return item ? this.toItemDTO(item) : null;
     }
 
     async getUserItems(user_id: string): Promise<UserItemDTO[]> {
-        
+        const items = await this.userItemRepo.find({
+            where: { user: { user_id } },
+            relations: { shop_item: true }
+        });
+        return items.map(i => ({
+            user_item_id: i.user_item_id,
+            user_id,
+            item: this.toItemDTO(i.shop_item),
+            acquired_at: i.acquired_at
+        }));
     }
 
     async hasItem(user_id: string, shop_item_id: string): Promise<boolean> {
