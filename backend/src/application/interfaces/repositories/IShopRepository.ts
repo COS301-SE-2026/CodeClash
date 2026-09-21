@@ -21,4 +21,6 @@ export interface IShopRepository {
     updateEquipped(user_id: string, updates: UpdatedEquippedDTO): Promise<EquippedItemsDTO>;
 
     getUserPowerups(user_id: string): Promise<UserItemDTO[]>;
+
+    purchaseItemTransaction(user_id: string, shop_item_id: string, price: number): Promise<{ wallet: WalletDTO; item: UserItemDTO }>;
 }

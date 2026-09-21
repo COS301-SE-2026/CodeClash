@@ -1,4 +1,4 @@
-import { Repository } from "typeorm";
+import { DataSource, Repository } from "typeorm";
 import { ShopItem } from "src/entities/db-entities/shop-item.entities";
 import { Wallet } from "src/entities/db-entities/wallet.entities";
 import { UserItem } from "src/entities/db-entities/user-item.entities";
@@ -14,7 +14,8 @@ export class ShopRepository implements IShopRepository {
         private readonly shopItemRepo: Repository<ShopItem>,
         private readonly walletRepo: Repository<Wallet>,
         private readonly userItemRepo: Repository<UserItem>,
-        private readonly equippedRepo: Repository<EquippedItems>
+        private readonly equippedRepo: Repository<EquippedItems>,
+        private readonly dataSource: DataSource
     ) {}
 
     private toItemDTO(item: ShopItem): ShopItemDTO {
@@ -167,5 +168,30 @@ export class ShopRepository implements IShopRepository {
             item: this.toItemDTO(i.shop_item),
             acquired_at: i.acquired_at
         }));
+    }
+
+    async purchaseItemTransaction(user_id: string, shop_item_id: string, price: number): Promise<{ wallet: WalletDTO; item: UserItemDTO; }> {
+        return this.dataSource.transaction(async (manager) => {
+            const walletRepo = manager.getRepository(Wallet);
+            const userItemRepo = manager.getRepository(UserItem);
+
+            const wallet = await walletRepo.findOne({ where: { user: { user_id } } });
+            if(!wallet) throw new Error('Wallet not found');
+            if(wallet.balance < price) throw new Error('Insufficient balance');
+
+            await walletRepo.update({ wallet_id: wallet.wallet_id }, { balance: wallet.balance - price });
+
+            const userItem = await userItemRepo.save(userItemRepo.create({
+                user: { user_id } as any,
+                shop_item: { shop_item_id } as any
+            }));
+
+            const item = await this.getItemById(shop_item_id);
+
+            return {
+                wallet: { wallet_id: wallet.wallet_id, user_id, balance: wallet.balance - price, updated_at: new Date() },
+                item: { user_item_id: userItem.user_item_id, user_id, item:  item!, acquired_at: userItem.acquired_at }
+            };
+        });
     }
 }
