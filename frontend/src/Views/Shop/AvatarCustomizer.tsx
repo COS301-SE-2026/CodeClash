@@ -81,4 +81,31 @@ const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasing
         setPresetName('');
         setShowPresetInput(false);
     }
+
+    return (
+        <div>
+            <div style={{display: 'flex', gap: '0.75rem', overflowX: 'auto', paddingBottom: '0.5rem', marginBottom: '1.5rem'}}>
+                {avatars.map((a) => {
+                    const owned = isOwned(a.id);
+                    const selected = draftAvatarId === a.id;
+                    return (
+                        <button key={a.id} type="button" onClick={()=> tryOnAvatar(a.id)}
+                            style={{position: 'relative', flexShrink: 0, width: '64px', height: '64px', borderRadius: 'var(--radius-md, 18px)', border: selected ? '2px solid var(--primary)' : '1px solid var(--border)',
+                                background: 'var(--background-elevated)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',overflow: 'hidden', padding: 0
+                            }}>
+                            {a.previewImageUrl && (
+                                <img src={a.previewImageUrl} alt={a.name} style={{width: '100%', height: '100%', objectFit: 'cover'}}/>
+                            )}
+                            {!owned && (
+                                <span style={{position: 'absolute', bottom: 2, right:2, fontSize: '0.6rem', padding: '1px 5px', borderRadius: '999px', background: 'var(--background)', color: 'var(--muted-text)', border: '1px solid var(--border)'}}>
+                                    {a.price.amount}
+                                </span>
+                            )}
+                        </button>
+                    )
+                })}
+            </div>
+            
+        </div>
+    )
 }
