@@ -98,11 +98,19 @@ export class ShopRepository implements IShopRepository {
     }
 
     async getWallet(user_id: string): Promise<WalletDTO | null> {
-        
+        const wallet = await this.walletRepo.findOne({
+            where: { user: { user_id} },
+            relations: { user: true }
+        });
+        return wallet ? this.toWalletDTO(wallet) : null;
     }
 
     async createWallet(user_id: string): Promise<WalletDTO | null> {
-        
+        const saved = await this.walletRepo.save(this.walletRepo.create({
+            user: { user_id } as any,
+            balance: 0
+        }));
+        return this.getWallet(user_id) as Promise<WalletDTO>;
     }
 
     async updateBalance(user_id: string, delta: number): Promise<WalletDTO> {
