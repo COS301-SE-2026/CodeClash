@@ -33,7 +33,7 @@ const Tournaments = (
             <div className="w-full flex flex-col">
                 <div className="flex grid grid-cols-2 h-full w-full">
                     <h1 className="font-black text-primary-text text-xl ml-4 mt-1">Tournaments</h1>
-                    <TournamentButton className="w-3xs h-3xs mb-3 mt-3 justify-self-end mr-2">
+                    <TournamentButton className="w-3xs h-3xs mb-3 mt-3 justify-self-end">
                         <div className="flex flex-row w-full">
                             <PlusIcon size={30} className="ml-4 my-auto mt-2"/>
                             <h2 className="font-font text-secondary font-semibold text-sm ml-5 my-auto mt-2">Host Tournament</h2>
@@ -44,7 +44,7 @@ const Tournaments = (
 
                 
 
-                <div className="justify-end w-full flex flex-row gap-2 mb-15 h-8 gap-5">
+                <div className="justify-end w-4xl flex flex-row gap-2 mb-15 h-8 gap-5">
                     <FilterButton className="text-xs min-w-[3rem]">
                        Math   
                     </FilterButton>
