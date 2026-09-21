@@ -114,11 +114,22 @@ export class ShopRepository implements IShopRepository {
     }
 
     async updateBalance(user_id: string, delta: number): Promise<WalletDTO> {
-        
+        const wallet = await this.walletRepo.findOne({ where: { user: { user_id } } });
+        if(!wallet) throw new Error('wallet not found');
+
+        const newBalance = wallet.balance + delta;
+        if (newBalance < 0) throw new Error('Insufficient balance');
+
+        await this.walletRepo.update({ wallet_id: wallet.wallet_id }, { balance: newBalance });
+        return this.getWallet(user_id) as Promise<WalletDTO>;
     }
 
     async getEquipped(user_id: string): Promise<EquippedItemsDTO | null> {
-        
+        const equipped  = await this.equippedRepo.findOne({
+            where: { user: { user_id } },
+            relations: { user: true, avatar: true, top: true, bottom: true, one_piece: true, shoes: true, hat: true, powerup: true }
+        });
+        return equipped ? this.toEquippedDTO(equipped) : null;
     }
 
     async updateEquipped(user_id: string, updates: UpdatedEquippedDTO): Promise<EquippedItemsDTO> {
