@@ -4,11 +4,24 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 import "../../../src/styles/global.css"
 
+interface ProgressProps extends React.ComponentProps<typeof ProgressPrimitive.Root>{
+  from?: string,
+  via?: string,
+  to?: string,
+  bg?: string,
+  border?: string
+}
+
 function Progress({
   className,
   value,
+  from = "primary",
+  via = "[var(--button-tournament)]/70",
+  to = "transparent",
+  bg = "primary-dark",
+  border = "primary",
   ...props
-}: React.ComponentProps<typeof ProgressPrimitive.Root>) {
+}: ProgressProps) {
  
   return (
     <ProgressPrimitive.Root
