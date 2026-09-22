@@ -12,7 +12,7 @@ export interface IShopRepository {
     addUserItem(user_id: string, shop_item_id: string): Promise<UserItemDTO>;
 
     getWallet(user_id: string): Promise<WalletDTO | null>;
-    createWallet(user_id: string): Promise<WalletDTO | null>;
+    createWallet(user_id: string): Promise<WalletDTO>;
     updateBalance(user_id: string, delta: number): Promise<WalletDTO>;
 
     // Having transactions would mean we want to keep records of each user's transactions. We currently don't have ways to display that
