@@ -95,7 +95,7 @@ export const useGameQuestions = (
     }
 
     const finishGame = () => {
-        if (question_idx.current === questions.length - 1) {
+        if (currentQuestion === questions.length - 1) {
             setWaitingOpponent(true)
             endGame(parseInt(match_id), game_type, socket);
         }
@@ -180,7 +180,7 @@ export const useMatchProgress = (
     num_questions: number,
     players: Player[]
 ) => {
-    const [playerLife, setPlayerLife] = useState<number[]>([]);
+    const [playerLife, setPlayerLife] = useState<number[]>(() => players.map(p => p.life));
     const [opponentCurrent, setOpponentCurrent] = useState(0);
     const [opponentDone, setOpponentDone] = useState(false);
 
