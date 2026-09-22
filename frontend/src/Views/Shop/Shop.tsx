@@ -4,7 +4,7 @@ import { ShopViewModelFunc } from "src/ViewModels/Shop/ShopViewModel";
 import { useTheme } from "src/context/Shop/ThemeContext";
 import AvatarCustomizer from "./AvatarCustomizer";
 import ThemeSwatch from "./ThemeSwatch";
-import {Sparkles } from "lucide-react";
+import {Check, Loader2, Sparkles } from "lucide-react";
 
 const Shop:React.FC = () => {
     const {
@@ -60,7 +60,120 @@ const Shop:React.FC = () => {
                 </section>
             )}
 
+            <section style={{padding: '0 8% 6rem'}}>
+                {error && (
+                    <div style={{marginBottom: '1.5rem', padding: '1rem 1.25rem', borderRadius: 'var(--radius-lg), 20px', background: 'transparent',color: 'var(--danger)'}}>
+                        {error}
+                    </div>
+                )}
+
+                {loading ? (
+                    <p className="text-muted text-sm">Loading shop...</p>
+                ) : activeTabId === 'avatars' ? (
+                    <AvatarCustomizer purchase={purchase} purchasingId={purchasingId} canAfford={canAfford}/>
+                ) : activeTabId === 'themes' ? (
+                    <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1.25rem'}}>
+                        {themes.map((item) => (
+                            <ThemeCard key={item.id} item={item} owned={isOwned(item.id)} equipped={isEquipped('theme', item.id)}
+                                affordable={canAfford(item)} purchasing={purchasingId === item.id} onPurchase={() => purchase(item.id)} onEquip={() => {equip('theme', item.id); setTheme(item.themeId as Parameters<typeof setTheme>[0]);
+                            }}/>
+                        ))}
+                    </div>
+                ) : activeTabId === 'powerups' ? (
+                    powerups.length === 0 ? (
+                        <p className="text-muted text-sm">Nothing here yet</p>
+                    ) : (
+                        <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1.25rem'}}>
+                            {powerups.map((item) => (
+                                <PowerupCard key={item.id} item={item} owned={powerupQuantity()} affordable={canAfford(item)} purchasing={purchasingId === item.id} onPurchase={()=> purchase(item.id)}/>
+                            ))}
+                        </div>
+                    )
+                ) : null}
+            </section>
         </div>
     )
 }
+
+const DefaultBadge:React.FC = () => (
+    <span className="badge" style={{background: 'var(--info)', color: 'var(--info)'}}>Default</span>
+)
+
+const PriceTag: React.FC<{amount: number}> = ({amount}) => (
+    <div style={{display: 'flex', alignItems: 'center', gap: '0.3rem', color: 'var(--muted)', fontSize: '0.85rem', fontWeight: 700}}>
+        <Sparkles size={14}/>
+        {amount}
+    </div>
+)
+
+const ThemeCard: React.FC<{
+    item: ThemeShopItem;
+    owned: boolean;
+    equipped: boolean;
+    affordable: boolean;
+    purchasing: boolean;
+    onPurchase: () => void;
+    onEquip: () => void;
+}> = ({item, owned, equipped, affordable, purchasing, onPurchase, onEquip}) => (
+    <div className="card-glass" style={{padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.9rem'}}>
+        <div style={{display: 'flex', justifyContent: 'center', padding: '0.5rem 0'}}>
+            <ThemeSwatch colors={item.swatchColors} size={64}/>
+        </div>
+        <div style={{textAlign: 'center'}}>
+            {item.isDefault && <DefaultBadge/>}
+            <h3 style={{color: 'var(--primary-text)', fontWeight: 700, fontSize: '0.95rem'}}>{item.name}</h3>
+            {item.description && <p className="text-muted" style={{fontSize: '0.75rem', lineHeight: 1.5, marginTop: '0.25rem'}}>{item.description}</p>}
+        </div>
+        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem'}}>
+            <PriceTag amount={item.price.amount}/>
+            {owned ? (
+                equipped ? (
+                    <button type="button" disabled className="btn btn-sm" style={{background: 'var(--background-elevated)', color: 'var(--muted)', cursor: 'default'}}>
+                        <Check size={14}/>
+                        Equipped
+                    </button>
+                ) : (
+                    <button type="button" onClick={onEquip} className="btn btn-sm btn-secondary">Equip</button>
+                )
+            ) : (
+                <button type="button" onClick={onPurchase} disabled={purchasing || !affordable} className="btn btn-sm btn-primary">
+                    {purchasing ? <Loader2 size={14} className="animate-spin"/> : affordable ? 'Buy' : "Can't afford"}
+                </button>
+            )}
+        </div>
+    </div>
+) 
+
+{/*Copied theme card */}
+const PowerupCard: React.FC<{
+    item: PowerupShopItem;
+    owned: number;
+    affordable: boolean;
+    purchasing: boolean;
+    onPurchase: () => void;
+}> = ({item, owned, affordable, purchasing, onPurchase}) => {
+    const isDown = item.kind === 'powerdown';
+    return (
+        <div className="card-glass" style={{padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.9rem'}}>
+            <div style={{display: 'flex', alignItems: 'center',justifyContent: 'center', height: '110px', borderRadius: 'var(00radius-md), 18px', background: 'var(--background-elevated)', border: '1px solid var(--border)', color: 'var(--muted-text)', fontSize: '0.75rem', fontWeight: 700}}>
+                {item.previewImageUrl ? <img src={item.previewImageUrl} alt={item.name} style={{maxHeight: '100%', maxWidth: '100%',objectFit: 'contain'}}/> : 'IMG'}
+            </div>
+            <div>
+                <span className="badge" style={{color: isDown ? 'var(--danger)' : 'var(--success)'}}>
+                    {isDown ? 'Power down' : 'Power up'}
+                </span>
+                <h3 style={{color: 'var(--primary-text)', fontWeight: 700, fontSize: '0.95rem'}}>{item.name}</h3>
+                {item.description && <p className="text-muted" style={{fontSize: '0.75rem', lineHeight: 1.5, marginTop: '0.25rem'}}>{item.description}</p>}
+                <p className="text-muted" style={{fontSize: '0.7rem', marginTop: '0.4rem'}}>Owned: {owned}</p>
+            </div>
+            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', marginTop: 'auto'}}>
+            <PriceTag amount={item.price.amount}/>
+                <button type="button" onClick={onPurchase} disabled={purchasing || !affordable} className="btn btn-sm btn-primary">
+                    {purchasing ? <Loader2 size={14} className="animate-spin"/> : affordable ? 'Buy' : "Can't afford"}
+                </button>
+            </div>
+        </div>
+    )
+}
+
 export default Shop;
