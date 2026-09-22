@@ -1,4 +1,4 @@
-import { AnswerDTO } from "src/entities/dtos/answer.dto";
+import { AnswerDTO } from "src/entities/dtos/questions/answer.dto";
 
 import { MathsMarker } from "./maths-marker";
 import { closeAbsolute, evaluateConstant, safeParse, toleranceFor } from "./normalizer";

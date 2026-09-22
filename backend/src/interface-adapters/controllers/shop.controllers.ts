@@ -17,7 +17,7 @@ export const getUserItems = (service: ShopService) =>
         const user_id = req.user?.id;
         if (!user_id) { res.status(401).json({ message: 'Unauthorized' }); return; }
         try {
-            const items = await service.getUserItems();
+            const items = await service.getUserItems(user_id);
             res.status(200).json(items);
         } catch (error) {
             console.error ('Error fetching user items:', error);
