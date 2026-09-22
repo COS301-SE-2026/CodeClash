@@ -1,0 +1,15 @@
+frontend/@/components/ui/progress.tsx
+  h_b13c5d77534129 19-24,32,47,49-57
+  h_b13c5d77534129 48
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "bcb262a01ff6d3d60eb59f834f38c18b32a7e2d3",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
