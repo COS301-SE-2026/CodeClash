@@ -16,12 +16,12 @@ interface ProgressProps extends React.ComponentProps<typeof ProgressPrimitive.Ro
 function Progress({
   className,
   value,
-  from = "primary",
-  via = "[var(--button-tournament)]/70",
-  to = "transparent",
-  bg = "primary-dark",
-  border = "primary",
-  glow = "[var(--button-tournament)]",
+  from = "[var(--primary)]",
+  via = "[var(--button-tournament)]",
+  to = "white",
+  bg = "var(--primary-dark)",
+  border = "#631631",
+  glow = "#FFFFFF",
   ...props
 }: ProgressProps) {
  
@@ -29,7 +29,7 @@ function Progress({
     <ProgressPrimitive.Root
       data-slot="progress"
       className={cn(
-        "relative flex h-full h-3 w-full items-center overflow-x-hidden rounded-full",
+        "relative flex h-full h-1.5 w-full items-center overflow-x-hidden rounded-full",
         border && "border",
         className
       )}
@@ -44,8 +44,17 @@ function Progress({
         style={{
           transform: `translateX(-${100 - (value || 0)}%)`,
         }}
-        className="relative size-full flex-1 transition-transform bg-gradient-to-r from-primary via-[var(--button-tournament)]/70 to-transparent"
-      />
+        className={`relative size-full transition-transform bg-linear-to-r from-${from} via-${via} to-${to} rounded-full shadow-[20px_20px_15px_${from}]`}
+      >
+        <div
+          className="absolute right-0 top-0 h-full rounded-full w-full"
+          style={{
+            boxShadow: `0 0 15px ${glow}`
+          }}
+        >
+
+        </div>
+      </ProgressPrimitive.Indicator>
     </ProgressPrimitive.Root>
   )
 }
