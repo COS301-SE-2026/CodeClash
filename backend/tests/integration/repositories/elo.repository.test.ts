@@ -1,8 +1,8 @@
 import { DataSource, Repository } from "typeorm";
 import { createTestDataSource } from "../../test-data-source";
 import { describe, beforeAll, afterAll, it, expect } from "vitest";
-import { Users } from '../../../src/entities/db-entities/user.entities'
-import { EloRatings } from '../../../src/entities/db-entities/elo.entities'
+import { Users } from '../../../src/entities/database/user.entities'
+import { EloRatings } from '../../../src/entities/database/elo.entities'
 import { mock_users_array } from "../../mocks/mock-user";
 import { EloRepository } from '../../../src/interface-adapters/repositories/elo.repository'
 import {RankDTO} from '../../../src/entities/dtos/user/rank.dto';

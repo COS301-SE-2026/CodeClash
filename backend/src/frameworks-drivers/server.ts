@@ -2,21 +2,21 @@ import { createServer } from 'node:http';
 
 import dotnev from 'dotenv'
 import { Server } from 'socket.io'
-import { EloRatings } from 'src/entities/db-entities/elo.entities';
+import { EloRatings } from 'src/entities/database/elo.entities';
 import { IQuestionRepository } from 'src/application/interfaces/repositories/IQuestionRepository';
 import { QuestionRepository } from 'src/interface-adapters/repositories/question.repository';
-import { GameType, Questions } from 'src/entities/db-entities/questions.entities';
+import { Questions } from 'src/entities/database/questions.entities';
 import { cleanUp, gameDone, sendResults, startQuestion, submitQuestion } from 'src/interface-adapters/socket-handlers/game.handler';
 import { PlayerSubmissionDTO } from 'src/entities/dtos/submissions/submission.dto';
 import { IAnswerRepository } from 'src/application/interfaces/repositories/IAnswerRepository';
 import { AnswerRepository } from 'src/interface-adapters/repositories/answer.repository';
-import { Answers } from 'src/entities/db-entities/answers.entities';
-import { GameService } from 'src/application/usecases/services/game.service';
-import { CreateGame, CreateMatchEntity, CreatePlayerEntity, CreateRoundEntity } from 'src/application/usecases/systems/create-game';
+import { Answers } from 'src/entities/database/answers.entities';
+import { MatchCreationService } from 'src/application/usecases/services/match/match-creation.service';
+import { MatchCreationSystem, CreateMatchEntity, CreatePlayerEntity, CreateRound} from 'src/application/usecases/systems/match-creation.system';
 import { GetDifficulty, GetQuestions, GetTotalTime } from 'src/application/usecases/services/questions.service';
 import { GetAnswers } from 'src/application/usecases/services/answers.service';
-import { GameCache } from 'src/interface-adapters/cache/game-cache';
-import { IGameCache } from 'src/application/interfaces/cache/IGameCache';
+import { MatchCache } from 'src/interface-adapters/cache/match-cache';
+import { IMatchCache } from 'src/application/interfaces/cache/IGameCache';
 import redis from './config/redis-client';
 import { MatchmakingService } from 'src/application/usecases/services/matchmaking.service';
 import { IMatchmakingCache } from 'src/application/interfaces/cache/IMatchmakingCache';
@@ -25,16 +25,14 @@ import { IUserRepository } from 'src/application/interfaces/repositories/IUserRe
 import { MarkingService } from 'src/application/usecases/services/marking/marking.service';
 import { initDB } from 'src/application/usecases/init-db';
 import { LifeSystem } from 'src/application/usecases/systems/life.system';
-import { StartQuestionDTO } from 'src/entities/dtos/questions/question.dto';
-import { FinishGame } from 'src/application/usecases/systems/finish-game';
+import { MatchCompletionSystem } from 'src/application/usecases/systems/match-completion.system';
 import { SubmissionSystem } from 'src/application/usecases/systems/submission.system';
 import { World } from 'src/entities/World';
 import { MatchmakingCache } from 'src/interface-adapters/cache/matchmaking-cache';
 import { EloRepository } from 'src/interface-adapters/repositories/elo.repository';
 import { UserRepository } from 'src/interface-adapters/repositories/user.repository';
-import { sendGameQuestions, joinMatchQueue, leaveMatchQueue, matchAccepted, matchDeclined, sendGamePlayers } from 'src/interface-adapters/socket-handlers/matchmaking.handler';
 
-import { Users } from "../entities/db-entities/user.entities"
+import { Users } from "../entities/database/user.entities"
 import { validateToken } from '../interface-adapters/auth/auth.service';
 
 import { createApp } from './app';
@@ -42,12 +40,12 @@ import { AppDataSource } from "./config/data-source"
 import { OpponentProgress } from 'src/application/usecases/systems/opponent-progress';
 import { IMatchRepository } from 'src/application/interfaces/repositories/IMatchRepository';
 import { MatchRepository } from 'src/interface-adapters/repositories/match.repository';
-import { Matches, MatchLog } from 'src/entities/db-entities/match.entities';
-import { MatchResultService } from 'src/application/usecases/services/match-result.service';
+import { Matches, MatchLog } from 'src/entities/database/match.entities';
+import { MatchResultService } from 'src/application/usecases/services/match/match-result.service';
 import { IMatchResultRepository } from 'src/application/interfaces/repositories/IMatchResultRepository';
 import { MatchResultRepository } from 'src/interface-adapters/repositories/match-result.repository';
-import { MatchedUsersService } from 'src/application/usecases/services/matched-users.service';
-import { GameStore } from 'src/application/usecases/services/game-store.service';
+import { MatchConfirmationService } from 'src/application/usecases/services/match/match-confirmation.service';
+import { MatchStore } from 'src/application/usecases/services/match/match-store.service';
 import { DeleteGame } from 'src/application/usecases/systems/delete-game';
 import { LeaderboardService } from 'src/application/usecases/services/leaderboard.service';
 import { NotificationService } from 'src/application/usecases/services/notification.service';
@@ -55,24 +53,26 @@ import { MarkingStrategy } from 'src/application/interfaces/marking/IMarkingStat
 import { MarkMaths } from 'src/application/usecases/services/marking/mark-maths';
 import { MarkProg } from 'src/application/usecases/services/marking/mark-prog';
 import { CodeExecutor } from 'src/interface-adapters/CodeExecutor';
-import { MatchStats } from 'src/entities/db-entities/match-stats.entities';
+import { MatchStats } from 'src/entities/database/match-stats.entities';
 import { MatchStatsRepository } from 'src/interface-adapters/repositories/match-stats.repository';
-import { Achievement } from 'src/entities/db-entities/achievement.entities';
+import { Achievement } from 'src/entities/database/achievement.entities';
 import { AchievementService } from 'src/application/usecases/services/achievement.service';
 import { AchievementRepository } from 'src/interface-adapters/repositories/achievement.repository';
 import { MatchHistoryRepository } from 'src/interface-adapters/repositories/match-history.repository';
 import { FriendService } from 'src/application/usecases/services/friend.service';
 import { FriendRepository } from 'src/interface-adapters/repositories/friend.repository';
-import { FriendInvite, Friendship } from 'src/entities/db-entities/friendship.entities';
+import { FriendInvite, Friendship } from 'src/entities/database/friendship.entities';
 import { IMatchStatsRepository } from 'src/application/interfaces/repositories/IMatchStatsRepository';
 import { IAchievementRepository } from 'src/application/interfaces/repositories/IAchievementRepository';
+import { attachSocketModules } from './socket';
+import { MatchStart } from 'src/application/usecases/services/match/match-start.service';
 import { ShopService } from 'src/application/usecases/services/shop.service';
 import { ShopRepository } from 'src/interface-adapters/repositories/shop.repository';
-import { ShopItem } from 'src/entities/db-entities/shop-item.entities';
-import { Wallet } from 'src/entities/db-entities/wallet.entities';
-import { UserItem } from 'src/entities/db-entities/user-item.entities';
+import { ShopItem } from 'src/entities/database/shop-item.entities';
+import { Wallet } from 'src/entities/database/wallet.entities';
+import { UserItem } from 'src/entities/database/user-item.entities';
 import { DataSource } from 'typeorm';
-import { EquippedItems } from 'src/entities/db-entities/equipped-items.entities';
+import { EquippedItems } from 'src/entities/database/equipped-items.entities';
 
 dotnev.config()
 
@@ -95,7 +95,7 @@ AppDataSource.initialize()
         const achievementRepo: IAchievementRepository = new AchievementRepository(AppDataSource.getRepository(Achievement), AppDataSource.getRepository(Users));
 
         const match_history_repo = new MatchHistoryRepository(AppDataSource.getRepository(Matches), AppDataSource.getRepository(MatchLog), AppDataSource.getRepository(MatchStats));
-        const friend_repo = new FriendRepository(AppDataSource.getRepository(Friendship),AppDataSource.getRepository(FriendInvite),elo_repo);
+        const friend_repo = new FriendRepository(AppDataSource.getRepository(Friendship), AppDataSource.getRepository(FriendInvite), elo_repo);
         const shop_repo = new ShopRepository(AppDataSource.getRepository(ShopItem), AppDataSource.getRepository(Wallet), AppDataSource.getRepository(UserItem), AppDataSource.getRepository(EquippedItems), AppDataSource);
 
         // initialise ecs world 
@@ -104,7 +104,7 @@ AppDataSource.initialize()
         // initialise use cases 
         const create_player_entity = new CreatePlayerEntity(world);
         const create_match_entity = new CreateMatchEntity(world);
-        const create_round_entity = new CreateRoundEntity(world);
+        const create_round_entity = new CreateRound();
 
 
         const get_questions = new GetQuestions(question_repo);
@@ -112,30 +112,31 @@ AppDataSource.initialize()
         const get_difficulty = new GetDifficulty();
         const get_total_time = new GetTotalTime();
 
-        const create_game = new CreateGame(create_player_entity, create_match_entity, create_round_entity);
+        const create_match = new MatchCreationSystem(create_player_entity, create_match_entity, create_round_entity);
 
         // create game cache
-        const game_cache: IGameCache = new GameCache(redis);
+        const match_cache: IMatchCache = new MatchCache(redis);
         const matchmaking_cache: IMatchmakingCache = new MatchmakingCache(redis);
 
 
         // initialise services 
-        const game_service = new GameService(create_game, get_questions, get_difficulty, get_total_time, get_answers, game_cache, match_repo, user_repo);
-        const matchmkaing_service = new MatchmakingService(matchmaking_cache);
+        const match_service = new MatchCreationService(create_match, get_questions, get_difficulty, get_total_time, get_answers, match_cache, match_repo, user_repo);
+        const matchmaking_service = new MatchmakingService(matchmaking_cache);
         const match_results = new MatchResultService(elo_repo, match_results_repo)
-        const matched_users_service = new MatchedUsersService();
-        const game_store = new GameStore(user_repo);
+        const matched_users_service = new MatchConfirmationService();
+        const match_store = new MatchStore(user_repo);
         const leaderboard_service = new LeaderboardService(elo_repo);
         const friends_service = new FriendService(friend_repo);
         const achievement_service = new AchievementService(achievementRepo);
-        const shop_service = new ShopService(shop_repo)
+        const match_start = new MatchStart(match_service,match_store);        
+        const shop_service = new ShopService(shop_repo);
 
 
         // initialise systems 
         const submission_system = new SubmissionSystem(world);
         const life_system = new LifeSystem(world);
-        const delete_game = new DeleteGame(world, game_store, matched_users_service);
-        const finish_game = new FinishGame(world, match_results, game_store, delete_game, match_stats_repo, achievement_service, user_repo);
+        const match_deletion_system = new DeleteGame(world, match_store, matched_users_service);
+        const match_completion_system = new MatchCompletionSystem(world, match_results, match_store, match_stats_repo, achievement_service, user_repo);
 
 
 
@@ -157,86 +158,46 @@ AppDataSource.initialize()
 
         const notification = new NotificationService(io);
         const opponent_progress = new OpponentProgress(world);
-        const maths_marking_service = new MarkingService(game_cache, submission_system, life_system, notification, maths_marker, opponent_progress);
-        const prog_marking_service = new MarkingService(game_cache, submission_system, life_system, notification, prog_marker, opponent_progress);
+        const math_marking_service = new MarkingService(match_cache, submission_system, life_system, notification, maths_marker, opponent_progress);
+        const prog_marking_service = new MarkingService(match_cache, submission_system, life_system, notification, prog_marker, opponent_progress);
 
         // auth middleware 
         io.use(async (socket, next) => {
-          try {
-            const token = socket.handshake.auth.token;
+            try {
+                const token = socket.handshake.auth.token;
 
-            if (!token) return next(new Error("Authenticaion error: No token provided"));
+                if (!token) return next(new Error("Authenticaion error: No token provided"));
 
-            const valid = await validateToken(token)
-            if (!valid) return next(new Error("Authentication error: Invalid token")) // token aint working
+                const valid = await validateToken(token)
+                if (!valid) return next(new Error("Authentication error: Invalid token")) // token aint working
 
-            // getting db id from cognito id
-            const db_id = (await user_repo.getUserId(valid.user_Id))?.user_id;
-            if (!db_id) return next(new Error("Authentication error: User DB ID Not found")) // db id not found
-            
-            const user = (await user_repo.getUserData(db_id, 'username'))
-            // if (!(await user_repo.getUserData(db_id, 'username'))) return next(new Error("Authentication error: User not found")) // user not found, not necessarily username innit
-            if (!user) return next(new Error("Authentication error: User not found")) // user not found, not necessarily username innit
+                // getting db id from cognito id
+                const db_id = (await user_repo.getUserId(valid.user_Id))?.user_id;
+                if (!db_id) return next(new Error("Authentication error: User DB ID Not found")) // db id not found
 
-            socket.data = {
-                user_id: db_id,
-                username: user.username
+                const user = (await user_repo.getUserData(db_id, 'username'))
+                // if (!(await user_repo.getUserData(db_id, 'username'))) return next(new Error("Authentication error: User not found")) // user not found, not necessarily username innit
+                if (!user) return next(new Error("Authentication error: User not found")) // user not found, not necessarily username innit
+
+                socket.data = {
+                    user_id: db_id,
+                    username: user.username
+                }
+                next();
+            } catch (error) {
+                console.error('Socket authorisation error: ', error);
+                next(new Error("Authentication error: missing values"));
             }
-            next();
-          } catch (error) {
-            console.error('Socket authorisation error: ', error);
-            next(new Error("Authentication error: missing values"));
-        }
         })
 
         // initialise database with users and elos
         await initDB(user_repo, elo_repo);
 
         // attach socket handlers
-        io.on("connection", (socket) => {
-
-          socket.join(`user:${socket.data.user_id}`);
-          socket.join(socket.data.user_id) 
-          /*
-            okay lemme explain, so the connection is made when the queue has both users in it, 
-            but once the match starts, that connection is dissolved, and the game continues on, but 
-            the issue is that the game ending on timer thing requires an active connection, but that connection
-            was dissolved once the game befan, so what this is doing is making sure that it survives that disconnect
-            and is disconnected .
-          */
-
-            // SOCKET HANDLERS MUST MOOVE TO interface-adapter/
-            socket.on('join_match_queue', async (data) => await joinMatchQueue(io, socket, data, matchmkaing_service, matched_users_service, user_repo));
-
-            socket.on('leave_match_queue', async () => await leaveMatchQueue(io, socket, matchmkaing_service));
-
-            socket.on('match_accepted', async (data) => { await matchAccepted(io, socket, data, game_service, matched_users_service, game_store) });
-
-            socket.on('match_declined', (pair_id: string) => matchDeclined(io, socket, pair_id, matched_users_service));
-
-            socket.on('send_questions', (game_id: number) => { sendGameQuestions(io, game_id, game_store) });
-
-            socket.on('send_players', (game_id: number) => { sendGamePlayers(io, game_id, game_store) })
-
-            socket.on('submit_math_question', (data: PlayerSubmissionDTO) => submitQuestion(io, socket, data, maths_marking_service));
-
-            socket.on('submit_prog_question', (data: PlayerSubmissionDTO) => submitQuestion(io, socket, data, prog_marking_service));
-
-            socket.on('question_started', (data: StartQuestionDTO) => startQuestion(socket.data.user_id, submission_system, data));
-
-            socket.on('game_done', (game_id: number, game_type: GameType, pair_id: string) => gameDone(io, socket, game_id, game_type, pair_id, finish_game, game_store));
-
-            socket.on('send_results', (game_id: number, pair_id: string) => sendResults(io, game_id, pair_id, game_store))
-
-            socket.on('clean_up', (game_id: number, pair_id: string) => cleanUp(game_id, pair_id, delete_game, game_store))
-
-            socket.on('send_friend_invite', (data) => {
-                io.to(data.receiver_id).emit('friend_invite_received', {
-                    invite_id: data.invite_code,
-                    sender_name: data.sender_name,
-                    expires_at: data.expires_at
-                });
-            });
+        attachSocketModules(io, {
+            match: { math_marking_service, prog_marking_service, submission_system, match_completion_system, match_deletion_system, match_store },
+            matchmaking: { matchmaking_service, matched_users_service, match_service, match_store, user_repo, match_start },
+            friends: {}
         })
 
         // start server

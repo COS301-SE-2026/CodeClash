@@ -1,6 +1,6 @@
 import { Repository } from "typeorm";
-import { MatchLog } from "src/entities/db-entities/match.entities";
-import { Users } from "src/entities/db-entities/user.entities";
+import { MatchLog } from "src/entities/database/match.entities";
+import { Users } from "src/entities/database/user.entities";
 import { IMatchResultRepository } from "src/application/interfaces/repositories/IMatchResultRepository";
 import { MatchResultDTO, PlayerResultDTO } from "src/entities/dtos/matches/match-result.dto";
 

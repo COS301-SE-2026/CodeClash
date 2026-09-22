@@ -1,5 +1,5 @@
 import { vi, Mock, describe, beforeEach, it, expect} from 'vitest';
-import { MatchResultService } from '../../../../src/application/usecases/services/match-result.service';
+import { MatchResultService } from '../../../../src/application/usecases/services/match/match-result.service';
 import { IEloRepository } from '../../../../src/application/interfaces/repositories/IEloRepository';
 import { IMatchResultRepository } from '../../../../src/application/interfaces/repositories/IMatchResultRepository';
 
@@ -9,6 +9,7 @@ const mockEloRepo: IEloRepository = {
     getElo: vi.fn(),
     getUsersElo: vi.fn(),
     getUserRank: vi.fn(),
+    getLeaderboard: vi.fn(),
     updateRatingsAfterMatch: vi.fn(),
 };
 

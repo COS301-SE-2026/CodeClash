@@ -1,5 +1,5 @@
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
-import { Users } from "src/entities/db-entities/user.entities";
+import { Users } from "src/entities/database/user.entities";
 import { UserDTO } from "src/entities/dtos/user/user.dto";
 import { Repository } from "typeorm";
 

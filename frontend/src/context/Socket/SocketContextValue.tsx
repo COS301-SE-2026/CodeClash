@@ -1,9 +1,11 @@
 
 import { createContext } from "react";
-import { Socket } from "socket.io-client";
+import type { MatchSocket } from "./modules/match.socket";
+import type { MatchmakingSocket } from "./modules/matchmaking.socket";
 
 export interface SocketContextValue {
-    socket: Socket | null
+    match_socket:MatchSocket | null,
+    matchmaking_socket:MatchmakingSocket|null,
     isConnected: boolean
 }
 

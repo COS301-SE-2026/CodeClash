@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm';
-import { Achievement } from 'src/entities/db-entities/achievement.entities';
-import { Users } from 'src/entities/db-entities/user.entities';
+import { Achievement } from 'src/entities/database/achievement.entities';
+import { Users } from 'src/entities/database/user.entities';
 import { IAchievementRepository } from 'src/application/interfaces/repositories/IAchievementRepository';
 import { AchievementDTO } from 'src/entities/dtos/achievements/achievement.dto';
 

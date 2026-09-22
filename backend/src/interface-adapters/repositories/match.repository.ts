@@ -1,5 +1,5 @@
 import { Repository } from 'typeorm';
-import { Matches } from 'src/entities/db-entities/match.entities';
+import { Matches } from 'src/entities/database/match.entities';
 import { IMatchRepository } from 'src/application/interfaces/repositories/IMatchRepository';
 
 export class MatchRepository implements IMatchRepository {

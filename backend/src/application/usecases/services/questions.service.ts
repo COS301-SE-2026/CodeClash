@@ -1,5 +1,4 @@
-import { GameMode } from "src/entities/db-entities/questions.entities";
-import { GameQuestionsDTO } from "src/entities/dtos/matches/match-data.dto";
+import { MatchMode, MatchQuestionsDTO } from "src/entities/dtos/match/match.dto";
 import { leagueMapping } from "src/entities/league-mapping";
 
 import { IQuestionRepository } from "../../interfaces/repositories/IQuestionRepository";
@@ -10,7 +9,7 @@ export class GetQuestions {
         private readonly question_repo: IQuestionRepository,
     ) { }
 
-    async execute(league: string, avg_elo: number, game_mode: GameMode) {
+    async execute(league: string, avg_elo: number, match_mode: MatchMode) {
 
         const mapping = leagueMapping(league, avg_elo);
 
@@ -20,9 +19,9 @@ export class GetQuestions {
         const medium_count: number = Math.round(mapping.question_number * (mapping.medium.percentage!));
         const hard_count: number = Math.round(mapping.question_number * mapping.hard.percentage!);
 
-        const easy_questions = await this.question_repo.getRandQuestions(easy_count, mapping.easy.difficulty, game_mode);
-        const medium_questions = await this.question_repo.getRandQuestions(medium_count, mapping.medium.difficulty, game_mode);
-        const hard_questions = await this.question_repo.getRandQuestions(hard_count, mapping.hard.difficulty, game_mode);
+        const easy_questions = await this.question_repo.getRandQuestions(easy_count, mapping.easy.difficulty, match_mode);
+        const medium_questions = await this.question_repo.getRandQuestions(medium_count, mapping.medium.difficulty, match_mode);
+        const hard_questions = await this.question_repo.getRandQuestions(hard_count, mapping.hard.difficulty, match_mode);
 
 
 
@@ -36,7 +35,7 @@ export class GetQuestions {
 
 export class GetDifficulty {
 
-    execute(questions: GameQuestionsDTO) {
+    execute(questions: MatchQuestionsDTO) {
 
         let difficulty = 0;
         let count = 0;
@@ -63,7 +62,7 @@ export class GetDifficulty {
 
 export class GetTotalTime {
 
-    execute(questions: GameQuestionsDTO){
+    execute(questions: MatchQuestionsDTO){
         let time = 0;
 
         for(const question of questions.easy){

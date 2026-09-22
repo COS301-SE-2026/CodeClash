@@ -1,20 +1,11 @@
-import { GameMode } from "../../../entities/db-entities/questions.entities";
+import { MatchMode } from "src/entities/dtos/match/match.dto";
 
-class MatchmakingUserDTO{
+export interface MatchmakingUserDTO{
     id: string;
     elo: number;
-    joined_at: number;
-    game_mode: GameMode;
-    match_attempt: number = 1;
-
-
-    constructor(id: string, elo: number,game_mode: GameMode) {
-    this.id = id
-    this.elo = elo
-    this.joined_at = Date.now();
-    this.game_mode = game_mode;
-}
+    joined_at: Date;
+    match_mode: MatchMode;
+    match_attempt: number;
 }
 
 
-export default MatchmakingUserDTO;

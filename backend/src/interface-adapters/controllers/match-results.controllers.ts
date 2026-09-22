@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { MatchResultService } from 'src/application/usecases/services/match-result.service';
+import { MatchResultService } from 'src/application/usecases/services/match/match-result.service';
 
 export const getMatchResults = (service: MatchResultService) => {
     return async (req: Request, res: Response) => {

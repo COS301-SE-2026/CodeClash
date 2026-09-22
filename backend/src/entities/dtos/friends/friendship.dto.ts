@@ -1,4 +1,4 @@
-import { FriendshipStatus } from "src/entities/db-entities/friendship.entities";
+import { FriendshipStatus } from "src/entities/database/friendship.entities";
 
 export interface FriendDTO {
     user_id: string;
@@ -20,4 +20,6 @@ export interface FriendInviteDTO {
     invite_id: string;
     invite_code: string;
     expires_at: Date;
+    sender_name?: string;
+    receiver_id?: string | string[];
 }

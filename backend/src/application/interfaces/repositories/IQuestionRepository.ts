@@ -1,8 +1,8 @@
-import { GameMode } from "src/entities/db-entities/questions.entities";
+import { MatchMode } from "src/entities/dtos/match/match.dto";
 import { QuestionDTO } from "src/entities/dtos/questions/question.dto";
 
 
 export interface IQuestionRepository{
     
-    getRandQuestions(count: number, difficulty: number, game_mode: GameMode): Promise<QuestionDTO[]>
+    getRandQuestions(count: number, difficulty: number, game_mode: MatchMode): Promise<QuestionDTO[]>
 }

@@ -1,6 +1,6 @@
 import { IEloRepository } from "src/application/interfaces/repositories/IEloRepository";
 import { Repository } from "typeorm";
-import { EloHistory, EloRatings } from "src/entities/db-entities/elo.entities";
+import { EloHistory, EloRatings } from "src/entities/database/elo.entities";
 import { EloDTO, EloUpdateResultDTO } from "src/entities/dtos/user/elo.dto";
 import { AppDataSource } from "src/frameworks-drivers/config/data-source";
 
