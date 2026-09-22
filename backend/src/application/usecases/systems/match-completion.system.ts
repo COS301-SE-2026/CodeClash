@@ -47,6 +47,7 @@ export class MatchCompletionSystem {
             total_time: stat.total_time
         }));
 
+
         const total_questions = match.rounds.reduce((sum, round) => sum + round.questions.length, 0);
 
         const data: ResultComponent = {

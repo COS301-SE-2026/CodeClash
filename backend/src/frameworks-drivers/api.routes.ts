@@ -33,23 +33,7 @@ export const createAPIRoutes = (
 
   router.use(requireAuth(user_repo));
 
-  // elo routes
-  /**
-   * @swagger
-   * /api/elo-get:
-   *   get:
-   *     summary: Returns the authenticated user's ELO rating
-   *     tags: [Elo]
-   *     responses:
-   *       200:
-   *         description: ELO rating returned successfully
-   *       401:
-   *         description: Unauthorized
-   *       500:
-   *         description: Internal server error
-   */
-  router.get('/elo/elo-get', getUserElo(user_repo));
-  /**
+ /**
  * @swagger
  * /api/elo/leaderboard:
  *   get:

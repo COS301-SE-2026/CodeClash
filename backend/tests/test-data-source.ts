@@ -1,13 +1,11 @@
 import { DataSource } from 'typeorm'
 import { Users } from '../src/entities/database/user.entities'
-import { EloRatings,EloHistory } from '../src/entities/database/elo.entities'
+import { EloHistory } from '../src/entities/database/elo.entities'
 import dotenv from 'dotenv'
 import { Questions } from '../src/entities/database/questions.entities'
 import { Answers } from '../src/entities/database/answers.entities'
-import { Matches,MatchLog, MatchProblems } from '../src/entities/database/match.entities'
-import { Submission } from '../src/entities/database/submission.entities'
+import { Matches} from '../src/entities/database/match.entities'
 import { Achievement } from '../src/entities/database/achievement.entities'
-import { MatchStats } from '../src/entities/database/match-stats.entities'
 
 
 dotenv.config({ path: '.env.test' })
@@ -25,16 +23,11 @@ export async function createTestDataSource() {
         synchronize: true,
         entities: [
             Matches,
-            MatchLog,
-            MatchProblems,
             Answers,
-            EloRatings,
             EloHistory,
             Questions,
-            Submission,
             Users,
             Achievement,
-            MatchStats
         ],
         dropSchema: true,
     })

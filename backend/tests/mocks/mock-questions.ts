@@ -5,7 +5,7 @@ import { MatchMode } from "../../src/entities/dtos/match/match.dto";
 
 export const mock_questions: DeepPartial<Questions>[] = [
     {
-        game_mode: MatchMode.Maths,
+        match_mode: MatchMode.Maths,
         difficulty: 4,
         title: 'Question 1',
         description: "Answer repo testing, question 1",
@@ -13,7 +13,7 @@ export const mock_questions: DeepPartial<Questions>[] = [
 
     },
     {
-        game_mode: MatchMode.Maths,
+        match_mode: MatchMode.Maths,
         difficulty: 3,
         title: 'Question 2',
         description: "Answer repo testing, question 2",
@@ -21,7 +21,7 @@ export const mock_questions: DeepPartial<Questions>[] = [
 
     },
     {
-        game_mode: MatchMode.Maths,
+        match_mode: MatchMode.Maths,
         difficulty: 4,
         title: 'Question 3',
         description: "Answer repo testing, question 3",
@@ -29,21 +29,21 @@ export const mock_questions: DeepPartial<Questions>[] = [
 
     },
     {
-        game_mode: MatchMode.Programming,
+        match_mode: MatchMode.Programming,
         difficulty: 1,
         title: 'Question 4',
         description: "Answer repo testing, question 4",
         time_limit: '00:02:02'
 
     },{
-        game_mode: MatchMode.Programming,
+        match_mode: MatchMode.Programming,
         difficulty: 2,
         title: 'Question 5',
         description: "Answer repo testing, question 5",
         time_limit: '00:02:02'
 
     },{
-        game_mode: MatchMode.Programming,
+        match_mode: MatchMode.Programming,
         difficulty: 4,
         title: 'Question 6',
         description: "Answer repo testing, question 6",

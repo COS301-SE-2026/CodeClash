@@ -21,7 +21,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     const getElo = async () => {
         try {
-            const data = await authGet<{ elo: number }>('elo/elo-get', token!);
+            const data = await authGet<{ elo: number }>('user/elo', token!);
             setElo(data.elo);
         } catch (error) {
             setError(`Error Getting User Elo: ${error}`);  ///TODO: connect to notification system

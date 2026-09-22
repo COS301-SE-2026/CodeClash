@@ -5,10 +5,7 @@ import { signUp } from "@aws-amplify/auth";
 import { cognito_identity_client } from "../../../src/application/usecases/services/cognito.service";
 import { CreateUser } from '../../../src/application/usecases/services/user-creation.service';
 import { IUserRepository } from '../../../src/application/interfaces/repositories/IUserRepository';
-import {IEloRepository} from '../../../src/application/interfaces/repositories/IEloRepository'
-import { EloRepository } from '../../../src/interface-adapters/repositories/elo.repository';
 import { UserRepository } from '../../../src/interface-adapters/repositories/user.repository';
-import { EloRatings } from '../../../src/entities/database/elo.entities';
 import { Users } from "../../../src/entities/database/user.entities"
 
 import dotenv from 'dotenv'
@@ -21,7 +18,6 @@ const cognito_client = cognito_identity_client;
 let users_count = 0;
 let data_source: DataSource;
 let users: IUserRepository;
-let elo: IEloRepository;
 let create_user: CreateUser
 
 let user_repo: Repository<Users>
@@ -36,9 +32,8 @@ describe("Tests user creation ", () => {
         user_repo = data_source.getRepository(Users);
 
         users = new UserRepository(user_repo);
-        elo = new EloRepository(data_source.getRepository(EloRatings));
 
-        create_user = new CreateUser(users, elo);
+        create_user = new CreateUser(users);
 
 
     })

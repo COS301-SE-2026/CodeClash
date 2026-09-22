@@ -15,7 +15,6 @@ import { MatchCreationSystem, CreateMatchEntity, CreatePlayerEntity, CreateRound
 import { GetAnswers } from '../../../src/application/usecases/services/answers.service'
 import { GetQuestions } from '../../../src/application/usecases/services/questions.service'
 import { GetTotalTime } from '../../../src/application/usecases/services/questions.service'
-import { GetDifficulty } from '../../../src/application/usecases/services/questions.service'
 import { createTestDataSource } from "../../test-data-source";
 import { IQuestionRepository } from '../../../src/application/interfaces/repositories/IQuestionRepository'
 import { IAnswerRepository } from '../../../src/application/interfaces/repositories/IAnswerRepository'
@@ -64,17 +63,16 @@ const create_rounds = new CreateRound();
 const data_source = await createTestDataSource();
 const question_repo: IQuestionRepository = new QuestionRepository(data_source.getRepository(Questions));
 const answer_repo: IAnswerRepository = new AnswerRepository(data_source.getRepository(Answers))
-const match_repo: IMatchRepository = new MatchRepository(data_source.getRepository(Matches))
+const match_repo: IMatchRepository = new MatchRepository(data_source.getRepository(Matches), data_source.getRepository(Users));
 const user_repo: IUserRepository = new UserRepository(data_source.getRepository(Users));
 
 const get_questions = new GetQuestions(question_repo);
 const get_answers = new GetAnswers(answer_repo);
-const get_difficulty = new GetDifficulty();
 const get_total_time = new GetTotalTime();
 
 const create_game = new MatchCreationSystem(create_player_entity, create_match_entity,create_rounds);
 
-const match_service = new MatchCreationService(create_game, get_questions, get_difficulty, get_total_time, get_answers, match_cache, match_repo, user_repo);
+const match_service = new MatchCreationService(create_game, get_questions, get_total_time, get_answers, match_cache, match_repo, user_repo);
 
 const players: PlayerDTO[] = [
     {
