@@ -19,5 +19,33 @@ export class ShopService {
         return this.shop_repo.getUserItems(user_id);
     }
 
+    async purchaseItem(user_id: string, shop_item_id: string): Promise< PurchaseResultDTO> {
+
+    }
+
+    async getWallet(user_id: string) : Promise<WalletDTO> {
+
+    }
+
+    async earnCurrency(user_id: string, amount: number): Promise<WallerDTO> {
+
+    }
+
+    async getEquipped(user_id: string): Promise<EquippedItemsDTO> {
+
+    }
+
+    async updateEquipped(user_id: string, updates: UpdatedEquippedDTO): Promise<EquippedItemsDTO> {
+
+    }
+
+    async getUserPowerups(user_id: string): Promise<UserItemDTO[]> {
+
+    }
+
+    async usePowerup(user_id: string, match_id: number, shop_item_id: string, target_user_id?: string): Promise<UsePowerupResultDTO> {
+
+    }
+
     
 }

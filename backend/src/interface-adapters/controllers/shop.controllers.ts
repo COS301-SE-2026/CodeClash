@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { ShopService } from 'src/application/usecases/services/shop.service'; // coming soon :P
+import { UpdatedEquippedDTO } from 'src/entities/dtos/shop/equipped-items.dto';
 
 export const getAllItems = (service: ShopService) => 
     async (req: Request, res: Response): Promise<void> => {
@@ -69,10 +70,10 @@ export const getEquipped = (service: ShopService) =>
 export const updateEquipped = (service: ShopService) => 
     async (req: Request, res: Response): Promise<void> => {
         const user_id = req.user?.id;
-        const { avatar_id, powerup_id, headwear_id, facewear_id, neckwear_id, belt_id, one_piece_id, theme_id } = req.body;
+        const updates: UpdatedEquippedDTO = req.body;
         if (!user_id) { res.status(401).json({ message: 'Unauthorized' }); return; }
         try {
-            const equipped = await service.updateEquipped(user_id, avatar_id, powerup_id, headwear_id, facewear_id, neckwear_id, belt_id, one_piece_id, theme_id);
+            const equipped = await service.updateEquipped(user_id, updates);
             res.status(200).json(equipped);
         } catch (error: any) {
             console.error ('Error updating equipped items:', error);
