@@ -276,6 +276,7 @@
   --match-card: var(--match-card);
   --card-tournament: var(--card-tournaments);
   --gradient-tournaments: var(--gradient-tournament);
+  --match-boxes: var(--match-box);
 
 }
 
@@ -380,6 +381,7 @@
   --match-card: #241822;
   --profile-tournaments: #1D0E20;
   --gradient-tournament: #FE98A8;
+  --match-box: #0D0410;
 }
 
 /*These are copied from :root and adjusted for light mode*/
@@ -462,6 +464,7 @@
   --match-card: #241822;
   --profile-tournaments: #1D0E20;
   --gradient-tournament: #FE98A8;
+  --match-box: #0D0410;
 }
 
 @layer base {

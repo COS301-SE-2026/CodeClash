@@ -12,7 +12,7 @@ import { Spinner } from '@/components/ui/spinner';
 
 const MathsMatch = () => {
     const {
-        playerLife, avatars, usernames,
+        playerLife, avatars, usernames, elos,
         seconds, minutes, questions,
         currentQuestion, opponentCurrent,
         nextQuestion, prevQuestion,
@@ -57,6 +57,7 @@ const MathsMatch = () => {
             minutes={minutes}
             avatars={avatars}
             usernames={usernames}
+            elos={elos}
             current_question={currentQuestion}
             opponent_progress={opponentCurrent}
             question_number={questions.length}
