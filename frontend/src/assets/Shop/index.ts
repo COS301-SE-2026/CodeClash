@@ -45,3 +45,45 @@ import SolarEdge from './Accessories/Capes/SolarEdge.png';
 import Starlance from './Accessories/Capes/Starlance.png';
 import TideRunner from './Accessories/Capes/TideRunner.png';
 import VoidMantle from './Accessories/Capes/VoidMantle.png';
+
+export const shop_map: Record<string, string> = {
+    Atlas, Axiom, Brix, Kairo, Nyx, Riven, Vexa, Xara, Zen,
+
+    'abyssal-crown': AbyssalCrown,
+    'code-cap': CodeCap,
+    'frost-ears': FrostEars,
+    'lumi-ears': LumiEars,
+    'neon-ears': NeonEars,
+    'scholars-cap': ScholarsCap,
+    'signal-hood': SignalHood,
+    'verdant-antannae': VerdantAntannae,
+    'void-caster': VoidCaster,
+    
+    'azure-scard': AzureScarf,
+    'crimson-scarf': CrimsonScarf,
+    'polar-scard': PolarScarf,
+    'signal-scarf': SignalScarf,
+    'starlight-scarf': StarlightScarf,
+    'tide-scarf': TideScarf,
+
+    'blue-visor': BlueVisor,
+    'orbit-shades': OrbitShades,
+    'pink-visor': PinkVisor,
+    'verdant-frames': VerdantFrames,
+    'void-frames': VoidFrames,
+
+    'guardian-belt': GuardianBelt,
+    'runner-belt': RunnerBelt,
+    'shadow-harness': ShadowHarness,
+    'starter-belt': StarterBelt,
+    'tideguard-belt': TideguardBelt,
+
+    'aqua-veil': AquaVeil,
+    'blue-orbit': BlueOrbit,
+    'eclipse-shroud': EclipseShroud,
+    'pink-comet': PinkComet,
+    'solar-edge': SolarEdge,
+    Starlance,
+    'tide-runner': TideRunner,
+    'void-mantle': VoidMantle,
+}
