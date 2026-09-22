@@ -1,14 +1,11 @@
 import { Server, Socket } from "socket.io";
 import { MarkingService } from "src/application/usecases/services/marking/marking.service";
-import { MatchCompletionSystem } from "src/application/usecases/systems/match-completion.system";
-// import { SubmissionSystem } from "src/application/usecases/systems/submission.system";
-
-// import { StartQuestionDTO } from "src/entities/dtos/match/question.dto";
 import { MatchStore } from "src/application/usecases/services/match/match-store.service";
-import { MatchType } from "src/entities/dtos/match/match.dto";
+import {  MatchType } from "src/entities/dtos/match/match.dto";
 import { DeleteGame } from "src/application/usecases/systems/delete-game";
 import { PlayerSubmissionDTO } from "src/entities/dtos/components.dto";
-import { PlayerResultDTO } from 'src/entities/dtos/match/match-result.dto'
+import { PlayerResultDTO } from 'src/entities/dtos/match/match.dto'
+import { MatchCompletionService } from "src/application/usecases/services/match/match-completion.service";
 
 export const submitQuestion = async (socket: Socket, data: PlayerSubmissionDTO, mark: MarkingService) => {
     return mark.execute({ ...data, player_id: socket.data.user_id });
@@ -18,23 +15,22 @@ export const submitQuestion = async (socket: Socket, data: PlayerSubmissionDTO, 
 //     submission_system.saveSubmission(data,data);
 // }
 
-export const gameDone = async (io: Server, socket: Socket, game_id: number, match_type: MatchType, pair_id: string, match_completion_system: MatchCompletionSystem, match_store: MatchStore) => {
+export const matchDone = async (io: Server, socket: Socket, match_id: number, match_type: MatchType, match_completion_service: MatchCompletionService, match_store: MatchStore) => {
     // wait for both players to be done
-    const game = match_store.get(game_id);
+    const match = match_store.get(match_id);
 
-    if (!game) {
-        console.error("No game found");
+    if (!match) {
+        console.error("No match found");
         return;
     }
 
-    match_store.setDone(socket.data.user_id, game_id);
+    match_store.setDone(socket.data.user_id, match_id);
 
-    if (match_store.playersDone(game_id)) {
+    if (match_store.playersDone(match_id)) {
 
-        const ids = game.players.map(player => player.id);
-
-        const game_result = await match_completion_system.execute(game_id, ids, match_type, pair_id);
-        match_store.saveResult(game_id, game_result);
+        const ids = match.players.map(player => player.id);
+        const match_result = await match_completion_service.execute(match_id, match.database_id, ids,match_type);
+        match_store.saveResult(match_id, match_result);
 
         for (const id of ids) {
             io.to(id).emit('both_done');
@@ -42,7 +38,7 @@ export const gameDone = async (io: Server, socket: Socket, game_id: number, matc
     } else {
         socket.emit('waiting_opponent');
 
-        for (const p of game.players) {
+        for (const p of match.players) {
             if (p.id !== socket.data.user_id) {
                 io.to(p.id).emit('opponent_done');
                 return;
@@ -52,12 +48,12 @@ export const gameDone = async (io: Server, socket: Socket, game_id: number, matc
 
 }
 
-export const sendResults = (io: Server, game_id: number, pair_id: string, match_store: MatchStore) => {
+export const sendResults = (io: Server, match_id: number, match_store: MatchStore) => {
 
-    const result = match_store.getResult(game_id);
-    const game = match_store.get(game_id);
-    if (!game) {
-        console.warn(`send_results: game ${game_id} not found`);
+    const result = match_store.getResult(match_id);
+    const match = match_store.get(match_id);
+    if (!match) {
+        console.warn(`send_results: match ${match_id} not found`);
         return;
     }
     if (!result?.result) {
@@ -71,15 +67,15 @@ export const sendResults = (io: Server, game_id: number, pair_id: string, match_
     }
 }
 
-export const cleanUp = (game_id: number, pair_id: string, delete_game: DeleteGame, match_store: MatchStore) => {
+export const cleanUp = (match_id: number, pair_id: string, delete_match: DeleteGame, match_store: MatchStore) => {
 
-    const game = match_store.get(game_id);
+    const match = match_store.get(match_id);
 
-    if (game) {
-        game.ack_count += 1;
+    if (match) {
+        match.ack_count += 1;
 
-        if (game.ack_count >= 4) {
-            delete_game.execute(game_id, pair_id);
+        if (match.ack_count >= 4) {
+            delete_match.execute(match_id, pair_id);
         }
     }
 

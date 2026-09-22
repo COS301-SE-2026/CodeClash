@@ -146,7 +146,7 @@ export class UserRepository implements IUserRepository {
     }
 
 
-    async updateRatingsAfterMatch(
+    async updateEloAfterMatch(
         winner_id: string,
         loser_id: string
     ): Promise<{ winner: EloUpdateResultDTO; loser: EloUpdateResultDTO }> {

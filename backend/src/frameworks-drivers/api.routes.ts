@@ -13,15 +13,15 @@ import { getAllAchievements, getUserAchievements } from 'src/interface-adapters/
 import { AchievementService } from 'src/application/usecases/services/achievement.service';
 import { createInvite, getFriendRequests, getFriends, removeFriend, respondToFriendRequest, sendFriendRequest } from 'src/interface-adapters/controllers/friend.controllers';
 import { FriendService } from 'src/application/usecases/services/friend.service';
-import { getMatchHistory } from 'src/interface-adapters/controllers/match-history.controllers';
-import { IMatchRepository } from 'src/application/interfaces/repositories/IMatchRepository';
+import { getMatchHistory } from 'src/interface-adapters/controllers/match.controllers';
+import { MatchCompletionService } from 'src/application/usecases/services/match/match-completion.service';
 
 export const createAPIRoutes = (
   user_repo: IUserRepository,
   leaderboard_service: LeaderboardService,
   achievement_service: AchievementService,
   friends_service: FriendService,
-  match_repo: IMatchRepository
+  match_completion_service: MatchCompletionService
 ) => {
   const router = Router();
 
@@ -77,7 +77,7 @@ export const createAPIRoutes = (
  *       500:
  *         description: Internal server error
  */
-  router.get('/matches', getMatchHistory(match_repo));
+  router.get('/matches', getMatchHistory(match_completion_service));
  
   /**
    * @swagger

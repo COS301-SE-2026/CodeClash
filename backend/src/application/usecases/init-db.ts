@@ -1,13 +1,11 @@
 import dotenv from 'dotenv';
-
-import { IEloRepository } from '../interfaces/repositories/IEloRepository';
 import { IUserRepository } from '../interfaces/repositories/IUserRepository';
 
 import { fetchAllCognitoUsers } from './services/cognito.service'
 
 dotenv.config();
 
-export async function initDB(user_repo: IUserRepository, elo_repo: IEloRepository) {
+export async function initDB(user_repo: IUserRepository) {
 
   try {
     let avatar_index = 0;

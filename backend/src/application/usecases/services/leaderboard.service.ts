@@ -1,5 +1,6 @@
 import { PaginatedLeaderboardResponse } from "src/entities/dtos/match/leaderboard.dto";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
+import { RankDTO } from "src/entities/dtos/users/rank.dto";
 
 export class LeaderboardService {
     constructor(private user_repo: IUserRepository) {}
@@ -17,6 +18,10 @@ export class LeaderboardService {
         page,
         pageSize: limit,
       };
+    }
+
+    async getUserRank(userId: string): Promise<RankDTO | null>{
+      return this.user_repo.getUserRank(userId);
     }
 
 }

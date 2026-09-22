@@ -2,7 +2,7 @@ import { Server, Socket } from "socket.io";
 import { MatchDeps } from "../dependencies";
 import { registerHandler } from "../dispatch";
 import { PlayerSubmissionDTO } from "src/entities/dtos/components.dto";
-import { cleanUp, gameDone, sendResults, submitQuestion } from "src/interface-adapters/socket-handlers/match-handlers";
+import { cleanUp, matchDone, sendResults, submitQuestion } from "src/interface-adapters/socket-handlers/match-handlers";
 import { StartQuestionDTO } from "src/entities/dtos/match/question.dto";
 import { sendMatchQuestions } from "src/interface-adapters/socket-handlers/matchmaking-handlers";
 import { MatchType } from "src/entities/dtos/match/match.dto";
@@ -37,19 +37,17 @@ export function registerMatchHandlers(io: Server, socket: Socket, deps: MatchDep
         socket,
         'game_done',
         (socket, payload: {
-            match_id: number;
-            match_type:MatchType;
-            pair_id: string;
-        }) => gameDone(io, socket, payload.match_id, payload.match_type, payload.pair_id, deps.match_completion_system, deps.match_store)
+            match_id: number,
+            match_type:MatchType
+        }) => matchDone(io, socket, payload.match_id, payload.match_type,deps.match_completion_service, deps.match_store)
     );
 
     registerHandler(
         socket,
         'send_results',
         async (socket, payload: {
-            match_id: number,
-            pair_id: string
-        }) => sendResults(io, payload.match_id, payload.pair_id, deps.match_store)
+            match_id: number
+        }) => sendResults(io, payload.match_id, deps.match_store)
     );
 
     registerHandler(

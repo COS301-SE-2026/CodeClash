@@ -9,10 +9,10 @@ export class QuestionRepository implements IQuestionRepository {
         private readonly questionRepository: Repository<Questions>
     ) { }
 
-    async getRandQuestions(count: number, difficulty: number, game_mode: MatchMode): Promise<QuestionDTO[]> {
+    async getRandQuestions(count: number, difficulty: number, match_mode: MatchMode): Promise<QuestionDTO[]> {
         const questions = await this.questionRepository.createQueryBuilder('q')
             .where("q.difficulty = :difficulty", { difficulty: difficulty })
-            .andWhere('q.game_mode = :game_mode', { game_mode: game_mode })
+            .andWhere('q.match_mode = :match_mode', { match_mode: match_mode })
             .take(count)
             .orderBy('Random()')
             .getMany()
@@ -23,7 +23,7 @@ export class QuestionRepository implements IQuestionRepository {
         for (const question of questions) {
             const d: QuestionDTO = {
                 id: question.question_id,
-                category: question.game_mode,
+                category: question.match_mode,
                 difficulty: question.difficulty,
                 description: question.description,
                 time_limit: question.time_limit,

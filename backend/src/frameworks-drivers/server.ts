@@ -54,6 +54,7 @@ import { FriendInvite, Friendship } from 'src/entities/database/friendship.entit
 import { IAchievementRepository } from 'src/application/interfaces/repositories/IAchievementRepository';
 import { attachSocketModules } from './socket';
 import { MatchStart } from 'src/application/usecases/services/match/match-start.service';
+import { MatchCompletionService } from 'src/application/usecases/services/match/match-completion.service';
 
 dotnev.config()
 
@@ -98,18 +99,21 @@ AppDataSource.initialize()
         const match_store = new MatchStore(user_repo);
         const leaderboard_service = new LeaderboardService(user_repo);
         const friends_service = new FriendService(friend_repo);
-        const achievement_service = new AchievementService(achievementRepo);
+        const achievement_service = new AchievementService(achievementRepo, user_repo);
         const match_start = new MatchStart(match_service,match_store);
+        
 
         // initialise systems 
         const submission_system = new SubmissionSystem(world);
         const life_system = new LifeSystem(world);
         const match_deletion_system = new DeleteGame(world, match_store, matched_users_service);
-        const match_completion_system = new MatchCompletionSystem(world,  match_store,  achievement_service, user_repo);
+        const match_completion_system = new MatchCompletionSystem(world,  match_store);
+
+        const match_completion_service = new MatchCompletionService(match_repo, match_completion_system, user_repo, achievement_service);
 
 
 
-        const app = createApp(elo_repo, user_repo, match_history_repo, leaderboard_service, achievement_service, friends_service);
+        const app = createApp( user_repo, leaderboard_service, achievement_service, friends_service, match_completion_service);
         const httpServer = createServer(app)     // can update to https
         const io = new Server(httpServer, {
             cors: {
@@ -160,11 +164,11 @@ AppDataSource.initialize()
         })
 
         // initialise database with users and elos
-        await initDB(user_repo, elo_repo);
+        await initDB(user_repo);
 
         // attach socket handlers
         attachSocketModules(io, {
-            match: { math_marking_service, prog_marking_service, submission_system, match_completion_system, match_deletion_system, match_store },
+            match: { math_marking_service, prog_marking_service, submission_system, match_completion_service, match_deletion_system, match_store },
             matchmaking: { matchmaking_service, matched_users_service, match_service, match_store, user_repo, match_start },
             friends: {}
         })

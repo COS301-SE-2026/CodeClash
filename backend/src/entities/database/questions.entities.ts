@@ -12,7 +12,7 @@ export class Questions {
         nullable: false,
         type: "enum",
       enum: MatchMode,
-        enumName: "match_modes"
+        enumName: "MATCH_MODES"
     })
     match_mode!: MatchMode
 

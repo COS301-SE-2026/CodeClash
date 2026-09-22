@@ -15,10 +15,10 @@ export class Matches {
     @Column({ type: "jsonb", nullable: true })
     power_ups!: MatchPowerUps[];
 
-    @Column({ type: 'varchar', length: 10 })
+    @Column({ type: 'enum', enumName: 'MATCH_TYPES', enum: MatchType})
     match_type!: MatchType;
 
-    @Column({ type: 'varchar', length: 15 })
+    @Column({ type: 'enum', enumName: 'MATCH_MODES', enum: MatchMode })
     match_mode!: MatchMode;
 
     @Column({ type: 'timestamp', nullable: true })
@@ -27,6 +27,6 @@ export class Matches {
     @Column({ type: "timestamp", nullable: true })
     match_end!: Date | null;
 
-    @Column({ default: 'waiting' })
+    @Column({  type: 'enum', enumName: 'MATCH_STATUS', enum: MatchStatus, default: 'waiting' })
     status!: MatchStatus;
 }

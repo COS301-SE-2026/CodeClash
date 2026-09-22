@@ -1,4 +1,4 @@
--- TYPES -------------------------------------------------------------------------
+-- -- TYPES -------------------------------------------------------------------------
 CREATE TYPE MATCH_MODES AS ENUM ('math', 'programming');
 
 CREATE TYPE MATCH_TYPES AS ENUM ('ranked', 'casual', 'tournament');
@@ -27,7 +27,8 @@ CREATE TYPE MatchPlayer AS (
   position INTEGER,
   elo_change INTEGER,
   num_correct INTEGER,
-  total_time INTEGER --milliseconds
+  total_time INTEGER, --milliseconds
+  elimination_round INTEGER
 );
 
 CREATE TYPE MatchQuestion AS (
@@ -86,9 +87,9 @@ CREATE TABLE IF NOT EXISTS answers (
 
 CREATE TABLE IF NOT EXISTS matches(
   match_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  players MatchPlayer [] NOT NULL DEFAULT '{}',
-  questions MatchQuestion [] NOT NULL DEFAULT '{}',
-  power_ups MatchPowerUps [] NOT NULL DEFAULT '{}',
+  players JSONB NOT NULL DEFAULT '[]',
+  questions JSONB NOT NULL DEFAULT '[]',
+  power_ups JSONB NOT NULL DEFAULT '[]',
   match_type MATCH_TYPES NOT NULL,
   match_mode MATCH_MODES NOT NULL,
   match_start TIMESTAMP,
@@ -153,135 +154,137 @@ CREATE TABLE IF NOT EXISTS powerups (
   description VARCHAR(100) NOT NULL
 );
 
--- TRIGGERS
-CREATE OR REPLACE FUNCTION validate_match_players() RETURNS TRIGGER 
-LANGUAGE plpgsql 
-AS $$ DECLARE player MatchPlayer;
-BEGIN 
-  FOREACH player IN ARRAY NEW.players LOOP 
-    IF NOT EXISTS(
-      SELECT
-        1
-      FROM
-        users
-      WHERE
-        user_id = player.id
-    ) 
-    THEN RAISE EXCEPTION 'Player does not exist';
-     END IF;
-  END LOOP;
-  RETURN NEW;
-END;
-$$;
-
-CREATE TRIGGER trigger_validate_match_players
-BEFORE INSERT OR UPDATE OF players
-ON matches
-FOR EACH ROW 
-EXECUTE FUNCTION validate_match_players();
+-- TRIGGERS -------------------------------------------------------------------------
 
 
-CREATE OR REPLACE FUNCTION validate_match_questions() RETURNS TRIGGER 
-LANGUAGE plpgsql
-AS $$
-DECLARE question MatchQuestion;
-BEGIN 
-  FOREACH question IN ARRAY NEW.questions LOOP
-    IF NOT EXISTS(
-      SELECT 1
-      FROM questions
-      WHERE question_id = question.id
-    )
-    THEN RAISE EXCEPTION 'Question does not exist';
-    END IF;
-  END LOOP;
-  RETURN NEW;
-END;
-$$;
+-- CREATE OR REPLACE FUNCTION validate_match_players() RETURNS TRIGGER 
+-- LANGUAGE plpgsql 
+-- AS $$ DECLARE player MatchPlayer;
+-- BEGIN 
+--   FOREACH player IN ARRAY NEW.players LOOP 
+--     IF NOT EXISTS(
+--       SELECT
+--         1
+--       FROM
+--         users
+--       WHERE
+--         user_id = player.id
+--     ) 
+--     THEN RAISE EXCEPTION 'Player does not exist';
+--      END IF;
+--   END LOOP;
+--   RETURN NEW;
+-- END;
+-- $$;
 
-CREATE TRIGGER trigger_validate_match_questions
-BEFORE INSERT OR UPDATE OF questions
-ON matches
-FOR EACH ROW 
-EXECUTE FUNCTION validate_match_questions();
+-- CREATE TRIGGER trigger_validate_match_players
+-- BEFORE INSERT OR UPDATE OF players
+-- ON matches
+-- FOR EACH ROW 
+-- EXECUTE FUNCTION validate_match_players();
 
 
-CREATE OR REPLACE FUNCTION record_elo_history() RETURNS TRIGGER 
-LANGUAGE plpgsql
-AS $$
-DECLARE player MatchPlayer;
-BEGIN 
-  IF NEW.status = 'completed'
-    AND (
-      TG_OP = 'INSERT'
-      OR OLD.status IS DISTINCT FROM 'completed'
-    )
-  THEN 
-    FOREACH player IN ARRAY NEW.players
-    LOOP 
-      INSERT INTO elo_history (
-        user_id,
-        match_id,
-        new_rating,
-        changed_at
-      )
-      SELECT 
-        player.id,
-        NEW.mach_id,
-        u.elo,
-        NOW()
-      FROM users u 
-      WHERE u.user_id = player.id;
-    END LOOP;
-  END IF;
+-- CREATE OR REPLACE FUNCTION validate_match_questions() RETURNS TRIGGER 
+-- LANGUAGE plpgsql
+-- AS $$
+-- DECLARE question MatchQuestion;
+-- BEGIN 
+--   FOREACH question IN ARRAY NEW.questions LOOP
+--     IF NOT EXISTS(
+--       SELECT 1
+--       FROM questions
+--       WHERE question_id = question.id
+--     )
+--     THEN RAISE EXCEPTION 'Question does not exist';
+--     END IF;
+--   END LOOP;
+--   RETURN NEW;
+-- END;
+-- $$;
 
-  RETURN NEW;
-END;
-$$;
+-- CREATE TRIGGER trigger_validate_match_questions
+-- BEFORE INSERT OR UPDATE OF questions
+-- ON matches
+-- FOR EACH ROW 
+-- EXECUTE FUNCTION validate_match_questions();
 
-CREATE TRIGGER trigger_save_elo
-AFTER INSERT OR UPDATE OF status
-ON matches
-FOR EACH ROW
-EXECUTE FUNCTION record_elo_history();
 
-CREATE OR REPLACE FUNCTION validate_match_powerups() RETURNS TRIGGER
-LANGUAGE plpgsql
-AS $$
-DECLARE powerup MatchPowerUps;
-BEGIN
-  FOREACH powerup IN ARRAY NEW.power_ups
-  LOOP
-    IF NOT EXISTS (
-      SELECT 1
-      FROM  powerups
-      WHERE powerup_id = powerup.powerup_id
-    )
-    THEN RAISE EXCEPTION 'Power up does not exist';
-    END IF;
+-- CREATE OR REPLACE FUNCTION record_elo_history() RETURNS TRIGGER 
+-- LANGUAGE plpgsql
+-- AS $$
+-- DECLARE player MatchPlayer;
+-- BEGIN 
+--   IF NEW.status = 'completed'
+--     AND (
+--       TG_OP = 'INSERT'
+--       OR OLD.status IS DISTINCT FROM 'completed'
+--     )
+--   THEN 
+--     FOREACH player IN ARRAY NEW.players
+--     LOOP 
+--       INSERT INTO elo_history (
+--         user_id,
+--         match_id,
+--         new_rating,
+--         changed_at
+--       )
+--       SELECT 
+--         player.id,
+--         NEW.match_id,
+--         u.elo,
+--         NOW()
+--       FROM users u 
+--       WHERE u.user_id = player.id;
+--     END LOOP;
+--   END IF;
 
-    IF NOT EXISTS (
-      SELECT 1
-      FROM users
-      WHERE user_id = powerup.user_id
-    )
-    THEN RAISE EXCEPTION 'User does not exist';
-    END IF;
+--   RETURN NEW;
+-- END;
+-- $$;
 
-    IF NOT EXISTS (
-      SELECT 1
-      FROM unnest(NEW.players) AS p
-      WHERE p.id = powerup.user_id
-    )
-    THEN RAISE EXCEPTION 'User is not a player in the match';
-    END IF;
-  END LOOP;
-  RETURN NEW;
-END;
-$$;
+-- CREATE TRIGGER trigger_save_elo
+-- AFTER INSERT OR UPDATE OF status
+-- ON matches
+-- FOR EACH ROW
+-- EXECUTE FUNCTION record_elo_history();
 
-CREATE TRIGGER trigger_validate_match_powerups
-BEFORE INSERT OR UPDATE OF power_ups
-ON matches
-FOR EACH ROW
-EXECUTE FUNCTION validate_match_powerups();
+-- CREATE OR REPLACE FUNCTION validate_match_powerups() RETURNS TRIGGER
+-- LANGUAGE plpgsql
+-- AS $$
+-- DECLARE powerup MatchPowerUps;
+-- BEGIN
+--   FOREACH powerup IN ARRAY NEW.power_ups
+--   LOOP
+--     IF NOT EXISTS (
+--       SELECT 1
+--       FROM  powerups
+--       WHERE powerup_id = powerup.powerup_id
+--     )
+--     THEN RAISE EXCEPTION 'Power up does not exist';
+--     END IF;
+
+--     IF NOT EXISTS (
+--       SELECT 1
+--       FROM users
+--       WHERE user_id = powerup.user_id
+--     )
+--     THEN RAISE EXCEPTION 'User does not exist';
+--     END IF;
+
+--     IF NOT EXISTS (
+--       SELECT 1
+--       FROM unnest(NEW.players) AS p
+--       WHERE p.id = powerup.user_id
+--     )
+--     THEN RAISE EXCEPTION 'User is not a player in the match';
+--     END IF;
+--   END LOOP;
+--   RETURN NEW;
+-- END;
+-- $$;
+
+-- CREATE TRIGGER trigger_validate_match_powerups
+-- BEFORE INSERT OR UPDATE OF power_ups
+-- ON matches
+-- FOR EACH ROW
+-- EXECUTE FUNCTION validate_match_powerups();

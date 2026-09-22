@@ -1,6 +1,6 @@
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 import { PlayerDTO, RoundDTO } from "src/entities/dtos/components.dto";
-import { MatchResultDTO } from "src/entities/dtos/match/match-result.dto";
+import { MatchResultDTO } from "src/entities/dtos/match/match.dto";
 
 
 export class MatchStore {
@@ -11,6 +11,8 @@ export class MatchStore {
         result: MatchResultDTO | null,
         ack_count: number
     }>();
+
+    private readonly DB_ECS = new Map<string, number>();    // maps the matches db id to its ecs id
 
     constructor(
         private readonly user_repo: IUserRepository
@@ -33,53 +35,68 @@ export class MatchStore {
             })
         )
 
-        this.MATCH.set(match_id, { database_id: db_id, players: populatePlayerData, rounds: rounds, result: null, ack_count: 0 });
+        this.MATCH.set(match_id, {
+            database_id: db_id,
+            players: populatePlayerData,
+            rounds: rounds,
+            result: null,
+            ack_count: 0
+        });
+
+        this.DB_ECS.set(db_id, match_id);
+
     }
 
-    get(game_id: number) {
-        return this.MATCH.get(game_id)
+    get(match_id: number) {
+        return this.MATCH.get(match_id)
     }
 
-    setDone(player_id: string, game_id: number) {
-        const game = this.MATCH.get(game_id);
+    getEcsId(db_id: string) {
+        return this.DB_ECS.get(db_id);
+    }
 
-        if (!game) throw new Error("Invalid game id")
+    setDone(player_id: string, match_id: number) {
+        const match = this.MATCH.get(match_id);
 
-        game.players.forEach((player) => {
+        if (!match) throw new Error("Invalid match id")
+
+        match.players.forEach((player) => {
             if (player.id === player_id) {
                 player.done = true;
             }
         })
     }
 
-    playersDone(game_id: number) {
-        const game = this.MATCH.get(game_id);
+    playersDone(match_id: number) {
+        const match = this.MATCH.get(match_id);
 
-        if (!game) throw new Error("Invalid game id")
+        if (!match) throw new Error("Invalid match id")
 
-        return game.players.every(player => player.done)
+        return match.players.every(player => player.done)
     }
 
-    saveResult(game_id: number, result: MatchResultDTO) {
-        const game = this.MATCH.get(game_id);
+    saveResult(match_id: number, result: MatchResultDTO) {
+        const match = this.MATCH.get(match_id);
 
-        if (!game) throw new Error("Invalid game id")
+        if (!match) throw new Error("Invalid match id")
 
-        game.result = result;
+        match.result = result;
 
     }
 
-    getResult(game_id: number) {
-        const game = this.MATCH.get(game_id);
+    getResult(match_id: number) {
+        const match = this.MATCH.get(match_id);
 
-        if (!game) return null;
+        if (!match) return null;
 
-        return { match_id: game_id, result: game.result }
+        return { match_id: match_id, result: match.result }
     }
 
-    deleteMatch(game_id: number) {
+    deleteMatch(match_id: number) {
+        const match = this.MATCH.get(match_id);
+        if (match) this.DB_ECS.delete(match.database_id);
 
-        this.MATCH.delete(game_id);
+        this.MATCH.delete(match_id);
 
     }
 }

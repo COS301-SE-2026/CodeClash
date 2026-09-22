@@ -7,7 +7,7 @@ import { createAPIRoutes } from './api.routes';
 import { LeaderboardService } from 'src/application/usecases/services/leaderboard.service';
 import { AchievementService } from 'src/application/usecases/services/achievement.service';
 import { FriendService } from 'src/application/usecases/services/friend.service';
-import { IMatchRepository } from 'src/application/interfaces/repositories/IMatchRepository';
+import { MatchCompletionService } from 'src/application/usecases/services/match/match-completion.service';
 
 
 export const createApp = (
@@ -15,7 +15,7 @@ export const createApp = (
   leaderboard_service: LeaderboardService,
   achievement_service: AchievementService,
   friends_service: FriendService,
-  match_repo:IMatchRepository
+  match_completion_service: MatchCompletionService
 ) => {
   const app = express();
   app.disable('x-powered-by');
@@ -30,7 +30,7 @@ export const createApp = (
   app.use((req, res, next) =>
     req.path === '/api/create-user' ? next() : requireAuth(user_repo)(req, res, next)
   );
-  app.use('/api', createAPIRoutes(user_repo,leaderboard_service,achievement_service,friends_service, match_repo));
+  app.use('/api', createAPIRoutes(user_repo,leaderboard_service,achievement_service,friends_service, match_completion_service));
 
   return app;
 }

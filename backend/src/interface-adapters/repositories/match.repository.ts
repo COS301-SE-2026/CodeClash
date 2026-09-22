@@ -1,7 +1,7 @@
 import { Repository } from 'typeorm';
 import { Matches } from 'src/entities/database/match.entities';
 import { IMatchRepository } from 'src/application/interfaces/repositories/IMatchRepository';
-import { MatchMode, MatchStatus, MatchType } from 'src/entities/dtos/match/match.dto';
+import { MatchMode, MatchStatus, MatchType, MatchPlayer } from 'src/entities/dtos/match/match.dto';
 import { MatchHistoryRow } from 'src/entities/dtos/match/match.dto';
 import { MatchResultDTO } from 'src/entities/dtos/match/match.dto';
 import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
@@ -40,6 +40,10 @@ export class MatchRepository implements IMatchRepository {
 
     async completeMatch(match_id: string, status: MatchStatus.Abandoned | MatchStatus.Completed): Promise<void> {
         await this.match_repo.update(match_id, { status, match_end: new Date() });
+    }
+
+    async updatePlayers(match_id: string, players: MatchPlayer[]): Promise<void> {
+        await this.match_repo.update(match_id, { players });
     }
 
     async getMatchHistory(user_id: string): Promise<MatchHistoryRow[]> {

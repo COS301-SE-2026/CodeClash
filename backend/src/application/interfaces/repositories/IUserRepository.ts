@@ -13,7 +13,7 @@ export interface IUserRepository {
     searchByUsername(query: string): Promise<UserDTO[]>,
     updateStreaks(user_id: string, won: boolean): Promise<void>,
     getTotalStats(user_id: string): Promise<{ total_wins: number; total_matches: number; winning_streak: number; league: string }>,
-    updateRatingsAfterMatch(winner_id: string, loser_id: string): Promise<{ winner: EloUpdateResultDTO, loser: EloUpdateResultDTO }>,
+    updateEloAfterMatch(winner_id: string, loser_id: string): Promise<{ winner: EloUpdateResultDTO, loser: EloUpdateResultDTO }>,
     updateEloAfterTournament(results: { user_id: string, placement: number }[]): Promise<EloUpdateResultDTO[]>,
     getLeaderboard(limit: number, offset: number): Promise<{ data: LeaderboardEntryDTO[]; total: number }>
      getUserRank(userId: string): Promise<RankDTO | null>

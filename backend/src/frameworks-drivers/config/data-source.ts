@@ -20,7 +20,7 @@ export const AppDataSource = new DataSource({
     username: env.DB_USER!,
     password: env.DB_PASSWORD!,
     database: env.DB_NAME!,
-    synchronize: true,
+    synchronize: false,
     logging: ["warn", "error"],
     entities: [
         Matches,

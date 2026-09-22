@@ -32,13 +32,7 @@ export interface SubmissionRegistryComponent {
 
 // Result component 
 export interface ResultComponent {
-    players: {
-        id: string,
-        position: number,
-        elo: number,
-        num_correct: number,
-        total_time: number
-    }[];
+    players: MatchPlayer[];
     stats: Record<string, { num_correct: number, total_time: number }>
 }
 

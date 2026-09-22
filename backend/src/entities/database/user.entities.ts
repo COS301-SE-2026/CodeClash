@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Achievement } from "./achievement.entities";
 
 @Entity()
@@ -37,6 +37,11 @@ export class Users {
     winning_streak!: number
 
     @ManyToMany(() => Achievement, achievement => achievement.users)
+    @JoinTable({
+        name: 'player_achievements',
+        joinColumn: {name: 'user_id', referencedColumnName: 'user_id'},
+        inverseJoinColumn: {name: 'achievement_id', referencedColumnName: 'achievement_id'}
+    })
     achievements!: Achievement[];
 
     @Column({ nullable: true, type: 'timestamp' })
