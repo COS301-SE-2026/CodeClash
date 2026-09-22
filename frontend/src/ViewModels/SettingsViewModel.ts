@@ -33,6 +33,11 @@ const Themes: ThemesContent[] = [
         label: 'Nebula',
         swatch: '#8b3fd6'
     },
+    {
+        id: 'verdant',
+        label: 'Verdant',
+        swatch: '#9ccc3c'
+    },
 ]
 
 

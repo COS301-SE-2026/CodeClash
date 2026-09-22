@@ -660,6 +660,77 @@
     --life-primary: #8b3fd6;
 }
 
+/*These are copied from :root.light and adjusted for more themes*/
+/*A green verdant theme - like an alien dominant space */
+:root.verdant, [data-theme = 'verdant'] {
+
+    /*Backgrounds*/
+    --background: #06140a;
+    --background-elevated: rgba(232, 247, 217, 0.03);
+    --background-card: rgba(232, 247, 217, 0.05);
+
+    --primary: #9ccc3c;
+    --primary-dark: #4d661d;
+    --secondary: #f1f9e0;
+
+    /*Text*/
+    --text: #e8f7d9;
+    --primary-text: #e8f7d9;
+    --secondary-text: #3c5015;
+    --muted:rgba(232, 247, 217, 0.65);
+    --muted-text: rgba(232, 247, 217, 0.50);
+
+    /*Borders*/
+    --border: rgba(232, 247, 217, 0.08);
+    --border-hover: rgba(232, 247, 217, 0.18);
+
+    /*Cards*/
+    --card: var(--background-card);
+    --card-text: var(--primary-text);
+
+    /*Sidebar*/
+    --sidebar: #06140a;
+    --sidebar-text: var(--primary-text);
+    --sidebar-primary: #9ccc3c;
+    --sidebar-primary-text: #ffffff;
+    --sidebar-accent: rgba(232, 247, 217, 0.05);
+    --sidebar-accent-text: var(--primary-text);
+    --sidebar-border: rgba(232, 247, 217, 0.08);
+    --sidebar-ring: #9ccc3c;
+
+    /* Buttons */
+    --button-primary: #9ccc3c;
+    --button-secondary: transparent;
+    --button-text-primary: #FFFFFF;
+    --button-text-secondary: #e8f7d9;
+
+    /*Inputs*/
+    --input: rgba(232, 247, 217, 0.05);
+    --ring: #9ccc3c;
+    --accent: #b6e34f;
+    --accent-text: #ffffff;
+    --destructive: #e53935;
+
+    /*Status*/
+    --success: #2e7d32;
+    --danger: #c62828;
+    --warning: #b76e00;
+    --info: #1565c0;
+    --secondary-muted: rgba(232, 247, 217, 0.4);
+
+    /*Difficulty for questions*/
+    --difficulty-easy: #2e7d32;
+    --difficulty-medium: #b76e00;
+    --difficulty-hard: #c62828;
+
+     /*Shadows*/
+    --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --card-shadow: 0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25);
+    --glow-shadow: 0 0 24px rgba(156, 204, 60, 0.45);
+
+    --life-primary: #9ccc3c;
+}
+
 @layer base {
 
   .badge {
