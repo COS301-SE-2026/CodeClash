@@ -1,4 +1,4 @@
-import { MatchedPlayersDTO } from "src/entities/dtos/match-data.dto";
+import { MatchedPlayersDTO } from "src/entities/dtos/matches/match-data.dto";
 
 export class MatchedUsersService {
 
