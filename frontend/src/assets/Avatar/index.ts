@@ -23,4 +23,10 @@ import CrimsonScarf from './Accessories/Neckwear/CrimsonScarf.png';
 import PolarScarf from './Accessories/Neckwear/PolarScarf.png';
 import SignalScarf from './Accessories/Neckwear/SignalScarf.png';
 import StarlightScarf from './Accessories/Neckwear/StarlightScarf.png';
-import TideScarf from './Accessories/Neckwear/TideScarf.png'
+import TideScarf from './Accessories/Neckwear/TideScarf.png';
+
+import BlueVisor from './Accessories/Facewear/BlueVisor.png';
+import OrbitShades from './Accessories/Facewear/OrbitShades.png';
+import PinkVisor from './Accessories/Facewear/PinkVisor.png';
+import VerdantFrames from './Accessories/Facewear/VerdantFrames.png';
+import VoidFrames from './Accessories/Facewear/VoidFrames.png';
