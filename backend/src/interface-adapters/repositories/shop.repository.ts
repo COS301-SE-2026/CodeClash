@@ -106,7 +106,7 @@ export class ShopRepository implements IShopRepository {
         return wallet ? this.toWalletDTO(wallet) : null;
     }
 
-    async createWallet(user_id: string): Promise<WalletDTO | null> {
+    async createWallet(user_id: string): Promise<WalletDTO> {
         const saved = await this.walletRepo.save(this.walletRepo.create({
             user: { user_id } as any,
             balance: 0

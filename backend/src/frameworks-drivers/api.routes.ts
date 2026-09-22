@@ -16,6 +16,8 @@ import { createInvite, getFriendRequests, getFriends, removeFriend, respondToFri
 import { FriendService } from 'src/application/usecases/services/friend.service';
 import { getMatchDetails, getMatchHistory } from 'src/interface-adapters/controllers/match-history.controllers';
 import { MatchHistoryRepository } from 'src/interface-adapters/repositories/match-history.repository';
+import { ShopService } from 'src/application/usecases/services/shop.service';
+import { getAllItems, getEquipped, getUserItems, getUserPowerups, getWallet, purchaseItem, updateEquipped, usePowerup } from 'src/interface-adapters/controllers/shop.controllers';
 
 export const createAPIRoutes = (
   elo_repo: IEloRepository,
@@ -23,7 +25,8 @@ export const createAPIRoutes = (
   match_history_repo: MatchHistoryRepository,
   leaderboard_service: LeaderboardService,
   achievement_service: AchievementService,
-  friends_service: FriendService
+  friends_service: FriendService,
+  shop_service: ShopService
 
 ) => {
   const router = Router();
@@ -300,7 +303,18 @@ export const createAPIRoutes = (
    */
   router.get('/achievements', getAllAchievements(achievement_service));
 
-  // user routes
+  // ----------------------- Shop Routes -------------------
+  
+router.get('/shop/items', getAllItems(shop_service));
+router.get('/shop/items/me', getUserItems(shop_service));
+router.post('/shop/purchase', purchaseItem(shop_service));
+router.get('/shop/wallet', getWallet(shop_service));
+router.get('/shop/equipped', getEquipped(shop_service));
+router.patch('/shop/equipped', updateEquipped(shop_service));
+router.get('shop/powerups/me', getUserPowerups(shop_service));
+router.post('/shop/powerups/use', usePowerup(shop_service));
+
+  // --------------------- user routes
   router.get('/user/rank', getUserRank(leaderboard_service));
   /**
    * @swagger
