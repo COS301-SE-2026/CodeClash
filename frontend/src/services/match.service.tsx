@@ -92,7 +92,7 @@ export const useMatchProgress = (
     num_questions: number,
     players: Player[]
 ) => {
-    const [playerLife, setPlayerLife] = useState<number[]>([]);
+    const [playerLife, setPlayerLife] = useState<number[]>(() => players.map(p => p.life));
     const [opponentCurrent, setOpponentCurrent] = useState(0);
     const [opponentDone, setOpponentDone] = useState(false);
 
