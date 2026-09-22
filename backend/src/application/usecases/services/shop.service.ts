@@ -57,10 +57,27 @@ export class ShopService {
     }
 
     async getUserPowerups(user_id: string): Promise<UserItemDTO[]> {
-
+        return this.shop_repo.getUserPowerups(user_id);
     }
 
-    async usePowerup(user_id: string, match_id: number, shop_item_id: string, target_user_id?: string): Promise<UsePowerupResultDTO> {
+    async usePowerup(user_id: string, match_id: string, shop_item_id: string, target_user_id?: string): Promise<UsePowerupResultDTO> {
+        const owned = await this.shop_repo.hasItem(user_id,shop_item_id);
+        if (!owned) throw new Error('Powerup not owned');
+
+        const item = await this.shop_repo.getItemById(shop_item_id);
+        if (!item || item.category !== 'powerup') throw new Error('Item not found');
+
+        const effect = (item.metadata as { effect: string }).effect;
+
+        // hook point to apply effect to ECS via powerup system
+
+        return {
+            applied: true,
+            effect,
+            match_id,
+            user_id,
+            ...(target_user_id !== undefined && { target_user_id })
+        };
 
     }
 
