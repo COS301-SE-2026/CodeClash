@@ -27,7 +27,8 @@ export class QuestionRepository implements IQuestionRepository {
                 difficulty: question.difficulty,
                 description: question.description,
                 time_limit: question.time_limit,
-                title: question.title
+                title: question.title,
+                input_type: question.input_type
             }
 
             data.push(d)

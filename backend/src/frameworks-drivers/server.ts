@@ -9,7 +9,7 @@ import { IAnswerRepository } from 'src/application/interfaces/repositories/IAnsw
 import { AnswerRepository } from 'src/interface-adapters/repositories/answer.repository';
 import { Answers } from 'src/entities/database/answers.entities';
 import { MatchCreationService } from 'src/application/usecases/services/match/match-creation.service';
-import { MatchCreationSystem, CreateMatchEntity, CreatePlayerEntity, CreateRound} from 'src/application/usecases/systems/match-creation.system';
+import { MatchCreationSystem, CreateMatchEntity, CreatePlayerEntity, CreateRound } from 'src/application/usecases/systems/match-creation.system';
 import { GetQuestions, GetTotalTime } from 'src/application/usecases/services/questions.service';
 import { GetAnswers } from 'src/application/usecases/services/answers.service';
 import { MatchCache } from 'src/interface-adapters/cache/match-cache';
@@ -35,13 +35,13 @@ import { AppDataSource } from "./config/data-source"
 import { OpponentProgress } from 'src/application/usecases/systems/opponent-progress';
 import { IMatchRepository } from 'src/application/interfaces/repositories/IMatchRepository';
 import { MatchRepository } from 'src/interface-adapters/repositories/match.repository';
-import { Matches} from 'src/entities/database/match.entities';
+import { Matches } from 'src/entities/database/match.entities';
 import { MatchConfirmationService } from 'src/application/usecases/services/match/match-confirmation.service';
 import { MatchStore } from 'src/application/usecases/services/match/match-store.service';
 import { DeleteGame } from 'src/application/usecases/systems/delete-game';
 import { LeaderboardService } from 'src/application/usecases/services/leaderboard.service';
 import { NotificationService } from 'src/application/usecases/services/notification.service';
-import { MarkingStrategy } from 'src/application/interfaces/marking/IMarkingStategy';
+import { IMarkingStrategy } from 'src/application/interfaces/marking/IMarkingStategy';
 import { MarkMaths } from 'src/application/usecases/services/marking/mark-maths';
 import { MarkProg } from 'src/application/usecases/services/marking/mark-prog';
 import { CodeExecutor } from 'src/interface-adapters/CodeExecutor';
@@ -100,20 +100,20 @@ AppDataSource.initialize()
         const leaderboard_service = new LeaderboardService(user_repo);
         const friends_service = new FriendService(friend_repo);
         const achievement_service = new AchievementService(achievementRepo, user_repo);
-        const match_start = new MatchStart(match_service,match_store);
-        
+        const match_start = new MatchStart(match_service, match_store);
+
 
         // initialise systems 
         const submission_system = new SubmissionSystem(world);
         const life_system = new LifeSystem(world);
         const match_deletion_system = new DeleteGame(world, match_store, matched_users_service);
-        const match_completion_system = new MatchCompletionSystem(world,  match_store);
+        const match_completion_system = new MatchCompletionSystem(world, match_store);
 
         const match_completion_service = new MatchCompletionService(match_repo, match_completion_system, user_repo, achievement_service);
 
 
 
-        const app = createApp( user_repo, leaderboard_service, achievement_service, friends_service, match_completion_service);
+        const app = createApp(user_repo, leaderboard_service, achievement_service, friends_service, match_completion_service);
         const httpServer = createServer(app)     // can update to https
         const io = new Server(httpServer, {
             cors: {
@@ -124,15 +124,14 @@ AppDataSource.initialize()
         );
 
 
-        const maths_marker: MarkingStrategy = new MarkMaths();
+        const maths_marker: IMarkingStrategy = new MarkMaths();
 
         const code_executor = new CodeExecutor();
-        const prog_marker: MarkingStrategy = new MarkProg(code_executor);
+        const prog_marker: IMarkingStrategy = new MarkProg(code_executor);
 
         const notification = new NotificationService(io);
         const opponent_progress = new OpponentProgress(world);
-        const math_marking_service = new MarkingService(match_cache, submission_system, life_system, notification, maths_marker, opponent_progress);
-        const prog_marking_service = new MarkingService(match_cache, submission_system, life_system, notification, prog_marker, opponent_progress);
+        const marking_service = new MarkingService(match_cache, submission_system, life_system, notification, maths_marker, prog_marker, opponent_progress);
 
         // auth middleware 
         io.use(async (socket, next) => {
@@ -168,7 +167,7 @@ AppDataSource.initialize()
 
         // attach socket handlers
         attachSocketModules(io, {
-            match: { math_marking_service, prog_marking_service, submission_system, match_completion_service, match_deletion_system, match_store },
+            match: { marking_service, submission_system, match_completion_service, match_deletion_system, match_store },
             matchmaking: { matchmaking_service, matched_users_service, match_service, match_store, user_repo, match_start },
             friends: {}
         })

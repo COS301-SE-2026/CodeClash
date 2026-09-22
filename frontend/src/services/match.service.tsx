@@ -1,8 +1,8 @@
 import { useMemo, useRef, useState, useEffect } from "react";
 import { useTimer } from "react-timer-hook";
 import type { Player } from "src/Models/MatchModel";
-import type { QuestionDTO } from "src/dtos/match/match-questionDTO";
-import type { RoundDTO } from "src/dtos/match/match-questionDTO";
+import type { QuestionDTO } from "src/dtos/match/match-question.dto";
+import type { RoundDTO } from "src/dtos/match/match-question.dto";
 import type { OpponentDTO } from "src/dtos/match/opponent.dto";
 import type { MathsSubmissionDTO, ProgSubmissionDTO } from "src/dtos/match/submission.dto";
 import type { MatchSocket } from "src/context/Socket/modules/match.socket";
@@ -68,7 +68,8 @@ export const useGameQuestions = () => {
                         id: q.id,
                         title: q.title,
                         difficulty: q.difficulty,
-                        description: q.description
+                        description: q.description,
+                        input_type: q.input_type
                     };
                 });
                 return shuffle(temp_arr);

@@ -30,12 +30,13 @@ import { IUserRepository } from '../../../src/application/interfaces/repositorie
 import { UserRepository } from '../../../src/interface-adapters/repositories/user.repository'
 import { Users } from '../../../src/entities/database/user.entities'
 import { PlayerDTO } from '../../../src/entities/dtos/components.dto'
-import { QuestionDTO } from '../../../src/entities/dtos/match/question.dto'
-import {AnswerDTO} from '../../../src/entities/dtos/match/answer.dto'
+import { AnswerDTO } from '../../../src/entities/dtos/match/answer.dto'
 import { mock_questions } from '../../mocks/mock-questions'
 import { mock_answers } from '../../mocks/mock-answers'
-import { SubmissionComponent } from '../../../src/entities/components'
 import { RoundComponent } from '../../../src/entities/components'
+import { MarkMaths } from './../../../src/application/usecases/services/marking/mark-maths'
+import { SubmissionComponent } from '../../../src/entities/components'
+import { DeepPartial } from 'typeorm'
 
 const io = {
     to: vi.fn().mockReturnValue({
@@ -53,8 +54,9 @@ const notification_service = new NotificationService(io);
 
 const executor = new CodeExecutor();
 const prog_marker = new MarkProg(executor);
+const math_marker = new MarkMaths();
 
-const prog_marking_service = new MarkingService(match_cache, submission_system, life_system, notification_service, prog_marker, opponent_progress);
+const marking_service = new MarkingService(match_cache, submission_system, life_system, notification_service, math_marker, prog_marker, opponent_progress);
 
 const create_player_entity = new CreatePlayerEntity(world);
 const create_match_entity = new CreateMatchEntity(world);
@@ -70,7 +72,7 @@ const get_questions = new GetQuestions(question_repo);
 const get_answers = new GetAnswers(answer_repo);
 const get_total_time = new GetTotalTime();
 
-const create_game = new MatchCreationSystem(create_player_entity, create_match_entity,create_rounds);
+const create_game = new MatchCreationSystem(create_player_entity, create_match_entity, create_rounds);
 
 const match_service = new MatchCreationService(create_game, get_questions, get_total_time, get_answers, match_cache, match_repo, user_repo);
 
@@ -91,18 +93,21 @@ const players: PlayerDTO[] = [
     }
 ]
 
-let game: {
+let match: {
     match_entity: number,
     match_id: string,
     rounds: RoundComponent[],
     answers: AnswerDTO[]
 };
 
+let saved_questions: DeepPartial<Questions>[] = [];
+let saved_answers: DeepPartial<Answers>[] = [];
 
+let prog_question: DeepPartial<Questions>;
+let correct_answer: DeepPartial<Answers>;
 
 
 describe("Tests Marking Services", () => {
-
     beforeAll(async () => {
         let user;
 
@@ -111,60 +116,63 @@ describe("Tests Marking Services", () => {
             p.id = user.user_id;
         }
 
-        await data_source.getRepository(Questions).save(mock_questions);
-        await data_source.getRepository(Answers).save(mock_answers);
+        saved_questions = await data_source.getRepository(Questions).save(mock_questions);
+        saved_answers = await data_source.getRepository(Answers).save(mock_answers);
 
+        match = await match_service.execute(players, MatchMode.Programming, 'Mercury', MatchType.ranked);
 
-        game = await match_service.execute(players, MatchMode.Programming, 'Mercury', MatchType.ranked);
+        prog_question = saved_questions.find(q => q.match_mode === MatchMode.Programming)!;
+        correct_answer = saved_answers.find(a => a.question!.question_id === prog_question!.question_id)!;
 
     })
 
 
 
-    // it('Mark a Programming Submission', async () => {
-    //     const submission = {
-    //         match_id: game.match_entity,
-    //         player_id: players[0].id,
-    //         question_id: game.questions.medium[0].id,
-    //         question_number: 1,
-    //         submission: {
-    //             source_code: 'print("Answer Question 5")',
-    //             language_id: 71,
-    //             stdin: null
-    //         }
-    //     }
+    it('Mark a Programming Submission', async () => {
+        const submission = {
+            match_id: match.match_entity,
+            player_id: players[0].id,
+            question_id: prog_question?.question_id,
+            question_number: 1,
+            submission: {
+                source_code: `print("${correct_answer!.answer}")`,
+                language_id: 71,
+                stdin: null
+            }
+        }
 
-    //     await prog_marking_service.execute(submission);
-    //     const saved_submission: SubmissionComponent = submission_system.getSubmission(submission);
+        await marking_service.execute(submission);
+        const saved_submission: SubmissionComponent = submission_system.getSubmission(submission);
 
-    //     expect(io.to).toHaveBeenCalled();
-    //     expect(saved_submission.correct).toBe(true);
-    // })
+        expect(io.to).toHaveBeenCalled();
+        expect(saved_submission.correct).toBe(true);
+    })
 
-    // it('Rejects an incorrect submission', async () => {
-    //     const submission = {
-    //         match_id: game.match_entity,
-    //         player_id: players[0].id,
-    //         question_id: game.rounds.medium[0].id,
-    //         question_number: 1,
-    //         submission: {
-    //             source_code: 'print("Programming marking integration test")',
-    //             language_id: 71,
-    //             stdin: null
-    //         }
-    //     }
+    it('Rejects an incorrect submission', async () => {
+        const submission = {
+            match_id: match.match_entity,
+            player_id: players[0].id,
+            question_id: prog_question?.question_id,
+            question_number: 1,
+            submission: {
+                source_code: `print("Incorrect answer")`,
+                language_id: 71,
+                stdin: null
+            }
+        }
 
-    //     await prog_marking_service.execute(submission);
-    //     const saved_submission: SubmissionComponent = submission_system.getSubmission(submission);
+        await marking_service.execute(submission);
+        const saved_submission: SubmissionComponent = submission_system.getSubmission(submission);
 
-    //     expect(io.to).toHaveBeenCalled();
-    //     expect(saved_submission.correct).toBe(false);
+        expect(io.to).toHaveBeenCalled();
+        expect(saved_submission.correct).toBe(false);
 
-    // })
+    })
 
     it('Rejects a submission for invalid question', async () => {
+        console.log("incorrect submission");
         const submission = {
-            match_id: game.match_entity,
+            match_id: match.match_entity,
             player_id: players[0].id,
             question_id: crypto.randomUUID(),
             question_number: 1,
@@ -175,6 +183,6 @@ describe("Tests Marking Services", () => {
             }
         }
 
-        await expect(prog_marking_service.execute(submission)).rejects.toThrow('Invalid question id');
+        await expect(marking_service.execute(submission)).rejects.toThrow('Invalid question id');
     })
 })  

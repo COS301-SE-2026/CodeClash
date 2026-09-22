@@ -2,9 +2,9 @@
 //Tutorial taken from https://mathlive.io/mathfield/guides/getting-started/
 
 import { MathfieldElement } from "mathlive";
-import React, { useState } from "react";
+import React from "react";
 
-import VirtualKeyboard from "./VirtualKeyboard";
+import VirtualKeyboard from "../VirtualKeyboard";
 
 declare module "react" {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -23,21 +23,18 @@ declare module "react" {
 }
 
 
-
-interface MathMatchProps {
-  onValueChange?: (value: string) => void;
-  mathfieldRef: React.RefObject<MathfieldElement | null>;
+interface MathInputProps {
+  value: string,
+  onChange: (value: string) => void,
+  mathfieldRef: React.RefObject<MathfieldElement | null>,
   className?: string
 }
 
-const MathMatch = ({ onValueChange, mathfieldRef, className }: MathMatchProps) => {
-  const [value, setValue] = useState<string>('');
+const MathInput = ({ value, onChange, mathfieldRef, className }: MathInputProps) => {
 
   const handleInput = (evt: React.SyntheticEvent<MathfieldElement>) => {
     const target = evt.target as MathfieldElement;
-    const newValue = target.value;
-    setValue(newValue);
-    onValueChange?.(newValue);
+    onChange(target.value);
   };
 
   return (
@@ -46,12 +43,11 @@ const MathMatch = ({ onValueChange, mathfieldRef, className }: MathMatchProps) =
         ref={mathfieldRef}
         onInput={handleInput}
         className={`${className} w-[100%] h-[12rem] rounded-4xl`}
-      >
-        {value}
-      </math-field>
+        value={value}
+      />
       <VirtualKeyboard mathfieldRef={mathfieldRef} />
     </div>
   );
 };
 
-export default MathMatch;
+export default MathInput;

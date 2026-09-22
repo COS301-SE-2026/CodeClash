@@ -1,7 +1,7 @@
 import type { Socket } from "socket.io-client";
 import { emit, on } from "../dispatch";
 import type { SubmissionDTO, MarkingResultDTO } from "src/dtos/match/submission.dto";
-import type { MatchQuestionsDTO, RoundDTO } from "src/dtos/match/match-questionDTO";
+import type { MatchQuestionsDTO, RoundDTO } from "src/dtos/match/match-question.dto";
 import type { MatchResultDTO, ResultDTO } from "src/dtos/match/result.dto";
 import type { MatchMode } from "src/dtos/match/match.dto";
 import type { Player } from "src/Models/MatchModel";
@@ -64,16 +64,12 @@ export class MatchSocket {
 
     /************************************** EMITTERS ******************************************* */
 
-    startQuestion(data: SubmissionDTO) {
-        return emit<SubmissionDTO, void>(this.socket, 'start_question', data);
-    }
-
     submitAnswer(data: SubmissionDTO) {
-        return emit<SubmissionDTO, MarkingResultDTO>(this.socket, `submit_${data.match_mode}_question`, data);
+        return emit<SubmissionDTO, MarkingResultDTO>(this.socket, `submit_question`, data);
     }
 
     finishMatch(data: { match_id: string, match_mode: MatchMode }) {
-        return emit<typeof data, MatchResultDTO>(this.socket, 'game_done', data);
+        return emit<typeof data, MatchResultDTO>(this.socket, 'match_done', data);
     }
 
     sendResults(data: { match_id: string, pair_id: string }) {

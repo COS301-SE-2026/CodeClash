@@ -22,6 +22,14 @@ CREATE TYPE ANSWER_FORMATS AS ENUM (
   'equation'
 );
 
+CREATE TYPE QUESTION_INPUT_TYPE AS ENUM (
+  'multiple_choice',
+  'selection',
+  'short_text',
+  'long_text',
+  'code'
+)
+
 CREATE TYPE MatchPlayer AS (
   id UUID,
   position INTEGER,
@@ -76,7 +84,8 @@ CREATE TABLE IF NOT EXISTS questions (
   description TEXT NOT NULL,
   time_limit TIME(2) NOT NULL,
   answer_format ANSWER_FORMATS,
-  answer_precision INTEGER
+  answer_precision INTEGER,
+  input_type QUESTION_INPUT_TYPE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS answers (

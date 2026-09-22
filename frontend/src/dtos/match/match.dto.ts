@@ -7,3 +7,4 @@ export interface PlayerDTO {
     username?: string,
     life?: number
 }
+

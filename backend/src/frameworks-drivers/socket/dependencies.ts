@@ -12,8 +12,7 @@ import { MatchStart } from "src/application/usecases/services/match/match-start.
 import { MatchCompletionService } from "src/application/usecases/services/match/match-completion.service";
 
 export interface MatchDeps {
-    math_marking_service: MarkingService,
-    prog_marking_service: MarkingService,
+    marking_service: MarkingService,
     submission_system: SubmissionSystem,
     match_completion_service: MatchCompletionService,
     match_deletion_system: DeleteGame,
