@@ -36,3 +36,12 @@ import RunnerBelt from './Accessories/Belts/RunnerBelt.png';
 import ShadowHarness from './Accessories/Belts/ShadowHarness.png';
 import StarterBelt from './Accessories/Belts/StarterBelt.png';
 import TideguardBelt from './Accessories/Belts/TideguardBelt.png';
+
+import AquaVeil from './Accessories/Capes/AquaVeil.png';
+import BlueOrbit from './Accessories/Capes/BlueOrbit.png';
+import EclipseShroud from './Accessories/Capes/EclipseShroud.png';
+import PinkComet from './Accessories/Capes/PinkComet.png';
+import SolarEdge from './Accessories/Capes/SolarEdge.png';
+import Starlance from './Accessories/Capes/Starlance.png';
+import TideRunner from './Accessories/Capes/TideRunner.png';
+import VoidMantle from './Accessories/Capes/VoidMantle.png';
