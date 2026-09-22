@@ -1,13 +1,11 @@
 import { fetchCognitoId } from "./cognito.service";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
-import { IEloRepository } from "src/application/interfaces/repositories/IEloRepository";
 
 export class CreateUser {
     private avatar_index = 0;
 
     constructor(
         private readonly user_repo: IUserRepository,
-        private readonly elo_repo: IEloRepository
     ) { }
 
     async create(username: string, email: string) {
@@ -24,8 +22,6 @@ export class CreateUser {
         if(!user){
             throw new Error("Error creating user");
         }
-
-        await this.elo_repo.createUserElo(user.user_id!);
 
         this.avatar_index = ++this.avatar_index % 4;
     }

@@ -1,6 +1,7 @@
 import { EloUpdateResultDTO } from "src/entities/dtos/users/elo.dto";
 import { UserDTO } from "src/entities/dtos/users/user.dto"
 import { LeaderboardEntryDTO } from "src/entities/dtos/match/leaderboard.dto";
+import { RankDTO } from "src/entities/dtos/users/rank.dto";
 
 export interface IUserRepository {
     createUser(username: string, email: string, cognito_id: string, avatar_id: number, league: string): Promise<UserDTO | null>,
@@ -12,8 +13,8 @@ export interface IUserRepository {
     searchByUsername(query: string): Promise<UserDTO[]>,
     updateStreaks(user_id: string, won: boolean): Promise<void>,
     getTotalStats(user_id: string): Promise<{ total_wins: number; total_matches: number; winning_streak: number; league: string }>,
-    updateRatingsAfterMatch(match_id: string, winner_id: string, loser_id: string): Promise<{ winner: EloUpdateResultDTO, loser: EloUpdateResultDTO }>,
-    updateEloAfterTournament(match_id: string, results: { user_id: string, placement: number }[]): Promise<EloUpdateResultDTO[]>,
+    updateRatingsAfterMatch(winner_id: string, loser_id: string): Promise<{ winner: EloUpdateResultDTO, loser: EloUpdateResultDTO }>,
+    updateEloAfterTournament(results: { user_id: string, placement: number }[]): Promise<EloUpdateResultDTO[]>,
     getLeaderboard(limit: number, offset: number): Promise<{ data: LeaderboardEntryDTO[]; total: number }>
-
+     getUserRank(userId: string): Promise<RankDTO | null>
 }

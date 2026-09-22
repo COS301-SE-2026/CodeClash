@@ -4,6 +4,7 @@ import { UserDTO } from "src/entities/dtos/users/user.dto";
 import { Repository } from "typeorm";
 import { EloUpdateResultDTO } from "src/entities/dtos/users/elo.dto";
 import { LeaderboardEntryDTO } from "src/entities/dtos/match/leaderboard.dto";
+import { RankDTO } from "src/entities/dtos/users/rank.dto";
 
 export class UserRepository implements IUserRepository {
     private readonly K_FACTOR = 32;
@@ -146,7 +147,6 @@ export class UserRepository implements IUserRepository {
 
 
     async updateRatingsAfterMatch(
-        match_id: string,
         winner_id: string,
         loser_id: string
     ): Promise<{ winner: EloUpdateResultDTO; loser: EloUpdateResultDTO }> {
@@ -175,7 +175,7 @@ export class UserRepository implements IUserRepository {
         }
     }
 
-    async updateEloAfterTournament(match_id: string, results: { user_id: string, placement: number }[]): Promise<EloUpdateResultDTO[]> {
+    async updateEloAfterTournament(results: { user_id: string, placement: number }[]): Promise<EloUpdateResultDTO[]> {
         const field_size = results.length;
         const players = await Promise.all(
             results.map(r => this.userRepository.findOneBy({ user_id: r.user_id }))
@@ -221,6 +221,29 @@ export class UserRepository implements IUserRepository {
             })),
             total
         };
+    }
+
+    async getUserRank(userId: string): Promise<RankDTO | null> {
+
+        const row = await this.userRepository.findOne({
+            where: { user_id: userId }
+        })
+
+        if (!row) return null;
+
+        const ahead = await this.userRepository
+            .createQueryBuilder('user')
+            .where('user.elo > :rating', { rating: row.elo})
+            .orWhere('user.elo = :rating AND user.username < :username',
+                { rating: row.elo, username: row.username })
+            .getCount()
+
+        const data: RankDTO = {
+            user_id: userId,
+            rank: ahead + 1
+        };
+
+        return data;
     }
 
 

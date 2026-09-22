@@ -17,7 +17,6 @@ import { IMatchCache } from 'src/application/interfaces/cache/IGameCache';
 import redis from './config/redis-client';
 import { MatchmakingService } from 'src/application/usecases/services/matchmaking.service';
 import { IMatchmakingCache } from 'src/application/interfaces/cache/IMatchmakingCache';
-import { IEloRepository } from 'src/application/interfaces/repositories/IEloRepository';
 import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
 import { MarkingService } from 'src/application/usecases/services/marking/marking.service';
 import { initDB } from 'src/application/usecases/init-db';
@@ -26,7 +25,6 @@ import { MatchCompletionSystem } from 'src/application/usecases/systems/match-co
 import { SubmissionSystem } from 'src/application/usecases/systems/submission.system';
 import { World } from 'src/entities/World';
 import { MatchmakingCache } from 'src/interface-adapters/cache/matchmaking-cache';
-import { EloRepository } from 'src/interface-adapters/repositories/elo.repository';
 import { UserRepository } from 'src/interface-adapters/repositories/user.repository';
 
 import { Users } from "../entities/database/user.entities"
@@ -38,9 +36,6 @@ import { OpponentProgress } from 'src/application/usecases/systems/opponent-prog
 import { IMatchRepository } from 'src/application/interfaces/repositories/IMatchRepository';
 import { MatchRepository } from 'src/interface-adapters/repositories/match.repository';
 import { Matches} from 'src/entities/database/match.entities';
-import { MatchResultService } from 'src/application/usecases/services/match/match-result.service';
-import { IMatchResultRepository } from 'src/application/interfaces/repositories/IMatchResultRepository';
-import { MatchResultRepository } from 'src/interface-adapters/repositories/match-result.repository';
 import { MatchConfirmationService } from 'src/application/usecases/services/match/match-confirmation.service';
 import { MatchStore } from 'src/application/usecases/services/match/match-store.service';
 import { DeleteGame } from 'src/application/usecases/systems/delete-game';
@@ -50,15 +45,12 @@ import { MarkingStrategy } from 'src/application/interfaces/marking/IMarkingStat
 import { MarkMaths } from 'src/application/usecases/services/marking/mark-maths';
 import { MarkProg } from 'src/application/usecases/services/marking/mark-prog';
 import { CodeExecutor } from 'src/interface-adapters/CodeExecutor';
-import { MatchStatsRepository } from 'src/interface-adapters/repositories/match-stats.repository';
 import { Achievement } from 'src/entities/database/achievement.entities';
 import { AchievementService } from 'src/application/usecases/services/achievement.service';
 import { AchievementRepository } from 'src/interface-adapters/repositories/achievement.repository';
-import { MatchHistoryRepository } from 'src/interface-adapters/repositories/match-history.repository';
 import { FriendService } from 'src/application/usecases/services/friend.service';
 import { FriendRepository } from 'src/interface-adapters/repositories/friend.repository';
 import { FriendInvite, Friendship } from 'src/entities/database/friendship.entities';
-import { IMatchStatsRepository } from 'src/application/interfaces/repositories/IMatchStatsRepository';
 import { IAchievementRepository } from 'src/application/interfaces/repositories/IAchievementRepository';
 import { attachSocketModules } from './socket';
 import { MatchStart } from 'src/application/usecases/services/match/match-start.service';
@@ -73,16 +65,11 @@ AppDataSource.initialize()
         // initialise repos
         const user_repo: IUserRepository = new UserRepository(AppDataSource.getRepository(Users));
         const question_repo: IQuestionRepository = new QuestionRepository(AppDataSource.getRepository(Questions));
-        const answer_repo: IAnswerRepository = new AnswerRepository(AppDataSource.getRepository(Answers))
-        const match_repo: IMatchRepository = new MatchRepository(AppDataSource.getRepository(Matches))
-        const match_results_repo: IMatchResultRepository = new MatchResultRepository(
-            AppDataSource.getRepository(Users)
-        )
-        const match_stats_repo: IMatchStatsRepository = new MatchStatsRepository(AppDataSource.getRepository(MatchStats));
-        const achievementRepo: IAchievementRepository = new AchievementRepository(AppDataSource.getRepository(Achievement), AppDataSource.getRepository(Users));
+        const answer_repo: IAnswerRepository = new AnswerRepository(AppDataSource.getRepository(Answers));
+        const match_repo: IMatchRepository = new MatchRepository(AppDataSource.getRepository(Matches), user_repo);
 
-        const match_history_repo = new MatchHistoryRepository(AppDataSource.getRepository(Matches), AppDataSource.getRepository(MatchLog), AppDataSource.getRepository(MatchStats));
-        const friend_repo = new FriendRepository(AppDataSource.getRepository(Friendship), AppDataSource.getRepository(FriendInvite), elo_repo);
+        const achievementRepo: IAchievementRepository = new AchievementRepository(AppDataSource.getRepository(Achievement), AppDataSource.getRepository(Users));
+        const friend_repo = new FriendRepository(AppDataSource.getRepository(Friendship), AppDataSource.getRepository(FriendInvite), user_repo);
 
         // initialise ecs world 
         const world = World();
@@ -107,10 +94,9 @@ AppDataSource.initialize()
         // initialise services 
         const match_service = new MatchCreationService(create_match, get_questions, get_total_time, get_answers, match_cache, match_repo, user_repo);
         const matchmaking_service = new MatchmakingService(matchmaking_cache);
-        const match_results = new MatchResultService( match_results_repo)
         const matched_users_service = new MatchConfirmationService();
         const match_store = new MatchStore(user_repo);
-        const leaderboard_service = new LeaderboardService(elo_repo);
+        const leaderboard_service = new LeaderboardService(user_repo);
         const friends_service = new FriendService(friend_repo);
         const achievement_service = new AchievementService(achievementRepo);
         const match_start = new MatchStart(match_service,match_store);
@@ -119,7 +105,7 @@ AppDataSource.initialize()
         const submission_system = new SubmissionSystem(world);
         const life_system = new LifeSystem(world);
         const match_deletion_system = new DeleteGame(world, match_store, matched_users_service);
-        const match_completion_system = new MatchCompletionSystem(world, match_results, match_store, match_stats_repo, achievement_service, user_repo);
+        const match_completion_system = new MatchCompletionSystem(world,  match_store,  achievement_service, user_repo);
 
 
 

@@ -22,10 +22,11 @@ export enum MatchMode {
 
 export enum MatchType {
     ranked = 'ranked',
-    casual = 'casual'
+    casual = 'casual',
+    tournament = 'tournament'
 }
 
-export enum MatchStatus{
+export enum MatchStatus {
     Waiting = "waiting",
     Starting = "starting",
     In_progress = "in_progress",
@@ -38,7 +39,8 @@ export interface MatchPlayer {
     position: number,
     elo_change: number,
     num_correct: number,
-    total_time: number
+    total_time: number,
+    elimination_round: number | null
 }
 
 export interface MatchQuestion {
@@ -51,4 +53,35 @@ export interface MatchPowerUps {
     powerup_id: string,
     user_id: string,
     used_at: Date
+}
+
+export interface MatchHistoryRow {
+    match_id: string,
+    match_mode: MatchMode,
+    match_type: MatchType,
+    match_start: Date,
+    match_end: Date | null,
+    position: number,
+    elimination_round: number | null,
+    score: {
+        correct: number,
+        total: number,
+        time: number
+    },
+}
+
+export interface PlayerResultDTO {
+    user_id: string,
+    username: string,
+    avatar: number,
+    correctness: number,// percentage 0-100
+    speed: number,
+    eloEffect: number,//signed 
+    position: number,
+    rank: number | null
+}
+
+export interface MatchResultDTO {
+    match_id: string,
+    players: PlayerResultDTO[]
 }

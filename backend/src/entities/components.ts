@@ -2,7 +2,7 @@
 
 /* MATCH ENTITY */
 
-import { MatchType } from "src/entities/dtos/match/match.dto"
+import { MatchPlayer, MatchType } from "src/entities/dtos/match/match.dto"
 import { MathsSubmissionDTO, ProgSubmissionDTO } from "./dtos/components.dto"
 import { QuestionDTO } from "./dtos/match/question.dto"
 
@@ -32,14 +32,13 @@ export interface SubmissionRegistryComponent {
 
 // Result component 
 export interface ResultComponent {
-    winner: {
+    players: {
         id: string,
-        elo: number
-    },
-    loser: {
-        id: string,
-        elo: number
-    }
+        position: number,
+        elo: number,
+        num_correct: number,
+        total_time: number
+    }[];
     stats: Record<string, { num_correct: number, total_time: number }>
 }
 

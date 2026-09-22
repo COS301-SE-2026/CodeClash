@@ -1,13 +1,10 @@
-export interface IMatchRepository {
-    createMatch(
-        players: string[],
-        match_type: 'ranked' | 'casual',
-        game_mode: 'math' | 'programming',
-        match_start: Date
-    ): Promise<string>;
+import { MatchStatus, MatchType } from "src/entities/dtos/match/match.dto";
+import { MatchHistoryRow } from "src/entities/dtos/match/match.dto";
+import { MatchResultDTO } from "src/entities/dtos/match/match.dto";
 
-    completeMatch(
-        match_id: string,
-        status: 'completed' | 'abandoned'
-    ): Promise<void>;
+export interface IMatchRepository {
+    createMatch(players: string[], match_type: MatchType, game_mode: 'math' | 'programming', match_start: Date): Promise<string>,
+    completeMatch(match_id: string, status: MatchStatus): Promise<void>,
+    getMatchHistory(user_id: string): Promise<MatchHistoryRow[]>,
+    buildMatchResult(match_id: string): Promise<MatchResultDTO>
 }

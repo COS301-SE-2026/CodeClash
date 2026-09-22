@@ -1,12 +1,10 @@
 import { ResultComponent, SubmissionRegistryComponent } from "src/entities/components";
-import { PlayerStatsDTO } from "src/entities/dtos/users/player-stats.dto";
 import { World } from "src/entities/World"
-import { MatchResultService } from "../services/match/match-result.service";
 import { MatchStore } from "../services/match/match-store.service";
-import { MatchType } from "src/entities/dtos/match/match.dto";
-import { IMatchStatsRepository } from "src/application/interfaces/repositories/IMatchStatsRepository";
+import { MatchPlayer, MatchType } from "src/entities/dtos/match/match.dto";
 import { AchievementService, AchievementStats } from "../services/achievement.service";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
+import { IMatchRepository } from "src/application/interfaces/repositories/IMatchRepository";
 
 export class MatchCompletionSystem {
     private readonly getMatchComponent
@@ -15,11 +13,10 @@ export class MatchCompletionSystem {
 
     constructor(
         private readonly world: ReturnType<typeof World>,
-        private readonly match_result_service: MatchResultService,
         private readonly game_store: MatchStore,
-        private readonly match_stats_repo: IMatchStatsRepository,
         private readonly achievement_service: AchievementService,
-        private readonly user_repo: IUserRepository
+        private readonly user_repo: IUserRepository,
+        private readonly match_repo: IMatchRepository
     ) {
         const { getMatchComponent, getSubmissionComponent, addMatchComponent } = this.world
         this.getMatchComponent = getMatchComponent;
@@ -28,65 +25,51 @@ export class MatchCompletionSystem {
     }
 
 
-    async execute(match_id: number, player_ids: string[], game_type: MatchType, pair_id: string) {
+    async execute(match_id: number, player_ids: string[], match_type: MatchType) {
 
         // 1. get submission entities for players
         const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(match_id, 'Submission');
 
         if (!submission_registry) throw new Error('Error finishing game')
 
-        const game_stats = this.getStats(submission_registry.submissions, player_ids);
         const db_match_id = this.game_store.get(match_id);
+        if (!db_match_id?.database_id) throw new Error("Match not found");
 
-        //persist match stats
-        for (const [user_id, stat] of game_stats) {
-            await this.match_stats_repo.saveStats(db_match_id!.database_id, user_id, stat.num_correct, stat.total_time);
-        }
+        const game_stats = this.getStats(submission_registry.submissions, player_ids);
 
-        // calculate winner 
-        let winner: string | null = null;
-        let winner_stats: PlayerStatsDTO | null = null
-
-        let loser: string | null = null;
-        let loser_stat: PlayerStatsDTO | null = null;
-
-        for (const [id, stat] of game_stats) {
-            if (winner == null ||
-                winner_stats!.correctness < stat.num_correct ||
-                winner_stats!.correctness === stat.num_correct && winner_stats!.speed > stat.total_time
-            ) {
-
-                loser = winner;
-                loser_stat = winner_stats
-
-
-                winner = id;
-                winner_stats = {
-                    user_id: id,
-                    correctness: stat.num_correct,
-                    speed: stat.total_time
+        const ranked_players = [...game_stats.entries()]
+            .sort(([, a], [, b]) => {
+                if (a.num_correct !== b.num_correct) {
+                    return b.num_correct - a.num_correct;
                 }
-            } else {
-                loser = id;
-                loser_stat = {
-                    user_id: id,
-                    correctness: stat.num_correct,
-                    speed: stat.total_time
-                }
-            }
+                return a.total_time - b.total_time;
+            });
+
+        if (ranked_players.length < 2) throw new Error("Not enough players");
+
+        const players: MatchPlayer[] = ranked_players.map(([user_id, stat], index) => ({
+            id: user_id,
+            position: index + 1,
+            elimination_round: null,
+            elo_change: 0,
+            num_correct: stat.num_correct,
+            total_time: stat.total_time
+        }));
+
+        if(match_type === MatchType.ranked){
+            const first = players[0]!.id;
+            const second = players[1]!.id;
+
+            const {winner, loser} = await this.user_repo.updateRatingsAfterMatch(first, second);
+            
         }
-
-        // elo updates 
-
-        if (!winner || !loser) throw new Error("Error getting user stats")
-
-        const result = await this.match_result_service.finaliseMatch(db_match_id!.database_id, winner, loser, game_type === MatchType.ranked, [winner_stats!, loser_stat!])
 
         // evaluate achivements for both players
         const match_duration_ms = 0; //Date.now() - (result!.start_time?.getTime?.() ?? 0);
         for (const [user_id, stat] of game_stats) {
-            const is_winner = user_id === winner;
-            const is_ranked = game_type === MatchType.ranked;
+            const player = players.find(p => p.id === user_id);
+            const is_winner = player?.position === 1;
+            const is_ranked = match_type === MatchType.ranked;
 
             // update streaks
             if (is_ranked) {
@@ -110,14 +93,7 @@ export class MatchCompletionSystem {
             await this.achievement_service.evaluateAndAward(user_id, achievementStats);
         }
         const data: ResultComponent = {
-            winner: {
-                id: winner,
-                elo: result.players[0]!.eloEffect!
-            },
-            loser: {
-                id: loser,
-                elo: result.players[1]!.eloEffect!
-            },
+            players: players,
             stats: Object.fromEntries(game_stats)
         }
 
@@ -125,7 +101,7 @@ export class MatchCompletionSystem {
 
 
 
-        return result
+        return data;
     }// end execute
 
     getStats(submissions: Map<string, number>, player_ids: string[]) {
