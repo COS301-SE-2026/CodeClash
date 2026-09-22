@@ -92,8 +92,10 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                         <div className='w-full'>
                             <Progress
                                 value={player_life[0]}
-                                bg={"[var(--math-card)]"}
-                                className='w-[12rem] h-sm mx-auto -mt-1 rotate-180'
+                                bg={"var(--button-tournament-secondary)"}
+                                border={"var(--button-tournament-secondary"}
+                                height={2.5}
+                                className='w-[12rem] h-sm mx-auto mr-3 -mt-1 rotate-180'
                             />
                         </div>
 

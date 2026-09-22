@@ -11,6 +11,7 @@ interface ProgressProps extends React.ComponentProps<typeof ProgressPrimitive.Ro
   bg?: string,
   border?: string,
   glow?: string,
+  height?: number,
 }
 
 function Progress({
@@ -22,6 +23,7 @@ function Progress({
   bg = "var(--primary-dark)",
   border = "#631631",
   glow = "#FFFFFF",
+  height = 1.5,
   ...props
 }: ProgressProps) {
  
@@ -29,7 +31,7 @@ function Progress({
     <ProgressPrimitive.Root
       data-slot="progress"
       className={cn(
-        "relative flex h-full h-1.5 w-full items-center overflow-x-hidden rounded-full",
+        `relative flex h-full h-${height} w-full items-center overflow-x-hidden rounded-full`,
         border && "border",
         className
       )}
