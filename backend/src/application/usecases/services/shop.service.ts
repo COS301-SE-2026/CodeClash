@@ -30,15 +30,19 @@ export class ShopService {
     }
 
     async getWallet(user_id: string) : Promise<WalletDTO> {
-
+        let wallet = await this.shop_repo.getWallet(user_id);
+        if (!wallet) wallet = await this.shop_repo.createWallet(user_id);
+        return wallet;
     }
 
-    async earnCurrency(user_id: string, amount: number): Promise<WallerDTO> {
-
+    async earnCurrency(user_id: string, amount: number): Promise<WalletDTO> {
+        const existing = await this.shop_repo.getWallet(user_id);
+        if (!existing) await this.shop_repo.createWallet(user_id);
+        return this.shop_repo.updateBalance(user_id, amount);
     }
 
     async getEquipped(user_id: string): Promise<EquippedItemsDTO> {
-
+        
     }
 
     async updateEquipped(user_id: string, updates: UpdatedEquippedDTO): Promise<EquippedItemsDTO> {
