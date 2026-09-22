@@ -5,7 +5,7 @@ import { useInventory } from "src/context/Shop/InventoryContext";
 import { tryOn } from "src/ViewModels/Shop/TryOn";
 import { SavedViewModelFunc } from "src/ViewModels/Shop/SavedViewModel";
 import {AvatarRenderer} from "src/avatar/AvatarRenderer"
-import type { AvatarShopItem, AccessoryShopItem, AccessorySlot, Price } from "src/Models/ShopModel";
+import type { AvatarShopItem, AccessoryShopItem, AccessorySlot, Price, ShopItem } from "src/Models/ShopModel";
 import { BookmarkPlus, Check, Loader2, RotateCcw, Save } from "lucide-react";
 
 const accTabs: {id: AccessorySlot; label: string}[] = [
@@ -34,7 +34,7 @@ const accTabs: {id: AccessorySlot; label: string}[] = [
 interface AvatarCustomizerProps {
     purchase: (itemId: string) => void;
     purchasingId: string | null;
-    canAfford: (item: {price: Price}) => boolean;
+    canAfford: (item: ShopItem) => boolean;
 }
 
 const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasingId, canAfford}) => {
@@ -154,7 +154,7 @@ const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasing
                     const active = activeSlot === tab.id;
                     return (
                         <button key={tab.id} type="button" onClick={()=> setActiveSlot(tab.id)}  
-                            style={{padding: '0.5rem 1rem', borderRadius: '999px', fontSize: 700,border: active ? '2px solid var(--primary)' : '1px solid var(--border)',
+                            style={{padding: '0.5rem 1rem', borderRadius: '999px', fontSize: '0.8rem',border: active ? '2px solid var(--primary)' : '1px solid var(--border)',
                                     background: active ? 'var(--primary)' : 'var(--background-card)', color: active ? 'var(--muted)' : 'var(--primary)',  cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0
                                 }}>
                             {tab.label}
@@ -173,7 +173,7 @@ const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasing
                     )
                 })}
                 {accessories.length === 0 && (
-                    <p className="text-muted text-sm">Nothing in this category yet.</p>
+                    <p className="text-muted text-sm whitespace-nowrap">Nothing in this category yet.</p>
                 )}
             </div>
         </div>

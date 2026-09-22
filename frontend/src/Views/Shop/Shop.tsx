@@ -159,9 +159,6 @@ const PowerupCard: React.FC<{
                 {item.previewImageUrl ? <img src={item.previewImageUrl} alt={item.name} style={{maxHeight: '100%', maxWidth: '100%',objectFit: 'contain'}}/> : 'IMG'}
             </div>
             <div>
-                <span className="badge" style={{color: isDown ? 'var(--danger)' : 'var(--success)'}}>
-                    {isDown ? 'Power down' : 'Power up'}
-                </span>
                 <h3 style={{color: 'var(--primary-text)', fontWeight: 700, fontSize: '0.95rem'}}>{item.name}</h3>
                 {item.description && <p className="text-muted" style={{fontSize: '0.75rem', lineHeight: 1.5, marginTop: '0.25rem'}}>{item.description}</p>}
                 <p className="text-muted" style={{fontSize: '0.7rem', marginTop: '0.4rem'}}>Owned: {owned}</p>
