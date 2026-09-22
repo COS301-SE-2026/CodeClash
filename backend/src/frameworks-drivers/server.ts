@@ -66,6 +66,13 @@ import { FriendRepository } from 'src/interface-adapters/repositories/friend.rep
 import { FriendInvite, Friendship } from 'src/entities/db-entities/friendship.entities';
 import { IMatchStatsRepository } from 'src/application/interfaces/repositories/IMatchStatsRepository';
 import { IAchievementRepository } from 'src/application/interfaces/repositories/IAchievementRepository';
+import { ShopService } from 'src/application/usecases/services/shop.service';
+import { ShopRepository } from 'src/interface-adapters/repositories/shop.repository';
+import { ShopItem } from 'src/entities/db-entities/shop-item.entities';
+import { Wallet } from 'src/entities/db-entities/wallet.entities';
+import { UserItem } from 'src/entities/db-entities/user-item.entities';
+import { DataSource } from 'typeorm';
+import { EquippedItems } from 'src/entities/db-entities/equipped-items.entities';
 
 dotnev.config()
 
@@ -89,6 +96,7 @@ AppDataSource.initialize()
 
         const match_history_repo = new MatchHistoryRepository(AppDataSource.getRepository(Matches), AppDataSource.getRepository(MatchLog), AppDataSource.getRepository(MatchStats));
         const friend_repo = new FriendRepository(AppDataSource.getRepository(Friendship),AppDataSource.getRepository(FriendInvite),elo_repo);
+        const shop_repo = new ShopRepository(AppDataSource.getRepository(ShopItem), AppDataSource.getRepository(Wallet), AppDataSource.getRepository(UserItem), AppDataSource.getRepository(EquippedItems), AppDataSource);
 
         // initialise ecs world 
         const world = World();
@@ -120,6 +128,7 @@ AppDataSource.initialize()
         const leaderboard_service = new LeaderboardService(elo_repo);
         const friends_service = new FriendService(friend_repo);
         const achievement_service = new AchievementService(achievementRepo);
+        const shop_service = new ShopService(shop_repo)
 
 
         // initialise systems 
@@ -130,7 +139,7 @@ AppDataSource.initialize()
 
 
 
-        const app = createApp(elo_repo, user_repo, match_history_repo, leaderboard_service, achievement_service, friends_service);
+        const app = createApp(elo_repo, user_repo, match_history_repo, leaderboard_service, achievement_service, friends_service, shop_service);
         const httpServer = createServer(app)     // can update to https
         const io = new Server(httpServer, {
             cors: {

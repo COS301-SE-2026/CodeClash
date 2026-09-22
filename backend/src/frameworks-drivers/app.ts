@@ -9,6 +9,7 @@ import { LeaderboardService } from 'src/application/usecases/services/leaderboar
 import { AchievementService } from 'src/application/usecases/services/achievement.service';
 import { FriendService } from 'src/application/usecases/services/friend.service';
 import { MatchHistoryRepository } from 'src/interface-adapters/repositories/match-history.repository';
+import { ShopService } from 'src/application/usecases/services/shop.service';
 
 
 export const createApp = (
@@ -17,7 +18,8 @@ export const createApp = (
  match_history_repo: MatchHistoryRepository,
   leaderboard_service: LeaderboardService,
   achievement_service: AchievementService,
-  friends_service: FriendService
+  friends_service: FriendService,
+  shop_service: ShopService
 ) => {
   const app = express();
   app.disable('x-powered-by');
@@ -32,7 +34,7 @@ export const createApp = (
   app.use((req, res, next) =>
     req.path === '/api/create-user' ? next() : requireAuth(user_repo)(req, res, next)
   );
-  app.use('/api', createAPIRoutes(elo_repo, user_repo,match_history_repo, leaderboard_service,achievement_service,friends_service));
+  app.use('/api', createAPIRoutes(elo_repo, user_repo,match_history_repo, leaderboard_service,achievement_service,friends_service, shop_service));
 
   return app;
 }
