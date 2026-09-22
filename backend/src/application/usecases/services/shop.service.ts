@@ -20,7 +20,13 @@ export class ShopService {
     }
 
     async purchaseItem(user_id: string, shop_item_id: string): Promise< PurchaseResultDTO> {
+        const item = await this. shop_repo.getItemById(shop_item_id);
+        if (!item) throw new Error('Item not found');
 
+        const alreadyOwned = await this.shop_repo.hasItem(user_id, shop_item_id);
+        if(alreadyOwned) throw new Error('Item already owned');
+
+        return this.shop_repo.purchaseItemTransaction(user_id, shop_item_id, item.price);
     }
 
     async getWallet(user_id: string) : Promise<WalletDTO> {
@@ -47,5 +53,5 @@ export class ShopService {
 
     }
 
-    
+
 }
