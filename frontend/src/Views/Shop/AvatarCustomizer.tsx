@@ -3,10 +3,9 @@
 import React, { useState } from "react";
 import { useInventory } from "src/context/Shop/InventoryContext";
 import { tryOn } from "src/ViewModels/Shop/TryOn";
-import { SavedViewModelFunc } from "src/ViewModels/Shop/SavedViewModel";
 import {AvatarRenderer} from "src/avatar/AvatarRenderer"
-import type { AvatarShopItem, AccessoryShopItem, AccessorySlot, Price, ShopItem } from "src/Models/ShopModel";
-import { BookmarkPlus, Check, Loader2, RotateCcw, Save } from "lucide-react";
+import type { AvatarShopItem, AccessoryShopItem, AccessorySlot, ShopItem } from "src/Models/ShopModel";
+import { Check, Loader2, RotateCcw, Save } from "lucide-react";
 
 const accTabs: {id: AccessorySlot; label: string}[] = [
     {
@@ -38,7 +37,7 @@ interface AvatarCustomizerProps {
 }
 
 const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasingId, canAfford}) => {
-    const {catalog, isOwned, inventory} = useInventory();
+    const {catalog, isOwned} = useInventory();
     const {
         draftAvatarId,
         draftAvatar,
@@ -53,35 +52,11 @@ const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasing
         reset,
         saveOutfit
     } = tryOn();
-    const {saveCurrentAvatar, saving: savingPreset} = SavedViewModelFunc();
 
     const [activeSlot, setActiveSlot] = useState<AccessorySlot>('headwear');
-    const [presetName, setPresetName] = useState('');
-    const [showPreserInput, setShowPresetInput] = useState(false);
 
     const avatars = catalog.filter((i): i is AvatarShopItem => i.category === 'avatar');
     const accessories = catalog.filter((i): i is AccessoryShopItem => i.category === 'accessory' && i.slot === activeSlot);
-
-    const handleSaveAsPreset = async () => {
-        if (!presetName.trim() || !draftAvatarId) {
-            return;
-        }
-        await saveOutfit();
-        const ownedAccessories: Partial<Record<AccessorySlot, string>> = {};
-        (Object.keys(draftAccessories) as AccessorySlot[]).forEach((slot) => {
-            const itemId = draftAccessories[slot];
-            if (itemId && isOwned(itemId)) {
-                ownedAccessories[slot] = itemId;
-            }
-        })
-        await saveCurrentAvatar({
-            name: presetName.trim(),
-            avatarId: isOwned(draftAvatarId) ? draftAvatarId : (inventory?.equippedAvatarId ?? draftAvatarId),
-            accessories: ownedAccessories
-        })
-        setPresetName('');
-        setShowPresetInput(false);
-    }
 
     return (
         <div>
@@ -122,28 +97,14 @@ const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasing
                             {purchasingId === draftAvatarId ? <Loader2 size={16} className="animate-spin"/> : `Buy - ${draftAvatar?.price.amount ?? ''}`}
                         </button> 
                     ) : (
-                        <div>
-                            <div style={{display: 'flex',gap: '0.75rem', marginBottom: showPreserInput ? '0.75rem' : 0}}>
+                            <div style={{display: 'flex',gap: '0.75rem'}}>
                                 <button type="button" onClick={saveOutfit} disabled={!hasUnsavedChanges || saving} className="btn btn-primary">
                                     {saving? <Loader2 size={14} className="animate-spin"/> : <><Save size={14}/>Save Outfit</>}
                                 </button>
                                 <button type="button" onClick={reset} disabled={!hasUnsavedChanges || saving} className="btn btn-primary">
                                     <RotateCcw size={14}/>Reset to Default
                                 </button>
-                                <button type="button" onClick={() => setShowPresetInput((v) => !v)} className="btn btn-primary">
-                                    <BookmarkPlus size={14}/>Save as preset
-                                </button>
                             </div>
-
-                            {showPreserInput && (
-                                <div style={{display: 'flex', gap: '0.5rem'}}>
-                                    <input type="text" value={presetName} onChange={(e)=> setPresetName(e.target.value)} placeholder="Name this look.." className="input" style={{maxWidth: '220px'}}/>
-                                    <button type="button" onClick={handleSaveAsPreset} disabled={!presetName.trim() || savingPreset} className="btn btn-secondary">
-                                        {savingPreset? <Loader2 size={14} className="animate-spin"/> : 'Save'}
-                                    </button>
-                                </div>
-                            )}
-                        </div>
                     )}
                 </div>
             </div>
@@ -194,8 +155,8 @@ const AccessoryCards: React.FC<AccessoryCardsProps> = ({item,owned, inDraft, pur
     <div onClick={onTryOn} className="card-glass" style={{padding: '1.1rem', display: 'flex', flexDirection: 'column', 
         border: inDraft ? '2px solid var(--primary)' : '1px solid var(--border)',gap: '0.6rem',  cursor: 'pointer'}}>
         {inDraft && (
-            <span className="badge" style={{fontSize: '0.65rem',border: '1px solid var(--primary)',
-                background: 'var(--primary)' , color: 'var(--success)'}}>
+            <span className="badge" style={{fontSize: '0.65rem',border: '1px solid var(--muted)',
+                background: 'transparent' , color: 'var(--success)'}}>
                 {owned ? <><Check size={11}/> Equipped</>: 'Previewing'}
             </span>
         )}
