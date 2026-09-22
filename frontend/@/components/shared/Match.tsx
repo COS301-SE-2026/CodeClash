@@ -43,7 +43,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
             {/* <img src={background} className='absolute w-full -z-10' alt='background' /> */}
             {/* <BackButton page='/dashboard' /> */}
             {/* Header */}
-            <MatchCard className="min-w-220 max-w-600 h-25 min-h-[10rem] shrink-0 mb-10 mt-10 ml-[3%] mr-[3%] flex items-center">
+            <MatchCard className="min-w-220 max-w-500 h-[7rem] shrink-0 mb-10 mt-10 ml-[3%] mr-[3%] flex items-center">
             <div className='flex w-full h-full items-center justify-between '>
                 
                 {/* Player 1 Progress */}
@@ -67,14 +67,14 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                         <div className='w-full'>
                             <Progress
                                 value={player_life[0]}
-                                className='w-[10rem] h-sm shadow-[0_4px_6px_rgba(0,0,0,0.3)] ml-auto mr-4 -mt-1'
+                                className='w-[12rem] h-sm mx-auto -mt-1'
                             />
                         </div>
                     </div>
                 </div>
 
                 {/* Clock */}
-                <div className='text-white font-dseg bg-[var(--match-box)] border border-[0.5px] border-[var(--match-card)] h-20 w-70 flex items-center justify-center text-lg text-center font-semibold rounded-sm px-2 my-auto mx-auto mt-3'>
+                <div className='text-white font-dseg bg-[var(--match-box)] border border-[0.5px] border-[var(--match-card)] h-12 w-42 flex items-center justify-center text-lg text-center font-semibold rounded-sm px-2 my-auto mx-auto'>
                     <div className="flex flex-row">
                         <Timer size={30} className="mr-2 my-auto"/>
                         <span>
@@ -92,16 +92,23 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                         <div className='w-full'>
                             <Progress
                                 value={player_life[0]}
-                                className='w-[10rem] h-sm shadow-[0_4px_6px_rgba(0,0,0,0.3)] mr-auto ml-4 -mt-1 rotate-180'
+                                bg={"[var(--math-card)]"}
+                                className='w-[12rem] h-sm mx-auto -mt-1 rotate-180'
                             />
                         </div>
-                        
+
+                        {/* the code below was copied and pasted from above and was written by a human, this code was not ai generated! */}
+                        <TournamentsBadge className="w-[15%] ml-2 h-[1.5rem] mb-auto text-muted-text text-xs mr-2">
+                            <h1 className="mt-1">RIVAL</h1>
+                        </TournamentsBadge>
+
+
                         <div className="flex flex-col mr-2">
                             <div className="text-[1.25rem] w-xsm h-sm -mt-1">{usernames[1]}</div>
                             <div className="text-xs text-muted-text ml-auto">{elos[1]} ELO</div>
                         </div>
 
-                        <TournamentButton className="my-auto w-[6.5rem] h-[4rem] items-center -px-1 -py-4 mr-4 -mt-2.5">
+                        <TournamentButton className="my-auto w-[7.5rem] h-[4rem] items-center -px-1 -py-4 mr-4 -mt-2.5">
                             <div style={{backgroundImage : `url(${avatars[0]})`}} className="w-full h-full bg-no-repeat bg-cover bg-center">
 
                             </div>
