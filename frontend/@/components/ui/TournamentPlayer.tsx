@@ -12,7 +12,7 @@ interface TournamentPlayerProps{
 export const TournamentPlayer = ({children, className} : TournamentPlayerProps) => {
 
     return(
-        <MatchCard className={`bg-card border-[var(--button-tournament-secondary)] border-[0.5px] flex flex-row w-auto overflow-x-auto gap-1 min-w-[10%] ${className}`}>
+        <MatchCard className={`flex flex-row w-auto overflow-x-auto gap-1 min-w-[10%] ${className}`}>
             <div className="bg-[var(--profile-tournaments)] border-[0.5px] my-auto sm:min-w-0 
                 border-[var(--button-tournament-secondary)] rounded-sm ml-2 w-10 h-10"
             >   

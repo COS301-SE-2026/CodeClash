@@ -275,6 +275,7 @@
   --progress-bar-symbol: var(--progress-bar-symbol);
   --match-card: var(--match-card);
   --card-tournament: var(--card-tournaments);
+  --gradient-tournaments: var(--gradient-tournament);
 
 }
 
@@ -378,6 +379,7 @@
   --progress-bar-symbol: #1B0F1A;
   --match-card: #241822;
   --profile-tournaments: #1D0E20;
+  --gradient-tournament: #FE98A8;
 }
 
 /*These are copied from :root and adjusted for light mode*/
@@ -459,6 +461,7 @@
   --progress-bar-symbol: #1B0F1A;
   --match-card: #241822;
   --profile-tournaments: #1D0E20;
+  --gradient-tournament: #FE98A8;
 }
 
 @layer base {

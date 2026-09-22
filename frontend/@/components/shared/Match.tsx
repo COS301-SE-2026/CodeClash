@@ -60,7 +60,6 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                         <div className='w-full'>
                             <Progress
                                 value={player_life[0]}
-                                progress_colour={colour}
                                 className='w-[10rem] h-sm shadow-[0_4px_6px_rgba(0,0,0,0.3)] ml-auto mr-4 -mt-1'
                             />
                         </div>
@@ -86,7 +85,6 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                         <div className='w-full'>
                             <Progress
                                 value={player_life[0]}
-                                progress_colour={colour}
                                 className='w-[10rem] h-sm shadow-[0_4px_6px_rgba(0,0,0,0.3)] mr-auto ml-4 -mt-1'
                             />
                         </div>
