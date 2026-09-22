@@ -7,3 +7,13 @@ import Riven from './Avatars/Riven.png';
 import Vexa from './Avatars/Vexa.png';
 import Xara from './Avatars/Xara.png';
 import Zen from './Avatars/Zen.png';
+
+import AbyssalCrown from './Accessories/AbyssalCrown.png';
+import CodeCap from './Accessories/CodeCap.png';
+import FrostEars from './Accessories/FrostEars.png';
+import LumiEars from './Accessories/LumiEars.png';
+import NeonEars from './Accessories/NeonEars.png';
+import ScholarsCap from './Accessories/ScholarsCap.png';
+import SignalHood from './Accessories/SignalHood.png';
+import VerdantAntannae from './Accessories/VerdantAntannae.png';
+import VoidCaster from './Accessories/VoidCaster.png';
