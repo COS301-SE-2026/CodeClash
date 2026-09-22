@@ -8,12 +8,19 @@ import Vexa from './Avatars/Vexa.png';
 import Xara from './Avatars/Xara.png';
 import Zen from './Avatars/Zen.png';
 
-import AbyssalCrown from './Accessories/AbyssalCrown.png';
-import CodeCap from './Accessories/CodeCap.png';
-import FrostEars from './Accessories/FrostEars.png';
-import LumiEars from './Accessories/LumiEars.png';
-import NeonEars from './Accessories/NeonEars.png';
-import ScholarsCap from './Accessories/ScholarsCap.png';
-import SignalHood from './Accessories/SignalHood.png';
-import VerdantAntannae from './Accessories/VerdantAntannae.png';
-import VoidCaster from './Accessories/VoidCaster.png';
+import AbyssalCrown from './Accessories/Headwear/AbyssalCrown.png';
+import CodeCap from './Accessories/Headwear/CodeCap.png';
+import FrostEars from './Accessories/Headwear/FrostEars.png';
+import LumiEars from './Accessories/Headwear/LumiEars.png';
+import NeonEars from './Accessories/Headwear/NeonEars.png';
+import ScholarsCap from './Accessories/Headwear/ScholarsCap.png';
+import SignalHood from './Accessories/Headwear/SignalHood.png';
+import VerdantAntannae from './Accessories/Headwear/VerdantAntannae.png';
+import VoidCaster from './Accessories/Headwear/VoidCaster.png';
+
+import AzureScarf from './Accessories/Neckwear/AzureScarf.png';
+import CrimsonScarf from './Accessories/Neckwear/CrimsonScarf.png';
+import PolarScarf from './Accessories/Neckwear/PolarScarf.png';
+import SignalScarf from './Accessories/Neckwear/SignalScarf.png';
+import StarlightScarf from './Accessories/Neckwear/StarlightScarf.png';
+import TideScarf from './Accessories/Neckwear/TideScarf.png'
