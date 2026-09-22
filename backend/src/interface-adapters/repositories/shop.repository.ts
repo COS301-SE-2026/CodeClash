@@ -1,8 +1,8 @@
 import { DataSource, Repository } from "typeorm";
-import { ShopItem } from "src/entities/db-entities/shop-item.entities";
-import { Wallet } from "src/entities/db-entities/wallet.entities";
-import { UserItem } from "src/entities/db-entities/user-item.entities";
-import { EquippedItems } from "src/entities/db-entities/equipped-items.entities";
+import { ShopItem } from "src/entities/database/shop-item.entities";
+import { Wallet } from "src/entities/database/wallet.entities";
+import { UserItem } from "src/entities/database/user-item.entities";
+import { EquippedItems } from "src/entities/database/equipped-items.entities";
 import { IShopRepository } from "src/application/interfaces/repositories/IShopRepository";
 import { ShopItemDTO } from "src/entities/dtos/shop/shop.dto";
 import { WalletDTO } from "src/entities/dtos/shop/wallet.dto";

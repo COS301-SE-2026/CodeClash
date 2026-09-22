@@ -2,7 +2,7 @@ import { IQuestionRepository } from "src/application/interfaces/repositories/IQu
 import { GameMode, Questions } from "src/entities/database/questions.entities";
 import { QuestionDTO } from "src/entities/dtos/questions/question.dto";
 import { Repository } from "typeorm";
-import { MatchMode } from "src/entities/dtos/match/match.dto";
+import { MatchMode } from "src/entities/dtos/matches/match.dto";
 
 export class QuestionRepository implements IQuestionRepository {
     constructor(

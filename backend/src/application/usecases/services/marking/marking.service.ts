@@ -6,7 +6,7 @@ import { MarkingStrategy } from "src/application/interfaces/marking/IMarkingStat
 import { OpponentProgress } from "../../systems/opponent-progress";
 import { SubmissionComponent } from "src/entities/components";
 import { PlayerSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
-import type { MarkingResultDTO } from "src/entities/dtos/marking/submission-result.dto";
+import type { MarkingResultDTO } from "src/entities/dtos/submissions/submission-result.dto";
 
 export class MarkingService {
 

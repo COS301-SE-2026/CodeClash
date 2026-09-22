@@ -1,6 +1,6 @@
 import { LifeComponent, MatchComponent, PlayerInfoComponent, PlayersComponent, RoundComponent, SubmissionRegistryComponent } from "src/entities/components";
 import { PlayerDTO, MatchDTO, RoundDTO } from "src/entities/dtos/matches/match-component.dto";
-import { MatchQuestionsDTO } from "src/entities/dtos/match/match.dto";
+import { MatchQuestionsDTO } from "src/entities/dtos/matches/match.dto";
 import { World } from "src/entities/World";
 
 export class MatchCreationSystem {
