@@ -28,7 +28,13 @@ const Themes: ThemesContent[] = [
         label: 'Gold',
         swatch: '#d4af37'
     },
+    {
+        id: 'nebula',
+        label: 'Nebula',
+        swatch: '#8b3fd6'
+    },
 ]
+
 
 export const SettingsViewModelFunc = () => {
     const {isLight, toggleTheme, theme, setTheme} = useTheme();

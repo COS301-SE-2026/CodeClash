@@ -589,6 +589,77 @@
     --life-primary: #d4af37;
 }
 
+/*These are copied from :root.light and adjusted for more themes*/
+/*A nebula violet theme - like a more modern sci-fi space */
+:root.nebula, [data-theme = 'nebula'] {
+
+    /*Backgrounds*/
+    --background: #0d0518;
+    --background-elevated: rgba(242, 233, 255, 0.03);
+    --background-card: rgba(242, 233, 255, 0.05);
+
+    --primary: #8b3fd6;
+    --primary-dark: #4a1d80;
+    --secondary: #f0e5fc;
+
+    /*Text*/
+    --text: #f2e9ff;
+    --primary-text: #f2e9ff;
+    --secondary-text: #3d1a66;
+    --muted:rgba(242, 233, 255, 0.65);
+    --muted-text: rgba(242, 233, 255, 0.50);
+
+    /*Borders*/
+    --border: rgba(242, 233, 255, 0.08);
+    --border-hover: rgba(242, 233, 255, 0.18);
+
+    /*Cards*/
+    --card: var(--background-card);
+    --card-text: var(--primary-text);
+
+    /*Sidebar*/
+    --sidebar: #0d0518;
+    --sidebar-text: var(--primary-text);
+    --sidebar-primary: #8b3fd6;
+    --sidebar-primary-text: #ffffff;
+    --sidebar-accent: rgba(242, 233, 255, 0.05);
+    --sidebar-accent-text: var(--primary-text);
+    --sidebar-border: rgba(242, 233, 255, 0.08);
+    --sidebar-ring: #8b3fd6;
+
+    /* Buttons */
+    --button-primary: #8b3fd6;
+    --button-secondary: transparent;
+    --button-text-primary: #FFFFFF;
+    --button-text-secondary: #f2e9ff;
+
+    /*Inputs*/
+    --input: rgba(242, 233, 255, 0.05);
+    --ring: #8b3fd6;
+    --accent: #a855f7;
+    --accent-text: #ffffff;
+    --destructive: #e53935;
+
+    /*Status*/
+    --success: #2e7d32;
+    --danger: #c62828;
+    --warning: #b76e00;
+    --info: #1565c0;
+    --secondary-muted: rgba(242, 233, 255, 0.4);
+
+    /*Difficulty for questions*/
+    --difficulty-easy: #2e7d32;
+    --difficulty-medium: #b76e00;
+    --difficulty-hard: #c62828;
+
+     /*Shadows*/
+    --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --card-shadow: 0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25);
+    --glow-shadow: 0 0 24px rgba(139, 63, 214, 0.45);
+
+    --life-primary: #8b3fd6;
+}
+
 @layer base {
 
   .badge {
