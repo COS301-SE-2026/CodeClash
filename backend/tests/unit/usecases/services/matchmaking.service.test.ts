@@ -4,7 +4,7 @@ import RedisMock from 'ioredis-mock'
 import { IMatchmakingCache } from '../../../../src/application/interfaces/cache/IMatchmakingCache'
 import { MatchmakingService } from '../../../../src/application/usecases/services/matchmaking.service'
 import { GameMode } from '../../../../src/entities/db-entities/questions.entities';
-import UserDto from "../../../../src/entities/dtos/matchmaking.dto";
+import  MatchmakingUserDTO  from '../../../../src/entities/dtos/matchmaking/matchmaking.dto'
 import { MatchmakingCache } from '../../../../src/interface-adapters/cache/matchmaking-cache'
 import { vi, describe, test, expect, beforeEach, afterEach } from 'vitest';
 
@@ -18,9 +18,9 @@ const matchmaking_service = new MatchmakingService(cache);
 
 
 let ids = 1
-const ideal_math_user = new UserDto((ids++).toString(), 1000, GameMode.Maths);
-const ideal_prog_user = new UserDto((ids++).toString(), 1010, GameMode.Programming);
-const invalid_remove = new UserDto((ids++).toString(), 1020, GameMode.Maths);
+const ideal_math_user = new MatchmakingUserDTO((ids++).toString(), 1000, GameMode.Maths);
+const ideal_prog_user = new MatchmakingUserDTO((ids++).toString(), 1010, GameMode.Programming);
+const invalid_remove = new MatchmakingUserDTO((ids++).toString(), 1020, GameMode.Maths);
 
 
 describe('Ideal Users', async () => {
@@ -81,8 +81,8 @@ describe('Ideal Users', async () => {
             let math_length = 0;
             const prog_length = 0;
 
-            const player_1 = new UserDto(player_1_id, 1000, GameMode.Maths);
-            const player_2 = new UserDto(player_2_id, 1050, GameMode.Maths);
+            const player_1 = new MatchmakingUserDTO(player_1_id, 1000, GameMode.Maths);
+            const player_2 = new MatchmakingUserDTO(player_2_id, 1050, GameMode.Maths);
 
             const add_p_1 = await matchmaking_service.matchmaking(player_1);  // this should not find a match
             expect(add_p_1).toBeNull();

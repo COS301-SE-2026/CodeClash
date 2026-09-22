@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, type Mock, vi } from 'vitest';
 import { submitQuestion } from '../../../src/interface-adapters/socket-handlers/game.handler';
 import { MarkingService } from '../../../src/application/usecases/services/marking/marking.service';
-import { MathsSubmissionDTO, PlayerSubmissionDTO} from '../../../src/entities/dtos/components.dto';
+import { MathsSubmissionDTO, PlayerSubmissionDTO} from '../../../src/entities/dtos/submissions/submission.dto';
 
 // Mock Helpers
 const mockIo = () => {

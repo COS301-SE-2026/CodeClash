@@ -5,7 +5,7 @@ import { Users } from '../../../src/entities/db-entities/user.entities'
 import { EloRatings } from '../../../src/entities/db-entities/elo.entities'
 import { mock_users_array } from "../../mocks/mock-user";
 import { EloRepository } from '../../../src/interface-adapters/repositories/elo.repository'
-import {RankDTO} from '../../../src/entities/dtos/rank.dto';
+import {RankDTO} from '../../../src/entities/dtos/user/rank.dto';
 
 let data_source: DataSource
 let elo_entity: Repository<EloRatings>
