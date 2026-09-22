@@ -6,7 +6,7 @@ import { Progress } from '../ui/progress'
 import {Check, X, LockKeyhole, Timer} from "lucide-react"
 import { MatchCard } from '../ui/MatchCard'
 import TournamentButton from '../ui/TournamentButton'
-import { useUser } from 'src/context/User/hooks/useUser';
+import { TournamentsBadge } from '../ui/TournamentsBadge'
 
 interface MatchScreenProps {
     player_life: number[],
@@ -49,7 +49,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 {/* Player 1 Progress */}
                 <div className="min-w-lg w-xl ml-7 h-[6rem] mt-10">
                     <div className="flex flex-row items-center gap-2 w-full">
-                        <TournamentButton className="my-auto w-[6.5rem] h-[4rem] items-center -px-1 -py-4 ml-4 -mt-2.5">
+                        <TournamentButton className="my-auto w-[7.5rem] h-[4rem] items-center -px-1 -py-4 ml-4 -mt-2.5">
                             <div style={{backgroundImage : `url(${avatars[0]})`}} className="w-full h-full bg-no-repeat bg-cover bg-center">
 
                             </div>
@@ -59,6 +59,10 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                             <div className="text-[1.25rem] w-xsm h-sm -mt-1">{usernames[1]}</div>
                             <h1 className="text-muted-text text-xs">{elos[0]} ELO</h1>
                         </div>
+
+                        <TournamentsBadge className="w-[15%] ml-2 h-[1.5rem] mb-auto text-muted-text text-xs">
+                            <h1 className="mt-1">YOU</h1>
+                        </TournamentsBadge>
 
                         <div className='w-full'>
                             <Progress
@@ -94,7 +98,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                         
                         <div className="flex flex-col mr-2">
                             <div className="text-[1.25rem] w-xsm h-sm -mt-1">{usernames[1]}</div>
-
+                            <div className="text-xs text-muted-text ml-auto">{elos[1]} ELO</div>
                         </div>
 
                         <TournamentButton className="my-auto w-[6.5rem] h-[4rem] items-center -px-1 -py-4 mr-4 -mt-2.5">
