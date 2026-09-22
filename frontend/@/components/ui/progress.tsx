@@ -9,7 +9,8 @@ interface ProgressProps extends React.ComponentProps<typeof ProgressPrimitive.Ro
   via?: string,
   to?: string,
   bg?: string,
-  border?: string
+  border?: string,
+  glow?: string,
 }
 
 function Progress({
@@ -20,6 +21,7 @@ function Progress({
   to = "transparent",
   bg = "primary-dark",
   border = "primary",
+  glow = "[var(--button-tournament)]",
   ...props
 }: ProgressProps) {
  
@@ -27,9 +29,14 @@ function Progress({
     <ProgressPrimitive.Root
       data-slot="progress"
       className={cn(
-        `relative flex h-full h-3 w-full items-center overflow-x-hidden rounded-full bg-white`,
+        "relative flex h-full h-3 w-full items-center overflow-x-hidden rounded-full",
+        border && "border",
         className
       )}
+      style={{
+        backgroundColor: bg,
+        borderColor: border
+      }}
       {...props}
     >
       <ProgressPrimitive.Indicator
