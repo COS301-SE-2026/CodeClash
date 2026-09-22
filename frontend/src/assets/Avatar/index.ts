@@ -30,3 +30,9 @@ import OrbitShades from './Accessories/Facewear/OrbitShades.png';
 import PinkVisor from './Accessories/Facewear/PinkVisor.png';
 import VerdantFrames from './Accessories/Facewear/VerdantFrames.png';
 import VoidFrames from './Accessories/Facewear/VoidFrames.png';
+
+import GuardianBelt from './Accessories/Belts/GuardianBelt.png';
+import RunnerBelt from './Accessories/Belts/RunnerBelt.png';
+import ShadowHarness from './Accessories/Belts/ShadowHarness.png';
+import StarterBelt from './Accessories/Belts/StarterBelt.png';
+import TideguardBelt from './Accessories/Belts/TideguardBelt.png';
