@@ -1,15 +1,16 @@
 import "../styles/global.css"
 import { Card } from "../../@/components/ui/card"
-import {LogOut, Rocket, Timer, PlusIcon} from "lucide-react"
+import {LogOut, Rocket, Timer, PlusIcon, UserRoundPlus} from "lucide-react"
 import TournamentButton from "@/components/ui/TournamentButton"
 import { Progress } from "@/components/ui/progress"
 import { TournamentPlayer } from "@/components/ui/TournamentPlayer"
 import FilterButton from "@/components/ui/FilterButton"
+import { MatchCard } from "@/components/ui/MatchCard"
 
 
 const TournamentsWaiting = () => {
     return(
-        <div className="w-full max-h-screen overflow-hidden relative">
+        <div className="w-full min-h-screen overflow-hidden relative">
             <div className="flex flex-col max-w-[150rem] mx-auto">
                 <Card className="bg-card border-[var(--button-tournament-secondary)] border-[0.5px] flex flex-col ">
 
@@ -60,14 +61,11 @@ const TournamentsWaiting = () => {
                     <TournamentPlayer/>
                     <TournamentPlayer/>
                     
+                    <MatchCard className="border-dashed flex flex-row text-muted-text text-[1.1rem] justify-center hover:opacity-90 hover:scale-105 transform-transition duration-300">
+                        <UserRoundPlus size={30} className="ml-3 "/>
+                        <h1 className="mr-3 mt-1">Invite Friend</h1>
+                    </MatchCard>
                 </div>
-
-                <FilterButton className="mt-30 w-[50rem] h-20 mx-auto rounded-[20px]">
-                    <div className="flex flex-row gap-5">
-                        <PlusIcon size={50} className="text-primary my-auto"/>
-                        <h1 className="text-[3rem] font-font font-semibold text-primary">Add Friend?</h1>
-                    </div>
-                </FilterButton>
 
                 <TournamentButton className="mt-10 h-15 w-[30rem] mx-auto justify-center">
                     <h1 className="font-semibold my-auto mx-auto text-md">Click to Show You Are Ready!</h1>
