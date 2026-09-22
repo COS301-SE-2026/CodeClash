@@ -18,7 +18,7 @@ export const TournamentPlayer = ({children, className} : TournamentPlayerProps) 
             >   
             </div>
             <h1 className="font-semibold text-sm ml-3 mt-1">Username</h1>
-            <h2 className="ml-auto rounded-full bg-card text-green-300 text-xs font-semibold w-auto text-center mt-auto my-auto mr-2">Ready</h2>
+            <h2 className="ml-auto rounded-full bg-card text-green-300 text-xs font-semibold w-auto text-center mt-auto my-auto mr-2 px-1">Ready</h2>
             {children}
         </MatchCard>
     )

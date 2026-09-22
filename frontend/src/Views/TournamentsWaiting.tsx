@@ -14,22 +14,22 @@ const TournamentsWaiting = () => {
             <div className="flex flex-col max-w-[150rem] mx-auto">
                 <Card className="bg-card border-[var(--button-tournament-secondary)] border-[0.5px] flex flex-col ">
 
-                    <div className="inset-0 right-2 text-muted-text ml-4 -mt-2">#tournamentid</div>
+                    <div className="inset-0 right-2 text-muted-text ml-4 -mt-2 text-[1rem]">#tournamentid</div>
                     
-                    <div className="flex flex-row gap-4 w-full -mt-1">
-                        <h1 className="font-font font-semibold text-xl ml-5">Tournament Title</h1>
+                    <div className="flex flex-row w-full -mt-1">
+                        <h1 className="font-font font-semibold text-[2.5rem] ml-5 -mt-3">Tournament Title</h1>
 
                         <div className="gap-5 flex flex-row ml-auto mr-6">
-                            <MatchCard className="w-[50%] h-[40%] hover:opacity-90 hover:scale-105 transition-transform duration-300">
+                            <MatchCard className="w-[50%] min-h-[40%] hover:opacity-90 hover:scale-105 transition-transform duration-300">
                                 <div className="flex flex-row gap-2">
-                                    <LogOut size={25} className="text-muted-text ml-3 -mt-2.5"/>
-                                    <h2 className="font-font font-semibold text-[1rem] text-muted-text -ml-3 px-3 -mt-2.5">Leave Waiting Room</h2>
+                                    <LogOut size={20} className="text-muted-text ml-3 -mt-2.5"/>
+                                    <h2 className="font-font font-semibold text-[0.8rem] text-muted-text -ml-3 px-3 -mt-2.5">Leave Waiting Room</h2>
                                 </div>
                             </MatchCard>
-                            <TournamentButton className="items-center h-auto justify-center px-2 py-2">
-                                <div className="flex flex-row">
-                                    <Rocket size={40} className="-ml-1"/>
-                                    <div className="font-font font-semibold text-[1.8rem] ml-3">Start Match</div>
+                            <TournamentButton className="items-center h-[65%] justify-center px-2 py-2 rounded-sm">
+                                <div className="flex flex-row mt-1">
+                                    <Rocket size={25} className="ml-1"/>
+                                    <div className="font-font font-semibold text-[1.1rem] ml-2 mr-1">Start Match</div>
                                 </div>
                             </TournamentButton>
                         </div>
