@@ -1,12 +1,8 @@
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, ArrowLeft , Mail} from "lucide-react";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import { ForgotPasswordViewModelFunction } from "../ViewModels/ForgotPasswordViewModel";
-
-//Copying the fields and button class from SignUp.tsx
-const fieldClass = "fields w-[100%] max-w-[90vw] h-[3rem] bg-white rounded-lg px-[2%] border-[0.5px] border-primary outline-none transition-all duration-200 focus:border-pink-400 focus:shadow-[0_0_0_3px_rgba(185,21,81,0.15)] disabled:opacity-50 text-primary font-medium placeholder:text-primary/60 focus:text-primary";
-const buttonPrimaryClass = "w-[100%] max-w-[90vw] h-[3rem] text-[1.5rem] rounded-lg font-bold cursor-pointer flex items-center justify-center transition-all duration-200 hover:-translate-y-px active:translate-y-0 disabled:opacity-50 bg-button-primary text-button-text-primary shadow-badge";
 
 const ForgotPassword: React.FC = () => {
     const navigate = useNavigate();
@@ -17,28 +13,31 @@ const ForgotPassword: React.FC = () => {
         handleSendCode, handleReset,
     } = ForgotPasswordViewModelFunction();
     return (
-        <div className="relative w-full min-h-screen flex items-center justify-center overflow-hidden"
-            style={{background: 'var(--background)'}}>
-            <button className="absolute top-10 left-10 bg-primary rounded-lg px-4 py-2 heading-sub hover:opacity-80"
-                onClick={() => navigate('/sign-in')} type="button">
-                    ← Back
-                </button>
+        <div className="relative bg-background w-full min-h-screen flex items-center justify-center overflow-hidden">
+            {/*Back Button*/}
+            <Link to='/sign-in' className="btn btn-ghost primary-back-button flex items-center gap-2 z-20">
+                <ArrowLeft size={18}/>
+                Back
+            </Link>
 
                 {/*Request for email */}
                 {state === 'request' && (
                     <div className="relative z-10 flex flex-col items-center gap-4 w-full max-w-[560px]">
-                        <h1 className="heading text-center">{content.titleRequest}</h1>
-                        <p className="heading-sub text-center mb-4">{content.taglineRequest}</p>
+                        <h1 className="text-l text-center">{content.titleRequest}</h1>
+                        <p className="text-sm text-center mb-4 whitespace-nowrap">{content.taglineRequest}</p>
 
                         {displayError && (
                             <p className="text-primary-text text-center">{displayError}</p>
                         )}
 
-                        <input className= {fieldClass} type="email" placeholder={content.emailPlaceholder}
-                            value={requestForm.email} 
-                            onChange={(e) => setRequest('email', e.target.value)} disabled= {isLoading}/>
+                        <div className='relative w-full'>
+                            <Mail size={16} className='absolute left-4 top-1/2 -translate-y-1/2 text-muted-text'/>
+                            <input className= 'input pl-10' type="email" placeholder={content.emailPlaceholder}
+                                value={requestForm.email} 
+                                onChange={(e) => setRequest('email', e.target.value)} disabled= {isLoading}/>
+                        </div>
 
-                        <button className= {buttonPrimaryClass} type="button" onClick={handleSendCode} disabled= {isLoading}>
+                        <button className= 'btn btn-primary w-full' type="button" onClick={handleSendCode} disabled= {isLoading}>
                             {isLoading ? 'Sending...' : content.labelSendCode}
                         </button>
                     </div>
@@ -46,23 +45,23 @@ const ForgotPassword: React.FC = () => {
 
                 {state === 'reset' && (
                     <div className="relative z-10 flex flex-col items-center gap-4 w-full max-w-[560px]">
-                        <h1 className= "heading text-center">{content.titleReset}</h1>
-                        <p className="heading-sub text-center mb-4">{content.taglineReset(requestForm.email)}</p>
+                        <h1 className= "text-l text-center">{content.titleReset}</h1>
+                        <p className="text-sm text-center mb-4 whitespace-nowrap">{content.taglineReset(requestForm.email)}</p>
 
                         {displayError && (
                             <p className="text-primary-text text-center">{displayError}</p>
                         )}
 
-                        <input className= {fieldClass} type="text" placeholder= {content.codePlaceholder} //This is the input field for the code
+                        <input className= 'input' type="text" placeholder= {content.codePlaceholder} //This is the input field for the code
                             value={resetForm.code} onChange={(e) => setReset('code', e.target.value)} disabled= {isLoading}/>
                         {/*Copying above for next 2 and changing as needed */}
-                        <input className= {fieldClass} type="password" placeholder= {content.newPasswordPlaceholder}
+                        <input className= 'input' type="password" placeholder= {content.newPasswordPlaceholder}
                             value={resetForm.newPassword} onChange={(e) => setReset('newPassword', e.target.value)} disabled= {isLoading}/>
-                        <input className= {fieldClass} type="password" placeholder= {content.confirmPasswordPlaceholder}
+                        <input className= 'input' type="password" placeholder= {content.confirmPasswordPlaceholder}
                             value={resetForm.confirmPassword} onChange={(e) => setReset('confirmPassword', e.target.value)} disabled= {isLoading}/>
 
                         {/*Copying the button from request above */}
-                        <button className= {buttonPrimaryClass} type="button" onClick={handleReset} disabled= {isLoading}>
+                        <button className= 'btn btn-primary w-full' type="button" onClick={handleReset} disabled= {isLoading}>
                             {isLoading ? 'Confirming...' : content.labelConfirm}
                         </button>
                     </div>
@@ -71,10 +70,10 @@ const ForgotPassword: React.FC = () => {
                 {state === 'success' && (
                     <div className="relative z-10 flex flex-col items-center gap-6 w-full max-w-[560px]">
                         <CheckCircle className="w-16 h-16 text-success text-center"/>
-                        <h1 className="heading text-center">{content.titleReset}</h1>
-                        <p className="heading-sub text-center">{content.messageSuccess}</p>
+                        <h1 className="text-l text-center">{content.titleReset}</h1>
+                        <p className="text-sm text-center whitespace-nowrap">{content.messageSuccess}</p>
 
-                        <button className= {buttonPrimaryClass} type = "button" onClick={() => navigate('/sign-in')}>Back to Sign in</button>
+                        <button className= 'btn btn-primary w-full' type = "button" onClick={() => navigate('/sign-in')}>Back to Sign in</button>
                     </div>
                 )}
         </div>

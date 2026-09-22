@@ -8,11 +8,11 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": " && NODE_OPTIONS=--no-experimental-webstorage npx vitest run --mode dev",
-    "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage",
-    "test:ui": "vitest --ui",
-    "coverage": "vitest --coverage"
+    "test": "vitest run --mode dev",
+    "test:watch": "vitest --mode dev",
+    "test:coverage": "vitest run --mode dev --coverage",
+    "test:ui": "vitest --ui --mode dev",
+    "coverage": "vitest run --mode dev --coverage"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.8",
@@ -22,6 +22,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "color-convert": "^3.1.3",
+    "country-flag-icons": "^1.6.20",
     "dotenv": "^17.4.2",
     "framer-motion": "^13.2.0",
     "lucide-react": "^1.24.0",

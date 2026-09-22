@@ -800,7 +800,7 @@
   }
 
   .eyebrow {
-    color: var(--primary);
+    color: var(--secondary);
     letter-spacing: 0.15rem;
     text-transform: uppercase;
     font-weight: 700;
@@ -905,6 +905,7 @@
   }
 
   .btn-secondary:hover:not(:disabled) {
+    background: var(--pink-200, #Ffffff);
     transform: translateY(-1px);
   }
 
