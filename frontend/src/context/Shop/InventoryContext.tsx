@@ -6,8 +6,6 @@ import type { ShopItem, Wallet, UserInventory, AccessorySlot, AvatarShopItem, Ac
 import type { BodyType } from "src/avatar/AvatarRenderer";
 import { useAuth } from "../Auth/hooks/useAuth";
 
-import { getCatalog,getWallet, getInv, purchaseItm, equipItm, equipAcc } from "src/services/shop.service.mock"; //to be changed once backedn endpoints implemented
-
 interface InventoryContextValue {
     catalog: ShopItem[];
     wallet: Wallet;
