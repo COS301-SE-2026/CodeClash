@@ -16,7 +16,7 @@ import { createInvite, getFriendRequests, getFriends, removeFriend, respondToFri
 import { FriendService } from 'src/application/usecases/services/friend.service';
 import { getMatchDetails, getMatchHistory } from 'src/interface-adapters/controllers/match-history.controllers';
 import { MatchHistoryRepository } from 'src/interface-adapters/repositories/match-history.repository';
-import { ShopService } from 'src/application/usecases/services/shop.service';
+import { ShopService } from 'src/application/usecases/services/shop-item.service';
 import { getAllItems, getEquipped, getUserItems, getUserPowerups, getWallet, purchaseItem, updateEquipped, usePowerup } from 'src/interface-adapters/controllers/shop.controllers';
 
 export const createAPIRoutes = (

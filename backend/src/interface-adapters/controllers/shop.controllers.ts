@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { ShopService } from 'src/application/usecases/services/shop.service'; // coming soon :P
+import { ShopService } from 'src/application/usecases/services/shop-item.service'; // coming soon :P
 import { UpdatedEquippedDTO } from 'src/entities/dtos/shop/equipped-items.dto';
 
 export const getAllItems = (service: ShopService) => 

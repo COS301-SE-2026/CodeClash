@@ -9,7 +9,7 @@ import { LeaderboardService } from 'src/application/usecases/services/leaderboar
 import { AchievementService } from 'src/application/usecases/services/achievement.service';
 import { FriendService } from 'src/application/usecases/services/friend.service';
 import { MatchHistoryRepository } from 'src/interface-adapters/repositories/match-history.repository';
-import { ShopService } from 'src/application/usecases/services/shop.service';
+import { ShopService } from 'src/application/usecases/services/shop-item.service';
 
 
 export const createApp = (
