@@ -36,6 +36,12 @@ export const hostTournament = async (io: Server, socket: Socket, start_date: Dat
     }
 }
 
-export const cancelTournament = async () => {
-
+export const cancelTournament = async (io: Server, socket: Socket, tournament_id: string, tournament_service: TournamentService) => {
+    try {
+        await tournament_service.cancelTournament(tournament_id);
+        io.to(tournament_id).emit("tournament_cancelled");
+    }
+    catch (error) {
+        socket.emit("cancel_tournament_failed", error);
+    }
 }

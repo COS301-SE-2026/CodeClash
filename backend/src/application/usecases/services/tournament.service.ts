@@ -47,7 +47,11 @@ export class TournamentService {
         return tournament;
     }
 
-    async cancelTournament(tournament_id: string){
+    async cancelTournament(tournament_id: string) {
+        const tournament = await this.tournament_cache.getTournament(tournament_id);
+        if (!tournament) throw new Error("Tournament not found");
+
+        if (tournament.status !== MatchStatus.Waiting) throw new Error("Cannot cancel tournament");
         await this.tournament_cache.deleteTournament(tournament_id);
     }
 }

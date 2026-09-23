@@ -73,11 +73,11 @@ export class MatchSocket {
     }
 
     sendResults(data: { match_id: string, pair_id: string }) {
-        return emit<{ match_id: string, pair_id: string }, void>(this.socket, 'send_results', data);
+        return emit<typeof data, void>(this.socket, 'send_results', data);
     }
 
     cleanUpMatch(data: { match_id: string, pair_id: string }) {
-        return emit<{ match_id: string, pair_id: string }, void>(this.socket, 'clean_up', data);
+        return emit<typeof data, void>(this.socket, 'clean_up', data);
     }
 }
 
