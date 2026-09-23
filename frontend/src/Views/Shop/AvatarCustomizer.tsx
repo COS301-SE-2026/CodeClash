@@ -70,6 +70,19 @@ const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasing
     const avatars = catalog.filter((i): i is AvatarShopItem => i.category === 'avatar');
     const accessories = catalog.filter((i): i is AccessoryShopItem => i.category === 'accessory' && i.slot === activeSlot);
 
+    let stateLabel: React.ReactNode;
+    if (purchasingId === draftAvatarId) {
+        stateLabel = (
+            <Loader2 size={16} className="animate-spin"/>
+        );
+    }
+    else if (draftAvatar && !canAfford(draftAvatar)){
+        stateLabel = "Can't afford";
+    }
+    else {
+        stateLabel = 'Buy';
+    }
+
     return (
         <div>
             <div className="card-glass" style={{padding: '2rem', display: 'flex', gap: '2rem',  flexWrap: 'wrap', alignItems: 'center',marginBottom: '2.5rem'}}>
@@ -81,7 +94,7 @@ const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasing
 
                     {isAvatarUnowned ? (
                         <button type="button" onClick={() => draftAvatarId && purchase(draftAvatarId)} disabled={purchasingId === draftAvatarId || (draftAvatar ? !canAfford(draftAvatar): true)} className="btn btn-primary btn-sm">
-                            {purchasingId === draftAvatarId ? <Loader2 size={16} className="animate-spin"/> : (draftAvatar && !canAfford(draftAvatar)) ? "Can't afford" : 'Buy'}
+                            {stateLabel}
                         </button> 
                     ) : (
                             <div style={{display: 'flex',gap: '0.75rem'}}>
@@ -178,7 +191,7 @@ interface AccessoryCardsProps {
 
 const AccessoryCards: React.FC<AccessoryCardsProps> = ({item,owned, inDraft, purchasing, affordable, onTryOn, onBuy}) => (
     <div className="card-glass" style={{padding: '1.1rem', display: 'flex', flexDirection: 'column', 
-        border: inDraft ? '2px solid var(--primary)' : '1px solid var(--border)',gap: '0.6rem',  cursor: 'pointer'}}>
+        border: inDraft ? '2px solid var(--primary)' : '1px solid var(--border)',gap: '0.6rem'}}>
         <div style={{height: '90px', borderRadius : 'var(--radius-md, 18px)', background: 'var(--background-elevated)', border: '1px solid var(--border)',
             display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden'}}>
             {item.previewImageUrl && <img src={item.previewImageUrl} alt={item.name} style={{maxHeight: '100%', maxWidth: '100%', objectFit: 'contain'}}/>}
