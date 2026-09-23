@@ -36,6 +36,7 @@ import RunnerBelt from './Accessories/Belts/RunnerBelt.png';
 import ShadowHarness from './Accessories/Belts/ShadowHarness.png';
 import StarterBelt from './Accessories/Belts/StarterBelt.png';
 import TideguardBelt from './Accessories/Belts/TideguardBelt.png';
+import XHarness from './Accessories/Belts/XHarness.png';
 
 import AquaVeil from './Accessories/Capes/AquaVeil.png';
 import BlueOrbit from './Accessories/Capes/BlueOrbit.png';
@@ -77,6 +78,7 @@ export const shop_map: Record<string, string> = {
     'shadow-harness': ShadowHarness,
     'starter-belt': StarterBelt,
     'tideguard-belt': TideguardBelt,
+    'x-harness': XHarness,
 
     'aqua-veil': AquaVeil,
     'blue-orbit': BlueOrbit,
