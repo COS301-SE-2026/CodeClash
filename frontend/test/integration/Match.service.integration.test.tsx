@@ -2,8 +2,8 @@ import { render, screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import type { GameQuestionsDTO } from 'src/dtos/game-questionDTO';
-import type { Player } from 'src/Models/MatchModel';
+import type { GameQuestionsDTO } from '../../src/dtos/game-questionDTO';
+import type { Player } from '../../src/Models/MatchModel';
 
 const nav = vi.hoisted(() => vi.fn());
 vi.mock('react-router-dom', async (original) => ({
@@ -17,7 +17,7 @@ import {
   useMatchProgress,
   useMathSubmission,
   useProgSubmission,
-} from 'src/services/match.service';
+} from '../../src/services/match.service';
 
 import { FakeSocket } from './helpers';
 

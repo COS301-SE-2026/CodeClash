@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import ProgMatch from 'src/pages/ProgMatch';
+import ProgMatch from '../../src/pages/ProgMatch';
 import { describe, expect, it } from 'vitest';
 
 describe('ProgMatch page', () => {

@@ -16,8 +16,8 @@ const amplify = vi.hoisted(() => ({
 
 vi.mock('aws-amplify/auth', () => amplify);
 
-import { AuthProvider } from 'src/context/Auth/AuthContext';
-import { useAuth } from 'src/context/Auth/hooks/useAuth';
+import { AuthProvider } from '../../src/context/Auth/AuthContext';
+import { useAuth } from '../../src/context/Auth/hooks/useAuth';
 
 const SIGN_UP_DATA = {
   username: 'ntu',
