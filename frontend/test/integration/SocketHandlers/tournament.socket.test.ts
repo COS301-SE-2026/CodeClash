@@ -1,4 +1,4 @@
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { TournamentSocket } from '../../../src/context/Socket/modules/tournament.socket';
 import type { PlayerDTO, MatchMode } from '../../../src/dtos/match/match.dto';
 import { type TournamentDTO } from '../../../src/dtos/tournaments/tournament.dto';
@@ -70,7 +70,13 @@ describe("Testing tournament socket", () => {
     })
 
     it("Player joins a tournament lobby", async () => {
-        const join_handler = (player: PlayerDTO) => { console.log(player) };
+        const join_handler = vi.fn();
+        const unsub_join = tournament_socket.playerJoined(join_handler);
+
+        await tournament_socket.joinTournament({ tournament_id: tournament.tournament_id, player: players[0] });
+
+        expect(join_handler).toHaveBeenCalledWith(players[0]);
+        unsub_join();
 
     })
 })

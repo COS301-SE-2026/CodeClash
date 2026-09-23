@@ -24,8 +24,8 @@ export default defineConfig({
     coverage: {
       provider: 'istanbul',
       reporter: ['text', 'html', 'lcov'],
-      include: ['**/*.tsx'],
-      exclude: ['**/@/components/ui/**', '**/@/hooks/**', '**/node_modules/**', '**/*.config.*', 'tests/**'],
+      include: ['**/*.tsx', '**/*.ts'],
+      exclude: ['**/@/components/ui/**', '**/@/hooks/**', '**/node_modules/**', '**/*.config.*', 'tests/**', "**/dtos/**", "**/Models/**"],
       thresholds: {   // initial boundaries to improve coverage - this will be increased
         branches: 60,
         functions: 70

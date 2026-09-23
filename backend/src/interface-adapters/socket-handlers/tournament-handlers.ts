@@ -8,7 +8,6 @@ export const joinTournament = async (io: Server, socket: Socket, tournament_id: 
         await tournament_service.joinTournament(tournament_id, player);
         socket.join(tournament_id);
         io.to(tournament_id).emit('player_joined', player);
-        return player;
     }
     catch (error) {
         socket.emit("join_tournament_failed", error);
