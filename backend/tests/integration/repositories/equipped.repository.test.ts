@@ -42,12 +42,17 @@ describe('Tests EquippedRespository', () => {
         await data_source.getRepository(Users).delete({ cognito_id });
     });
 
-    it('Returns null before any items are equipped', async () => {
+    it('Returns null before any items are equipped (raw repo, bypasses CreateUser default theme and avatar assignment)', async () => {
+        const result = await repo.getEquipped(user_id);
 
+        expect(result).toBeNull();
     });
 
     it('Creates an equipped row on first update', async () => {
+        const theme_id = item_ids.find((_, i) => mock_shop_items[i]!.category === 'theme')!;
+        const result = await repo.updateEquipped(user_id, { theme_id });
 
+        expect(result.theme.shop_item_id).toBe(theme_id);
     });
 
     it('Updates one slot without clearing another', async () => {
