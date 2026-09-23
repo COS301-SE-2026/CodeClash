@@ -1,7 +1,7 @@
 import React from 'react'
 import background from 'src/assets/Background/matchScreen.png'
 
-import { Badge } from '../ui/badge'
+import { TimerBox } from '../ui/TimerBox'
 import { Progress } from '../ui/progress'
 import {Check, X, LockKeyhole, Timer} from "lucide-react"
 import { MatchCard } from '../ui/MatchCard'
@@ -39,17 +39,17 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
 }) => {
 
     return (
-        <div className="fixed inset-0 flex flex-col min-w-[64rem] overflow-x-hidden">
+        <div className="fixed inset-0 flex flex-col min-w-[64rem] overflow-y-auto">
             {/* <img src={background} className='absolute w-full -z-10' alt='background' /> */}
             {/* <BackButton page='/dashboard' /> */}
             {/* Header */}
-            <MatchCard className="rounded-[12px] min-w-220 h-[4rem] shrink-0 mb-10 mt-10 ml-[3%] mr-[3%] flex items-center overflow-x-auto">
-            <div className="flex w-full h-full items-center justify-between gap-2">
+            <MatchCard className="rounded-[12px] w-[94%] h-[4rem] shrink-0 mb-10 mt-10 ml-[3%] mr-[3%] flex items-center overflow-x-auto">
+            <div className="flex w-full h-full items-center gap-2">
                 
                 {/* Player 1 Progress */}
                 <div className="shrink-0 min-w-0 w-xl flex-1 ml-7 h-[6rem] mt-10">
                     <div className="flex flex-row items-center gap-2 w-full mt-2">
-                        <TournamentButton className="my-auto min-w-0 w-20 h-12 items-center -px-1 -py-4 -ml-3 -mt-1 my-auto">
+                        <TournamentButton className="my-auto min-w-0 w-18 h-12 items-center -px-1 -py-4 -ml-3 -mt-1 my-auto">
                             <div style={{backgroundImage : `url(${avatars[0]})`}} className="w-full h-full bg-no-repeat bg-cover bg-center">
 
                             </div>
@@ -77,16 +77,16 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 </div>
 
                 {/* Clock */}
-                <div className='shrink-0 text-white font-dseg bg-[var(--match-box)] border border-[0.5px] border-[var(--match-card)] 
-                h-10 w-38 flex items-center justify-center text-lg text-center font-semibold rounded-sm px-2 my-auto -mt-3'>
+                <TimerBox className='shrink-0 text-white font-dseg border border-[var(--match-card)] 
+                h-6 w-38 flex items-center justify-center text-[70%] text-center font-semibold rounded-sm px-2 my-auto -mt-4.5'>
                     <div className="flex flex-row whitespace-wrap">
-                        <Timer size={30} className="mr-3 my-auto"/>
+                        <Timer size={20} className="mr-3 my-auto text-muted-text"/>
                         <span>
                             {String(minutes).padStart(2, "0")}:
                             {String(seconds).padStart(2, "0")}
                         </span>
                     </div>
-                </div>
+                </TimerBox>
 
                 {/* Player 2 Progress */}
 
@@ -127,7 +127,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
 
             {/* Body */}
             <div className='flex justify-evenly'>
-                <div className='flex flex-col w-[70%] h-[40rem]'>
+                <div className='flex flex-col w-[80%] h-[40rem] ml-10'>
                     {/* <div className='absolute bg-gradient-to-r from-button-primary to-secondary h-[3%] w-[71%] rounded-4xl shadow-[0_4px_6px_rgba(0,0,0,0.3)]'></div> */}
                     
                     {/* Question box */}

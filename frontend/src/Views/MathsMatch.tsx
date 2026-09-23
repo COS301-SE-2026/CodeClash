@@ -72,7 +72,9 @@ const MathsMatch = () => {
                 number={currentQuestion + 1}
             />
 
-            <div className='w-[90%] h-[100%] min-h-[35%] flex flex-col items-center justify-center -mt-[3.5%]'>
+            <div className="w-full h-full rounded-lg bg-[var(--match-box)] -mt-30"></div>
+
+            <div className='w-[90%] h-[100%] min-h-[35%] flex flex-col items-center justify-center'>
                 <MathMatch
                     mathfieldRef={mathfieldRef}
                     onValueChange={(val) => setAnswers(prev => ({ ...prev, [currentQuestion]: val }))}

@@ -26,9 +26,9 @@ function Question({
         className,
       )}
     >
-      <MatchCard className="flex flex-col p-2 rounded-lg w-[90%]">
+      <MatchCard className="flex flex-col p-2 rounded-lg w-full h-auto -mt-5">
         <div className="flex justify-between w-full">
-          <p className="ml-3 font-bold text-md">Question {number}</p>
+          <p className="ml-3 mt-2 font-bold text-sm">Question {number}</p>
           <Badge
             className="w-[10%] h-[2rem] text-white text-sm mt-2 mr-2"
             variant={"default"}
@@ -37,8 +37,8 @@ function Question({
           </Badge>
         </div>
 
-        <div className="m-5 flex flex-col justify-evenly">
-          <h1 className="text-[2rem] -mt-8 font-semibold">{title}</h1>
+        <div className="ml-3 m-5 flex flex-col justify-evenly">
+          <h1 className="text-[1.7rem] -mt-8 font-semibold">{title}</h1>
           <div className="text-sm text-muted-text">{description?.replaceAll(String.raw`\n`, '\n')}</div>
         </div>
       </MatchCard>
