@@ -39,38 +39,38 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
 }) => {
 
     return (
-        <div className="fixed inset-0 flex flex-col min-h-screen">
+        <div className="fixed inset-0 flex flex-col min-w-[64rem] overflow-hidden">
             {/* <img src={background} className='absolute w-full -z-10' alt='background' /> */}
             {/* <BackButton page='/dashboard' /> */}
             {/* Header */}
-            <MatchCard className="w-[93.5%] h-[10%] shrink-0 mb-10 mt-5 ml-[3%] mr-[3%] flex items-center">
-            <div className='flex w-full h-full items-center justify-between '>
+            <MatchCard className="rounded-[12px] min-w-220 h-[4rem] shrink-0 mb-10 mt-10 ml-[3%] mr-[3%] flex items-center">
+            <div className="flex w-full h-full items-center justify-between gap-2">
                 
                 {/* Player 1 Progress */}
-                <div className="w-xl ml-[2%] h-[6rem] my-auto">
+                <div className="min-w-0 w-xl flex-1 ml-7 h-[6rem] mt-10">
                     <div className="flex flex-row items-center gap-2 w-full">
-                        <TournamentButton className="my-auto w-[15%] h-[3rem] items-center ml-4 -mt-2.5">
+                        <TournamentButton className="my-auto min-w-0 w-28 h-15 items-center -px-1 -py-4 -ml-1 -mt-2.5">
                             <div style={{backgroundImage : `url(${avatars[0]})`}} className="w-full h-full bg-no-repeat bg-cover bg-center">
 
                             </div>
                         </TournamentButton>
 
                         <div className="flex flex-col ml-2">
-                            <div className="text-[90%] w-xsm h-sm -mt-1">{usernames[1]}</div>
+                            <div className="sm:text-[1.25rem] h-sm -mt-1">{usernames[1]}</div>
                             <h1 className="text-muted-text text-xs">{elos[0]} ELO</h1>
                         </div>
 
-                        <TournamentsBadge className="w-[10%] h-[1rem] mb-auto text-muted-text text-[50%]">
-                            <h1 className="">YOU</h1>
+                        <TournamentsBadge className="flex min-w-7 ml-[0.5%] h-[1.5rem] mb-auto text-muted-text text-xs">
+                            <h1 className="mt-1">YOU</h1>
                         </TournamentsBadge>
 
                         <div className='w-full'>
                             <Progress
                                 value={player_life[0]}
                                 bg="var(--button-tournament-secondary)"
-                                border="var(--button-tournament-secondary"
+                                border="var(--button-tournament-secondary)"
                                 height={2.5}
-                                className='w-[70%] min-w-[2rem] h-sm mx-auto ml-[6%] -mt-1'
+                                className='max-w-[12rem] min-w-[2rem] h-sm mr-auto ml-5 -mt-1'
                             />
                         </div>
                     </div>
@@ -78,7 +78,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
 
                 {/* Clock */}
                 <div className='text-white font-dseg bg-[var(--match-box)] border border-[0.5px] border-[var(--match-card)] h-12 w-42 flex items-center justify-center text-lg text-center font-semibold rounded-sm px-2 my-auto mx-auto'>
-                    <div className="flex flex-row">
+                    <div className="flex flex-row whitespace-wrap">
                         <Timer size={30} className="mr-2 my-auto"/>
                         <span>
                             {String(minutes).padStart(2, "0")}:
