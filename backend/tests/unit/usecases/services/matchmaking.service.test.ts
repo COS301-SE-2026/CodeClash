@@ -1,7 +1,7 @@
 import { MatchmakingUserDTO } from '../../../../src/entities/dtos/matchmaking/matchmaking.dto';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { MatchmakingService } from '../../../../src/application/usecases/services/matchmaking.service'
-import { MatchMode } from '../../../../src/entities/dtos/match/match.dto';
+import { MatchMode } from '../../../../src/entities/dtos/matches/match.dto';
 
 const mock_user = (data: Partial<MatchmakingUserDTO> = {}): MatchmakingUserDTO => ({
     id: 'user-1',

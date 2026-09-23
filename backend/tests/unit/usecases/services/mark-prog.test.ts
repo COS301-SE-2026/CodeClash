@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
-import { MarkProg } from '../../../src/application/usecases/services/marking/mark-prog'
-import { ProgSubmissionDTO } from '../../../src/entities/dtos/submissions/submission.dto'
-import { AnswerDTO } from '../../../src/entities/dtos/questions/answer.dto'
+import { MarkProg } from '../../../../src/application/usecases/services/marking/mark-prog'
+import { ProgSubmissionDTO } from '../../../../src/entities/dtos/submissions/submission.dto'
+import { AnswerDTO } from '../../../../src/entities/dtos/questions/answer.dto'
 
 
 
