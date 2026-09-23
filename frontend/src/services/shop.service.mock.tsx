@@ -216,3 +216,55 @@ const MOCKED_CAPES: AccessoryShopItem[] = [
 const MOCKED_ACCESSORIES: AccessoryShopItem[] = [
     ...MOCKED_HEADWEAR, ...MOCKED_NECKWEAR, ...MOCKED_FACEWEAR, ...MOCKED_BELTS, ...MOCKED_CAPES
 ]
+
+const MOCKED_THEMES: ThemeShopItem[] = [
+    {
+        id: 'theme-dark',
+        category: 'theme',
+        themeId: 'dark',
+        name: 'Cosmos (Dark)',
+        price: {amount: 0},
+        isDefault: true,
+        swatchColors: [ '#c0395a', '#530a23', '#fcecdd']
+    },
+    {
+        id: 'theme-light',
+        category: 'theme',
+        themeId: 'light',
+        name: 'Cosmos (Light)',
+        price: {amount: 150},
+        swatchColors: [ '#c0395a', '#530a23', '#fcecdd']
+    },
+    {
+        id: 'theme-nebula',
+        category: 'theme',
+        themeId: 'nebula',
+        name: 'Nebula',
+        price: {amount: 200},
+        swatchColors: [ '#8b3fd6', '#4a1d80', '#f0e5fc']
+    },
+    {
+        id: 'theme-frost',
+        category: 'theme',
+        themeId: 'frost',
+        name: 'Frost',
+        price: {amount: 200},
+        swatchColors: [ '#2f8fe0', '#14487a', '#e2f2fd']
+    },
+    {
+        id: 'theme-verdant',
+        category: 'theme',
+        themeId: 'verdant',
+        name: 'Verdant',
+        price: {amount: 250},
+        swatchColors: [ '#9ccc3c', '#4d661d', '#f1f9e0']
+    },
+    {    
+        id: 'theme-gold',
+        category: 'theme',
+        themeId: 'gold',
+        name: 'Gold',
+        price: {amount: 250},
+        swatchColors: [ '#d4af37', '#6b5716', '#f7edcf']
+    },
+]
