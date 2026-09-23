@@ -48,19 +48,19 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 
                 {/* Player 1 Progress */}
                 <div className="min-w-0 w-xl flex-1 ml-7 h-[6rem] mt-10">
-                    <div className="flex flex-row items-center gap-2 w-full">
-                        <TournamentButton className="my-auto min-w-0 w-28 h-15 items-center -px-1 -py-4 -ml-1 -mt-2.5">
+                    <div className="flex flex-row items-center gap-2 w-full mt-2">
+                        <TournamentButton className="my-auto min-w-0 w-20 h-12 items-center -px-1 -py-4 -ml-3 -mt-1 my-auto">
                             <div style={{backgroundImage : `url(${avatars[0]})`}} className="w-full h-full bg-no-repeat bg-cover bg-center">
 
                             </div>
                         </TournamentButton>
 
                         <div className="flex flex-col ml-2">
-                            <div className="sm:text-[1.25rem] h-sm -mt-1">{usernames[1]}</div>
+                            <div className="sm:text-[1.25rem] h-sm -mt-1">{usernames[0]}</div>
                             <h1 className="text-muted-text text-xs">{elos[0]} ELO</h1>
                         </div>
 
-                        <TournamentsBadge className="flex min-w-7 ml-[0.5%] h-[1.5rem] mb-auto text-muted-text text-xs">
+                        <TournamentsBadge className="flex min-w-7 ml-[0.5%] h-[1.5rem] mb-auto text-muted-text text-xs -mr-4">
                             <h1 className="mt-1">YOU</h1>
                         </TournamentsBadge>
 
@@ -70,7 +70,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                 bg="var(--button-tournament-secondary)"
                                 border="var(--button-tournament-secondary)"
                                 height={2.5}
-                                className='max-w-[12rem] min-w-[2rem] h-sm mr-auto ml-5 -mt-1'
+                                className='max-w-[11rem] min-w-[1rem] h-sm mr-auto ml-5 -mt-1'
                             />
                         </div>
                     </div>
@@ -78,7 +78,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
 
                 {/* Clock */}
                 <div className='text-white font-dseg bg-[var(--match-box)] border border-[0.5px] border-[var(--match-card)] 
-                h-12 w-38 flex items-center justify-center text-lg text-center font-semibold rounded-sm px-2 my-auto mx-auto'>
+                h-10 w-38 flex items-center justify-center text-lg text-center font-semibold rounded-sm px-2 my-auto -mt-4'>
                     <div className="flex flex-row whitespace-wrap">
                         <Timer size={30} className="mr-3 my-auto"/>
                         <span>
@@ -92,14 +92,14 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
 
                 {/* the code below was copied and rearranged from the human-written code above for the sake of time, none of this code is ai-generated */}
                 <div className="min-w-0 w-xl flex-1 mr-7 h-[6rem] mt-10">
-                    <div className="flex flex-row items-center gap-2 w-full">
+                    <div className="flex flex-row items-center gap-2 w-full mt-3">
                         <div className='w-full'>
                             <Progress
                                 value={player_life[1]}
                                 bg={"var(--button-tournament-secondary)"}
                                 border={"var(--button-tournament-secondary"}
                                 height={2.5}
-                                className='max-w-[12rem] min-w-[2rem] h-sm ml-auto mr-5 -mt-1 rotate-180'
+                                className='max-w-[11rem] min-w-[1rem] h-sm ml-auto mr-5 -mt-2.5 rotate-180'
                             />
                         </div>
 
@@ -114,7 +114,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                             <div className="text-xs text-muted-text ml-auto">{elos[1]} ELO</div>
                         </div>
 
-                        <TournamentButton className="my-auto min-w-0 w-28 h-15 items-center -px-1 -py-4 -mr-1 -mt-2.5">
+                        <TournamentButton className="my-auto min-w-0 w-20 h-12 items-center -px-1 -py-4 -mr-3 -mt-2.5">
                             <div style={{backgroundImage : `url(${avatars[1]})`}} className="w-full h-full bg-no-repeat bg-cover bg-center">
 
                             </div>
