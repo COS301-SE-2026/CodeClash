@@ -2,6 +2,7 @@
 
 import type { ShopItem, AvatarShopItem, AccessoryShopItem, ThemeShopItem, PowerupShopItem, Wallet, UserInventory, AccessorySlot, Owned } from "src/Models/ShopModel";
 import {resolve} from "../assets/Shop/ResolveShopImages";
+import { T } from "node_modules/vitest/dist/chunks/traces.d.D2T_R8rx";
 
 //names and descriptions copied from pre made shop details word document that I handed to backend
 
@@ -327,4 +328,60 @@ const MOCKED_INV: UserInventory = {
     equippedAvatarId: 'vexa',
     equippedAccessories: {},
     equippedThemeId: 'dark'
+}
+
+//copied from deleted file
+
+//lets simulate some real net latency to see loading states :)
+const delay = <T,>(value: T) => new Promise<T>((resolve) => setTimeout(() => resolve(value), 400));
+const clone = (): UserInventory => ({
+    ...MOCKED_INV,
+    owned: [...MOCKED_INV.owned],
+    consumable: MOCKED_INV.consumable.map((c) => ({...c})),
+    equippedAccessories: {...MOCKED_INV.equippedAccessories}
+})
+
+export const getCatalog = () => delay(MOCKED_CATALOG);
+export const getWallet = () => delay(MOCKED_WALLET);
+export const getInv = () => delay(MOCKED_INV);
+
+export const purchaseItm = async ( itemId: string, _token: string) => {
+    const item = MOCKED_CATALOG.find((i) => i.id === itemId);
+    if (!item) {
+        throw new Error('Item not found');
+    }
+
+    const alreadyOwned = item.category === 'powerup' ? ownedPoweupIds.includes(itemId) : MOCKED_INV.owned.some((o) => o.itemId === itemId);
+    if (alreadyOwned) {
+        throw new Error('Item already owned');
+    }
+
+    if(MOCKED_WALLET.stardust < item.price.amount) {
+        throw new Error('Not enough Stardust');
+    }
+
+    MOCKED_WALLET.stardust -= item.price.amount;
+    if(item.category === 'powerup') {
+        ownedPoweupIds = [...ownedPoweupIds, itemId];
+        MOCKED_INV.consumable = [{category: 'powerup', quantity: ownedPoweupIds.length}];
+    }
+    else {
+        const owned: Owned = {
+            itemId, category: item.category as 'avatar' | 'accessory' | 'theme', acquiredAt: new Date().toDateString()
+        }
+        MOCKED_INV.owned = [...MOCKED_INV.owned, owned];
+    }
+    return delay({wallet: {...MOCKED_WALLET}, inventory: clone});
+}
+
+export const equipItm = async (category: 'avatar' | 'theme', itemId: string, _token: string) => {
+    if (category === 'avatar') MOCKED_INV.equippedAvatarId = itemId;
+    if (category === 'theme') MOCKED_INV.equippedThemeId = itemId;
+    return delay(clone);
+}
+
+export const equipAcc = async (slot: AccessorySlot, itemId: string | null, _token: string) => {
+    if (itemId) MOCKED_INV.equippedAccessories[slot] = itemId;
+    else delete MOCKED_INV.equippedAccessories[slot];
+    return delay(clone);
 }
