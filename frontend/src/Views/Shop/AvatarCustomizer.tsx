@@ -74,9 +74,9 @@ const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasing
         <div>
             <div className="card-glass" style={{padding: '2rem', display: 'flex', gap: '2rem',  flexWrap: 'wrap', alignItems: 'center',marginBottom: '2.5rem'}}>
                 <div style={{flex: '1 1 240px', minWidth: '220px'}}>
-                    <h2 style={{color: 'var(--primary-text)', fontWeight: 800, fontSize: '1.4rem', marginBottom: '0.5rem'}}>{draftAvatar?.name}</h2>
+                    <h2 style={{color: 'var(--primary-text)', fontWeight: 800, fontSize: '3.5rem', marginBottom: '0.5rem'}}>{draftAvatar?.name}</h2>
                     {draftAvatar?.description && (
-                        <p className="text-muted" style={{fontSize: '0.85rem', lineHeight: 1.6, marginBottom: '1.25rem'}}>{draftAvatar.description}</p>
+                        <p className="text-muted" style={{fontSize: '1rem', lineHeight: 1.6, marginBottom: '1.25rem'}}>{draftAvatar.description}</p>
                     )}
 
                     {isAvatarUnowned ? (

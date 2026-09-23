@@ -18,7 +18,7 @@ const Shop:React.FC = () => {
     const powerups = (itemsByCategory('powerup') as PowerupShopItem[]).filter((item) => powerupFIlter === 'all' || item.kind === powerupFIlter);
 
     return (
-        <div className="min-h-screen" style={{background: 'var(--background)', color: 'var(--text)'}}>
+        <div className="relative min-h-[100vh-80px] overflow-hidden" style={{background: 'var(--background)', color: 'var(--text)'}}>
             <section style={{padding: '3rem 8% 1.5rem', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem'}}>
                 <h1 className="text-l font-black text-primary-text">Shop</h1>
                 <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.3rem'}}>
