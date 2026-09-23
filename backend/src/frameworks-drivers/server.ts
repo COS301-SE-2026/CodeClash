@@ -57,7 +57,7 @@ import { MatchStart } from 'src/application/usecases/services/match/match-start.
 import { MatchCompletionService } from 'src/application/usecases/services/match/match-completion.service';
 import { ITournamentCache } from 'src/application/interfaces/cache/ITournamentCache';
 import { TournamentCache } from 'src/interface-adapters/cache/tournament-cache';
-import { TournamentService } from 'src/application/usecases/services/tournament.service';
+import { TournamentService } from 'src/application/usecases/services/tournament/tournament.service';
 
 dotnev.config()
 

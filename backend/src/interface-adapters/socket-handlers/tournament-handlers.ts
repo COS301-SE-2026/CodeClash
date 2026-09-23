@@ -1,5 +1,5 @@
 import { Server, Socket } from "socket.io"
-import { TournamentService } from "src/application/usecases/services/tournament.service"
+import { TournamentService } from "src/application/usecases/services/tournament/tournament.service"
 import { PlayerDTO } from "src/entities/dtos/components.dto";
 import { MatchMode } from "src/entities/dtos/match/match.dto";
 

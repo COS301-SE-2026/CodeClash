@@ -3,10 +3,12 @@ import { ITournamentCache } from "src/application/interfaces/cache/ITournamentCa
 import { PlayerDTO } from "src/entities/dtos/components.dto";
 import { MatchMode, MatchStatus } from "src/entities/dtos/match/match.dto";
 import { TournamentDTO } from "src/entities/dtos/tournaments/tournaments.dto";
+import { MatchCreationService } from "../match/match-creation.service";
 
 export class TournamentService {
     constructor(
-        private readonly tournament_cache: ITournamentCache
+        private readonly tournament_cache: ITournamentCache,
+        private readonly creation_service: MatchCreationService
     ) { }
 
     async joinTournament(tournament_id: string, player: PlayerDTO): Promise<TournamentDTO> {
@@ -61,4 +63,9 @@ export class TournamentService {
 
         return tournament;
     }
+
+    async startTournament(tournament: TournamentDTO) {
+        
+    }
+
 }

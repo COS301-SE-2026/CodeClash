@@ -20,17 +20,20 @@ export class MarkingService {
         private readonly opponent_progress: OpponentProgress
     ) { }
 
+
+    async mark(player_submission: PlayerSubmissionDTO): Promise<boolean> {
+        const correct_answer = await this.game_cache.getAnswer(player_submission.question_id);
+
+        if (!correct_answer) throw new Error("Invalid question id");
+        if (!player_submission.submission) throw new Error("Invalid Submission");
+
+        const strategy = this.setStrategy(player_submission.submission);
+        return await strategy.mark(player_submission.submission, correct_answer);
+    }
+
     async execute(player_submission: PlayerSubmissionDTO): Promise<MarkingResultDTO> {
         try {
-
-            const correct_answer = await this.game_cache.getAnswer(player_submission.question_id);
-
-            if (!correct_answer) throw new Error("Invalid question id");
-            if (!player_submission.submission) throw new Error("Invalid Submission");
-
-            const strategy = this.setStrategy(player_submission.submission);
-            const result = await strategy.mark(player_submission.submission, correct_answer);
-
+            const result = await this.mark(player_submission);
             console.log("Marking Service", result);
             const submission = this.submission_system.saveSubmission(player_submission, result);
             return this.handleResult(result, submission!);
