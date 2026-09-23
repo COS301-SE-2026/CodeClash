@@ -10,6 +10,7 @@ import { EquippedRepository } from "../../../src/interface-adapters/repositories
 import { UserRepository } from "../../../src/interface-adapters/repositories/user.repository";
 import { IUserRepository } from "../../../src/application/interfaces/repositories/IUserRepository";
 import { mock_shop_items } from "../../mocks/mock-shop-items";
+import { mock } from "node:test";
 
 let data_source: DataSource;
 let repo: EquippedRepository;
@@ -56,10 +57,18 @@ describe('Tests EquippedRespository', () => {
     });
 
     it('Updates one slot without clearing another', async () => {
+        const powerup_id = item_ids.find((_, i) => mock_shop_items[i]!.category === 'powerup')!;
+        const result = await repo.updateEquipped(user_id, { powerup_item_id: powerup_id });
 
+        expect(result.powerup!.shop_item_id).toBe(powerup_id);
+        expect(result.theme).toBeDefined();
     });
 
     it('Replaces a previously equipped item in the same slot', async () => {
+        const themes = item_ids.filter((_, i) => mock_shop_items[i]!.category === 'theme');
+        await repo.updateEquipped(user_id, { theme_id: themes[0] });
+        const result = await repo.updateEquipped(user_id, { theme_id: themes[1] });
 
+        expect(result.theme.shop_item_id).toBe(themes[1]);
     });
 });
