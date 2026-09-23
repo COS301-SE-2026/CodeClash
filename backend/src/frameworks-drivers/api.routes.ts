@@ -16,8 +16,13 @@ import { createInvite, getFriendRequests, getFriends, removeFriend, respondToFri
 import { FriendService } from 'src/application/usecases/services/friend.service';
 import { getMatchDetails, getMatchHistory } from 'src/interface-adapters/controllers/match-history.controllers';
 import { MatchHistoryRepository } from 'src/interface-adapters/repositories/match-history.repository';
-import { ShopService } from 'src/application/usecases/services/shop/shop-item.service';
+import { ShopItemService } from 'src/application/usecases/services/shop/shop-item.service';
 import { getAllItems, getEquipped, getUserItems, getUserPowerups, getWallet, purchaseItem, updateEquipped, usePowerup } from 'src/interface-adapters/controllers/shop.controllers';
+import { InventoryService } from 'src/application/usecases/services/shop/inventory.service';
+import { WalletService } from 'src/application/usecases/services/shop/wallet.service';
+import { EquipmentService } from 'src/application/usecases/services/shop/equipment.service';
+import { PowerupService } from 'src/application/usecases/services/shop/powerup.service';
+import { PurchaseService } from 'src/application/usecases/services/shop/purchase.service';
 
 export const createAPIRoutes = (
   elo_repo: IEloRepository,
@@ -26,7 +31,12 @@ export const createAPIRoutes = (
   leaderboard_service: LeaderboardService,
   achievement_service: AchievementService,
   friends_service: FriendService,
-  shop_service: ShopService
+  shop_item_service: ShopItemService,
+  inventory_service: InventoryService,
+  wallet_service: WalletService,
+  equipment_service: EquipmentService,
+  powerup_service: PowerupService,
+  purchase_service: PurchaseService
 
 ) => {
   const router = Router();
@@ -305,14 +315,14 @@ export const createAPIRoutes = (
 
   // ----------------------- Shop Routes -------------------
   
-router.get('/shop/items', getAllItems(shop_service));
-router.get('/shop/items/me', getUserItems(shop_service));
-router.post('/shop/purchase', purchaseItem(shop_service));
-router.get('/shop/wallet', getWallet(shop_service));
-router.get('/shop/equipped', getEquipped(shop_service));
-router.patch('/shop/equipped', updateEquipped(shop_service));
-router.get('shop/powerups/me', getUserPowerups(shop_service));
-router.post('/shop/powerups/use', usePowerup(shop_service));
+router.get('/shop/items', getAllItems(shop_item_service));
+router.get('/shop/items/me', getUserItems(inventory_service));
+router.post('/shop/purchase', purchaseItem(purchase_service));
+router.get('/shop/wallet', getWallet(wallet_service));
+router.get('/shop/equipped', getEquipped(equipment_service));
+router.patch('/shop/equipped', updateEquipped(equipment_service));
+router.get('shop/powerups/me', getUserPowerups(inventory_service));
+router.post('/shop/powerups/use', usePowerup(powerup_service));
 
   // --------------------- user routes
   router.get('/user/rank', getUserRank(leaderboard_service));
