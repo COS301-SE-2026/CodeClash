@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { MatchMode, MatchType } from "../dtos/match/match.dto";
+import { MatchMode, MatchType } from "../dtos/matches/match.dto";
 
 export enum AnswerFormat {
   Numeric = "numeric",

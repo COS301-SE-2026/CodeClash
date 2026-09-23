@@ -1,7 +1,7 @@
 import { IEloRepository } from "src/application/interfaces/repositories/IEloRepository";
 import { IMatchResultRepository } from "src/application/interfaces/repositories/IMatchResultRepository";
-import { MatchResultDTO, PlayerResultDTO } from "src/entities/dtos/match/match-result.dto";
-import { PlayerStatsDTO } from "src/entities/dtos/users/player-stats.dto";
+import { MatchResultDTO, PlayerResultDTO } from "src/entities/dtos/matches/match-result.dto";
+import { PlayerStatsDTO } from "src/entities/dtos/user/player-stats.dto";
 
 export class MatchResultService {
     constructor(

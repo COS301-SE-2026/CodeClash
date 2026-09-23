@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { MatchType } from '../../../src/entities/dtos/match/match.dto';
+import { MatchType } from '../../../src/entities/dtos/matches/match.dto';
 import { AchievementService } from '../../../src/application/usecases/services/achievement.service';
 import {MatchCompletionSystem} from '../../../src/application/usecases/systems/match-completion.system'
 

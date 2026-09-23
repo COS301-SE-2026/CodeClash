@@ -1,6 +1,6 @@
-import { EloDTO, EloUpdateResultDTO } from "src/entities/dtos/users/elo.dto"
-import { LeaderboardEntryDTO } from "src/entities/dtos/match/leaderboard.dto"
-import { RankDTO } from "src/entities/dtos/users/rank.dto"
+import { EloDTO, EloUpdateResultDTO } from "src/entities/dtos/user/elo.dto"
+import { LeaderboardEntryDTO } from "src/entities/dtos/leaderboard/leaderboard.dto"
+import { RankDTO } from "src/entities/dtos/user/rank.dto"
 
 export interface IEloRepository {
     // Create

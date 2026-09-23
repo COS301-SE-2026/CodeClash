@@ -1,9 +1,9 @@
 import { ResultComponent, SubmissionRegistryComponent } from "src/entities/components";
-import { PlayerStatsDTO } from "src/entities/dtos/users/player-stats.dto";
+import { PlayerStatsDTO } from "src/entities/dtos/user/player-stats.dto";
 import { World } from "src/entities/World"
 import { MatchResultService } from "../services/match/match-result.service";
 import { MatchStore } from "../services/match/match-store.service";
-import { MatchType } from "src/entities/dtos/match/match.dto";
+import { MatchType } from "src/entities/dtos/matches/match.dto";
 import { IMatchStatsRepository } from "src/application/interfaces/repositories/IMatchStatsRepository";
 import { AchievementService, AchievementStats } from "../services/achievement.service";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";

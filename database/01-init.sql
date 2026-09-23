@@ -40,12 +40,28 @@ CREATE TABLE IF NOT EXISTS answers (
 
 CREATE TABLE IF NOT EXISTS matches(
   match_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  player1_id UUID REFERENCES users(user_id),
-  player2_id UUID REFERENCES users(user_id),
   match_type VARCHAR(10) CHECK (match_type IN ('ranked', 'casual')) NOT NULL,
   game_mode VARCHAR(15) CHECK (game_mode IN ('math', 'programming')) NOT NULL,
   match_start TIMESTAMP,
-  status VARCHAR(20) CHECK (status IN ('waiting', 'starting','in_progress', 'completed', 'abandoned')) DEFAULT 'waiting' -- check is there a function to set a found match status to starting?
+  status VARCHAR(20) CHECK (status IN ('waiting', 'starting','in_progress', 'completed', 'abandoned')) DEFAULT 'waiting',
+  tournament_id UUID REFERENCES tournaments(tournament_id), -- NULLABLE
+  tournament_round INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS match_players (
+  match_player_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  match_id UUID REFERENCES matches(match_id) NOT NULL,
+  user_id UUID REFERENCES users(user_id) NOT NULL,
+  placement INTEGER,
+  eliminated_at TIMESTAMP,   -- null if active
+  UNIQUE (match_id, user_id) -- prevents a player being added twice
+)
+
+CREATE TABLE IF NOT EXISTS tournaments (
+  tournament_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name VARCHAR(50) NOT NULL,
+  status VARCHAR(20) CHECK (status in ('open', 'in_progress', 'completed')) DEFAULT 'open',
+  created_at TIMESTAMP DEFAULT NOW()
 );
 
 CREATE TABLE IF NOT EXISTS match_questions(
@@ -134,19 +150,61 @@ CREATE TABLE IF NOT EXISTS player_achievements (
   PRIMARY KEY (user_id, achievement_id)
 );
 
--- Wow factor added in the CodeClash shop
-CREATE TYPE powerup_type AS ENUM ('add_time_opponent', 'reduce_type_self', 'add_bug_opponent'); --more could be added
--- manually add different levels of the same powerup ??
-CREATE TABLE IF NOT EXISTS powerups (
-  powerup_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  type powerup_type NOT NULL,
-  description VARCHAR(100) NOT NULL
+-- ------- SHOP -----------
+CREATE TABLE IF NOT EXISTS shop_items (
+  shop_item_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  category VARCHAR(20) CHECK (category IN ('avatar', 'accessory', 'powerup')) NOT NULL,
+  name VARCHAR(50) NOT NULL,
+  description VARCHAR(150),
+  price FLOAT NOT NULL,
+  rarity VARCHAR(20) CHECK (rarity IN ('common', 'rare', 'epic', 'legendary')) DEFAULT 'common',
+  metadata JSONB NOT NULL DEFAULT '{}',
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS transactions (
+  transaction_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(user_id),
+  shop_item_id UUID REFERENCES shop_items(shop_item_id),    -- nullable if they're earning money
+  amount FLOAT NOT NULL,
+  type VARCHAR(10) CHECK (type in ('money_in', 'money_out')) NOT NULL,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS wallets (
+  wallet_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(user_id),
+  balance FLOAT NOT NULL DEFAULT 0,
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS user_items (
+  user_item_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(user_id),
+  shop_item_id UUID REFERENCES shop_items(shop_item_id),
+  acquired_at TIMESTAMP DEFAULT NOW(),
+  UNIQUE(user_id, shop_item_id)   -- stops them owning the same thing twice
+);
+
+CREATE TABLE IF NOT EXISTS equipped_items (
+  equipped_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(user_id),
+  avatar_item_id UUID REFERENCES shop_items(shop_item_id),
+  headwear_id UUID REFERENCES shop_items(shop_item_id),
+  neckwear_id UUID REFERENCES shop_items(shop_item_id),
+  facewear_id UUID REFERENCES shop_items(shop_item_id),
+  belt_id REFERENCES shop_items(shop_item_id),
+  one_piece_id REFERENCES shop_items(shop_item_id),
+  powerup_item_id UUID REFERENCES shop_items(shop_item_id),
+  theme_id UUID REFERENCES shop_items(shop_item_id),
+  updated_at TIMESTAMP DEFAULT NOW()
 );
 
 CREATE TABLE IF NOT EXISTS match_powerups (
   match_powerup_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   match_id UUID REFERENCES matches(match_id),
   user_id UUID REFERENCES users(user_id),
-  powerup_id UUID REFERENCES powerups(powerup_id),
+  powerup_item_id UUID REFERENCES shop_items(shop_item_id),
   used_at TIMESTAMP DEFAULT NOW()
 );
+

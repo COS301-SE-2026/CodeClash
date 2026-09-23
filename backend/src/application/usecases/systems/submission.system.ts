@@ -1,5 +1,5 @@
 import { SubmissionComponent, SubmissionRegistryComponent } from "src/entities/components";
-import { PlayerSubmissionDTO } from "src/entities/dtos/components.dto";
+import { PlayerSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
 import { World } from "src/entities/World";
 
 export class SubmissionSystem {

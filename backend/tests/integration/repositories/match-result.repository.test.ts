@@ -9,8 +9,8 @@ import { EloRepository } from '../../../src/interface-adapters/repositories/elo.
 import { MatchResultService } from '../../../src/application/usecases/services/match/match-result.service'
 import { IEloRepository } from '../../../src/application/interfaces/repositories/IEloRepository'
 import { IMatchResultRepository } from '../../../src/application/interfaces/repositories/IMatchResultRepository'
-import { EloUpdateResultDTO } from '../../../src/entities/dtos/elo.dto'
-import {MatchResultDTO} from '../../../src/entities/dtos/match-result.dto'
+import { EloUpdateResultDTO } from '../../../src/entities/dtos/user/elo.dto'
+import {MatchResultDTO} from '../../../src/entities/dtos/matches/match-result.dto'
 
 let data_source: DataSource
 let elo_entity: Repository<EloRatings>

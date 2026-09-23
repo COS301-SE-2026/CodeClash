@@ -2,9 +2,9 @@
 
 /* MATCH ENTITY */
 
-import { MatchType } from "src/entities/dtos/match/match.dto"
-import { MathsSubmissionDTO, ProgSubmissionDTO } from "./dtos/components.dto"
-import { QuestionDTO } from "./dtos/match/question.dto"
+import { MatchType } from "src/entities/dtos/matches/match.dto"
+import { MathsSubmissionDTO, ProgSubmissionDTO } from "./dtos/submissions/submission.dto"
+import { QuestionDTO } from "./dtos/questions/question.dto"
 
 // Player Component holds array of ids for a match
 export interface PlayersComponent {

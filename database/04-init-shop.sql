@@ -1,0 +1,52 @@
+INSERT INTO shop_items (category, name, description, price, rariy, metadata) VALUES
+-- POWERUPS
+('powerup', 'Time Boost', 'Reduces your time-taken stat, improving your final score and ELO gain', 150, 'common',
+'{"effect": "reduce_time", "value_seconds": 10 }'),
+('powerup', 'Hint', 'Reveals a hint or partial solution for your current question.', 200, 'rare',
+'{"effect": "reveal_hint", "scope": "current_question" }'),
+('powerup', 'Shield', 'Blocks the next power-down used against you this match.', 275, 'epic',
+'{"effect": "block_next_powerdown", "consumed_on_use": true }'),
+('powerup', 'Score Surge', 'Adds 10% of your total earned score to your final score.', 250, 'epic',
+'{ "effect": "score_multiplier", "value_percent": 10 }'),
+('powerup', 'Second Wind', 'Restores one lost life unit point during the match.', 200, 'rare',
+'{ "effect": "restore_life", "value": 1 }'),
+
+-- POWER DOWNS --------
+('powerup', 'Bug Injection', 'Inserts bugs or random characters into your opponent''s current answer.', 150, 'common',
+'{ "effect": "insert_bugs", "scope": "current_answer" }'),
+('powerup', 'Wipe', 'Erases your opponents''s current in-progress answer. Only one allowed per match.', 300, 'legendary',
+'{ "effect": "wipe_answer", "scope": "current_answer", "max_uses-per_match": 1 }'),
+('powerup', 'Question Blackout', 'Hides the opponent''s question from view for a set duration (or permanently).', 200, 'legendary',
+'{ "effect": "block_question", "duration_seconds": 30 }'),
+('powerup', 'Time Sink', 'Increase your opponents''s time taken stat, lowering their score and ELO gain.', 150, 'common',
+'{ "effect": "increase_time", "value_seconds": 10 }' ),
+('powerup', 'Life Drain', 'Removes one life point from your opponent.', 250, 'epic',
+'{ "effect": "drain_life", "value": 1 }' ),
+
+-- AVATARS ---------
+('avatar', 'Vexa', 'She appeared through a mysterious portal beyond the edge of mapped space. Her technology is unlike anything in the galaxy and she seems strangely familiar with Earth''s programming languages.',
+250, 'common', '{ "asset_key" : }'),
+('avatar', 'Zen', 'Zen was created to protect the last surviving archive of human knowledge. Centuries of standing watch gave her an unusual philosophy: every problem has a solution, but sometimes the solution is simply waiting long enough to see it.',
+300, 'common', '{ "asset_key" : }'),
+('avatar', 'Axiom', 'Axiom was manufactured as an ordinary service android with no special abilities. But unlike the others, Axiom learned entirely on her own. She entered the competition with one goal: to prove that intelligence doesn''t have to be built, it can be learned.',
+300, 'common', '{ "asset_key" : }'),
+('avatar', 'Kairo', 'Kairo was a discarded prototype found wandering through an abandoned megacity. He rebuilt himself piece by piece from whatever technology he could find. He''s now obsessed with proving that a discarded machine can become the greatest competitor in the galaxy.',
+350, 'rare', '{ "asset_key" : }'),
+('avatar', 'Brix', 'Brix was originally a construction unit designed to build colonies on hostile planets. After completing his final assignment, he refused deactivation. Now he competes simply because, according to his own calculations, “winning is more fun than being recycled.”',
+350, 'rare', '{ "asset_key" : }'),
+('avatar', 'Xara', 'Xara came from a failed experiment involving artificial intelligence and darkmatter computation. She can process impossible amounts of information, but every calculation seems to reveal another question. She competes because she believes the perfect solution to the universe is hidden somewhere inside the game.',
+350, 'epic', '{ "asset_key" : }'),
+('avatar', 'Riven', 'Riven was designed for high-speed combat simulations and has never lost a race. Unfortunately, his competitive programming module became corrupted and now he treats every problem, race, puzzle, and conversation like a competition.',
+400, 'epic', '{ "asset_key" : }'),
+('avatar', 'Nyx', 'Nyx was designed for reconnaissance but developed a strange habit of disappearing whenever missions became predictable. Nobody knows where she goes. She always returns with impossible shortcuts, strange information, and a smug little grin on her screen.',
+450, 'legendary', '{ "asset_key" : }'),
+('avatar', 'Atlas', 'Atlas was built as the ultimate colony defence unit. After his planet was abandoned, he continued protecting it long after there was anyone left to protect. When competitors eventually discovered the forgotten planet, Atlas joined the game to find something he had never been programmed to understand - purpose.',
+500, 'legendary', '{ "asset_key" : }'),
+
+-- THEMES -------------
+('theme', 'Cosmos (dark)', 'The default theme.', 0, 'common', '{ "hex_color_1": "#c0395a", "hex_color_2": "#530a23", "hex_color_3": "#fcecdd" }'),
+('theme', 'Cosmos (light)', 'The light version of the default theme.', 150, 'common','{ "hex_color_1": "#c0395a", "hex_color_2": "#530a23", "hex_color_3": "#fcecdd"}'),
+('theme', 'Nebula', 'A deep space theme.', 200, 'common', '{ "hex_color_1": "#8b3fd6", "hex_color_2": "#4a1d80", "hex_color_3": "#f0e5fc"}'),
+('theme', 'Frost', 'An icy cold theme.', 200, 'common', '{ "hex_color_1": "#2f8fe0", "hex_color_2": "#14487a", "hex_color_3": "#e2f2fd"}'),
+('theme', 'Verdant', 'A refreshingly green theme.', 250, 'common', '{ "hex_color_1": "#9ccc3c", "hex_color_2": "#4d661d", "hex_color_3": "#f1f9e0"}'),
+('theme', 'Gold', 'A warm golden theme.', 250, 'common', '{ "hex_color_1": "#d4af37", "hex_color_2": "#6b5716", "hex_color_3": "#f7edcf"}');

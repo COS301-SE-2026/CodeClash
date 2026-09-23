@@ -5,10 +5,10 @@ import { MatchCompletionSystem } from "src/application/usecases/systems/match-co
 
 // import { StartQuestionDTO } from "src/entities/dtos/match/question.dto";
 import { MatchStore } from "src/application/usecases/services/match/match-store.service";
-import { MatchType } from "src/entities/dtos/match/match.dto";
+import { MatchType } from "src/entities/dtos/matches/match.dto";
 import { DeleteGame } from "src/application/usecases/systems/delete-game";
-import { PlayerSubmissionDTO } from "src/entities/dtos/components.dto";
-import { PlayerResultDTO } from 'src/entities/dtos/match/match-result.dto'
+import { PlayerSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
+import { PlayerResultDTO } from 'src/entities/dtos/matches/match-result.dto'
 
 export const submitQuestion = async (socket: Socket, data: PlayerSubmissionDTO, mark: MarkingService) => {
     return mark.execute({ ...data, player_id: socket.data.user_id });
