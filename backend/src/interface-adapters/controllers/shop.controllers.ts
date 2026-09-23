@@ -1,8 +1,13 @@
 import { Request, Response } from 'express';
-import { ShopService } from 'src/application/usecases/services/shop/shop-item.service'; // coming soon :P
+import { EquipmentService } from 'src/application/usecases/services/shop/equipment.service';
+import { InventoryService } from 'src/application/usecases/services/shop/inventory.service';
+import { PowerupService } from 'src/application/usecases/services/shop/powerup.service';
+import { PurchaseService } from 'src/application/usecases/services/shop/purchase.service';
+import { ShopItemService } from 'src/application/usecases/services/shop/shop-item.service';
+import { WalletService } from 'src/application/usecases/services/shop/wallet.service';
 import { UpdatedEquippedDTO } from 'src/entities/dtos/shop/equipped-items.dto';
 
-export const getAllItems = (service: ShopService) => 
+export const getAllItems = (service: ShopItemService) => 
     async (req: Request, res: Response): Promise<void> => {
         try {
             const items = await service.getAllItems();
@@ -13,7 +18,7 @@ export const getAllItems = (service: ShopService) =>
         }
     };
 
-export const getUserItems = (service: ShopService) => 
+export const getUserItems = (service: InventoryService) => 
     async (req: Request, res: Response): Promise<void> => {
         const user_id = req.user?.id;
         if (!user_id) { res.status(401).json({ message: 'Unauthorized' }); return; }
@@ -26,7 +31,7 @@ export const getUserItems = (service: ShopService) =>
         }
 };
 
-export const purchaseItem = (service: ShopService) => 
+export const purchaseItem = (service: PurchaseService) => 
     async (req: Request, res: Response): Promise<void> => {
         const user_id = req.user?.id;
         const { shop_item_id } = req.body;
@@ -35,13 +40,17 @@ export const purchaseItem = (service: ShopService) =>
         try {
             const result = await service.purchaseItem(user_id, shop_item_id);
             res.status(201).json(result);
-        } catch (error) {
+        } catch (error: any) {
             console.error ('Error purchasing item :', error);
-            res.status(500).json({ message: 'Internal server error' });
+            const status = error.message === 'Insufficient balance' ? 409
+            : error.message === 'Item already owned' ? 409
+            : error.message === 'Item not found' ? 404
+            : 500;
+            res.status(status).json({ message: error.message ?? 'Internal server error' });
         }
     };
 
-export const getWallet = (service: ShopService) => 
+export const getWallet = (service: WalletService) => 
     async (req: Request, res: Response): Promise<void> => {
         const user_id = req.user?.id;
         if (!user_id) { res.status(401).json({ message: 'Unauthorized' }); return; }
@@ -54,7 +63,7 @@ export const getWallet = (service: ShopService) =>
         }
     };
 
-export const getEquipped = (service: ShopService) => 
+export const getEquipped = (service: EquipmentService) => 
     async (req: Request, res: Response): Promise<void> => {
         const user_id = req.user?.id;
         if (!user_id) { res.status(401).json({ message: 'Unauthorized' }); return; }
@@ -67,7 +76,7 @@ export const getEquipped = (service: ShopService) =>
         }
     };
 
-export const updateEquipped = (service: ShopService) => 
+export const updateEquipped = (service: EquipmentService) => 
     async (req: Request, res: Response): Promise<void> => {
         const user_id = req.user?.id;
         const updates: UpdatedEquippedDTO = req.body;
@@ -82,7 +91,7 @@ export const updateEquipped = (service: ShopService) =>
         }
     };
 
-export const getUserPowerups = (service: ShopService) => 
+export const getUserPowerups = (service: InventoryService) => 
     async (req: Request, res: Response): Promise<void> => {
         const user_id = req.user?.id;
         if (!user_id) { res.status(401).json({ message: 'Unauthorized' }); return; }
@@ -95,7 +104,7 @@ export const getUserPowerups = (service: ShopService) =>
         }
     };
 
-export const usePowerup = (service: ShopService) => 
+export const usePowerup = (service: PowerupService) => 
     async (req: Request, res: Response): Promise<void> => {
         const user_id = req.user?.id;
         const { match_id, shop_item_id, target_user_id } = req.body;
@@ -106,9 +115,9 @@ export const usePowerup = (service: ShopService) =>
             res.status(200).json(result);
         } catch (error: any) {
             console.error ('Error using powerup:', error);
-            const status = error.message === 'Pwerup not owned' ? 403
-                : error.message === 'Match not found' ? 404
+            const status = error.message === 'Powerup not owned' ? 403
+                : error.message === 'Item not found' ? 404
                 : 500
-            res.status(500).json({ message: error.message ?? 'Internal server error' });
+            res.status(status).json({ message: error.message ?? 'Internal server error' });
         }
     };

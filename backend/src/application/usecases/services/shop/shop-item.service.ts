@@ -1,7 +1,7 @@
 import { IShopItemRepository } from "src/application/interfaces/repositories/IShopItemRepository"; 
 import { ShopItemDTO } from "src/entities/dtos/shop/shop.dto";
 
-export class ShopService {
+export class ShopItemService {
     constructor (
         private readonly shop_item_repo: IShopItemRepository
     ) {}
