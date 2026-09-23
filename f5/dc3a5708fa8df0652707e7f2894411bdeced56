@@ -1,0 +1,26 @@
+frontend/src/Views/MathsMatch.tsx
+  h_b13c5d77534129 12-13,77
+frontend/@/components/features/question.tsx
+  h_b13c5d77534129 31,33,41-42
+frontend/src/Views/TournamentsWaiting.tsx
+  h_b13c5d77534129 30-31
+frontend/@/components/features/MathPage.tsx
+  h_b13c5d77534129 45
+frontend/@/components/ui/TournamentButton.tsx
+  h_b13c5d77534129 14,17
+frontend/src/Views/Tournaments.tsx
+  h_b13c5d77534129 41-42
+frontend/@/components/ui/TournamentCard.tsx
+  h_b13c5d77534129 56
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "f5dc3a5708fa8df0652707e7f2894411bdeced56",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
