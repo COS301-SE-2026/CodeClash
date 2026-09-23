@@ -1,6 +1,4 @@
 import React from 'react'
-import background from 'src/assets/Background/matchScreen.png'
-
 import { TimerBox } from '../ui/TimerBox'
 import { Progress } from '../ui/progress'
 import {Check, X, LockKeyhole, Timer, Target} from "lucide-react"

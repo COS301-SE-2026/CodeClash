@@ -1,5 +1,5 @@
 import "../styles/global.css"
-import {LogOut, Rocket, Timer, PlusIcon, UserRoundPlus} from "lucide-react"
+import {LogOut, Rocket, Timer, UserRoundPlus} from "lucide-react"
 import TournamentButton from "@/components/ui/TournamentButton"
 import { Progress } from "@/components/ui/progress"
 import { TournamentPlayer } from "@/components/ui/TournamentPlayer"

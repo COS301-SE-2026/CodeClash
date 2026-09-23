@@ -15,7 +15,7 @@ export const useMatch = () => {
     const { socket } = useSocket();
     const location = useLocation();
     const { id } = location.state;
-    const { userId, elo } = useUser();
+    const { userId } = useUser();
     const closeLoading = () => setLoading(false);
     const { gameType } = useMatchmaking();
 
