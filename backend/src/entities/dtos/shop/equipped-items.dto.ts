@@ -9,6 +9,7 @@ export interface EquippedItemsDTO {
     belt: ShopItemDTO | null;
     one_piece: ShopItemDTO | null;
     powerup: ShopItemDTO | null;
+    theme: ShopItemDTO;
     updated_at: Date;
 }
 
@@ -20,4 +21,5 @@ export interface UpdatedEquippedDTO {
     belt_id?: string;
     one_piece_id?: string;
     powerup_item_id?: string; 
+    theme_id?: string;
 }
