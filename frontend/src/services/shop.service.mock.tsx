@@ -268,3 +268,63 @@ const MOCKED_THEMES: ThemeShopItem[] = [
         swatchColors: [ '#d4af37', '#6b5716', '#f7edcf']
     },
 ]
+
+const MOCKED_POWERUPS: PowerupShopItem[] = [
+    {
+        id: 'pu-hint',
+        category: 'powerup',
+        kind: 'powerup',
+        name: 'Hint',
+        description: 'Reveals part of the solution',
+        price: {amount: 200},
+        quantityGranted: 1,
+        effect: {effectType: 'hint', targeting: 'self'}
+    },
+    {
+        id: 'pu-shield',
+        category: 'powerup',
+        kind: 'powerup',
+        name: 'Shield',
+        description: 'Blocks a power down',
+        price: {amount: 200},
+        quantityGranted: 1,
+        effect: {effectType: 'shield', targeting: 'self'}
+    },
+    {
+        id: 'pu-wipe',
+        category: 'powerup',
+        kind: 'powerdown',
+        name: 'Wipe',
+        description: 'Clears a portion of the opponents answer',
+        price: {amount: 200},
+        quantityGranted: 1,
+        effect: {effectType: 'wipe', targeting: 'opponent'}
+    },
+]
+
+const MOCKED_CATALOG: ShopItem[] = [
+    ...MOCKED_AVATARS, ...MOCKED_ACCESSORIES, ...MOCKED_THEMES, ...MOCKED_POWERUPS
+]
+
+const MOCKED_WALLET: Wallet = {stardust: 1000};
+
+let ownedPoweupIds: string[] = ['pu-hint', 'pu-wipe'];
+
+const MOCKED_INV: UserInventory = {
+    owned: [
+        {
+            itemId: 'vexa',
+            category: 'avatar',
+            acquiredAt: new Date().toISOString()
+        },
+        {
+            itemId: 'theme-dark',
+            category: 'theme',
+            acquiredAt: new Date().toISOString()
+        },
+    ],
+    consumable: [{category: 'powerup', quantity: ownedPoweupIds.length}],
+    equippedAvatarId: 'vexa',
+    equippedAccessories: {},
+    equippedThemeId: 'dark'
+}
