@@ -39,6 +39,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
 }) => {
 
     const questionsAnswered = question_results.filter((qr) => qr === true || qr === false).length;
+    const progressValue = question_number > 0 ? (questionsAnswered / question_number) * 100 : 0;
 
     return (
         <div className="fixed inset-0 flex flex-col min-w-[64rem] overflow-y-auto">
@@ -150,7 +151,10 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                     <div className='ml-[20%] w-[100%] flex'>
                             {/* doors */}
                             <MatchCard className='relative rounded-[20px] flex flex-col-reverse items-center justify-between h-160 w-[5rem] gap-2 p-3'>
-                                <Progress className="absolute inset-y-3  top-8 bg-card h-[90%] w-[5%] rounded-3xl"></Progress>
+                                <Progress 
+                                    value={progressValue}
+                                    orientation="vertical"
+                                    className="absolute inset-y-3 top-8 bg-card h-[90%] w-[10%] rounded-3xl opacity-50"></Progress>
                                 {
                                     [...Array(question_number)].map((_, idx) => {
 
@@ -168,7 +172,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                         return (
                                             <React.Fragment key={`${question_number}-${idx}`}>
 
-                                                <div className={`${doorColour()} w-[4rem] max-h-16 flex-1 min-h-0 shrink flex items-center justify-center col-start-2 rounded-[15px] mt-5 mb-5`}>
+                                                <div className={`${doorColour()} w-[4rem] max-h-16 flex-1 min-h-0 shrink flex items-center justify-center col-start-2 rounded-[15px] z-10 mt-5 mb-5`}>
                                                     {doorSymbol()}  
                                                 </div>
                                             </React.Fragment>

@@ -29,14 +29,15 @@ function Progress({
   ...props
 }: ProgressProps) {
 
-  const place = value || 0;
   const isVertical = orientation === "vertical";
+  
 
   return (
     <ProgressPrimitive.Root
       data-slot="progress"
       className={cn(
-        `relative flex h-full h-${height} w-full items-center overflow-x-hidden rounded-full`,
+        `relative flex h-full h-${height} w-full items-center rounded-full overflow-hidden`,
+        isVertical && "h-full flex-col-reverse",
         border && "border",
         className
       )}
@@ -49,7 +50,7 @@ function Progress({
       <ProgressPrimitive.Indicator
         data-slot="progress-indicator"
         style={{
-          transform: isVertical ? `translateY(${100 - place}%)` : `translateX(-${100 - (value || 0)}%)`,
+          transform: isVertical ? `translateY(${100 - (value || 0)}%)` : `translateX(-${100 - (value || 0)}%)`,
           backgroundImage: isVertical ? `linear-gradient(to top, ${from}, ${via}, ${to})` : `linear-gradient(to right, ${from}, ${via}, ${to})`
         }}
         className={`relative size-full transition-transform rounded-full`}
