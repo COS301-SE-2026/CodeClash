@@ -1,0 +1,80 @@
+frontend/src/styles/global.css
+  h_b13c5d77534129 378-382,473-766
+frontend/src/Models/TournamentsModel.ts
+  h_b13c5d77534129 1-19
+frontend/package.json
+  h_b13c5d77534129 11-15
+frontend/src/App.tsx
+  h_b13c5d77534129 27
+frontend/src/Models/ShopModel.ts
+  h_b13c5d77534129 1-81
+frontend/src/ViewModels/SettingsViewModel.ts
+  h_b13c5d77534129 1-42,45,49-52
+frontend/src/ViewModels/Shop/ShopViewModel.ts
+  h_b13c5d77534129 1-93
+frontend/src/ViewModels/Shop/TryOn.ts
+  h_b13c5d77534129 1-118
+frontend/src/Views/Settings.tsx
+  h_b13c5d77534129 5,19-36
+frontend/src/Views/Shop/AvatarCustomizer.tsx
+  h_b13c5d77534129 1-222
+frontend/src/Views/Shop/Shop.tsx
+  h_b13c5d77534129 1-167
+frontend/src/Views/Shop/ThemeSwatch.tsx
+  h_b13c5d77534129 1,3,5-12,15,19
+frontend/src/assets/Shop/ResolveShopImages.ts
+  h_b13c5d77534129 1-19
+frontend/src/assets/Shop/index.ts
+  h_b13c5d77534129 1-91
+frontend/src/avatar/AvatarRenderer.tsx
+  h_b13c5d77534129 1-123
+frontend/src/avatar/PlayerAvatar.tsx
+  h_b13c5d77534129 1-20
+frontend/src/context/Shop/InventoryContext.tsx
+  h_b13c5d77534129 1-182
+frontend/src/context/Shop/ThemeContext.tsx
+  h_b13c5d77534129 4,6,17-20,26,30-34
+frontend/src/context/User/UserContext.tsx
+  h_b13c5d77534129 2,20-23,164-165
+frontend/src/main.tsx
+  h_b13c5d77534129 11,15,22-37
+frontend/src/services/match.service.tsx
+  h_b13c5d77534129 98,189
+frontend/src/services/shop.service.mock.tsx
+  h_b13c5d77534129 1-386
+frontend/test/integration/AchievementToast.integration.test.tsx
+  h_b13c5d77534129 1-238
+frontend/test/integration/AppProviders.integration.test.tsx
+  h_b13c5d77534129 1-191
+frontend/test/integration/AuthContext.integration.test.tsx
+  h_b13c5d77534129 1-277
+frontend/test/integration/Match.service.integration.test.tsx
+  h_b13c5d77534129 1-377
+frontend/test/integration/MatchmakingContext.integration.test.tsx
+  h_b13c5d77534129 1-174
+frontend/test/integration/ProgMatch.integration.test.tsx
+  h_b13c5d77534129 1-28
+frontend/test/integration/SocketContext.integration.test.tsx
+  h_b13c5d77534129 1-87
+frontend/test/integration/ThemeContext.integration.test.tsx
+  h_b13c5d77534129 1-99
+frontend/test/integration/UserContext.integration.test.tsx
+  h_b13c5d77534129 1-244
+frontend/test/integration/helpers.ts
+  h_b13c5d77534129 1-48
+frontend/test/integration/services.integration.test.tsx
+  h_b13c5d77534129 1-113
+frontend/vitest.config.ts
+  h_b13c5d77534129 6-7,28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "c136f70084bf16c8ae070ec0bb23d65d4a2d1ce7",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
