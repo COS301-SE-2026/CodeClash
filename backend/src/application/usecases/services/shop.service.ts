@@ -1,4 +1,4 @@
-import { IShopRepository } from "src/application/interfaces/repositories/IShopRepository";
+import { IShopRepository } from "src/application/interfaces/repositories/IShopItemRepository";
 import { ShopItemDTO } from "src/entities/dtos/shop/shop.dto";
 import { WalletDTO } from "src/entities/dtos/shop/wallet.dto";
 import { UserItemDTO } from "src/entities/dtos/shop/user-item.dto";

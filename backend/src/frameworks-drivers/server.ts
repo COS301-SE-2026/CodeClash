@@ -67,7 +67,7 @@ import { IAchievementRepository } from 'src/application/interfaces/repositories/
 import { attachSocketModules } from './socket';
 import { MatchStart } from 'src/application/usecases/services/match/match-start.service';
 import { ShopService } from 'src/application/usecases/services/shop.service';
-import { ShopRepository } from 'src/interface-adapters/repositories/shop.repository';
+import { ShopRepository } from 'src/interface-adapters/repositories/shop-item.repository';
 import { ShopItem } from 'src/entities/database/shop-item.entities';
 import { Wallet } from 'src/entities/database/wallet.entities';
 import { UserItem } from 'src/entities/database/user-item.entities';
