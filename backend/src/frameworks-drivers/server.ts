@@ -142,7 +142,7 @@ AppDataSource.initialize()
         const shop_item_service = new ShopItemService(shop_item_repo);
         const inventory_service = new InventoryService(inventory_repo);
         const wallet_service = new WalletService(wallet_repo);
-        const equipment_service = new EquipmentService(equipped_repo, inventory_repo);
+        const equipment_service = new EquipmentService(equipped_repo, inventory_repo, shop_item_repo);
         const powerup_service = new PowerupService(inventory_repo, shop_item_repo);
         const purchase_service = new PurchaseService(shop_item_repo, AppDataSource);
 
@@ -155,7 +155,7 @@ AppDataSource.initialize()
 
 
 
-        const app = createApp(elo_repo, user_repo, match_history_repo, leaderboard_service, achievement_service, friends_service, shop_item_service, inventory_service, wallet_service, equipment_service, powerup_service, purchase_service);
+        const app = createApp(elo_repo, user_repo, match_history_repo, leaderboard_service, achievement_service, friends_service, shop_item_service, inventory_service, wallet_service, equipment_service, powerup_service, purchase_service, equipped_repo, shop_item_repo);
         const httpServer = createServer(app)     // can update to https
         const io = new Server(httpServer, {
             cors: {
