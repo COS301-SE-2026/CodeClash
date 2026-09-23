@@ -3,7 +3,7 @@
 
 import { MathfieldElement } from "mathlive";
 import React, { useState } from "react";
-
+import { MatchCard } from "../ui/MatchCard";
 import VirtualKeyboard from "./VirtualKeyboard";
 
 declare module "react" {
@@ -42,17 +42,17 @@ const MathMatch = ({ onValueChange, mathfieldRef, className, children }: MathMat
   };
 
   return (
-    <div className="flex flex-col items-center w-[100%] h-[80%] -mt-5 bg-[var(--match-card)] rounded-4xl">
+    <MatchCard className="flex flex-col items-center w-[100%] h-[80%] -mt-5 rounded-4xl">
       <math-field
         ref={mathfieldRef}
         onInput={handleInput}
-        className={`${className} w-[95%] h-[20rem] rounded-4xl bg-[var(--progress-bar-symbol)] text-secondary text-xl mb-auto my-auto mx-auto`}
+        className={`${className} w-[95%] h-[20rem] rounded-4xl bg-[var(--match-box)] border-[2px] border-[var(--button-tournament-secondary)] text-secondary text-xl mb-auto my-auto mx-auto`}
       >
         {value}
       </math-field>
       <VirtualKeyboard mathfieldRef={mathfieldRef} />
       {children}
-    </div>
+    </MatchCard>
   );
 };
 

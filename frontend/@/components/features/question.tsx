@@ -3,6 +3,7 @@ import * as React from "react";
 import { Badge } from "../ui/badge";
 
 import { cn } from "@/lib/utils";
+import { MatchCard } from "../ui/MatchCard";
 
 function Question({
   className,
@@ -25,7 +26,7 @@ function Question({
         className,
       )}
     >
-      <div className="flex flex-col p-2 bg-[var(--match-card)] rounded-lg w-[90%]">
+      <MatchCard className="flex flex-col p-2 rounded-lg w-[90%]">
         <div className="flex justify-between w-full">
           <p className="ml-3 font-bold text-md">Question {number}</p>
           <Badge
@@ -37,12 +38,12 @@ function Question({
         </div>
 
         <div className="m-5 flex flex-col justify-evenly">
-          <h1 className="text-2xl font-semibold">{title}</h1>
-          <div className="text-md whitespace-pre-line">{description?.replaceAll(String.raw`\n`, '\n')}</div>
+          <h1 className="text-[2rem] -mt-8 font-semibold">{title}</h1>
+          <div className="text-sm text-muted-text">{description?.replaceAll(String.raw`\n`, '\n')}</div>
         </div>
-      </div>
+      </MatchCard>
 
-      <div className="ml-8 bg-[var(--progress-bar-symbol)] rounded-xl overflow-hidden w-[100%]">
+      <div className="ml-8 rounded-xl overflow-hidden w-[100%]">
         {children}
       </div>
     </div>
