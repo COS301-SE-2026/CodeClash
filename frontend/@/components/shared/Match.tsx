@@ -46,7 +46,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
             {/* <img src={background} className='absolute w-full -z-10' alt='background' /> */}
             {/* <BackButton page='/dashboard' /> */}
             {/* Header */}
-            <MatchCard className="rounded-[12px] w-[94%] h-[4rem] shrink-0 mb-10 mt-10 ml-[3%] mr-[3%] flex items-center overflow-x-auto">
+            <MatchCard className="rounded-[12px] w-[88%] h-[4rem] shrink-0 mb-10 mt-10 ml-[3%] mr-[3%] flex items-center overflow-x-auto">
             <div className="flex w-full h-full items-center gap-2">
                 
                 {/* Player 1 Progress */}
@@ -148,7 +148,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 <div className='flex flex-col items-center w-[20%] justify-between'>
 
                     {/* progress  */}
-                    <div className='ml-[20%] w-[100%] flex'>
+                    <div className='-mt-5 ml-[40%] w-[100%] flex'>
                             {/* doors */}
                             <MatchCard className='relative rounded-[20px] flex flex-col-reverse items-center justify-between h-160 w-[5rem] gap-2 p-3'>
                                 <Progress 

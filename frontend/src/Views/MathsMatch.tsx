@@ -75,7 +75,7 @@ const MathsMatch = () => {
                 number={currentQuestion + 1}
             />
 
-            <TimerBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] -mt-38"></TimerBox>
+            <TimerBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] -mt-43"></TimerBox>
 
             <div className='w-[100%] h-full min-h-[35%] flex flex-col items-center justify-center'>
                 <MathMatch
