@@ -5,30 +5,42 @@ import { useInventory } from "src/context/Shop/InventoryContext";
 import { tryOn } from "src/ViewModels/Shop/TryOn";
 import {AvatarRenderer} from "src/avatar/AvatarRenderer"
 import type { AvatarShopItem, AccessoryShopItem, AccessorySlot, ShopItem } from "src/Models/ShopModel";
-import { Check, Loader2, RotateCcw, Save } from "lucide-react";
+import { Check, CircleDot, Crown, Gem, Glasses, Loader2, RotateCcw, Save, Shirt, Wind, Sparkles, Users } from "lucide-react";
 
-const accTabs: {id: AccessorySlot; label: string}[] = [
+const accTabs: {id: AccessorySlot; label: string; icon: React.ComponentType<{size?: number}>}[] = [
     {
         id: 'headwear',
         label: 'Headwear',
+        icon: Crown
     },
     {
         id: 'neckwear',
         label: 'Neckwear',
+        icon: Gem
     },
     {
         id: 'facewear',
         label: 'Facewear',
+        icon: Glasses
     },
     {
         id: 'belt',
         label: 'Belts',
+        icon: CircleDot
     },
     {
         id: 'cape',
         label: 'Capes & Cloaks',
+        icon: Wind
     }
 ]
+
+const PriceTag: React.FC<{amount: number}> = ({amount}) => (
+    <div style={{display: 'flex', alignItems: 'center', gap: '0.3rem', color: 'var(--muted)', fontSize: '0.85rem', fontWeight: 700}}>
+        <Sparkles size={14}/>
+        {amount}
+    </div>
+)
 
 interface AvatarCustomizerProps {
     purchase: (itemId: string) => void;
@@ -60,32 +72,7 @@ const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasing
 
     return (
         <div>
-            <div style={{display: 'flex', gap: '0.75rem', overflowX: 'auto', paddingBottom: '0.5rem', marginBottom: '1.5rem'}}>
-                {avatars.map((a) => {
-                    const owned = isOwned(a.id);
-                    const selected = draftAvatarId === a.id;
-                    return (
-                        <button key={a.id} type="button" onClick={()=> tryOnAvatar(a.id)}
-                            style={{position: 'relative', flexShrink: 0, width: '64px', height: '64px', borderRadius: 'var(--radius-md, 18px)', border: selected ? '2px solid var(--primary)' : '1px solid var(--border)',
-                                background: 'var(--background-elevated)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',overflow: 'hidden', padding: 0
-                            }}>
-                            {a.previewImageUrl && (
-                                <img src={a.previewImageUrl} alt={a.name} style={{width: '100%', height: '100%', objectFit: 'cover'}}/>
-                            )}
-                            {!owned && (
-                                <span style={{position: 'absolute', bottom: 2, right:2, fontSize: '0.6rem', padding: '1px 5px', borderRadius: '999px', background: 'var(--background)', color: 'var(--muted-text)', border: '1px solid var(--border)'}}>
-                                    {a.price.amount}
-                                </span>
-                            )}
-                        </button>
-                    )
-                })}
-            </div>
-            
             <div className="card-glass" style={{padding: '2rem', display: 'flex', gap: '2rem',  flexWrap: 'wrap', alignItems: 'center',marginBottom: '2.5rem'}}>
-                <div style={{flex: '0 0 auto'}}>
-                    <AvatarRenderer avatarImageUrl={draftAvatarImg} bodyType={draftAvatar?.bodyType} accessories={draftAccessoryImg} style={{width: '200px', height: 'auto'}}/>
-                </div>
                 <div style={{flex: '1 1 240px', minWidth: '220px'}}>
                     <h2 style={{color: 'var(--primary-text)', fontWeight: 800, fontSize: '1.4rem', marginBottom: '0.5rem'}}>{draftAvatar?.name}</h2>
                     {draftAvatar?.description && (
@@ -107,17 +94,55 @@ const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasing
                             </div>
                     )}
                 </div>
+                <div style={{flex: '0 0 auto'}}>
+                    <AvatarRenderer avatarImageUrl={draftAvatarImg} bodyType={draftAvatar?.bodyType} accessories={draftAccessoryImg} style={{width: '200px', height: 'auto', maxWidth: '40vw'}}/>
+                </div>
             </div>
 
-            <h2 className="section-title text-md mb-4">Wardrobe & Accessories</h2>
+            <div style={{display: 'flex', alignItems: 'center',justifyContent: 'space-between',flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1.5rem'}}>
+                <h2 className="section-title text-md" style={{display: 'flex', alignItems: 'center',gap: '0.5rem',margin: 0}}>
+                    <Users size={18}/>
+                    Avatars
+                </h2>
+            </div>
+            <div style={{display: 'flex', gap: '1.25rem', overflowX: 'auto', paddingBottom: '0.5rem', marginBottom: '2.5rem'}}>
+                {avatars.map((a) => {
+                    const owned = isOwned(a.id);
+                    const selected = draftAvatarId === a.id;
+                    return (
+                        <button key={a.id} type="button" onClick={()=> tryOnAvatar(a.id)}
+                            style={{position: 'relative', flexShrink: 0, width: '96px', height: '96px', borderRadius: 'var(--radius-md, 18px)', border: selected ? '2px solid var(--primary)' : '1px solid var(--border)',
+                                background: 'var(--background-elevated)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',overflow: 'hidden', padding: 0
+                            }}>
+                            {a.previewImageUrl && (
+                                <img src={a.previewImageUrl} alt={a.name} style={{width: '100%', height: '100%', objectFit: 'cover'}}/>
+                            )}
+                            {!owned && (
+                                <span style={{position: 'absolute', bottom: 2, right:2, fontSize: '0.6rem', padding: '1px 5px', borderRadius: '999px', background: 'var(--background)', color: 'var(--muted-text)', border: '1px solid var(--border)'}}>
+                                    {a.price.amount}
+                                </span>
+                            )}
+                        </button>
+                    )
+                })}
+            </div>
+
+            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1.5rem'}}>
+                <h2 className="section-title text-md" style={{display: 'flex', alignItems: 'center', gap: '0.5rem', margin: 0}}>
+                    <Shirt size={18}/> Wardrobe &amp; Accessories
+                </h2>
+            </div>
+
             <div style={{display: 'flex',gap: '0.5rem', overflowX: 'auto', paddingBottom: '0.5rem', marginBottom: '1.5rem'}}>
                 {accTabs.map((tab) => {
                     const active = activeSlot === tab.id;
+                    const Icon = tab.icon;
                     return (
                         <button key={tab.id} type="button" onClick={()=> setActiveSlot(tab.id)}  
-                            style={{padding: '0.5rem 1rem', borderRadius: '999px', fontSize: '0.8rem',border: active ? '2px solid var(--primary)' : '1px solid var(--border)',
+                            style={{display: 'flex',alignItems: 'center', gap: '0.4rem', padding: '0.5rem 1rem', borderRadius: '999px', fontSize: '0.8rem',border: active ? '2px solid var(--primary)' : '1px solid var(--border)',
                                     background: active ? 'var(--primary)' : 'var(--background-card)', color: active ? 'var(--muted)' : 'var(--primary)',  cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0
                                 }}>
+                            <Icon size={14}/>
                             {tab.label}
                         </button>
                     )
@@ -155,7 +180,7 @@ const AccessoryCards: React.FC<AccessoryCardsProps> = ({item,owned, inDraft, pur
     <div onClick={onTryOn} className="card-glass" style={{padding: '1.1rem', display: 'flex', flexDirection: 'column', 
         border: inDraft ? '2px solid var(--primary)' : '1px solid var(--border)',gap: '0.6rem',  cursor: 'pointer'}}>
         {inDraft && (
-            <span className="badge" style={{fontSize: '0.65rem',border: '1px solid var(--muted)',
+            <span className="badge" style={{fontSize: '0.65rem',border: '1px solid var(--success)',
                 background: 'transparent' , color: 'var(--success)'}}>
                 {owned ? <><Check size={11}/> Equipped</>: 'Previewing'}
             </span>
