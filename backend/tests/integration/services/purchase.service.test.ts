@@ -27,11 +27,26 @@ let item_ids: string[] = [];
 
 describe('Tests PurchaseService', () => {
     beforeAll(async () => {
+        data_source = await createTestDataSource();
+        shop_item_repo = new ShopItemRepository(data_source.getRepository(ShopItem));
+        wallet_repo = new WalletReposiroty(data_source.getRepository(Wallet));
+        user_repo = new UserRepository(data_source.getRepository(Users));
+        purchase_service = new PurchaseService(shop_item_repo, data_source);
 
+        const user = await user_repo.createUser(username, `${username}@example.com`, cognito_id, 0, 'Mercury');
+        user_id = user.user_id!;
+
+        const saved = await data_source.getRepository(ShopItem).save(mock_shop_items);
+        item_ids = saved.map(i => i.shop_item_id);
+
+        await wallet_repo.createWallet(user_id);
     });
 
     afterAll(async () => {
-
+        await data_source.getRepository(UserItem).delete({ user: { user_id } });
+        await data_source.getRepository(Wallet).delete({ user: { user_id } });
+        await data_source.getRepository(ShopItem).delete(item_ids);
+        await data_source.getRepository(Users).delete({ cognito_id });
     });
 
     it('Deducts price and grants the item atomically', async () => {
