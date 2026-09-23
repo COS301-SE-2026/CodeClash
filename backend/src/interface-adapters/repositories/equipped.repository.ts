@@ -20,6 +20,7 @@ export class EquippedRepository implements IEquippedRepository {
             belt: e.belt ? this.shopItemMapper.toDTO(e.belt) : null,
             facewear: e.facewear ? this.shopItemMapper.toDTO(e.facewear) : null,
             powerup: e.powerup ? this.shopItemMapper.toDTO(e.powerup) : null,
+            theme: this.shopItemMapper.toDTO(e.theme!),
             updated_at: e.updated_at
         };
     }

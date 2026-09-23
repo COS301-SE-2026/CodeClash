@@ -29,4 +29,13 @@ export class ShopItemRepository implements IShopItemRepository {
         const item = await this.shopItemRepo.findOne({ where: { shop_item_id } });
         return item ? this.toDTO(item) : null;
     }
+
+    async getDefaultTheme(): Promise<ShopItemDTO> {
+        const item = await this.shopItemRepo.findOne({
+            where: { category: 'theme' },
+            order: { price: 'ASC' }
+        });
+        if (!item)  throw new Error('Default theme not seeded');
+        return this.toDTO(item);
+    }
 }
