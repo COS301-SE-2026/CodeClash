@@ -85,26 +85,26 @@ const MathsMatch = () => {
                 >
             
                 <div className="flex flex-row gap-6 w-full mx-auto justify-center my-auto">
-                <div className='flex items-center justify-evenly text-secondary bg-primary rounded-2xl w-[15%]'>
-                    <ChevronLeft onClick={() => prevQuestion(currentQuestion)} className='size-[3rem] hover:scale-110  hover:bg-secondary/20 rounded-2xl w-[50%]' />
-                    <ChevronRight onClick={() => nextQuestion(currentQuestion)} className='size-[3rem] hover:scale-110 hover:bg-secondary/20 rounded-2xl w-[50%]' />
-                </div>
-                <TournamentButton className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem] hover:-translate-y-1'
+                <TournamentButton className='flex items-center justify-evenly text-secondary rounded-2xl w-[10%] h-auto'>
+                    <ChevronLeft onClick={() => prevQuestion(currentQuestion)} className='size-[2rem] hover:scale-110  hover:bg-secondary/20 rounded-2xl w-[50%]' />
+                    <ChevronRight onClick={() => nextQuestion(currentQuestion)} className='size-[2rem] hover:scale-110 hover:bg-secondary/20 rounded-2xl w-[50%]' />
+                </TournamentButton>
+                <TournamentButton className='w-[10%] h-[2.2rem] rounded-2xl text-[1.3rem] hover:-translate-y-1'
                     onClick={() => {
                         const answer = mathfieldRef.current?.value ?? '';
                         submitQuestion(curr.id!, 'math', { answer: answer })
                     }}
                 >
-                    SUBMIT
+                    Submit
                 </TournamentButton>
                 {currentQuestion === (questions.length - 1) &&
-                    <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem] hover:-translate-y-1'
+                    <TournamentButton className='w-[10%] h-[2.2rem] rounded-2xl text-[1.3rem] hover:-translate-y-1'
                         onClick={() => {
                             finishGame();
                         }}
                     >
-                        <p>FINISH</p>
-                    </Button>
+                        <p>Finish</p>
+                    </TournamentButton>
                 }
                 </div>
             
