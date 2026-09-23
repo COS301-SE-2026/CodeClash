@@ -12,6 +12,7 @@ interface ProgressProps extends React.ComponentProps<typeof ProgressPrimitive.Ro
   border?: string,
   glow?: string,
   height?: number,
+  orientation?: "vertical" | "horizontal"
 }
 
 function Progress({
@@ -24,8 +25,12 @@ function Progress({
   border = "#631631",
   glow = "#FFFFFF",
   height = 1.5,
+  orientation = "horizontal",
   ...props
 }: ProgressProps) {
+
+  const place = value || 0;
+  const isVertical = orientation === "vertical"
  
   return (
     <ProgressPrimitive.Root
@@ -44,8 +49,8 @@ function Progress({
       <ProgressPrimitive.Indicator
         data-slot="progress-indicator"
         style={{
-          transform: `translateX(-${100 - (value || 0)}%)`,
-          backgroundImage: `linear-gradient(to right, ${from}, ${via}, ${to})`
+          transform: isVertical ? `translateY(${100 - place}%)` : `translateX(-${100 - (value || 0)}%)`,
+          backgroundImage: isVertical ? `linear-gradient(to top, ${from}, ${via}, ${to})` : `linear-gradient(to right, ${from}, ${via}, ${to})`
         }}
         className={`relative size-full transition-transform rounded-full`}
       >

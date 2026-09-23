@@ -98,7 +98,8 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                 value={player_life[1]}
                                 bg={"var(--button-tournament-secondary)"}
                                 border={"var(--button-tournament-secondary"}
-                                from="var(--primary)"
+                                from={"#8b29b8"}
+                                via={"#BF4DF3"}
                                 height={2.5}
                                 className='max-w-[11rem] min-w-[1rem] h-sm ml-auto mr-5 -mt-2.5 rotate-180'
                             />
