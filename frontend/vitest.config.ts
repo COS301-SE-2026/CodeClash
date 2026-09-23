@@ -3,6 +3,8 @@ import path from 'node:path';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vitest/config';
 
+process.env.NODE_OPTIONS = `${process.env.NODE_OPTIONS ?? ''} --no-experimental-webstorage`.trim();
+
 export default defineConfig({
   plugins: [react()],
   test: {
@@ -23,7 +25,7 @@ export default defineConfig({
       provider: 'istanbul',
       reporter: ['text', 'html', 'lcov'],
       include: ['**/*.tsx'],
-      exclude: ['**/@/components/ui/**', '**/@/hooks/**', '**/node_modules/**', '**/*.config.*'],
+      exclude: ['**/@/components/ui/**', '**/@/hooks/**', '**/node_modules/**', '**/*.config.*', 'test/**'],
     },
 
     globals: true,
