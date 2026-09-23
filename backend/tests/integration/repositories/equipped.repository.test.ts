@@ -23,11 +23,23 @@ let item_ids: string[] = [];
 
 describe('Tests EquippedRespository', () => {
     beforeAll(async () => {
+        data_source = await createTestDataSource();
+        shop_item_mapper = new ShopItemRepository(data_source.getRepository(ShopItem));
+        repo = new EquippedRepository(data_source.getRepository(EquippedItems), shop_item_mapper);
+        user_repo = new UserRepository(data_source.getRepository(Users));
 
+        const user = await user_repo.createUser(username, `${username}@example.com`, cognito_id, 0, 'Mercury');
+        user_id = user.user_id!;
+
+        const saved = await data_source.getRepository(ShopItem).save(mock_shop_items);
+        item_ids = saved.map(i => i.shop_item_id);
+        
     });
 
     afterAll(async () => {
-
+        await data_source.getRepository(EquippedItems).delete({ user: { user_id } });
+        await data_source.getRepository(ShopItem).delete(item_ids);
+        await data_source.getRepository(Users).delete({ cognito_id });
     });
 
     it('Returns null before any items are equipped', async () => {
