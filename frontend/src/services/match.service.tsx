@@ -111,8 +111,6 @@ export const useGameQuestions = (
                 title: q.title!,
                 difficulty: "Easy",
                 description: q.description,
-                exampleText: q.exampleText,
-                extraBox: q.extraBox
             });
 
             sumtime += Number(q.time_limit!.split(":")[1])
@@ -123,9 +121,7 @@ export const useGameQuestions = (
                 id: q.id,
                 title: q.title,
                 difficulty: "Medium",
-                description: q.description,
-                exampleText: q.exampleText,
-                extraBox: q.extraBox
+                description: q.description
             });
             sumtime += Number(q.time_limit!.split(":")[1])
         }
@@ -135,9 +131,7 @@ export const useGameQuestions = (
                 id: q.id,
                 title: q.title,
                 difficulty: "Hard",
-                description: q.description,
-                exampleText: q.exampleText,
-                extraBox: q.extraBox
+                description: q.description
             });
             sumtime += Number(q.time_limit!.split(":")[1])
         }
