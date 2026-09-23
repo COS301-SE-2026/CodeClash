@@ -162,6 +162,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                         const doorColour = () => {
                                             if (doorResult === true) return 'bg-success/30 shadow-[0_0_10px_var(--success)]'
                                             if (doorResult === false) return 'bg-danger/30 shadow-[0_0_10px_var(--danger)]'
+                                            if (idx === current_question) return 'bg-[var(--button-tournament)] shadow-[0_0_10px_var(--button-tournament)]'
                                             return 'bg-card'
                                         }
                                         const doorSymbol = () => {
