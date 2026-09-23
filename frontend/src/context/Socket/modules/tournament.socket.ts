@@ -64,4 +64,8 @@ export class TournamentSocket {
     cancelTournament(tournament_id: string) {
         return emit<string, void>(this.socket, 'cancel_tournament', tournament_id);
     }
+
+    getTournament(tournament_id: string){
+        return emit<string, TournamentDTO>(this.socket, 'get_tournament', tournament_id);
+    }
 }

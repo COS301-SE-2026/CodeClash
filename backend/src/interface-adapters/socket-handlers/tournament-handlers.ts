@@ -20,7 +20,6 @@ export const leaveTournament = async (io: Server, socket: Socket, tournament_id:
 
         socket.emit("left_tournament");
         io.to(tournament_id).emit("player_left", player);
-        return player;
     }
     catch (error) {
         socket.emit("leave_tournament_failed", error);
@@ -45,5 +44,13 @@ export const cancelTournament = async (io: Server, socket: Socket, tournament_id
     }
     catch (error) {
         socket.emit("cancel_tournament_failed", error);
+    }
+}
+
+export const getTournament = async (socket: Socket, tournament_id: string, tournament_service: TournamentService) => {
+    try {
+        return await tournament_service.getTournament(tournament_id);
+    } catch (error) {
+        socket.emit("get_tournament_failed", error);
     }
 }

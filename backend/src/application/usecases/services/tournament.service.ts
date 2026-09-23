@@ -41,7 +41,7 @@ export class TournamentService {
 
     async hostTournament(start_date: Date, match_mode: MatchMode, host: PlayerDTO) {
         const tournament_id = randomUUID();
-        await this.tournament_cache.createTournament(tournament_id, start_date, match_mode,host);
+        await this.tournament_cache.createTournament(tournament_id, start_date, match_mode, host);
         const tournament = await this.tournament_cache.getTournament(tournament_id);
 
         return tournament;
@@ -53,5 +53,12 @@ export class TournamentService {
 
         if (tournament.status !== MatchStatus.Waiting) throw new Error("Cannot cancel tournament");
         await this.tournament_cache.deleteTournament(tournament_id);
+    }
+
+    async getTournament(tournament_id: string) {
+        const tournament = await this.tournament_cache.getTournament(tournament_id);
+        if (!tournament) throw new Error("Tournament not found");
+
+        return tournament;
     }
 }
