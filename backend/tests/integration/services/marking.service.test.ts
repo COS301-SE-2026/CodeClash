@@ -20,7 +20,7 @@ import { createTestDataSource } from "../../test-data-source";
 import { IQuestionRepository } from '../../../src/application/interfaces/repositories/IQuestionRepository'
 import { IAnswerRepository } from '../../../src/application/interfaces/repositories/IAnswerRepository'
 import { Questions } from '../../../src/entities/database/questions.entities'
-import { MatchMode, MatchType } from '../../../src/entities/dtos/match/match.dto'
+import { MatchMode, MatchType } from '../../../src/entities/dtos/matches/match.dto'
 import { Answers } from '../../../src/entities/database/answers.entities'
 import { QuestionRepository } from '../../../src/interface-adapters/repositories/question.repository'
 import { AnswerRepository } from '../../../src/interface-adapters/repositories/answer.repository'
