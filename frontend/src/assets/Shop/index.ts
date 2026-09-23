@@ -60,7 +60,7 @@ export const shop_map: Record<string, string> = {
     'verdant-antannae': VerdantAntannae,
     'void-caster': VoidCaster,
     
-    'azure-scard': AzureScarf,
+    'azure-scarf': AzureScarf,
     'crimson-scarf': CrimsonScarf,
     'polar-scard': PolarScarf,
     'signal-scarf': SignalScarf,

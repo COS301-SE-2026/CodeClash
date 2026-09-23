@@ -2,7 +2,6 @@
 
 import type { ShopItem, AvatarShopItem, AccessoryShopItem, ThemeShopItem, PowerupShopItem, Wallet, UserInventory, AccessorySlot, Owned } from "src/Models/ShopModel";
 import {resolve} from "../assets/Shop/ResolveShopImages";
-import { T } from "node_modules/vitest/dist/chunks/traces.d.D2T_R8rx";
 
 //names and descriptions copied from pre made shop details word document that I handed to backend
 
@@ -201,7 +200,7 @@ const MOCKED_CAPES: AccessoryShopItem[] = [
         name: 'Starlance',
         price: {amount: 150},
         rarity: 'common',
-        previewImageUrl: resolve('starlance')
+        previewImageUrl: resolve('Starlance')
     },
     {
         id: 'void-mantle',
