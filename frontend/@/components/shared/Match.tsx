@@ -39,7 +39,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
 }) => {
 
     return (
-        <div className="fixed inset-0 flex flex-col min-w-[64rem] overflow-hidden">
+        <div className="fixed inset-0 flex flex-col min-w-[64rem] overflow-x-hidden">
             {/* <img src={background} className='absolute w-full -z-10' alt='background' /> */}
             {/* <BackButton page='/dashboard' /> */}
             {/* Header */}
@@ -77,9 +77,10 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 </div>
 
                 {/* Clock */}
-                <div className='text-white font-dseg bg-[var(--match-box)] border border-[0.5px] border-[var(--match-card)] h-12 w-42 flex items-center justify-center text-lg text-center font-semibold rounded-sm px-2 my-auto mx-auto'>
+                <div className='text-white font-dseg bg-[var(--match-box)] border border-[0.5px] border-[var(--match-card)] 
+                h-12 w-38 flex items-center justify-center text-lg text-center font-semibold rounded-sm px-2 my-auto mx-auto'>
                     <div className="flex flex-row whitespace-wrap">
-                        <Timer size={30} className="mr-2 my-auto"/>
+                        <Timer size={30} className="mr-3 my-auto"/>
                         <span>
                             {String(minutes).padStart(2, "0")}:
                             {String(seconds).padStart(2, "0")}
@@ -90,20 +91,20 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 {/* Player 2 Progress */}
 
                 {/* the code below was copied and rearranged from the human-written code above for the sake of time, none of this code is ai-generated */}
-                <div className="min-w-lg w-xl mr-7 h-[6rem] mt-10">
+                <div className="min-w-0 w-xl flex-1 mr-7 h-[6rem] mt-10">
                     <div className="flex flex-row items-center gap-2 w-full">
                         <div className='w-full'>
                             <Progress
-                                value={player_life[0]}
+                                value={player_life[1]}
                                 bg={"var(--button-tournament-secondary)"}
                                 border={"var(--button-tournament-secondary"}
                                 height={2.5}
-                                className='w-[12rem] h-sm mx-auto mr-3 -mt-1 rotate-180'
+                                className='max-w-[12rem] min-w-[2rem] h-sm ml-auto mr-5 -mt-1 rotate-180'
                             />
                         </div>
 
                         {/* the code below was copied and pasted from above and was written by a human, this code was not ai generated! */}
-                        <TournamentsBadge className="w-[15%] ml-2 h-[1.5rem] mb-auto text-muted-text text-xs mr-2">
+                        <TournamentsBadge className="flex min-w-9 mr-[0.5%] h-[1.5rem] mb-auto text-muted-text text-xs">
                             <h1 className="mt-1">RIVAL</h1>
                         </TournamentsBadge>
 
@@ -113,8 +114,8 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                             <div className="text-xs text-muted-text ml-auto">{elos[1]} ELO</div>
                         </div>
 
-                        <TournamentButton className="my-auto w-[7.5rem] h-[4rem] items-center -px-1 -py-4 mr-4 -mt-2.5">
-                            <div style={{backgroundImage : `url(${avatars[0]})`}} className="w-full h-full bg-no-repeat bg-cover bg-center">
+                        <TournamentButton className="my-auto min-w-0 w-28 h-15 items-center -px-1 -py-4 -mr-1 -mt-2.5">
+                            <div style={{backgroundImage : `url(${avatars[1]})`}} className="w-full h-full bg-no-repeat bg-cover bg-center">
 
                             </div>
                         </TournamentButton>
