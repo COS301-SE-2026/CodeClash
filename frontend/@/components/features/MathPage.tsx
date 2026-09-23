@@ -42,7 +42,7 @@ const MathMatch = ({ onValueChange, mathfieldRef, className, children }: MathMat
   };
 
   return (
-    <MatchCard className="flex flex-col items-center w-[100%] h-[45%] mb-auto rounded-4xl mt-5">
+    <MatchCard className="flex flex-col items-center w-[100%] h-[40%] mb-auto rounded-2xl mt-5">
       <math-field
         ref={mathfieldRef}
         onInput={handleInput}

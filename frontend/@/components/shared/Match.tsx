@@ -148,24 +148,6 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
 
                         <div className='grid grid-cols-2 w-[100%] gap-5'>
 
-                            {/* avatars in bottom corner*/}
-                            <div className='relative flex flex-row -ml-10'>
-                                <img src={avatars[0]}
-                                    className=" absolute w-35 h-45 object-cover left-22"
-                                    style={{ top: `${(question_number - 1 - current_question) * 9.6}rem` }}
-                                    alt='progress avatar user 1'
-                                />
-                                <div className='relative w-[50%]'>
-                                    <img src={avatars[0]}
-                                        className=" absolute w-35 h-45 object-cover -left-2 scale-x-[-1]"
-                                        style={{ top: `${(question_number - 1 - opponent_progress) * 9.6}rem` }}
-                                        alt='progress avatar user 2'
-                                    />
-
-
-                                </div>
-
-                            </div>
 
                             {/* doors */}
                             <div className='relative bg-card/100 rounded-[20px] flex flex-col-reverse items-center justify-between h-160 w-[5rem] mt-2'>

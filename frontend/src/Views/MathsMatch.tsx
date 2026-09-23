@@ -11,6 +11,7 @@ import { Card } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
 import { TimerBox } from '@/components/ui/TimerBox';
 import TournamentButton from '@/components/ui/TournamentButton';
+import { MatchCard } from '@/components/ui/MatchCard';
 
 const MathsMatch = () => {
     const {
@@ -74,9 +75,9 @@ const MathsMatch = () => {
                 number={currentQuestion + 1}
             />
 
-            <TimerBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] mb-40 mb-auto -mt-44"></TimerBox>
+            <TimerBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] mb-40 mb-auto -mt-43"></TimerBox>
 
-            <div className='w-[90%] h-[100%] min-h-[35%] flex flex-col items-center justify-center'>
+            <div className='w-[100%] h-full min-h-[35%] flex flex-col items-center justify-center'>
                 <MathMatch
                     mathfieldRef={mathfieldRef}
                     onValueChange={(val) => setAnswers(prev => ({ ...prev, [currentQuestion]: val }))}
@@ -88,14 +89,14 @@ const MathsMatch = () => {
                     <ChevronLeft onClick={() => prevQuestion(currentQuestion)} className='size-[3rem] hover:scale-110  hover:bg-secondary/20 rounded-2xl w-[50%]' />
                     <ChevronRight onClick={() => nextQuestion(currentQuestion)} className='size-[3rem] hover:scale-110 hover:bg-secondary/20 rounded-2xl w-[50%]' />
                 </div>
-                <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem] hover:-translate-y-1'
+                <TournamentButton className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem] hover:-translate-y-1'
                     onClick={() => {
                         const answer = mathfieldRef.current?.value ?? '';
                         submitQuestion(curr.id!, 'math', { answer: answer })
                     }}
                 >
                     SUBMIT
-                </Button>
+                </TournamentButton>
                 {currentQuestion === (questions.length - 1) &&
                     <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem] hover:-translate-y-1'
                         onClick={() => {
