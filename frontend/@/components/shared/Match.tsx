@@ -38,6 +38,8 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
     question_results,
 }) => {
 
+    const questionsAnswered = question_results.filter((qr) => qr === true || qr === false).length;
+
     return (
         <div className="fixed inset-0 flex flex-col min-w-[64rem] overflow-y-auto">
             {/* <img src={background} className='absolute w-full -z-10' alt='background' /> */}
@@ -148,7 +150,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                     <div className='ml-[20%] w-[100%] flex'>
                             {/* doors */}
                             <MatchCard className='relative rounded-[20px] flex flex-col-reverse items-center justify-between h-160 w-[5rem] gap-2 p-3'>
-                                <div className="absolute inset-y-3  top-8 bg-card h-[90%] w-[5%] rounded-3xl "></div>
+                                <Progress className="absolute inset-y-3  top-8 bg-card h-[90%] w-[5%] rounded-3xl"></Progress>
                                 {
                                     [...Array(question_number)].map((_, idx) => {
 

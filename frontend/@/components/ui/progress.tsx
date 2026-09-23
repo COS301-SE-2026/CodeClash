@@ -30,8 +30,8 @@ function Progress({
 }: ProgressProps) {
 
   const place = value || 0;
-  const isVertical = orientation === "vertical"
- 
+  const isVertical = orientation === "vertical";
+
   return (
     <ProgressPrimitive.Root
       data-slot="progress"
