@@ -9,6 +9,7 @@ export interface TournamentDTO {
     status: MatchStatus,
     created_at: Date,
     start_date: Date,
+    
 }
 
 export interface PlayerStandingDTO {

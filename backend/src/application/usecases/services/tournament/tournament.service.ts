@@ -1,14 +1,16 @@
 import { randomUUID } from "node:crypto";
 import { ITournamentCache } from "src/application/interfaces/cache/ITournamentCache";
 import { PlayerDTO } from "src/entities/dtos/components.dto";
-import { MatchMode, MatchStatus } from "src/entities/dtos/match/match.dto";
+import { MatchMode, MatchStatus, MatchType } from "src/entities/dtos/match/match.dto";
 import { TournamentDTO } from "src/entities/dtos/tournaments/tournaments.dto";
 import { MatchCreationService } from "../match/match-creation.service";
+import { TournamentEliminationService } from "./elimination.service";
 
 export class TournamentService {
     constructor(
         private readonly tournament_cache: ITournamentCache,
-        private readonly creation_service: MatchCreationService
+        private readonly creation_service: MatchCreationService,
+        private readonly elimination_service: TournamentEliminationService
     ) { }
 
     async joinTournament(tournament_id: string, player: PlayerDTO): Promise<TournamentDTO> {
@@ -64,8 +66,19 @@ export class TournamentService {
         return tournament;
     }
 
-    async startTournament(tournament: TournamentDTO) {
-        
+    async startTournament(tournament: TournamentDTO, league: string) {
+        if (tournament.status !== MatchStatus.Waiting) throw new Error("Tournament already started");
+        if (tournament.players.length < 8) throw new Error("Not enough players");
+
+        const match = await this.creation_service.execute(tournament.players, tournament.tournament_mode, league, MatchType.tournament);
+
+        const players = tournament.players.map(p => ({ player_id: p.id, username: p.username! }));
+        this.elimination_service.init(tournament.tournament_id, players);
+
+        const round_1 = match.rounds[0];
+        this.elimination_service.startRound(tournament.tournament_id, round_1!.round_number, round_1!.questions.map(q => q.id));
+
+        return round_1;
     }
 
 }

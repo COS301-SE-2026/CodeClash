@@ -2,6 +2,8 @@ import { PlayerStandingDTO } from "src/entities/dtos/tournaments/tournaments.dto
 import { MarkingService } from "../marking/marking.service";
 import { PlayerSubmissionDTO } from "src/entities/dtos/components.dto";
 
+
+const MAX_ATTEMPTS = 3;
 interface QuestionProgress {
     attempts: number,
     solved: boolean
@@ -9,7 +11,6 @@ interface QuestionProgress {
 
 interface TournamentState {
     players: Map<string, PlayerStandingDTO>,
-    round_count: number,
     current_round: number,
     round_start: number,
     round_questions: Set<string>,
@@ -23,7 +24,7 @@ export class TournamentEliminationService {
         private readonly marking_service: MarkingService
     ) { }
 
-    init(tournament_id: string, players: { player_id: string, username: string }[], round_count: number) {
+    init(tournament_id: string, players: { player_id: string, username: string }[]) {
         this.state.set(tournament_id, {
             players: new Map(
                 players.map(p => [
@@ -35,7 +36,6 @@ export class TournamentEliminationService {
                         position: -1
                     }
                 ])),
-            round_count,
             current_round: -1,
             round_start: 0,
             round_questions: new Set(),
@@ -78,9 +78,9 @@ export class TournamentEliminationService {
         }
 
         if (progress.solved) return true;
-        if (progress.attempts >= 3) throw new Error("No attempts left");
+        if (progress.attempts >= MAX_ATTEMPTS) throw new Error("No attempts left");
 
-        progress.attempts;
+        progress.attempts++;
         const received_at = Date.now();
         const round = tournament.current_round;
 
@@ -115,7 +115,7 @@ export class TournamentEliminationService {
         const keep = Math.max(1, Math.floor(alive.length / 2));
         alive.slice(keep).forEach(p => (p.elimination_round = tournament.current_round));
 
-        return alive.slice(0,keep);
+        return alive.slice(0, keep);
     }
 
     private getTournament(tournament_id: string) {
@@ -125,6 +125,17 @@ export class TournamentEliminationService {
         return tournament;
     }
 
+    getStanding(tournament_id: string): PlayerStandingDTO[] {
+        const tournament = this.getTournament(tournament_id);
 
+        const rank = (p: PlayerStandingDTO) => p.elimination_round === -1 ? tournament.current_round + 1 : p.elimination_round;
 
+        return [...tournament.players.values()]
+            .sort((a, b) =>
+                rank(b) - rank(a) ||
+                b.correct - a.correct ||
+                a.total_time - b.total_time
+            )
+            .map((p, i) => ({ ...p, position: i + 1 }));
+    }
 }
