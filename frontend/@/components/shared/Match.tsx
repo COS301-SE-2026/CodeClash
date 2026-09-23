@@ -39,35 +39,38 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
 }) => {
 
     return (
-        <div className="fixed inset-0 flex flex-col">
+        <div className="fixed inset-0 flex flex-col min-h-screen">
             {/* <img src={background} className='absolute w-full -z-10' alt='background' /> */}
             {/* <BackButton page='/dashboard' /> */}
             {/* Header */}
-            <MatchCard className="min-w-220 max-w-500 h-[7rem] shrink-0 mb-10 mt-10 ml-[3%] mr-[3%] flex items-center">
+            <MatchCard className="w-[93.5%] h-[10%] shrink-0 mb-10 mt-5 ml-[3%] mr-[3%] flex items-center">
             <div className='flex w-full h-full items-center justify-between '>
                 
                 {/* Player 1 Progress */}
-                <div className="min-w-lg w-xl ml-7 h-[6rem] mt-10">
+                <div className="w-xl ml-[2%] h-[6rem] my-auto">
                     <div className="flex flex-row items-center gap-2 w-full">
-                        <TournamentButton className="my-auto w-[7.5rem] h-[4rem] items-center -px-1 -py-4 ml-4 -mt-2.5">
+                        <TournamentButton className="my-auto w-[15%] h-[3rem] items-center ml-4 -mt-2.5">
                             <div style={{backgroundImage : `url(${avatars[0]})`}} className="w-full h-full bg-no-repeat bg-cover bg-center">
 
                             </div>
                         </TournamentButton>
 
                         <div className="flex flex-col ml-2">
-                            <div className="text-[1.25rem] w-xsm h-sm -mt-1">{usernames[1]}</div>
+                            <div className="text-[90%] w-xsm h-sm -mt-1">{usernames[1]}</div>
                             <h1 className="text-muted-text text-xs">{elos[0]} ELO</h1>
                         </div>
 
-                        <TournamentsBadge className="w-[15%] ml-2 h-[1.5rem] mb-auto text-muted-text text-xs">
-                            <h1 className="mt-1">YOU</h1>
+                        <TournamentsBadge className="w-[10%] h-[1rem] mb-auto text-muted-text text-[50%]">
+                            <h1 className="">YOU</h1>
                         </TournamentsBadge>
 
                         <div className='w-full'>
                             <Progress
                                 value={player_life[0]}
-                                className='w-[12rem] h-sm mx-auto -mt-1'
+                                bg="var(--button-tournament-secondary)"
+                                border="var(--button-tournament-secondary"
+                                height={2.5}
+                                className='w-[70%] min-w-[2rem] h-sm mx-auto ml-[6%] -mt-1'
                             />
                         </div>
                     </div>
