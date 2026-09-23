@@ -1,4 +1,4 @@
-import { IMatchCache } from "src/application/interfaces/cache/IGameCache";
+import { IMatchCache } from "src/application/interfaces/cache/IMatchCache";
 import { MatchMode, MatchType } from "src/entities/dtos/match/match.dto";
 import { MatchDTO, PlayerDTO, RoundDTO } from "src/entities/dtos/components.dto";
 

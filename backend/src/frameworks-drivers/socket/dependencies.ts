@@ -35,3 +35,5 @@ export interface SocketDeps {
     matchmaking: MatchmakingDeps,
     friends: FriendDeps,
 }
+
+export interface TournamentDeps { }

@@ -13,7 +13,7 @@ import { MatchCreationSystem, CreateMatchEntity, CreatePlayerEntity, CreateRound
 import { GetQuestions, GetTotalTime } from 'src/application/usecases/services/questions.service';
 import { GetAnswers } from 'src/application/usecases/services/answers.service';
 import { MatchCache } from 'src/interface-adapters/cache/match-cache';
-import { IMatchCache } from 'src/application/interfaces/cache/IGameCache';
+import { IMatchCache } from 'src/application/interfaces/cache/IMatchCache';
 import redis from './config/redis-client';
 import { MatchmakingService } from 'src/application/usecases/services/matchmaking.service';
 import { IMatchmakingCache } from 'src/application/interfaces/cache/IMatchmakingCache';

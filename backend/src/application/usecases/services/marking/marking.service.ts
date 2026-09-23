@@ -1,4 +1,4 @@
-import { IMatchCache } from "src/application/interfaces/cache/IGameCache";
+import { IMatchCache } from "src/application/interfaces/cache/IMatchCache";
 import { LifeSystem } from "src/application/usecases/systems/life.system";
 import { SubmissionSystem } from "src/application/usecases/systems/submission.system";
 import { NotificationService } from "../notification.service";
