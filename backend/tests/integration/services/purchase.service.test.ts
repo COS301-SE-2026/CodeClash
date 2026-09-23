@@ -50,11 +50,19 @@ describe('Tests PurchaseService', () => {
     });
 
     it('Deducts price and grants the item atomically', async () => {
+        await wallet_repo.updateBalance(user_id, 500);
+        const item_id = item_ids.find((_, i) => mock_shop_items[i]!.category === 'powerup')!;
 
+        const result = await purchase_service.purchaseItem(user_id, item_id);
+
+        expect(result.item.item.shop_item_id).toBe(item_id);
+
+        const wallet = await wallet_repo.getWallet(user_id);
+        expect(wallet!.balance).toBe(400); 
     });
 
     it('Throws and does not deduct balance when item is already owned', async () => {
-
+        
     });
 
     it('Throws and does not deduct balance when balance is insufficient', async () => {
