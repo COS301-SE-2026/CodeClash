@@ -1,6 +1,6 @@
 import type { Socket } from "socket.io-client";
 import type { PlayerDTO } from "src/dtos/match/match.dto";
-import { emit } from "../dispatch";
+import { emit, on } from "../dispatch";
 import type { MatchMode } from "src/dtos/match/match.dto";
 import type { TournamentDTO } from "src/dtos/tournaments/tournament.dto";
 
@@ -12,6 +12,39 @@ export class TournamentSocket {
 
     /************************************** LISTENERS ******************************************* */
 
+    playerJoined(handler: (player: PlayerDTO) => void) {
+        return on<PlayerDTO>(this.socket, 'player_joined', handler);
+    }
+
+    playerLeft(handler: (player: PlayerDTO) => void) {
+        return on<PlayerDTO>(this.socket, 'player_left', handler);
+    }
+
+    tournamentCreated(handler: (tournament: TournamentDTO) => void) {
+        return on<TournamentDTO>(this.socket, 'tournament_created', handler);
+    }
+
+
+    tournamentCancelled(handler: () => void) {
+        return on(this.socket, 'tournament_cancelled', handler);
+    }
+
+    // Error events
+    joinFailed(handler: (data: Error) => void) {
+        return on<Error>(this.socket, 'join_tournament_failed', handler);
+    }
+
+    leaveFailed(handler: (data: Error) => void) {
+        return on<Error>(this.socket, 'leave_tournament_failed', handler);
+    }
+
+    createFailed(handler: (data: Error) => void) {
+        return on<Error>(this.socket, 'host_tournament_failed', handler);
+    }
+
+    cancelFailed(handler: (data: Error) => void) {
+        return on<Error>(this.socket, 'cancel_tournament_failed', handler);
+    }
 
 
     /************************************** EMITTERS ******************************************* */
