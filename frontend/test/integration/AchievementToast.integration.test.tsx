@@ -1,7 +1,7 @@
 import { render, screen, act, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { AchievementToastProvider, useAchievementToast } from 'src/context/Achievement/AchievementToastContext';
-import { AuthContext, type AuthContextValue } from 'src/context/Auth/AuthContextValue';
+import { AchievementToastProvider, useAchievementToast } from '../../src/context/Achievement/AchievementToastContext';
+import { AuthContext, type AuthContextValue } from '../../src/context/Auth/AuthContextValue';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 const AUTH_STUB: AuthContextValue = {

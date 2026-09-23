@@ -9,10 +9,10 @@ const api = vi.hoisted(() => ({
 
 vi.mock('src/services/api.service', () => ({ API: api }));
 
-import { AuthContext, type AuthContextValue } from 'src/context/Auth/AuthContextValue';
-import { UserProvider } from 'src/context/User/UserContext';
-import { useUser } from 'src/context/User/hooks/useUser';
-import { robot_map } from 'src/assets/Robots';
+import { AuthContext, type AuthContextValue } from '../../src/context/Auth/AuthContextValue';
+import { UserProvider } from '../../src/context/User/UserContext';
+import { useUser } from '../../src/context/User/hooks/useUser';
+import { robot_map } from '../../src/assets/Robots';
 
 const AUTH_STUB: AuthContextValue = {
   user: { username: 'ntu', userId: 'user-1' },

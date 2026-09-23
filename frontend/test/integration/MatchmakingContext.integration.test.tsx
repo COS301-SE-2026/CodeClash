@@ -1,9 +1,9 @@
 import { render, screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { useMatchmaking } from 'src/context/Socket/hooks/useMatchmaking';
-import { MatchmakingProvider } from 'src/context/Socket/MatchmakingContext';
-import { SocketContext } from 'src/context/Socket/SocketContextValue';
-import type { MatchedUsersDTO } from 'src/dtos/matched-user.dto';
+import { useMatchmaking } from '../../src/context/Socket/hooks/useMatchmaking';
+import { MatchmakingProvider } from '../../src/context/Socket/MatchmakingContext';
+import { SocketContext } from '../../src/context/Socket/SocketContextValue';
+import type { MatchedUsersDTO } from '../../src/dtos/matched-user.dto';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { FakeSocket } from './helpers';
