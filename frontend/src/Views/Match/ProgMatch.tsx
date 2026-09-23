@@ -1,4 +1,4 @@
-import { CodeEditor } from "@/components/features/AnswerInput/code-editor";
+import { CodeEditor } from "@/components/features/code-editor";
 import { Question } from "@/components/features/question";
 import { MatchScreen } from "@/components/shared/Match/Match";
 import { useMatch } from "src/ViewModels/Match/MatchViewModel"
@@ -31,16 +31,6 @@ export const ProgMatch = () => {
 
     return (
         <MatchScreen
-            player_life={playerLife}
-            colour="var(--life-primary)"
-            seconds={seconds}
-            minutes={minutes}
-            avatars={avatars}
-            usernames={usernames}
-            current_question={currentQuestion}
-            opponent_progress={opponentCurrent}
-            question_number={questions.length}
-            question_results={results}
         >
             <Question
                 className={` h-[10rem]`}

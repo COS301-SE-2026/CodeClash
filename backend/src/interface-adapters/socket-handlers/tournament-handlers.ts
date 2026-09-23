@@ -8,6 +8,7 @@ export const joinTournament = async (io: Server, socket: Socket, tournament_id: 
         await tournament_service.joinTournament(tournament_id, player);
         socket.join(tournament_id);
         io.to(tournament_id).emit('player_joined', player);
+        return player;
     }
     catch (error) {
         socket.emit("join_tournament_failed", error);
@@ -20,16 +21,18 @@ export const leaveTournament = async (io: Server, socket: Socket, tournament_id:
 
         socket.emit("left_tournament");
         io.to(tournament_id).emit("player_left", player);
+        return player;
     }
     catch (error) {
         socket.emit("leave_tournament_failed", error);
     }
 }
 
-export const hostTournament = async (io: Server, socket: Socket, start_date: Date, match_mode: MatchMode,host: PlayerDTO, tournament_service: TournamentService) => {
+export const hostTournament = async (io: Server, socket: Socket, start_date: Date, match_mode: MatchMode, host: PlayerDTO, tournament_service: TournamentService) => {
     try {
         const tournament = await tournament_service.hostTournament(start_date, match_mode, host);
         io.emit("tournament_created", tournament);
+        return tournament;
     }
     catch (error) {
         socket.emit("host_tournament_failed", error);

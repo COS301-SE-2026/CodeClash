@@ -55,6 +55,9 @@ import { IAchievementRepository } from 'src/application/interfaces/repositories/
 import { attachSocketModules } from './socket';
 import { MatchStart } from 'src/application/usecases/services/match/match-start.service';
 import { MatchCompletionService } from 'src/application/usecases/services/match/match-completion.service';
+import { ITournamentCache } from 'src/application/interfaces/cache/ITournamentCache';
+import { TournamentCache } from 'src/interface-adapters/cache/tournament-cache';
+import { TournamentService } from 'src/application/usecases/services/tournament.service';
 
 dotnev.config()
 
@@ -90,7 +93,7 @@ AppDataSource.initialize()
         // create game cache
         const match_cache: IMatchCache = new MatchCache(redis);
         const matchmaking_cache: IMatchmakingCache = new MatchmakingCache(redis);
-
+        const tournament_cache:ITournamentCache = new TournamentCache(redis);
 
         // initialise services 
         const match_service = new MatchCreationService(create_match, get_questions, get_total_time, get_answers, match_cache, match_repo, user_repo);
@@ -101,7 +104,7 @@ AppDataSource.initialize()
         const friends_service = new FriendService(friend_repo);
         const achievement_service = new AchievementService(achievementRepo, user_repo);
         const match_start = new MatchStart(match_service, match_store);
-
+        const tournament_service = new TournamentService(tournament_cache);
 
         // initialise systems 
         const submission_system = new SubmissionSystem(world);
@@ -169,7 +172,8 @@ AppDataSource.initialize()
         attachSocketModules(io, {
             match: { marking_service, submission_system, match_completion_service, match_deletion_system, match_store },
             matchmaking: { matchmaking_service, matched_users_service, match_service, match_store, user_repo, match_start },
-            friends: {}
+            friends: {},
+            tournament: {tournament_service}
         })
 
         // start server

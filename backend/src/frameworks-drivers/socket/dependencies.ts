@@ -31,12 +31,14 @@ export interface MatchmakingDeps {
 
 export interface FriendDeps { }
 
+export interface TournamentDeps {
+    tournament_service: TournamentService
+}
+
 export interface SocketDeps {
     match: MatchDeps,
     matchmaking: MatchmakingDeps,
     friends: FriendDeps,
+    tournament: TournamentDeps
 }
 
-export interface TournamentDeps {
-    tournament_service: TournamentService
- }

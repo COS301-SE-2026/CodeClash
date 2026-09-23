@@ -2,7 +2,7 @@ import { ChevronRight, ChevronLeft } from 'lucide-react'
 import { useEffect } from 'react';
 import { useMatch } from 'src/ViewModels/Match/MatchViewModel';
 
-import MathMatch from '@/components/features/AnswerInput/math-input';
+import MathMatch from '@/components/features/MathPage';
 import { Question } from '@/components/features/question';
 import Loading from '@/components/shared/Loading';
 import { MatchScreen } from '@/components/shared/Match/Match';
@@ -19,7 +19,7 @@ const MathsMatch = () => {
         nextQuestion, prevQuestion,
         loading,
         // submitQuestion,
-        mathfieldRef, setAnswers, answers,
+        mathfieldRef,
         results, waitingOpponent,
         finishGame
     } = useMatch();
@@ -39,9 +39,9 @@ const MathsMatch = () => {
     // }
 
     useEffect(() => {
-        if (mathfieldRef.current) {
-            mathfieldRef.current.value = answers?.[currentQuestion] ?? ''
-        }
+        // if (mathfieldRef.current) {
+        //     mathfieldRef.current.value = answers?.[currentQuestion] ?? ''
+        // }
     }, [currentQuestion])
 
 
@@ -53,16 +53,6 @@ const MathsMatch = () => {
 
     return (
         <MatchScreen
-            player_life={playerLife}
-            colour='var(--life-primary)'
-            seconds={seconds}
-            minutes={minutes}
-            avatars={avatars}
-            usernames={usernames}
-            current_question={currentQuestion}
-            opponent_progress={opponentCurrent}
-            question_number={questions.length}
-            question_results={results}
         >
 
             <Question
@@ -76,7 +66,7 @@ const MathsMatch = () => {
             <div className='w-[100%] h-[100%] min-h-[35%] flex items-center justify-center'>
                 <MathMatch
                     mathfieldRef={mathfieldRef}
-                    onValueChange={(val) => setAnswers(prev => ({ ...prev, [currentQuestion]: val }))}
+                    // onValueChange={(val) => setAnswers(prev => ({ ...prev, [currentQuestion]: val }))}
                     // className={`${result_colour()},${read_only}`}
                 ></MathMatch>
             </div>

@@ -19,7 +19,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = () => {
         return <Loading isOpen={match_data.loading || match_data.status !== 'ready'} />
     }
 
-    const curr = match_data.questions[match_data.currentQuestion];
+    // const curr = match_data.questions[match_data.currentQuestion];
 
 
     // const handleSubmit = () => {
