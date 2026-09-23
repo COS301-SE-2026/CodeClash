@@ -66,13 +66,20 @@ import { IMatchStatsRepository } from 'src/application/interfaces/repositories/I
 import { IAchievementRepository } from 'src/application/interfaces/repositories/IAchievementRepository';
 import { attachSocketModules } from './socket';
 import { MatchStart } from 'src/application/usecases/services/match/match-start.service';
-import { ShopService } from 'src/application/usecases/services/shop/shop-item.service';
-import { ShopRepository } from 'src/interface-adapters/repositories/shop-item.repository';
+import { ShopItemService } from 'src/application/usecases/services/shop/shop-item.service';
+import { ShopItemRepository } from 'src/interface-adapters/repositories/shop-item.repository';
 import { ShopItem } from 'src/entities/database/shop-item.entities';
 import { Wallet } from 'src/entities/database/wallet.entities';
 import { UserItem } from 'src/entities/database/user-item.entities';
-import { DataSource } from 'typeorm';
 import { EquippedItems } from 'src/entities/database/equipped-items.entities';
+import { InventoryRepository } from 'src/interface-adapters/repositories/inventory.repository';
+import { WalletReposiroty } from 'src/interface-adapters/repositories/wallet.repository';
+import { EquippedRepository } from 'src/interface-adapters/repositories/equipped.repository';
+import { InventoryService } from 'src/application/usecases/services/shop/inventory.service';
+import { WalletService } from 'src/application/usecases/services/shop/wallet.service';
+import { EquipmentService } from 'src/application/usecases/services/shop/equipment.service';
+import { PowerupService } from 'src/application/usecases/services/shop/powerup.service';
+import { PurchaseService } from 'src/application/usecases/services/shop/purchase.service';
 
 dotnev.config()
 
@@ -96,7 +103,10 @@ AppDataSource.initialize()
 
         const match_history_repo = new MatchHistoryRepository(AppDataSource.getRepository(Matches), AppDataSource.getRepository(MatchLog), AppDataSource.getRepository(MatchStats));
         const friend_repo = new FriendRepository(AppDataSource.getRepository(Friendship), AppDataSource.getRepository(FriendInvite), elo_repo);
-        const shop_repo = new ShopRepository(AppDataSource.getRepository(ShopItem), AppDataSource.getRepository(Wallet), AppDataSource.getRepository(UserItem), AppDataSource.getRepository(EquippedItems), AppDataSource);
+        const shop_item_repo = new ShopItemRepository(AppDataSource.getRepository(ShopItem));
+        const inventory_repo = new InventoryRepository(AppDataSource.getRepository(UserItem), shop_item_repo);
+        const wallet_repo = new WalletReposiroty(AppDataSource.getRepository(Wallet));
+        const equipped_repo = new EquippedRepository(AppDataSource.getRepository(EquippedItems), shop_item_repo);
 
         // initialise ecs world 
         const world = World();
@@ -129,7 +139,12 @@ AppDataSource.initialize()
         const friends_service = new FriendService(friend_repo);
         const achievement_service = new AchievementService(achievementRepo);
         const match_start = new MatchStart(match_service,match_store);        
-        const shop_service = new ShopService(shop_repo);
+        const shop_item_service = new ShopItemService(shop_item_repo);
+        const inventory_service = new InventoryService(inventory_repo);
+        const wallet_service = new WalletService(wallet_repo);
+        const equipment_service = new EquipmentService(equipped_repo, inventory_repo);
+        const powerup_service = new PowerupService(inventory_repo, shop_item_repo);
+        const purchase_service = new PurchaseService(shop_item_repo, AppDataSource);
 
 
         // initialise systems 
@@ -140,7 +155,7 @@ AppDataSource.initialize()
 
 
 
-        const app = createApp(elo_repo, user_repo, match_history_repo, leaderboard_service, achievement_service, friends_service, shop_service);
+        const app = createApp(elo_repo, user_repo, match_history_repo, leaderboard_service, achievement_service, friends_service, shop_item_service, inventory_service, wallet_service, equipment_service, powerup_service, purchase_service);
         const httpServer = createServer(app)     // can update to https
         const io = new Server(httpServer, {
             cors: {
