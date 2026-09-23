@@ -1,6 +1,7 @@
+import { randomUUID } from "node:crypto";
 import { ITournamentCache } from "src/application/interfaces/cache/ITournamentCache";
 import { PlayerDTO } from "src/entities/dtos/components.dto";
-import { MatchStatus } from "src/entities/dtos/match/match.dto";
+import { MatchMode, MatchStatus } from "src/entities/dtos/match/match.dto";
 import { TournamentDTO } from "src/entities/dtos/tournaments/tournaments.dto";
 
 export class TournamentService {
@@ -36,5 +37,17 @@ export class TournamentService {
             console.error("Tournament Service Join error: ", error);
             throw (`${error}`);
         }
+    }
+
+    async hostTournament(start_date: Date, match_mode: MatchMode) {
+        const tournament_id = randomUUID();
+        await this.tournament_cache.createTournament(tournament_id, start_date, match_mode);
+        const tournament = await this.tournament_cache.getTournament(tournament_id);
+
+        return tournament;
+    }
+
+    async cancelTournament(tournament_id: string){
+        await this.tournament_cache.deleteTournament(tournament_id);
     }
 }
