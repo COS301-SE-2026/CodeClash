@@ -38,8 +38,8 @@ const Tournaments = (
                     </div>
                     <TournamentButton className="w-2xs h-auto mb-19 mt-3 mr-3 justify-self-end items-center">
                         <div onClick={() => nav('/tournaments/waiting')} className="flex flex-row w-full my-auto">
-                            <PlusIcon size={30} className="ml-2 my-auto mt-2"/>
-                            <h2 className="font-font text-secondary font-semibold text-sm my-auto mt-2 ml-1">Host Tournament</h2>
+                            <PlusIcon size={30} className="ml-2 my-auto "/>
+                            <h2 className="font-font text-secondary font-semibold text-sm my-auto ml-1">Host Tournament</h2>
                         </div>
                     </TournamentButton>
                 </div>

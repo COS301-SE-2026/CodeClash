@@ -27,8 +27,8 @@ const TournamentsWaiting = () => {
                             </MatchCard>
                             <TournamentButton className="items-center h-[80%] min-w-40 justify-center px-2 rounded-sm">
                                 <div className="flex flex-row mt-2.5">
-                                    <Rocket size={25} className="ml-1"/>
-                                    <div className="font-font font-semibold text-[1.1rem] ml-2 mr-1">Start Match</div>
+                                    <Rocket size={25} className="ml-1 -mt-2"/>
+                                    <div className="font-font font-semibold text-[1.1rem] ml-2 mr-1 -mt-2">Start Match</div>
                                 </div>
                             </TournamentButton>
                         </div>

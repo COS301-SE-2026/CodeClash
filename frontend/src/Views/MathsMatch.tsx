@@ -9,6 +9,8 @@ import { MatchScreen } from '@/components/shared/Match';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
+import { TimerBox } from '@/components/ui/TimerBox';
+import TournamentButton from '@/components/ui/TournamentButton';
 
 const MathsMatch = () => {
     const {
@@ -72,7 +74,7 @@ const MathsMatch = () => {
                 number={currentQuestion + 1}
             />
 
-            <div className="w-full h-full rounded-lg bg-[var(--match-box)] -mt-30"></div>
+            <TimerBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] mb-40 mb-auto -mt-44"></TimerBox>
 
             <div className='w-[90%] h-[100%] min-h-[35%] flex flex-col items-center justify-center'>
                 <MathMatch

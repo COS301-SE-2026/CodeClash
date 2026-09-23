@@ -53,7 +53,7 @@ export const MathTournamentCard = ({children, className} : TournamentCardProps) 
                 <TournamentButton className="w-[9rem] h-[2.25rem] my-auto rounded-[11px] ml-auto mr-10">
                     <div onClick={() => nav('/tournaments/waiting')} className="flex flex-row w-full h-full gap-5">
                         <h2 className="font-font text-xs font-semibold w-[120%] my-auto">Join Tournament</h2>
-                        <ArrowRight size={25} className="flex justify-self-end my-auto -ml-9 mr-1"/>
+                        <ArrowRight size={25} className="flex justify-self-end my-auto -ml-9 mr-2"/>
                     </div>
                 </TournamentButton>
 
