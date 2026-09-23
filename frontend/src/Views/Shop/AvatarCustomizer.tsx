@@ -177,7 +177,7 @@ interface AccessoryCardsProps {
 }
 
 const AccessoryCards: React.FC<AccessoryCardsProps> = ({item,owned, inDraft, purchasing, affordable, onTryOn, onBuy}) => (
-    <div onClick={onTryOn} className="card-glass" style={{padding: '1.1rem', display: 'flex', flexDirection: 'column', 
+    <div className="card-glass" style={{padding: '1.1rem', display: 'flex', flexDirection: 'column', 
         border: inDraft ? '2px solid var(--primary)' : '1px solid var(--border)',gap: '0.6rem',  cursor: 'pointer'}}>
         <div style={{height: '90px', borderRadius : 'var(--radius-md, 18px)', background: 'var(--background-elevated)', border: '1px solid var(--border)',
             display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden'}}>
@@ -195,10 +195,10 @@ const AccessoryCards: React.FC<AccessoryCardsProps> = ({item,owned, inDraft, pur
                         Equipped
                     </button>
                 ) : (
-                    <button type="button" onClick={(e) => {e.stopPropagation(); onTryOn();}} className="btn btn-sm btn-secondary">Equip</button>
+                    <button type="button" onClick={onTryOn} className="btn btn-sm btn-secondary">Equip</button>
                 )
             ) : (
-                <button type="button" onClick={(e) => {e.stopPropagation(); onBuy();}} disabled={purchasing || !affordable} className="btn btn-sm btn-primary">
+                <button type="button" onClick={onBuy} disabled={purchasing || !affordable} className="btn btn-sm btn-primary">
                     {purchasing ? <Loader2 size={14} className="animate-spin"/> : affordable ? 'Buy' : "Can't afford"}
                 </button>
             )}
