@@ -98,6 +98,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                 value={player_life[1]}
                                 bg={"var(--button-tournament-secondary)"}
                                 border={"var(--button-tournament-secondary"}
+                                from="var(--primary)"
                                 height={2.5}
                                 className='max-w-[11rem] min-w-[1rem] h-sm ml-auto mr-5 -mt-2.5 rotate-180'
                             />
@@ -143,15 +144,10 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 <div className='flex flex-col items-center w-[20%] justify-between'>
 
                     {/* progress  */}
-                    <div className='w-[100%] flex'>
-
-
-                        <div className='grid grid-cols-2 w-[100%] gap-5'>
-
-
+                    <div className='ml-[20%] w-[100%] flex'>
                             {/* doors */}
-                            <div className='relative bg-card/100 rounded-[20px] flex flex-col-reverse items-center justify-between h-160 w-[5rem] mt-2'>
-                                <div className="absolute top-9 bg-card h-[90%] w-[5%] -z-10 rounded-3xl "></div>
+                            <MatchCard className='relative rounded-[20px] flex flex-col-reverse items-center justify-between h-160 w-[5rem] gap-2 p-3'>
+                                <div className="absolute inset-y-3  top-8 bg-card h-[90%] w-[5%] rounded-3xl "></div>
                                 {
                                     [...Array(question_number)].map((_, idx) => {
 
@@ -169,7 +165,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                         return (
                                             <React.Fragment key={`${question_number}-${idx}`}>
 
-                                                <div className={`${doorColour()} w-[4rem] h-[4rem] flex items-center justify-center col-start-2 rounded-[15px] mt-5 mb-5`}>
+                                                <div className={`${doorColour()} w-[4rem] max-h-16 flex-1 min-h-0 shrink flex items-center justify-center col-start-2 rounded-[15px] mt-5 mb-5`}>
                                                     {doorSymbol()}  
                                                 </div>
                                             </React.Fragment>
@@ -177,8 +173,8 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                     })
                                 }
 
-                            </div>
-                        </div>
+                            </MatchCard>
+                        
                     </div>
                 </div>
             </div>

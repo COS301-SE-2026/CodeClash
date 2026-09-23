@@ -17,9 +17,9 @@ interface ProgressProps extends React.ComponentProps<typeof ProgressPrimitive.Ro
 function Progress({
   className,
   value,
-  from = "[var(--primary)]",
-  via = "[var(--button-tournament)]",
-  to = "white",
+  from = "var(--primary)",
+  via = "var(--button-tournament)",
+  to = "#FFFFFF",
   bg = "var(--primary-dark)",
   border = "#631631",
   glow = "#FFFFFF",
@@ -45,8 +45,9 @@ function Progress({
         data-slot="progress-indicator"
         style={{
           transform: `translateX(-${100 - (value || 0)}%)`,
+          backgroundImage: `linear-gradient(to right, ${from}, ${via}, ${to})`
         }}
-        className={`relative size-full transition-transform bg-linear-to-r from-${from} via-${via} to-${to} rounded-full shadow-[20px_20px_15px_${from}]`}
+        className={`relative size-full transition-transform rounded-full`}
       >
         <div
           className="absolute right-0 top-0 h-full rounded-full w-full"
