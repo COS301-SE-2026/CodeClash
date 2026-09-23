@@ -62,7 +62,12 @@ describe('Tests PurchaseService', () => {
     });
 
     it('Throws and does not deduct balance when item is already owned', async () => {
-        
+        const item_id = item_ids.find((_, i) => mock_shop_items[i]!.category === 'powerup')!;
+
+        await expect(purchase_service.purchaseItem(user_id, item_id)).rejects.toThrow('Item already owned');
+
+        const wallet = await wallet_repo.getWallet(user_id);
+        expect(wallet!.balance).toBe(400); 
     });
 
     it('Throws and does not deduct balance when balance is insufficient', async () => {
