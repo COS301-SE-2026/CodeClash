@@ -12,6 +12,10 @@ export class TournamentCache implements ITournamentCache {
 
     async createTournament(tournament_id: string, start_date: Date, match_mode: MatchMode): Promise<void> {
 
+        const exists = await this.redis.get(`tournament:${tournament_id}`);
+
+        if (exists) throw new Error("Tournament already exists");
+
         const tournament: TournamentDTO = {
             tournament_id: tournament_id,
             rounds: [],
@@ -32,6 +36,10 @@ export class TournamentCache implements ITournamentCache {
 
         const data: TournamentDTO = JSON.parse(tournament);
 
+        if (data.start_date < new Date() || (data.status !== MatchStatus.Waiting && data.status !== MatchStatus.Starting)) {
+            throw new Error("Cannot add player to past or in progress tournaments");
+        }
+
         data.players.push(player);
 
         await this.redis.set(`tournament:${tournament_id}`, JSON.stringify(data));
@@ -43,6 +51,7 @@ export class TournamentCache implements ITournamentCache {
         if (!tournament) throw new Error("invalid tournament id");
 
         const data: TournamentDTO = JSON.parse(tournament);
+
         const removed = data.players.filter(p => p.id !== player_id);
         data.players = removed;
 
@@ -60,5 +69,15 @@ export class TournamentCache implements ITournamentCache {
 
     async deleteTournament(tournament_id: string): Promise<void> {
         await this.redis.del(`tournament:${tournament_id}`);
-     }
+    }
+
+    async updateStatus(tournament_id: string, status: MatchStatus): Promise<void> {
+        const tournament = await this.redis.get(`tournament:${tournament_id}`);
+        if (!tournament) throw new Error("invalid tournament id");
+
+        const data: TournamentDTO = JSON.parse(tournament);
+
+        data.status = status;
+        await this.redis.set(`tournament:${tournament_id}`, JSON.stringify(data));
+    }
 }

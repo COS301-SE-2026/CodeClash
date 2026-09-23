@@ -8,6 +8,5 @@ export interface TournamentDTO {
     tournament_mode: MatchMode,
     status: MatchStatus,
     created_at: Date,
-    start_date: Date
-
+    start_date: Date,
 }
