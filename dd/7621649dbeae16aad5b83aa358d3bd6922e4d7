@@ -1,0 +1,45 @@
+frontend/test/integration/Proviers/AppProviders.integration.test.tsx
+  h_94c952a9e14c58 1-191
+database/01-init.sql
+  h_94c952a9e14c58 31
+frontend/test/integration/Contexts/SocketContext.integration.test.tsx
+  h_94c952a9e14c58 1-87
+database/02-init-questions.sql
+  h_94c952a9e14c58 9-10,13-24,28,31
+dockerfile/docker-compose.test.yml
+  h_94c952a9e14c58 4-5,29-31,38-54,72,82-83
+  h_94c952a9e14c58 3,7,14,27,65,91
+backend/src/interface-adapters/cache/tournament-cache.ts
+  h_94c952a9e14c58 13,22
+backend/src/application/usecases/services/tournament.service.ts
+  h_94c952a9e14c58 42,44
+backend/src/application/interfaces/cache/ITournamentCache.ts
+  h_94c952a9e14c58 6
+frontend/test/integration/SocketHandlers/tournament.socket.test.ts
+  h_94c952a9e14c58 1-49
+frontend/@/components/shared/Match/Match.tsx
+  h_94c952a9e14c58 3,14,25-26,28
+backend/tests/unit/cache/tournament-cache.test.ts
+  h_94c952a9e14c58 14-19,32,36-38,42,52-53,61,80,91,98,110
+frontend/test/integration/Contexts/MatchmakingContext.integration.test.tsx
+  h_94c952a9e14c58 1-174
+backend/src/interface-adapters/socket-handlers/tournament-handlers.ts
+  h_94c952a9e14c58 29,31
+backend/src/frameworks-drivers/socket/modules/register-tournament-handler.ts
+  h_94c952a9e14c58 15-16
+frontend/package-lock.json
+  h_94c952a9e14c58 46,4658-4660
+frontend/package.json
+  h_94c952a9e14c58 53
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "dd7621649dbeae16aad5b83aa358d3bd6922e4d7",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
