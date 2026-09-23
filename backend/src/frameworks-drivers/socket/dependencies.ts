@@ -10,6 +10,7 @@ import { DeleteGame } from "src/application/usecases/systems/delete-game";
 import { SubmissionSystem } from "src/application/usecases/systems/submission.system";
 import { MatchStart } from "src/application/usecases/services/match/match-start.service";
 import { MatchCompletionService } from "src/application/usecases/services/match/match-completion.service";
+import { TournamentService } from "src/application/usecases/services/tournament.service";
 
 export interface MatchDeps {
     marking_service: MarkingService,
@@ -36,4 +37,6 @@ export interface SocketDeps {
     friends: FriendDeps,
 }
 
-export interface TournamentDeps { }
+export interface TournamentDeps {
+    tournament_service: TournamentService
+ }
