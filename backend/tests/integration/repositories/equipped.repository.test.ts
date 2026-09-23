@@ -61,7 +61,7 @@ describe('Tests EquippedRespository', () => {
         const result = await repo.updateEquipped(user_id, { powerup_item_id: powerup_id });
 
         expect(result.powerup!.shop_item_id).toBe(powerup_id);
-        expect(result.theme).toBeDefined();
+        expect(result.theme).toBeDefined(); // theme from previous test still equipped
     });
 
     it('Replaces a previously equipped item in the same slot', async () => {
