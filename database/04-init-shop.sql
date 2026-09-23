@@ -41,4 +41,12 @@ INSERT INTO shop_items (category, name, description, price, rariy, metadata) VAL
 ('avatar', 'Nyx', 'Nyx was designed for reconnaissance but developed a strange habit of disappearing whenever missions became predictable. Nobody knows where she goes. She always returns with impossible shortcuts, strange information, and a smug little grin on her screen.',
 450, 'legendary', '{ "asset_key" : }'),
 ('avatar', 'Atlas', 'Atlas was built as the ultimate colony defence unit. After his planet was abandoned, he continued protecting it long after there was anyone left to protect. When competitors eventually discovered the forgotten planet, Atlas joined the game to find something he had never been programmed to understand - purpose.',
-500, 'legendary', '{ "asset_key" : }')
+500, 'legendary', '{ "asset_key" : }'),
+
+-- THEMES -------------
+('theme', 'Cosmos (dark)', 'The default theme.', 0, 'common', '{ "hex_color_1": "#c0395a", "hex_color_2": "#530a23", "hex_color_3": "#fcecdd" }'),
+('theme', 'Cosmos (light)', 'The light version of the default theme.', 150, 'common','{ "hex_color_1": "#c0395a", "hex_color_2": "#530a23", "hex_color_3": "#fcecdd"}'),
+('theme', 'Nebula', 'A deep space theme.', 200, 'common', '{ "hex_color_1": "#8b3fd6", "hex_color_2": "#4a1d80", "hex_color_3": "#f0e5fc"}'),
+('theme', 'Frost', 'An icy cold theme.', 200, 'common', '{ "hex_color_1": "#2f8fe0", "hex_color_2": "#14487a", "hex_color_3": "#e2f2fd"}'),
+('theme', 'Verdant', 'A refreshingly green theme.', 250, 'common', '{ "hex_color_1": "#9ccc3c", "hex_color_2": "#4d661d", "hex_color_3": "#f1f9e0"}'),
+('theme', 'Gold', 'A warm golden theme.', 250, 'common', '{ "hex_color_1": "#d4af37", "hex_color_2": "#6b5716", "hex_color_3": "#f7edcf"}');

@@ -39,6 +39,10 @@ export class EquippedItems {
     @JoinColumn({ name: 'powerup_item_id' })
     powerup?: ShopItem | null;
 
+    @ManyToOne(() => ShopItem, { nullable: true })
+    @JoinColumn({ name: 'theme_item_id' })
+    theme?: ShopItem | null;
+    
     @UpdateDateColumn()
     updated_at!: Date;
 }
