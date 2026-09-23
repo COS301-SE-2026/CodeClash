@@ -3,7 +3,7 @@ import background from 'src/assets/Background/matchScreen.png'
 
 import { TimerBox } from '../ui/TimerBox'
 import { Progress } from '../ui/progress'
-import {Check, X, LockKeyhole, Timer} from "lucide-react"
+import {Check, X, LockKeyhole, Timer, Target} from "lucide-react"
 import { MatchCard } from '../ui/MatchCard'
 import TournamentButton from '../ui/TournamentButton'
 import { TournamentsBadge } from '../ui/TournamentsBadge'
@@ -168,6 +168,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                         const doorSymbol = () => {
                                             if (doorResult === true) return <Check size={40} className="text-green-300 font-semibold"/>
                                             if (doorResult === false) return <X size={40} className="text-[var(--progress-bar-symbol)] font-semibold"/>
+                                            if (idx === current_question) return <Target size={30} className="font-black"/>
                                             return <LockKeyhole/>
                                         }
                                         const oppProg = () => {
