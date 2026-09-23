@@ -1,0 +1,14 @@
+frontend/test/unit/Views/TournamentsWaiting.test.tsx
+  h_b13c5d77534129 4,6-18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "995b9175db407280bd1afaacd026d8abab0dacac",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
