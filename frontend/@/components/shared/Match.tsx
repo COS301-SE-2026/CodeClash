@@ -154,7 +154,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                 <Progress 
                                     value={progressValue}
                                     orientation="vertical"
-                                    className="absolute inset-y-3 top-8 bg-card h-[90%] w-[10%] rounded-3xl opacity-50"></Progress>
+                                    className="absolute inset-y-3 top-0.5 bg-card h-full w-[10%] rounded-3xl opacity-50"></Progress>
                                 {
                                     [...Array(question_number)].map((_, idx) => {
 
@@ -169,11 +169,17 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                             if (doorResult === false) return <X size={40} className="text-[var(--progress-bar-symbol)] font-semibold"/>
                                             return <LockKeyhole/>
                                         }
+                                        const oppProg = () => {
+                                            if (idx === opponent_progress) return <div className="absolute top-0 left-0 rounded-full h-4 w-4 
+                                            bg-red-800 z-20 shadow-[0_0_12px_rgba(190,0,0,0.3)]"/>
+                                        }
                                         return (
                                             <React.Fragment key={`${question_number}-${idx}`}>
 
-                                                <div className={`${doorColour()} w-[4rem] max-h-16 flex-1 min-h-0 shrink flex items-center justify-center col-start-2 rounded-[15px] z-10 mt-5 mb-5`}>
-                                                    {doorSymbol()}  
+                                                <div className={`${doorColour()} w-[4rem] max-h-16 flex-1 min-h-0 shrink flex items-center 
+                                                justify-center col-start-2 rounded-[15px] z-10 mt-5 mb-5 relative`}>
+                                                    {doorSymbol()}
+                                                    {oppProg()} 
                                                 </div>
                                             </React.Fragment>
                                         )
