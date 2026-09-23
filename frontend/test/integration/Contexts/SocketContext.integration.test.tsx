@@ -6,8 +6,8 @@ import { FakeSocket } from '../helpers';
 const ws = vi.hoisted(() => ({ createSocket: vi.fn() }));
 vi.mock('src/services/websocket.service', () => ws);
 
-import { SocketProvider } from 'src/context/Socket/SocketContext';
-import { useSocket } from 'src/context/Socket/hooks/useSocket';
+import { SocketProvider } from '../../src/context/Socket/SocketContext';
+import { useSocket } from '../../src/context/Socket/hooks/useSocket';
 
 const SocketConsumer = () => {
   const { socket, isConnected } = useSocket();

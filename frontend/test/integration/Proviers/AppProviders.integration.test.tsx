@@ -21,17 +21,17 @@ vi.mock('src/services/api.service', () => ({ API: api }));
 const ws = vi.hoisted(() => ({ createSocket: vi.fn() }));
 vi.mock('src/services/websocket.service', () => ws);
 
-import { AchievementToastProvider } from 'src/context/Achievement/AchievementToastContext';
-import { AuthProvider } from 'src/context/Auth/AuthContext';
-import { useAuth } from 'src/context/Auth/hooks/useAuth';
-import { useMatchmaking } from 'src/context/Socket/hooks/useMatchmaking';
-import { useSocket } from 'src/context/Socket/hooks/useSocket';
-import { MatchmakingProvider } from 'src/context/Socket/MatchmakingContext';
-import { SocketProvider } from 'src/context/Socket/SocketContext';
-import { ThemeProvider, useTheme } from 'src/context/ThemeContext';
-import { useUser } from 'src/context/User/hooks/useUser';
-import { UserProvider } from 'src/context/User/UserContext';
-import type { MatchedUsersDTO } from 'src/dtos/matched-user.dto';
+import { AchievementToastProvider } from '../../src/context/Achievement/AchievementToastContext';
+import { AuthProvider } from '../../src/context/Auth/AuthContext';
+import { useAuth } from '../../src/context/Auth/hooks/useAuth';
+import { useMatchmaking } from '../../src/context/Socket/hooks/useMatchmaking';
+import { useSocket } from '../../src/context/Socket/hooks/useSocket';
+import { MatchmakingProvider } from '../../src/context/Socket/MatchmakingContext';
+import { SocketProvider } from '../../src/context/Socket/SocketContext';
+import { ThemeProvider, useTheme } from '../../src/context/Shop/ThemeContext';
+import { useUser } from '../../src/context/User/hooks/useUser';
+import { UserProvider } from '../../src/context/User/UserContext';
+import type { MatchedUsersDTO } from '../../src/dtos/matched-user.dto';
 
 import { FakeSocket } from '../helpers';
 
