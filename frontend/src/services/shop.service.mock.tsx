@@ -92,3 +92,127 @@ const MOCKED_HEADWEAR: AccessoryShopItem[] = [
         previewImageUrl: resolve('void-caster')
     },
 ]
+
+const MOCKED_NECKWEAR: AccessoryShopItem[] = [
+    {
+        id: 'signal-scarf',
+        category: 'accessory',
+        slot: 'neckwear',
+        name: 'Signal Scarf',
+        price: {amount: 150},
+        rarity: 'common',
+        previewImageUrl: resolve('signal-scarf')
+    },
+    {
+        id: 'crimson-scarf',
+        category: 'accessory',
+        slot: 'neckwear',
+        name: 'Crimson Scarf',
+        price: {amount: 200},
+        rarity: 'common',
+        previewImageUrl: resolve('crimson-scarf')
+    },
+    {
+        id: 'azure-scarf',
+        category: 'accessory',
+        slot: 'neckwear',
+        name: 'Azure Scarf',
+        price: {amount: 250},
+        rarity: 'common',
+        previewImageUrl: resolve('azure-scarf')
+    },
+]
+
+const MOCKED_FACEWEAR: AccessoryShopItem[] = [
+    {
+        id: 'pink-visor',
+        category: 'accessory',
+        slot: 'facewear',
+        name: 'Pink Visor',
+        price: {amount: 150},
+        rarity: 'common',
+        previewImageUrl: resolve('pink-visor')
+    },
+    {
+        id: 'blue-visor',
+        category: 'accessory',
+        slot: 'facewear',
+        name: 'Blue Visor',
+        price: {amount: 150},
+        rarity: 'common',
+        previewImageUrl: resolve('blue-visor')
+    },
+    {
+        id: 'void-frames',
+        category: 'accessory',
+        slot: 'facewear',
+        name: 'Void Frames',
+        price: {amount: 250},
+        rarity: 'common',
+        previewImageUrl: resolve('void-frames')
+    },
+]
+
+const MOCKED_BELTS: AccessoryShopItem[] = [
+    {
+        id: 'guardian-belt',
+        category: 'accessory',
+        slot: 'belt',
+        name: 'Guardian Belt',
+        price: {amount: 150},
+        rarity: 'common',
+        previewImageUrl: resolve('guardian-belt')
+    },
+    {
+        id: 'runner-belt',
+        category: 'accessory',
+        slot: 'belt',
+        name: 'Runner Belt',
+        price: {amount: 200},
+        rarity: 'common',
+        previewImageUrl: resolve('runner-belt')
+    },
+    {
+        id: 'x-harness',
+        category: 'accessory',
+        slot: 'belt',
+        name: 'X Harness',
+        price: {amount: 250},
+        rarity: 'common',
+        previewImageUrl: resolve('x-harness')
+    },
+]
+
+const MOCKED_CAPES: AccessoryShopItem[] = [
+    {
+        id: 'pink-comet',
+        category: 'accessory',
+        slot: 'cape',
+        name: 'Pink Comet',
+        price: {amount: 150},
+        rarity: 'common',
+        previewImageUrl: resolve('pink-comet')
+    },
+    {
+        id: 'starlance',
+        category: 'accessory',
+        slot: 'cape',
+        name: 'Starlance',
+        price: {amount: 150},
+        rarity: 'common',
+        previewImageUrl: resolve('starlance')
+    },
+    {
+        id: 'void-mantle',
+        category: 'accessory',
+        slot: 'cape',
+        name: 'Void Mantle',
+        price: {amount: 200},
+        rarity: 'common',
+        previewImageUrl: resolve('void-mantle')
+    },
+]
+
+const MOCKED_ACCESSORIES: AccessoryShopItem[] = [
+    ...MOCKED_HEADWEAR, ...MOCKED_NECKWEAR, ...MOCKED_FACEWEAR, ...MOCKED_BELTS, ...MOCKED_CAPES
+]
