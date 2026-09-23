@@ -28,7 +28,7 @@ CREATE TYPE QUESTION_INPUT_TYPE AS ENUM (
   'short_text',
   'long_text',
   'code'
-)
+);
 
 CREATE TYPE MatchPlayer AS (
   id UUID,

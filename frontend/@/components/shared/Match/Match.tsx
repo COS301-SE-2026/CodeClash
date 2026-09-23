@@ -1,6 +1,6 @@
 import React from 'react'
 import background from 'src/assets/Background/matchScreen.png'
-import door from 'src/assets/Decor/door.png'
+// import door from 'src/assets/Decor/door.png'
 
 import { Badge } from '../../ui/badge'
 import { Progress } from '../../ui/progress'
@@ -11,7 +11,7 @@ import Loading from '../Loading'
 interface MatchScreenProps {
 }
 
-export const MatchScreenTemplate: React.FC<MatchScreenProps> = () => {
+export const MatchScreen: React.FC<MatchScreenProps> = () => {
     const match_data = useMatch();
 
 
@@ -22,10 +22,10 @@ export const MatchScreenTemplate: React.FC<MatchScreenProps> = () => {
     const curr = match_data.questions[match_data.currentQuestion];
 
 
-    const handleSubmit = () => {
-        if (!curr) return;
+    // const handleSubmit = () => {
+    //     if (!curr) return;
 
-    }
+    // }
     return (
         <div className="fixed inset-0 flex flex-col">
             <img src={background} className='absolute w-full -z-10' alt='background' />

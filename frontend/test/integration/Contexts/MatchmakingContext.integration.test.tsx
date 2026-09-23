@@ -6,7 +6,7 @@ import { SocketContext } from 'src/context/Socket/SocketContextValue';
 import type { MatchedUsersDTO } from 'src/dtos/matched-user.dto';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { FakeSocket } from './helpers';
+import { FakeSocket } from '../helpers';
 
 const MATCHED: MatchedUsersDTO = {
   players: {

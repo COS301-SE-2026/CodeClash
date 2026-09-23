@@ -1,7 +1,7 @@
 import { render, screen, waitFor, act } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { FakeSocket } from './helpers';
+import { FakeSocket } from '../helpers';
 
 const ws = vi.hoisted(() => ({ createSocket: vi.fn() }));
 vi.mock('src/services/websocket.service', () => ws);

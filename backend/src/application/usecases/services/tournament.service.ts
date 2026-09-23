@@ -39,9 +39,9 @@ export class TournamentService {
         }
     }
 
-    async hostTournament(start_date: Date, match_mode: MatchMode) {
+    async hostTournament(start_date: Date, match_mode: MatchMode, host: PlayerDTO) {
         const tournament_id = randomUUID();
-        await this.tournament_cache.createTournament(tournament_id, start_date, match_mode);
+        await this.tournament_cache.createTournament(tournament_id, start_date, match_mode,host);
         const tournament = await this.tournament_cache.getTournament(tournament_id);
 
         return tournament;

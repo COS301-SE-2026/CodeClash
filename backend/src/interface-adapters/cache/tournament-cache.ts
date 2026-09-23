@@ -10,7 +10,7 @@ export class TournamentCache implements ITournamentCache {
         private readonly redis: Redis
     ) { }
 
-    async createTournament(tournament_id: string, start_date: Date, match_mode: MatchMode): Promise<void> {
+    async createTournament(tournament_id: string, start_date: Date, match_mode: MatchMode, host:PlayerDTO): Promise<void> {
 
         const exists = await this.redis.get(`tournament:${tournament_id}`);
 
@@ -19,7 +19,7 @@ export class TournamentCache implements ITournamentCache {
         const tournament: TournamentDTO = {
             tournament_id: tournament_id,
             rounds: [],
-            players: [],
+            players: [host],
             tournament_mode: match_mode,
             status: MatchStatus.Waiting,
             created_at: new Date(),

@@ -33,7 +33,7 @@ import { useUser } from 'src/context/User/hooks/useUser';
 import { UserProvider } from 'src/context/User/UserContext';
 import type { MatchedUsersDTO } from 'src/dtos/matched-user.dto';
 
-import { FakeSocket } from './helpers';
+import { FakeSocket } from '../helpers';
 
 const MATCHED: MatchedUsersDTO = {
   players: {
