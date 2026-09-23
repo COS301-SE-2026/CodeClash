@@ -1,0 +1,24 @@
+frontend/src/Views/Tournaments.tsx
+  h_b13c5d77534129 40
+frontend/@/components/shared/Match.tsx
+  h_b13c5d77534129 46,50,59,63,80-81,94,107,113
+frontend/@/components/features/MathPage.tsx
+  h_b13c5d77534129 6,45,49,55
+frontend/@/components/ui/TournamentCard.tsx
+  h_b13c5d77534129 8,18-20,54,70-72,106
+frontend/@/components/features/question.tsx
+  h_b13c5d77534129 6,29,41-42,44,46
+frontend/@/components/ui/TournamentButton.tsx
+  h_b13c5d77534129 14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "fa01d877aed10a62d2fd2e5864b09b2bedf8b061",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
