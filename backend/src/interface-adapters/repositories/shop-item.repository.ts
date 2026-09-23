@@ -7,7 +7,7 @@ export class ShopItemRepository implements IShopItemRepository {
         private readonly shopItemRepo: Repository<ShopItem>,
     ) {}
 
-    private toItemDTO(item: ShopItem): ShopItemDTO {
+    toDTO(item: ShopItem): ShopItemDTO {
         return {
             shop_item_id: item.shop_item_id,
             category: item.category,
@@ -22,11 +22,11 @@ export class ShopItemRepository implements IShopItemRepository {
 
     async getAllItems(): Promise<ShopItemDTO[]> {
             const items = await this.shopItemRepo.find();
-            return items.map(i => this.toItemDTO(i));
+            return items.map(i => this.toDTO(i));
         }
 
     async getItemById(shop_item_id: string): Promise<ShopItemDTO | null> {
         const item = await this.shopItemRepo.findOne({ where: { shop_item_id } });
-        return item ? this.toItemDTO(item) : null;
+        return item ? this.toDTO(item) : null;
     }
 }
