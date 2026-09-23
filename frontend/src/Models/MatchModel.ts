@@ -21,7 +21,9 @@ export interface Question{
     title?: string,
     difficulty?: string,
     description?: string,
-    number?: number
+    number?: number,
+    exampleText?: boolean,
+    extraBox?: string
 }
 
 export interface MatchProgress{

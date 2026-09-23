@@ -4,6 +4,8 @@ export interface QuestionDTO {
     title?: string,
     description?: string,
     time_limit?: string,
+    exampleText?: boolean,
+    extraBox?: string
 }
 
 export interface MatchDTO {
