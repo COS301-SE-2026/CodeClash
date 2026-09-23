@@ -2,23 +2,18 @@ import TournamentsWaiting from "../../../src/Views/TournamentsWaiting"
 import {describe, it, expect, vi} from "vitest";
 import { fireEvent, render, screen } from '@testing-library/react';
 import { ReactNode } from "react";
+import { MemoryRouter } from "react-router-dom";
 
-vi.mock("@/components/ui/MatchCard", () => ({
-    MatchCard: ({
-        children,
-        className,
-    }: {
-        children?: ReactNode;
-        className?: string;
-    }) => (
-        <div data-testid="match-card" className={className}>
-            {children}
-        </div>
-    ),
-}))
 
 describe("WaitingRoom", () => {
-    it('Checks that waiting room opens', () => {
-        
+    describe("tournament header", () => {
+        it("renders tournament title", () => {
+            render(<TournamentsWaiting/>)
+
+            expect(screen.getByRole("heading", {level: 1, name: "Tournament Title"})).toBeInTheDocument();
+        });
+
+
+        it("renders the Leave")
     })
 })
