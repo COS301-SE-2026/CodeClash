@@ -1,0 +1,76 @@
+backend/src/frameworks-drivers/socket/modules/register-match-handlers.ts
+  h_94c952a9e14c58 5,40,42
+  h_94c952a9e14c58 41,49-50
+backend/src/application/usecases/services/match/match-store.service.ts
+  h_94c952a9e14c58 3,15,45-47,50-51,54-55,58-59,61,63,70-71,73,75,78-79,81,83,87-88,90,92,95-97,99
+  h_94c952a9e14c58 16,38-44,48-49
+backend/src/interface-adapters/controllers/rank.controllers.ts
+  h_94c952a9e14c58 6-7,9-11,17-18,26-27
+backend/src/application/usecases/services/leaderboard.service.ts
+  h_94c952a9e14c58 3,23-26
+backend/src/interface-adapters/repositories/achievement.repository.ts
+  h_94c952a9e14c58 2
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 57,102,104,112,116,171
+  h_94c952a9e14c58 110,115,167
+backend/src/interface-adapters/controllers/match.controllers.ts
+  h_94c952a9e14c58 1-38
+backend/src/application/usecases/systems/match-completion.system.ts
+  h_94c952a9e14c58 4,13,22,26-27,29,31,50,54-55,58
+backend/src/interface-adapters/repositories/match.repository.ts
+  h_94c952a9e14c58 4,45-48
+backend/src/entities/database/user.entities.ts
+  h_94c952a9e14c58 1,40-44
+backend/src/frameworks-drivers/api.routes.ts
+  h_94c952a9e14c58 16-17,24,80
+backend/src/application/usecases/services/achievement.service.ts
+  h_94c952a9e14c58 2,4,46-47,78-106
+  h_94c952a9e14c58 27-40,48,60,67,70
+backend/src/frameworks-drivers/socket/dependencies.ts
+  h_94c952a9e14c58 12,18
+frontend/src/context/User/UserContext.tsx
+  h_94c952a9e14c58 24-25
+backend/src/application/interfaces/repositories/IUserRepository.ts
+  h_94c952a9e14c58 16
+backend/src/entities/components.ts
+  h_94c952a9e14c58 35
+backend/src/frameworks-drivers/app.ts
+  h_94c952a9e14c58 10,18,33
+backend/src/frameworks-drivers/config/data-source.ts
+  h_94c952a9e14c58 23
+database/01-init.sql
+  h_94c952a9e14c58 1,30-31,90-92,157-178,180-184,187-203,205-209,212-239,241-243,245-249,251-264,266-272,274-284,286-290
+  h_94c952a9e14c58 179,185-186,204,210-211,240,244,250,265,273,285
+backend/src/interface-adapters/repositories/user.repository.ts
+  h_94c952a9e14c58 149
+backend/src/interface-adapters/repositories/question.repository.ts
+  h_94c952a9e14c58 12,15,26
+backend/src/entities/database/questions.entities.ts
+  h_94c952a9e14c58 15
+backend/src/entities/database/achievement.entities.ts
+  h_94c952a9e14c58 1,17-18,23-42
+  h_94c952a9e14c58 12,16,22
+backend/src/application/interfaces/repositories/IMatchRepository.ts
+  h_94c952a9e14c58 1,6,8
+backend/src/interface-adapters/socket-handlers/match-handlers.ts
+  h_94c952a9e14c58 7-8,18,20,22-23,27,29,31-33,41,51,53-56,70,72,74-75,77-78
+  h_94c952a9e14c58 4
+backend/src/application/usecases/services/match/match-completion.service.ts
+  h_94c952a9e14c58 2-6,11-13,17-18,20-23,25,27-29,31-39,43,45-46,48,52-53,56-59
+  h_94c952a9e14c58 9,14
+backend/src/entities/database/match.entities.ts
+  h_94c952a9e14c58 18,21,30
+backend/src/application/usecases/init-db.ts
+  h_94c952a9e14c58 8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "cafc089877f8c518e9452597f615a4bb0826c463",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

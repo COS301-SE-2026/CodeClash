@@ -1,0 +1,22 @@
+backend/src/application/usecases/services/tournament.service.ts
+  h_94c952a9e14c58 1-5,7-39
+backend/src/frameworks-drivers/socket/dependencies.ts
+  h_94c952a9e14c58 13,41
+  h_94c952a9e14c58 40,42
+backend/src/frameworks-drivers/socket/modules/register-tournament-handler.ts
+  h_94c952a9e14c58 4-5,8-9
+backend/src/interface-adapters/socket-handlers/tournament-handlers.ts
+  h_94c952a9e14c58 1-16
+  h_94c952a9e14c58 17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "aa0be15bb30fb7fa3b7c62189b1394375541b804",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

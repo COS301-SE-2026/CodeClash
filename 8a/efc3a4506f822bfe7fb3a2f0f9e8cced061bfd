@@ -1,0 +1,14 @@
+frontend/@/components/ui/TournamentsBadge.tsx
+  h_b13c5d77534129 1-18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "8aefc3a4506f822bfe7fb3a2f0f9e8cced061bfd",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
