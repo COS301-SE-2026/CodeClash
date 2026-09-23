@@ -196,6 +196,7 @@ CREATE TABLE IF NOT EXISTS equipped_items (
   belt_id REFERENCES shop_items(shop_item_id),
   one_piece_id REFERENCES shop_items(shop_item_id),
   powerup_item_id UUID REFERENCES shop_items(shop_item_id),
+  theme_id UUID REFERENCES shop_items(shop_item_id),
   updated_at TIMESTAMP DEFAULT NOW()
 );
 

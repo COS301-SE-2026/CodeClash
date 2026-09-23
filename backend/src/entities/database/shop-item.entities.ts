@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-export type ShopItemCategory = 'avatar' | 'accessory' | 'powerup';
+export type ShopItemCategory = 'avatar' | 'accessory' | 'powerup' | 'theme';
 export type ShopItemRarity = 'common' | 'rare' | 'epic' | 'legendary';
 
 @Entity('shop_items')
