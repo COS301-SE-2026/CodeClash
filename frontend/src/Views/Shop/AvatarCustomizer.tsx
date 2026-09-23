@@ -80,15 +80,15 @@ const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasing
                     )}
 
                     {isAvatarUnowned ? (
-                        <button type="button" onClick={() => draftAvatarId && purchase(draftAvatarId)} disabled={purchasingId === draftAvatarId || (draftAvatar ? !canAfford(draftAvatar): true)} className="btn btn-primary">
-                            {purchasingId === draftAvatarId ? <Loader2 size={16} className="animate-spin"/> : `Buy - ${draftAvatar?.price.amount ?? ''}`}
+                        <button type="button" onClick={() => draftAvatarId && purchase(draftAvatarId)} disabled={purchasingId === draftAvatarId || (draftAvatar ? !canAfford(draftAvatar): true)} className="btn btn-primary btn-sm">
+                            {purchasingId === draftAvatarId ? <Loader2 size={16} className="animate-spin"/> : (draftAvatar && !canAfford(draftAvatar)) ? "Can't afford" : 'Buy'}
                         </button> 
                     ) : (
                             <div style={{display: 'flex',gap: '0.75rem'}}>
-                                <button type="button" onClick={saveOutfit} disabled={!hasUnsavedChanges || saving} className="btn btn-primary">
+                                <button type="button" onClick={saveOutfit} disabled={!hasUnsavedChanges || saving} className="btn btn-primary btn-sm">
                                     {saving? <Loader2 size={14} className="animate-spin"/> : <><Save size={14}/>Save Outfit</>}
                                 </button>
-                                <button type="button" onClick={reset} disabled={!hasUnsavedChanges || saving} className="btn btn-primary">
+                                <button type="button" onClick={reset} disabled={!hasUnsavedChanges || saving} className="btn btn-primary btn-sm">
                                     <RotateCcw size={14}/>Reset to Default
                                 </button>
                             </div>
@@ -111,7 +111,7 @@ const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasing
                     const selected = draftAvatarId === a.id;
                     return (
                         <button key={a.id} type="button" onClick={()=> tryOnAvatar(a.id)}
-                            style={{position: 'relative', flexShrink: 0, width: '96px', height: '96px', borderRadius: 'var(--radius-md, 18px)', border: selected ? '2px solid var(--primary)' : '1px solid var(--border)',
+                            style={{position: 'relative', flexShrink: 0, width: '124px', height: '124px', borderRadius: 'var(--radius-md, 18px)', border: selected ? '2px solid var(--primary)' : '1px solid var(--border)',
                                 background: 'var(--background-elevated)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',overflow: 'hidden', padding: 0
                             }}>
                             {a.previewImageUrl && (
@@ -119,7 +119,7 @@ const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasing
                             )}
                             {!owned && (
                                 <span style={{position: 'absolute', bottom: 2, right:2, fontSize: '0.6rem', padding: '1px 5px', borderRadius: '999px', background: 'var(--background)', color: 'var(--muted-text)', border: '1px solid var(--border)'}}>
-                                    {a.price.amount}
+                                    <PriceTag amount={a.price.amount}/>
                                 </span>
                             )}
                         </button>
@@ -179,22 +179,27 @@ interface AccessoryCardsProps {
 const AccessoryCards: React.FC<AccessoryCardsProps> = ({item,owned, inDraft, purchasing, affordable, onTryOn, onBuy}) => (
     <div onClick={onTryOn} className="card-glass" style={{padding: '1.1rem', display: 'flex', flexDirection: 'column', 
         border: inDraft ? '2px solid var(--primary)' : '1px solid var(--border)',gap: '0.6rem',  cursor: 'pointer'}}>
-        {inDraft && (
-            <span className="badge" style={{fontSize: '0.65rem',border: '1px solid var(--success)',
-                background: 'transparent' , color: 'var(--success)'}}>
-                {owned ? <><Check size={11}/> Equipped</>: 'Previewing'}
-            </span>
-        )}
         <div style={{height: '90px', borderRadius : 'var(--radius-md, 18px)', background: 'var(--background-elevated)', border: '1px solid var(--border)',
             display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden'}}>
             {item.previewImageUrl && <img src={item.previewImageUrl} alt={item.name} style={{maxHeight: '100%', maxWidth: '100%', objectFit: 'contain'}}/>}
         </div>
         <p style={{color: 'var(--primary-text)', fontWeight: 700, fontSize: '0.85rem'}}>{item.name}</p>
         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-            <span style={{fontSize: '0.75rem', color: 'var(--muted)', fontWeight: 700}}>{item.price.amount}</span>
-            {!owned && (
-                <button type="button" onClick={(e) => {e.stopPropagation(); onBuy();}} disabled={purchasing || !affordable} className="btn btn-primary">
-                    {purchasing ? <Loader2 size={13} className="animate-spin"/> : affordable ? 'Buy': "Can't afford"}
+            <span style={{fontSize: '0.75rem', color: 'var(--muted)', fontWeight: 700}}>
+                <PriceTag amount={item.price.amount}/>
+            </span>
+            {owned ? (
+                inDraft ? (
+                    <button type="button" disabled className="btn btn-sm" style={{background: 'var(--background-elevated)', color: 'var(--muted)', cursor: 'default'}}>
+                        <Check size={14}/>
+                        Equipped
+                    </button>
+                ) : (
+                    <button type="button" onClick={(e) => {e.stopPropagation(); onTryOn();}} className="btn btn-sm btn-secondary">Equip</button>
+                )
+            ) : (
+                <button type="button" onClick={(e) => {e.stopPropagation(); onBuy();}} disabled={purchasing || !affordable} className="btn btn-sm btn-primary">
+                    {purchasing ? <Loader2 size={14} className="animate-spin"/> : affordable ? 'Buy' : "Can't afford"}
                 </button>
             )}
         </div>

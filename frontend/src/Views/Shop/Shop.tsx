@@ -95,10 +95,6 @@ const Shop:React.FC = () => {
     )
 }
 
-const DefaultBadge:React.FC = () => (
-    <span className="badge" style={{background: 'var(--info)', color: 'var(--info)'}}>Default</span>
-)
-
 const PriceTag: React.FC<{amount: number}> = ({amount}) => (
     <div style={{display: 'flex', alignItems: 'center', gap: '0.3rem', color: 'var(--muted)', fontSize: '0.85rem', fontWeight: 700}}>
         <Sparkles size={14}/>
@@ -120,7 +116,6 @@ const ThemeCard: React.FC<{
             <ThemeSwatch colors={item.swatchColors} size={64}/>
         </div>
         <div style={{textAlign: 'center'}}>
-            {item.isDefault && <DefaultBadge/>}
             <h3 style={{color: 'var(--primary-text)', fontWeight: 700, fontSize: '0.95rem'}}>{item.name}</h3>
             {item.description && <p className="text-muted" style={{fontSize: '0.75rem', lineHeight: 1.5, marginTop: '0.25rem'}}>{item.description}</p>}
         </div>
@@ -152,16 +147,12 @@ const PowerupCard: React.FC<{
     purchasing: boolean;
     onPurchase: () => void;
 }> = ({item, owned, affordable, purchasing, onPurchase}) => {
-    const isDown = item.kind === 'powerdown';
     return (
         <div className="card-glass" style={{padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.9rem'}}>
-            <div style={{display: 'flex', alignItems: 'center',justifyContent: 'center', height: '110px', borderRadius: 'var(00radius-md), 18px', background: 'var(--background-elevated)', border: '1px solid var(--border)', color: 'var(--muted-text)', fontSize: '0.75rem', fontWeight: 700}}>
-                {item.previewImageUrl ? <img src={item.previewImageUrl} alt={item.name} style={{maxHeight: '100%', maxWidth: '100%',objectFit: 'contain'}}/> : 'IMG'}
-            </div>
             <div>
-                <h3 style={{color: 'var(--primary-text)', fontWeight: 700, fontSize: '0.95rem'}}>{item.name}</h3>
-                {item.description && <p className="text-muted" style={{fontSize: '0.75rem', lineHeight: 1.5, marginTop: '0.25rem'}}>{item.description}</p>}
-                <p className="text-muted" style={{fontSize: '0.7rem', marginTop: '0.4rem'}}>Owned: {owned}</p>
+                <h3 style={{color: 'var(--primary-text)', fontWeight: 900, fontSize: '0.95rem'}}>{item.name}</h3>
+                {item.description && <p className="text-muted" style={{fontSize: '0.75rem', lineHeight: 1.5, marginTop: '0.25rem', fontWeight: 400,}}>{item.description}</p>}
+                <p className="text-muted" style={{fontSize: '0.7rem', marginTop: '0.4rem', fontWeight: 700,}}>Owned: {owned}</p>
             </div>
             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', marginTop: 'auto'}}>
             <PriceTag amount={item.price.amount}/>
