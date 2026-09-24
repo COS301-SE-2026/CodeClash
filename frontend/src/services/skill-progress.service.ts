@@ -116,3 +116,16 @@ async function buildQuestions(
 
     return questions;
 }
+
+async function toGameSample(row: MatchHistoryRow, league: string): Promise<GameSample> {
+    const domain = toDomain(row.game_type);
+    return {
+        matchId: row.match_id,
+        playedAt: new Date(row.match_start).toISOString(),
+        domain,
+        league,
+        result: row.result,
+        questions: await buildQuestions(row.match_id, domain, league, row.result),
+        simulated: true
+    };
+}
