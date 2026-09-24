@@ -1,0 +1,188 @@
+backend/src/application/usecases/services/user-creation.service.ts
+  h_94c952a9e14c58 3-5,12-13,32-34
+backend/src/application/usecases/systems/match-completion.system.ts
+  h_94c952a9e14c58 4
+backend/src/application/usecases/systems/match-creation.system.ts
+  h_94c952a9e14c58 2-3
+backend/src/application/usecases/services/leaderboard.service.ts
+  h_94c952a9e14c58 1
+backend/src/application/usecases/services/marking/mark-prog.ts
+  h_94c952a9e14c58 1,4-5
+backend/src/frameworks-drivers/api.routes.ts
+  h_94c952a9e14c58 18-26,33-41,46,278-287,289
+  h_94c952a9e14c58 288
+backend/src/application/usecases/services/achievement.service.ts
+  h_94c952a9e14c58 3
+backend/src/application/usecases/services/marking/mark-maths.ts
+  h_94c952a9e14c58 1-3
+backend/src/interface-adapters/cache/match-cache.ts
+  h_94c952a9e14c58 3
+backend/tests/integration/services/marking.service.test.ts
+  h_94c952a9e14c58 22,32-34
+backend/src/application/usecases/services/marking/maths-marking/expression-marker.ts
+  h_94c952a9e14c58 4
+backend/src/frameworks-drivers/app.ts
+  h_94c952a9e14c58 11-18,26-34,49
+backend/tests/unit/controllers/user.controller.test.ts
+  h_94c952a9e14c58 3
+backend/src/frameworks-drivers/socket/modules/register-match-handlers.ts
+  h_94c952a9e14c58 4,6-8
+database/01-init.sql
+  h_94c952a9e14c58 151-169,172-184,187-198,201-206,208-209
+  h_94c952a9e14c58 199-200,207
+backend/src/application/usecases/services/match/match-store.service.ts
+  h_94c952a9e14c58 2-3
+backend/src/entities/components.ts
+  h_94c952a9e14c58 5-7
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 8-9,64-77,94-97,127-134,147
+backend/tests/mocks/mock-questions.ts
+  h_94c952a9e14c58 3
+backend/src/interface-adapters/socket-handlers/match-handlers.ts
+  h_94c952a9e14c58 4,6-7
+backend/src/application/usecases/services/match/match-creation.service.ts
+  h_94c952a9e14c58 2-3
+backend/src/application/usecases/services/marking/marking.service.ts
+  h_94c952a9e14c58 8-9
+backend/src/application/interfaces/cache/IMatchCache.ts
+  h_94c952a9e14c58 1
+backend/src/application/interfaces/cache/IMatchmakingCache.ts
+  h_94c952a9e14c58 1
+backend/src/application/interfaces/marking/ICodeExecutor.ts
+  h_94c952a9e14c58 1
+backend/src/application/interfaces/marking/IMarkingStategy.ts
+  h_94c952a9e14c58 1-2
+backend/src/application/interfaces/repositories/IAchievementRepository.ts
+  h_94c952a9e14c58 1
+backend/src/application/interfaces/repositories/IAnswerRepository.ts
+  h_94c952a9e14c58 1
+backend/src/application/interfaces/repositories/IEquippedRepository.ts
+  h_94c952a9e14c58 1-7
+backend/src/application/interfaces/repositories/IInventoryRepository.ts
+  h_94c952a9e14c58 1-8
+backend/src/application/interfaces/repositories/IQuestionRepository.ts
+  h_94c952a9e14c58 1-2
+backend/src/application/interfaces/repositories/IShopItemRepository.ts
+  h_94c952a9e14c58 1-7
+backend/src/application/interfaces/repositories/IWalletRepository.ts
+  h_94c952a9e14c58 1-8
+backend/src/application/usecases/services/marking/maths-marking/equation-marker.ts
+  h_94c952a9e14c58 3
+backend/src/application/usecases/services/marking/maths-marking/maths-marker.ts
+  h_94c952a9e14c58 1
+backend/src/application/usecases/services/marking/maths-marking/numeric-marker.ts
+  h_94c952a9e14c58 1
+backend/src/application/usecases/services/marking/maths-marking/set-marker.ts
+  h_94c952a9e14c58 1
+backend/src/application/usecases/services/marking/maths-marking/variable-marker.ts
+  h_94c952a9e14c58 3
+backend/src/application/usecases/services/match/match-confirmation.service.ts
+  h_94c952a9e14c58 1
+backend/src/application/usecases/services/match/match-start.service.ts
+  h_94c952a9e14c58 1,4
+backend/src/application/usecases/services/matchmaking.service.ts
+  h_94c952a9e14c58 2
+backend/src/application/usecases/services/notification.service.ts
+  h_94c952a9e14c58 2
+backend/src/application/usecases/services/shop/equipment.service.ts
+  h_94c952a9e14c58 1-32
+backend/src/application/usecases/services/shop/inventory.service.ts
+  h_94c952a9e14c58 1-14
+backend/src/application/usecases/services/shop/powerup.service.ts
+  h_94c952a9e14c58 1-30
+backend/src/application/usecases/services/shop/purchase.service.ts
+  h_94c952a9e14c58 1-43
+backend/src/application/usecases/services/shop/shop-item.service.ts
+  h_94c952a9e14c58 1-13
+backend/src/application/usecases/services/shop/wallet.service.ts
+  h_94c952a9e14c58 1-18
+backend/src/application/usecases/systems/opponent-progress.ts
+  h_94c952a9e14c58 3
+backend/src/application/usecases/systems/submission.system.ts
+  h_94c952a9e14c58 2
+backend/src/entities/database/equipped-items.entities.ts
+  h_94c952a9e14c58 1-48
+backend/src/entities/database/shop-item.entities.ts
+  h_94c952a9e14c58 1-31
+backend/src/entities/database/user-item.entities.ts
+  h_94c952a9e14c58 1-21
+backend/src/entities/database/wallet.entities.ts
+  h_94c952a9e14c58 1-18
+backend/src/entities/dtos/matches/match-component.dto.ts
+  h_94c952a9e14c58 1-26
+backend/src/entities/dtos/matches/match.dto.ts
+  h_94c952a9e14c58 1
+backend/src/entities/dtos/matchmaking/matchmaking.dto.ts
+  h_94c952a9e14c58 1
+backend/src/entities/dtos/shop/equipped-items.dto.ts
+  h_94c952a9e14c58 1-25
+backend/src/entities/dtos/shop/powerup-use.dto.ts
+  h_94c952a9e14c58 1-13
+backend/src/entities/dtos/shop/purchase-result.dto.ts
+  h_94c952a9e14c58 1-7
+backend/src/entities/dtos/shop/shop.dto.ts
+  h_94c952a9e14c58 1-31
+backend/src/entities/dtos/shop/transaction.dto.ts
+  h_94c952a9e14c58 1-8
+backend/src/entities/dtos/shop/user-item.dto.ts
+  h_94c952a9e14c58 1-8
+backend/src/entities/dtos/shop/wallet.dto.ts
+  h_94c952a9e14c58 1-6
+backend/src/entities/league-mapping.ts
+  h_94c952a9e14c58 1
+backend/src/frameworks-drivers/socket/modules/register-matchmaking-handlers.ts
+  h_94c952a9e14c58 4
+backend/src/interface-adapters/CodeExecutor.ts
+  h_94c952a9e14c58 4
+backend/src/interface-adapters/auth/auth.service.ts
+  h_94c952a9e14c58 6
+backend/src/interface-adapters/cache/matchmaking-cache.ts
+  h_94c952a9e14c58 3
+backend/src/interface-adapters/controllers/shop.controllers.ts
+  h_94c952a9e14c58 1-123
+backend/src/interface-adapters/controllers/user.controllers.ts
+  h_94c952a9e14c58 2
+backend/src/interface-adapters/repositories/achievement.repository.ts
+  h_94c952a9e14c58 5
+backend/src/interface-adapters/repositories/answer.repository.ts
+  h_94c952a9e14c58 3
+backend/src/interface-adapters/repositories/equipped.repository.ts
+  h_94c952a9e14c58 1-60
+backend/src/interface-adapters/repositories/inventory.repository.ts
+  h_94c952a9e14c58 1-45
+backend/src/interface-adapters/repositories/question.repository.ts
+  h_94c952a9e14c58 3,5
+backend/src/interface-adapters/repositories/shop-item.repository.ts
+  h_94c952a9e14c58 1-41
+backend/src/interface-adapters/repositories/user.repository.ts
+  h_94c952a9e14c58 3
+backend/src/interface-adapters/repositories/wallet.repository.ts
+  h_94c952a9e14c58 1-46
+backend/src/interface-adapters/socket-handlers/matchmaking-handlers.ts
+  h_94c952a9e14c58 3,8
+backend/tests/integration/repositories/question.repository.test.ts
+  h_94c952a9e14c58 7
+backend/tests/integration/services/match-creation.service.test.ts
+  h_94c952a9e14c58 5-6,25,27
+backend/tests/unit/socket-handlers/game.handler.unit.test.ts
+  h_94c952a9e14c58 4
+backend/tests/unit/usecases/services/mark-prog.test.ts
+  h_94c952a9e14c58 3-4
+backend/tests/unit/usecases/services/matchmaking.service.test.ts
+  h_94c952a9e14c58 4
+database/04-init-shop.sql
+  h_94c952a9e14c58 1-52
+package-lock.json
+  h_94c952a9e14c58 3363-3365,3371-3372,3381-3383,3387,3408-3410,3421-3423,3427,3435-3437,3441-3442,3451-3453,3461-3463,3467,9689-9691,9695-9701,9729-9734
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "660b918a675607625884f632006dd5af3b31154f",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
