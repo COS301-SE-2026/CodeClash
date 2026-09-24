@@ -24,14 +24,27 @@ describe('Tests ShopItemRepositor', () => {
     });
 
     it('Returns all shop items', async () => {
-        
+        const items = await repo.getAllItems();
+
+        expect(items.length).toBeGreaterThanOrEqual(mock_shop_items.length);
+        expect(items.some(i => i.name === 'Test Shield')).toBe(true);
     });
 
     it('Correctly maps category and metadata', async () => {
+        const items = await repo.getAllItems();
+        const theme = items.find(i => i.name === 'Test Nebula');
 
+        expect (theme).toBeDefined();
+        expect(theme!.category).toBe('theme');
+        expect((theme!.metadata as any).hex_color_1).toBe('#8b3fd6');
+        expect((theme!.metadata as any).hex_color_2).toBe('#4a1d80');
+        expect((theme!.metadata as any).hex_color_3).toBe('#f0e5fc');
     });
 
     it('Returns the default theme (lowest priced theme item)', async () => {
+        const result = await repo.getItemById(crypto.randomUUID());
 
+        expect(result.name).toBe('Default');
+        expect(result.price).toBe(0);
     });
 });
