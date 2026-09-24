@@ -36,3 +36,40 @@ const ComponentRow: React.FC<{ component: ComponentScore }> = ({ component }) =>
     </div>
 );
 
+const ComponentBars: React.FC<ComponentBarsProps> = ({ components, grouped }) => {
+    if (components.length === 0) {
+        return <p className="text-xsm text-muted-text">No component scores yet.</p>;
+    }
+
+    if (!grouped) {
+        return (
+            <div className="flex flex-col gap-4">
+                {components.map(component => (
+                    <ComponentRow key={`${component.domain}-${component.key}`} component={component} />
+                ))}
+            </div>
+        );
+    }
+
+    const domains: GameDomain[] = ['math', 'programming'];
+
+    return (
+        <div className="flex flex-col gap-5">
+            {domains.map(domain => {
+                const forDomain = components.filter(component => component.domain === domain);
+                if (forDomain.length === 0) return null;
+
+                return (
+                    <div key={domain} className="flex flex-col gap-4">
+                        <p className="eyebrow text-primary">{DOMAIN_LABEL[domain]}</p>
+                        {forDomain.map(component => (
+                            <ComponentRow key={`${component.domain}-${component.key}`} component={component} />
+                        ))}
+                    </div>
+                );
+            })}
+        </div>
+    );
+};
+
+export default ComponentBars;
