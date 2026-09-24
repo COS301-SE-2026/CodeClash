@@ -22,8 +22,9 @@ const SectionCard: React.FC<{
     action?: React.ReactNode;
     children: React.ReactNode;
     className?: string;
-}> = ({ title, hint, icon, action, children, className }) => (
-    <div className={`card-elevated p-6 flex flex-col gap-4 ${className ?? ''}`}>
+    scroll?: boolean;
+}> = ({ title, hint, icon, action, children, className, scroll }) => (
+    <div className={`card-elevated p-6 flex flex-col gap-4 ${scroll ? 'xl:h-0 xl:min-h-full' : ''} ${className ?? ''}`}>
         <div className="flex items-start justify-between gap-3">
             <div>
                 <div className="flex items-center gap-2">
@@ -34,7 +35,7 @@ const SectionCard: React.FC<{
             </div>
             {action}
         </div>
-        {children}
+        {scroll ? <div className="flex-1 min-h-0 overflow-y-auto pr-1">{children}</div> : children}
     </div>
   );
 
@@ -148,7 +149,7 @@ return (
       </div>
 
       {/*growht section, seperated into sections for the chart and section items*/}
-                      <div className="grid grid-cols-1 xl:grid-cols-[1.35fr_1fr] gap-6 items-start">
+                      <div className="grid grid-cols-1 xl:grid-cols-[1.35fr_1fr] gap-6 ">
                           <SectionCard
                               title={content.growthTitle}
                               hint={content.growthHint}
@@ -164,7 +165,8 @@ return (
       {/*component bars to see mastery based on overall domain*/}
                           <SectionCard
                               title={content.componentsTitle}
-                              hint={content.componentsHint}
+          hint={content.componentsHint}
+          scroll
           icon={<Gauge size={18} className="text-primary" />}
           
                           >
@@ -172,7 +174,7 @@ return (
                           </SectionCard>
       </div>
       {/*show of the difficultiy split and difficulty sections*/}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 items-start">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 ">
           <SectionCard
               title={content.difficultyTitle}
               hint={content.difficultyHint}
@@ -183,7 +185,8 @@ return (
 
           <SectionCard
               title={content.gamesTitle}
-              hint={content.gamesHint}
+          hint={content.gamesHint}
+          scroll
               icon={<Activity size={18} className="text-primary" />}
           >
               <RecentGames games={recentGames} ceiling={masteryCeiling} />
@@ -191,6 +194,7 @@ return (
 
           <SectionCard
               title={content.insightsTitle}
+              scroll
               icon={<Sparkles size={18} className="text-primary" />}
           >
               <InsightList insights={insights} />
