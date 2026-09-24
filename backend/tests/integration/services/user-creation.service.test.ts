@@ -48,7 +48,7 @@ describe("Tests user creation ", () => {
         equipped_repo = new EquippedRepository(data_source.getRepository(EquippedItems), shop_item_repo );
 
         await data_source.getRepository(ShopItem).save({
-            category: 'theme', name: 'Default', price: 0, rarity: 'common',
+            category: 'theme', name: 'Default', description: "The default theme.", price: 0, rarity: 'common',
             metadata: { hex_color_1: '#000', hex_color_2: '#000', hex_color_3: '#000', is_default: true }
         });
         create_user = new CreateUser(users, elo, equipped_repo, shop_item_repo);

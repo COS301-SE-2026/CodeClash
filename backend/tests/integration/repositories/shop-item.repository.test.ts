@@ -1,10 +1,9 @@
-import { describe, expect, it, beforeAll, afterAll, should } from "vitest";
+import { describe, expect, it, beforeAll, afterAll } from "vitest";
 import { DataSource } from "typeorm";
 import { createTestDataSource } from "../../test-data-source";
 import { ShopItem } from "../../../src/entities/database/shop-item.entities";
 import { ShopItemRepository } from "../../../src/interface-adapters/repositories/shop-item.repository";
 import { mock_shop_items } from "../../mocks/mock-shop-items";
-import { create } from "node:domain";
 
 let data_source: DataSource;
 let repo: ShopItemRepository;
@@ -42,7 +41,7 @@ describe('Tests ShopItemRepositor', () => {
     });
 
     it('Returns the default theme (lowest priced theme item)', async () => {
-        const result = await repo.getItemById(crypto.randomUUID());
+        const result = await repo.getDefaultTheme();
 
         expect(result.name).toBe('Default');
         expect(result.price).toBe(0);

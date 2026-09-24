@@ -11,7 +11,7 @@ export class EquippedItems {
     @JoinColumn({ name: 'user_id'})
     user!: Users;
 
-    @ManyToOne(() => ShopItem, { nullable: false })
+    @ManyToOne(() => ShopItem, { nullable: true })
     @JoinColumn({ name: 'avatar_item_id' })
     avatar!: ShopItem | null;
 
