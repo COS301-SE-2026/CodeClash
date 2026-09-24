@@ -91,7 +91,7 @@ const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasing
                     const selected = draftAvatarId === a.id;
                     return (
                         <button key={a.id} type="button" onClick={()=> tryOnAvatar(a.id)}
-                            style={{position: 'relative', flexShrink: 0, width: '124px', height: '124px', borderRadius: 'var(--radius-md, 18px)', border: selected ? '2px solid var(--primary)' : '1px solid var(--border)',
+                            style={{position: 'relative', flexShrink: 0, width: '200px', height: '200px', borderRadius: 'var(--radius-md, 18px)', border: selected ? '2px solid var(--primary)' : '1px solid var(--border)',
                                 background: 'var(--background-elevated)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',overflow: 'hidden', padding: 0
                             }}>
                             {a.previewImageUrl && (
