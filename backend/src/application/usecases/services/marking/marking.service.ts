@@ -34,7 +34,6 @@ export class MarkingService {
     async execute(player_submission: PlayerSubmissionDTO): Promise<MarkingResultDTO> {
         try {
             const result = await this.mark(player_submission);
-            console.log("Marking Service", result);
             const submission = this.submission_system.saveSubmission(player_submission, result);
             return this.handleResult(result, submission!);
         }

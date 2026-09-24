@@ -31,6 +31,8 @@ export class CreateUser {
         this.avatar_index = ++this.avatar_index % 4;
         // setting default theme
         const default_theme= await this.shop_item_repo.getDefaultTheme();
-        await this.equipped_repo.updateEquipped(user.user_id!, { theme_id: default_theme.shop_item_id });
+        const defualt_avatar = await this.shop_item_repo.getDefaultAvatar();
+
+        await this.equipped_repo.updateEquipped(user.user_id!, { theme_id: default_theme.shop_item_id, avatar_item_id: defualt_avatar.shop_item_id });
     }
 }

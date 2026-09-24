@@ -6,7 +6,12 @@ import { Questions } from '../src/entities/database/questions.entities'
 import { Answers } from '../src/entities/database/answers.entities'
 import { Matches} from '../src/entities/database/match.entities'
 import { Achievement } from '../src/entities/database/achievement.entities'
-
+import {EquippedItems} from '../src/entities/database/equipped-items.entities';
+import {Friendship} from '../src/entities/database/friendship.entities'
+import { FriendInvite } from '../src/entities/database/friendship.entities'
+import { ShopItem } from '../src/entities/database/shop-item.entities'
+import {UserItem} from '../src/entities/database/user-item.entities';
+import {Wallet} from '../src/entities/database/wallet.entities'
 
 dotenv.config({ path: '.env.test' })
 
@@ -28,6 +33,12 @@ export async function createTestDataSource() {
             Questions,
             Users,
             Achievement,
+            EquippedItems,
+            Friendship,
+            FriendInvite,
+            ShopItem,
+            UserItem,
+            Wallet
         ],
         dropSchema: true,
     })

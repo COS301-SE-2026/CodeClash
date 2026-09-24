@@ -171,7 +171,6 @@ describe("Tests Marking Services", () => {
     })
 
     it('Rejects a submission for invalid question', async () => {
-        console.log("incorrect submission");
         const submission = {
             match_id: match.match_entity,
             player_id: players[0].id,

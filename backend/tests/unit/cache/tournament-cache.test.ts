@@ -2,8 +2,8 @@ import { beforeAll, describe, expect, it } from 'vitest';
 import redis from '../../../src/frameworks-drivers/config/redis-client'
 import { TournamentCache } from '../../../src/interface-adapters/cache/tournament-cache'
 import { randomUUID } from 'node:crypto';
-import { MatchMode, MatchStatus } from '../../../src/entities/dtos/match/match.dto'
-import { PlayerDTO } from '../../../src/entities/dtos/components.dto'
+import { MatchMode, MatchStatus } from '../../../src/entities/dtos/matches/match.dto'
+import { PlayerDTO } from '../../../src/entities/dtos/matches/match-component.dto'
 import { TournamentDTO } from "../../../src/entities/dtos/tournaments/tournaments.dto";
 
 const tournament_cache = new TournamentCache(redis)

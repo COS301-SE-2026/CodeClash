@@ -1,7 +1,7 @@
 import { DeepPartial } from "typeorm";
 import { Questions } from "../../src/entities/database/questions.entities";
 import { MatchMode } from "../../src/entities/dtos/matches/match.dto";
-import { QuestionInputType } from "../../src/entities/dtos/match/question.dto";
+import { QuestionInputType } from "../../src/entities/dtos/questions/question.dto";
 
 
 export const mock_questions: DeepPartial<Questions>[] = [

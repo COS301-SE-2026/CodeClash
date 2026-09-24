@@ -15,8 +15,8 @@ import { Answers } from '../../../src/entities/database/answers.entities';
 import { mock_questions } from '../../mocks/mock-questions';
 import { mock_answers } from '../../mocks/mock-answers';
 import { RoundComponent } from '../../../src/entities/components';
-import { AnswerDTO } from '../../../src/entities/dtos/match/answer.dto';
-import { PlayerDTO } from '../../../src/entities/dtos/components.dto';
+import { AnswerDTO } from '../../../src/entities/dtos/questions/answer.dto';
+import { PlayerDTO } from '../../../src/entities/dtos/matches/match-component.dto';
 import { MatchCreationSystem, CreateMatchEntity, CreatePlayerEntity, CreateRound } from '../../../src/application/usecases/systems/match-creation.system';
 import { MatchCreationService } from '../../../src/application/usecases/services/match/match-creation.service';
 import { World } from '../../../src/entities/World';
@@ -31,14 +31,14 @@ import { IUserRepository } from '../../../src/application/interfaces/repositorie
 import { UserRepository } from '../../../src/interface-adapters/repositories/user.repository';
 import { Users } from '../../../src/entities/database/user.entities';
 import { Matches } from '../../../src/entities/database/match.entities';
-import { MatchMode, MatchType } from '../../../src/entities/dtos/match/match.dto';
+import { MatchMode, MatchType } from '../../../src/entities/dtos/matches/match.dto';
 import { registerMatchHandlers } from '../../../src/frameworks-drivers/socket/modules/register-match-handlers'
 import { MatchDeps } from '../../../src/frameworks-drivers/socket/dependencies';
 import { SubmissionSystem } from '../../../src/application/usecases/systems/submission.system';
 import { MatchCompletionService } from '../../../src/application/usecases/services/match/match-completion.service'
 import { DeleteGame } from '../../../src/application/usecases/systems/delete-game'
 import { MatchStore } from '../../../src/application/usecases/services/match/match-store.service';
-import { MarkingResultDTO } from '../../../src/entities/dtos/marking/submission-result.dto'
+import { MarkingResultDTO } from '../../../src/entities/dtos/submissions/submission-result.dto'
 
 let http: HttpServer;
 let server: Server;
