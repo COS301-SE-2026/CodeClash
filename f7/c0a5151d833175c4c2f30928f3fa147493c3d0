@@ -1,0 +1,20 @@
+frontend/src/Views/SkillProgress/components/GrowthChart.tsx
+  s_97fc86e7b5c868::t_26d44642b12fde 1-15
+  s_97fc86e7b5c868::t_43a2d696a3a8e7 16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "f7c0a5151d833175c4c2f30928f3fa147493c3d0",
+  "prompts": {},
+  "sessions": {
+    "s_97fc86e7b5c868": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f4b6676a-4ef3-4d98-a966-3847c47ca245",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

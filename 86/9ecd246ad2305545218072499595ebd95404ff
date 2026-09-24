@@ -1,0 +1,14 @@
+frontend/@/components/Sidebar.tsx
+  h_58e143dc25f856 1,19-20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "869ecd246ad2305545218072499595ebd95404ff",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

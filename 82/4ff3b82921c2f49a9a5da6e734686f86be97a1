@@ -1,0 +1,14 @@
+frontend/src/Views/SkillProgress/components/GrowthChart.tsx
+  h_58e143dc25f856 71-174
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "824ff3b82921c2f49a9a5da6e734686f86be97a1",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
