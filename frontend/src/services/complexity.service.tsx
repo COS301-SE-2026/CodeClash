@@ -31,3 +31,16 @@ export interface ComplexityReport {
     source: 'mock' | 'llm';
     verdicts: ComplexityVerdict[];
 }
+
+export interface ComplexityProvider {
+    readonly source: 'mock' | 'llm';
+    analyse(request: ComplexityRequest): Promise<ComplexityReport>;
+}
+
+// ladder of base possible complexities for now
+const TIME_LADDER = ['O(1)', 'O(log n)', 'O(n)', 'O(n log n)', 'O(n^2)', 'O(2^n)'];
+const SPACE_LADDER = ['O(1)', 'O(log n)', 'O(n)', 'O(n log n)', 'O(n^2)'];
+
+const pick = (ladder: string[], index: number): string =>
+  ladder[Math.min(ladder.length - 1, Math.max(0, index))]!;
+
