@@ -1,0 +1,32 @@
+backend/tests/test-data-source.ts
+  h_94c952a9e14c58 9-14,36-41
+backend/src/application/interfaces/repositories/IShopItemRepository.ts
+  h_94c952a9e14c58 7
+backend/src/interface-adapters/repositories/equipped.repository.ts
+  h_94c952a9e14c58 31,40
+backend/tests/mocks/mock-questions.ts
+  h_94c952a9e14c58 4
+backend/src/application/usecases/services/user-creation.service.ts
+  h_94c952a9e14c58 34-36
+backend/tests/unit/cache/tournament-cache.test.ts
+  h_94c952a9e14c58 5-6
+backend/src/interface-adapters/repositories/shop-item.repository.ts
+  h_94c952a9e14c58 41-47
+  h_94c952a9e14c58 8,24-26,38
+backend/tests/integration/services/user-creation.service.test.ts
+  h_94c952a9e14c58 10-13,17,25,40-61,63,78
+  h_94c952a9e14c58 62
+backend/tests/integration/socket-handlers/submit-question.test.ts
+  h_94c952a9e14c58 18-19,34,41
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "e305b261302f9cb405d8ee0e6643343712593959",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
