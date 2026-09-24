@@ -88,6 +88,7 @@ return (
         </div>
 
         <div className="flex flex-col items-start lg:items-end gap-3">
+          {/*still top section but now adding extra information*/}
             <DomainToggle domain={domain} onChange={setDomain} />
             <div className="flex flex-wrap items-center gap-2">
                 {league && <span className="badge badge-status-correct uppercase">{league} league</span>}
@@ -95,7 +96,19 @@ return (
                 <span className="badge badge-status-pending">Last {masteryWindow} games</span>
             </div>
         </div>
-    </div>
+      </div>
+
+      {/*error stuff along with telematry source and simulated items*/}
+      {error && <div className="card-elevated p-4 text-xsm text-danger">{error}</div>}
+
+      {isSimulated && (
+          <div className="flex items-center gap-3 rounded-2xl border border-border bg-card px-4 py-3">
+              <Sparkles size={16} className="text-warning shrink-0" />
+              <p className="text-xsm text-muted-text">
+                  {telemetrySource === 'simulated' ? content.sampleNote : content.simulatedNote}
+              </p>
+          </div>
+      )}
         
     );
 
