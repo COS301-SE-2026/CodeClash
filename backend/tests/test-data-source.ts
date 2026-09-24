@@ -8,7 +8,10 @@ import { Matches,MatchLog, MatchProblems } from '../src/entities/database/match.
 import { Submission } from '../src/entities/database/submission.entities'
 import { Achievement } from '../src/entities/database/achievement.entities'
 import { MatchStats } from '../src/entities/database/match-stats.entities'
-
+import { ShopItem } from '../src/entities/database/shop-item.entities'
+import { EquippedItems } from '../src/entities/database/equipped-items.entities'
+import { Wallet } from '../src/entities/database/wallet.entities';
+import { UserItem } from '../src/entities/database/user-item.entities';
 
 dotenv.config({ path: '.env.test' })
 
@@ -34,7 +37,11 @@ export async function createTestDataSource() {
             Submission,
             Users,
             Achievement,
-            MatchStats
+            MatchStats,
+            ShopItem,
+            Wallet,
+            UserItem,
+            EquippedItems
         ],
         dropSchema: true,
     })
