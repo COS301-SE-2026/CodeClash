@@ -1,0 +1,20 @@
+frontend/src/Views/SkillProgress.tsx
+  s_989053de4fe2eb::t_b50eba52f5e58e 39-75
+  s_989053de4fe2eb::t_cbc3a417ad2969 76
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "fb0eeb1ca8babd8e977d15f4c5623e41529142ae",
+  "prompts": {},
+  "sessions": {
+    "s_989053de4fe2eb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3e757e05-58f7-47a9-8d9e-a4efe63a3dfa",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
