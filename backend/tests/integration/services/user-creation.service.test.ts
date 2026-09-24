@@ -14,15 +14,22 @@ import { Users } from "../../../src/entities/database/user.entities"
 import dotenv from 'dotenv'
 import { DataSource, Repository } from "typeorm";
 import { createTestDataSource } from "../../test-data-source";
+import { EquippedItems } from "../../../src/entities/database/equipped-items.entities";
 dotenv.config()
-
+import { IEquippedRepository } from '../../../src/application/interfaces/repositories/IEquippedRepository';
+import { IShopItemRepository } from '../../../src/application/interfaces/repositories/IShopItemRepository';
+import { ShopItemRepository } from "../../../src/interface-adapters/repositories/shop-item.repository";
+import { ShopItem } from "../../../src/entities/database/shop-item.entities";
+import { EquippedRepository } from "../../../src/interface-adapters/repositories/equipped.repository";
 const cognito_client = cognito_identity_client;
 
 let users_count = 0;
 let data_source: DataSource;
 let users: IUserRepository;
 let elo: IEloRepository;
-let create_user: CreateUser
+let create_user: CreateUser;
+let equipped_repo: IEquippedRepository;
+let shop_item_repo: ShopItemRepository;
 
 let user_repo: Repository<Users>
 
@@ -37,10 +44,14 @@ describe("Tests user creation ", () => {
 
         users = new UserRepository(user_repo);
         elo = new EloRepository(data_source.getRepository(EloRatings));
+        shop_item_repo = new ShopItemRepository(data_source.getRepository(ShopItem));
+        equipped_repo = new EquippedRepository(data_source.getRepository(EquippedItems), shop_item_repo );
 
-        create_user = new CreateUser(users, elo);
-
-
+        await data_source.getRepository(ShopItem).save({
+            category: 'theme', name: 'Default', price: 0, rarity: 'common',
+            metadata: { hex_color_1: '#000', hex_color_2: '#000', hex_color_3: '#000', is_default: true }
+        });
+        create_user = new CreateUser(users, elo, equipped_repo, shop_item_repo);
     })
 
 
