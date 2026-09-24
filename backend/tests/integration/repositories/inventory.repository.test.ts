@@ -56,7 +56,9 @@ describe('Tests InventoryRepository', () =>{
     });
 
     it('Confirms hasItem is true for an owned item', async () => {
+        const owned = await repo.hasItem(user_id, item_ids[0]!);
 
+        expect(owned).toBe(true);
     });
 
     it('Returns only powerup-category items from getUserPowerups', async () => {
