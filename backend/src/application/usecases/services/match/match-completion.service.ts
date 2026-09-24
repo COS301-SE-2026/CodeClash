@@ -2,7 +2,7 @@ import { IMatchRepository } from "src/application/interfaces/repositories/IMatch
 import { MatchCompletionSystem } from "../../systems/match-completion.system";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 import { AchievementService } from "../achievement.service";
-import { MatchType, MatchStatus } from "src/entities/dtos/match/match.dto";
+import { MatchType, MatchStatus } from "src/entities/dtos/matches/match.dto";
 
 
 export class MatchCompletionService {

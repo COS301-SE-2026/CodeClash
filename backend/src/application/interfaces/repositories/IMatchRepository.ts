@@ -1,6 +1,6 @@
-import { MatchMode, MatchPlayer, MatchStatus, MatchType } from "src/entities/dtos/match/match.dto";
-import { MatchHistoryRow } from "src/entities/dtos/match/match.dto";
-import { MatchResultDTO } from "src/entities/dtos/match/match.dto";
+import { MatchMode, MatchPlayer, MatchStatus, MatchType } from "src/entities/dtos/matches/match.dto";
+import { MatchHistoryRow } from "src/entities/dtos/matches/match.dto";
+import { MatchResultDTO } from "src/entities/dtos/matches/match.dto";
 
 export interface IMatchRepository {
     createMatch(players: string[], match_type: MatchType, match_mode: MatchMode, match_start: Date): Promise<string>,

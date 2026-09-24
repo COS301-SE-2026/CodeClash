@@ -1,6 +1,6 @@
 import { TournamentDTO } from "src/entities/dtos/tournaments/tournaments.dto";
-import { MatchMode, MatchStatus } from "src/entities/dtos/match/match.dto";
-import { PlayerDTO } from "src/entities/dtos/components.dto";
+import { MatchMode, MatchStatus } from "src/entities/dtos/matches/match.dto";
+import { PlayerDTO } from "src/entities/dtos/matches/match-component.dto";
 
 export interface ITournamentCache {
     createTournament(tournament_id: string, start_date: Date, match_mode: MatchMode, host:PlayerDTO): Promise<void>,

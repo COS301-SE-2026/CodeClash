@@ -1,7 +1,7 @@
-import { EloUpdateResultDTO } from "src/entities/dtos/users/elo.dto";
-import { UserDTO } from "src/entities/dtos/users/user.dto"
-import { LeaderboardEntryDTO } from "src/entities/dtos/match/leaderboard.dto";
-import { RankDTO } from "src/entities/dtos/users/rank.dto";
+import { EloUpdateResultDTO } from "src/entities/dtos/user/elo.dto";
+import { UserDTO } from "src/entities/dtos/user/user.dto"
+import { LeaderboardEntryDTO } from "src/entities/dtos/leaderboard/leaderboard.dto";
+import { RankDTO } from "src/entities/dtos/user/rank.dto";
 
 export interface IUserRepository {
     createUser(username: string, email: string, cognito_id: string, avatar_id: number, league: string): Promise<UserDTO | null>,

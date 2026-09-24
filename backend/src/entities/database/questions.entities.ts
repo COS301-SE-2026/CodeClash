@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { MatchMode } from "../dtos/match/match.dto";
-import { AnswerFormat } from "../dtos/match/answer.dto";
-import { QuestionInputType } from "../dtos/match/question.dto";
+import { MatchMode } from "../dtos/matches/match.dto";
+import { AnswerFormat } from "../dtos/questions/answer.dto";
+import { QuestionInputType } from "../dtos/questions/question.dto";
 
 
 @Entity()

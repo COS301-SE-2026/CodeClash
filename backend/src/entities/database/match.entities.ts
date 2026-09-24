@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { MatchMode, MatchPlayer, MatchPowerUps, MatchQuestion, MatchStatus, MatchType } from "../dtos/match/match.dto";
+import { MatchMode, MatchPlayer, MatchPowerUps, MatchQuestion, MatchStatus, MatchType } from "../dtos/matches/match.dto";
 
 @Entity()
 export class Matches {

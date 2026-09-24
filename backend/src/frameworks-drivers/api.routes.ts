@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { getUserElo } from 'src/interface-adapters/controllers/elo.controllers';
 import { createUser, getUserStat, searchUsers } from 'src/interface-adapters/controllers/user.controllers';
 
 import { LeaderboardService } from 'src/application/usecases/services/leaderboard.service';
@@ -30,6 +29,7 @@ export const createAPIRoutes = (
   leaderboard_service: LeaderboardService,
   achievement_service: AchievementService,
   friends_service: FriendService,
+  match_completion_service: MatchCompletionService,
   shop_item_service: ShopItemService,
   inventory_service: InventoryService,
   wallet_service: WalletService,
@@ -43,7 +43,7 @@ export const createAPIRoutes = (
   const router = Router();
 
 
-  const create_user_service = new CreateUser(user_repo, elo_repo, equipped_repo, shop_item_repo);
+  const create_user_service = new CreateUser(user_repo, equipped_repo, shop_item_repo);
 
   router.post('/create-user', creationRequireAuth(), createUser(create_user_service));
 

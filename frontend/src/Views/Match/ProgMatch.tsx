@@ -12,11 +12,9 @@ import { useState } from "react";
 export const ProgMatch = () => {
     const [code, setCode] = useState('');
     const {
-        playerLife, avatars, usernames,
-        seconds, minutes, questions,
-        currentQuestion, opponentCurrent,
-        nextQuestion, prevQuestion,
-        results, waitingOpponent,
+        questions,
+        currentQuestion,
+        nextQuestion, prevQuestion, waitingOpponent,
         finishGame, loading,
         //  submitQuestion
     } = useMatch();
@@ -84,7 +82,7 @@ export const ProgMatch = () => {
                 <div className="fixed inset-0 z-50  bg-background/60 flex items-center justify-center p-4 ">
 
                     <Card className="relative w-full max-w-lg rounded-3xl  text-center flex flex-col items-center gap-4 p-8 overflow-hidden"
-                        style={{background: 'radial-gradient(circle at 50% 15%, #b91551 0%, #850f3b 22%, #630b3c 34%, #0a0008 62%)'}}>
+                        style={{ background: 'radial-gradient(circle at 50% 15%, #b91551 0%, #850f3b 22%, #630b3c 34%, #0a0008 62%)' }}>
                         <h1 className="text-md text-primary-text font-extrabold whitespace-nowrap">
                             Waiting For Opponent To Finish
                         </h1>

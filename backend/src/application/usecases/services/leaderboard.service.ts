@@ -1,6 +1,6 @@
 import { PaginatedLeaderboardResponse } from "src/entities/dtos/leaderboard/leaderboard.dto";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
-import { RankDTO } from "src/entities/dtos/users/rank.dto";
+import { RankDTO } from "src/entities/dtos/user/rank.dto";
 
 export class LeaderboardService {
     constructor(private user_repo: IUserRepository) {}

@@ -1,7 +1,7 @@
 import Redis from "ioredis";
 import { ITournamentCache } from "src/application/interfaces/cache/ITournamentCache";
-import { PlayerDTO } from "src/entities/dtos/components.dto";
-import { MatchMode, MatchStatus } from "src/entities/dtos/match/match.dto";
+import { PlayerDTO } from "src/entities/dtos/matches/match-component.dto";
+import { MatchMode, MatchStatus } from "src/entities/dtos/matches/match.dto";
 import { TournamentDTO } from "src/entities/dtos/tournaments/tournaments.dto";
 
 export class TournamentCache implements ITournamentCache {

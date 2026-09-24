@@ -21,34 +21,33 @@ vi.mock('src/services/api.service', () => ({ API: api }));
 const ws = vi.hoisted(() => ({ createSocket: vi.fn() }));
 vi.mock('src/services/websocket.service', () => ws);
 
-import { AchievementToastProvider } from '../../src/context/Achievement/AchievementToastContext';
-import { AuthProvider } from '../../src/context/Auth/AuthContext';
-import { useAuth } from '../../src/context/Auth/hooks/useAuth';
-import { useMatchmaking } from '../../src/context/Socket/hooks/useMatchmaking';
-import { useSocket } from '../../src/context/Socket/hooks/useSocket';
-import { MatchmakingProvider } from '../../src/context/Socket/MatchmakingContext';
-import { SocketProvider } from '../../src/context/Socket/SocketContext';
-import { ThemeProvider, useTheme } from '../../src/context/Shop/ThemeContext';
-import { useUser } from '../../src/context/User/hooks/useUser';
-import { UserProvider } from '../../src/context/User/UserContext';
-import type { MatchedUsersDTO } from '../../src/dtos/matched-user.dto';
+import { AchievementToastProvider } from '../../../src/context/Achievement/AchievementToastContext';
+import { AuthProvider } from '../../../src/context/Auth/AuthContext';
+import { useAuth } from '../../../src/context/Auth/hooks/useAuth';
+import { useMatchmaking } from '../../../src/context/Matchmaking/hooks/useMatchmaking';
+import { useSocket } from '../../../src/context/Socket/hooks/useSocket';
+import { MatchmakingProvider } from '../../../src/context/Matchmaking/MatchmakingContext';
+import { SocketProvider } from '../../../src/context/Socket/SocketContext';
+import { ThemeProvider, useTheme } from '../../../src/context/Shop/ThemeContext';
+import { useUser } from '../../../src/context/User/hooks/useUser';
+import { UserProvider } from '../../../src/context/User/UserContext';
+import type { MatchedUsersDTO } from '../../../src/dtos/matchmaking/matched-user.dto';
 
-import { FakeSocket } from './helpers';
-import { InventoryProvider } from '../../src/context/Shop/InventoryContext';
+import { FakeSocket } from '../helpers';
+import { InventoryProvider } from '../../../src/context/Shop/InventoryContext';
 
 const MATCHED: MatchedUsersDTO = {
-  players: {
-    player_1: { id: 'user-1', elo: 1400, username: 'ntu' },
-    player_2: { id: 'user-2', elo: 1390, username: 'rival' },
-  },
-  pair_id: 'pair-42',
-  game_mode: 'math',
+  players: [{ id: 'user-1', elo: 1400, username: 'ntu' },
+    { id: 'user-2', elo: 1390, username: 'rival' },
+  ],
+  group_id: 'pair-42',
+  match_mode: 'math',
 };
 
 const Dashboard = () => {
   const auth = useAuth();
   const user = useUser();
-  const { isConnected, socket } = useSocket();
+  const { isConnected, matchmaking_socket } = useSocket();
   const mm = useMatchmaking();
   const { theme, toggleTheme } = useTheme();
 
@@ -60,17 +59,16 @@ const Dashboard = () => {
       <span data-testid="league">{user.league || 'none'}</span>
       <span data-testid="connected">{String(isConnected)}</span>
       <span data-testid="matched">{String(mm.matched)}</span>
-      <span data-testid="opponent">{mm.matchedUsers?.players.player_2.username ?? 'none'}</span>
+      <span data-testid="opponent">{mm.matchedUsers?.players[1].username ?? 'none'}</span>
       <span data-testid="theme">{theme}</span>
       <button onClick={toggleTheme}>toggle-theme</button>
       <button
         onClick={() =>
-          socket &&
-          mm.joinMatchQueue(socket, {
+          matchmaking_socket &&
+          matchmaking_socket.joinQueue({
             elo: user.elo,
-            game_mode: 'math',
-            game_type: 'ranked',
-            username: user.username,
+            match_mode: 'math',
+            match_type: 'ranked'
           })
         }
       >
@@ -109,7 +107,7 @@ describe('app provider tree integration', () => {
     ws.createSocket.mockResolvedValue(socket.asSocket());
     amplify.getCurrentUser.mockResolvedValue({ username: 'ntu', userId: 'user-1' });
     amplify.fetchAuthSession.mockResolvedValue({ tokens: { idToken: { toString: () => 'id-token-abc' } } });
-    api.get.mockImplementation((url: string) =>
+    api.get.mockImplementation(() =>
       Promise.resolve({
         status: 200,
         data: { rating: 1400, avatar_id: 1, league: 'Silver', rank: 12, current_streak: 2, winning_streak: 1 },

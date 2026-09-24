@@ -1,5 +1,5 @@
 import { MathsSubmissionDTO, ProgSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
-import { MarkingStrategy } from "src/application/interfaces/marking/IMarkingStategy";
+import { IMarkingStrategy } from "src/application/interfaces/marking/IMarkingStategy";
 import { AnswerDTO } from "src/entities/dtos/questions/answer.dto";
 import { MarkerRegistry } from "./maths-marking/marker-registry";
 

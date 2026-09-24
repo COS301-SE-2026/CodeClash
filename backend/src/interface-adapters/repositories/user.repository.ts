@@ -2,9 +2,9 @@ import { IUserRepository } from "src/application/interfaces/repositories/IUserRe
 import { Users } from "src/entities/database/user.entities";
 import { UserDTO } from "src/entities/dtos/user/user.dto";
 import { Repository } from "typeorm";
-import { EloUpdateResultDTO } from "src/entities/dtos/users/elo.dto";
-import { LeaderboardEntryDTO } from "src/entities/dtos/match/leaderboard.dto";
-import { RankDTO } from "src/entities/dtos/users/rank.dto";
+import { EloUpdateResultDTO } from "src/entities/dtos/user/elo.dto";
+import { LeaderboardEntryDTO } from "src/entities/dtos/leaderboard/leaderboard.dto";
+import { RankDTO } from "src/entities/dtos/user/rank.dto";
 
 export class UserRepository implements IUserRepository {
     private readonly K_FACTOR = 32;

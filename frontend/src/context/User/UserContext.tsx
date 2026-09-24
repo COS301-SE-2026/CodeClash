@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState, type ReactNode } from "react";
-import { robot_map } from "src/assets/Robots";
 import { authGet } from "src/services/api.service";
 import { useInventory } from "../Shop/InventoryContext";
 import { useAuth } from "../Auth/hooks/useAuth";

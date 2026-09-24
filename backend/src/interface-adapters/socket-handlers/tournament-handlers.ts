@@ -1,7 +1,7 @@
 import { Server, Socket } from "socket.io"
 import { TournamentService } from "src/application/usecases/services/tournament/tournament.service"
-import { PlayerDTO } from "src/entities/dtos/components.dto";
-import { MatchMode } from "src/entities/dtos/match/match.dto";
+import { PlayerDTO } from "src/entities/dtos/matches/match-component.dto";
+import { MatchMode } from "src/entities/dtos/matches/match.dto";
 
 export const joinTournament = async (io: Server, socket: Socket, tournament_id: string, player: PlayerDTO, tournament_service: TournamentService,) => {
     try {

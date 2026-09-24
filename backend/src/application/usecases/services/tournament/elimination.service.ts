@@ -1,6 +1,6 @@
 import { PlayerStandingDTO } from "src/entities/dtos/tournaments/tournaments.dto";
 import { MarkingService } from "../marking/marking.service";
-import { PlayerSubmissionDTO } from "src/entities/dtos/components.dto";
+import { PlayerSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
 
 
 const MAX_ATTEMPTS = 3;

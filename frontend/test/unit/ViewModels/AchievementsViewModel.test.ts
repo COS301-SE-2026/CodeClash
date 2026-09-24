@@ -53,7 +53,7 @@ function defaultHandlers(): routeHandler[] {
 }
 
 function setMockFetch() {
-    (globalThis as any).fetch = vi.fn(async(url:string, init?: RequestInit) => {
+    (globalThis as any).fetch = vi.fn(async(url:string) => {
         for (const h of handlers) {
             const res = h(url);
             if (res) {

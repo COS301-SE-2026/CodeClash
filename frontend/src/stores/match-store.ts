@@ -1,4 +1,4 @@
-import type {RoundDTO } from "src/dtos/match/match-question.dto";
+import type {RoundDTO } from "src/dtos/match/match.dto";
 import type { Player } from "src/Models/MatchModel";
 import { create } from 'zustand'
 

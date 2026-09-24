@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { ITournamentCache } from "src/application/interfaces/cache/ITournamentCache";
-import { PlayerDTO } from "src/entities/dtos/components.dto";
-import { MatchMode, MatchStatus, MatchType } from "src/entities/dtos/match/match.dto";
+import { PlayerDTO } from "src/entities/dtos/matches/match-component.dto";
+import { MatchMode, MatchStatus, MatchType } from "src/entities/dtos/matches/match.dto";
 import { TournamentDTO } from "src/entities/dtos/tournaments/tournaments.dto";
 import { MatchCreationService } from "../match/match-creation.service";
 import { TournamentEliminationService } from "./elimination.service";

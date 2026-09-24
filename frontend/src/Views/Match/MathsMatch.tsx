@@ -12,15 +12,12 @@ import Popup from '@/components/shared/PopUp';
 const MathsMatch = () => {
     const {
         status,
-
-        playerLife, avatars, usernames,
-        seconds, minutes, questions,
-        currentQuestion, opponentCurrent,
+        questions,
+        currentQuestion,
         nextQuestion, prevQuestion,
         loading,
         // submitQuestion,
-        mathfieldRef,
-        results, waitingOpponent,
+        mathfieldRef, waitingOpponent,
         finishGame
     } = useMatch();
 
@@ -66,8 +63,8 @@ const MathsMatch = () => {
             <div className='w-[100%] h-[100%] min-h-[35%] flex items-center justify-center'>
                 <MathMatch
                     mathfieldRef={mathfieldRef}
-                    // onValueChange={(val) => setAnswers(prev => ({ ...prev, [currentQuestion]: val }))}
-                    // className={`${result_colour()},${read_only}`}
+                // onValueChange={(val) => setAnswers(prev => ({ ...prev, [currentQuestion]: val }))}
+                // className={`${result_colour()},${read_only}`}
                 ></MathMatch>
             </div>
             <div className='w-[100%] h-[6rem]  flex flex-shrink-0 items-center justify-evenly rounded-4xl'>

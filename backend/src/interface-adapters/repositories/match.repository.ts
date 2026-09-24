@@ -1,9 +1,7 @@
 import { Repository } from 'typeorm';
 import { Matches } from 'src/entities/database/match.entities';
 import { IMatchRepository } from 'src/application/interfaces/repositories/IMatchRepository';
-import { MatchMode, MatchStatus, MatchType, MatchPlayer } from 'src/entities/dtos/match/match.dto';
-import { MatchHistoryRow } from 'src/entities/dtos/match/match.dto';
-import { MatchResultDTO } from 'src/entities/dtos/match/match.dto';
+import { MatchMode, MatchStatus, MatchType, MatchPlayer, MatchHistoryRow, MatchResultDTO } from 'src/entities/dtos/matches/match.dto';
 import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
 
 export class MatchRepository implements IMatchRepository {

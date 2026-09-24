@@ -1,5 +1,5 @@
-import { PlayerDTO, RoundDTO } from "../components.dto";
-import { MatchMode, MatchStatus } from "../match/match.dto";
+import { PlayerDTO, RoundDTO } from "src/entities/dtos/matches/match-component.dto";
+import { MatchMode, MatchStatus } from "src/entities/dtos/matches/match.dto";
 
 export interface TournamentDTO {
     tournament_id: string,
