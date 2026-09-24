@@ -13,7 +13,7 @@ const RESULT_BADGE: Record<MatchOutcome, string> = {
 };
 
 const formatDate = (iso: string): string =>
-  new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+  new Date(iso).toLocaleDateString('en-UK', { month: 'short', day: 'numeric' })
 
 const RecentGames: React.FC<RecentGamesProps> = ({ games, ceiling }) => {
     if (games.length === 0) {
