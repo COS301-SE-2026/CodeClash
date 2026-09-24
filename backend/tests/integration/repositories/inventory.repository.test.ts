@@ -36,11 +36,23 @@ describe('Tests InventoryRepository', () =>{
     });
 
     afterAll(async () => {
-
+        await data_source.getRepository(UserItem).delete({ user: { user_id } });
+        await data_source.getRepository(ShopItem).delete(item_ids);
+        await data_source.getRepository(Users).delete({ cognito_id });
     });
 
     it('Grants and returns an owned item', async () => {
+        await data_source.getRepository(UserItem).save(
+            data_source.getRepository(UserItem).create({
+                user: { user_id } as any,
+                shop_item: { shop_item_id: item_ids[0] } as any
+            })
+        );
 
+        const items = await repo.getUserItems(user_id);
+
+        expect(items).toHaveLength(1);
+        expect(items[0].item.shop_item_id).toBe(item_ids[0]);
     });
 
     it('Confirms hasItem is true for an owned item', async () => {
