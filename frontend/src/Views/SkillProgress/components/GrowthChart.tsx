@@ -159,11 +159,11 @@ const GrowthChart: React.FC<GrowthChartProps> = ({ growth, ceiling }) => {
                 <div className="mt-3 flex flex-wrap items-center gap-4 text-xsm text-muted-text">
                     <span className="flex items-center gap-2">
                         <span className="h-1.5 w-5 rounded-full bg-primary" />
-                        Mastery score after each game
+                        <span>Mastery score after each game</span>
                     </span>
                     <span className="flex items-center gap-2">
                         <span className="h-px w-5 border-t-2 border-dashed border-primary-text opacity-70" />
-                        Least squares trend
+                        <span>Least squares trend</span>
                     </span>
                     <span className="ml-auto">Fit r² {growth.fit.toFixed(2)}</span>
                 </div>
