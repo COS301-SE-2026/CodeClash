@@ -68,3 +68,107 @@ const GrowthChart: React.FC<GrowthChartProps> = ({ growth, ceiling }) => {
 
     const active = hovered === null ? null : chart.points[hovered];
 
+    return (
+            <div className="relative">
+                <svg viewBox={`0 0 ${WIDTH} ${HEIGHT}`} className="w-full h-auto" role="img" aria-label="Mastery over the growth window">
+                    <defs>
+                        <linearGradient id="growth-area" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.35" />
+                            <stop offset="100%" stopColor="var(--primary)" stopOpacity="0" />
+                        </linearGradient>
+                    </defs>
+    
+                    {chart.gridlines.map(gridline => (
+                        <g key={gridline.y}>
+                            <line
+                                x1={PADDING.left}
+                                x2={WIDTH - PADDING.right}
+                                y1={gridline.y}
+                                y2={gridline.y}
+                                stroke="var(--border)"
+                                strokeWidth={1}
+                            />
+                            <text
+                                x={PADDING.left - 10}
+                                y={gridline.y + 4}
+                                textAnchor="end"
+                                fontSize="11"
+                                fill="var(--muted-text)"
+                            >
+                                {gridline.label}
+                            </text>
+                        </g>
+                    ))}
+    
+                    {chart.points.length > 1 && (
+                        <>
+                            <polygon points={chart.area} fill="url(#growth-area)" />
+                            <polyline
+                                points={chart.line}
+                                fill="none"
+                                stroke="var(--primary)"
+                                strokeWidth={2.5}
+                                strokeLinejoin="round"
+                                strokeLinecap="round"
+                            />
+                        </>
+                    )}
+    
+                    {/*The least squares trend line - its slope is the Growth number.*/}
+                    <line
+                        x1={chart.trendStart.x}
+                        y1={chart.trendStart.y}
+                        x2={chart.trendEnd.x}
+                        y2={chart.trendEnd.y}
+                        stroke="var(--primary-text)"
+                        strokeWidth={1.5}
+                        strokeDasharray="6 6"
+                        opacity={0.75}
+                    />
+    
+                    {chart.points.map((point, index) => (
+                        <circle
+                            key={`${point.playedAt}-${index}`}
+                            cx={point.cx}
+                            cy={point.cy}
+                            r={hovered === index ? 6 : 3.5}
+                            fill={hovered === index ? 'var(--primary-text)' : 'var(--primary)'}
+                            stroke="var(--background)"
+                            strokeWidth={1.5}
+                            onMouseEnter={() => setHovered(index)}
+                            onMouseLeave={() => setHovered(null)}
+                            style={{ cursor: 'pointer' }}
+                        />
+                    ))}
+    
+                    <text x={PADDING.left} y={HEIGHT - 10} fontSize="11" fill="var(--muted-text)">
+                        {formatDay(chart.points[0]!.playedAt)}
+                    </text>
+                    <text x={WIDTH - PADDING.right} y={HEIGHT - 10} textAnchor="end" fontSize="11" fill="var(--muted-text)">
+                        {formatDay(chart.points[chart.points.length - 1]!.playedAt)}
+                    </text>
+                </svg>
+    
+                {active && (
+                    <div className="absolute top-2 right-2 rounded-xl border border-border bg-card px-3 py-2 backdrop-blur-md">
+                        <p className="text-xsm font-bold text-primary-text">Mastery {active.mastery.toFixed(2)}</p>
+                        <p className="text-xsm text-muted-text">{formatDay(active.playedAt)}</p>
+                    </div>
+                )}
+    
+                <div className="mt-3 flex flex-wrap items-center gap-4 text-xsm text-muted-text">
+                    <span className="flex items-center gap-2">
+                        <span className="h-1.5 w-5 rounded-full bg-primary" />
+                        Mastery score after each game
+                    </span>
+                    <span className="flex items-center gap-2">
+                        <span className="h-px w-5 border-t-2 border-dashed border-primary-text opacity-70" />
+                        Least squares trend
+                    </span>
+                    <span className="ml-auto">Fit r² {growth.fit.toFixed(2)}</span>
+                </div>
+            </div>
+        );
+    };
+    
+    export default GrowthChart;
