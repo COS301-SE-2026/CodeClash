@@ -71,12 +71,13 @@ describe('Tests PurchaseService', () => {
     });
 
     it('Throws and does not deduct balance when balance is insufficient', async () => {
+        await wallet_repo.updateBalance(user_id, -400);
         const item_id = item_ids.find((_, i) => mock_shop_items[i]!.category === 'theme' && mock_shop_items[i]!.price! >0)!;
 
         await expect(purchase_service.purchaseItem(user_id, item_id!)).rejects.toThrow('Insufficient balance');
 
         const wallet = await wallet_repo.getWallet(user_id);
-        expect(wallet!.balance).toBe(400);
+        expect(wallet!.balance).toBe(0);
     });
 
     it('Throws when item does not exist', async () => {

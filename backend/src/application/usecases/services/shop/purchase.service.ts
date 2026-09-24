@@ -25,7 +25,7 @@ export class PurchaseService {
 
             const wallet = await walletRepo.findOne({ where: { user: { user_id } } });
             if(!wallet) throw new Error('Wallet not found');
-            if (wallet.balance < item.price) throw new Error('Indufficient balance');
+            if (wallet.balance < item.price) throw new Error('Insufficient balance');
 
             await walletRepo.update({ wallet_id: wallet.wallet_id }, { balance: wallet.balance - item.price });
 

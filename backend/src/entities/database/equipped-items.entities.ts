@@ -40,7 +40,7 @@ export class EquippedItems {
     powerup?: ShopItem | null;
 
     @ManyToOne(() => ShopItem, { nullable: true })
-    @JoinColumn({ name: 'theme_item_id' })
+    @JoinColumn({ name: 'theme_id' })
     theme?: ShopItem | null;
     
     @UpdateDateColumn()

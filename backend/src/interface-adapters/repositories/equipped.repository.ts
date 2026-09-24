@@ -28,7 +28,7 @@ export class EquippedRepository implements IEquippedRepository {
     async getEquipped(user_id: string): Promise<EquippedItemsDTO | null> {
         const equipped  = await this.equippedRepo.findOne({
             where: { user: { user_id } },
-            relations: { user: true, avatar: true, headwear: true, neckwear: true, facewear: true, belt: true, one_piece: true, powerup: true }
+            relations: { user: true, avatar: true, headwear: true, neckwear: true, facewear: true, belt: true, one_piece: true, powerup: true, theme: true }
         });
         return equipped ? this.toDTO(equipped) : null;
     }
@@ -44,6 +44,7 @@ export class EquippedRepository implements IEquippedRepository {
         if (updates.belt_id !== undefined) payload.belt = { shop_item_id: updates.belt_id };
         if (updates.one_piece_id !== undefined) payload.one_piece = { shop_item_id: updates.one_piece_id };
         if (updates.powerup_item_id !== undefined) payload.powerup = { shop_item_id: updates.powerup_item_id };
+        if (updates.theme_id !== undefined) payload.theme = { shop_item_id: updates.theme_id };
 
         if (!equipped) {
             await this.equippedRepo.save(this.equippedRepo.create({
