@@ -147,7 +147,7 @@ return (
                           />
       </div>
 
-      {/*Growth and components, the two halves of the doc*/}
+      {/*growht section, seperated into sections for the chart and section items*/}
                       <div className="grid grid-cols-1 xl:grid-cols-[1.35fr_1fr] gap-6 items-start">
                           <SectionCard
                               title={content.growthTitle}
@@ -165,15 +165,45 @@ return (
                           <SectionCard
                               title={content.componentsTitle}
                               hint={content.componentsHint}
-                              icon={<Gauge size={18} className="text-primary" />}
+          icon={<Gauge size={18} className="text-primary" />}
+          {/*component bars to see mastery based on overall domain*/}
                           >
                               <ComponentBars components={components} grouped={domain === 'overall'} />
                           </SectionCard>
-                      </div>
+      </div>
+      {/*Difficulty split, recent games and the written takeaways*/}
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 items-start">
+          <SectionCard
+              title={content.difficultyTitle}
+              hint={content.difficultyHint}
+              icon={<Layers size={18} className="text-primary" />}
+          >
+              <DifficultyBands bands={bands} />
+          </SectionCard>
+
+          <SectionCard
+              title={content.gamesTitle}
+              hint={content.gamesHint}
+              icon={<Activity size={18} className="text-primary" />}
+          >
+              <RecentGames games={recentGames} ceiling={masteryCeiling} />
+          </SectionCard>
+
+          <SectionCard
+              title={content.insightsTitle}
+              icon={<Sparkles size={18} className="text-primary" />}
+          >
+              <InsightList insights={insights} />
+          </SectionCard>
+      </div>
+  </div>
+</div>
+);
+};
       
 
         
-    );
+    
 
 
 export default SkillProgress;
