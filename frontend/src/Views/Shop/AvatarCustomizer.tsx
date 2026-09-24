@@ -1,39 +1,11 @@
 //this is the shops 'Avatar tab'
 
-import React, { useState } from "react";
+import React from "react";
 import { useInventory } from "src/context/Shop/InventoryContext";
 import { tryOn } from "src/ViewModels/Shop/TryOn";
 import {AvatarRenderer} from "src/avatar/AvatarRenderer"
-import type { AvatarShopItem, AccessoryShopItem, AccessorySlot, ShopItem } from "src/Models/ShopModel";
-import { Check, CircleDot, Crown, Gem, Glasses, Loader2, RotateCcw, Save, Shirt, Wind, Sparkles, Users } from "lucide-react";
-
-const accTabs: {id: AccessorySlot; label: string; icon: React.ComponentType<{size?: number}>}[] = [
-    {
-        id: 'headwear',
-        label: 'Headwear',
-        icon: Crown
-    },
-    {
-        id: 'neckwear',
-        label: 'Neckwear',
-        icon: Gem
-    },
-    {
-        id: 'facewear',
-        label: 'Facewear',
-        icon: Glasses
-    },
-    {
-        id: 'belt',
-        label: 'Belts',
-        icon: CircleDot
-    },
-    {
-        id: 'cape',
-        label: 'Capes & Cloaks',
-        icon: Wind
-    }
-]
+import type { AvatarShopItem, ShopItem } from "src/Models/ShopModel";
+import { Loader2, RotateCcw, Save,Sparkles, Users } from "lucide-react";
 
 const PriceTag: React.FC<{amount: number}> = ({amount}) => (
     <div style={{display: 'flex', alignItems: 'center', gap: '0.3rem', color: 'var(--muted)', fontSize: '0.85rem', fontWeight: 700}}>
@@ -54,21 +26,15 @@ const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasing
         draftAvatarId,
         draftAvatar,
         draftAvatarImg,
-        draftAccessories,
-        draftAccessoryImg,
         isAvatarUnowned,
         hasUnsavedChanges,
         saving,
         tryOnAvatar,
-        tryOnAccessories,
         reset,
         saveOutfit
     } = tryOn();
 
-    const [activeSlot, setActiveSlot] = useState<AccessorySlot>('headwear');
-
     const avatars = catalog.filter((i): i is AvatarShopItem => i.category === 'avatar');
-    const accessories = catalog.filter((i): i is AccessoryShopItem => i.category === 'accessory' && i.slot === activeSlot);
 
     let stateLabel: React.ReactNode;
     if (purchasingId === draftAvatarId) {
@@ -108,7 +74,7 @@ const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasing
                     )}
                 </div>
                 <div style={{flex: '0 0 auto'}}>
-                    <AvatarRenderer avatarImageUrl={draftAvatarImg} bodyType={draftAvatar?.bodyType} accessories={draftAccessoryImg} style={{width: '200px', height: 'auto', maxWidth: '40vw'}}/>
+                    <AvatarRenderer avatarImageUrl={draftAvatarImg} style={{width: '200px', height: 'auto', maxWidth: '40vw'}}/>
                 </div>
             </div>
 
@@ -139,84 +105,8 @@ const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasing
                     )
                 })}
             </div>
-
-            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1.5rem'}}>
-                <h2 className="section-title text-md" style={{display: 'flex', alignItems: 'center', gap: '0.5rem', margin: 0}}>
-                    <Shirt size={18}/> Wardrobe &amp; Accessories
-                </h2>
-            </div>
-
-            <div style={{display: 'flex',gap: '0.5rem', overflowX: 'auto', paddingBottom: '0.5rem', marginBottom: '1.5rem'}}>
-                {accTabs.map((tab) => {
-                    const active = activeSlot === tab.id;
-                    const Icon = tab.icon;
-                    return (
-                        <button key={tab.id} type="button" onClick={()=> setActiveSlot(tab.id)}  
-                            style={{display: 'flex',alignItems: 'center', gap: '0.4rem', padding: '0.5rem 1rem', borderRadius: '999px', fontSize: '0.8rem',border: active ? '2px solid var(--primary)' : '1px solid var(--border)',
-                                    background: active ? 'var(--primary)' : 'var(--background-card)', color: active ? 'var(--muted)' : 'var(--primary)',  cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0
-                                }}>
-                            <Icon size={14}/>
-                            {tab.label}
-                        </button>
-                    )
-                })}
-            </div>
-
-            <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '1.25rem'}}>
-                {accessories.map((item) => {
-                    const owned = isOwned(item.id);
-                    const inDraft = draftAccessories[item.slot] === item.id;
-                    return (
-                        <AccessoryCards key={item.id} item={item} owned={owned} inDraft={inDraft} purchasing={purchasingId === item.id}
-                            affordable={canAfford(item)} onTryOn={()=> tryOnAccessories(item.slot, item.id)} onBuy={()=> purchase(item.id)}/>
-                    )
-                })}
-                {accessories.length === 0 && (
-                    <p className="text-muted text-sm whitespace-nowrap">Nothing in this category yet.</p>
-                )}
-            </div>
         </div>
     )
 }
-
-interface AccessoryCardsProps {
-    item: AccessoryShopItem;
-    owned: boolean;
-    inDraft: boolean;
-    purchasing: boolean;
-    affordable: boolean;
-    onTryOn: () => void;
-    onBuy: () => void;
-}
-
-const AccessoryCards: React.FC<AccessoryCardsProps> = ({item,owned, inDraft, purchasing, affordable, onTryOn, onBuy}) => (
-    <div className="card-glass" style={{padding: '1.1rem', display: 'flex', flexDirection: 'column', 
-        border: inDraft ? '2px solid var(--primary)' : '1px solid var(--border)',gap: '0.6rem'}}>
-        <div style={{height: '90px', borderRadius : 'var(--radius-md, 18px)', background: 'var(--background-elevated)', border: '1px solid var(--border)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden'}}>
-            {item.previewImageUrl && <img src={item.previewImageUrl} alt={item.name} style={{maxHeight: '100%', maxWidth: '100%', objectFit: 'contain'}}/>}
-        </div>
-        <p style={{color: 'var(--primary-text)', fontWeight: 700, fontSize: '0.85rem'}}>{item.name}</p>
-        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-            <span style={{fontSize: '0.75rem', color: 'var(--muted)', fontWeight: 700}}>
-                <PriceTag amount={item.price.amount}/>
-            </span>
-            {owned ? (
-                inDraft ? (
-                    <button type="button" disabled className="btn btn-sm" style={{background: 'var(--background-elevated)', color: 'var(--muted)', cursor: 'default'}}>
-                        <Check size={14}/>
-                        Equipped
-                    </button>
-                ) : (
-                    <button type="button" onClick={onTryOn} className="btn btn-sm btn-secondary">Equip</button>
-                )
-            ) : (
-                <button type="button" onClick={onBuy} disabled={purchasing || !affordable} className="btn btn-sm btn-primary">
-                    {purchasing ? <Loader2 size={14} className="animate-spin"/> : affordable ? 'Buy' : "Can't afford"}
-                </button>
-            )}
-        </div>
-    </div>
-)
 
 export default AvatarCustomizer;
