@@ -14,7 +14,17 @@
     "test:frontend:coverage": "cd frontend && NODE_OPTIONS=--no-experimental-webstorage npx vitest run --coverage --mode dev",
     "lint": "npm run lint --prefix frontend && npm run lint --prefix backend",
     "lint:staged": "lint-staged",
-    "prepare": "husky"
+        "docker:dev:build": "docker compose --env-file .env.dev -f dockerfile/docker-compose.dev.yml up -d --build",
+        "docker:dev": "docker compose --env-file .env.dev -f dockerfile/docker-compose.dev.yml up -d",
+        "docker:dev:down": "docker compose --env-file .env.dev -f dockerfile/docker-compose.dev.yml down",
+        "docker:dev:down:v": "docker compose --env-file .env.dev -f dockerfile/docker-compose.dev.yml down -v",
+        "docker:test:build": "docker compose --env-file .env.test -f dockerfile/docker-compose.test.yml up -d --build",
+        "docker:test": "docker compose --env-file .env.test -f dockerfile/docker-compose.test.yml up -d",
+        "docker:test:down": "docker compose --env-file .env.test -f dockerfile/docker-compose.test.yml down",
+        "docker:test:down:v": "docker compose --env-file .env.test -f dockerfile/docker-compose.test.yml down -v",
+        "docker:prod:build": "docker compose --env-file .env -f dockerfile/docker-compose.prod.yml up -d --build",
+        "docker:prod:down": "docker compose --env-file .env -f dockerfile/docker-compose.prod.yml down",
+        "docker:prod:down:v": "docker compose --env-file .env -f dockerfile/docker-compose.prod.yml down -v"
   },
   "lint-staged": {
     "frontend/src/*/.{ts,tsx}": "eslint --fix",
