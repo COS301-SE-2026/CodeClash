@@ -18,11 +18,17 @@ const username = `equipped_test_${randomUUID}`;
 
 describe('Tests WalletRepository', () => {
     beforeAll(async () => {
+        data_source = await createTestDataSource();
+        repo = new WalletReposiroty(data_source.getRepository(Wallet));
+        user_repo = new UserRepository(data_source.getRepository(Users));
 
+        const user = await user_repo.createUser(username, `${username}@example.com`, cognito_id, 0, 'Mercury');
+        user_id = user.user_id!;
     });
 
     afterAll(async () => {
-
+        await data_source.getRepository(Wallet).delete({ user: { user_id } });
+        await data_source.getRepository(Users).delete({ cognito_id });
     });
 
     it('Returns null when the user has no wallet yet', async () => {
