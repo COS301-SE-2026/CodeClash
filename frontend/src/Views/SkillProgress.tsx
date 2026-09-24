@@ -81,23 +81,23 @@ return (
 
             <div className="relative z-10 max-w-[1400px] mx-auto flex flex-col gap-6">
                 {/*header section !!*/}
-                <div className="card-elevated p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+                <div className="card-elevated p-6 grid grid-cols-1 lg:grid-cols-3 lg:items-center gap-5">
                     <div>
-                        <p className="eyebrow text-primary">{content.eyebrow}</p>
+                        <p className="eyebrow text-primary">Measured over the last {masteryWindow} games</p>
                         <h1 className="text-xl font-black text-primary-text mt-1">{content.title}</h1>
                         <p className="text-xsm text-muted-text mt-1">{content.subtitle}</p>
-        </div>
-
-        <div className="flex flex-col items-start lg:items-end gap-3">
-          {/*still top section but now adding extra information*/}
-            <DomainToggle domain={domain} onChange={setDomain} />
-            <div className="flex flex-wrap items-center gap-2">
-                {league && <span className="badge badge-status-correct uppercase">{league} league</span>}
-                <span className="badge badge-status-pending">Elo {elo}</span>
-                <span className="badge badge-status-pending">Last {masteryWindow} games</span>
-            </div>
-        </div>
-      </div>
+                    </div>
+                    {/*elo sits in the middle of the header, the same figure the rest of the app ranks on*/}
+                    <div className="flex flex-col items-start lg:items-center lg:justify-self-center">
+                        <p className="text-xsm uppercase tracking-wide font-bold text-muted-text">Elo</p>
+                        <p className="score-display text-4xl font-black leading-none mt-2">{elo}</p>
+                    </div>
+                    <div className="flex flex-col items-start lg:items-end lg:justify-self-end gap-2">
+                        {/*still top section but now adding extra information*/}
+                        <DomainToggle domain={domain} onChange={setDomain} />
+                        {league && <p className="text-xsm uppercase tracking-wide font-bold text-muted-text">{league} league</p>}
+                    </div>
+                </div>
 
       {/*error stuff along with telematry source and simulated items*/}
       {error && <div className="card-elevated p-4 text-xsm text-danger">{error}</div>}
