@@ -14,3 +14,26 @@ import StatTile from './SkillProgress/components/StatTile';
 
 import Loading from '@/components/shared/Loading';
 import Starfield from '@/components/ui/animations/Starfield';
+
+const SectionCard: React.FC<{
+    title: string;
+    hint?: string;
+    icon?: React.ReactNode;
+    action?: React.ReactNode;
+    children: React.ReactNode;
+    className?: string;
+}> = ({ title, hint, icon, action, children, className }) => (
+    <div className={`card-elevated p-6 flex flex-col gap-4 ${className ?? ''}`}>
+        <div className="flex items-start justify-between gap-3">
+            <div>
+                <div className="flex items-center gap-2">
+                    {icon}
+                    <h2 className="text-sm font-black text-primary-text">{title}</h2>
+                </div>
+                {hint && <p className="text-xsm text-muted-text mt-1 leading-snug">{hint}</p>}
+            </div>
+            {action}
+        </div>
+        {children}
+    </div>
+);
