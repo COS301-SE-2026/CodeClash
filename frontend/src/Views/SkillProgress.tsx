@@ -73,4 +73,21 @@ const SkillProgress: React.FC = () => {
     
 };
 
+return (
+<div className="relative w-full min-h-screen overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/75 to-background" />
+            <Starfield count={30} />
+
+            <div className="relative z-10 max-w-[1400px] mx-auto flex flex-col gap-6">
+                {/*Header: who this is for, and the domain filter*/}
+                <div className="card-elevated p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+                    <div>
+                        <p className="eyebrow text-primary">{content.eyebrow}</p>
+                        <h1 className="text-xl font-black text-primary-text mt-1">{content.title}</h1>
+                        <p className="text-xsm text-muted-text mt-1">{content.subtitle}</p>
+                    </div>
+        
+    );
+
+
 export default SkillProgress;
