@@ -359,6 +359,11 @@
   --font-size-3xl: 3.6rem;
 
   --life-primary: #C0395A;
+
+  /*for the radial gradients*/
+  --glow-1: #b91551;
+  --glow-2: #850f3b;
+  --glow-3: #630b3c;
 }
 
 /*These are copied from :root and adjusted for light mode*/
@@ -430,6 +435,300 @@
     --glow-shadow: 0 0 24px rgba(192, 57, 90, 0.22);
 
     --life-primary: #C0395A;
+
+    /*for the radial gradients*/
+    --glow-1: #f6c9d6;
+    --glow-2: #f9dde4;
+    --glow-3: #fceef1;
+}
+
+/*These are copied from :root.light and adjusted for more themes*/
+/*A light blue, frost kind of theme - like winter in space*/
+:root.frost, [data-theme = 'frost'] {
+
+    /*Backgrounds*/
+    --background: #020a14;
+    --background-elevated: rgba(231, 244, 255, 0.03);
+    --background-card: rgba(231, 244, 255, 0.05);
+
+    --primary: #2f8fe0;
+    --primary-dark: #14487a;
+    --secondary: #e2f2fd;
+
+    /*Text*/
+    --text: #e7f4ff;
+    --primary-text: #e7f4ff;
+    --secondary-text: #123a63;
+    --muted:rgba(231, 244, 255, 0.65);
+    --muted-text: rgba(231, 244, 255, 0.50);
+
+    /*Borders*/
+    --border: rgba(231, 244, 255, 0.08);
+    --border-hover: rgba(231, 244, 255, 0.18);
+
+    /*Cards*/
+    --card: var(--background-card);
+    --card-text: var(--primary-text);
+
+    /*Sidebar*/
+    --sidebar: #020a14;
+    --sidebar-text: var(--primary-text);
+    --sidebar-primary: #2f8fe0;
+    --sidebar-primary-text: #ffffff;
+    --sidebar-accent: rgba(231, 244, 255, 0.05);
+    --sidebar-accent-text: var(--primary-text);
+    --sidebar-border: rgba(231, 244, 255, 0.08);
+    --sidebar-ring: #2f8fe0;
+
+    /* Buttons */
+    --button-primary: #2f8fe0;
+    --button-secondary: transparent;
+    --button-text-primary: #FFFFFF;
+    --button-text-secondary: #e7f4ff;
+
+    /*Inputs*/
+    --input: rgba(231, 244, 255, 0.05);
+    --ring: #2f8fe0;
+    --accent: #4fa8f5;
+    --accent-text: #ffffff;
+    --destructive: #c62828;
+
+    /*Status*/
+    --success: #2e7d32;
+    --danger: #c62828;
+    --warning: #b76e00;
+    --info: #1565c0;
+    --secondary-muted: rgba(231, 244, 255, 0.4);
+
+    /*Difficulty for questions*/
+    --difficulty-easy: #2e7d32;
+    --difficulty-medium: #b76e00;
+    --difficulty-hard: #c62828;
+
+     /*Shadows*/
+    --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --card-shadow: 0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25);
+    --glow-shadow: 0 0 24px rgba(47, 143, 224, 0.45);
+
+    --life-primary: #2f8fe0;
+
+    /*for the radial gradients*/
+    --glow-1: #4fa8f5;
+    --glow-2: #14487a;
+    --glow-3: #0a2540;
+}
+
+/*These are copied from :root.light and adjusted for more themes*/
+/*A midnight gold theme - like a more premium space */
+:root.gold, [data-theme = 'gold'] {
+
+    /*Backgrounds*/
+    --background: #05070f;
+    --background-elevated: rgba(242, 236, 216, 0.03);
+    --background-card: rgba(242, 236, 216, 0.05);
+
+    --primary: #d4af37;
+    --primary-dark: #6b5716;
+    --secondary: #f7edcf;
+
+    /*Text*/
+    --text: #f2ecd8;
+    --primary-text: #f2ecd8;
+    --secondary-text: #4a3c10;
+    --muted:rgba(242, 236, 216, 0.65);
+    --muted-text: rgba(242, 236, 216, 0.50);
+
+    /*Borders*/
+    --border: rgba(242, 236, 216, 0.08);
+    --border-hover: rgba(242, 236, 216, 0.18);
+
+    /*Cards*/
+    --card: var(--background-card);
+    --card-text: var(--primary-text);
+
+    /*Sidebar*/
+    --sidebar: #05070f;
+    --sidebar-text: var(--primary-text);
+    --sidebar-primary: #d4af37;
+    --sidebar-primary-text: #ffffff;
+    --sidebar-accent: rgba(242, 236, 216, 0.05);
+    --sidebar-accent-text: var(--primary-text);
+    --sidebar-border: rgba(242, 236, 216, 0.08);
+    --sidebar-ring: #d4af37;
+
+    /* Buttons */
+    --button-primary: #d4af37;
+    --button-secondary: transparent;
+    --button-text-primary: #FFFFFF;
+    --button-text-secondary: #f2ecd8;
+
+    /*Inputs*/
+    --input: rgba(242, 236, 216, 0.05);
+    --ring: #d4af37;
+    --accent: #e8c34a;
+    --accent-text: #ffffff;
+    --destructive: #c62828;
+
+    /*Status*/
+    --success: #2e7d32;
+    --danger: #c62828;
+    --warning: #b76e00;
+    --info: #1565c0;
+    --secondary-muted: rgba(242, 236, 216, 0.4);
+
+    /*Difficulty for questions*/
+    --difficulty-easy: #2e7d32;
+    --difficulty-medium: #b76e00;
+    --difficulty-hard: #c62828;
+
+     /*Shadows*/
+    --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --card-shadow: 0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25);
+    --glow-shadow: 0 0 24px rgba(212, 175, 55, 0.45);
+
+    --life-primary: #d4af37;
+}
+
+/*These are copied from :root.light and adjusted for more themes*/
+/*A nebula violet theme - like a more modern sci-fi space */
+:root.nebula, [data-theme = 'nebula'] {
+
+    /*Backgrounds*/
+    --background: #0d0518;
+    --background-elevated: rgba(242, 233, 255, 0.03);
+    --background-card: rgba(242, 233, 255, 0.05);
+
+    --primary: #8b3fd6;
+    --primary-dark: #4a1d80;
+    --secondary: #f0e5fc;
+
+    /*Text*/
+    --text: #f2e9ff;
+    --primary-text: #f2e9ff;
+    --secondary-text: #3d1a66;
+    --muted:rgba(242, 233, 255, 0.65);
+    --muted-text: rgba(242, 233, 255, 0.50);
+
+    /*Borders*/
+    --border: rgba(242, 233, 255, 0.08);
+    --border-hover: rgba(242, 233, 255, 0.18);
+
+    /*Cards*/
+    --card: var(--background-card);
+    --card-text: var(--primary-text);
+
+    /*Sidebar*/
+    --sidebar: #0d0518;
+    --sidebar-text: var(--primary-text);
+    --sidebar-primary: #8b3fd6;
+    --sidebar-primary-text: #ffffff;
+    --sidebar-accent: rgba(242, 233, 255, 0.05);
+    --sidebar-accent-text: var(--primary-text);
+    --sidebar-border: rgba(242, 233, 255, 0.08);
+    --sidebar-ring: #8b3fd6;
+
+    /* Buttons */
+    --button-primary: #8b3fd6;
+    --button-secondary: transparent;
+    --button-text-primary: #FFFFFF;
+    --button-text-secondary: #f2e9ff;
+
+    /*Inputs*/
+    --input: rgba(242, 233, 255, 0.05);
+    --ring: #8b3fd6;
+    --accent: #a855f7;
+    --accent-text: #ffffff;
+    --destructive: #e53935;
+
+    /*Status*/
+    --success: #2e7d32;
+    --danger: #c62828;
+    --warning: #b76e00;
+    --info: #1565c0;
+    --secondary-muted: rgba(242, 233, 255, 0.4);
+
+    /*Difficulty for questions*/
+    --difficulty-easy: #2e7d32;
+    --difficulty-medium: #b76e00;
+    --difficulty-hard: #c62828;
+
+     /*Shadows*/
+    --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --card-shadow: 0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25);
+    --glow-shadow: 0 0 24px rgba(139, 63, 214, 0.45);
+
+    --life-primary: #8b3fd6;
+}
+
+/*These are copied from :root.light and adjusted for more themes*/
+/*A green verdant theme - like an alien dominant space */
+:root.verdant, [data-theme = 'verdant'] {
+
+    /*Backgrounds*/
+    --background: #06140a;
+    --background-elevated: rgba(232, 247, 217, 0.03);
+    --background-card: rgba(232, 247, 217, 0.05);
+
+    --primary: #9ccc3c;
+    --primary-dark: #4d661d;
+    --secondary: #f1f9e0;
+
+    /*Text*/
+    --text: #e8f7d9;
+    --primary-text: #e8f7d9;
+    --secondary-text: #3c5015;
+    --muted:rgba(232, 247, 217, 0.65);
+    --muted-text: rgba(232, 247, 217, 0.50);
+
+    /*Borders*/
+    --border: rgba(232, 247, 217, 0.08);
+    --border-hover: rgba(232, 247, 217, 0.18);
+
+    /*Cards*/
+    --card: var(--background-card);
+    --card-text: var(--primary-text);
+
+    /*Sidebar*/
+    --sidebar: #06140a;
+    --sidebar-text: var(--primary-text);
+    --sidebar-primary: #9ccc3c;
+    --sidebar-primary-text: #ffffff;
+    --sidebar-accent: rgba(232, 247, 217, 0.05);
+    --sidebar-accent-text: var(--primary-text);
+    --sidebar-border: rgba(232, 247, 217, 0.08);
+    --sidebar-ring: #9ccc3c;
+
+    /* Buttons */
+    --button-primary: #9ccc3c;
+    --button-secondary: transparent;
+    --button-text-primary: #FFFFFF;
+    --button-text-secondary: #e8f7d9;
+
+    /*Inputs*/
+    --input: rgba(232, 247, 217, 0.05);
+    --ring: #9ccc3c;
+    --accent: #b6e34f;
+    --accent-text: #ffffff;
+    --destructive: #e53935;
+
+    /*Status*/
+    --success: #2e7d32;
+    --danger: #c62828;
+    --warning: #b76e00;
+    --info: #1565c0;
+    --secondary-muted: rgba(232, 247, 217, 0.4);
+
+    /*Difficulty for questions*/
+    --difficulty-easy: #2e7d32;
+    --difficulty-medium: #b76e00;
+    --difficulty-hard: #c62828;
+
+     /*Shadows*/
+    --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --card-shadow: 0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25);
+    --glow-shadow: 0 0 24px rgba(156, 204, 60, 0.45);
+
+    --life-primary: #9ccc3c;
 }
 
 @layer base {

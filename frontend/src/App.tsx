@@ -23,7 +23,7 @@ import SignUp from "./Views/SignUp";
 import Loading from "@/components/shared/Loading";
 import Tournaments from "./Views/Tournaments";
 import Agent from "./Views/AIAgent";
-import Shop from "./Views/Shop";
+import Shop from "./Views/Shop/Shop";
 import Friends from "./Views/Friends/Friends";
 import Achievements from "./Views/Achievements";
 import Settings from "./Views/Settings";

@@ -1,13 +1,12 @@
 import React, { useEffect, useMemo, useState, type ReactNode } from "react";
-import { robot_map } from "src/assets/Robots";
-import { authGet } from "src/services/api.service";
+import { useInventory } from "../Shop/InventoryContext";
+import { API } from "src/services/api.service";
 import { useAuth } from "../Auth/hooks/useAuth";
 
 import { UserContext } from "./UserContextValue";
 
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [elo, setElo] = useState(0);
-    const [avatar, setAvatar] = useState('');
     const [error, setError] = useState('');
     const [league, setLeague] = useState('');
     const { user, token } = useAuth();
@@ -18,29 +17,38 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const userId = user?.userId ?? ""
     const username = user?.username ?? '';
 
+    const {equippedAvatarImage, equippedAvatarBodyType, equippedAccessoryImage} = useInventory();
+    const avatar = equippedAvatarImage ?? '';
+    const avatarBodyType = equippedAvatarBodyType;
+    const accessoryImages = equippedAccessoryImage;
 
     const getElo = async () => {
+
+        if (!token) {
+            setError('Missing or Invalid Token');
+            return;
+        }
+
         try {
-            const data = await authGet<{ rating: number }>('elo/elo-get', token!);
-            setElo(data.rating);
+
+            API.get('elo/elo-get', {
+                headers: { Authorization: `Bearer ${token}` }
+            })
+                .then((res) => {
+                    if (res.status === 200) {
+
+                        setElo(res.data.rating)
+                        setError('');
+                    }
+                    else {
+                        setError(`Error: ${res.status} ${res.data}`);
+                    }
+                })
         } catch (error) {
             setError(`Error Getting User Elo: ${error}`);  ///TODO: connect to notification system
 
         }
     }
-
-    const getAvatarUrl = async () => {
-
-        try {
-            const data = await authGet<{ avatar_id: number }>('user/avatar_id', token!);
-            setAvatar(robot_map[data.avatar_id]);
-
-        }
-        catch (error) {
-            setError(`Error Getting User Avatar: ${error}`); ///TODO: connect to notification system
-        }
-    }
-
 
     const getLeague = async () => {
         try {
@@ -92,7 +100,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         
         await Promise.all([
             getElo(),
-            getAvatarUrl(),
             getLeague(),
             getRank(),
             getCurrentStreak(),
@@ -107,7 +114,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
         const load = async () => {
             await Promise.all([
-                getAvatarUrl(),
                 getLeague(),
                 getElo(),
                 getRank(),
@@ -121,8 +127,8 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
 
     const value = useMemo(() => ({
-        username, elo, avatar, error, league, userId, refresh, rank, current_streak, winning_streak
-    }), [username, elo, avatar, error, league, userId, rank, current_streak, winning_streak])
+        username, elo, avatar, avatarBodyType, accessoryImages, error, league, userId, refresh, rank, current_streak, winning_streak
+    }), [username, elo, avatar, avatarBodyType, accessoryImages, error, league, userId, rank, current_streak, winning_streak])
 
     return (
         <UserContext.Provider

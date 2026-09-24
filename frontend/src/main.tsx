@@ -8,30 +8,33 @@ import './amplify-config'
 import './styles/global.css'
 import { MatchmakingProvider } from './context/Matchmaking/MatchmakingContext'
 import { SocketProvider } from './context/Socket/SocketContext'
-import { ThemeProvider } from './context/ThemeContext'
+import { ThemeProvider } from './context/Shop/ThemeContext'
 import { UserProvider } from './context/User/UserContext'
 import { FriendsProvider } from './context/Friends/FriendsContext'
 import FriendInvitePopup from './Views/Friends/FriendInvitePopup'
+import { InventoryProvider } from './context/Shop/InventoryContext'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   // <React.StrictMode>
 
   <AuthProvider>
     <SocketProvider>
-      <UserProvider>
-        <MatchmakingProvider>
-          <FriendsProvider>
-            <BrowserRouter>
-            <AchievementToastProvider>
-            <ThemeProvider>
-              <App />
-              </ThemeProvider>
-              <FriendInvitePopup/>
-              </AchievementToastProvider>
-            </BrowserRouter>
-          </FriendsProvider>
-        </MatchmakingProvider>
-      </UserProvider>
+      <InventoryProvider>
+        <UserProvider>
+          <MatchmakingProvider>
+            <FriendsProvider>
+              <BrowserRouter>
+              <AchievementToastProvider>
+              <ThemeProvider>
+                <App />
+                </ThemeProvider>
+                <FriendInvitePopup/>
+                </AchievementToastProvider>
+              </BrowserRouter>
+            </FriendsProvider>
+          </MatchmakingProvider>
+        </UserProvider>
+      </InventoryProvider>
     </SocketProvider>
   </AuthProvider>
 

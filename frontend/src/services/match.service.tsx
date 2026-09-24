@@ -49,17 +49,65 @@ function shuffle(array: Question[]) {
     return array;
 }
 
-export const useGameQuestions = () => {
+export const useGameQuestions = (
+    match_id: string,
+    user_id: string,
+    socket: Socket,
+    game_type: GameType
+) => {
+    const nav = useNavigate();
 
-    const loadRounds = (data: RoundDTO[]) => {
-        if (!data || data.length === 0) {
-            return {
-                rounds: [] as Question[][],
-                duration: 0
-            }
+    const [questions, setQuestions] = useState<Question[]>([]);
+    const [duration, setDuration] = useState(0);
+    const [currentQuestion, setCurrentQuestion] = useState(0);
+    const [questionsReady, setQuestionsReady] = useState(false);
+    const [waitingOpponent, setWaitingOpponent] = useState(false);
+    const question_idx = useRef(0);
+
+
+    const startQuestion = (
+        player_id: string,
+        question_id: string,
+        question_number: number
+    ) => {
+        const data = {
+            match_id: match_id,
+            player: player_id,
+            question: question_id,
+            question_number: question_number
         }
 
-        const difficulties = ["Easy", "Medium", "Hard"] as const;
+        socket?.emit('question_started', data);
+    }
+
+    const nextQuestion = (curr: number) => {
+        if (curr < questions.length - 1) {
+            setCurrentQuestion(curr + 1);
+            startQuestion(user_id, questions[curr + 1].id!, curr + 1)
+        }
+    }
+
+    const prevQuestion = (curr: number) => {
+        if (curr > 0) {
+            setCurrentQuestion(curr - 1)
+            startQuestion(user_id, questions[curr - 1].id!, curr - 1)
+        }
+    }
+
+    const submitQuestion = (question_id: string, game_type: string, submission: ProgSubmissionDTO | MathsSubmissionDTO) => {
+        question_idx.current = currentQuestion;
+        submitAnswer(socket, parseInt(match_id), question_id, question_idx.current, game_type, submission);
+    }
+
+    const finishGame = () => {
+        if (currentQuestion === questions.length - 1) {
+            setWaitingOpponent(true)
+            endGame(parseInt(match_id), game_type, socket);
+        }
+    }
+
+    const loadQuestions = (data: GameQuestionsDTO) => {
+        const temp_arr: Question[] = [];
         let sumtime = 0;
 
 
@@ -91,7 +139,7 @@ export const useMatchProgress = (
     num_questions: number,
     players: Player[]
 ) => {
-    const [playerLife, setPlayerLife] = useState<number[]>([]);
+    const [playerLife, setPlayerLife] = useState<number[]>(() => players.map(p => p.life));
     const [opponentCurrent, setOpponentCurrent] = useState(0);
     const [opponentDone, setOpponentDone] = useState(false);
 
