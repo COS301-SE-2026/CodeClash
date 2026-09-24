@@ -1,0 +1,45 @@
+import { describe, expect, it, beforeAll, afterAll } from "vitest";
+import { DataSource } from "typeorm";
+import { randomUUID } from "node:crypto";
+import { createTestDataSource } from "../../test-data-source";
+import { Wallet } from "../../../src/entities/database/wallet.entities";
+import { Users } from "../../../src/entities/database/user.entities";
+import { WalletReposiroty } from "../../../src/interface-adapters/repositories/wallet.repository";
+import { UserRepository } from "../../../src/interface-adapters/repositories/user.repository";
+import { IUserRepository } from "../../../src/application/interfaces/repositories/IUserRepository";
+
+let data_source: DataSource;
+let repo: WalletReposiroty;
+let user_repo: IUserRepository;
+
+let user_id: string;
+const cognito_id = randomUUID();
+const username = `equipped_test_${randomUUID}`;
+
+describe('Tests WalletRepository', () => {
+    beforeAll(async () => {
+
+    });
+
+    afterAll(async () => {
+
+    });
+
+    it('Returns null when the user has no wallet yet', async () => {
+        const wallet = await repo.getWallet(user_id);
+
+        expect(wallet).toBeNull();
+    });
+
+    it('Creates a wallet with zero balance', async () => {
+
+    });
+
+    it('Increases balance with a positive delta', async () => {
+
+    });
+
+    it('Throws when balance would go negative', async () => {
+        await expect(repo.updateBalance(user_id, -1000)).rejects.toThrow('Insufficient balance');
+    });
+});

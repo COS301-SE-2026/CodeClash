@@ -10,7 +10,6 @@ import { EquippedRepository } from "../../../src/interface-adapters/repositories
 import { UserRepository } from "../../../src/interface-adapters/repositories/user.repository";
 import { IUserRepository } from "../../../src/application/interfaces/repositories/IUserRepository";
 import { mock_shop_items } from "../../mocks/mock-shop-items";
-import { mock } from "node:test";
 
 let data_source: DataSource;
 let repo: EquippedRepository;
