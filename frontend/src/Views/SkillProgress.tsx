@@ -145,6 +145,30 @@ return (
                               icon={<Target size={16} />}
                               progress={winRate}
                           />
+      </div>
+
+      {/*Growth and components, the two halves of the doc*/}
+                      <div className="grid grid-cols-1 xl:grid-cols-[1.35fr_1fr] gap-6 items-start">
+                          <SectionCard
+                              title={content.growthTitle}
+                              hint={content.growthHint}
+                              icon={<Activity size={18} className="text-primary" />}
+                              action={
+                                  <span className="badge badge-status-pending whitespace-nowrap">
+                                      {growthLabel} mastery / week
+                                  </span>
+                              }
+                          >
+                              <GrowthChart growth={growth} ceiling={masteryCeiling} />
+                          </SectionCard>
+      
+                          <SectionCard
+                              title={content.componentsTitle}
+                              hint={content.componentsHint}
+                              icon={<Gauge size={18} className="text-primary" />}
+                          >
+                              <ComponentBars components={components} grouped={domain === 'overall'} />
+                          </SectionCard>
                       </div>
       
 
