@@ -14,3 +14,6 @@ const PADDING = { top: 24, right: 24, bottom: 34, left: 44 };
 
 const PLOT_WIDTH = WIDTH - PADDING.left - PADDING.right;
 const PLOT_HEIGHT = HEIGHT - PADDING.top - PADDING.bottom;
+
+const formatDay = (iso: string): string =>
+    new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
