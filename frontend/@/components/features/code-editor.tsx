@@ -12,7 +12,7 @@ export const CodeEditor = ({ handleChange }: codeEditorProps) => {
     return (
         <Editor
             height="20vh"
-            width="100%"
+            width="90%"
             defaultLanguage="Java"
             defaultValue={placeholder}
             onChange={(value) => handleChange(value ?? '')}

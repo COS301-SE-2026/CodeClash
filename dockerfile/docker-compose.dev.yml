@@ -30,7 +30,7 @@ services:
     networks:
       - pgnetwork
 
-  frontend:
+  frontend:    
     build: 
       context: ../frontend
       args:
