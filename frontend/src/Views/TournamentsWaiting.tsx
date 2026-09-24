@@ -4,9 +4,13 @@ import TournamentButton from "@/components/ui/TournamentButton"
 import { Progress } from "@/components/ui/progress"
 import { TournamentPlayer } from "@/components/ui/TournamentPlayer"
 import { MatchCard } from "@/components/ui/MatchCard"
+import { useNavigate } from "react-router-dom"
 
 
 const TournamentsWaiting = () => {
+
+    const nav = useNavigate();
+
     return(
         <div className="w-full min-h-screen overflow-hidden relative">
             <div className="flex flex-col max-w-[150rem] mx-auto">
@@ -19,7 +23,7 @@ const TournamentsWaiting = () => {
 
                         <div className="gap-5 flex flex-row ml-auto mr-6 -mt-5">
                             <MatchCard className="w-[60%] h-[70%] hover:opacity-90 hover:scale-105 transition-transform duration-300">
-                                <div className="flex flex-row gap-2">
+                                <div onClick={() => nav('/tournaments')} className="flex flex-row gap-2">
                                     <LogOut size={20} className="text-muted-text ml-3 -mt-2.5"/>
                                     <h2 className="font-font font-semibold text-[0.9rem] text-muted-text -ml-3 px-3 -mt-2.5">Leave Waiting Room</h2>
                                 </div>

@@ -4,6 +4,7 @@ import "../../../src/styles/global.css"
 import { Progress } from "./progress"
 import TournamentButton from "./TournamentButton"
 import { MatchCard } from './MatchCard'
+import { useNavigate } from 'react-router-dom'
 
 interface TournamentCardProps{
     children?: React.ReactNode
@@ -14,6 +15,7 @@ interface TournamentCardProps{
 
 export const MathTournamentCard = ({children, className} : TournamentCardProps) => {
 
+    const nav = useNavigate();
 
     return(
         <MatchCard className={`flex flex-row w-[95%] relative ${className} overflow-x-auto`}>
@@ -47,7 +49,7 @@ export const MathTournamentCard = ({children, className} : TournamentCardProps) 
                     <Progress value={62.5} className="mt-2 w-[130%] h-[0.5rem]"/>
                 </div>
 
-                <TournamentButton className="w-[9rem] h-[2.25rem] my-auto rounded-[11px] ml-auto mr-10">
+                <TournamentButton onClick={() => nav('/tournaments/waiting')} className="w-[9rem] h-[2.25rem] my-auto rounded-[11px] ml-auto mr-10">
                     <div className="flex flex-row w-full h-full gap-5">
                         <h2 className="font-font text-xs font-semibold w-[120%] my-auto">Join Tournament</h2>
                         <ArrowRight size={25} className="flex justify-self-end my-auto -ml-9 mr-2"/>
