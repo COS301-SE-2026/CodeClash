@@ -109,6 +109,45 @@ return (
               </p>
           </div>
       )}
+
+      {/*headlining figures in the page to be used*/}
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+          <StatTile
+              label={content.masteryTitle}
+              value={mastery.toFixed(2)}
+              unit={`/ ${masteryCeiling.toFixed(0)}`}
+              caption={content.masteryHint}
+              icon={<Brain size={16} />}
+              progress={masteryPercentage}
+        />
+        {/*beginning of the state tiles to show the information n stuff*/}
+          <StatTile
+              label={content.growthTitle}
+              value={growthLabel}
+                              unit="/ week"
+                              caption={`Slope of the trend line across the last ${growth.windowDays} days.`}
+                              icon={<TrendingUp size={16} />}
+                              badge={<span className={`badge ${growthTrend.badge}`}>{growthTrend.label}</span>}
+                          />
+                          <StatTile
+                              label="Games Analysed"
+                              value={`${gamesAnalysed}`}
+                              unit={`of ${masteryWindow}`}
+                              caption="Mastery averages the most recent games in this window."
+                              icon={<Layers size={16} />}
+                              progress={(gamesAnalysed / masteryWindow) * 100}
+                          />
+                          <StatTile
+                              label="Win Rate"
+                              value={`${winRate}`}
+                              unit="%"
+                              caption="Across the same window, for context against mastery."
+                              icon={<Target size={16} />}
+                              progress={winRate}
+                          />
+                      </div>
+      
+
         
     );
 
