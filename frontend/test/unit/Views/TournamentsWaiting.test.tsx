@@ -8,7 +8,7 @@ import { MemoryRouter } from "react-router-dom";
 describe("WaitingRoom", () => {
     describe("tournament header", () => {
         it("renders tournament title", () => {
-            render(<TournamentsWaiting/>)
+            render(<MemoryRouter><TournamentsWaiting/></MemoryRouter>)
 
             expect(screen.getByRole("heading", {level: 1, name: "Tournament Title"})).toBeInTheDocument();
         });
