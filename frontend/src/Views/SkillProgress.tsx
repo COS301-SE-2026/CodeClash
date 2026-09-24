@@ -36,4 +36,41 @@ const SectionCard: React.FC<{
         </div>
         {children}
     </div>
-);
+  );
+
+const SkillProgress: React.FC = () => {
+    const {
+        content,
+        isLoading,
+        error,
+        domain,
+        setDomain,
+        mastery,
+        masteryCeiling,
+        growth,
+        winRate,
+        gamesAnalysed,
+        masteryWindow,
+        league,
+        elo,
+        components,
+        bands,
+        recentGames,
+        insights,
+        isSimulated,
+        telemetrySource
+    } = useSkillProgressViewModel();
+
+    if (isLoading) {
+        return <Loading isOpen={isLoading} />;
+    }
+
+    const masteryPercentage = masteryCeiling === 0 ? 0 : (mastery / masteryCeiling) * 100;
+    const growthLabel = `${growth.growth >= 0 ? '+' : ''}${growth.growth.toFixed(2)}`;
+    // Same thresholds as the growth insight, so the badge and the sentence always agree.
+    const growthTrend =
+        growth.growth > GROWTH_FLAT_THRESHOLD
+            ? { label: 'Climbing', badge: 'badge-status-correct' }
+            : growth.growth < -GROWTH_FLAT_THRESHOLD
+              ? { label: 'Slipping', badge: 'badge-status-wrong' }
+              : { label: 'Flat', badge: 'badge-status-pending' };
