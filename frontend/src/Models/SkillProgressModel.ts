@@ -66,3 +66,14 @@ export const COMPONENTS: ComponentDefinition[] = [
     }
 ];
 
+export const componentsFor = (domain: GameDomain): ComponentDefinition[] =>
+    COMPONENTS.filter(component => component.domain === domain);
+
+/*Leagues, mirrored from backend/src/entities/league-mapping.ts. The pool M is the tier's
+maximum elo pool (200 / 150 / 120) - the lower leagues hand out more points per game.*/
+export interface LeagueProfile {
+    name: string;
+    difficulty: [number, number, number];
+    questionCount: number;
+    pool: number;
+}
