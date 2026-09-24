@@ -31,6 +31,7 @@ services:
       - pgnetwork
 
   frontend:
+  profiles: ["frontend"]      
     build: 
       context: ../frontend
       args:

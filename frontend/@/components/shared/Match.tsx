@@ -8,7 +8,6 @@ import { TournamentsBadge } from '../ui/TournamentsBadge'
 
 interface MatchScreenProps {
     player_life: number[],
-    colour: string,
     seconds: number,
     minutes: number,
     avatars: string[],

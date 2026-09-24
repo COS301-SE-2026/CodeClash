@@ -23,10 +23,10 @@ const TournamentsWaiting = () => {
 
                         <div className="gap-5 flex flex-row ml-auto mr-6 -mt-5">
                             <MatchCard className="w-[60%] h-[70%] hover:opacity-90 hover:scale-105 transition-transform duration-300">
-                                <div onClick={() => nav('/tournaments')} className="flex flex-row gap-2">
+                                <button onClick={() => nav('/tournaments')} className="flex flex-row gap-2">
                                     <LogOut size={20} className="text-muted-text ml-3 -mt-2.5"/>
                                     <h2 className="font-font font-semibold text-[0.9rem] text-muted-text -ml-3 px-3 -mt-2.5">Leave Waiting Room</h2>
-                                </div>
+                                </button>
                             </MatchCard>
                             <TournamentButton className="items-center h-[80%] min-w-40 justify-center px-2 rounded-sm">
                                 <div className="flex flex-row mt-2.5">
