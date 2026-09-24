@@ -2,8 +2,8 @@ import { GetAnswers } from '../../../src/application/usecases/services/answers.s
 import { MatchCreationService } from '../../../src/application/usecases/services/match/match-creation.service';
 import { GetQuestions, GetTotalTime } from '../../../src/application/usecases/services/questions.service';
 import { CreateMatchEntity, CreatePlayerEntity, CreateRound, MatchCreationSystem } from '../../../src/application/usecases/systems/match-creation.system'
-import { MatchMode } from "../../../src/entities/dtos/match/match.dto";
-import { PlayerDTO } from "../../../src/entities/dtos/components.dto";
+import { MatchMode } from "../../../src/entities/dtos/matches/match.dto";
+import { PlayerDTO } from "../../../src/entities/dtos/matches/match-component.dto";
 import { vi, describe, test, expect, afterEach, beforeAll, afterAll } from "vitest";
 import { World } from '../../../src/entities/World';
 import { createTestDataSource } from '../../test-data-source';
@@ -22,9 +22,9 @@ import { IUserRepository } from '../../../src/application/interfaces/repositorie
 import { UserRepository } from '../../../src/interface-adapters/repositories/user.repository';
 import { Users } from '../../../src/entities/database/user.entities';
 import { randomUUID } from 'node:crypto';
-import type { UserDTO } from '../../../src/entities/dtos/users/user.dto'
+import type { UserDTO } from '../../../src/entities/dtos/user/user.dto'
 import { RoundComponent } from '../../../src/entities/components';
-import { AnswerDTO } from '../../../src/entities/dtos/match/answer.dto';
+import { AnswerDTO } from '../../../src/entities/dtos/questions/answer.dto';
 
 const world = World();
 

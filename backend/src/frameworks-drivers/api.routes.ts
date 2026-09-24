@@ -15,18 +15,35 @@ import { createInvite, getFriendRequests, getFriends, removeFriend, respondToFri
 import { FriendService } from 'src/application/usecases/services/friend.service';
 import { getMatchHistory } from 'src/interface-adapters/controllers/match.controllers';
 import { MatchCompletionService } from 'src/application/usecases/services/match/match-completion.service';
+import { ShopItemService } from 'src/application/usecases/services/shop/shop-item.service';
+import { getAllItems, getEquipped, getUserItems, getUserPowerups, getWallet, purchaseItem, updateEquipped, usePowerup } from 'src/interface-adapters/controllers/shop.controllers';
+import { InventoryService } from 'src/application/usecases/services/shop/inventory.service';
+import { WalletService } from 'src/application/usecases/services/shop/wallet.service';
+import { EquipmentService } from 'src/application/usecases/services/shop/equipment.service';
+import { PowerupService } from 'src/application/usecases/services/shop/powerup.service';
+import { PurchaseService } from 'src/application/usecases/services/shop/purchase.service';
+import { IEquippedRepository } from 'src/application/interfaces/repositories/IEquippedRepository';
+import { IShopItemRepository } from 'src/application/interfaces/repositories/IShopItemRepository';
 
 export const createAPIRoutes = (
   user_repo: IUserRepository,
   leaderboard_service: LeaderboardService,
   achievement_service: AchievementService,
   friends_service: FriendService,
-  match_completion_service: MatchCompletionService
+  shop_item_service: ShopItemService,
+  inventory_service: InventoryService,
+  wallet_service: WalletService,
+  equipment_service: EquipmentService,
+  powerup_service: PowerupService,
+  purchase_service: PurchaseService,
+  equipped_repo: IEquippedRepository,
+  shop_item_repo: IShopItemRepository
+
 ) => {
   const router = Router();
 
 
-  const create_user_service = new CreateUser(user_repo);
+  const create_user_service = new CreateUser(user_repo, elo_repo, equipped_repo, shop_item_repo);
 
   router.post('/create-user', creationRequireAuth(), createUser(create_user_service));
 
@@ -258,7 +275,18 @@ export const createAPIRoutes = (
    */
   router.get('/achievements', getAllAchievements(achievement_service));
 
-  // user routes
+  // ----------------------- Shop Routes -------------------
+  
+router.get('/shop/items', getAllItems(shop_item_service));
+router.get('/shop/items/me', getUserItems(inventory_service));
+router.post('/shop/purchase', purchaseItem(purchase_service));
+router.get('/shop/wallet', getWallet(wallet_service));
+router.get('/shop/equipped', getEquipped(equipment_service));
+router.patch('/shop/equipped', updateEquipped(equipment_service));
+router.get('shop/powerups/me', getUserPowerups(inventory_service));
+router.post('/shop/powerups/use', usePowerup(powerup_service));
+
+  // --------------------- user routes
   router.get('/user/rank', getUserRank(leaderboard_service));
   /**
    * @swagger

@@ -1,10 +1,10 @@
 import { Server, Socket } from "socket.io";
 import { MarkingService } from "src/application/usecases/services/marking/marking.service";
 import { MatchStore } from "src/application/usecases/services/match/match-store.service";
-import {  MatchType } from "src/entities/dtos/match/match.dto";
+import { MatchType } from "src/entities/dtos/matches/match.dto";
 import { DeleteGame } from "src/application/usecases/systems/delete-game";
-import { PlayerSubmissionDTO } from "src/entities/dtos/components.dto";
-import { PlayerResultDTO } from 'src/entities/dtos/match/match.dto'
+import { PlayerSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
+import { PlayerResultDTO } from 'src/entities/dtos/matches/match.dto'
 import { MatchCompletionService } from "src/application/usecases/services/match/match-completion.service";
 
 export const submitQuestion = async (socket: Socket, data: PlayerSubmissionDTO, mark: MarkingService) => {

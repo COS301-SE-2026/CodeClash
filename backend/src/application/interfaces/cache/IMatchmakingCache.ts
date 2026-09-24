@@ -1,4 +1,4 @@
-import { MatchMode } from "src/entities/dtos/match/match.dto";
+import { MatchMode } from "src/entities/dtos/matches/match.dto";
 import { MatchmakingUserDTO } from "src/entities/dtos/matchmaking/matchmaking.dto";
 
 

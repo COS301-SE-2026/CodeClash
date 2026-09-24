@@ -1,6 +1,6 @@
 import { DeepPartial } from "typeorm";
 import { Questions } from "../../src/entities/database/questions.entities";
-import { MatchMode } from "../../src/entities/dtos/match/match.dto";
+import { MatchMode } from "../../src/entities/dtos/matches/match.dto";
 import { QuestionInputType } from "../../src/entities/dtos/match/question.dto";
 
 

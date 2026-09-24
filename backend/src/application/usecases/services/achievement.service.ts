@@ -1,6 +1,6 @@
 import { IAchievementRepository } from "src/application/interfaces/repositories/IAchievementRepository";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
-import { AchievementDTO } from "src/entities/dtos/match/achievement.dto";
+import { AchievementDTO } from "src/entities/dtos/achievements/achievement.dto";
 import { MatchPlayer, MatchType } from "src/entities/dtos/match/match.dto";
 
 // Achievement conditions -- will be extended as needed

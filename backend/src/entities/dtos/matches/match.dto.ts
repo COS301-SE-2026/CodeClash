@@ -1,4 +1,4 @@
-import { QuestionDTO } from "./question.dto"
+import { QuestionDTO } from "../questions/question.dto"
 
 export interface MatchDataDTO {
     group_id: string,

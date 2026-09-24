@@ -1,6 +1,6 @@
 import { IAnswerRepository } from "src/application/interfaces/repositories/IAnswerRepository";
 import { Answers } from "src/entities/database/answers.entities";
-import { AnswerDTO } from "src/entities/dtos/match/answer.dto";
+import { AnswerDTO } from "src/entities/dtos/questions/answer.dto";
 import { Repository, In } from "typeorm";
 
 export class AnswerRepository implements IAnswerRepository {

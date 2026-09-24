@@ -1,7 +1,7 @@
 import { ResultComponent, SubmissionRegistryComponent } from "src/entities/components";
 import { World } from "src/entities/World"
 import { MatchStore } from "../services/match/match-store.service";
-import { MatchPlayer } from "src/entities/dtos/match/match.dto";
+import { MatchPlayer } from "src/entities/dtos/matches/match.dto";
 
 export class MatchCompletionSystem {
     private readonly getMatchComponent

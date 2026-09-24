@@ -1,4 +1,4 @@
-import { PlayerDTO } from "src/entities/dtos/components.dto";
+import { PlayerDTO } from "src/entities/dtos/matches/match-component.dto";
 import { createHash } from "node:crypto";
 
 export class MatchConfirmationService {

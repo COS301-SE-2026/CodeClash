@@ -1,7 +1,7 @@
 import { MathNode, rationalize } from "mathjs";
 
 import { AnswerFormat } from "src/entities/dtos/match/answer.dto";
-import { AnswerDTO } from "src/entities/dtos/match/answer.dto";
+import { AnswerDTO } from "src/entities/dtos/questions/answer.dto";
 
 import { MathsMarker } from "./maths-marker";
 import { degreeOf, equivalent, factorsOf, safeParse, variablesIn } from "./normalizer";

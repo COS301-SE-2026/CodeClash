@@ -1,4 +1,4 @@
-import { PaginatedLeaderboardResponse } from "src/entities/dtos/match/leaderboard.dto";
+import { PaginatedLeaderboardResponse } from "src/entities/dtos/leaderboard/leaderboard.dto";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 import { RankDTO } from "src/entities/dtos/users/rank.dto";
 

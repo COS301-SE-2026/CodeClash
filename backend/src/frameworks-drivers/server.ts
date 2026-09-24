@@ -5,6 +5,8 @@ import { Server } from 'socket.io'
 import { IQuestionRepository } from 'src/application/interfaces/repositories/IQuestionRepository';
 import { QuestionRepository } from 'src/interface-adapters/repositories/question.repository';
 import { Questions } from 'src/entities/database/questions.entities';
+//import { cleanUp, gameDone, sendResults, startQuestion, submitQuestion } from 'src/interface-adapters/socket-handlers/game.handler';
+import { PlayerSubmissionDTO } from 'src/entities/dtos/submissions/submission.dto';
 import { IAnswerRepository } from 'src/application/interfaces/repositories/IAnswerRepository';
 import { AnswerRepository } from 'src/interface-adapters/repositories/answer.repository';
 import { Answers } from 'src/entities/database/answers.entities';
@@ -59,6 +61,20 @@ import { ITournamentCache } from 'src/application/interfaces/cache/ITournamentCa
 import { TournamentCache } from 'src/interface-adapters/cache/tournament-cache';
 import { TournamentService } from 'src/application/usecases/services/tournament/tournament.service';
 import { TournamentEliminationService } from 'src/application/usecases/services/tournament/elimination.service';
+import { ShopItemService } from 'src/application/usecases/services/shop/shop-item.service';
+import { ShopItemRepository } from 'src/interface-adapters/repositories/shop-item.repository';
+import { ShopItem } from 'src/entities/database/shop-item.entities';
+import { Wallet } from 'src/entities/database/wallet.entities';
+import { UserItem } from 'src/entities/database/user-item.entities';
+import { EquippedItems } from 'src/entities/database/equipped-items.entities';
+import { InventoryRepository } from 'src/interface-adapters/repositories/inventory.repository';
+import { WalletReposiroty } from 'src/interface-adapters/repositories/wallet.repository';
+import { EquippedRepository } from 'src/interface-adapters/repositories/equipped.repository';
+import { InventoryService } from 'src/application/usecases/services/shop/inventory.service';
+import { WalletService } from 'src/application/usecases/services/shop/wallet.service';
+import { EquipmentService } from 'src/application/usecases/services/shop/equipment.service';
+import { PowerupService } from 'src/application/usecases/services/shop/powerup.service';
+import { PurchaseService } from 'src/application/usecases/services/shop/purchase.service';
 
 dotnev.config()
 
@@ -75,6 +91,10 @@ AppDataSource.initialize()
 
         const achievementRepo: IAchievementRepository = new AchievementRepository(AppDataSource.getRepository(Achievement), AppDataSource.getRepository(Users));
         const friend_repo = new FriendRepository(AppDataSource.getRepository(Friendship), AppDataSource.getRepository(FriendInvite), user_repo);
+        const shop_item_repo = new ShopItemRepository(AppDataSource.getRepository(ShopItem));
+        const inventory_repo = new InventoryRepository(AppDataSource.getRepository(UserItem), shop_item_repo);
+        const wallet_repo = new WalletReposiroty(AppDataSource.getRepository(Wallet));
+        const equipped_repo = new EquippedRepository(AppDataSource.getRepository(EquippedItems), shop_item_repo);
 
         // initialise ecs world 
         const world = World();
@@ -104,7 +124,14 @@ AppDataSource.initialize()
         const leaderboard_service = new LeaderboardService(user_repo);
         const friends_service = new FriendService(friend_repo);
         const achievement_service = new AchievementService(achievementRepo, user_repo);
-        const match_start = new MatchStart(match_service, match_store);
+        const match_start = new MatchStart(match_service, match_store);        
+
+        const shop_item_service = new ShopItemService(shop_item_repo);
+        const inventory_service = new InventoryService(inventory_repo);
+        const wallet_service = new WalletService(wallet_repo);
+        const equipment_service = new EquipmentService(equipped_repo, inventory_repo, shop_item_repo);
+        const powerup_service = new PowerupService(inventory_repo, shop_item_repo);
+        const purchase_service = new PurchaseService(shop_item_repo, AppDataSource);
 
 
         // initialise systems 
@@ -117,7 +144,7 @@ AppDataSource.initialize()
 
 
 
-        const app = createApp(user_repo, leaderboard_service, achievement_service, friends_service, match_completion_service);
+        const app = createApp(user_repo, leaderboard_service, achievement_service, friends_service, match_completion_service, shop_item_service, inventory_service, wallet_service, equipment_service, powerup_service, purchase_service, equipped_repo, shop_item_repo);
         const httpServer = createServer(app)     // can update to https
         const io = new Server(httpServer, {
             cors: {
