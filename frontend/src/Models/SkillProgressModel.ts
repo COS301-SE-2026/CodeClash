@@ -355,3 +355,130 @@ export interface DifficultyBand {
     performance: number; // mean f_i on questions of that difficulty, 0-1
     questionCount: number;
 }
+
+export interface SkillProgressContent {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    masteryTitle: string;
+    masteryHint: string;
+    componentsTitle: string;
+    componentsHint: string;
+    growthTitle: string;
+    growthHint: string;
+    difficultyTitle: string;
+    difficultyHint: string;
+    gamesTitle: string;
+    gamesHint: string;
+    insightsTitle: string;
+    emptyState: string;
+    simulatedNote: string;
+    sampleNote: string;
+}
+
+export const skillProgressContent: SkillProgressContent = {
+    eyebrow: 'Player telemetry / skill progress',
+    title: 'Skill Progress',
+    subtitle: 'Elo says where you rank. This says what to work on.',
+    masteryTitle: 'Mastery Score',
+    masteryHint: `Difficulty weighted performance across your last ${MASTERY_WINDOW} games.`,
+    componentsTitle: 'Profile Components',
+    componentsHint: `Each part of the elo calculation, averaged over the last ${MASTERY_WINDOW} games.`,
+    growthTitle: 'Growth',
+    growthHint: `Least squares trend through your mastery score, re-read after every game in the last ${GROWTH_WINDOW_DAYS} days.`,
+    difficultyTitle: 'Difficulty Bands',
+    difficultyHint: 'How you perform as the questions get harder.',
+    gamesTitle: 'Recent Games',
+    gamesHint: 'Mastery earned per game, newest first.',
+    insightsTitle: 'What To Work On',
+    emptyState: 'No ranked games on record yet. Play a match and your skill progress starts building.',
+    simulatedNote: 'Per question telemetry is simulated until the analytics endpoints land.',
+    sampleNote: 'No games on record yet, so this is a sample history. Play a match to replace it with your own.'
+};
+
+export interface Insight {
+    id: string;
+    tone: 'good' | 'warn' | 'info';
+    title: string;
+    body: string;
+}
+
+export function buildInsights(
+    components: ComponentScore[],
+    growth: GrowthResult,
+    mastery: number,
+    league: string
+): Insight[] {
+    const insights: Insight[] = [];
+    const scored = components.filter(component => component.gamesCounted > 0);
+
+    if (scored.length > 0) {
+        const weakest = scored.reduce((low, component) => (component.value < low.value ? component : low));
+        const strongest = scored.reduce((high, component) => (component.value > high.value ? component : high));
+
+        insights.push({
+            id: 'weakest',
+            tone: 'warn',
+            title: `${weakest.label} is your weakest component at ${weakest.value}%`,
+            body: weakest.hint
+        });
+
+        if (strongest.key !== weakest.key) {
+            insights.push({
+                id: 'strongest',
+                tone: 'good',
+                title: `${strongest.label} is carrying you at ${strongest.value}%`,
+                body: 'Keep it there and spend your practice time on the weaker components.'
+            });
+        }
+    }
+
+    if (growth.readings.length < 2) {
+        insights.push({
+            id: 'growth-thin',
+            tone: 'info',
+            title: 'Not enough readings for a trend yet',
+            body: `Growth needs a few games inside the ${growth.windowDays} day window before the line means anything.`
+        });
+    } else if (growth.growth > GROWTH_FLAT_THRESHOLD) {
+        insights.push({
+            id: 'growth-up',
+            tone: 'good',
+            title: `Mastery is climbing ${growth.growth.toFixed(2)} points a week`,
+            body: 'The trend line is pointing up over the last 30 days. Whatever you changed, keep doing it.'
+        });
+    } else if (growth.growth < -GROWTH_FLAT_THRESHOLD) {
+        insights.push({
+            id: 'growth-down',
+            tone: 'warn',
+            title: `Mastery is sliding ${Math.abs(growth.growth).toFixed(2)} points a week`,
+            body: 'Your recent games are scoring below your earlier ones in this window.'
+        });
+    } else {
+        insights.push({
+            id: 'growth-flat',
+            tone: 'info',
+            title: 'Mastery is holding flat',
+            body: 'Your last 30 days sit on a level trend line. Harder questions are the usual way to move it.'
+        });
+    }
+
+    const ceiling = masteryCeiling(league);
+    insights.push({
+        id: 'league-scale',
+        tone: 'info',
+        title: `Scored against ${league || 'your'} league difficulty`,
+        body: `Mastery is capped at ${ceiling.toFixed(0)} here, so expect a dip on promotion - the questions get harder before you do. It measures your own progress, not other players.`
+    });
+
+    if (mastery === 0) {
+        insights.push({
+            id: 'no-data',
+            tone: 'info',
+            title: 'Mastery starts at zero',
+            body: skillProgressContent.emptyState
+        });
+    }
+
+    return insights;
+}
