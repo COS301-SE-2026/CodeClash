@@ -71,7 +71,7 @@ const SkillProgress: React.FC = () => {
     const growthTrend =
         growth.growth > GROWTH_FLAT_THRESHOLD ? { label: 'Climbing', badge: 'badge-status-correct' } : growth.growth < -GROWTH_FLAT_THRESHOLD ? { label: 'Slipping', badge: 'badge-status-wrong' } : { label: 'Flat', badge: 'badge-status-pending' };
     
-};
+
 
 return (
 <div className="relative w-full min-h-screen overflow-hidden">
@@ -161,17 +161,17 @@ return (
                           >
                               <GrowthChart growth={growth} ceiling={masteryCeiling} />
                           </SectionCard>
-      
+      {/*component bars to see mastery based on overall domain*/}
                           <SectionCard
                               title={content.componentsTitle}
                               hint={content.componentsHint}
           icon={<Gauge size={18} className="text-primary" />}
-          {/*component bars to see mastery based on overall domain*/}
+          
                           >
                               <ComponentBars components={components} grouped={domain === 'overall'} />
                           </SectionCard>
       </div>
-      {/*Difficulty split, recent games and the written takeaways*/}
+      {/*show of the difficultiy split and difficulty sections*/}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 items-start">
           <SectionCard
               title={content.difficultyTitle}
