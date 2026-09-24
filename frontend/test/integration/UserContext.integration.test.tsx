@@ -13,6 +13,7 @@ import { AuthContext, type AuthContextValue } from '../../src/context/Auth/AuthC
 import { UserProvider } from '../../src/context/User/UserContext';
 import { useUser } from '../../src/context/User/hooks/useUser';
 import { robot_map } from '../../src/assets/Robots';
+import { InventoryProvider } from '../../src/context/Shop/InventoryContext';
 
 const AUTH_STUB: AuthContextValue = {
   user: { username: 'ntu', userId: 'user-1' },
@@ -52,7 +53,9 @@ const UserConsumer = () => {
 const renderUser = (auth: Partial<AuthContextValue> = {}, children: ReactNode = <UserConsumer />) =>
   render(
     <AuthContext.Provider value={{ ...AUTH_STUB, ...auth }}>
-      <UserProvider>{children}</UserProvider>
+      <InventoryProvider>
+        <UserProvider>{children}</UserProvider>
+      </InventoryProvider>
     </AuthContext.Provider>,
   );
 
@@ -86,11 +89,11 @@ describe('UserProvider integration', () => {
     renderUser();
 
     await waitFor(() => expect(screen.getByTestId('elo')).toHaveTextContent('1420'));
+    await waitFor(()=> expect(screen.getByTestId('avatar')).toHaveTextContent('Vexa.png'));
     expect(screen.getByTestId('league')).toHaveTextContent('Gold');
     expect(screen.getByTestId('rank')).toHaveTextContent('7');
     expect(screen.getByTestId('current')).toHaveTextContent('4');
     expect(screen.getByTestId('winning')).toHaveTextContent('3');
-    expect(screen.getByTestId('avatar')).toHaveTextContent(robot_map[2]);
     expect(screen.getByTestId('error')).toHaveTextContent('none');
   });
 
@@ -113,13 +116,13 @@ describe('UserProvider integration', () => {
   it('sends the bearer token on every request', async () => {
     renderUser();
 
-    await waitFor(() => expect(api.get).toHaveBeenCalledTimes(6));
+    await waitFor(() => expect(api.get).toHaveBeenCalledTimes(5));
     for (const call of api.get.mock.calls) {
       expect(call[1]).toEqual({ headers: { Authorization: 'Bearer id-token-abc' } });
     }
   });
 
-  
+
   it('does not fetch anything without a token', async () => {
     renderUser({ token: undefined });
 
@@ -140,13 +143,13 @@ describe('UserProvider integration', () => {
   it('re-fetches the profile when refresh is called', async () => {
     const user = userEvent.setup();
     renderUser();
-    await waitFor(() => expect(api.get).toHaveBeenCalledTimes(6));
+    await waitFor(() => expect(api.get).toHaveBeenCalledTimes(5));
 
     respondWith({ 'elo/elo-get': { status: 200, data: { rating: 1500 } } });
     await user.click(screen.getByRole('button', { name: 'refresh' }));
 
     await waitFor(() => expect(screen.getByTestId('elo')).toHaveTextContent('1500'));
-    expect(api.get).toHaveBeenCalledTimes(12);
+    expect(api.get).toHaveBeenCalledTimes(10);
   });
 
   it('surfaces a non-200 elo response as an error', async () => {
@@ -158,87 +161,77 @@ describe('UserProvider integration', () => {
     expect(screen.getByTestId('elo')).toHaveTextContent('0');
   });
 
-  it('surfaces a non-200 avatar response as an error', async () => {
-    const user = userEvent.setup();
-    renderUser();
-    await waitFor(() => expect(api.get).toHaveBeenCalledTimes(6));
-
-    respondWith({ 'user/avatar_id': { status: 404, data: 'no avatar' } });
-    await user.click(screen.getByRole('button', { name: 'refresh' }));
-
-    await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Error: 404 no avatar'));
-  });
 
   it('surfaces a non-200 league response as an error', async () => {
-      const user = userEvent.setup();
-      renderUser();
-      await waitFor(() => expect(api.get).toHaveBeenCalledTimes(6));
-  
-      respondWith({ 'user/league': { status: 403, data: 'forbidden' } });
-      await user.click(screen.getByRole('button', { name: 'refresh' }));
-  
-      await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Error: 403 forbidden'));
+    const user = userEvent.setup();
+    renderUser();
+    await waitFor(() => expect(api.get).toHaveBeenCalledTimes(5));
+
+    respondWith({ 'user/league': { status: 403, data: 'forbidden' } });
+    await user.click(screen.getByRole('button', { name: 'refresh' }));
+
+    await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Error: 403 forbidden'));
+  });
+
+  it('surfaces a non-200 rank response as an error', async () => {
+    respondWith({ 'user/rank': { status: 418, data: 'teapot' } });
+
+    renderUser();
+
+    await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Error: 418 teapot'));
+  });
+
+  it('swallows streak failures so the rest of the profile still loads', async () => {
+    const quiet = vi.spyOn(console, 'error').mockImplementation(() => { });
+    api.get.mockImplementation((url: string) => {
+      if (url.endsWith('_streak')) return Promise.reject(new Error('streak service down'));
+      return Promise.resolve({
+        status: 200,
+        data: { rating: 1200, avatar_id: 0, league: 'Bronze', rank: 42 },
+      });
     });
-  
-    it('surfaces a non-200 rank response as an error', async () => {
-      respondWith({ 'user/rank': { status: 418, data: 'teapot' } });
-  
-      renderUser();
-  
-      await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Error: 418 teapot'));
+
+    renderUser();
+
+    await waitFor(() => expect(screen.getByTestId('elo')).toHaveTextContent('1200'));
+    expect(screen.getByTestId('current')).toHaveTextContent('0');
+    expect(screen.getByTestId('winning')).toHaveTextContent('0');
+    expect(quiet).toHaveBeenCalled();
+    quiet.mockRestore();
+  });
+
+  it('leaves the streaks untouched when the endpoints answer with a non-200', async () => {
+    respondWith({
+      'user/current_streak': { status: 204, data: {} },
+      'user/winning_streak': { status: 204, data: {} },
     });
-  
-    it('swallows streak failures so the rest of the profile still loads', async () => {
-      const quiet = vi.spyOn(console, 'error').mockImplementation(() => {});
-      api.get.mockImplementation((url: string) => {
-        if (url.endsWith('_streak')) return Promise.reject(new Error('streak service down'));
-        return Promise.resolve({
-          status: 200,
-          data: { rating: 1200, avatar_id: 0, league: 'Bronze', rank: 42 },
-        });
-      });
-  
-      renderUser();
-  
-      await waitFor(() => expect(screen.getByTestId('elo')).toHaveTextContent('1200'));
-      expect(screen.getByTestId('current')).toHaveTextContent('0');
-      expect(screen.getByTestId('winning')).toHaveTextContent('0');
-      expect(quiet).toHaveBeenCalled();
-      quiet.mockRestore();
+
+    renderUser();
+
+    await waitFor(() => expect(screen.getByTestId('league')).toHaveTextContent('Gold'));
+    expect(screen.getByTestId('current')).toHaveTextContent('0');
+    expect(screen.getByTestId('winning')).toHaveTextContent('0');
+  });
+
+  it('catches a transport error thrown synchronously by axios', async () => {
+    const quiet = vi.spyOn(console, 'error').mockImplementation(() => { });
+    api.get.mockImplementation(() => {
+      throw new Error('axios exploded');
     });
-  
-    it('leaves the streaks untouched when the endpoints answer with a non-200', async () => {
-        respondWith({
-          'user/current_streak': { status: 204, data: {} },
-          'user/winning_streak': { status: 204, data: {} },
-        });
-    
-        renderUser();
-    
-        await waitFor(() => expect(screen.getByTestId('league')).toHaveTextContent('Gold'));
-        expect(screen.getByTestId('current')).toHaveTextContent('0');
-        expect(screen.getByTestId('winning')).toHaveTextContent('0');
-      });
-    
-      it('catches a transport error thrown synchronously by axios', async () => {
-        const quiet = vi.spyOn(console, 'error').mockImplementation(() => {});
-        api.get.mockImplementation(() => {
-          throw new Error('axios exploded');
-        });
-    
-        renderUser();
-    
-        await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Error Getting User Rank'));
-        expect(screen.getByTestId('elo')).toHaveTextContent('0');
-        expect(screen.getByTestId('league')).toBeEmptyDOMElement();
-        expect(screen.getByTestId('avatar')).toHaveTextContent('none');
-        expect(quiet).toHaveBeenCalledWith('getCurrentRank failed', expect.any(Error));
-        quiet.mockRestore();
-      });
-    
-      it('throws when useUser is called outside the provider', () => {
-        const quiet = vi.spyOn(console, 'error').mockImplementation(() => {});
-        expect(() => render(<UserConsumer />)).toThrow('useUser must be used within a UserProvider');
-        quiet.mockRestore();
-      });
+
+    renderUser();
+
+    await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Error Getting User Rank'));
+    expect(screen.getByTestId('elo')).toHaveTextContent('0');
+    expect(screen.getByTestId('league')).toBeEmptyDOMElement();
+    expect(screen.getByTestId('avatar')).toHaveTextContent('none');
+    expect(quiet).toHaveBeenCalledWith('getCurrentRank failed', expect.any(Error));
+    quiet.mockRestore();
+  });
+
+  it('throws when useUser is called outside the provider', () => {
+    const quiet = vi.spyOn(console, 'error').mockImplementation(() => { });
+    expect(() => render(<UserConsumer />)).toThrow('useUser must be used within a UserProvider');
+    quiet.mockRestore();
+  });
 });
