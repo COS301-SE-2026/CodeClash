@@ -8,13 +8,13 @@ export const tryOn = () => {
     const {catalog, inventory, isOwned, equip, refetch} = useInventory();
     const [draftAvatarId, setDraftAvatarId] = useState<string | null>(null);
     const [saving, setSaving] = useState(false);
+    const equippedAvatarId = inventory?.equippedAvatarId ?? null;
 
     useEffect(() => {
-        if (!inventory) {
-            return;
+        if (equippedAvatarId) {
+            setDraftAvatarId(equippedAvatarId);
         }
-        setDraftAvatarId(inventory.equippedAvatarId);
-    }, [inventory])
+    }, [equippedAvatarId])
 
     const tryOnAvatar = useCallback((itemId: string) => setDraftAvatarId(itemId), []);
 
@@ -50,7 +50,6 @@ export const tryOn = () => {
             if (draftAvatarId && draftAvatarId !== inventory.equippedAvatarId && isOwned(draftAvatarId)) {
                 await equip('avatar', draftAvatarId);
             }
-            await refetch();
         }
         finally {
             setSaving(false);
