@@ -52,6 +52,19 @@ function difficultyFor(random: () => number, difficulties: [number, number, numb
 }
 
 // per question telemetry based on game !! to make lives easier and more streamlined basically
+// 
+function answeredRatios(domain: GameDomain, baseline: number, spread: (value: number) => number): QuestionSample['ratios'] {
+    if (domain === 'math') {
+        return { time: spread(baseline + 0.05), accuracy: spread(baseline) };
+    }
+    return { time: spread(baseline + 0.05), speed: spread(baseline - 0.05) };
+}
+
+const resultFor = (form: number): MatchOutcome => {
+    if (form > 0.68) return 'WIN';
+    if (form > 0.6) return 'DRAW';
+    return 'LOSS';
+};
 
 async function buildQuestions(
     matchId: string,
@@ -77,23 +90,7 @@ async function buildQuestions(
             continue;
         }
 
-        if (domain === 'math') {
-            questions.push({
-                difficulty,
-                ratios: {
-                    time: spread(baseline + 0.05),
-                    accuracy: spread(baseline)
-                }
-            });
-        } else {
-            questions.push({
-                difficulty,
-                ratios: {
-                    time: spread(baseline + 0.05),
-                    speed: spread(baseline - 0.05)
-                }
-            });
-        }
+      questions.push({ difficulty, ratios: answeredRatios(domain, baseline, spread) });
     }
 
     if (domain !== 'programming') return questions;
@@ -141,7 +138,7 @@ async function simulatedHistory(league: string, now: Date): Promise<GameSample[]
         const playedAt = new Date(now.getTime() - daysAgo * DAY_MS);
         // Recent games lean better so the trend line has something to say.
         const form = 0.55 + (1 - index / total) * 0.22 + (random() - 0.5) * 0.12;
-        const result: MatchOutcome = form > 0.68 ? 'WIN' : form > 0.6 ? 'DRAW' : 'LOSS';
+      const result = resultFor(form);
         const domain: GameDomain = random() > 0.45 ? 'programming' : 'math';
         const matchId = `demo-${index}`;
 
