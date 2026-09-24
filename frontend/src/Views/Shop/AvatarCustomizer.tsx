@@ -5,7 +5,7 @@ import { useInventory } from "src/context/Shop/InventoryContext";
 import { tryOn } from "src/ViewModels/Shop/TryOn";
 import {AvatarRenderer} from "src/avatar/AvatarRenderer"
 import type { AvatarShopItem, ShopItem } from "src/Models/ShopModel";
-import { Loader2, RotateCcw, Save,Sparkles, Users } from "lucide-react";
+import { Loader2, Sparkles, Users, Check } from "lucide-react";
 
 const PriceTag: React.FC<{amount: number}> = ({amount}) => (
     <div style={{display: 'flex', alignItems: 'center', gap: '0.3rem', color: 'var(--muted)', fontSize: '0.85rem', fontWeight: 700}}>
@@ -21,7 +21,7 @@ interface AvatarCustomizerProps {
 }
 
 const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasingId, canAfford}) => {
-    const {catalog, isOwned} = useInventory();
+    const {catalog, isOwned, isEquipped} = useInventory();
     const {
         draftAvatarId,
         draftAvatar,
@@ -30,7 +30,6 @@ const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasing
         hasUnsavedChanges,
         saving,
         tryOnAvatar,
-        reset,
         saveOutfit
     } = tryOn();
 
@@ -63,14 +62,16 @@ const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasing
                             {stateLabel}
                         </button> 
                     ) : (
-                            <div style={{display: 'flex',gap: '0.75rem'}}>
-                                <button type="button" onClick={saveOutfit} disabled={!hasUnsavedChanges || saving} className="btn btn-primary btn-sm">
-                                    {saving? <Loader2 size={14} className="animate-spin"/> : <><Save size={14}/>Save Outfit</>}
-                                </button>
-                                <button type="button" onClick={reset} disabled={!hasUnsavedChanges || saving} className="btn btn-primary btn-sm">
-                                    <RotateCcw size={14}/>Reset to Default
-                                </button>
-                            </div>
+                        draftAvatarId && isEquipped('avatar', draftAvatarId) ? (
+                            <button type="button" disabled className="btn btn-sm" style={{background: 'var(--background-elevated)', color: 'var(--muted)', cursor: 'default'}}>
+                                <Check size={14}/>
+                                Equipped
+                            </button>
+                        ) : (
+                            <button type="button" onClick={saveOutfit} disabled={!hasUnsavedChanges || saving} className="btn btn-primary btn-sm">
+                                {saving? <Loader2 size={14} className="animate-spin"/> : 'Equip'}
+                            </button>
+                        )
                     )}
                 </div>
                 <div style={{flex: '0 0 auto'}}>

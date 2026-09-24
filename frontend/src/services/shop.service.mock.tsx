@@ -66,7 +66,7 @@ const MOCKED_THEMES: ThemeShopItem[] = [
         name: 'Cosmos (Dark)',
         price: {amount: 0},
         isDefault: true,
-        swatchColors: [ '#c0395a', '#530a23', '#fcecdd']
+        swatchColors: [ '#c0395a', '#530a23', '#0a0008']
     },
     {
         id: 'theme-light',
@@ -74,7 +74,7 @@ const MOCKED_THEMES: ThemeShopItem[] = [
         themeId: 'light',
         name: 'Cosmos (Light)',
         price: {amount: 150},
-        swatchColors: [ '#c0395a', '#530a23', '#fcecdd']
+        swatchColors: [ '#c0395a', '#530a23', '#fff7f5']
     },
     {
         id: 'theme-nebula',
