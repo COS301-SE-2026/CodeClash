@@ -26,3 +26,28 @@ import {
 import type { SkillTelemetry } from 'src/services/skill-progress.service';
 import { loadSkillTelemetry } from 'src/services/skill-progress.service';
 
+export interface SkillProgressViewModel {
+    content: SkillProgressContent;
+    isLoading: boolean;
+    error: string;
+    /*Filter state.*/
+    domain: SkillDomain;
+    setDomain: (domain: SkillDomain) => void;
+    /*Headline figures.*/
+    mastery: number;
+    masteryCeiling: number;
+    growth: GrowthResult;
+    winRate: number;
+    gamesAnalysed: number;
+    masteryWindow: number;
+    league: string;
+    elo: number;
+    /*Breakdowns.*/
+    components: ComponentScore[];
+    bands: DifficultyBand[];
+    recentGames: GameMastery[];
+    insights: Insight[];
+    /*True while any of the numbers come from generated telemetry.*/
+    isSimulated: boolean;
+    telemetrySource: SkillTelemetry['source'] | null;
+}
