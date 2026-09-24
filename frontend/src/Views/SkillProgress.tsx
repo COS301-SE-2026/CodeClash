@@ -90,12 +90,12 @@ return (
                     {/*elo sits in the middle of the header, the same figure the rest of the app ranks on*/}
                     <div className="flex flex-col items-start lg:items-center lg:justify-self-center">
                         <p className="text-xsm uppercase tracking-wide font-bold text-muted-text">Elo</p>
-                        <p className="score-display text-4xl font-black leading-none mt-2">{elo}</p>
+                        <p className="score-display text-6xl font-black leading-none mt-2">{elo}</p>
                     </div>
                     <div className="flex flex-col items-start lg:items-end lg:justify-self-end gap-2">
                         {/*still top section but now adding extra information*/}
                         <DomainToggle domain={domain} onChange={setDomain} />
-                        {league && <p className="text-xsm uppercase tracking-wide font-bold text-muted-text">{league} league</p>}
+                        {league && <p className="text-xsm uppercase tracking-wide font-bold text-success">{league} league</p>}
                     </div>
                 </div>
 
