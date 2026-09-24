@@ -406,7 +406,7 @@ export const skillProgressContent: SkillProgressContent = {
     subtitle: 'Elo says where you rank. This says what to work on.',
     masteryTitle: 'Mastery Score',
     masteryHint: `Difficulty weighted performance across your last ${MASTERY_WINDOW} games.`,
-    componentsTitle: 'Profile Components',
+    componentsTitle: 'Overall Analytics',
     componentsHint: `Each part of the elo calculation, averaged over the last ${MASTERY_WINDOW} games.`,
     growthTitle: 'Growth',
     growthHint: `Least squares trend through your mastery score, re-read after every game in the last ${GROWTH_WINDOW_DAYS} days.`,
