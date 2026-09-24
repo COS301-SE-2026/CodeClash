@@ -38,7 +38,7 @@ const TournamentsWaiting = () => {
                             <div className="font-font font-semibold text-[1rem] text-primary ml-6">Room Capacity</div>
                             <div className="ml-auto font-semibold mr-6 text-[0.9rem] -mb-3">4/8 Players</div>
                         </div>
-                        <Progress value={50} className="w-[96%] mx-auto mt-2"/>
+                        <Progress value={50} height={2.5} className="w-[96%] mx-auto mt-2"/>
                     </div>
 
                     <div className="flex flex-row">
