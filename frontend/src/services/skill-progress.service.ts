@@ -50,3 +50,69 @@ function difficultyFor(random: () => number, difficulties: [number, number, numb
     if (roll < 0.75) return difficulties[1];
     return difficulties[2];
 }
+
+// per question telemetry based on game !! to make lives easier and more streamlined basically
+
+async function buildQuestions(
+    matchId: string,
+    domain: GameDomain,
+    league: string,
+    result: MatchOutcome
+): Promise<QuestionSample[]> {
+    const profile = leagueProfile(league);
+    const random = seededRandom(matchId);
+    const baseline = baselineFor(result);
+
+    const questions: QuestionSample[] = [];
+    for (let index = 0; index < profile.questionCount; index++) {
+        const difficulty = difficultyFor(random, profile.difficulty);
+
+        // A question the player never got to scores zero across the board, which is what
+        // the doc wants - unanswered questions drag mastery down.
+        const attempted = random() > 0.12;
+        const spread = (value: number) => Math.min(1, Math.max(0, value + (random() - 0.5) * 0.3));
+
+        if (!attempted) {
+            questions.push({ difficulty, ratios: domain === 'math' ? { time: 0, accuracy: 0 } : { time: 0, speed: 0 } });
+            continue;
+        }
+
+        if (domain === 'math') {
+            questions.push({
+                difficulty,
+                ratios: {
+                    time: spread(baseline + 0.05),
+                    accuracy: spread(baseline)
+                }
+            });
+        } else {
+            questions.push({
+                difficulty,
+                ratios: {
+                    time: spread(baseline + 0.05),
+                    speed: spread(baseline - 0.05)
+                }
+            });
+        }
+    }
+
+    if (domain !== 'programming') return questions;
+
+    // Time and space complexity are the LLM's job. Ask the active provider and fold its
+    // verdicts into the same ratio bag the elo calculation reads.
+    const report = await getComplexityProvider().analyse({
+        matchId,
+        questions: questions.map((question, index) => ({ index, difficulty: question.difficulty }))
+    });
+
+    for (const verdict of report.verdicts) {
+        const question = questions[verdict.index];
+        if (!question) continue;
+        // Unanswered questions stay at zero - there is no submission to analyse.
+        const answered = (question.ratios.time ?? 0) > 0;
+        question.ratios.timeCx = answered ? verdict.timeRatio : 0;
+        question.ratios.spaceCx = answered ? verdict.spaceRatio : 0;
+    }
+
+    return questions;
+}
