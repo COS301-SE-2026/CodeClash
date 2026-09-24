@@ -12,7 +12,7 @@ export const Tabs: ShopTab[] = [
     {
         id: 'avatars',
         label: 'Avatars',
-        categories: ['avatar', 'accessory']
+        categories: ['avatar']
     },
     {
         id: 'themes',
@@ -28,7 +28,7 @@ export const Tabs: ShopTab[] = [
 
 export const ShopViewModelFunc = () => {
     const {
-        catalog, wallet, inventory, loading, error: inventoryError, purchase: purchaseFromContext, equip, toggleAcc, isOwned, isEquipped, isAccessoryEquipped
+        catalog, wallet, inventory, loading, error: inventoryError, purchase: purchaseFromContext, equip, isOwned, isEquipped
     } = useInventory();
 
     const [activeTabId, setActiveTabId] = useState('avatars');
@@ -83,11 +83,9 @@ export const ShopViewModelFunc = () => {
         purchasingId,
         isOwned,
         isEquipped,
-        isAccessoryEquipped,
         powerupQuantity,
         canAfford,
         purchase,
         equip,
-        toggleAcc,
     }
 }

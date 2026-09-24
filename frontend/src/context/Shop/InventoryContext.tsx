@@ -2,11 +2,10 @@
 
 import { createContext, useContext, useEffect, useState, useCallback, useMemo } from "react";
 import type { ReactNode } from "react";
-import type { ShopItem, Wallet, UserInventory, AccessorySlot, AvatarShopItem, AccessoryShopItem } from "src/Models/ShopModel";
-import type { BodyType } from "src/avatar/AvatarRenderer";
+import type { ShopItem, Wallet, UserInventory, AvatarShopItem, } from "src/Models/ShopModel";
 import { useAuth } from "../Auth/hooks/useAuth";
 
-import { getCatalog,getWallet, getInv, purchaseItm, equipItm, equipAcc } from "src/services/shop.service.mock"; //to be changed once backedn endpoints implemented
+import { getCatalog,getWallet, getInv, purchaseItm, equipItm, } from "src/services/shop.service.mock"; //to be changed once backedn endpoints implemented
 
 interface InventoryContextValue {
     catalog: ShopItem[];
@@ -16,17 +15,13 @@ interface InventoryContextValue {
     error: string | null;
 
     equippedAvatarImage?: string;
-    equippedAccessoryImage: Partial<Record<AccessorySlot, string>>;
-    equippedAvatarBodyType: BodyType;
 
     refetch: () => Promise<void>;
     purchase: (itemId: string) => Promise<void>;
     equip: (category: 'avatar' | 'theme', itemId: string) => Promise<void>;
-    toggleAcc: (slot: AccessorySlot, itemId: string) => Promise<void>;
 
     isOwned: (itemId: string) => boolean;
     isEquipped: (category: 'avatar' | 'theme', itemId: string) => boolean;
-    isAccessoryEquipped: (slot: AccessorySlot, itemId: string) => boolean;
 }
 
 const InventoryContext = createContext<InventoryContextValue | undefined>(undefined);
@@ -76,28 +71,6 @@ export const InventoryProvider = ({children}: {children: ReactNode}) => {
         return avatar?.previewImageUrl;
     }, [catalog, inventory])
 
-    const equippedAccessoryImage = useMemo(() => {
-        if (!inventory) {
-            return {};
-        }
-        const result: Partial<Record<AccessorySlot, string>> = {};
-        Object.entries(inventory.equippedAccessories).forEach(([slot, itemId]) => {
-            const match = catalog.find((i): i is AccessoryShopItem => i.category === 'accessory' && i.id === itemId);
-            if (match?.previewImageUrl) {
-                result[slot as AccessorySlot] = match.previewImageUrl;
-            }
-        })
-        return result;
-    }, [catalog, inventory])
-
-    const equippedAvatarBodyType = useMemo((): BodyType => {
-        if (!inventory?.equippedAvatarId) {
-            return 'slim';
-        }
-        const avatar = catalog.find((i): i is AvatarShopItem => i.category === 'avatar' && i.id === inventory.equippedAvatarId);
-        return avatar?.bodyType ?? 'slim';
-    }, [catalog, inventory])
-
     const purchase = useCallback(async (itemId: string) => {
         if (!token) {
             setError('Missing or Invalid Token');
@@ -117,16 +90,6 @@ export const InventoryProvider = ({children}: {children: ReactNode}) => {
         setInventory(updated);
     },[token])
 
-    const toggleAcc = useCallback(async (slot: AccessorySlot, itemId: string) => {
-        if (!token) {
-            setError('Missing or Invalid Token');
-            return;
-        }
-        const already = inventory?.equippedAccessories[slot] === itemId;
-        const updated = await equipAcc(slot, already ? null : itemId, token);
-        setInventory(updated);
-    }, [inventory, token])
-
     const isOwned = useCallback(
         (itemId: string) => inventory?.owned.some((o) => o.itemId === itemId) ?? false, [inventory]
     )
@@ -143,10 +106,6 @@ export const InventoryProvider = ({children}: {children: ReactNode}) => {
         }, [inventory]
     )
 
-    const isAccessoryEquipped = useCallback(
-        (slot: AccessorySlot, itemId: string) => inventory?.equippedAccessories[slot] === itemId, [inventory]
-    )
-
     return (
         <InventoryContext.Provider value={{
             catalog,
@@ -156,17 +115,13 @@ export const InventoryProvider = ({children}: {children: ReactNode}) => {
             error,
 
             equippedAvatarImage,
-            equippedAccessoryImage,
-            equippedAvatarBodyType,
 
             refetch: fetchAll,
             purchase,
             equip,
-            toggleAcc,
 
             isOwned,
             isEquipped,
-            isAccessoryEquipped,
         }}>
             {children}
         </InventoryContext.Provider>
