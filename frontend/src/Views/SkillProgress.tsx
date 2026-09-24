@@ -95,7 +95,7 @@ return (
                     <div className="flex flex-col items-start lg:items-center lg:justify-self-end gap-2">
                         {/*still top section but now adding extra information*/}
                         <DomainToggle domain={domain} onChange={setDomain} />
-                        {league && <p className="text-sm uppercase tracking-wide font-bold text-success mt-2">{league} league</p>}
+                        {league && <p className="text-sm uppercase tracking-wide font-bold text-success mt-3">{league} league</p>}
                     </div>
                 </div>
 
