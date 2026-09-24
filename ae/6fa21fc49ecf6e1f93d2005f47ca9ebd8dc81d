@@ -1,0 +1,14 @@
+frontend/src/services/complexity.service.tsx
+  h_58e143dc25f856 1-33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ae6fa21fc49ecf6e1f93d2005f47ca9ebd8dc81d",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
