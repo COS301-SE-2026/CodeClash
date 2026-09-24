@@ -1,3 +1,5 @@
+import type { Player } from "src/Models/MatchModel";
+
 export type MatchType = 'ranked' | 'casual';
 export type MatchMode = 'math' | 'programming';
 export type MatchStatus = 'waiting'|'starting'|'in_progress'|'completed'|'abandoned';
@@ -6,7 +8,8 @@ export interface PlayerDTO {
     id: string,
     elo: number,
     username?: string,
-    life?: number
+    life?: number,
+    avatar?:string
 }
 
 export const QuestionInputType = {
@@ -41,10 +44,10 @@ export interface QuestionDTO {
 }
 
 export interface MatchDTO {
-    id: string
-    players: string[]
+    match_id: string
+    players: Player[]
     duration: number
-    questions: QuestionDTO[]
+    rounds: RoundDTO[]
 }
 
 export interface MatchQuestionsDTO {

@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
+import { useUser } from "src/context/User/hooks/useUser";
 import type { PlayerDTO } from "src/dtos/match/match.dto"
 import type { TournamentDTO } from "src/dtos/tournaments/tournament.dto";
+import { useMatchStore } from "src/stores/match-store";
 
 const MIN_PLAYERS = 8;
 
@@ -12,6 +14,7 @@ export const useTournamentLobby = () => {
     const [error, setError] = useState<string | null>(null);
 
     const { tournamentSocket } = useSocket();
+    const { userId } = useUser();
     const { tournament_id } = useParams<{ tournament_id: string }>();
     const nav = useNavigate();
 
@@ -42,11 +45,16 @@ export const useTournamentLobby = () => {
             nav('/tournaments');
         })
 
+        const unsub_started = tournamentSocket.tournamentStart((data) => {
+            useMatchStore.getState().setMatchData(data.match);
+            nav(`/tournamen/${tournament_id}`);
+        })
 
         return () => {
             unsub_joined();
             unsub_left();
             unsub_cancel();
+            unsub_started();
         }
     }, [tournamentSocket, tournament]);
 
@@ -58,10 +66,19 @@ export const useTournamentLobby = () => {
         nav('/tournaments');
     }
 
+    const cancel = () => {
+        if (tournament && tournament.host.id === userId) {
+            tournamentSocket?.cancelTournament(tournament_id!);
+        }
+        else
+            setError('Cannot cancel tournament');
+    }
+
     return {
         tournament,
         players,
         error,
-        leave
+        leave,
+        cancel,
     }
 }

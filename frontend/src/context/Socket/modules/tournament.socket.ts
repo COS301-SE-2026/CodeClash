@@ -1,7 +1,6 @@
 import type { Socket } from "socket.io-client";
-import type { PlayerDTO } from "src/dtos/match/match.dto";
+import type { MatchDTO, PlayerDTO, MatchMode } from "src/dtos/match/match.dto";
 import { emit, on } from "../dispatch";
-import type { MatchMode } from "src/dtos/match/match.dto";
 import type { TournamentDTO } from "src/dtos/tournaments/tournament.dto";
 
 export class TournamentSocket {
@@ -27,6 +26,10 @@ export class TournamentSocket {
 
     tournamentCancelled(handler: () => void) {
         return on(this.socket, 'tournament_cancelled', handler);
+    }
+
+    tournamentStart(handler: (data: { match: MatchDTO, tournament: TournamentDTO }) => void) {
+        return on(this.socket, 'tournament_started', handler);
     }
 
     // Error events
@@ -65,7 +68,11 @@ export class TournamentSocket {
         return emit<string, void>(this.socket, 'cancel_tournament', tournament_id);
     }
 
-    getTournament(tournament_id: string){
+    getTournament(tournament_id: string) {
         return emit<string, TournamentDTO>(this.socket, 'get_tournament', tournament_id);
+    }
+
+    startTournament(data: { tournament_id: string, league: string }) {
+        return emit < typeof data, {match: MatchDTO, tournament: TournamentDTO}>(this.socket, 'start_tournament', data);
     }
 }

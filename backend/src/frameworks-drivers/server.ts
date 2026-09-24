@@ -5,8 +5,6 @@ import { Server } from 'socket.io'
 import { IQuestionRepository } from 'src/application/interfaces/repositories/IQuestionRepository';
 import { QuestionRepository } from 'src/interface-adapters/repositories/question.repository';
 import { Questions } from 'src/entities/database/questions.entities';
-//import { cleanUp, gameDone, sendResults, startQuestion, submitQuestion } from 'src/interface-adapters/socket-handlers/game.handler';
-import { PlayerSubmissionDTO } from 'src/entities/dtos/submissions/submission.dto';
 import { IAnswerRepository } from 'src/application/interfaces/repositories/IAnswerRepository';
 import { AnswerRepository } from 'src/interface-adapters/repositories/answer.repository';
 import { Answers } from 'src/entities/database/answers.entities';
@@ -124,7 +122,7 @@ AppDataSource.initialize()
         const leaderboard_service = new LeaderboardService(user_repo);
         const friends_service = new FriendService(friend_repo);
         const achievement_service = new AchievementService(achievementRepo, user_repo);
-        const match_start = new MatchStart(match_service, match_store);        
+        const match_start = new MatchStart(match_service, match_store);
 
         const shop_item_service = new ShopItemService(shop_item_repo);
         const inventory_service = new InventoryService(inventory_repo);
@@ -181,7 +179,7 @@ AppDataSource.initialize()
                 const db_id = (await user_repo.getUserId(valid.user_Id))?.user_id;
                 if (!db_id) return next(new Error("Authentication error: User DB ID Not found")) // db id not found
 
-                const user = (await user_repo.getUserData(db_id, 'username'))
+                const user = await user_repo.getUserData(db_id, 'username')
                 // if (!(await user_repo.getUserData(db_id, 'username'))) return next(new Error("Authentication error: User not found")) // user not found, not necessarily username innit
                 if (!user) return next(new Error("Authentication error: User not found")) // user not found, not necessarily username innit
 

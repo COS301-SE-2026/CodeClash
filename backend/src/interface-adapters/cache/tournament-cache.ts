@@ -23,7 +23,8 @@ export class TournamentCache implements ITournamentCache {
             tournament_mode: match_mode,
             status: MatchStatus.Waiting,
             created_at: new Date(),
-            start_date: start_date
+            start_date: start_date,
+            host: host
         }
 
         await this.redis.set(`tournament:${tournament_id}`, JSON.stringify(tournament));
