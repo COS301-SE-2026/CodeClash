@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useEffect } from "react";
 import { UseUserAvatar } from './Profile';
 import { useDashboardViewModel } from '../ViewModels/DashboardViewModel';
+import { useSkillProgressViewModel } from '../ViewModels/SkillProgressViewModel';
 
 import Popup from './Popup'
 
@@ -16,23 +17,34 @@ type SkillMetric = {
 }
 
 const SkillProgressCard = ({
-  items, seeAll,
+  items, seeAll, mastery, masteryCeiling, isSimulated,
 } : {
   items: SkillMetric[];
   seeAll: string;
+  mastery: number;
+  masteryCeiling: number;
+  isSimulated: boolean;
 }) => (
   <div className='card-elevated p-5'>
-    <div className='blur-[1px] pointer-events-none select-none opacity-60'>
     <div className='flex items-center justify-between mb-3'>
       <div>
         <p className='text-sm font-bold text-primary-text'>Skills Progress</p>
+        {isSimulated && <p className='text-xsm text-muted'>Simulated data</p>}
       </div>
       <Link to = {seeAll} className='badge badge-status-pending'>
-        See all 
+        See all
         <ChevronRight size = {12}/>
       </Link>
     </div>
     <div className='flex flex-col gap-4 rounded-2xl bg-background-elevated border border-border p-4'>
+      {/*Mastery headline, the same figure the skill progress page opens with*/}
+      <div className='flex items-baseline justify-between'>
+        <span className='text-xsm text-muted uppercase tracking-wide font-bold'>Mastery</span>
+        <span className='text-xsm text-muted'>
+          <span className='score-display text-sm font-black'>{mastery.toFixed(2)}</span>
+          {` / ${masteryCeiling.toFixed(0)}`}
+        </span>
+      </div>
       {items.map((item) => (
         <div key = {item.label}>
           <div className='flex justify-between text-xsm text-muted mb-1.5'>
@@ -46,13 +58,18 @@ const SkillProgressCard = ({
         </div>
       ))}
     </div>
-    </div>
   </div>
-)
+))}
 
 const Dashboard = () => {
   const { isOpen, openPopUp, closePopUp, username, elo, league, isLoading, current_streak, winning_streak, recentAchievement ,refresh } = useDashboardViewModel();
+  const { components, mastery, masteryCeiling, isSimulated } = useSkillProgressViewModel();
+  const skillMetrics: SkillMetric[] = components.slice(0, 4).map(component => ({
+    label: `${component.domain === 'math' ? 'Math' : 'Code'} ${component.label}`,
+    value: component.value
+  }));
 
+  
     useEffect(() => {
     refresh();
   },[isLoading])
@@ -148,11 +165,14 @@ const Dashboard = () => {
                   </div>
                 </div>
 
-                <SkillProgressCard seeAll='/stats' items={[
-                  {label: 'Metric Title', value: 65},
-                  {label: 'Metric Title', value: 40}
-                ]}/>
-              </div>
+                <SkillProgressCard
+                  seeAll='/stats'
+                  mastery={mastery}
+                  masteryCeiling={masteryCeiling}
+                  isSimulated={isSimulated}
+                  items={skillMetrics}
+                />
+                </div>
           </div>
         </div>
 
