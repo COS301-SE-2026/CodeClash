@@ -12,7 +12,7 @@ import { useUser } from 'src/context/User/hooks/useUser';
 
 export const useMatch = () => {
     const nav = useNavigate();
-    const { match_socket } = useSocket();
+    const { matchSocket } = useSocket();
     const { id } = useParams();
     const { match_mode, gameType } = useMatchmaking();
     const { userId } = useUser();
@@ -75,7 +75,7 @@ export const useMatch = () => {
 
     const { seconds, minutes } = useGameTimer(duration, () => {
         setGameOver(true);
-        match_socket?.finishMatch({ match_id: id!, match_mode: match_mode! })
+        matchSocket?.finishMatch({ match_id: id!, match_mode: match_mode! })
     })
 
 
@@ -116,18 +116,18 @@ export const useMatch = () => {
             submission: data
         }
 
-        match_socket?.submitAnswer(submission);
+        matchSocket?.submitAnswer(submission);
     }
 
 
     useEffect(() => {
-        if (match_socket && id) {
+        if (matchSocket && id) {
 
-            const unsub_marking = match_socket.markingComplete(submission_result);
-            const unsub_submission_error = match_socket.submissionError(submission_error);
-            const unsub_done = match_socket.bothDone(both_done);
-            const unsub_opponent_progress = match_socket.opponentProgress(opponent_progress);
-            const unsub_opponent_done = match_socket.opponentDone(opponent_done);
+            const unsub_marking = matchSocket.markingComplete(submission_result);
+            const unsub_submission_error = matchSocket.submissionError(submission_error);
+            const unsub_done = matchSocket.bothDone(both_done);
+            const unsub_opponent_progress = matchSocket.opponentProgress(opponent_progress);
+            const unsub_opponent_done = matchSocket.opponentDone(opponent_done);
 
             setLoading(questions.length === 0);
 
@@ -141,7 +141,7 @@ export const useMatch = () => {
             }
         }
 
-    }, [match_socket])
+    }, [matchSocket])
 
     return {
         status,

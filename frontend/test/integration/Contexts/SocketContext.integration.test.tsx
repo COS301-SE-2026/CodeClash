@@ -10,12 +10,12 @@ import { SocketProvider } from '../../../src/context/Socket/SocketContext';
 import { useSocket } from '../../../src/context/Socket/hooks/useSocket';
 
 const SocketConsumer = () => {
-  const { match_socket, isConnected } = useSocket();
+  const { matchSocket, isConnected } = useSocket();
 
   return (
     <div>
       <span data-testid="connected">{String(isConnected)}</span>
-      <span data-testid="socket">{match_socket ? 'ready' : 'none'}</span>
+      <span data-testid="socket">{matchSocket ? 'ready' : 'none'}</span>
     </div>
   );
 };

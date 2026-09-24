@@ -72,13 +72,16 @@ export class TournamentService {
 
         const match = await this.creation_service.execute(tournament.players, tournament.tournament_mode, league, MatchType.tournament);
 
+        tournament.rounds = match.rounds;
+        tournament.status = MatchStatus.In_progress;
+
         const players = tournament.players.map(p => ({ player_id: p.id, username: p.username! }));
         this.elimination_service.init(tournament.tournament_id, players);
 
         const round_1 = match.rounds[0];
         this.elimination_service.startRound(tournament.tournament_id, round_1!.round_number, round_1!.questions.map(q => q.id));
 
-        return round_1;
+        return match;
     }
 
 }

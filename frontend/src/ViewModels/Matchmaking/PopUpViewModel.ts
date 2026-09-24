@@ -7,12 +7,12 @@ import type { MatchMode } from "src/dtos/match/match.dto";
 
 export function useSelectTopic() {
     const navigation = useNavigate();
-    const { matchmaking_socket } = useSocket();
+    const { matchmakingSocket } = useSocket();
     const { elo } = useUser();
     const { gameType, reset } = useMatchmaking()
 
     const selectTopic = (selected_topic: MatchMode) => {
-        if (!matchmaking_socket) throw new Error("500 Internal Server Error");
+        if (!matchmakingSocket) throw new Error("500 Internal Server Error");
 
         const data: MatchmakingUserDTO = {
             elo: elo,
@@ -20,15 +20,15 @@ export function useSelectTopic() {
             match_type: gameType!
         }
 
-        matchmaking_socket.joinQueue(data);
+        matchmakingSocket.joinQueue(data);
         navigation('/match-searching');
 
     }
 
     const cancel = () => {
-        if (!matchmaking_socket) throw new Error("500 Internal Server Error");
+        if (!matchmakingSocket) throw new Error("500 Internal Server Error");
 
-        matchmaking_socket.leaveQueue();
+        matchmakingSocket.leaveQueue();
         reset();
     }
     return { selectTopic, cancel };

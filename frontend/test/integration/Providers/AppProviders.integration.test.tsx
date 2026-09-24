@@ -47,7 +47,7 @@ const MATCHED: MatchedUsersDTO = {
 const Dashboard = () => {
   const auth = useAuth();
   const user = useUser();
-  const { isConnected, matchmaking_socket } = useSocket();
+  const { isConnected, matchmakingSocket } = useSocket();
   const mm = useMatchmaking();
   const { theme, toggleTheme } = useTheme();
 
@@ -64,8 +64,8 @@ const Dashboard = () => {
       <button onClick={toggleTheme}>toggle-theme</button>
       <button
         onClick={() =>
-          matchmaking_socket &&
-          matchmaking_socket.joinQueue({
+          matchmakingSocket &&
+          matchmakingSocket.joinQueue({
             elo: user.elo,
             match_mode: 'math',
             match_type: 'ranked'

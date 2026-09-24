@@ -54,3 +54,14 @@ export const getTournament = async (socket: Socket, tournament_id: string, tourn
         socket.emit("get_tournament_failed", error);
     }
 }
+
+export const startTournament = async (io: Server, socket: Socket, tournament_id: string, league: string, tournament_service: TournamentService) => {
+    try {
+        const tournament = await tournament_service.getTournament(tournament_id);
+        const match = await tournament_service.startTournament(tournament, league);
+
+        io.to(tournament_id).emit("tournament_started", { match: match, tournament: tournament });
+    } catch (error) {
+        socket.emit("start_tournament_failed", error);
+    }
+}

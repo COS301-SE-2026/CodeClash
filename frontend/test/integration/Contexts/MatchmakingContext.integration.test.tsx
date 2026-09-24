@@ -36,7 +36,7 @@ const MatchmakingConsumer = () => {
 
 const renderMatchmaking = (socket: FakeSocket | null) =>
   render(
-    <SocketContext.Provider value={{ matchmaking_socket: socket ? new MatchmakingSocket(socket.asSocket()) : null, isConnected: !!socket , match_socket: null}}>
+    <SocketContext.Provider value={{ matchmakingSocket: socket ? new MatchmakingSocket(socket.asSocket()) : null, isConnected: !!socket , matchSocket: null, tournamentSocket: null}}>
       <MatchmakingProvider>
         <MatchmakingConsumer />
       </MatchmakingProvider>
@@ -134,7 +134,7 @@ describe('MatchmakingProvider integration', () => {
           const quiet = vi.spyOn(console, 'error').mockImplementation(() => {});
           expect(() =>
             render(
-              <SocketContext.Provider value={{ matchmaking_socket: null, isConnected: false, match_socket: null }}>
+              <SocketContext.Provider value={{ matchmakingSocket: null, isConnected: false, matchSocket: null, tournamentSocket: null }}>
                 <MatchmakingConsumer />
               </SocketContext.Provider>,
             ),
