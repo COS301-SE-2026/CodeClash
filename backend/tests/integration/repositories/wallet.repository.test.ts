@@ -38,7 +38,10 @@ describe('Tests WalletRepository', () => {
     });
 
     it('Creates a wallet with zero balance', async () => {
+        const wallet = await repo.createWallet(user_id);
 
+        expect(wallet.balance).toBe(0);
+        expect(wallet.user_id).toBe(user_id);
     });
 
     it('Increases balance with a positive delta', async () => {
