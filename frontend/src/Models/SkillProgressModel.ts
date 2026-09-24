@@ -133,7 +133,7 @@ export interface GameMastery {
 
 export const MASTERY_WINDOW = 20; // games, per the doc
 export const GROWTH_WINDOW_DAYS = 30;
-/*Weekly growth smaller than this either way is reported as flat rather than a trend.*/
+  // weekly growth based on the games and stuff
 export const GROWTH_FLAT_THRESHOLD = 0.05;
 
 const clamp01 = (value: number): number => Math.min(1, Math.max(0, value));
