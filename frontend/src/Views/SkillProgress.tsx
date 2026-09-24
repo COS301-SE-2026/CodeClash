@@ -79,13 +79,23 @@ return (
             <Starfield count={30} />
 
             <div className="relative z-10 max-w-[1400px] mx-auto flex flex-col gap-6">
-                {/*Header: who this is for, and the domain filter*/}
+                {/*header section !!*/}
                 <div className="card-elevated p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-5">
                     <div>
                         <p className="eyebrow text-primary">{content.eyebrow}</p>
                         <h1 className="text-xl font-black text-primary-text mt-1">{content.title}</h1>
                         <p className="text-xsm text-muted-text mt-1">{content.subtitle}</p>
-                    </div>
+        </div>
+
+        <div className="flex flex-col items-start lg:items-end gap-3">
+            <DomainToggle domain={domain} onChange={setDomain} />
+            <div className="flex flex-wrap items-center gap-2">
+                {league && <span className="badge badge-status-correct uppercase">{league} league</span>}
+                <span className="badge badge-status-pending">Elo {elo}</span>
+                <span className="badge badge-status-pending">Last {masteryWindow} games</span>
+            </div>
+        </div>
+    </div>
         
     );
 
