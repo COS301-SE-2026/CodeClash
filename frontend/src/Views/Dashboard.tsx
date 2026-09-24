@@ -59,7 +59,7 @@ const SkillProgressCard = ({
       ))}
     </div>
   </div>
-))}
+)
 
 const Dashboard = () => {
   const { isOpen, openPopUp, closePopUp, username, elo, league, isLoading, current_streak, winning_streak, recentAchievement ,refresh } = useDashboardViewModel();
