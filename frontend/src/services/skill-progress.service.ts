@@ -129,3 +129,32 @@ async function toGameSample(row: MatchHistoryRow, league: string): Promise<GameS
         simulated: true
     };
 }
+
+async function simulatedHistory(league: string, now: Date): Promise<GameSample[]> {
+    const random = seededRandom(`demo:${league}`);
+    const games: GameSample[] = [];
+    const total = 26;
+
+    for (let index = 0; index < total; index++) {
+        // Newest first, spread over the 30 day growth window.
+        const daysAgo = (index / total) * 29 + random() * 0.6;
+        const playedAt = new Date(now.getTime() - daysAgo * DAY_MS);
+        // Recent games lean better so the trend line has something to say.
+        const form = 0.55 + (1 - index / total) * 0.22 + (random() - 0.5) * 0.12;
+        const result: MatchOutcome = form > 0.68 ? 'WIN' : form > 0.6 ? 'DRAW' : 'LOSS';
+        const domain: GameDomain = random() > 0.45 ? 'programming' : 'math';
+        const matchId = `demo-${index}`;
+
+        games.push({
+            matchId,
+            playedAt: playedAt.toISOString(),
+            domain,
+            league,
+            result,
+            questions: await buildQuestions(matchId, domain, league, result),
+            simulated: true
+        });
+    }
+
+    return games;
+}
