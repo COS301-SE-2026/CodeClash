@@ -1,0 +1,39 @@
+frontend/src/dtos/match/match.dto.ts
+  h_94c952a9e14c58 1-2,11-12,47-48,50
+backend/tests/integration/socket-handlers/submit-question.test.ts
+  h_94c952a9e14c58 20,23,53-54,59-60,97,99,129-130,135-136,142,170-171,178
+  h_94c952a9e14c58 3,95
+backend/src/frameworks-drivers/socket/modules/register-tournament-handler.ts
+  h_94c952a9e14c58 5,23-25
+  h_94c952a9e14c58 21-22
+backend/src/frameworks-drivers/config/redis-client.ts
+  h_94c952a9e14c58 5,7
+frontend/src/context/Socket/modules/tournament.socket.ts
+  h_94c952a9e14c58 2,31-34,74-77
+  h_94c952a9e14c58 71
+frontend/src/dtos/tournaments/tournament.dto.ts
+  h_94c952a9e14c58 13
+backend/src/entities/dtos/tournaments/tournaments.dto.ts
+  h_94c952a9e14c58 12
+backend/src/interface-adapters/cache/tournament-cache.ts
+  h_94c952a9e14c58 26-27
+frontend/src/ViewModels/Tournaments/TournamentViewModel.ts
+  h_94c952a9e14c58 4,7,17,48-51,57,69-76,81-82
+backend/tests/integration/socket-handlers/tournament-handler.test.ts
+  h_94c952a9e14c58 1-108
+backend/tests/integration/socket-handlers/helper.ts
+  h_94c952a9e14c58 1-143
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 125,182
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "007fde03f3702fc32775d656ddb0f134bfa7ac8b",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
