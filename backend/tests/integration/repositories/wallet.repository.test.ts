@@ -45,7 +45,9 @@ describe('Tests WalletRepository', () => {
     });
 
     it('Increases balance with a positive delta', async () => {
+        const wallet = await repo.updateBalance(user_id, 150);
 
+        expect(wallet.balance).toBe(150);
     });
 
     it('Throws when balance would go negative', async () => {
