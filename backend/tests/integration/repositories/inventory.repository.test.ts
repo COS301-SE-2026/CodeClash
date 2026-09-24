@@ -23,7 +23,16 @@ let item_ids: string[] = [];
 
 describe('Tests InventoryRepository', () =>{
     beforeAll(async () => {
+        data_source = await createTestDataSource();
+        shop_item_mapper = new ShopItemRepository(data_source.getRepository(ShopItem));
+        repo = new InventoryRepository(data_source.getRepository(UserItem), shop_item_mapper);
+        user_repo = new UserRepository(data_source.getRepository(Users));
 
+        const user = await user_repo.createUser(username, `${username}@example.com`, cognito_id, 0, 'Mercury');
+        user_id = user.user_Id!;
+
+        const saved = await data_source.getRepository(ShopItem).save(mock_shop_items);
+        item_ids = saved.map(i => i.shop_item_id);
     });
 
     afterAll(async () => {
