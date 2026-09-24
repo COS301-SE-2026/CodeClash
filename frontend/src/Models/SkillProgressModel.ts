@@ -356,6 +356,30 @@ export interface DifficultyBand {
     questionCount: number;
 }
 
+export function difficultyBands(games: GameSample[], league: string): DifficultyBand[] {
+    const profile = leagueProfile(league);
+    const labels = ['Easy', 'Medium', 'Hard'];
+    
+    return profile.difficulty.map((difficulty, index) => {
+        let fractionSum = 0;
+        let questionCount = 0;
+        for (const game of games.slice(0, MASTERY_WINDOW)) {
+            for (const question of game.questions) {
+                if (question.difficulty !== difficulty) continue;
+                fractionSum += questionFraction(question, game.domain);
+                questionCount += 1;
+            }
+        }
+
+        return {
+            label: `${labels[index]} · d${difficulty}`,
+            difficulty,
+            performance: questionCount === 0 ? 0 : fractionSum / questionCount,
+            questionCount
+        };
+    });
+}
+
 export interface SkillProgressContent {
     eyebrow: string;
     title: string;
