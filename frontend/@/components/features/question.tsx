@@ -26,7 +26,7 @@ function Question({
         className,
       )}
     >
-      <MatchCard className="flex flex-col p-2 rounded-lg w-full h-auto -mt-5">
+      <MatchCard className="flex flex-col p-2 rounded-lg w-full h-auto -mt-5 gap-3">
         <div className="flex justify-between w-full">
           <p className="ml-3 mt-2 font-bold text-[1rem]">Question {number}</p>
           <Badge

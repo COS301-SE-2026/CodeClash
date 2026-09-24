@@ -23,7 +23,6 @@ interface MatchScreenProps {
 
 export const MatchScreen: React.FC<MatchScreenProps> = ({
     player_life,
-    colour,
     seconds,
     minutes,
     avatars,
@@ -44,7 +43,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
             {/* <img src={background} className='absolute w-full -z-10' alt='background' /> */}
             {/* <BackButton page='/dashboard' /> */}
             {/* Header */}
-            <MatchCard className="rounded-[12px] w-[88%] h-[4rem] shrink-0 mb-10 mt-10 ml-[3%] mr-[3%] flex items-center overflow-x-auto">
+            <MatchCard className="rounded-[12px] w-[88%] h-[4rem] shrink-0 mb-10 mt-10 ml-10 mr-10 flex items-center overflow-x-auto">
             <div className="flex w-full h-full items-center gap-2">
                 
                 {/* Player 1 Progress */}
@@ -146,9 +145,9 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 <div className='flex flex-col items-center w-[20%] justify-between'>
 
                     {/* progress  */}
-                    <div className='-mt-5 ml-[40%] w-[100%] flex'>
+                    <div className='my-auto ml-[40%] w-[100%] flex'>
                             {/* doors */}
-                            <MatchCard className='relative rounded-[20px] flex flex-col-reverse items-center justify-between h-160 w-[5rem] gap-2 p-3'>
+                            <MatchCard className='relative rounded-[20px] flex flex-col-reverse items-center justify-between h-auto w-[5rem] gap-2 p-3'>
                                 <Progress 
                                     value={progressValue}
                                     orientation="vertical"
@@ -158,25 +157,26 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
 
                                         const doorResult = question_results[idx];
                                         const doorColour = () => {
+                                            if (idx === current_question) return 'bg-[var(--button-tournament)] shadow-[0_0_10px_var(--button-tournament)]'
                                             if (doorResult === true) return 'bg-success/30 shadow-[0_0_10px_var(--success)]'
                                             if (doorResult === false) return 'bg-danger/30 shadow-[0_0_10px_var(--danger)]'
-                                            if (idx === current_question) return 'bg-[var(--button-tournament)] shadow-[0_0_10px_var(--button-tournament)]'
                                             return 'bg-card'
                                         }
                                         const doorSymbol = () => {
+                                            if (idx === current_question) return <Target size={30} className="font-black"/>
                                             if (doorResult === true) return <Check size={40} className="text-green-300 font-semibold"/>
                                             if (doorResult === false) return <X size={40} className="text-[var(--progress-bar-symbol)] font-semibold"/>
-                                            if (idx === current_question) return <Target size={30} className="font-black"/>
                                             return <LockKeyhole/>
                                         }
                                         const oppProg = () => {
                                             if (idx === opponent_progress) return <div className="absolute top-0 left-0 rounded-full h-4 w-4 
                                             bg-red-800 z-20 shadow-[0_0_12px_rgba(190,0,0,0.3)]"/>
                                         }
+
                                         return (
                                             <React.Fragment key={`${question_number}-${idx}`}>
 
-                                                <div className={`${doorColour()} w-[4rem] max-h-16 flex-1 min-h-0 shrink flex items-center 
+                                                <div className={`${doorColour()} w-[2.8rem] max-h-16 flex-1 min-h-11 shrink flex items-center 
                                                 justify-center col-start-2 rounded-[15px] z-10 mt-5 mb-5 relative`}>
                                                     {doorSymbol()}
                                                     {oppProg()} 

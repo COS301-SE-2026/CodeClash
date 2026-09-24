@@ -106,7 +106,7 @@ const MathsMatch = () => {
                 }
                 </div>
             
-            </MathMatch>
+                </MathMatch>
             </div>
 
             {waitingOpponent && (
