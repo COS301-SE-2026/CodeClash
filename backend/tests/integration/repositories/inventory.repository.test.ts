@@ -18,7 +18,7 @@ let user_repo: IUserRepository;
 
 let user_id: string;
 const cognito_id = randomUUID();
-const username = `equipped_test_${randomUUID}`;
+const username = `inventory_test_${randomUUID}`;
 let item_ids: string[] = [];
 
 describe('Tests InventoryRepository', () =>{
@@ -29,7 +29,7 @@ describe('Tests InventoryRepository', () =>{
         user_repo = new UserRepository(data_source.getRepository(Users));
 
         const user = await user_repo.createUser(username, `${username}@example.com`, cognito_id, 0, 'Mercury');
-        user_id = user.user_Id!;
+        user_id = user.user_id!;
 
         const saved = await data_source.getRepository(ShopItem).save(mock_shop_items);
         item_ids = saved.map(i => i.shop_item_id);

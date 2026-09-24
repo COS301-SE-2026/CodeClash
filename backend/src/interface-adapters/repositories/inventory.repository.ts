@@ -22,7 +22,7 @@ export class InventoryRepository implements IInventoryRepository {
     async getUserItems(user_id: string): Promise<UserItemDTO[]> {
         const items = await this.userItemRepo.find({
             where: { user: { user_id } },
-            relations: { shop_item: true }
+            relations: { user: true, shop_item: true }
         });
         return items.map(i => this.toDTO(i));
     }
@@ -37,7 +37,7 @@ export class InventoryRepository implements IInventoryRepository {
     async getUserPowerups(user_id: string): Promise<UserItemDTO[]> {
             const items = await this.userItemRepo.find({
                 where: { user: { user_id }, shop_item: { category: 'powerup' } },
-                relations: { shop_item: true }
+                relations: { user: true, shop_item: true }
             });
 
             return items.map(i => this.toDTO(i));
