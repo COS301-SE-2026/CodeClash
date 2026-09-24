@@ -437,8 +437,8 @@ export function buildInsights(
     const scored = components.filter(component => component.gamesCounted > 0);
 
     if (scored.length > 0) {
-        const weakest = scored.reduce((low, component) => (component.value < low.value ? component : low));
-        const strongest = scored.reduce((high, component) => (component.value > high.value ? component : high));
+        const weakest = scored.reduce((low, component) => (component.value < low.value ? component : low), scored[0]!);
+        const strongest = scored.reduce((high, component) => (component.value > high.value ? component : high), scored[0]!);
 
         insights.push({
             id: 'weakest',
