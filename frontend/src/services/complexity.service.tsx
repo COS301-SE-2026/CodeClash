@@ -74,3 +74,12 @@ export const mockComplexityProvider: ComplexityProvider = {
         return { matchId: request.matchId, source: 'mock', verdicts };
     }
 };
+
+let activeProvider: ComplexityProvider = mockComplexityProvider;
+
+export const getComplexityProvider = (): ComplexityProvider => activeProvider;
+
+/*Swap in the LLM backed provider here once the endpoint exists.*/
+export const setComplexityProvider = (provider: ComplexityProvider): void => {
+    activeProvider = provider;
+};
