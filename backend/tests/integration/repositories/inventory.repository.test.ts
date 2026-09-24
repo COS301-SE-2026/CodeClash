@@ -62,6 +62,16 @@ describe('Tests InventoryRepository', () =>{
     });
 
     it('Returns only powerup-category items from getUserPowerups', async () => {
+        await data_source.getRepository(UserItem).save(
+            data_source.getRepository(UserItem).create({
+                user: { user_id }as any,
+                shop_item: { shop_item_id: item_ids[1] } as any
+            })
+        );
 
+        const powerups = await repo.getUserPowerups(user_id);
+
+        expect(powerups).toHaveLength(1);
+        expect(powerups[0].item.category).toBe('powerup');
     });
 });
