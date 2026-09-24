@@ -34,6 +34,7 @@ import { UserProvider } from '../../src/context/User/UserContext';
 import type { MatchedUsersDTO } from '../../src/dtos/matched-user.dto';
 
 import { FakeSocket } from './helpers';
+import { InventoryProvider } from '../../src/context/Shop/InventoryContext';
 
 const MATCHED: MatchedUsersDTO = {
   players: {
@@ -83,15 +84,17 @@ const renderApp = () =>
   render(
     <ThemeProvider>
       <AuthProvider>
-        <UserProvider>
-          <SocketProvider>
-            <MatchmakingProvider>
-              <AchievementToastProvider>
-                <Dashboard />
-              </AchievementToastProvider>
-            </MatchmakingProvider>
-          </SocketProvider>
-        </UserProvider>
+        <InventoryProvider>
+          <UserProvider>
+            <SocketProvider>
+              <MatchmakingProvider>
+                <AchievementToastProvider>
+                  <Dashboard />
+                </AchievementToastProvider>
+              </MatchmakingProvider>
+            </SocketProvider>
+          </UserProvider>
+        </InventoryProvider>
       </AuthProvider>
     </ThemeProvider>,
   );
@@ -142,50 +145,50 @@ describe('app provider tree integration', () => {
     expect(screen.getByTestId('opponent')).toHaveTextContent('rival');
   });
   it('queues the player up using their loaded profile', async () => {
-      const user = userEvent.setup();
-      renderApp();
-      await waitFor(() => expect(screen.getByTestId('elo')).toHaveTextContent('1400'));
-      await waitFor(() => expect(screen.getByTestId('connected')).toBeInTheDocument());
-  
-      await user.click(screen.getByRole('button', { name: 'queue-up' }));
-  
-      expect(socket.emitsOf('join_match_queue')).toEqual([
-        [{ elo: 1400, game_mode: 'math', game_type: 'ranked', username: 'ntu' }],
-      ]);
-    });
-  
-    it('polls achievements with the same token the auth context issued', async () => {
-      renderApp();
-  
-      await waitFor(() =>
-        expect(fetch).toHaveBeenCalledWith('/api/achievements/me', {
-          headers: { Authorization: 'Bearer id-token-abc' },
-        }),
-      );
-    });
-  
-    it('keeps the theme independent of the auth state', async () => {
-      const user = userEvent.setup();
-      renderApp();
-      await waitFor(() => expect(screen.getByTestId('authenticated')).toHaveTextContent('true'));
-  
-      expect(screen.getByTestId('theme')).toHaveTextContent('dark');
-      await user.click(screen.getByRole('button', { name: 'toggle-theme' }));
-      expect(screen.getByTestId('theme')).toHaveTextContent('light');
-      expect(window.localStorage.getItem('codeclash-themes')).toBe('light');
-    });
-  
-    it('renders a signed-out tree without fetching a profile', async () => {
-      amplify.getCurrentUser.mockRejectedValue(new Error('not signed in'));
-      amplify.fetchAuthSession.mockResolvedValue({ tokens: undefined });
-  
-      renderApp();
-  
-      await waitFor(() => expect(screen.getByTestId('authenticated')).toHaveTextContent('false'));
-      expect(screen.getByTestId('username')).toHaveTextContent('none');
-      expect(api.get).not.toHaveBeenCalled();
-      expect(fetch).not.toHaveBeenCalled();
-    });
-  
+    const user = userEvent.setup();
+    renderApp();
+    await waitFor(() => expect(screen.getByTestId('elo')).toHaveTextContent('1400'));
+    await waitFor(() => expect(screen.getByTestId('connected')).toBeInTheDocument());
+
+    await user.click(screen.getByRole('button', { name: 'queue-up' }));
+
+    expect(socket.emitsOf('join_match_queue')).toEqual([
+      [{ elo: 1400, game_mode: 'math', game_type: 'ranked', username: 'ntu' }],
+    ]);
+  });
+
+  it('polls achievements with the same token the auth context issued', async () => {
+    renderApp();
+
+    await waitFor(() =>
+      expect(fetch).toHaveBeenCalledWith('/api/achievements/me', {
+        headers: { Authorization: 'Bearer id-token-abc' },
+      }),
+    );
+  });
+
+  it('keeps the theme independent of the auth state', async () => {
+    const user = userEvent.setup();
+    renderApp();
+    await waitFor(() => expect(screen.getByTestId('authenticated')).toHaveTextContent('true'));
+
+    expect(screen.getByTestId('theme')).toHaveTextContent('dark');
+    await user.click(screen.getByRole('button', { name: 'toggle-theme' }));
+    expect(screen.getByTestId('theme')).toHaveTextContent('light');
+    expect(window.localStorage.getItem('codeclash-themes')).toBe('light');
+  });
+
+  it('renders a signed-out tree without fetching a profile', async () => {
+    amplify.getCurrentUser.mockRejectedValue(new Error('not signed in'));
+    amplify.fetchAuthSession.mockResolvedValue({ tokens: undefined });
+
+    renderApp();
+
+    await waitFor(() => expect(screen.getByTestId('authenticated')).toHaveTextContent('false'));
+    expect(screen.getByTestId('username')).toHaveTextContent('none');
+    expect(api.get).not.toHaveBeenCalled();
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
 
 });
