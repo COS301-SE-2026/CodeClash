@@ -4,7 +4,6 @@ import type { Player } from "src/Models/MatchModel";
 import type { QuestionDTO } from "src/dtos/match/match.dto";
 import type { RoundDTO } from "src/dtos/match/match.dto";
 import type { OpponentDTO } from "src/dtos/match/opponent.dto";
-import type { MathsSubmissionDTO, ProgSubmissionDTO } from "src/dtos/match/submission.dto";
 import type { MatchSocket } from "src/context/Socket/modules/match.socket";
 import { useMatchStore } from "src/stores/match-store";
 
@@ -50,8 +49,8 @@ function shuffle(array: QuestionDTO[]) {
 }
 
 
-export const loadRounds = (data: RoundDTO[]) => {
-    const { rounds, duration } = useMemo(() => {
+export const useLoadRounds = (data: RoundDTO[]) => {
+    return useMemo(() => {
         if (!data || data.length === 0) {
             return {
                 rounds: [] as QuestionDTO[][],
@@ -60,8 +59,8 @@ export const loadRounds = (data: RoundDTO[]) => {
         }
 
         let sumtime = 0;
-        const rounds: QuestionDTO[][] = data.map((round) => {
-            const temp_arr: QuestionDTO[] = round.questions.map(q => {
+        const rounds = data.map((round) => {
+            const questions: QuestionDTO[] = round.questions.map(q => {
                 sumtime += Number(q.time_limit!.split(":")[1]);
                 return {
                     id: q.id,
@@ -71,15 +70,12 @@ export const loadRounds = (data: RoundDTO[]) => {
                     input_type: q.input_type
                 };
             });
-            return shuffle(temp_arr);
+            return shuffle(questions);
         });
 
         return { rounds, duration: sumtime };
 
     }, [data]);
-
-    return { rounds, duration }
-
 }
 
 export const useMatchProgress = (players: Player[]) => {
@@ -140,18 +136,6 @@ export const useOpponentProgress = (num_questions: number, players: Player[]) =>
         opponentProgress,
         opponentDone,
         handleOpponentDone
-    }
-}
-
-export const useMathSubmission = (answer: string): MathsSubmissionDTO => {
-    return { answer: answer };
-}
-
-export const useProgSubmission = (source_code: string, language_id: number, stdin: string | null): ProgSubmissionDTO => {
-    return {
-        source_code: source_code,
-        language_id: language_id,
-        stdin: stdin
     }
 }
 
