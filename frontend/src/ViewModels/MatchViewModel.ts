@@ -51,6 +51,7 @@ export const useMatch = () => {
 
     const avatars = useMemo(() => players.map(p => robot_map[p.avatar_id]), [players]);
     const usernames = useMemo(() => players.map(p => p.username), [players]);
+    const elos = useMemo(() => players.map(p => p.elo), [players]);
     const [loading, setLoading] = useState(false);
     const [answers, setAnswers] = useState<Record<string, string>>();
     const [results, setResults] = useState<(boolean | null)[]>([]);
@@ -134,6 +135,7 @@ export const useMatch = () => {
         seconds,
         minutes,
         usernames,
+        elos,
         currentQuestion,
         nextQuestion,
         prevQuestion,

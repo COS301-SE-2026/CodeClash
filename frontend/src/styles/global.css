@@ -210,6 +210,9 @@
   --color-button-secondary: var(--button-secondary);
   --color-button-text-primary: var(--button-text-primary);
   --color-button-text-secondary: var(--button-text-secondary);
+  --color-button-tournament: var(--button-tournament);
+  --color-button-tournament-secondary: var(--button-tournament-secondary);
+  --color-button-tournament-secondary-border: var(--button-tournament-secondary-border);
 
   /* accents */
   --color-accent: var(--accent);
@@ -268,6 +271,13 @@
   /* Life bars */
   --color-life-primary: var(--life-primary);
 
+  /*Match and Tournaments Page*/
+  --progress-bar-symbol: var(--progress-bar-symbol);
+  --match-card: var(--match-card);
+  --card-tournament: var(--card-tournaments);
+  --gradient-tournaments: var(--gradient-tournament);
+  --match-boxes: var(--match-box);
+
 }
 
 :root {
@@ -298,6 +308,7 @@
   /*Cards*/
   --card: var(--background-card);
   --card-text: var(--primary-text);
+  --tournament-card: var(--card-tournaments);
 
   /*Sidebar*/
   --sidebar: #0a0008;
@@ -314,6 +325,10 @@
   --button-secondary: transparent;
   --button-text-primary: #FFFFFF;
   --button-text-secondary: #fcecdd;
+  --button-tournament: #FF516A;
+
+  --button-tournament-secondary: #281e26;
+  --button-tournament-secondary-border: #5B4041;
 
   /*Inputs*/
   --input: rgba(252, 236, 221, 0.06);
@@ -364,6 +379,14 @@
   --glow-1: #b91551;
   --glow-2: #850f3b;
   --glow-3: #630b3c;
+
+  /* Match and Tournaments Page */
+  --card-tournaments: #12080F;
+  --progress-bar-symbol: #1B0F1A;
+  --match-card: #241822;
+  --profile-tournaments: #1D0E20;
+  --gradient-tournament: #FE98A8;
+  --match-box: #0D0410;
 }
 
 /*These are copied from :root and adjusted for light mode*/
@@ -393,6 +416,7 @@
     /*Cards*/
     --card: var(--background-card);
     --card-text: var(--primary-text);
+    --tournament-card: var(--card-tournaments);
 
     /*Sidebar*/
     --sidebar: #ffffff;
@@ -409,6 +433,9 @@
     --button-secondary: transparent;
     --button-text-primary: #FFFFFF;
     --button-text-secondary: #520a23;
+    --button-tournament: #FF516A;
+    --button-tournament-secondary: #281e26;
+    --button-tournament-secondary-border: #5B4041;
 
     /*Inputs*/
     --input: rgba(83, 10, 35, 0.05);
@@ -435,6 +462,14 @@
     --glow-shadow: 0 0 24px rgba(192, 57, 90, 0.22);
 
     --life-primary: #C0395A;
+
+    /* Match and Tournaments Page */
+  --card-tournaments: #12080F;
+  --progress-bar-symbol: #1B0F1A;
+  --match-card: #241822;
+  --profile-tournaments: #1D0E20;
+  --gradient-tournament: #FE98A8;
+  --match-box: #0D0410;
 
     /*for the radial gradients*/
     --glow-1: #f6c9d6;
