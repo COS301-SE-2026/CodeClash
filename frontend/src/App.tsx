@@ -68,6 +68,7 @@ const App: React.FC = () => {
             <Route path='/match-searching' element={<MatchSearching />} />
             <Route path='/match-found' element={<MatchFound />} />
             <Route path='/math-match' element={<MathMatch />} />
+            <Route path='/tournament-match' element={<TournamentsMatchPage/>}/>
             <Route path='/programming-match' element={<ProgMatch />} />
             <Route path='/results' element={<FinalResults />} />
             <Route path='/forgot-password' element={<ForgotPassword />} />
@@ -82,7 +83,6 @@ const App: React.FC = () => {
                 <Route path='/help-menu' element={<HelpMenu />} />
                 <Route path='/tournaments' element={<Tournaments />} />
                 <Route path='/tournaments/waiting' element={<TournamentsWaiting/>}/>
-                <Route path='/tournamentmatch' element={<TournamentsMatchPage/>}/>
                 <Route path='/leaderboard' element={<Leaderboard />} />
                 <Route path='/achievements' element={<Achievements />} />
                 <Route path='/friends' element={<Friends />} />
