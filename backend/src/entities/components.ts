@@ -100,14 +100,21 @@ export interface SubmissionComponent {
 }
 
 /********************************** */
-
-
+/** POWERUP ENTITIES */
+export interface PlayerPowerupState {
+    shield_active: boolean;             // Shield
+    blocked_until: number | null;       // Question blackout: epock ms when the block lifts
+    time_delta_seconds: number;         // net of time Boost / time sink
+    score_multiplier_percent: number;   // net score surge, applied at scoring
+    wipe_used: boolean;                 // Wipe: maximum 1 use per match
+}
 
 
 // union for all components - for the map
+export type PowerupStateComponent = Record<string, PlayerPowerupState>;
 
 export type PlayerComponentTypes = LifeComponent | PlayerInfoComponent | RankComponent | BadgeComponent;
-export type MatchComponentTypes = PlayersComponent | MatchComponent | SubmissionRegistryComponent | ResultComponent;
+export type MatchComponentTypes = PlayersComponent | MatchComponent | SubmissionRegistryComponent | ResultComponent | PowerupStateComponent;
 
 export type Component =
     PlayerComponentTypes |
