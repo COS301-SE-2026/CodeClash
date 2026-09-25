@@ -83,30 +83,30 @@ const TournamentsMatchPage = () => {
 
                 <div className="flex flex-col gap-4 w-full lg:w-[380px] shrink-0">
                     <MatchCard className="flex flex-col gap-3 p-4 rounded-2xl">
-                        <div className="flex flex-row justify-between">
-                            <div className="flex flex-row">
-                                <Signal className="text-muted-text"/>
+                        <div className="flex flex-row items-center justify-between">
+                            <div className="flex flex-row items-center gap-2">
+                                <Signal size={18} className="text-muted-text"/>
                                 <h1>Live Standings</h1>
                             </div>
-                            <MatchCard className="flex bg-[var(--multiple-choice-box)] text-muted-text">Round 1</MatchCard>
+                            <MatchCard className="flex bg-[var(--multiple-choice-box)] text-muted-text px-3 py-1 rounded-full text-xs">Round 1</MatchCard>
                         </div>
 
-                        <hr className="text-muted-text"/>
+                        <hr className="border-muted-text"/>
 
-                        <div className="flex flex-col">
+                        <div className="flex flex-col gap-2">
                             <LiveTournamentPlayer/>
                             <LiveTournamentPlayer/>
                             <LiveTournamentPlayer/>
                             <LiveTournamentPlayer/>
                             <LiveTournamentPlayer/>
 
-                            <hr className="border-dotted"/>
+                            <hr className="border-dotted border-muted-text my-1"/>
 
-                            <div className="rounded-[20px] flex flex-row bg-red-400 border border-red-200">
-                                <div className="rounded-full bg-red-800 size-2"></div>
-                                <h1 className="text-red-200"></h1>
+                            <div className="rounded-lg flex flex-row items-center gap-2 px-3 py-2 bg-red-500/10 border border-red-400/20">
+                                <div className="rounded-full bg-red-800 size-2 shrink-0"></div>
+                                <h1 className="text-red-200 text-xs">Elimination Zone</h1>
 
-                                <div className="text-muted-text ml-auto">
+                                <div className="text-muted-text ml-auto text-xs">
                                     6 below line
                                 </div>
                             </div>
