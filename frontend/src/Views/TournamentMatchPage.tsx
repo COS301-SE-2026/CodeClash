@@ -49,7 +49,8 @@ const TournamentsMatchPage = () => {
 
 
                         <div className="flex flex-col">
-                            <MultipleChoice letter="A" option="answer"/>
+                            <MultipleChoice letter="A" option="answer" selected={false}/>
+                            <MultipleChoice letter="B" option="answer" selected={true}/>
                         </div>
 
 

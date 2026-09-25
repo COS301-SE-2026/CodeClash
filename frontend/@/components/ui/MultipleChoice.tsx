@@ -20,11 +20,11 @@ export const MultipleChoice = ({children, className, letter, option, selected} :
 
     return(
         <MatchCard className={`bg-[var(--multiple-choice-box)] flex flex-row w-auto overflow-x-auto gap-1 
-        min-w-[10%] ${selected ? 'border-primary shadow-[0_0_12px_(--var-primary)]': ""} ${className}`}>
+        min-w-[10%] ${selected ? 'bg-primary/20 border-primary shadow-[0_0_7px_var(--primary)]': ""} ${className}`}>
             
             <div className={`bg-[var(--multiple-choice-letter)] border-[0.5px] my-auto sm:min-w-0 
                 border-[var(--button-tournament-secondary-border)] rounded-[10px] ml-2 w-10 h-10 text-center
-                ${selected ? "bg-primary shadow-[0_0_12px_(--var-primary)" : ""}`}
+                ${selected ? "bg-primary border-primary shadow-[0_0_7px_var(--primary)]" : ""}`}
             >
                 <h1 className="text-secondary text-[15px] my-auto mt-1.75">{letter}</h1> 
             </div>
@@ -33,7 +33,7 @@ export const MultipleChoice = ({children, className, letter, option, selected} :
 
             <MatchCard className={`p-0 flex rounded-full ml-auto h-6 w-6 bg-[var(--multiple-choice-box)] 
                 border-[var(--button-tournament-secondary-border)] mr-3 my-auto items-center justify-center
-                ${selected ? "bg-primary shadow-[0_0_12px_(--var-primary)" : ""}`}>
+                ${selected ? "bg-primary border-primary shadow-[0_0_7px_var(--primary)]" : ""}`}>
                   {selected ? <Check className="text-secondary"/> : "" }      
             </MatchCard>
             {children}
