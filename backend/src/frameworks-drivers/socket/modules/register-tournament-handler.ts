@@ -23,4 +23,5 @@ export function registerTournamentHandlers(io: Server, socket: Socket, deps: Tou
 
     registerHandler(socket, 'start_tournament', (socket, data: { tournament_id: string, league: string }) =>
         startTournament(io, socket, data.tournament_id, data.league, deps.tournament_service));
+
 }

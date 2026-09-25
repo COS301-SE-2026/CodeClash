@@ -84,4 +84,8 @@ export class TournamentService {
         return match;
     }
 
+
+    async getTournamentsByStatus(status: MatchStatus) {
+        return this.tournament_cache.getTournamentsByStatus(status);
+    }
 }

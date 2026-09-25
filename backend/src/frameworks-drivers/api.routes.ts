@@ -23,6 +23,8 @@ import { PowerupService } from 'src/application/usecases/services/shop/powerup.s
 import { PurchaseService } from 'src/application/usecases/services/shop/purchase.service';
 import { IEquippedRepository } from 'src/application/interfaces/repositories/IEquippedRepository';
 import { IShopItemRepository } from 'src/application/interfaces/repositories/IShopItemRepository';
+import { TournamentService } from 'src/application/usecases/services/tournament/tournament.service';
+import { getTournamentByStatus } from 'src/interface-adapters/controllers/tournament.controllers';
 
 export const createAPIRoutes = (
   user_repo: IUserRepository,
@@ -37,7 +39,8 @@ export const createAPIRoutes = (
   powerup_service: PowerupService,
   purchase_service: PurchaseService,
   equipped_repo: IEquippedRepository,
-  shop_item_repo: IShopItemRepository
+  shop_item_repo: IShopItemRepository,
+  tournament_service: TournamentService
 
 ) => {
   const router = Router();
@@ -342,5 +345,6 @@ router.post('/shop/powerups/use', usePowerup(powerup_service));
  */
   router.get('/user/:stat', getUserStat(user_repo)); // this must be last, it's a generic function that fetches any attribute directly in the users table
 
+  router.get('/tournament/:status', getTournamentByStatus(tournament_service));
   return router;
 }

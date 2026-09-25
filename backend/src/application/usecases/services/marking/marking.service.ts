@@ -14,7 +14,6 @@ export class MarkingService {
         private readonly game_cache: IMatchCache,
         private readonly submission_system: SubmissionSystem,
         private readonly life_System: LifeSystem,
-        private readonly notifications: NotificationService,
         private readonly maths_marking_strategy: IMarkingStrategy,
         private readonly prog_marking_strategy: IMarkingStrategy,
         private readonly opponent_progress: OpponentProgress
@@ -45,10 +44,8 @@ export class MarkingService {
 
     handleResult(result: boolean, submission: SubmissionComponent): MarkingResultDTO {
         const new_life = this.life_System.updatePlayerLife(submission.match_id, submission.player_id, result);
-        const progress = this.opponent_progress.updateOpponent(submission.match_id, submission.player_id, submission.question_number, result, new_life);
-        const opponent = this.opponent_progress.getOpponent(submission.match_id, submission.player_id);
-        this.notifications.markingComplete(submission.player_id, result, new_life);
-        this.notifications.opponentProgress(opponent!, progress);
+        // const progress = this.opponent_progress.updateOpponent(submission.match_id, submission.player_id, submission.question_number, result, new_life);
+        // const opponent = this.opponent_progress.getOpponent(submission.match_id, submission.player_id);
 
         return {
             player_id: submission.player_id,

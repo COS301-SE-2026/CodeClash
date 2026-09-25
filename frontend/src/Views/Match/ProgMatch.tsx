@@ -12,18 +12,19 @@ import TournamentButton from "@/components/ui/TournamentButton";
 import { MatchCard } from "@/components/ui/MatchCard";
 
 export const ProgMatch = () => {
-    const [code, setCode] = useState('');
+    const [ code, setCode] = useState('');
     const {
         playerLife, avatars, usernames,
-        elos, seconds, minutes, questions,
+         seconds, minutes, questions,
         currentQuestion, opponentCurrent,
         nextQuestion, prevQuestion,
-        results, waitingOpponent,
-        finishGame, loading, submitQuestion
+         waitingOpponent,
+        finishGame, loading, 
     } = useMatch();
 
     const curr = questions[currentQuestion];
 
+    console.log(code)
     if (loading || !curr) {
         return (
             <Loading isOpen={loading}></Loading>
@@ -33,16 +34,15 @@ export const ProgMatch = () => {
     return (
         <MatchScreen
             player_life={playerLife}
-            colour="var(--life-primary)"
             seconds={seconds}
             minutes={minutes}
             avatars={avatars}
             usernames={usernames}
-            elos={elos}
+            elos={[]}
             current_question={currentQuestion}
             opponent_progress={opponentCurrent}
             question_number={questions.length}
-            question_results={results}
+            question_results={[]}
         >
             <Question
                 className={` h-[10rem]`}
@@ -68,17 +68,17 @@ export const ProgMatch = () => {
                         <ChevronRight onClick={() => nextQuestion(currentQuestion)} className='size-[3rem] hover:scale-110 hover:bg-secondary/20 rounded-2xl w-[50%]' />
                     </TournamentButton>
                     <TournamentButton className='w-[10%] h-[2.2rem] my-auto rounded-2xl text-[1.3rem] hover:-translate-y-1'
-                        onClick={() => {
-                            if (code.trim()) {
-                                submitQuestion(curr.id!, 'prog',
-                                    {
+                        // onClick={() => {
+                        //     if (code.trim()) {
+                        //         submitQuestion(curr.id!, 'prog',
+                        //             {
 
-                                        source_code: code,
-                                        language_id: 54,
-                                        stdin: null
-                                    })
-                            }
-                        }}
+                        //                 source_code: code,
+                        //                 language_id: 54,
+                        //                 stdin: null
+                        //             })
+                        //     }
+                        // }}
                     >
                         Submit
                     </TournamentButton>

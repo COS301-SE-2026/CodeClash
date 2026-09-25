@@ -139,9 +139,34 @@ AppDataSource.initialize()
         const match_completion_system = new MatchCompletionSystem(world, match_store);
         const match_completion_service = new MatchCompletionService(match_repo, match_completion_system, user_repo, achievement_service);
 
+        const maths_marker: IMarkingStrategy = new MarkMaths();
+
+        const code_executor = new CodeExecutor();
+        const prog_marker: IMarkingStrategy = new MarkProg(code_executor);
+
+        const opponent_progress = new OpponentProgress(world);
+        const marking_service = new MarkingService(match_cache, submission_system, life_system, maths_marker, prog_marker, opponent_progress);
+
+        const elimination_service = new TournamentEliminationService(marking_service);
+        const tournament_service = new TournamentService(tournament_cache, match_start, elimination_service);
 
 
-        const app = createApp(user_repo, leaderboard_service, achievement_service, friends_service, match_completion_service, shop_item_service, inventory_service, wallet_service, equipment_service, powerup_service, purchase_service, equipped_repo, shop_item_repo);
+        const app = createApp(
+            user_repo,
+            leaderboard_service,
+            achievement_service,
+            friends_service,
+            match_completion_service,
+            shop_item_service,
+            inventory_service,
+            wallet_service,
+            equipment_service,
+            powerup_service,
+            purchase_service,
+            equipped_repo,
+            shop_item_repo,
+            tournament_service
+        );
         const httpServer = createServer(app)     // can update to https
         const io = new Server(httpServer, {
             cors: {
@@ -150,19 +175,6 @@ AppDataSource.initialize()
             },
         }
         );
-
-
-        const maths_marker: IMarkingStrategy = new MarkMaths();
-
-        const code_executor = new CodeExecutor();
-        const prog_marker: IMarkingStrategy = new MarkProg(code_executor);
-
-        const notification = new NotificationService(io);
-        const opponent_progress = new OpponentProgress(world);
-        const marking_service = new MarkingService(match_cache, submission_system, life_system, notification, maths_marker, prog_marker, opponent_progress);
-
-        const elimination_service = new TournamentEliminationService(marking_service);
-        const tournament_service = new TournamentService(tournament_cache, match_start, elimination_service);
 
         // auth middleware 
         io.use(async (socket, next) => {

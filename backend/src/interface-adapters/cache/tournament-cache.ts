@@ -10,7 +10,7 @@ export class TournamentCache implements ITournamentCache {
         private readonly redis: Redis
     ) { }
 
-    async createTournament(tournament_id: string, start_date: Date, match_mode: MatchMode, host:PlayerDTO): Promise<void> {
+    async createTournament(tournament_id: string, start_date: Date, match_mode: MatchMode, host: PlayerDTO): Promise<void> {
 
         const exists = await this.redis.get(`tournament:${tournament_id}`);
 
@@ -81,4 +81,16 @@ export class TournamentCache implements ITournamentCache {
         data.status = status;
         await this.redis.set(`tournament:${tournament_id}`, JSON.stringify(data));
     }
+
+    async getTournamentsByStatus(status: MatchStatus): Promise<TournamentDTO[]> {
+        const keys = await this.redis.keys("tournament:*");
+        if (keys.length === 0) return [];
+
+        const tournament = await this.redis.mget(keys);
+        return tournament
+            .filter((t) => t !== null)
+            .map(t => JSON.parse(t) as TournamentDTO)
+            .filter(t => t.status === status);
+    }
+
 }

@@ -16,6 +16,7 @@ import { PowerupService } from 'src/application/usecases/services/shop/powerup.s
 import { PurchaseService } from 'src/application/usecases/services/shop/purchase.service';
 import { IEquippedRepository } from 'src/application/interfaces/repositories/IEquippedRepository';
 import { IShopItemRepository } from 'src/application/interfaces/repositories/IShopItemRepository';
+import { TournamentService } from 'src/application/usecases/services/tournament/tournament.service';
 
 
 export const createApp = (
@@ -31,7 +32,8 @@ export const createApp = (
   powerup_service: PowerupService,
   purchase_service: PurchaseService,
   equipped_repo: IEquippedRepository,
-  shop_item_repo: IShopItemRepository
+  shop_item_repo: IShopItemRepository,
+  tournament_service: TournamentService
 ) => {
   const app = express();
   app.disable('x-powered-by');
@@ -46,7 +48,21 @@ export const createApp = (
   app.use((req, res, next) =>
     req.path === '/api/create-user' ? next() : requireAuth(user_repo)(req, res, next)
   );
-  app.use('/api', createAPIRoutes(user_repo,leaderboard_service,achievement_service,friends_service, match_completion_service, shop_service, inventory_service, wallet_service, equipment_service,powerup_service, purchase_service, equipped_repo, shop_item_repo));
+  app.use('/api', createAPIRoutes(
+    user_repo,
+    leaderboard_service,
+    achievement_service,
+    friends_service,
+    match_completion_service,
+    shop_service,
+    inventory_service,
+    wallet_service,
+    equipment_service,
+    powerup_service,
+    purchase_service,
+    equipped_repo,
+    shop_item_repo,
+    tournament_service));
 
   return app;
 }
