@@ -1,0 +1,27 @@
+frontend/src/App.tsx
+  h_94c952a9e14c58 11,24-25
+frontend/src/Views/Auth/ForgotPassword.tsx
+  h_94c952a9e14c58 1-83
+frontend/src/Views/Tournaments/Tournaments.tsx
+  h_94c952a9e14c58 1-65
+frontend/src/dtos/match/match.dto.ts
+  h_94c952a9e14c58 12-13
+frontend/src/Views/Tournaments/TournamentsWaiting.tsx
+  h_94c952a9e14c58 1-85
+frontend/test/unit/Views/TournamentsWaiting.test.tsx
+  h_94c952a9e14c58 1
+frontend/src/ViewModels/Tournaments/TournamentViewModel.ts
+  h_94c952a9e14c58 77-88,95-96
+  h_94c952a9e14c58 17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "631cf6555c17815e1e5ac91245b39b82dca25dfd",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
