@@ -16,7 +16,8 @@ const MathsMatch = () => {
         results,
         playerLife, avatars, usernames,
         seconds, minutes,
-        currentQuestion, nextQuestion, prevQuestion, roundIdx,
+        currentQuestion, nextQuestion, prevQuestion, 
+        roundIdx,total_rounds,rounds,
         opponentCurrent, waitingOpponent, finishGame,
         loading,
         submitQuestion,
@@ -26,7 +27,7 @@ const MathsMatch = () => {
 
 
     const curr = questions[currentQuestion];
-    const correct = results[currentQuestion];
+   // const correct = results[currentQuestion];
 
 
     useEffect(() => {
@@ -53,7 +54,9 @@ const MathsMatch = () => {
             current_question={currentQuestion}
             opponent_progress={opponentCurrent}
             question_number={questions.length}
-            question_results={results[roundIdx] ?? []}
+            question_results={results ?? []}
+            rounds={rounds}
+            current_round={roundIdx}
         >
 
             <Question
@@ -62,6 +65,8 @@ const MathsMatch = () => {
                 title={curr.title!}
                 description={curr.description}
                 number={currentQuestion + 1}
+                round_number={roundIdx}
+                total_rounds={total_rounds}
             />
 
             <div className='w-[100%] h-[100%] min-h-[35%] flex items-center justify-center'>

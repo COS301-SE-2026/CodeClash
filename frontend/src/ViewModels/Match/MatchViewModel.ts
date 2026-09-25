@@ -34,8 +34,8 @@ export const useMatch = () => {
     const { rounds, duration } = useLoadRounds(stored_rounds);
     const questions = rounds[roundIdx] ?? [];
     const { playerLife } = useMatchProgress(players);
-    const {opponentProgress,handleOpponentDone , opponentCurrent, opponentDone } = useOpponentProgress(questions.length, players);
-    const { submissionResult, submissionError, submitQuestion ,results} = useSubmission({ round_idx: roundIdx, curr_question: currentQuestion, question: questions[currentQuestion], match_id: id! })
+    const { opponentProgress, handleOpponentDone, opponentCurrent, opponentDone } = useOpponentProgress(questions.length, players);
+    const { submissionResult, submissionError, submitQuestion, results } = useSubmission({ round_idx: roundIdx, curr_question: currentQuestion, question: questions[currentQuestion], match_id: id! })
     const { seconds, minutes } = useMatchTimer(duration, () => {
         setGameOver(true);
         matchSocket?.finishMatch({ match_id: id!, match_mode: matchMode! })
@@ -82,8 +82,13 @@ export const useMatch = () => {
         });
     }
 
+    console.log(useMatchStore(state => state.match_id));
     useEffect(() => {
-        if (matchSocket && id) {
+
+
+        if (matchSocket && id && status === 'idle') {
+            setLoading(true);
+
 
             const unsub_marking = matchSocket.markingComplete(submissionResult);
             const unsub_submission_error = matchSocket.submissionError(submissionError);
@@ -128,6 +133,8 @@ export const useMatch = () => {
         opponentDone,
         submitQuestion,
         nextRound,
-        roundIdx
+        roundIdx,
+        total_rounds: rounds.length,
+        rounds
     }
 }

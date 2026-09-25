@@ -1,10 +1,12 @@
 import React from 'react'
 import { TimerBox } from '@/components/ui/TimerBox'
 import { Progress } from '@/components/ui/progress'
-import { Check, X, LockKeyhole, Timer, Target } from "lucide-react"
+import { Timer } from "lucide-react"
 import { MatchCard } from '@/components/ui/MatchCard'
 import TournamentButton from '@/components/ui/TournamentButton'
 import { TournamentsBadge } from '@/components/ui/TournamentsBadge'
+import { RoundTree } from './RoundTree'
+import type { QuestionDTO } from 'src/dtos/match/match.dto'
 
 interface MatchScreenProps {
     player_life: number[],
@@ -17,7 +19,9 @@ interface MatchScreenProps {
     question_number: number,
     current_question: number,
     opponent_progress: number,
-    question_results: (boolean | null)[],
+    question_results: (boolean | null)[][],
+    rounds: QuestionDTO[][],
+    current_round: number
 }
 
 export const MatchScreen: React.FC<MatchScreenProps> = ({
@@ -28,14 +32,16 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
     usernames,
     elos,
     children,
-    question_number,
+    // question_number,
     current_question,
-    opponent_progress,
+    // opponent_progress,
     question_results,
+    rounds,
+    current_round
 }) => {
 
-    const questionsAnswered = question_results.filter((qr) => qr === true || qr === false).length;
-    const progressValue = question_number > 0 ? (questionsAnswered / question_number) * 100 : 0;
+    // const questionsAnswered = question_results.flat().filter((qr) => qr === true || qr === false).length;
+    // const progressValue = question_number > 0 ? (questionsAnswered / question_number) * 100 : 0;
 
     return (
         <div className="fixed inset-0 flex flex-col min-w-[64rem] overflow-y-auto">
@@ -129,61 +135,22 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
             {/* Body */}
             <div className='flex justify-evenly'>
                 <div className='flex flex-col w-[80%] h-[40rem] ml-10'>
-                    {/* <div className='absolute bg-gradient-to-r from-button-primary to-secondary h-[3%] w-[71%] rounded-4xl shadow-[0_4px_6px_rgba(0,0,0,0.3)]'></div> */}
-
-                    {/* Question box */}
-
-                    <div
-                    // className='bg-[var(--match-card)] w-[100%] h-[100%] rounded-4xl ml-1 pt-[2rem] flex flex-col justify-between items-center'
-                    >
+                    <div>
                         {children}
                     </div>
                 </div>
 
                 {/* Progress bar */}
                 <div className='flex flex-col items-center w-[20%] justify-between'>
-
                     {/* progress  */}
                     <div className='my-auto ml-[40%] w-[100%] flex'>
-                        {/* doors */}
                         <MatchCard className='relative rounded-[20px] flex flex-col-reverse items-center justify-between h-auto w-[5rem] gap-2 p-3'>
-                            <Progress
-                                value={progressValue}
-                                orientation="vertical"
-                                className="absolute inset-y-3 top-0.5 bg-card h-full w-[10%] rounded-3xl opacity-50"></Progress>
-                            {
-                                [...Array(question_number)].map((_, idx) => {
-
-                                    const doorResult = question_results[idx];
-                                    const doorColour = () => {
-                                        if (idx === current_question) return 'bg-[var(--button-tournament)] shadow-[0_0_10px_var(--button-tournament)]'
-                                        if (doorResult === true) return 'bg-success/30 shadow-[0_0_10px_var(--success)]'
-                                        if (doorResult === false) return 'bg-danger/30 shadow-[0_0_10px_var(--danger)]'
-                                        return 'bg-card'
-                                    }
-                                    const doorSymbol = () => {
-                                        if (idx === current_question) return <Target size={30} className="font-black" />
-                                        if (doorResult === true) return <Check size={40} className="text-green-300 font-semibold" />
-                                        if (doorResult === false) return <X size={40} className="text-[var(--progress-bar-symbol)] font-semibold" />
-                                        return <LockKeyhole />
-                                    }
-                                    const oppProg = () => {
-                                        if (idx === opponent_progress) return <div className="absolute top-0 left-0 rounded-full h-4 w-4 
-                                            bg-red-800 z-20 shadow-[0_0_12px_rgba(190,0,0,0.3)]"/>
-                                    }
-
-                                    return (
-                                        <React.Fragment key={`${question_number}-${idx}`}>
-
-                                            <div className={`${doorColour()} w-[2.8rem] max-h-16 flex-1 min-h-11 shrink flex items-center 
-                                                justify-center col-start-2 rounded-[15px] z-10 mt-5 mb-5 relative`}>
-                                                {doorSymbol()}
-                                                {oppProg()}
-                                            </div>
-                                        </React.Fragment>
-                                    )
-                                })
-                            }
+                            <RoundTree
+                            rounds={rounds}
+                            results={question_results}
+                            current_question={current_question}
+                            current_round={current_round}
+                            />
 
                         </MatchCard>
 

@@ -5,20 +5,27 @@ import { Badge } from "../ui/badge";
 import { cn } from "@/lib/utils";
 import { MatchCard } from "../ui/MatchCard";
 
+
+interface QuestionProps {
+  children?: React.ReactNode,
+  difficulty: string,
+  title: string,
+  description?: string,
+  number: number,
+  round_number: number,
+  total_rounds: number
+  className?: string
+}
 function Question({
   className,
   children,
   difficulty,
   title,
   description,
-  number
-}: React.ComponentProps<"div"> & {
-  children?: React.ReactNode;
-  difficulty: string;
-  title: string;
-  description?: string;
-  number: number;
-}) {
+  number,
+  round_number,
+  total_rounds
+}: QuestionProps) {
   return (
     <div
       className={cn(
@@ -29,6 +36,10 @@ function Question({
       <MatchCard className="flex flex-col p-2 rounded-lg w-full h-auto -mt-5 gap-3">
         <div className="flex justify-between w-full">
           <p className="ml-3 mt-2 font-bold text-[1rem]">Question {number}</p>
+          <Badge className="w-[7%] h-[1.5rem] text-white text-xs mt-2 mr-2"
+            variant={"secondary"}>
+            Round {round_number}/{total_rounds}
+          </Badge>
           <Badge
             className="w-[7%] h-[1.5rem] text-white text-xs mt-2 mr-2"
             variant={"default"}
