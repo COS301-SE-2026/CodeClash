@@ -427,11 +427,29 @@ export interface Insight {
     body: string;
 }
 
+// making sure casual isnt part of mastery and growth
+export interface PracticeSummary {
+  games: number;
+  questions: number;
+  correct: number;
+}
+
+export function practiceSummary(games: GameSample[]): PracticeSummary {
+  const practice = games.filter(game => game.practice);
+  const questions = practice.flatMap(game => game.questions);
+  return {
+    games: practice.length,
+    questions: questions.length,
+    correct: questions.filter(question => question.correct).length
+  };
+}
+
 export function buildInsights(
     components: ComponentScore[],
     growth: GrowthResult,
     mastery: number,
-    league: string
+    league: string,
+    practice?: PracticeSummary
 ): Insight[] {
     const insights: Insight[] = [];
     const scored = components.filter(component => component.gamesCounted > 0);
