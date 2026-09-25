@@ -1,0 +1,14 @@
+backend/src/application/usecases/services/skill/reference-runtimes.ts
+  h_58e143dc25f856 7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "9490441c87cf95972d0bad64f76fe138d1a1fa96",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
