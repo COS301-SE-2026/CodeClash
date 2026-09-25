@@ -36,3 +36,15 @@ export const getMatchHistory = (service: MatchCompletionService) => {
     };
 };
 
+export const getSkillProgress = (service: MatchCompletionService) => {
+    return async (req: Request, res: Response) => {
+        const user_id = req.user.id;
+        try {
+            const games = await service.getSkillProgress(user_id);
+            res.status(200).json(games);
+        } catch (error) {
+            console.error('Error fetching skill progress:', error);
+            res.status(500).json({ message: 'Internal server error' });
+        }
+    };
+};
