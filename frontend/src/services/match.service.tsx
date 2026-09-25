@@ -8,10 +8,8 @@ import type { MatchSocket } from "src/context/Socket/modules/match.socket";
 import { useMatchStore } from "src/stores/match-store";
 
 export function matchStart(match_socket: MatchSocket) {
-    console.log("Match Start", )
 
     return match_socket.startMatch((data) => {
-        console.log("storing data", data);
         useMatchStore.getState().setMatchData(data);
     })
 }

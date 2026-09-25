@@ -1,6 +1,6 @@
 import { MathfieldElement } from 'mathlive';
 import { useEffect, useState, useRef, useMemo } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
 import { robot_map } from 'src/assets/Robots';
 import { useLoadRounds, useMatchProgress, useMatchTimer, useOpponentProgress } from 'src/services/match.service';
@@ -12,7 +12,6 @@ import { useSubmission } from 'src/services/submission.service';
 export const useMatch = () => {
     const nav = useNavigate();
     const { matchSocket } = useSocket();
-    const { id } = useParams();
     const status = useMatchStore(state => state.status);
     const { matchMode } = useMatchmaking();
 
@@ -29,16 +28,18 @@ export const useMatch = () => {
 
     const players = useMatchStore(state => state.players);
     const stored_rounds = useMatchStore(state => state.rounds)!;
-
+    const match_id =useMatchStore(state => state.match_id);
 
     const { rounds, duration } = useLoadRounds(stored_rounds);
     const questions = rounds[roundIdx] ?? [];
     const { playerLife } = useMatchProgress(players);
     const { opponentProgress, handleOpponentDone, opponentCurrent, opponentDone } = useOpponentProgress(questions.length, players);
-    const { submissionResult, submissionError, submitQuestion, results } = useSubmission({ round_idx: roundIdx, curr_question: currentQuestion, question: questions[currentQuestion], match_id: id! })
+
+
+    const { submissionResult, submissionError, submitQuestion, results } = useSubmission({ round_idx: roundIdx, curr_question: currentQuestion, question: questions[currentQuestion], match_id: match_id! })
     const { seconds, minutes } = useMatchTimer(duration, () => {
         setGameOver(true);
-        matchSocket?.finishMatch({ match_id: id!, match_mode: matchMode! })
+        matchSocket?.finishMatch({ match_id: match_id!, match_mode: matchMode! })
     })
 
 
@@ -79,7 +80,7 @@ export const useMatch = () => {
     const both_done = () => {
         useMatchStore.getState().reset();
         setWaitingOpponent(false);
-        nav(`/results/${id}`, {
+        nav(`/results/${match_id}`, {
             replace: true,
         });
     }
@@ -87,7 +88,7 @@ export const useMatch = () => {
     useEffect(() => {
 
 
-        if (matchSocket && id && status === 'idle') {
+        if (matchSocket && match_id && status === 'idle') {
             setLoading(true);
 
 

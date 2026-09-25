@@ -42,8 +42,6 @@ export const useSubmission = ({
     }
 
     const submitQuestion = async (data: MathsSubmissionDTO | ProgSubmissionDTO) => {
-        console.log("Submitting question",data);
-
         const submission: SubmissionDTO = {
             match_id: match_id,
             player_id: userId,
@@ -54,7 +52,6 @@ export const useSubmission = ({
             match_mode: matchMode!,
             submission: data
         }
-
         matchSocket?.submitAnswer(submission);
     }
 

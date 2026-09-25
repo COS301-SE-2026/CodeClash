@@ -65,7 +65,6 @@ export class MatchSocket {
     /************************************** EMITTERS ******************************************* */
 
     submitAnswer(data: SubmissionDTO) {
-        console.log("emit submit_question")
         return emit<SubmissionDTO, MarkingResultDTO>(this.socket, `submit_question`, data);
     }
 

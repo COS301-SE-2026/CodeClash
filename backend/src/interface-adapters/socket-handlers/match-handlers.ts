@@ -3,13 +3,19 @@ import { MarkingService } from "src/application/usecases/services/marking/markin
 import { MatchStore } from "src/application/usecases/services/match/match-store.service";
 import { MatchType } from "src/entities/dtos/matches/match.dto";
 import { DeleteGame } from "src/application/usecases/systems/delete-game";
-import { PlayerSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
+import { PlayerSubmissionDTO, RawSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
 import { PlayerResultDTO } from 'src/entities/dtos/matches/match.dto'
 import { MatchCompletionService } from "src/application/usecases/services/match/match-completion.service";
 
-export const submitQuestion = async (socket: Socket, data: PlayerSubmissionDTO, mark: MarkingService) => {
-    console.log("backend submit question")
-    return mark.execute({ ...data, player_id: socket.data.user_id });
+export const submitQuestion = async (socket: Socket, data: RawSubmissionDTO, mark: MarkingService, match_store: MatchStore) => {
+    console.log("backend submit question", data);
+
+    const ecs_id = match_store.getEcsId(data.match_id);
+    const submission: PlayerSubmissionDTO = {
+        ...data,
+        match_id: ecs_id!,
+    }
+    return mark.execute({ ...submission, player_id: socket.data.user_id });
 }
 
 // export const startQuestion = (player_id: string, submission_system: SubmissionSystem, data: StartQuestionDTO) => {
@@ -30,7 +36,7 @@ export const matchDone = async (io: Server, socket: Socket, match_id: number, ma
     if (match_store.playersDone(match_id)) {
 
         const ids = match.players.map(player => player.id);
-        const match_result = await match_completion_service.execute(match_id, match.database_id, ids,match_type);
+        const match_result = await match_completion_service.execute(match_id, match.database_id, ids, match_type);
         match_store.saveResult(match_id, match_result);
 
         for (const id of ids) {

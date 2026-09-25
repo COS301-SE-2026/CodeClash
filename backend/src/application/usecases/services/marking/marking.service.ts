@@ -35,6 +35,8 @@ export class MarkingService {
         try {
             const result = await this.mark(player_submission);
             console.log("result", result);
+
+            
             const submission = this.submission_system.saveSubmission(player_submission, result);
             console.log("saving submission", submission);
 

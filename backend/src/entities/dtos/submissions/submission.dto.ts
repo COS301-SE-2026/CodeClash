@@ -1,15 +1,24 @@
-export interface MathsSubmissionDTO{
+export interface MathsSubmissionDTO {
     answer: string
 }
 
-export interface ProgSubmissionDTO{
+export interface ProgSubmissionDTO {
     source_code: string,
     language_id: number,
-    stdin: string|null,
+    stdin: string | null,
 }
 
-export interface PlayerSubmissionDTO{
+export interface PlayerSubmissionDTO {
     match_id: number,
+    player_id: string,
+    question_id: string,
+    round_number: number,
+    question_number?: number,
+    submission: MathsSubmissionDTO | ProgSubmissionDTO | null
+}
+
+export interface RawSubmissionDTO {
+    match_id: string,
     player_id: string,
     question_id: string,
     round_number: number,

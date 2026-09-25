@@ -1,13 +1,13 @@
 import { Server, Socket } from "socket.io";
 import { MatchDeps } from "../dependencies";
 import { registerHandler } from "../dispatch";
-import { PlayerSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
+import { RawSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
 import { cleanUp, matchDone, sendResults, submitQuestion } from "src/interface-adapters/socket-handlers/match-handlers";
 import { MatchType } from "src/entities/dtos/matches/match.dto";
 
 // register handlers 
 export function registerMatchHandlers(io: Server, socket: Socket, deps: MatchDeps) {
-    registerHandler(socket, 'submit_question', (socket, data: PlayerSubmissionDTO) => submitQuestion(socket, data, deps.marking_service));
+    registerHandler(socket, 'submit_question', (socket, data: RawSubmissionDTO) => submitQuestion(socket, data, deps.marking_service, deps.match_store));
 
     registerHandler(socket, 'match_done',
         (socket, payload: { match_id: number, match_type: MatchType }) =>
