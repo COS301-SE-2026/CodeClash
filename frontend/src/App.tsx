@@ -22,12 +22,14 @@ import SignUp from "./Views/SignUp";
 
 import Loading from "@/components/shared/Loading";
 import Tournaments from "./Views/Tournaments";
+import TournamentsWaiting from "./Views/TournamentsWaiting";
 import Agent from "./Views/AIAgent";
 import Shop from "./Views/Shop/Shop";
 import Friends from "./Views/Friends/Friends";
 import Achievements from "./Views/Achievements";
 import Settings from "./Views/Settings";
 import { ProgMatch } from "./Views/Match/ProgMatch";
+import SkillProgress from "./Views/SkillProgress";
 
 const App: React.FC = () => {
 
@@ -51,7 +53,6 @@ const App: React.FC = () => {
                 <Route path='/help-menu' element={<HelpMenu />} />
                 <Route path='/game-guide' element={<GameGuide/>}/>
                 <Route path='*' element={<Navigate to='/sign-in' replace />} />
-
             </Routes>
         )
     }
@@ -79,10 +80,12 @@ const App: React.FC = () => {
                 <Route path='/dashboard' element={<Dashboard />} />
                 <Route path='/help-menu' element={<HelpMenu />} />
                 <Route path='/tournaments' element={<Tournaments />} />
+                <Route path='/tournaments/waiting' element={<TournamentsWaiting/>}/>
                 <Route path='/leaderboard' element={<Leaderboard />} />
                 <Route path='/achievements' element={<Achievements />} />
                 <Route path='/friends' element={<Friends />} />
                 <Route path='/match-history' element={<MatchHistory />} />
+                <Route path='/stats' element={<SkillProgress />} />
                 <Route path="/shop" element={<Shop />} />
                 <Route path='/settings' element={<Settings />} />
             </Route>

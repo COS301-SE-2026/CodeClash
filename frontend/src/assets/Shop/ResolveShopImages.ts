@@ -7,7 +7,7 @@ export function resolve(imageKey?: string): string | undefined {
 
     const resolved = shop_map[imageKey];
     if (!resolved) {
-        console.warn(`[Shop] No bundled assed found for imageKey "${imageKey}"`)
+        console.warn(`[Shop] No bundled asset found for imageKey "${imageKey}"`)
     }
     return resolved;
 }

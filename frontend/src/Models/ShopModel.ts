@@ -6,8 +6,6 @@ export interface Price {
 
 export type ShopCategory = 'avatar' | 'accessory' | 'theme' | 'powerup';
 
-export type AccessorySlot = 'headwear' | 'neckwear' | 'belt' | 'facewear' | 'cape';
-
 interface ShopItemBase {
     id: string;
     category: ShopCategory;
@@ -22,12 +20,6 @@ interface ShopItemBase {
 export interface AvatarShopItem extends ShopItemBase {
     category: 'avatar';
     isDefault?: boolean; //for a 'starter' avatar granted to all users at sign up time
-    bodyType?: 'slim' | 'bulky';
-}
-
-export interface AccessoryShopItem extends ShopItemBase {
-    category: 'accessory';
-    slot: AccessorySlot; //universal that is going to work on any selected (purchased) avatr
 }
 
 export interface ThemeShopItem extends ShopItemBase {
@@ -55,7 +47,7 @@ export interface PowerupShopItem extends ShopItemBase {
     quantityGranted: number;
 }
 
-export type ShopItem = AvatarShopItem | AccessoryShopItem | ThemeShopItem | PowerupShopItem;
+export type ShopItem = AvatarShopItem | ThemeShopItem | PowerupShopItem;
 
 export interface Wallet {
     stardust: number;
@@ -63,7 +55,7 @@ export interface Wallet {
 
 export interface Owned {
     itemId: string;
-    category: 'avatar' | 'accessory' | 'theme';
+    category: 'avatar' | 'theme';
     acquiredAt: string;
 }
 
@@ -76,6 +68,5 @@ export interface UserInventory {
     owned: Owned[];
     consumable: Consumable[];
     equippedAvatarId: string | null;
-    equippedAccessories: Partial<Record<AccessorySlot, string>>;
     equippedThemeId: string | null;
 }
