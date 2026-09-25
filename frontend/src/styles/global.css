@@ -277,6 +277,8 @@
   --card-tournament: var(--card-tournaments);
   --gradient-tournaments: var(--gradient-tournament);
   --match-boxes: var(--match-box);
+  --multiple-choice: var(--multiple-choice-box);
+  --multiple-choice-option: var(--multiple-choice-letter);
 
 }
 
@@ -387,6 +389,8 @@
   --profile-tournaments: #1D0E20;
   --gradient-tournament: #FE98A8;
   --match-box: #0D0410;
+  --multiple-choice-box: #170d13;
+  --multiple-choice-letter: #2a2024;
 }
 
 /*These are copied from :root and adjusted for light mode*/
@@ -470,6 +474,8 @@
   --profile-tournaments: #1D0E20;
   --gradient-tournament: #FE98A8;
   --match-box: #0D0410;
+  --multiple-choice-box: #170d13;
+  --multiple-choice-letter: #2a2024;
 
     /*for the radial gradients*/
     --glow-1: #f6c9d6;

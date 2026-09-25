@@ -3,7 +3,7 @@ import { Question } from "@/components/features/question";
 import { MatchScreen } from "@/components/shared/Match";
 import { useMatch } from "src/ViewModels/MatchViewModel"
 import { ChevronRight, ChevronLeft } from 'lucide-react'
-import { TimerBox } from "@/components/ui/TimerBox";
+import { MatchBox } from "@/components/ui/MatchBox";
 import { Card } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
 import Loading from '@/components/shared/Loading';
@@ -33,7 +33,6 @@ export const ProgMatch = () => {
     return (
         <MatchScreen
             player_life={playerLife}
-            colour="var(--life-primary)"
             seconds={seconds}
             minutes={minutes}
             avatars={avatars}
@@ -53,7 +52,7 @@ export const ProgMatch = () => {
 
             />
 
-            <TimerBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] -mt-4"></TimerBox>
+            <MatchBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] -mt-4"></MatchBox>
 
             <MatchCard className="items-center mt-5">
                 <CodeEditor 

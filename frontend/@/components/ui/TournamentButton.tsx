@@ -9,7 +9,7 @@ const TournamentButton = ({children, className, ...rest} : TournamentButtonProps
     
     return(
         <button 
-        className={`bg-[var(--button-tournament)] rounded-2xl shadow-[0_0_10px_var(--button-tournament)] 
+        className={`bg-primary rounded-2xl shadow-[0_0_10px_var(--primary)] 
         text-center items-center hover:opacity-85 hover:scale-110 transition-transform duration:300 ${className}`}
         {...rest}
         >
