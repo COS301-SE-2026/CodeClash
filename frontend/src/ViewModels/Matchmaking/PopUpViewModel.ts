@@ -9,7 +9,7 @@ export function useSelectTopic() {
     const navigation = useNavigate();
     const { matchmakingSocket } = useSocket();
     const { elo } = useUser();
-    const { gameType, reset } = useMatchmaking()
+    const { matchType, reset } = useMatchmaking()
 
     const selectTopic = (selected_topic: MatchMode) => {
         if (!matchmakingSocket) throw new Error("500 Internal Server Error");
@@ -17,7 +17,7 @@ export function useSelectTopic() {
         const data: MatchmakingUserDTO = {
             elo: elo,
             match_mode: selected_topic,
-            match_type: gameType!
+            match_type: matchType!
         }
 
         matchmakingSocket.joinQueue(data);

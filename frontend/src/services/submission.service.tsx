@@ -1,5 +1,5 @@
 import { type MarkingResultDTO } from "src/dtos/match/submission.dto";
-import React, { useState} from "react";
+import { useState} from "react";
 import type { MathsSubmissionDTO, ProgSubmissionDTO } from "src/dtos/match/submission.dto";
 import type { Question } from "src/Models/MatchModel";
 import { useUser } from "src/context/User/hooks/useUser";

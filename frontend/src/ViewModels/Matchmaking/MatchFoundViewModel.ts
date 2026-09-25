@@ -19,7 +19,7 @@ export function useMatchFound() {
   const nav = useNavigate();
   const { league, username, avatar } = useUser();
   const { matchmakingSocket, matchSocket } = useSocket()
-  const { gameType, group_id, matchedUsers, match_mode, reset } = useMatchmaking()
+  const { matchType, group_id, matchedUsers, matchMode, reset } = useMatchmaking()
   const [path, setPath] = useState('');
   const [loading, setLoading] = useState(false);
   const [socketError, setSocketError] = useState('');
@@ -35,7 +35,7 @@ export function useMatchFound() {
     if (matchmakingSocket) {
       const data = {
         group_id,
-        match_mode: match_mode!
+        match_mode: matchMode!
       };
 
       matchmakingSocket.declineMatch(data);
@@ -73,7 +73,7 @@ export function useMatchFound() {
         league: league,
         username: username,
         avatar: avatar,
-        match_type: gameType!
+        match_type: matchType!
       }
 
       matchmakingSocket.acceptMatch(data);
@@ -100,7 +100,7 @@ export function useMatchFound() {
   const set_detais = () => {
     const type: MatchFoundDetail = {
       label: "Match Type",
-      value: gameType!
+      value: matchType!
     }
 
     const mode: MatchFoundDetail = {
