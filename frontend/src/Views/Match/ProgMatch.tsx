@@ -32,7 +32,7 @@ export const ProgMatch = () => {
             <Loading isOpen={loading}></Loading>
         )
     }
-
+    
     return (
         <MatchScreen
             player_life={playerLife}

@@ -16,10 +16,6 @@ export class MatchmakingSocket {
         return on<MatchedUsersDTO>(this.socket, 'users_matched', handler);
     }
 
-    matchReady(handler: (match_id: string) => void) {
-        return on<string>(this.socket, 'game_ready', handler);
-    }
-
 
     gameDeclined(handler: () => void) {
         return on(this.socket, 'match_declined', handler);

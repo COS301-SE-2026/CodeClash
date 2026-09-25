@@ -42,6 +42,7 @@ export const useSubmission = ({
     }
 
     const submitQuestion = async (data: MathsSubmissionDTO | ProgSubmissionDTO) => {
+        console.log("Submitting question",data);
 
         const submission: SubmissionDTO = {
             match_id: match_id,

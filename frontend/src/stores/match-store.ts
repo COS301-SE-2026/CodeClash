@@ -42,7 +42,8 @@ export const useMatchStore = create<MatchState>()(
 
 
         }), {
-        name: 'match-store'
+        name: 'match-store',
+        // storage: createJSONStorage(() => sessionStorage)
     }
     )
 
