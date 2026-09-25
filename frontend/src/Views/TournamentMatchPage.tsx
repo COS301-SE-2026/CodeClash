@@ -62,15 +62,15 @@ const TournamentsMatchPage = () => {
                         <div className="flex flex-row items-center justify-between gap-4 mt-4 flex-wrap">
                             <div className="flex flex-row items-center gap-2">
                                 <Lock size={18} className="text-muted-text"/>
-                                <p className="text-muted-text text-sm">Answers lock automatically at round expiry</p>
+                                <p className="text-muted-text text-xs">Answers lock automatically at round expiry</p>
                             </div>
 
-                            <div className="">
-                                <MatchCard className="bg-[#0b0509] text-muted-text">RESET</MatchCard>
-                                <TournamentButton>
-                                    <div className="flex flex-row">
+                            <div className="flex flex-row items-center gap-3">
+                                <MatchCard className="bg-[#0b0509] text-muted-text px-4 py-2 rounded-lg">RESET</MatchCard>
+                                <TournamentButton className="px-4 py-2 rounded-lg">
+                                    <div className="flex flex-row items-center gap-2">
                                         <h1>Submit Answer</h1>
-                                        <ChevronsRight/>
+                                        <ChevronsRight size={30}/>
                                     </div>
                                 </TournamentButton>
                             </div>
@@ -81,8 +81,8 @@ const TournamentsMatchPage = () => {
                     </div>
                 </MatchCard>
 
-                <div className="flex flex-col">
-                    <MatchCard>
+                <div className="flex flex-col gap-4 w-full lg:w-[380px] shrink-0">
+                    <MatchCard className="flex flex-col gap-3 p-4 rounded-2xl">
                         <div className="flex flex-row justify-between">
                             <div className="flex flex-row">
                                 <Signal className="text-muted-text"/>
