@@ -26,9 +26,6 @@ export class MatchSocket {
         return on<Player[]>(this.socket, 'get_players', handler);
     }
 
-    markingComplete(handler: (data: MarkingResultDTO) => void) {
-        return on<MarkingResultDTO>(this.socket, 'marking_complete', handler);
-    }
 
     submissionError(handler: (data: string) => void) {
         return on<string>(this.socket, 'submission_error', handler);

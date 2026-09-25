@@ -15,6 +15,7 @@ export const submitQuestion = async (socket: Socket, data: RawSubmissionDTO, mar
         ...data,
         match_id: ecs_id!,
     }
+    
     return mark.execute({ ...submission, player_id: socket.data.user_id });
 }
 

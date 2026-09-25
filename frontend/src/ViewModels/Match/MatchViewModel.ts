@@ -1,6 +1,6 @@
 import { MathfieldElement } from 'mathlive';
 import { useEffect, useState, useRef, useMemo } from "react";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
 import { robot_map } from 'src/assets/Robots';
 import { useLoadRounds, useMatchProgress, useMatchTimer, useOpponentProgress } from 'src/services/match.service';
@@ -28,7 +28,7 @@ export const useMatch = () => {
 
     const players = useMatchStore(state => state.players);
     const stored_rounds = useMatchStore(state => state.rounds)!;
-    const match_id =useMatchStore(state => state.match_id);
+    const match_id = useMatchStore(state => state.match_id);
 
     const { rounds, duration } = useLoadRounds(stored_rounds);
     const questions = rounds[roundIdx] ?? [];
@@ -36,7 +36,7 @@ export const useMatch = () => {
     const { opponentProgress, handleOpponentDone, opponentCurrent, opponentDone } = useOpponentProgress(questions.length, players);
 
 
-    const { submissionResult, submissionError, submitQuestion, results } = useSubmission({ round_idx: roundIdx, curr_question: currentQuestion, question: questions[currentQuestion], match_id: match_id! })
+    const { submissionError, submitQuestion, results } = useSubmission({ round_idx: roundIdx, curr_question: currentQuestion, question: questions[currentQuestion], match_id: match_id! })
     const { seconds, minutes } = useMatchTimer(duration, () => {
         setGameOver(true);
         matchSocket?.finishMatch({ match_id: match_id!, match_mode: matchMode! })
@@ -92,7 +92,6 @@ export const useMatch = () => {
             setLoading(true);
 
 
-            const unsub_marking = matchSocket.markingComplete(submissionResult);
             const unsub_submission_error = matchSocket.submissionError(submissionError);
             const unsub_done = matchSocket.bothDone(both_done);
             const unsub_opponent_progress = matchSocket.opponentProgress(opponentProgress);
@@ -102,7 +101,6 @@ export const useMatch = () => {
 
 
             return () => {
-                unsub_marking();
                 unsub_submission_error();
                 unsub_done();
                 unsub_opponent_progress();
