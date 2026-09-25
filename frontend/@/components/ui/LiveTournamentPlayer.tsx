@@ -14,24 +14,24 @@ import {Check} from "lucide-react"
 interface LiveTournamentPlayerProps{
     children?: React.ReactNode;
     className?: string;
+    place?: number;
     winner?: boolean;
     you?: boolean;
+    username?: string,
+    time?: string
 }
 
-export const MultipleChoice = ({children, className, winner, you} : LiveTournamentPlayerProps) => {
+export const MultipleChoice = ({children, className, place, winner, you, username, time} : LiveTournamentPlayerProps) => {
 
     return(
         <MatchCard className={`bg-[#413638] flex flex-row w-auto overflow-x-auto gap-1 
         min-w-[10%] ${winner ? 'bg-[#B5A6A9]' : ""} ${you ? 'bg-primary/20 border-primary' : ""} ${className}`}>
             
-            <div className={`bg-[var(--multiple-choice-letter)] border-[0.5px] my-auto sm:min-w-0 
-                border-[var(--button-tournament-secondary-border)] rounded-[10px] ml-2 w-10 h-10 text-center
-                ${selected ? "bg-primary border-primary shadow-[0_0_7px_var(--primary)]" : ""}`}
-            >
-                <h1 className="text-secondary text-[15px] my-auto mt-1.75">{letter}</h1> 
-            </div>
+            <h1 className={`text-[#B5A6A9] ${winner ? 'text-[#cd9340]' : ""} ${you ? 'text-primary' : ""}`}>{place}</h1>
 
-            <h1 className="font-semibold text-sm ml-3 mt-1">{option}</h1>
+            <h1 className="text-secondary">{username}</h1>
+
+            {you ? <MatchCard className="bg-primary border-primary text-secondary">YOU</MatchCard> : ""}
 
             <MatchCard className={`p-0 flex rounded-full ml-auto h-6 w-6 bg-[var(--multiple-choice-box)] 
                 border-[var(--button-tournament-secondary-border)] mr-3 my-auto items-center justify-center
