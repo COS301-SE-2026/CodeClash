@@ -495,7 +495,17 @@ export function buildInsights(
         body: `Mastery is capped at ${ceiling.toFixed(0)} here, so expect a dip on promotion - the questions get harder before you do. It measures your own progress, not other players.`
     });
 
-    if (mastery === 0) {
+  if (practice && practice.games > 0) {
+    const percentage = practice.questions === 0 ? 0 : Math.round((practice.correct) / practice.questions) * 100;
+    insights.push({
+      id: 'practice',
+      tone: 'info',
+      title: `${practice.games} practice ${practice.games === 1 ? 'game' : 'games'}, ${percentage}% correct`,
+      body: 'Casual games are kept out of your mastery and growth, so practise freely.'
+    })
+  }
+
+  if (mastery === 0) {
         insights.push({
             id: 'no-data',
             tone: 'info',
