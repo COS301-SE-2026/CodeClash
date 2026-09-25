@@ -127,6 +127,7 @@ export const useMatch = () => {
         opponentCurrent,
         opponentDone,
         submitQuestion,
-        nextRound
+        nextRound,
+        roundIdx
     }
 }
