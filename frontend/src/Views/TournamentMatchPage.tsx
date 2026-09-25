@@ -6,14 +6,15 @@ import { Medal } from "lucide-react"
 const TournamentsMatchPage = () => {
     return(
         <MatchCard className="rounded-[12px] w-[88%] h-[4rem] 
-            shrink-0 mb-10 mt-10 ml-10 mr-10 flex items-center overflow-x-auto">
-            <div className="flex flex-row">
+            shrink-0 m-10 flex items-center overflow-x-auto items-center justify-center">
+            <div className="flex flex-row justify-between">
                 <div className="flex flex-row">
-                    <TournamentButton className="rounded-[10px] my-auto min-w-0 w-12 h-12 items-center -px-1 -py-4 -ml-3 -mt-1 ">
-                        <Medal className="text-[var(--match-box)] mx-auto"/>
+                    <TournamentButton className="rounded-[10px] my-auto min-w-0 w-10 h-10 items-center -px-1 -py-4 ">
+                        <Medal size={20} className="text-[var(--match-box)] mx-auto"/>
                     </TournamentButton>
-                    <div className="flex flex-col">
-                        
+                    <div className="flex flex-col ml-4">
+                        <h1 className="font-semibold text-secondary text-[1.1rem]">Round 1/4</h1>
+                        <div className="text-muted-text text-[0.7rem] -mt-0.5">5 Players Remaining</div>
                     </div>
                 </div>
 
