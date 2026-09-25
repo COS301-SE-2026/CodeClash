@@ -5,7 +5,7 @@ import { useMatchmaking } from "src/context/Matchmaking/hooks/useMatchmaking";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
 import type { MarkingResultDTO, MathsSubmissionDTO, ProgSubmissionDTO, SubmissionDTO } from "src/dtos/match/submission.dto";
 import { robot_map } from 'src/assets/Robots';
-import { useGameQuestions, useGameTimer, useMatchProgress } from 'src/services/match.service';
+import {  useMatchProgress } from 'src/services/match.service';
 
 import { useMatchStore } from 'src/stores/match-store';
 import { useUser } from 'src/context/User/hooks/useUser';
@@ -79,25 +79,7 @@ export const useMatch = () => {
     })
 
 
-    const submission_result = (result: MarkingResultDTO) => {
-        const index = question_idx.current;
-
-        setResults((prev) => {
-            const next = [...prev];
-            const round_results = [...(next[round_idx.current] ?? [])];
-            round_results[index] = result.correct;
-            next[round_idx.current] = round_results;
-            return next
-        });
-
-        updatePlayerLife(result.player_id, result.life_update);
-        if (result.life_update <= 0) {
-            finishGame();
-            return;
-        }
-
-        if (result.correct === true) nextQuestion(index)
-    }
+    
 
     const submission_error = (error: string) => {
         console.error(error)
@@ -109,7 +91,7 @@ export const useMatch = () => {
             match_id: id!,
             player_id: userId,
             question_id: curr_q.id!,
-            round_number: 0,    // to be updated
+            round_number: round_idx.current,    // to be updated
             question_number: currentQuestion,
             match_type: gameType!,
             match_mode: match_mode!,

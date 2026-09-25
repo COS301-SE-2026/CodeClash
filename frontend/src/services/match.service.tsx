@@ -15,7 +15,7 @@ export function matchStart(match_socket: MatchSocket) {
     })
 }
 
-export const useGameTimer = (duration: number, onExpire: () => void) => {
+export const useMatchTimer = (duration: number, onExpire: () => void) => {
     const expiry_time = useMemo(() => {
         const time = new Date();
         time.setSeconds(time.getSeconds() + duration * 60);
@@ -49,54 +49,41 @@ function shuffle(array: QuestionDTO[]) {
     return array;
 }
 
-export const useGameQuestions = () => {
 
-    const loadRounds = (data: RoundDTO[]) => {
-        const { rounds, duration } = useMemo(() => {
-            if (!data || data.length === 0) {
-                return {
-                    rounds: [] as QuestionDTO[][],
-                    duration: 0
-                }
+export const loadRounds = (data: RoundDTO[]) => {
+    const { rounds, duration } = useMemo(() => {
+        if (!data || data.length === 0) {
+            return {
+                rounds: [] as QuestionDTO[][],
+                duration: 0
             }
+        }
 
-            let sumtime = 0;
-            const rounds: QuestionDTO[][] = data.map((round) => {
-                const temp_arr: QuestionDTO[] = round.questions.map(q => {
-                    sumtime += Number(q.time_limit!.split(":")[1]);
-                    return {
-                        id: q.id,
-                        title: q.title,
-                        difficulty: q.difficulty,
-                        description: q.description,
-                        input_type: q.input_type
-                    };
-                });
-                return shuffle(temp_arr);
+        let sumtime = 0;
+        const rounds: QuestionDTO[][] = data.map((round) => {
+            const temp_arr: QuestionDTO[] = round.questions.map(q => {
+                sumtime += Number(q.time_limit!.split(":")[1]);
+                return {
+                    id: q.id,
+                    title: q.title,
+                    difficulty: q.difficulty,
+                    description: q.description,
+                    input_type: q.input_type
+                };
             });
+            return shuffle(temp_arr);
+        });
 
-            return { rounds, duration: sumtime };
+        return { rounds, duration: sumtime };
 
-        }, [data]);
+    }, [data]);
 
-        return { rounds, duration }
-
-    }
-
-    return {
-        loadRounds
-    }
+    return { rounds, duration }
 
 }
 
-export const useMatchProgress = (
-    num_questions: number,
-    players: Player[]
-) => {
+export const useMatchProgress = (players: Player[]) => {
     const [playerLife, setPlayerLife] = useState<number[]>(() => players.map(p => p.life));
-    const [opponentCurrent, setOpponentCurrent] = useState(0);
-    const [opponentDone, setOpponentDone] = useState(false);
-
     const players_ref = useRef(players);
 
     useEffect(() => {
@@ -105,46 +92,54 @@ export const useMatchProgress = (
     }, [players]);
 
 
-    const opponent_progress = (data: OpponentDTO) => {
-        const player_index = players_ref.current.findIndex(p => p.id === data.player_id)
-        if (player_index === -1) return
-
-        setOpponentCurrent((prev) => {
-            const next = data.question + 1;
-            return (next < num_questions) ? next : prev;
-        });
-
-        setPlayerLife((prev) => {
-            const next = [...prev];
-            next[player_index] = data.opponent_life;
-            return next;
-        });
-    }
-
-    const opponent_done = () => {
-        setOpponentDone(true)
-    }
-
     const updatePlayerLife = (player_id: string, life: number) => {
         const player_index = players_ref.current.findIndex(p => p.id === player_id);
 
-        if (player_index === -1) return
+        if (player_index === -1) return;
 
         setPlayerLife((prev) => {
             const next = [...prev];
             next[player_index] = life;
             return next
-        })
+        });
 
     }
 
     return {
         playerLife,
-        opponentCurrent,
-        opponent_progress,
-        opponent_done,
-        opponentDone,
         updatePlayerLife
+    }
+}
+
+export const useOpponentProgress = (num_questions: number, players: Player[]) => {
+    const [opponentCurrent, setOpponentCurrent] = useState(0);
+    const [opponentDone, setOpponentDone] = useState(false);
+
+    const players_ref = useRef(players);
+
+    useEffect(() => {
+        players_ref.current = players;
+    }, [players]);
+
+    const opponentProgress = (data: OpponentDTO) => {
+        const player_index = players_ref.current.findIndex(p => p.id === data.player_id)
+        if (player_index === -1) return;
+
+        setOpponentCurrent((prev) => {
+            const next = data.question + 1;
+            return (next < num_questions) ? next : prev;
+        });
+    }
+
+    const handleOpponentDone = () => {
+        setOpponentDone(true)
+    }
+
+    return {
+        opponentCurrent,
+        opponentProgress,
+        opponentDone,
+        handleOpponentDone
     }
 }
 
