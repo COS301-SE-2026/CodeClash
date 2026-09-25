@@ -1,11 +1,11 @@
 import { IMatchCache } from "src/application/interfaces/cache/IMatchCache";
 import { MatchMode, MatchType } from "src/entities/dtos/matches/match.dto";
-import { MatchDTO, PlayerDTO} from "src/entities/dtos/matches/match-component.dto";
+import { MatchDTO, PlayerDTO } from "src/entities/dtos/matches/match-component.dto";
 
 import { MatchCreationSystem } from "../../systems/match-creation.system";
 
 import { GetAnswers } from "../answers.service";
-import {  GetQuestions, GetTotalTime } from "../questions.service";
+import { GetQuestions, GetTotalTime } from "../questions.service";
 import { IMatchRepository } from "src/application/interfaces/repositories/IMatchRepository";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 

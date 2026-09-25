@@ -35,6 +35,7 @@ import { RoundComponent } from '../../../src/entities/components';
 import { AnswerDTO } from '../../../src/entities/dtos/questions/answer.dto';
 import { mock_questions } from '../../mocks/mock-questions';
 import { mock_answers } from '../../mocks/mock-answers';
+import { MatchStart } from '../../../src/application/usecases/services/match/match-start.service'
 
 let http: HttpServer;
 let server: Server;
@@ -43,7 +44,7 @@ const data_source = await createTestDataSource();
 const user_repo: IUserRepository = new UserRepository(data_source.getRepository(Users));
 const world = World()
 const match_repo: IMatchRepository = new MatchRepository(data_source.getRepository(Matches), data_source.getRepository(Users));
-
+const match_store = new MatchStore(user_repo);
 
 export const createTestServer = async (players: PlayerDTO[]) => {
     for (const p of players) {
@@ -92,13 +93,15 @@ export const test_match_creation = async () => {
     const create_game = new MatchCreationSystem(create_player_entity, create_match_entity, create_rounds);
     const match_service = new MatchCreationService(create_game, get_questions, get_total_time, get_answers, match_cache, match_repo, user_repo);
 
-    return match_service;
+    const match_start = new MatchStart(match_service, match_store);
+
+    return {match_start, match_service};
 }
 
 export const createTestMatch = async (players: PlayerDTO[], match_mode: MatchMode, match_type: MatchType) => {
 
-    const match_service = await test_match_creation();
-    const match = await match_service.execute(players, match_mode, 'Mercury', match_type);
+    const test_create_match = await test_match_creation();
+    const match = await test_create_match.match_service.execute(players, match_mode, 'Mercury', match_type);
 
     return match
 }
@@ -110,20 +113,20 @@ export const deleteTestMatch = (players: string[], match_type: MatchType,
         rounds: RoundComponent[],
         answers: AnswerDTO[]
     }) => {
-    console.log(match);
+  
     const achievement_repo: IAchievementRepository = new AchievementRepository(data_source.getRepository(Achievement), data_source.getRepository(Users));
 
-    const match_store = new MatchStore(user_repo);
+
     const completion_system = new MatchCompletionSystem(world, match_store);
     const achievement_service = new AchievementService(achievement_repo, user_repo);
 
     const delete_match = new MatchCompletionService(match_repo, completion_system, user_repo, achievement_service);
 
-    delete_match.execute(match.match_entity, match.match_id, players, match_type);
+   delete_match.execute(match.match_entity, match.match_id, players, match_type);
 }
 
 
-export const socketSetup = async (player_id:string) => {
+export const socketSetup = async (player_id: string) => {
     const address = http.address();
 
     if (!address || typeof address === 'string') throw new Error("Server not running");

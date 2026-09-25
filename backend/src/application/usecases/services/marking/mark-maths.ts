@@ -11,8 +11,6 @@ export class MarkMaths implements IMarkingStrategy {
   async mark(submission: MathsSubmissionDTO | ProgSubmissionDTO, answer: AnswerDTO): Promise<boolean> {
     if (!('answer' in submission)) return false;
 
-    console.log("MarkMaths: ", answer.format);
-
     const marker = this.registry.markerFor(answer.format); // telling it which marker to use based on the format
     if (marker === null) return false;
     return marker.mark(submission.answer, answer);

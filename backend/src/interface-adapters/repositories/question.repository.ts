@@ -23,7 +23,7 @@ export class QuestionRepository implements IQuestionRepository {
         for (const question of questions) {
             const d: QuestionDTO = {
                 id: question.question_id,
-                category: question.match_mode,
+                match_mode: question.match_mode,
                 difficulty: question.difficulty,
                 description: question.description,
                 time_limit: question.time_limit,

@@ -127,13 +127,12 @@ describe("Submit Question socket integration test", () => {
             life_update: 100
         });
 
-        deleteTestMatch(players.map(p => p.id), MatchType.ranked, match);
+        //deleteTestMatch(players.map(p => p.id), MatchType.ranked, match);
     });
 
 
     it("Submits Prog Question", async () => {
         match = await createTestMatch(players, MatchMode.Maths, MatchType.ranked);
-        // console.log(match);
 
         const address = http.address();
 

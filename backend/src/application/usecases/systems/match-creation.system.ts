@@ -1,5 +1,5 @@
 import { LifeComponent, MatchComponent, PlayerInfoComponent, PlayersComponent, RoundComponent, SubmissionRegistryComponent } from "src/entities/components";
-import { PlayerDTO, MatchDTO} from "src/entities/dtos/matches/match-component.dto";
+import { PlayerDTO, MatchDTO } from "src/entities/dtos/matches/match-component.dto";
 import { MatchQuestionArrays } from "src/entities/dtos/matches/match.dto";
 import { World } from "src/entities/World";
 
@@ -83,11 +83,11 @@ export class CreateRound {
         }
 
         const question_pool = [...question.easy, ...question.medium, ...question.hard];
+
         let round_count = Math.ceil(Math.log2(player_count));
         let q_per_round = Math.floor(question_pool.length / round_count);
 
-        // ensure at least 5 questions per round
-        while (q_per_round < 5) {
+        while (q_per_round < 5 && round_count >= 3) {
             --round_count;
             q_per_round = Math.floor(question_pool.length / round_count);
         }

@@ -26,7 +26,7 @@ const host: PlayerDTO = {
 }
 
 
-const players: PlayerDTO[] = [host];
+let players: PlayerDTO[] = [host];
 
 for (let i = 0; i < 10; i++) {
     players.push({
@@ -49,12 +49,12 @@ const marking_service = {
 };
 
 const tournament_cache: ITournamentCache = new TournamentCache(redis);
-const match_creation_service = await test_match_creation();
+const test_create_match = await test_match_creation();
 const elimination_service = new TournamentEliminationService(marking_service as unknown as MarkingService);
-const tournament_service = new TournamentService(tournament_cache, match_creation_service, elimination_service);
+const tournament_service = new TournamentService(tournament_cache, test_create_match.match_start, elimination_service);
 const create_server = await createTestServer(players);
 
-let tournament;
+let tournament: TournamentDTO;
 
 describe("Tournament Socket Handelr", () => {
     beforeAll(async () => {
@@ -97,12 +97,87 @@ describe("Tournament Socket Handelr", () => {
     it("Players join tournament", async () => {
 
         for (const p of players) {
-            const socket = socketSetup(players[0].id);
+            if (p.id === host.id) continue;
 
-            const response = await new Promise<any>((resolve) => {
-                socket.emit("join_tournament")
+            const socket = await socketSetup(players[0].id);
+
+            const data = {
+                tournament_id: tournament.tournament_id,
+                player: p
+            }
+
+            const response = await new Promise<any>((resolve, reject) => {
+                socket.emit("join_tournament", data, (response: TournamentDTO) => {
+                    resolve(response);
+                });
+
+                socket.on("connect_error", reject);
             })
+
+            expect(response.ok).toBe(true);
+            tournament = response.data;
         }
 
+        expect(tournament.players.length).toBe(players.length);
+    })
+
+
+    it("Player leaves tournament", async () => {
+        const player = players[4];
+        const expected = players.filter(p => p.id !== player.id);
+
+        const socket = await socketSetup(player.id);
+
+        const data = {
+            tournament_id: tournament.tournament_id,
+            player: player
+        }
+
+        const response = await new Promise<any>((resolve, reject) => {
+            socket.emit("leave_tournament", data, (response: TournamentDTO) => {
+                resolve(response);
+            });
+
+            socket.on("connect_error", reject);
+        })
+
+        expect(response.ok).toBe(true);
+        expect(response.data.players).toEqual(expected);
+        tournament = response.data;
+    })
+
+    it("Gets a tournament", async () => {
+        const socket = await socketSetup(host.id);
+
+        const response = await new Promise<any>((resolve, reject) => {
+            socket.emit("get_tournament", tournament.tournament_id, (response: TournamentDTO) => {
+                resolve(response);
+            });
+
+            socket.on("connect_error", reject);
+        })
+
+        expect(response.ok).toBe(true);
+        expect(response.data).toEqual(tournament);
+    })
+
+    it("Starts a tournament", async () => {
+        const socket = await socketSetup(host.id);
+
+        const data = {
+            tournament_id: tournament.tournament_id,
+            league: "Mercury"
+        };
+
+        const response = await new Promise<any>((resolve, reject) => {
+            socket.emit("start_tournament", data, (response: TournamentDTO) => {
+                resolve(response);
+            });
+
+            socket.on("connect_error", reject);
+        })
+
+        expect(response.ok).toBe(true);
+        expect(response.data).toBeDefined();
     })
 })

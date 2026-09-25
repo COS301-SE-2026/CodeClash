@@ -7,7 +7,9 @@ export const joinTournament = async (io: Server, socket: Socket, tournament_id: 
     try {
         await tournament_service.joinTournament(tournament_id, player);
         socket.join(tournament_id);
-        io.to(tournament_id).emit('player_joined', player);
+        const tournament = await tournament_service.getTournament(tournament_id);
+        io.to(tournament_id).emit('player_joined', tournament);
+        return tournament;
     }
     catch (error) {
         socket.emit("join_tournament_failed", error);
@@ -17,9 +19,11 @@ export const joinTournament = async (io: Server, socket: Socket, tournament_id: 
 export const leaveTournament = async (io: Server, socket: Socket, tournament_id: string, player: PlayerDTO, tournament_service: TournamentService) => {
     try {
         await tournament_service.leaveTournament(tournament_id, player);
-
         socket.emit("left_tournament");
-        io.to(tournament_id).emit("player_left", player);
+
+        const tournament = await tournament_service.getTournament(tournament_id);
+        io.to(tournament_id).emit("player_left", tournament);
+        return tournament;
     }
     catch (error) {
         socket.emit("leave_tournament_failed", error);
@@ -58,9 +62,12 @@ export const getTournament = async (socket: Socket, tournament_id: string, tourn
 export const startTournament = async (io: Server, socket: Socket, tournament_id: string, league: string, tournament_service: TournamentService) => {
     try {
         const tournament = await tournament_service.getTournament(tournament_id);
+        
         const match = await tournament_service.startTournament(tournament, league);
 
-        io.to(tournament_id).emit("tournament_started", { match: match, tournament: tournament });
+        const data = { match: match, tournament: tournament };
+        io.to(tournament_id).emit("tournament_started", data);
+        return data;
     } catch (error) {
         socket.emit("start_tournament_failed", error);
     }

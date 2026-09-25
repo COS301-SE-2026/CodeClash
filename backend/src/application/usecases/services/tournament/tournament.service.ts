@@ -3,13 +3,13 @@ import { ITournamentCache } from "src/application/interfaces/cache/ITournamentCa
 import { PlayerDTO } from "src/entities/dtos/matches/match-component.dto";
 import { MatchMode, MatchStatus, MatchType } from "src/entities/dtos/matches/match.dto";
 import { TournamentDTO } from "src/entities/dtos/tournaments/tournaments.dto";
-import { MatchCreationService } from "../match/match-creation.service";
 import { TournamentEliminationService } from "./elimination.service";
+import { MatchStart } from "../match/match-start.service";
 
 export class TournamentService {
     constructor(
         private readonly tournament_cache: ITournamentCache,
-        private readonly creation_service: MatchCreationService,
+        private readonly creation_service: MatchStart,
         private readonly elimination_service: TournamentEliminationService
     ) { }
 

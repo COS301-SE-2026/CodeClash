@@ -3,7 +3,7 @@ import { leagueMapping } from "src/entities/league-mapping";
 
 import { IQuestionRepository } from "../../interfaces/repositories/IQuestionRepository";
 
-
+ 
 export class GetQuestions {
     constructor(
         private readonly question_repo: IQuestionRepository,
@@ -18,6 +18,8 @@ export class GetQuestions {
         const easy_count: number = Math.round(mapping.question_number * (mapping.easy.percentage!));
         const medium_count: number = Math.round(mapping.question_number * (mapping.medium.percentage!));
         const hard_count: number = Math.round(mapping.question_number * mapping.hard.percentage!);
+
+        
 
         const easy_questions = await this.question_repo.getRandQuestions(easy_count, mapping.easy.difficulty, match_mode);
         const medium_questions = await this.question_repo.getRandQuestions(medium_count, mapping.medium.difficulty, match_mode);

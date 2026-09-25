@@ -1,6 +1,8 @@
+import { MatchMode } from "../matches/match.dto"
+
 export interface QuestionDTO {
     id: string,
-    category: string,
+    match_mode: MatchMode,
     difficulty: number | string,
     title: string,
     description: string,

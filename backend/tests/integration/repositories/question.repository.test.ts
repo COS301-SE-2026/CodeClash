@@ -26,7 +26,10 @@ describe("Question Repository Queries", () => {
 
         const fetched = await question_repo.getRandQuestions(3, 4, MatchMode.Maths);
 
-        expect(fetched).toHaveLength(2);
-        expect(fetched.map(f=>f.id).sort()).toEqual([mock_questions[0], mock_questions[2]].map(q=>q.question_id).sort())
+        expect(fetched).toHaveLength(3);
+        expect(fetched.every(q =>
+            q.match_mode === MatchMode.Maths &&
+            q.difficulty === 4
+        )).toBe(true);
     })
 })
