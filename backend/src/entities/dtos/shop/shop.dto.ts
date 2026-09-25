@@ -2,11 +2,6 @@ export interface AvatarMetadata {
     asset_key: string;
 }
 
-export interface AccessoryMetadata {
-    slot: 'headwear' | 'neckwear' | ' one_piece' | 'belt' | 'facewear';
-    asset_key: string;
-}
-
 export interface PowerupMetadata {
     effect: string;
     value?: number;
@@ -27,5 +22,4 @@ type ShopItemBase = {
 
 export type ShopItemDTO = 
     | (ShopItemBase & { category: 'avatar'; metadata: AvatarMetadata })
-    | (ShopItemBase & { category: 'accessory'; metadata: AccessoryMetadata })
     | (ShopItemBase & { category: 'powerup'; metadata: PowerupMetadata });
