@@ -5,6 +5,7 @@ import {Check, X, LockKeyhole, Timer, Target} from "lucide-react"
 import { MatchCard } from '../ui/MatchCard'
 import TournamentButton from '../ui/TournamentButton'
 import { TournamentsBadge } from '../ui/TournamentsBadge'
+import { TimerCard } from '../ui/MatchBox'
 
 interface MatchScreenProps {
     player_life: number[],
