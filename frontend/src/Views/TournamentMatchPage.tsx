@@ -47,7 +47,7 @@ const TournamentsMatchPage = () => {
                             number={1}
                         />
 
-                        <MatchBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] mb-4"></MatchBox>
+                        <MatchBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] mb-5"></MatchBox>
 
 
                         <div className="flex flex-col gap-3 mb-4">
