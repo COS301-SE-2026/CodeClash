@@ -4,19 +4,10 @@ import { useMatchFound } from 'src/ViewModels/Matchmaking/MatchFoundViewModel';
 
 import Loading from '@/components/shared/Loading';
 import { Button } from '@/components/ui/button';
-import { useEffect } from 'react';
 
 const MatchFound = () => {
   const { content, players, matchDetails, decline, accept, loading } =
     useMatchFound();
-
-  useEffect(() => {
-    console.log("found url", window.location.href);
-
-    return () => {
-      console.log("found unmount url", window.location.href);
-    }
-  })
 
   if (!players) {
     return (

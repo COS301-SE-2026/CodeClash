@@ -41,6 +41,7 @@ export function useMatchFound() {
       matchmakingSocket.declineMatch(data);
       setLoading(true);
       reset();
+      useMatchStore.getState().reset();
       nav('/match-searching')
     }
     else {
@@ -58,6 +59,7 @@ export function useMatchFound() {
     setLoading(false);
     setMatchDeclined(true);
     reset();
+    useMatchStore.getState().reset();
     nav('/match-searching');
   }
 

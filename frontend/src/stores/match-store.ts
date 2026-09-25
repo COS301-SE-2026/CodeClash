@@ -1,7 +1,7 @@
 import type { RoundDTO } from "src/dtos/match/match.dto";
 import type { Player } from "src/Models/MatchModel";
 import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
+import {  persist } from 'zustand/middleware'
 
 interface MatchState {
     match_id: string | null,
@@ -42,8 +42,7 @@ export const useMatchStore = create<MatchState>()(
 
 
         }), {
-        name: 'match-store',
-        storage: createJSONStorage(() => sessionStorage)
+        name: 'match-store'
     }
     )
 

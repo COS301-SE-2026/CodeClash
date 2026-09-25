@@ -84,7 +84,6 @@ export const useMatch = () => {
         });
     }
 
-    console.log(useMatchStore(state => state.match_id));
     useEffect(() => {
 
 

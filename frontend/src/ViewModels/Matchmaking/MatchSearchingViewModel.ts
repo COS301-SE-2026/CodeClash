@@ -9,6 +9,7 @@ import {
   matchSearchingContent,
   type MatchSearchingPlayer,
 } from 'src/Models/MatchSearchingModel';
+import { useMatchStore } from 'src/stores/match-store';
 
 export function MatchSearchingViewModelFunction() {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ export function MatchSearchingViewModelFunction() {
   const { elo, username } = useUser();
 
   const { matchmakingSocket } = useSocket()
-  const { matched } = useMatchmaking()
+  const { matched, reset } = useMatchmaking()
 
   useEffect(() => {
     const intervalId = window.setInterval(() => {
@@ -31,8 +32,9 @@ export function MatchSearchingViewModelFunction() {
   const handleCancel = () => {
 
     if (!matchmakingSocket) throw new Error("500 Internal Server Error")
-
     matchmakingSocket.leaveQueue();
+    reset();
+    useMatchStore.getState().reset();
     navigate('/dashboard');
   };
 

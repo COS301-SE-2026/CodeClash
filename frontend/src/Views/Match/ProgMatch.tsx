@@ -27,7 +27,6 @@ export const ProgMatch = () => {
 
     const curr = questions[currentQuestion];
 
-    // console.log(code)
     if (status !== 'ready' || !curr) {
         return (
             <Loading isOpen={loading}></Loading>
