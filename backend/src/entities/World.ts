@@ -107,7 +107,7 @@ export const World = () => {
         return getComponent<T>(players, entity_id, component_name);
     }
 
-    function getMatchComponent<T extends MatchComponentTypes>(entity_id: number, component_name: "Players" | "Match" | "Submission" | "Result") {
+    function getMatchComponent<T extends MatchComponentTypes>(entity_id: number, component_name: "Players" | "Match" | "Submission" | "Result" | "PowerupState") {
         return getComponent<T>(matches, entity_id, component_name);
     }
 

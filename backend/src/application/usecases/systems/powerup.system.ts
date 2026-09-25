@@ -1,3 +1,4 @@
+import { match } from 'node:assert';
 import { World } from '../../../entities/World';
 import { LifeSystem } from './life.system';
 import { SubmissionSystem } from './submission.system';
@@ -29,6 +30,11 @@ export class PowerupSystem {
 
     private getState(match_id: number): PowerupStateComponent {
         let state = this.world.getMatchComponent<PowerupStateComponent>(match_id, 'PowerupState');
+        if (!state) {
+            state = {};
+            this.world.addMatchComponent(match_id, 'PowerupState', state);
+        }
+        return state;
     }
 
     private getPlayerState(match_id: string, user_id: string): PlayerPowerupState {
@@ -49,15 +55,15 @@ export class PowerupSystem {
 
     }
 
-    isQuestionBlocked(match_id: string, user_id: string): boolean {
+    isQuestionBlocked(match_id: number, user_id: string): boolean {
 
     }
 
-    getTimeDeltaSeconds(match_id: string, user_id: string): number {
+    getTimeDeltaSeconds(match_id: number, user_id: string): number {
 
     }
 
-    getScoreMultiplierPercent(match_id: string, user_id: string): number {
+    getScoreMultiplierPercent(match_id: number, user_id: string): number {
 
     }
 }
