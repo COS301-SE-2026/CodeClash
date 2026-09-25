@@ -1,5 +1,5 @@
 import React from 'react'
-import { TimerBox } from '../ui/TimerBox'
+import { MatchBox } from '../ui/MatchBox'
 import { Progress } from '../ui/progress'
 import {Check, X, LockKeyhole, Timer, Target} from "lucide-react"
 import { MatchCard } from '../ui/MatchCard'
@@ -76,7 +76,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 </div>
 
                 {/* Clock */}
-                <TimerBox className='shrink-0 text-white font-dseg border border-[var(--match-card)] 
+                <MatchBox className='shrink-0 text-white font-dseg border border-[var(--match-card)] 
                 h-6 w-38 flex items-center justify-center text-[70%] text-center font-semibold rounded-sm px-2 my-auto -mt-4.5'>
                     <div className="flex flex-row whitespace-wrap">
                         <Timer size={20} className="mr-3 my-auto text-muted-text"/>
@@ -85,7 +85,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                             {String(seconds).padStart(2, "0")}
                         </span>
                     </div>
-                </TimerBox>
+                </MatchBox>
 
                 {/* Player 2 Progress */}
 

@@ -8,7 +8,7 @@ import Loading from '@/components/shared/Loading';
 import { MatchScreen } from '@/components/shared/Match';
 import { Card } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
-import { TimerBox } from '@/components/ui/TimerBox';
+import { MatchBox } from '@/components/ui/MatchBox';
 import TournamentButton from '@/components/ui/TournamentButton';
 
 const MathsMatch = () => {
@@ -53,7 +53,6 @@ const MathsMatch = () => {
     return (
         <MatchScreen
             player_life={playerLife}
-            colour='var(--button-tournament)'
             seconds={seconds}
             minutes={minutes}
             avatars={avatars}
@@ -73,7 +72,7 @@ const MathsMatch = () => {
                 number={currentQuestion + 1}
             />
 
-            <TimerBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] -mt-43"></TimerBox>
+            <MatchBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] -mt-43"></MatchBox>
 
             <div className='w-[100%] h-full min-h-[35%] flex flex-col items-center justify-center'>
                 <MathMatch
