@@ -17,8 +17,8 @@ import HelpMenu from "./Views/HelpMenu";
 import Leaderboard from "./Views/Match/Leaderboard/Leaderboard";
 import MatchSearching from "./Views/Matchmaking/MatchSearching";
 import Profile from "./Views/Profile";
-import SignIn from "./Views/SignIn";
-import SignUp from "./Views/SignUp";
+import SignIn from "./Views/Auth/SignIn";
+import SignUp from "./Views/Auth/SignUp";
 
 import Loading from "@/components/shared/Loading";
 import Tournaments from "./Views/Tournaments/Tournaments";
