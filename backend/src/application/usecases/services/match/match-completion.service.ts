@@ -64,7 +64,7 @@ export class MatchCompletionService {
 
     async getSkillProgress(user_id: string) {
         const since = new Date(Date.now() - SKILL_PROGRESS_DAYS * 24 * 60 * 60 * 1000);
-        return this.match_repo.getSkillProgress(user_id); // will get back to this
+        return this.match_repo.getSkillProgress(user_id, since, SKILL_PROGRESS_WINDOW); // will get back to this
     }
 }
 

@@ -10,5 +10,5 @@ export interface IMatchRepository {
     updatePlayers(match_id: string, players: MatchPlayer[]): Promise<void>,
     getMatchHistory(user_id: string): Promise<MatchHistoryRow[]>,
     buildMatchResult(match_id: string): Promise<MatchResultDTO>,
-    getSkillProgress(user_id: string): Promise<SkillProgressGame[]>
+    getSkillProgress(user_id: string, since: Date, older_games: number): Promise<SkillProgressGame[]>
 }
