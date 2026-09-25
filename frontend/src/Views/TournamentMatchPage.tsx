@@ -1,7 +1,7 @@
 import { MatchCard } from "@/components/ui/MatchCard";
 import "../styles/global.css"
 import TournamentButton from "@/components/ui/TournamentButton";
-import { Trophy } from "lucide-react"
+import { Trophy, Lock } from "lucide-react"
 import { TimerCard } from "@/components/ui/MatchBox";
 import { Question } from "@/components/features/question";
 import { MatchBox } from "@/components/ui/MatchBox";
@@ -51,6 +51,16 @@ const TournamentsMatchPage = () => {
                         <div className="flex flex-col">
                             <MultipleChoice letter="A" option="answer" selected={false}/>
                             <MultipleChoice letter="B" option="answer" selected={true}/>
+                            <MultipleChoice letter="C" option="answer" selected={false}/>
+                            <MultipleChoice letter="D" option="answer" selected={false}/>
+                        </div>
+
+                        <div className="flex flex-row">
+                            <div className="flex flex-row">
+                                <Lock/>
+                                <p className="text-muted-text">Answers lock automatically at round expiry</p>
+                            </div>
+
                         </div>
 
 
