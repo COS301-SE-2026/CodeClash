@@ -115,7 +115,7 @@ const TournamentsMatchPage = () => {
                     </MatchCard>
 
 
-                    <MatchCard>
+                    <MatchCard className="flex flex-col">
                         <div className="flex flex-row">
                             <Zap/>
                             <h1 className="">Round Telemetry</h1>
@@ -170,6 +170,17 @@ const TournamentsMatchPage = () => {
                             </MatchCard>
 
                         </div>
+
+                        <MatchCard className="bg-[var(--match-box)]">
+                            <div className="flex flex-row">
+                                <ChevronsRight/>
+                                <h1>Next: Round 3</h1>
+                                <MatchCard className="bg-[#280640] border-[#34114e]">
+                                    SUDDEN DEATH
+                                </MatchCard>
+                            </div>
+
+                        </MatchCard>
 
                     </MatchCard>
                 </div>
