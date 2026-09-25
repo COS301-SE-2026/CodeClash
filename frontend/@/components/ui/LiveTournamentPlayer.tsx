@@ -21,7 +21,7 @@ interface LiveTournamentPlayerProps{
     time?: string
 }
 
-export const MultipleChoice = ({children, className, place, winner, you, username, time} : LiveTournamentPlayerProps) => {
+export const LiveTournamentPlayer = ({children, className, place, winner, you, username, time} : LiveTournamentPlayerProps) => {
 
     return(
         <MatchCard className={`bg-[#413638] flex flex-row w-auto overflow-x-auto gap-1 
@@ -33,11 +33,7 @@ export const MultipleChoice = ({children, className, place, winner, you, usernam
 
             {you ? <MatchCard className="bg-primary border-primary text-secondary">YOU</MatchCard> : ""}
 
-            <MatchCard className={`p-0 flex rounded-full ml-auto h-6 w-6 bg-[var(--multiple-choice-box)] 
-                border-[var(--button-tournament-secondary-border)] mr-3 my-auto items-center justify-center
-                ${selected ? "bg-primary border-primary shadow-[0_0_7px_var(--primary)]" : ""}`}>
-                  {selected ? <Check className="text-secondary"/> : "" }      
-            </MatchCard>
+            <div className="ml-auto text-muted-text">{time}s</div>
             {children}
         </MatchCard>
     )

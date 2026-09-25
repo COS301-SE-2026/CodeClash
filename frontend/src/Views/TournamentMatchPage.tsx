@@ -6,6 +6,7 @@ import { TimerCard } from "@/components/ui/MatchBox";
 import { Question } from "@/components/features/question";
 import { MatchBox } from "@/components/ui/MatchBox";
 import { MultipleChoice } from "@/components/ui/MultipleChoice";
+import { LiveTournamentPlayer } from "@/components/ui/LiveTournamentPlayer";
 
 const TournamentsMatchPage = () => {
     return(
@@ -88,6 +89,28 @@ const TournamentsMatchPage = () => {
                         </div>
 
                         <hr className="text-muted-text"/>
+
+                        <div className="flex flex-col">
+                            <LiveTournamentPlayer/>
+                            <LiveTournamentPlayer/>
+                            <LiveTournamentPlayer/>
+                            <LiveTournamentPlayer/>
+                            <LiveTournamentPlayer/>
+
+                            <hr className="border-dotted"/>
+
+                            <div className="rounded-[20px] flex flex-row bg-red-400 border border-red-200">
+                                <div className="rounded-full bg-red-800 size-2"></div>
+                                <h1 className="text-red-200"></h1>
+
+                                <div className="text-muted-text ml-auto">
+                                    6 below line
+                                </div>
+                            </div>
+
+                        </div>
+
+
                     </MatchCard>
 
 
