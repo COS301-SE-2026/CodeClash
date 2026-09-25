@@ -4,7 +4,7 @@
 
 const REFERENCE_RUNTIMES_MS = new Map<string, number>([
   ['Reverse a String', 10],
-  ['Nth Fibonacci Nymber', 10]
+  ['Nth Fibonacci Number', 10]
 ]);
 
 const DEFAULT_REFERENCE_RUNTIME_MS = 10;
