@@ -1,7 +1,7 @@
 import { MatchCard } from "@/components/ui/MatchCard";
 import "../styles/global.css"
 import TournamentButton from "@/components/ui/TournamentButton";
-import { Trophy, Lock, ChevronsRight } from "lucide-react"
+import { Trophy, Lock, ChevronsRight, Signal } from "lucide-react"
 import { TimerCard } from "@/components/ui/MatchBox";
 import { Question } from "@/components/features/question";
 import { MatchBox } from "@/components/ui/MatchBox";
@@ -9,7 +9,7 @@ import { MultipleChoice } from "@/components/ui/MultipleChoice";
 
 const TournamentsMatchPage = () => {
     return(
-        <div className="m-6 ml-4 min-h-screen border">
+        <div className="m-6 ml-4 min-h-screen">
             <MatchCard className="rounded-[12px] w-full h-[4rem] 
                 shrink-0 flex items-center overflow-x-auto items-center justify-center mb-6">
                 <div className="flex flex-row justify-between w-full">
@@ -33,7 +33,7 @@ const TournamentsMatchPage = () => {
                 </div>
             </MatchCard>
 
-            <div className="flex flex-row border">
+            <div className="flex flex-row">
                 <MatchCard className="h-full ml-4">
                     <div className="flex flex-col">
 
@@ -77,7 +77,24 @@ const TournamentsMatchPage = () => {
                     </div>
                 </MatchCard>
 
+                <div className="flex flex-col">
+                    <MatchCard>
+                        <div className="flex flex-row justify-between">
+                            <div className="flex flex-row">
+                                <Signal className="text-muted-text"/>
+                                <h1>Live Standings</h1>
+                            </div>
+                            <MatchCard className="flex bg-[var(--multiple-choice-box)] text-muted-text">Round 1</MatchCard>
+                        </div>
 
+                        <hr className="text-muted-text"/>
+                    </MatchCard>
+
+
+                    <MatchCard>
+
+                    </MatchCard>
+                </div>
                 
             </div>
         </div>
