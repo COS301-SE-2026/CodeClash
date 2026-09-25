@@ -88,7 +88,7 @@ export class MatchRepository implements IMatchRepository {
 
     const older = await query()
       .andWhere('match.match_end < :since', { since })
-      .andWhere('match.match_type != :type', { type: MatchType.Casual })
+      .andWhere('match.match_type != :type', { type: MatchType.casual })
       .take(older_games)
       .getMany();
 
