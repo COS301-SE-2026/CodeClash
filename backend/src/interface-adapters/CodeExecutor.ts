@@ -6,7 +6,7 @@ dotenv.config();
 
 export class CodeExecutor implements ICodeExecutor {
     // these can be updated as needed
-    private readonly memory_limit = 128000;
+    private readonly memory_limit = Number(process.env.JUDGE_0_MEMORY_LIMIT ?? 128000);
     private readonly stack_limit = 128000;
     private readonly max_file_size = 1024;
 
