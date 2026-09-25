@@ -37,8 +37,10 @@ export class PowerupSystem {
         return state;
     }
 
-    private getPlayerState(match_id: string, user_id: string): PlayerPowerupState {
-
+    private getPlayerState(match_id: number, user_id: string): PlayerPowerupState {
+        const state = this.getState(match_id);
+        if (!state[user_id]) state[user_id] = defaultState();
+        return state[user_id];
     }
 
     isPowerdown(effect: string): boolean {
