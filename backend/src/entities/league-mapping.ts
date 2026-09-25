@@ -3,14 +3,14 @@ import { LeagueDTO } from "src/entities/dtos/leaderboard/league.dto"
 
 const leagues = new Map<string, LeagueDTO>();
 
-leagues.set("Mercury", { name: "Mercury", difficulty: [1, 2, 3], elo: [600, 1199], question_number: 5 })
-leagues.set("Venus", { name: "Venus", difficulty: [4, 5, 6], elo: [1200, 1799], question_number: 10 })
-leagues.set("Earth", { name: "Earth", difficulty: [7, 8, 9], elo: [1800, 2399], question_number: 15 })
-leagues.set("Mars", { name: "Mars", difficulty: [10, 11, 12], elo: [2400, 2999], question_number: 20 })
-leagues.set("Jupiter", { name: "Jupiter", difficulty: [13, 14, 15], elo: [3000, 3599], question_number: 25 })
+leagues.set("Mercury", { name: "Mercury", difficulty: [1, 2, 3], elo: [600, 1199], question_number: 10 })
+leagues.set("Venus", { name: "Venus", difficulty: [4, 5, 6], elo: [1200, 1799], question_number: 15 })
+leagues.set("Earth", { name: "Earth", difficulty: [7, 8, 9], elo: [1800, 2399], question_number: 20 })
+leagues.set("Mars", { name: "Mars", difficulty: [10, 11, 12], elo: [2400, 2999], question_number: 25 })
+leagues.set("Jupiter", { name: "Jupiter", difficulty: [13, 14, 15], elo: [3000, 3599], question_number: 30 })
 leagues.set("Saturn", { name: "Saturn", difficulty: [16, 17, 18], elo: [3600, 4199], question_number: 30 })
-leagues.set("Uranus", { name: "Uranus", difficulty: [19, 20, 21], elo: [4200, 4799], question_number: 35 })
-leagues.set("Neptune", { name: "Neptune", difficulty: [22, 23, 24], elo: [4800, 5400], question_number: 40 })
+leagues.set("Uranus", { name: "Uranus", difficulty: [19, 20, 21], elo: [4200, 4799], question_number: 30 })
+leagues.set("Neptune", { name: "Neptune", difficulty: [22, 23, 24], elo: [4800, 5400], question_number: 30 })
 
 // Returns a mapping of what percentage of the question difficulties should be selected
 

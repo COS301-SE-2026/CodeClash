@@ -10,7 +10,7 @@ const mock_answers: DeepPartial<Answers>[]= []
 for (const q of question) {
     mock_answers.push({
         question: q,
-        answer: `Answer ${q.title}`
+        answer: `Answer ${q.title}`,
     })
 }
 

@@ -12,7 +12,7 @@ import { useUser } from 'src/context/User/hooks/useUser';
 
 export const useMatch = () => {
     const nav = useNavigate();
-    const { match_socket } = useSocket();
+    const { matchSocket } = useSocket();
     const { id } = useParams();
     const { match_mode, gameType } = useMatchmaking();
     const { userId } = useUser();
@@ -22,27 +22,35 @@ export const useMatch = () => {
     const question_idx = useRef(0);
     const round_idx = useRef(0);
     const [currentQuestion, setCurrentQuestion] = useState(0);
+    const [nextRound, setNextRound] = useState(false);
 
     const status = useMatchStore(state => state.status);
-    const {rounds, duration} = loadRounds(useMatchStore(state => state.rounds)!);
-    const questions = rounds[round_idx.current]?? [];
+    const { rounds, duration } = loadRounds(useMatchStore(state => state.rounds)!);
+    const questions = rounds[round_idx.current] ?? [];
     const players = useMatchStore(state => state.players);
 
     const { playerLife, opponentCurrent, opponent_progress, opponent_done, opponentDone, updatePlayerLife } = useMatchProgress(questions.length, players);
     const avatars = useMemo(() => players.map(p => robot_map[p.avatar_id]), [players]);
     const usernames = useMemo(() => players.map(p => p.username), [players]);
     const [loading, setLoading] = useState(false);
-    const [answers, setAnswers] = useState<Record<string, string>>();
-    const [results, setResults] = useState<(boolean | null)[]>([]);
+    const [results, setResults] = useState<(boolean | null)[][]>([]);
     const mathfieldRef = useRef<MathfieldElement | null>(null)
-    
+
     const [waitingOpponent, setWaitingOpponent] = useState(false);
-   
+
     const closeLoading = () => setLoading(false);
 
     const nextQuestion = (curr: number) => {
         if (curr < questions.length - 1) {
             setCurrentQuestion(curr + 1);
+            return;
+        }
+
+        if (round_idx.current < rounds.length - 1) {
+            round_idx.current += 1;
+            setCurrentQuestion(0);
+            setNextRound(true);
+            setTimeout(() => setNextRound(false), 5000);
         }
     }
 
@@ -67,7 +75,7 @@ export const useMatch = () => {
 
     const { seconds, minutes } = useGameTimer(duration, () => {
         setGameOver(true);
-        match_socket?.finishMatch({ match_id: id!, match_mode: match_mode! })
+        matchSocket?.finishMatch({ match_id: id!, match_mode: match_mode! })
     })
 
 
@@ -76,12 +84,13 @@ export const useMatch = () => {
 
         setResults((prev) => {
             const next = [...prev];
-            next[index] = result.correct;
+            const round_results = [...(next[round_idx.current] ?? [])];
+            round_results[index] = result.correct;
+            next[round_idx.current] = round_results;
             return next
         });
 
         updatePlayerLife(result.player_id, result.life_update);
-
         if (result.life_update <= 0) {
             finishGame();
             return;
@@ -107,18 +116,18 @@ export const useMatch = () => {
             submission: data
         }
 
-        match_socket?.submitAnswer(submission);
+        matchSocket?.submitAnswer(submission);
     }
 
 
     useEffect(() => {
-        if (match_socket && id) {
+        if (matchSocket && id) {
 
-            const unsub_marking = match_socket.markingComplete(submission_result);
-            const unsub_submission_error = match_socket.submissionError(submission_error);
-            const unsub_done = match_socket.bothDone(both_done);
-            const unsub_opponent_progress = match_socket.opponentProgress(opponent_progress);
-            const unsub_opponent_done = match_socket.opponentDone(opponent_done);
+            const unsub_marking = matchSocket.markingComplete(submission_result);
+            const unsub_submission_error = matchSocket.submissionError(submission_error);
+            const unsub_done = matchSocket.bothDone(both_done);
+            const unsub_opponent_progress = matchSocket.opponentProgress(opponent_progress);
+            const unsub_opponent_done = matchSocket.opponentDone(opponent_done);
 
             setLoading(questions.length === 0);
 
@@ -132,13 +141,12 @@ export const useMatch = () => {
             }
         }
 
-    }, [match_socket])
+    }, [matchSocket])
 
     return {
         status,
         players,
         questions,
-        answers,
         playerLife,
         avatars,
         seconds,
@@ -150,13 +158,13 @@ export const useMatch = () => {
         loading,
         closeLoading,
         mathfieldRef,
-        setAnswers,
         results,
         gameOver,
         waitingOpponent,
         finishGame,
         opponentCurrent,
         opponentDone,
-        submitQuestion
+        submitQuestion,
+        nextRound
     }
 }

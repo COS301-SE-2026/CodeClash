@@ -7,15 +7,15 @@ import { MarkingService } from "src/application/usecases/services/marking/markin
 import { MatchConfirmationService } from "src/application/usecases/services/match/match-confirmation.service";
 import { MatchmakingService } from "src/application/usecases/services/matchmaking.service";
 import { DeleteGame } from "src/application/usecases/systems/delete-game";
-import { MatchCompletionSystem } from "src/application/usecases/systems/match-completion.system";
 import { SubmissionSystem } from "src/application/usecases/systems/submission.system";
 import { MatchStart } from "src/application/usecases/services/match/match-start.service";
+import { MatchCompletionService } from "src/application/usecases/services/match/match-completion.service";
+import { TournamentService } from "src/application/usecases/services/tournament/tournament.service";
 
 export interface MatchDeps {
-    math_marking_service: MarkingService,
-    prog_marking_service: MarkingService,
+    marking_service: MarkingService,
     submission_system: SubmissionSystem,
-    match_completion_system: MatchCompletionSystem,
+    match_completion_service: MatchCompletionService,
     match_deletion_system: DeleteGame,
     match_store: MatchStore,
 }
@@ -31,8 +31,14 @@ export interface MatchmakingDeps {
 
 export interface FriendDeps { }
 
+export interface TournamentDeps {
+    tournament_service: TournamentService
+}
+
 export interface SocketDeps {
     match: MatchDeps,
     matchmaking: MatchmakingDeps,
     friends: FriendDeps,
+    tournament: TournamentDeps
 }
+

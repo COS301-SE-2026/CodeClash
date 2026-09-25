@@ -1,4 +1,3 @@
-import { getOriginalPosition } from 'vitest/internal/browser';
 import '../src/amplify-config'
 import { fetchAuthSession, signIn, signOut } from "aws-amplify/auth";
 

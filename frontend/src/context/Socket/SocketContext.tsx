@@ -5,13 +5,15 @@ import { createSocket } from 'src/services/websocket.service'
 import { SocketContext } from './SocketContextValue'
 import { MatchSocket } from './modules/match.socket'
 import { MatchmakingSocket } from './modules/matchmaking.socket'
+import { TournamentSocket } from './modules/tournament.socket'
 
 
 export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [socket, setSocket] = useState<Socket | null>(null);
     const [isConnected, setIsConnected] = useState(false);
-    const [match_socket, set_match_socket] = useState<MatchSocket | null>(null);
-    const [matchmaking_socket, set_matchmaking_socket] = useState<MatchmakingSocket | null>(null);
+    const [matchSocket, setMatchSocket] = useState<MatchSocket | null>(null);
+    const [matchmakingSocket, setMatchmakingSocket] = useState<MatchmakingSocket | null>(null);
+    const [tournamentSocket, setTournamentSocket] = useState<TournamentSocket|null>(null);
 
     useEffect(() => {
         createSocket().then((conn) => {
@@ -29,8 +31,9 @@ export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) 
         if (socket) {
             socket.on('connect', () => {
                 setIsConnected(true);
-                set_match_socket(new MatchSocket(socket));
-                set_matchmaking_socket(new MatchmakingSocket(socket));
+                setMatchSocket(new MatchSocket(socket));
+                setMatchmakingSocket(new MatchmakingSocket(socket));
+                setTournamentSocket(new TournamentSocket(socket));
 
             })
 
@@ -45,8 +48,9 @@ export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     return (
         <SocketContext.Provider
             value={{
-                match_socket,
-                matchmaking_socket,
+                matchSocket,
+                matchmakingSocket,
+                tournamentSocket,
                 isConnected,
 
             }}

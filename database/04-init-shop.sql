@@ -1,4 +1,4 @@
-INSERT INTO shop_items (category, name, description, price, rariy, metadata) VALUES
+INSERT INTO shop_items (category, name, description, price, rarity, metadata) VALUES
 -- POWERUPS
 ('powerup', 'Time Boost', 'Reduces your time-taken stat, improving your final score and ELO gain', 150, 'common',
 '{"effect": "reduce_time", "value_seconds": 10 }'),
@@ -25,23 +25,23 @@ INSERT INTO shop_items (category, name, description, price, rariy, metadata) VAL
 
 -- AVATARS ---------
 ('avatar', 'Vexa', 'She appeared through a mysterious portal beyond the edge of mapped space. Her technology is unlike anything in the galaxy and she seems strangely familiar with Earth''s programming languages.',
-250, 'common', '{ "asset_key" : }'),
+250, 'common', '{ "asset_key" : "vexa" }'),
 ('avatar', 'Zen', 'Zen was created to protect the last surviving archive of human knowledge. Centuries of standing watch gave her an unusual philosophy: every problem has a solution, but sometimes the solution is simply waiting long enough to see it.',
-300, 'common', '{ "asset_key" : }'),
+300, 'common', '{ "asset_key" :"zen" }'),
 ('avatar', 'Axiom', 'Axiom was manufactured as an ordinary service android with no special abilities. But unlike the others, Axiom learned entirely on her own. She entered the competition with one goal: to prove that intelligence doesn''t have to be built, it can be learned.',
-300, 'common', '{ "asset_key" : }'),
+300, 'common', '{ "asset_key" :"axiom" }'),
 ('avatar', 'Kairo', 'Kairo was a discarded prototype found wandering through an abandoned megacity. He rebuilt himself piece by piece from whatever technology he could find. He''s now obsessed with proving that a discarded machine can become the greatest competitor in the galaxy.',
-350, 'rare', '{ "asset_key" : }'),
+350, 'rare', '{ "asset_key" : "kairo"}'),
 ('avatar', 'Brix', 'Brix was originally a construction unit designed to build colonies on hostile planets. After completing his final assignment, he refused deactivation. Now he competes simply because, according to his own calculations, “winning is more fun than being recycled.”',
-350, 'rare', '{ "asset_key" : }'),
+350, 'rare', '{ "asset_key" : "brix"}'),
 ('avatar', 'Xara', 'Xara came from a failed experiment involving artificial intelligence and darkmatter computation. She can process impossible amounts of information, but every calculation seems to reveal another question. She competes because she believes the perfect solution to the universe is hidden somewhere inside the game.',
-350, 'epic', '{ "asset_key" : }'),
+350, 'epic', '{ "asset_key" : "xara"}'),
 ('avatar', 'Riven', 'Riven was designed for high-speed combat simulations and has never lost a race. Unfortunately, his competitive programming module became corrupted and now he treats every problem, race, puzzle, and conversation like a competition.',
-400, 'epic', '{ "asset_key" : }'),
+400, 'epic', '{ "asset_key" : "riven"}'),
 ('avatar', 'Nyx', 'Nyx was designed for reconnaissance but developed a strange habit of disappearing whenever missions became predictable. Nobody knows where she goes. She always returns with impossible shortcuts, strange information, and a smug little grin on her screen.',
-450, 'legendary', '{ "asset_key" : }'),
+450, 'legendary', '{ "asset_key" : "nyx"}'),
 ('avatar', 'Atlas', 'Atlas was built as the ultimate colony defence unit. After his planet was abandoned, he continued protecting it long after there was anyone left to protect. When competitors eventually discovered the forgotten planet, Atlas joined the game to find something he had never been programmed to understand - purpose.',
-500, 'legendary', '{ "asset_key" : }'),
+500, 'legendary', '{ "asset_key" : "atlas" }'),
 
 -- THEMES -------------
 ('theme', 'Cosmos (dark)', 'The default theme.', 0, 'common', '{ "hex_color_1": "#c0395a", "hex_color_2": "#530a23", "hex_color_3": "#fcecdd" }'),

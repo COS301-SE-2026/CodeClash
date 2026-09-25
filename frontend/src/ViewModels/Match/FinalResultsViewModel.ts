@@ -26,7 +26,7 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
     const [winner, setWinner] = useState<PlayerResultDTO | null>(null);
     const [loser, setLoser] = useState<PlayerResultDTO | null>(null);
     const { refresh } = useUser();
-    const { match_socket } = useSocket();
+    const { matchSocket } = useSocket();
     const location = useLocation();
     const { id } = location.state;
     const { group_id, setMatched } = useMatchmaking()
@@ -40,9 +40,9 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
         await refresh();
 
         // can start clean up now 
-        match_socket?.cleanUpMatch({ match_id: result.match_id, pair_id: group_id })
+        matchSocket?.cleanUpMatch({ match_id: result.match_id, pair_id: group_id })
         setMatched(false)
-    }, [group_id, refresh, setMatched, match_socket])
+    }, [group_id, refresh, setMatched, matchSocket])
 
 
     useEffect(() => {
@@ -61,16 +61,16 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
 
     useEffect(() => {
 
-        if (!match_socket) return;
+        if (!matchSocket) return;
 
-        match_socket.sendResults({ match_id: id, pair_id: group_id });
-        const clean_up = match_socket.getResults(handleResult);
+        matchSocket.sendResults({ match_id: id, pair_id: group_id });
+        const clean_up = matchSocket.getResults(handleResult);
 
 
 
         return () => { clean_up(); }
 
-    }, [match_socket, id, handleResult, group_id]);
+    }, [matchSocket, id, handleResult, group_id]);
 
     useEffect(() => {
         if (results === null) return;

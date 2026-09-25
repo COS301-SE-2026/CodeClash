@@ -1,0 +1,91 @@
+import { useCallback, useMemo, useState } from "react";
+import type { ShopCategory, ShopItem } from "src/Models/ShopModel";
+import { useInventory } from "src/context/Shop/InventoryContext";
+
+export interface ShopTab {
+    id: string;
+    label: string;
+    categories: ShopCategory[];
+}
+
+export const Tabs: ShopTab[] = [
+    {
+        id: 'avatars',
+        label: 'Avatars',
+        categories: ['avatar']
+    },
+    {
+        id: 'themes',
+        label: 'Themes',
+        categories: ['theme']
+    },
+    {
+        id: 'powerups',
+        label: 'Power-Ups',
+        categories: ['powerup']
+    },
+]
+
+export const ShopViewModelFunc = () => {
+    const {
+        catalog, wallet, inventory, loading, error: inventoryError, purchase: purchaseFromContext, equip, isOwned, isEquipped
+    } = useInventory();
+
+    const [activeTabId, setActiveTabId] = useState('avatars');
+    const [purchasingId, setPurchasingId] = useState<string | null>(null);
+    const [purchaseError, setPurchaseError] = useState<string | null>(null);
+
+    const activeTab = useMemo(
+        () => Tabs.find((t) => t.id === activeTabId) ?? Tabs[0], [activeTabId]
+    )
+
+    const items = useMemo(
+        () => catalog.filter((item) => activeTab.categories.includes(item.category)), [catalog, activeTab]
+    )
+
+    const itemsByCategory = useCallback(
+        (category: ShopCategory) => items.filter((i) => i.category === category), [items]
+    )
+
+    const powerupQuantity = useCallback(
+        () => inventory?.consumable.find((c) => c.category === 'powerup')?.quantity ?? 0, [inventory]
+    )
+
+    const canAfford = useCallback(
+        (item: ShopItem) => wallet.stardust >= item.price.amount, [wallet] 
+    )
+
+    const purchase = useCallback(async (itemId: string) => {
+        setPurchasingId(itemId);
+        setPurchaseError(null);
+
+        try {
+            await purchaseFromContext(itemId);
+        }
+        catch (e) {
+            setPurchaseError(e instanceof Error ? e.message : 'Purchase failed');
+        }
+        finally {
+            setPurchasingId(null);
+        }
+    }, [purchaseFromContext])
+
+    return {
+        tabs: Tabs,
+        activeTabId,
+        setActiveTabId,
+        items,
+        itemsByCategory,
+        wallet, 
+        inventory,
+        loading,
+        error: inventoryError ?? purchaseError,
+        purchasingId,
+        isOwned,
+        isEquipped,
+        powerupQuantity,
+        canAfford,
+        purchase,
+        equip,
+    }
+}

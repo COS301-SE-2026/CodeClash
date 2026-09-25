@@ -5,43 +5,40 @@ import { useMatch } from 'src/ViewModels/Match/MatchViewModel';
 import MathMatch from '@/components/features/MathPage';
 import { Question } from '@/components/features/question';
 import Loading from '@/components/shared/Loading';
-import { MatchScreen } from '@/components/shared/Match';
+import { MatchScreen } from '@/components/shared/Match/Match';
 import { Button } from '@/components/ui/button';
 import Popup from '@/components/shared/PopUp';
 
 const MathsMatch = () => {
     const {
         status,
-
-        playerLife, avatars, usernames,
-        seconds, minutes, questions,
-        currentQuestion, opponentCurrent,
+        questions,
+        currentQuestion,
         nextQuestion, prevQuestion,
         loading,
         // submitQuestion,
-        mathfieldRef, setAnswers, answers,
-        results, gameOver, waitingOpponent,
+        mathfieldRef, waitingOpponent,
         finishGame
     } = useMatch();
 
     const curr = questions[currentQuestion];
-    const correct = results[currentQuestion];
-    const result_colour = () => {
-        if (correct === true) return 'bg-success/50'
-        else if (correct === false) return 'bg-danger/50'
-        else return 'bg-white'
-    }
+    // const correct = results[currentQuestion];
+    // const result_colour = () => {
+    //     if (correct === true) return 'bg-success/50'
+    //     else if (correct === false) return 'bg-danger/50'
+    //     else return 'bg-white'
+    // }
 
 
-    const read_only = () => {
-        if (gameOver) return 'read-only'
-        else return ''
-    }
+    // const read_only = () => {
+    //     if (gameOver) return 'read-only'
+    //     else return ''
+    // }
 
     useEffect(() => {
-        if (mathfieldRef.current) {
-            mathfieldRef.current.value = answers?.[currentQuestion] ?? ''
-        }
+        // if (mathfieldRef.current) {
+        //     mathfieldRef.current.value = answers?.[currentQuestion] ?? ''
+        // }
     }, [currentQuestion])
 
 
@@ -53,16 +50,6 @@ const MathsMatch = () => {
 
     return (
         <MatchScreen
-            player_life={playerLife}
-            colour='var(--life-primary)'
-            seconds={seconds}
-            minutes={minutes}
-            avatars={avatars}
-            usernames={usernames}
-            current_question={currentQuestion}
-            opponent_progress={opponentCurrent}
-            question_number={questions.length}
-            question_results={results}
         >
 
             <Question
@@ -76,8 +63,8 @@ const MathsMatch = () => {
             <div className='w-[100%] h-[100%] min-h-[35%] flex items-center justify-center'>
                 <MathMatch
                     mathfieldRef={mathfieldRef}
-                    onValueChange={(val) => setAnswers(prev => ({ ...prev, [currentQuestion]: val }))}
-                    className={`${result_colour()},${read_only}`}
+                // onValueChange={(val) => setAnswers(prev => ({ ...prev, [currentQuestion]: val }))}
+                // className={`${result_colour()},${read_only}`}
                 ></MathMatch>
             </div>
             <div className='w-[100%] h-[6rem]  flex flex-shrink-0 items-center justify-evenly rounded-4xl'>

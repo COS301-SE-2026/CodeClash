@@ -8,7 +8,7 @@ import Dashboard from "./Views/Dashboard/Dashboard";
 import MatchFound from "./Views/Matchmaking/MatchFound";
 import MathMatch from "./Views/Match/MathsMatch";
 import MatchHistory from "./Views/Match/MatchHistory";
-import ForgotPassword from "./Views/ForgotPassword";
+import ForgotPassword from "./Views/Auth/ForgotPassword";
 import TermsAndConditions from "./Views/TermsAndConditions";
 import FinalResults from "./Views/Match/FinalResults";
 import Landing from "./Views/Landing";
@@ -17,17 +17,19 @@ import HelpMenu from "./Views/HelpMenu";
 import Leaderboard from "./Views/Match/Leaderboard/Leaderboard";
 import MatchSearching from "./Views/Matchmaking/MatchSearching";
 import Profile from "./Views/Profile";
-import SignIn from "./Views/SignIn";
-import SignUp from "./Views/SignUp";
+import SignIn from "./Views/Auth/SignIn";
+import SignUp from "./Views/Auth/SignUp";
 
 import Loading from "@/components/shared/Loading";
-import Tournaments from "./Views/Tournaments";
+import Tournaments from "./Views/Tournaments/Tournaments";
+import TournamentsWaiting from "./Views/Tournaments/TournamentsWaiting";
 import Agent from "./Views/AIAgent";
-import Shop from "./Views/Shop";
+import Shop from "./Views/Shop/Shop";
 import Friends from "./Views/Friends/Friends";
 import Achievements from "./Views/Achievements";
 import Settings from "./Views/Settings";
 import { ProgMatch } from "./Views/Match/ProgMatch";
+import SkillProgress from "./Views/SkillProgress";
 
 const App: React.FC = () => {
 
@@ -51,7 +53,6 @@ const App: React.FC = () => {
                 <Route path='/help-menu' element={<HelpMenu />} />
                 <Route path='/game-guide' element={<GameGuide/>}/>
                 <Route path='*' element={<Navigate to='/sign-in' replace />} />
-
             </Routes>
         )
     }
@@ -79,10 +80,12 @@ const App: React.FC = () => {
                 <Route path='/dashboard' element={<Dashboard />} />
                 <Route path='/help-menu' element={<HelpMenu />} />
                 <Route path='/tournaments' element={<Tournaments />} />
+                <Route path='/tournaments/waiting' element={<TournamentsWaiting/>}/>
                 <Route path='/leaderboard' element={<Leaderboard />} />
                 <Route path='/achievements' element={<Achievements />} />
                 <Route path='/friends' element={<Friends />} />
                 <Route path='/match-history' element={<MatchHistory />} />
+                <Route path='/stats' element={<SkillProgress />} />
                 <Route path="/shop" element={<Shop />} />
                 <Route path='/settings' element={<Settings />} />
             </Route>

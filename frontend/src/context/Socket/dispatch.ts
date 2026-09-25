@@ -16,7 +16,7 @@ export function emit<Req, Res>(
     data?: Req
 ): Promise<SocketResponse<Res>> {
 
-    const timeout = 180000;
+    const timeout = 10000;
     return new Promise((resolve, reject) => {
         const timer = setTimeout(() => reject(new Error(`${event} timed out`)), timeout);
         socket.emit(event, data, (response: SocketResponse<Res>) => {

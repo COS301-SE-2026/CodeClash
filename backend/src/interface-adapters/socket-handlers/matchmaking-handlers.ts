@@ -3,7 +3,6 @@ import { MatchmakingService } from 'src/application/usecases/services/matchmakin
 import { MatchDataDTO, MatchMode } from "src/entities/dtos/matches/match.dto";
 import { MatchmakingUserDTO } from 'src/entities/dtos/matchmaking/matchmaking.dto';
 import { MatchConfirmationService } from "src/application/usecases/services/match/match-confirmation.service";
-import { MatchStore } from "src/application/usecases/services/match/match-store.service";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 import { MatchStart } from "src/application/usecases/services/match/match-start.service";
 import { PlayerDTO } from "src/entities/dtos/matches/match-component.dto";
@@ -125,26 +124,4 @@ export const notifyMatchFound = (async (io: Server, match: PlayerDTO[], match_mo
         io.to(p.id).emit('users_matched', result);
     }
 })
-
-export const sendMatchQuestions = (io: Server, game_id: number, game_store: MatchStore) => {
-    const data = game_store.get(game_id)
-
-    if (data) {
-        for (const player of data.players) {
-            io.to(player.id).emit('get_questions', data.rounds)
-        }
-    } else {
-        console.log("Game data null")
-    }
-}
-
-export const sendGamePlayers = (io: Server, game_id: number, game_store: MatchStore) => {
-    const data = game_store.get(game_id)
-
-    if (data) {
-        for (const player of data.players) {
-            io.to(player.id).emit('get_players', data.players);
-        }
-    }
-}
 

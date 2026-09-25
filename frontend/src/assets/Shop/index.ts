@@ -1,0 +1,13 @@
+import Atlas from './Avatars/Atlas.png';
+import Axiom from './Avatars/Axiom.png';
+import Brix from './Avatars/Brix.png';
+import Kairo from './Avatars/Kairo.png';
+import Nyx from './Avatars/Nyx.png';
+import Riven from './Avatars/Riven.png';
+import Vexa from './Avatars/Vexa.png';
+import Xara from './Avatars/Xara.png';
+import Zen from './Avatars/Zen.png';
+
+export const shop_map: Record<string, string> = {
+    Atlas, Axiom, Brix, Kairo, Nyx, Riven, Vexa, Xara, Zen,
+}
