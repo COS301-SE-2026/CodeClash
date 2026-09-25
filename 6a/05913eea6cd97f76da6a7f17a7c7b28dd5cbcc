@@ -1,0 +1,14 @@
+backend/src/application/interfaces/repositories/IMatchRepository.ts
+  h_58e143dc25f856 4-5,12-13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "6a05913eea6cd97f76da6a7f17a7c7b28dd5cbcc",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

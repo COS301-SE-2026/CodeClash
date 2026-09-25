@@ -1,0 +1,14 @@
+backend/src/interface-adapters/repositories/match.repository.ts
+  h_58e143dc25f856 4,77-110
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "8eeaae8c3526f2f7557133d32a08a8a95d420a87",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
