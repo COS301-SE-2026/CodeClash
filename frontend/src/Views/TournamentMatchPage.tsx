@@ -55,6 +55,8 @@ const TournamentsMatchPage = () => {
                             <MultipleChoice letter="D" option="answer" selected={false}/>
                         </div>
 
+                        <hr className="text-muted-text"></hr>
+
                         <div className="flex flex-row">
                             <div className="flex flex-row">
                                 <Lock className="text-muted-text"/>
