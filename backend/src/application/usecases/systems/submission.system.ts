@@ -1,6 +1,7 @@
 import { SubmissionComponent, SubmissionRegistryComponent } from "src/entities/components";
 import { PlayerSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
 import { World } from "src/entities/World";
+import { MarkOutcome } from "src/application/interfaces/marking/IMarkingStategy";
 
 export class SubmissionSystem {
     private readonly getMatchComponent
@@ -18,7 +19,7 @@ export class SubmissionSystem {
         this.getSubmissionComponent = getSubmissionComponent
     }
 
-    saveSubmission(sub: PlayerSubmissionDTO, is_correct: boolean | null) {
+    saveSubmission(sub: PlayerSubmissionDTO, is_correct: boolean | null, outcome?: MarkOutcome) {
 
         // 1 lookup submission entity
         const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(sub.match_id, "Submission");
@@ -35,7 +36,10 @@ export class SubmissionSystem {
             submission_component!.attempt_number += 1;
             submission_component!.correct = is_correct;
             submission_component!.answer = sub.submission;
-            submission_component!.submitted_at = new Date();
+          submission_component!.submitted_at = new Date();
+          submission_component!.run_time_ms = outcome?.run_time_ms ?? null;
+          submission_component!.memory_kb = outcome?.memory_kb ?? null;
+
         }
         else {  // 3 if not found 
             //  3.1 create submission enity
@@ -54,7 +58,9 @@ export class SubmissionSystem {
                 answer: sub.submission,
                 submitted_at: new Date(),
                 correct: is_correct,
-                token: undefined
+              token: undefined,
+              run_time_ms: outcome?.run_time_ms ?? null,
+              memory_kb: outcome?.memory_kb ?? null,
             }
 
             this.addSubmissionComponent(submission, 'Submission', submission_component!);
