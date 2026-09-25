@@ -49,7 +49,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 {/* Player 1 Progress */}
                 <div className="shrink-0 min-w-0 w-xl flex-1 ml-7 h-[6rem] mt-10">
                     <div className="flex flex-row items-center gap-2 w-full mt-2">
-                        <TournamentButton className="my-auto min-w-0 w-18 h-12 items-center -px-1 -py-4 -ml-3 -mt-1 my-auto">
+                        <TournamentButton className="my-auto min-w-0 w-18 h-12 items-center -px-1 -py-4 -ml-3 -mt-1">
                             <div style={{backgroundImage : `url(${avatars[0]})`}} className="w-full h-full bg-no-repeat bg-cover bg-center">
 
                             </div>
