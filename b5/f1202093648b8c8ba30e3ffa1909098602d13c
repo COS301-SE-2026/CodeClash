@@ -1,0 +1,19 @@
+backend/src/application/usecases/services/skill/question-results.ts
+  s_646f6daacdd7b4::t_8ab6d55c6736b0 1-7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "b5f1202093648b8c8ba30e3ffa1909098602d13c",
+  "prompts": {},
+  "sessions": {
+    "s_646f6daacdd7b4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1a4575e3-c34b-4b1d-a146-2af9e332b169",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
