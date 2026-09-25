@@ -57,7 +57,7 @@ const TournamentsMatchPage = () => {
                             <MultipleChoice letter="D" option="answer" selected={false}/>
                         </div>
 
-                        <hr className="border-muted-text/70"></hr>
+                        <hr className="border-muted-text/40"></hr>
 
                         <div className="flex flex-row items-center justify-between gap-4 mt-4 flex-wrap">
                             <div className="flex flex-row items-center gap-2">
@@ -91,7 +91,7 @@ const TournamentsMatchPage = () => {
                             <MatchCard className="flex bg-[var(--multiple-choice-box)] text-muted-text px-3 py-1 rounded-full text-xs">Round 1</MatchCard>
                         </div>
 
-                        <hr className="border-muted-text"/>
+                        <hr className="border-muted-text/40"/>
 
                         <div className="flex flex-col gap-2">
                             <LiveTournamentPlayer/>
@@ -100,7 +100,7 @@ const TournamentsMatchPage = () => {
                             <LiveTournamentPlayer/>
                             <LiveTournamentPlayer/>
 
-                            <hr className="border-dotted border-muted-text my-1"/>
+                            <hr className="border-dotted border-muted-text/40 my-1"/>
 
                             <div className="rounded-lg flex flex-row items-center gap-2 px-3 py-2 bg-red-500/10 border border-red-400/20">
                                 <div className="rounded-full bg-red-800 size-2 shrink-0"></div>
@@ -127,10 +127,10 @@ const TournamentsMatchPage = () => {
                             </div>
                         </div>
 
-                        <hr/>
+                        <hr className="border-muted-text/40"/>
 
-                        <div className="flex flex-col">
-                            <div className="flex flex-row justify-between">
+                        <div className="flex flex-col gap-2">
+                            <div className="flex flex-row justify-between text-xs">
                                 <h1 className="text-muted-text">PACING & CUTOFF</h1>
                                 <h1 className="text-green-400">Avg is 5.4s to qualify</h1>
                             </div>
@@ -138,13 +138,16 @@ const TournamentsMatchPage = () => {
                             <Progress 
                                 bg={"var(--match-box)" }
                                 border={"var(--button-tournament-secondary" }
-                                from={"green-400" }
-                                via={"yellow-400"} 
-                                to={"red-400"}
-                                className=""
+                                from={"#75D624" }
+                                via={"#EDD745"} 
+                                to={"#DB1818"}
+                                glow={"#DB1818"}
+                                height={2}
+                                value={60}
+                                className="w-full"
                             />
 
-                            <div className="flex flex-row">
+                            <div className="flex flex-row justify-between text-xs">
                                 <h1 className="text-muted-text">0.0s (Fastest)</h1>
                                 <h1 className="text-green-400">Safe Zone (≤ 7.2s)</h1>
                                 <h1 className="text-red-200">Cutoff</h1>
