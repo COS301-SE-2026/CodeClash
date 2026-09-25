@@ -12,6 +12,13 @@ leagues.set("Saturn", { name: "Saturn", difficulty: [16, 17, 18], elo: [3600, 41
 leagues.set("Uranus", { name: "Uranus", difficulty: [19, 20, 21], elo: [4200, 4799], question_number: 30 })
 leagues.set("Neptune", { name: "Neptune", difficulty: [22, 23, 24], elo: [4800, 5400], question_number: 30 })
 
+export const leagueForElo = (elo: number): string => {
+  for (const league of leagues.values()) {
+    if (elo <= league.elo[1]!) return league.name;
+  }
+  return "Neptune";
+}
+
 // Returns a mapping of what percentage of the question difficulties should be selected
 
 export const leagueMapping = (league: string, avg_elo: number) => {
