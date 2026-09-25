@@ -33,5 +33,35 @@ export class QuestionResultBuilder {
          }));
   }
 
+  private result(round_number: number, question: QuestionDTO, submission: SubmissionComponent | undefined, time_taken?: number): QuestionResult {
+          const time_limit_ms = timeLimitMs(question.time_limit);
+          const correct = submission?.correct === true;
+          const time_taken_ms = time_taken ?? null;
+          const run_time_ms = submission?.run_time_ms ?? null;
+          const is_programming = question.match_mode === MatchMode.Programming;
+          const accuracy = correct ? 1 : 0;
+  
+          return {
+              question_id: question.id,
+              round_number,
+              difficulty: Number(question.difficulty),
+              time_limit_ms,
+              correct,
+              attempts: submission?.attempt_number ?? 0,
+              time_taken_ms,
+              run_time_ms,
+              memory_kb: submission?.memory_kb ?? null,
+              // (given - achieved) / given, only earned by a correct answer
+              time_ratio: correct && time_taken_ms !== null && time_limit_ms > 0
+                  ? clamp01((time_limit_ms - time_taken_ms) / time_limit_ms)
+                  : 0,
+              accuracy_ratio: is_programming ? null : accuracy,
+              speed_ratio: is_programming ? this.speedRatio(correct, run_time_ms, question.title) : null,
+              // not measured yet (complexity analysis)
+              time_cx_ratio: null,
+              space_cx_ratio: null
+          };
+      }
+
   
 }
