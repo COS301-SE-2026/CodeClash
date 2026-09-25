@@ -1,0 +1,59 @@
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 142-145,147-148,150-151,167-168
+  h_94c952a9e14c58 152-166,169
+backend/src/application/usecases/services/tournament/tournament.service.ts
+  h_94c952a9e14c58 87-90
+frontend/src/Views/Auth/SignUp.tsx
+  h_94c952a9e14c58 5
+backend/src/interface-adapters/cache/tournament-cache.ts
+  h_94c952a9e14c58 84-95
+  h_94c952a9e14c58 13
+backend/src/interface-adapters/socket-handlers/tournament-handlers.ts
+  h_94c952a9e14c58 36
+frontend/src/services/tournament.service.tsx
+  h_94c952a9e14c58 1-7
+backend/src/frameworks-drivers/app.ts
+  h_94c952a9e14c58 19,35-36,64-65
+  h_94c952a9e14c58 51-63
+frontend/src/Views/Auth/SignIn.tsx
+  h_94c952a9e14c58 4
+backend/src/frameworks-drivers/socket/modules/register-tournament-handler.ts
+  h_94c952a9e14c58 26
+frontend/src/ViewModels/Tournaments/TournamentLobby.ts
+  h_94c952a9e14c58 1-98
+frontend/src/Views/Match/ProgMatch.tsx
+  h_94c952a9e14c58 15,27,41,45,71-74,76-81
+  h_94c952a9e14c58 18,21-22
+backend/src/application/interfaces/cache/ITournamentCache.ts
+  h_94c952a9e14c58 11-12
+frontend/src/Views/Tournaments/TournamentsWaiting.tsx
+  h_94c952a9e14c58 7,13
+frontend/@/components/shared/Match/Match.tsx
+  h_94c952a9e14c58 2-3,5-7,54-55,60,62-63,65-74,88-91,105,107-110,113-116,118-119,121-123,133,156,187,189
+  h_94c952a9e14c58 4,46,48-52,57-59,64,78-79,81-86,92-104,136,140,148-155,157-171,173,175-176,178,180-186,188
+backend/src/frameworks-drivers/api.routes.ts
+  h_94c952a9e14c58 26-27,42-43,348
+frontend/test/unit/Views/TournamentsWaiting.test.tsx
+  h_94c952a9e14c58 2
+  h_94c952a9e14c58 3
+frontend/src/ViewModels/Tournaments/TournamentViewModel.ts
+  h_94c952a9e14c58 1-2,4-6,8-11,14-15,17-19,22-23,25,27,30,32,34
+backend/src/application/usecases/services/marking/marking.service.ts
+  h_94c952a9e14c58 47-48
+backend/src/interface-adapters/controllers/tournament.controllers.ts
+  h_94c952a9e14c58 1-23
+frontend/src/Views/Match/MathsMatch.tsx
+  h_94c952a9e14c58 1,5-6,8-10,19,46-47,49,51-57,59-66,68-89,91-92,94-102
+  h_94c952a9e14c58 16,48,50,58,67,90,93
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "2762e674062bba69a177e7bf57b0812c674aff5f",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
