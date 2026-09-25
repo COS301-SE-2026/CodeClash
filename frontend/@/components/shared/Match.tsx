@@ -77,16 +77,13 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 </div>
 
                 {/* Clock */}
-                <MatchBox className='shrink-0 text-white font-dseg border border-[var(--match-card)] 
+                <TimerCard className='shrink-0 text-white font-dseg border border-[var(--match-card)] 
                 h-6 w-38 flex items-center justify-center text-[70%] text-center font-semibold rounded-sm px-2 my-auto -mt-4.5'>
-                    <div className="flex flex-row whitespace-wrap">
-                        <Timer size={20} className="mr-3 my-auto text-muted-text"/>
-                        <span>
-                            {String(minutes).padStart(2, "0")}:
-                            {String(seconds).padStart(2, "0")}
-                        </span>
-                    </div>
-                </MatchBox>
+                    <span>
+                        {String(minutes).padStart(2, "0")}:
+                        {String(seconds).padStart(2, "0")}
+                    </span>     
+                </TimerCard>
 
                 {/* Player 2 Progress */}
 
