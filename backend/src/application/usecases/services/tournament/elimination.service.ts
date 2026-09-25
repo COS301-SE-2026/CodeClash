@@ -77,15 +77,22 @@ export class TournamentEliminationService {
             tournament.progress.set(key, progress);
         }
 
-        if (progress.solved) return true;
+        const received_at = Date.now();
+
+        if (progress.solved) {
+            return {
+                player_id: submission.player_id,
+                correct: true,
+                speed: received_at - tournament.round_start,
+                attempt_number: progress.attempts
+            }
+        }
+
         if (progress.attempts >= MAX_ATTEMPTS) throw new Error("No attempts left");
 
         progress.attempts++;
-        const received_at = Date.now();
         const round = tournament.current_round;
-
         let correct: boolean;
-
         try {
             correct = await this.marking_service.mark(submission);
         } catch (error) {
@@ -93,15 +100,18 @@ export class TournamentEliminationService {
             throw error;
         }
 
-        if (tournament.current_round !== round) return false;
-
-        if (correct && !progress.solved) {
+        if (correct && !progress.solved && tournament.current_round === round) {
             progress.solved = true;
             ++player.correct;
             player.total_time += received_at - tournament.round_start;
         }
 
-        return correct;
+        return {
+            player_id: submission.player_id,
+            correct,
+            speed: received_at - tournament.round_start,
+            attempt_number: progress.attempts
+        };
     }
 
 

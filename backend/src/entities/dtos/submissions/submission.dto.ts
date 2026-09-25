@@ -1,3 +1,5 @@
+import { MatchType } from "../matches/match.dto"
+
 export interface MathsSubmissionDTO {
     answer: string
 }
@@ -18,10 +20,11 @@ export interface PlayerSubmissionDTO {
 }
 
 export interface RawSubmissionDTO {
-    match_id: string,
+    id: string,
     player_id: string,
     question_id: string,
     round_number: number,
     question_number?: number,
+    match_type: MatchType,
     submission: MathsSubmissionDTO | ProgSubmissionDTO | null
 }

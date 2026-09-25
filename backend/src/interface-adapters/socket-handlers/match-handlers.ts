@@ -6,22 +6,29 @@ import { DeleteGame } from "src/application/usecases/systems/delete-game";
 import { PlayerSubmissionDTO, RawSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
 import { PlayerResultDTO } from 'src/entities/dtos/matches/match.dto'
 import { MatchCompletionService } from "src/application/usecases/services/match/match-completion.service";
+import { TournamentEliminationService } from "src/application/usecases/services/tournament/elimination.service";
 
-export const submitQuestion = async (socket: Socket, data: RawSubmissionDTO, mark: MarkingService, match_store: MatchStore) => {
-    console.log("backend submit question", data);
+export const submitQuestion = async (socket: Socket, data: RawSubmissionDTO, mark: MarkingService, match_store: MatchStore, elimination_service: TournamentEliminationService) => {
 
-    const ecs_id = match_store.getEcsId(data.match_id);
+    const ecs_id = match_store.getEcsId(data.id);
     const submission: PlayerSubmissionDTO = {
         ...data,
         match_id: ecs_id!,
+        player_id: socket.data.user_id
     }
-    
-    return mark.execute({ ...submission, player_id: socket.data.user_id });
+
+
+    switch (data.match_type) {
+        case MatchType.ranked:
+            return await mark.execute(submission);
+
+        case MatchType.tournament:
+            return await elimination_service.submit(data.id, submission);
+
+    }
+
 }
 
-// export const startQuestion = (player_id: string, submission_system: SubmissionSystem, data: StartQuestionDTO) => {
-//     submission_system.saveSubmission(data,data);
-// }
 
 export const matchDone = async (io: Server, socket: Socket, match_id: number, match_type: MatchType, match_completion_service: MatchCompletionService, match_store: MatchStore) => {
     // wait for both players to be done
