@@ -3,6 +3,8 @@ import "../styles/global.css"
 import TournamentButton from "@/components/ui/TournamentButton";
 import { Trophy } from "lucide-react"
 import { TimerCard } from "@/components/ui/MatchBox";
+import { Question } from "@/components/features/question";
+import { MatchBox } from "@/components/ui/MatchBox";
 
 const TournamentsMatchPage = () => {
     return(
@@ -31,16 +33,28 @@ const TournamentsMatchPage = () => {
             </MatchCard>
 
             <div className="flex flex-row border">
-                <div className="flex flex-col">
-                    <MatchCard className="h-full ml-4">
-                        <div className="flex flex-row">
-                            <MatchCard className="rounded-10 min-w-[1rem] bg-[#380f54]">MEDIUM</MatchCard>
-                            <div className="text-muted-text text-[10px]">Question 1 of 4</div>
-                        </div>
-                    </MatchCard>
+                <MatchCard className="h-full ml-4">
+                    <div className="flex flex-col">
+
+                        <Question
+                            className={`border-[var(--card-tournaments)]`}
+                            difficulty={"MEDIUM"}
+                            title={"Binary Search Floor Index"}
+                            description={'Given a sorted array of distinct integers and a target value, find the largest index i such that arr[i] < target. What is the guaranteed worst execution time?'}
+                            number={1}
+                        />
+
+                        <MatchBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)]"></MatchBox>
+
+
+                        
+
+
+                    </div>
+                </MatchCard>
+
 
                 
-                </div>
             </div>
         </div>
 
