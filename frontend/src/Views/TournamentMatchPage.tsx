@@ -117,13 +117,13 @@ const TournamentsMatchPage = () => {
                     </MatchCard>
 
 
-                    <MatchCard className="flex flex-col">
-                        <div className="flex flex-row">
-                            <Zap/>
+                    <MatchCard className="flex flex-col gap-3 p-4 rounded-2xl">
+                        <div className="flex flex-row items-center gap-2">
+                            <Zap size={18}/>
                             <h1 className="">Round Telemetry</h1>
-                            <div className="bg-primary/20 bg-primary">
-                                <div className="bg-primary size-1"></div>
-                                <h1 className="text-primary">LIVE</h1>
+                            <div className="flex items-center gap-1 bg-primary/20 border border-[var(--primary)] border-[0.05rem] rounded-[10px] px-2 py-0.5 ml-auto">
+                                <div className="bg-primary size-1 rounded-full"></div>
+                                <h1 className="text-primary text-xs">LIVE</h1>
                             </div>
                         </div>
 
