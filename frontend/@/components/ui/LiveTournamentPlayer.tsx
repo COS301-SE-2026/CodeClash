@@ -24,16 +24,16 @@ interface LiveTournamentPlayerProps{
 export const LiveTournamentPlayer = ({children, className, place, winner, you, username, time} : LiveTournamentPlayerProps) => {
 
     return(
-        <MatchCard className={`bg-[#413638] flex flex-row w-auto overflow-x-auto gap-1 
+        <MatchCard className={`bg-[#413638] flex flex-row items-center w-auto overflow-x-auto gap-2 px-3 py-2 rounded-lg 
         min-w-[10%] ${winner ? 'bg-[#B5A6A9]' : ""} ${you ? 'bg-primary/20 border-primary' : ""} ${className}`}>
             
-            <h1 className={`text-[#B5A6A9] ${winner ? 'text-[#cd9340]' : ""} ${you ? 'text-primary' : ""}`}>{place}</h1>
+            <h1 className={`text-[#B5A6A9] w-4 text-center ${winner ? 'text-[#cd9340]' : ""} ${you ? 'text-primary' : ""}`}>{place}</h1>
 
             <h1 className="text-secondary">{username}</h1>
 
-            {you ? <MatchCard className="bg-primary border-primary text-secondary">YOU</MatchCard> : ""}
+            {you ? <MatchCard className="bg-primary border-primary text-secondary rounded-[10px] px-2 py-0.5 text-xs">YOU</MatchCard> : ""}
 
-            <div className="ml-auto text-muted-text">{time}s</div>
+            <div className="ml-auto text-muted-text text-sm">{time}s</div>
             {children}
         </MatchCard>
     )

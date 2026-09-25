@@ -35,8 +35,8 @@ const TournamentsMatchPage = () => {
                 </div>
             </MatchCard>
 
-            <div className="flex flex-row">
-                <MatchCard className="h-full ml-4">
+            <div className="flex flex-col lg:flex-row items-start gap-4">
+                <MatchCard className="flex-1 w-full lg:w-2/3 p-5 rounded-2xl ml-4">
                     <div className="flex flex-col">
 
                         <Question
@@ -47,31 +47,33 @@ const TournamentsMatchPage = () => {
                             number={1}
                         />
 
-                        <MatchBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)]"></MatchBox>
+                        <MatchBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] mb-4"></MatchBox>
 
 
-                        <div className="flex flex-col">
+                        <div className="flex flex-col gap-3 mb-4">
                             <MultipleChoice letter="A" option="answer" selected={false}/>
                             <MultipleChoice letter="B" option="answer" selected={true}/>
                             <MultipleChoice letter="C" option="answer" selected={false}/>
                             <MultipleChoice letter="D" option="answer" selected={false}/>
                         </div>
 
-                        <hr className="text-muted-text"></hr>
+                        <hr className="border-muted-text/70"></hr>
 
-                        <div className="flex flex-row">
-                            <div className="flex flex-row">
-                                <Lock className="text-muted-text"/>
-                                <p className="text-muted-text">Answers lock automatically at round expiry</p>
+                        <div className="flex flex-row items-center justify-between gap-4 mt-4 flex-wrap">
+                            <div className="flex flex-row items-center gap-2">
+                                <Lock size={18} className="text-muted-text"/>
+                                <p className="text-muted-text text-sm">Answers lock automatically at round expiry</p>
                             </div>
 
-                            <MatchCard className="bg-[#0b0509] text-muted-text">RESET</MatchCard>
-                            <TournamentButton>
-                                <div className="flex flex-row">
-                                    <h1>Submit Answer</h1>
-                                    <ChevronsRight/>
-                                </div>
-                            </TournamentButton>
+                            <div className="">
+                                <MatchCard className="bg-[#0b0509] text-muted-text">RESET</MatchCard>
+                                <TournamentButton>
+                                    <div className="flex flex-row">
+                                        <h1>Submit Answer</h1>
+                                        <ChevronsRight/>
+                                    </div>
+                                </TournamentButton>
+                            </div>
 
                         </div>
 

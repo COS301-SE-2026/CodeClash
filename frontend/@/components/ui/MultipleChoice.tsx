@@ -19,10 +19,10 @@ interface MultipleChoiceProps{
 export const MultipleChoice = ({children, className, letter, option, selected} : MultipleChoiceProps) => {
 
     return(
-        <MatchCard className={`bg-[var(--multiple-choice-box)] flex flex-row w-auto overflow-x-auto gap-1 
+        <MatchCard className={`bg-[var(--multiple-choice-box)] flex flex-row items-center w-auto overflow-x-auto gap-1 py-2
         min-w-[10%] ${selected ? 'bg-primary/20 border-primary shadow-[0_0_7px_var(--primary)]': ""} ${className}`}>
             
-            <div className={`bg-[var(--multiple-choice-letter)] border-[0.5px] my-auto sm:min-w-0 
+            <div className={`bg-[var(--multiple-choice-letter)] border-[0.5px] my-auto sm:min-w-0 flex items-center justify-center
                 border-[var(--button-tournament-secondary-border)] rounded-[10px] ml-2 w-10 h-10 text-center
                 ${selected ? "bg-primary border-primary shadow-[0_0_7px_var(--primary)]" : ""}`}
             >
