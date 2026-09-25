@@ -77,6 +77,7 @@ export const useMatch = () => {
     }
 
     const both_done = () => {
+        useMatchStore.getState().reset();
         setWaitingOpponent(false);
         nav(`/results/${id}`, {
             replace: true,

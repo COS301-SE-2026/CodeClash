@@ -28,8 +28,6 @@ const MathsMatch = () => {
 
 
     const curr = questions[currentQuestion];
-   // const correct = results[currentQuestion];
-
 
     useEffect(() => {
         if (mathfieldRef.current) {
@@ -87,7 +85,7 @@ const MathsMatch = () => {
                         submitQuestion({ answer: answer })
                     }}
                 >
-                    SUBMIT
+                    Submit Answer
                 </Button>
                 {currentQuestion === (questions.length - 1) &&
                     <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem] hover:-translate-y-1'
@@ -95,7 +93,7 @@ const MathsMatch = () => {
                             finishGame();
                         }}
                     >
-                        <p>FINISH</p>
+                        <p>Finish</p>
                     </Button>
                 }
             </div>

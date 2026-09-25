@@ -4,11 +4,19 @@ import { useMatchFound } from 'src/ViewModels/Matchmaking/MatchFoundViewModel';
 
 import Loading from '@/components/shared/Loading';
 import { Button } from '@/components/ui/button';
-
+import { useEffect } from 'react';
 
 const MatchFound = () => {
   const { content, players, matchDetails, decline, accept, loading } =
     useMatchFound();
+
+  useEffect(() => {
+    console.log("found url", window.location.href);
+
+    return () => {
+      console.log("found unmount url", window.location.href);
+    }
+  })
 
   if (!players) {
     return (
@@ -21,8 +29,8 @@ const MatchFound = () => {
 
   return (
     <div className="relative w-full min-h-screen overflow-hidden bg-background"
-          style={{background: "radial-gradient(circle at 50% 12%, #b91551 0%, #850f3b 22%, #630b3c 34%, #0a0008 62%)"}}>
-          <Starfield/>
+      style={{ background: "radial-gradient(circle at 50% 12%, #b91551 0%, #850f3b 22%, #630b3c 34%, #0a0008 62%)" }}>
+      <Starfield />
 
       <div className="relative z-10 flex min-h-screen flex-col items-center justify-center gap-10 px-6 py-16">
         <div className="w-full text-center">

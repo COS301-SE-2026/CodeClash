@@ -112,10 +112,10 @@ export function useMatchFound() {
   }
 
   useEffect(() => {
-    if (status === 'ready') {
+    if (status === 'ready' && path.length > 0) {
       nav(`${path}/${useMatchStore.getState().match_id}`);
     }
-  },[status])
+  }, [status])
 
   useEffect(() => {
 
