@@ -141,20 +141,21 @@ const clamp01 = (value: number): number => Math.min(1, Math.max(0, value));
 
 /*(1) and (2): f_i = Score_i / M. Since the weights sum to M, the fraction is just the
 weighted mean of the question's component ratios - no need to carry M around.*/
-export function questionFraction(question: QuestionSample, domain: GameDomain): number {
-    const definitions = componentsFor(domain);
-    let weighted = 0;
-    let fractionSum = 0;
+export function questionFraction(question: QuestionSample, domain: GameDomain, league: string): number {
+  const tier = leagueProfile(league).tier;
+  let weighted = 0;
+  let weightSum = 0;
+  for (const definition of componentsFor(domain)) {
+    const weight = definition.points[tier];
+    if (!definition.inMastery || weight === 0) continue;
 
-    for (const definition of definitions) {
-        const ratio = question.ratios[definition.key];
-        if (ratio === undefined) continue;
-        weighted += definition.fraction * clamp01(ratio);
-        fractionSum += definition.fraction;
-    }
-
-    if (fractionSum === 0) return 0;
-    return clamp01(weighted / fractionSum);
+    const ratio = question.ratios[definition.key];
+    if (ratio === undefined) continue;
+    weighted += weight * clamp01(ratio);
+    weightSum += weight;
+  }
+  if (weightSum === 0) return 0;
+  return clamp01(weighted / weightSum);
 }
 
 /* Mastery_g = 1/N * sum_i (f_i * d_i). N is every question the game offered, so
@@ -167,7 +168,7 @@ export function gameMastery(game: GameSample): GameMastery {
     let difficultySum = 0;
 
     for (const question of game.questions) {
-        const fraction = questionFraction(question, game.domain);
+        const fraction = questionFraction(question, game.domain, game.league);
         masterySum += fraction * question.difficulty;
         fractionSum += fraction;
         difficultySum += question.difficulty;
@@ -364,9 +365,10 @@ export function difficultyBands(games: GameSample[], league: string): Difficulty
         let fractionSum = 0;
         let questionCount = 0;
         for (const game of games.slice(0, MASTERY_WINDOW)) {
+            const band = leagueProfile(game.league).difficulty;
             for (const question of game.questions) {
-                if (question.difficulty !== difficulty) continue;
-                fractionSum += questionFraction(question, game.domain);
+                if (band.indexOf(question.difficulty) !== index) continue
+                fractionSum += questionFraction(question, game.domain, game.league);
                 questionCount += 1;
             }
         }
