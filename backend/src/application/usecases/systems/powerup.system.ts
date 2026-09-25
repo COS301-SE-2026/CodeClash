@@ -22,7 +22,9 @@ export interface ApplyPowerupResult {
 
 export class PowerupSystem {
     constructor(
-        
+        private readonly world: ReturnType<typeof World>,
+        private readonly life_system: LifeSystem,
+        private readonly submission_system: SubmissionSystem
     ){}
 
     private getState(match_id: string): PowerupStateComponent {
@@ -56,6 +58,6 @@ export class PowerupSystem {
     }
 
     getScoreMultiplierPercent(match_id: string, user_id: string): number {
-        
+
     }
 }
