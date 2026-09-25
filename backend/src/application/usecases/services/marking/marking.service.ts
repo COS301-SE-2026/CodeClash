@@ -2,7 +2,7 @@ import { IMatchCache } from "src/application/interfaces/cache/IMatchCache";
 import { LifeSystem } from "src/application/usecases/systems/life.system";
 import { SubmissionSystem } from "src/application/usecases/systems/submission.system";
 import { NotificationService } from "../notification.service";
-import { IMarkingStrategy } from "src/application/interfaces/marking/IMarkingStategy";
+import { IMarkingStrategy, MarkOutcome } from "src/application/interfaces/marking/IMarkingStategy";
 import { OpponentProgress } from "../../systems/opponent-progress";
 import { SubmissionComponent } from "src/entities/components";
 import { MathsSubmissionDTO, PlayerSubmissionDTO, ProgSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
@@ -21,7 +21,7 @@ export class MarkingService {
     ) { }
 
 
-    async mark(player_submission: PlayerSubmissionDTO): Promise<boolean> {
+    async mark(player_submission: PlayerSubmissionDTO): Promise<MarkOutcome> {
         const correct_answer = await this.game_cache.getAnswer(player_submission.question_id);
 
         if (!correct_answer) throw new Error("Invalid question id");
@@ -34,8 +34,8 @@ export class MarkingService {
     async execute(player_submission: PlayerSubmissionDTO): Promise<MarkingResultDTO> {
         try {
             const result = await this.mark(player_submission);
-            const submission = this.submission_system.saveSubmission(player_submission, result);
-            return this.handleResult(result, submission!);
+            const submission = this.submission_system.saveSubmission(player_submission, result.correct, result);
+            return this.handleResult(result.correct, submission!);
         }
         catch (error) {
             console.error(`Error Checking answer: ${error}`);
