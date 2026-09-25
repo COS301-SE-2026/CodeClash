@@ -19,7 +19,11 @@ const TournamentsMatchPage = () => {
                     </div>
                 </div>
 
-                <TimerCard className="mr-2.5"/>
+                <TimerCard className="mr-2.5">
+                    <span>
+                       00:00
+                    </span>
+                </TimerCard>
 
 
             </div>
