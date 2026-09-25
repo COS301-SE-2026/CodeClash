@@ -4,6 +4,11 @@ import { IUserRepository } from "src/application/interfaces/repositories/IUserRe
 import { AchievementService } from "../achievement.service";
 import { MatchType, MatchStatus } from "src/entities/dtos/matches/match.dto";
 
+const SKILL_PROGRESS_DAYS = 30;
+const SKILL_PROGRESS_WINDOW = 20;
+
+
+
 
 export class MatchCompletionService {
     constructor(
@@ -55,6 +60,11 @@ export class MatchCompletionService {
 
     async getMatchHistory(user_id: string){
         return this.match_repo.getMatchHistory(user_id);
+    }
+
+    async getSkillProgress(user_id: string) {
+        const since = new Date(Date.now() - SKILL_PROGRESS_DAYS * 24 * 60 * 60 * 1000);
+        return this.match_repo.getSkillProgress(user_id); // will get back to this
     }
 }
 
