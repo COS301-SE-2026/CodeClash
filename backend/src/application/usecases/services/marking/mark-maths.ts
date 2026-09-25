@@ -1,5 +1,5 @@
 import { MathsSubmissionDTO, ProgSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
-import { IMarkingStrategy } from "src/application/interfaces/marking/IMarkingStategy";
+import { IMarkingStrategy, MarkOutcome } from "src/application/interfaces/marking/IMarkingStategy";
 import { AnswerDTO } from "src/entities/dtos/questions/answer.dto";
 import { MarkerRegistry } from "./maths-marking/marker-registry";
 
@@ -8,11 +8,11 @@ export class MarkMaths implements IMarkingStrategy {
   constructor(private readonly registry: MarkerRegistry = new MarkerRegistry()) { } // constructor js to make the registry available in order to pick appropriate marking file
   
 
-  async mark(submission: MathsSubmissionDTO | ProgSubmissionDTO, answer: AnswerDTO): Promise<boolean> {
-    if (!('answer' in submission)) return false;
+  async mark(submission: MathsSubmissionDTO | ProgSubmissionDTO, answer: AnswerDTO): Promise<MarkOutcome> {
+    if (!('answer' in submission)) return { correct: false };
 
     const marker = this.registry.markerFor(answer.format); // telling it which marker to use based on the format
-    if (marker === null) return false;
-    return marker.mark(submission.answer, answer);
+    if (marker === null) return { correct: false };
+    return { correct: marker.mark(submission.answer, answer) };
   }
 }
