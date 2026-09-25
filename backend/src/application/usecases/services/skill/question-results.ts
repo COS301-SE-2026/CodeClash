@@ -61,7 +61,11 @@ export class QuestionResultBuilder {
               time_cx_ratio: null,
               space_cx_ratio: null
           };
-      }
+  }
 
-  
+  private speedRatio(correct: boolean, run_time_ms: number | null, title: string): number | null {
+    if (!correct) return 0;
+    if (!run_time_ms) return null;
+    return clamp01(referenceRuntimeMs(title) / run_time_ms);
+  }
 }
