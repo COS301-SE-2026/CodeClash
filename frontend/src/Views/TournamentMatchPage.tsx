@@ -180,11 +180,11 @@ const TournamentsMatchPage = () => {
 
                         </div>
 
-                        <MatchCard className="bg-[var(--match-box)]">
-                            <div className="flex flex-row">
+                        <MatchCard className="bg-[var(--match-box)] rounded-lg p-3">
+                            <div className="flex flex-row items-center gap-2">
                                 <ChevronsRight/>
                                 <h1>Next: Round 3</h1>
-                                <MatchCard className="bg-[#280640] border-[#34114e]">
+                                <MatchCard className="bg-[#280640] border-[#34114e] rounded-full px-3 py-1 text-xs ml-auto">
                                     SUDDEN DEATH
                                 </MatchCard>
                             </div>
