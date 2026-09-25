@@ -17,10 +17,8 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const userId = user?.userId ?? ""
     const username = user?.username ?? '';
 
-    const {equippedAvatarImage, equippedAvatarBodyType, equippedAccessoryImage} = useInventory();
+    const {equippedAvatarImage,} = useInventory();
     const avatar = equippedAvatarImage ?? '';
-    const avatarBodyType = equippedAvatarBodyType;
-    const accessoryImages = equippedAccessoryImage;
 
     const getElo = async () => {
 
@@ -127,8 +125,8 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
 
     const value = useMemo(() => ({
-        username, elo, avatar, avatarBodyType, accessoryImages, error, league, userId, refresh, rank, current_streak, winning_streak
-    }), [username, elo, avatar, avatarBodyType, accessoryImages, error, league, userId, rank, current_streak, winning_streak])
+        username, elo, avatar, error, league, userId, refresh, rank, current_streak, winning_streak
+    }), [username, elo, avatar, error, league, userId, rank, current_streak, winning_streak])
 
     return (
         <UserContext.Provider
