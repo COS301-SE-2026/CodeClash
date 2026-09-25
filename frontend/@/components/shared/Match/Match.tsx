@@ -44,9 +44,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
     // const progressValue = question_number > 0 ? (questionsAnswered / question_number) * 100 : 0;
 
     return (
-        <div className="fixed inset-0 flex flex-col min-w-[64rem] overflow-y-auto">
-            {/* <img src={background} className='absolute w-full -z-10' alt='background' /> */}
-            {/* <BackButton page='/dashboard' /> */}
+        <div className="fixed inset-0 flex flex-col w-full overflow-y-auto">
             {/* Header */}
             <MatchCard className="rounded-[12px] w-[88%] h-[4rem] shrink-0 mb-10 mt-10 ml-10 mr-10 flex items-center overflow-x-auto">
                 <div className="flex w-full h-full items-center gap-2">
@@ -138,6 +136,8 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                     <div>
                         {children}
                     </div>
+
+                    
                 </div>
 
                 {/* Progress bar */}

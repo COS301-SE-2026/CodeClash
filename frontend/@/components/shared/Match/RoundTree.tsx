@@ -19,7 +19,7 @@ export const RoundTree = ({
 
 }: RoundTreeProps) => {
     return (
-        <div className={cn("flex flex-col gap 4", className)}>
+        <div className={cn("flex flex-col h-full", className)}>
             {rounds.map((round_question, round_idx) => {
                 const past_round = round_idx < current_round;
                 const current = round_idx === current_round;

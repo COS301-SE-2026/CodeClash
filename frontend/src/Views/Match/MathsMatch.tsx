@@ -21,7 +21,8 @@ const MathsMatch = () => {
         opponentCurrent, waitingOpponent, finishGame,
         loading,
         submitQuestion,
-        mathfieldRef
+        mathfieldRef,
+        elos
     } = useMatch();
 
 
@@ -50,7 +51,7 @@ const MathsMatch = () => {
             minutes={minutes}
             avatars={avatars}
             usernames={usernames}
-            elos={[]}
+            elos={elos}
             current_question={currentQuestion}
             opponent_progress={opponentCurrent}
             question_number={questions.length}

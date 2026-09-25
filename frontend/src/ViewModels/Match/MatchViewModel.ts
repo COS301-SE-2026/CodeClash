@@ -44,6 +44,7 @@ export const useMatch = () => {
 
     const avatars = useMemo(() => players.map(p => robot_map[p.avatar_id]), [players]);
     const usernames = useMemo(() => players.map(p => p.username), [players]);
+    const elos = useMemo(() => players.map(p => p.elo), [players]);
 
 
 
@@ -135,6 +136,7 @@ export const useMatch = () => {
         nextRound,
         roundIdx,
         total_rounds: rounds.length,
-        rounds
+        rounds,
+        elos
     }
 }
