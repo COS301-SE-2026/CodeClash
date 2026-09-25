@@ -89,6 +89,17 @@ export interface MatchHistoryRow {
     },
 }
 
+export interface SkillProgressGame {
+  match_id: string,
+  match_type: MatchType,
+  match_mode: MatchMode,
+  match_start: Date | null,
+  match_end: Date | null,
+  position: number,
+  league: string | null,
+  questions: QuestionResult[]
+}
+
 export interface PlayerResultDTO {
     user_id: string,
     username: string,
