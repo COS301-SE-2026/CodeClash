@@ -5,6 +5,7 @@ import { Trophy } from "lucide-react"
 import { TimerCard } from "@/components/ui/MatchBox";
 import { Question } from "@/components/features/question";
 import { MatchBox } from "@/components/ui/MatchBox";
+import { MultipleChoice } from "@/components/ui/MultipleChoice";
 
 const TournamentsMatchPage = () => {
     return(
@@ -47,7 +48,9 @@ const TournamentsMatchPage = () => {
                         <MatchBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)]"></MatchBox>
 
 
-                        
+                        <div className="flex flex-col">
+                            <MultipleChoice letter="A" option="answer"/>
+                        </div>
 
 
                     </div>
