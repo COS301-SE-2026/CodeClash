@@ -40,7 +40,7 @@ const TournamentsMatchPage = () => {
                     <div className="flex flex-col">
 
                         <Question
-                            className={`border-[var(--card-tournaments)]`}
+                            className={`mb-5 mt-5`}
                             difficulty={"MEDIUM"}
                             title={"Binary Search Floor Index"}
                             description={'Given a sorted array of distinct integers and a target value, find the largest index i such that arr[i] < target. What is the guaranteed worst execution time?'}
@@ -85,26 +85,26 @@ const TournamentsMatchPage = () => {
                     <MatchCard className="flex flex-col gap-3 p-4 rounded-2xl">
                         <div className="flex flex-row items-center justify-between">
                             <div className="flex flex-row items-center gap-2">
-                                <Signal size={18} className="text-muted-text"/>
-                                <h1>Live Standings</h1>
+                                <Signal size={18} className="text-primary"/>
+                                <h1 className="text-[1rem]">Live Standings</h1>
                             </div>
                             <MatchCard className="flex bg-[var(--multiple-choice-box)] text-muted-text px-3 py-1 rounded-full text-xs">Round 1</MatchCard>
                         </div>
 
-                        <hr className="border-muted-text/40"/>
+                        <hr className="border-muted-text/50"/>
 
                         <div className="flex flex-col gap-2">
-                            <LiveTournamentPlayer/>
-                            <LiveTournamentPlayer/>
-                            <LiveTournamentPlayer/>
-                            <LiveTournamentPlayer/>
-                            <LiveTournamentPlayer/>
+                            <LiveTournamentPlayer place={1} winner={true} username={"Ravi"} time={"3.2"}/>
+                            <LiveTournamentPlayer place={2} username="Lina" time="3.4"/>
+                            <LiveTournamentPlayer place={3} username="Zayd" time="3.8"/>
+                            <LiveTournamentPlayer place={4} username="Vortex99" you={true} time="4.1"/>
+                            <LiveTournamentPlayer place={5} username="Sarah" time="5"/>
 
                             <hr className="border-dotted border-muted-text/40 my-1"/>
 
-                            <div className="rounded-lg flex flex-row items-center gap-2 px-3 py-2 bg-red-500/10 border border-red-400/20">
+                            <div className="rounded-[13px] flex flex-row items-center gap-2 px-3 py-2 bg-red-500/10 border border-red-400/20">
                                 <div className="rounded-full bg-red-800 size-2 shrink-0"></div>
-                                <h1 className="text-red-200 text-xs">Elimination Zone</h1>
+                                <h1 className="text-red-200/60 text-xs">Elimination Zone</h1>
 
                                 <div className="text-muted-text ml-auto text-xs">
                                     6 below line
@@ -119,17 +119,17 @@ const TournamentsMatchPage = () => {
 
                     <MatchCard className="flex flex-col gap-3 p-4 rounded-2xl">
                         <div className="flex flex-row items-center gap-2">
-                            <Zap size={18}/>
-                            <h1 className="">Round Telemetry</h1>
-                            <div className="flex items-center gap-1 bg-primary/20 border border-[var(--primary)] border-[0.05rem] rounded-[10px] px-2 py-0.5 ml-auto">
+                            <Zap size={18} className="text-primary"/>
+                            <h1 className="text-[1rem]">Round Telemetry</h1>
+                            <div className="flex items-center gap-1 bg-primary/20 border border-[var(--primary)] border-[0.05rem] rounded-[5px] px-2 py-0.5 ml-auto">
                                 <div className="bg-primary size-1 rounded-full"></div>
                                 <h1 className="text-primary text-xs">LIVE</h1>
                             </div>
                         </div>
 
-                        <hr className="border-muted-text/40"/>
+                        <hr className="border-muted-text/40 mb-5"/>
 
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-2 mb-5">
                             <div className="flex flex-row justify-between text-xs">
                                 <h1 className="text-muted-text">PACING & CUTOFF</h1>
                                 <h1 className="text-green-400">Avg is 5.4s to qualify</h1>
@@ -154,7 +154,7 @@ const TournamentsMatchPage = () => {
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-3 gap-3">
+                        <div className="grid grid-cols-3 gap-3 mb-5">
                             <MatchCard className="bg-[#413638] border-muted-text rounded-xl p-3">
                                 <div className="flex flex-col items-center text-center gap-1 text-xs">
                                     <h1 className="text-muted-text">CUTOFF DANGER</h1>
@@ -181,10 +181,10 @@ const TournamentsMatchPage = () => {
                         </div>
 
                         <MatchCard className="bg-[var(--match-box)] rounded-lg p-3">
-                            <div className="flex flex-row items-center gap-2">
+                            <div className="flex flex-row items-center gap-2 text-xs">
                                 <ChevronsRight/>
                                 <h1>Next: Round 3</h1>
-                                <MatchCard className="bg-[#280640] border-[#34114e] rounded-full px-3 py-1 text-xs ml-auto">
+                                <MatchCard className="bg-[#280640] border-[#34114e] rounded-[10px] px-3 py-1 text-xs ml-auto text-secondary/60">
                                     SUDDEN DEATH
                                 </MatchCard>
                             </div>
