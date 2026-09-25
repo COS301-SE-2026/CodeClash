@@ -1,6 +1,6 @@
 
 import { afterAll, beforeAll, describe, expect, it } from "vitest"
-import { AdminDeleteUserCommand, AdminConfirmSignUpCommand, MessageActionType } from '@aws-sdk/client-cognito-identity-provider';
+import { AdminDeleteUserCommand, AdminCreateUserCommand } from '@aws-sdk/client-cognito-identity-provider';
 import { cognito_identity_client } from "src/application/usecases/services/cognito.service";
 import { CreateUser } from 'src/application/usecases/services/user-creation.service';
 import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
