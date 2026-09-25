@@ -1,7 +1,9 @@
-import { ResultComponent, SubmissionRegistryComponent } from "src/entities/components";
+import { MatchComponent, ResultComponent, SubmissionComponent, SubmissionRegistryComponent } from "src/entities/components";
 import { World } from "src/entities/World"
 import { MatchStore } from "../services/match/match-store.service";
 import { MatchPlayer } from "src/entities/dtos/matches/match.dto";
+import { QuestionResultBuilder } from "../services/skill/question-results";
+import { leagueForElo } from "src/entities/league-mapping";
 
 export class MatchCompletionSystem {
     private readonly getMatchComponent
@@ -11,6 +13,7 @@ export class MatchCompletionSystem {
     constructor(
         private readonly world: ReturnType<typeof World>,
         private readonly match_store: MatchStore,
+        private readonly question_results: QuestionResultBuilder = new QuestionResultBuilder()
     ) {
         const { getMatchComponent, getSubmissionComponent, addMatchComponent } = this.world
         this.getMatchComponent = getMatchComponent;
@@ -26,7 +29,8 @@ export class MatchCompletionSystem {
         const match = this.match_store.get(match_id);
         if (!match?.database_id) throw new Error("Match not found");
 
-        const match_stats = this.getStats(submission_registry.submissions, player_ids);
+      const match_stats = this.getStats(submission_registry.submissions, player_ids);
+      const match_start = this.getMatchComponent<MatchComponent>(match_id, 'Match')?.start_time ?? new Date();
 
         const ranked_players = [...match_stats.entries()]
             .sort(([, a], [, b]) => {
@@ -44,7 +48,9 @@ export class MatchCompletionSystem {
             elimination_round: null,
             elo_change: 0,
             num_correct: stat.num_correct,
-            total_time: stat.total_time
+            total_time: stat.total_time,
+            league: leagueForElo(match.players.find(player => player.id === user_id)?.elo ?? 0),
+            questions: this.question_results.build(match.rounds, this.playerSubmissions(submission_registry.submissions, user_id), match_start)
         }));
 
 
@@ -90,4 +96,15 @@ export class MatchCompletionSystem {
         return game_stats
 
     }
+
+  playerSubmissions(submissions: Map<string, number>, player_id: string): SubmissionComponent[] {
+    const found: SubmissionComponent[] = [] // initialising empty array n finishin
+    for (const [key, submission] of submissions) { // for eawch key submission pair int he submissions
+      if (key.split('::')[0] !== player_id) continue; // checks to see if its the passed in player, if not continue
+
+      const component = this.getSubmissionComponent(submission, 'Submission');
+      if (component) found.push(component); // ifthe submission was found then its pushed in ( cuz players can just not answer at all )
+    }
+    return found;
+  }
 }
