@@ -141,6 +141,12 @@ const TournamentsMatchPage = () => {
                                 to={"red-400"}
                                 className=""
                             />
+
+                            <div className="flex flex-row">
+                                <h1 className="text-muted-text">0.0s (Fastest)</h1>
+                                <h1 className="text-green-400">Safe Zone (≤ 7.2s)</h1>
+                                <h1 className="text-red-200">Cutoff</h1>
+                            </div>
                         </div>
 
                     </MatchCard>
