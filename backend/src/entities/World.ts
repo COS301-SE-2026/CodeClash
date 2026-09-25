@@ -74,7 +74,7 @@ export const World = () => {
 
     function addMatchComponent(
         entity_id: number,
-        component_name: "Players" | "Match" | "Submission" | "Result",
+        component_name: "Players" | "Match" | "Submission" | "Result" | "PowerupState",
         component: MatchComponentTypes
     ) {
 

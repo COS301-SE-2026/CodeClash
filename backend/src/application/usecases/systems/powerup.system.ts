@@ -27,8 +27,8 @@ export class PowerupSystem {
         private readonly submission_system: SubmissionSystem
     ){}
 
-    private getState(match_id: string): PowerupStateComponent {
-
+    private getState(match_id: number): PowerupStateComponent {
+        let state = this.world.getMatchComponent<PowerupStateComponent>(match_id, 'PowerupState');
     }
 
     private getPlayerState(match_id: string, user_id: string): PlayerPowerupState {
