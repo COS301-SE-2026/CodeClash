@@ -14,7 +14,7 @@ export const useTournamentLobby = () => {
     const [error, setError] = useState<string | null>(null);
 
     const { tournamentSocket } = useSocket();
-    const { userId } = useUser();
+    const { userId} = useUser();
     const { tournament_id } = useParams<{ tournament_id: string }>();
     const nav = useNavigate();
 
@@ -74,11 +74,25 @@ export const useTournamentLobby = () => {
             setError('Cannot cancel tournament');
     }
 
+    const start = ()=>{
+        if(tournament){
+            const data = {
+                tournament_id: tournament.tournament_id,
+                league: tournament.host.league!,
+
+            }
+            tournamentSocket?.startTournament(data);
+        }
+
+    }
+
     return {
         tournament,
         players,
         error,
         leave,
         cancel,
+        MIN_PLAYERS,
+        start
     }
 }

@@ -2,7 +2,7 @@ import { CheckCircle, ArrowLeft , Mail} from "lucide-react";
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 
-import { ForgotPasswordViewModelFunction } from "../ViewModels/ForgotPasswordViewModel";
+import { ForgotPasswordViewModelFunction } from "../../ViewModels/ForgotPasswordViewModel";
 
 const ForgotPassword: React.FC = () => {
     const navigate = useNavigate();

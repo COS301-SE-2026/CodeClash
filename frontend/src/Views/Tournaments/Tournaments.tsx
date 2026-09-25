@@ -1,22 +1,14 @@
-//This is a wow factor - i am just calling the coming soon component so the page isnt blank when clicked from dashboard
 import {MathTournamentCard, ProgrammingTournamentCard} from "@/components/ui/TournamentCard"
 import TournamentButton from "@/components/ui/TournamentButton"
 import FilterButton from "@/components/ui/FilterButton"
-import "../styles/global.css"
 import {PlusIcon, Search} from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { useExtraLayout } from "src/extra-layout"
-// import { DefaultTournamentsModel } from "src/Models/TournamentsModel"
-// import type { TournamentsModel } from "src/Models/TournamentsModel"
 
-// interface TournamentProps{
-//     tournaments: TournamentsModel
-// }
 
-const Tournaments = (
-    // {tournaments = DefaultTournamentsModel} : TournamentProps
-) => {
+const Tournaments = () => {
     const nav = useNavigate();
+
 
     useExtraLayout(
         // the code below was handwritten and used to be below this part of the code, i just copied and pasted it here to move it

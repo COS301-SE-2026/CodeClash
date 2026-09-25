@@ -1,4 +1,4 @@
-import TournamentsWaiting from "../../../src/Views/TournamentsWaiting"
+import TournamentsWaiting from "../../../src/Views/Tournaments/TournamentsWaiting"
 import {describe, it, expect, vi} from "vitest";
 import { fireEvent, render, screen } from '@testing-library/react';
 import { ReactNode } from "react";
