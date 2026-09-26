@@ -1,0 +1,40 @@
+frontend/src/Views/Tournaments/Tournaments.tsx
+  h_94c952a9e14c58 1,5-8,11-12,18,22,31-32,34,40,59-76,78-87,89-91
+  h_94c952a9e14c58 3,33,35,37,43,47,56
+frontend/@/components/features/Tournaments/TournamentsBadge.tsx
+  h_94c952a9e14c58 1-17
+frontend/src/Views/Tournaments/HostTournament.tsx
+  h_94c952a9e14c58 1-13,15-130,133-187
+  h_94c952a9e14c58 14,131-132
+backend/src/frameworks-drivers/socket/modules/register-match-handlers.ts
+  h_94c952a9e14c58 10
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 213
+frontend/src/Views/Tournaments/TournamentsWaiting.tsx
+  h_94c952a9e14c58 2,4
+frontend/@/components/shared/Match/Match.tsx
+  h_94c952a9e14c58 6-7
+frontend/src/Views/Match/ProgMatch.tsx
+  h_94c952a9e14c58 8
+frontend/src/ViewModels/Tournaments/TournamentViewModel.ts
+  h_94c952a9e14c58 7-8,15,24-44,58
+frontend/@/components/features/Tournaments/TournamentPlayer.tsx
+  h_94c952a9e14c58 1-23
+backend/src/frameworks-drivers/socket/dependencies.ts
+  h_94c952a9e14c58 14,22
+frontend/@/components/features/Tournaments/TournamentCard.tsx
+  h_94c952a9e14c58 3-5
+frontend/@/components/features/Tournaments/TournamentButton.tsx
+  h_94c952a9e14c58 11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "9530b0046a1a4ced5a380ca84bd5746d68c19675",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
