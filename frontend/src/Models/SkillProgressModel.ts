@@ -36,7 +36,7 @@ export const COMPONENTS: ComponentDefinition[] = [
         domain: 'math',
         points: [0, 40, 35],
         inMastery: true,
-        hint: 'Correct answers against questions give. Scored from Mars up.'
+        hint: 'Given. Scored from Mars up.'
     },
     {
         key: 'time',
@@ -52,7 +52,7 @@ export const COMPONENTS: ComponentDefinition[] = [
         domain: 'programming',
         points: [20, 20, 10],
         inMastery: true,
-        hint: 'Judge0 runtime of the accepted submission againast a reference runtime.'
+        hint: 'Judge0 runtime of the against.'
     },
     {
         key: 'timeCx',
@@ -528,7 +528,7 @@ export function buildInsights(
     });
 
   if (practice && practice.games > 0) {
-    const percentage = practice.questions === 0 ? 0 : Math.round((practice.correct) / practice.questions) * 100;
+    const percentage = practice.questions === 0 ? 0 : Math.round((practice.correct / practice.questions) * 100);
     insights.push({
       id: 'practice',
       tone: 'info',

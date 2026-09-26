@@ -141,7 +141,7 @@ async function buildQuestions(
     return questions;
 }
 
-async function toGameSample(row: MatchHistoryRow, league: string): Promise<GameSample> {
+ function toGameSample(row: SkillProgressRow, league: string): GameSample {
   return {
     matchId: row.match_id,
     playedAt: new Date(row.match_end ?? row.match_start ?? Date.now()).toISOString(),
@@ -208,7 +208,7 @@ export async function loadSkillTelemetry(
     // A failed fetch is left to reject so the ViewModel reports it. Falling back to the
     // sample history here would show a network error as a page of made up games.
     if (token) {
-        const response = await axios.get<SkillProgressRow[]>('/api/matches', {
+        const response = await axios.get<SkillProgressRow[]>('/api/skill-progress', {
             headers: { Authorization: `Bearer ${token}` }
         });
         rows = Array.isArray(response.data) ? response.data : [];
@@ -225,12 +225,12 @@ export async function loadSkillTelemetry(
         };
     }
 
-    const sorted = rows
+    const games = rows
       .map(row => toGameSample(row, league))
     .sort((a, b) => new Date(b.playedAt).getTime() - new Date(a.playedAt).getTime());
 
     return {
-        games: sorted,
+        games,
         source: 'matches',
         matchCount: competitive(games).length,
         wins: competitive(games).filter(game => game.result === 'WIN').length,

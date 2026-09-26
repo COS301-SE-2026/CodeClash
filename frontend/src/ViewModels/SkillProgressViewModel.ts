@@ -107,8 +107,8 @@ export function useSkillProgressViewModel(): SkillProgressViewModel {
     things - so 'overall' shows both sets stacked.*/
     const components = useMemo<ComponentScore[]>(() => {
         const domains: GameDomain[] = domain === 'overall' ? ['math', 'programming'] : [domain];
-        return domains.flatMap(target => componentScores(all, target));
-    }, [telemetry, domain]);
+      return domains.flatMap(target => componentScores(competitive, target));
+    }, [competitive, domain]);
 
     const bands = useMemo(() => difficultyBands(games, league), [games, league]);
 
@@ -121,7 +121,7 @@ export function useSkillProgressViewModel(): SkillProgressViewModel {
 
   const practice = useMemo(() => {
     const all = telemetry?.games ?? [];
-    return practiceSummary(domain === 'overall' ? all : all, filter(game => game.domain === domain));
+     return practiceSummary(domain === 'overall' ? all : all.filter(game => game.domain === domain));
   }, [telemetry, domain]);
   
     const insights = useMemo(
