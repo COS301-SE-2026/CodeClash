@@ -149,7 +149,8 @@ async function simulatedHistory(league: string, now: Date): Promise<GameSample[]
             league,
             result,
             questions: await buildQuestions(matchId, domain, league, result),
-            simulated: true
+            simulated: true,
+            practice: false
         });
     }
 
@@ -161,12 +162,12 @@ export async function loadSkillTelemetry(
     league: string,
     now: Date = new Date()
 ): Promise<SkillTelemetry> {
-    let rows: MatchHistoryRow[] = [];
+    let rows: SkillProgressRow[] = [];
 
     // A failed fetch is left to reject so the ViewModel reports it. Falling back to the
     // sample history here would show a network error as a page of made up games.
     if (token) {
-        const response = await axios.get<MatchHistoryRow[]>('/api/matches', {
+        const response = await axios.get<SkillProgressRow[]>('/api/matches', {
             headers: { Authorization: `Bearer ${token}` }
         });
         rows = Array.isArray(response.data) ? response.data : [];
@@ -184,16 +185,14 @@ export async function loadSkillTelemetry(
     }
 
     const sorted = rows
-        .slice()
-        .sort((a, b) => new Date(b.match_start).getTime() - new Date(a.match_start).getTime());
-
-    const games = await Promise.all(sorted.map(row => toGameSample(row, league)));
+      .map(row => toGameSample(row, league))
+    .sort((a, b) => new Date(b.playedAt).getTime() - new Date(a.playedAt).getTime());
 
     return {
-        games,
+        games: sorted,
         source: 'matches',
-        matchCount: games.length,
-        wins: games.filter(game => game.result === 'WIN').length,
-        losses: games.filter(game => game.result === 'LOSS').length
+        matchCount: competitive(games).length,
+        wins: competitive(games).filter(game => game.result === 'WIN').length,
+        losses: competitive(games).filter(game => game.result === 'LOSS').length
     };
 }
