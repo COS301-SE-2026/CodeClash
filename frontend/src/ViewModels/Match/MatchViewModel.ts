@@ -21,17 +21,20 @@ export const useMatch = () => {
 
     const question_idx = useRef(0);
     const round_idx = useRef(0);
+    const [roundIdx, setRoundIdx] = useState(0); // mirrors round_idx for the rendering, the reference stays for the socket fallbacks though
+    
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [nextRound, setNextRound] = useState(false);
 
     const status = useMatchStore(state => state.status);
     const { rounds, duration } = loadRounds(useMatchStore(state => state.rounds)!);
-    const questions = rounds[round_idx.current] ?? [];
+    const questions = rounds[roundIdx] ?? [];
     const players = useMatchStore(state => state.players);
 
     const { playerLife, opponentCurrent, opponent_progress, opponent_done, opponentDone, updatePlayerLife } = useMatchProgress(questions.length, players);
     const avatars = useMemo(() => players.map(p => robot_map[p.avatar_id]), [players]);
     const usernames = useMemo(() => players.map(p => p.username), [players]);
+    const elos = useMemo(() => players.map(p => p.elo), [players]);
     const [loading, setLoading] = useState(false);
     const [results, setResults] = useState<(boolean | null)[][]>([]);
     const mathfieldRef = useRef<MathfieldElement | null>(null)
@@ -47,10 +50,11 @@ export const useMatch = () => {
         }
 
         if (round_idx.current < rounds.length - 1) {
-            round_idx.current += 1;
-            setCurrentQuestion(0);
-            setNextRound(true);
-            setTimeout(() => setNextRound(false), 5000);
+          round_idx.current += 1;
+          setRoundIdx(round_idx.current);
+          setCurrentQuestion(0);
+          setNextRound(true);
+          setTimeout(() => setNextRound(false), 5000);
         }
     }
 
@@ -165,6 +169,8 @@ export const useMatch = () => {
         opponentCurrent,
         opponentDone,
         submitQuestion,
-        nextRound
+      nextRound,
+      roundIdx,
+        elos
     }
 }
