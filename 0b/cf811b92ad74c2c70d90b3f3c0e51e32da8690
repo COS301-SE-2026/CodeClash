@@ -1,0 +1,31 @@
+frontend/src/App.tsx
+  s_646f6daacdd7b4::t_6f489367237e76 11,20-21,24-25
+frontend/src/ViewModels/Tournaments/TournamentViewModel.ts
+  s_646f6daacdd7b4::t_7eaaec6bf6a7e1 16,76-87,94-95
+frontend/src/Views/Auth/ForgotPassword.tsx
+  s_646f6daacdd7b4::t_1f82ee57e45265 5
+frontend/src/Views/Tournaments/Tournaments.tsx
+  s_646f6daacdd7b4::t_cca4b1d4a8686f 9,12
+frontend/src/Views/Tournaments/TournamentsWaiting.tsx
+  s_646f6daacdd7b4::t_2ab8641ea217b9 7,13
+frontend/src/dtos/match/match.dto.ts
+  s_646f6daacdd7b4::t_ea0b8d06fe7a28 12-13
+frontend/test/unit/Views/TournamentsWaiting.test.tsx
+  s_646f6daacdd7b4::t_e5224398af412c 1,5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "0bcf811b92ad74c2c70d90b3f3c0e51e32da8690",
+  "prompts": {},
+  "sessions": {
+    "s_646f6daacdd7b4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1a4575e3-c34b-4b1d-a146-2af9e332b169",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
