@@ -6,7 +6,6 @@ import type { PlayerDTO } from "src/dtos/match/match.dto"
 import type { TournamentDTO } from "src/dtos/tournaments/tournament.dto";
 import { useMatchStore } from "src/stores/match-store";
 
-const MIN_PLAYERS = 8;
 
 export const useTournamentLobby = () => {
     const [players, setPLayers] = useState<PlayerDTO[]>([]);
