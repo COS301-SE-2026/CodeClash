@@ -1,3 +1,5 @@
+name: codeclash-dev
+
 services:
   backend:
     build: 
