@@ -21,6 +21,7 @@ import {
     growthFromReadings,
     growthReadings,
     masteryCeiling,
+    practiceSummary,
     skillProgressContent
 } from 'src/Models/SkillProgressModel';
 import type { SkillTelemetry } from 'src/services/skill-progress.service';
@@ -88,11 +89,13 @@ export function useSkillProgressViewModel(): SkillProgressViewModel {
         };
     }, [token, league, isAuthLoading]);
 
+  const competitive = useMemo(() => (telemetry?.games ?? []).filter(game => !game.practice), [telemetry]);
+
     /*Games for the selected domain, newest first. 'overall' keeps everything.*/
-    const games = useMemo(() => {
-        const all = telemetry?.games ?? [];
-        return domain === 'overall' ? all : all.filter(game => game.domain === domain);
-    }, [telemetry, domain]);
+    const games = useMemo(
+        () => domain === 'overall' ? competitive : competitive.filter(game => game.domain === domain),
+        [competitive, domain]
+    );
 
     const masteries = useMemo<GameMastery[]>(() => games.map(gameMastery), [games]);
 
@@ -103,7 +106,6 @@ export function useSkillProgressViewModel(): SkillProgressViewModel {
     /*Components are per domain by definition - math and programming score different
     things - so 'overall' shows both sets stacked.*/
     const components = useMemo<ComponentScore[]>(() => {
-        const all = telemetry?.games ?? [];
         const domains: GameDomain[] = domain === 'overall' ? ['math', 'programming'] : [domain];
         return domains.flatMap(target => componentScores(all, target));
     }, [telemetry, domain]);
