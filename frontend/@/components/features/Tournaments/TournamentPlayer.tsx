@@ -1,7 +1,5 @@
 import React from 'react'
-
-import "../../../src/styles/global.css"
-import { MatchCard } from './MatchCard'
+import { MatchCard } from '../../ui/MatchCard'
 
 
 interface TournamentPlayerProps{

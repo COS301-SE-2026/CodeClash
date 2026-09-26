@@ -5,7 +5,7 @@ import { useMatch } from "src/ViewModels/Match/MatchViewModel"
 import { ChevronRight, ChevronLeft } from 'lucide-react'
 import Loading from '@/components/shared/Loading';
 import { useState } from "react";
-import TournamentButton from "@/components/ui/TournamentButton";
+import TournamentButton from "@/components/features/Tournaments/TournamentButton";
 import { MatchCard } from "@/components/ui/MatchCard";
 import PopUp from "@/components/shared/PopUp";
 

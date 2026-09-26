@@ -7,7 +7,7 @@ import { MatchType } from "src/entities/dtos/matches/match.dto";
 
 // register handlers 
 export function registerMatchHandlers(io: Server, socket: Socket, deps: MatchDeps) {
-    registerHandler(socket, 'submit_question', (socket, data: RawSubmissionDTO) => submitQuestion(socket, data, deps.marking_service, deps.match_store));
+    registerHandler(socket, 'submit_question', (socket, data: RawSubmissionDTO) => submitQuestion(socket, data, deps.marking_service, deps.match_store, deps.elimination_service));
 
     registerHandler(socket, 'match_done',
         (socket, payload: { match_id: number, match_type: MatchType }) =>

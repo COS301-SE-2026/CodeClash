@@ -1,9 +1,8 @@
 import React from 'react' 
 import { Calculator, Timer, ArrowRight, CodeXml } from "lucide-react"
-import "../../../src/styles/global.css"
-import { Progress } from "./progress"
-import TournamentButton from "./TournamentButton"
-import { MatchCard } from './MatchCard'
+import { Progress } from "@/components/ui/progress"
+import TournamentButton from "@/components/features/Tournaments/TournamentButton"
+import { MatchCard } from '@/components/ui/MatchCard'
 import { useNavigate } from 'react-router-dom'
 
 interface TournamentCardProps{

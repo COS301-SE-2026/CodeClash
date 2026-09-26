@@ -3,8 +3,8 @@ import { TimerBox } from '@/components/ui/TimerBox'
 import { Progress } from '@/components/ui/progress'
 import { Timer } from "lucide-react"
 import { MatchCard } from '@/components/ui/MatchCard'
-import TournamentButton from '@/components/ui/TournamentButton'
-import { TournamentsBadge } from '@/components/ui/TournamentsBadge'
+import TournamentButton from '@/components/features/Tournaments/TournamentButton'
+import { TournamentsBadge } from '@/components/features/Tournaments/TournamentsBadge'
 import { RoundTree } from './RoundTree'
 import type { QuestionDTO } from 'src/dtos/match/match.dto'
 
