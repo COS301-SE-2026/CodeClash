@@ -1,0 +1,31 @@
+frontend/src/ViewModels/Tournaments/TournamentLobby.ts
+  h_94c952a9e14c58 89-92,100-101
+  h_94c952a9e14c58 17,77-78
+frontend/src/Views/Tournaments/Tournaments.tsx
+  h_94c952a9e14c58 11,73
+frontend/@/components/features/Tournaments/TournamentCard.tsx
+  h_94c952a9e14c58 21-22,39-40,46,59,113
+  h_94c952a9e14c58 19,53
+frontend/src/App.tsx
+  h_94c952a9e14c58 83
+frontend/src/ViewModels/Tournaments/TournamentViewModel.ts
+  h_94c952a9e14c58 105-125,152-153
+  h_94c952a9e14c58 145-151,154
+frontend/src/Views/Tournaments/TournamentsWaiting.tsx
+  h_94c952a9e14c58 6-8,13-23,31,40-41,49,56,58,63,68-74
+  h_94c952a9e14c58 42,45-47
+frontend/@/components/features/Tournaments/TournamentPlayer.tsx
+  h_94c952a9e14c58 3,9,12,16-17,20
+  h_94c952a9e14c58 6,14,18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "2eae6a2efae7f37843b8aa362e87e2a78e5b73d6",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
