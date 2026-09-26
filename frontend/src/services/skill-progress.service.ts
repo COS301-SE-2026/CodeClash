@@ -115,17 +115,31 @@ async function buildQuestions(
 }
 
 async function toGameSample(row: MatchHistoryRow, league: string): Promise<GameSample> {
-    const domain = toDomain(row.game_type);
-    return {
-        matchId: row.match_id,
-        playedAt: new Date(row.match_start).toISOString(),
-        domain,
-        league,
-        result: row.result,
-        questions: await buildQuestions(row.match_id, domain, league, row.result),
-        simulated: true
-    };
+  return {
+    matchId: row.match_id,
+    playedAt: new Date(row.match_end ?? row.match_start ?? Date.now()).toISOString(),
+    domain: toDomain(row.match_mode),
+    // the league the game was played in, which can differ from the player's league today
+    league: row.league ?? league,
+    result: row.position === 1 ? 'WIN' : 'LOSS',
+    questions: row.questions.map(question => ({
+      difficulty: question.difficulty,
+      correct: question.correct,
+      attempts: question.attempts,
+      ratios: {
+        time: question.time_ratio,
+        accuracy: measured(question.accuracy_ratio),
+        speed: measured(question.speed_ratio),
+        timeCx: measured(question.time_cx_ratio),
+        spaceCx: measured(question.space_cx_ratio)
+      }
+    })),
+    simulated: false,
+    practice: row.match_type === 'casual'
+  };
 }
+
+const competitive = (games: GameSample[]) => games.filter(game => !game.practice);
 
 async function simulatedHistory(league: string, now: Date): Promise<GameSample[]> {
     const random = seededRandom(`demo:${league}`);
