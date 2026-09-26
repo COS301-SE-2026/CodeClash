@@ -117,9 +117,14 @@ export function useSkillProgressViewModel(): SkillProgressViewModel {
         return Math.round((wins / sampled.length) * 100);
     }, [games]);
 
+  const practice = useMemo(() => {
+    const all = telemetry?.games ?? [];
+    return practiceSummary(domain === 'overall' ? all : all, filter(game => game.domain === domain));
+  }, [telemetry, domain]);
+  
     const insights = useMemo(
-        () => buildInsights(components, growth, mastery, league),
-        [components, growth, mastery, league]
+        () => buildInsights(components, growth, mastery, league, practice),
+        [components, growth, mastery, league, practice]
     );
 
     return {
