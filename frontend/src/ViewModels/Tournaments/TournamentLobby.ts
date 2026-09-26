@@ -32,8 +32,8 @@ export const useTournamentLobby = () => {
                 else setError('Error loading tournament');
             });
 
-        const unsub_joined = tournamentSocket.playerJoined((player) => {
-            setPLayers((prev) => [...prev, player]);
+        const unsub_joined = tournamentSocket.playerJoined((data) => {
+            setPLayers((prev) => [...prev, data.player]);
         });
 
         const unsub_left = tournamentSocket.playerLeft((player) => {

@@ -39,12 +39,12 @@ export class TournamentCache implements ITournamentCache {
 
         const data: TournamentDTO = JSON.parse(tournament);
 
-        if (data.start_date < new Date() || (data.status !== MatchStatus.Waiting && data.status !== MatchStatus.Starting)) {
+        if (new Date(data.start_date) < new Date() || (data.status !== MatchStatus.Waiting && data.status !== MatchStatus.Starting)) {
             throw new Error("Cannot add player to past or in progress tournaments");
         }
 
-        data.players.push(player);
-
+        data.players = data.players.some(p=> p.id === player.id)? data.players: [...data.players, player];
+ 
         await this.redis.set(`tournament:${tournament_id}`, JSON.stringify(data));
     }
 

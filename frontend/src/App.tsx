@@ -80,7 +80,7 @@ const App: React.FC = () => {
                 <Route path='/dashboard' element={<Dashboard />} />
                 <Route path='/help-menu' element={<HelpMenu />} />
                 <Route path='/tournaments' element={<Tournaments />} />
-                <Route path='/tournaments/waiting' element={<TournamentsWaiting/>}/>
+                <Route path='/tournaments/waiting:tournament_id' element={<TournamentsWaiting/>}/>
                 <Route path='/leaderboard' element={<Leaderboard />} />
                 <Route path='/achievements' element={<Achievements />} />
                 <Route path='/friends' element={<Friends />} />

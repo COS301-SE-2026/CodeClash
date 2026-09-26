@@ -12,7 +12,12 @@ export const useTournament = () => {
     const { token } = useAuth();
     const [tournaments, setTournaments] = useState<TournamentDTO[]>([]);
     const { tournamentSocket } = useSocket();
-    const { userId, elo, username } = useUser();
+    const { userId, elo, username, league } = useUser();
+    const player: PlayerDTO = {
+        id: userId,
+        elo: elo,
+        username: username
+    }
 
     const getTournaments = async () => {
         if (!token) return;
@@ -39,7 +44,7 @@ export const useTournament = () => {
             match_mode: data.match_mode,
             host: host,
             title: data.title,
-            min_players:data.min_players
+            min_players: data.min_players
         }
         const hosted = await tournamentSocket?.hostTournament(create);
 
@@ -49,13 +54,32 @@ export const useTournament = () => {
 
         if (hosted.ok && hosted.data !== undefined) {
             setTournaments((prev) => [...prev, hosted.data!]);
-             console.log(hosted.data!);
+            console.log(hosted.data!);
         }
-       
 
         return hosted;
     }
 
+    const joinTournamnet = async (tournament_id: string) => {
+        const player: PlayerDTO = {
+            id: userId,
+            elo: elo,
+            username: username,
+            league: league
+        }
+
+        const response = await tournamentSocket?.joinTournament({ tournament_id, player });
+        if (response?.ok) {
+            return true;
+        }
+        return false;
+    }
+
+    const handleJoined = (data: { player: PlayerDTO, tournament_id: string }) => {
+        setTournaments((prev) =>
+            prev.map((t) => t.tournament_id === data.tournament_id ? { ...t, players: [...t.players, data.player] } : t)
+        )
+    }
 
     useEffect(() => {
         if (!token || !tournamentSocket) return;
@@ -63,11 +87,12 @@ export const useTournament = () => {
         getTournaments();
 
         const unsub_created = tournamentSocket.tournamentCreated(getTournaments);
-
+        const unsub_joined = tournamentSocket.playerJoined(handleJoined)
         return () => {
             unsub_created();
+            unsub_joined();
         }
-    }, []);
+    }, [token,tournamentSocket]);
 
-    return { lobby, tournaments, getTournaments, createTournament };
+    return { lobby, tournaments, getTournaments, createTournament, joinTournamnet, player };
 }

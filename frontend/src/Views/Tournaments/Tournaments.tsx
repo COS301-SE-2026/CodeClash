@@ -1,4 +1,4 @@
-import {TournamentCard } from "@/components/features/Tournaments/TournamentCard"
+import { TournamentCard } from "@/components/features/Tournaments/TournamentCard"
 import FilterButton from "@/components/ui/FilterButton"
 import { PlusIcon, Search } from "lucide-react"
 import { useExtraLayout } from "src/extra-layout"
@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { HostTournament } from "./HostTournament"
 
 const Tournaments = () => {
-    const { tournaments, createTournament } = useTournament();
+    const { tournaments, createTournament, joinTournamnet, player } = useTournament();
     const [hostTournament, setHostTournament] = useState(false);
 
     useExtraLayout(
@@ -60,11 +60,15 @@ const Tournaments = () => {
                         return (
                             <TournamentCard
                                 key={tournament.tournament_id}
+                                id={tournament.tournament_id}
                                 match_mode={tournament.tournament_mode}
                                 title={tournament.title}
                                 min_players={tournament.min_players}
                                 player_count={tournament.players.length}
                                 start_date={new Date(tournament.start_date)}
+                                onJoin={joinTournamnet}
+                                player={player}
+                                players={tournament.players}
                             />
                         )
                     })}

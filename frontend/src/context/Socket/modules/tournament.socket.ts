@@ -11,8 +11,8 @@ export class TournamentSocket {
 
     /************************************** LISTENERS ******************************************* */
 
-    playerJoined(handler: (player: PlayerDTO) => void) {
-        return on<PlayerDTO>(this.socket, 'player_joined', handler);
+    playerJoined(handler: (data: { player: PlayerDTO, tournament_id: string }) => void) {
+        return on<{ player: PlayerDTO, tournament_id: string }>(this.socket, 'player_joined', handler);
     }
 
     playerLeft(handler: (player: PlayerDTO) => void) {
@@ -60,7 +60,7 @@ export class TournamentSocket {
         return emit<typeof data, void>(this.socket, 'leave_tournament', data);
     }
 
-    hostTournament(data: { start_date: Date, match_mode: MatchMode, host: PlayerDTO , title:string, min_players: number}) {
+    hostTournament(data: { start_date: Date, match_mode: MatchMode, host: PlayerDTO, title: string, min_players: number }) {
         return emit<typeof data, TournamentDTO>(this.socket, 'host_tournament', data);
     }
 
@@ -73,6 +73,6 @@ export class TournamentSocket {
     }
 
     startTournament(data: { tournament_id: string, league: string }) {
-        return emit < typeof data, {match: MatchDTO, tournament: TournamentDTO}>(this.socket, 'start_tournament', data);
+        return emit<typeof data, { match: MatchDTO, tournament: TournamentDTO }>(this.socket, 'start_tournament', data);
     }
 }
