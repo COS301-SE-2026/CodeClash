@@ -13,6 +13,15 @@ const MathsMatch = () => {
     const {
         status,
         questions,
+        results,
+        roundIdx,
+        playerLife,
+        avatars,
+        usernames,
+        elos,
+        seconds,
+        minutes,
+        opponentCurrent,
         currentQuestion,
         nextQuestion, prevQuestion,
         loading,
@@ -49,7 +58,17 @@ const MathsMatch = () => {
     }
 
     return (
-        <MatchScreen
+      <MatchScreen
+        player_life={playerLife}
+        seconds={seconds}
+        minutes={minutes}
+        avatars={avatars}
+        usernames={usernames}
+        elos={elos}
+        current_question={currentQuestion}
+        opponent_progress={opponentCurrent}
+        question_number={questions.length}
+        question_results={results[roundIdx] ?? []}
         >
 
             <Question
