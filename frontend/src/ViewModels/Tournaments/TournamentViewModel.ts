@@ -39,7 +39,16 @@ export const useTournament = () => {
             match_mode: data.match_mode,
             host: host
         }
-        tournamentSocket?.hostTournament(create);
+        const hosted = await tournamentSocket?.hostTournament(create);
+
+        if (!hosted) {
+            return { ok: false, error: "Error creating tournament." };
+        }
+
+        if (hosted.ok && hosted.data !== undefined) {
+            setTournaments((prev) => [...prev, hosted.data!]);
+        }
+        return hosted;
     }
 
 
