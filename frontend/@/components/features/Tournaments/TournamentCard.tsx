@@ -16,6 +16,7 @@ interface TournamentCardProps {
     player_count: number,
     start_date: Date,
     onJoin: (tournament_id: string) => Promise<boolean>
+    onLeave: (tournament_id:string)=> Promise<boolean>
     player: PlayerDTO,
     players: PlayerDTO[]
 }
@@ -32,6 +33,7 @@ export const TournamentCard = ({
     player_count,
     start_date,
     onJoin,
+    onLeave,
     player,
     players
 }: TournamentCardProps) => {
@@ -68,7 +70,10 @@ export const TournamentCard = ({
         await onJoin(id);
     }
 
-    const handleLeave = ()=>{}
+    const handleLeave = async ()=>{
+        console.log("handling the leave")
+        await onLeave(id);
+    }
 
     useEffect(() => {
         const interval = setInterval(() => {

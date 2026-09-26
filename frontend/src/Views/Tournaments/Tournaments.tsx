@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { HostTournament } from "./HostTournament"
 
 const Tournaments = () => {
-    const { tournaments, createTournament, joinTournamnet, player } = useTournament();
+    const { tournaments, createTournament, joinTournamnet,leaveTournament, player } = useTournament();
     const [hostTournament, setHostTournament] = useState(false);
 
     useExtraLayout(
@@ -67,6 +67,7 @@ const Tournaments = () => {
                                 player_count={tournament.players.length}
                                 start_date={new Date(tournament.start_date)}
                                 onJoin={joinTournamnet}
+                                onLeave={leaveTournament}
                                 player={player}
                                 players={tournament.players}
                             />

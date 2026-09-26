@@ -15,8 +15,8 @@ export class TournamentSocket {
         return on<{ player: PlayerDTO, tournament_id: string }>(this.socket, 'player_joined', handler);
     }
 
-    playerLeft(handler: (player: PlayerDTO) => void) {
-        return on<PlayerDTO>(this.socket, 'player_left', handler);
+    playerLeft(handler: (data: { player: PlayerDTO, tournament_id: string }) => void) {
+        return on<{ player: PlayerDTO, tournament_id: string }>(this.socket, 'player_left', handler);
     }
 
     tournamentCreated(handler: (tournament: TournamentDTO) => void) {

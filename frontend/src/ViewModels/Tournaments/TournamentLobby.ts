@@ -36,8 +36,8 @@ export const useTournamentLobby = () => {
             setPLayers((prev) => [...prev, data.player]);
         });
 
-        const unsub_left = tournamentSocket.playerLeft((player) => {
-            setPLayers((prev) => prev.filter((p) => p.id !== player.id));
+        const unsub_left = tournamentSocket.playerLeft((data) => {
+            setPLayers((prev) => prev.filter((p) => p.id !== data.player.id));
         });
 
         const unsub_cancel = tournamentSocket.tournamentCancelled(() => {

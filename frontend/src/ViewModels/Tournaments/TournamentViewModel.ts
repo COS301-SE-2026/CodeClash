@@ -75,9 +75,30 @@ export const useTournament = () => {
         return false;
     }
 
+    const leaveTournament = async (tournament_id: string) => {
+        const player: PlayerDTO = {
+            id: userId,
+            elo: elo,
+            username: username,
+            league: league
+        }
+
+        const response = await tournamentSocket?.leaveTournament({ tournament_id, player });
+        if (response?.ok) {
+            return true;
+        }
+        return false;
+    }
+
     const handleJoined = (data: { player: PlayerDTO, tournament_id: string }) => {
         setTournaments((prev) =>
             prev.map((t) => t.tournament_id === data.tournament_id ? { ...t, players: [...t.players, data.player] } : t)
+        )
+    }
+
+    const handleLeave = (data: { player: PlayerDTO, tournament_id: string }) => {
+        setTournaments((prev) =>
+            prev.map((t) => t.tournament_id === data.tournament_id ? { ...t, players: t.players.filter(p => p.id !== data.player.id) } : t)
         )
     }
 
@@ -87,12 +108,18 @@ export const useTournament = () => {
         getTournaments();
 
         const unsub_created = tournamentSocket.tournamentCreated(getTournaments);
-        const unsub_joined = tournamentSocket.playerJoined(handleJoined)
+        const unsub_joined = tournamentSocket.playerJoined(handleJoined);
+        const unsub_left = tournamentSocket.playerLeft(handleLeave);
+        const unsub_join_failed = tournamentSocket.joinFailed((data) => { console.log(data) });
+        const unsub_leave_failed = tournamentSocket.leaveFailed((data) => { console.log(data) });
         return () => {
             unsub_created();
             unsub_joined();
+            unsub_left();
+            unsub_join_failed();
+            unsub_leave_failed();
         }
-    }, [token,tournamentSocket]);
+    }, [token, tournamentSocket]);
 
-    return { lobby, tournaments, getTournaments, createTournament, joinTournamnet, player };
+    return { lobby, tournaments, getTournaments, createTournament, joinTournamnet, leaveTournament, player };
 }
