@@ -1,9 +1,7 @@
 import TournamentsWaiting from "../../../src/Views/TournamentsWaiting"
-import {describe, it, expect, vi} from "vitest";
-import { fireEvent, render, screen } from '@testing-library/react';
-import { ReactNode } from "react";
+import {describe, it, expect} from "vitest";
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from "react-router-dom";
-
 
 describe("WaitingRoom", () => {
     describe("tournament header", () => {
