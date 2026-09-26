@@ -26,7 +26,7 @@ export const useTournament = () => {
             title: string,
             match_mode: MatchMode,
             start_date: Date,
-            players: number,
+            min_players: number
         }) => {
 
         const host: PlayerDTO = {
@@ -37,7 +37,9 @@ export const useTournament = () => {
         const create = {
             start_date: data.start_date,
             match_mode: data.match_mode,
-            host: host
+            host: host,
+            title: data.title,
+            min_players:data.min_players
         }
         const hosted = await tournamentSocket?.hostTournament(create);
 

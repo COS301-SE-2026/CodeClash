@@ -11,7 +11,8 @@ export interface TournamentDTO {
     created_at: Date,
     start_date: Date,
     host: PlayerDTO,
-    title: string
+    title: string,
+    min_players:number
 }
 
 export interface PlayerStandingDTO {

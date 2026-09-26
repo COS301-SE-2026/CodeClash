@@ -12,7 +12,7 @@ interface HostProps {
         title: string,
         match_mode: MatchMode,
         start_date: Date,
-        players: number
+        min_players: number
     }) => Promise<{ ok: boolean, data?: TournamentDTO, error?: string }>
 }
 
@@ -41,7 +41,7 @@ export const HostTournament = ({ Cancel, Create }: HostProps) => {
             title,
             match_mode: mode,
             start_date,
-            players
+            min_players: players
         });
 
         if (result.ok) {

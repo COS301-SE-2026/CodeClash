@@ -60,7 +60,7 @@ export class TournamentSocket {
         return emit<typeof data, void>(this.socket, 'leave_tournament', data);
     }
 
-    hostTournament(data: { start_date: Date, match_mode: MatchMode, host: PlayerDTO }) {
+    hostTournament(data: { start_date: Date, match_mode: MatchMode, host: PlayerDTO , title:string, min_players: number}) {
         return emit<typeof data, TournamentDTO>(this.socket, 'host_tournament', data);
     }
 

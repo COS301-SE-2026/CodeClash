@@ -62,6 +62,9 @@ const Tournaments = () => {
                                 key={tournament.tournament_id}
                                 match_mode={tournament.tournament_mode}
                                 title={tournament.title}
+                                min_players={tournament.min_players}
+                                player_count={tournament.players.length}
+                                start_date={new Date(tournament.start_date)}
                             />
                         )
                     })}
