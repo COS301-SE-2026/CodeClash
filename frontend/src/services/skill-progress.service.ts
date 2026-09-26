@@ -12,14 +12,39 @@ import { seededRandom } from 'src/utils/seededRandom';
 // skill progress requires question by question information, so this is to grab questions from match history and then 
 // use that information for atleast some of the logic and code n stff
 // 
-interface MatchHistoryRow {
-    match_id: string;
-    mode: string;
-    game_type: string;
-    match_start: string;
-    result: MatchOutcome;
-    score: string;
+// interface MatchHistoryRow {
+//     match_id: string;
+//     mode: string;
+//     game_type: string;
+//     match_start: string;
+//     result: MatchOutcome;
+//     score: string;
+// }
+
+interface QuestionResultRow {
+  question_id: string;
+  difficulty: number;
+  correct: boolean;
+  attempts: number;
+  time_ratio: number;
+  accuracy_ratio: number | null;
+  speed_ratio: number | null;
+  time_cx_ratio: number | null;
+  space_cx_ratio: number | null;  
 }
+
+interface SkillProgressRow {
+  match_id: string;
+  match_type: 'ranked' | 'casual' | 'tournament';
+  match_mode: string;
+  match_start: string | null;
+  match_end: string | null;
+  position: number;
+  league: string | null;
+  questions: QuestionResultRow[];
+}
+
+
 
 export interface SkillTelemetry {
     games: GameSample[];
@@ -41,8 +66,10 @@ const baselineFor = (result: MatchOutcome): number => {
     return 0.5;
 };
 
-const toDomain = (gameType: string): GameDomain =>
-  gameType?.toLowerCase() === 'math' ? 'math' : 'programming';
+const toDomain = (matchMode: string): GameDomain =>
+  matchMode?.toLowerCase() === 'math' ? 'math' : 'programming';
+
+const measured = (ratio: number | null): number | undefined => ratio ?? undefined;
 
 function difficultyFor(random: () => number, difficulties: [number, number, number]): number {
     const roll = random();
