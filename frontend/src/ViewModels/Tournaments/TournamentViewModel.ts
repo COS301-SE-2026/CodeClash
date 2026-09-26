@@ -47,7 +47,10 @@ export const useTournament = () => {
 
         if (hosted.ok && hosted.data !== undefined) {
             setTournaments((prev) => [...prev, hosted.data!]);
+             console.log(hosted.data!);
         }
+       
+
         return hosted;
     }
 

@@ -30,9 +30,9 @@ export const leaveTournament = async (io: Server, socket: Socket, tournament_id:
     }
 }
 
-export const hostTournament = async (io: Server, socket: Socket, start_date: Date, match_mode: MatchMode, host: PlayerDTO, tournament_service: TournamentService) => {
+export const hostTournament = async (io: Server, socket: Socket, start_date: Date, match_mode: MatchMode, host: PlayerDTO, title:string, tournament_service: TournamentService) => {
     try {
-        const tournament = await tournament_service.hostTournament(start_date, match_mode, host);
+        const tournament = await tournament_service.hostTournament(start_date, match_mode, host,title);
         io.emit("tournament_created");
         return tournament;
     }

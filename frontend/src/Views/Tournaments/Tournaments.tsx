@@ -1,4 +1,4 @@
-import { MathTournamentCard, ProgrammingTournamentCard } from "@/components/features/Tournaments/TournamentCard"
+import {TournamentCard } from "@/components/features/Tournaments/TournamentCard"
 import FilterButton from "@/components/ui/FilterButton"
 import { PlusIcon, Search } from "lucide-react"
 import { useExtraLayout } from "src/extra-layout"
@@ -57,12 +57,11 @@ const Tournaments = () => {
 
                 <div className="overflow-y-auto w-full flex flex-col gap-9 items-center">
                     {tournaments.length > 0 && tournaments.map((tournament) => {
-                        const CardComponent = tournament.tournament_mode === 'math' ? MathTournamentCard : ProgrammingTournamentCard;
-
-
                         return (
-                            <CardComponent
+                            <TournamentCard
                                 key={tournament.tournament_id}
+                                match_mode={tournament.tournament_mode}
+                                title={tournament.title}
                             />
                         )
                     })}

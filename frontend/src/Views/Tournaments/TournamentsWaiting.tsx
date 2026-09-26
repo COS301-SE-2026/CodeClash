@@ -4,13 +4,13 @@ import { Progress } from "@/components/ui/progress"
 import { TournamentPlayer } from "@/components/features/Tournaments/TournamentPlayer"
 import { MatchCard } from "@/components/ui/MatchCard"
 import { useNavigate } from "react-router-dom"
-import { useTournament } from "src/ViewModels/Tournaments/TournamentViewModel"
+// import { useTournament } from "src/ViewModels/Tournaments/TournamentViewModel"
 
 
 const TournamentsWaiting = () => {
 
     const nav = useNavigate();
-    const { tournaments } = useTournament();
+    // const { tournaments } = useTournament();
 
     return (
         <div className="w-full min-h-screen overflow-hidden relative">

@@ -96,6 +96,7 @@ CREATE TABLE IF NOT EXISTS answers (
 
 CREATE TABLE IF NOT EXISTS matches(
   match_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  title TEXT NOT NULL,
   players JSONB NOT NULL DEFAULT '[]',
   questions JSONB NOT NULL DEFAULT '[]',
   power_ups JSONB NOT NULL DEFAULT '[]',

@@ -9,13 +9,13 @@ export class MatchStart {
         private readonly match_store: MatchStore
     ) { }
 
-    async execute(players: PlayerDTO[], match_mode: MatchMode, league: string, match_type: MatchType) {
-        const setup = await this.match_service.execute(players, match_mode, league, match_type);
+    async execute(players: PlayerDTO[], match_mode: MatchMode, league: string, match_type: MatchType, title?: string) {
+        const setup = await this.match_service.execute(players, match_mode, league, match_type, title);
         await this.match_store.create(setup.match_entity, setup.match_id, players, setup.rounds);
 
         const match = this.match_store.get(setup.match_entity);
 
-        if(!match) throw new Error('Match initialisation error');
+        if (!match) throw new Error('Match initialisation error');
 
         return {
             match_id: setup.match_id,

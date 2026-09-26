@@ -20,7 +20,7 @@ export class MatchCreationService {
         private readonly user_repo: IUserRepository
     ) { }
 
-    async execute(players: PlayerDTO[], match_mode: MatchMode, league: string, game_type: MatchType) {
+    async execute(players: PlayerDTO[], match_mode: MatchMode, league: string, match_type: MatchType, title?: string) {
         let avg_elo = 0;
         const usernames = await Promise.all(
             players.map(async (player) => {
@@ -30,7 +30,8 @@ export class MatchCreationService {
             })
         )
 
-        const title = usernames.join(" vs ")
+        const match_title = match_type === MatchType.tournament ? title : usernames.join(" vs ");
+
         const player_ids = players.map((player) => player.id);
         avg_elo /= players.length;
 
@@ -53,10 +54,10 @@ export class MatchCreationService {
 
         const start = new Date();
         const match_data: MatchDTO = {
-            title: title,
+            title: match_title!,
             status: 'active',
             match_mode: match_mode,
-            match_type: game_type,
+            match_type: match_type,
             winner: -1,
             start_time: start,
             end_time: new Date(start.getTime() + (time * 60 * 1000))
@@ -71,7 +72,7 @@ export class MatchCreationService {
 
 
         const ids = players.map((p) => p.id);
-        const db_match_id = await this.match_repo.createMatch(ids, game_type, match_mode, start); //mode is math or programming
+        const db_match_id = await this.match_repo.createMatch(ids, match_type, match_mode, start); //mode is math or programming
 
         return {
             match_entity: match.match_entity,

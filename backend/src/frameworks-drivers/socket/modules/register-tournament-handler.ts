@@ -12,8 +12,8 @@ export function registerTournamentHandlers(io: Server, socket: Socket, deps: Tou
     registerHandler(socket, "leave_tournament", (socket, data: { tournament_id: string, player: PlayerDTO }) =>
         leaveTournament(io, socket, data.tournament_id, data.player, deps.tournament_service));
 
-    registerHandler(socket, "host_tournament", (socket, data: { start_date: Date, match_mode: MatchMode, host: PlayerDTO }) =>
-        hostTournament(io, socket, data.start_date, data.match_mode, data.host, deps.tournament_service));
+    registerHandler(socket, "host_tournament", (socket, data: { start_date: Date, match_mode: MatchMode, host: PlayerDTO, title: string }) =>
+        hostTournament(io, socket, data.start_date, data.match_mode, data.host, data.title, deps.tournament_service));
 
     registerHandler(socket, "cancel_tournament", (socket, tournament_id: string) =>
         cancelTournament(io, socket, tournament_id, deps.tournament_service));
