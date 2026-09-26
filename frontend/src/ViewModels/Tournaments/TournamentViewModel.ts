@@ -13,7 +13,8 @@ export const useTournament = () => {
     const [tournaments, setTournaments] = useState<TournamentDTO[]>([]);
     const { tournamentSocket } = useSocket();
     const { userId, elo, username, league } = useUser();
-    const player: PlayerDTO = {
+   
+    let player: PlayerDTO = {
         id: userId,
         elo: elo,
         username: username
@@ -34,15 +35,10 @@ export const useTournament = () => {
             min_players: number
         }) => {
 
-        const host: PlayerDTO = {
-            id: userId,
-            elo: elo,
-            username: username
-        }
         const create = {
             start_date: data.start_date,
             match_mode: data.match_mode,
-            host: host,
+            host: player,
             title: data.title,
             min_players: data.min_players
         }
@@ -53,6 +49,7 @@ export const useTournament = () => {
         }
 
         if (hosted.ok && hosted.data !== undefined) {
+            player = hosted.data.host;
             setTournaments((prev) => [...prev, hosted.data!]);
             console.log(hosted.data!);
         }

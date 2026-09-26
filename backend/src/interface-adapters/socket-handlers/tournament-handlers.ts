@@ -5,6 +5,8 @@ import { MatchMode } from "src/entities/dtos/matches/match.dto";
 
 export const joinTournament = async (io: Server, socket: Socket, tournament_id: string, player: PlayerDTO, tournament_service: TournamentService,) => {
     try {
+
+
         await tournament_service.joinTournament(tournament_id, player);
         socket.join(tournament_id);
         io.emit('player_joined', { player, tournament_id });
@@ -61,9 +63,11 @@ export const startTournament = async (io: Server, socket: Socket, tournament_id:
         const match = await tournament_service.startTournament(tournament, league);
 
         const data = { match: match, tournament: tournament };
+        console.log("start tournament handler", data);
         io.to(tournament_id).emit("tournament_started", data);
         return data;
     } catch (error) {
+        console.log("start tournament failed", error);
         socket.emit("start_tournament_failed", error);
     }
 }

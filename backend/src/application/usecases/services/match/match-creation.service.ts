@@ -21,11 +21,14 @@ export class MatchCreationService {
     ) { }
 
     async execute(players: PlayerDTO[], match_mode: MatchMode, league: string, match_type: MatchType, title?: string) {
+        console.log("\n*********************************************\n")
+        console.log("Players ", players);
         let avg_elo = 0;
         const usernames = await Promise.all(
             players.map(async (player) => {
                 avg_elo += player.elo
                 const user = await this.user_repo.getUserData(player.id, 'username');
+                console.log("match creation fetched user", user);
                 return user!.username!;
             })
         )

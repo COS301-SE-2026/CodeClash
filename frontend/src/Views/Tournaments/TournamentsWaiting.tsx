@@ -10,9 +10,8 @@ import { useTournament } from "src/ViewModels/Tournaments/TournamentViewModel"
 const TournamentsWaiting = () => {
 
     const nav = useNavigate();
-    const { tournament, is_host, players } = useTournamentLobby();
+    const { tournament, is_host, players, start } = useTournamentLobby();
     const { starts_in } = useTournament();
-
 
     if (!tournament) {
         return (
@@ -21,6 +20,8 @@ const TournamentsWaiting = () => {
             </div>
         )
     }
+
+    const can_start = players.length >= tournament.min_players
 
     return (
         <div className="w-full min-h-screen overflow-hidden relative">
@@ -37,16 +38,20 @@ const TournamentsWaiting = () => {
                                     <h2 className="font-font font-semibold text-[0.9rem] text-muted-text -ml-3 px-3 -mt-2.5">Leave Waiting Room</h2>
                                 </button>
                             </MatchCard>
-                            {is_host() && <Button className="items-center h-[80%] min-w-40 justify-center px-2 rounded-sm"
-                                variant={"default"}
-                            >
-                                <div className="flex flex-row mt-2.5">
-                                    <Rocket size={25} className="ml-1 -mt-2" />
-                                    <div className="font-font font-semibold text-[1.1rem] ml-2 mr-1 -mt-2">
-                                        Start Match
+                            {is_host() &&
+                                <Button
+                                    className="items-center h-[80%] min-w-40 justify-center px-2 rounded-sm"
+                                    variant={"default"}
+                                    onClick={start}
+                                    disabled={!can_start}
+                                >
+                                    <div className="flex flex-row mt-2.5">
+                                        <Rocket size={25} className="ml-1 -mt-2" />
+                                        <div className="font-font font-semibold text-[1.1rem] ml-2 mr-1 -mt-2">
+                                            Start Match
+                                        </div>
                                     </div>
-                                </div>
-                            </Button>}
+                                </Button>}
                         </div>
                     </div>
 

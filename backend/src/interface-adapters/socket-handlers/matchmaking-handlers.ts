@@ -19,7 +19,6 @@ export const joinMatchQueue = (async (io: Server, socket: Socket, data: any, mat
         joined_at: new Date()
     };
 
-
     const match = await matchmaking_service.matchmaking(user);
 
     if (!match) return;

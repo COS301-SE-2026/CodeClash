@@ -5,12 +5,14 @@ import { MatchMode, MatchStatus, MatchType } from "src/entities/dtos/matches/mat
 import { TournamentDTO } from "src/entities/dtos/tournaments/tournaments.dto";
 import { TournamentEliminationService } from "./elimination.service";
 import { MatchStart } from "../match/match-start.service";
+import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 
 export class TournamentService {
     constructor(
         private readonly tournament_cache: ITournamentCache,
         private readonly creation_service: MatchStart,
-        private readonly elimination_service: TournamentEliminationService
+        private readonly elimination_service: TournamentEliminationService,
+        private readonly user_repo: IUserRepository
     ) { }
 
     async joinTournament(tournament_id: string, player: PlayerDTO): Promise<TournamentDTO> {
@@ -70,7 +72,15 @@ export class TournamentService {
         if (tournament.status !== MatchStatus.Waiting) throw new Error("Tournament already started");
         if (tournament.players.length < tournament.min_players) throw new Error("Not enough players");
 
-        const match = await this.creation_service.execute(tournament.players, tournament.tournament_mode, league, MatchType.tournament, tournament.title);
+        console.log("Tournament service creating", tournament);
+
+        const db_players = await Promise.all(
+            tournament.players.map(async (p) => ({
+                ...p,
+                id: (await this.user_repo.getUserId(p.id))!.user_id!
+            }))
+        );
+        const match = await this.creation_service.execute(db_players, tournament.tournament_mode, league, MatchType.tournament, tournament.title);
 
         tournament.rounds = match.rounds;
         tournament.status = MatchStatus.In_progress;

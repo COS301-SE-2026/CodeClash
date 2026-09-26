@@ -148,7 +148,7 @@ AppDataSource.initialize()
         const marking_service = new MarkingService(match_cache, submission_system, life_system, maths_marker, prog_marker, opponent_progress);
 
         const elimination_service = new TournamentEliminationService(marking_service);
-        const tournament_service = new TournamentService(tournament_cache, match_start, elimination_service);
+        const tournament_service = new TournamentService(tournament_cache, match_start, elimination_service,user_repo);
 
 
         const app = createApp(

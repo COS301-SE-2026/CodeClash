@@ -6,6 +6,9 @@ import { type MatchMode } from "src/dtos/match/match.dto"
 import { Button } from "@/components/ui/button"
 import type { TournamentDTO } from "src/dtos/tournaments/tournament.dto"
 
+
+const MIN_PLAYERS = 3;
+
 interface HostProps {
     Cancel: () => void,
     Create: (data: {
@@ -175,7 +178,7 @@ export const HostTournament = ({ Cancel, Create }: HostProps) => {
                     <div className="flex items-center  bg-match-box border border-match-card rounded-xl">
                         <Button
                             type="button"
-                            onClick={() => setPlayers(Math.max(8, players - 1))}
+                            onClick={() => setPlayers(Math.max(MIN_PLAYERS, players - 1))}
                             className="rounded-lg bg-match-card"
                         >
                             -

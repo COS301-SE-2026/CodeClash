@@ -75,6 +75,7 @@ export const useTournamentLobby = () => {
     }
 
     const start = () => {
+        console.log("starting tournament");
         if (tournament) {
             const data = {
                 tournament_id: tournament.tournament_id,
@@ -85,6 +86,10 @@ export const useTournamentLobby = () => {
         }
 
     }
+
+    // const tournament_started = ()=>{
+
+    // }
 
     const is_host = () => {
         return userId === tournament?.host.id;
