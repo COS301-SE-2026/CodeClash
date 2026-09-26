@@ -18,7 +18,7 @@ export const ProgMatch = () => {
         elos, seconds, minutes, questions,
         currentQuestion, opponentCurrent,
         nextQuestion, prevQuestion,
-        results, waitingOpponent,
+        results, waitingOpponent, roundIdx,
         finishGame, loading, submitQuestion
     } = useMatch();
 
@@ -33,7 +33,7 @@ export const ProgMatch = () => {
     return (
         <MatchScreen
             player_life={playerLife}
-            colour="var(--life-primary)"
+            // colour="var(--life-primary)"
             seconds={seconds}
             minutes={minutes}
             avatars={avatars}
@@ -42,7 +42,7 @@ export const ProgMatch = () => {
             current_question={currentQuestion}
             opponent_progress={opponentCurrent}
             question_number={questions.length}
-            question_results={results}
+            question_results={results[roundIdx] ?? []}
         >
             <Question
                 className={` h-[10rem]`}
@@ -70,13 +70,11 @@ export const ProgMatch = () => {
                     <TournamentButton className='w-[10%] h-[2.2rem] my-auto rounded-2xl text-[1.3rem] hover:-translate-y-1'
                         onClick={() => {
                             if (code.trim()) {
-                                submitQuestion(curr.id!, 'prog',
-                                    {
-
-                                        source_code: code,
-                                        language_id: 54,
-                                        stdin: null
-                                    })
+                                submitQuestion({
+                                    source_code: code,
+                                    language_id: 54,
+                                    stdin: null
+                                })
                             }
                         }}
                     >
