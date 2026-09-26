@@ -44,7 +44,7 @@ export class QuestionResultBuilder {
           return {
               question_id: question.id,
               round_number,
-              difficulty: Number(question.difficulty),
+              difficulty: Number(question.difficulty_level ?? question.difficulty),
               time_limit_ms,
               correct,
               attempts: submission?.attempt_number ?? 0,
