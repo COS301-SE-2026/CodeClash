@@ -1,15 +1,16 @@
-import "../styles/global.css"
 import {LogOut, Rocket, Timer, UserRoundPlus} from "lucide-react"
 import TournamentButton from "@/components/ui/TournamentButton"
 import { Progress } from "@/components/ui/progress"
 import { TournamentPlayer } from "@/components/ui/TournamentPlayer"
 import { MatchCard } from "@/components/ui/MatchCard"
 import { useNavigate } from "react-router-dom"
+import { useTournamentLobby } from "src/ViewModels/Tournaments/TournamentViewModel"
 
 
 const TournamentsWaiting = () => {
 
     const nav = useNavigate();
+    const {} = useTournamentLobby();
 
     return(
         <div className="w-full min-h-screen overflow-hidden relative">

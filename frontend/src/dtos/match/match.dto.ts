@@ -9,7 +9,8 @@ export interface PlayerDTO {
     elo: number,
     username?: string,
     life?: number,
-    avatar?:string
+    avatar?:string,
+    league?: string
 }
 
 export const QuestionInputType = {

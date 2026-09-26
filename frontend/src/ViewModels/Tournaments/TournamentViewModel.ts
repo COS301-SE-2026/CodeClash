@@ -6,6 +6,8 @@ import type { PlayerDTO } from "src/dtos/match/match.dto"
 import type { TournamentDTO } from "src/dtos/tournaments/tournament.dto";
 import { useMatchStore } from "src/stores/match-store";
 
+const MIN_PLAYERS = 8;
+
 
 export const useTournamentLobby = () => {
     const [players, setPLayers] = useState<PlayerDTO[]>([]);
@@ -13,7 +15,7 @@ export const useTournamentLobby = () => {
     const [error, setError] = useState<string | null>(null);
 
     const { tournamentSocket } = useSocket();
-    const { userId } = useUser();
+    const { userId} = useUser();
     const { tournament_id } = useParams<{ tournament_id: string }>();
     const nav = useNavigate();
 
@@ -73,11 +75,25 @@ export const useTournamentLobby = () => {
             setError('Cannot cancel tournament');
     }
 
+    const start = ()=>{
+        if(tournament){
+            const data = {
+                tournament_id: tournament.tournament_id,
+                league: tournament.host.league!,
+
+            }
+            tournamentSocket?.startTournament(data);
+        }
+
+    }
+
     return {
         tournament,
         players,
         error,
         leave,
         cancel,
+        MIN_PLAYERS,
+        start
     }
 }
