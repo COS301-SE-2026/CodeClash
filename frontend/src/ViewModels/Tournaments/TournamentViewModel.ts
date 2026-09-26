@@ -102,6 +102,27 @@ export const useTournament = () => {
         )
     }
 
+    const starts_in = (start_date: Date) => {
+        const diff_ms = start_date.getTime() - Date.now();
+
+        if (diff_ms <= 0) return "NOW";
+
+        const total_seconds = Math.floor(diff_ms / 1000);
+        const days = Math.floor(total_seconds / 86400);
+        const hours = Math.floor((total_seconds % 86400) / 3600);
+        const minutes = Math.floor((total_seconds % 3600) / 60);
+        const seconds = total_seconds % 60;
+
+        let time = "";
+
+        if (days > 0) time += `${days}d `;
+        if (hours > 0) time += `${hours}h `;
+        if (minutes > 0) time += `${minutes}m `;
+        if (seconds > 0) time += `${seconds}s`;
+
+        return time;
+    }
+
     useEffect(() => {
         if (!token || !tournamentSocket) return;
 
@@ -121,5 +142,14 @@ export const useTournament = () => {
         }
     }, [token, tournamentSocket]);
 
-    return { lobby, tournaments, getTournaments, createTournament, joinTournamnet, leaveTournament, player };
+    return { 
+        lobby, 
+        tournaments, 
+        getTournaments, 
+        createTournament, 
+        joinTournamnet, 
+        leaveTournament, 
+        player,
+        starts_in
+    };
 }

@@ -16,9 +16,10 @@ interface TournamentCardProps {
     player_count: number,
     start_date: Date,
     onJoin: (tournament_id: string) => Promise<boolean>
-    onLeave: (tournament_id:string)=> Promise<boolean>
+    onLeave: (tournament_id: string) => Promise<boolean>
     player: PlayerDTO,
-    players: PlayerDTO[]
+    players: PlayerDTO[],
+    starts_in: (start_date: Date) => string
 }
 
 //Any copied and pasted code below was all hand-written and pasted for the sake of saving time, ai did not generate this code
@@ -35,49 +36,27 @@ export const TournamentCard = ({
     onJoin,
     onLeave,
     player,
-    players
+    players,
+    starts_in
 }: TournamentCardProps) => {
-
-    const starts_in = () => {
-        const diff_ms = start_date.getTime() - Date.now();
-
-        if (diff_ms <= 0) return "NOW";
-
-        const total_seconds = Math.floor(diff_ms / 1000);
-        const days = Math.floor(total_seconds / 86400);
-        const hours = Math.floor((total_seconds % 86400) / 3600);
-        const minutes = Math.floor((total_seconds % 3600) / 60);
-        const seconds = total_seconds % 60;
-
-        let time = "";
-
-        if (days > 0) time += `${days}d `;
-        if (hours > 0) time += `${hours}h `;
-        if (minutes > 0) time += `${minutes}m `;
-        if (seconds > 0) time += `${seconds}s`;
-
-        return time;
-    }
-
 
     const nav = useNavigate();
     const Icon = match_mode === 'math' ? Calculator : CodeXml;
     const progress = (player_count / min_players) * 100;
-    const [countdown, setCountdown] = useState(() => starts_in());
+    const [countdown, setCountdown] = useState(() => starts_in(start_date));
     const joined = players.some((p) => p.id === player.id);
 
     const handleJoin = async () => {
         await onJoin(id);
     }
 
-    const handleLeave = async ()=>{
-        console.log("handling the leave")
+    const handleLeave = async () => {
         await onLeave(id);
     }
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setCountdown(starts_in());
+            setCountdown(starts_in(start_date));
         }, 1000);
 
         return () => clearInterval(interval);
@@ -131,7 +110,7 @@ export const TournamentCard = ({
             {joined &&
                 <div>
                     <Button
-                        onClick={() => { nav(`tournaments/waiting/${id}`) }}
+                        onClick={() => { nav(`/tournaments/waiting/${id}`) }}
                         className="w-[12rem] h-[2.25rem] my-auto rounded-[11px]"
                         variant={"default"}
                     >
