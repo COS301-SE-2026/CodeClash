@@ -1,0 +1,14 @@
+frontend/test/unit/Views/TournamentsWaiting.test.tsx
+  h_58e143dc25f856 2-3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "de44eb023c22205aa96d9b187e6741b9ef172875",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+frontend/src/Models/SkillProgressModel.ts
+  h_58e143dc25f856 144-158,171,368,370-371
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "8c5ffb96436f851774ae102b012d3752e0fb1f59",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
