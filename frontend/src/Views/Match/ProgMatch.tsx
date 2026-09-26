@@ -18,7 +18,7 @@ export const ProgMatch = () => {
         elos, seconds, minutes, questions,
         currentQuestion, opponentCurrent,
         nextQuestion, prevQuestion,
-        results, waitingOpponent, roundIdx,
+        results, waitingOpponent, roundIdx, rounds,
         finishGame, loading, submitQuestion
     } = useMatch();
 
@@ -42,7 +42,9 @@ export const ProgMatch = () => {
             current_question={currentQuestion}
             opponent_progress={opponentCurrent}
             question_number={questions.length}
-            question_results={results[roundIdx] ?? []}
+        question_results={results}
+        rounds={rounds}
+        current_round={roundIdx}
         >
             <Question
                 className={` h-[10rem]`}

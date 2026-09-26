@@ -63,7 +63,7 @@ export const sendResults = (io: Server, match_id: number, match_store: MatchStor
 
     const ids = result.result.players.map((player: PlayerResultDTO) => player.user_id);
     for (const id of ids) {
-        io.to(id).emit('get_result', result);
+        io.to(id).emit('get_results', result);
     }
 }
 

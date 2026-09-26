@@ -14,7 +14,7 @@ const MathsMatch = () => {
         status,
         questions,
         results,
-        roundIdx,
+        roundIdx, rounds,
         playerLife,
         avatars,
         usernames,
@@ -25,7 +25,7 @@ const MathsMatch = () => {
         currentQuestion,
         nextQuestion, prevQuestion,
         loading,
-        // submitQuestion,
+        submitQuestion,
         mathfieldRef, waitingOpponent,
         finishGame
     } = useMatch();
@@ -45,9 +45,9 @@ const MathsMatch = () => {
     // }
 
     useEffect(() => {
-        // if (mathfieldRef.current) {
-        //     mathfieldRef.current.value = answers?.[currentQuestion] ?? ''
-        // }
+        if (mathfieldRef.current) {
+          mathfieldRef.current.value = '';
+        }
     }, [currentQuestion])
 
 
@@ -68,7 +68,9 @@ const MathsMatch = () => {
         current_question={currentQuestion}
         opponent_progress={opponentCurrent}
         question_number={questions.length}
-        question_results={results[roundIdx] ?? []}
+        question_results={results}
+        rounds={rounds}
+        current_round={roundIdx}
         >
 
             <Question
@@ -94,8 +96,8 @@ const MathsMatch = () => {
                 </div>
                 <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem] hover:-translate-y-1'
                     onClick={() => {
-                        // const answer = mathfieldRef.current?.value ?? '';
-                        // submitQuestion(curr.id!, 'math', { answer: answer })
+                        const answer = mathfieldRef.current?.value ?? '';
+                      if (answer.trim()) submitQuestion({ answer });
                     }}
                 >
                     SUBMIT

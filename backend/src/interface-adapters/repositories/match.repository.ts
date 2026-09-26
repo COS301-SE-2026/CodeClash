@@ -65,7 +65,7 @@ export class MatchRepository implements IMatchRepository {
                 elimination_round: me.elimination_round,
                 score: {
                     correct: me.num_correct,
-                    total: match.questions.length,
+                    total: me.questions?.length ?? 0,
                     time: me.total_time
                 }
             };
@@ -125,7 +125,7 @@ const player = match.players.find(p => p.id === user_id)!;
                         user_id: player.id,
                         username: user.username!,
                         avatar: user.avatar_id!,
-                        correctness: (match.questions.length > 0) ? player.num_correct / match.questions.length : 0,
+                        correctness: player.questions?.length ? Math.round((player.num_correct / player.questions.length) * 100) : 0,
                         speed: player.total_time,
                         eloEffect: player.elo_change,
                         position: player.position,

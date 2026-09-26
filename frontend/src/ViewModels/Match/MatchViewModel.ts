@@ -13,7 +13,7 @@ import { useUser } from 'src/context/User/hooks/useUser';
 export const useMatch = () => {
     const nav = useNavigate();
     const { matchSocket } = useSocket();
-    const { id } = useParams();
+    const { match_id: id } = useParams();// route is /math-match.:match_id and vice versa for programming
     const { match_mode, gameType } = useMatchmaking();
     const { userId } = useUser();
     const [gameOver, setGameOver] = useState(false);
@@ -64,22 +64,24 @@ export const useMatch = () => {
         }
     }
 
-    const finishGame = () => {
-        if (question_idx.current === questions.length - 1) {
-            setWaitingOpponent(true);
-        }
+  const finishGame = () => {
+      setWaitingOpponent(true);
+      matchSocket?.finishMatch({ match_id: id!, match_type: gameType! })
+        .catch((error: unknown) => console.error('Error finishing match:', error));
     }
 
     const both_done = () => {
         setWaitingOpponent(false);
         nav(`/results/${id}`, {
-            replace: true,
+          replace: true,
+          state: { id }
         });
     }
 
     const { seconds, minutes } = useGameTimer(duration, () => {
         setGameOver(true);
-        matchSocket?.finishMatch({ match_id: id!, match_mode: match_mode! })
+        // matchSocket?.finishMatch({ match_id: id!, match_mode: match_mode! })
+      finishGame();
     })
 
 
@@ -113,21 +115,29 @@ export const useMatch = () => {
             match_id: id!,
             player_id: userId,
             question_id: curr_q.id!,
-            round_number: 0,    // to be updated
+            round_number: roundIdx,    // to be updated
             question_number: currentQuestion,
             match_type: gameType!,
             match_mode: match_mode!,
             submission: data
         }
 
-        matchSocket?.submitAnswer(submission);
+        // matchSocket?.submitAnswer(submission);
+      question_idx.current = currentQuestion;
+
+      try {
+        const response = await matchSocket?.submitAnswer(submission);
+        if ( response?.ok && response.data) submission_result(response.data)
+      } catch (error) {
+        submission_error(error instanceof Error ? error.message : String(error));
+      }
     }
 
 
     useEffect(() => {
         if (matchSocket && id) {
 
-            const unsub_marking = matchSocket.markingComplete(submission_result);
+            // const unsub_marking = matchSocket.markingComplete(submission_result);
             const unsub_submission_error = matchSocket.submissionError(submission_error);
             const unsub_done = matchSocket.bothDone(both_done);
             const unsub_opponent_progress = matchSocket.opponentProgress(opponent_progress);
@@ -137,7 +147,7 @@ export const useMatch = () => {
 
 
             return () => {
-                unsub_marking();
+                // unsub_marking();
                 unsub_submission_error();
                 unsub_done();
                 unsub_opponent_progress();
@@ -171,6 +181,7 @@ export const useMatch = () => {
         submitQuestion,
       nextRound,
       roundIdx,
+      rounds,
         elos
     }
 }

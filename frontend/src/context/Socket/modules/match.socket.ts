@@ -3,7 +3,7 @@ import { emit, on } from "../dispatch";
 import type { SubmissionDTO, MarkingResultDTO } from "src/dtos/match/submission.dto";
 import type { MatchQuestionsDTO, RoundDTO } from "src/dtos/match/match.dto";
 import type { MatchResultDTO, ResultDTO } from "src/dtos/match/result.dto";
-import type { MatchMode } from "src/dtos/match/match.dto";
+import type { MatchType } from "src/dtos/match/match.dto";
 import type { Player } from "src/Models/MatchModel";
 import type { OpponentDTO } from "src/dtos/match/opponent.dto";
 
@@ -68,7 +68,7 @@ export class MatchSocket {
         return emit<SubmissionDTO, MarkingResultDTO>(this.socket, `submit_question`, data);
     }
 
-    finishMatch(data: { match_id: string, match_mode: MatchMode }) {
+    finishMatch(data: { match_id: string, match_type: MatchType }) {
         return emit<typeof data, MatchResultDTO>(this.socket, 'match_done', data);
     }
 

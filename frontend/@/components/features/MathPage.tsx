@@ -5,6 +5,9 @@ import { MathfieldElement } from "mathlive";
 import React, { useState } from "react";
 import { MatchCard } from "../ui/MatchCard";
 import VirtualKeyboard from "./VirtualKeyboard";
+import "mathlive/fonts.css";
+
+MathfieldElement.fontsDirectory = null;
 
 declare module "react" {
   // eslint-disable-next-line @typescript-eslint/no-namespace
