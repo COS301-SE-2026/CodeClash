@@ -1,0 +1,22 @@
+backend/src/interface-adapters/socket-handlers/match-handlers.ts
+  h_94c952a9e14c58 9,11,13,17,19-29
+backend/src/application/usecases/services/tournament/elimination.service.ts
+  h_94c952a9e14c58 80-90,103,109-114
+backend/src/entities/dtos/submissions/submission-result.dto.ts
+  h_94c952a9e14c58 35
+backend/src/entities/dtos/submissions/submission.dto.ts
+  h_94c952a9e14c58 1-2,23,28
+backend/src/application/usecases/services/marking/marking.service.ts
+  h_94c952a9e14c58 34
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "40b44a6169cdba56302d83df09b6e5993c05f2b4",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
