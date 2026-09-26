@@ -137,7 +137,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                     // className='bg-[var(--match-card)] w-[100%] h-[100%] rounded-4xl ml-1 pt-[2rem] flex flex-col justify-between items-center'
                     >
                         {children}
-                    </div> */}
+                    </div> 
                 </div>
 
                 {/* Progress bar */}
