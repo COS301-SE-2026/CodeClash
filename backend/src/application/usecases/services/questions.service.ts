@@ -28,9 +28,9 @@ export class GetQuestions {
 
 
         return {
-            easy: easy_questions.map(q=>({...q, difficulty: "Easy"})),
-            medium: medium_questions.map(q=>({...q, difficulty: "Medium"})),
-            hard: hard_questions.map(q=>({...q, difficulty: "Hard"}))
+          easy: easy_questions.map(q=>({...q, difficulty_level: Number(q.difficulty), difficulty: "Easy"})),
+          medium: medium_questions.map(q=>({...q, difficulty_level: Number(q.difficulty), difficulty: "Medium"})),
+          hard: hard_questions.map(q=>({...q, difficulty_level: Number(q.difficulty), difficulty: "Hard"}))
         }
     }
 }
