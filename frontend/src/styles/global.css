@@ -671,6 +671,11 @@
     --glow-shadow: 0 0 24px rgba(212, 175, 55, 0.45);
 
     --life-primary: #d4af37;
+
+    /*for the radial gradients*/
+    --glow-1: #e8c34a;
+    --glow-2: #6b5716;
+    --glow-3: #35290b;
 }
 
 /*These are copied from :root.light and adjusted for more themes*/
@@ -742,6 +747,11 @@
     --glow-shadow: 0 0 24px rgba(139, 63, 214, 0.45);
 
     --life-primary: #8b3fd6;
+
+    /*for the radial gradients*/
+  --glow-1: #a855f7;
+  --glow-2: #4a1d80;
+  --glow-3: #23103d;
 }
 
 /*These are copied from :root.light and adjusted for more themes*/
@@ -813,6 +823,11 @@
     --glow-shadow: 0 0 24px rgba(156, 204, 60, 0.45);
 
     --life-primary: #9ccc3c;
+
+    /*for the radial gradients*/
+  --glow-1: #b6e34f;
+  --glow-2: #4d661d;
+  --glow-3: #24210e;
 }
 
 @layer base {
