@@ -16,10 +16,6 @@ export class EquippedItems {
     avatar!: ShopItem | null;
 
     @ManyToOne(() => ShopItem, { nullable: true })
-    @JoinColumn({ name: 'powerup_item_id' })
-    powerup?: ShopItem | null;
-
-    @ManyToOne(() => ShopItem, { nullable: true })
     @JoinColumn({ name: 'theme_id' })
     theme?: ShopItem | null;
     
