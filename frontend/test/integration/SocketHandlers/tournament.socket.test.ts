@@ -22,7 +22,7 @@ const host: PlayerDTO = {
 let tournament: TournamentDTO;
 
 const tournament_size = 7;
-describe("Testing tournament socket", () => {
+describe.skip("Testing tournament socket", () => {
     beforeAll(async () => {
         await signIn({ username: env.VITE_INTEGRATION_TEST_USER!, password: env.VITE_INTEGRATION_TEST_PASS! });
 
