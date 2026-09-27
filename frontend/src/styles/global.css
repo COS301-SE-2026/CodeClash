@@ -297,8 +297,8 @@
   --color-life-primary-hover: var(--life-primary-hover);
 
   --background-image-radial-glow: var(--gradient-radial);
-  --background-image-radial-glow: var(--gradient-radial-corner);
-  --background-image-radial-glow: var(--gradient-radial-blob);
+  --background-image-radial-glow-corner: var(--gradient-radial-corner);
+  --background-image-radial-glow-blob: var(--gradient-radial-blob);
 }
 
 :root {
@@ -825,7 +825,7 @@
     --life-primary: #9ccc3c;
 
     /*for the radial gradients*/
-  --glow-1: #b6e34f;
+  --glow-1: #aac075;
   --glow-2: #4d661d;
   --glow-3: #24210e;
 }
@@ -1295,5 +1295,17 @@
 
   .nav-link:hover {
     color: var(--primary-hover);
+  }
+
+  .bg-radial-glow {
+    background: var(--gradient-radial);
+  }
+
+  .bg-radial-glow-corner {
+    background: var(--gradient-radial-corner);
+  }
+
+  .bg-radial-glow-blob {
+    background: var(--gradient-radial-blob);
   }
 }

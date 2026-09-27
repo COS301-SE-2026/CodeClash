@@ -59,7 +59,7 @@ export const steps:Step[] = [
         step: '03',
         icon: 'trophy',
         title: 'Climb the Ranks',
-        desc: 'Your ELO updates after every match. Earn nadges, trcak your history, and rise through the leaderboard.',
+        desc: 'Your ELO updates after every match. Earn badges, track your history, and rise through the leaderboard.',
     }
 ]
 
