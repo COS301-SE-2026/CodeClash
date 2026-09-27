@@ -45,7 +45,9 @@ export class MatchCompletionService {
         }
 
         for (const player of players) {
-            
+            const stat = match_stats.get(player.id)!;
+            const reward = this.reward_service.calculateReward(match_type, player.position, players.length, stat);
+            await this.wallet_repo.updateBalance(player.id, reward);
         }
 
         this.achievement_service.evaluateForMatch(match_stats, players, match_type, total_questions);
