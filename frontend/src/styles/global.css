@@ -280,6 +280,25 @@
   --multiple-choice: var(--multiple-choice-box);
   --multiple-choice-option: var(--multiple-choice-letter);
 
+  /*Hover states*/
+  --color-primary-hover: var(--primary-hover);
+  --color-secondary-hover: var(--secondary-hover);
+  --color-accent-hover: var(--accent-hover);
+  --color-button-primary-hover: var(--button-primary-hover);
+  --color-button-secondary-hover: var(--button-secondary-hover);
+  --color-card-hover: var(--card-hover);
+  --color-background-elevated-hover: var(--background-elevated-hover);
+  --color-sidebar-accent-hover: var(--sidebar-accent-hover);
+  --color-danger-hover: var(--danger-hover);
+  --color-destructive-hover: var(--destructive-hover);
+  --color-success-hover: var(--success-hover);
+  --color-warning-hover: var(--warning-hover);
+  --color-info-hover: var(--info-hover);
+  --color-life-primary-hover: var(--life-primary-hover);
+
+  --background-image-radial-glow: var(--gradient-radial);
+  --background-image-radial-glow: var(--gradient-radial-corner);
+  --background-image-radial-glow: var(--gradient-radial-blob);
 }
 
 :root {
