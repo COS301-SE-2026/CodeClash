@@ -1,10 +1,10 @@
 import React from 'react'
-import { TimerBox } from '../ui/TimerBox'
 import { Progress } from '../ui/progress'
-import {Check, X, LockKeyhole, Timer, Target} from "lucide-react"
+import {Check, X, LockKeyhole, Target} from "lucide-react"
 import { MatchCard } from '../ui/MatchCard'
 import TournamentButton from '../ui/TournamentButton'
 import { TournamentsBadge } from '../ui/TournamentsBadge'
+import { TimerCard } from '../ui/MatchBox'
 
 interface MatchScreenProps {
     player_life: number[],
@@ -48,7 +48,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 {/* Player 1 Progress */}
                 <div className="shrink-0 min-w-0 w-xl flex-1 ml-7 h-[6rem] mt-10">
                     <div className="flex flex-row items-center gap-2 w-full mt-2">
-                        <TournamentButton className="my-auto min-w-0 w-18 h-12 items-center -px-1 -py-4 -ml-3 -mt-1 my-auto">
+                        <TournamentButton className="my-auto min-w-0 w-18 h-12 items-center -px-1 -py-4 -ml-3 -mt-1">
                             <div style={{backgroundImage : `url(${avatars[0]})`}} className="w-full h-full bg-no-repeat bg-cover bg-center">
 
                             </div>
@@ -76,16 +76,13 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 </div>
 
                 {/* Clock */}
-                <TimerBox className='shrink-0 text-white font-dseg border border-[var(--match-card)] 
+                <TimerCard className='shrink-0 text-white font-dseg border border-[var(--match-card)] 
                 h-6 w-38 flex items-center justify-center text-[70%] text-center font-semibold rounded-sm px-2 my-auto -mt-4.5'>
-                    <div className="flex flex-row whitespace-wrap">
-                        <Timer size={20} className="mr-3 my-auto text-muted-text"/>
-                        <span>
-                            {String(minutes).padStart(2, "0")}:
-                            {String(seconds).padStart(2, "0")}
-                        </span>
-                    </div>
-                </TimerBox>
+                    <span>
+                        {String(minutes).padStart(2, "0")}:
+                        {String(seconds).padStart(2, "0")}
+                    </span>     
+                </TimerCard>
 
                 {/* Player 2 Progress */}
 
