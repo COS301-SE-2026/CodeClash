@@ -52,9 +52,47 @@ export class PowerupSystem {
      * target_id = required for anything aimed at the opponent
      */
     apply(
-        
+        match_id: number,
+        effect: string,
+        metadata: Record<string, unknown>,
+        actor_id: string,
+        target_id?: string
     ): ApplyPowerupResult {
+        if(this.isPowerdown(effect)) {
+            if(!target_id) throw new Error('This effect requires a target_user_id');
 
+            const target_state = this.getPlayerState(match_id, target_id);
+            if (target_state.shield_active) {
+                target_state.shield_active = false;
+                return { blocked: true, effect };
+            }
+        }
+
+        switch (effect) {
+            case 'reduce_time':
+
+            case 'increase_time':
+
+            case 'cores_multiplier':
+
+            case 'restore_life':
+
+            case 'drain_life':
+
+            case 'block_next_powerdown':
+
+            case 'insert_bugs':
+
+            case 'wipe_answer':
+
+            case 'block_question':
+
+            case 'reveal_hint':
+
+            default:
+                throw new Error(`Uknown powerup effect: ${effect}`);
+        }
+        return { blocked: false, effect };
     }
 
     isQuestionBlocked(match_id: number, user_id: string): boolean {
