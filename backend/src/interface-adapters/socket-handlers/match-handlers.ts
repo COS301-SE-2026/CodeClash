@@ -18,6 +18,7 @@ export const submitQuestion = async (socket: Socket, data: RawSubmissionDTO, mar
     }
 
 
+    console.log("marking question")
     switch (data.match_type) {
         case MatchType.ranked:
             return await mark.execute(submission);
