@@ -71,4 +71,18 @@ export class LifeSystem {
         return life_update;
 
     }
+
+    // Function for powerup system
+    adjustLife(match_id: number, user_id: string, delta: number): number {
+        const players = this.getMatchComponent<PlayersComponent>(match_id, 'Players');
+        const player_entity = players?.players.get(user_id);
+
+        if (player_entity === undefined) throw new Error('Invalid Player');
+        
+        const life = this.world.getPlayerComponent<LifeComponent>(player_entity, 'Life');
+        if(!life) throw new Error('Error getting player life');
+
+        life.current_life = Math.max(0, Math.min(life.max_life, life.current_life + delta));
+        return life.current_life;
+    }
 }

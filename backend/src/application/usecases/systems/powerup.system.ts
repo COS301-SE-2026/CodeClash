@@ -1,9 +1,7 @@
-import { match } from 'node:assert';
 import { World } from '../../../entities/World';
 import { LifeSystem } from './life.system';
 import { SubmissionSystem } from './submission.system';
 import { PowerupStateComponent, PlayerPowerupState } from 'src/entities/components';
-import { act } from 'react';
 
 const POSITIVE_EFFECTS = new Set([
     'reduce_time', 'reveal_hint', 'score_multiplier', 'restore_life', 'block_next_powerdown'
