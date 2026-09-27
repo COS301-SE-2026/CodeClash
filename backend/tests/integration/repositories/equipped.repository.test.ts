@@ -59,7 +59,7 @@ describe('Tests EquippedRespository', () => {
         const avatar_id = item_ids.find((_, i) => mock_shop_items[i]!.category === 'avatar')!;
         const result = await repo.updateEquipped(user_id, { avatar_item_id: avatar_id });
 
-        expect(result.powerup!.shop_item_id).toBe(avatar_id);
+        expect(result.avatar!.shop_item_id).toBe(avatar_id);
         expect(result.theme).toBeDefined(); // theme from previous test still equipped
     });
 
