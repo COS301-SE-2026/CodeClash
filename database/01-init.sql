@@ -181,6 +181,7 @@ CREATE TABLE IF NOT EXISTS user_items (
   user_id UUID REFERENCES users(user_id),
   shop_item_id UUID REFERENCES shop_items(shop_item_id),
   acquired_at TIMESTAMP DEFAULT NOW(),
+  quantity INTEGER DEFAULT 1,
   UNIQUE(user_id, shop_item_id)   -- stops them owning the same thing twice
 );
 

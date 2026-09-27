@@ -5,4 +5,5 @@ export interface UserItemDTO {
     user_id: string;
     item: ShopItemDTO;
     acquired_at: Date;
+    quantity: number;
 }

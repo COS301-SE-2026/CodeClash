@@ -15,7 +15,8 @@ export class InventoryRepository implements IInventoryRepository {
             user_item_id: i.user_item_id,
             user_id: i.user.user_id,
             item: this.shopItemMapper.toDTO(i.shop_item),
-            acquired_at: i.acquired_at
+            acquired_at: i.acquired_at,
+            quantity: i.quantity
         };
     }
 
