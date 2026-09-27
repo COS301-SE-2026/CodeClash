@@ -186,7 +186,7 @@ describe('UserProvider integration', () => {
       if (url.endsWith('_streak')) return Promise.reject(new Error('streak service down'));
       return Promise.resolve({
         status: 200,
-        data: { rating: 1200, league: 'Bronze', rank: 42 },
+        data: { elo: 1200, league: 'Bronze', rank: 42 },
       });
     });
 
