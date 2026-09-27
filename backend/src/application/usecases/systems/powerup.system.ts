@@ -1,3 +1,4 @@
+import { PowerupMetadata } from 'src/entities/dtos/shop/shop.dto';
 import { World } from '../../../entities/World';
 import { LifeSystem } from './life.system';
 import { SubmissionSystem } from './submission.system';
@@ -53,7 +54,7 @@ export class PowerupSystem {
     apply(
         match_id: number,
         effect: string,
-        metadata: Record<string, unknown>,
+        metadata: PowerupMetadata,
         actor_id: string,
         target_id?: string
     ): ApplyPowerupResult {
@@ -69,23 +70,23 @@ export class PowerupSystem {
 
         switch (effect) {
             case 'reduce_time':
-                this.getPlayerState(match_id, actor_id).time_delta_seconds -= metadata.value_seconds as number;
+                this.getPlayerState(match_id, actor_id).time_delta_seconds -= metadata.value!;
                 break;
 
             case 'increase_time':
-                this.getPlayerState(match_id, target_id!).time_delta_seconds += metadata.value_seconds as number;
+                this.getPlayerState(match_id, target_id!).time_delta_seconds += metadata.value!;
                 break;
 
             case 'score_multiplier':
-                this.getPlayerState(match_id, actor_id).score_multiplier_percent += metadata.value_percent as number;
+                this.getPlayerState(match_id, actor_id).score_multiplier_percent += metadata.value!;
                 break;
 
             case 'restore_life':
-                this.life_system.adjustLife(match_id, actor_id, metadata.value as number);
+                this.life_system.adjustLife(match_id, actor_id, metadata.value!);
                 break;
 
             case 'drain_life':
-                this.life_system.adjustLife(match_id, target_id!, metadata.value as number);
+                this.life_system.adjustLife(match_id, target_id!, -metadata.value!);
                 break;
 
             case 'block_next_powerdown':
@@ -132,10 +133,10 @@ export class PowerupSystem {
     }
 
     getTimeDeltaSeconds(match_id: number, user_id: string): number {
-
+        return this.getPlayerState(match_id, user_id).time_delta_seconds;
     }
 
     getScoreMultiplierPercent(match_id: number, user_id: string): number {
-
+        return this.getPlayerState(match_id, user_id).score_multiplier_percent;
     }
 }
