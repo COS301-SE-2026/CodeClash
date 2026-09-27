@@ -391,6 +391,30 @@
   --match-box: #0D0410;
   --multiple-choice-box: #170d13;
   --multiple-choice-letter: #2a2024;
+
+  --gradient-radial: radial-gradient(circle at 50%, var(--glow-1) 0%, var(--glow-2) 22%, var(--glow-3) 34%, var(--background) 62%);
+  --gradient-radial-corner: radial-gradient(circle at 88% 88%, var(glow-1) 0%, var(--glow-2) 20%, var(--glow-3) 30%, var(--background) 38%);
+  --gradient-radial-blob: radial-gradient(circle, var(--primary-dark) 0%, color-mix(in srgb, var(--primary-dark) 70%, black 30%) 40%, transparent 70%);
+  --nav-scrolled-bg: color-mix(in srgb, var(--background) 95%, transparent);
+
+  /*Hover states*/
+  --primary-hover: color-mix(in srgb, var(--primary) 85%, white 15%);
+  --secondary-hover: color-mix(in srgb, var(--secondary) 90%, white 10%);
+  --accent-hover: color-mix(in srgb, var(--accent), 85%, white 15%);
+  --button-primary-hover: var(--primary-hover);
+  --button-secondary-hover: var(--secondary-hover);
+  --card-hover: color-mix(in srgb, var(--card) 100%, var(--primary-text) 4%);
+  --background-elevated-hover: color-mix(in srgb, var(--sidebar-accent) 100%, var(--primary-text) 5%);
+  --sidebar-accent-hover: color-mix(in srgb, var(--sidebar-accent) 100%, var(--primary-text) 6%);
+  --danger-hover: color-mix(in srgb, var(--danger) 88%, white 12%);
+  --destructive-hover: color-mix(in srgb, var(--destructive) 88%, white 12%);
+  --success-hover: color-mix(in srgb, var(--success) 88%, white 12%);
+  --warning-hover: color-mix(in srgb, var(--warning) 88%, white 12%);
+  --info-hover: color-mix(in srgb, var(--info) 88%, white 12%);
+  --life-primary-hover: color-mix(in srgb, var(--life-primary) 85%, white 15%);
+
+  --popover: var(--card);
+  --popover-text: var(--card-text);
 }
 
 /*These are copied from :root and adjusted for light mode*/
@@ -1205,5 +1229,25 @@
 
   .answer-flash-wrong {
     animation: answer-flash-wrong 0.7s ease-out;
+  }
+
+  .nav-bar {
+    transition: background 0.3s ease, border-color 0.3s ease;
+    border-bottom: 1px solid transparent;
+  }
+
+  .nav-bar.scrolled {
+    background: var(--nav-scrolled-bg);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-link {
+    color: var(--primary-text);
+    transition: color 0.2s ease;
+  }
+
+  .nav-link:hover {
+    color: var(--primary-hover);
   }
 }
