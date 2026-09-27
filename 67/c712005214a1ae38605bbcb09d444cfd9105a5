@@ -1,0 +1,24 @@
+backend/src/application/interfaces/repositories/IMatchRepository.ts
+  h_94c952a9e14c58 6
+backend/src/interface-adapters/repositories/match.repository.ts
+  h_94c952a9e14c58 13,31-32
+frontend/src/ViewModels/Tournaments/TournamentLobby.ts
+  h_94c952a9e14c58 17,77,85-96
+  h_94c952a9e14c58 82
+backend/src/entities/database/match.entities.ts
+  h_94c952a9e14c58 9-11
+  h_94c952a9e14c58 21,33
+backend/src/application/usecases/services/match/match-creation.service.ts
+  h_94c952a9e14c58 75
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "67c712005214a1ae38605bbcb09d444cfd9105a5",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
