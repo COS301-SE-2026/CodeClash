@@ -3,6 +3,7 @@ import { World } from '../../../entities/World';
 import { LifeSystem } from './life.system';
 import { SubmissionSystem } from './submission.system';
 import { PowerupStateComponent, PlayerPowerupState } from 'src/entities/components';
+import { act } from 'react';
 
 const POSITIVE_EFFECTS = new Set([
     'reduce_time', 'reveal_hint', 'score_multiplier', 'restore_life', 'block_next_powerdown'
@@ -70,24 +71,51 @@ export class PowerupSystem {
 
         switch (effect) {
             case 'reduce_time':
+                this.getPlayerState(match_id, actor_id).time_delta_seconds -= metadata.value_seconds as number;
+                break;
 
             case 'increase_time':
+                this.getPlayerState(match_id, target_id!).time_delta_seconds += metadata.value_seconds as number;
+                break;
 
-            case 'cores_multiplier':
+            case 'score_multiplier':
+                this.getPlayerState(match_id, actor_id).score_multiplier_percent += metadata.value_percent as number;
+                break;
 
             case 'restore_life':
+                this.life_system.adjustLife(match_id, actor_id, false);
+                break;
 
             case 'drain_life':
+                this.life_system.adjustLife(match_id, target_id!, false);
+                break;
 
             case 'block_next_powerdown':
+                this.getPlayerState(match_id, actor_id).shield_active = true;
+                break;
 
             case 'insert_bugs':
+                this.submission_system.corruptAnswer(match_id, target_id!);
+                break;
 
-            case 'wipe_answer':
+            case 'wipe_answer': {
+                const target_state = this.getPlayerState(match_id,target_id!);
+                if (target_state.wipe_used) throw new Error('Wipe already used this match');
+                target_state.wipe_used = true;
+                this.submission_system.wipeAnswer(match_id, target_id!);
+                break;
+            }
 
-            case 'block_question':
+            case 'block_question': {
+                const duration_ms = (metadata.duration_seconds as number) * 1000;
+                this.getPlayerState(match_id, target_id!).blocked_until = Date.now() + duration_ms;
+                break;
+            }
 
             case 'reveal_hint':
+                // No server state to mutate. Handled by socket
+                break;
+
 
             default:
                 throw new Error(`Uknown powerup effect: ${effect}`);
