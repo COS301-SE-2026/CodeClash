@@ -2,7 +2,7 @@ import { render, screen, act, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { AchievementToastProvider, useAchievementToast } from '../../src/context/Achievement/AchievementToastContext';
 import { AuthContext, type AuthContextValue } from '../../src/context/Auth/AuthContextValue';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi, type Mock } from 'vitest';
 
 const AUTH_STUB: AuthContextValue = {
   user: { username: 'ntu', userId: 'user-1' },
@@ -58,13 +58,13 @@ const renderToasts = (auth: Partial<AuthContextValue> = {}) =>
 
 describe('AchievementToastProvider integration', () => {
   let fetchMock: ReturnType<typeof vi.fn>;
-  let achievementMock: ReturnType<typeof vi.fn>;
+  let achievementMock: Mock<(...args: unknown[]) => Promise<unknown>>;
 
   beforeEach(() => {
     vi.useFakeTimers({ shouldAdvanceTime: true });
     achievementMock = vi.fn().mockResolvedValue(jsonResponse([]));
     fetchMock = vi.fn((url: string, ...rest: unknown[]) => {
-      if (url === '/api/achievements/me') return new achievementMock(url, ...rest);
+      if (url === '/api/achievements/me') return achievementMock(url, ...rest);
       return Promise.resolve(jsonResponse([]));
     });
     vi.stubGlobal('fetch', fetchMock);

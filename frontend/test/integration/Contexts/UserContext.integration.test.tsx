@@ -7,7 +7,7 @@ const api = vi.hoisted(() => ({
   get: vi.fn()
 }));
 
-vi.mock('src/services/api.service', () => ({ API: api }));
+vi.mock('axios', () => ({ default: { create: () => api } }));
 
 import { AuthContext, type AuthContextValue } from '../../../src/context/Auth/AuthContextValue';
 import { UserProvider } from '../../../src/context/User/UserContext';
@@ -60,7 +60,7 @@ const renderUser = (auth: Partial<AuthContextValue> = {}, children: ReactNode = 
 
 const respondWith = (overrides: Record<string, { status: number; data: any }> = {}) => {
   const table: Record<string, { status: number; data: any }> = {
-    'elo/elo-get': { status: 200, data: { rating: 1420 } },
+    'user/elo': { status: 200, data: { rating: 1420 } },
     'user/avatar_id': { status: 200, data: { avatar_id: 2 } },
     'user/league': { status: 200, data: { league: 'Gold' } },
     'user/rank': { status: 200, data: { rank: 7 } },
@@ -129,13 +129,13 @@ describe('UserProvider integration', () => {
     expect(api.get).not.toHaveBeenCalled();
   });
 
-  it('reports the missing token when refresh runs unauthenticated', async () => {
+  it('ignores refresh if unauthenticated', async () => {
     const user = userEvent.setup();
     renderUser({ token: '' });
 
     await user.click(screen.getByRole('button', { name: 'refresh' }));
 
-    await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Missing or Invalid Token'));
+    await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('none'));
     expect(api.get).not.toHaveBeenCalled();
   });
 
@@ -144,7 +144,7 @@ describe('UserProvider integration', () => {
     renderUser();
     await waitFor(() => expect(api.get).toHaveBeenCalledTimes(5));
 
-    respondWith({ 'elo/elo-get': { status: 200, data: { rating: 1500 } } });
+    respondWith({ 'user/elo': { status: 200, data: { rating: 1500 } } });
     await user.click(screen.getByRole('button', { name: 'refresh' }));
 
     await waitFor(() => expect(screen.getByTestId('elo')).toHaveTextContent('1500'));
@@ -152,11 +152,11 @@ describe('UserProvider integration', () => {
   });
 
   it('surfaces a non-200 elo response as an error', async () => {
-    respondWith({ 'elo/elo-get': { status: 500, data: 'server exploded' } });
+    respondWith({ 'user/elo': { status: 500, data: 'server exploded' } });
 
     renderUser();
 
-    await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Error: 500 server exploded'));
+    await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Error getting user elo: error: server exploded'));
     expect(screen.getByTestId('elo')).toHaveTextContent('0');
   });
 
@@ -166,18 +166,18 @@ describe('UserProvider integration', () => {
     renderUser();
     await waitFor(() => expect(api.get).toHaveBeenCalledTimes(5));
 
-    respondWith({ 'user/league': { status: 403, data: 'forbidden' } });
+    respondWith({ 'user/league': { status: 403, data: { message: 'forbidden' } } });
     await user.click(screen.getByRole('button', { name: 'refresh' }));
 
-    await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Error: 403 forbidden'));
+    await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Error getting user league: Error: 403 forbidden'));
   });
 
   it('surfaces a non-200 rank response as an error', async () => {
-    respondWith({ 'user/rank': { status: 418, data: 'teapot' } });
+    respondWith({ 'user/rank': { status: 418, data: { message: 'teapot' } } });
 
     renderUser();
 
-    await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Error: 418 teapot'));
+    await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Error getting user rank: Error: 418 teapot'));
   });
 
   it('swallows streak failures so the rest of the profile still loads', async () => {
@@ -186,7 +186,7 @@ describe('UserProvider integration', () => {
       if (url.endsWith('_streak')) return Promise.reject(new Error('streak service down'));
       return Promise.resolve({
         status: 200,
-        data: { rating: 1200, avatar_id: 0, league: 'Bronze', rank: 42 },
+        data: { rating: 1200, league: 'Bronze', rank: 42 },
       });
     });
 

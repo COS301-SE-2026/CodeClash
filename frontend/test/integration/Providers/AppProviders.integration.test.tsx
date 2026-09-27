@@ -16,7 +16,7 @@ const amplify = vi.hoisted(() => ({
 vi.mock('aws-amplify/auth', () => amplify);
 
 const api = vi.hoisted(() => ({ get: vi.fn() }));
-vi.mock('src/services/api.service', () => ({ API: api }));
+vi.mock('axios', () => ({ default: { create: () => api } }));
 
 const ws = vi.hoisted(() => ({ createSocket: vi.fn() }));
 vi.mock('src/services/websocket.service', () => ws);
@@ -110,7 +110,7 @@ describe('app provider tree integration', () => {
     api.get.mockImplementation(() =>
       Promise.resolve({
         status: 200,
-        data: { rating: 1400, avatar_id: 1, league: 'Silver', rank: 12, current_streak: 2, winning_streak: 1 },
+        data: { rating: 1400, league: 'Silver', rank: 12, current_streak: 2, winning_streak: 1 },
       }),
     );
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, json: () => Promise.resolve([]) }));
@@ -128,7 +128,7 @@ describe('app provider tree integration', () => {
     await waitFor(() => expect(screen.getByTestId('elo')).toHaveTextContent('1400'));
     expect(screen.getByTestId('username')).toHaveTextContent('ntu');
     expect(screen.getByTestId('league')).toHaveTextContent('Silver');
-    expect(api.get).toHaveBeenCalledWith('elo/elo-get', { headers: { Authorization: 'Bearer id-token-abc' } });
+    expect(api.get).toHaveBeenCalledWith('user/elo', { headers: { Authorization: 'Bearer id-token-abc' } });
   });
 
   it('shares one socket between the socket and matchmaking providers', async () => {
@@ -151,7 +151,7 @@ describe('app provider tree integration', () => {
     await user.click(screen.getByRole('button', { name: 'queue-up' }));
 
     expect(socket.emitsOf('join_match_queue')).toEqual([
-      [{ elo: 1400, game_mode: 'math', game_type: 'ranked', username: 'ntu' }],
+      [{ elo: 1400, match_mode: 'math', match_type: 'ranked' }],
     ]);
   });
 

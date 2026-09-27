@@ -1,28 +1,31 @@
 import { render, screen } from '@testing-library/react';
 import {ProgMatch} from '../../src/Views/Match/ProgMatch';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
-describe('ProgMatch page', () => {
-  it('renders the full-screen match shell', () => {
-    const { container } = render(<ProgMatch/>);
+vi.mock('src/ViewModels/Match/MatchViewModel', () => ({ useMatch: () => ({ loading: true, questions: [], currentQuestion: 0 }) }));
 
-    const shell = container.firstElementChild!;
-    expect(shell).toBeInTheDocument();
-    expect(shell.className).toContain('fixed');
-    expect(shell.className).toContain('inset-0');
-  });
+      describe('ProgMatch page', () => {
+        it('renders the full-screen loading overlay while the match loads', () => {
+          const { container } = render(<ProgMatch />);
 
-  it('renders no match content while the board is still stubbed out', () => {
-    render(<ProgMatch/>);
+          const shell = container.firstElementChild!;
+          expect(shell).toBeInTheDocument();
+          expect(shell.className).toContain('fixed');
+          expect(shell.className).toContain('inset-0');
+        });
 
-    expect(screen.queryByRole('button')).toBeNull();
-    expect(screen.queryByRole('link')).toBeNull();
-  });
+        it('renders no match content while the match loads', () => {
+          render(<ProgMatch />);
 
-  it('renders the same shell whichever language is selected', () => {
-    const { container: python } = render(<ProgMatch/>);
-    const { container: java } = render(<ProgMatch />);
+          expect(screen.queryByRole('button')).toBeNull();
+          expect(screen.queryByRole('link')).toBeNull();
+        });
 
-    expect(java.innerHTML).toBe(python.innerHTML);
-  });
-});
+        it('renders the same overaly on every mount', () => {
+          const { container: python } = render(<ProgMatch />);
+          const { container: java } = render(<ProgMatch />);
+
+          expect(java.innerHTML).toBe(python.innerHTML);
+        });
+      });
+
