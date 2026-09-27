@@ -85,6 +85,7 @@ export const useTournamentLobby = () => {
             const res = await tournamentSocket?.startTournament(data);
 
             if (res?.ok && res.data) {
+                console.log("storing",res.data);
                 useMatchStore.getState().setMatchData({
                     match_id: res.data.match.match_id,
                     rounds: res.data.match.rounds,
@@ -92,7 +93,7 @@ export const useTournamentLobby = () => {
 
                 });
 
-                nav(`/tournaments/match/${res.data.tournament.tournament_id}`);
+                nav(`/tournaments-match/${res.data.tournament.tournament_id}`);
             }
         }
 

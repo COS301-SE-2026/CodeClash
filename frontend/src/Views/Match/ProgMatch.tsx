@@ -1,12 +1,13 @@
 import { CodeEditor } from "@/components/features/code-editor";
-import { Question } from "@/components/features/question";
-import { MatchScreen } from "@/components/shared/Match/Match";
+import { Question } from "@/components/features/Questions/question";
+import { MatchScreen } from "@/components/features/Match/Match";
 import { useMatch } from "src/ViewModels/Match/MatchViewModel"
 import { ChevronRight, ChevronLeft } from 'lucide-react'
+import { MatchBox } from "@/components/features/Match/MatchBox";
 import Loading from '@/components/shared/Loading';
 import { useState } from "react";
 import TournamentButton from "@/components/features/Tournaments/TournamentButton";
-import { MatchCard } from "@/components/ui/MatchCard";
+import { MatchCard } from "@/components/features/Match/MatchCard";
 import PopUp from "@/components/shared/PopUp";
 
 export const ProgMatch = () => {
@@ -58,6 +59,8 @@ export const ProgMatch = () => {
                 round_number={roundIdx}
                 total_rounds={total_rounds}
             />
+
+            <MatchBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] -mt-4"></MatchBox>
 
             <MatchCard className="items-center mt-5">
                 <CodeEditor

@@ -1,7 +1,7 @@
 import { LogOut, Rocket, Timer, UserRoundPlus } from "lucide-react"
 import { Progress } from "@/components/ui/progress"
 import { TournamentPlayer } from "@/components/features/Tournaments/TournamentPlayer"
-import { MatchCard } from "@/components/ui/MatchCard"
+import { MatchCard } from "@/components/features/Match/MatchCard"
 import { useNavigate } from "react-router-dom"
 import { useTournamentLobby } from "src/ViewModels/Tournaments/TournamentLobby"
 import { Button } from "@/components/ui/button"

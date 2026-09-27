@@ -1,5 +1,5 @@
 import React from 'react'
-import { MatchCard } from '../../ui/MatchCard'
+import { MatchCard } from '@/components/features/Match/MatchCard'
 import type { PlayerDTO } from 'src/dtos/match/match.dto';
 
 

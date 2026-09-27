@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Calculator, Timer, ArrowRight, CodeXml, X } from "lucide-react"
 import { Progress } from "@/components/ui/progress"
-import { MatchCard } from '@/components/ui/MatchCard'
+import { MatchCard } from '@/components/features/Match/MatchCard'
 import type { MatchMode, PlayerDTO } from 'src/dtos/match/match.dto'
 import { Button } from '@/components/ui/button'
 import { useNavigate } from 'react-router-dom'

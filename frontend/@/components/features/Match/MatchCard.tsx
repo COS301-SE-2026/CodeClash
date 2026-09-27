@@ -1,6 +1,5 @@
 import React from "react"
-import "../../../src/styles/global.css"
-import { Card } from "../ui/card"
+import { Card } from "@/components/ui/card"
 
 
 interface MatchCardProps{

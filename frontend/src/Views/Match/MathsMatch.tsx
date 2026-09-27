@@ -2,10 +2,10 @@ import { ChevronRight, ChevronLeft } from 'lucide-react'
 import { useEffect } from 'react';
 import { useMatch } from 'src/ViewModels/Match/MatchViewModel';
 
-import MathMatch from '@/components/features/MathPage';
-import { Question } from '@/components/features/question';
+import MathMatch from '@/components/features/Match/MathPage';
+import { Question } from '@/components/features/Questions/question';
 import Loading from '@/components/shared/Loading';
-import { MatchScreen } from '@/components/shared/Match/Match';
+import { MatchScreen } from '@/components/features/Match/Match';
 import { Button } from '@/components/ui/button';
 import PopUp from '@/components/shared/PopUp'
 

@@ -1,9 +1,9 @@
 import * as React from "react";
 
-import { Badge } from "../ui/badge";
+import { Badge } from "@/components/ui/badge";
 
 import { cn } from "@/lib/utils";
-import { MatchCard } from "../ui/MatchCard";
+import { MatchCard } from "@/components/features/Match/MatchCard";
 
 
 interface QuestionProps {

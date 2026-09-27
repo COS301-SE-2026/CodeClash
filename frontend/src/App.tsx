@@ -30,6 +30,7 @@ import Achievements from "./Views/Achievements";
 import Settings from "./Views/Settings";
 import { ProgMatch } from "./Views/Match/ProgMatch";
 import SkillProgress from "./Views/SkillProgress";
+import TournamentsMatchPage from "./Views/Tournaments/TournamentMatchPage";
 
 const App: React.FC = () => {
 
@@ -81,6 +82,7 @@ const App: React.FC = () => {
                 <Route path='/help-menu' element={<HelpMenu />} />
                 <Route path='/tournaments' element={<Tournaments />} />
                 <Route path='/tournaments/waiting/:tournament_id' element={<TournamentsWaiting/>}/>
+                <Route path="/tournaments-match/:tournament_id" element={<TournamentsMatchPage/>}/>
                 <Route path='/leaderboard' element={<Leaderboard />} />
                 <Route path='/achievements' element={<Achievements />} />
                 <Route path='/friends' element={<Friends />} />
