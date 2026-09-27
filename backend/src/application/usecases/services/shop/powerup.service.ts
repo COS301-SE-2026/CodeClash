@@ -18,22 +18,20 @@ export class PowerupService {
         const item = await this.shop_item_repo.getItemById(shop_item_id);
         if (!item || item.category !== 'powerup') throw new Error('Item not found');
 
-        const effect = (item.metadata as { effect: string }).effect;
-
-        if (this.powerup_system.isPowerdown(effect) && !target_user_id) {
+        if (this.powerup_system.isPowerdown(item.metadata.effect) && !target_user_id) {
             throw new Error('This effect requires a target player')
         }
 
         const result = this.powerup_system.apply(
             match_id,
-            effect,
+            item.metadata.effect,
             item.metadata,
             user_id,
             target_user_id
         );
         return {
-            applied: true,
-            effect,
+            applied: !result.blocked,
+            effect: item.metadata.effect,
             match_id,
             user_id,
             ...(target_user_id !== undefined && { target_user_id })

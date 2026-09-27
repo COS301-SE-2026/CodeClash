@@ -14,7 +14,29 @@ export const usePowerup = async (
     powerup_service: PowerupService
 ) => {
     try {
-        
+        const result = await powerup_service.usePowerup(
+            socket.data.user_id,
+            data.match_id,
+            data.shop_item_id,
+            data.target_user_id
+        );
+
+        io.to(`user:${socket.data.user_id}`).emit('powerup_used', result);
+
+        if (!data.target_user_id) return;
+
+        if (!result.applied){
+            io.to(`user:${data.target_user_id}`).emit('powerup_blocked', result);
+            return;
+        }
+
+        if (result.effect === 'wipe_answer'){
+            io.to(`user:${data.target_user_id}`).emit('clear_input');
+        } else if (result.effect === 'insert_bugs') {
+            io.to(`user:${data.target_user_id}`).emit('corrupt_input');
+        } else {
+            io.to(`user:${data.target_user_id}`).emit('powerup_received', result);
+        }
     }catch (error) {
         io.to(`user:${socket.data.user_id}`).emit('powerup_error', (error as Error).message);
     }
