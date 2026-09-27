@@ -10,6 +10,7 @@ import { Card } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
 import { MatchBox } from '@/components/ui/MatchBox';
 import TournamentButton from '@/components/ui/TournamentButton';
+import "../../src/styles/global.css"
 
 const MathsMatch = () => {
     const {
@@ -29,6 +30,12 @@ const MathsMatch = () => {
         if (correct === true) return 'bg-success/50'
         else if (correct === false) return 'bg-danger/50'
         else return 'bg-white'
+    }
+
+    const result_flash = () => {
+        if(correct === true) return "answer-flash-correct"
+        else if (correct === false) return "answer-flash-wrong"
+        else return ""
     }
 
 
@@ -78,9 +85,9 @@ const MathsMatch = () => {
                 <MathMatch
                     mathfieldRef={mathfieldRef}
                     onValueChange={(val) => setAnswers(prev => ({ ...prev, [currentQuestion]: val }))}
-                    className={`${result_colour()},${read_only}`}
+                    className={`${result_colour()} ${result_flash()} ${read_only}`}
                 >
-            
+                   
                 <div className="flex flex-row gap-6 w-full mx-auto justify-center my-auto">
                 <TournamentButton className='flex items-center justify-evenly text-secondary rounded-2xl w-[10%] h-auto'>
                     <ChevronLeft onClick={() => prevQuestion(currentQuestion)} className='size-[2rem] hover:scale-110  hover:bg-secondary/20 rounded-2xl w-[50%]' />
@@ -93,6 +100,7 @@ const MathsMatch = () => {
                     }}
                 >
                     Submit
+                    
                 </TournamentButton>
                 {currentQuestion === (questions.length - 1) &&
                     <TournamentButton className='w-[10%] h-[2.2rem] rounded-2xl text-[1.3rem] hover:-translate-y-1'

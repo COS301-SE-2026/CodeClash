@@ -46,7 +46,7 @@ const MathMatch = ({ onValueChange, mathfieldRef, className, children }: MathMat
       <math-field
         ref={mathfieldRef}
         onInput={handleInput}
-        className={`${className} w-[95%] min-h-[10rem] rounded-2xl bg-[var(--match-box)] border-[2px] border-[var(--button-tournament-secondary)] text-secondary text-sm mb-auto my-auto mx-auto`}
+        className={`w-[95%] min-h-[10rem] rounded-2xl bg-[var(--match-box)] border-[2px] border-[var(--button-tournament-secondary)] text-[var(--card-tournaments)] text-sm mb-auto my-auto mx-auto ${className}`}
       >
         {value}
       </math-field>
