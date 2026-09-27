@@ -11,9 +11,6 @@ interface QuestionProps {
   difficulty: string,
   title: string,
   description?: string,
-  number: number,
-  round_number: number,
-  total_rounds: number
   className?: string
 }
 function Question({
@@ -22,9 +19,6 @@ function Question({
   difficulty,
   title,
   description,
-  // number,
-  round_number,
-  total_rounds
 }: QuestionProps) {
   return (
     <div
@@ -35,17 +29,13 @@ function Question({
     >
       <MatchCard className="flex flex-col p-2 rounded-lg w-full h-auto -mt-5 gap-3">
         <div className="flex justify-between w-full">
-          <Badge className="w-[20%] h-[2rem] text-white text-sm mt-2 mr-2 bg-primary/20"
-            variant={"ghost"}>
-            Round {round_number + 1}/{total_rounds}
-          </Badge>
 
-          <Badge
+          {difficulty.length > 0 && <Badge
             className="w-[7%] h-[1.5rem] text-white text-xs mt-2 mr-2"
             variant={"default"}
           >
             {difficulty}
-          </Badge>
+          </Badge>}
         </div>
 
         <div className="ml-3 m-5 flex flex-col justify-evenly">

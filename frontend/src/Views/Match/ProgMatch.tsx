@@ -19,7 +19,7 @@ export const ProgMatch = () => {
         playerLife, avatars, usernames,
         seconds, minutes,
         currentQuestion, nextQuestion, prevQuestion,
-        roundIdx, total_rounds, rounds,
+        roundIdx, rounds,
         opponentCurrent, waitingOpponent, finishGame,
         loading,
         submitQuestion,
@@ -33,7 +33,7 @@ export const ProgMatch = () => {
             <Loading isOpen={loading}></Loading>
         )
     }
-    
+
     return (
         <MatchScreen
             player_life={playerLife}
@@ -55,9 +55,6 @@ export const ProgMatch = () => {
                 difficulty={curr.difficulty!}
                 title={curr.title!}
                 description={curr.description}
-                number={currentQuestion + 1}
-                round_number={roundIdx}
-                total_rounds={total_rounds}
             />
 
             <MatchBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] -mt-4"></MatchBox>

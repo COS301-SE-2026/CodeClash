@@ -24,11 +24,12 @@ export class TournamentEliminationService {
         private readonly marking_service: MarkingService
     ) { }
 
-    init(tournament_id: string, players: { player_id: string, username: string }[]) {
-        this.state.set(tournament_id, {
+    init(tournament_id: string, players: { id: string, username: string }[]) {
+
+        const init_state: TournamentState = {
             players: new Map(
                 players.map(p => [
-                    p.player_id, {
+                    p.id, {
                         ...p,
                         correct: 0,
                         total_time: 0,
@@ -40,7 +41,10 @@ export class TournamentEliminationService {
             round_start: 0,
             round_questions: new Set(),
             progress: new Map()
-        });
+        }
+        this.state.set(tournament_id, init_state);
+
+        return init_state.players
     }
 
     startRound(tournament_id: string, round_idx: number, question_ids: string[]) {

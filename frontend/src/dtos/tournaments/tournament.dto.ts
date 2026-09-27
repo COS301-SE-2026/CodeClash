@@ -16,7 +16,7 @@ export interface TournamentDTO {
 }
 
 export interface PlayerStandingDTO {
-    player_id: string,
+    id: string,
     username: string,
     position: number,
     correct: number,

@@ -31,9 +31,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
     usernames,
     elos,
     children,
-    // question_number,
     current_question,
-    // opponent_progress,
     question_results,
     rounds,
     current_round

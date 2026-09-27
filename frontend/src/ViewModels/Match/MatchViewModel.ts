@@ -8,6 +8,7 @@ import { useLoadRounds, useMatchProgress, useMatchTimer, useOpponentProgress } f
 import { useMatchStore } from 'src/stores/match-store';
 import { useMatchmaking } from 'src/context/Matchmaking/hooks/useMatchmaking';
 import { useSubmission } from 'src/services/submission.service';
+import type { Player } from 'src/Models/MatchModel';
 
 export const useMatch = () => {
     const nav = useNavigate();
@@ -26,7 +27,7 @@ export const useMatch = () => {
     const mathfieldRef = useRef<MathfieldElement | null>(null)
 
 
-    const players = useMatchStore(state => state.players);
+    const players = useMatchStore(state => state.players) as Player[];
     const stored_rounds = useMatchStore(state => state.rounds)!;
     const match_id = useMatchStore(state => state.match_id);
 

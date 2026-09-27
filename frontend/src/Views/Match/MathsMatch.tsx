@@ -17,7 +17,7 @@ const MathsMatch = () => {
         playerLife, avatars, usernames,
         seconds, minutes,
         currentQuestion, nextQuestion, prevQuestion, 
-        roundIdx,total_rounds,rounds,
+        roundIdx,rounds,
         opponentCurrent, waitingOpponent, finishGame,
         loading,
         submitQuestion,
@@ -63,9 +63,6 @@ const MathsMatch = () => {
                 difficulty={curr.difficulty!}
                 title={curr.title!}
                 description={curr.description}
-                number={currentQuestion + 1}
-                round_number={roundIdx}
-                total_rounds={total_rounds}
             />
 
             <div className='w-[100%] h-[100%] min-h-[35%] flex items-center justify-center'>

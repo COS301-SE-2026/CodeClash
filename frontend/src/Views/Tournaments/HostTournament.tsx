@@ -154,6 +154,7 @@ export const HostTournament = ({ Cancel, Create }: HostProps) => {
                             type="date"
                             value={date}
                             onChange={(e) => setDate(e.target.value)}
+                            className="text-white"
                         />
                     </div >
 
@@ -165,6 +166,7 @@ export const HostTournament = ({ Cancel, Create }: HostProps) => {
                             type="time"
                             value={time}
                             onChange={(e) => setTime(e.target.value)}
+                            className="text-white"
                         />
                     </div>
 
