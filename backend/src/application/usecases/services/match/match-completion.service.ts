@@ -3,6 +3,8 @@ import { MatchCompletionSystem } from "../../systems/match-completion.system";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 import { AchievementService } from "../achievement.service";
 import { MatchType, MatchStatus } from "src/entities/dtos/matches/match.dto";
+import { RewardService } from "./reward.service";
+import { IWalletRepository } from "src/application/interfaces/repositories/IWalletRepository";
 
 
 export class MatchCompletionService {
@@ -10,7 +12,9 @@ export class MatchCompletionService {
         private readonly match_repo: IMatchRepository,
         private readonly completion_system: MatchCompletionSystem,
         private readonly user_repo: IUserRepository,
-        private readonly achievement_service: AchievementService
+        private readonly achievement_service: AchievementService,
+        private readonly reward_service: RewardService,
+        private readonly wallet_repo: IWalletRepository
     ) { }
 
 
@@ -38,6 +42,10 @@ export class MatchCompletionService {
                 }
                 break;
             }
+        }
+
+        for (const player of players) {
+            
         }
 
         this.achievement_service.evaluateForMatch(match_stats, players, match_type, total_questions);

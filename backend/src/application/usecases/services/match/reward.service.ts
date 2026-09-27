@@ -7,7 +7,9 @@ export class RewardService {
         total_players: number,
         stat: { num_correct: number; total_time:number }
     ):  number {
-        const base = mode === 'ranked' ? 60 : 25;
+        const base = mode === MatchType.tournament ? 60 
+        : mode === MatchType.ranked ? 60
+        : 25;
 
         if (position === 1) {
             // winner bonus
