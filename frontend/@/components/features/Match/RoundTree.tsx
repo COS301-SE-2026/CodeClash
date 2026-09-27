@@ -21,12 +21,13 @@ export const RoundTree = ({
     return (
         <div className={cn("flex flex-col h-full", className)}>
             {rounds.map((round_question, round_idx) => {
+                const round_key = round_question.map(q => q.id).join('-');
                 const past_round = round_idx < current_round;
                 const current = round_idx === current_round;
                 const next_round = round_idx > current_round;
 
                 return (
-                    <div key={round_idx} className="flex flex-col" >
+                    <div key={round_key} className="flex flex-col" >
                         <span
                             className={cn("text-sm font-bol mb-1", current && "text-button-tournament", next_round && "text-muted-text/50", past_round && "text-button-tournament-secondary")}
                         >
@@ -34,7 +35,7 @@ export const RoundTree = ({
                         </span>
 
                         <div className="flex flex-col ml-2 border-1 border-match-card">
-                            {round_question.map((_, q_idx) => {
+                            {round_question.map((question, q_idx) => {
                                 const result = results[round_idx]?.[q_idx];
                                 const is_current = current && q_idx === current_question;
                                 const next = next_round || (current && q_idx > current_question);
@@ -47,7 +48,7 @@ export const RoundTree = ({
                                 }
 
                                 return(
-                                    <div key={q_idx} className={cn("flex items-center gap-2 pl-3 py-1 text-xs", 
+                                    <div key={question.id} className={cn("flex items-center gap-2 pl-3 py-1 text-xs", 
                                     is_current && "text-button-tournament font-semibold",
                                     next && "text-muted-text/50"
                                     )}>
