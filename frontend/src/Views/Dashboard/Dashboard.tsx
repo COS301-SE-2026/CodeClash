@@ -13,7 +13,7 @@ import ComingSoon from '@/components/ui/ComingSoon';
 import { SkillProgressCard } from './components/skill-progress';
 
 const Dashboard = () => {
-  const { isOpen, openPopUp, closePopUp, username, elo, league, isLoading, current_streak, winning_streak, recentAchievement, refresh } = useDashboardViewModel();
+  const { isOpen, openPopUp, closePopUp, username, elo, league, isLoading, current_streak, winning_streak, recentAchievement, refresh, skillItems, skillIsSample } = useDashboardViewModel();
 
   useEffect(() => {
     refresh();
@@ -110,10 +110,9 @@ const Dashboard = () => {
               </div>
             </div>
 
-            <SkillProgressCard seeAll='/stats' items={[
-              { label: 'Metric Title', value: 65 },
-              { label: 'Metric Title', value: 40 }
-            ]} />
+            <SkillProgressCard seeAll='/stats' 
+              items = { skillItems } isSample = {skillIsSample}
+              />
           </div>
         </div>
       </div>
