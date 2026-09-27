@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState, type ReactNode } from "react";
+import { authGet } from "src/services/api.service";
 import { useInventory } from "../Shop/InventoryContext";
-import { API } from "src/services/api.service";
 import { useAuth } from "../Auth/hooks/useAuth";
 
 import { UserContext } from "./UserContextValue";
@@ -21,27 +21,9 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const avatar = equippedAvatarImage ?? '';
 
     const getElo = async () => {
-
-        if (!token) {
-            setError('Missing or Invalid Token');
-            return;
-        }
-
         try {
-
-            API.get('elo/elo-get', {
-                headers: { Authorization: `Bearer ${token}` }
-            })
-                .then((res) => {
-                    if (res.status === 200) {
-
-                        setElo(res.data.rating)
-                        setError('');
-                    }
-                    else {
-                        setError(`Error: ${res.status} ${res.data}`);
-                    }
-                })
+            const data = await authGet<{ elo: number }>('user/elo', token!);
+            setElo(data.elo);
         } catch (error) {
             setError(`Error Getting User Elo: ${error}`);  ///TODO: connect to notification system
 

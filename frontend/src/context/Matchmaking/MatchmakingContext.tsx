@@ -13,7 +13,7 @@ export const MatchmakingProvider: React.FC<{ children: ReactNode }> = ({ childre
     const [group_id, set_group_id] = useState('');
     const [matched, setMatched] = useState(false);
     const [matchedUsers, setMatchedUsers] = useState<MatchedUsersDTO | null>(null);
-    const { matchmaking_socket } = useSocket()
+    const { matchmakingSocket } = useSocket()
 
     const handleMatched = (data: MatchedUsersDTO) => {
         setMatched(true)
@@ -28,11 +28,11 @@ export const MatchmakingProvider: React.FC<{ children: ReactNode }> = ({ childre
     }
 
     useEffect(() => {
-        if (matchmaking_socket) {
+        if (matchmakingSocket) {
            
-           matchmaking_socket.matched(handleMatched);
+           matchmakingSocket.matched(handleMatched);
         }
-    }, [matchmaking_socket])
+    }, [matchmakingSocket])
 
 
     const value = useMemo(() => ({

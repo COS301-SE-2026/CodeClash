@@ -1,54 +1,60 @@
 import { DeepPartial } from "typeorm";
 import { Questions } from "../../src/entities/database/questions.entities";
 import { MatchMode } from "../../src/entities/dtos/matches/match.dto";
+import { QuestionInputType } from "../../src/entities/dtos/questions/question.dto";
 
 
-export const mock_questions: DeepPartial<Questions>[] = [
-    {
-        game_mode: MatchMode.Maths,
-        difficulty: 4,
-        title: 'Question 1',
-        description: "Answer repo testing, question 1",
-        time_limit: '00:02:02'
+export const mock_questions: DeepPartial<Questions>[] = []
 
-    },
-    {
-        game_mode: MatchMode.Maths,
-        difficulty: 3,
-        title: 'Question 2',
-        description: "Answer repo testing, question 2",
-        time_limit: '00:02:02'
+// add maths Mercury
 
-    },
-    {
-        game_mode: MatchMode.Maths,
-        difficulty: 4,
-        title: 'Question 3',
-        description: "Answer repo testing, question 3",
-        time_limit: '00:02:02'
+for (let i = 0; i < 20; i++) {
+    mock_questions.push({
+        match_mode: MatchMode.Maths,
+        difficulty: (i % 3) + 1,
+        title: `Question ${i + 1}`,
+        description: `Answer repo testing, question ${i + 1}`,
+        time_limit: '00:02:02',
+        input_type: QuestionInputType.short_text
 
-    },
-    {
-        game_mode: MatchMode.Programming,
-        difficulty: 1,
-        title: 'Question 4',
-        description: "Answer repo testing, question 4",
-        time_limit: '00:02:02'
+    })
+}
 
-    },{
-        game_mode: MatchMode.Programming,
-        difficulty: 2,
-        title: 'Question 5',
-        description: "Answer repo testing, question 5",
-        time_limit: '00:02:02'
+// maths Venus
+for (let i = 0; i < 20; i++) {
+    mock_questions.push({
+        match_mode: MatchMode.Maths,
+        difficulty: (i % 3) + 4,
+        title: `Question ${(i + 21) + 1}`,
+        description: `Answer repo testing, question ${i + 1}`,
+        time_limit: '00:02:02',
+        input_type: QuestionInputType.short_text
 
-    },{
-        game_mode: MatchMode.Programming,
-        difficulty: 4,
-        title: 'Question 6',
-        description: "Answer repo testing, question 6",
-        time_limit: '00:02:02'
+    })
+}
 
-    },
+// add programming Mercury
+for (let i = 0; i < 20; i++) {
+    mock_questions.push({
+        match_mode: MatchMode.Programming,
+        difficulty: (i % 3) + 1,
+        title: `Question ${(i + 41) + 1}`,
+        description: `Answer repo testing, question ${i + 1}`,
+        time_limit: '00:02:02',
+        input_type: QuestionInputType.short_text
 
-]
+    })
+}
+
+// add programming Venus
+for (let i = 0; i < 20; i++) {
+    mock_questions.push({
+        match_mode: MatchMode.Programming,
+        difficulty: (i % 3) + 4,
+        title: `Question ${(i + 41) + 1}`,
+        description: `Answer repo testing, question ${i + 1}`,
+        time_limit: '00:02:02',
+        input_type: QuestionInputType.short_text
+
+    })
+}

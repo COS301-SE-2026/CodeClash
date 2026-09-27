@@ -65,7 +65,7 @@ describe("User Controller Test", () => {
         const controller = getUserStat(user_repo as any);
 
         const req = {
-            params: { stat: 'username'},
+            params: { stat: 'username' },
             user: {
                 id: 'invalid-user'
             }
@@ -82,4 +82,57 @@ describe("User Controller Test", () => {
         expect(res.json).toHaveBeenCalledWith({ message: 'User not found' })
 
     })
+
+    it("Returns rating for valid user", async () => {
+        const user_repo = {
+            getUserData: vi.fn().mockResolvedValue({ elo: 1000 })
+        }
+
+        const controller = getUserStat(user_repo as any)
+
+
+        const req = {
+            params: { stat: 'elo' },
+            user: {
+                id: '12345'
+            }
+        } as any
+
+        const res = {
+            status: vi.fn().mockReturnThis(),
+            json: vi.fn()
+        } as any
+
+        await controller(req, res);
+
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.json).toHaveBeenCalledWith({ elo: 1000 })
+
+    })
+
+    it("Return 404 for invalid user", async () => {
+        const user_repo = {
+            getUserData: vi.fn().mockResolvedValue(null)
+        }
+
+        const controller = getUserStat(user_repo as any)
+
+        const req = {
+             params: { stat: 'elo'},
+            user: {
+                id: 'Invalid-user'
+            }
+        } as any
+
+        const res = {
+            status: vi.fn().mockReturnThis(),
+            json: vi.fn()
+        } as any
+
+        await controller(req, res);
+
+        expect(res.status).toHaveBeenCalledWith(404);
+        expect(res.json).toHaveBeenCalledWith({ message: 'User not found' })
+    })
+
 })

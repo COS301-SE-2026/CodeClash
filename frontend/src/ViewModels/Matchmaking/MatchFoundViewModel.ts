@@ -18,7 +18,7 @@ import { useMatchStore } from "src/stores/match-store";
 export function useMatchFound() {
   const nav = useNavigate();
   const { league, username, avatar } = useUser();
-  const { matchmaking_socket, match_socket } = useSocket()
+  const { matchmakingSocket, matchSocket } = useSocket()
   const { gameType, group_id, matchedUsers, match_mode, reset } = useMatchmaking()
   const [path, setPath] = useState('');
   const [loading, setLoading] = useState(false);
@@ -32,13 +32,13 @@ export function useMatchFound() {
   const openLoading = () => setLoading(true);
 
   const decline = () => {
-    if (matchmaking_socket) {
+    if (matchmakingSocket) {
       const data = {
         group_id,
         match_mode: match_mode!
       };
 
-      matchmaking_socket.declineMatch(data);
+      matchmakingSocket.declineMatch(data);
       setLoading(true);
       reset();
       nav('/match-searching')
@@ -62,7 +62,7 @@ export function useMatchFound() {
   }
 
   const accept = () => {
-    if (matchmaking_socket && matchedUsers) {
+    if (matchmakingSocket && matchedUsers) {
 
       const new_path = "/".concat(matchedUsers.match_mode!).concat("-match")
       setPath(new_path);
@@ -76,7 +76,7 @@ export function useMatchFound() {
         match_type: gameType!
       }
 
-      matchmaking_socket.acceptMatch(data);
+      matchmakingSocket.acceptMatch(data);
       setLoading(true);
     }
     else {
@@ -124,11 +124,11 @@ export function useMatchFound() {
       set_detais();
     }
 
-    if (matchmaking_socket && match_socket) {
+    if (matchmakingSocket && matchSocket) {
 
-      const unsub_start = matchStart(match_socket);
-      const unsub_ready = matchmaking_socket.matchReady(gameReady);
-      const unsub_match_declined = matchmaking_socket.gameDeclined(gameDeclined);
+      const unsub_start = matchStart(matchSocket);
+      const unsub_ready = matchmakingSocket.matchReady(gameReady);
+      const unsub_match_declined = matchmakingSocket.gameDeclined(gameDeclined);
 
       return () => {
         unsub_start();
@@ -136,7 +136,7 @@ export function useMatchFound() {
         unsub_match_declined();
       }
     }
-  }, [matchmaking_socket, path, matchedUsers])
+  }, [matchmakingSocket, path, matchedUsers])
 
   return {
     content: matchFoundContent,

@@ -15,12 +15,12 @@ export interface MatchDTO {
     status: string,
     match_mode: MatchMode,
     match_type: MatchType,
-    difficulty: number,
     winner: number,
     start_time: Date,
     end_time: Date
 }
 
 export interface RoundDTO {
+    round_number: number,
     questions: QuestionDTO[]
 }

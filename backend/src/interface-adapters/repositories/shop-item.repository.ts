@@ -5,7 +5,7 @@ import { ShopItemDTO } from "src/entities/dtos/shop/shop.dto";
 export class ShopItemRepository implements IShopItemRepository {
     constructor(
         private readonly shopItemRepo: Repository<ShopItem>,
-    ) {}
+    ) { }
 
     toDTO(item: ShopItem): ShopItemDTO {
         return {
@@ -21,9 +21,9 @@ export class ShopItemRepository implements IShopItemRepository {
     }
 
     async getAllItems(): Promise<ShopItemDTO[]> {
-            const items = await this.shopItemRepo.find();
-            return items.map(i => this.toDTO(i));
-        }
+        const items = await this.shopItemRepo.find();
+        return items.map(i => this.toDTO(i));
+    }
 
     async getItemById(shop_item_id: string): Promise<ShopItemDTO | null> {
         const item = await this.shopItemRepo.findOne({ where: { shop_item_id } });
@@ -35,7 +35,14 @@ export class ShopItemRepository implements IShopItemRepository {
             where: { category: 'theme' },
             order: { price: 'ASC' }
         });
-        if (!item)  throw new Error('Default theme not seeded');
+        if (!item) throw new Error('Default theme not seeded');
         return this.toDTO(item);
+    }
+
+    async getDefaultAvatar(): Promise<ShopItemDTO> {
+        const item = await this.shopItemRepo.findOne({ where: { category: 'avatar', name: 'Vexa' } });
+        if (!item) throw new Error('Default avatar not seeded');
+        return this.toDTO(item);
+
     }
 }

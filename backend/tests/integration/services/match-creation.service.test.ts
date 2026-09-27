@@ -1,6 +1,6 @@
 import { GetAnswers } from '../../../src/application/usecases/services/answers.service';
 import { MatchCreationService } from '../../../src/application/usecases/services/match/match-creation.service';
-import { GetDifficulty, GetQuestions, GetTotalTime } from '../../../src/application/usecases/services/questions.service';
+import { GetQuestions, GetTotalTime } from '../../../src/application/usecases/services/questions.service';
 import { CreateMatchEntity, CreatePlayerEntity, CreateRound, MatchCreationSystem } from '../../../src/application/usecases/systems/match-creation.system'
 import { MatchMode } from "../../../src/entities/dtos/matches/match.dto";
 import { PlayerDTO } from "../../../src/entities/dtos/matches/match-component.dto";
@@ -31,12 +31,11 @@ const world = World();
 const data_source = await createTestDataSource();
 const question_repo: IQuestionRepository = new QuestionRepository(data_source.getRepository(Questions));
 const answer_repo: IAnswerRepository = new AnswerRepository(data_source.getRepository(Answers));
-const match_repo: IMatchRepository = new MatchRepository(data_source.getRepository(Matches));
 const user_repo: IUserRepository = new UserRepository(data_source.getRepository(Users));
+const match_repo: IMatchRepository = new MatchRepository(data_source.getRepository(Matches), user_repo);
 
 const create_game = new MatchCreationSystem(new CreatePlayerEntity(world), new CreateMatchEntity(world), new CreateRound());
 const get_questions = new GetQuestions(question_repo);
-const get_difficulty = new GetDifficulty();
 const get_total_time = new GetTotalTime();
 const get_answers = new GetAnswers(answer_repo);
 const match_cache = new MatchCache(redis);
@@ -45,7 +44,6 @@ const match_cache = new MatchCache(redis);
 const game_service = new MatchCreationService(
     create_game as unknown as MatchCreationSystem,
     get_questions as unknown as GetQuestions,
-    get_difficulty as unknown as GetDifficulty,
     get_total_time as unknown as GetTotalTime,
     get_answers as unknown as GetAnswers,
     match_cache,

@@ -15,7 +15,7 @@ export function MatchSearchingViewModelFunction() {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const { elo, username } = useUser();
 
-  const { matchmaking_socket } = useSocket()
+  const { matchmakingSocket } = useSocket()
   const { matched } = useMatchmaking()
 
   useEffect(() => {
@@ -30,9 +30,9 @@ export function MatchSearchingViewModelFunction() {
 
   const handleCancel = () => {
 
-    if (!matchmaking_socket) throw new Error("500 Internal Server Error")
+    if (!matchmakingSocket) throw new Error("500 Internal Server Error")
 
-    matchmaking_socket.leaveQueue();
+    matchmakingSocket.leaveQueue();
     navigate('/dashboard');
   };
 

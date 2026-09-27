@@ -2,13 +2,13 @@ import { Repository } from "typeorm";
 import { Friendship, FriendInvite } from "src/entities/database/friendship.entities";
 import { IFriendRepository } from "src/application/interfaces/repositories/IFriendRepository";
 import { FriendDTO, FriendRequestDTO, FriendInviteDTO } from "src/entities/dtos/friends/friendship.dto";
-import { IEloRepository } from "src/application/interfaces/repositories/IEloRepository";
+import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 
 export class FriendRepository implements IFriendRepository {
     constructor (
         private readonly friendshipRepo: Repository<Friendship>,
         private readonly inviteRepo: Repository<FriendInvite>,
-        private readonly elo_repo: IEloRepository
+        private readonly user_repo: IUserRepository
     ){}
 
     async getFriends(user_id: string): Promise<FriendDTO[]> {
@@ -26,8 +26,8 @@ export class FriendRepository implements IFriendRepository {
         // fetch friend's elo ratings
         const eloMap = new Map<string, number>();
         for (const friend of friendUsers) {
-            const elo = await this.elo_repo.getElo(friend.user_id)
-            eloMap.set(friend.user_id, elo?.rating ?? 600);
+            const elo = await this.user_repo.getUserData(friend.user_id, 'elo');
+            eloMap.set(friend.user_id, elo?.elo ?? 600);
         }
 
         return friendships.map(f => {

@@ -10,7 +10,6 @@ import { IUserRepository } from 'src/application/interfaces/repositories/IUserRe
 export const getUserStat = (user_repo: IUserRepository) => {
 
     return async (req: Request, res: Response) => {
-
         const { stat } = req.params;
 
         if (!stat || typeof stat !== 'string' || !validStat(stat)) {

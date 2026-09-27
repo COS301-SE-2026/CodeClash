@@ -1,12 +1,11 @@
 import { Request, Response } from 'express';
-
-import { IEloRepository } from 'src/application/interfaces/repositories/IEloRepository';
+import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
 
 // GET /api/elo/elo-get
 // Get current elo rating for a user
-export const getUserElo = (elo_repo: IEloRepository) => {
+export const getUserElo = (user_repo: IUserRepository) => {
   return async (req: Request, res: Response)=>{
-      const elo = await elo_repo.getElo(req.user.id);
+      const elo = await user_repo.getUserData(req.user.id, 'elo');
 
       if(!elo){
         res.status(404).json({error: 'User not found'})

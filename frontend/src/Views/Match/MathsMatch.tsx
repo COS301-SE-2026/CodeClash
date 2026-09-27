@@ -5,43 +5,40 @@ import { useMatch } from 'src/ViewModels/Match/MatchViewModel';
 import MathMatch from '@/components/features/MathPage';
 import { Question } from '@/components/features/question';
 import Loading from '@/components/shared/Loading';
-import { MatchScreen } from '@/components/shared/Match';
-import { Card } from '@/components/ui/card';
-import { Spinner } from '@/components/ui/spinner';
-import { TimerBox } from '@/components/ui/TimerBox';
-import TournamentButton from '@/components/ui/TournamentButton';
+import { MatchScreen } from '@/components/shared/Match/Match';
+import { Button } from '@/components/ui/button';
+import Popup from '@/components/shared/PopUp';
 
 const MathsMatch = () => {
     const {
-        playerLife, avatars, usernames, elos,
-        seconds, minutes, questions,
-        currentQuestion, opponentCurrent,
+        status,
+        questions,
+        currentQuestion,
         nextQuestion, prevQuestion,
         loading,
         // submitQuestion,
-        mathfieldRef, setAnswers, answers,
-        results, gameOver, waitingOpponent,
+        mathfieldRef, waitingOpponent,
         finishGame
     } = useMatch();
 
     const curr = questions[currentQuestion];
-    const correct = results[currentQuestion];
-    const result_colour = () => {
-        if (correct === true) return 'bg-success/50'
-        else if (correct === false) return 'bg-danger/50'
-        else return 'bg-white'
-    }
+    // const correct = results[currentQuestion];
+    // const result_colour = () => {
+    //     if (correct === true) return 'bg-success/50'
+    //     else if (correct === false) return 'bg-danger/50'
+    //     else return 'bg-white'
+    // }
 
 
-    const read_only = () => {
-        if (gameOver) return 'read-only'
-        else return ''
-    }
+    // const read_only = () => {
+    //     if (gameOver) return 'read-only'
+    //     else return ''
+    // }
 
     useEffect(() => {
-        if (mathfieldRef.current) {
-            mathfieldRef.current.value = answers?.[currentQuestion] ?? ''
-        }
+        // if (mathfieldRef.current) {
+        //     mathfieldRef.current.value = answers?.[currentQuestion] ?? ''
+        // }
     }, [currentQuestion])
 
 
@@ -53,17 +50,6 @@ const MathsMatch = () => {
 
     return (
         <MatchScreen
-            player_life={playerLife}
-            colour='var(--button-tournament)'
-            seconds={seconds}
-            minutes={minutes}
-            avatars={avatars}
-            usernames={usernames}
-            elos={elos}
-            current_question={currentQuestion}
-            opponent_progress={opponentCurrent}
-            question_number={questions.length}
-            question_results={results}
         >
 
             <Question
@@ -74,40 +60,36 @@ const MathsMatch = () => {
                 number={currentQuestion + 1}
             />
 
-            <TimerBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] -mt-43"></TimerBox>
-
-            <div className='w-[100%] h-full min-h-[35%] flex flex-col items-center justify-center'>
+            <div className='w-[100%] h-[100%] min-h-[35%] flex items-center justify-center'>
                 <MathMatch
                     mathfieldRef={mathfieldRef}
-                    onValueChange={(val) => setAnswers(prev => ({ ...prev, [currentQuestion]: val }))}
-                    className={`${result_colour()},${read_only}`}
-                >
-            
-                <div className="flex flex-row gap-6 w-full mx-auto justify-center my-auto">
-                <TournamentButton className='flex items-center justify-evenly text-secondary rounded-2xl w-[10%] h-auto'>
-                    <ChevronLeft onClick={() => prevQuestion(currentQuestion)} className='size-[2rem] hover:scale-110  hover:bg-secondary/20 rounded-2xl w-[50%]' />
-                    <ChevronRight onClick={() => nextQuestion(currentQuestion)} className='size-[2rem] hover:scale-110 hover:bg-secondary/20 rounded-2xl w-[50%]' />
-                </TournamentButton>
-                <TournamentButton className='w-[10%] h-[2.2rem] rounded-2xl text-[1.3rem] hover:-translate-y-1'
+                // onValueChange={(val) => setAnswers(prev => ({ ...prev, [currentQuestion]: val }))}
+                // className={`${result_colour()},${read_only}`}
+                ></MathMatch>
+            </div>
+            <div className='w-[100%] h-[6rem]  flex flex-shrink-0 items-center justify-evenly rounded-4xl'>
+
+                <div className='flex items-center justify-evenly text-secondary bg-primary rounded-2xl w-[15%]'>
+                    <ChevronLeft onClick={() => prevQuestion(currentQuestion)} className='size-[3rem] hover:scale-110  hover:bg-secondary/20 rounded-2xl w-[50%]' />
+                    <ChevronRight onClick={() => nextQuestion(currentQuestion)} className='size-[3rem] hover:scale-110 hover:bg-secondary/20 rounded-2xl w-[50%]' />
+                </div>
+                <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem] hover:-translate-y-1'
                     onClick={() => {
                         // const answer = mathfieldRef.current?.value ?? '';
                         // submitQuestion(curr.id!, 'math', { answer: answer })
                     }}
                 >
-                    Submit
-                </TournamentButton>
+                    SUBMIT
+                </Button>
                 {currentQuestion === (questions.length - 1) &&
-                    <TournamentButton className='w-[10%] h-[2.2rem] rounded-2xl text-[1.3rem] hover:-translate-y-1'
+                    <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem] hover:-translate-y-1'
                         onClick={() => {
                             finishGame();
                         }}
                     >
-                        <p>Finish</p>
-                    </TournamentButton>
+                        <p>FINISH</p>
+                    </Button>
                 }
-                </div>
-            
-                </MathMatch>
             </div>
 
             {waitingOpponent && (

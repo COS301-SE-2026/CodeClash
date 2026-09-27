@@ -1,12 +1,12 @@
 import { useMemo, useRef, useState, useEffect } from "react";
 import { useTimer } from "react-timer-hook";
-import type { Player, Question } from "src/Models/MatchModel";
-import type { RoundDTO } from "src/dtos/match/match-questionDTO";
+import type { Player } from "src/Models/MatchModel";
+import type { QuestionDTO } from "src/dtos/match/match.dto";
+import type { RoundDTO } from "src/dtos/match/match.dto";
 import type { OpponentDTO } from "src/dtos/match/opponent.dto";
 import type { MathsSubmissionDTO, ProgSubmissionDTO } from "src/dtos/match/submission.dto";
 import type { MatchSocket } from "src/context/Socket/modules/match.socket";
 import { useMatchStore } from "src/stores/match-store";
-
 
 export function matchStart(match_socket: MatchSocket) {
 
@@ -36,7 +36,7 @@ export const useGameTimer = (duration: number, onExpire: () => void) => {
     return timer;
 }
 
-function shuffle(array: Question[]) {
+function shuffle(array: QuestionDTO[]) {
     let curr = array.length;
     let random;
 
@@ -49,85 +49,39 @@ function shuffle(array: Question[]) {
     return array;
 }
 
-export const useGameQuestions = (
-    match_id: string,
-    user_id: string,
-    socket: Socket,
-    game_type: GameType
-) => {
-    const nav = useNavigate();
+export const useGameQuestions = () => {
 
-    const [questions, setQuestions] = useState<Question[]>([]);
-    const [duration, setDuration] = useState(0);
-    const [currentQuestion, setCurrentQuestion] = useState(0);
-    const [questionsReady, setQuestionsReady] = useState(false);
-    const [waitingOpponent, setWaitingOpponent] = useState(false);
-    const question_idx = useRef(0);
-
-
-    const startQuestion = (
-        player_id: string,
-        question_id: string,
-        question_number: number
-    ) => {
-        const data = {
-            match_id: match_id,
-            player: player_id,
-            question: question_id,
-            question_number: question_number
-        }
-
-        socket?.emit('question_started', data);
-    }
-
-    const nextQuestion = (curr: number) => {
-        if (curr < questions.length - 1) {
-            setCurrentQuestion(curr + 1);
-            startQuestion(user_id, questions[curr + 1].id!, curr + 1)
-        }
-    }
-
-    const prevQuestion = (curr: number) => {
-        if (curr > 0) {
-            setCurrentQuestion(curr - 1)
-            startQuestion(user_id, questions[curr - 1].id!, curr - 1)
-        }
-    }
-
-    const submitQuestion = (question_id: string, game_type: string, submission: ProgSubmissionDTO | MathsSubmissionDTO) => {
-        question_idx.current = currentQuestion;
-        submitAnswer(socket, parseInt(match_id), question_id, question_idx.current, game_type, submission);
-    }
-
-    const finishGame = () => {
-        if (currentQuestion === questions.length - 1) {
-            setWaitingOpponent(true)
-            endGame(parseInt(match_id), game_type, socket);
-        }
-    }
-
-    const loadQuestions = (data: GameQuestionsDTO) => {
-        const temp_arr: Question[] = [];
-        let sumtime = 0;
-
-
-        const rounds: Question[][] = data.map((round, idx) => {
-            const temp_arr: Question[] = round.questions.map(q => {
-                sumtime += Number(q.time_limit!.split(":")[1]);
+    const loadRounds = (data: RoundDTO[]) => {
+        const { rounds, duration } = useMemo(() => {
+            if (!data || data.length === 0) {
                 return {
-                    id: q.id,
-                    title: q.title,
-                    difficulty: difficulties[idx] ?? "Hard",
-                    description: q.description
-                };
-            });
-            return shuffle(temp_arr);
-        });
+                    rounds: [] as QuestionDTO[][],
+                    duration: 0
+                }
+            }
 
-        return {rounds, duration: sumtime};
+            let sumtime = 0;
+            const rounds: QuestionDTO[][] = data.map((round) => {
+                const temp_arr: QuestionDTO[] = round.questions.map(q => {
+                    sumtime += Number(q.time_limit!.split(":")[1]);
+                    return {
+                        id: q.id,
+                        title: q.title,
+                        difficulty: q.difficulty,
+                        description: q.description,
+                        input_type: q.input_type
+                    };
+                });
+                return shuffle(temp_arr);
+            });
+
+            return { rounds, duration: sumtime };
+
+        }, [data]);
+
+        return { rounds, duration }
 
     }
-
 
     return {
         loadRounds
@@ -204,4 +158,13 @@ export const useProgSubmission = (source_code: string, language_id: number, stdi
         language_id: language_id,
         stdin: stdin
     }
+}
+
+export const getRoundScore = (results: (boolean | null)[][], rounds: QuestionDTO[][], round_idx: number) => {
+    const round_results = results[round_idx] ?? [];
+    const correct = round_results.filter(r => r === true).length;
+    return {
+        correct: correct,
+        total: rounds[round_idx]?.length ?? 0
+    };
 }

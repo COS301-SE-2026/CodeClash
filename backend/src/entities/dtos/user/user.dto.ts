@@ -8,6 +8,7 @@ export interface UserDTO {
     league?: string,
     current_streak?: number,
     winning_streak?: number,
+    elo?: number
 }
 
 export const STATS: (keyof UserDTO)[] = [
@@ -16,5 +17,6 @@ export const STATS: (keyof UserDTO)[] = [
     'avatar_id',
     'league',
     'username',
-    'email'
+    'email',
+    'elo'
 ];

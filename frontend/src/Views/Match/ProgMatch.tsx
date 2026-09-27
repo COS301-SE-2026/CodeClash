@@ -1,6 +1,6 @@
 import { CodeEditor } from "@/components/features/code-editor";
 import { Question } from "@/components/features/question";
-import { MatchScreen } from "@/components/shared/Match";
+import { MatchScreen } from "@/components/shared/Match/Match";
 import { useMatch } from "src/ViewModels/Match/MatchViewModel"
 import { ChevronRight, ChevronLeft } from 'lucide-react'
 import { TimerBox } from "@/components/ui/TimerBox";
@@ -19,8 +19,7 @@ export const ProgMatch = () => {
         currentQuestion, opponentCurrent,
         nextQuestion, prevQuestion,
         results, waitingOpponent,
-        finishGame, loading,
-        //  submitQuestion
+        finishGame, loading, submitQuestion
     } = useMatch();
 
     const curr = questions[currentQuestion];
@@ -100,7 +99,7 @@ export const ProgMatch = () => {
                 <div className="fixed inset-0 z-50  bg-background/60 flex items-center justify-center p-4 ">
 
                     <Card className="relative w-full max-w-lg rounded-3xl  text-center flex flex-col items-center gap-4 p-8 overflow-hidden"
-                        style={{background: 'radial-gradient(circle at 50% 15%, #b91551 0%, #850f3b 22%, #630b3c 34%, #0a0008 62%)'}}>
+                        style={{ background: 'radial-gradient(circle at 50% 15%, #b91551 0%, #850f3b 22%, #630b3c 34%, #0a0008 62%)' }}>
                         <h1 className="text-md text-primary-text font-extrabold whitespace-nowrap">
                             Waiting For Opponent To Finish
                         </h1>

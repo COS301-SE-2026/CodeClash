@@ -32,6 +32,7 @@ export class EquippedRepository implements IEquippedRepository {
         let equipped = await this. equippedRepo.findOne({ where: { user: { user_id } } });
 
         const payload: any = {};
+        if(updates.theme_id !== undefined) payload.theme = {shop_item_id: updates.theme_id};
         if (updates.avatar_item_id !== undefined) payload.avatar = { shop_item_id: updates.avatar_item_id };
         if (updates.powerup_item_id !== undefined) payload.powerup = { shop_item_id: updates.powerup_item_id };
         if (updates.theme_id !== undefined) payload.theme = { shop_item_id: updates.theme_id };

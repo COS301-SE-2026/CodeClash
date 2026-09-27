@@ -1,10 +1,10 @@
 import { MathsSubmissionDTO, ProgSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
-import { MarkingStrategy } from "src/application/interfaces/marking/IMarkingStategy";
+import { IMarkingStrategy } from "src/application/interfaces/marking/IMarkingStategy";
 import { ICodeExecutor } from "src/application/interfaces/marking/ICodeExecutor";
 import { AnswerDTO } from "src/entities/dtos/questions/answer.dto";
 import { ProgSubmissionResult } from "src/entities/dtos/submissions/submission-result.dto";
 
-export class MarkProg implements MarkingStrategy {
+export class MarkProg implements IMarkingStrategy {
 
     private readonly executor;
 
