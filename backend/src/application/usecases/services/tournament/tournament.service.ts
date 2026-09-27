@@ -72,8 +72,6 @@ export class TournamentService {
         if (tournament.status !== MatchStatus.Waiting) throw new Error("Tournament already started");
         if (tournament.players.length < tournament.min_players) throw new Error("Not enough players");
 
-        console.log("Tournament service creating", tournament);
-
         const db_players = await Promise.all(
             tournament.players.map(async (p) => ({
                 ...p,

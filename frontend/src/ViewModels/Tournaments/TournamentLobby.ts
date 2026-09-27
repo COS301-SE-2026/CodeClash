@@ -14,7 +14,7 @@ export const useTournamentLobby = () => {
     const [error, setError] = useState<string | null>(null);
 
     const { tournamentSocket } = useSocket();
-    const { userId } = useUser();
+    const { userId, league } = useUser();
     const { tournament_id } = useParams<{ tournament_id: string }>();
     const nav = useNavigate();
 
@@ -74,15 +74,26 @@ export const useTournamentLobby = () => {
             setError('Cannot cancel tournament');
     }
 
-    const start = () => {
+    const start = async () => {
         console.log("starting tournament");
         if (tournament) {
             const data = {
                 tournament_id: tournament.tournament_id,
-                league: tournament.host.league!,
+                league: league,
 
             }
-            tournamentSocket?.startTournament(data);
+            const res = await tournamentSocket?.startTournament(data);
+
+            if (res?.ok && res.data) {
+                useMatchStore.getState().setMatchData({
+                    match_id: res.data.match.match_id,
+                    rounds: res.data.match.rounds,
+                    players: res.data.match.players
+
+                });
+
+                nav(`/tournaments/match/${res.data.tournament.tournament_id}`);
+            }
         }
 
     }
