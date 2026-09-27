@@ -4,12 +4,14 @@ import { useMatchmaking } from "src/context/Matchmaking/hooks/useMatchmaking";
 import { useUser } from "src/context/User/hooks/useUser";
 import type { MatchType } from "src/dtos/match/match.dto";
 import { getIcon } from "src/utils/achievementIcon";
+import { useSkillProgressViewModel } from "./SkillProgressViewModel";
 
 export function useDashboardViewModel() {
     const [isOpen, setIsOpen] = useState(false);
     const { setGameType } = useMatchmaking();
     const { username, elo, avatar, league, current_streak, winning_streak, refresh } = useUser()
-    const { isLoading, token } = useAuth()
+  const { isLoading, token } = useAuth(); 
+  const skill = useSkillProgressViewModel();
 
     const [recentAchievement, setRecentAchievement] = useState<{
         name: string;
@@ -51,7 +53,15 @@ export function useDashboardViewModel() {
     const closePopUp = () => {
         setIsOpen(false);
         setGameType(null)
-    }
+  }
+
+  const skillItems = [
+    { label: 'Mastery', value: skill.masteryCeiling ? Math.min(100, Math.round((skill.mastery / skill.masteryCeiling) * 100)) : 0 },
+    ...skill.components
+      .filter(component => component.inMastery && component.gamesCounted > 0)
+      .slice(0, 3)
+      .map(component => ({  label: `${component.label} · ${component.domain === 'math' ? 'Maths' : 'Programming'}`, value: component.value}))
+  ]
 
     return {
         isOpen,
@@ -64,7 +74,9 @@ export function useDashboardViewModel() {
         current_streak, winning_streak,
         recentAchievement,
         isLoading,
-        refresh
+      refresh,
+      skillItems,
+      skillIsSample: skill.telemetrySource === 'simulated'
     };
 }
 
