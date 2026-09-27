@@ -3,7 +3,6 @@ import React from "react";
 import { Link } from "react-router";
 import { docs } from "src/Models/LandingModel";
 
-import symbolBackground from '../assets/Background/SymbolBackground.png';
 import helloRobot from '../assets/Robots/HelloRobot_Pink.png';
 import { LandingViewModelFunction } from "../ViewModels/LandingViewModel";
 
