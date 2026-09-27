@@ -81,11 +81,11 @@ export class PowerupSystem {
                 break;
 
             case 'restore_life':
-                this.life_system.adjustLife(match_id, actor_id, false);
+                this.life_system.adjustLife(match_id, actor_id, metadata.value as number);
                 break;
 
             case 'drain_life':
-                this.life_system.adjustLife(match_id, target_id!, false);
+                this.life_system.adjustLife(match_id, target_id!, metadata.value as number);
                 break;
 
             case 'block_next_powerdown':
@@ -93,14 +93,14 @@ export class PowerupSystem {
                 break;
 
             case 'insert_bugs':
-                this.submission_system.corruptAnswer(match_id, target_id!);
+                // client side mangling of current input
                 break;
 
             case 'wipe_answer': {
                 const target_state = this.getPlayerState(match_id,target_id!);
                 if (target_state.wipe_used) throw new Error('Wipe already used this match');
                 target_state.wipe_used = true;
-                this.submission_system.wipeAnswer(match_id, target_id!);
+                // client side clearing of input
                 break;
             }
 
@@ -122,7 +122,13 @@ export class PowerupSystem {
     }
 
     isQuestionBlocked(match_id: number, user_id: string): boolean {
-
+        const state = this.getPlayerState(match_id, user_id);
+        if (!state.blocked_until) return false;
+        if (Date.now() >= state.blocked_until) {
+            state.blocked_until = null;
+            return false;
+        }
+        return true;
     }
 
     getTimeDeltaSeconds(match_id: number, user_id: string): number {
