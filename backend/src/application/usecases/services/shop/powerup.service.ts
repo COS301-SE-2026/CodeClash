@@ -12,8 +12,7 @@ export class PowerupService {
     ) {}
 
     async usePowerup(user_id: string, match_id: number, shop_item_id: string, target_user_id?: string): Promise<UsePowerupResultDTO> {
-        const owned = await this.inventory_repo.hasItem(user_id,shop_item_id);
-        if (!owned) throw new Error('Powerup not owned');
+        await this.inventory_repo.consumeItem(user_id,shop_item_id);
 
         const item = await this.shop_item_repo.getItemById(shop_item_id);
         if (!item || item.category !== 'powerup') throw new Error('Item not found');

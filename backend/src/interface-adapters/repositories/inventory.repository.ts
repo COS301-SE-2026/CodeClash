@@ -43,4 +43,20 @@ export class InventoryRepository implements IInventoryRepository {
 
             return items.map(i => this.toDTO(i));
         }
+
+    async consumeItem(user_id: string, shop_item_id: string): Promise<void> {
+        const user_item= await this.userItemRepo.findOne({
+            where: { user: { user_id }, shop_item: { shop_item_id } }
+        });
+
+        if (!user_item || user_item.quantity <= 0) {
+            throw new Error('Item not owned');
+        }
+
+        if (user_item.quantity === 1) {
+            await this.userItemRepo.delete({ user_item_id: user_item.user_item_id });
+        } else {
+            await this.userItemRepo.update({ user_item_id: user_item.user_item_id }, { quantity: user_item.quantity -1 });
+        }
+    }
 }
