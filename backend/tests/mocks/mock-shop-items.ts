@@ -10,12 +10,12 @@ export const mock_shop_items: Partial<ShopItem>[] = [
         metadata: { effect: 'block_next_powerdown', consumed_on_use: true }
     },
     {
-        category: 'accessory',
-        name: 'Test Hat',
-        description: 'A test hat accessory.',
+        category: 'avatar',
+        name: 'Test Avatar',
+        description: 'A test avatar.',
         price: 50,
         rarity: 'common',
-        metadata: { slot: 'hat', asset_key: 'test_hat_01' }
+        metadata: { asset_key: 'test-avatar-1' }
     },
     {
         category: 'theme',

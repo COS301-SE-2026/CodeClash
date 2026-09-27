@@ -56,10 +56,10 @@ describe('Tests EquippedRespository', () => {
     });
 
     it('Updates one slot without clearing another', async () => {
-        const powerup_id = item_ids.find((_, i) => mock_shop_items[i]!.category === 'powerup')!;
-        const result = await repo.updateEquipped(user_id, { powerup_item_id: powerup_id });
+        const avatar_id = item_ids.find((_, i) => mock_shop_items[i]!.category === 'avatar')!;
+        const result = await repo.updateEquipped(user_id, { avatar_item_id: avatar_id });
 
-        expect(result.powerup!.shop_item_id).toBe(powerup_id);
+        expect(result.powerup!.shop_item_id).toBe(avatar_id);
         expect(result.theme).toBeDefined(); // theme from previous test still equipped
     });
 

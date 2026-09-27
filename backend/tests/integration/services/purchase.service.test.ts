@@ -12,7 +12,7 @@ import { UserRepository } from "../../../src/interface-adapters/repositories/use
 import { PurchaseService } from "../../../src/application/usecases/services/shop/purchase.service";
 import { IUserRepository } from "../../../src/application/interfaces/repositories/IUserRepository";
 import { mock_shop_items } from "../../mocks/mock-shop-items";
-import { after, before } from "node:test";
+import { after, before, mock } from "node:test";
 
 let data_source: DataSource;
 let purchase_service: PurchaseService;
@@ -62,12 +62,20 @@ describe('Tests PurchaseService', () => {
     });
 
     it('Throws and does not deduct balance when item is already owned', async () => {
-        const item_id = item_ids.find((_, i) => mock_shop_items[i]!.category === 'powerup')!;
+        const item_id = item_ids.find((_, i) => mock_shop_items[i]!.category === 'theme' && mock_shop_items[i].name === 'Test Nebula')!;
 
         await expect(purchase_service.purchaseItem(user_id, item_id)).rejects.toThrow('Item already owned');
 
         const wallet = await wallet_repo.getWallet(user_id);
         expect(wallet!.balance).toBe(400); 
+    });
+
+    it('Increments quantity instead of rejecting when repurchasing a powerup', async () => {
+        const item_id = item_ids.find((_, i) => mock_shop_items[i].category === 'powerup')!;
+
+        const result = await purchase_service.purchaseItem(user_id, item_id);
+
+        expect(result.item.quantity).toBe(2);
     });
 
     it('Throws and does not deduct balance when balance is insufficient', async () => {
