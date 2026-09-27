@@ -885,6 +885,7 @@
   }
 
   card-glass:hover {
+    background: var(--card-hover);
     border-color: var(--border-hover);
     transform: translateY(-2px);
   }
@@ -989,22 +990,22 @@
   .btn-primary {
     background: var(--button-primary);
     color: var(--button-text-primary);
-    box-shadow: 0 4px 20px rgba(192, 57, 90, 0.35);
+    box-shadow: 0 4px 20px color-mix(in srgb, var(--primary) 35%, transparent);
   }
 
   .btn-primary:hover:not(:disabled) {
-    background: var(--pink-200, #e93577);
+    background: var(--button-primary-hover);
     transform: translateY(-1px);
   }
 
   .btn-secondary {
     background: var(--secondary);
     color: var(--secondary-text);
-    border: 1px solid rgba(252, 236, 221, 0.25);
+    border: 1px solid color-mix(in srgb, var(--secondary) 25%, transparent);
   }
 
   .btn-secondary:hover:not(:disabled) {
-    background: var(--pink-200, #Ffffff);
+    background: var(--secondary-hover);
     transform: translateY(-1px);
   }
 
@@ -1023,16 +1024,17 @@
 
   .btn-ghost:hover:not(:disabled) {
     border-color: var(--border-hover);
-    background: var(--background-card);
+    background: var(--background-elevated-hover);
   }
 
   .btn-danger {
     background: var(--danger);
-    color: #ffffff;
+    color: var(--button-text-primary);
   }
 
   .btn-danger:hover:not(:disabled) {
     filter: brightness(1.1);
+    background: var(--danger-hover);
   }
 
   .btn-icon {
@@ -1064,7 +1066,7 @@
   }
 
   .input::placeholder, .textarea::placeholder {
-    color: rgba(252,235,221, 0.35);
+    color: var(--muted-text);
   }
 
   .input:hover, .select:hover, .textarea:hover {
@@ -1074,7 +1076,7 @@
   .input:focus, .select:focus, .textarea:focus {
     outline: none;
     border-color: var(--primary);
-    background: rgba(252, 236, 221, 0.08);
+    background: var(--background-elevated-hover);
   }
 
   .input-error {
@@ -1093,7 +1095,7 @@
   }
 
   .field-hint {
-    color: rgba(252, 236, 221, 0.4);
+    color: var(--muted-text);
     font-size: 0.8rem;
     margin-top: 0.4rem;
   }
@@ -1121,46 +1123,46 @@
   }
 
   .badge-difficulty-easy {
-    background: rgba(76, 175, 80, 0.15);
+    background: color-mix(in srgb, var(--difficulty-easy) 15%, transparent);
     color: var(--difficulty-easy);
-    border: 1px solid rgba(76, 175, 80, 0.35);
+    border: 1px solid color-mix(in srgb, var(--difficulty-easy) 35%, transparent);
   }
 
   .badge-difficulty-medium {
-    background: rgba(232, 163, 61, 0.15);
+    background: color-mix(in srgb, var(--difficulty-medium) 15%, transparent);
     color: var(--difficulty-medium);
-    border: 1px solid rgba(232, 163, 61, 0.35);
+    border: 1px solid color-mix(in srgb, var(--difficulty-medium) 35%, transparent);
   }
 
   .badge-difficulty-hard {
-    background: rgba(229, 57, 53, 0.15);
+    background: color-mix(in srgb, var(--difficulty-hard) 15%, transparent);
     color: var(--difficulty-hard);
-    border: 1px solid rgba(229, 57, 53, 0.35);
+    border: 1px solid color-mix(in srgb, var(--difficulty-hard) 35%, transparent);
   }
 
   /*Copied from above*/
   .badge-status-correct {
-    background: rgba(76, 175, 80, 0.15);
+    background: color-mix(in srgb, var(--success) 15%, transparent);
     color: var(--success);
-    border: 1px solid rgba(76, 175, 80, 0.35);
+    border: 1px solid color-mix(in srgb, var(--success) 35%, transparent);
   }
 
   .badge-status-pending {
-    background: rgba(232, 163, 61, 0.15);
+    background: color-mix(in srgb, var(--warning) 15%, transparent);
     color: var(--warning);
-    border: 1px solid rgba(232, 163, 61, 0.35);
+    border: 1px solid color-mix(in srgb, var(--warning) 35%, transparent);
     transition: all 0.2s ease-in-out;
   }
 
   .badge-status-pending:hover, .badge-status-correct:hover, .badge-status-wrong:hover {
-     background: rgba(252, 236, 221, 0.03);
+     background: var(--background-elevated-hover);
      cursor: pointer;
   }
 
   .badge-status-wrong {
-    background: rgba(229, 57, 53, 0.15);
+    background: color-mix(in srgb, var(--danger) 15%, transparent);
     color: var(--danger);
-    border: 1px solid rgba(229, 57, 53, 0.35);
+    border: 1px solid color-mix(in srgb, var(--danger) 35%, transparent);
   }
 
   /*Divider*/
@@ -1179,11 +1181,20 @@
     box-shadow: var(--card-shadow);
   }
 
+  .card-elevated:hover {
+    border-color: var(--border-hover);
+  }
+
   .card-glow {
     background: var(--background-card);
     border: 1px solid var(--border);
     border-radius: 18px;
     box-shadow: var(--card-shadow);
+  }
+
+  .card-glass:hover {
+    background: var(--card-hover);
+    border-color: var(--border-hover);
   }
 
   /*A space themes star bg*/
@@ -1206,7 +1217,7 @@
   :root.light .starfield span, [data-theme= 'light'] .starfield span {
     width: 3px;
     height: 3px; 
-    background: rgba(192, 57, 90, 0.35);
+    background: color-mix(in srgb, var(--primary) 35%, transparent);
   }
 
   /*Animations for float and glow*/
@@ -1222,14 +1233,14 @@
   .progress-track {
     width: 100%;
     height: 8px;
-    background: rgba(252, 236, 221, 0.08);
+    background: var(--border);
     border-radius: 999px;
     overflow: hidden;
   }
 
   .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--primary), var(--pink-200, #e93577));
+    background: linear-gradient(90deg, var(--primary), var(--accent-hover));
     border-radius: 999px;
     animation: progress-fill 0.6s ease-out;
   }
@@ -1240,13 +1251,14 @@
     border: 2px solid var(--border);
     background: var(--background-card);
     object-fit: cover;
+    transition: border-color 0.2s ease;
   }
 
   .score-display {
     font-family: var(--font-dseg);
     color: var(--primary);
     letter-spacing: 0.05rem;
-    text-shadow: 0 0 12px rgba(192, 57, 90, 0.5);
+    text-shadow: 0 0 12px color-mix(in srgb, var(--primary) 50%, transparent);
   }
 
   /*For the confetti effect*/
