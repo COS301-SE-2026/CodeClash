@@ -1,7 +1,9 @@
 import TournamentsWaiting from "../../../src/Views/Tournaments/TournamentsWaiting"
-import {describe, it, expect} from "vitest";
+import {describe, it, expect, vi} from "vitest";
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from "react-router-dom";
+
+vi.mock("src/ViewModels/Tournaments/TournamentViewModel", () => ({ useTournamentLobby: () => ({}) }));
 
 describe("WaitingRoom", () => {
     describe("tournament header", () => {
@@ -10,8 +12,6 @@ describe("WaitingRoom", () => {
 
             expect(screen.getByRole("heading", {level: 1, name: "Tournament Title"})).toBeInTheDocument();
         });
-
-
         it("renders the Leave")
     })
 })

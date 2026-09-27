@@ -60,7 +60,7 @@ const renderUser = (auth: Partial<AuthContextValue> = {}, children: ReactNode = 
 
 const respondWith = (overrides: Record<string, { status: number; data: any }> = {}) => {
   const table: Record<string, { status: number; data: any }> = {
-    'user/elo': { status: 200, data: { rating: 1420 } },
+    'user/elo': { status: 200, data: { elo: 1420 } },
     'user/avatar_id': { status: 200, data: { avatar_id: 2 } },
     'user/league': { status: 200, data: { league: 'Gold' } },
     'user/rank': { status: 200, data: { rank: 7 } },
@@ -144,7 +144,7 @@ describe('UserProvider integration', () => {
     renderUser();
     await waitFor(() => expect(api.get).toHaveBeenCalledTimes(5));
 
-    respondWith({ 'user/elo': { status: 200, data: { rating: 1500 } } });
+    respondWith({ 'user/elo': { status: 200, data: { elo: 1500 } } });
     await user.click(screen.getByRole('button', { name: 'refresh' }));
 
     await waitFor(() => expect(screen.getByTestId('elo')).toHaveTextContent('1500'));
@@ -152,11 +152,11 @@ describe('UserProvider integration', () => {
   });
 
   it('surfaces a non-200 elo response as an error', async () => {
-    respondWith({ 'user/elo': { status: 500, data: 'server exploded' } });
+    respondWith({ 'user/elo': { status: 500, data: { message: 'server exploded'} } });
 
     renderUser();
 
-    await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Error getting user elo: error: server exploded'));
+    await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Error Getting User Elo: Error: server exploded'));
     expect(screen.getByTestId('elo')).toHaveTextContent('0');
   });
 
@@ -169,7 +169,7 @@ describe('UserProvider integration', () => {
     respondWith({ 'user/league': { status: 403, data: { message: 'forbidden' } } });
     await user.click(screen.getByRole('button', { name: 'refresh' }));
 
-    await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Error getting user league: Error: 403 forbidden'));
+    await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Error Getting User League: Error: forbidden'));
   });
 
   it('surfaces a non-200 rank response as an error', async () => {
@@ -177,7 +177,7 @@ describe('UserProvider integration', () => {
 
     renderUser();
 
-    await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Error getting user rank: Error: 418 teapot'));
+    await waitFor(() => expect(screen.getByTestId('error')).toHaveTextContent('Error Getting User Rank: Error: teapot'));
   });
 
   it('swallows streak failures so the rest of the profile still loads', async () => {

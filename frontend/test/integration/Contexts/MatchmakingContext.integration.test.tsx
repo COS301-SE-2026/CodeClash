@@ -119,7 +119,7 @@ describe('MatchmakingProvider integration', () => {
         await user.click(screen.getByRole('button', { name: 'join' }));
     
         expect(socket.emitsOf('join_match_queue')).toEqual([
-          [{ elo: 1400, match_mode: 'programming', mach_type: 'ranked' }],
+          [{ elo: 1400, match_mode: 'programming', match_type: 'ranked' }],
         ]);
       });
 

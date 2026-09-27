@@ -110,7 +110,7 @@ describe('app provider tree integration', () => {
     api.get.mockImplementation(() =>
       Promise.resolve({
         status: 200,
-        data: { rating: 1400, league: 'Silver', rank: 12, current_streak: 2, winning_streak: 1 },
+        data: { elo: 1400, league: 'Silver', rank: 12, current_streak: 2, winning_streak: 1 },
       }),
     );
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, json: () => Promise.resolve([]) }));
