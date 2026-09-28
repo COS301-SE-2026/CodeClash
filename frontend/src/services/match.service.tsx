@@ -69,7 +69,9 @@ export const useLoadRounds = (data: RoundDTO[]) => {
                     title: q.title,
                     difficulty: q.difficulty,
                     description: q.description,
-                    input_type: q.input_type
+                    input_type: q.input_type,
+                    templates: q.templates
+
                 };
             });
             return shuffle(questions);

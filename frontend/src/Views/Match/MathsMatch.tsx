@@ -63,7 +63,6 @@ const MathsMatch = () => {
                 title={curr.title!}
                 description={curr.description}
             />
-
             <div className='w-[100%] h-[100%] min-h-[35%] flex items-center justify-center'>
                 <MathMatch
                     mathfieldRef={mathfieldRef}

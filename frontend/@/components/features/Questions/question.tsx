@@ -1,5 +1,6 @@
 import * as React from "react";
-
+import ReactMarkDown from 'react-markdown';
+import remarkGfm from "remark-gfm";
 import { Badge } from "@/components/ui/badge";
 
 import { cn } from "@/lib/utils";
@@ -13,13 +14,15 @@ interface QuestionProps {
   description?: string,
   className?: string
 }
-function Question({
+
+
+export const Question = ({
   className,
   children,
   difficulty,
   title,
   description,
-}: QuestionProps) {
+}: QuestionProps) => {
   return (
     <div
       className={cn(
@@ -27,7 +30,7 @@ function Question({
         className,
       )}
     >
-      <MatchCard className="flex flex-col p-2 rounded-lg w-full h-auto -mt-5 gap-3">
+      <MatchCard className="flex flex-col p-2 rounded-lg w-full h-[20rem] -mt-5 gap-3">
         <div className="flex justify-between w-full">
 
           {difficulty.length > 0 && <Badge
@@ -38,9 +41,14 @@ function Question({
           </Badge>}
         </div>
 
-        <div className="ml-3 m-5 flex flex-col justify-evenly">
+        <div className="ml-3 m-5 flex flex-col min-h-0 justify-evenly">
           <h1 className="text-[1.6rem] -mt-8 font-semibold">{title}</h1>
-          <div className="text-[1rem] text-muted-text mt-1">{description?.replaceAll(String.raw`\n`, '\n')}</div>
+          <div className="text-[1rem] text-muted-text mt-1 min-h-0 flex-1 overflow-y-auto">
+            <QuestionDescription
+              description={description!}
+            
+            />
+          </div>
         </div>
       </MatchCard>
 
@@ -51,4 +59,14 @@ function Question({
   );
 }
 
-export { Question };
+
+export const QuestionDescription = ({ description }: { description: string }) => {
+  return (
+    <div className="prose prose-invert max-w-none">
+      <ReactMarkDown remarkPlugins={[remarkGfm]}>
+        {description}
+      </ReactMarkDown>
+    </div>
+  )
+}
+
