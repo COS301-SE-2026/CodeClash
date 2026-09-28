@@ -9,7 +9,7 @@ interface TournamentPlayerProps{
     className?: string;
 }
 
-export const    TournamentPlayer = ({children, className} : TournamentPlayerProps) => {
+export const TournamentPlayer = ({children, className} : TournamentPlayerProps) => {
 
     return(
         <MatchCard className={`flex flex-row w-auto overflow-x-auto gap-1 min-w-[10%] ${className}`}>

@@ -1,0 +1,64 @@
+name: Deploy to EC2
+
+on: 
+  push: 
+    branches: [main]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs: 
+  deploy:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@8c3f20df09ac63af7b3ae3d7c91f105f857d8497
+        with: 
+          role-to-assume: ${{secrets.AWS_ROLE_ARN}}
+          aws-region: ${{secrets.COGNITO_REGION}}
+
+      - name: Deploy via SSM
+        env: 
+          AWS_INSTANCE_ID: ${{secrets.AWS_INSTANCE_ID}}
+        run: |
+          COMMAND_ID=$(aws ssm send-command \
+            --instance-ids "$AWS_INSTANCE_ID" \
+            --document-name "AWS-RunShellScript" \
+            --parameters 'commands=["sudo -u ubuntu bash /home/ubuntu/deploy.sh main"]' \
+            --query "Command.CommandId" \
+            --output text
+          )
+
+          for i in $(seq 1 30); do
+            STATUS=$(aws ssm get-command-invocation \
+              --command-id "$COMMAND_ID" \
+              --instance-id "$AWS_INSTANCE_ID" \
+              --query "Status" \
+              --output text
+            )
+
+            echo "Status: $STATUS"
+            if [[ "$STATUS" == "Success" ]]; then
+              exit 0
+            elif [[ "$STATUS" == "Failed" || "$STATUS" == "Cancelled" || "$STATUS" == "TimedOut" ]]; then
+              echo "--- Deploy output ---"
+              aws ssm get-command-invocation \
+                --command-id "$COMMAND_ID" \
+                --instance-id "$AWS_INSTANCE_ID" \
+                --query "StandardOutputContent" \
+                --output text
+
+              echo "--- Deploy errors ---"
+              aws ssm get-command-invocation \
+                --command-id "$COMMAND_ID" \
+                --instance-id "$AWS_INSTANCE_ID" \
+                --query "StandardErrorContent" \
+                --output text
+                exit 1
+            fi
+            sleep 5
+          done
+
+          echo "Timed out waiting for deploy to finish"
+          exit 1
