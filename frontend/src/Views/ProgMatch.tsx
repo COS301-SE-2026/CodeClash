@@ -57,6 +57,8 @@ export const ProgMatch = () => {
         else return ""
     }
 
+    console.log(playerLife);
+
 
 
 
@@ -87,13 +89,15 @@ export const ProgMatch = () => {
 
             <MatchBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] -mt-4"></MatchBox>
 
-            <Flash result={correct ?? null} trigger={flashTrigger}>
+
             <MatchCard className="items-center mt-5">
-                <div className={`w-[95%] flex justify-center p-2 rounded-2xl ${result_colour()} ${result_border}`}>
+            <Flash result={correct ?? null} trigger={flashTrigger} className="w-[95%] rounded-2xl">
+                <div className={`w-full flex justify-center p-2 rounded-2xl mx-auto ${result_colour()} ${result_border}`}>
                 <CodeEditor 
                     handleChange={setCode}
                 />
                 </div>
+            </Flash>
             
 
                 <div className='flex flex-row gap-6 w-full mx-auto justify-center my-auto'>
@@ -128,7 +132,7 @@ export const ProgMatch = () => {
                     }
                 </div>
             </MatchCard>
-            </Flash>
+            
 
             {/*Copied from math match */}
             {waitingOpponent && (
