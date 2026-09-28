@@ -23,10 +23,9 @@ export const useMatchTimer = (duration: number, onExpire: () => void) => {
         return time;
     }, [duration]);
 
-
     const timer = useTimer({
         expiryTimestamp: expiry_time,
-        autoStart: false,
+        autoStart: true,
         onExpire
     });
 
@@ -63,7 +62,7 @@ export const useLoadRounds = (data: RoundDTO[]) => {
         let sumtime = 0;
         const rounds = data.map((round) => {
             const questions: QuestionDTO[] = round.questions.map(q => {
-                sumtime += Number(q.time_limit!.split(":")[1]);
+                sumtime += Number(q.time_limit!.split(":")[0]);
                 return {
                     id: q.id,
                     title: q.title,
