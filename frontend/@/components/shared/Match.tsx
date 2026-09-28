@@ -6,6 +6,7 @@ import TournamentButton from '../ui/TournamentButton'
 import { TournamentsBadge } from '../ui/TournamentsBadge'
 import { TimerCard } from '../ui/MatchBox'
 import Shake from '../ui/Shake'
+import type { SubmissionResultDTO } from 'src/dtos/submission.dto'
 
 interface MatchScreenProps {
     player_life: number[],
@@ -96,12 +97,13 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                             <Shake value={player_life[1]}>
                             <Progress
                                 value={player_life[1]}
+                                reverse={true}
                                 bg={"var(--button-tournament-secondary)"}
                                 border={"var(--button-tournament-secondary"}
                                 from={"#8b29b8"}
                                 via={"#BF4DF3"}
                                 height={2.5}
-                                className='max-w-[11rem] min-w-[1rem] h-sm ml-auto mr-5 -mt-2.5 rotate-180'
+                                className='max-w-[11rem] min-w-[1rem] h-sm ml-auto mr-5 -mt-2.5'
                             />
                             </Shake>
                         </div>

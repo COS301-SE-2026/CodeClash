@@ -30,4 +30,4 @@ const Shake = ({ value, children, className= ''}: ShakeProps) => {
     )
 }
 
-export default Shake;
+export default Shake
