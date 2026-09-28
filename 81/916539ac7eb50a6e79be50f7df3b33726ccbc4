@@ -1,0 +1,14 @@
+frontend/@/components/shared/Match.tsx
+  h_b13c5d77534129 8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "81916539ac7eb50a6e79be50f7df3b33726ccbc4",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

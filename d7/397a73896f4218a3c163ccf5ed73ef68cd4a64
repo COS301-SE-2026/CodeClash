@@ -1,0 +1,14 @@
+frontend/src/Views/TournamentMatchPage.tsx
+  h_b13c5d77534129 58-59
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "d7397a73896f4218a3c163ccf5ed73ef68cd4a64",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
