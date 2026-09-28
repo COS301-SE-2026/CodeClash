@@ -10,6 +10,7 @@ import { Card } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
 import { MatchBox } from '@/components/ui/MatchBox';
 import TournamentButton from '@/components/ui/TournamentButton';
+import "../../src/styles/global.css"
 
 const MathsMatch = () => {
     const {
@@ -81,7 +82,7 @@ const MathsMatch = () => {
                     className={`${result_colour()},${read_only}`}
                 >
             
-                <div className="flex flex-row gap-6 w-full mx-auto justify-center my-auto">
+                <div className="flex flex-row gap-6 w-full mx-auto justify-center my-auto mb-10 relative">
                 <TournamentButton className='flex items-center justify-evenly text-secondary rounded-2xl w-[10%] h-auto'>
                     <ChevronLeft onClick={() => prevQuestion(currentQuestion)} className='size-[2rem] hover:scale-110  hover:bg-secondary/20 rounded-2xl w-[50%]' />
                     <ChevronRight onClick={() => nextQuestion(currentQuestion)} className='size-[2rem] hover:scale-110 hover:bg-secondary/20 rounded-2xl w-[50%]' />
@@ -103,6 +104,19 @@ const MathsMatch = () => {
                         <p>Finish</p>
                     </TournamentButton>
                 }
+
+                <div className="flex gap-5 absolute right-8 -top-2">
+
+                    <div className="card-elevated size-12 rounded-full">
+
+                    </div>
+
+                    <div className="card-elevated size-12 rounded-full">
+
+                    </div>
+
+                </div>
+
                 </div>
             
                 </MathMatch>
