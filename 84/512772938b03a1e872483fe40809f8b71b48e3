@@ -1,0 +1,21 @@
+frontend/src/context/Socket/SocketContext.tsx
+  s_bb092336219d7c::t_260b7a38fa4d8f 31,33-37
+frontend/test/unit/Views/TournamentsWaiting.test.tsx
+  s_bb092336219d7c::t_7a77219e37bcb7 2,6-7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "84512772938b03a1e872483fe40809f8b71b48e3",
+  "prompts": {},
+  "sessions": {
+    "s_bb092336219d7c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a9dd7b37-31b7-439d-a2a7-a8d2161616c7",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
