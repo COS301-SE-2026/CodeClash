@@ -1,10 +1,10 @@
 import React from 'react'
-import { TimerBox } from '../ui/TimerBox'
-import { Progress } from '../ui/progress'
+import { TimerBox } from '@/components/ui/TimerBox'
+import { Progress } from '@/components/ui/progress'
 import {Check, X, LockKeyhole, Timer, Target} from "lucide-react"
-import { MatchCard } from '../ui/MatchCard'
-import TournamentButton from '../ui/TournamentButton'
-import { TournamentsBadge } from '../ui/TournamentsBadge'
+import { MatchCard } from '@/components/ui/MatchCard'
+import TournamentButton from '@/components/ui/TournamentButton'
+import { TournamentsBadge } from '@/components/ui/TournamentsBadge'
 
 interface MatchScreenProps {
     player_life: number[],
@@ -137,7 +137,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                     // className='bg-[var(--match-card)] w-[100%] h-[100%] rounded-4xl ml-1 pt-[2rem] flex flex-col justify-between items-center'
                     >
                         {children}
-                    </div> */}
+                    </div> 
                 </div>
 
                 {/* Progress bar */}
@@ -154,7 +154,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                 {
                                     [...Array(question_number)].map((_, idx) => {
 
-                                        // const doorResult = question_results[idx];
+                                        const doorResult = question_results[idx];
                                         const doorColour = () => {
                                             if (idx === current_question) return 'bg-[var(--button-tournament)] shadow-[0_0_10px_var(--button-tournament)]'
                                             if (doorResult === true) return 'bg-success/30 shadow-[0_0_10px_var(--success)]'
