@@ -73,6 +73,8 @@ import { WalletService } from 'src/application/usecases/services/shop/wallet.ser
 import { EquipmentService } from 'src/application/usecases/services/shop/equipment.service';
 import { PowerupService } from 'src/application/usecases/services/shop/powerup.service';
 import { PurchaseService } from 'src/application/usecases/services/shop/purchase.service';
+import { PowerupSystem } from 'src/application/usecases/systems/powerup.system';
+import { RewardService } from 'src/application/usecases/services/match/reward.service';
 
 dotnev.config()
 
@@ -128,17 +130,18 @@ AppDataSource.initialize()
         const inventory_service = new InventoryService(inventory_repo);
         const wallet_service = new WalletService(wallet_repo);
         const equipment_service = new EquipmentService(equipped_repo, inventory_repo, shop_item_repo);
-        const powerup_service = new PowerupService(inventory_repo, shop_item_repo);
         const purchase_service = new PurchaseService(shop_item_repo, AppDataSource);
-
+        const reward_service = new RewardService();
 
         // initialise systems 
         const submission_system = new SubmissionSystem(world);
         const life_system = new LifeSystem(world);
         const match_deletion_system = new DeleteGame(world, match_store, matched_users_service);
         const match_completion_system = new MatchCompletionSystem(world, match_store);
-        const match_completion_service = new MatchCompletionService(match_repo, match_completion_system, user_repo, achievement_service);
-
+        const match_completion_service = new MatchCompletionService(match_repo, match_completion_system, user_repo, achievement_service, reward_service, wallet_repo);
+        const powerup_system = new PowerupSystem(world, life_system, submission_system);
+        // has to be declared here for system
+        const powerup_service = new PowerupService(inventory_repo, shop_item_repo, powerup_system);
 
 
         const app = createApp(user_repo, leaderboard_service, achievement_service, friends_service, match_completion_service, shop_item_service, inventory_service, wallet_service, equipment_service, powerup_service, purchase_service, equipped_repo, shop_item_repo);
@@ -198,7 +201,7 @@ AppDataSource.initialize()
 
         // attach socket handlers
         attachSocketModules(io, {
-            match: { marking_service, submission_system, match_completion_service, match_deletion_system, match_store },
+            match: { marking_service, submission_system, match_completion_service, match_deletion_system, match_store, powerup_service },
             matchmaking: { matchmaking_service, matched_users_service, match_service, match_store, user_repo, match_start },
             friends: {},
             tournament: { tournament_service }

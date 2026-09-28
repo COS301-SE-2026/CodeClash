@@ -8,6 +8,10 @@ import { Questions } from "src/entities/database/questions.entities";
 import { Users } from "src/entities/database/user.entities";
 import { Achievement } from "src/entities/database/achievement.entities";
 import { FriendInvite, Friendship } from "src/entities/database/friendship.entities";
+import { ShopItem } from "src/entities/database/shop-item.entities";
+import { Wallet } from "src/entities/database/wallet.entities";
+import { UserItem } from "src/entities/database/user-item.entities";
+import { EquippedItems } from "src/entities/database/equipped-items.entities";
 
 dotenv.config()
 
@@ -30,7 +34,11 @@ export const AppDataSource = new DataSource({
         Users,
         Achievement,
         Friendship,
-        FriendInvite
+        FriendInvite,
+        ShopItem,
+        Wallet,
+        UserItem,
+        EquippedItems
     ],
     migrations: [],
     subscribers: [],
