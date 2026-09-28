@@ -13,6 +13,7 @@ import { MatchCompletionService } from "src/application/usecases/services/match/
 import { TournamentService } from "src/application/usecases/services/tournament/tournament.service";
 import { TournamentEliminationService } from "src/application/usecases/services/tournament/elimination.service";
 import { OpponentProgress } from "src/application/usecases/systems/opponent-progress";
+import { PowerupService } from "src/application/usecases/services/shop/powerup.service";
 
 export interface MatchDeps {
     marking_service: MarkingService,
@@ -22,6 +23,7 @@ export interface MatchDeps {
     match_store: MatchStore,
     elimination_service: TournamentEliminationService,
     opponent_progress: OpponentProgress,
+    powerup_service: PowerupService
 }
 
 export interface MatchmakingDeps {

@@ -8,6 +8,8 @@ import { PlayerResultDTO } from 'src/entities/dtos/matches/match.dto'
 import { MatchCompletionService } from "src/application/usecases/services/match/match-completion.service";
 import { TournamentEliminationService } from "src/application/usecases/services/tournament/elimination.service";
 import { OpponentProgress } from "src/application/usecases/systems/opponent-progress";
+import { UsePowerupDTO } from "src/entities/dtos/shop/powerup-use.dto";
+import { PowerupService } from "src/application/usecases/services/shop/powerup.service";
 
 export const submitQuestion = async (
     io: Server, socket: Socket, data: RawSubmissionDTO, mark: MarkingService,
@@ -106,3 +108,35 @@ export const cleanUp = (match_id: number, pair_id: string, delete_match: DeleteG
     }
 
 }
+
+export const usePowerup = async (
+    io: Server,
+    socket: Socket,
+    data: UsePowerupDTO,
+    powerup_service: PowerupService
+) => {
+        const result = await powerup_service.usePowerup(
+            socket.data.user_id,
+            data.match_id,
+            data.shop_item_id,
+            data.target_user_id
+        );
+
+        // io.to(`user:${socket.data.user_id}`).emit('powerup_used', result);
+
+        if (!data.target_user_id) return;
+
+        if (!result.applied){
+            io.to(data.target_user_id).emit('powerup_blocked', result);
+            return;
+        }
+
+        if (result.effect === 'wipe_answer'){
+            io.to(data.target_user_id).emit('clear_input');
+        } else if (result.effect === 'insert_bugs') {
+            io.to(data.target_user_id).emit('corrupt_input');
+        } else {
+            io.to(data.target_user_id).emit('powerup_received', result);
+        }
+    return result;
+};

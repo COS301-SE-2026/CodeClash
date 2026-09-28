@@ -17,5 +17,8 @@ export class UserItem {
     shop_item!: ShopItem;
 
     @CreateDateColumn()
-    acquired_at!: Date
+    acquired_at!: Date;
+
+    @Column({ type: 'int', default: 1 })
+    quantity!: number;
 }

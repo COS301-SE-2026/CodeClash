@@ -18,25 +18,27 @@ export class PurchaseService {
             const walletRepo = manager.getRepository(Wallet);
             const userItemRepo = manager.getRepository(UserItem);
 
-            const alreadyOwned = await userItemRepo.count({
+            const existing = await userItemRepo.findOne({
                 where: { user: { user_id }, shop_item: { shop_item_id } }
             });
-            if(alreadyOwned > 0) throw new Error('Item already owned');
+
+            if (existing && item.category !== 'powerup'){
+                throw new Error('Item already owned');
+            }
 
             const wallet = await walletRepo.findOne({ where: { user: { user_id } } });
             if(!wallet) throw new Error('Wallet not found');
-            if (wallet.balance < item.price) throw new Error('Indufficient balance');
+            if (wallet.balance < item.price) throw new Error('Insufficient balance');
 
             await walletRepo.update({ wallet_id: wallet.wallet_id }, { balance: wallet.balance - item.price });
 
-            const userItem = await userItemRepo.save(userItemRepo.create({
-                user: { user_id } as any,
-                shop_item: { shop_item_id } as any
-            }));
+            const userItem = existing
+                ? await userItemRepo.save({ ...existing, quantity: existing.quantity + 1 })
+                : await userItemRepo.save(userItemRepo.create({ user: { user_id } as any, shop_item: { shop_item_id } as any }));
 
             return {
                 wallet: { wallet_id: wallet.wallet_id, user_id, balance: wallet.balance - item.price, updated_at: new Date() },
-                item: { user_item_id: userItem.user_item_id, user_id, item, acquired_at:userItem.acquired_at }
+                item: { user_item_id: userItem.user_item_id, user_id, item, acquired_at:userItem.acquired_at, quantity: userItem.quantity }
             };
         });
     }
