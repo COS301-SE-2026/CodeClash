@@ -91,11 +91,10 @@ const MathsMatch = () => {
 
             <MatchBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] -mt-43"></MatchBox>
 
-            <div className='w-[100%] h-full min-h-[35%] flex flex-col items-center justify-center'>
                 <Flash 
                     result={correct ?? null}
                     trigger={flashTrigger}
-                    className="w-[100%] h-full min-h-[35%] flex flex-col items-center justify-center"
+                    className="w-[100%] flex flex-col items-center justify-center mt-5 rounded-2xl"
                     >
 
                 <MathMatch
@@ -131,7 +130,7 @@ const MathsMatch = () => {
             
                 </MathMatch>
                 </Flash>
-            </div>
+           
 
             {waitingOpponent && (
                 <div className="fixed inset-0 z-50  bg-background/60 flex items-center justify-center p-4 ">

@@ -5,6 +5,7 @@ import { MathfieldElement } from "mathlive";
 import React, { useState } from "react";
 import { MatchCard } from "../ui/MatchCard";
 import VirtualKeyboard from "./VirtualKeyboard";
+import Flash from "../ui/animations/Flash";
 
 declare module "react" {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -42,7 +43,7 @@ const MathMatch = ({ onValueChange, mathfieldRef, className, children }: MathMat
   };
 
   return (
-    <MatchCard className="flex flex-col items-center w-[100%] h-[40%] mb-auto rounded-2xl mt-5">
+    <MatchCard className="flex flex-col items-center w-[100%] h-[40%] mb-auto rounded-2xl">
       <math-field
         ref={mathfieldRef}
         onInput={handleInput}

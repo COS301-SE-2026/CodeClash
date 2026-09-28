@@ -75,10 +75,12 @@ export const useGameQuestions = (
         socket?.emit('question_started', data);
     }
 
-    const nextQuestion = (curr: number) => {
+    const nextQuestion = (curr: number, delay = 0) => {
         if (curr < questions.length - 1) {
+            setTimeout(() => {
             setCurrentQuestion(curr + 1);
-            startQuestion(user_id, questions[curr + 1].id!, curr + 1)
+            startQuestion(user_id, questions[curr + 1].id!, curr + 1);
+            }, delay);
         }
     }
 
