@@ -32,11 +32,12 @@ const MathsMatch = () => {
         else return 'bg-white'
     }
 
-    const result_flash = () => {
-        if(correct === true) return "answer-flash-correct"
-        else if (correct === false) return "answer-flash-wrong"
+    const result_border = () => {
+        if(correct === true) return "border border-success"
+        else if (correct === false) return "border border-danger"
         else return ""
     }
+    
 
 
     const read_only = () => {
@@ -85,7 +86,7 @@ const MathsMatch = () => {
                 <MathMatch
                     mathfieldRef={mathfieldRef}
                     onValueChange={(val) => setAnswers(prev => ({ ...prev, [currentQuestion]: val }))}
-                    className={`${result_colour()} ${result_flash()} ${read_only}`}
+                    className={`${result_colour()} ${result_border()} ${read_only}`}
                 >
                    
                 <div className="flex flex-row gap-6 w-full mx-auto justify-center my-auto">
