@@ -17,7 +17,7 @@ import Flash from "@/components/ui/animations/Flash";
 export const ProgMatch = () => {
     const [code, setCode] = useState('');
     const {
-        playerLife, avatars, usernames,
+        myIndex, playerLife, avatars, usernames,
         elos, seconds, minutes, questions,
         currentQuestion, opponentCurrent,
         nextQuestion, prevQuestion,
@@ -35,6 +35,9 @@ export const ProgMatch = () => {
             setFlashTrigger(t => t + 1);
         }
     }, [results])
+
+    const myLife = myIndex >= 0 ? playerLife[myIndex] : undefined;
+    const lowLife = myLife !== undefined && myLife >= 0 && myLife <= 25;
 
     if (loading || !curr) {
         return (
@@ -70,6 +73,9 @@ export const ProgMatch = () => {
             question_number={questions.length}
             question_results={results}
         >
+
+            {lowLife && <div className="danger-pulse pointer-events-none fixed inset-0 z-40"/>}
+
             <Question
                 className={` h-[10rem]`}
                 difficulty={curr.difficulty!}

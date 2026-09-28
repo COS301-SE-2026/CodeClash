@@ -49,7 +49,7 @@ const MathsMatch = () => {
     }, [correct]);
 
     const myLife = myIndex >= 0 ? playerLife[myIndex] : undefined;
-    const lowLife = myLife !== undefined && myLife > 0 && myLife <= 25;
+    const lowLife = myLife !== undefined && myLife >= 0 && myLife <= 25;
     
 
 
