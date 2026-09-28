@@ -9,7 +9,6 @@ import { Okay } from 'src/animations/poses/okay';
 import { Thinking } from 'src/animations/poses/thinking';
 import {X, ArrowLeft} from "lucide-react"
 import Starfield from '@/components/ui/animations/Starfield';
-import "../styles/global.css"
 
 const colours = [
   {id: "bg1", label: "Dark Pink", value: "#580e21"},

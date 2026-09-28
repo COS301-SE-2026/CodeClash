@@ -10,11 +10,13 @@ export interface TournamentDTO {
     status: MatchStatus,
     created_at: Date,
     start_date: Date,
-    host: PlayerDTO
+    host: PlayerDTO,
+    title: string,
+    min_players:number
 }
 
 export interface PlayerStandingDTO {
-    player_id: string,
+    id: string,
     username: string,
     position: number,
     correct: number,

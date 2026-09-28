@@ -6,6 +6,9 @@ export class Matches {
     @PrimaryGeneratedColumn('uuid')
     match_id!: string;
 
+    @Column({ nullable: false })
+    title!: string;
+
     @Column({ type: "jsonb", nullable: true })
     players!: MatchPlayer[];
 
@@ -15,7 +18,7 @@ export class Matches {
     @Column({ type: "jsonb", nullable: true })
     power_ups!: MatchPowerUps[];
 
-    @Column({ type: 'enum', enumName: 'MATCH_TYPES', enum: MatchType})
+    @Column({ type: 'enum', enumName: 'MATCH_TYPES', enum: MatchType })
     match_type!: MatchType;
 
     @Column({ type: 'enum', enumName: 'MATCH_MODES', enum: MatchMode })
@@ -27,6 +30,6 @@ export class Matches {
     @Column({ type: "timestamp", nullable: true })
     match_end!: Date | null;
 
-    @Column({  type: 'enum', enumName: 'MATCH_STATUS', enum: MatchStatus, default: 'waiting' })
+    @Column({ type: 'enum', enumName: 'MATCH_STATUS', enum: MatchStatus, default: 'waiting' })
     status!: MatchStatus;
 }

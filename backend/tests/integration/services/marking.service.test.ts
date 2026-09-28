@@ -57,7 +57,7 @@ const executor = new CodeExecutor();
 const prog_marker = new MarkProg(executor);
 const math_marker = new MarkMaths();
 
-const marking_service = new MarkingService(match_cache, submission_system, life_system, notification_service, math_marker, prog_marker, opponent_progress);
+const marking_service = new MarkingService(match_cache, submission_system, life_system, math_marker, prog_marker, opponent_progress);
 
 const create_player_entity = new CreatePlayerEntity(world);
 const create_match_entity = new CreateMatchEntity(world);
@@ -120,11 +120,14 @@ describe("Tests Marking Services", () => {
         saved_questions = await data_source.getRepository(Questions).save(mock_questions);
         saved_answers = await data_source.getRepository(Answers).save(mock_answers);
 
+
         match = await match_service.execute(players, MatchMode.Programming, 'Mercury', MatchType.ranked);
 
         prog_question = saved_questions.find(q => q.match_mode === MatchMode.Programming)!;
         correct_answer = saved_answers.find(a => a.question!.question_id === prog_question!.question_id)!;
 
+        console.log("prog_question", prog_question);
+        console.log("correct_answer", correct_answer);
     })
 
 
@@ -133,6 +136,7 @@ describe("Tests Marking Services", () => {
         const submission = {
             match_id: match.match_entity,
             player_id: players[0].id,
+            match_mode: MatchMode.Programming,
             question_id: prog_question?.question_id,
             question_number: 1,
             submission: {
@@ -145,7 +149,7 @@ describe("Tests Marking Services", () => {
         await marking_service.execute(submission);
         const saved_submission: SubmissionComponent = submission_system.getSubmission(submission);
 
-        expect(io.to).toHaveBeenCalled();
+        console.log(saved_submission);
         expect(saved_submission.correct).toBe(true);
     })
 
@@ -153,6 +157,7 @@ describe("Tests Marking Services", () => {
         const submission = {
             match_id: match.match_entity,
             player_id: players[0].id,
+            match_mode: MatchMode.Programming,
             question_id: prog_question?.question_id,
             question_number: 1,
             submission: {
@@ -164,8 +169,6 @@ describe("Tests Marking Services", () => {
 
         await marking_service.execute(submission);
         const saved_submission: SubmissionComponent = submission_system.getSubmission(submission);
-
-        expect(io.to).toHaveBeenCalled();
         expect(saved_submission.correct).toBe(false);
 
     })
