@@ -251,3 +251,6 @@ export const useProgSubmission = (source_code: string, language_id: number, stdi
         stdin: stdin
     }
 }
+
+export const getCurrentPlayerIndex = (players: Player[], username: string): number => 
+    players.findIndex(p => p.username === username)

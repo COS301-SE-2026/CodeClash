@@ -15,7 +15,7 @@ import "../../src/styles/global.css"
 
 const MathsMatch = () => {
     const {
-        players, userId, playerLife, avatars, usernames, elos,
+        myIndex, playerLife, avatars, usernames, elos,
         seconds, minutes, questions,
         currentQuestion, opponentCurrent,
         nextQuestion, prevQuestion,
@@ -27,8 +27,6 @@ const MathsMatch = () => {
 
     const curr = questions[currentQuestion];
     const correct = results[currentQuestion];
-
-    const myIndex = players.findIndex(p => p.id === userId);
 
     const result_colour = () => {
         if (correct === true) return 'bg-success/50'
@@ -49,6 +47,9 @@ const MathsMatch = () => {
             setFlashTrigger(t => t + 1);
         }
     }, [correct]);
+
+    const myLife = myIndex >= 0 ? playerLife[myIndex] : undefined;
+    const lowLife = myLife !== undefined && myLife > 0 && myLife <= 25;
     
 
 
@@ -71,6 +72,7 @@ const MathsMatch = () => {
     }
 
     return (
+
         <MatchScreen
             player_life={playerLife}
             seconds={seconds}
@@ -83,6 +85,7 @@ const MathsMatch = () => {
             question_number={questions.length}
             question_results={results}
         >
+            {lowLife && <div className="danger-pulse pointer-events-none fixed inset-0 z-40"/>}
 
             <Question
                 className={` h-[20rem] `}

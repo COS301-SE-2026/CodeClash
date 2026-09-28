@@ -7,6 +7,7 @@ import { TournamentsBadge } from '../ui/TournamentsBadge'
 import { TimerCard } from '../ui/MatchBox'
 import Shake from '../ui/Shake'
 
+
 interface MatchScreenProps {
     player_life: number[],
     seconds: number,
@@ -37,11 +38,9 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
 
     const questionsAnswered = question_results.filter((qr) => qr === true || qr === false).length;
     const progressValue = question_number > 0 ? (questionsAnswered / question_number) * 100 : 0;
-    const myIndex = players.findIndex(p => p.id === userId)
-
+    
     return (
         <div className="fixed inset-0 flex flex-col min-w-[64rem] overflow-y-auto">
-            {lowLife && (<div className="danger-pulse pointer-events-none fixed inset-0 z-40"/>)}
             {/* <img src={background} className='absolute w-full -z-10' alt='background' /> */}
             {/* <BackButton page='/dashboard' /> */}
             {/* Header */}
