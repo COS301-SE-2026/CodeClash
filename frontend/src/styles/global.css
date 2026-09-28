@@ -1184,7 +1184,11 @@
     80% {transform: translateX(4px);}
   }
 
-  
+  .life-shake {
+    animation: life-shake 0.4s ease-in-out
+  }
+
+
 
   /*Avatars/Robots*/
   .avatar {
