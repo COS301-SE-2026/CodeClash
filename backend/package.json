@@ -14,7 +14,9 @@
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "generate:api": "ts-node -r tsconfig-paths/register scripts/generate-api-spec.ts",
-    "seed:math": "ts-node -r tsconfig-paths/register scripts/question-seeding/seed-math-questions.ts"
+    "seed:math": "ts-node -r tsconfig-paths/register scripts/question-seeding/math/seed-math-questions.ts",
+    "seed:prog": "ts-node -r tsconfig-paths/register scripts/question-seeding/programming/seed-prog-questions.ts",
+    "seed:templates": "ts-node -r tsconfig-paths/register scripts/question-seeding/programming/seed-prog-templates.ts"
   },
   "keywords": [],
   "author": "",
@@ -51,7 +53,7 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^25.9.5",
+    "@types/node": "^25.9.8",
     "@types/pg": "^8.20.0",
     "@types/supertest": "^7.2.0",
     "@types/swagger-jsdoc": "^6.0.4",

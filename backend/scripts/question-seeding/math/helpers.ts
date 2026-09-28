@@ -1,4 +1,4 @@
-import { normalize, safeParse, splitTopLevel } from '../../src/application/usecases/services/marking/maths-marking/normalizer'
+import { normalize, safeParse, splitTopLevel } from '../../../src/application/usecases/services/marking/maths-marking/normalizer'
 import axios from 'axios'
 
 
@@ -119,7 +119,7 @@ function getTimeLimit(difficulty: number) {
 
     const m = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
     const s = String(seconds % 60).padStart(2, "0");
-    return `${m}:${s}.00`;
+    return `${m}:${s}`;
 }
 
 const ASSIGNMENT_NAME = /^[a-z][a-z0-9]*$/;
