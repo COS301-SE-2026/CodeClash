@@ -7,7 +7,7 @@ import { MatchBox } from "@/components/ui/MatchBox";
 import { Card } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
 import Loading from '@/components/shared/Loading';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TournamentButton from "@/components/ui/TournamentButton";
 import { MatchCard } from "@/components/ui/MatchCard";
 import Flash from "@/components/ui/animations/Flash";
@@ -28,7 +28,13 @@ export const ProgMatch = () => {
     const curr = questions[currentQuestion];
     const correct = results[currentQuestion];
 
-    
+    const [flashTrigger, setFlashTrigger] = useState(0);
+
+    useEffect(() => {
+        if(correct !== null && correct !== undefined){
+            setFlashTrigger(t => t + 1);
+        }
+    }, [results])
 
     if (loading || !curr) {
         return (
@@ -75,6 +81,7 @@ export const ProgMatch = () => {
 
             <MatchBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] -mt-4"></MatchBox>
 
+            <Flash result={correct ?? null} trigger={flashTrigger}>
             <MatchCard className="items-center mt-5">
                 <div className={`w-[95%] flex justify-center p-2 rounded-2xl ${result_colour()} ${result_border}`}>
                 <CodeEditor 
@@ -115,6 +122,7 @@ export const ProgMatch = () => {
                     }
                 </div>
             </MatchCard>
+            </Flash>
 
             {/*Copied from math match */}
             {waitingOpponent && (
