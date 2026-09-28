@@ -1,0 +1,18 @@
+dockerfile/docker-compose.dev.yml
+  h_b13c5d77534129 33
+frontend/@/components/shared/Match.tsx
+  h_b13c5d77534129 3
+frontend/src/Views/TournamentsWaiting.tsx
+  h_b13c5d77534129 31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "3699e48e389276743d377d3351576fdac9486ebf",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
