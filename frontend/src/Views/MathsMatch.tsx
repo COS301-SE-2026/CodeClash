@@ -89,7 +89,7 @@ const MathsMatch = () => {
                 number={currentQuestion + 1}
             />
 
-            <MatchBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] -mt-43"></MatchBox>
+            <MatchBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] -mt-44"></MatchBox>
 
                 <Flash 
                     result={correct ?? null}

@@ -5,6 +5,7 @@ import { MatchCard } from '../ui/MatchCard'
 import TournamentButton from '../ui/TournamentButton'
 import { TournamentsBadge } from '../ui/TournamentsBadge'
 import { TimerCard } from '../ui/MatchBox'
+import Shake from '../ui/Shake'
 
 interface MatchScreenProps {
     player_life: number[],
@@ -64,6 +65,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                         </TournamentsBadge>
 
                         <div className='w-full'>
+                            <Shake value={player_life[0]}>
                             <Progress
                                 value={player_life[0]}
                                 bg="var(--button-tournament-secondary)"
@@ -71,6 +73,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                 height={2.5}
                                 className='max-w-[11rem] min-w-[1rem] h-sm mr-auto ml-5 -mt-1'
                             />
+                            </Shake>
                         </div>
                     </div>
                 </div>
@@ -90,6 +93,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 <div className="min-w-0 w-xl flex-1 mr-7 h-[6rem] mt-10 shrink-0">
                     <div className="flex flex-row items-center gap-2 w-full mt-3">
                         <div className='w-full'>
+                            <Shake value={player_life[1]}>
                             <Progress
                                 value={player_life[1]}
                                 bg={"var(--button-tournament-secondary)"}
@@ -99,6 +103,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                 height={2.5}
                                 className='max-w-[11rem] min-w-[1rem] h-sm ml-auto mr-5 -mt-2.5 rotate-180'
                             />
+                            </Shake>
                         </div>
 
                         {/* the code below was copied and pasted from above and was written by a human, this code was not ai generated! */}
