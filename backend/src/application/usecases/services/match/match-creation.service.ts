@@ -8,6 +8,7 @@ import { GetAnswers } from "../answers.service";
 import { GetQuestions, GetTotalTime } from "../questions.service";
 import { IMatchRepository } from "src/application/interfaces/repositories/IMatchRepository";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
+import { IQuestionRepository } from "src/application/interfaces/repositories/IQuestionRepository";
 
 export class MatchCreationService {
     constructor(
@@ -17,7 +18,8 @@ export class MatchCreationService {
         private readonly getAnswers: GetAnswers,
         private readonly match_cache: IMatchCache,
         private readonly match_repo: IMatchRepository,
-        private readonly user_repo: IUserRepository
+        private readonly user_repo: IUserRepository,
+        private readonly question_repo: IQuestionRepository
     ) { }
 
     async execute(players: PlayerDTO[], match_mode: MatchMode, league: string, match_type: MatchType, title?: string) {
@@ -50,6 +52,22 @@ export class MatchCreationService {
         const q_ids = [...q_easy, ...q_medium, ...q_hard];
         const answers = await this.getAnswers.execute(q_ids);
 
+        // templates for programming 
+        if (match_mode === MatchMode.Programming) {
+            const question_pool = [...questions.easy, ...questions.medium, ...questions.hard];
+            await Promise.all(
+                question_pool.map(async (q) => {
+                    const templates = await this.question_repo.getTemplates(q.id);
+
+                    q.templates = templates.map(t => ({
+                        language: t.language,
+                        judge0_language_id: t.judge0_language_id,
+                        starter_code: t.starter_code
+                    }))
+                })
+            );
+        }
+
         // Match 
 
         const start = new Date();
@@ -72,7 +90,7 @@ export class MatchCreationService {
 
 
         const ids = players.map((p) => p.id);
-        const db_match_id = await this.match_repo.createMatch(ids, match_type, match_mode, start,match_title!); //mode is math or programming
+        const db_match_id = await this.match_repo.createMatch(ids, match_type, match_mode, start, match_title!); //mode is math or programming
 
         return {
             match_entity: match.match_entity,

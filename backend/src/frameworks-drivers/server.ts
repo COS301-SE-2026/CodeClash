@@ -117,7 +117,7 @@ AppDataSource.initialize()
         const tournament_cache: ITournamentCache = new TournamentCache(redis);
 
         // initialise services 
-        const match_service = new MatchCreationService(create_match, get_questions, get_total_time, get_answers, match_cache, match_repo, user_repo);
+        const match_service = new MatchCreationService(create_match, get_questions, get_total_time, get_answers, match_cache, match_repo, user_repo, question_repo);
         const matchmaking_service = new MatchmakingService(matchmaking_cache);
         const matched_users_service = new MatchConfirmationService();
         const match_store = new MatchStore(user_repo);
