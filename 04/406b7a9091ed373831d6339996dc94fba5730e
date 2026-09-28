@@ -1,0 +1,40 @@
+frontend/test/integration/Providers/AppProviders.integration.test.tsx
+  h_94c952a9e14c58 50,67-68
+frontend/src/context/Socket/SocketContext.tsx
+  h_94c952a9e14c58 8,14-16,34-36,51-53
+frontend/src/ViewModels/Match/MatchViewModel.ts
+  h_94c952a9e14c58 15,78,119,124,126-130,144
+frontend/src/ViewModels/Matchmaking/MatchSearchingViewModel.ts
+  h_94c952a9e14c58 18,33,35
+frontend/src/ViewModels/Matchmaking/MatchFoundViewModel.ts
+  h_94c952a9e14c58 21,35,41,65,79,127,129-131,139
+frontend/src/ViewModels/Matchmaking/PopUpViewModel.ts
+  h_94c952a9e14c58 10,15,23,29,31
+frontend/src/context/Socket/SocketContextValue.tsx
+  h_94c952a9e14c58 5,8-10
+frontend/src/context/Matchmaking/MatchmakingContext.tsx
+  h_94c952a9e14c58 16,31,33,35
+frontend/test/integration/Contexts/MatchmakingContext.integration.test.tsx
+  h_94c952a9e14c58 39,137
+frontend/src/ViewModels/Tournaments/TournamentViewModel.ts
+  h_94c952a9e14c58 1-5,7,9-66
+backend/src/interface-adapters/socket-handlers/tournament-handlers.ts
+  h_94c952a9e14c58 57-67
+frontend/src/ViewModels/Match/FinalResultsViewModel.ts
+  h_94c952a9e14c58 29,43,45,64,66-67,73
+backend/src/application/usecases/services/tournament/tournament.service.ts
+  h_94c952a9e14c58 75-77,84
+frontend/test/integration/Contexts/SocketContext.integration.test.tsx
+  h_94c952a9e14c58 13,18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "04406b7a9091ed373831d6339996dc94fba5730e",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

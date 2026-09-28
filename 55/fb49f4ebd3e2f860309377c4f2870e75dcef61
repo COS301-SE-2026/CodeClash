@@ -1,0 +1,41 @@
+backend/src/application/usecases/services/tournament/tournament.service.ts
+  h_94c952a9e14c58 46,48,71
+frontend/src/ViewModels/Tournaments/TournamentViewModel.ts
+  h_94c952a9e14c58 29,40-42
+backend/src/application/interfaces/cache/ITournamentCache.ts
+  h_94c952a9e14c58 6
+frontend/src/Views/Tournaments/Tournaments.tsx
+  h_94c952a9e14c58 65-67
+backend/src/interface-adapters/socket-handlers/tournament-handlers.ts
+  h_94c952a9e14c58 33,35
+backend/src/interface-adapters/cache/tournament-cache.ts
+  h_94c952a9e14c58 13,28-29
+frontend/src/context/Socket/modules/tournament.socket.ts
+  h_94c952a9e14c58 63
+frontend/src/Views/Tournaments/HostTournament.tsx
+  h_94c952a9e14c58 15,44
+frontend/test/integration/SocketHandlers/tournament.socket.test.ts
+  h_94c952a9e14c58 66
+backend/src/frameworks-drivers/socket/modules/register-tournament-handler.ts
+  h_94c952a9e14c58 15-16
+backend/src/entities/dtos/tournaments/tournaments.dto.ts
+  h_94c952a9e14c58 14
+frontend/src/dtos/tournaments/tournament.dto.ts
+  h_94c952a9e14c58 14-15
+database/01-init.sql
+  h_94c952a9e14c58 100
+frontend/@/components/features/Tournaments/TournamentCard.tsx
+  h_94c952a9e14c58 1,13-16,26-28,31-51,54-60,62-63,68,70,79,88,90-91
+  h_94c952a9e14c58 52,71-72
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "55fb49f4ebd3e2f860309377c4f2870e75dcef61",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

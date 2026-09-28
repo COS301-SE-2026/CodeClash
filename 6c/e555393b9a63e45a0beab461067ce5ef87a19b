@@ -1,0 +1,22 @@
+backend/src/application/usecases/services/tournament/elimination.service.ts
+  h_94c952a9e14c58 5-6,81,83,128-129,131,133-140
+  h_94c952a9e14c58 27,118
+backend/src/application/usecases/services/tournament/tournament.service.ts
+  h_94c952a9e14c58 4,7,12-13,69-81
+backend/src/entities/dtos/tournaments/tournaments.dto.ts
+  h_94c952a9e14c58 12
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 61,140-142
+  h_94c952a9e14c58 97,108,180
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "6ce555393b9a63e45a0beab461067ce5ef87a19b",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

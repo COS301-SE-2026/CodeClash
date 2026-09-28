@@ -1,0 +1,14 @@
+dockerfile/docker-compose.prod.yml
+  h_94c952a9e14c58 34
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "7c742eef72596a75b6fc0a578232ddf931951718",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

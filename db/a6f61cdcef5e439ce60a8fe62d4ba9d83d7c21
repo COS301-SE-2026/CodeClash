@@ -1,0 +1,16 @@
+frontend/src/Views/SkillProgress/components/InsightLine
+  h_58e143dc25f856 1-19
+frontend/src/Views/SkillProgress/components/InsightLine.tsx
+  h_58e143dc25f856 1-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "dba6f61cdcef5e439ce60a8fe62d4ba9d83d7c21",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

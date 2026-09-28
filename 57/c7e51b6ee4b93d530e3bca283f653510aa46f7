@@ -1,0 +1,14 @@
+backend/src/application/usecases/services/marking/mark-maths.ts
+  h_58e143dc25f856 2,11-12,15-16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "57c7e51b6ee4b93d530e3bca283f653510aa46f7",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

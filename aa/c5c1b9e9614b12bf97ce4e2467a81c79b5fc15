@@ -1,0 +1,116 @@
+frontend/src/Views/Match/ProgMatch.tsx
+  h_94c952a9e14c58 6,11-12,17-21,35-45,56-58,62,64,66,69-70,72,74-78,80,83-92,94-95
+  h_94c952a9e14c58 22,59,67-68,73,79,93
+frontend/@/components/shared/Match/Match.tsx
+  h_94c952a9e14c58 2-7,10-20,23-35,37-38,41-43,45-47,49-52,54-55,57-59,62-76,79-86,88,92-111,113-123,126,131-133,137,147,149-153,159-162,164-172,174,178-181,186,188-189
+  h_94c952a9e14c58 36,40,44,48,60,87,112,136,138,154,173
+frontend/src/App.tsx
+  h_94c952a9e14c58 25,32,83,88
+dockerfile/docker-compose.dev.yml
+  h_94c952a9e14c58 39
+frontend/@/components/Sidebar.tsx
+  h_94c952a9e14c58 1,19-20
+frontend/@/components/features/MathPage.tsx
+  h_94c952a9e14c58 6,31,34,45,49,54-55
+frontend/@/components/features/code-editor.tsx
+  h_94c952a9e14c58 15
+frontend/@/components/features/question.tsx
+  h_94c952a9e14c58 6,25,29,31,33,40-42,44,46
+frontend/@/components/ui/FilterButton.tsx
+  h_94c952a9e14c58 1-20
+frontend/@/components/ui/MatchCard.tsx
+  h_94c952a9e14c58 1-21
+frontend/@/components/ui/TimerBox.tsx
+  h_94c952a9e14c58 1-24
+frontend/@/components/ui/TournamentButton.tsx
+  h_94c952a9e14c58 1-21
+frontend/@/components/ui/TournamentCard.tsx
+  h_94c952a9e14c58 1-112
+frontend/@/components/ui/TournamentPlayer.tsx
+  h_94c952a9e14c58 1-25
+frontend/@/components/ui/TournamentsBadge.tsx
+  h_94c952a9e14c58 1-18
+frontend/@/components/ui/progress.tsx
+  h_94c952a9e14c58 5-16,21-28,30-34,39-41,44-47,53-54,56-66
+frontend/README.md
+  h_94c952a9e14c58 44
+frontend/package-lock.json
+  h_94c952a9e14c58 20,7265-7267,7270-7271,8808-8810,8813,8817-8819
+frontend/package.json
+  h_94c952a9e14c58 27
+frontend/src/Models/MatchModel.ts
+  h_94c952a9e14c58 7-9
+frontend/src/Models/ShopModel.ts
+  h_94c952a9e14c58 50,58
+frontend/src/Models/SkillProgressModel.ts
+  h_94c952a9e14c58 1-508
+frontend/src/Models/TournamentsModel.ts
+  h_94c952a9e14c58 1-19
+frontend/src/ViewModels/Shop/ShopViewModel.ts
+  h_94c952a9e14c58 15,31
+frontend/src/ViewModels/Shop/TryOn.ts
+  h_94c952a9e14c58 4,8,11,14-15,17,33-34,57
+frontend/src/ViewModels/SkillProgressViewModel.ts
+  h_94c952a9e14c58 1-146
+frontend/src/Views/Shop/AvatarCustomizer.tsx
+  h_94c952a9e14c58 3,7-8,24,65-74,78,94
+frontend/src/Views/SkillProgress.tsx
+  h_94c952a9e14c58 1-217
+frontend/src/Views/SkillProgress/components/ComponentBars.tsx
+  h_94c952a9e14c58 1-75
+frontend/src/Views/SkillProgress/components/DifficultyBands.tsx
+  h_94c952a9e14c58 1-31
+frontend/src/Views/SkillProgress/components/DomainToggle.tsx
+  h_94c952a9e14c58 1-38
+frontend/src/Views/SkillProgress/components/GrowthChart.tsx
+  h_94c952a9e14c58 1-174
+frontend/src/Views/SkillProgress/components/InsightList.tsx
+  h_94c952a9e14c58 1-41
+frontend/src/Views/SkillProgress/components/RecentGames.tsx
+  h_94c952a9e14c58 1-56
+frontend/src/Views/SkillProgress/components/StatTile.tsx
+  h_94c952a9e14c58 1-39
+frontend/src/Views/Tournaments.tsx
+  h_94c952a9e14c58 2-10,12-14,16-29,31-68
+frontend/src/Views/TournamentsWaiting.tsx
+  h_94c952a9e14c58 1-84
+frontend/src/assets/Shop/ResolveShopImages.ts
+  h_94c952a9e14c58 10
+frontend/src/avatar/AvatarRenderer.tsx
+  h_94c952a9e14c58 11-15
+frontend/src/avatar/PlayerAvatar.tsx
+  h_94c952a9e14c58 12-13
+frontend/src/context/Shop/InventoryContext.tsx
+  h_94c952a9e14c58 5,8
+frontend/src/context/User/UserContext.tsx
+  h_94c952a9e14c58 20,110-111
+frontend/src/services/complexity.service.tsx
+  h_94c952a9e14c58 1-85
+frontend/src/services/shop.service.mock.tsx
+  h_94c952a9e14c58 3,69,77,147,208,212,218
+frontend/src/services/skill-progress.service.ts
+  h_94c952a9e14c58 1-199
+frontend/src/styles/global.css
+  h_94c952a9e14c58 213-215,274-280,311,328-331,382-389,419,436-438,466-473
+frontend/src/utils/seededRandom.ts
+  h_94c952a9e14c58 1-29
+frontend/test/unit/Views/TournamentsWaiting.test.tsx
+  h_94c952a9e14c58 1-19
+package-lock.json
+  h_94c952a9e14c58 16,4957-4959,4962-4963,6341-6343,6346,6350-6352
+package.json
+  h_94c952a9e14c58 17-27,63
+tests/nfr/security/judge0_sandbox_attacks.py
+  h_94c952a9e14c58 1-49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "aac5c1b9e9614b12bf97ce4e2467a81c79b5fc15",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+frontend/src/ViewModels/Matchmaking/MatchFoundViewModel.ts
+  h_94c952a9e14c58 22,38,76,103
+frontend/src/services/submission.service.tsx
+  h_94c952a9e14c58 2
+frontend/src/ViewModels/Matchmaking/PopUpViewModel.ts
+  h_94c952a9e14c58 12,20
+frontend/test/integration/Contexts/MatchmakingContext.integration.test.tsx
+  h_94c952a9e14c58 27-28,30-31
+frontend/src/ViewModels/DashboardViewModel.ts
+  h_94c952a9e14c58 10,48,53
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "e50704fb7c38e1a1a3cdce267a8536444039886a",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

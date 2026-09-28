@@ -1,0 +1,20 @@
+frontend/src/Views/SkillProgress/components/DomainToggle.tsx
+  s_97fc86e7b5c868::t_26d44642b12fde 13-37
+  s_97fc86e7b5c868::t_acd1cda0f89191 38
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "6f758a458830c5249ba9d3901af311dc7d5af612",
+  "prompts": {},
+  "sessions": {
+    "s_97fc86e7b5c868": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f4b6676a-4ef3-4d98-a966-3847c47ca245",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

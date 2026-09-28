@@ -1,0 +1,34 @@
+backend/scripts/question-seeding/programming/seed-prog-questions.ts
+  h_94c952a9e14c58 1-69
+dockerfile/docker-compose.dev.yml
+  h_94c952a9e14c58 64
+backend/package.json
+  h_94c952a9e14c58 17-19,56
+backend/scripts/question-seeding/programming/helper.ts
+  h_94c952a9e14c58 1-160
+backend/tsconfig.json
+  h_94c952a9e14c58 7,37
+database/01-init.sql
+  h_94c952a9e14c58 97-114
+backend/scripts/question-seeding/math/helpers.ts
+  h_94c952a9e14c58 1-196
+backend/scripts/tsconfig.json
+  h_94c952a9e14c58 1-19
+backend/scripts/question-seeding/programming/seed-prog-templates.ts
+  h_94c952a9e14c58 1-84
+.gitignore
+  h_94c952a9e14c58 483-487
+backend/package-lock.json
+  h_94c952a9e14c58 31,2103-2105
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "7a5b362f5e9352f70ea550dffc3cf67b76407183",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

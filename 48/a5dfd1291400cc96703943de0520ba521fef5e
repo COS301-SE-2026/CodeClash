@@ -1,0 +1,52 @@
+frontend/@/components/features/Questions/question.tsx
+  h_94c952a9e14c58 1-64
+frontend/@/components/features/Match/Match.tsx
+  h_94c952a9e14c58 1-157
+frontend/@/components/features/game-guide/gameGuideNumber.tsx
+  h_94c952a9e14c58 1-24
+frontend/src/Views/Tournaments/TournamentsWaiting.tsx
+  h_94c952a9e14c58 4
+frontend/@/components/features/Tournaments/LiveTournamentPlayer.tsx
+  h_94c952a9e14c58 1-34
+frontend/src/App.tsx
+  h_94c952a9e14c58 33,85
+frontend/@/components/features/Match/MatchBox.tsx
+  h_94c952a9e14c58 1-36
+frontend/@/components/features/Match/MathPage.tsx
+  h_94c952a9e14c58 1-59
+frontend/src/Views/Match/MathsMatch.tsx
+  h_94c952a9e14c58 5-6,8
+frontend/@/components/features/game-guide/gameGuideCard.tsx
+  h_94c952a9e14c58 1-39
+frontend/@/components/features/Tournaments/TournamentPlayer.tsx
+  h_94c952a9e14c58 2
+frontend/src/ViewModels/Tournaments/TournamentLobby.ts
+  h_94c952a9e14c58 88,96
+frontend/src/Views/Match/ProgMatch.tsx
+  h_94c952a9e14c58 2-3,6,10,63-64
+frontend/@/components/features/Tournaments/TournamentCard.tsx
+  h_94c952a9e14c58 4
+frontend/src/Views/Tournaments/TournamentMatchPage.tsx
+  h_94c952a9e14c58 1-205
+frontend/@/components/features/Questions/MultipleChoice.tsx
+  h_94c952a9e14c58 1-40
+frontend/@/components/features/Match/MatchCard.tsx
+  h_94c952a9e14c58 1-20
+dockerfile/docker-compose.dev.yml
+  h_94c952a9e14c58 39
+frontend/@/components/ui/FilterButton.tsx
+  h_94c952a9e14c58 13
+frontend/src/styles/global.css
+  h_94c952a9e14c58 280-281,392-393,477-478
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "48a5dfd1291400cc96703943de0520ba521fef5e",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
