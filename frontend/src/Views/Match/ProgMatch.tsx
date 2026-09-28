@@ -24,12 +24,12 @@ export const ProgMatch = () => {
 
     const curr = questions[currentQuestion];
 
-    if (loading || !curr) {
+    if (status !== 'ready' || !curr) {
         return (
             <Loading isOpen={loading}></Loading>
         )
     }
-
+    
     return (
         <MatchScreen
             player_life={playerLife}

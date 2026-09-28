@@ -72,54 +72,7 @@ export const useMatch = () => {
             replace: true,
         });
     }
-
-    const { seconds, minutes } = useGameTimer(duration, () => {
-        setGameOver(true);
-        matchSocket?.finishMatch({ match_id: id!, match_mode: match_mode! })
-    })
-
-
-    const submission_result = (result: MarkingResultDTO) => {
-        const index = question_idx.current;
-
-        setResults((prev) => {
-            const next = [...prev];
-            const round_results = [...(next[round_idx.current] ?? [])];
-            round_results[index] = result.correct;
-            next[round_idx.current] = round_results;
-            return next
-        });
-
-        updatePlayerLife(result.player_id, result.life_update);
-        if (result.life_update <= 0) {
-            finishGame();
-            return;
-        }
-
-        if (result.correct === true) nextQuestion(index)
-    }
-
-    const submission_error = (error: string) => {
-        console.error(error)
-    }
-
-    const submitQuestion = async (data: MathsSubmissionDTO | ProgSubmissionDTO) => {
-        const curr_q = questions[currentQuestion];
-        const submission: SubmissionDTO = {
-            match_id: id!,
-            player_id: userId,
-            question_id: curr_q.id!,
-            round_number: 0,    // to be updated
-            question_number: currentQuestion,
-            match_type: gameType!,
-            match_mode: match_mode!,
-            submission: data
-        }
-
-        matchSocket?.submitAnswer(submission);
-    }
-
-
+    
     useEffect(() => {
         if (matchSocket && id) {
 

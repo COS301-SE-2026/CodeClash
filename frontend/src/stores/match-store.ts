@@ -1,6 +1,7 @@
 import type {RoundDTO } from "src/dtos/match/match.dto";
 import type { Player } from "src/Models/MatchModel";
 import { create } from 'zustand'
+import {  persist } from 'zustand/middleware'
 
 interface MatchState {
     match_id: string | null,
@@ -31,10 +32,18 @@ export const useMatchStore = create<MatchState>((set) => ({
         status: 'ready'
     })},
 
-    reset: () => set({
-        match_id: null,
-        rounds: null,
-        players: [],
-        status: 'idle'
-    })
-}))
+            reset: () => set({
+                match_id: null,
+                rounds: null,
+                players: [],
+                status: 'idle'
+            })
+
+
+        }), {
+        name: 'match-store',
+        // storage: createJSONStorage(() => sessionStorage)
+    }
+    )
+
+)

@@ -8,6 +8,7 @@ import { PlayerResultDTO } from 'src/entities/dtos/matches/match.dto'
 import { MatchCompletionService } from "src/application/usecases/services/match/match-completion.service";
 
 export const submitQuestion = async (socket: Socket, data: PlayerSubmissionDTO, mark: MarkingService) => {
+    console.log("backend submit question")
     return mark.execute({ ...data, player_id: socket.data.user_id });
 }
 
