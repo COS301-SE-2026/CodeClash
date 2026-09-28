@@ -512,20 +512,20 @@
 
     --life-primary: #C0395A;
 
-    /* Match and Tournaments Page */
-  --card-tournaments: #fff0f3;
-  --progress-bar-symbol: #f8dfe5;
-  --match-card: #ffffff;
-  --profile-tournaments: #fff5f7;
-  --gradient-tournament: #FE98A8;
-  --match-box: #fff8f9;
-  --multiple-choice-box: #fff1f4;
-  --multiple-choice-letter: #f7dce3;
-
     /*for the radial gradients*/
     --glow-1: #f6c9d6;
     --glow-2: #f9dde4;
     --glow-3: #fceef1;
+
+    /* Match and Tournaments Page */
+    --card-tournaments: #fff0f3;
+    --progress-bar-symbol: #f8dfe5;
+    --match-card: #ffffff;
+    --profile-tournaments: #fff5f7;
+    --gradient-tournament: #FE98A8;
+    --match-box: #fff8f9;
+    --multiple-choice-box: #fff1f4;
+    --multiple-choice-letter: #f7dce3;
 }
 
 /*These are copied from :root.light and adjusted for more themes*/
