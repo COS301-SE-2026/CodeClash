@@ -38,7 +38,13 @@ export const ProgMatch = () => {
         else return 'bg-white'
     }
 
-    
+    const result_border = () => {
+        if(correct === true) return "border border-success"
+        else if(correct === false) return "border border-danger"
+        else return ""
+    }
+
+
 
     return (
         <MatchScreen
