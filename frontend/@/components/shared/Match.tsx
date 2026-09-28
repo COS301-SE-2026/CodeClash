@@ -153,9 +153,9 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
 
                                         const doorResult = question_results[idx];
                                         const doorColour = () => {
-                                            if (idx === current_question) return 'bg-[var(--button-tournament)] shadow-[0_0_10px_var(--button-tournament)]'
-                                            if (doorResult === true) return 'bg-success/30 shadow-[0_0_10px_var(--success)]'
-                                            if (doorResult === false) return 'bg-danger/30 shadow-[0_0_10px_var(--danger)]'
+                                            if (idx === current_question) return 'bg-primary shadow-[0_0_10px_var(--primary)]'
+                                            if (doorResult === true) return 'bg-success/30 shadow-[0_0_10px_var(--success)] answer-flash-correct'
+                                            if (doorResult === false) return 'bg-danger/30 shadow-[0_0_10px_var(--danger)] answer-flash-wrong'
                                             return 'bg-card'
                                         }
                                         const doorSymbol = () => {
@@ -165,7 +165,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                             return <LockKeyhole/>
                                         }
                                         const oppProg = () => {
-                                            if (idx === opponent_progress) return <div className="absolute top-0 left-0 rounded-full h-4 w-4 
+                                            if (idx === opponent_progress) return <div className="absolute top-0 left-0 rounded-full h-3 w-3 
                                             bg-red-800 z-20 shadow-[0_0_12px_rgba(190,0,0,0.3)]"/>
                                         }
 

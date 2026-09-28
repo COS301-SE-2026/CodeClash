@@ -10,6 +10,7 @@ import Loading from '@/components/shared/Loading';
 import { useState } from "react";
 import TournamentButton from "@/components/ui/TournamentButton";
 import { MatchCard } from "@/components/ui/MatchCard";
+import Flash from "@/components/ui/animations/Flash";
 
 export const ProgMatch = () => {
     const [code, setCode] = useState('');
@@ -23,12 +24,21 @@ export const ProgMatch = () => {
     } = useMatch();
 
     const curr = questions[currentQuestion];
+    const correct = results[currentQuestion];
 
     if (loading || !curr) {
         return (
             <Loading isOpen={loading}></Loading>
         )
     }
+
+    const result_colour = () => {
+        if(correct === true) return 'bg-success/50'
+        else if (correct === false) return 'bg-danger/50'
+        else return 'bg-white'
+    }
+
+    
 
     return (
         <MatchScreen
