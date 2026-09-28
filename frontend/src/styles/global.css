@@ -1193,6 +1193,10 @@
     50% {box-shadow: inset 0 0 120px 30px var(--danger); background-color: var(--danger)}
   }
 
+  .danger-pulse{
+    animation: danger-pulse 1s ease-in-out infinite;
+  }
+
 
   /*Avatars/Robots*/
   .avatar {

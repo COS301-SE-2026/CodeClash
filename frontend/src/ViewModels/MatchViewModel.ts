@@ -130,6 +130,7 @@ export const useMatch = () => {
 
     return {
         players,
+        userId,
         questions,
         answers,
         playerLife,

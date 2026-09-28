@@ -15,7 +15,7 @@ import "../../src/styles/global.css"
 
 const MathsMatch = () => {
     const {
-        playerLife, avatars, usernames, elos,
+        players, userId, playerLife, avatars, usernames, elos,
         seconds, minutes, questions,
         currentQuestion, opponentCurrent,
         nextQuestion, prevQuestion,
@@ -27,6 +27,9 @@ const MathsMatch = () => {
 
     const curr = questions[currentQuestion];
     const correct = results[currentQuestion];
+
+    const myIndex = players.findIndex(p => p.id === userId);
+
     const result_colour = () => {
         if (correct === true) return 'bg-success/50'
         else if (correct === false) return 'bg-danger/50'
