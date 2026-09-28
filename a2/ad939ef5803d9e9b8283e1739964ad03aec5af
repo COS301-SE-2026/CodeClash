@@ -1,0 +1,21 @@
+frontend/@/components/ui/progress.tsx
+  h_b13c5d77534129 25
+frontend/src/Views/TournamentsWaiting.tsx
+  h_b13c5d77534129 31,72
+dockerfile/docker-compose.dev.yml
+  h_b13c5d77534129 34
+  h_b13c5d77534129 33
+frontend/@/components/ui/TournamentButton.tsx
+  h_b13c5d77534129 12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "a2ad939ef5803d9e9b8283e1739964ad03aec5af",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
