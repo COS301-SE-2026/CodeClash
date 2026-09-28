@@ -15,8 +15,7 @@ export class QuestionRepository implements IQuestionRepository {
             .andWhere('q.match_mode = :match_mode', { match_mode: match_mode })
             .take(count)
             .orderBy('Random()')
-            .getMany()
-
+            .getMany();
 
         const data: QuestionDTO[] = [];
 
