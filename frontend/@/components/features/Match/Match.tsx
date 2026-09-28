@@ -20,7 +20,8 @@ interface MatchScreenProps {
     opponent_progress: number,
     question_results: (boolean | null)[][],
     rounds: QuestionDTO[][],
-    current_round: number
+    current_round: number,
+    current_user: string
 }
 
 export const MatchScreen: React.FC<MatchScreenProps> = ({
@@ -34,11 +35,13 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
     current_question,
     question_results,
     rounds,
-    current_round
+    current_round,
+    current_user
 }) => {
 
     // const questionsAnswered = question_results.flat().filter((qr) => qr === true || qr === false).length;
     // const progressValue = question_number > 0 ? (questionsAnswered / question_number) * 100 : 0;
+
 
     return (
         <div className="fixed inset-0 flex flex-col w-full overflow-y-auto">
@@ -60,9 +63,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                 <h1 className="text-muted-text text-xs">{elos[0]} ELO</h1>
                             </div>
 
-                            <TournamentsBadge className="flex min-w-7 ml-[0.5%] h-[1.5rem] mb-auto text-muted-text text-xs -mr-4 -mt-1">
-                                <h1 className="mt-1">YOU</h1>
-                            </TournamentsBadge>
+                            <PlayerBadge username={usernames[0]} current_user={current_user} />
 
                             <div className='w-full'>
                                 <Progress
@@ -101,11 +102,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                 />
                             </div>
 
-                            {/* the code below was copied and pasted from above and was written by a human, this code was not ai generated! */}
-                            <TournamentsBadge className="flex min-w-9 mr-[0.5%] h-[1.5rem] mb-auto text-muted-text text-xs -mt-2">
-                                <h1 className="mt-1">RIVAL</h1>
-                            </TournamentsBadge>
-
+                            <PlayerBadge username={usernames[1]}  current_user={current_user} />
 
                             <div className="flex flex-col mr-2">
                                 <div className="text-[1.25rem] w-xsm h-sm -mt-2">{usernames[1]}</div>
@@ -151,5 +148,23 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 </div>
             </div>
         </div>
+    )
+}
+
+
+interface PlayerBadgeProps {
+    username: string,
+    current_user: string
+}
+
+
+const PlayerBadge = ({ username, current_user }: PlayerBadgeProps) => {
+    return (
+        <TournamentsBadge className="flex min-w-9 mr-[0.5%] h-[1.5rem] mb-auto text-muted-text text-xs -mt-2">
+            <h1 className="mt-1">
+                {username === current_user ? "YOU" : "RIVAL"}
+
+            </h1>
+        </TournamentsBadge>
     )
 }

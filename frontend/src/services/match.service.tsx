@@ -6,11 +6,10 @@ import type { RoundDTO } from "src/dtos/match/match.dto";
 import type { OpponentDTO } from "src/dtos/match/opponent.dto";
 import type { MatchSocket } from "src/context/Socket/modules/match.socket";
 import { useMatchStore } from "src/stores/match-store";
-import {type NavigateFunction } from "react-router-dom";
+import { type NavigateFunction } from "react-router-dom";
 
-export function matchStart(match_socket: MatchSocket, path:string, nav: NavigateFunction) {
+export function matchStart(match_socket: MatchSocket, path: string, nav: NavigateFunction) {
     return match_socket.startMatch((data) => {
-        console.log("storing data", data);
         useMatchStore.getState().setMatchData(data);
         nav(`${path}/${data.match_id}`);
     })
@@ -109,7 +108,7 @@ export const useMatchProgress = (players: Player[]) => {
     }
 }
 
-export const useOpponentProgress = (num_questions: number, players: Player[]) => {
+export const useOpponentProgress = (num_questions: number, players: Player[], updatePlayerLife: (player_id: string, life: number) => void) => {
     const [opponentCurrent, setOpponentCurrent] = useState(0);
     const [opponentDone, setOpponentDone] = useState(false);
 
@@ -122,6 +121,8 @@ export const useOpponentProgress = (num_questions: number, players: Player[]) =>
     const opponentProgress = (data: OpponentDTO) => {
         const player_index = players_ref.current.findIndex(p => p.id === data.player_id)
         if (player_index === -1) return;
+
+        updatePlayerLife(data.player_id, data.opponent_life);
 
         setOpponentCurrent((prev) => {
             const next = data.question + 1;

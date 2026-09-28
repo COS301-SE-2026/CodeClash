@@ -12,13 +12,15 @@ interface SubmissionProps {
     curr_question: number,
     question: Question,
     match_id: string,
+    updatePlayerLife: (player_id: string, life: number) => void
 }
 
 export const useSubmission = ({
     round_idx,
     curr_question,
     question,
-    match_id
+    match_id,
+    updatePlayerLife
 }: SubmissionProps) => {
     const [results, setResults] = useState<(boolean | null)[][]>([]);
     const { userId } = useUser();
@@ -47,7 +49,7 @@ export const useSubmission = ({
             id: match_id,
             player_id: userId,
             question_id: question.id!,
-            round_number: round_idx, 
+            round_number: round_idx,
             question_number: curr_question,
             match_type: matchType!,
             match_mode: matchMode!,
@@ -56,8 +58,10 @@ export const useSubmission = ({
 
         const result = await matchSocket?.submitAnswer(submission);
 
-        if (result !== undefined && result.ok)
+        if (result !== undefined && result.ok) {
+            updatePlayerLife(result.data!.player_id, result.data!.life_update);
             submissionResult(result.data!);
+        }
         else {
             submissionError("Marking Error");
         }

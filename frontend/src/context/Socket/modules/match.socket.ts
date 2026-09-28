@@ -59,10 +59,11 @@ export class MatchSocket {
         return on(this.socket, 'start_match_failed', handler);
     }
 
+
+
     /************************************** EMITTERS ******************************************* */
 
     submitAnswer(data: SubmissionDTO) {
-        console.log("emit submit_question")
         return emit<SubmissionDTO, MarkingResultDTO>(this.socket, `submit_question`, data);
     }
 

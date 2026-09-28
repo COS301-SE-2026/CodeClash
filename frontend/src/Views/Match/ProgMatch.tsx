@@ -9,6 +9,7 @@ import { useState } from "react";
 import TournamentButton from "@/components/features/Tournaments/TournamentButton";
 import { MatchCard } from "@/components/features/Match/MatchCard";
 import PopUp from "@/components/shared/PopUp";
+import { useUser } from 'src/context/User/hooks/useUser';
 
 export const ProgMatch = () => {
     const [code, setCode] = useState('');
@@ -16,7 +17,7 @@ export const ProgMatch = () => {
         status,
         questions,
         results,
-        playerLife, avatars, usernames,
+        playerLife, avatars, usernames, 
         seconds, minutes,
         currentQuestion, nextQuestion, prevQuestion,
         roundIdx, rounds,
@@ -27,13 +28,14 @@ export const ProgMatch = () => {
     } = useMatch();
 
     const curr = questions[currentQuestion];
+    const { username } = useUser();
 
     if (status !== 'ready' || !curr) {
         return (
             <Loading isOpen={loading}></Loading>
         )
     }
-    
+
     return (
         <MatchScreen
             player_life={playerLife}
@@ -48,6 +50,7 @@ export const ProgMatch = () => {
             question_results={results ?? []}
             rounds={rounds}
             current_round={roundIdx}
+            current_user={username}
         >
 
             <Question

@@ -22,11 +22,7 @@ const TournamentsMatchPage = () => {
 
     const curr = questions[currentQuestion];
     const telemetry = round_telemetry();
-    const my_rank = (telemetry && telemetry.my_rank! > 0) ? telemetry.my_rank : "-"
-
-    useEffect(() => {
-        console.log("players", players);
-    }, [])
+    const my_rank = (telemetry && telemetry.my_rank! > 0) ? telemetry.my_rank : "-";
 
     return (
         <div className="m-6 ml-4 min-h-screen">

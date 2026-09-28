@@ -8,16 +8,17 @@ import Loading from '@/components/shared/Loading';
 import { MatchScreen } from '@/components/features/Match/Match';
 import { Button } from '@/components/ui/button';
 import PopUp from '@/components/shared/PopUp'
+import { useUser } from 'src/context/User/hooks/useUser';
 
 const MathsMatch = () => {
     const {
         status,
         questions,
         results,
-        playerLife, avatars, usernames,
+        playerLife, avatars, usernames, 
         seconds, minutes,
-        currentQuestion, nextQuestion, prevQuestion, 
-        roundIdx,rounds,
+        currentQuestion, nextQuestion, prevQuestion,
+        roundIdx, rounds,
         opponentCurrent, waitingOpponent, finishGame,
         loading,
         submitQuestion,
@@ -26,13 +27,12 @@ const MathsMatch = () => {
     } = useMatch();
 
     const curr = questions[currentQuestion];
-
+    const {username} = useUser();
     useEffect(() => {
         if (mathfieldRef.current) {
             mathfieldRef.current.value = '';
         }
     }, [currentQuestion])
-
 
     if (status !== 'ready' || !curr) {
         return (
@@ -54,6 +54,7 @@ const MathsMatch = () => {
             question_results={results ?? []}
             rounds={rounds}
             current_round={roundIdx}
+            current_user={username}
         >
 
             <Question
