@@ -320,6 +320,23 @@
   --font-size-xl: 3rem;
   --font-size-2xl: 3.3rem;
   --font-size-3xl: 3.6rem;
+
+  /*Hover states*/
+  --primary-hover: color-mix(in srgb, var(--primary) 85%, white 15%);
+  --secondary-hover: color-mix(in srgb, var(--secondary) 90%, white 10%);
+  --accent-hover: color-mix(in srgb, var(--accent) 85%, white 15%);
+  --button-primary-hover: var(--primary-hover);
+  --button-secondary-hover: var(--secondary-hover);
+  --card-hover: color-mix(in srgb, var(--card) 100%, var(--primary-text) 4%);
+  --background-elevated-hover: color-mix(in srgb, var(--sidebar-accent) 100%, var(--primary-text) 5%);
+  --sidebar-accent-hover: color-mix(in srgb, var(--sidebar-accent) 100%, var(--primary-text) 6%);
+  --danger-hover: color-mix(in srgb, var(--danger) 88%, white 12%);
+  --destructive-hover: color-mix(in srgb, var(--destructive) 88%, white 12%);
+  --success-hover: color-mix(in srgb, var(--success) 88%, white 12%);
+  --warning-hover: color-mix(in srgb, var(--warning) 88%, white 12%);
+  --info-hover: color-mix(in srgb, var(--info) 88%, white 12%);
+  --life-primary-hover: color-mix(in srgb, var(--life-primary) 85%, white 15%);
+
 }
 
 :root.dark, [data-theme = 'dark'] {
@@ -417,22 +434,6 @@
   --gradient-radial-corner: radial-gradient(circle at 88% 88%, var(--glow-1) 0%, var(--glow-2) 20%, var(--glow-3) 30%, var(--background) 38%);
   --gradient-radial-blob: radial-gradient(circle, var(--primary-dark) 0%, color-mix(in srgb, var(--primary-dark) 70%, black 30%) 40%, transparent 70%);
   --nav-scrolled-bg: color-mix(in srgb, var(--background) 95%, transparent);
-
-  /*Hover states*/
-  --primary-hover: color-mix(in srgb, var(--primary) 85%, white 15%);
-  --secondary-hover: color-mix(in srgb, var(--secondary) 90%, white 10%);
-  --accent-hover: color-mix(in srgb, var(--accent) 85%, white 15%);
-  --button-primary-hover: var(--primary-hover);
-  --button-secondary-hover: var(--secondary-hover);
-  --card-hover: color-mix(in srgb, var(--card) 100%, var(--primary-text) 4%);
-  --background-elevated-hover: color-mix(in srgb, var(--sidebar-accent) 100%, var(--primary-text) 5%);
-  --sidebar-accent-hover: color-mix(in srgb, var(--sidebar-accent) 100%, var(--primary-text) 6%);
-  --danger-hover: color-mix(in srgb, var(--danger) 88%, white 12%);
-  --destructive-hover: color-mix(in srgb, var(--destructive) 88%, white 12%);
-  --success-hover: color-mix(in srgb, var(--success) 88%, white 12%);
-  --warning-hover: color-mix(in srgb, var(--warning) 88%, white 12%);
-  --info-hover: color-mix(in srgb, var(--info) 88%, white 12%);
-  --life-primary-hover: color-mix(in srgb, var(--life-primary) 85%, white 15%);
 
   --popover: var(--card);
   --popover-text: var(--card-text);
@@ -946,7 +947,7 @@
     transition: all 0.2s ease;
   }
 
-  card-glass:hover {
+  .card-glass:hover {
     background: var(--card-hover);
     border-color: var(--border-hover);
     transform: translateY(-2px);
