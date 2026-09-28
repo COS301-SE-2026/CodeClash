@@ -12,6 +12,8 @@ import TournamentButton from "@/components/ui/TournamentButton";
 import { MatchCard } from "@/components/ui/MatchCard";
 import Flash from "@/components/ui/animations/Flash";
 
+
+
 export const ProgMatch = () => {
     const [code, setCode] = useState('');
     const {
@@ -26,6 +28,8 @@ export const ProgMatch = () => {
     const curr = questions[currentQuestion];
     const correct = results[currentQuestion];
 
+    
+
     if (loading || !curr) {
         return (
             <Loading isOpen={loading}></Loading>
@@ -35,7 +39,7 @@ export const ProgMatch = () => {
     const result_colour = () => {
         if(correct === true) return 'bg-success/50'
         else if (correct === false) return 'bg-danger/50'
-        else return 'bg-white'
+        else return ""
     }
 
     const result_border = () => {
@@ -43,6 +47,7 @@ export const ProgMatch = () => {
         else if(correct === false) return "border border-danger"
         else return ""
     }
+
 
 
 
@@ -71,9 +76,11 @@ export const ProgMatch = () => {
             <MatchBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] -mt-4"></MatchBox>
 
             <MatchCard className="items-center mt-5">
+                <div className={`w-[95%] flex justify-center p-2 rounded-2xl ${result_colour()} ${result_border}`}>
                 <CodeEditor 
                     handleChange={setCode}
                 />
+                </div>
             
 
                 <div className='flex flex-row gap-6 w-full mx-auto justify-center my-auto'>

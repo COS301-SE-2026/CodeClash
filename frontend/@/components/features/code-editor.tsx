@@ -3,17 +3,16 @@ import { useRef } from "react"
 
 interface codeEditorProps {
     handleChange: (value: string) => void
-    className?: string
 }
 
-export const CodeEditor = ({ handleChange, className }: codeEditorProps) => {
+export const CodeEditor = ({ handleChange }: codeEditorProps) => {
     const placeholder = "Enter your code solution here";
     const editorRef = useRef<any>(null);
 
     return (
         <Editor
             height="20vh"
-            width="90%"
+            width="100%"
             defaultLanguage="Java"
             defaultValue={placeholder}
             onChange={(value) => handleChange(value ?? '')}
@@ -21,8 +20,6 @@ export const CodeEditor = ({ handleChange, className }: codeEditorProps) => {
             onMount={(editor: any) => {
                 editorRef.current = editor;
             }}
-
-            className={className}
 
         />
     )
