@@ -101,16 +101,16 @@ export const usePowerup = async (
         if (!data.target_user_id) return;
 
         if (!result.applied){
-            io.to(`user:${data.target_user_id}`).emit('powerup_blocked', result);
+            io.to(data.target_user_id).emit('powerup_blocked', result);
             return;
         }
 
         if (result.effect === 'wipe_answer'){
-            io.to(`user:${data.target_user_id}`).emit('clear_input');
+            io.to(data.target_user_id).emit('clear_input');
         } else if (result.effect === 'insert_bugs') {
-            io.to(`user:${data.target_user_id}`).emit('corrupt_input');
+            io.to(data.target_user_id).emit('corrupt_input');
         } else {
-            io.to(`user:${data.target_user_id}`).emit('powerup_received', result);
+            io.to(data.target_user_id).emit('powerup_received', result);
         }
     return result;
 };
