@@ -25,7 +25,8 @@ const MathsMatch = () => {
         elos
     } = useMatch();
 
-
+console.log("Maths Match")
+console.log(questions);
 
     const curr = questions[currentQuestion];
 
@@ -38,7 +39,7 @@ const MathsMatch = () => {
 
     if (status !== 'ready' || !curr) {
         return (
-            <Loading isOpen={loading}></Loading>
+            <Loading isOpen={loading || status !== 'ready' || !curr}></Loading>
         )
     }
 

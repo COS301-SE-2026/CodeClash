@@ -6,13 +6,13 @@ import type { RoundDTO } from "src/dtos/match/match.dto";
 import type { OpponentDTO } from "src/dtos/match/opponent.dto";
 import type { MatchSocket } from "src/context/Socket/modules/match.socket";
 import { useMatchStore } from "src/stores/match-store";
+import {type NavigateFunction } from "react-router-dom";
 
-export function matchStart(match_socket: MatchSocket) {
-    console.log("Match Start", )
-
+export function matchStart(match_socket: MatchSocket, path:string, nav: NavigateFunction) {
     return match_socket.startMatch((data) => {
         console.log("storing data", data);
         useMatchStore.getState().setMatchData(data);
+        nav(`${path}/${data.match_id}`);
     })
 }
 

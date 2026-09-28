@@ -58,13 +58,10 @@ export function useMatchFound() {
   }
 
   const accept = () => {
-    console.log("accepting");
     if (matchmakingSocket && matchedUsers) {
 
       const new_path = "/".concat(matchedUsers.match_mode!).concat("-match")
       setPath(new_path);
-
-      console.log("set path", new_path)
 
       const data: MatchAcceptedDTO = {
         group_id: group_id,
@@ -75,7 +72,6 @@ export function useMatchFound() {
         match_type: matchType!
       }
 
-      console.log("emt event", data)
       matchmakingSocket.acceptMatch(data);
       setLoading(true);
     }
@@ -111,12 +107,6 @@ export function useMatchFound() {
     setMatchDetails([type, mode])
   }
 
-  useEffect(() => {
-
-    if (status === 'ready' && path.length > 0) {
-      nav(`${path}/${useMatchStore.getState().match_id}`);
-    }
-  }, [status,path])
 
   useEffect(() => {
 
@@ -127,12 +117,14 @@ export function useMatchFound() {
 
     if (matchmakingSocket && matchSocket) {
 
-      const unsub_start = matchStart(matchSocket);
+      const unsub_start = matchStart(matchSocket,path, nav);
       const unsub_match_declined = matchmakingSocket.gameDeclined(gameDeclined);
+      const unsub_start_failed = matchSocket.startMatchError(()=>{console.error("Error starting match")})
 
       return () => {
         unsub_start();
         unsub_match_declined();
+        unsub_start_failed();
       }
     }
   }, [matchmakingSocket, path, matchedUsers])

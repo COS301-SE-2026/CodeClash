@@ -88,7 +88,6 @@ export const useMatch = () => {
 
     useEffect(() => {
 
-
         if (matchSocket && match_id && status === 'idle') {
             setLoading(true);
 
