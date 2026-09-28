@@ -12,6 +12,7 @@ import { MatchStart } from "src/application/usecases/services/match/match-start.
 import { MatchCompletionService } from "src/application/usecases/services/match/match-completion.service";
 import { TournamentService } from "src/application/usecases/services/tournament/tournament.service";
 import { TournamentEliminationService } from "src/application/usecases/services/tournament/elimination.service";
+import { PowerupService } from "src/application/usecases/services/shop/powerup.service";
 
 export interface MatchDeps {
     marking_service: MarkingService,
@@ -20,6 +21,7 @@ export interface MatchDeps {
     match_deletion_system: DeleteGame,
     match_store: MatchStore,
     elimination_service: TournamentEliminationService
+    powerup_service: PowerupService
 }
 
 export interface MatchmakingDeps {
