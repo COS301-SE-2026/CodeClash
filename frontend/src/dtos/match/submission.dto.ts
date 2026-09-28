@@ -9,7 +9,7 @@ export interface MarkingResultDTO {
 }
 
 export interface SubmissionDTO {
-    match_id: string,
+    id: string,
     player_id: string,
     question_id: string,
     round_number: number,

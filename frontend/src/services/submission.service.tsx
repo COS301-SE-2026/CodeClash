@@ -42,8 +42,9 @@ export const useSubmission = ({
     }
 
     const submitQuestion = async (data: MathsSubmissionDTO | ProgSubmissionDTO) => {
+
         const submission: SubmissionDTO = {
-            match_id: match_id,
+            id: match_id,
             player_id: userId,
             question_id: question.id!,
             round_number: round_idx, 
@@ -52,7 +53,9 @@ export const useSubmission = ({
             match_mode: matchMode!,
             submission: data
         }
+
         const result = await matchSocket?.submitAnswer(submission);
+
         if (result !== undefined && result.ok)
             submissionResult(result.data!);
         else {

@@ -17,15 +17,12 @@ export const submitQuestion = async (socket: Socket, data: RawSubmissionDTO, mar
         player_id: socket.data.user_id
     }
 
-
-    console.log("marking question")
     switch (data.match_type) {
-        case MatchType.ranked:
-            return await mark.execute(submission);
-
         case MatchType.tournament:
             return await elimination_service.submit(data.id, submission);
 
+        default:
+            return await mark.execute(submission);
     }
 
 }

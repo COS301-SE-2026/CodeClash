@@ -45,23 +45,17 @@ export const matchAccepted = (
         match_start: MatchStart
     ) => {
         socket.join(data.group_id);
-
-        console.log(data.group_id);
         match_confirmation_service.accept(data.group_id, socket.data.user_id);
 
         if (!match_confirmation_service.bothAccepted(data.group_id)) {
             return;
         }
 
-        console.log("Both players accepted");
-
-
         try {
             const players = match_confirmation_service.getPlayers(data.group_id);
             let payload = null;
             payload = await match_start.execute(players, data.match_mode, data.league, data.match_type);
             for (const player of payload.players) {
-                console.log("starting match")
                 io.to(player.id).emit('start_match', payload);
             }
         }

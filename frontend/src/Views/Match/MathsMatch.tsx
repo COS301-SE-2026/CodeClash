@@ -25,9 +25,6 @@ const MathsMatch = () => {
         elos
     } = useMatch();
 
-console.log("Maths Match")
-console.log(questions);
-
     const curr = questions[currentQuestion];
 
     useEffect(() => {
