@@ -77,7 +77,9 @@ export const useMatch = () => {
             return;
         }
 
-        if (result.result === true) nextQuestion(index)
+        if (result.result === true) {
+            setTimeout(() => nextQuestion(index), 500);
+        }
     }
 
     const submission_error = (error: string) => {
