@@ -10,6 +10,7 @@ import { type NavigateFunction } from "react-router-dom";
 
 export function matchStart(match_socket: MatchSocket, path: string, nav: NavigateFunction) {
     return match_socket.startMatch((data) => {
+        console.log("Match starting with data", data);
         useMatchStore.getState().setMatchData(data);
         nav(`${path}/${data.match_id}`);
     })

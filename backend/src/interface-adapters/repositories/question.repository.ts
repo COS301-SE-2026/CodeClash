@@ -1,12 +1,15 @@
 import { IQuestionRepository } from "src/application/interfaces/repositories/IQuestionRepository";
-import { Questions } from "src/entities/database/questions.entities";
+import { ProgrammingTemplates, Questions, TestCases } from "src/entities/database/questions.entities";
 import { QuestionDTO } from "src/entities/dtos/questions/question.dto";
 import { Repository } from "typeorm";
 import { MatchMode } from "src/entities/dtos/matches/match.dto";
 
 export class QuestionRepository implements IQuestionRepository {
     constructor(
-        private readonly questionRepository: Repository<Questions>
+        private readonly questionRepository: Repository<Questions>,
+        private readonly test_case_repository: Repository<TestCases>,
+        private readonly template_repository: Repository<ProgrammingTemplates>
+
     ) { }
 
     async getRandQuestions(count: number, difficulty: number, match_mode: MatchMode): Promise<QuestionDTO[]> {
@@ -34,6 +37,25 @@ export class QuestionRepository implements IQuestionRepository {
         }
 
         return data
+    }
+
+
+    async getTestCases(question_id: string): Promise<TestCases[]> {
+        return await this.test_case_repository.find({
+            where: {
+                question: { question_id }
+            },
+            order: { ordinal: "ASC" }
+        })
+    }
+
+
+    async getTemplates(question_id: string): Promise<ProgrammingTemplates[]> {
+        return await this.template_repository.find({
+            where: {
+                question: { question_id }
+            }
+        })
     }
 
 

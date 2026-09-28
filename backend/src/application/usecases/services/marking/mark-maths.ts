@@ -1,18 +1,24 @@
-import { MathsSubmissionDTO, ProgSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
+import { MathsSubmissionDTO, PlayerSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
 import { IMarkingStrategy } from "src/application/interfaces/marking/IMarkingStategy";
-import { AnswerDTO } from "src/entities/dtos/questions/answer.dto";
+import { IMatchCache } from "src/application/interfaces/cache/IMatchCache";
 import { MarkerRegistry } from "./maths-marking/marker-registry";
 
 export class MarkMaths implements IMarkingStrategy {
 
-  constructor(private readonly registry: MarkerRegistry = new MarkerRegistry()) { } // constructor js to make the registry available in order to pick appropriate marking file
+  constructor(
+    private readonly registry: MarkerRegistry = new MarkerRegistry(),
+    private readonly game_cache: IMatchCache,
+  ) { }
   
 
-  async mark(submission: MathsSubmissionDTO | ProgSubmissionDTO, answer: AnswerDTO): Promise<boolean> {
+  async mark(submission: PlayerSubmissionDTO): Promise<boolean> {
+     const correct_answer = await this.game_cache.getAnswer(submission.question_id);
+        if (!correct_answer) throw new Error("Invalid question id");
+
     if (!('answer' in submission)) return false;
 
-    const marker = this.registry.markerFor(answer.format); // telling it which marker to use based on the format
+    const marker = this.registry.markerFor(correct_answer.format); // telling it which marker to use based on the format
     if (marker === null) return false;
-    return marker.mark(submission.answer, answer);
+    return marker.mark((submission.submission as MathsSubmissionDTO).answer, correct_answer);
   }
 }

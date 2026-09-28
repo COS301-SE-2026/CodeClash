@@ -8,7 +8,6 @@ import { MultipleChoice } from "@/components/features/Questions/MultipleChoice";
 import { LiveTournamentPlayer } from "@/components/features/Tournaments/LiveTournamentPlayer";
 import { useTournamentMatch } from "src/ViewModels/Tournaments/TournamentMatchViewModel";
 import { Button } from "@/components/ui/button";
-import { useEffect } from "react";
 
 const TournamentsMatchPage = () => {
 

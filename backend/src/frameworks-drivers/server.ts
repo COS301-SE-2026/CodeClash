@@ -4,7 +4,7 @@ import dotnev from 'dotenv'
 import { Server } from 'socket.io'
 import { IQuestionRepository } from 'src/application/interfaces/repositories/IQuestionRepository';
 import { QuestionRepository } from 'src/interface-adapters/repositories/question.repository';
-import { Questions } from 'src/entities/database/questions.entities';
+import { ProgrammingTemplates, Questions, TestCases } from 'src/entities/database/questions.entities';
 import { IAnswerRepository } from 'src/application/interfaces/repositories/IAnswerRepository';
 import { AnswerRepository } from 'src/interface-adapters/repositories/answer.repository';
 import { Answers } from 'src/entities/database/answers.entities';
@@ -74,6 +74,7 @@ import { PowerupService } from 'src/application/usecases/services/shop/powerup.s
 import { PurchaseService } from 'src/application/usecases/services/shop/purchase.service';
 import { PowerupSystem } from 'src/application/usecases/systems/powerup.system';
 import { RewardService } from 'src/application/usecases/services/match/reward.service';
+import { MarkerRegistry } from 'src/application/usecases/services/marking/maths-marking/marker-registry';
 
 dotnev.config()
 
@@ -84,7 +85,7 @@ AppDataSource.initialize()
 
         // initialise repos
         const user_repo: IUserRepository = new UserRepository(AppDataSource.getRepository(Users));
-        const question_repo: IQuestionRepository = new QuestionRepository(AppDataSource.getRepository(Questions));
+        const question_repo: IQuestionRepository = new QuestionRepository(AppDataSource.getRepository(Questions), AppDataSource.getRepository(TestCases), AppDataSource.getRepository(ProgrammingTemplates));
         const answer_repo: IAnswerRepository = new AnswerRepository(AppDataSource.getRepository(Answers));
         const match_repo: IMatchRepository = new MatchRepository(AppDataSource.getRepository(Matches), user_repo);
 
@@ -141,14 +142,15 @@ AppDataSource.initialize()
         const powerup_system = new PowerupSystem(world, life_system, submission_system);
         // has to be declared here for system
         const powerup_service = new PowerupService(inventory_repo, shop_item_repo, powerup_system);
-        const maths_marker: IMarkingStrategy = new MarkMaths();
+        const marker_reegistry = new MarkerRegistry();
+        const maths_marker: IMarkingStrategy = new MarkMaths(marker_reegistry, match_cache);
 
         const code_executor = new CodeExecutor();
-        const prog_marker: IMarkingStrategy = new MarkProg(code_executor);
+        const prog_marker: IMarkingStrategy = new MarkProg(code_executor, question_repo);
 
         const opponent_progress = new OpponentProgress(world);
         
-        const marking_service = new MarkingService(match_cache, submission_system, life_system, maths_marker, prog_marker);
+        const marking_service = new MarkingService(submission_system, life_system, maths_marker, prog_marker);
 
         const elimination_service = new TournamentEliminationService(marking_service);
         const tournament_service = new TournamentService(tournament_cache, match_start, elimination_service, user_repo);

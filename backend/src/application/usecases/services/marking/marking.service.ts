@@ -1,4 +1,3 @@
-import { IMatchCache } from "src/application/interfaces/cache/IMatchCache";
 import { LifeSystem } from "src/application/usecases/systems/life.system";
 import { SubmissionSystem } from "src/application/usecases/systems/submission.system";
 import { IMarkingStrategy } from "src/application/interfaces/marking/IMarkingStategy";
@@ -9,7 +8,6 @@ import { MatchMode } from "src/entities/dtos/matches/match.dto";
 export class MarkingService {
 
     constructor(
-        private readonly game_cache: IMatchCache,
         private readonly submission_system: SubmissionSystem,
         private readonly life_System: LifeSystem,
         private readonly maths_marking_strategy: IMarkingStrategy,
@@ -18,13 +16,10 @@ export class MarkingService {
 
 
     async mark(player_submission: PlayerSubmissionDTO): Promise<boolean> {
-        const correct_answer = await this.game_cache.getAnswer(player_submission.question_id);
-
-        if (!correct_answer) throw new Error("Invalid question id");
         if (!player_submission.submission) throw new Error("Invalid Submission");
-
+        
         const strategy = this.setStrategy(player_submission);
-        return await strategy.mark(player_submission.submission, correct_answer);
+        return await strategy.mark(player_submission);
     }
 
     async execute(player_submission: PlayerSubmissionDTO): Promise<MarkingResultDTO> {
