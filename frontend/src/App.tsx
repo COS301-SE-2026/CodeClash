@@ -30,6 +30,7 @@ import Achievements from "./Views/Achievements";
 import Settings from "./Views/Settings";
 import { ProgMatch } from "./Views/Match/ProgMatch";
 import SkillProgress from "./Views/SkillProgress";
+import TournamentsMatchPage from "./Views/TournamentMatchPage";
 
 const App: React.FC = () => {
 
