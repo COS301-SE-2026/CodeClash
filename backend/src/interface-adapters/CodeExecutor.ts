@@ -15,8 +15,6 @@ export class CodeExecutor implements ICodeExecutor {
     async execute(source_code: string, language_id: number, stdin: string | null, expected_output: string): Promise<ProgSubmissionResult> {
 
         // !!!! Submission queue can be full, we need to plan for this
-        console.log("source code", source_code);
-        console.log("expected answer", expected_output);
         const data = {
             source_code: Buffer.from(source_code).toString('base64'),
             language_id: language_id,

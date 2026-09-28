@@ -128,11 +128,9 @@ export function useMatchFound() {
     if (matchmakingSocket && matchSocket) {
 
       const unsub_start = matchStart(matchSocket);
-      const unsub_start_match = matchSocket.startMatch(startMatch);
       const unsub_match_declined = matchmakingSocket.gameDeclined(gameDeclined);
 
       return () => {
-        unsub_start_match();
         unsub_start();
         unsub_match_declined();
       }
