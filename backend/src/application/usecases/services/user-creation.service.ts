@@ -11,7 +11,7 @@ export class CreateUser {
         private readonly user_repo: IUserRepository,
         private readonly equipped_repo: IEquippedRepository,
         private readonly shop_item_repo: IShopItemRepository
-    ) { }
+    ) {}
 
     async create(username: string, email: string) {
         const user_id = await fetchCognitoId(email);
