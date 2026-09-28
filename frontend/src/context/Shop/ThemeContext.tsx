@@ -29,9 +29,7 @@ function getDefTheme():Theme {
 function applyTheme(theme: Theme) {
     const root = document.documentElement;
     Themes.forEach((t) => root.classList.remove(t));
-    if (theme !== 'dark') {
-        root.classList.add(theme);
-    }
+    root.classList.add(theme);
 }
 
 export const ThemeProvider = ({children}: {children: ReactNode}) => {
