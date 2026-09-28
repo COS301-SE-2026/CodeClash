@@ -14,6 +14,7 @@ interface ShopItemBase {
     price: Price;
     rarity?: 'common' | 'rare' | 'epic' | 'legendary';
     previewImageUrl?: string; //a thumbnail
+    asset_key?: string;
 }
 
 //we're doing flat images for the avatars, bacuse animations and svgs take too long. We can later on use css for some slight more meaningful animations
