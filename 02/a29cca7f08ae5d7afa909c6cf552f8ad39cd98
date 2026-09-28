@@ -1,0 +1,20 @@
+dockerfile/docker-compose.dev.yml
+  h_b13c5d77534129 33-34
+frontend/@/components/shared/Match.tsx
+  h_b13c5d77534129 80,82-86
+frontend/src/App.tsx
+  h_b13c5d77534129 33,85
+frontend/src/Views/TournamentMatchPage.tsx
+  h_b13c5d77534129 3-14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "02a29cca7f08ae5d7afa909c6cf552f8ad39cd98",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
