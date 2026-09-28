@@ -483,8 +483,8 @@
     --button-text-primary: #FFFFFF;
     --button-text-secondary: #520a23;
     --button-tournament: #FF516A;
-    --button-tournament-secondary: #281e26;
-    --button-tournament-secondary-border: #5B4041;
+    --button-tournament-secondary: #fff0f3;
+    --button-tournament-secondary-border: #e8c5cf;
 
     /*Inputs*/
     --input: rgba(83, 10, 35, 0.05);
@@ -513,14 +513,14 @@
     --life-primary: #C0395A;
 
     /* Match and Tournaments Page */
-  --card-tournaments: #12080F;
-  --progress-bar-symbol: #1B0F1A;
-  --match-card: #241822;
-  --profile-tournaments: #1D0E20;
+  --card-tournaments: #fff0f3;
+  --progress-bar-symbol: #f8dfe5;
+  --match-card: #ffffff;
+  --profile-tournaments: #fff5f7;
   --gradient-tournament: #FE98A8;
-  --match-box: #0D0410;
-  --multiple-choice-box: #170d13;
-  --multiple-choice-letter: #2a2024;
+  --match-box: #fff8f9;
+  --multiple-choice-box: #fff1f4;
+  --multiple-choice-letter: #f7dce3;
 
     /*for the radial gradients*/
     --glow-1: #f6c9d6;
