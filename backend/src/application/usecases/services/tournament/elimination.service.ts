@@ -24,11 +24,12 @@ export class TournamentEliminationService {
         private readonly marking_service: MarkingService
     ) { }
 
-    init(tournament_id: string, players: { player_id: string, username: string }[]) {
-        this.state.set(tournament_id, {
+    init(tournament_id: string, players: { id: string, username: string }[]) {
+
+        const init_state: TournamentState = {
             players: new Map(
                 players.map(p => [
-                    p.player_id, {
+                    p.id, {
                         ...p,
                         correct: 0,
                         total_time: 0,
@@ -40,7 +41,10 @@ export class TournamentEliminationService {
             round_start: 0,
             round_questions: new Set(),
             progress: new Map()
-        });
+        }
+        this.state.set(tournament_id, init_state);
+
+        return init_state.players
     }
 
     startRound(tournament_id: string, round_idx: number, question_ids: string[]) {
@@ -77,15 +81,22 @@ export class TournamentEliminationService {
             tournament.progress.set(key, progress);
         }
 
-        if (progress.solved) return true;
+        const received_at = Date.now();
+
+        if (progress.solved) {
+            return {
+                player_id: submission.player_id,
+                correct: true,
+                speed: received_at - tournament.round_start,
+                attempt_number: progress.attempts
+            }
+        }
+
         if (progress.attempts >= MAX_ATTEMPTS) throw new Error("No attempts left");
 
         progress.attempts++;
-        const received_at = Date.now();
         const round = tournament.current_round;
-
         let correct: boolean;
-
         try {
             correct = await this.marking_service.mark(submission);
         } catch (error) {
@@ -93,15 +104,18 @@ export class TournamentEliminationService {
             throw error;
         }
 
-        if (tournament.current_round !== round) return false;
-
-        if (correct && !progress.solved) {
+        if (correct && !progress.solved && tournament.current_round === round) {
             progress.solved = true;
             ++player.correct;
             player.total_time += received_at - tournament.round_start;
         }
 
-        return correct;
+        return {
+            player_id: submission.player_id,
+            correct,
+            speed: received_at - tournament.round_start,
+            attempt_number: progress.attempts
+        };
     }
 
 

@@ -63,7 +63,7 @@ describe("Testing tournament socket", () => {
         const unsub_create = tournament_socket.tournamentCreated(create_handler);
 
 
-        const response = await tournament_socket.hostTournament({ start_date, match_mode, host });
+        const response = await tournament_socket.hostTournament({ start_date, match_mode, host, title: "test tournament",min_players:8 });
         if (!response.ok) throw new Error(response.error);
 
         tournament = response.data!;

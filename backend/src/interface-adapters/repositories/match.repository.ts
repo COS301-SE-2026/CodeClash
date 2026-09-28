@@ -10,7 +10,7 @@ export class MatchRepository implements IMatchRepository {
         private readonly user_repo: IUserRepository
     ) { }
 
-    async createMatch(players: string[], type: MatchType, match_mode: MatchMode, match_start: Date): Promise<string> {
+    async createMatch(players: string[], type: MatchType, match_mode: MatchMode, match_start: Date, title: string): Promise<string> {
         if (players.length < 2) throw new Error("Not Enough Players");
 
         const match = this.match_repo.create(
@@ -28,7 +28,8 @@ export class MatchRepository implements IMatchRepository {
                 match_type: type,
                 match_mode: match_mode,
                 match_start: match_start,
-                status: MatchStatus.Starting
+                status: MatchStatus.Starting,
+                title: title
             });
 
         const saved = await this.match_repo.save(match);
