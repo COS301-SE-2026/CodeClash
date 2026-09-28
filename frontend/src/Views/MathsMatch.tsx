@@ -1,5 +1,5 @@
 import { ChevronRight, ChevronLeft } from 'lucide-react'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useMatch } from 'src/ViewModels/MatchViewModel';
 
 import MathMatch from '@/components/features/MathPage';
@@ -10,6 +10,7 @@ import { Card } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
 import { MatchBox } from '@/components/ui/MatchBox';
 import TournamentButton from '@/components/ui/TournamentButton';
+import Flash from '@/components/ui/animations/Flash';
 import "../../src/styles/global.css"
 
 const MathsMatch = () => {
@@ -37,6 +38,14 @@ const MathsMatch = () => {
         else if (correct === false) return "border border-danger"
         else return ""
     }
+
+    const [flashTrigger, setFlashTrigger] = useState(0);
+
+    useEffect(() => {
+        if(correct !== null && correct !== undefined) {
+            setFlashTrigger(t => t + 1);
+        }
+    }, [correct]);
     
 
 
@@ -83,6 +92,12 @@ const MathsMatch = () => {
             <MatchBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] -mt-43"></MatchBox>
 
             <div className='w-[100%] h-full min-h-[35%] flex flex-col items-center justify-center'>
+                <Flash 
+                    result={correct ?? null}
+                    trigger={flashTrigger}
+                    className="w-[100%] h-full min-h-[35%] flex flex-col items-center justify-center"
+                    >
+
                 <MathMatch
                     mathfieldRef={mathfieldRef}
                     onValueChange={(val) => setAnswers(prev => ({ ...prev, [currentQuestion]: val }))}
@@ -115,6 +130,7 @@ const MathsMatch = () => {
                 </div>
             
                 </MathMatch>
+                </Flash>
             </div>
 
             {waitingOpponent && (
