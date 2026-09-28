@@ -15,6 +15,7 @@ interface InventoryContextValue {
     error: string | null;
 
     equippedAvatarImage?: string;
+    equippedAvatarKey?: string;
 
     refetch: () => Promise<void>;
     purchase: (itemId: string) => Promise<void>;
@@ -71,6 +72,15 @@ export const InventoryProvider = ({children}: {children: ReactNode}) => {
         return avatar?.previewImageUrl;
     }, [catalog, inventory])
 
+    const equippedAvatarKey = useMemo(() => {
+        if (!inventory?.equippedAvatarId) {
+            return undefined;
+        }
+        const avatar = catalog.find((i): i is AvatarShopItem => i.category === 'avatar' && i.id === inventory.equippedAvatarId);
+
+        return avatar?.asset_key;
+    }, [catalog, inventory])
+
     const purchase = useCallback(async (itemId: string) => {
         if (!token) {
             setError('Missing or Invalid Token');
@@ -115,6 +125,7 @@ export const InventoryProvider = ({children}: {children: ReactNode}) => {
             error,
 
             equippedAvatarImage,
+            equippedAvatarKey,
 
             refetch: fetchAll,
             purchase,
