@@ -1,5 +1,5 @@
 import { ChevronRight, ChevronLeft } from 'lucide-react'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useMatch } from 'src/ViewModels/MatchViewModel';
 
 import MathMatch from '@/components/features/MathPage';
@@ -10,10 +10,12 @@ import { Card } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
 import { MatchBox } from '@/components/ui/MatchBox';
 import TournamentButton from '@/components/ui/TournamentButton';
+import Flash from '@/components/ui/animations/Flash';
+import "../../src/styles/global.css"
 
 const MathsMatch = () => {
     const {
-        playerLife, avatars, usernames, elos,
+        myIndex, playerLife, avatars, usernames, elos,
         seconds, minutes, questions,
         currentQuestion, opponentCurrent,
         nextQuestion, prevQuestion,
@@ -25,11 +27,30 @@ const MathsMatch = () => {
 
     const curr = questions[currentQuestion];
     const correct = results[currentQuestion];
+
     const result_colour = () => {
         if (correct === true) return 'bg-success/50'
         else if (correct === false) return 'bg-danger/50'
         else return 'bg-white'
     }
+
+    const result_border = () => {
+        if(correct === true) return "border border-success"
+        else if (correct === false) return "border border-danger"
+        else return ""
+    }
+
+    const [flashTrigger, setFlashTrigger] = useState(0);
+
+    useEffect(() => {
+        if(correct !== null && correct !== undefined) {
+            setFlashTrigger(t => t + 1);
+        }
+    }, [correct]);
+
+    const myLife = myIndex >= 0 ? playerLife[myIndex] : undefined;
+    const lowLife = myLife !== undefined && myLife >= 0 && myLife <= 25;
+    
 
 
     const read_only = () => {
@@ -51,6 +72,7 @@ const MathsMatch = () => {
     }
 
     return (
+
         <MatchScreen
             player_life={playerLife}
             seconds={seconds}
@@ -63,6 +85,7 @@ const MathsMatch = () => {
             question_number={questions.length}
             question_results={results}
         >
+            {lowLife && <div className="danger-pulse pointer-events-none fixed inset-0 z-40"/>}
 
             <Question
                 className={` h-[20rem] `}
@@ -72,15 +95,20 @@ const MathsMatch = () => {
                 number={currentQuestion + 1}
             />
 
-            <MatchBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] -mt-43"></MatchBox>
+            <MatchBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] -mt-44"></MatchBox>
 
-            <div className='w-[100%] h-full min-h-[35%] flex flex-col items-center justify-center'>
+                <Flash 
+                    result={correct ?? null}
+                    trigger={flashTrigger}
+                    className="w-[100%] flex flex-col items-center justify-center mt-5 rounded-2xl"
+                    >
+
                 <MathMatch
                     mathfieldRef={mathfieldRef}
                     onValueChange={(val) => setAnswers(prev => ({ ...prev, [currentQuestion]: val }))}
-                    className={`${result_colour()},${read_only}`}
+                    className={`${result_colour()} ${result_border()} ${read_only}`}
                 >
-            
+                   
                 <div className="flex flex-row gap-6 w-full mx-auto justify-center my-auto">
                 <TournamentButton className='flex items-center justify-evenly text-secondary rounded-2xl w-[10%] h-auto'>
                     <ChevronLeft onClick={() => prevQuestion(currentQuestion)} className='size-[2rem] hover:scale-110  hover:bg-secondary/20 rounded-2xl w-[50%]' />
@@ -93,6 +121,7 @@ const MathsMatch = () => {
                     }}
                 >
                     Submit
+                    
                 </TournamentButton>
                 {currentQuestion === (questions.length - 1) &&
                     <TournamentButton className='w-[10%] h-[2.2rem] rounded-2xl text-[1.3rem] hover:-translate-y-1'
@@ -106,7 +135,8 @@ const MathsMatch = () => {
                 </div>
             
                 </MathMatch>
-            </div>
+                </Flash>
+           
 
             {waitingOpponent && (
                 <div className="fixed inset-0 z-50  bg-background/60 flex items-center justify-center p-4 ">

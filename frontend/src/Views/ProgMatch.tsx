@@ -7,14 +7,17 @@ import { MatchBox } from "@/components/ui/MatchBox";
 import { Card } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
 import Loading from '@/components/shared/Loading';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TournamentButton from "@/components/ui/TournamentButton";
 import { MatchCard } from "@/components/ui/MatchCard";
+import Flash from "@/components/ui/animations/Flash";
+
+
 
 export const ProgMatch = () => {
     const [code, setCode] = useState('');
     const {
-        playerLife, avatars, usernames,
+        myIndex, playerLife, avatars, usernames,
         elos, seconds, minutes, questions,
         currentQuestion, opponentCurrent,
         nextQuestion, prevQuestion,
@@ -23,12 +26,41 @@ export const ProgMatch = () => {
     } = useMatch();
 
     const curr = questions[currentQuestion];
+    const correct = results[currentQuestion];
+
+    const [flashTrigger, setFlashTrigger] = useState(0);
+
+    useEffect(() => {
+        if(correct !== null && correct !== undefined){
+            setFlashTrigger(t => t + 1);
+        }
+    }, [results])
+
+    const myLife = myIndex >= 0 ? playerLife[myIndex] : undefined;
+    const lowLife = myLife !== undefined && myLife >= 0 && myLife <= 25;
 
     if (loading || !curr) {
         return (
             <Loading isOpen={loading}></Loading>
         )
     }
+
+    const result_colour = () => {
+        if(correct === true) return 'bg-success/50'
+        else if (correct === false) return 'bg-danger/50'
+        else return ""
+    }
+
+    const result_border = () => {
+        if(correct === true) return "border border-success"
+        else if(correct === false) return "border border-danger"
+        else return ""
+    }
+
+    console.log(playerLife);
+
+
+
 
     return (
         <MatchScreen
@@ -43,6 +75,9 @@ export const ProgMatch = () => {
             question_number={questions.length}
             question_results={results}
         >
+
+            {lowLife && <div className="danger-pulse pointer-events-none fixed inset-0 z-40"/>}
+
             <Question
                 className={` h-[10rem]`}
                 difficulty={curr.difficulty!}
@@ -54,10 +89,15 @@ export const ProgMatch = () => {
 
             <MatchBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] -mt-4"></MatchBox>
 
+
             <MatchCard className="items-center mt-5">
+            <Flash result={correct ?? null} trigger={flashTrigger} className="w-[95%] rounded-2xl">
+                <div className={`w-full flex justify-center p-2 rounded-2xl mx-auto ${result_colour()} ${result_border}`}>
                 <CodeEditor 
                     handleChange={setCode}
                 />
+                </div>
+            </Flash>
             
 
                 <div className='flex flex-row gap-6 w-full mx-auto justify-center my-auto'>
@@ -92,6 +132,7 @@ export const ProgMatch = () => {
                     }
                 </div>
             </MatchCard>
+            
 
             {/*Copied from math match */}
             {waitingOpponent && (

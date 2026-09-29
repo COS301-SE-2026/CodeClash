@@ -8,14 +8,14 @@ import type { SubmissionResultDTO } from "src/dtos/submission.dto";
 import type { Player } from "src/Models/MatchModel";
 import { endGame } from "src/services/result.service";
 import { robot_map } from 'src/assets/Robots';
-import { useGameQuestions, useGameTimer, useMatchProgress } from 'src/services/match.service';
+import { useGameQuestions, useGameTimer, useMatchProgress, getCurrentPlayerIndex } from 'src/services/match.service';
 
 
 export const useMatch = () => {
     const { socket } = useSocket();
     const location = useLocation();
     const { id } = location.state;
-    const { userId } = useUser();
+    const { userId, username } = useUser();
     const closeLoading = () => setLoading(false);
     const { gameType } = useMatchmaking();
 
@@ -77,12 +77,16 @@ export const useMatch = () => {
             return;
         }
 
-        if (result.result === true) nextQuestion(index)
+        if (result.result === true) {
+            setTimeout(() => nextQuestion(index), 500);
+        }
     }
 
     const submission_error = (error: string) => {
         console.error(error)
     }
+
+    const myIndex = useMemo(() => getCurrentPlayerIndex(players, username), [players, username])
 
     useEffect(() => {
         players_ref.current = players
@@ -127,7 +131,9 @@ export const useMatch = () => {
     }, [socket, questionsReady])
 
     return {
+        myIndex,
         players,
+        userId,
         questions,
         answers,
         playerLife,

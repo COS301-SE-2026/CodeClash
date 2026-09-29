@@ -5,6 +5,8 @@ import { MatchCard } from '../ui/MatchCard'
 import TournamentButton from '../ui/TournamentButton'
 import { TournamentsBadge } from '../ui/TournamentsBadge'
 import { TimerCard } from '../ui/MatchBox'
+import Shake from '../ui/Shake'
+
 
 interface MatchScreenProps {
     player_life: number[],
@@ -36,7 +38,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
 
     const questionsAnswered = question_results.filter((qr) => qr === true || qr === false).length;
     const progressValue = question_number > 0 ? (questionsAnswered / question_number) * 100 : 0;
-
+    
     return (
         <div className="fixed inset-0 flex flex-col min-w-[64rem] overflow-y-auto">
             {/* <img src={background} className='absolute w-full -z-10' alt='background' /> */}
@@ -64,13 +66,15 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                         </TournamentsBadge>
 
                         <div className='w-full'>
+                            <Shake value={player_life[0]}>
                             <Progress
                                 value={player_life[0]}
                                 bg="var(--button-tournament-secondary)"
                                 border="var(--button-tournament-secondary)"
-                                height={2.5}
+                                height={3}
                                 className='max-w-[11rem] min-w-[1rem] h-sm mr-auto ml-5 -mt-1'
                             />
+                            </Shake>
                         </div>
                     </div>
                 </div>
@@ -90,15 +94,18 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 <div className="min-w-0 w-xl flex-1 mr-7 h-[6rem] mt-10 shrink-0">
                     <div className="flex flex-row items-center gap-2 w-full mt-3">
                         <div className='w-full'>
+                            <Shake value={player_life[1]}>
                             <Progress
                                 value={player_life[1]}
+                                reverse={true}
                                 bg={"var(--button-tournament-secondary)"}
                                 border={"var(--button-tournament-secondary"}
                                 from={"#8b29b8"}
                                 via={"#BF4DF3"}
-                                height={2.5}
-                                className='max-w-[11rem] min-w-[1rem] h-sm ml-auto mr-5 -mt-2.5 rotate-180'
+                                height={3}
+                                className='max-w-[11rem] min-w-[1rem] h-sm ml-auto mr-5 -mt-2.5'
                             />
+                            </Shake>
                         </div>
 
                         {/* the code below was copied and pasted from above and was written by a human, this code was not ai generated! */}
@@ -153,9 +160,9 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
 
                                         const doorResult = question_results[idx];
                                         const doorColour = () => {
-                                            if (idx === current_question) return 'bg-[var(--button-tournament)] shadow-[0_0_10px_var(--button-tournament)]'
-                                            if (doorResult === true) return 'bg-success/30 shadow-[0_0_10px_var(--success)]'
-                                            if (doorResult === false) return 'bg-danger/30 shadow-[0_0_10px_var(--danger)]'
+                                            if (idx === current_question) return 'bg-primary shadow-[0_0_10px_var(--primary)]'
+                                            if (doorResult === true) return 'bg-success/30 shadow-[0_0_10px_var(--success)] answer-flash-correct'
+                                            if (doorResult === false) return 'bg-danger/30 shadow-[0_0_10px_var(--danger)] answer-flash-wrong'
                                             return 'bg-card'
                                         }
                                         const doorSymbol = () => {
@@ -165,7 +172,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                             return <LockKeyhole/>
                                         }
                                         const oppProg = () => {
-                                            if (idx === opponent_progress) return <div className="absolute top-0 left-0 rounded-full h-4 w-4 
+                                            if (idx === opponent_progress) return <div className="absolute top-0 left-0 rounded-full h-3 w-3 
                                             bg-red-800 z-20 shadow-[0_0_12px_rgba(190,0,0,0.3)]"/>
                                         }
 
