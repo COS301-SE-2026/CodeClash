@@ -1,6 +1,6 @@
 import "dotenv/config";
 import path from "node:path";
-import fs from "fs";
+import fs from "node:fs";
 
 
 const REPO_PATH = "../../problem-specifications";
@@ -120,12 +120,6 @@ export const LANGUAGES = [
         repo_path: "../../cpp",
         stub_extension: ["cpp", "h"],
         judge0_id: 54
-    },
-    {
-        language: "javascript",
-        repo_path: "../../javascript",
-        stub_extension: ["js"],
-        judge0_id: 63
     }
 ]
 
@@ -144,7 +138,7 @@ function slugToPascalCase(slug: string) {
 export function findStubFile(exercise_dir: string, slug: string, extension: string[]) {
     const name_variants = [
         slug,
-        slug.replace(/-/g, "-"),
+        slug.replaceAll("-", "_"),
         slugToPascalCase(slug)
     ];
 

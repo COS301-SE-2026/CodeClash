@@ -118,13 +118,13 @@ npm run seed:math
 clone the exercism repo folders 
 
 ```
-git clode --depth 1 https://github.com/exercism/problem-specifications.git
+git clone --depth 1 https://github.com/exercism/problem-specifications.git
 
-git clode --depth 1 https://github.com/exercism/python.git
+git clone --depth 1 https://github.com/exercism/python.git
 
-git clode --depth 1 https://github.com/exercism/cpp.git
+git clone --depth 1 https://github.com/exercism/cpp.git
 
-git clode --depth 1 https://github.com/exercism/javascript.git
+git clone --depth 1 https://github.com/exercism/javascript.git
 ```
 
 ```

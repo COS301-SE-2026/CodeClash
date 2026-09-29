@@ -1,3 +1,4 @@
+import { randomInt } from 'node:crypto';
 import { normalize, safeParse, splitTopLevel } from '../../../src/application/usecases/services/marking/maths-marking/normalizer'
 import axios from 'axios'
 
@@ -35,6 +36,32 @@ function sleep(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+
+async function fetchPage(params: URLSearchParams) {
+    let attempt = 0;
+
+    while (true) {
+        try {
+            const res = await axios.get(`${API_URL}?${params.toString()}`);
+            return res.data;
+        } catch (error: any) {
+
+            const status = error.response?.status;
+            const retry = status === 429 && status >= 500 || ['ECONNRESET', 'ETIMEDOUT', 'EAI_AGAIN'].includes(error.code);
+
+            if (retry && attempt < 5) {
+                const backoff = 2000 * Math.pow(2, attempt);
+                await sleep(backoff);
+                attempt++;
+                continue;
+            }
+            throw error;
+        }
+    }
+
+}
+
+
 export async function fetchAllRows(): Promise<HFRow[]> {
     let offset = 0;
     const rows: HFRow[] = [];
@@ -48,30 +75,13 @@ export async function fetchAllRows(): Promise<HFRow[]> {
             length: String(PAGE_SIZE)
         });
 
-        let data: any;
-        let attempt = 0;
-
-        while (true) {
-            try {
-                const res = await axios.get(`${API_URL}?${params.toString()}`);
-                data = res.data;
-                break;
-            } catch (error: any) {
-                if (error?.response?.status === 429 && attempt < 5) {
-                    const backoff = 2000 * Math.pow(2, attempt);
-                    await sleep(backoff);
-                    attempt++;
-                    continue;
-                }
-                throw error;
-            }
-        }
+        const data = await fetchPage(params);
 
         if (!data.rows || data.rows.length === 0) break;
         rows.push(...data.rows.map((r: { row: HFRow }) => r.row));
         offset += PAGE_SIZE;
         if (rows.length >= (data.num_rows_total ?? Infinity)) break;
-        if(rows.length >= MAX_ROWS) break;
+        if (rows.length >= MAX_ROWS) break;
 
         await sleep(300);
     }
@@ -82,7 +92,7 @@ export async function fetchAllRows(): Promise<HFRow[]> {
 // Helpers 
 
 export function extractAnswer(solution: string) {
-    const marker = "\\boxed{";
+    const marker = String.raw`\boxed{`;
     const start = solution.lastIndexOf(marker);
 
     if (start === -1) return null;
@@ -110,8 +120,10 @@ export function containsDiagram(problem: string) {
 }
 
 function levelToDifficulty(level: string) {
-    const value = parseInt(level.replace("Level ", ""), 10) || 3;
-    return Math.min(23, Math.max(1, Math.round((value / 5) * 24)));
+    const n = Math.min(5, Math.max(1, Number.parseInt(level.replace("Level ", ""), 10) || 3));
+    const start = Math.round(((n - 1) * 24) / 5) + 1;
+    const end = Math.round((n * 24) / 5);
+    return randomInt(start, end + 1);
 }
 
 function getTimeLimit(difficulty: number) {

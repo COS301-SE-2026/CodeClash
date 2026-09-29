@@ -16,6 +16,9 @@ services:
     privileged: true
     <<: *default-logging
     restart: always
+    networks:
+      - default
+      - pgnetwork
 
   workers:
     image: judge0/judge0:1.13.1
@@ -34,6 +37,7 @@ services:
       - data:/var/lib/postgresql/data/
     <<: *default-logging
     restart: always
+
   redis:
     image: redis:7.2.4
     command: [
@@ -46,5 +50,10 @@ services:
 
 volumes:
   data:
+
+networks:
+  pgnetwork:
+    external: true
+    name: pgnetwork
 
 

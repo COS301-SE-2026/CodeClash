@@ -15,6 +15,13 @@ const pool = new Pool({
     database: env.DB_NAME
 });
 
+
+function stripLocalIncludes(code: string) {
+    return code.split('\n')
+        .filter((line) => !line.trim().startsWith('#include "'))
+        .join('\n')
+}
+
 async function getQuestionsByTitle() {
     const result = await pool.query(
         `SELECT question_id, title FROM questions WHERE match_mode = 'programming'`
@@ -50,7 +57,10 @@ async function insertTemplates(questions_by_slug: Map<string, string>) {
                 const stub_path = findStubFile(exercise_dir, slug, lang.stub_extension!);
                 if (!stub_path) continue;
 
-                const starter_code = fs.readFileSync(stub_path, "utf-8");
+                let starter_code = fs.readFileSync(stub_path, "utf-8");
+                if(lang.language == 'cpp'){
+                    starter_code = stripLocalIncludes(starter_code);
+                }
 
                 await client.query(
                     `INSERT INTO programming_templates (question_id, language, judge0_language_id, starter_code)
