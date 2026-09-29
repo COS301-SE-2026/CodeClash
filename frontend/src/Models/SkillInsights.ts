@@ -51,3 +51,15 @@ export interface FocusReport {
   weekly: WeeklyChange[];
 }
 
+export interface InsightInput {
+    games: GameSample[];
+    allGames: GameSample[];
+    components: ComponentScore[];
+    bands: DifficultyBand[];
+    growth: GrowthResult;
+    mastery: number;
+    league: string;
+    winRate: number;
+    practice?: PracticeSummary;
+    now?: Date;
+}
