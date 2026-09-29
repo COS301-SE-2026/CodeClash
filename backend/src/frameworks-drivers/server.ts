@@ -4,7 +4,7 @@ import dotnev from 'dotenv'
 import { Server } from 'socket.io'
 import { IQuestionRepository } from 'src/application/interfaces/repositories/IQuestionRepository';
 import { QuestionRepository } from 'src/interface-adapters/repositories/question.repository';
-import { Questions } from 'src/entities/database/questions.entities';
+import { ProgrammingTemplates, Questions, TestCases } from 'src/entities/database/questions.entities';
 import { IAnswerRepository } from 'src/application/interfaces/repositories/IAnswerRepository';
 import { AnswerRepository } from 'src/interface-adapters/repositories/answer.repository';
 import { Answers } from 'src/entities/database/answers.entities';
@@ -40,7 +40,6 @@ import { MatchConfirmationService } from 'src/application/usecases/services/matc
 import { MatchStore } from 'src/application/usecases/services/match/match-store.service';
 import { DeleteGame } from 'src/application/usecases/systems/delete-game';
 import { LeaderboardService } from 'src/application/usecases/services/leaderboard.service';
-import { NotificationService } from 'src/application/usecases/services/notification.service';
 import { IMarkingStrategy } from 'src/application/interfaces/marking/IMarkingStategy';
 import { MarkMaths } from 'src/application/usecases/services/marking/mark-maths';
 import { MarkProg } from 'src/application/usecases/services/marking/mark-prog';
@@ -66,7 +65,7 @@ import { Wallet } from 'src/entities/database/wallet.entities';
 import { UserItem } from 'src/entities/database/user-item.entities';
 import { EquippedItems } from 'src/entities/database/equipped-items.entities';
 import { InventoryRepository } from 'src/interface-adapters/repositories/inventory.repository';
-import { WalletReposiroty } from 'src/interface-adapters/repositories/wallet.repository';
+import { WalletRepository } from 'src/interface-adapters/repositories/wallet.repository';
 import { EquippedRepository } from 'src/interface-adapters/repositories/equipped.repository';
 import { InventoryService } from 'src/application/usecases/services/shop/inventory.service';
 import { WalletService } from 'src/application/usecases/services/shop/wallet.service';
@@ -75,6 +74,7 @@ import { PowerupService } from 'src/application/usecases/services/shop/powerup.s
 import { PurchaseService } from 'src/application/usecases/services/shop/purchase.service';
 import { PowerupSystem } from 'src/application/usecases/systems/powerup.system';
 import { RewardService } from 'src/application/usecases/services/match/reward.service';
+import { MarkerRegistry } from 'src/application/usecases/services/marking/maths-marking/marker-registry';
 
 dotnev.config()
 
@@ -85,7 +85,7 @@ AppDataSource.initialize()
 
         // initialise repos
         const user_repo: IUserRepository = new UserRepository(AppDataSource.getRepository(Users));
-        const question_repo: IQuestionRepository = new QuestionRepository(AppDataSource.getRepository(Questions));
+        const question_repo: IQuestionRepository = new QuestionRepository(AppDataSource.getRepository(Questions), AppDataSource.getRepository(TestCases), AppDataSource.getRepository(ProgrammingTemplates));
         const answer_repo: IAnswerRepository = new AnswerRepository(AppDataSource.getRepository(Answers));
         const match_repo: IMatchRepository = new MatchRepository(AppDataSource.getRepository(Matches), user_repo);
 
@@ -93,7 +93,7 @@ AppDataSource.initialize()
         const friend_repo = new FriendRepository(AppDataSource.getRepository(Friendship), AppDataSource.getRepository(FriendInvite), user_repo);
         const shop_item_repo = new ShopItemRepository(AppDataSource.getRepository(ShopItem));
         const inventory_repo = new InventoryRepository(AppDataSource.getRepository(UserItem), shop_item_repo);
-        const wallet_repo = new WalletReposiroty(AppDataSource.getRepository(Wallet));
+        const wallet_repo = new WalletRepository(AppDataSource.getRepository(Wallet));
         const equipped_repo = new EquippedRepository(AppDataSource.getRepository(EquippedItems), shop_item_repo);
 
         // initialise ecs world 
@@ -117,7 +117,7 @@ AppDataSource.initialize()
         const tournament_cache: ITournamentCache = new TournamentCache(redis);
 
         // initialise services 
-        const match_service = new MatchCreationService(create_match, get_questions, get_total_time, get_answers, match_cache, match_repo, user_repo);
+        const match_service = new MatchCreationService(create_match, get_questions, get_total_time, get_answers, match_cache, match_repo, user_repo, question_repo);
         const matchmaking_service = new MatchmakingService(matchmaking_cache);
         const matched_users_service = new MatchConfirmationService();
         const match_store = new MatchStore(user_repo);
@@ -142,16 +142,19 @@ AppDataSource.initialize()
         const powerup_system = new PowerupSystem(world, life_system, submission_system);
         // has to be declared here for system
         const powerup_service = new PowerupService(inventory_repo, shop_item_repo, powerup_system);
-        const maths_marker: IMarkingStrategy = new MarkMaths();
+        const marker_reegistry = new MarkerRegistry();
+        const maths_marker: IMarkingStrategy = new MarkMaths(marker_reegistry, match_cache);
 
         const code_executor = new CodeExecutor();
-        const prog_marker: IMarkingStrategy = new MarkProg(code_executor);
+        const prog_marker: IMarkingStrategy = new MarkProg(code_executor, question_repo);
 
         const opponent_progress = new OpponentProgress(world);
-        const marking_service = new MarkingService(match_cache, submission_system, life_system, maths_marker, prog_marker, opponent_progress);
+        
+        const marking_service = new MarkingService(submission_system, life_system, maths_marker, prog_marker);
 
         const elimination_service = new TournamentEliminationService(marking_service);
-        const tournament_service = new TournamentService(tournament_cache, match_start, elimination_service,user_repo);
+        const tournament_service = new TournamentService(tournament_cache, match_start, elimination_service, user_repo);
+
 
 
         const app = createApp(
@@ -168,7 +171,8 @@ AppDataSource.initialize()
             purchase_service,
             equipped_repo,
             shop_item_repo,
-            tournament_service
+            tournament_service, 
+            wallet_repo
         );
         const httpServer = createServer(app)     // can update to https
         const io = new Server(httpServer, {
@@ -209,11 +213,11 @@ AppDataSource.initialize()
         })
 
         // initialise database with users and elos
-        await initDB(user_repo);
+        await initDB(user_repo, wallet_repo);
 
         // attach socket handlers
         attachSocketModules(io, {
-            match: { marking_service, submission_system, match_completion_service, match_deletion_system, match_store, powerup_service ,elimination_service},
+            match: { marking_service, submission_system, match_completion_service, match_deletion_system, match_store, powerup_service, elimination_service, opponent_progress },
             matchmaking: { matchmaking_service, matched_users_service, match_service, match_store, user_repo, match_start },
             friends: {},
             tournament: { tournament_service }

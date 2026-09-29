@@ -3,15 +3,19 @@ import { Question } from "@/components/features/Questions/question";
 import { MatchScreen } from "@/components/features/Match/Match";
 import { useMatch } from "src/ViewModels/Match/MatchViewModel"
 import { ChevronRight, ChevronLeft } from 'lucide-react'
-import { MatchBox } from "@/components/features/Match/MatchBox";
 import Loading from '@/components/shared/Loading';
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import TournamentButton from "@/components/features/Tournaments/TournamentButton";
 import { MatchCard } from "@/components/features/Match/MatchCard";
 import PopUp from "@/components/shared/PopUp";
+import { useUser } from 'src/context/User/hooks/useUser';
+import { Button } from "@/components/ui/button";
 
 export const ProgMatch = () => {
     const [code, setCode] = useState('');
+    const [, setLanguage] = useState('');
+    const [languageId, setLanguageId] = useState<number | null>(null);
+
     const {
         status,
         questions,
@@ -20,13 +24,17 @@ export const ProgMatch = () => {
         seconds, minutes,
         currentQuestion, nextQuestion, prevQuestion,
         roundIdx, rounds,
-        opponentCurrent, waitingOpponent, finishGame,
+        opponentCurrent, waitingOpponent, finishMatch,
         loading,
         submitQuestion,
-        elos
+        elos, colourClass, shake,
+        final_question, complete_round, confirmCompleteRound, confirmRound, cancelCompleteRound, completeRound
+
     } = useMatch();
 
     const curr = questions[currentQuestion];
+    const question = useMemo(() => ({ templates: curr.templates }), [curr]);
+    const { username } = useUser();
 
     if (status !== 'ready' || !curr) {
         return (
@@ -48,8 +56,9 @@ export const ProgMatch = () => {
             question_results={results ?? []}
             rounds={rounds}
             current_round={roundIdx}
+            current_user={username}
+            shake={shake}
         >
-
             <Question
                 className={` h-[20rem] `}
                 difficulty={curr.difficulty!}
@@ -57,13 +66,16 @@ export const ProgMatch = () => {
                 description={curr.description}
             />
 
-            <MatchBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] -mt-4"></MatchBox>
-
-            <MatchCard className="items-center mt-5">
+            <MatchCard className={`items-center mt-5 ${colourClass}`}>
                 <CodeEditor
-                    handleChange={setCode}
-                />
+                    question={question}
+                    onChange={(new_code, new_language, judge0_id) => {
+                        setCode(new_code);
+                        setLanguage(new_language);
+                        setLanguageId(judge0_id)
+                    }}
 
+                />
 
                 <div className='flex flex-row gap-6 w-full mx-auto justify-center my-auto'>
 
@@ -71,28 +83,45 @@ export const ProgMatch = () => {
                         <ChevronLeft onClick={() => prevQuestion(currentQuestion)} className='size-[3rem] hover:scale-110  hover:bg-secondary/20 rounded-2xl w-[50%]' />
                         <ChevronRight onClick={() => nextQuestion(currentQuestion)} className='size-[3rem] hover:scale-110 hover:bg-secondary/20 rounded-2xl w-[50%]' />
                     </TournamentButton>
-                    <TournamentButton className='w-[10%] h-[2.2rem] my-auto rounded-2xl text-[1.3rem] hover:-translate-y-1'
+                    <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
                         onClick={() => {
-                            if (code.trim()) {
+                            if (code.trim() && languageId !== null) {
                                 submitQuestion({
                                     source_code: code,
-                                    language_id: 54,
+                                    language_id: languageId,
                                     stdin: null
                                 })
                             }
                         }}
                     >
                         Submit Answer
-                    </TournamentButton>
-                    {currentQuestion === (questions.length - 1) &&
-                        <TournamentButton className='w-[10%] my-auto h-[2.2rem] rounded-2xl text-[1.3rem] hover:-translate-y-1'
-                            onClick={() => {
-                                finishGame();
-                            }}
+                    </Button>
+                    {final_question ? (
+
+                        <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
+                            onClick={() => { finishMatch(); }}
                         >
-                            <p>Finish</p>
-                        </TournamentButton>
+                            <p>Finish Match</p>
+                        </Button>) :
+                        complete_round && (
+                            <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
+                                onClick={() => { confirmCompleteRound() }}
+                            >
+                                <p>Complete Round</p>
+                            </Button>
+                        )
                     }
+
+                    {
+                        confirmRound && (
+                            <div>
+                                <p>You won't be able to go back once you've completed a round.</p>
+                                <Button onClick={cancelCompleteRound}>Cancel</Button>
+                                <Button onClick={completeRound}>Continue</Button>
+                            </div>
+                        )
+                    }
+
                 </div>
             </MatchCard>
             {waitingOpponent && (

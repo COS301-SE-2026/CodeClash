@@ -57,7 +57,11 @@ export async function fetchAllRows(): Promise<HFRow[]> {
                 data = res.data;
                 break;
             } catch (error: any) {
-                if (error?.response?.status === 429 && attempt < 5) {
+
+                const status = error.response.status;
+                const retry = status === 429 && status >= 500 || ['ECONNRESET', 'ETIMEDOUT', 'EAI_AGAIN'].includes(error.code);
+
+                if (retry && attempt < 5) {
                     const backoff = 2000 * Math.pow(2, attempt);
                     await sleep(backoff);
                     attempt++;
@@ -71,7 +75,7 @@ export async function fetchAllRows(): Promise<HFRow[]> {
         rows.push(...data.rows.map((r: { row: HFRow }) => r.row));
         offset += PAGE_SIZE;
         if (rows.length >= (data.num_rows_total ?? Infinity)) break;
-        if(rows.length >= MAX_ROWS) break;
+        if (rows.length >= MAX_ROWS) break;
 
         await sleep(300);
     }
@@ -110,8 +114,10 @@ export function containsDiagram(problem: string) {
 }
 
 function levelToDifficulty(level: string) {
-    const value = parseInt(level.replace("Level ", ""), 10) || 3;
-    return Math.min(23, Math.max(1, Math.round((value / 5) * 24)));
+    const n = Math.min(5, Math.max(1, parseInt(level.replace("Level ", ""), 10) || 3));
+    const start = Math.round(((n - 1) * 24) / 5) + 1;
+    const end = Math.round((n * 24) / 5);
+    return start + Math.floor(Math.random() * (end - start + 1));
 }
 
 function getTimeLimit(difficulty: number) {

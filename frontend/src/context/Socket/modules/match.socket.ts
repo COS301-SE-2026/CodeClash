@@ -59,6 +59,8 @@ export class MatchSocket {
         return on(this.socket, 'start_match_failed', handler);
     }
 
+
+
     /************************************** EMITTERS ******************************************* */
 
     submitAnswer(data: SubmissionDTO) {
@@ -70,7 +72,7 @@ export class MatchSocket {
     }
 
     sendResults(data: { match_id: string, pair_id: string }) {
-        return emit<typeof data, void>(this.socket, 'send_results', data);
+        return emit<typeof data, MatchResultDTO>(this.socket, 'send_results', data);
     }
 
     cleanUpMatch(data: { match_id: string, pair_id: string }) {

@@ -6,7 +6,7 @@ dotenv.config();
 
 export class CodeExecutor implements ICodeExecutor {
     // these can be updated as needed
-    private readonly memory_limit = 128000;
+    private readonly memory_limit = Number(process.env.JUDGE_0_MEMORY_LIMIT ?? 128000);
     private readonly stack_limit = 128000;
     private readonly max_file_size = 1024;
 
@@ -15,12 +15,10 @@ export class CodeExecutor implements ICodeExecutor {
     async execute(source_code: string, language_id: number, stdin: string | null, expected_output: string): Promise<ProgSubmissionResult> {
 
         // !!!! Submission queue can be full, we need to plan for this
-        console.log("source code", source_code);
-        console.log("expected answer", expected_output);
         const data = {
             source_code: Buffer.from(source_code).toString('base64'),
             language_id: language_id,
-            stdin: stdin,
+            stdin: stdin ? Buffer.from(stdin).toString('base64') : null,
             expected_output: Buffer.from(expected_output).toString('base64'),
             memory_limit: this.memory_limit,
             stack_limit: this.stack_limit,
@@ -37,9 +35,11 @@ export class CodeExecutor implements ICodeExecutor {
                 });
 
 
+            console.log(result.data);
             return result.data;
         }
         catch (error) {
+            console.log(error);
             if (axios.isAxiosError(error)) {
 
                 return {
