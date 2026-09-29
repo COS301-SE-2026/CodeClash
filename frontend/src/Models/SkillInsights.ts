@@ -426,3 +426,39 @@ function consistencyInsight(games: GameSample[], league: string): Insight[] {
 
     return [];
 }
+
+function weakestComponentInsight(components: ComponentScore[]): Insight[] {
+    const scored = components.filter(component => component.inMastery && component.gamesCounted > 0);
+    if (scored.length === 0) return [];
+
+    const weakest = scored.reduce((low, component) => (component.value < low.value ? component : low), scored[0]!);
+    const strongest = scored.reduce((high, component) => (component.value > high.value ? component : high), scored[0]!);
+
+    const needsWork = weakest.value < T.weakComponent;
+    const insights: Insight[] = [{
+        id: 'weakest',
+        tone: needsWork ? 'warn' : 'info',
+        title: `${weakest.label} · ${domainName(weakest.domain)} is your weakest component at ${weakest.value}%`,
+        body: `${weakest.hint} Averaged over ${plural(weakest.gamesCounted, 'game')}.`,
+        action: COMPONENT_ACTION[weakest.key],
+        evidence: [
+            { label: 'Weakest', value: `${weakest.value}%` },
+            { label: 'Target', value: `${T.weakComponent}%` },
+            { label: 'Games', value: `${weakest.gamesCounted}` }
+        ],
+        score: needsWork ? 70 + (100 - weakest.value) / 2 : 12
+    }];
+
+    if ((strongest.key !== weakest.key || strongest.domain !== weakest.domain) && strongest.value >= T.weakComponent) {
+        insights.push({
+            id: 'strongest',
+            tone: 'good',
+            title: `${strongest.label} · ${domainName(strongest.domain)} is carrying you at ${strongest.value}%`,
+            body: 'Keep it there and spend your practice time on the weaker components.',
+            evidence: [{ label: 'Games', value: `${strongest.gamesCounted}` }],
+            score: 20
+        });
+    }
+
+    return insights;
+}
