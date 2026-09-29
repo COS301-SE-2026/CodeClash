@@ -1,18 +1,18 @@
-import { Ban, Bug, Clock, Eraser, Heart, HeartCrack, Lightbulb, ShieldAlert, Sparkles, X, Zap } from "lucide-react";
+import { Bug, Eraser, EyeOff, Heart, HeartCrack, Hourglass, Lightbulb, ShieldAlert, Sparkles, Timer, X, Zap } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useInventory } from "src/context/Shop/InventoryContext";
 import type { PowerupShopItem, PowerupEffectType } from "src/Models/ShopModel";
 
 const Icons: Record<PowerupEffectType, React.ComponentType<{size?: number; className?: string}>> = {
-    reduce_time: Clock,
+    reduce_time: Timer,
     reveal_hint: Lightbulb,
     block_next_powerdown: ShieldAlert,
     score_multiplier: Zap,
     restore_life: Heart,
     insert_bugs: Bug,
     wipe_answer: Eraser,
-    block_question: Ban,
-    increase_time: Clock,
+    block_question: EyeOff,
+    increase_time: Hourglass,
     drain_life: HeartCrack,
 }
 
