@@ -481,3 +481,58 @@ function runtimeInsight(games: GameSample[], components: ComponentScore[]): Insi
         score: 90 + (T.slowRuntime - speed.value)
     }];
 }
+
+function growthInsight(growth: GrowthResult): Insight[] {
+    const series = growth.readings.map(reading => reading.mastery);
+    const peak = Math.max(1, ...series);
+    const scaled = series.map(value => (value / peak) * 100);
+
+    if (growth.readings.length < 2) {
+        return [{
+            id: 'growth-thin',
+            tone: 'info',
+            title: 'Not enough readings for a trend yet',
+            body: `Growth needs a few games inside the ${growth.windowDays} day window before the line means anything.`,
+            evidence: [{ label: 'Readings', value: `${growth.readings.length}` }],
+            score: 5
+        }];
+    }
+    if (growth.growth > GROWTH_FLAT_THRESHOLD) {
+        return [{
+            id: 'growth-up',
+            tone: 'good',
+            title: `Mastery is climbing ${growth.growth.toFixed(2)} points a week`,
+            body: `The trend line over the last ${growth.windowDays} days is pointing up. Whatever you changed, keep doing it.`,
+            evidence: [
+                { label: 'Per week', value: `+${growth.growth.toFixed(2)}` },
+                { label: 'Fit', value: `${pct(growth.fit)}%` }
+            ],
+            series: scaled,
+            score: 45
+        }];
+    }
+    if (growth.growth < -GROWTH_FLAT_THRESHOLD) {
+        return [{
+            id: 'growth-down',
+            tone: 'warn',
+            title: `Mastery is sliding ${Math.abs(growth.growth).toFixed(2)} points a week`,
+            body: `Your recent games are scoring below your earlier ones in the last ${growth.windowDays} days.`,
+            action: 'Check the slipping component and difficulty cards above - the slide usually starts in one of them.',
+            evidence: [
+                { label: 'Per week', value: growth.growth.toFixed(2) },
+                { label: 'Fit', value: `${pct(growth.fit)}%` }
+            ],
+            series: scaled,
+            score: 85
+        }];
+    }
+    return [{
+        id: 'growth-flat',
+        tone: 'info',
+        title: 'Mastery is holding flat',
+        body: `Your last ${growth.windowDays} days sit on a level trend line. Harder questions are the usual way to move it.`,
+        evidence: [{ label: 'Per week', value: growth.growth.toFixed(2) }],
+        series: scaled,
+        score: 15
+    }];
+}
