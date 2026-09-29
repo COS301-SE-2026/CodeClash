@@ -88,7 +88,7 @@ const TournamentsMatchPage = () => {
                                         <h1>Submit Answer</h1>
                                         <ChevronsRight size={30} />
                                     </div>
-                                </Button>
+                                </TournamentButton>
                             </div>
 
                         </div>
