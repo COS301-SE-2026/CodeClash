@@ -84,7 +84,7 @@ const PowerEffect = ({effect, trigger}: PowerEffectProps) => {
 
     const particles = useMemo (
         () => Array.from({length: COUNT}, (_, i) => ({
-            id: 1,
+            id: i,
             dx: (secureRandom() - 0.5) * 320,
             delay: secureRandom() * 0.25,
             size: 4 + secureRandom() *6
