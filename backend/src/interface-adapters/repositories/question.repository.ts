@@ -10,6 +10,8 @@ export class QuestionRepository implements IQuestionRepository {
     ) { }
 
     async getRandQuestions(count: number, difficulty: number, match_mode: MatchMode): Promise<QuestionDTO[]> {
+
+        console.log("count", count, "difficulty", difficulty, "match mode", match_mode);
         const questions = await this.questionRepository.createQueryBuilder('q')
             .where("q.difficulty = :difficulty", { difficulty: difficulty })
             .andWhere('q.match_mode = :match_mode', { match_mode: match_mode })

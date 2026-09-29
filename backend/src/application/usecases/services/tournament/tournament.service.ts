@@ -69,6 +69,7 @@ export class TournamentService {
     }
 
     async startTournament(tournament: TournamentDTO, league: string) {
+        console.log("Tournament service start tournament");
         if (tournament.status !== MatchStatus.Waiting) throw new Error("Tournament already started");
         if (tournament.players.length < tournament.min_players) throw new Error("Not enough players");
 
@@ -78,6 +79,8 @@ export class TournamentService {
                 id: (await this.user_repo.getUserId(p.id))!.user_id!
             }))
         );
+
+        console.log("creating match")
         const match = await this.creation_service.execute(db_players as PlayerDTO[], tournament.tournament_mode, league, MatchType.tournament, tournament.title);
 
         tournament.rounds = match.rounds;
@@ -86,10 +89,14 @@ export class TournamentService {
         const players = tournament.players.map(p => ({ id: p.id, username: p.username! }));
 
         /// updates stored tournament state
+        console.log("initialising elimination service");
         const init_players_map = this.elimination_service.init(tournament.tournament_id, players);
         const round_1 = match.rounds[0];
+
+        console.log("starting round")
         this.elimination_service.startRound(tournament.tournament_id, round_1!.round_number, round_1!.questions.map(q => q.id));
 
+        console.log("returning");
         return {
             ...match,
             players: Array.from(init_players_map.values())

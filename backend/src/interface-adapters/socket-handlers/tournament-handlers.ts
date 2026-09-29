@@ -62,6 +62,9 @@ export const startTournament = async (io: Server, socket: Socket, tournament_id:
         const match = await tournament_service.startTournament(tournament, league);
         const data = { match: match, tournament: tournament };
         console.log("starting tournament", data);
+        console.log("match", data.match);
+        console.log("tournament", data.tournament);
+        
         io.to(tournament_id).emit("tournament_started", data);
         return data;
     } catch (error) {
