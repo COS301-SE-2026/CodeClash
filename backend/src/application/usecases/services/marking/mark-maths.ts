@@ -14,8 +14,8 @@ export class MarkMaths implements IMarkingStrategy {
   async mark(submission: PlayerSubmissionDTO): Promise<boolean> {
      const correct_answer = await this.game_cache.getAnswer(submission.question_id);
         if (!correct_answer) throw new Error("Invalid question id");
-
-    if (!('answer' in submission)) return false;
+        
+    if (!submission.submission || !('answer' in submission.submission)) return false;
 
     const marker = this.registry.markerFor(correct_answer.format); // telling it which marker to use based on the format
     if (marker === null) return false;
