@@ -109,3 +109,25 @@ export const INSIGHT_THRESHOLDS = {
     winMasteryGap: 25,
     weekDays: 7
 } as const;
+
+const T = INSIGHT_THRESHOLDS;
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+const pct = (value: number): number => Math.round(value * 100);
+const plural = (count: number, word: string): string => `${count} ${word}${count === 1 ? '' : 's'}`;
+const domainName = (domain: GameDomain): string => (domain === 'math' ? 'Maths' : 'Programming');
+
+const COMPONENT_ACTION: Record<ComponentKey, string> = {
+    time: 'Answer sooner: skim the question for what it asks, commit to a method, and check once rather than twice.',
+    accuracy: 'Slow down on the final step - most dropped marks come from the last line, not the method.',
+    speed: 'Your submissions are correct but slow to run. Swap nested loops for a map or a sort before you submit.',
+    timeCx: 'Before coding, name the complexity you are aiming for and check your loops against it.',
+    spaceCx: 'Look for structures you build and never reuse - most extra memory comes from copies.'
+};
+
+interface QuestionOutcome {
+    correct: boolean;
+    firstTry: boolean;
+    answered: boolean;
+    clockLeft: number;
+}
