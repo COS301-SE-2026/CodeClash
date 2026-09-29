@@ -62,8 +62,8 @@ export const PowerupPopup: React.FC<PowerupProps> = ({isOpen, onClose, maxSlots 
     const tintGlow = (kind: PowerupShopItem['kind']) => kind === 'powerdown' ? 'shadow-[0_0_16px_var(--danger)]' : 'shadow-[0_0_16px_var(--primary)]';
 
     return (
-        <div className="fixed inset-0 z-50 items-center justify-center p-4 bg-black/60" onClick={onClose}>
-            <div className="card-elevated w-full max-w-[640px] max-h-[85vh] overflow-y-auto flex flex-col gap-5 p-6" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/60" onClick={onClose}>
+            <div className="card-elevated w-full max-w-[900px] max-h-[85vh] overflow-y-auto flex flex-col gap-5 p-6" onClick={(e) => e.stopPropagation()}>
                 <div className="flex items-center justify-between">
                     <h2 className="section-title text-md">Your Power-Ups</h2>
                     <button type="button" onClick={onClose} className="btn btn-ghost btn-icon" aria-label="Close">
@@ -76,10 +76,22 @@ export const PowerupPopup: React.FC<PowerupProps> = ({isOpen, onClose, maxSlots 
                         <p className="text-muted text-sm">You don't have any powerups - purchase some from the Shop</p>
                     </div>
                 ) : (
-                    <div className="grid gap-3 grid-cols-[repeat(auto-fill, minmax(84px, 1fr))]">
-                        
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 justify-items-center">
+                        {owned.map(({item, quantity}) => {
+                            const Icon = Icons[item.effect.effectType];
+                            const selected = load.includes(item.id);
+                            return (
+                                <button key={item.id} type="button" onClick={() => toggle(item.id)} className={`card-glass relative flex flex-col items-center justify-center gap-2 w-[150px] h-[150px] p-4 cursor-pointer transition-all duration-200
+                                    ${selected ? `border-2 ${tintBorder(item.kind)} ${tintGlow(item.kind)}` : ''}`}>
+                                    <span className="badge absolute top-2 right-2 px-2 py-1 text-xs bg-card text-muted-text">{quantity}</span>
+                                    <Icon size={26} className={tintText(item.kind)}/>
+                                    <span className="text-primary-text text-center text-xs font-bold leading-tight">{item.name}</span>
+                                </button>
+                            )
+                        })}
                     </div>
                 )}
+
             </div>
         </div>
     )
