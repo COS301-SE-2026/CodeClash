@@ -35,3 +35,11 @@ export interface Insight {
       series?: number[];
       score: number;
 }
+
+export interface WeeklyChange {
+  key: string;
+      label: string;
+      domain: GameDomain;
+      delta: number; // the change init
+      current: number;
+}
