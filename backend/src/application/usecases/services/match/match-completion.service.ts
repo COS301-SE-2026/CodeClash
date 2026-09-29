@@ -51,7 +51,9 @@ export class MatchCompletionService {
 
         for (const player of players) {
             const stat = match_stats.get(player.id)!;
-            const reward = this.reward_service.calculateReward(match_type, player.position, players.length, stat);
+          const reward = this.reward_service.calculateReward(match_type, player.position, players.length, stat);
+          const existing = await this.wallet_repo.getWallet(player.id);
+          if (!existing) await this.wallet_repo.createWallet(player.id);
             await this.wallet_repo.updateBalance(player.id, reward);
         }
 
