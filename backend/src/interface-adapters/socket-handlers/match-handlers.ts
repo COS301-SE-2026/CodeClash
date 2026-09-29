@@ -35,6 +35,7 @@ export const submitQuestion = async (socket: Socket, data: RawSubmissionDTO, mar
 
 export const matchDone = async (io: Server, socket: Socket, match_id: number, match_type: MatchType, match_completion_service: MatchCompletionService, match_store: MatchStore) => {
     // wait for both players to be done
+    console.log("MATCH DONE");
     const match = match_store.get(match_id);
 
     if (!match) {
@@ -46,14 +47,16 @@ export const matchDone = async (io: Server, socket: Socket, match_id: number, ma
 
     if (match_store.playersDone(match_id)) {
 
+        console.log("completing match");
         const ids = match.players.map(player => player.id);
         const match_result = await match_completion_service.execute(match_id, match.database_id, ids, match_type);
+       console.log("results", match_result)
         match_store.saveResult(match_id, match_result);
 
         for (const id of ids) {
             io.to(id).emit('both_done');
         }
-    } else {
+;    } else {
         socket.emit('waiting_opponent');
 
         for (const p of match.players) {

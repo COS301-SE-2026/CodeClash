@@ -79,6 +79,7 @@ export const useMatch = () => {
     }
 
     const both_done = () => {
+        console.log("Both players done");
         useMatchStore.getState().reset();
         setWaitingOpponent(false);
         nav(`/results/${match_id}`, {
