@@ -27,8 +27,15 @@ export interface SendPlayInviteDTO {
     invite: PlayInvitePayload;
 }
 
+export interface PlayerInfo {
+    id: string;
+    elo: number;
+    username: string;
+}
 export interface PlayInviteResponseDTO {
     sender_id: string;
     invite_id: string;
     accepted: boolean;
+    sender?: PlayerInfo;
+    responder?: PlayerInfo;
 }
