@@ -1,0 +1,16 @@
+dockerfile/docker-compose.dev.yml
+  h_94c952a9e14c58 48
+frontend/@/components/features/Questions/question.tsx
+  h_94c952a9e14c58 68
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "19d7c9d7d8f5935dfe04f3ef30451f45a24dbcf1",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
