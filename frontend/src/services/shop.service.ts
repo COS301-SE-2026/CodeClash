@@ -135,3 +135,16 @@ function mapInventory(userItems: RawUserItem[], equipped: RawEquipped): UserInve
             equippedThemeId: equipped.theme?.shop_item_id ?? null,
         };
 }
+
+function authHeaders(token: string): HeadersInit {
+    return { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` };
+}
+
+async function handle<T>(res: Response): Promise<T> {
+    if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        throw new Error(body?.error ?? body?.message ?? `Request failed (${res.status})`);
+    }
+    return res.json();
+}
+
