@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 
 export const useCodeQuestion = (
     question: { templates?: TemplateDTO[] },
-    onChange: (code: string, language: string, judge0_language_id: number) => void
+    onChange: (code: string, judge0_language_id: number) => void
 ) => {
 
     const templates: TemplateDTO[] = question.templates!;
@@ -26,12 +26,12 @@ export const useCodeQuestion = (
 
         setSelectedLanguage(lang);
         setCode(template.starter_code);
-        onChange(template.starter_code, lang, template.judge0_language_id);
+        onChange(template.starter_code, template.judge0_language_id);
     };
 
     const editCode = (value: string) => {
         setCode(value);
-        onChange(value, selectedLanguage, current.judge0_language_id);
+        onChange(value, current.judge0_language_id);
     }
 
 

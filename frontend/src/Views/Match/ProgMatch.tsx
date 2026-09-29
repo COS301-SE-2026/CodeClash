@@ -13,7 +13,6 @@ import { Button } from "@/components/ui/button";
 
 export const ProgMatch = () => {
     const [code, setCode] = useState('');
-    const [, setLanguage] = useState('');
     const [languageId, setLanguageId] = useState<number | null>(null);
 
     const {
@@ -69,9 +68,8 @@ export const ProgMatch = () => {
             <MatchCard className={`items-center mt-5 ${colourClass}`}>
                 <CodeEditor
                     question={question}
-                    onChange={(new_code, new_language, judge0_id) => {
+                    onChange={(new_code,  judge0_id) => {
                         setCode(new_code);
-                        setLanguage(new_language);
                         setLanguageId(judge0_id)
                     }}
 

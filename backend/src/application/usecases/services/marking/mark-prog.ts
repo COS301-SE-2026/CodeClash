@@ -54,6 +54,6 @@ export class MarkProg implements IMarkingStrategy {
             return String(parsed);
         }
 
-        return Object.values(parsed as Record<string, unknown>).map((v) => String(v)).join(' ');
+        return Object.values(parsed as Record<string, unknown>).map(String).join(' ');
     }
 }

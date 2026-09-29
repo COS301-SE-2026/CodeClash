@@ -1,6 +1,6 @@
 import "dotenv/config";
 import path from "node:path";
-import fs from "fs";
+import fs from "node:fs";
 
 
 const REPO_PATH = "../../problem-specifications";
@@ -138,7 +138,7 @@ function slugToPascalCase(slug: string) {
 export function findStubFile(exercise_dir: string, slug: string, extension: string[]) {
     const name_variants = [
         slug,
-        slug.replace(/-/g, "-"),
+        slug.replaceAll("-", "_"),
         slugToPascalCase(slug)
     ];
 
