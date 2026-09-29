@@ -1,7 +1,7 @@
 import { ArrowLeft, ArrowRight, Lock, AtSign, Loader2} from "lucide-react";
 import React from "react";
 import { Link } from "react-router-dom";
-import { SignInViewModelFunction } from "../ViewModels/SignInViewModel";
+import { SignInViewModelFunction } from "src/ViewModels/SignInViewModel";
 
 import Starfield from "@/components/ui/animations/Starfield";
 

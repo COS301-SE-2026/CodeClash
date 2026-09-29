@@ -2,7 +2,7 @@ import { ArrowRight, ArrowLeft, User, AtSign, Mail, Phone, Lock, Loader2} from '
 import React from 'react';
 import { Link} from 'react-router-dom';
 
-import { SignUpViewModelFunction } from '../ViewModels/SignUpViewModel.ts';
+import { SignUpViewModelFunction } from 'src/ViewModels/SignUpViewModel.ts';
 
 import Starfield from '@/components/ui/animations/Starfield.tsx';
 import Dropdown from '@/components/ui/codesDropdown.tsx';

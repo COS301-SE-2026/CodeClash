@@ -2,7 +2,7 @@ import { beforeAll, describe, expect, it, vi } from 'vitest'
 import { Server } from 'socket.io'
 import { Server as HttpServer } from 'http'
 import { PlayerDTO } from '../../../src/entities/dtos/matches/match-component.dto';
-import { createTestServer, test_match_creation, socketSetup } from './helper';
+import { createTestServer, test_match_creation, socketSetup, user_repo } from './helper';
 import { TournamentService } from '../../../src/application/usecases/services/tournament/tournament.service'
 import { TournamentCache } from '../../../src/interface-adapters/cache/tournament-cache'
 import { ITournamentCache } from '../../../src/application/interfaces/cache/ITournamentCache'
@@ -13,6 +13,7 @@ import { TournamentEliminationService } from '../../../src/application/usecases/
 import { MarkingService } from '../../../src/application/usecases/services/marking/marking.service';
 import { MatchMode } from '../../../src/entities/dtos/matches/match.dto';
 import { TournamentDTO } from '../../../src/entities/dtos/tournaments/tournaments.dto'
+import { Socket } from 'socket.io-client';
 
 let http: HttpServer;
 let server: Server;
@@ -48,13 +49,16 @@ const marking_service = {
     })
 };
 
+
 const tournament_cache: ITournamentCache = new TournamentCache(redis);
 const test_create_match = await test_match_creation();
 const elimination_service = new TournamentEliminationService(marking_service as unknown as MarkingService);
-const tournament_service = new TournamentService(tournament_cache, test_create_match.match_start, elimination_service);
+const tournament_service = new TournamentService(tournament_cache, test_create_match.match_start, elimination_service, user_repo);
 const create_server = await createTestServer(players);
 
 let tournament: TournamentDTO;
+
+let listener: Socket;
 
 describe("Tournament Socket Handelr", () => {
     beforeAll(async () => {
@@ -68,6 +72,16 @@ describe("Tournament Socket Handelr", () => {
         server.on("connection", (socket) => {
             registerTournamentHandlers(server, socket, deps);
         })
+
+        listener = await socketSetup(host.id);
+
+        listener.on("player_joined", (data: { player: PlayerDTO, tournament_id: string }) => {
+            tournament.players.push(data.player);
+        });
+
+        listener.on("player_left", (data: { player: PlayerDTO, tournament_id: string }) => {
+            tournament.players = tournament.players.filter((p) => p.id !== data.player.id);
+        });
     })
 
 
@@ -76,9 +90,11 @@ describe("Tournament Socket Handelr", () => {
         const socket = await socketSetup(players[0].id);
 
         const data = {
-            start_date: new Date(),
+            start_date: new Date(2029, 9, 12),
             match_mode: MatchMode.Maths,
-            host: host
+            host: host,
+            title: "Test Tournament",
+            min_players: 3
         }
         const response = await new Promise<any>((resolve, reject) => {
             socket.emit("host_tournament", data, (response: TournamentDTO) => {
@@ -95,11 +111,10 @@ describe("Tournament Socket Handelr", () => {
     })
 
     it("Players join tournament", async () => {
-
         for (const p of players) {
             if (p.id === host.id) continue;
 
-            const socket = await socketSetup(players[0].id);
+            const socket = await socketSetup(p.id);
 
             const data = {
                 tournament_id: tournament.tournament_id,
@@ -115,7 +130,6 @@ describe("Tournament Socket Handelr", () => {
             })
 
             expect(response.ok).toBe(true);
-            tournament = response.data;
         }
 
         expect(tournament.players.length).toBe(players.length);
@@ -124,7 +138,6 @@ describe("Tournament Socket Handelr", () => {
 
     it("Player leaves tournament", async () => {
         const player = players[4];
-        const expected = players.filter(p => p.id !== player.id);
 
         const socket = await socketSetup(player.id);
 
@@ -142,8 +155,7 @@ describe("Tournament Socket Handelr", () => {
         })
 
         expect(response.ok).toBe(true);
-        expect(response.data.players).toEqual(expected);
-        tournament = response.data;
+        expect(tournament.players.length).toBe(players.length - 1);
     })
 
     it("Gets a tournament", async () => {
@@ -177,6 +189,7 @@ describe("Tournament Socket Handelr", () => {
             socket.on("connect_error", reject);
         })
 
+        console.log(response)
         expect(response.ok).toBe(true);
         expect(response.data).toBeDefined();
     })

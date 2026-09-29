@@ -3,7 +3,7 @@
 
 import { MathfieldElement } from "mathlive";
 import React, { useState } from "react";
-import { MatchCard } from "../ui/MatchCard";
+import { MatchCard } from "@/components/features/Match/MatchCard";
 import VirtualKeyboard from "./VirtualKeyboard";
 
 declare module "react" {

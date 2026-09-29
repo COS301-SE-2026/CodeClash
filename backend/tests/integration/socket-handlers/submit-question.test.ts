@@ -17,7 +17,9 @@ import { MatchCompletionService } from '../../../src/application/usecases/servic
 import { DeleteGame } from '../../../src/application/usecases/systems/delete-game'
 import { MatchStore } from '../../../src/application/usecases/services/match/match-store.service';
 import { MarkingResultDTO } from '../../../src/entities/dtos/submissions/submission-result.dto'
-import { createTestMatch, createTestServer, deleteTestMatch, socketSetup } from './helper';
+import { createTestMatch, createTestServer, user_repo, match_store, socketSetup } from './helper';
+import { TournamentEliminationService } from '../../../src/application/usecases/services/tournament/elimination.service'
+import { RawSubmissionDTO } from '../../../src/entities/dtos/submissions/submission.dto';
 
 let server: Server;
 let http: HttpServer;
@@ -47,10 +49,20 @@ const players: PlayerDTO[] = [
     }
 ];
 
+
+
 let marking_service;
 const world = World()
 const submission_system = new SubmissionSystem(world);
 const create_server = await createTestServer(players);
+const store: MatchStore = match_store;
+
+const db_players = await Promise.all(
+    players.map(async (p) => ({
+        ...p,
+        id: (await user_repo.getUserId(p.id))!.user_id!
+    }))
+);
 
 
 describe("Submit Question socket integration test", () => {
@@ -74,7 +86,8 @@ describe("Submit Question socket integration test", () => {
             submission_system,
             match_completion_service: {} as MatchCompletionService,
             match_deletion_system: {} as DeleteGame,
-            match_store: {} as MatchStore
+            match_store: store,
+            elimination_service: {} as TournamentEliminationService
         }
 
         server.on("connection", (socket) => {
@@ -94,7 +107,7 @@ describe("Submit Question socket integration test", () => {
 
     it("Submit Maths Question", async () => {
 
-        match = await createTestMatch(players, MatchMode.Maths, MatchType.ranked);
+        match = await createTestMatch(db_players, MatchMode.Maths, MatchType.ranked);
 
         const socket = await socketSetup(players[0].id);
 
@@ -102,12 +115,15 @@ describe("Submit Question socket integration test", () => {
         const question = round!.questions[0];
         const answer = mock_answers.find(a => a.question!.question_id === question.id);
 
-        const submission = {
-            match_id: match.match_entity,
+        const submission: RawSubmissionDTO = {
+            id: match.match_id,
+            match_mode: MatchMode.Maths,
             player_id: players[0].id,
             question_id: question.id,
             question_number: 1,
-            submission: { answer: answer!.answer }
+            submission: { answer: answer!.answer! },
+            round_number: 1,
+            match_type: MatchType.ranked
         }
 
         const response = await new Promise<any>((resolve, reject) => {
@@ -117,6 +133,8 @@ describe("Submit Question socket integration test", () => {
 
             socket.on("connect_error", reject);
         });
+
+        console.log(response);
 
         expect(response.ok).toBe(true);
         expect(response.data).toEqual({
@@ -132,7 +150,7 @@ describe("Submit Question socket integration test", () => {
 
 
     it("Submits Prog Question", async () => {
-        match = await createTestMatch(players, MatchMode.Maths, MatchType.ranked);
+        match = await createTestMatch(db_players, MatchMode.Maths, MatchType.ranked);
 
         const address = http.address();
 
@@ -144,12 +162,15 @@ describe("Submit Question socket integration test", () => {
         const question = round!.questions[0];
         const answer = mock_answers.find(a => a.question!.question_id === question.id);
 
-        const submission = {
-            match_id: match.match_entity,
+        const submission: RawSubmissionDTO = {
+            id: match.match_id,
             player_id: players[0].id,
             question_id: question.id,
             question_number: 1,
-            submission: { answer: answer!.answer }
+            submission: { answer: answer!.answer! },
+            round_number: 1,
+            match_mode: MatchMode.Programming,
+            match_type: MatchType.ranked
         }
 
         const response = await new Promise<any>((resolve) => {
@@ -176,12 +197,15 @@ describe("Submit Question socket integration test", () => {
 
         const socket = await socketSetup(players[0].id);
 
-        const submission = {
-            match_id: match.match_entity,
+        const submission: RawSubmissionDTO = {
+            id: match.match_id,
             player_id: players[1].id,   // not the player associated with the socket
             question_id: question.id,
             question_number: 1,
-            submission: { answer: "answer" }
+            submission: { answer: "answer" },
+            round_number: 1,
+            match_mode: MatchMode.Maths,
+            match_type: MatchType.ranked
         };
 
 

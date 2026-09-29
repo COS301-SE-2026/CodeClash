@@ -41,15 +41,16 @@ let http: HttpServer;
 let server: Server;
 
 const data_source = await createTestDataSource();
-const user_repo: IUserRepository = new UserRepository(data_source.getRepository(Users));
+export const user_repo: IUserRepository = new UserRepository(data_source.getRepository(Users));
 const world = World()
 const match_repo: IMatchRepository = new MatchRepository(data_source.getRepository(Matches), data_source.getRepository(Users));
-const match_store = new MatchStore(user_repo);
+export const match_store = new MatchStore(user_repo);
 
 export const createTestServer = async (players: PlayerDTO[]) => {
     for (const p of players) {
-        const user = await user_repo.createUser(p.username!, `${p.username}@email.com`, crypto.randomUUID(), 0, 'Mercury')
-        p.id = user.user_id;
+        const user = await user_repo.createUser(p.username!, `${p.username}@email.com`, p.id, 0, 'Mercury')
+       // p.id = user.user_id;
+       console.log(user);
     }
 
     http = createServer();
