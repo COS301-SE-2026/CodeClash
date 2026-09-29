@@ -7,10 +7,10 @@ import { resolve } from "../assets/Shop/ResolveShopImages";
 
 const CATALOG_URL = "/api/shop/items";
 const WALLET_URL = "/api/shop/wallet";
-const INVENTORY_URL = "/api/shop/inventory";
+const INVENTORY_URL = "/api/shop/items/me";
 const EQUIPPED_URL = "/api/shop/equipped";
 const PURCHASE_URL = "/api/shop/purchase";
-const EQUIP_IRL = "/api/shop/equip";
+const EQUIP_IRL = "/api/shop/equipped";
 
 interface RawShopItemBase {
     shop_item_id: string;
@@ -157,4 +157,16 @@ export const getCatalog = async () : Promise<ShopItem[]> => {
 export const getWallet = async (token: string): Promise<Wallet> => {
     const res = await fetch(WALLET_URL, {headers: authHeaders(token) });
     return mapWallet(await handle<RawWallet>(res));
+};
+
+export const getInv = async (token: string): Promise<UserInventory> => {
+    const [userItemsRes, equippedRes] = await Promise.all([
+        fetch(INVENTORY_URL, { headers: authHeaders(token) }),
+        fetch(EQUIPPED_URL, { headers: authHeaders(token) }),
+    ]);
+
+    const userItems = await handle<RawUserItem[]>(userItemsRes);
+    const equipped = await handle<RawEquipped>(equippedRes);
+
+    return mapInventory(userItems, equipped);
 };
