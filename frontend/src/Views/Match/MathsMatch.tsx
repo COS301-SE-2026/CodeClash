@@ -14,7 +14,7 @@ import { PowerUpAndDownButtons } from '@/components/features/Match/PowerUpandDow
 const MathsMatch = () => {
     const {
         status,
-        questions,
+        questions, answers, setAnswers,
         results,
         playerLife, avatars, usernames,
         seconds, minutes,
@@ -23,7 +23,7 @@ const MathsMatch = () => {
         roundIdx, rounds,
         opponentCurrent, waitingOpponent, finishGame,
         loading, 
-        submitQuestion,
+        submitQuestion, gameOver,
         mathfieldRef, 
         elos
     } = useMatch();

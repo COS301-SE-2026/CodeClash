@@ -22,6 +22,7 @@ export const useMatch = () => {
     const [loading, setLoading] = useState(false);
     const [waitingOpponent, setWaitingOpponent] = useState(false);
     const [roundIdx, setRoundIdx] = useState(0);
+    const [answers, setAnswers] = useState<Record<string, string>>();
 
     const question_idx = useRef(0);
     const mathfieldRef = useRef<MathfieldElement | null>(null)
@@ -115,6 +116,8 @@ export const useMatch = () => {
         status,
         players,
         questions,
+        answers,
+        setAnswers,
         playerLife,
         avatars,
         seconds,
