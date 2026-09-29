@@ -22,7 +22,7 @@ interface RawShopItemBase {
 }
 
 interface RawAvatarMetadata { asset_key: string; is_default?: boolean }
-interface RawThemeMetadata { theme_id: string; hex_color_1: string; hex_color_2: string; is_default?: boolean }
+interface RawThemeMetadata { theme_id: string; hex_color_1: string; hex_color_2: string; hex_color_3: string; is_default?: boolean }
 interface RawPowerupMetadata {
     effect: string;
     kind: 'powerup' | 'powerdown';
@@ -38,8 +38,8 @@ interface RawPowerupMetadata {
 
 type RawShopItem = 
     | (RawShopItemBase & { category: 'avatar'; metadata: RawAvatarMetadata })
-    | (RawShopItemBase & { category: 'theme'; metadata: RawAvatarMetadata })
-    | (RawShopItemBase & { category: 'powerup'; metadata: RawAvatarMetadata })
+    | (RawShopItemBase & { category: 'theme'; metadata: RawThemeMetadata })
+    | (RawShopItemBase & { category: 'powerup'; metadata: RawPowerupMetadata })
 
     interface RawUserItem {
         user_item_id: string;
@@ -57,4 +57,52 @@ type RawShopItem =
     interface RawEquipped {
         avatar: RawShopItem | null;
         theme: RawShopItem | null;   
+    }
+
+    // ----- Mappers
+    function mapItem(raw: RawShopItem): ShopItem {
+        const base = {
+            id: raw.shop_item_id,
+            name:raw.name,
+            description: raw.description,
+            price: { amount: raw.price },
+            rarity: raw.rarity,
+        };
+
+        if (raw.category === 'avatar') {
+            const avatar: AvatarShopItem = {
+                ...base,
+                category: 'avatar',
+                isDefault: raw.metadata.is_default,
+                previewImageUrl: resolve(raw.metadata.asset_key),
+            };
+            return avatar;
+        }
+
+        if (raw.category === 'theme') {
+            const theme: ThemeShopItem = {
+                ...base,
+                category: 'theme',
+                themeId: raw.metadata.theme_id,
+                isDefault: raw.metadata.is_default,
+                swatchColors: [raw.metadata.hex_color_1, raw.metadata.hex_color_2, raw.metadata.hex_color_3],
+            };
+            return theme;
+        }
+
+        const m = raw.metadata;
+        const powerup: PowerupShopItem = {
+            ...base,
+            category: 'powerup',
+            kind: m.kind,
+            quantityGranted: 1,
+            effect: {
+                effectType: m.effect as PowerupEffectType,
+                targeting: m.targeting,
+                durationSeconds: m.duration_seconds ?? undefined,
+                magnitude: m.value ?? m.value_seconds ?? m.value_percent,
+                maxUsesPerMatch: m.max_uses_per_match,
+            },
+        };
+        return powerup;
     }
