@@ -318,3 +318,66 @@ function domainGapInsight(allGames: GameSample[], league: string): Insight[] {
         score: 100 + gap
     }];
 }
+
+function componentTrendInsights(games: GameSample[], domains: GameDomain[]): Insight[] {
+    const moves: { component: ComponentScore; delta: number; series: number[] }[] = [];
+
+    for (const domain of domains) {
+        const inDomain = games.filter(game => game.domain === domain);
+        if (inDomain.length < T.trendHalf * 2) continue;
+
+        const recent = componentScores(inDomain.slice(0, T.trendHalf), domain, T.trendHalf);
+        const earlier = componentScores(inDomain.slice(T.trendHalf, T.trendHalf * 2), domain, T.trendHalf);
+
+        recent.forEach((component, index) => {
+            const before = earlier[index]!;
+            if (!component.inMastery || component.gamesCounted === 0 || before.gamesCounted === 0) return;
+            const series = inDomain
+                .slice(0, T.trendHalf * 2)
+                .map(game => componentScores([game], domain, 1)[index]!.value)
+                .reverse();
+            moves.push({ component, delta: component.value - before.value, series });
+        });
+    }
+
+    if (moves.length === 0) return [];
+
+    const insights: Insight[] = [];
+    const best = moves.reduce((high, move) => (move.delta > high.delta ? move : high), moves[0]!);
+    const worst = moves.reduce((low, move) => (move.delta < low.delta ? move : low), moves[0]!);
+    const name = (move: typeof best) => `${move.component.label} · ${domainName(move.component.domain)}`;
+
+    if (best.delta >= T.componentMove) {
+        insights.push({
+            id: 'most-improved',
+            tone: 'good',
+            title: `Most improved: ${name(best)}, up ${best.delta} points`,
+            body: `Your last ${T.trendHalf} games average ${best.component.value}% here, against ${best.component.value - best.delta}% in the ${T.trendHalf} before.`,
+            action: 'Whatever you changed here is working - keep doing it while you fix the weaker areas.',
+            evidence: [
+                { label: `Last ${T.trendHalf}`, value: `${best.component.value}%` },
+                { label: `Previous ${T.trendHalf}`, value: `${best.component.value - best.delta}%` }
+            ],
+            series: best.series,
+            score: 50 + best.delta
+        });
+    }
+
+    if (worst.delta <= -T.componentMove) {
+        insights.push({
+            id: 'slipping',
+            tone: 'warn',
+            title: `${name(worst)} is slipping, down ${Math.abs(worst.delta)} points`,
+            body: `Your last ${T.trendHalf} games average ${worst.component.value}% here, against ${worst.component.value - worst.delta}% in the ${T.trendHalf} before.`,
+            action: COMPONENT_ACTION[worst.component.key],
+            evidence: [
+                { label: `Last ${T.trendHalf}`, value: `${worst.component.value}%` },
+                { label: `Previous ${T.trendHalf}`, value: `${worst.component.value - worst.delta}%` }
+            ],
+            series: worst.series,
+            score: 100 + Math.abs(worst.delta)
+        });
+    }
+
+    return insights;
+}
