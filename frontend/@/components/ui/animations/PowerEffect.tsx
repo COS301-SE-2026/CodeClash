@@ -95,4 +95,25 @@ const PowerEffect = ({effect, trigger}: PowerEffectProps) => {
     if (!active) {
         return null;
     }
+
+    const {kind, label, icon: Icon} = POWER_EFFECTS[active];
+
+    return (
+        <div key={trigger} className={`power-effect ${kind === 'powerup' ? 'power-up' : 'power-down'}`} aria-hidden="true">
+            <div className="power"/>
+            <div className="power-center">
+                <span className="power-ring"/>
+                <span className="power-ring" style={{animationDelay: '0.15s'}}/>
+                {particles.map((p) => (
+                    <span key={p.id} className="power-particle" style={{width: p.size, height: p.size,animationDelay: `${p.delay}s`, ['--dx' as string]: `${p.dx}px`}}/>
+                ))}
+                <div className="power-badge">
+                    <Icon className="power-icon" strokeWidth={2.2}/>
+                    <p className="power-label">{label}</p>
+                </div>
+            </div>
+        </div>
+    )
 }
+
+export default PowerEffect;
