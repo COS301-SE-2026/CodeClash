@@ -25,7 +25,7 @@ INSERT INTO shop_items (category, name, description, price, rarity, metadata) VA
 
 -- AVATARS ---------
 ('avatar', 'Vexa', 'She appeared through a mysterious portal beyond the edge of mapped space. Her technology is unlike anything in the galaxy and she seems strangely familiar with Earth''s programming languages.',
-250, 'common', '{ "asset_key" : "Vexa", "is_default": true }'),
+0, 'common', '{ "asset_key" : "Vexa", "is_default": true }'),
 ('avatar', 'Zen', 'Zen was created to protect the last surviving archive of human knowledge. Centuries of standing watch gave her an unusual philosophy: every problem has a solution, but sometimes the solution is simply waiting long enough to see it.',
 300, 'common', '{ "asset_key" :"Zen" }'),
 ('avatar', 'Axiom', 'Axiom was manufactured as an ordinary service android with no special abilities. But unlike the others, Axiom learned entirely on her own. She entered the competition with one goal: to prove that intelligence doesn''t have to be built, it can be learned.',

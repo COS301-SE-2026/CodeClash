@@ -6,7 +6,7 @@ import type { ShopItem, Wallet, UserInventory, AvatarShopItem, } from "src/Model
 import { useAuth } from "../Auth/hooks/useAuth";
 
 import { getCatalog,getWallet, getInv, purchaseItm, equipItm, } from "src/services/shop.service";
-interface InventoryContextValue {
+export interface InventoryContextValue {
     catalog: ShopItem[];
     wallet: Wallet;
     inventory: UserInventory | null;
