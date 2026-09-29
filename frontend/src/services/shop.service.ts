@@ -170,3 +170,19 @@ export const getInv = async (token: string): Promise<UserInventory> => {
 
     return mapInventory(userItems, equipped);
 };
+
+export const purchaseItm = async (
+    itemId: string,
+    token: string
+): Promise<{ wallet: Wallet; inventory: UserInventory } => {
+    const res = await fetch(PURCHASE_URL, {
+        method: 'POST',
+        headers: authHeaders(token),
+        body: JSON.stringify({ shop_item_id: itemId }),
+    });
+
+    await handle(res);
+
+    const [wallet, inventory] = await Promise.all([getWallet(token), getInv(token)]);
+    return { wallet, inventory };
+}
