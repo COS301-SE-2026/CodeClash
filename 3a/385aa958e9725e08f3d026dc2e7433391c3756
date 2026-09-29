@@ -1,0 +1,14 @@
+frontend/src/Models/SkillInsights.ts
+  h_58e143dc25f856 111-133
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "3a385aa958e9725e08f3d026dc2e7433391c3756",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
