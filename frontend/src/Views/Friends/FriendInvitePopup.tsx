@@ -19,7 +19,7 @@ const FriendInvitePopup = () => {
     const {
         activeInvite, inviteCountdown, inviteError,
         acceptInvite, declineInvite, dismissInviteError,
-        matchReady, clearMatchReady, notice
+        matchReady, clearMatchReady,
     } = useFriends();
 
     const {matched} = useMatchmaking();
@@ -32,34 +32,24 @@ const FriendInvitePopup = () => {
         }
     }, [matchReady, clearMatchReady, nav]);
  
-    const noticeToast = notice ? (
-        <div className="fixed top-4 left-1/2 -translate-x-1/2 z-[60] px-4 py-3 rounded-xl bg-primary/10 border border-primary/30 text-xsm text-primary text-center shadow-lg">
-            {notice}
-        </div>
-    ) : null;
-    if (matched) return noticeToast;
+    if (matched) return null;
 
     if (inviteError) {
         return (
-            <>
-                {noticeToast}
-                <div className="modal-overlay flex items-center justify-center p-6">
-                    <div className="modal-panel card-elevated max-w-sm w-full p-8 text-center">
-                        <p className="text-danger font-semibold mb-6">{inviteError}</p>
-                        <button className="btn btn-secondary w-full" onClick={dismissInviteError} type="button">X</button>
-                    </div>
+            <div className="modal-overlay flex items-center justify-center p-6">
+                <div className="modal-panel card-elevated max-w-sm w-full p-8 text-center">
+                    <p className="text-danger font-semibold mb-6">{inviteError}</p>
+                    <button className="btn btn-secondary w-full" onClick={dismissInviteError} type="button">X</button>
                 </div>
-            </>
+            </div>
         )
     }
 
-    if (!activeInvite) return noticeToast;
+    if (!activeInvite) return null;
     const names = activeInvite.participants.map((p) => p.name).join(', ');
     const primary = activeInvite.participants[0];
 
     return (
-        <>
-        {noticeToast}
         <div className="modal-overlay flex items-center justify-center p-6">
             <div className="modal-panel card-glow max-w-sm w-full p-8 text-center">
                 <div className="flex flex-col items-center gap-2 mb-6">
@@ -87,7 +77,6 @@ const FriendInvitePopup = () => {
                 </div>
             </div>
         </div>
-        </>
     )
 }
 export default FriendInvitePopup;
