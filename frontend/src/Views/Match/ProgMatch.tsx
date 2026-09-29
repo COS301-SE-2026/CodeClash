@@ -10,7 +10,9 @@ import Loading from '@/components/shared/Loading';
 import { useState } from "react";
 import TournamentButton from "@/components/features/Tournaments/TournamentButton";
 import { MatchCard } from "@/components/features/Match/MatchCard";
-import PopUp from "@/components/shared/PopUp";
+import { Card } from '@/components/ui/card';
+import { Spinner } from '@/components/ui/spinner';
+// import PopUp from "@/components/shared/PopUp";
 
 export const ProgMatch = () => {
     const [code, setCode] = useState('');
