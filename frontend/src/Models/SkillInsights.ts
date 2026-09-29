@@ -381,3 +381,48 @@ function componentTrendInsights(games: GameSample[], domains: GameDomain[]): Ins
 
     return insights;
 }
+
+function consistencyInsight(games: GameSample[], league: string): Insight[] {
+    const series = masterySeries(games, league);
+    if (series.length < T.minConsistencyGames) return [];
+
+    const mean = series.reduce((total, value) => total + value, 0) / series.length;
+    const spread = Math.round(Math.sqrt(series.reduce((total, value) => total + (value - mean) ** 2, 0) / series.length));
+    const best = Math.round(Math.max(...series));
+    const worst = Math.round(Math.min(...series));
+
+    if (spread >= T.streaky) {
+        return [{
+            id: 'streaky',
+            tone: 'warn',
+            title: 'Your games swing a lot from one to the next',
+            body: `Per game mastery ranges from ${worst}% to ${best}% of the ceiling, with a typical swing of ${spread} points. Raising your floor moves the average faster than raising your peak.`,
+            action: 'Look at your weakest recent games in Match History - the same question type usually shows up in the bad ones.',
+            evidence: [
+                { label: 'Best game', value: `${best}%` },
+                { label: 'Worst game', value: `${worst}%` },
+                { label: 'Typical swing', value: `±${spread}` }
+            ],
+            series,
+            score: 80 + spread
+        }];
+    }
+
+    if (spread <= T.steady) {
+        return [{
+            id: 'steady',
+            tone: 'good',
+            title: 'You are remarkably consistent',
+            body: `Your per game mastery stays within about ${spread} points of ${Math.round(mean)}%. You rarely have an off game.`,
+            action: 'Consistency is the base to build on - push the difficulty and let the average rise.',
+            evidence: [
+                { label: 'Average', value: `${Math.round(mean)}%` },
+                { label: 'Typical swing', value: `±${spread}` }
+            ],
+            series,
+            score: 30
+        }];
+    }
+
+    return [];
+}
