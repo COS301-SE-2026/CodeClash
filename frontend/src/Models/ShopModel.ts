@@ -65,7 +65,6 @@ export interface Owned {
 export interface Consumable {
     itemId: string;
     category: 'powerup';
-    itemId: string;
     quantity: number;
 }
 

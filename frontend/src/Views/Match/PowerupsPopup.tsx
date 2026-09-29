@@ -1,19 +1,19 @@
-import { Bug, Clock, Eraser, EyeOff, HeartCrack, Lightbulb, Shield, TrendingUp, Wind } from "lucide-react";
+import { Ban, Bug, Clock, Eraser, EyeOff, Heart, HeartCrack, Lightbulb, Shield, ShieldAlert, TrendingUp, Wind, Zap } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useInventory } from "src/context/Shop/InventoryContext";
 import type { PowerupShopItem, PowerupEffectType } from "src/Models/ShopModel";
 
-const Icons: Record<PowerupEffectType, React.ComponentType<{size?: number}>> = {
-    hint: Lightbulb,
-    shield: Shield,
-    scoreBoost: TrendingUp,
-    secondWind: Wind,
-    timeUp: Clock,
-    timeDown: Clock,
-    bug: Bug,
-    wipe: Eraser,
-    questionVisibility: EyeOff,
-    lifeDrain: HeartCrack
+const Icons: Record<PowerupEffectType, React.ComponentType<{size?: number; className?: string}>> = {
+    reduce_time: Clock,
+    reveal_hint: Lightbulb,
+    block_next_powerdown: ShieldAlert,
+    score_multiplier: Zap,
+    restore_life: Heart,
+    insert_bugs: Bug,
+    wipe_answer: Eraser,
+    block_question: Ban,
+    increase_time: Clock,
+    drain_life: HeartCrack,
 }
 
 interface PowerupProps {
