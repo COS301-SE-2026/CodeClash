@@ -43,3 +43,11 @@ export interface WeeklyChange {
       delta: number; // the change init
       current: number;
 }
+
+export interface FocusReport {
+  focus: Insight | null;
+  supporting: Insight[];
+  more: Insight[];
+  weekly: WeeklyChange[];
+}
+
