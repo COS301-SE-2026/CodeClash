@@ -462,3 +462,22 @@ function weakestComponentInsight(components: ComponentScore[]): Insight[] {
 
     return insights;
 }
+
+function runtimeInsight(games: GameSample[], components: ComponentScore[]): Insight[] {
+    const speed = components.find(component => component.domain === 'programming' && component.key === 'speed');
+    const programmingGames = games.filter(game => game.domain === 'programming').length;
+    if (!speed || speed.gamesCounted < T.minDomainGames || speed.value >= T.slowRuntime) return [];
+
+    return [{
+        id: 'runtime',
+        tone: 'warn',
+        title: `Your code works, but runs slow - ${speed.value}% on runtime`,
+        body: `Judge0 runtime is scored against the fastest known solution. Across ${plural(programmingGames, 'programming game')} your submissions land well behind it.`,
+        action: COMPONENT_ACTION.speed,
+        evidence: [
+            { label: 'Runtime score', value: `${speed.value}%` },
+            { label: 'Games', value: `${speed.gamesCounted}` }
+        ],
+        score: 90 + (T.slowRuntime - speed.value)
+    }];
+}
