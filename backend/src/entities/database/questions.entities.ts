@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { MatchMode } from "../dtos/matches/match.dto";
 import { AnswerFormat } from "../dtos/questions/answer.dto";
 import { QuestionInputType } from "../dtos/questions/question.dto";
@@ -42,49 +42,4 @@ export class Questions {
     nullable: false
   })
   input_type!: QuestionInputType
-}
-
-@Entity()
-export class ProgrammingTemplates {
-  @PrimaryGeneratedColumn('uuid')
-  template_id!: string
-
-  @ManyToOne(() => Questions, {
-    onDelete: "CASCADE"
-  })
-  @JoinColumn({ name: "question_id" })
-  question!: Questions
-
-  @Column()
-  language!: string
-
-  @Column()
-  judge0_language_id!: number
-
-  @Column()
-  starter_code!: string
-}
-
-@Entity()
-export class TestCases {
-  @PrimaryGeneratedColumn("uuid")
-  test_case_id!: string
-
-  @ManyToOne(() => Questions, {
-    onDelete: "CASCADE"
-  })
-  @JoinColumn({ name: "question_id" })
-  question!: Questions
-
-  @Column()
-  input!: string
-
-  @Column()
-  expected_output!: string
-
-  @Column({ default: false })
-  is_sample!: boolean
-
-  @Column({ default: 0 })
-  ordinal!: number
 }

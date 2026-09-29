@@ -74,20 +74,15 @@ export class CreateRound {
     constructor() { }
 
     execute(question: MatchQuestionArrays, player_count: number): RoundComponent[] {
-
-        const question_pool = [...question.easy, ...question.medium, ...question.hard];
-
-        const third = Math.ceil(question_pool.length / 3);
-
         if (player_count === 2) {
-
             return [
-                { round_number: 0, questions: question_pool.slice(0, third) },
-                { round_number: 1, questions: question_pool.slice(third, third * 2) },
-                { round_number: 2, questions: question_pool.slice(third * 2) },
+                { round_number: 0, questions: question.easy },
+                { round_number: 1, questions: question.medium },
+                { round_number: 2, questions: question.hard },
             ];
         }
 
+        const question_pool = [...question.easy, ...question.medium, ...question.hard];
 
         let round_count = Math.ceil(Math.log2(player_count));
         let q_per_round = Math.floor(question_pool.length / round_count);

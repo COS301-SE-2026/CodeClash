@@ -108,6 +108,11 @@ export function useMatchFound() {
   }
 
 
+  const startMatch = () => {
+     nav(`${path}/${useMatchStore.getState().match_id}`);
+  }
+
+
   useEffect(() => {
 
     if (matchedUsers) {
@@ -117,14 +122,14 @@ export function useMatchFound() {
 
     if (matchmakingSocket && matchSocket) {
 
-      const unsub_start = matchStart(matchSocket,path, nav);
+      const unsub_start = matchStart(matchSocket);
+      const unsub_start_match = matchSocket.startMatch(startMatch);
       const unsub_match_declined = matchmakingSocket.gameDeclined(gameDeclined);
-      const unsub_start_failed = matchSocket.startMatchError(()=>{console.error("Error starting match")})
 
       return () => {
+        unsub_start_match();
         unsub_start();
         unsub_match_declined();
-        unsub_start_failed();
       }
     }
   }, [matchmakingSocket, path, matchedUsers])

@@ -19,6 +19,7 @@ export class SubmissionSystem {
     }
 
     saveSubmission(sub: PlayerSubmissionDTO, is_correct: boolean | null) {
+
         // 1 lookup submission entity
         const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(sub.match_id, "Submission");
 

@@ -1,35 +1,22 @@
 import { IQuestionRepository } from "src/application/interfaces/repositories/IQuestionRepository";
-import { ProgrammingTemplates, Questions, TestCases } from "src/entities/database/questions.entities";
+import { Questions } from "src/entities/database/questions.entities";
 import { QuestionDTO } from "src/entities/dtos/questions/question.dto";
 import { Repository } from "typeorm";
 import { MatchMode } from "src/entities/dtos/matches/match.dto";
 
 export class QuestionRepository implements IQuestionRepository {
     constructor(
-        private readonly questionRepository: Repository<Questions>,
-        private readonly test_case_repository: Repository<TestCases>,
-        private readonly template_repository: Repository<ProgrammingTemplates>
-
+        private readonly questionRepository: Repository<Questions>
     ) { }
 
     async getRandQuestions(count: number, difficulty: number, match_mode: MatchMode): Promise<QuestionDTO[]> {
-        const query = this.questionRepository.createQueryBuilder('q')
+        const questions = await this.questionRepository.createQueryBuilder('q')
             .where("q.difficulty = :difficulty", { difficulty: difficulty })
-            .andWhere('q.match_mode = :match_mode', { match_mode: match_mode });
+            .andWhere('q.match_mode = :match_mode', { match_mode: match_mode })
+            .take(count)
+            .orderBy('Random()')
+            .getMany()
 
-        if (match_mode === MatchMode.Programming) {
-            query.andWhere(q_2 =>
-                `EXISTS (${q_2.subQuery()
-                    .select('1')
-                    .from('programming_templates', 'pt')
-                    .where('pt.question_id = q.question_id')
-                    .andWhere("pt.language= 'cpp'")
-                    .getQuery()
-                })`
-            )
-        }
-
-        const questions = await query.take(count).orderBy('Random()').getMany();
 
         const data: QuestionDTO[] = [];
 
@@ -48,29 +35,6 @@ export class QuestionRepository implements IQuestionRepository {
         }
 
         return data
-    }
-
-
-    async getTestCases(question_id: string): Promise<TestCases[]> {
-
-        const cases = await this.test_case_repository.find({
-            where: {
-                question: { question_id }
-            },
-            order: { ordinal: "ASC" }
-        })
-
-        return cases;
-
-    }
-
-
-    async getTemplates(question_id: string): Promise<ProgrammingTemplates[]> {
-        return await this.template_repository.find({
-            where: {
-                question: { question_id }
-            }
-        })
     }
 
 

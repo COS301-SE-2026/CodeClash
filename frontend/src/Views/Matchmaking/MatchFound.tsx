@@ -9,7 +9,6 @@ const MatchFound = () => {
   const { content, players, matchDetails, decline, accept, loading } =
     useMatchFound();
 
-
   if (!players) {
     return (
       <Loading></Loading>

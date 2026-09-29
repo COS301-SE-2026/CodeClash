@@ -22,6 +22,7 @@ export type SubmissionResult = ProgSubmissionResult | MathsSubmissionResult
 
 export interface OpponentProgressDTO {
     player_id: string,
+    correct: boolean,
     opponent_life: number,
     question: number
 }

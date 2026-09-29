@@ -3,19 +3,17 @@ import { Question } from "@/components/features/Questions/question";
 import { MatchScreen } from "@/components/features/Match/Match";
 import { useMatch } from "src/ViewModels/Match/MatchViewModel"
 import { ChevronRight, ChevronLeft } from 'lucide-react'
+import { MatchBox } from "@/components/features/Match/MatchBox";
 import Loading from '@/components/shared/Loading';
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import TournamentButton from "@/components/features/Tournaments/TournamentButton";
 import { MatchCard } from "@/components/features/Match/MatchCard";
 import { Card } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
 // import PopUp from "@/components/shared/PopUp";
-import { useUser } from 'src/context/User/hooks/useUser';
 
 export const ProgMatch = () => {
     const [code, setCode] = useState('');
-    const [languageId, setLanguageId] = useState<number | null>(null);
-
     const {
         status,
         questions,
@@ -27,12 +25,10 @@ export const ProgMatch = () => {
         opponentCurrent, waitingOpponent, finishGame,
         loading,
         submitQuestion,
-        elos, colourClass, shake
+        elos
     } = useMatch();
 
     const curr = questions[currentQuestion];
-    const question = useMemo(() => ({ templates: curr.templates }), [curr]);
-    const { username } = useUser();
 
     if (status !== 'ready' || !curr) {
         return (
@@ -54,9 +50,8 @@ export const ProgMatch = () => {
             question_results={results ?? []}
             rounds={rounds}
             current_round={roundIdx}
-            current_user={username}
-            shake={shake}
         >
+
             <Question
                 className={` h-[20rem] `}
                 difficulty={curr.difficulty!}
@@ -64,15 +59,13 @@ export const ProgMatch = () => {
                 description={curr.description}
             />
 
-            <MatchCard className={`items-center mt-5 ${colourClass}`}>
-                <CodeEditor
-                    question={question}
-                    onChange={(new_code,  judge0_id) => {
-                        setCode(new_code);
-                        setLanguageId(judge0_id)
-                    }}
+            <MatchBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] -mt-4"></MatchBox>
 
+            <MatchCard className="items-center mt-5">
+                <CodeEditor
+                    handleChange={setCode}
                 />
+
 
                 <div className='flex flex-row gap-6 w-full mx-auto justify-center my-auto'>
 
@@ -82,10 +75,10 @@ export const ProgMatch = () => {
                     </TournamentButton>
                     <TournamentButton className='w-[10%] h-[2.2rem] my-auto rounded-2xl text-[1.3rem] hover:-translate-y-1'
                         onClick={() => {
-                            if (code.trim() && languageId !== null) {
+                            if (code.trim()) {
                                 submitQuestion({
                                     source_code: code,
-                                    language_id: languageId,
+                                    language_id: 54,
                                     stdin: null
                                 })
                             }

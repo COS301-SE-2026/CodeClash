@@ -30,6 +30,7 @@ export const HostTournament = ({ Cancel, Create }: HostProps) => {
     const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
 
     const handleCreate = async () => {
+        console.log("handle create")
         if (!title.trim() || !date || !time) {
             setError("Please fill in required fields.Required fields are indicated with a *")
             return;

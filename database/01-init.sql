@@ -94,24 +94,6 @@ CREATE TABLE IF NOT EXISTS answers (
   answer TEXT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS programming_templates (
-  template_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  question_id UUID NOT NULL REFERENCES questions(question_id) ON DELETE CASCADE,
-  language TEXT NOT NULL,
-  judge0_language_id INTEGER NOT NULL,
-  starter_code TEXT NOT NULL,
-  UNIQUE(question_id, language)
-);
-
-CREATE TABLE IF NOT EXISTS test_cases (
-  test_case_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  question_id UUID NOT NULL REFERENCES questions(question_id) ON DELETE CASCADE,
-  input TEXT NOT NULL,
-  expected_output TEXT NOT NULL,
-  is_sample BOOLEAN NOT NULL DEFAULT false,
-  ordinal INTEGER NOT NULL DEFAULT 0
-);
-
 CREATE TABLE IF NOT EXISTS matches(
   match_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   title TEXT NOT NULL,

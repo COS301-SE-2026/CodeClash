@@ -6,7 +6,6 @@ export function on<T>(
     event: string,
     handler: (data: T) => void
 ) {
-    
     socket.on(event, handler);
     return () => socket.off(event, handler);
 }

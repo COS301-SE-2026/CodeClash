@@ -75,6 +75,7 @@ export const useTournamentLobby = () => {
     }
 
     const start = async () => {
+        console.log("starting tournament");
         if (tournament) {
             const data = {
                 tournament_id: tournament.tournament_id,

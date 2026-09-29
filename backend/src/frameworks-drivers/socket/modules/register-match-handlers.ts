@@ -9,7 +9,7 @@ import { UsePowerupDTO } from "src/entities/dtos/shop/powerup-use.dto";
 // register handlers 
 export function registerMatchHandlers(io: Server, socket: Socket, deps: MatchDeps) {
     registerHandler(socket, 'submit_question', (socket, data: RawSubmissionDTO) => 
-        submitQuestion(io,socket, data, deps.marking_service, deps.match_store, deps.elimination_service, deps.opponent_progress));
+        submitQuestion(socket, data, deps.marking_service, deps.match_store, deps.elimination_service));
 
     registerHandler(socket, 'match_done',
         (socket, payload: { match_id: number, match_type: MatchType }) =>

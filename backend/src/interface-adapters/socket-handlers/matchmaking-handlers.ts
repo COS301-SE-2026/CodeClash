@@ -44,24 +44,31 @@ export const matchAccepted = (
         match_confirmation_service: MatchConfirmationService,
         match_start: MatchStart
     ) => {
-        socket.join(data.group_id);
+
+        console.log(data.group_id);
         match_confirmation_service.accept(data.group_id, socket.data.user_id);
 
         if (!match_confirmation_service.bothAccepted(data.group_id)) {
             return;
         }
 
+        console.log("Both players accepted");
+
+        const players = match_confirmation_service.getPlayers(data.group_id);
+        let payload = null;
         try {
-            const players = match_confirmation_service.getPlayers(data.group_id);
-            let payload = null;
             payload = await match_start.execute(players, data.match_mode, data.league, data.match_type);
             for (const player of payload.players) {
+                console.log("starting match")
                 io.to(player.id).emit('start_match', payload);
             }
         }
         catch (error) {
             console.error('Failed to start match:', error);
-            io.to(data.group_id).emit('start_match_failed', { error: 'Failed to start match' });
+
+            for (const player of players) {
+                io.to(player.id).emit('start_match_failed', { error: 'Failed to start match' });
+            }
         }
 
         // waiting for other player(s) to accept
@@ -100,6 +107,7 @@ export const matchDeclined = (async (io: Server, group_id: string, match_mode: M
 
 export const notifyMatchFound = (async (io: Server, match: PlayerDTO[], match_mode: MatchMode, match_confirmation_service: MatchConfirmationService, user_repo: IUserRepository) => {
     const group_id = match_confirmation_service.create(match);
+
     const players = await Promise.all(
         match.map(async (p) => {
             const user_data = await user_repo.getUserData(p.id, 'username');

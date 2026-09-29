@@ -4,7 +4,7 @@ import { DataSource } from "typeorm"
 import { Matches} from "src/entities/database/match.entities";
 import { Answers } from "src/entities/database/answers.entities";
 import { EloHistory } from "src/entities/database/elo.entities";
-import { ProgrammingTemplates, Questions, TestCases } from "src/entities/database/questions.entities";
+import { Questions } from "src/entities/database/questions.entities";
 import { Users } from "src/entities/database/user.entities";
 import { Achievement } from "src/entities/database/achievement.entities";
 import { FriendInvite, Friendship } from "src/entities/database/friendship.entities";
@@ -38,9 +38,7 @@ export const AppDataSource = new DataSource({
         ShopItem,
         Wallet,
         UserItem,
-        EquippedItems,
-        ProgrammingTemplates,
-        TestCases
+        EquippedItems
     ],
     migrations: [],
     subscribers: [],

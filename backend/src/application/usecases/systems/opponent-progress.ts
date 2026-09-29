@@ -13,7 +13,7 @@ export class OpponentProgress {
         this.getMatchComponent = getMatchComponent;
     }
 
-    getOpponentId(match_id: number, player_id: string) {
+    getOpponent(match_id: number, player_id: string) {
         const players = this.getMatchComponent<PlayersComponent>(match_id, 'Players');
 
         if (!players) throw new Error("Couldn't get player info")
@@ -28,9 +28,13 @@ export class OpponentProgress {
 
     }
 
-    updateOpponent(player_id: string, question_number: number,result: boolean,life: number) {
+    updateOpponent(match_id: number, player_id: string, question_number: number,result: boolean,life: number) {
+        const opponent = this.getOpponent(match_id, player_id);
+        if (!opponent) throw new Error("Error updating opponent");
+
         const progress: OpponentProgressDTO = {
             player_id: player_id,
+            correct: result,
             opponent_life: life,
             question: question_number
         }
