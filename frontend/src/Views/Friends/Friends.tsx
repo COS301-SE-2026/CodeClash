@@ -56,7 +56,7 @@ const RelationResult: React.FC<{ relationship: Relation; onAdd: () => void; isPe
 
 const Friends: React.FC = () => {
     const {
-        isLoading, profile, error, notice, friend, removeFriend, requests, acceptRequest, declineRequest, searchQuery, setSearchQuery, 
+        isLoading, profile, error, friend, removeFriend, requests, acceptRequest, declineRequest, searchQuery, setSearchQuery, 
         allUsers, sendFriendRequest, sendInvite
     } = useFriends();
 
@@ -121,12 +121,6 @@ const Friends: React.FC = () => {
                 {error && (
                     <div className="mb-4 px-4 py-3 rounded-xl bg-danger/10 border border-danger/30 text-xsm text-danger text-center">
                         {error}
-                    </div>
-                )}
-                {notice && (
-                    // copid from above
-                    <div className="px-4 py-3 rounded-xl bg-primary/10 border border-primary/30 text-xsm text-primary text-center">
-                        {notice}
                     </div>
                 )}
                 {/*A header that gives the user his own details */}
