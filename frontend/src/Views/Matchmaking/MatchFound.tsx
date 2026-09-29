@@ -5,7 +5,6 @@ import { useMatchFound } from 'src/ViewModels/Matchmaking/MatchFoundViewModel';
 import Loading from '@/components/shared/Loading';
 import { Button } from '@/components/ui/button';
 
-
 const MatchFound = () => {
   const { content, players, matchDetails, decline, accept, loading } =
     useMatchFound();

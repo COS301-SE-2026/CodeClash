@@ -1,7 +1,6 @@
 import type React from 'react'
 
-import { Card } from "../ui/card"
-import "../../../src/styles/global.css"
+import { Card } from "@/components/ui/card"
 
 interface GameGuideCardProps{
     children?: React.ReactNode

@@ -2,9 +2,7 @@
 // to save time - it was originally hand-written and all edits to it were hand-written - this code was not ai generated
 
 import React from 'react'
-
-import "../../../src/styles/global.css"
-import { MatchCard } from './MatchCard'
+import { MatchCard } from '@/components/features/Match/MatchCard'
 import {Check} from "lucide-react"
 
 

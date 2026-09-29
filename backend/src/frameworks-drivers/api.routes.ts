@@ -316,7 +316,6 @@ router.post('/shop/powerups/use', usePowerup(powerup_service));
    *         description: Internal server error
    */
   router.get('/user/search', searchUsers(user_repo));
-  
   /**
  * @swagger
  * /api/{stat}:

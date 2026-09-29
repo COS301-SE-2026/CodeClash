@@ -30,7 +30,7 @@ import Achievements from "./Views/Achievements";
 import Settings from "./Views/Settings";
 import { ProgMatch } from "./Views/Match/ProgMatch";
 import SkillProgress from "./Views/SkillProgress";
-import TournamentsMatchPage from "./Views/TournamentMatchPage";
+import TournamentsMatchPage from "./Views/Tournaments/TournamentMatchPage";
 
 const App: React.FC = () => {
 
@@ -67,10 +67,9 @@ const App: React.FC = () => {
             <Route path='/profile' element={<Profile />} />
             <Route path='/match-searching' element={<MatchSearching />} />
             <Route path='/match-found' element={<MatchFound />} />
-            <Route path='/math-match' element={<MathMatch />} />
-            <Route path='/tournament-match' element={<TournamentsMatchPage/>}/>
-            <Route path='/programming-match' element={<ProgMatch />} />
-            <Route path='/results' element={<FinalResults />} />
+            <Route path='/math-match/:match_id' element={<MathMatch />} />
+            <Route path='/programming-match/:match_id' element={<ProgMatch />} />
+            <Route path='/results/:match_id' element={<FinalResults />} />
             <Route path='/forgot-password' element={<ForgotPassword />} />
             <Route path='/terms' element={<TermsAndConditions />} />
             <Route path="/brand-style-guide" element={<BrandStyleGuide />} />
@@ -82,7 +81,8 @@ const App: React.FC = () => {
                 <Route path='/dashboard' element={<Dashboard />} />
                 <Route path='/help-menu' element={<HelpMenu />} />
                 <Route path='/tournaments' element={<Tournaments />} />
-                <Route path='/tournaments/waiting' element={<TournamentsWaiting/>}/>
+                <Route path='/tournaments/waiting/:tournament_id' element={<TournamentsWaiting/>}/>
+                <Route path="/tournaments-match/:tournament_id" element={<TournamentsMatchPage/>}/>
                 <Route path='/leaderboard' element={<Leaderboard />} />
                 <Route path='/achievements' element={<Achievements />} />
                 <Route path='/friends' element={<Friends />} />

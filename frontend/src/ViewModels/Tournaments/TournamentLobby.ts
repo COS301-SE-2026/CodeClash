@@ -14,7 +14,7 @@ export const useTournamentLobby = () => {
     const [error, setError] = useState<string | null>(null);
 
     const { tournamentSocket } = useSocket();
-    const { userId} = useUser();
+    const { userId, league } = useUser();
     const { tournament_id } = useParams<{ tournament_id: string }>();
     const nav = useNavigate();
 
@@ -32,12 +32,12 @@ export const useTournamentLobby = () => {
                 else setError('Error loading tournament');
             });
 
-        const unsub_joined = tournamentSocket.playerJoined((player) => {
-            setPLayers((prev) => [...prev, player]);
+        const unsub_joined = tournamentSocket.playerJoined((data) => {
+            setPLayers((prev) => [...prev, data.player]);
         });
 
-        const unsub_left = tournamentSocket.playerLeft((player) => {
-            setPLayers((prev) => prev.filter((p) => p.id !== player.id));
+        const unsub_left = tournamentSocket.playerLeft((data) => {
+            setPLayers((prev) => prev.filter((p) => p.id !== data.player.id));
         });
 
         const unsub_cancel = tournamentSocket.tournamentCancelled(() => {
@@ -74,16 +74,36 @@ export const useTournamentLobby = () => {
             setError('Cannot cancel tournament');
     }
 
-    const start = ()=>{
-        if(tournament){
+    const start = async () => {
+        console.log("starting tournament");
+        if (tournament) {
             const data = {
                 tournament_id: tournament.tournament_id,
-                league: tournament.host.league!,
+                league: league,
 
             }
-            tournamentSocket?.startTournament(data);
+            const res = await tournamentSocket?.startTournament(data);
+
+            if (res?.ok && res.data) {
+                useMatchStore.getState().setMatchData({
+                    match_id: res.data.match.match_id,
+                    rounds: res.data.match.rounds,
+                    players: res.data.match.players
+
+                });
+
+                nav(`/tournaments-match/${res.data.tournament.tournament_id}`);
+            }
         }
 
+    }
+
+    // const tournament_started = ()=>{
+
+    // }
+
+    const is_host = () => {
+        return userId === tournament?.host.id;
     }
 
     return {
@@ -93,6 +113,7 @@ export const useTournamentLobby = () => {
         leave,
         cancel,
         MIN_PLAYERS,
-        start
+        start,
+        is_host
     }
 }

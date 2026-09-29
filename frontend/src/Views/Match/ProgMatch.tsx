@@ -1,112 +1,126 @@
-// import { CodeEditor } from "@/components/features/code-editor";
-// import { Question } from "@/components/features/question";
-// import { MatchScreen } from "@/components/shared/Match/Match";
+import { CodeEditor } from "@/components/features/code-editor";
+import { Question } from "@/components/features/Questions/question";
+import { MatchScreen } from "@/components/features/Match/Match";
 import { useMatch } from "src/ViewModels/Match/MatchViewModel"
-// import { ChevronRight, ChevronLeft } from 'lucide-react'
-// import { TimerBox } from "@/components/ui/TimerBox";
-// import { Card } from '@/components/ui/card';
-// import { Spinner } from '@/components/ui/spinner';
+import { ChevronRight, ChevronLeft, ChevronUp, ChevronDown } from 'lucide-react'
+import { MatchBox } from "@/components/features/Match/MatchBox";
 import Loading from '@/components/shared/Loading';
-// import { useState } from "react";
-// import TournamentButton from "@/components/ui/TournamentButton";
-// import { MatchCard } from "@/components/ui/MatchCard";
+import { useState } from "react";
+import TournamentButton from "@/components/features/Tournaments/TournamentButton";
+import { MatchCard } from "@/components/features/Match/MatchCard";
+import { Card } from '@/components/ui/card';
+import { Spinner } from '@/components/ui/spinner';
+// import PopUp from "@/components/shared/PopUp";
 
 export const ProgMatch = () => {
-    // const [ code, setCode] = useState('');
-    const { questions,
-        currentQuestion,  loading, 
+    const [code, setCode] = useState('');
+    const {
+        status,
+        questions,
+        results,
+        playerLife, avatars, usernames,
+        seconds, minutes,
+        currentQuestion, nextQuestion, prevQuestion,
+        roundIdx, rounds,
+        opponentCurrent, waitingOpponent, finishGame,
+        loading,
+        submitQuestion,
+        elos
     } = useMatch();
 
     const curr = questions[currentQuestion];
 
-    // console.log(code)
-    if (loading || !curr) {
+    if (status !== 'ready' || !curr) {
         return (
             <Loading isOpen={loading}></Loading>
         )
     }
 
     return (
-        <></>
-        // <MatchScreen
-        //     player_life={playerLife}
-        //     seconds={seconds}
-        //     minutes={minutes}
-        //     avatars={avatars}
-        //     usernames={usernames}
-        //     elos={[]}
-        //     current_question={currentQuestion}
-        //     opponent_progress={opponentCurrent}
-        //     question_number={questions.length}
-        //     question_results={[]}
-        // >
-        //     <Question
-        //         className={` h-[10rem]`}
-        //         difficulty={curr.difficulty!}
-        //         title={curr.title!}
-        //         description={curr.description!}
-        //         number={currentQuestion + 1}
+        <MatchScreen
+            player_life={playerLife}
+            seconds={seconds}
+            minutes={minutes}
+            avatars={avatars}
+            usernames={usernames}
+            elos={elos}
+            current_question={currentQuestion}
+            opponent_progress={opponentCurrent}
+            question_number={questions.length}
+            question_results={results ?? []}
+            rounds={rounds}
+            current_round={roundIdx}
+        >
 
-        //     />
+            <Question
+                className={` h-[20rem] `}
+                difficulty={curr.difficulty!}
+                title={curr.title!}
+                description={curr.description}
+            />
 
-        //     <TimerBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] -mt-4"></TimerBox>
+            <MatchBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] -mt-4"></MatchBox>
 
-        //     <MatchCard className="items-center mt-5">
-        //         <CodeEditor 
-        //             handleChange={setCode}
-        //         />
-            
+            <MatchCard className="items-center mt-5">
+                <CodeEditor
+                    handleChange={setCode}
+                />
 
-        //         <div className='flex flex-row gap-6 w-full mx-auto justify-center my-auto'>
 
-        //             <TournamentButton className='flex items-center justify-evenly text-secondary rounded-2xl w-[10%] h-auto'>
-        //                 <ChevronLeft onClick={() => prevQuestion(currentQuestion)} className='size-[3rem] hover:scale-110  hover:bg-secondary/20 rounded-2xl w-[50%]' />
-        //                 <ChevronRight onClick={() => nextQuestion(currentQuestion)} className='size-[3rem] hover:scale-110 hover:bg-secondary/20 rounded-2xl w-[50%]' />
-        //             </TournamentButton>
-        //             <TournamentButton className='w-[10%] h-[2.2rem] my-auto rounded-2xl text-[1.3rem] hover:-translate-y-1'
-        //                 // onClick={() => {
-        //                 //     if (code.trim()) {
-        //                 //         submitQuestion(curr.id!, 'prog',
-        //                 //             {
+                <div className='flex flex-row gap-6 w-full mx-auto justify-center my-auto relative'>
 
-        //                 //                 source_code: code,
-        //                 //                 language_id: 54,
-        //                 //                 stdin: null
-        //                 //             })
-        //                 //     }
-        //                 // }}
-        //             >
-        //                 Submit
-        //             </TournamentButton>
-        //             {currentQuestion === (questions.length - 1) &&
-        //                 <TournamentButton className='w-[10%] my-auto h-[2.2rem] rounded-2xl text-[1.3rem] hover:-translate-y-1'
-        //                     onClick={() => {
-        //                         finishGame();
-        //                     }}
-        //                 >
-        //                     <p>Finish</p>
-        //                 </TournamentButton>
-        //             }
-        //         </div>
-        //     </MatchCard>
+                    <TournamentButton className='flex items-center justify-evenly text-secondary rounded-2xl w-[10%] h-auto'>
+                        <ChevronLeft onClick={() => prevQuestion(currentQuestion)} className='size-[3rem] hover:scale-110  hover:bg-secondary/20 rounded-2xl w-[50%]' />
+                        <ChevronRight onClick={() => nextQuestion(currentQuestion)} className='size-[3rem] hover:scale-110 hover:bg-secondary/20 rounded-2xl w-[50%]' />
+                    </TournamentButton>
+                    <TournamentButton className='w-[10%] h-[2.2rem] my-auto rounded-2xl text-[1.3rem] hover:-translate-y-1'
+                        onClick={() => {
+                            if (code.trim()) {
+                                submitQuestion({
+                                    source_code: code,
+                                    language_id: 54,
+                                    stdin: null
+                                })
+                            }
+                        }}
+                    >
+                        Submit Answer
+                    </TournamentButton>
+                    {currentQuestion === (questions.length - 1) &&
+                        <TournamentButton className='w-[10%] my-auto h-[2.2rem] rounded-2xl text-[1.3rem] hover:-translate-y-1'
+                            onClick={() => {
+                                finishGame();
+                            }}
+                        >
+                            <p>Finish</p>
+                        </TournamentButton>
+                    }
+                </div>
 
-        //     {/*Copied from math match */}
-        //     {waitingOpponent && (
-        //         <div className="fixed inset-0 z-50  bg-background/60 flex items-center justify-center p-4 ">
+                <div className="flex flex-row gap-5 absolute right-8 -top-3.5 bg-background-elevated border border-border rounded-2xl py-2 px-2">
+                    <div className="card-elevated h-11 w-30 rounded-full my-auto">
+                        <div className="flex flex-row">
+                            <ChevronUp size={30} className="text-secondary/30 mt-1 ml-1"/>
+                            <h1 className="text-[1rem] text-secondary/30 font-semibold my-auto mt-2">Powerups</h1>
+                        </div>
+                    </div>
+                </div>
+            </MatchCard>
+            {waitingOpponent && (
+                <div className="fixed inset-0 z-50  bg-background/60 flex items-center justify-center p-4 ">
 
-        //             <Card className="relative w-full max-w-lg rounded-3xl  text-center flex flex-col items-center gap-4 p-8 overflow-hidden"
-        //                 style={{ background: 'radial-gradient(circle at 50% 15%, #b91551 0%, #850f3b 22%, #630b3c 34%, #0a0008 62%)' }}>
-        //                 <h1 className="text-md text-primary-text font-extrabold whitespace-nowrap">
-        //                     Waiting For Opponent To Finish
-        //                 </h1>
-        //                 <h2 className="text-sm text-primary-text/80 text-center">
-        //                     Hang on while your opponent finishes up
-        //                 </h2>
-        //                 <Spinner className='w-12 h-12 text-secondary'></Spinner>
-        //             </Card>
-        //         </div>
-        //     )}
+                    <Card className="relative w-full max-w-lg rounded-3xl  text-center flex flex-col items-center gap-4 p-8 overflow-hidden bg-radial-glow">
+                        <h1 className="text-md text-primary-text font-extrabold whitespace-nowrap">
+                            Waiting For Opponent To Finish
+                        </h1>
+                        <h2 className="text-sm text-primary-text/80 text-center">
+                            Hang on while your opponent finishes up
+                        </h2>
+                        <Spinner className='w-12 h-12 text-secondary'></Spinner>
+                    </Card>
+                </div>
+            )}
 
-        // </MatchScreen>
+        </MatchScreen >
     )
 }

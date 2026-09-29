@@ -26,7 +26,6 @@ export function useMatchFound() {
   const [players, setPlayers] = useState<MatchFoundPlayer[] | null>(null);
   const [matchDetails, setMatchDetails] = useState<MatchFoundDetail[] | null>(null);
   const [matchDeclined, setMatchDeclined] = useState(false);
-  const status = useMatchStore(state => state.status);
 
   const closeLoading = () => setLoading(false);
   const openLoading = () => setLoading(true);
@@ -41,6 +40,7 @@ export function useMatchFound() {
       matchmakingSocket.declineMatch(data);
       setLoading(true);
       reset();
+      useMatchStore.getState().reset();
       nav('/match-searching')
     }
     else {
@@ -48,16 +48,12 @@ export function useMatchFound() {
     }
   }
 
-  const gameReady = (match_id: string) => {
-    setLoading(false);
-
-    nav(`${path}/${match_id}`);
-  }
 
   const gameDeclined = () => {
     setLoading(false);
     setMatchDeclined(true);
     reset();
+    useMatchStore.getState().reset();
     nav('/match-searching');
   }
 
@@ -111,11 +107,11 @@ export function useMatchFound() {
     setMatchDetails([type, mode])
   }
 
-  useEffect(() => {
-    if (status === 'ready') {
-      nav(`${path}/${useMatchStore.getState().match_id}`);
-    }
-  },[status])
+
+  const startMatch = () => {
+     nav(`${path}/${useMatchStore.getState().match_id}`);
+  }
+
 
   useEffect(() => {
 
@@ -127,12 +123,12 @@ export function useMatchFound() {
     if (matchmakingSocket && matchSocket) {
 
       const unsub_start = matchStart(matchSocket);
-      const unsub_ready = matchmakingSocket.matchReady(gameReady);
+      const unsub_start_match = matchSocket.startMatch(startMatch);
       const unsub_match_declined = matchmakingSocket.gameDeclined(gameDeclined);
 
       return () => {
+        unsub_start_match();
         unsub_start();
-        unsub_ready();
         unsub_match_declined();
       }
     }

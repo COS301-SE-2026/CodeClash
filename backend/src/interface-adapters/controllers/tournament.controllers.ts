@@ -7,13 +7,14 @@ export const getTournamentByStatus = (service: TournamentService) => {
         try {
             const { status } = req.params;
 
-            if (!status || Object.values(MatchStatus).includes(status as MatchStatus)) {
+            if (!status || !Object.values(MatchStatus).includes(status as MatchStatus)) {
+
                 res.status(400).json({ message: 'Invalid request' });
                 return;
             }
 
-            const tournaments = service.getTournamentsByStatus(status as MatchStatus);
-            res.status(200).json({ tournaments: tournaments });
+            const tournaments = await service.getTournamentsByStatus(status as MatchStatus);
+            res.status(200).json(tournaments);
 
         } catch (error) {
             console.log("Error fetching tournament", error);

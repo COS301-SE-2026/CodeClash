@@ -2,8 +2,7 @@
 //sake of time, ai did not generate this code
 
 import React from "react"
-import "../../../src/styles/global.css"
-import { Card } from "./card"
+import { Card } from "@/components/ui/card"
 import { Timer } from "lucide-react"
 
 

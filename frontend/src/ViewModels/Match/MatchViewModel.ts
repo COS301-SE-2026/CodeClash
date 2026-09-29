@@ -1,6 +1,6 @@
 import { MathfieldElement } from 'mathlive';
 import { useEffect, useState, useRef, useMemo } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
 import { robot_map } from 'src/assets/Robots';
 import { useLoadRounds, useMatchProgress, useMatchTimer, useOpponentProgress } from 'src/services/match.service';
@@ -8,11 +8,11 @@ import { useLoadRounds, useMatchProgress, useMatchTimer, useOpponentProgress } f
 import { useMatchStore } from 'src/stores/match-store';
 import { useMatchmaking } from 'src/context/Matchmaking/hooks/useMatchmaking';
 import { useSubmission } from 'src/services/submission.service';
+import type { Player } from 'src/Models/MatchModel';
 
 export const useMatch = () => {
     const nav = useNavigate();
     const { matchSocket } = useSocket();
-    const { id } = useParams();
     const status = useMatchStore(state => state.status);
     const { matchMode } = useMatchmaking();
 
@@ -27,18 +27,20 @@ export const useMatch = () => {
     const mathfieldRef = useRef<MathfieldElement | null>(null)
 
 
-    const players = useMatchStore(state => state.players);
+    const players = useMatchStore(state => state.players) as Player[];
     const stored_rounds = useMatchStore(state => state.rounds)!;
-
+    const match_id = useMatchStore(state => state.match_id);
 
     const { rounds, duration } = useLoadRounds(stored_rounds);
     const questions = rounds[roundIdx] ?? [];
     const { playerLife } = useMatchProgress(players);
     const { opponentProgress, handleOpponentDone, opponentCurrent, opponentDone } = useOpponentProgress(questions.length, players);
-    const { submissionResult, submissionError, submitQuestion, results } = useSubmission({ round_idx: roundIdx, curr_question: currentQuestion, question: questions[currentQuestion], match_id: id! })
+
+
+    const { submissionError, submitQuestion, results } = useSubmission({ round_idx: roundIdx, curr_question: currentQuestion, question: questions[currentQuestion], match_id: match_id! })
     const { seconds, minutes } = useMatchTimer(duration, () => {
         setGameOver(true);
-        matchSocket?.finishMatch({ match_id: id!, match_mode: matchMode! })
+        matchSocket?.finishMatch({ match_id: match_id!, match_mode: matchMode! })
     })
 
 
@@ -77,21 +79,20 @@ export const useMatch = () => {
     }
 
     const both_done = () => {
+        useMatchStore.getState().reset();
         setWaitingOpponent(false);
-        nav(`/results/${id}`, {
+        nav(`/results/${match_id}`, {
             replace: true,
         });
     }
 
-    console.log(useMatchStore(state => state.match_id));
     useEffect(() => {
 
 
-        if (matchSocket && id && status === 'idle') {
+        if (matchSocket && match_id && status === 'idle') {
             setLoading(true);
 
 
-            const unsub_marking = matchSocket.markingComplete(submissionResult);
             const unsub_submission_error = matchSocket.submissionError(submissionError);
             const unsub_done = matchSocket.bothDone(both_done);
             const unsub_opponent_progress = matchSocket.opponentProgress(opponentProgress);
@@ -101,7 +102,6 @@ export const useMatch = () => {
 
 
             return () => {
-                unsub_marking();
                 unsub_submission_error();
                 unsub_done();
                 unsub_opponent_progress();
