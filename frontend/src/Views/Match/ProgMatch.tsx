@@ -97,23 +97,15 @@ export const ProgMatch = () => {
                             <p>Finish</p>
                         </TournamentButton>
                     }
-                
+                </div>
 
-                <div className="flex flex-row gap-5 absolute right-8 -top-2 bg-background-elevated border border-border rounded-2xl py-2 px-2">
+                <div className="flex flex-row gap-5 absolute right-8 -top-3.5 bg-background-elevated border border-border rounded-2xl py-2 px-2">
                     <div className="card-elevated h-11 w-30 rounded-full my-auto">
                         <div className="flex flex-row">
                             <ChevronUp size={30} className="text-secondary/30 mt-1 ml-1"/>
                             <h1 className="text-[1rem] text-secondary/30 font-semibold my-auto mt-2">Powerups</h1>
                         </div>
                     </div>
-
-                    <div className="card-elevated h-11 w-31 rounded-full">
-                        <div className="flex flex-row">
-                            <ChevronDown size={28} className="text-secondary/30 mt-1.5 ml-0.5"/>
-                            <h1 className="text-[0.9rem] text-secondary/30 font-semibold my-auto mt-2.5">Powerdowns</h1>
-                        </div>
-                    </div>
-                </div>
                 </div>
             </MatchCard>
             {waitingOpponent && (
