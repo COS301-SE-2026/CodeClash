@@ -284,3 +284,37 @@ function attemptInsights(games: GameSample[]): Insight[] {
 
     return insights;
 }
+
+function domainGapInsight(allGames: GameSample[], league: string): Insight[] {
+    const ceiling = masteryCeiling(league);
+    if (ceiling === 0) return [];
+
+    const summarise = (domain: GameDomain) => {
+        const games = allGames.filter(game => game.domain === domain).slice(0, MASTERY_WINDOW);
+        const mastery = games.length === 0 ? 0 : games.reduce((total, game) => total + gameMastery(game).mastery, 0) / games.length;
+        return { domain, games: games.length, share: Math.round((mastery / ceiling) * 100) };
+    };
+
+    const math = summarise('math');
+    const programming = summarise('programming');
+    if (math.games < T.minDomainGames || programming.games < T.minDomainGames) return [];
+
+    const gap = Math.abs(math.share - programming.share);
+    if (gap < T.domainGap) return [];
+
+    const weaker = math.share < programming.share ? math : programming;
+    const stronger = weaker === math ? programming : math;
+    return [{
+        id: 'domain-gap',
+        tone: 'warn',
+        title: `${domainName(weaker.domain)} is ${gap} points behind ${domainName(stronger.domain)}`,
+        body: `Your ${domainName(stronger.domain).toLowerCase()} mastery sits at ${stronger.share}% of the league ceiling, ${domainName(weaker.domain).toLowerCase()} at ${weaker.share}%.`,
+        action: `Queue ${domainName(weaker.domain).toLowerCase()} for your next few ranked games - the weaker side has the most room to move your overall mastery.`,
+        evidence: [
+            { label: domainName(stronger.domain), value: `${stronger.share}%` },
+            { label: domainName(weaker.domain), value: `${weaker.share}%` },
+            { label: 'Games', value: `${stronger.games} / ${weaker.games}` }
+        ],
+        score: 100 + gap
+    }];
+}
