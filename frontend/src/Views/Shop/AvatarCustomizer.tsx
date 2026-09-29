@@ -34,6 +34,7 @@ const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasing
     } = tryOn();
 
     const avatars = catalog.filter((i): i is AvatarShopItem => i.category === 'avatar');
+    
 
     let stateLabel: React.ReactNode;
     if (purchasingId === draftAvatarId) {

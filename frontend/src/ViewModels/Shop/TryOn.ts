@@ -8,7 +8,7 @@ export const tryOn = () => {
     const {catalog, inventory, isOwned, equip, refetch} = useInventory();
     const [draftAvatarId, setDraftAvatarId] = useState<string | null>(null);
     const [saving, setSaving] = useState(false);
-    const equippedAvatarId = inventory?.equippedAvatarId ?? null;
+    const equippedAvatarId = inventory?.equippedAvatarId ?? "Vexa";
 
     useEffect(() => {
         if (equippedAvatarId) {
