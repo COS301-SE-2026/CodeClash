@@ -2,7 +2,7 @@ import { CodeEditor } from "@/components/features/code-editor";
 import { Question } from "@/components/features/question";
 import { MatchScreen } from "@/components/shared/Match";
 import { useMatch } from "src/ViewModels/MatchViewModel"
-import { ChevronRight, ChevronLeft } from 'lucide-react'
+import { ChevronRight, ChevronLeft, ChevronUp, ChevronDown } from 'lucide-react'
 import { MatchBox } from "@/components/ui/MatchBox";
 import { Card } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
@@ -60,7 +60,7 @@ export const ProgMatch = () => {
                 />
             
 
-                <div className='flex flex-row gap-6 w-full mx-auto justify-center my-auto'>
+                <div className='flex flex-row gap-6 w-full mx-auto justify-center my-auto relative'>
 
                     <TournamentButton className='flex items-center justify-evenly text-secondary rounded-2xl w-[10%] h-auto'>
                         <ChevronLeft onClick={() => prevQuestion(currentQuestion)} className='size-[3rem] hover:scale-110  hover:bg-secondary/20 rounded-2xl w-[50%]' />
@@ -90,6 +90,15 @@ export const ProgMatch = () => {
                             <p>Finish</p>
                         </TournamentButton>
                     }
+                </div>
+
+                <div className="flex flex-row gap-5 absolute right-8 -top-3.5 bg-background-elevated border border-border rounded-2xl py-2 px-2">
+                    <div className="card-elevated h-11 w-30 rounded-full my-auto">
+                        <div className="flex flex-row">
+                            <ChevronUp size={30} className="text-secondary/30 mt-1 ml-1"/>
+                            <h1 className="text-[1rem] text-secondary/30 font-semibold my-auto mt-2">Powerups</h1>
+                        </div>
+                    </div>
                 </div>
             </MatchCard>
 
