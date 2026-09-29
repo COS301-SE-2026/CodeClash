@@ -2,7 +2,7 @@ import { CodeEditor } from "@/components/features/code-editor";
 import { Question } from "@/components/features/Questions/question";
 import { MatchScreen } from "@/components/features/Match/Match";
 import { useMatch } from "src/ViewModels/Match/MatchViewModel"
-import { ChevronRight, ChevronLeft, ChevronUp, ChevronDown } from 'lucide-react'
+import { ChevronRight, ChevronLeft } from 'lucide-react'
 import { MatchBox } from "@/components/features/Match/MatchBox";
 import Loading from '@/components/shared/Loading';
 import { useState } from "react";
@@ -10,6 +10,7 @@ import TournamentButton from "@/components/features/Tournaments/TournamentButton
 import { MatchCard } from "@/components/features/Match/MatchCard";
 import { Card } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
+import { PowerUpAndDownButtons } from "@/components/features/Match/PowerUpandDownButtons";
 // import PopUp from "@/components/shared/PopUp";
 
 export const ProgMatch = () => {
@@ -73,7 +74,7 @@ export const ProgMatch = () => {
                         <ChevronLeft onClick={() => prevQuestion(currentQuestion)} className='size-[3rem] hover:scale-110  hover:bg-secondary/20 rounded-2xl w-[50%]' />
                         <ChevronRight onClick={() => nextQuestion(currentQuestion)} className='size-[3rem] hover:scale-110 hover:bg-secondary/20 rounded-2xl w-[50%]' />
                     </TournamentButton>
-                    <TournamentButton className='w-[10%] h-[2.2rem] my-auto rounded-2xl text-[1.3rem] hover:-translate-y-1'
+                    <TournamentButton className='w-[20%] h-[2.2rem] my-auto rounded-2xl text-[1.3rem] hover:-translate-y-1'
                         onClick={() => {
                             if (code.trim()) {
                                 submitQuestion({
@@ -95,16 +96,11 @@ export const ProgMatch = () => {
                             <p>Finish</p>
                         </TournamentButton>
                     }
+
+                    <PowerUpAndDownButtons className="h-[130%]"/>
                 </div>
 
-                <div className="flex flex-row gap-5 absolute right-8 -top-3.5 bg-background-elevated border border-border rounded-2xl py-2 px-2">
-                    <div className="card-elevated h-11 w-30 rounded-full my-auto">
-                        <div className="flex flex-row">
-                            <ChevronUp size={30} className="text-secondary/30 mt-1 ml-1"/>
-                            <h1 className="text-[1rem] text-secondary/30 font-semibold my-auto mt-2">Powerups</h1>
-                        </div>
-                    </div>
-                </div>
+    
             </MatchCard>
             {waitingOpponent && (
                 <div className="fixed inset-0 z-50  bg-background/60 flex items-center justify-center p-4 ">
