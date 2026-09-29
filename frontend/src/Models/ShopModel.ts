@@ -63,8 +63,8 @@ export interface Owned {
 }
 
 export interface Consumable {
-    category: 'powerup';
     itemId: string;
+    category: 'powerup';
     quantity: number;
 }
 
