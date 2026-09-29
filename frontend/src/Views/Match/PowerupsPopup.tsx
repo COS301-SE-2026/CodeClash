@@ -51,4 +51,11 @@ export const PowerupPopup: React.FC<PowerupProps> = ({isOpen, onClose, maxSlots 
             return [...prev, itemId];
         })
     }
+
+    const handleConfirm = () => {
+        onConfirm?.(load);
+        onClose();
+    }
 }
+
+export default PowerupPopup;
