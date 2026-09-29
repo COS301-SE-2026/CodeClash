@@ -393,8 +393,23 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
             setActiveInvite(invite);
         });
 
-        
-    })
+        const unsub_invite_responded = friendsSocket.playInviteResponded((data) => {
+            if(data.accepted) {
+                showNotice('Your friend accepted. Starting match');
+                setMatchReady(true);
+            }else {
+                showNotice('Your friend declined the invite');
+            }
+        });
+
+        return () => {
+            unsub_request_received();
+            unsub_request_responded();
+            unsub_invite_received();
+            unsub_invite_responded();
+        };
+    }, [friendsSocket, fetchAll, showNotice]);
+
     const value: FriendsContext = {
         isLoading,
         profile,
@@ -419,6 +434,9 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
         acceptInvite,
         declineInvite,
         dismissInviteError,
+
+        matchReady,
+        clearMatchReady,
     };
 
     return (
