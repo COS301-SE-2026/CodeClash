@@ -10,7 +10,6 @@ import type {
     Friend, FriendRequest, Invite, 
     Search, Summary, Relation
 } from "../../Models/FriendsModel";
-import { EqualApproximately } from "lucide-react";
 
 
 const API_BASE = '/api'; 
@@ -20,6 +19,7 @@ interface FriendsContext {
     isLoading: boolean;
     profile: Summary | null;
     error: string | null;
+    notice: string | null;
     friend: Friend[];
     removeFriend: (id: string) => void;
 
@@ -414,6 +414,7 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
         isLoading,
         profile,
         error,
+        notice,
         friend,
         removeFriend,
 
