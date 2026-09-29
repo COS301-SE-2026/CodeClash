@@ -96,6 +96,42 @@ You should see:
 { "status": "ok" }
 ```
 
+
+## Seeding Questions 
+
+Questions for this project are seeded from:
+- [Hugging Face](https://huggingface.co/datasets/qwedsacf/competition_math/viewer/default/train) for maths
+- [Exercism](https://github.com/exercism/exercism) for programming
+
+
+```
+cd backend/scripts
+```
+
+### Seeding Maths 
+
+```
+npm run seed:math
+```
+
+### Seeding Programming 
+clone the exercism repo folders 
+
+```
+git clode --depth 1 https://github.com/exercism/problem-specifications.git
+
+git clode --depth 1 https://github.com/exercism/python.git
+
+git clode --depth 1 https://github.com/exercism/cpp.git
+
+git clode --depth 1 https://github.com/exercism/javascript.git
+```
+
+```
+npm run seed:prog
+npm run seed:templates
+```
+
 ## Testing
 
 Backend 
