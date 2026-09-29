@@ -73,7 +73,7 @@ const MathsMatch = () => {
                 number={currentQuestion + 1}
             />
 
-            <MatchBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] -mt-43"></MatchBox>
+            <MatchBox className="w-full min-h-40 h-50 rounded-2xl bg-[var(--match-box)] -mt-43"></MatchBox>
 
             <div className='w-[100%] h-full min-h-[35%] flex flex-col items-center justify-center'>
                 <MathMatch
@@ -82,12 +82,12 @@ const MathsMatch = () => {
                     className={`${result_colour()},${read_only}`}
                 >
             
-                <div className="flex flex-row gap-6 w-full mx-auto justify-center my-auto mb-10 relative">
-                <TournamentButton className='flex items-center justify-evenly text-secondary rounded-2xl w-[10%] h-auto'>
-                    <ChevronLeft onClick={() => prevQuestion(currentQuestion)} className='size-[2rem] hover:scale-110  hover:bg-secondary/20 rounded-2xl w-[50%]' />
-                    <ChevronRight onClick={() => nextQuestion(currentQuestion)} className='size-[2rem] hover:scale-110 hover:bg-secondary/20 rounded-2xl w-[50%]' />
+                <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 lg:gap-6 w-full mx-auto mb-6 sm:mb-10">
+                <TournamentButton className='flex items-center justify-evenly gap-1 text-secondary px-2 py-1 shrink-0 rounded-2xl'>
+                    <ChevronLeft onClick={() => prevQuestion(currentQuestion)} className='size-6 sm:size-7 lg:size-8 hover:scale-110 hover:bg-secondary/20 rounded-2xl' />
+                    <ChevronRight onClick={() => nextQuestion(currentQuestion)} className='size-6 sm:size-7 lg:size-8 hover:scale-110 hover:bg-secondary/20 rounded-2xl' />
                 </TournamentButton>
-                <TournamentButton className='w-[10%] h-[2.2rem] rounded-2xl text-[1.3rem] hover:-translate-y-1'
+                <TournamentButton className='px-4 sm:px-6 py-2 rounded-2xl text-[1.3rem] hover:-translate-y-1 shrink-0'
                     onClick={() => {
                         const answer = mathfieldRef.current?.value ?? '';
                         submitQuestion(curr.id!, 'math', { answer: answer })
@@ -114,8 +114,11 @@ const MathsMatch = () => {
                         </div>
                     </div>
 
-                    <div className="card-elevated h-11 w-30 rounded-full">
-                        <ChevronDown size={35} className="text-secondary/30 mx-auto my-auto mt-2"/>
+                    <div className="card-elevated h-11 w-31 rounded-full ">
+                        <div className="flex flex-row">
+                            <ChevronDown size={28} className="text-secondary/30 mt-1.5 ml-0.5"/>
+                            <h1 className="text-[0.9rem] text-secondary/30 font-semibold my-auto mt-2.5">Powerdowns</h1>
+                        </div>
                     </div>
 
                 </div>
