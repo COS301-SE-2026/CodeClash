@@ -47,7 +47,7 @@ export const useTournamentLobby = () => {
 
         const unsub_started = tournamentSocket.tournamentStart((data) => {
             useMatchStore.getState().setMatchData(data.match);
-            nav(`/tournamen/${tournament_id}`);
+            nav(`/tournaments-match/${tournament_id}`);
         })
 
         return () => {
