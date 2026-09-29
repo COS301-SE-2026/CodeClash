@@ -131,3 +131,79 @@ interface QuestionOutcome {
     answered: boolean;
     clockLeft: number;
 }
+
+function outcomes(games: GameSample[]): QuestionOutcome[] {
+    const result: QuestionOutcome[] = [];
+    for (const game of games.slice(0, MASTERY_WINDOW)) {
+        for (const question of game.questions) {
+            if (question.correct === undefined) continue;
+            const clockLeft = question.ratios.time ?? 0;
+            result.push({
+                correct: question.correct,
+                firstTry: question.correct && (question.attempts ?? 1) <= 1,
+                answered: question.correct || (question.attempts ?? 0) > 0 || clockLeft > 0,
+                clockLeft
+            });
+        }
+    }
+    return result;
+}
+
+function masterySeries(games: GameSample[], league: string): number[] {
+    const ceiling = masteryCeiling(league);
+    return games
+        .slice(0, MASTERY_WINDOW)
+        .map(game => (ceiling === 0 ? 0 : (gameMastery(game).mastery / ceiling) * 100))
+        .reverse();
+}
+
+function difficultyInsights(bands: DifficultyBand[]): Insight[] {
+    const usable = bands.filter(band => band.questionCount >= T.minBandQuestions);
+    const insights: Insight[] = [];
+
+    let worstDrop = 0;
+    let cliff: [DifficultyBand, DifficultyBand] | null = null;
+    for (let index = 1; index < usable.length; index++) {
+        const drop = pct(usable[index - 1]!.performance) - pct(usable[index]!.performance);
+        if (drop > worstDrop) {
+            worstDrop = drop;
+            cliff = [usable[index - 1]!, usable[index]!];
+        }
+    }
+
+    if (cliff && worstDrop >= T.difficultyCliff) {
+        const [easier, harder] = cliff;
+        const harderName = harder.label.split(' ')[0];
+        insights.push({
+            id: 'difficulty-cliff',
+            tone: 'warn',
+            title: `${harderName} questions are where your games slip away`,
+            body: `You score ${pct(easier.performance)}% of optimal one band down but only ${pct(harder.performance)}% at ${harderName}. That ${worstDrop} point drop costs more mastery than anything else, because harder questions carry more weight.`,
+            action: `Spend your next few games attempting every ${harderName} question instead of skipping it - even a slow correct answer scores more than an easy one.`,
+            evidence: [
+                { label: easier.label, value: `${pct(easier.performance)}%` },
+                { label: harder.label, value: `${pct(harder.performance)}%` },
+                { label: 'Questions', value: `${easier.questionCount + harder.questionCount}` }
+            ],
+            score: 100 + worstDrop
+        });
+    }
+
+    const hardest = bands[bands.length - 1];
+    if (hardest && hardest.questionCount >= T.minBandQuestions && pct(hardest.performance) >= T.hardBandReady) {
+        insights.push({
+            id: 'hard-ready',
+            tone: 'good',
+            title: `You are handling the hardest questions at ${pct(hardest.performance)}%`,
+            body: 'Your top difficulty band is as strong as your easy ones. The league is not stretching you much any more.',
+            action: 'Keep climbing Elo - promotion brings harder questions, and that is where mastery grows fastest.',
+            evidence: [
+                { label: hardest.label, value: `${pct(hardest.performance)}%` },
+                { label: 'Questions', value: `${hardest.questionCount}` }
+            ],
+            score: 40 + pct(hardest.performance) - T.hardBandReady
+        });
+    }
+
+    return insights;
+}
