@@ -1,11 +1,9 @@
 import { CodeEditor } from "@/components/features/code-editor";
-import { Question } from "@/components/features/question";
-import { MatchScreen } from "@/components/shared/Match";
-import { useMatch } from "src/ViewModels/MatchViewModel"
+import { Question } from "@/components/features/Questions/question";
+import { MatchScreen } from "@/components/features/Match/Match";
+import { useMatch } from "src/ViewModels/Match/MatchViewModel"
 import { ChevronRight, ChevronLeft, ChevronUp, ChevronDown } from 'lucide-react'
-import { MatchBox } from "@/components/ui/MatchBox";
-import { Card } from '@/components/ui/card';
-import { Spinner } from '@/components/ui/spinner';
+import { MatchBox } from "@/components/features/Match/MatchBox";
 import Loading from '@/components/shared/Loading';
 import { useState } from "react";
 import TournamentButton from "@/components/features/Tournaments/TournamentButton";
