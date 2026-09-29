@@ -536,3 +536,55 @@ function growthInsight(growth: GrowthResult): Insight[] {
         score: 15
     }];
 }
+
+function leagueInsights(mastery: number, league: string, winRate: number, gameCount: number): Insight[] {
+    const ceiling = masteryCeiling(league);
+    if (ceiling === 0 || gameCount === 0) return [];
+
+    const share = Math.round((mastery / ceiling) * 100);
+    const insights: Insight[] = [];
+
+    if (share >= T.promotionReady) {
+        insights.push({
+            id: 'promotion',
+            tone: 'good',
+            title: `You are outgrowing ${league || 'this league'}`,
+            body: `Your mastery is at ${share}% of what ${league || 'this league'} can measure. Expect a dip on promotion - the questions get harder before you do.`,
+            action: 'Win the ranked games that get you promoted; the harder league is where your mastery can keep growing.',
+            evidence: [{ label: 'Of league ceiling', value: `${share}%` }],
+            score: 55
+        });
+    } else {
+        insights.push({
+            id: 'league-room',
+            tone: 'info',
+            title: `You are at ${share}% of what ${league || 'this league'} can measure`,
+            body: `Mastery is scored against ${league || 'your league'} difficulty, capped at ${ceiling.toFixed(0)}. You are at ${share}% of that ceiling. It measures your own progress, not other players.`,
+            evidence: [{ label: 'Of league ceiling', value: `${share}%` }],
+            score: 10
+        });
+    }
+
+    const gap = winRate - share;
+    if (gameCount >= T.minConsistencyGames && Math.abs(gap) >= T.winMasteryGap) {
+        const winningAhead = gap > 0;
+        insights.push({
+            id: 'win-vs-mastery',
+            tone: 'info',
+            title: winningAhead ? 'You win more than your mastery suggests' : 'You play better than your results show',
+            body: winningAhead
+                ? `You win ${winRate}% of games while mastery sits at ${share}% of the ceiling - you are beating opponents without maxing the questions. Stronger opponents will close that gap.`
+                : `Mastery sits at ${share}% of the ceiling but you only win ${winRate}% of games. Your answers are good; your opponents are just a little quicker.`,
+            action: winningAhead
+                ? 'Aim for full marks, not just the win - mastery is what carries into the next league.'
+                : 'Shave time off your answers - the time component is what decides close games.',
+            evidence: [
+                { label: 'Win rate', value: `${winRate}%` },
+                { label: 'Mastery', value: `${share}%` }
+            ],
+            score: 35 + Math.abs(gap) / 2
+        });
+    }
+
+    return insights;
+}
