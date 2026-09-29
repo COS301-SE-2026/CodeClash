@@ -63,3 +63,49 @@ export interface InsightInput {
     practice?: PracticeSummary;
     now?: Date;
 }
+
+export const INSIGHT_THRESHOLDS = {
+    // a band needs this many questions before it can speak
+    minBandQuestions: 5,
+    // drop between neighbouring bands that counts as a cliff
+    difficultyCliff: 20,
+    // hardest band performance that says the player is ready for more
+    hardBandReady: 70,
+    // questions with a recorded outcome before first try and pace insights show - one Mercury game
+    minOutcomeQuestions: 5,
+    // correct rate minus first try rate that counts as needing retries
+    retryGap: 15,
+    // clock left (0-100) above which answers count as quick
+    quickClock: 50,
+    // clock left below which answers count as slow
+    slowClock: 25,
+    // correct rate below which quick answers count as careless
+    carelessAccuracy: 60,
+    // correct rate above which slow answers count as accurate
+    carefulAccuracy: 75,
+    // share of questions never answered that counts as running out of clock
+    unansweredShare: 15,
+    // games per domain before the domain gap is compared
+    minDomainGames: 3,
+    // mastery gap, as a share of the league ceiling, that counts as a real gap
+    domainGap: 15,
+    // games in each half before component trends are compared
+    trendHalf: 5,
+    // component change between halves that counts as a real move
+    componentMove: 7,
+    // games before consistency is judged
+    minConsistencyGames: 7,
+    // spread of per game mastery (share of ceiling) that counts as streaky
+    streaky: 15,
+    // spread at or below this counts as consistent
+    steady: 6,
+    // mastery share of ceiling that says the league is nearly outgrown
+    promotionReady: 75,
+    // a component below this is worth fixing; above it the weakest is just the least strong
+    weakComponent: 65,
+    // programming runtime component below this counts as slow code
+    slowRuntime: 50,
+    // gap between win rate and mastery share that is worth pointing out
+    winMasteryGap: 25,
+    weekDays: 7
+} as const;
