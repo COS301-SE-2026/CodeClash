@@ -1,0 +1,55 @@
+backend/src/entities/database/wallet.entities.ts
+  h_94c952a9e14c58 10
+backend/src/application/usecases/init-db.ts
+  h_94c952a9e14c58 5,9,25,27-31
+  h_94c952a9e14c58 26
+backend/src/application/usecases/services/user-creation.service.ts
+  h_94c952a9e14c58 5,14-15,37
+  h_94c952a9e14c58 25,27,29,35
+frontend/src/ViewModels/Match/FinalResultsViewModel.ts
+  h_94c952a9e14c58 2,30,33,48,63-65,70-71,75,77
+frontend/src/context/Socket/modules/match.socket.ts
+  h_94c952a9e14c58 75
+backend/src/interface-adapters/repositories/wallet.repository.ts
+  h_94c952a9e14c58 6
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 68,96,174-175,216
+backend/src/application/interfaces/marking/IMarkingStategy.ts
+  h_94c952a9e14c58 1
+  h_94c952a9e14c58 3
+frontend/src/ViewModels/Match/MatchViewModel.ts
+  h_94c952a9e14c58 25,28,45,48-51,73-89,91-94,108,159-165
+  h_94c952a9e14c58 27
+backend/src/frameworks-drivers/socket/modules/register-match-handlers.ts
+  h_94c952a9e14c58 14,17,19
+dockerfile/docker-compose.dev.yml
+  h_94c952a9e14c58 48
+frontend/src/services/match.service.tsx
+  h_94c952a9e14c58 78
+frontend/src/Views/Match/MathsMatch.tsx
+  h_94c952a9e14c58 26-27,81,89-91,94-102,104-112
+  h_94c952a9e14c58 18,30,32,92,103
+backend/src/frameworks-drivers/api.routes.ts
+  h_94c952a9e14c58 28,44-45,51
+backend/src/frameworks-drivers/app.ts
+  h_94c952a9e14c58 20,37-38,67
+  h_94c952a9e14c58 68
+backend/src/interface-adapters/socket-handlers/match-handlers.ts
+  h_94c952a9e14c58 44,47-48,50,56,58,62,64,83,85-87,89,97-98,101,103-105,111
+  h_94c952a9e14c58 35,63,69-70,123-128,130,132,134-137,139-145
+backend/src/application/usecases/services/marking/marking.service.ts
+  h_94c952a9e14c58 14
+backend/src/application/usecases/systems/match-completion.system.ts
+  h_94c952a9e14c58 1,24-25,27,32,65-68,70-71,74-76,79-82,85-86,88-96,99
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "bb5a4df32a65ec0371a741246e4be512eeb2e7b6",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

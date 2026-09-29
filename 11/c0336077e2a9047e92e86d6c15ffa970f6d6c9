@@ -1,0 +1,18 @@
+frontend/src/ViewModels/Shop/TryOn.ts
+  h_b13c5d77534129 11
+frontend/src/Views/Shop/AvatarCustomizer.tsx
+  h_b13c5d77534129 37
+database/04-init-shop.sql
+  h_b13c5d77534129 28,30,32,34,36,38,40,42,44
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "11c0336077e2a9047e92e86d6c15ffa970f6d6c9",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
