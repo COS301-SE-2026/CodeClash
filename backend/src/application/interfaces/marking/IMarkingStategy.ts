@@ -1,5 +1,4 @@
-import { MathsSubmissionDTO, PlayerSubmissionDTO, ProgSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
-import { AnswerDTO } from "../../../entities/dtos/questions/answer.dto";
+import { PlayerSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
 
 export interface IMarkingStrategy{
     mark(submission: PlayerSubmissionDTO): Promise<boolean>;

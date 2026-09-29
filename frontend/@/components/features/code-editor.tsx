@@ -4,15 +4,13 @@ import { useCodeQuestion } from "src/services/code-question.service";
 import { Button } from "../ui/button";
 
 const LANGUAGES: Record<string, string> = {
-    python: "python",
     cpp: "cpp",
-    javascript: "javascript"
 };
 
 
 interface codeEditorProps {
     question: { templates?: TemplateDTO[] },
-    onChange: (code: string, language: string, judge0_language_id: number) => void
+    onChange: (code: string, judge0_language_id: number) => void
 }
 
 export const CodeEditor = ({ question, onChange }: codeEditorProps) => {
