@@ -65,7 +65,7 @@ export const Question = ({
 
 export const QuestionDescription = ({ description }: { description: string }) => {
   return (
-    <div className="prose prose-invert max-w-none">
+    <div className="prose prose-invert max-w-none pt-[1rem]">
       <ReactMarkDown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]}>
         {description}
       </ReactMarkDown>
