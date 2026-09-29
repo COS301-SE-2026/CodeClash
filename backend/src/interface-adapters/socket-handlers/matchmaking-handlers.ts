@@ -10,7 +10,7 @@ import { PlayerDTO } from "src/entities/dtos/matches/match-component.dto";
 
 
 export const joinMatchQueue = (async (io: Server, socket: Socket, data: any, matchmaking_service: MatchmakingService, match_confirmation_service: MatchConfirmationService, user_repo: IUserRepository) => {
-    socket.join(socket.data.user_id)
+    await socket.join(socket.data.user_id)
     const user: MatchmakingUserDTO = {
         id: socket.data.user_id,
         elo: data.elo,

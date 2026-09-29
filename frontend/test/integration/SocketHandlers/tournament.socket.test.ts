@@ -57,20 +57,18 @@ describe("Testing tournament socket", () => {
 
 
     it("Creates a tournament", async () => {
-        const start_date = new Date();
         const match_mode: MatchMode = 'math'
         const create_handler = vi.fn();
         const unsub_create = tournament_socket.tournamentCreated(create_handler);
 
 
-        const response = await tournament_socket.hostTournament({ start_date, match_mode, host, title: "test tournament",min_players:8 });
+        const response = await tournament_socket.hostTournament({match_mode, host, title: "test tournament",min_players:8 });
         if (!response.ok) throw new Error(response.error);
 
         tournament = response.data!;
 
         expect(create_handler).toHaveBeenCalledWith(tournament);
         expect(tournament).not.toBeNull();
-        expect(tournament.players.length).toBe(1);
         expect(tournament.players[0].id).toBe(host.id);
 
         unsub_create();

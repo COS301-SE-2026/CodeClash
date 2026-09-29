@@ -1,9 +1,8 @@
 import { MatchCard } from "@/components/features/Match/MatchCard";
 import TournamentButton from "@/components/features/Tournaments/TournamentButton";
 import { Trophy, Lock, ChevronsRight, Signal, Zap } from "lucide-react"
-import { TimerCard } from "@/components/features/Match/MatchBox";
 import { Question } from "@/components/features/Questions/question";
-import { MatchBox } from "@/components/features/Match/MatchBox";
+import { MatchBox, TimerCard } from "@/components/features/Match/MatchBox";
 import { MultipleChoice } from "@/components/features/Questions/MultipleChoice";
 import { LiveTournamentPlayer } from "@/components/features/Tournaments/LiveTournamentPlayer";
 import { useTournamentMatch } from "src/ViewModels/Tournaments/TournamentMatchViewModel";
@@ -23,6 +22,8 @@ const TournamentsMatchPage = () => {
     const curr = questions[currentQuestion];
     const telemetry = round_telemetry();
     const my_rank = (telemetry && telemetry.my_rank! > 0) ? telemetry.my_rank : "-"
+
+    console.log(questions);
 
     useEffect(() => {
         console.log("players", players);
@@ -58,9 +59,9 @@ const TournamentsMatchPage = () => {
 
                         <Question
                             className={`mb-5 mt-5`}
-                            difficulty={curr.difficulty!}
-                            title={curr.title!}
-                            description={curr.description!}
+                            difficulty={curr?.difficulty ?? " "}
+                            title={curr?.title ?? " "}
+                            description={curr?.description ?? " "}
                         />
 
                         <MatchBox className="w-full min-h-40 h-50 rounded-lg bg-match-box mb-5"></MatchBox>

@@ -31,12 +31,10 @@ export const useTournament = () => {
         data: {
             title: string,
             match_mode: MatchMode,
-            start_date: Date,
             min_players: number
         }) => {
 
         const create = {
-            start_date: data.start_date,
             match_mode: data.match_mode,
             host: player,
             title: data.title,

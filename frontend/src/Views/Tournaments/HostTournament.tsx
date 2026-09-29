@@ -14,7 +14,6 @@ interface HostProps {
     Create: (data: {
         title: string,
         match_mode: MatchMode,
-        start_date: Date,
         min_players: number
     }) => Promise<{ ok: boolean, data?: TournamentDTO, error?: string }>
 }
@@ -23,15 +22,13 @@ export const HostTournament = ({ Cancel, Create }: HostProps) => {
 
     const [title, setTitle] = useState("");
     const [mode, setMode] = useState<MatchMode>('math');
-    const [date, setDate] = useState("");
-    const [time, setTime] = useState("");
     const [players, setPlayers] = useState(8);
     const [error, setError] = useState("");
     const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
 
     const handleCreate = async () => {
         console.log("handle create")
-        if (!title.trim() || !date || !time) {
+        if (!title.trim()) {
             setError("Please fill in required fields.Required fields are indicated with a *")
             return;
         }
@@ -39,11 +36,9 @@ export const HostTournament = ({ Cancel, Create }: HostProps) => {
         setError("");
         setStatus("loading");
 
-        const start_date = new Date(`${date}T${time}`);
         const result = await Create({
             title,
             match_mode: mode,
-            start_date,
             min_players: players
         });
 
@@ -58,8 +53,14 @@ export const HostTournament = ({ Cancel, Create }: HostProps) => {
         }
     }
 
+    const create_button = () => {
+        if (status === "loading") return "Creating...";
+        if (status === "success") return "Created!";
+        return "Create";
+    }
+
     return (
-        <Card className="bg-background rounded-3xl h-[50rem] border-[0.01rem] border-muted-text/30 shadow-[0_0_20px_color-mix(in_srgb,var(--button-tournament)_10%,transparent)]">
+        <Card className="bg-background rounded-3xl h-auto border-[0.01rem] border-muted-text/30 shadow-[0_0_20px_color-mix(in_srgb,var(--button-tournament)_10%,transparent)]">
             <CardHeader className="flex items-center">
                 <div className="bg-primary/30 rounded-[1rem] p-[2%] mr-[3%] bg-green-300 border border-primary border-2">
                     <Sparkles className="text-button-tournament" />
@@ -145,39 +146,13 @@ export const HostTournament = ({ Cancel, Create }: HostProps) => {
                         </label>
                     </div>
                 </div>
-                <div className="grid grid-cols-2">
-                    <div>
-                        <p className="text-xs font-bold text-white uppercase pb-[1%] pt-[3%]">
-                            Schedule Date*
-                        </p>
-                        <Input
-                            type="date"
-                            value={date}
-                            onChange={(e) => setDate(e.target.value)}
-                            className="text-white"
-                        />
-                    </div >
 
-                    <div>
-                        <p className="text-xs font-bold text-white uppercase pb-[1%] pt-[3%]">
-                            Start Time*
-                        </p>
-                        <Input
-                            type="time"
-                            value={time}
-                            onChange={(e) => setTime(e.target.value)}
-                            className="text-white"
-                        />
-                    </div>
-
-                </div>
-
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col items-start justify-between">
                     <p className="text-xs font-bold text-white uppercase pb-[1%] pt-[3%]">
                         Required minimum 8 players to start tournament*
                     </p>
 
-                    <div className="flex items-center  bg-match-box border border-match-card rounded-xl">
+                    <div className="flex items-center justify-evenly bg-match-box border border-match-card rounded-xl w-[8rem]">
                         <Button
                             type="button"
                             onClick={() => setPlayers(Math.max(MIN_PLAYERS, players - 1))}
@@ -218,9 +193,7 @@ export const HostTournament = ({ Cancel, Create }: HostProps) => {
                     variant={"default"}
                     disabled={status === "loading" || status === "success"}
                 >
-                    {status === "loading" ?
-                        "Creating..." : status === "success" ?
-                            "Created" : "Create"}
+                    {create_button()}
 
                 </Button>
             </CardFooter>
