@@ -33,7 +33,11 @@ export class WalletReposiroty implements IWalletRepository {
     }
 
     async updateBalance(user_id: string, delta: number): Promise<WalletDTO> {
-        const wallet = await this.walletRepo.findOne({ where: { user: { user_id } } });
+        let wallet = await this.walletRepo.findOne({ where: { user: { user_id } } });
+        if(!wallet) {
+            await this.createWallet(user_id);
+            wallet = await this.walletRepo.findOne({ where: { user: { user_id } } });
+        }
         if(!wallet) throw new Error('wallet not found');
 
         const newBalance = wallet.balance + delta;
