@@ -4,7 +4,9 @@ import { registerHandler } from "../dispatch";
 import { FriendInviteDTO } from "src/entities/dtos/friends/friendship.dto";
 import { received_invite } from "src/interface-adapters/socket-handlers/friends-handlers";
 import { sendFriendRequest } from "src/interface-adapters/controllers/friend.controllers";
-import { __ServiceException } from "@aws-sdk/client-cognito-identity-provider/dist-types/models/CognitoIdentityProviderServiceException";
+import { Player } from "src/entities/ecs-entities";
+import { deepStrictEqual } from "node:assert";
+import { isPartOfTypeOnlyImportOrExportDeclaration } from "typescript";
 
 interface sendFriendRequestPayload { receiver_id: string; from_username: string }
 interface RespondFriendRequestPayload { requester_id: string; status: 'accepted' | 'declined' }
@@ -17,7 +19,15 @@ interface PlayInvitePayload {
 }
 
 interface SendPlayInvitePayload { receiver_id: string; invite: PlayInvitePayload }
-interface RespondPlayInvitePayload { sender_id: string; invite_id: string; accepted: boolean }
+interface PlayerInfo { id: string, elo: number; username: string }
+interface RespondPlayInvitePayload { 
+    sender_id: string; 
+    invite_id: string; 
+    accepted: boolean;
+    sender?: PlayerInfo;
+    responder?: PlayerInfo;
+ }
+const CASUAL_MATCH_MODE = 'math';
 
 export function registerFriendHandlers(io: Server, socket: Socket, _deps: FriendDeps) {
     registerHandler(socket,
@@ -42,6 +52,28 @@ export function registerFriendHandlers(io: Server, socket: Socket, _deps: Friend
     });
 
     registerHandler(socket, 'play_invite_respond', async (_s, payload: RespondPlayInvitePayload) => {
+        if(!payload.accepted || !payload.sender || !payload.responder) {
+            io.to(`user:${payload.sender_id}`).emit('play_invite_responded', payload);
+            return;
+        }
+
+        const group_id = _deps.matched_users_service.create([
+            { id: payload.sender.id, elo: payload.sender.elo },
+            { id: payload.responder.id, elo: payload.responder.elo },
+        ]);
+
+        const result = {
+            group_id,
+            match_mode: CASUAL_MATCH_MODE,
+            players: [
+                { id: payload.sender.id, elo: payload.sender.elo, username: payload.sender.username },
+                { id: payload.responder.id, elo: payload.responder.elo, username: payload.responder.username },
+            ],
+        };
+
+        // copid from notepad
+        io.to(`user:${payload.sender.id}`).emit('users_matched', result);
+        io.to(`user:${payload.responder.id}`).emit('users_matched', result);
         io.to(`user:${payload.sender_id}`).emit('play_invite_responded', payload);
     });
 }

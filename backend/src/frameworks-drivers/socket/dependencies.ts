@@ -33,7 +33,9 @@ export interface MatchmakingDeps {
     match_start: MatchStart,
 }
 
-export interface FriendDeps { }
+export interface FriendDeps { 
+    matched_users_service: MatchConfirmationService,
+}
 
 export interface TournamentDeps {
     tournament_service: TournamentService
