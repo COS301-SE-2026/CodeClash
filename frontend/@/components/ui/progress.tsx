@@ -24,7 +24,7 @@ function Progress({
   via = "var(--button-tournament)",
   to = "#FFFFFF",
   bg = "var(--primary-dark)",
-  border = "#631631",
+  border = "var(--primary-text)",
   glow = "#FFFFFF",
   height = 1.5,
   orientation = "horizontal",

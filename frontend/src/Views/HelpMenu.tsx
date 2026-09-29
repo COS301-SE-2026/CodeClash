@@ -30,8 +30,8 @@ const HelpMenu: React.FC = () => {
                         if (h.link) {
                             return (
                                 <Link key = {h.title} to={h.link} style={{textDecoration: "none"}}>
-                                    <div style={{background: "rgba(252, 236, 221, 0.03)", border: "1px solid rgba(252, 236, 221, 0.08)", borderRadius: "18px", padding: "2rem", height: "100%", transition: "0.2s"}}>
-                                        <Icon size={36} color="#c0395a"/>
+                                    <div className = "card-glass p-8 h-full">
+                                        <Icon size={36} className = "text-primary"/>
                                         <h3 style={{marginTop: "1rem", marginBottom: "0.75rem", color: 'var(--text)'}}>{h.title}</h3>
                                         <p style={{color: 'var(--text)', lineHeight: 1.7 , marginBottom: "1rem"}}>{h.desc}</p>
                                     </div>
@@ -41,8 +41,8 @@ const HelpMenu: React.FC = () => {
 
                         {/*Copied from above */}
                         return (
-                            <div key = {h.title} style={{background: "rgba(252, 236, 221, 0.03)", border: "1px solid rgba(252, 236, 221, 0.08)", borderRadius: "18px", padding: "2rem", height: "100%", transition: "0.2s"}}>
-                                <Icon size={36} color="#c0395a"/>
+                            <div key = {h.title} className = "card-glass p-8 h-full">
+                                <Icon size={36} className = "text-primary"/>
                                 <h3 style={{marginTop: "1rem", marginBottom: "0.75rem", color: 'var(--text)'}}>{h.title}</h3>
                                 <p style={{color: 'var(--text)', lineHeight: 1.7 , marginBottom: "1rem"}}>{h.desc}</p>
                             </div>
@@ -53,9 +53,9 @@ const HelpMenu: React.FC = () => {
 
             {/*About section */}
             <section style={{padding: "0 8% 6rem"}}>
-                <div style={{maxWidth: "1000px", margin: "0 auto", background: "rgba(252, 236, 221, 0.03)", border: "1px solid rgba(252, 236, 221, 0.08)", borderRadius: "20px", padding: "3rem"}}>
+                <div className="card-glass max-w-[1000px] mx-auto p-12">
                     <div style={{display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1rem"}}>
-                        <Info size={32} color="#c03951"/>
+                        <Info size={32} className = "text-primary"/>
                         <h2 style={{fontSize: "2rem", fontWeight: 900, margin: 0}}>About CodeClash</h2>
                     </div>
                     <p style={{color: 'var(--text)', lineHeight: 1.9, marginBottom: "1.5rem"}}>
@@ -64,17 +64,17 @@ const HelpMenu: React.FC = () => {
                     </p>
                     <div style={{display: "grid", gridTemplateColumns: "repeat(autp-fit, minmax(220px, 1fr)", gap: "1.5rem"}}>
                         <div>
-                            <h3 style={{color: "#c0396a", marginBottom: "0.5rem"}}>Mission</h3>
+                            <h3 className = "text-primary" style={{ marginBottom: "0.5rem"}}>Mission</h3>
                             <p style={{color: 'var(--text)', lineHeight: 1.7}}>Make learning programming and mathematics fun, and engaging through friendly competition and meaningful progression.</p>
                         </div>
                         {/*copied above */}
                         <div>
-                            <h3 style={{color: "#c0396a", marginBottom: "0.5rem"}}>Vision</h3>
+                            <h3 className = "text-primary" style={{ marginBottom: "0.5rem"}}>Vision</h3>
                             <p style={{color: 'var(--text)', lineHeight: 1.7}}>Create a community of continuous improvement through challenges and a celebration of achievemnets.</p>
                         </div>
                         {/*copied above */}
                         <div>
-                            <h3 style={{color: "#c0396a", marginBottom: "0.5rem"}}>Core Values</h3>
+                            <h3 className = "text-primary" style={{ marginBottom: "0.5rem"}}>Core Values</h3>
                             <p style={{color: 'var(--text)', lineHeight: 1.7}}>Fair competition, continuous learning, accessibility, teamwork, growth mindset, and innovation.</p>
                         </div>
                     </div>
@@ -84,7 +84,7 @@ const HelpMenu: React.FC = () => {
             {/*faq */}
             <section style= {{padding: "0 8% 6rem"}}>
                 <h2 style={{textAlign: "center", fontSize: "2.2rem", fontWeight: 900, marginBottom: "3rem"}}>Frequently Asked Questions</h2>
-                <div style={{maxWidth: "900px", margin: "0 auto"}}>
+                <div className="max-w-[900px] mx-auto">
                     {faqs.map((faq, index) => (
                         <div key={faq.question} style={{borderBottom: "1px solid rgba(252, 236, 221, 0.08)"}}>
                             <button onClick={( ) => toggleFAQ(index)} style={{width: "100%", background: "transparent", border: "none", color: 'var(--text)'
@@ -103,12 +103,12 @@ const HelpMenu: React.FC = () => {
             </section>
 
             {/**contact support */}
-            <section style={{maxWidth: "900px", margin: "0 auto", background: "rgba(252, 235, 221, 0.03", border: "1px solid rgba(252, 236, 221, 0.08)", borderRadius: "20px", padding: "3rem", textAlign: "center"}}>
-                <Mail size={44} color="#c0395a" style={{marginBottom: "1rem"}}/>
+            <section className="card-glass max-w-[900px] mx-auto p-12 text-center mb-16">
+                <Mail size={44} className = "text-primary" style={{marginBottom: "1rem"}}/>
                 <h2 style={{color: 'var(--text)',fontSize: "2rem", fontWeight: 900, marginBottom: "1rem"}}>{contact.heading}</h2>
                 <p style={{color: 'var(--text)', lineHeight: 1.8, maxWidth: "650px", margin: "0 auto 2rem"}}>{contact.desc}</p>
 
-                <a href="{`mailto:${contact.email}`}" style={{display: "inline-flex", alignItems: "center", gap: "0.75rem", padding: "14px 28px", background: "#c0395a", color: "#ffffff", borderRadius: "16px", textDecoration: "none", fontWeight: 700}}>
+                <a href="{`mailto:${contact.email}`}" className="btn btn-primary inline-flex">
                     <Mail size={18}/>
                     {contact.email}
                 </a>

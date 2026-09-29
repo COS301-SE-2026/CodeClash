@@ -1,7 +1,7 @@
 import {ChevronRight, Swords, Users2, Flame, Sparkles, Trophy} from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useEffect } from "react";
-import { UseUserAvatar } from './Profile';
+import { UserAvatar } from '../avatar/UserAvatar';
 import { useDashboardViewModel } from '../ViewModels/DashboardViewModel';
 import { useSkillProgressViewModel } from '../ViewModels/SkillProgressViewModel';
 
@@ -91,7 +91,7 @@ const Dashboard = () => {
             {/*Profile + Play */}
             <div className='flex flex-col gap-6'>
               <div className='card-elevated flex items-center gap-4 p-8'>
-                  <UseUserAvatar vb1={170} vb2={186} lm={1.5} round={20}/>
+                  <UserAvatar size={110}/>
                 <div>
                   <p className='text-xl font-black text-primary-text'>{username}</p>
                   <span className='text-sm text-primary-text'>{league}</span>
