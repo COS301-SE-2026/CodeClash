@@ -7,7 +7,6 @@ import { MatchSocket } from './modules/match.socket'
 import { MatchmakingSocket } from './modules/matchmaking.socket'
 import { TournamentSocket } from './modules/tournament.socket'
 
-
 export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [socket, setSocket] = useState<Socket | null>(null);
     const [isConnected, setIsConnected] = useState(false);
