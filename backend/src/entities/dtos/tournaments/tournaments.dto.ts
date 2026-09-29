@@ -4,16 +4,18 @@ import { MatchMode, MatchStatus } from "src/entities/dtos/matches/match.dto";
 export interface TournamentDTO {
     tournament_id: string,
     rounds: RoundDTO[],
-    players: PlayerDTO[],
+    players: (PlayerDTO | PlayerStandingDTO)[],
     tournament_mode: MatchMode,
     status: MatchStatus,
     created_at: Date,
     start_date: Date,
-    host: PlayerDTO
+    host: PlayerDTO,
+    title: string
+    min_players: number
 }
 
 export interface PlayerStandingDTO {
-    player_id: string,
+    id: string,
     username: string,
     position: number,
     correct: number,
@@ -21,7 +23,7 @@ export interface PlayerStandingDTO {
     elimination_round: number
 }
 
-export interface TournamentStandingsDTO{
+export interface TournamentStandingsDTO {
     tournament_id: string,
     round: number,
     standings: PlayerStandingDTO[]

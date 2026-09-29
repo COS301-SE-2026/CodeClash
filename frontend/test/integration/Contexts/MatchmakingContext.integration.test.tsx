@@ -26,11 +26,11 @@ const MatchmakingConsumer = () => {
     <div>
       <span data-testid="matched">{String(mm.matched)}</span>
       <span data-testid="group_id">{mm.group_id || 'none'}</span>
-      <span data-testid="mode">{mm.match_mode ?? 'none'}</span>
-      <span data-testid="type">{mm.gameType ?? 'none'}</span>
+      <span data-testid="mode">{mm.matchMode ?? 'none'}</span>
+      <span data-testid="type">{mm.matchType ?? 'none'}</span>
       <span data-testid="opponent">{mm.matchedUsers?.players[1].username ?? 'none'}</span>
-      <button onClick={() => mm.set_match_mode('math')}>set-mode</button>
-      <button onClick={() => mm.setGameType('ranked')}>set-type</button>
+      <button onClick={() => mm.setMatchMode('math')}>set-mode</button>
+      <button onClick={() => mm.setMatchType('ranked')}>set-type</button>
       <button onClick={() => mm.setMatched(false)}>reset-matched</button>
       <button onClick={() => matchmakingSocket?.joinQueue({ elo: 1400, match_mode: 'programming', match_type: 'ranked' })}>join</button>
       <button onClick={() => matchmakingSocket?.leaveQueue()}>leave</button>

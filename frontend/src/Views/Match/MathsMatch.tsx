@@ -2,75 +2,60 @@ import { ChevronRight, ChevronLeft } from 'lucide-react'
 import { useEffect } from 'react';
 import { useMatch } from 'src/ViewModels/Match/MatchViewModel';
 
-import MathMatch from '@/components/features/MathPage';
-import { Question } from '@/components/features/question';
+import MathMatch from '@/components/features/Match/MathPage';
+import { Question } from '@/components/features/Questions/question';
 import Loading from '@/components/shared/Loading';
-import { MatchScreen } from '@/components/shared/Match/Match';
+import { MatchScreen } from '@/components/features/Match/Match';
 import { Button } from '@/components/ui/button';
-import Popup from '@/components/shared/PopUp';
+import PopUp from '@/components/shared/PopUp'
 
 const MathsMatch = () => {
     const {
         status,
         questions,
         results,
-        roundIdx, rounds,
-        playerLife,
-        avatars,
-        usernames,
-        elos,
-        seconds,
-        minutes,
-        opponentCurrent,
-        currentQuestion,
-        nextQuestion, prevQuestion,
+        playerLife, avatars, usernames,
+        seconds, minutes,
+        currentQuestion, nextQuestion, prevQuestion, 
+        roundIdx,rounds,
+        opponentCurrent, waitingOpponent, finishGame,
         loading,
         submitQuestion,
-        mathfieldRef, waitingOpponent,
-        finishGame
+        mathfieldRef,
+        elos
     } = useMatch();
 
+
+
     const curr = questions[currentQuestion];
-    // const correct = results[currentQuestion];
-    // const result_colour = () => {
-    //     if (correct === true) return 'bg-success/50'
-    //     else if (correct === false) return 'bg-danger/50'
-    //     else return 'bg-white'
-    // }
-
-
-    // const read_only = () => {
-    //     if (gameOver) return 'read-only'
-    //     else return ''
-    // }
 
     useEffect(() => {
         if (mathfieldRef.current) {
-          mathfieldRef.current.value = '';
+            mathfieldRef.current.value = '';
         }
     }, [currentQuestion])
 
 
-    if (status !== 'ready') {
+    if (status !== 'ready' || !curr) {
         return (
             <Loading isOpen={loading}></Loading>
         )
     }
 
     return (
-      <MatchScreen
-        player_life={playerLife}
-        seconds={seconds}
-        minutes={minutes}
-        avatars={avatars}
-        usernames={usernames}
-        elos={elos}
-        current_question={currentQuestion}
-        opponent_progress={opponentCurrent}
-        question_number={questions.length}
-        question_results={results}
-        rounds={rounds}
-        current_round={roundIdx}
+        <MatchScreen
+            player_life={playerLife}
+            seconds={seconds}
+            minutes={minutes}
+            avatars={avatars}
+            usernames={usernames}
+            elos={elos}
+            current_question={currentQuestion}
+            opponent_progress={opponentCurrent}
+            question_number={questions.length}
+            question_results={results ?? []}
+            rounds={rounds}
+            current_round={roundIdx}
         >
 
             <Question
@@ -78,14 +63,11 @@ const MathsMatch = () => {
                 difficulty={curr.difficulty!}
                 title={curr.title!}
                 description={curr.description}
-                number={currentQuestion + 1}
             />
 
             <div className='w-[100%] h-[100%] min-h-[35%] flex items-center justify-center'>
                 <MathMatch
                     mathfieldRef={mathfieldRef}
-                // onValueChange={(val) => setAnswers(prev => ({ ...prev, [currentQuestion]: val }))}
-                // className={`${result_colour()},${read_only}`}
                 ></MathMatch>
             </div>
             <div className='w-[100%] h-[6rem]  flex flex-shrink-0 items-center justify-evenly rounded-4xl'>
@@ -97,10 +79,10 @@ const MathsMatch = () => {
                 <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem] hover:-translate-y-1'
                     onClick={() => {
                         const answer = mathfieldRef.current?.value ?? '';
-                      if (answer.trim()) submitQuestion({ answer });
-                    }}
+                        if (answer.trim()) submitQuestion({ answer })
+              }}
                 >
-                    SUBMIT
+                    Submit Answer
                 </Button>
                 {currentQuestion === (questions.length - 1) &&
                     <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem] hover:-translate-y-1'
@@ -108,14 +90,13 @@ const MathsMatch = () => {
                             finishGame();
                         }}
                     >
-                        <p>FINISH</p>
+                        <p>Finish</p>
                     </Button>
                 }
             </div>
 
             {waitingOpponent && (
-                <Popup
-
+                <PopUp
                     isOpen={waitingOpponent}
                     title={'Waiting For Opponent To Finish'}
                     subtitle={'Hang on while your opponent finishes up'}
@@ -123,7 +104,7 @@ const MathsMatch = () => {
             )
 
             }
-        </MatchScreen>
+        </MatchScreen >
     )
 
 }

@@ -1,10 +1,9 @@
 import React from 'react'
-import { TimerBox } from '@/components/ui/TimerBox'
+import { TimerCard } from '@/components/features/Match/MatchBox'
 import { Progress } from '@/components/ui/progress'
-import { Timer } from "lucide-react"
-import { MatchCard } from '@/components/ui/MatchCard'
-import TournamentButton from '@/components/ui/TournamentButton'
-import { TournamentsBadge } from '@/components/ui/TournamentsBadge'
+import { MatchCard } from '@/components/features/Match/MatchCard'
+import TournamentButton from '@/components/features/Tournaments/TournamentButton'
+import { TournamentsBadge } from '@/components/features/Tournaments/TournamentsBadge'
 import { RoundTree } from './RoundTree'
 import type { QuestionDTO } from 'src/dtos/match/match.dto'
 
@@ -32,9 +31,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
     usernames,
     elos,
     children,
-    // question_number,
     current_question,
-    // opponent_progress,
     question_results,
     rounds,
     current_round
@@ -80,16 +77,12 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                     </div>
 
                     {/* Clock */}
-                    <TimerBox className='shrink-0 text-white font-dseg border border-[var(--match-card)] 
-                h-6 w-38 flex items-center justify-center text-[70%] text-center font-semibold rounded-sm px-2 my-auto -mt-4.5'>
-                        <div className="flex flex-row whitespace-wrap">
-                            <Timer size={20} className="mr-3 my-auto text-muted-text" />
-                            <span>
-                                {String(minutes).padStart(2, "0")}:
-                                {String(seconds).padStart(2, "0")}
-                            </span>
-                        </div>
-                    </TimerBox>
+                    <TimerCard className="mr-2.5">
+                        <span>
+                            {String(minutes).padStart(2, "0")}:
+                            {String(seconds).padStart(2, "0")}
+                        </span>
+                    </TimerCard>
 
                     {/* Player 2 Progress */}
 
@@ -137,7 +130,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                         {children}
                     </div>
 
-                    
+
                 </div>
 
                 {/* Progress bar */}
@@ -146,10 +139,10 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                     <div className='my-auto ml-[40%] w-[100%] flex'>
                         <MatchCard className='relative rounded-[20px] flex flex-col-reverse items-center justify-between h-auto w-[5rem] gap-2 p-3'>
                             <RoundTree
-                            rounds={rounds}
-                            results={question_results}
-                            current_question={current_question}
-                            current_round={current_round}
+                                rounds={rounds}
+                                results={question_results}
+                                current_question={current_question}
+                                current_round={current_round}
                             />
 
                         </MatchCard>

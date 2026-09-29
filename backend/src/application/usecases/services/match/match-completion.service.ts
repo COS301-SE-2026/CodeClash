@@ -3,6 +3,8 @@ import { MatchCompletionSystem } from "../../systems/match-completion.system";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 import { AchievementService } from "../achievement.service";
 import { MatchType, MatchStatus } from "src/entities/dtos/matches/match.dto";
+import { RewardService } from "./reward.service";
+import { IWalletRepository } from "src/application/interfaces/repositories/IWalletRepository";
 
 const SKILL_PROGRESS_DAYS = 30;
 const SKILL_PROGRESS_WINDOW = 20;
@@ -15,7 +17,9 @@ export class MatchCompletionService {
         private readonly match_repo: IMatchRepository,
         private readonly completion_system: MatchCompletionSystem,
         private readonly user_repo: IUserRepository,
-        private readonly achievement_service: AchievementService
+        private readonly achievement_service: AchievementService,
+        private readonly reward_service: RewardService,
+        private readonly wallet_repo: IWalletRepository
     ) { }
 
 
@@ -43,6 +47,12 @@ export class MatchCompletionService {
                 }
                 break;
             }
+        }
+
+        for (const player of players) {
+            const stat = match_stats.get(player.id)!;
+            const reward = this.reward_service.calculateReward(match_type, player.position, players.length, stat);
+            await this.wallet_repo.updateBalance(player.id, reward);
         }
 
         this.achievement_service.evaluateForMatch(match_stats, players, match_type, total_questions);

@@ -8,7 +8,7 @@ import { useSkillProgressViewModel } from "./SkillProgressViewModel";
 
 export function useDashboardViewModel() {
     const [isOpen, setIsOpen] = useState(false);
-    const { setGameType } = useMatchmaking();
+    const { setMatchType } = useMatchmaking();
     const { username, elo, avatar, league, current_streak, winning_streak, refresh } = useUser()
   const { isLoading, token } = useAuth(); 
   const skill = useSkillProgressViewModel();
@@ -47,12 +47,12 @@ export function useDashboardViewModel() {
     }, []);
 
     const openPopUp = (type: MatchType) => {
-        setGameType(type)
+        setMatchType(type)
         setIsOpen(true);
     }
     const closePopUp = () => {
         setIsOpen(false);
-        setGameType(null)
+        setMatchType(null)
   }
 
   const skillItems = [
