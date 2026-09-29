@@ -43,8 +43,17 @@ export interface QuestionDTO {
     description?: string,
     time_limit?: string,
     input_type: typeof QuestionInputType
-    answer_format?: typeof AnswerFormat
+    answer_format?: typeof AnswerFormat,
+    templates?: TemplateDTO[]
 }
+
+
+export interface TemplateDTO {
+    language: string,
+    judge0_language_id: number,
+    starter_code: string
+}
+
 
 export interface MatchDTO {
     match_id: string

@@ -7,7 +7,7 @@ import { useLoadRounds, useMatchProgress, useMatchTimer, useOpponentProgress } f
 
 import { useMatchStore } from 'src/stores/match-store';
 import { useMatchmaking } from 'src/context/Matchmaking/hooks/useMatchmaking';
-import { useSubmission } from 'src/services/submission.service';
+import { useAnswerResponse, useLifeShake, useSubmission } from 'src/services/submission.service';
 import type { Player } from 'src/Models/MatchModel';
 
 export const useMatch = () => {
@@ -33,11 +33,11 @@ export const useMatch = () => {
 
     const { rounds, duration } = useLoadRounds(stored_rounds);
     const questions = rounds[roundIdx] ?? [];
-    const { playerLife } = useMatchProgress(players);
-    const { opponentProgress, handleOpponentDone, opponentCurrent, opponentDone } = useOpponentProgress(questions.length, players);
+    const { playerLife, updatePlayerLife } = useMatchProgress(players);
+    const { opponentProgress, handleOpponentDone, opponentCurrent, opponentDone } = useOpponentProgress(questions.length, players, updatePlayerLife);
 
 
-    const { submissionError, submitQuestion, results } = useSubmission({ round_idx: roundIdx, curr_question: currentQuestion, question: questions[currentQuestion], match_id: match_id! })
+    const { submissionError, submitQuestion, results, lastResult } = useSubmission({ round_idx: roundIdx, curr_question: currentQuestion, question: questions[currentQuestion], match_id: match_id!, updatePlayerLife })
     const { seconds, minutes } = useMatchTimer(duration, () => {
         setGameOver(true);
         matchSocket?.finishMatch({ match_id: match_id!, match_mode: matchMode! })
@@ -47,8 +47,8 @@ export const useMatch = () => {
     const avatars = useMemo(() => players.map(p => robot_map[p.avatar_id]), [players]);
     const usernames = useMemo(() => players.map(p => p.username), [players]);
     const elos = useMemo(() => players.map(p => p.elo), [players]);
-
-
+    const colourClass = useAnswerResponse(lastResult, currentQuestion);
+    const shake = useLifeShake(lastResult);
 
     const closeLoading = () => setLoading(false);
 
@@ -88,8 +88,7 @@ export const useMatch = () => {
 
     useEffect(() => {
 
-
-        if (matchSocket && match_id && status === 'idle') {
+        if (matchSocket && match_id) {
             setLoading(true);
 
 
@@ -137,6 +136,8 @@ export const useMatch = () => {
         roundIdx,
         total_rounds: rounds.length,
         rounds,
-        elos
+        elos,
+        colourClass,
+        shake
     }
 }
