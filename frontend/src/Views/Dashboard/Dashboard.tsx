@@ -1,7 +1,7 @@
 import { ChevronRight, Swords, Users2, Flame, Sparkles, Trophy } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useEffect } from "react";
-import { UseUserAvatar } from '../Profile';
+import { UserAvatar };
 import { useDashboardViewModel } from '../../ViewModels/DashboardViewModel';
 
 import Popup from 'src/Views/Match/Popup'
