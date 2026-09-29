@@ -28,5 +28,22 @@ export class FriendsSocket {
     playInviteResponded(handler: (data: PlayInviteResponseDTO) => void) {
         return on<PlayInviteResponseDTO>(this.socket, 'play_invite_responded', handler);
     }
+
     /**************************** EMITTERS **********************/
+
+    sendFriendRequest(data: {receiver_id: string; from_username: string }) {
+        return emit<typeof data, void>(this.socket, 'friend_request_sent', data);
+    }
+
+    respondFriendRequest(data: {requester_id: string; status: 'accepted' | 'declined' }) {
+        return emit<typeof data, void>(this.socket, 'friend_request_respond', data);
+    }
+
+    sendPlayInvite(data: SendPlayInviteDTO) {
+        return emit<SendPlayInviteDTO, void>(this.socket, 'play_invite_sent', data);
+    }
+
+    respondPlayInvite(data: PlayInviteResponseDTO) {
+        return emit<PlayInviteResponseDTO, void>(this.socket, 'play_invite_respond', data);
+    }
 }
