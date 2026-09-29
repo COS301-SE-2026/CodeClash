@@ -148,8 +148,8 @@ async function handle<T>(res: Response): Promise<T> {
     return res.json();
 }
 
-export const getCatalog = async () : Promise<ShopItem[]> => {
-    const res = await fetch(CATALOG_URL);
+export const getCatalog = async (token: string) : Promise<ShopItem[]> => {
+    const res = await fetch(CATALOG_URL, {headers: authHeaders(token) });
     const raw = await handle<RawShopItem[]>(res);
     return raw.map(mapItem);
 };
