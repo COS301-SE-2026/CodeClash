@@ -1,4 +1,4 @@
-import { ChevronRight, ChevronLeft } from 'lucide-react'
+import { ChevronRight, ChevronLeft, ChevronUp, ChevronDown } from 'lucide-react'
 import { useEffect } from 'react';
 import { useMatch } from 'src/ViewModels/MatchViewModel';
 
@@ -105,14 +105,17 @@ const MathsMatch = () => {
                     </TournamentButton>
                 }
 
-                <div className="flex gap-5 absolute right-8 -top-2">
+                <div className="flex gap-5 absolute right-8 -top-3.5 bg-background-elevated border border-border rounded-2xl py-2 px-2 ">
 
-                    <div className="card-elevated size-12 rounded-full">
-
+                    <div className="card-elevated h-11 w-30 rounded-full my-auto">
+                        <div className="flex flex-row">
+                            <ChevronUp size={30} className="text-secondary/30 mt-1 ml-1"/>
+                            <h1 className="text-[1rem] text-secondary/30 font-semibold my-auto mt-2">Powerups</h1>
+                        </div>
                     </div>
 
-                    <div className="card-elevated size-12 rounded-full">
-
+                    <div className="card-elevated h-11 w-30 rounded-full">
+                        <ChevronDown size={35} className="text-secondary/30 mx-auto my-auto mt-2"/>
                     </div>
 
                 </div>
