@@ -32,6 +32,11 @@ export class TournamentSocket {
         return on(this.socket, 'tournament_started', handler);
     }
 
+
+    tournamentRemoved(handler: (data: {tournament_id: string})=>void){
+        return on<{tournament_id: string}>(this.socket, 'tournament_removed', handler);
+    }
+
     // Error events
     joinFailed(handler: (data: Error) => void) {
         return on<Error>(this.socket, 'join_tournament_failed', handler);

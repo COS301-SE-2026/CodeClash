@@ -57,6 +57,7 @@ export const useTournament = () => {
     }
 
     const joinTournamnet = async (tournament_id: string) => {
+        console.log("joining tournament")
         const player: PlayerDTO = {
             id: userId,
             elo: elo,
@@ -88,10 +89,15 @@ export const useTournament = () => {
 
     const handleJoined = (data: { player: PlayerDTO, tournament_id: string }) => {
         setTournaments((prev) =>
-            prev.map((t) => t.tournament_id === data.tournament_id ? { ...t, players: [...t.players, data.player] } : t)
+            prev.map((t) => t.tournament_id === data.tournament_id && !t.players.some(p => p.id === data.player.id)
+                ? { ...t, players: [...t.players, data.player] } : t)
         )
     }
 
+
+    const handleRemoved = (data: { tournament_id: string }) => {
+        setTournaments((prev) => prev.filter((t) => t.tournament_id !== data.tournament_id));
+    }
     const handleLeave = (data: { player: PlayerDTO, tournament_id: string }) => {
         setTournaments((prev) =>
             prev.map((t) => t.tournament_id === data.tournament_id ? { ...t, players: t.players.filter(p => p.id !== data.player.id) } : t)
@@ -129,12 +135,15 @@ export const useTournament = () => {
         const unsub_left = tournamentSocket.playerLeft(handleLeave);
         const unsub_join_failed = tournamentSocket.joinFailed((data) => { console.log(data) });
         const unsub_leave_failed = tournamentSocket.leaveFailed((data) => { console.log(data) });
+        const unsub_removed = tournamentSocket.tournamentRemoved(handleRemoved);
+
         return () => {
             unsub_created();
             unsub_joined();
             unsub_left();
             unsub_join_failed();
             unsub_leave_failed();
+            unsub_removed();
         }
     }, [token, tournamentSocket]);
 

@@ -27,10 +27,14 @@ export const useTournamentLobby = () => {
         getTournament(tournamentSocket, tournament_id);
 
         const unsub_joined = tournamentSocket.playerJoined((data) => {
+            if (data.tournament_id !== tournament_id) return;
+
             setPlayers((prev) => [...prev, data.player]);
         });
 
         const unsub_left = tournamentSocket.playerLeft((data) => {
+            if (data.tournament_id !== tournament_id) return;
+
             setPlayers((prev) => prev.filter((p) => p.id !== data.player.id));
         });
 
