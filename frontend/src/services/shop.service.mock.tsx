@@ -14,7 +14,8 @@ const MOCKED_AVATARS: AvatarShopItem[] = [
         price: {amount: 0},
         rarity: 'common',
         isDefault: true,
-        previewImageUrl: resolve('Vexa')
+        previewImageUrl: resolve('Vexa'),
+        asset_key: 'Vexa.png'
     },
     {
         id: 'zen',
@@ -24,7 +25,8 @@ const MOCKED_AVATARS: AvatarShopItem[] = [
         price: {amount: 300},
         rarity: 'common',
         isDefault: false,
-        previewImageUrl: resolve('Zen')
+        previewImageUrl: resolve('Zen'),
+        asset_key:  'Zen.png'
     },
     {
         id: 'axiom',
@@ -34,7 +36,8 @@ const MOCKED_AVATARS: AvatarShopItem[] = [
         price: {amount: 300},
         rarity: 'rare',
         isDefault: false,
-        previewImageUrl: resolve('Axiom')
+        previewImageUrl: resolve('Axiom'),
+        asset_key: 'Axiom.png'
     },
     {
         id: 'kairo',
@@ -44,7 +47,8 @@ const MOCKED_AVATARS: AvatarShopItem[] = [
         price: {amount: 350},
         rarity: 'common',
         isDefault: false,
-        previewImageUrl: resolve('Kairo')
+        previewImageUrl: resolve('Kairo'),
+        asset_key: 'Kairo.png'
     },
     {
         id: 'brix',
@@ -54,7 +58,8 @@ const MOCKED_AVATARS: AvatarShopItem[] = [
         price: {amount: 350},
         rarity: 'epic',
         isDefault: false,
-        previewImageUrl: resolve('Brix')
+        previewImageUrl: resolve('Brix'),
+        asset_key: "Brix.png"
     },
 ]
 

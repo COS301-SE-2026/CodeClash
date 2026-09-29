@@ -18,7 +18,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const username = user?.username ?? '';
 
     const {equippedAvatarKey} = useInventory();
-    const avatar = equippedAvatarKey ?? 'Vexa.png';
+    const avatar = equippedAvatarKey ?? '';
 
     const getElo = async () => {
 
