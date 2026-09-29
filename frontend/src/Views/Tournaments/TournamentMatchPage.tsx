@@ -2,25 +2,39 @@ import { MatchCard } from "@/components/features/Match/MatchCard";
 import TournamentButton from "@/components/features/Tournaments/TournamentButton";
 import { Trophy, Lock, ChevronsRight, Signal, Zap } from "lucide-react"
 import { Question } from "@/components/features/Questions/question";
-import { MatchBox, TimerCard } from "@/components/features/Match/MatchBox";
-import { MultipleChoice } from "@/components/features/Questions/MultipleChoice";
+import {TimerCard } from "@/components/features/Match/MatchBox";
 import { LiveTournamentPlayer } from "@/components/features/Tournaments/LiveTournamentPlayer";
 import { useTournamentMatch } from "src/ViewModels/Tournaments/TournamentMatchViewModel";
 import { Button } from "@/components/ui/button";
+import MathMatch from "@/components/features/Match/MathPage";
+import { CodeEditor } from "@/components/features/code-editor";
+import { useEffect, useMemo} from "react";
 
 const TournamentsMatchPage = () => {
-
     const { total_rounds,
         roundIdx, activePlayers,
         seconds, minutes,
         questions, currentQuestion,
         players, userId,
-        round_telemetry
+        round_telemetry,
+        mathfieldRef,
+        colourClass,
+        setCode,
+        setLanguage,
+        setLanguageId,
+        handleSubmit,match_mode
     } = useTournamentMatch();
 
+    console.log(match_mode)
+
     const curr = questions[currentQuestion];
+    const question = useMemo(() => ({ templates: curr?.templates }), [curr]);
     const telemetry = round_telemetry();
     const my_rank = (telemetry && telemetry.my_rank! > 0) ? telemetry.my_rank : "-";
+
+    useEffect(() => {
+        if (mathfieldRef.current) mathfieldRef.current.value = '';
+    }, [currentQuestion]);
 
     return (
         <div className="m-6 ml-4 min-h-screen">
@@ -49,7 +63,6 @@ const TournamentsMatchPage = () => {
             <div className="flex flex-col lg:flex-row items-start gap-4">
                 <MatchCard className="flex-1 w-full lg:w-2/3 p-5 rounded-2xl ml-4">
                     <div className="flex flex-col">
-
                         <Question
                             className={`mb-5 mt-5`}
                             difficulty={curr?.difficulty ?? " "}
@@ -57,15 +70,27 @@ const TournamentsMatchPage = () => {
                             description={curr?.description ?? " "}
                         />
 
-                        <MatchBox className="w-full min-h-40 h-50 rounded-lg bg-match-box mb-5"></MatchBox>
+                        <MatchCard className="items-center mt-5">
+                            {match_mode === "math" && (
+                                <MathMatch
+                                    mathfieldRef={mathfieldRef}
+                                    colourClass={colourClass}
+                                >
+                                </MathMatch>
+                            )}
 
+                            {match_mode === 'programming' && (
+                                <CodeEditor
+                                    question={question}
+                                    onChange={(new_code, new_language, judge0_id) => {
+                                        setCode(new_code);
+                                        setLanguage(new_language);
+                                        setLanguageId(judge0_id)
+                                    }}
 
-                        <div className="flex flex-col gap-3 mb-4">
-                            <MultipleChoice letter="A" option="answer" selected={false} />
-                            <MultipleChoice letter="B" option="answer" selected={true} />
-                            <MultipleChoice letter="C" option="answer" selected={false} />
-                            <MultipleChoice letter="D" option="answer" selected={false} />
-                        </div>
+                                />
+                            )}
+                        </MatchCard>
 
                         <hr className="border-muted-text/40"></hr>
 
@@ -76,16 +101,16 @@ const TournamentsMatchPage = () => {
                             </div>
 
                             <div className="flex flex-row items-center gap-3">
-                                <button className="bg-[#0b0509] text-muted-text px-4 py-2 rounded-lg border border-[var(--match-card)]">RESET</button>
-                                <Button
+                                {<Button
                                     className="px-4 py-2 rounded-lg"
                                     variant={"default"}
+                                    onClick={handleSubmit}
                                 >
                                     <div className="flex flex-row items-center gap-2">
                                         <h1>Submit Answer</h1>
                                         <ChevronsRight size={30} />
                                     </div>
-                                </Button>
+                                </Button>}
                             </div>
 
                         </div>

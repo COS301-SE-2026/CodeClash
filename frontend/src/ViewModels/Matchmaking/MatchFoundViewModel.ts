@@ -30,18 +30,18 @@ export function useMatchFound() {
   const closeLoading = () => setLoading(false);
   const openLoading = () => setLoading(true);
 
-  const decline = () => {
+  const decline = async () => {
     if (matchmakingSocket) {
       const data = {
         group_id,
         match_mode: matchMode!
       };
 
-      matchmakingSocket.declineMatch(data);
+      await matchmakingSocket.declineMatch(data);
       setLoading(true);
       reset();
       useMatchStore.getState().reset();
-      nav('/match-searching')
+      await nav('/match-searching')
     }
     else {
       setSocketError('Disconnected');
@@ -49,12 +49,12 @@ export function useMatchFound() {
   }
 
 
-  const gameDeclined = () => {
+  const gameDeclined = async () => {
     setLoading(false);
     setMatchDeclined(true);
     reset();
     useMatchStore.getState().reset();
-    nav('/match-searching');
+    await nav('/match-searching');
   }
 
   const accept = () => {
@@ -117,9 +117,9 @@ export function useMatchFound() {
 
     if (matchmakingSocket && matchSocket) {
 
-      const unsub_start = matchStart(matchSocket,path, nav);
+      const unsub_start = matchStart(matchSocket, path, nav, matchMode!);
       const unsub_match_declined = matchmakingSocket.gameDeclined(gameDeclined);
-      const unsub_start_failed = matchSocket.startMatchError(()=>{console.error("Error starting match")})
+      const unsub_start_failed = matchSocket.startMatchError(() => { console.error("Error starting match") })
 
       return () => {
         unsub_start();

@@ -13,7 +13,8 @@ export const useTournament = () => {
     const [tournaments, setTournaments] = useState<TournamentDTO[]>([]);
     const { tournamentSocket } = useSocket();
     const { userId, elo, username, league } = useUser();
-   
+    const [matchMode, setMatchMode] = useState<MatchMode>();
+
     let player: PlayerDTO = {
         id: userId,
         elo: elo,
@@ -47,6 +48,7 @@ export const useTournament = () => {
         }
 
         if (hosted.ok && hosted.data !== undefined) {
+            setMatchMode(data.match_mode);
             player = hosted.data.host;
             setTournaments((prev) => [...prev, hosted.data!]);
         }
@@ -136,14 +138,15 @@ export const useTournament = () => {
         }
     }, [token, tournamentSocket]);
 
-    return { 
-        lobby, 
-        tournaments, 
-        getTournaments, 
-        createTournament, 
-        joinTournamnet, 
-        leaveTournament, 
+    return {
+        lobby,
+        tournaments,
+        getTournaments,
+        createTournament,
+        joinTournamnet,
+        leaveTournament,
         player,
-        starts_in
+        starts_in,
+        matchMode
     };
 }

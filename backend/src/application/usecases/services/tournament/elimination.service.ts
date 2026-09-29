@@ -42,6 +42,8 @@ export class TournamentEliminationService {
             round_questions: new Set(),
             progress: new Map()
         }
+
+        console.log("initializing tournament");
         this.state.set(tournament_id, init_state);
 
         return init_state.players
@@ -64,10 +66,12 @@ export class TournamentEliminationService {
     }
 
     async submit(tournament_id: string, submission: PlayerSubmissionDTO) {
+        console.log("submission", submission);
+        
         const tournament = this.getTournament(tournament_id);
         const player = tournament.players.get(submission.player_id);
 
-        if (!player || player.elimination_round !== -1)
+        if (player?.elimination_round !== -1)
             throw new Error("Invalid player");
 
         if (!tournament.round_questions.has(submission.question_id))

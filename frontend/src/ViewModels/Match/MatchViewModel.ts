@@ -15,7 +15,7 @@ export const useMatch = () => {
     const nav = useNavigate();
     const { matchSocket } = useSocket();
     const status = useMatchStore(state => state.status);
-    const { matchMode } = useMatchmaking();
+    const { matchMode, matchType } = useMatchmaking();
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [gameOver, setGameOver] = useState(false);
@@ -95,14 +95,14 @@ export const useMatch = () => {
 
         const response = await matchSocket?.finishMatch({ match_id: match_id!, match_mode: matchMode! });
 
-        if (response && response.ok)
+        if (response?.ok)
             useResultStore.getState().addResult(response.data!);
     }
 
-    const both_done = () => {
+    const both_done = async () => {
         // useMatchStore.getState().reset();
         setWaitingOpponent(false);
-        nav(`/results/${match_id}`, {
+        await nav(`/results/${match_id}`, {
             replace: true,
         });
     }
@@ -164,6 +164,8 @@ export const useMatch = () => {
         confirmRound,
         confirmCompleteRound,
         cancelCompleteRound,
-        completeRound
+        completeRound,
+        matchType,
+        matchMode
     }
 }

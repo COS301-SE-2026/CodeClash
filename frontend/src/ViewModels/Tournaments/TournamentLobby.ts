@@ -41,7 +41,7 @@ export const useTournamentLobby = () => {
 
         const unsub_started = tournamentSocket.tournamentStart(async (data) => {
             console.log("tournament started");
-            useMatchStore.getState().setMatchData(data.match);
+            useMatchStore.getState().setMatchData(data.match, data.tournament.tournament_mode);
             await nav(`/tournaments-match/${tournament_id}`);
         })
 
@@ -60,6 +60,7 @@ export const useTournamentLobby = () => {
                 if (t.ok) {
                     setTournament(t.data!);
                     setPlayers(t.data?.players ?? []);
+                    useMatchStore.getState().setMatchMode(t.data!.tournament_mode);
                 }
                 else setError('Error loading tournament');
             });
@@ -69,7 +70,7 @@ export const useTournamentLobby = () => {
         if (tournament)
             await tournamentSocket?.leaveTournament({ tournament_id: tournament.tournament_id, player: player });
 
-       await  nav('/tournaments');
+        await nav('/tournaments');
     }
 
     const cancel = async () => {
@@ -89,14 +90,15 @@ export const useTournamentLobby = () => {
             }
             const res = await tournamentSocket?.startTournament(data);
 
-            console.log("starting tournament",res);
+            console.log("starting tournament", res);
             if (res?.ok && res.data) {
                 useMatchStore.getState().setMatchData({
                     match_id: res.data.match.match_id,
                     rounds: res.data.match.rounds,
-                    players: res.data.match.players
-
-                });
+                    players: res.data.match.players,
+                },
+                    tournament.tournament_mode
+                );
 
                 await nav(`/tournaments-match/${res.data.tournament.tournament_id}`);
             }

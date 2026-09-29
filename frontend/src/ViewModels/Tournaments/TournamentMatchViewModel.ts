@@ -6,17 +6,29 @@ import type { PlayerStandingDTO } from "src/dtos/tournaments/tournament.dto";
 import { useMatchStore } from "src/stores/match-store";
 
 export const useTournamentMatch = () => {
-    // const { tournament_id } = useParams<{ tournament_id: string }>();
-
-    const { seconds, minutes, rounds,
-        submitQuestion, finishMatch,
-        nextQuestion, prevQuestion, questions,
-        roundIdx, total_rounds,
-        currentQuestion } = useMatch();
+    const {
+        seconds,
+        minutes,
+        rounds,
+        submitQuestion,
+        finishMatch,
+        nextQuestion,
+        prevQuestion,
+        questions,
+        roundIdx,
+        total_rounds,
+        currentQuestion,
+        mathfieldRef,
+        colourClass
+    } = useMatch();
     const players = useMatchStore(state => state.players) as PlayerStandingDTO[];
+    const match_mode = useMatchStore(state => state.match_mode);
     const { userId } = useUser();
     const [activePlayers, setActivePlayers] = useState<PlayerStandingDTO[]>([]);
 
+    const [code, setCode] = useState('');
+    const [, setLanguage] = useState('');
+    const [languageId, setLanguageId] = useState<number | null>(null);
     useEffect(() => {
         setActivePlayers(players as PlayerStandingDTO[]);
     }, [])
@@ -50,6 +62,23 @@ export const useTournamentMatch = () => {
         }
     }
 
+    const handleSubmit = async () => {
+        console.log("handle submit ", match_mode);
+        if (match_mode === 'math') {
+            const answer = mathfieldRef.current?.value ?? '';
+
+            if (!answer.trim()) return;
+            await submitQuestion({ answer },'tournament','math');
+        } else {
+            if (!code.trim() || languageId === null) return;
+            await submitQuestion({
+                source_code: code,
+                language_id: languageId,
+                stdin: null
+            },'tournament','programming')
+        }
+    }
+
 
     return {
         players,
@@ -66,7 +95,14 @@ export const useTournamentMatch = () => {
         activePlayers,
         currentQuestion,
         userId,
-        round_telemetry
+        round_telemetry,
+        mathfieldRef,
+        colourClass,
+        setCode,
+        setLanguage,
+        setLanguageId,
+        handleSubmit,
+        match_mode
     }
 
 }

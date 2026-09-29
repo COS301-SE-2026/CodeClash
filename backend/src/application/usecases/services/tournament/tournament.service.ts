@@ -17,7 +17,9 @@ export class TournamentService {
 
     async joinTournament(tournament_id: string, player: PlayerDTO): Promise<TournamentDTO> {
         try {
-            await this.tournament_cache.addPlayer(tournament_id, player);
+
+            const db_player = await this.user_repo.getUserId(player.id);
+            await this.tournament_cache.addPlayer(tournament_id, { ...player, id: db_player?.user_id! });
             const tournament = await this.tournament_cache.getTournament(tournament_id);
 
             if (!tournament) throw new Error("Tournament not found");
@@ -37,7 +39,8 @@ export class TournamentService {
 
             if (tournament?.status != MatchStatus.Waiting) throw new Error("Cannot leave tournament");
 
-            await this.tournament_cache.removePlayer(tournament_id, player.id);
+            const db_player = await this.user_repo.getUserId(player.id);
+            await this.tournament_cache.removePlayer(tournament_id, db_player?.user_id!);
         }
         catch (error) {
             console.error("Tournament Service Join error: ", error);
@@ -45,9 +48,12 @@ export class TournamentService {
         }
     }
 
-    async hostTournament( match_mode: MatchMode, host: PlayerDTO, title: string, min_players: number) {
+    async hostTournament(match_mode: MatchMode, host: PlayerDTO, title: string, min_players: number) {
         const tournament_id = randomUUID();
-        await this.tournament_cache.createTournament(tournament_id,match_mode, host, title, min_players);
+
+        const db_host = await this.user_repo.getUserId(host.id);
+
+        await this.tournament_cache.createTournament(tournament_id, match_mode, { ...host, id: db_host!.user_id! }, title, min_players);
         const tournament = await this.tournament_cache.getTournament(tournament_id);
 
         return tournament;
@@ -86,17 +92,16 @@ export class TournamentService {
         tournament.rounds = match.rounds;
         tournament.status = MatchStatus.In_progress;
 
-        const players = tournament.players.map(p => ({ id: p.id, username: p.username! }));
+        const players = db_players.map(p => ({ id: p.id, username: p.username! }));
 
         /// updates stored tournament state
-        console.log("initialising elimination service");
-        const init_players_map = this.elimination_service.init(tournament.tournament_id, players);
+        const init_players_map = this.elimination_service.init(match.match_id, players);
         const round_1 = match.rounds[0];
 
         console.log("starting round")
-        this.elimination_service.startRound(tournament.tournament_id, round_1!.round_number, round_1!.questions.map(q => q.id));
+        this.elimination_service.startRound(match.match_id, round_1!.round_number, round_1!.questions.map(q => q.id));
 
-        console.log("returning");
+        console.log("returning players ", players);
         return {
             ...match,
             players: Array.from(init_players_map.values())
