@@ -1,7 +1,7 @@
 import {ChevronRight, Swords, Users2, Flame, Sparkles, Trophy} from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useEffect } from "react";
-import { UseUserAvatar } from './Profile';
+//import { UseUserAvatar } from './Profile';
 import { useDashboardViewModel } from '../ViewModels/DashboardViewModel';
 import { useSkillProgressViewModel } from '../ViewModels/SkillProgressViewModel';
 
@@ -62,7 +62,7 @@ const SkillProgressCard = ({
 )
 
 const Dashboard = () => {
-  const { isOpen, openPopUp, closePopUp, username, elo, league, isLoading, current_streak, winning_streak, recentAchievement ,refresh } = useDashboardViewModel();
+  const { isOpen, openPopUp, closePopUp, elo, isLoading, current_streak, winning_streak, recentAchievement ,refresh } = useDashboardViewModel();
   const { components, mastery, masteryCeiling, isSimulated } = useSkillProgressViewModel();
   const skillMetrics: SkillMetric[] = components.slice(0, 4).map(component => ({
     label: `${component.domain === 'math' ? 'Math' : 'Code'} ${component.label}`,
@@ -90,13 +90,13 @@ const Dashboard = () => {
           <div className='grid grid-cols-1 lg:grid-cols-[1.1fr_1fr_1.2fr] gap-6 max-w-[1400px] mx-auto items-start'>
             {/*Profile + Play */}
             <div className='flex flex-col gap-6'>
-              <div className='card-elevated flex items-center gap-4 p-8'>
+              {/* <div className='card-elevated flex items-center gap-4 p-8'>
                   <UseUserAvatar vb1={170} vb2={186} lm={1.5} round={20}/>
                 <div>
                   <p className='text-xl font-black text-primary-text'>{username}</p>
                   <span className='text-sm text-primary-text'>{league}</span>
                 </div>
-              </div>
+              </div> */}
 
               <div className='card-elevated p-6 text-center'>
                   <h2 className='text-md font-black text-primary-text mb-1 whitespace-nowrap'>Enter the arena</h2>

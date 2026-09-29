@@ -16,7 +16,6 @@ import GameGuide from "./Views/GameGuide"
 import HelpMenu from "./Views/HelpMenu";
 import Leaderboard from "./Views/Match/Leaderboard/Leaderboard";
 import MatchSearching from "./Views/Matchmaking/MatchSearching";
-import Profile from "./Views/Profile";
 import SignIn from "./Views/Auth/SignIn";
 import SignUp from "./Views/Auth/SignUp";
 
