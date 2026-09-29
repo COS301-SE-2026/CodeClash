@@ -1,8 +1,6 @@
 import type React from 'react';
 
 import { Card } from './card';
-
-import "../../../src/styles/global.css"
 import { UserCircle } from 'lucide-react';
 
 interface LeaderboardCardProps{

@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { getUserElo } from 'src/interface-adapters/controllers/elo.controllers';
 import { createUser, getUserStat, searchUsers } from 'src/interface-adapters/controllers/user.controllers';
 
 import { LeaderboardService } from 'src/application/usecases/services/leaderboard.service';
@@ -8,51 +7,53 @@ import { CreateUser } from 'src/application/usecases/services/user-creation.serv
 import { creationRequireAuth, requireAuth } from 'src/interface-adapters/auth/auth.service';
 
 import { getUserRank } from 'src/interface-adapters/controllers/rank.controllers';
-import { IEloRepository } from 'src/application/interfaces/repositories/IEloRepository';
 import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
 import { getAllAchievements, getUserAchievements } from 'src/interface-adapters/controllers/achievement.controllers';
 import { AchievementService } from 'src/application/usecases/services/achievement.service';
 import { createInvite, getFriendRequests, getFriends, removeFriend, respondToFriendRequest, sendFriendRequest } from 'src/interface-adapters/controllers/friend.controllers';
 import { FriendService } from 'src/application/usecases/services/friend.service';
-import { getMatchDetails, getMatchHistory } from 'src/interface-adapters/controllers/match-history.controllers';
-import { MatchHistoryRepository } from 'src/interface-adapters/repositories/match-history.repository';
+import { getMatchHistory } from 'src/interface-adapters/controllers/match.controllers';
+import { MatchCompletionService } from 'src/application/usecases/services/match/match-completion.service';
+import { ShopItemService } from 'src/application/usecases/services/shop/shop-item.service';
+import { getAllItems, getEquipped, getUserItems, getUserPowerups, getWallet, purchaseItem, updateEquipped, usePowerup } from 'src/interface-adapters/controllers/shop.controllers';
+import { InventoryService } from 'src/application/usecases/services/shop/inventory.service';
+import { WalletService } from 'src/application/usecases/services/shop/wallet.service';
+import { EquipmentService } from 'src/application/usecases/services/shop/equipment.service';
+import { PowerupService } from 'src/application/usecases/services/shop/powerup.service';
+import { PurchaseService } from 'src/application/usecases/services/shop/purchase.service';
+import { IEquippedRepository } from 'src/application/interfaces/repositories/IEquippedRepository';
+import { IShopItemRepository } from 'src/application/interfaces/repositories/IShopItemRepository';
+import { TournamentService } from 'src/application/usecases/services/tournament/tournament.service';
+import { getTournamentByStatus } from 'src/interface-adapters/controllers/tournament.controllers';
 
 export const createAPIRoutes = (
-  elo_repo: IEloRepository,
   user_repo: IUserRepository,
-  match_history_repo: MatchHistoryRepository,
   leaderboard_service: LeaderboardService,
   achievement_service: AchievementService,
-  friends_service: FriendService
+  friends_service: FriendService,
+  match_completion_service: MatchCompletionService,
+  shop_item_service: ShopItemService,
+  inventory_service: InventoryService,
+  wallet_service: WalletService,
+  equipment_service: EquipmentService,
+  powerup_service: PowerupService,
+  purchase_service: PurchaseService,
+  equipped_repo: IEquippedRepository,
+  shop_item_repo: IShopItemRepository,
+  tournament_service: TournamentService
 
 ) => {
   const router = Router();
 
 
-  const create_user_service = new CreateUser(user_repo, elo_repo);
+  const create_user_service = new CreateUser(user_repo, equipped_repo, shop_item_repo);
 
   router.post('/create-user', creationRequireAuth(), createUser(create_user_service));
 
 
   router.use(requireAuth(user_repo));
 
-  // elo routes
-  /**
-   * @swagger
-   * /api/elo-get:
-   *   get:
-   *     summary: Returns the authenticated user's ELO rating
-   *     tags: [Elo]
-   *     responses:
-   *       200:
-   *         description: ELO rating returned successfully
-   *       401:
-   *         description: Unauthorized
-   *       500:
-   *         description: Internal server error
-   */
-  router.get('/elo/elo-get', getUserElo(elo_repo));
-  /**
+ /**
  * @swagger
  * /api/elo/leaderboard:
  *   get:
@@ -80,31 +81,8 @@ export const createAPIRoutes = (
  *       500:
  *         description: Internal server error
  */
-  router.get('/matches', getMatchHistory(match_history_repo));
-  /**
-   * @swagger
-   * /api/matches/{match_id}:
-   *   get:
-   *     summary: Returns the details of a specific match
-   *     tags: [Matches]
-   *     parameters:
-   *       - in: path
-   *         name: match_id
-   *         required: true
-   *         schema:
-   *           type: string
-   *           format: uuid
-   *         description: The match ID
-   *     responses:
-   *       200:
-   *         description: Match details returned successfully
-   *       404:
-   *         description: Match not found
-   *       500:
-   *         description: Internal server error
-   */
-  router.get('/matches/:match_id', getMatchDetails(match_history_repo));
-
+  router.get('/matches', getMatchHistory(match_completion_service));
+ 
   /**
    * @swagger
    * /api/friends:
@@ -300,7 +278,18 @@ export const createAPIRoutes = (
    */
   router.get('/achievements', getAllAchievements(achievement_service));
 
-  // user routes
+  // ----------------------- Shop Routes -------------------
+  
+router.get('/shop/items', getAllItems(shop_item_service));
+router.get('/shop/items/me', getUserItems(inventory_service));
+router.post('/shop/purchase', purchaseItem(purchase_service));
+router.get('/shop/wallet', getWallet(wallet_service));
+router.get('/shop/equipped', getEquipped(equipment_service));
+router.patch('/shop/equipped', updateEquipped(equipment_service));
+router.get('shop/powerups/me', getUserPowerups(inventory_service));
+router.post('/shop/powerups/use', usePowerup(powerup_service));
+
+  // --------------------- user routes
   router.get('/user/rank', getUserRank(leaderboard_service));
   /**
    * @swagger
@@ -327,7 +316,6 @@ export const createAPIRoutes = (
    *         description: Internal server error
    */
   router.get('/user/search', searchUsers(user_repo));
-  
   /**
  * @swagger
  * /api/{stat}:
@@ -356,5 +344,6 @@ export const createAPIRoutes = (
  */
   router.get('/user/:stat', getUserStat(user_repo)); // this must be last, it's a generic function that fetches any attribute directly in the users table
 
+  router.get('/tournament/:status', getTournamentByStatus(tournament_service));
   return router;
 }

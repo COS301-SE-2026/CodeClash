@@ -64,7 +64,7 @@ describe('AchievementToastProvider integration', () => {
     vi.useFakeTimers({ shouldAdvanceTime: true });
     achievementMock = vi.fn().mockResolvedValue(jsonResponse([]));
     fetchMock = vi.fn((url: string, ...rest: unknown[]) => {
-      if (url === '/api/achievements/me') return achievementMock(url, ...rest);
+      if (url === '/api/achievements/me') return new achievementMock(url, ...rest);
       return Promise.resolve(jsonResponse([]));
     });
     vi.stubGlobal('fetch', fetchMock);

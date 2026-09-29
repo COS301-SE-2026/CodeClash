@@ -1,19 +1,19 @@
 import { DataSource } from 'typeorm'
-import { Users } from '../src/entities/db-entities/user.entities'
-import { EloRatings } from '../src/entities/db-entities/elo.entities'
+import { Users } from '../src/entities/database/user.entities'
+import { EloHistory } from '../src/entities/database/elo.entities'
 import dotenv from 'dotenv'
-import { Questions } from '../src/entities/db-entities/questions.entities'
-import { Answers } from '../src/entities/db-entities/answers.entities'
-import { Matches } from '../src/entities/db-entities/match.entities'
-import { MatchLog } from '../src/entities/db-entities/match.entities'
-import { MatchProblems } from '../src/entities/db-entities/match.entities'
-import { EloHistory } from '../src/entities/db-entities/elo.entities'
-import {Submission} from '../src/entities/db-entities/submission.entities'
-import { Achievement } from '../src/entities/db-entities/achievement.entities'
-import {MatchStats} from '../src/entities/db-entities/match-stats.entities'
+import { Questions } from '../src/entities/database/questions.entities'
+import { Answers } from '../src/entities/database/answers.entities'
+import { Matches} from '../src/entities/database/match.entities'
+import { Achievement } from '../src/entities/database/achievement.entities'
+import {EquippedItems} from '../src/entities/database/equipped-items.entities';
+import {Friendship} from '../src/entities/database/friendship.entities'
+import { FriendInvite } from '../src/entities/database/friendship.entities'
+import { ShopItem } from '../src/entities/database/shop-item.entities'
+import {UserItem} from '../src/entities/database/user-item.entities';
+import {Wallet} from '../src/entities/database/wallet.entities'
 
-
-dotenv.config({path: '.env.test'})
+dotenv.config({ path: '.env.test' })
 
 const env = process.env
 
@@ -26,17 +26,20 @@ export async function createTestDataSource() {
         password: env.DB_PASSWORD!,
         database: env.DB_NAME!,
         synchronize: true,
-        entities: [ Matches,
-        MatchLog,
-        MatchProblems,
-        Answers,
-        EloRatings,
-        EloHistory,
-        Questions,
-        Submission,
-        Users,
-        Achievement,
-        MatchStats],
+        entities: [
+            Matches,
+            Answers,
+            EloHistory,
+            Questions,
+            Users,
+            Achievement,
+            EquippedItems,
+            Friendship,
+            FriendInvite,
+            ShopItem,
+            UserItem,
+            Wallet
+        ],
         dropSchema: true,
     })
 
