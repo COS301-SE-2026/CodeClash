@@ -11,7 +11,7 @@ import type {
     Friend, FriendRequest, Invite, 
     Search, Summary, Relation
 } from "../../Models/FriendsModel";
-
+import { useAchievementToast } from "../Achievement/AchievementToastContext";
 
 const API_BASE = '/api'; 
 const INVITE_EXPIRY = 10 * 60 * 1000; 
@@ -20,7 +20,6 @@ interface FriendsContext {
     isLoading: boolean;
     profile: Summary | null;
     error: string | null;
-    notice: string | null;
     friend: Friend[];
     removeFriend: (id: string) => void;
 
@@ -63,8 +62,8 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
     const [now, setNow] = useState(() => Date.now());
     const [allUsers, setAllUsers] = useState<Search[]>([]);
     const [error, setError] = useState<string | null>(null);
-    const [notice, setNotice] =useState<string | null>(null);
     const [matchReady, setMatchReady] = useState(false);
+    const { showFriendNotice } = useAchievementToast();
 
     const friendsRef = useRef(friend); //this is so closures dont capture a stale list
     friendsRef.current = friend;
@@ -79,11 +78,6 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
     activeInviteRef.current = activeInvite;
 
     const activeInviteIdRef = useRef<string | null>(null); //tracks the current id for Invites, so we can differentiate same invite to new invite without resetting local countdown
-
-    const showNotice = useCallback((message: string) => {
-        setNotice(message);
-        setTimeout(() => setNotice((prev) => prev === message ? null : prev), 4000);
-    }, []);
 
         const fetchAll = useCallback(async () => {
             if(!token) return;
@@ -380,15 +374,16 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
         if(!friendsSocket) return;
 
         const unsub_request_received = friendsSocket.friendRequestReceived((data) => {
-            showNotice(`${data.from_username} sent you a friend request`);
+            showFriendNotice(`${data.from_username} sent you a friend request`, 'Friend Request');
             void fetchAll();
         });
 
         const unsub_request_responded = friendsSocket.friendRequestResponded((data) => {
-            showNotice(
+            showFriendNotice(
                 data.status === 'accepted'
                 ? `${data.from_username} accepted your friend request`
-                : `${data.from_username} declined your friend request`
+                : `${data.from_username} declined your friend request`,
+                'Friends'
             );
             setSentRequest((prev) => {
                 const next = new Set(prev);
@@ -404,10 +399,10 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
 
         const unsub_invite_responded = friendsSocket.playInviteResponded((data) => {
             if(data.accepted) {
-                showNotice('Your friend accepted. Starting match');
+                showFriendNotice('Your friend accepted. Starting match', 'Play Invite');
                 setMatchReady(true);
             }else {
-                showNotice('Your friend declined the invite');
+                showFriendNotice('Your friend declined the invite', 'Play invite');
             }
         });
 
@@ -417,13 +412,12 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
             unsub_invite_received();
             unsub_invite_responded();
         };
-    }, [friendsSocket, fetchAll, showNotice]);
+    }, [friendsSocket, fetchAll, showFriendNotice]);
 
     const value: FriendsContext = {
         isLoading,
         profile,
         error,
-        notice,
         friend,
         removeFriend,
 
