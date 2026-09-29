@@ -1,4 +1,4 @@
-import { Ban, Bug, Clock, Eraser, Heart, HeartCrack, IterationCcw, Lightbulb, ShieldAlert, Sparkles, X, Zap } from "lucide-react";
+import { Ban, Bug, Clock, Eraser, Heart, HeartCrack, Lightbulb, ShieldAlert, Sparkles, X, Zap } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useInventory } from "src/context/Shop/InventoryContext";
 import type { PowerupShopItem, PowerupEffectType } from "src/Models/ShopModel";
