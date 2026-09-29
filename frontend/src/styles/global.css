@@ -198,6 +198,56 @@
   }
 }
 
+@keyframes power-badge-hit{
+  0% {
+    opacity: 0;
+    transform: scale(1.65);
+  }
+  15% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  25%, 45% {
+    transform: translateX(-6px);
+  }
+  35%, 55% {
+    transform: translateX(6px);
+  }
+  65% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+  }
+}
+
+@keyframes power-ring {
+  0% {
+    transform: translate(-50%, -50%) scale(0.3);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2.6);
+    opacity: 0;
+  }
+}
+
+@keyframes power-particle {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--dx), var(--dy)) scale(0.3);
+    opacity: 0;
+  }
+}
+
 @theme inline {
   /* radius */
   --radius-sm: calc(var(--radius) - 4px);
