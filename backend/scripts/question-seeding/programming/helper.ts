@@ -120,12 +120,6 @@ export const LANGUAGES = [
         repo_path: "../../cpp",
         stub_extension: ["cpp", "h"],
         judge0_id: 54
-    },
-    {
-        language: "javascript",
-        repo_path: "../../javascript",
-        stub_extension: ["js"],
-        judge0_id: 63
     }
 ]
 

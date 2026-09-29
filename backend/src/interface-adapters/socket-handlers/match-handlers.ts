@@ -28,12 +28,10 @@ export const submitQuestion = async (
 
         default: {
             const result = await mark.execute(submission);
-            console.log("marked result", result);
             const opponent = opponent_progress.getOpponentId(submission.match_id, submission.player_id);
             const progress = opponent_progress.updateOpponent(submission.player_id, submission.question_number!, result.correct, result.life_update!);
 
             if (opponent !== undefined) {
-                console.log("emitting to opponent",opponent);
                io.to(opponent).emit("opponent_progress", progress);
             }
 

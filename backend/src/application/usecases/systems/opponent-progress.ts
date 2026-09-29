@@ -20,7 +20,6 @@ export class OpponentProgress {
 
 
         for (const [opponent_id] of players.players) {
-            console.log("Player: ", opponent_id);
             //skip self
             if (opponent_id === player_id) continue;
 

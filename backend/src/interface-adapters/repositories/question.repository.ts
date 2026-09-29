@@ -13,12 +13,23 @@ export class QuestionRepository implements IQuestionRepository {
     ) { }
 
     async getRandQuestions(count: number, difficulty: number, match_mode: MatchMode): Promise<QuestionDTO[]> {
-        const questions = await this.questionRepository.createQueryBuilder('q')
+        const query = this.questionRepository.createQueryBuilder('q')
             .where("q.difficulty = :difficulty", { difficulty: difficulty })
-            .andWhere('q.match_mode = :match_mode', { match_mode: match_mode })
-            .take(count)
-            .orderBy('Random()')
-            .getMany();
+            .andWhere('q.match_mode = :match_mode', { match_mode: match_mode });
+
+        if (match_mode === MatchMode.Programming) {
+            query.andWhere(q_2 =>
+                `EXISTS (${q_2.subQuery()
+                    .select('1')
+                    .from('programming_templates', 'pt')
+                    .where('pt.question_id = q.question_id')
+                    .andWhere("pt.language= 'cpp'")
+                    .getQuery()
+                })`
+            )
+        }
+
+        const questions = await query.take(count).orderBy('Random()').getMany();
 
         const data: QuestionDTO[] = [];
 
@@ -41,12 +52,16 @@ export class QuestionRepository implements IQuestionRepository {
 
 
     async getTestCases(question_id: string): Promise<TestCases[]> {
-        return await this.test_case_repository.find({
+
+        const cases = await this.test_case_repository.find({
             where: {
                 question: { question_id }
             },
             order: { ordinal: "ASC" }
         })
+
+        return cases;
+
     }
 
 

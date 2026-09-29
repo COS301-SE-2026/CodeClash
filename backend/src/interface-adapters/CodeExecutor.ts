@@ -18,7 +18,7 @@ export class CodeExecutor implements ICodeExecutor {
         const data = {
             source_code: Buffer.from(source_code).toString('base64'),
             language_id: language_id,
-            stdin: stdin,
+            stdin: stdin ? Buffer.from(stdin).toString('base64') : null,
             expected_output: Buffer.from(expected_output).toString('base64'),
             memory_limit: this.memory_limit,
             stack_limit: this.stack_limit,

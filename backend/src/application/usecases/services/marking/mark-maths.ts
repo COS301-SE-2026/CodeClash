@@ -19,6 +19,7 @@ export class MarkMaths implements IMarkingStrategy {
 
     const marker = this.registry.markerFor(correct_answer.format); // telling it which marker to use based on the format
     if (marker === null) return false;
+
     return marker.mark((submission.submission as MathsSubmissionDTO).answer, correct_answer);
   }
 }
