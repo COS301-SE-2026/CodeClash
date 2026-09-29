@@ -588,3 +588,16 @@ function leagueInsights(mastery: number, league: string, winRate: number, gameCo
 
     return insights;
 }
+
+function practiceInsight(practice?: PracticeSummary): Insight[] {
+    if (!practice || practice.games === 0) return [];
+    const percentage = practice.questions === 0 ? 0 : pct(practice.correct / practice.questions);
+    return [{
+        id: 'practice',
+        tone: 'info',
+        title: `${plural(practice.games, 'practice game')}, ${percentage}% correct`,
+        body: 'Casual games are kept out of your mastery and growth, so practise freely.',
+        evidence: [{ label: 'Questions', value: `${practice.questions}` }],
+        score: 8
+    }];
+}
