@@ -207,3 +207,80 @@ function difficultyInsights(bands: DifficultyBand[]): Insight[] {
 
     return insights;
 }
+
+function attemptInsights(games: GameSample[]): Insight[] {
+    const results = outcomes(games);
+    if (results.length < T.minOutcomeQuestions) return [];
+
+    const insights: Insight[] = [];
+    const correctRate = pct(results.filter(result => result.correct).length / results.length);
+    const firstTryRate = pct(results.filter(result => result.firstTry).length / results.length);
+    const retryGap = correctRate - firstTryRate;
+
+    if (retryGap >= T.retryGap) {
+        insights.push({
+            id: 'first-try',
+            tone: 'warn',
+            title: 'You get there - just not on the first try',
+            body: `${correctRate}% of your questions end correct, but only ${firstTryRate}% are right first time. Every retry burns clock and life.`,
+            action: 'Before you submit, re-read the question once and check your answer against it. One extra check is cheaper than a wrong submission.',
+            evidence: [
+                { label: 'Correct', value: `${correctRate}%` },
+                { label: 'First try', value: `${firstTryRate}%` },
+                { label: 'Questions', value: `${results.length}` }
+            ],
+            score: 100 + retryGap
+        });
+    }
+
+    const answered = results.filter(result => result.answered);
+    const unansweredShare = pct((results.length - answered.length) / results.length);
+    if (unansweredShare >= T.unansweredShare) {
+        insights.push({
+            id: 'unanswered',
+            tone: 'warn',
+            title: `${unansweredShare}% of questions never get an answer`,
+            body: 'Unanswered questions score zero and count against your mastery just like wrong ones.',
+            action: 'Put an answer down on every question - move on from one you are stuck on and come back if the clock allows.',
+            evidence: [
+                { label: 'Unanswered', value: `${results.length - answered.length} of ${results.length}` }
+            ],
+            score: 100 + unansweredShare
+        });
+    }
+
+    if (answered.length >= T.minOutcomeQuestions) {
+        const clockLeft = pct(answered.reduce((total, result) => total + result.clockLeft, 0) / answered.length);
+        const answeredCorrect = pct(answered.filter(result => result.correct).length / answered.length);
+
+        if (clockLeft >= T.quickClock && answeredCorrect < T.carelessAccuracy) {
+            insights.push({
+                id: 'careless',
+                tone: 'warn',
+                title: 'Fast, but it is costing you marks',
+                body: `You answer with ${clockLeft}% of the clock still left, but only ${answeredCorrect}% of those answers are right. You have time to spare that is not being used.`,
+                action: 'Use half of the spare clock to check your working. Accuracy moves mastery more than the time bonus does.',
+                evidence: [
+                    { label: 'Clock left', value: `${clockLeft}%` },
+                    { label: 'Correct', value: `${answeredCorrect}%` }
+                ],
+                score: 100 + (T.carelessAccuracy - answeredCorrect)
+            });
+        } else if (clockLeft < T.slowClock && answeredCorrect >= T.carefulAccuracy) {
+            insights.push({
+                id: 'careful',
+                tone: 'info',
+                title: 'Accurate, but close to the buzzer',
+                body: `${answeredCorrect}% of your answers are right, but you only have ${clockLeft}% of the clock left when you submit. The time component is where your easy points are.`,
+                action: 'Trust your first method more often - your accuracy says you can afford to answer sooner.',
+                evidence: [
+                    { label: 'Correct', value: `${answeredCorrect}%` },
+                    { label: 'Clock left', value: `${clockLeft}%` }
+                ],
+                score: 60 + (T.slowClock - clockLeft)
+            });
+        }
+    }
+
+    return insights;
+}
