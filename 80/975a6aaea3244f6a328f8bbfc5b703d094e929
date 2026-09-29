@@ -1,0 +1,224 @@
+backend/scripts/cpp
+  h_94c952a9e14c58 1
+backend/scripts/problem-specifications
+  h_94c952a9e14c58 1
+backend/scripts/python
+  h_94c952a9e14c58 1
+backend/src/application/interfaces/cache/ITournamentCache.ts
+  h_94c952a9e14c58 6,11-12
+backend/src/application/interfaces/repositories/IInventoryRepository.ts
+  h_94c952a9e14c58 7
+backend/src/application/interfaces/repositories/IMatchRepository.ts
+  h_94c952a9e14c58 6
+backend/src/application/usecases/services/marking/marking.service.ts
+  h_94c952a9e14c58 7,9,29,37-39,42,50-51,61-62,64-67
+backend/src/application/usecases/services/match/match-completion.service.ts
+  h_94c952a9e14c58 6-7,15-17,47-52
+backend/src/application/usecases/services/match/match-creation.service.ts
+  h_94c952a9e14c58 23,33-34,57,60,75
+backend/src/application/usecases/services/match/match-start.service.ts
+  h_94c952a9e14c58 12-13,18
+backend/src/application/usecases/services/match/reward.service.ts
+  h_94c952a9e14c58 1-23
+backend/src/application/usecases/services/shop/powerup.service.ts
+  h_94c952a9e14c58 4-5,10-11,14-15,20-22,24-30,32-33
+backend/src/application/usecases/services/shop/purchase.service.ts
+  h_94c952a9e14c58 21,24-27,31,35-37,41
+backend/src/application/usecases/services/tournament/elimination.service.ts
+  h_94c952a9e14c58 27-29,32,44-47,84-94,107,113-118
+backend/src/application/usecases/services/tournament/tournament.service.ts
+  h_94c952a9e14c58 8,14-15,48,50,73,75-81,86,88-89,93-97,100-103
+backend/src/application/usecases/systems/life.system.ts
+  h_94c952a9e14c58 74-87
+backend/src/application/usecases/systems/powerup.system.ts
+  h_94c952a9e14c58 1-142
+backend/src/entities/World.ts
+  h_94c952a9e14c58 77,110
+backend/src/entities/components.ts
+  h_94c952a9e14c58 95-102,106,109
+backend/src/entities/database/equipped-items.entities.ts
+  h_94c952a9e14c58 14,19
+backend/src/entities/database/match.entities.ts
+  h_94c952a9e14c58 9-11,21,33
+backend/src/entities/database/shop-item.entities.ts
+  h_94c952a9e14c58 3
+backend/src/entities/database/user-item.entities.ts
+  h_94c952a9e14c58 20-23
+backend/src/entities/dtos/shop/equipped-items.dto.ts
+  h_94c952a9e14c58 11
+backend/src/entities/dtos/shop/powerup-use.dto.ts
+  h_94c952a9e14c58 2,10
+backend/src/entities/dtos/shop/user-item.dto.ts
+  h_94c952a9e14c58 8
+backend/src/entities/dtos/submissions/submission-result.dto.ts
+  h_94c952a9e14c58 35
+backend/src/entities/dtos/submissions/submission.dto.ts
+  h_94c952a9e14c58 1-3,7,10,13,15-24,29-30
+backend/src/entities/dtos/tournaments/tournaments.dto.ts
+  h_94c952a9e14c58 7,12-14,18,26
+backend/src/frameworks-drivers/api.routes.ts
+  h_94c952a9e14c58 26-27,42-43,347
+backend/src/frameworks-drivers/app.ts
+  h_94c952a9e14c58 19,35-36,51-65
+backend/src/frameworks-drivers/config/data-source.ts
+  h_94c952a9e14c58 11-14,37-41
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 76-77,134,141-145,147-148,150-151,153-172,216
+backend/src/frameworks-drivers/socket/dependencies.ts
+  h_94c952a9e14c58 14-15,23-24
+backend/src/frameworks-drivers/socket/modules/register-match-handlers.ts
+  h_94c952a9e14c58 4-5,7,11-12,22-23
+backend/src/frameworks-drivers/socket/modules/register-tournament-handler.ts
+  h_94c952a9e14c58 15-16,26
+backend/src/interface-adapters/CodeExecutor.ts
+  h_94c952a9e14c58 18-19
+backend/src/interface-adapters/cache/tournament-cache.ts
+  h_94c952a9e14c58 13,27-29,42,46-47,86-97
+backend/src/interface-adapters/controllers/tournament.controllers.ts
+  h_94c952a9e14c58 1-24
+backend/src/interface-adapters/repositories/equipped.repository.ts
+  h_94c952a9e14c58 25,36
+backend/src/interface-adapters/repositories/inventory.repository.ts
+  h_94c952a9e14c58 1,18-19,26,41,46-61
+backend/src/interface-adapters/repositories/match.repository.ts
+  h_94c952a9e14c58 13,31-32
+backend/src/interface-adapters/repositories/user.repository.ts
+  h_94c952a9e14c58 72
+backend/src/interface-adapters/socket-handlers/match-handlers.ts
+  h_94c952a9e14c58 6,9-31,50,101-132
+backend/src/interface-adapters/socket-handlers/matchmaking-handlers.ts
+  h_94c952a9e14c58 48,51-53,55,62
+backend/src/interface-adapters/socket-handlers/tournament-handlers.ts
+  h_94c952a9e14c58 10,20,27,29-31,65
+backend/tests/integration/repositories/equipped.repository.test.ts
+  h_94c952a9e14c58 1-73
+backend/tests/integration/repositories/inventory.repository.test.ts
+  h_94c952a9e14c58 1-77
+backend/tests/integration/repositories/shop-item.repository.test.ts
+  h_94c952a9e14c58 1-49
+backend/tests/integration/repositories/wallet.repository.test.ts
+  h_94c952a9e14c58 1-56
+backend/tests/integration/services/marking.service.test.ts
+  h_94c952a9e14c58 60,123,129-130,139,152,160
+backend/tests/integration/services/purchase.service.test.ts
+  h_94c952a9e14c58 1-100
+backend/tests/integration/socket-handlers/helper.ts
+  h_94c952a9e14c58 44,47,51-53
+backend/tests/integration/socket-handlers/submit-question.test.ts
+  h_94c952a9e14c58 20-22,52-53,58-65,89-90,110,118-120,124-126,137-138,153,165-166,170-173,200-201,205-208
+backend/tests/integration/socket-handlers/tournament-handler.test.ts
+  h_94c952a9e14c58 5,16,52,56,61-62,75-84,93,95-97,117,158,192
+backend/tests/mocks/mock-shop-items.ts
+  h_94c952a9e14c58 1-36
+backend/tests/unit/cache/tournament-cache.test.ts
+  h_94c952a9e14c58 11,32,42,80,95-98,101
+backend/tests/unit/socket-handlers/game.handler.unit.test.ts
+  h_94c952a9e14c58 4-7,22,26-32,36-37,39-40,46-50,55-56,63,65-69,78
+database/01-init.sql
+  h_94c952a9e14c58 117-118,204
+dockerfile/docker-compose.dev.yml
+  h_94c952a9e14c58 39
+frontend/@/components/features/Match/Match.tsx
+  h_94c952a9e14c58 2,4-8,21-23,36-37,40-41,44,47,49-53,55-56,58-75,79-80,85-102,104-107,110-113,115-116,118-120,129,131-133,140-149
+frontend/@/components/features/Match/MatchBox.tsx
+  h_94c952a9e14c58 5-6,9,15,25-36
+frontend/@/components/features/Match/MatchCard.tsx
+  h_94c952a9e14c58 2
+frontend/@/components/features/Match/MathPage.tsx
+  h_94c952a9e14c58 6
+frontend/@/components/features/Match/RoundTree.tsx
+  h_94c952a9e14c58 1-69
+frontend/@/components/features/Questions/MultipleChoice.tsx
+  h_94c952a9e14c58 1-40
+frontend/@/components/features/Questions/question.tsx
+  h_94c952a9e14c58 3,6,8-15,22,32-33,38
+frontend/@/components/features/Tournaments/LiveTournamentPlayer.tsx
+  h_94c952a9e14c58 1-36
+frontend/@/components/features/Tournaments/TournamentButton.tsx
+  h_94c952a9e14c58 11
+frontend/@/components/features/Tournaments/TournamentCard.tsx
+  h_94c952a9e14c58 1-6,9-11,13-22,27-41,44-47,49-51,53-67,70-72,74,76,78-79,83,85,88,90-91,95,97-105,107-108,110,112-132,135
+frontend/@/components/features/Tournaments/TournamentPlayer.tsx
+  h_94c952a9e14c58 2-3,6,9,12,14,16-18,20
+frontend/@/components/features/game-guide/gameGuideCard.tsx
+  h_94c952a9e14c58 3
+frontend/@/components/features/game-guide/gameGuideNumber.tsx
+  h_94c952a9e14c58 3
+frontend/@/components/ui/FilterButton.tsx
+  h_94c952a9e14c58 13
+frontend/src/App.tsx
+  h_94c952a9e14c58 33,84-85
+frontend/src/ViewModels/DashboardViewModel.ts
+  h_94c952a9e14c58 10,48,53
+frontend/src/ViewModels/Match/MatchViewModel.ts
+  h_94c952a9e14c58 3,6,9-11,16-17,20,22-44,49-50,61-62,82,84,89,92-93,96,98-99,136-140
+frontend/src/ViewModels/Matchmaking/MatchFoundViewModel.ts
+  h_94c952a9e14c58 22,37,43,56,72,99,110-114,126,130
+frontend/src/ViewModels/Matchmaking/MatchSearchingViewModel.ts
+  h_94c952a9e14c58 12,20,36-37
+frontend/src/ViewModels/Matchmaking/PopUpViewModel.ts
+  h_94c952a9e14c58 12,20
+frontend/src/ViewModels/Tournaments/TournamentLobby.ts
+  h_94c952a9e14c58 1-119
+frontend/src/ViewModels/Tournaments/TournamentMatchViewModel.ts
+  h_94c952a9e14c58 1-72
+frontend/src/ViewModels/Tournaments/TournamentViewModel.ts
+  h_94c952a9e14c58 1-5,7,10-13,15-21,23-24,26-28,30-45,47-49,51-55,57-58,60-66,68-70,72-73,75-81,83-88,90-93,96-99,102-103,105,107-118,120,122-151
+frontend/src/Views/Auth/SignIn.tsx
+  h_94c952a9e14c58 4
+frontend/src/Views/Auth/SignUp.tsx
+  h_94c952a9e14c58 5
+frontend/src/Views/Match/MathsMatch.tsx
+  h_94c952a9e14c58 5-6,8,10,16-21,23-25,30,33-35,39,47-58,81-82,85,93,99,107
+frontend/src/Views/Match/ProgMatch.tsx
+  h_94c952a9e14c58 2-3,6,9-11,16-18,20-26,31,48-50,52,54,57,60,63,66,77-81,85,99-103,106
+frontend/src/Views/Matchmaking/MatchFound.tsx
+  h_94c952a9e14c58 23-24
+frontend/src/Views/Tournaments/HostTournament.tsx
+  h_94c952a9e14c58 1-229
+frontend/src/Views/Tournaments/TournamentMatchPage.tsx
+  h_94c952a9e14c58 1-220
+frontend/src/Views/Tournaments/Tournaments.tsx
+  h_94c952a9e14c58 1,3,5-8,11-12,18,22,31-35,37,40,43,47,56,59-84,86-97,99-101
+frontend/src/Views/Tournaments/TournamentsWaiting.tsx
+  h_94c952a9e14c58 1,3-4,6-8,13-22,24-26,32,37,41-54,61,63,67-68,73-79,81
+frontend/src/context/Matchmaking/MatchmakingContext.tsx
+  h_94c952a9e14c58 11-12,22,40-41,44-45,48
+frontend/src/context/Matchmaking/MatchmakingContextValue.tsx
+  h_94c952a9e14c58 7-8,11-12
+frontend/src/context/Socket/dispatch.ts
+  h_94c952a9e14c58 19
+frontend/src/context/Socket/modules/tournament.socket.ts
+  h_94c952a9e14c58 14-15,18-19,63,76
+frontend/src/dtos/match/match.dto.ts
+  h_94c952a9e14c58 2,6,13,17,51
+frontend/src/dtos/tournaments/tournament.dto.ts
+  h_94c952a9e14c58 13-15,19
+frontend/src/services/match.service.tsx
+  h_94c952a9e14c58 17,52-57,59,61-71,73-88,91-92,94-100,105-106,110,120,122,130,136,138
+frontend/src/services/submission.service.tsx
+  h_94c952a9e14c58 1-70
+frontend/src/services/tournament.service.tsx
+  h_94c952a9e14c58 1-7
+frontend/src/stores/match-store.ts
+  h_94c952a9e14c58 1-2,5,9-10,16,22-51
+frontend/src/styles/global.css
+  h_94c952a9e14c58 280-281,392-393,477-478
+frontend/test/integration/Contexts/MatchmakingContext.integration.test.tsx
+  h_94c952a9e14c58 27-28,30-31
+frontend/test/integration/SocketHandlers/tournament.socket.test.ts
+  h_94c952a9e14c58 66
+frontend/test/unit/Views/TournamentsWaiting.test.tsx
+  h_94c952a9e14c58 2-3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "80975a6aaea3244f6a328f8bbfc5b703d094e929",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

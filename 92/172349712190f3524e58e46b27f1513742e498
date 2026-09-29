@@ -1,0 +1,37 @@
+backend/src/frameworks-drivers/socket/modules/register-match-handlers.ts
+  s_5b2d1960cf005f::t_e6c0fb2bc999d6 26-28
+frontend/src/ViewModels/DashboardViewModel.ts
+  s_5b2d1960cf005f::t_e6c0fb2bc999d6 1-82
+frontend/test/unit/Views/TournamentsWaiting.test.tsx
+  s_5b2d1960cf005f::t_e6c0fb2bc999d6 24-25
+frontend/src/ViewModels/Match/MatchViewModel.ts
+  s_5b2d1960cf005f::t_e6c0fb2bc999d6 87
+backend/src/application/usecases/services/marking/marking.service.ts
+  s_5b2d1960cf005f::t_d6395265fed4c6 7,9,29,40,48-49,59-60,62-65
+frontend/@/components/features/Match/RoundTree.tsx
+  s_5b2d1960cf005f::t_44565cd90fac03 24,30,38,51
+frontend/src/ViewModels/Tournaments/TournamentViewModel.ts
+  s_5b2d1960cf005f::t_714cec27a4a4ae 1-5,7,10-13,15-21,23-24,26-28,30-45,47-49,51-55,57-58,60-66,68-70,72-73,75-81,83-88,90-93,96-99,102-103,105,107-118,120,122-151
+frontend/src/Views/Auth/SignIn.tsx
+  s_5b2d1960cf005f::t_e3568a35d799d3 4
+frontend/src/Views/Auth/SignUp.tsx
+  s_5b2d1960cf005f::t_b92ac78f125182 5
+frontend/src/Views/Match/ProgMatch.tsx
+  s_5b2d1960cf005f::t_26e53357842b0b 2-3,6,9-11,16-18,20-26,31,48-50,52,54,57,60,63,66,85,99-103,106
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "92172349712190f3524e58e46b27f1513742e498",
+  "prompts": {},
+  "sessions": {
+    "s_5b2d1960cf005f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "571b3ee6-bbf3-440e-8500-2baaf21ee461",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
