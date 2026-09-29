@@ -9,6 +9,7 @@ import { useMatchStore } from 'src/stores/match-store';
 import { useMatchmaking } from 'src/context/Matchmaking/hooks/useMatchmaking';
 import { useAnswerResponse, useLifeShake, useSubmission } from 'src/services/submission.service';
 import type { Player } from 'src/Models/MatchModel';
+import { useResultStore } from 'src/stores/result-store';
 
 export const useMatch = () => {
     const nav = useNavigate();
@@ -42,7 +43,7 @@ export const useMatch = () => {
     const { submissionError, submitQuestion, results, lastResult } = useSubmission({ round_idx: roundIdx, curr_question: currentQuestion, question: questions[currentQuestion], match_id: match_id!, updatePlayerLife })
     const { seconds, minutes } = useMatchTimer(duration, () => {
         setGameOver(true);
-        finishGame();
+        finishMatch();
     })
 
     const last_round = roundIdx === rounds.length - 1;
@@ -70,33 +71,36 @@ export const useMatch = () => {
         }
     }
 
-    const confirmCompleteRound = ()=>{
-        if(complete_round) setConfirmRound(true);
+    const confirmCompleteRound = () => {
+        if (complete_round) setConfirmRound(true);
     }
 
-    const cancelCompleteRound = ()=>{
+    const cancelCompleteRound = () => {
         setConfirmRound(false);
     }
 
-    const completeRound = ()=>{
-        if(!complete_round) return;
+    const completeRound = () => {
+        if (!complete_round) return;
         setConfirmRound(false);
-        setRoundIdx(r => r+1);
+        setRoundIdx(r => r + 1);
         setCurrentQuestion(0);
         setNextRound(true);
-        setTimeout(()=> setNextRound(false), 500);
+        setTimeout(() => setNextRound(false), 500);
     }
 
-    const finishGame = () => {
-        console.log("finish game")
-
+    const finishMatch = async () => {
+        if (!final_question) return;
+        setWaitingOpponent(true);
         finished_ref.current = true;
-        matchSocket?.finishMatch({ match_id: match_id!, match_mode: matchMode! });
+
+        const response = await matchSocket?.finishMatch({ match_id: match_id!, match_mode: matchMode! });
+
+        if (response && response.ok)
+            useResultStore.getState().addResult(response.data!);
     }
 
     const both_done = () => {
-        console.log("Both players done");
-        useMatchStore.getState().reset();
+        // useMatchStore.getState().reset();
         setWaitingOpponent(false);
         nav(`/results/${match_id}`, {
             replace: true,
@@ -104,8 +108,6 @@ export const useMatch = () => {
     }
 
     useEffect(() => {
-
-        console.log("Match view model mounted")
         if (matchSocket && match_id) {
             setLoading(true);
 
@@ -146,7 +148,7 @@ export const useMatch = () => {
         results,
         gameOver,
         waitingOpponent,
-        finishGame,
+        finishMatch,
         opponentCurrent,
         opponentDone,
         submitQuestion,

@@ -66,7 +66,7 @@ export const matchDone = async (io: Server, socket: Socket, match_id: string, ma
         for (const id of ids) {
             io.to(id).emit('both_done');
         }
-        ;
+        return match_result;
     } else {
         socket.emit('waiting_opponent');
 
@@ -81,7 +81,6 @@ export const matchDone = async (io: Server, socket: Socket, match_id: string, ma
 }
 
 export const sendResults = (io: Server, match_id: string, match_store: MatchStore) => {
-
     const ecs_id = match_store.getEcsId(match_id);
     const result = match_store.getResult(ecs_id!);
     const match = match_store.get(ecs_id!);
@@ -89,18 +88,17 @@ export const sendResults = (io: Server, match_id: string, match_store: MatchStor
         console.warn(`send_results: match ${ecs_id} not found`);
         return;
     }
-    if (!result?.result) {
+    if (!result) {
         console.error("No result foud")
         return;
     }
 
-   // const ids = result.result.players.map((player: PlayerResultDTO) => player.user_id);
     return result;
 }
 
 export const cleanUp = (match_id: string, pair_id: string, delete_match: DeleteGame, match_store: MatchStore) => {
 
-    
+
     const ecs_id = match_store.getEcsId(match_id);
     const match = match_store.get(ecs_id!);
 

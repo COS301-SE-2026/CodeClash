@@ -1,12 +1,12 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { useMatchmaking } from "src/context/Matchmaking/hooks/useMatchmaking";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
-import { useUser } from "src/context/User/hooks/useUser";
-import { type PlayerResultDTO, type ResultDTO } from "src/dtos/match/result.dto";
+import { type PlayerResultDTO, } from "src/dtos/match/result.dto";
 
 import { finalResultsContent } from "src/Models/FinalResultsModel";
 import type { FinalResultsContent } from "src/Models/FinalResultsModel";
+import { useResultStore } from "src/stores/result-store";
 
 
 
@@ -22,28 +22,28 @@ interface FinalResultsViewModel {
 export function FinalResultsViewModelFunction(): FinalResultsViewModel {
     const [state, setState] = useState<'loading' | 'results' | 'error'>('loading');
     const [loadingProgress, setLoadingProgress] = useState(0);
-    const [results, setResults] = useState<ResultDTO | null>(null);
-    const [winner, setWinner] = useState<PlayerResultDTO | null>(null);
-    const [loser, setLoser] = useState<PlayerResultDTO | null>(null);
-    const { refresh } = useUser();
-    const { matchSocket } = useSocket();
     const { match_id } = useParams();
-    const { group_id, setMatched } = useMatchmaking()
+    const { matchSocket } = useSocket();
+    const { group_id } = useMatchmaking();
+    const results = useResultStore(s => s.results.find(r => r?.match_id === match_id));
 
-    console.log("Final results/", match_id);
-    const handleResult = useCallback(async (result: ResultDTO) => {
+    const winner = useMemo(() => results?.players.find(p => p.position === 1) ?? null, [results]);
+    const loser = useMemo(() => results?.players.find(p => p.position === 2) ?? null, [results]);
 
-        setResults(result);
 
-        setWinner(result.result.players[0]);
-        setLoser(result.result.players[1]);
-        await refresh();
+    useEffect(() => {
+        if (results || !matchSocket || !match_id) return;
 
-        // can start clean up now 
-        matchSocket?.cleanUpMatch({ match_id: result.match_id, pair_id: group_id })
-        setMatched(false)
-    }, [group_id, refresh, setMatched, matchSocket])
+         matchSocket.sendResults({ match_id, pair_id: group_id })
+            .then(res => {
+                if (res.ok) {
+                    useResultStore.getState().addResult(res.data!)
+                    return res.data!;
+                }
 
+                setState('error');
+            }).catch((e) => { console.log("Error: ", e); setState('error') });
+    }, [results, matchSocket, match_id])
 
 
     useEffect(() => {
@@ -60,24 +60,9 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
         }, 400);
     }, [results])
 
-    let reuslt;
-
-   
-    useEffect(() => {
-
-        if (!matchSocket) return;
-
-        result = await  matchSocket.sendResults({ match_id: match_id!, pair_id: group_id });
-        
-
-
-
-        return () => {  }
-
-    }, [matchSocket, match_id, handleResult, group_id]);
 
     useEffect(() => {
-        if (results === null) return;
+        if (!results) return;
 
         setLoadingProgress(100);
 

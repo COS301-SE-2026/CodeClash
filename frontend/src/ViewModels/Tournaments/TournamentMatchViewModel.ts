@@ -9,7 +9,7 @@ export const useTournamentMatch = () => {
     // const { tournament_id } = useParams<{ tournament_id: string }>();
 
     const { seconds, minutes, rounds,
-        submitQuestion, finishGame,
+        submitQuestion, finishMatch,
         nextQuestion, prevQuestion, questions,
         roundIdx, total_rounds,
         currentQuestion } = useMatch();
@@ -57,7 +57,7 @@ export const useTournamentMatch = () => {
         minutes,
         rounds,
         submitQuestion,
-        finishGame,
+        finishMatch,
         nextQuestion,
         prevQuestion,
         roundIdx,

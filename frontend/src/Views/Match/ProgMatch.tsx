@@ -23,7 +23,7 @@ export const ProgMatch = () => {
         seconds, minutes,
         currentQuestion, nextQuestion, prevQuestion,
         roundIdx, rounds,
-        opponentCurrent, waitingOpponent, finishGame,
+        opponentCurrent, waitingOpponent, finishMatch,
         loading,
         submitQuestion,
         elos, colourClass, shake
@@ -96,7 +96,7 @@ export const ProgMatch = () => {
                     {currentQuestion === (questions.length - 1) &&
                         <TournamentButton className='w-[10%] my-auto h-[2.2rem] rounded-2xl text-[1.3rem] hover:-translate-y-1'
                             onClick={() => {
-                                finishGame();
+                                finishMatch();
                             }}
                         >
                             <p>Finish</p>

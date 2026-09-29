@@ -19,7 +19,7 @@ const MathsMatch = () => {
         seconds, minutes,
         currentQuestion, nextQuestion, prevQuestion,
         roundIdx, rounds,
-        opponentCurrent, waitingOpponent, finishGame,
+        opponentCurrent, waitingOpponent, finishMatch,
         loading,
         submitQuestion,
         mathfieldRef,
@@ -78,30 +78,29 @@ const MathsMatch = () => {
                     <ChevronLeft onClick={() => prevQuestion(currentQuestion)} className='size-[3rem] hover:scale-110  hover:bg-secondary/20 rounded-2xl w-[50%]' />
                     <ChevronRight onClick={() => nextQuestion(currentQuestion)} className='size-[3rem] hover:scale-110 hover:bg-secondary/20 rounded-2xl w-[50%]' />
                 </div>
-                <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
-                    onClick={() => {
-                        const answer = mathfieldRef.current?.value ?? '';
-                        submitQuestion({ answer: answer })
-                    }}
-                >
-                    Submit Answer
-                </Button>
-                {final_question ? (
+                {complete_round ? (
+                    <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
+                        onClick={() => { confirmCompleteRound() }}
+                    >
+                        <p>Complete Round</p>
+                    </Button>
+                ) : final_question ? (
 
                     <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
-                        onClick={() => { finishGame(); }}
+                        onClick={() => { finishMatch(); }}
                     >
                         <p>Finish Match</p>
                     </Button>) :
-                    complete_round && (
+                    (
                         <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
-                            onClick={() => { confirmCompleteRound() }}
+                            onClick={() => {
+                                const answer = mathfieldRef.current?.value ?? '';
+                                submitQuestion({ answer: answer })
+                            }}
                         >
-                            <p>Complete Round</p>
+                            Submit Answer
                         </Button>
-                    )
-                }
-
+                    )}
                 {
                     confirmRound && (
                         <div>
