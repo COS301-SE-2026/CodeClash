@@ -2,12 +2,13 @@ import { UserPlus } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
 interface FriendREquestToastProps {
-    username: string;
-    avatar?: number;
+    title: string;
+    primary: string;
+    secondary?: string;
     onDismiss: () => void;
 }
 
-export const  FriendRequestToast: React.FC<FriendREquestToastProps> = ({ username, onDismiss }) => {
+export const  FriendRequestToast: React.FC<FriendREquestToastProps> = ({ title, primary, secondary, onDismiss }) => {
     const [visible, setVisible] = useState(false);
 
     useEffect(() => {
@@ -34,9 +35,9 @@ export const  FriendRequestToast: React.FC<FriendREquestToastProps> = ({ usernam
                     
                 </div>
                 <div className="flex flex-col min-w-0">
-                    <p className="text-xsm text-secondary font-bold uppercase tracking-wide">Friend Request</p>
-                    <p className="text-primary-text font-bold truncate">{username}</p>
-                    <p className="text-xsm text-muted"> wants to be your friend</p>
+                    <p className="text-xsm text-secondary font-bold uppercase tracking-wide">{title}</p>
+                    <p className="text-primary-text font-bold truncate">{primary}</p>
+                    {secondary && <p className="text-xsm text-muted">{secondary}</p>}
                 </div>
             </div>
         </div>
