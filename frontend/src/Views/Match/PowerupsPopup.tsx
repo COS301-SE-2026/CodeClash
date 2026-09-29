@@ -1,4 +1,4 @@
-import { Ban, Bug, Clock, Eraser, Heart, HeartCrack, Lightbulb, ShieldAlert, X, Zap } from "lucide-react";
+import { Ban, Bug, Clock, Eraser, Heart, HeartCrack, IterationCcw, Lightbulb, ShieldAlert, Sparkles, X, Zap } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useInventory } from "src/context/Shop/InventoryContext";
 import type { PowerupShopItem, PowerupEffectType } from "src/Models/ShopModel";
@@ -57,13 +57,13 @@ export const PowerupPopup: React.FC<PowerupProps> = ({isOpen, onClose, maxSlots 
         onClose();
     }
 
-    const tintText = (kind: PowerupShopItem['kind']) => kind === 'powerdown' ? 'text-danger' : 'text-primary';
-    const tintBorder = (kind: PowerupShopItem['kind']) => kind === 'powerdown' ? 'border-danger' : 'border-primary';
-    const tintGlow = (kind: PowerupShopItem['kind']) => kind === 'powerdown' ? 'shadow-[0_0_16px_var(--danger)]' : 'shadow-[0_0_16px_var(--primary)]';
+    const tintText = (kind: PowerupShopItem['kind']) => kind === 'powerdown' ? 'text-danger' : 'text-success';
+    const tintBorder = (kind: PowerupShopItem['kind']) => kind === 'powerdown' ? 'border-danger' : 'border-success';
+    const tintGlow = (kind: PowerupShopItem['kind']) => kind === 'powerdown' ? 'shadow-[0_0_16px_var(--danger)]' : 'shadow-[0_0_16px_var(--success)]';
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/60" onClick={onClose}>
-            <div className="card-elevated w-full max-w-[900px] max-h-[85vh] overflow-y-auto flex flex-col gap-5 p-6" onClick={(e) => e.stopPropagation()}>
+            <div className="card-elevated w-full max-w-[700px] max-h-[85vh] overflow-y-auto flex flex-col gap-5 p-6" onClick={(e) => e.stopPropagation()}>
                 <div className="flex items-center justify-between">
                     <h2 className="section-title text-md">Your Power-Ups</h2>
                     <button type="button" onClick={onClose} className="btn btn-ghost btn-icon" aria-label="Close">
@@ -81,7 +81,7 @@ export const PowerupPopup: React.FC<PowerupProps> = ({isOpen, onClose, maxSlots 
                             const Icon = Icons[item.effect.effectType];
                             const selected = load.includes(item.id);
                             return (
-                                <button key={item.id} type="button" onClick={() => toggle(item.id)} className={`card-glass relative flex flex-col items-center justify-center gap-2 w-[150px] h-[150px] p-4 cursor-pointer transition-all duration-200
+                                <button key={item.id} type="button" onClick={() => toggle(item.id)} className={`card-glass relative flex flex-col items-center justify-center gap-2 w-[120px] h-[120px] p-4 cursor-pointer transition-all duration-200
                                     ${selected ? `border-2 ${tintBorder(item.kind)} ${tintGlow(item.kind)}` : ''}`}>
                                     <span className="badge absolute top-2 right-2 px-2 py-1 text-xs bg-card text-muted-text">{quantity}</span>
                                     <Icon size={26} className={tintText(item.kind)}/>
@@ -92,6 +92,24 @@ export const PowerupPopup: React.FC<PowerupProps> = ({isOpen, onClose, maxSlots 
                     </div>
                 )}
 
+                <hr className="divider"/>
+                <div className="flex flex-col items-center gap-3">
+                    <h3 className="text-primary-text font-bold text-sm">Current Loadout</h3>
+                    <div className="flex gap-3">
+                        {Array.from({length: maxSlots}).map((_, i) => {
+                            const itemId = load[i];
+                            const item = itemId ? owned.find((o) => o.item.id === itemId)?.item : undefined;
+                            const Icon = item ? Icons[item.effect.effectType] : Sparkles;
+                            return (
+                                <div key={i} onClick={() => item && toggle(item.id)} className={`flex items-center justify-center w-16 h-16 rounded-md ${item ? `cursor-pointer border border-border bg-card` : 'cursor-default border border-dashed border-border'}`}>
+                                    <Icon size={24} className={item ? tintText(item.kind) : 'text-muted-text'}/>
+                                </div>
+                            )
+                        })}
+                    </div>
+                    <p className="text-muted-text text-xs">{load.length >= maxSlots ? 'Loadout full - tap a slot to free it' : 'Select a power-up to add it to your loadout'}</p>
+                </div>
+                <button type="button" onClick={handleConfirm} className="btn btn-primary w-[50%] mx-auto">Confirm</button>
             </div>
         </div>
     )
