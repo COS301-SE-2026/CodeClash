@@ -1,0 +1,20 @@
+frontend/src/styles/global.css
+  h_b13c5d77534129 1196-1199
+frontend/@/components/shared/Match.tsx
+  h_b13c5d77534129 40,44
+frontend/src/ViewModels/MatchViewModel.ts
+  h_b13c5d77534129 133
+frontend/src/Views/MathsMatch.tsx
+  h_b13c5d77534129 18,30-32
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "b2ce9a0eba2e54cc2d1d1b4c3627b634bae5fa71",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

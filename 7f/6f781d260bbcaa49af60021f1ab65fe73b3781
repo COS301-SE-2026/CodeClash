@@ -1,0 +1,70 @@
+backend/src/interface-adapters/socket-handlers/match-handlers.ts
+  h_94c952a9e14c58 11-12,111-142
+backend/src/frameworks-drivers/socket/dependencies.ts
+  h_94c952a9e14c58 16,26
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 75-76,133,140-143,217
+backend/src/application/interfaces/repositories/IInventoryRepository.ts
+  h_94c952a9e14c58 7
+backend/src/application/usecases/services/match/match-completion.service.ts
+  h_94c952a9e14c58 6-7,15-17,47-52
+backend/src/application/usecases/services/match/reward.service.ts
+  h_94c952a9e14c58 1-23
+backend/src/application/usecases/services/shop/powerup.service.ts
+  h_94c952a9e14c58 4-5,10-11,14-15,20-22,24-30,32-33
+backend/src/application/usecases/services/shop/purchase.service.ts
+  h_94c952a9e14c58 21,24-27,31,35-37,41
+backend/src/application/usecases/systems/life.system.ts
+  h_94c952a9e14c58 74-87
+backend/src/application/usecases/systems/powerup.system.ts
+  h_94c952a9e14c58 1-142
+backend/src/entities/World.ts
+  h_94c952a9e14c58 77,110
+backend/src/entities/components.ts
+  h_94c952a9e14c58 95-102,106,109
+backend/src/entities/database/equipped-items.entities.ts
+  h_94c952a9e14c58 14,19
+backend/src/entities/database/shop-item.entities.ts
+  h_94c952a9e14c58 3
+backend/src/entities/database/user-item.entities.ts
+  h_94c952a9e14c58 20-23
+backend/src/entities/dtos/shop/equipped-items.dto.ts
+  h_94c952a9e14c58 11
+backend/src/entities/dtos/shop/powerup-use.dto.ts
+  h_94c952a9e14c58 2,10
+backend/src/entities/dtos/shop/user-item.dto.ts
+  h_94c952a9e14c58 8
+backend/src/frameworks-drivers/config/data-source.ts
+  h_94c952a9e14c58 11-14,37-41
+backend/src/frameworks-drivers/socket/modules/register-match-handlers.ts
+  h_94c952a9e14c58 5,7,22-23
+backend/src/interface-adapters/repositories/equipped.repository.ts
+  h_94c952a9e14c58 25,36
+backend/src/interface-adapters/repositories/inventory.repository.ts
+  h_94c952a9e14c58 1,18-19,26,41,46-61
+backend/tests/integration/repositories/equipped.repository.test.ts
+  h_94c952a9e14c58 1-73
+backend/tests/integration/repositories/inventory.repository.test.ts
+  h_94c952a9e14c58 1-77
+backend/tests/integration/repositories/shop-item.repository.test.ts
+  h_94c952a9e14c58 1-49
+backend/tests/integration/repositories/wallet.repository.test.ts
+  h_94c952a9e14c58 1-56
+backend/tests/integration/services/purchase.service.test.ts
+  h_94c952a9e14c58 1-100
+backend/tests/mocks/mock-shop-items.ts
+  h_94c952a9e14c58 1-36
+database/01-init.sql
+  h_94c952a9e14c58 204
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "7f6f781d260bbcaa49af60021f1ab65fe73b3781",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+frontend/@/components/ui/Shake.tsx
+  h_b13c5d77534129 9-33
+  h_b13c5d77534129 8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "17746d771a2eb44b6e49b2caf80754cedfaf5e2d",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

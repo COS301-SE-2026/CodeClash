@@ -1,0 +1,20 @@
+frontend/src/dtos/matchmaking/matched-user.dto.ts
+  h_94c952a9e14c58 1
+backend/src/interface-adapters/socket-handlers/match-handlers.ts
+  h_94c952a9e14c58 24-25
+frontend/src/services/submission.service.tsx
+  h_94c952a9e14c58 45,47,56,58
+frontend/src/dtos/match/submission.dto.ts
+  h_94c952a9e14c58 12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "213ab244bb2b5c47966de6539e5ea1133a7a8323",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

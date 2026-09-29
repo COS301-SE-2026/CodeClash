@@ -1,0 +1,17 @@
+.gitignore
+  h_94c952a9e14c58 484-487,489-492
+  h_94c952a9e14c58 488
+frontend/src/stores/match-store.ts
+  h_94c952a9e14c58 1-2,9-10,16,22-35
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "d838e2a41e30c1b562d4407af8ef4f0ceee8866d",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

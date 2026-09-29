@@ -1,0 +1,20 @@
+dockerfile/docker-compose.dev.yml
+  h_b13c5d77534129 34
+frontend/@/components/features/MathPage.tsx
+  h_b13c5d77534129 49
+frontend/@/components/ui/animations/Flash.tsx
+  h_b13c5d77534129 8
+frontend/src/Views/MathsMatch.tsx
+  h_b13c5d77534129 13,35-40,88,90,103
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "775534eda499bf1228640413ed596314a86fd99b",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

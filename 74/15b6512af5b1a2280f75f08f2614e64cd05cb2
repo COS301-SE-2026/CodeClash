@@ -1,0 +1,21 @@
+frontend/@/components/ui/progress.tsx
+  h_b13c5d77534129 8,22,35,56-57
+frontend/@/components/shared/Match.tsx
+  h_b13c5d77534129 9,100,106
+frontend/@/components/ui/Shake.tsx
+  h_b13c5d77534129 33
+frontend/src/styles/global.css
+  h_b13c5d77534129 1180-1184,1188
+  h_b13c5d77534129 1179
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "7415b6512af5b1a2280f75f08f2614e64cd05cb2",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

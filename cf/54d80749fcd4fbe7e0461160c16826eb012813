@@ -1,0 +1,16 @@
+frontend/@/components/ui/LiveTournamentPlayer.tsx
+  h_b13c5d77534129 24,36
+frontend/src/Views/TournamentMatchPage.tsx
+  h_b13c5d77534129 9,92-113
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "cf54d80749fcd4fbe7e0461160c16826eb012813",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
