@@ -4,9 +4,10 @@ import { registerHandler } from "../dispatch";
 import { FriendInviteDTO } from "src/entities/dtos/friends/friendship.dto";
 import { received_invite } from "src/interface-adapters/socket-handlers/friends-handlers";
 import { sendFriendRequest } from "src/interface-adapters/controllers/friend.controllers";
+import { __ServiceException } from "@aws-sdk/client-cognito-identity-provider/dist-types/models/CognitoIdentityProviderServiceException";
 
 interface sendFriendRequestPayload { receiver_id: string; from_username: string }
-interface respondFriendRequestPayload { requester_id: string; status: 'accepted' | 'declined' }
+interface RespondFriendRequestPayload { requester_id: string; status: 'accepted' | 'declined' }
 
 interface PlayInvitePayload {
     id: string;
@@ -16,7 +17,7 @@ interface PlayInvitePayload {
 }
 
 interface SendPlayInvitePayload { receiver_id: string; invite: PlayInvitePayload }
-interface respondPlayInvite { sender_id: string; invite_id: string; accepted: boolean }
+interface RespondPlayInvitePayload { sender_id: string; invite_id: string; accepted: boolean }
 
 export function registerFriendHandlers(io: Server, socket: Socket, _deps: FriendDeps) {
     registerHandler(socket,
@@ -27,5 +28,20 @@ export function registerFriendHandlers(io: Server, socket: Socket, _deps: Friend
             });
         });
 
-    
+    registerHandler(socket,
+        'friend_request_respond', async (s, payload: RespondFriendRequestPayload) => {
+            io.to(`user:${payload.requester_id}`).emit('friend_request_responded', {
+                from_user_id: s.data.user_id,
+                from_userame: s.data.username,
+                status: payload.status,
+            });
+        });
+
+    registerHandler(socket, 'play_invite_sent', async (_s, payload: SendPlayInvitePayload) => {
+        io.to(`user:${payload.receiver_id}`).emit('play_invite_received', payload.invite);
+    });
+
+    registerHandler(socket, 'play_invite_respond', async (_s, payload: RespondPlayInvitePayload) => {
+        io.to(`user:${payload.sender_id}`).emit('play_invite_responded', payload);
+    });
 }
