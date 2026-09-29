@@ -29,7 +29,7 @@ const TournamentsWaiting = () => {
                                     <h2 className="font-font font-semibold text-[0.9rem] text-muted-text -ml-3 px-3 -mt-2.5">Leave Waiting Room</h2>
                                 </button>
                             </MatchCard>
-                            <TournamentButton className="items-center h-[80%] min-w-40 justify-center px-2 rounded-sm">
+                            <TournamentButton onClick={() => nav('/tournament-match')} className="items-center h-[80%] min-w-40 justify-center px-2">
                                 <div className="flex flex-row mt-2.5">
                                     <Rocket size={25} className="ml-1 -mt-2"/>
                                     <div className="font-font font-semibold text-[1.1rem] ml-2 mr-1 -mt-2">Start Match</div>
@@ -70,7 +70,7 @@ const TournamentsWaiting = () => {
                     </MatchCard>
                 </div>
 
-                <TournamentButton className="mt-15 mb-15 h-auto w-auto mx-auto justify-center rounded-sm px-2">
+                <TournamentButton className="mt-15 mb-15 h-auto w-auto mx-auto justify-center px-2">
                     <h1 className="font-semibold my-auto mx-auto text-sm">Click to Show You Are Ready!</h1>
                 </TournamentButton>
 

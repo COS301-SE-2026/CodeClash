@@ -61,7 +61,7 @@ const Achievements: React.FC = () => {
                                 const isExpanded = expandedId === achievement.id;
                                 return (
                                     <div key={achievement.id} 
-                                        className="card-glow p-5 flex flex-col items-center text-center gap-2"
+                                        className="card-glow p-5 flex flex-col items-center text-center gap-2 cursor-pointer"
                                         onClick={() => toggle(achievement.id)}>
                                         <div className="w-16 h-16 rounded-full border-2 border-secondary flex items-center justify-center shrink-0">
                                             <Icon size={28} className="text-primary-text"/>
@@ -92,7 +92,7 @@ const Achievements: React.FC = () => {
                                 const isExpanded = expandedId === achievement.id;
                                 return (
                                     <div key={achievement.id} 
-                                        className="card-glow p-5 flex flex-col items-center text-center gap-2 opacity-50"
+                                        className="card-glow p-5 flex flex-col items-center text-center gap-2 opacity-50 cursor-pointer"
                                          onClick={() => toggle(achievement.id)}>
                                         <div className="w-16 h-16 rounded-full border-2 border-border flex items-center justify-center shrink-0">
                                             <Icon size={28} className="text-muted-text"/>
