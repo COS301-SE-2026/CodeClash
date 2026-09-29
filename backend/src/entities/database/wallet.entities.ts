@@ -7,7 +7,7 @@ export class Wallet {
     wallet_id!: string;
 
     @OneToOne(() => Users)
-    @JoinColumn({ name: 'user_id '})
+    @JoinColumn({ name: 'user_id'})
     user!: Users;
 
     @Column('integer', {default: 0 })

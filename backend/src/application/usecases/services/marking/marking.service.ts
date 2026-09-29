@@ -11,7 +11,7 @@ export class MarkingService {
         private readonly submission_system: SubmissionSystem,
         private readonly life_System: LifeSystem,
         private readonly maths_marking_strategy: IMarkingStrategy,
-        private readonly prog_marking_strategy: IMarkingStrategy,
+        private readonly prog_marking_strategy: IMarkingStrategy
     ) { }
 
 

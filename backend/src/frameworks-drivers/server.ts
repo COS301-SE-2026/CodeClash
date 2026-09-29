@@ -65,7 +65,7 @@ import { Wallet } from 'src/entities/database/wallet.entities';
 import { UserItem } from 'src/entities/database/user-item.entities';
 import { EquippedItems } from 'src/entities/database/equipped-items.entities';
 import { InventoryRepository } from 'src/interface-adapters/repositories/inventory.repository';
-import { WalletReposiroty } from 'src/interface-adapters/repositories/wallet.repository';
+import { WalletRepository } from 'src/interface-adapters/repositories/wallet.repository';
 import { EquippedRepository } from 'src/interface-adapters/repositories/equipped.repository';
 import { InventoryService } from 'src/application/usecases/services/shop/inventory.service';
 import { WalletService } from 'src/application/usecases/services/shop/wallet.service';
@@ -93,7 +93,7 @@ AppDataSource.initialize()
         const friend_repo = new FriendRepository(AppDataSource.getRepository(Friendship), AppDataSource.getRepository(FriendInvite), user_repo);
         const shop_item_repo = new ShopItemRepository(AppDataSource.getRepository(ShopItem));
         const inventory_repo = new InventoryRepository(AppDataSource.getRepository(UserItem), shop_item_repo);
-        const wallet_repo = new WalletReposiroty(AppDataSource.getRepository(Wallet));
+        const wallet_repo = new WalletRepository(AppDataSource.getRepository(Wallet));
         const equipped_repo = new EquippedRepository(AppDataSource.getRepository(EquippedItems), shop_item_repo);
 
         // initialise ecs world 
@@ -171,7 +171,8 @@ AppDataSource.initialize()
             purchase_service,
             equipped_repo,
             shop_item_repo,
-            tournament_service
+            tournament_service, 
+            wallet_repo
         );
         const httpServer = createServer(app)     // can update to https
         const io = new Server(httpServer, {
@@ -212,7 +213,7 @@ AppDataSource.initialize()
         })
 
         // initialise database with users and elos
-        await initDB(user_repo);
+        await initDB(user_repo, wallet_repo);
 
         // attach socket handlers
         attachSocketModules(io, {

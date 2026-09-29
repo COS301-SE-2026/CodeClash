@@ -60,7 +60,6 @@ export const useSubmission = ({
         const result = await matchSocket?.submitAnswer(submission);
 
         if (result !== undefined && result.ok) {
-            console.log(result.data);
             updatePlayerLife(result.data!.player_id, result.data!.life_update);
             submissionResult(result.data!);
             setLastResult({ correct: result.data!.correct, id: Date.now() });

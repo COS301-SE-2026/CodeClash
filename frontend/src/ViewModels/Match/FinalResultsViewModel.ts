@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useMatchmaking } from "src/context/Matchmaking/hooks/useMatchmaking";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
 import { useUser } from "src/context/User/hooks/useUser";
@@ -27,10 +27,10 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
     const [loser, setLoser] = useState<PlayerResultDTO | null>(null);
     const { refresh } = useUser();
     const { matchSocket } = useSocket();
-    const location = useLocation();
-    const { id } = location.state;
+    const { match_id } = useParams();
     const { group_id, setMatched } = useMatchmaking()
 
+    console.log("Final results/", match_id);
     const handleResult = useCallback(async (result: ResultDTO) => {
 
         setResults(result);
@@ -43,6 +43,7 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
         matchSocket?.cleanUpMatch({ match_id: result.match_id, pair_id: group_id })
         setMatched(false)
     }, [group_id, refresh, setMatched, matchSocket])
+
 
 
     useEffect(() => {
@@ -59,18 +60,21 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
         }, 400);
     }, [results])
 
+    let reuslt;
+
+   
     useEffect(() => {
 
         if (!matchSocket) return;
 
-        matchSocket.sendResults({ match_id: id, pair_id: group_id });
-        const clean_up = matchSocket.getResults(handleResult);
+        result = await  matchSocket.sendResults({ match_id: match_id!, pair_id: group_id });
+        
 
 
 
-        return () => { clean_up(); }
+        return () => {  }
 
-    }, [matchSocket, id, handleResult, group_id]);
+    }, [matchSocket, match_id, handleResult, group_id]);
 
     useEffect(() => {
         if (results === null) return;

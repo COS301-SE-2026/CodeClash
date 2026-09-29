@@ -22,8 +22,10 @@ export const useMatch = () => {
     const [loading, setLoading] = useState(false);
     const [waitingOpponent, setWaitingOpponent] = useState(false);
     const [roundIdx, setRoundIdx] = useState(0);
+    const [confirmRound, setConfirmRound] = useState(false);
 
-    const question_idx = useRef(0);
+
+    const finished_ref = useRef(false);
     const mathfieldRef = useRef<MathfieldElement | null>(null)
 
 
@@ -40,9 +42,13 @@ export const useMatch = () => {
     const { submissionError, submitQuestion, results, lastResult } = useSubmission({ round_idx: roundIdx, curr_question: currentQuestion, question: questions[currentQuestion], match_id: match_id!, updatePlayerLife })
     const { seconds, minutes } = useMatchTimer(duration, () => {
         setGameOver(true);
-        matchSocket?.finishMatch({ match_id: match_id!, match_mode: matchMode! })
+        finishGame();
     })
 
+    const last_round = roundIdx === rounds.length - 1;
+    const last_q_of_round = questions.length > 0 && currentQuestion === questions.length - 1;
+    const complete_round = last_q_of_round && !last_round;
+    const final_question = last_q_of_round && last_round;
 
     const avatars = useMemo(() => players.map(p => robot_map[p.avatar_id]), [players]);
     const usernames = useMemo(() => players.map(p => p.username), [players]);
@@ -55,14 +61,6 @@ export const useMatch = () => {
     const nextQuestion = (curr: number) => {
         if (curr < questions.length - 1) {
             setCurrentQuestion(curr + 1);
-            return;
-        }
-
-        if (roundIdx < rounds.length - 1) {
-            setRoundIdx(roundIdx + 1);
-            setCurrentQuestion(0);
-            setNextRound(true);
-            setTimeout(() => setNextRound(false), 5000);
         }
     }
 
@@ -72,10 +70,28 @@ export const useMatch = () => {
         }
     }
 
+    const confirmCompleteRound = ()=>{
+        if(complete_round) setConfirmRound(true);
+    }
+
+    const cancelCompleteRound = ()=>{
+        setConfirmRound(false);
+    }
+
+    const completeRound = ()=>{
+        if(!complete_round) return;
+        setConfirmRound(false);
+        setRoundIdx(r => r+1);
+        setCurrentQuestion(0);
+        setNextRound(true);
+        setTimeout(()=> setNextRound(false), 500);
+    }
+
     const finishGame = () => {
-        if (question_idx.current === questions.length - 1) {
-            setWaitingOpponent(true);
-        }
+        console.log("finish game")
+
+        finished_ref.current = true;
+        matchSocket?.finishMatch({ match_id: match_id!, match_mode: matchMode! });
     }
 
     const both_done = () => {
@@ -89,6 +105,7 @@ export const useMatch = () => {
 
     useEffect(() => {
 
+        console.log("Match view model mounted")
         if (matchSocket && match_id) {
             setLoading(true);
 
@@ -139,6 +156,12 @@ export const useMatch = () => {
         rounds,
         elos,
         colourClass,
-        shake
+        shake,
+        complete_round,
+        final_question,
+        confirmRound,
+        confirmCompleteRound,
+        cancelCompleteRound,
+        completeRound
     }
 }
