@@ -73,6 +73,8 @@ import { WalletService } from 'src/application/usecases/services/shop/wallet.ser
 import { EquipmentService } from 'src/application/usecases/services/shop/equipment.service';
 import { PowerupService } from 'src/application/usecases/services/shop/powerup.service';
 import { PurchaseService } from 'src/application/usecases/services/shop/purchase.service';
+import { PowerupSystem } from 'src/application/usecases/systems/powerup.system';
+import { RewardService } from 'src/application/usecases/services/match/reward.service';
 
 dotnev.config()
 
@@ -128,20 +130,46 @@ AppDataSource.initialize()
         const inventory_service = new InventoryService(inventory_repo);
         const wallet_service = new WalletService(wallet_repo);
         const equipment_service = new EquipmentService(equipped_repo, inventory_repo, shop_item_repo);
-        const powerup_service = new PowerupService(inventory_repo, shop_item_repo);
         const purchase_service = new PurchaseService(shop_item_repo, AppDataSource);
-
+        const reward_service = new RewardService();
 
         // initialise systems 
         const submission_system = new SubmissionSystem(world);
         const life_system = new LifeSystem(world);
         const match_deletion_system = new DeleteGame(world, match_store, matched_users_service);
         const match_completion_system = new MatchCompletionSystem(world, match_store);
-        const match_completion_service = new MatchCompletionService(match_repo, match_completion_system, user_repo, achievement_service);
+        const match_completion_service = new MatchCompletionService(match_repo, match_completion_system, user_repo, achievement_service, reward_service, wallet_repo);
+        const powerup_system = new PowerupSystem(world, life_system, submission_system);
+        // has to be declared here for system
+        const powerup_service = new PowerupService(inventory_repo, shop_item_repo, powerup_system);
+        const maths_marker: IMarkingStrategy = new MarkMaths();
+
+        const code_executor = new CodeExecutor();
+        const prog_marker: IMarkingStrategy = new MarkProg(code_executor);
+
+        const opponent_progress = new OpponentProgress(world);
+        const marking_service = new MarkingService(match_cache, submission_system, life_system, maths_marker, prog_marker, opponent_progress);
+
+        const elimination_service = new TournamentEliminationService(marking_service);
+        const tournament_service = new TournamentService(tournament_cache, match_start, elimination_service,user_repo);
 
 
-
-        const app = createApp(user_repo, leaderboard_service, achievement_service, friends_service, match_completion_service, shop_item_service, inventory_service, wallet_service, equipment_service, powerup_service, purchase_service, equipped_repo, shop_item_repo);
+        const app = createApp(
+            user_repo,
+            leaderboard_service,
+            achievement_service,
+            friends_service,
+            match_completion_service,
+            shop_item_service,
+            inventory_service,
+            wallet_service,
+            equipment_service,
+            powerup_service,
+            purchase_service,
+            equipped_repo,
+            shop_item_repo,
+            tournament_service
+        );
         const httpServer = createServer(app)     // can update to https
         const io = new Server(httpServer, {
             cors: {
@@ -150,19 +178,6 @@ AppDataSource.initialize()
             },
         }
         );
-
-
-        const maths_marker: IMarkingStrategy = new MarkMaths();
-
-        const code_executor = new CodeExecutor();
-        const prog_marker: IMarkingStrategy = new MarkProg(code_executor);
-
-        const notification = new NotificationService(io);
-        const opponent_progress = new OpponentProgress(world);
-        const marking_service = new MarkingService(match_cache, submission_system, life_system, notification, maths_marker, prog_marker, opponent_progress);
-
-        const elimination_service = new TournamentEliminationService(marking_service);
-        const tournament_service = new TournamentService(tournament_cache, match_start, elimination_service);
 
         // auth middleware 
         io.use(async (socket, next) => {
@@ -198,7 +213,7 @@ AppDataSource.initialize()
 
         // attach socket handlers
         attachSocketModules(io, {
-            match: { marking_service, submission_system, match_completion_service, match_deletion_system, match_store },
+            match: { marking_service, submission_system, match_completion_service, match_deletion_system, match_store, powerup_service ,elimination_service},
             matchmaking: { matchmaking_service, matched_users_service, match_service, match_store, user_repo, match_start },
             friends: {},
             tournament: { tournament_service }

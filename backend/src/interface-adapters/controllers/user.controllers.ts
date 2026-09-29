@@ -5,7 +5,6 @@ import { validStat } from '../auth/auth.service';
 import { CreateUser } from 'src/application/usecases/services/user-creation.service';
 import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
 
-
 /// GET api/user/:stat
 export const getUserStat = (user_repo: IUserRepository) => {
 

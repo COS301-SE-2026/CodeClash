@@ -1,6 +1,6 @@
 import type React from "react";
 
-import { Card } from "./card";
+import { Card } from "@/components/ui/card";
 
 interface GameGuideNumberProps{
     children?: React.ReactNode

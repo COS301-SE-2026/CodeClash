@@ -32,5 +32,5 @@ export interface MarkingResultDTO {
     correct: boolean,
     speed: number,
     attempt_number: number,
-    life_update: number
+    life_update?: number
 }
