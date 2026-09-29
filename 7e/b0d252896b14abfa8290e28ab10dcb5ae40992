@@ -1,0 +1,19 @@
+frontend/src/Models/SkillInsights.ts
+  s_5b2d1960cf005f::t_78ff6b7bd73d4a 1-37
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "7eb0d252896b14abfa8290e28ab10dcb5ae40992",
+  "prompts": {},
+  "sessions": {
+    "s_5b2d1960cf005f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "571b3ee6-bbf3-440e-8500-2baaf21ee461",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": null
+    }
+  }
+}
