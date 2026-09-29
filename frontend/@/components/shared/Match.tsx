@@ -38,7 +38,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
     const progressValue = question_number > 0 ? (questionsAnswered / question_number) * 100 : 0;
 
     return (
-        <div className="fixed inset-0 flex flex-col min-w-[64rem] overflow-y-auto">
+        <div className="fixed inset-0 flex flex-col min-w-0 overflow-auto">
             {/* <img src={background} className='absolute w-full -z-10' alt='background' /> */}
             {/* <BackButton page='/dashboard' /> */}
             {/* Header */}
@@ -59,7 +59,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                             <h1 className="text-muted-text text-xs">{elos[0]} ELO</h1>
                         </div>
 
-                        <TournamentsBadge className="flex min-w-7 ml-[0.5%] h-[1.5rem] mb-auto text-muted-text text-xs -mr-4 -mt-1">
+                        <TournamentsBadge className="flex min-w-7 ml-[0.5%] h-[1.5rem] mb-auto text-muted-text text-xs -mt-1">
                             <h1 className="mt-1">YOU</h1>
                         </TournamentsBadge>
 
@@ -69,7 +69,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                 bg="var(--button-tournament-secondary)"
                                 border="var(--button-tournament-secondary)"
                                 height={3}
-                                className='max-w-[11rem] min-w-[1rem] h-sm mr-auto ml-5 -mt-1'
+                                className='max-w-[11rem] min-w-[1rem] h-sm mr-auto -mt-1'
                             />
                         </div>
                     </div>
@@ -77,7 +77,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
 
                 {/* Clock */}
                 <TimerCard className='shrink-0 text-white font-dseg border border-[var(--match-card)] 
-                h-6 w-38 flex items-center justify-center text-[70%] text-center font-semibold rounded-sm px-2 my-auto -mt-4.5'>
+                h-6 w-38 flex items-center justify-center text-[70%] text-center font-semibold rounded-2xl px-2 my-auto -mt-4.5'>
                     <span>
                         {String(minutes).padStart(2, "0")}:
                         {String(seconds).padStart(2, "0")}
@@ -97,7 +97,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                 from={"#8b29b8"}
                                 via={"#BF4DF3"}
                                 height={3}
-                                className='max-w-[11rem] min-w-[1rem] h-sm ml-auto mr-5 -mt-2.5 rotate-180'
+                                className='max-w-[11rem] min-w-[1rem] h-sm ml-auto -mt-2.5 rotate-180'
                             />
                         </div>
 
@@ -165,7 +165,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                             return <LockKeyhole/>
                                         }
                                         const oppProg = () => {
-                                            if (idx === opponent_progress) return <div className="absolute top-0 left-0 rounded-full h-4 w-4 
+                                            if (idx === opponent_progress) return <div className="absolute top-0 left-0 rounded-full h-3 w-3 
                                             bg-red-800 z-20 shadow-[0_0_12px_rgba(190,0,0,0.3)]"/>
                                         }
 
