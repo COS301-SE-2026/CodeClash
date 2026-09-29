@@ -9,6 +9,7 @@ import { MatchScreen } from '@/components/features/Match/Match';
 import { Button } from '@/components/ui/button';
 import Popup from '@/components/shared/PopUp';
 import "../../../src/styles/global.css"
+import { PowerUpAndDownButtons } from '@/components/features/Match/PowerUpandDownButtons';
 
 const MathsMatch = () => {
     const {
@@ -71,15 +72,14 @@ const MathsMatch = () => {
                 <MathMatch
                     mathfieldRef={mathfieldRef}
                 >
-                </MathMatch>
-            </div>
+                
 
             {/* the code below was copied from a more updated version of this file that wasn't merged properly,
             all this code was written by a human and was not generated with ai */}
             
-            <div className='w-[100%] h-[6rem] flex flex-shrink-0 items-center justify-evenly rounded-4xl'>
+            <div className='w-[100%] h-[6rem] flex flex-shrink-0 items-center justify-center gap-10 rounded-4xl mb-10 my-auto relative'>
 
-                <div className='flex items-center justify-evenly text-secondary bg-primary rounded-2xl w-[15%]'>
+                <div className='flex items-center justify-center text-secondary bg-primary rounded-2xl w-[15%]'>
                     <ChevronLeft onClick={() => prevQuestion(currentQuestion)} className='size-[3rem] hover:scale-110  hover:bg-secondary/20 rounded-2xl w-[50%]' />
                     <ChevronRight onClick={() => nextQuestion(currentQuestion)} className='size-[3rem] hover:scale-110 hover:bg-secondary/20 rounded-2xl w-[50%]' />
                 </div>
@@ -100,6 +100,9 @@ const MathsMatch = () => {
                         <p>Finish</p>
                     </Button>
                 }
+                <PowerUpAndDownButtons/>
+            </div>
+            </MathMatch>
             </div>
 
             {waitingOpponent && (
