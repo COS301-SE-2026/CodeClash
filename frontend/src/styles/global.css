@@ -1504,4 +1504,46 @@
     white-space: nowrap;
     animation: power-badge-in var(--power-duration) ease-out forwards;
   }
+
+  .power-down .power-badge {
+    animation-name: power-badge-hit;
+  }
+
+  .power-icon {
+    width: 4.5rem;
+    height: 4.5rem;
+    filter: drop-shadow(0 0 12px var(--power-color));
+  }
+
+  .power-label {
+    font-family: var(--heading);
+    font-weight: 800;
+    font-size: var(--font-size-md);
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    color: var(--power-color);
+  }
+
+  .power-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 14rem;
+    height: 14rem;
+    border-radius: 999px;
+    border: 3px solid var(--power-color);
+    opacity: 0;
+    animation: power-ring var(--power-duration) ease-out forwards;
+  }
+
+  .power-particle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 999px;
+    background: var(--power-color);
+    box-shadow: 0 0 10px var(--power-color);
+    opacity: 0;
+    animation: power-ring var(--power-duration) ease-out forwards;
+  }
 }
