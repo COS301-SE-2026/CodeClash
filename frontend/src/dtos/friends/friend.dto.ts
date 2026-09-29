@@ -21,3 +21,14 @@ export interface PlayInvitePayload {
     }[];
     expires: number;
 }
+
+export interface SendPlayInviteDTO {
+    receiver_id: string;
+    invite: PlayInvitePayload;
+}
+
+export interface PlayInviteResponseDTO {
+    sender_id: string;
+    invite_id: string;
+    accepted: boolean;
+}
