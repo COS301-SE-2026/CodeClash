@@ -364,6 +364,37 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
 
     const dismissInviteError = useCallback(() => setInviteError(null), []);
 
+    const clearMatchReady = useCallback(()=> setMatchReady(false), []);
+
+    /*Real time listeners */
+    useEffect(() => {
+        if(!friendsSocket) return;
+
+        const unsub_request_received = friendsSocket.friendRequestReceived((data) => {
+            showNotice(`${data.from_username} sent you a friend request`);
+            void fetchAll();
+        });
+
+        const unsub_request_responded = friendsSocket.friendRequestResponded((data) => {
+            showNotice(
+                data.status === 'accepted'
+                ? `${data.from_username} accepted your friend request`
+                : `${data.from_username} declined your friend request`
+            );
+            setSentRequest((prev) => {
+                const next = new Set(prev);
+                next.delete(data.from_user_id);
+                return next;
+            });
+            void fetchAll();
+        });
+        const unsub_invite_received = friendsSocket.playInviteReceived((invite) => {
+            activeInviteIdRef.current = invite.id;
+            setActiveInvite(invite);
+        });
+
+        
+    })
     const value: FriendsContext = {
         isLoading,
         profile,
