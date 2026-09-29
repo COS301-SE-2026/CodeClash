@@ -10,7 +10,7 @@ const WALLET_URL = "/api/shop/wallet";
 const INVENTORY_URL = "/api/shop/items/me";
 const EQUIPPED_URL = "/api/shop/equipped";
 const PURCHASE_URL = "/api/shop/purchase";
-const EQUIP_IRL = "/api/shop/equipped";
+const EQUIP_URL = "/api/shop/equipped";
 
 interface RawShopItemBase {
     shop_item_id: string;
@@ -174,7 +174,7 @@ export const getInv = async (token: string): Promise<UserInventory> => {
 export const purchaseItm = async (
     itemId: string,
     token: string
-): Promise<{ wallet: Wallet; inventory: UserInventory } => {
+): Promise<{ wallet: Wallet; inventory: UserInventory }> => {
     const res = await fetch(PURCHASE_URL, {
         method: 'POST',
         headers: authHeaders(token),
@@ -185,4 +185,19 @@ export const purchaseItm = async (
 
     const [wallet, inventory] = await Promise.all([getWallet(token), getInv(token)]);
     return { wallet, inventory };
+}
+
+export const equipItm = async (
+    category: 'avatar' | 'theme',
+    itemId: string,
+    token: string
+): Promise<UserInventory> => {
+    const res = await fetch(EQUIP_URL, {
+        method: 'POST',
+        headers: authHeaders(token),
+        body: JSON.stringify({ category, shop_item_id: itemId }),
+    });
+
+    await handle(res);
+    return getInv(token);
 }
