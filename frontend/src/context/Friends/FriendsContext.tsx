@@ -2,7 +2,7 @@ import {
     createContext, useCallback, useEffect, 
     useMemo, useRef, useState,
 } from "react";
-// import { useSocket } from "src/context/Socket/hooks/useSocket";
+import { useSocket } from "src/context/Socket/hooks/useSocket";
 
 import { useAuth } from "../Auth/hooks/useAuth";
 import {friendContent} from "../../Models/FriendsModel";
@@ -39,13 +39,16 @@ interface FriendsContext {
     acceptInvite: () => void;
     declineInvite: () => void;
     dismissInviteError: () => void;
+
+    matchReady: boolean;
+    clearMatchReady: () => void;
 }
 // eslint-disable-next-line react-refresh/only-export-components
 export const FriendsContextFunc = createContext<FriendsContext | null>(null);
 
 export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
     const {token, user} = useAuth();
-    // const { socket } = useSocket();
+    const { friendsSocket} = useSocket();
     const [isLoading, setIsLoading] = useState(true);
     const [profile, setProfile] = useState<Summary | null>(null);
     const [friend, setFriend] = useState<Friend[]>([]);
@@ -57,12 +60,28 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
     const [now, setNow] = useState(() => Date.now());
     const [allUsers, setAllUsers] = useState<Search[]>([]);
     const [error, setError] = useState<string | null>(null);
+    const [notice, setNotice] =useState<string | null>(null);
+    const [matchReady, setMatchReady] = useState(false);
 
     const friendsRef = useRef(friend); //this is so closures dont capture a stale list
     friendsRef.current = friend;
 
+    const requestsRef = useRef(requests); // so socket handlers don't capture a astale requests list
+    requestsRef.current = requests;
+
+    const profileRef= useRef(profile);
+    profileRef.current = profile;
+
+    const activeInviteRef = useRef(activeInvite);
+    activeInviteRef.current = activeInvite;
+
     const activeInviteIdRef = useRef<string | null>(null); //tracks the current id for Invites, so we can differentiate same invite to new invite without resetting local countdown
 
+    const showNotice = useCallback((message: string) => {
+        setNotice(message);
+        setTimeout(() => setNotice((prev) => prev === message ? null : prev), 4000);
+    }, []);
+    
         const fetchAll = useCallback(async () => {
             if(!token) return;
             try {
