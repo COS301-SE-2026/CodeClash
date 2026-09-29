@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useMemo, useState, type ReactNode } from "react";
 import type { MatchedUsersDTO } from "src/dtos/matchmaking/matched-user.dto";
 import type { MatchType, MatchMode } from "src/dtos/match/match.dto";

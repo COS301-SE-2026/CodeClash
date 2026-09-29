@@ -1,11 +1,9 @@
 {
+  // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
     "module": "nodenext",
     "target": "esnext",
-    "types": [
-      "ts-node",
-      "node"
-    ],
+    "types": ["node", "ts-node"],
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
@@ -17,22 +15,5 @@
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
-    "ignoreDeprecations": "6.0",
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "baseUrl": ".",
-    "paths": {
-      "src/*": [
-        "src/*"
-      ]
-    },
-    "outDir": "dist",
-    "rootDir": "src"
-  },
-  "ts-node": {
-    "files": true
-  },
-  "include": [
-    "src"
-  ]
+  }
 }

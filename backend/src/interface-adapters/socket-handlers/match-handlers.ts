@@ -7,11 +7,14 @@ import { PlayerSubmissionDTO, RawSubmissionDTO } from "src/entities/dtos/submiss
 import { PlayerResultDTO } from 'src/entities/dtos/matches/match.dto'
 import { MatchCompletionService } from "src/application/usecases/services/match/match-completion.service";
 import { TournamentEliminationService } from "src/application/usecases/services/tournament/elimination.service";
+import { OpponentProgress } from "src/application/usecases/systems/opponent-progress";
 import { UsePowerupDTO } from "src/entities/dtos/shop/powerup-use.dto";
 import { PowerupService } from "src/application/usecases/services/shop/powerup.service";
 
-export const submitQuestion = async (socket: Socket, data: RawSubmissionDTO, mark: MarkingService, match_store: MatchStore, elimination_service: TournamentEliminationService) => {
-
+export const submitQuestion = async (
+    io: Server, socket: Socket, data: RawSubmissionDTO, mark: MarkingService,
+    match_store: MatchStore, elimination_service: TournamentEliminationService,
+    opponent_progress: OpponentProgress) => {
     const ecs_id = match_store.getEcsId(data.id);
     const submission: PlayerSubmissionDTO = {
         ...data,
@@ -19,17 +22,22 @@ export const submitQuestion = async (socket: Socket, data: RawSubmissionDTO, mar
         player_id: socket.data.user_id
     }
 
-
-    console.log("marking question")
     switch (data.match_type) {
-        case MatchType.ranked:
-            return await mark.execute(submission);
-
         case MatchType.tournament:
             return await elimination_service.submit(data.id, submission);
 
-    }
+        default: {
+            const result = await mark.execute(submission);
+            const opponent = opponent_progress.getOpponentId(submission.match_id, submission.player_id);
+            const progress = opponent_progress.updateOpponent(submission.player_id, submission.question_number!, result.correct, result.life_update!);
 
+            if (opponent !== undefined) {
+               io.to(opponent).emit("opponent_progress", progress);
+            }
+
+            return result;
+        }
+    }
 }
 
 
