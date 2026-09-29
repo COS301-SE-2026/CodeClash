@@ -342,14 +342,25 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
             setActiveInvite(null);
             return;
         }
+        const sender_id = activeInvite.participants[0]?.friendId;
+        if (sender_id) {
+            friendsSocket?.respondPlayInvite({ sender_id, invite_id: activeInvite.id, accepted: true });
+        }
         activeInviteIdRef.current = null;
         setActiveInvite(null);
-    }, [activeInvite])
+        setMatchReady(true);
+    }, [activeInvite, friendsSocket])
 
     const declineInvite = useCallback(() => {
+        if (activeInvite) {
+            const sender_id = activeInvite.participants[0]?.friendId;
+            if (sender_id) {
+                friendsSocket?.respondPlayInvite({ sender_id, invite_id: activeInvite.id, accepted: false });
+            }
+        }
         activeInviteIdRef.current = null;
         setActiveInvite(null);
-    }, [])
+    }, [activeInvite, friendsSocket])
 
     const dismissInviteError = useCallback(() => setInviteError(null), []);
 
