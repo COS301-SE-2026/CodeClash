@@ -4,7 +4,6 @@ import { MatchStore } from "src/application/usecases/services/match/match-store.
 import { MatchType } from "src/entities/dtos/matches/match.dto";
 import { DeleteGame } from "src/application/usecases/systems/delete-game";
 import { PlayerSubmissionDTO, RawSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
-import { PlayerResultDTO } from 'src/entities/dtos/matches/match.dto'
 import { MatchCompletionService } from "src/application/usecases/services/match/match-completion.service";
 import { TournamentEliminationService } from "src/application/usecases/services/tournament/elimination.service";
 import { OpponentProgress } from "src/application/usecases/systems/opponent-progress";
@@ -35,6 +34,7 @@ export const submitQuestion = async (
                 io.to(opponent).emit("opponent_progress", progress);
             }
 
+            console.log("marking result", result);
             return result;
         }
     }

@@ -35,9 +35,11 @@ export class CodeExecutor implements ICodeExecutor {
                 });
 
 
+            console.log(result.data);
             return result.data;
         }
         catch (error) {
+            console.log(error);
             if (axios.isAxiosError(error)) {
 
                 return {

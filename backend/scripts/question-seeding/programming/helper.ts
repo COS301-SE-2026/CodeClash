@@ -109,12 +109,12 @@ export function loadExercises(): SeedProgrammingQuestion[] {
 
 
 export const LANGUAGES = [
-    {
-        language: "python",
-        repo_path: '../../python',
-        stub_extension: ["py"],
-        judge0_id: 71
-    },
+    // {
+    //     language: "python",
+    //     repo_path: '../../python',
+    //     stub_extension: ["py"],
+    //     judge0_id: 71
+    // },
     {
         language: "cpp",
         repo_path: "../../cpp",

@@ -26,6 +26,10 @@ export class MarkProg implements IMarkingStrategy {
 
         for (const test of test_cases) {
             const stdin = this.formatStdin(test.input);
+
+            console.log("TEST INPUT", test.input);
+            console.log("STDIN", stdin);
+            console.log("EXPECTED OUTPUT", JSON.stringify(test.expected_output));
             const result = await this.executor.execute(sub.source_code, sub.language_id, stdin, test.expected_output);
 
             if (result.status.id !== 3) return false;
