@@ -23,11 +23,12 @@ const MathsMatch = () => {
         loading,
         submitQuestion,
         mathfieldRef,
-        elos
+        elos, colourClass, shake
     } = useMatch();
 
     const curr = questions[currentQuestion];
     const {username} = useUser();
+    
     useEffect(() => {
         if (mathfieldRef.current) {
             mathfieldRef.current.value = '';
@@ -55,6 +56,7 @@ const MathsMatch = () => {
             rounds={rounds}
             current_round={roundIdx}
             current_user={username}
+            shake={shake}
         >
 
             <Question
@@ -63,9 +65,10 @@ const MathsMatch = () => {
                 title={curr.title!}
                 description={curr.description}
             />
-            <div className='w-[100%] h-[100%] min-h-[35%] flex items-center justify-center'>
+            <div className={`w-[100%] flex items-center justify-center`}>
                 <MathMatch
                     mathfieldRef={mathfieldRef}
+                    colourClass={colourClass}
                 ></MathMatch>
             </div>
             <div className='w-[100%] h-[6rem]  flex flex-shrink-0 items-center justify-evenly rounded-4xl'>

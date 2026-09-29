@@ -26,7 +26,7 @@ export const ProgMatch = () => {
         opponentCurrent, waitingOpponent, finishGame,
         loading,
         submitQuestion,
-        elos
+        elos, colourClass, shake
     } = useMatch();
 
     const curr = questions[currentQuestion];
@@ -54,6 +54,7 @@ export const ProgMatch = () => {
             rounds={rounds}
             current_round={roundIdx}
             current_user={username}
+            shake={shake}
         >
             <Question
                 className={` h-[20rem] `}
@@ -62,7 +63,7 @@ export const ProgMatch = () => {
                 description={curr.description}
             />
 
-            <MatchCard className="items-center mt-5">
+            <MatchCard className={`items-center mt-5 ${colourClass}`}>
                 <CodeEditor
                     question={question}
                     onChange={(new_code, new_language, judge0_id) => {

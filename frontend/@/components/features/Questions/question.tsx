@@ -1,6 +1,9 @@
 import * as React from "react";
 import ReactMarkDown from 'react-markdown';
 import remarkGfm from "remark-gfm";
+import remarkMath from 'remark-math'
+import rehypeKatex from 'rehype-katex'
+import "katex/dist/katex.min.css";
 import { Badge } from "@/components/ui/badge";
 
 import { cn } from "@/lib/utils";
@@ -63,7 +66,7 @@ export const Question = ({
 export const QuestionDescription = ({ description }: { description: string }) => {
   return (
     <div className="prose prose-invert max-w-none">
-      <ReactMarkDown remarkPlugins={[remarkGfm]}>
+      <ReactMarkDown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]}>
         {description}
       </ReactMarkDown>
     </div>
