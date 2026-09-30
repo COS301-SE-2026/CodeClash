@@ -1,4 +1,4 @@
-import { LayoutDashboard, HelpCircle, Trophy, BarChart2, Medal, Users, Settings, History, Store } from 'lucide-react'
+import { LayoutDashboard, HelpCircle, Trophy, BarChart2, Medal, Users, Settings, History, Store, TrendingUp } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
 
 import {
@@ -16,7 +16,8 @@ import {
 const navItems = [
 
     { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { to: '/match-history', label: 'Match History', icon: History},
+  { to: '/match-history', label: 'Match History', icon: History },
+    { to: '/stats', label: 'Skill Progress', icon: TrendingUp },
     { to: '/tournaments', label: 'Tournaments', icon: Trophy },
     { to: '/leaderboard', label: 'Leaderboard', icon: BarChart2 },
     { to: '/achievements', label: 'Achievements', icon: Medal },

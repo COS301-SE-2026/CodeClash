@@ -1,53 +1,77 @@
+name: codeclash-test
+
 services:
   backend:
-    build: ../backend
+    build:
+      context: ../backend
+      dockerfile: Dockerfile.dev
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:3000/health"]
+      test: [ "CMD", "wget", "-qO-", "http://localhost:3000/health" ]
       interval: 5s
       timeout: 3s
       retries: 5
       start_period: 30s
     ports:
       - "3001:3000"
-    environment: #Copied from deployment branch
-      - DB_HOST=${DB_TEST_HOST}
-      - DB_PORT=${DB_TEST_PORT}
-      - DB_USER=${DB_TEST_USER}
-      - DB_PASSWORD=${DB_TEST_PASSWORD}
-      - DB_NAME=${DB_TEST_NAME}
-      - REDIS_URL=${REDIS_TEST_URL}
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - REDIS_URL=${REDIS_URL}
       - COGNITO_USER_POOL_ID=${COGNITO_USER_POOL_ID}
       - COGNITO_CLIENT_ID=${COGNITO_CLIENT_ID}
       - COGNITO_REGION=${COGNITO_REGION}
       - AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
       - AWS_SECRET_KEY=${AWS_SECRET_KEY}
       - FRONTEND_URL=${FRONTEND_URL}
-      - COGNITO_JWKS_URI=${COGNITO_JWKS_URI} 
+      - COGNITO_JWKS_URI=${COGNITO_JWKS_URI}
       - VITE_API_URL=${VITE_API_URL}
+      - PORT=${PORT}
+      - JUDGE_0_URL=${JUDGE_0_URL}
+      - JUDGE_0_TOKEN=${JUDGE_0_TOKEN}
     depends_on:
       test-db:
         condition: service_healthy
     networks:
       - pgnetwork
 
+  # frontend:
+  #   build: 
+  #     context: ../frontend
+  #     args:
+  #     - VITE_COGNITO_USER_POOL_ID=${VITE_COGNITO_USER_POOL_ID}
+  #     - VITE_COGNITO_CLIENT_ID=${VITE_COGNITO_CLIENT_ID}
+  #     - VITE_API_URL=${VITE_API_URL}
+  #     - VITE_WEBSOCKET_URL=${VITE_WEBSOCKET_URL}
+  #   ports:
+  #     - "80:8080"
+  #   depends_on:
+  #     - backend
+  #   volumes:
+  #     - ../frontend:/app
+  #     - /app/node_modules
+  #   networks:
+  #     - pgnetwork
 
   test-db:
     image: postgres:15-alpine
     environment:
-      POSTGRES_USER: ${DB_TEST_USER}
-      POSTGRES_PASSWORD: ${DB_TEST_PASSWORD}
-      POSTGRES_DB: ${DB_TEST_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     ports:
       - "5434:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_TEST_USER} -d ${DB_TEST_NAME}"]
+      test: [ "CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}" ]
       interval: 5s
       timeout: 30s
       retries: 5
       start_period: 30s
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./database:/docker-entrypoint-initdb.d
+      - ../database:/docker-entrypoint-initdb.d
     networks:
       - pgnetwork
 
@@ -56,13 +80,15 @@ services:
     ports:
       - "6380:6379"
     environment:
-      - REDIS_URL=${REDIS_TEST_URL}
+      - REDIS_URL=${REDIS_URL}
+    command: redis-server
+    restart: unless-stopped
     networks:
       - pgnetwork
-
 
 volumes:
   postgres_data:
 
 networks:
   pgnetwork:
+    name: pgnetwork

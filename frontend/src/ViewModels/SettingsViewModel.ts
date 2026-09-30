@@ -1,10 +1,54 @@
-import { useTheme } from "src/context/ThemeContext";
+import { useTheme } from "src/context/Shop/ThemeContext";
+import type { Theme } from "src/context/Shop/ThemeContext";
+
+export interface ThemesContent {
+    id: Theme;
+    label: string;
+    swatch: string; //this will be used for a preview of what the primary color for the theme is
+}
+
+const Themes: ThemesContent[] = [
+    {
+        id: 'dark',
+        label: 'Cosmo',
+        swatch: '#c0395a'
+    },
+    {
+        id: 'light',
+        label: 'Cosmo Light',
+        swatch: '#c0395a'
+    },
+    {
+        id: 'frost',
+        label: 'Frost',
+        swatch: '#2f8fe0'
+    },
+    {
+        id: 'gold',
+        label: 'Gold',
+        swatch: '#d4af37'
+    },
+    {
+        id: 'nebula',
+        label: 'Nebula',
+        swatch: '#8b3fd6'
+    },
+    {
+        id: 'verdant',
+        label: 'Verdant',
+        swatch: '#9ccc3c'
+    },
+]
+
 
 export const SettingsViewModelFunc = () => {
-    const {isLight, toggleTheme} = useTheme();
+    const {isLight, toggleTheme, theme, setTheme} = useTheme();
 
     return {
         isLight,
-        toggleTheme
+        toggleTheme,
+        theme,
+        setTheme,
+        themes: Themes
     }
 }

@@ -15,7 +15,9 @@
 }
 
 @keyframes pop {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(1);
   }
 
@@ -25,7 +27,9 @@
 }
 
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px);
   }
 
@@ -35,7 +39,9 @@
 }
 
 @keyframes glow {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.2;
   }
 
@@ -45,7 +51,9 @@
 }
 
 @keyframes twinkle {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.15;
     transform: scale(0.9);
   }
@@ -60,16 +68,21 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
 @keyframes thinking {
-  0%, 80%, 100% {
+
+  0%,
+  80%,
+  100% {
     opacity: 0.25;
     transform: translateY(0);
   }
+
   40% {
     opacity: 1;
     transform: translateY(-3px);
@@ -77,20 +90,50 @@
 }
 
 @keyframes shake {
-  10%, 90% {
+
+  10%,
+  90% {
     transform: translateX(-1px);
   }
 
-  20%, 80% {
+  20%,
+  80% {
     transform: translateX(2px);
   }
 
-  30%, 50%, 70% {
+  30%,
+  50%,
+  70% {
     transform: translateX(-4px);
   }
 
-  40%, 60% {
+  40%,
+  60% {
     transform: translateX(4px);
+  }
+}
+
+@keyframes big-shake {
+  0%,
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
+
+  20%{
+    transform: translateX(-6px) rotate(-1deg);
+  }
+
+ 40%{
+    transform: translateX(5px) rotate(1deg);
+  }
+
+
+  60% {
+    transform: translateX(-4px) rotate(-0.5deg);
+  }
+
+  80%{
+    transform: translateX(3px) rotate(0.5deg);
   }
 }
 
@@ -149,7 +192,9 @@
 }
 
 @keyframes answer-flash-correct {
-  0% , 100%{
+
+  0%,
+  100% {
     box-shadow: 0 0 0 transparent;
   }
 
@@ -159,7 +204,9 @@
 }
 
 @keyframes answer-flash-wrong {
-  0% , 100%{
+
+  0%,
+  100% {
     box-shadow: 0 0 0 transparent;
   }
 
@@ -190,8 +237,9 @@
   --color-success: var(--success);
   --color-danger: var(--danger);
   --color-warning: var(--warning);
-  --color-info: var(--info)
+  --color-info: var(--info);
   --color-muted: var(--muted);
+  --color-info: var(--info) --color-muted: var(--muted);
   --colour-secondary-muted: var(--secondary-muted);
 
   /* Pink */
@@ -210,6 +258,9 @@
   --color-button-secondary: var(--button-secondary);
   --color-button-text-primary: var(--button-text-primary);
   --color-button-text-secondary: var(--button-text-secondary);
+  --color-button-tournament: var(--button-tournament);
+  --color-button-tournament-secondary: var(--button-tournament-secondary);
+  --color-button-tournament-secondary-border: var(--button-tournament-secondary-border);
 
   /* accents */
   --color-accent: var(--accent);
@@ -268,9 +319,82 @@
   /* Life bars */
   --color-life-primary: var(--life-primary);
 
+  /*Match and Tournaments Page*/
+  --progress-bar-symbol: var(--progress-bar-symbol);
+  --match-card: var(--match-card);
+  --card-tournament: var(--card-tournaments);
+  --gradient-tournaments: var(--gradient-tournament);
+  --match-boxes: var(--match-box);
+  --multiple-choice: var(--multiple-choice-box);
+  --multiple-choice-option: var(--multiple-choice-letter);
+
+  /*Hover states*/
+  --color-primary-hover: var(--primary-hover);
+  --color-secondary-hover: var(--secondary-hover);
+  --color-accent-hover: var(--accent-hover);
+  --color-button-primary-hover: var(--button-primary-hover);
+  --color-button-secondary-hover: var(--button-secondary-hover);
+  --color-card-hover: var(--card-hover);
+  --color-background-elevated-hover: var(--background-elevated-hover);
+  --color-sidebar-accent-hover: var(--sidebar-accent-hover);
+  --color-danger-hover: var(--danger-hover);
+  --color-destructive-hover: var(--destructive-hover);
+  --color-success-hover: var(--success-hover);
+  --color-warning-hover: var(--warning-hover);
+  --color-info-hover: var(--info-hover);
+  --color-life-primary-hover: var(--life-primary-hover);
+
+  --background-image-radial-glow: var(--gradient-radial);
+  --background-image-radial-glow-corner: var(--gradient-radial-corner);
+  --background-image-radial-glow-blob: var(--gradient-radial-blob);
 }
 
 :root {
+  /* fonts */
+  --font: 'Roboto', sans-serif;
+  --font-logo: 'Baloo Bhai 2', sans-serif;
+  --heading: 'Roboto', sans-serif;
+
+  --heading-weight: 700;
+  --heading-sub-weight: 400;
+  --heading-size: 3rem;
+  --heading-big-size: 5rem;
+
+    /*Font sizes*/
+  --font-size-xsm: 1rem;
+  --font-size-sm: 1.3rem;
+  --font-size-md: 1.9rem;
+  --font-size-l: 2.3rem;
+  --font-size-xl: 3rem;
+  --font-size-2xl: 3.3rem;
+  --font-size-3xl: 3.6rem;
+
+  /*Hover states*/
+  --primary-hover: color-mix(in srgb, var(--primary) 85%, white 15%);
+  --secondary-hover: color-mix(in srgb, var(--secondary) 90%, white 10%);
+  --accent-hover: color-mix(in srgb, var(--accent) 85%, white 15%);
+  --button-primary-hover: var(--primary-hover);
+  --button-secondary-hover: var(--secondary-hover);
+  --card-hover: color-mix(in srgb, var(--card) 100%, var(--primary-text) 4%);
+  --background-elevated-hover: color-mix(in srgb, var(--sidebar-accent) 100%, var(--primary-text) 5%);
+  --sidebar-accent-hover: color-mix(in srgb, var(--sidebar-accent) 100%, var(--primary-text) 6%);
+  --danger-hover: color-mix(in srgb, var(--danger) 88%, white 12%);
+  --destructive-hover: color-mix(in srgb, var(--destructive) 88%, white 12%);
+  --success-hover: color-mix(in srgb, var(--success) 88%, white 12%);
+  --warning-hover: color-mix(in srgb, var(--warning) 88%, white 12%);
+  --info-hover: color-mix(in srgb, var(--info) 88%, white 12%);
+  --life-primary-hover: color-mix(in srgb, var(--life-primary) 85%, white 15%);
+
+  --gradient-radial: radial-gradient(circle at 50%, var(--glow-1) 0%, var(--glow-2) 22%, var(--glow-3) 34%, var(--background) 62%);
+  --gradient-radial-corner: radial-gradient(circle at 88% 88%, var(--glow-1) 0%, var(--glow-2) 20%, var(--glow-3) 30%, var(--background) 38%);
+  --gradient-radial-blob: radial-gradient(circle, var(--primary-dark) 0%, color-mix(in srgb, var(--primary-dark) 70%, black 30%) 40%, transparent 70%);
+  --nav-scrolled-bg: color-mix(in srgb, var(--background) 95%, transparent);
+
+  --popover: var(--card);
+  --popover-text: var(--card-text);
+}
+
+:root.dark, [data-theme = 'dark'] {
 
   --radius: 20px;
 
@@ -298,6 +422,7 @@
   /*Cards*/
   --card: var(--background-card);
   --card-text: var(--primary-text);
+  --tournament-card: var(--card-tournaments);
 
   /*Sidebar*/
   --sidebar: #0a0008;
@@ -314,6 +439,10 @@
   --button-secondary: transparent;
   --button-text-primary: #FFFFFF;
   --button-text-secondary: #fcecdd;
+  --button-tournament: #FF516A;
+
+  --button-tournament-secondary: #281e26;
+  --button-tournament-secondary-border: #5B4041;
 
   /*Inputs*/
   --input: rgba(252, 236, 221, 0.06);
@@ -327,109 +456,426 @@
   --danger: #e53935;
   --warning: #e8a33d;
   --info: #3d9be8;
-  --secondary-muted: rgba(252,236, 221, 0.4);
+  --secondary-muted: rgba(252, 236, 221, 0.4);
 
   /*Difficulty for questions*/
   --difficulty-easy: #4caf50;
   --difficulty-medium: #e8a33d;
   --difficulty-hard: #e53935;
 
-  /* fonts */
-  --font: 'Roboto', sans-serif;
-  --font-logo: 'Baloo Bhai 2', sans-serif;
-  --heading: 'Roboto', sans-serif;
-
-  --heading-weight: 700;
-  --heading-sub-weight: 400;
-  --heading-size: 3rem;
-  --heading-big-size: 5rem;
-
   /*Shadows*/
   --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   --card-shadow: 0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25);
   --glow-shadow: 0 0 24px rgba(192, 57, 90, 0.45);
 
-  /*Font sizes*/
-  --font-size-xsm: 1rem;
-  --font-size-sm: 1.3rem;
-  --font-size-md: 1.9rem;
-  --font-size-l: 2.3rem;
-  --font-size-xl: 3rem;
-  --font-size-2xl: 3.3rem;
-  --font-size-3xl: 3.6rem;
-
   --life-primary: #C0395A;
+
+  /*for the radial gradients*/
+  --glow-1: #b91551;
+  --glow-2: #850f3b;
+  --glow-3: #630b3c;
+
+  /* Match and Tournaments Page */
+  --card-tournaments: #12080F;
+  --progress-bar-symbol: #1B0F1A;
+  --match-card: #241822;
+  --profile-tournaments: #1D0E20;
+  --gradient-tournament: #FE98A8;
+  --match-box: #0D0410;
+  --multiple-choice-box: #170d13;
+  --multiple-choice-letter: #2a2024;
 }
 
 /*These are copied from :root and adjusted for light mode*/
-:root.light, [data-theme = 'light'] {
+:root.light,
+[data-theme='light'] {
 
-    /*Backgrounds*/
-    --background: #fff7f5;
-    --background-elevated: rgba(83, 10, 35, 0.035);
-    --background-card: rgba(83, 10, 35, 0.045);
+  /*Backgrounds*/
+  --background: #fff7f5;
+  --background-elevated: rgba(83, 10, 35, 0.035);
+  --background-card: rgba(83, 10, 35, 0.045);
 
-    /*Brand Colours - these can still work well with light mode on whiter backgrounds */
-    --primary: #c0395a;
-    --primary-dark: #530a23;
-    --secondary: #fcecdd;
+  /*Brand Colours - these can still work well with light mode on whiter backgrounds */
+  --primary: #c0395a;
+  --primary-dark: #530a23;
+  --secondary: #fcecdd;
 
-    /*Text*/
-    --text: #2b0a15;
-    --primary-text: #2b0a15;
-    --secondary-text: #530a23;
-    --muted: rgba(43, 10, 21, 0.62);
-    --muted-text: rgba(43, 10, 21, 0.48);
+  /*Text*/
+  --text: #2b0a15;
+  --primary-text: #2b0a15;
+  --secondary-text: #530a23;
+  --muted: rgba(43, 10, 21, 0.62);
+  --muted-text: rgba(43, 10, 21, 0.48);
 
-    /*Borders*/
-    --border: rgba(83, 10, 35, 0.10);
-    --border-hover: rgba(83, 10, 35, 0.20);
+  /*Borders*/
+  --border: rgba(83, 10, 35, 0.10);
+  --border-hover: rgba(83, 10, 35, 0.20);
 
-    /*Cards*/
-    --card: var(--background-card);
-    --card-text: var(--primary-text);
+  /*Cards*/
+  --card: var(--background-card);
+  --card-text: var(--primary-text);
+  --tournament-card: var(--card-tournaments);
 
-    /*Sidebar*/
-    --sidebar: #ffffff;
-    --sidebar-text: var(--primary-text);
-    --sidebar-primary: #c0395a;
-    --sidebar-primary-text: #ffffff;
-    --sidebar-accent: rgba(83, 10, 35, 0.05);
-    --sidebar-accent-text: var(--primary-text);
-    --sidebar-border: rgba(83, 10, 35, 0.10);
-    --sidebar-ring: #c0395a;
+  /*Sidebar*/
+  --sidebar: #ffffff;
+  --sidebar-text: var(--primary-text);
+  --sidebar-primary: #c0395a;
+  --sidebar-primary-text: #ffffff;
+  --sidebar-accent: rgba(83, 10, 35, 0.05);
+  --sidebar-accent-text: var(--primary-text);
+  --sidebar-border: rgba(83, 10, 35, 0.10);
+  --sidebar-ring: #c0395a;
 
     /* Buttons */
     --button-primary: #C0395A;
     --button-secondary: transparent;
     --button-text-primary: #FFFFFF;
     --button-text-secondary: #520a23;
+    --button-tournament: #FF516A;
+    --button-tournament-secondary: #fff0f3;
+    --button-tournament-secondary-border: #e8c5cf;
+  /* Buttons */
+  --button-primary: #C0395A;
+  --button-secondary: transparent;
+  --button-text-primary: #FFFFFF;
+  --button-text-secondary: #520a23;
+  --button-tournament: #FF516A;
+  --button-tournament-secondary: #281e26;
+  --button-tournament-secondary-border: #5B4041;
 
-    /*Inputs*/
-    --input: rgba(83, 10, 35, 0.05);
-    --ring: #c0395a;
-    --accent: #e93577;
-    --accent-text: #ffffff;
-    --destructive: #c62828;
+  /*Inputs*/
+  --input: rgba(83, 10, 35, 0.05);
+  --ring: #c0395a;
+  --accent: #e93577;
+  --accent-text: #ffffff;
+  --destructive: #c62828;
 
-    /*Status*/
-    --success: #2e7d32;
-    --danger: #c62828;
-    --warning: #b76e00;
-    --info: #1565c0;
-    --secondary-muted: rgba(83,10, 35, 0.35);
+  /*Status*/
+  --success: #2e7d32;
+  --danger: #c62828;
+  --warning: #b76e00;
+  --info: #1565c0;
+  --secondary-muted: rgba(83, 10, 35, 0.35);
 
-    /*Difficulty for questions*/
-    --difficulty-easy: #2e7d32;
-    --difficulty-medium: #b76e00;
-    --difficulty-hard: #c62828;
+  /*Difficulty for questions*/
+  --difficulty-easy: #2e7d32;
+  --difficulty-medium: #b76e00;
+  --difficulty-hard: #c62828;
 
-     /*Shadows*/
-    --badge-shadow: 0 2px 6px rgba(83, 10, 35, 0.10);
-    --card-shadow: 0rem 0.2rem 0.5rem rgba(83, 10, 35, 0.08);
-    --glow-shadow: 0 0 24px rgba(192, 57, 90, 0.22);
+  /*Shadows*/
+  --badge-shadow: 0 2px 6px rgba(83, 10, 35, 0.10);
+  --card-shadow: 0rem 0.2rem 0.5rem rgba(83, 10, 35, 0.08);
+  --glow-shadow: 0 0 24px rgba(192, 57, 90, 0.22);
 
-    --life-primary: #C0395A;
+  --life-primary: #C0395A;
+
+  /* Match and Tournaments Page */
+  --card-tournaments: #12080F;
+  --progress-bar-symbol: #1B0F1A;
+  --match-card: #241822;
+  --profile-tournaments: #1D0E20;
+  --gradient-tournament: #FE98A8;
+  --match-box: #0D0410;
+  --multiple-choice-box: #170d13;
+  --multiple-choice-letter: #2a2024;
+
+  /*for the radial gradients*/
+  --glow-1: #f6c9d6;
+  --glow-2: #f9dde4;
+  --glow-3: #fceef1;
+}
+
+/*These are copied from :root.light and adjusted for more themes*/
+/*A light blue, frost kind of theme - like winter in space*/
+:root.frost,
+[data-theme='frost'] {
+
+  /*Backgrounds*/
+  --background: #020a14;
+  --background-elevated: rgba(231, 244, 255, 0.03);
+  --background-card: rgba(231, 244, 255, 0.05);
+
+  --primary: #2f8fe0;
+  --primary-dark: #14487a;
+  --secondary: #e2f2fd;
+
+  /*Text*/
+  --text: #e7f4ff;
+  --primary-text: #e7f4ff;
+  --secondary-text: #123a63;
+  --muted: rgba(231, 244, 255, 0.65);
+  --muted-text: rgba(231, 244, 255, 0.50);
+
+  /*Borders*/
+  --border: rgba(231, 244, 255, 0.08);
+  --border-hover: rgba(231, 244, 255, 0.18);
+
+  /*Cards*/
+  --card: var(--background-card);
+  --card-text: var(--primary-text);
+
+  /*Sidebar*/
+  --sidebar: #020a14;
+  --sidebar-text: var(--primary-text);
+  --sidebar-primary: #2f8fe0;
+  --sidebar-primary-text: #ffffff;
+  --sidebar-accent: rgba(231, 244, 255, 0.05);
+  --sidebar-accent-text: var(--primary-text);
+  --sidebar-border: rgba(231, 244, 255, 0.08);
+  --sidebar-ring: #2f8fe0;
+
+  /* Buttons */
+  --button-primary: #2f8fe0;
+  --button-secondary: transparent;
+  --button-text-primary: #FFFFFF;
+  --button-text-secondary: #e7f4ff;
+
+  /*Inputs*/
+  --input: rgba(231, 244, 255, 0.05);
+  --ring: #2f8fe0;
+  --accent: #4fa8f5;
+  --accent-text: #ffffff;
+  --destructive: #c62828;
+
+  /*Status*/
+  --success: #2e7d32;
+  --danger: #c62828;
+  --warning: #b76e00;
+  --info: #1565c0;
+  --secondary-muted: rgba(231, 244, 255, 0.4);
+
+  /*Difficulty for questions*/
+  --difficulty-easy: #2e7d32;
+  --difficulty-medium: #b76e00;
+  --difficulty-hard: #c62828;
+
+  /*Shadows*/
+  --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --card-shadow: 0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25);
+  --glow-shadow: 0 0 24px rgba(47, 143, 224, 0.45);
+
+  --life-primary: #2f8fe0;
+
+  /*for the radial gradients*/
+  --glow-1: #4fa8f5;
+  --glow-2: #14487a;
+  --glow-3: #0a2540;
+}
+
+/*These are copied from :root.light and adjusted for more themes*/
+/*A midnight gold theme - like a more premium space */
+:root.gold,
+[data-theme='gold'] {
+
+  /*Backgrounds*/
+  --background: #05070f;
+  --background-elevated: rgba(242, 236, 216, 0.03);
+  --background-card: rgba(242, 236, 216, 0.05);
+
+  --primary: #d4af37;
+  --primary-dark: #6b5716;
+  --secondary: #f7edcf;
+
+  /*Text*/
+  --text: #f2ecd8;
+  --primary-text: #f2ecd8;
+  --secondary-text: #4a3c10;
+  --muted: rgba(242, 236, 216, 0.65);
+  --muted-text: rgba(242, 236, 216, 0.50);
+
+  /*Borders*/
+  --border: rgba(242, 236, 216, 0.08);
+  --border-hover: rgba(242, 236, 216, 0.18);
+
+  /*Cards*/
+  --card: var(--background-card);
+  --card-text: var(--primary-text);
+
+  /*Sidebar*/
+  --sidebar: #05070f;
+  --sidebar-text: var(--primary-text);
+  --sidebar-primary: #d4af37;
+  --sidebar-primary-text: #ffffff;
+  --sidebar-accent: rgba(242, 236, 216, 0.05);
+  --sidebar-accent-text: var(--primary-text);
+  --sidebar-border: rgba(242, 236, 216, 0.08);
+  --sidebar-ring: #d4af37;
+
+  /* Buttons */
+  --button-primary: #d4af37;
+  --button-secondary: transparent;
+  --button-text-primary: #FFFFFF;
+  --button-text-secondary: #f2ecd8;
+
+  /*Inputs*/
+  --input: rgba(242, 236, 216, 0.05);
+  --ring: #d4af37;
+  --accent: #e8c34a;
+  --accent-text: #ffffff;
+  --destructive: #c62828;
+
+  /*Status*/
+  --success: #2e7d32;
+  --danger: #c62828;
+  --warning: #b76e00;
+  --info: #1565c0;
+  --secondary-muted: rgba(242, 236, 216, 0.4);
+
+  /*Difficulty for questions*/
+  --difficulty-easy: #2e7d32;
+  --difficulty-medium: #b76e00;
+  --difficulty-hard: #c62828;
+
+  /*Shadows*/
+  --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --card-shadow: 0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25);
+  --glow-shadow: 0 0 24px rgba(212, 175, 55, 0.45);
+
+  --life-primary: #d4af37;
+}
+
+/*These are copied from :root.light and adjusted for more themes*/
+/*A nebula violet theme - like a more modern sci-fi space */
+:root.nebula,
+[data-theme='nebula'] {
+
+  /*Backgrounds*/
+  --background: #0d0518;
+  --background-elevated: rgba(242, 233, 255, 0.03);
+  --background-card: rgba(242, 233, 255, 0.05);
+
+  --primary: #8b3fd6;
+  --primary-dark: #4a1d80;
+  --secondary: #f0e5fc;
+
+  /*Text*/
+  --text: #f2e9ff;
+  --primary-text: #f2e9ff;
+  --secondary-text: #3d1a66;
+  --muted: rgba(242, 233, 255, 0.65);
+  --muted-text: rgba(242, 233, 255, 0.50);
+
+  /*Borders*/
+  --border: rgba(242, 233, 255, 0.08);
+  --border-hover: rgba(242, 233, 255, 0.18);
+
+  /*Cards*/
+  --card: var(--background-card);
+  --card-text: var(--primary-text);
+
+  /*Sidebar*/
+  --sidebar: #0d0518;
+  --sidebar-text: var(--primary-text);
+  --sidebar-primary: #8b3fd6;
+  --sidebar-primary-text: #ffffff;
+  --sidebar-accent: rgba(242, 233, 255, 0.05);
+  --sidebar-accent-text: var(--primary-text);
+  --sidebar-border: rgba(242, 233, 255, 0.08);
+  --sidebar-ring: #8b3fd6;
+
+  /* Buttons */
+  --button-primary: #8b3fd6;
+  --button-secondary: transparent;
+  --button-text-primary: #FFFFFF;
+  --button-text-secondary: #f2e9ff;
+
+  /*Inputs*/
+  --input: rgba(242, 233, 255, 0.05);
+  --ring: #8b3fd6;
+  --accent: #a855f7;
+  --accent-text: #ffffff;
+  --destructive: #e53935;
+
+  /*Status*/
+  --success: #2e7d32;
+  --danger: #c62828;
+  --warning: #b76e00;
+  --info: #1565c0;
+  --secondary-muted: rgba(242, 233, 255, 0.4);
+
+  /*Difficulty for questions*/
+  --difficulty-easy: #2e7d32;
+  --difficulty-medium: #b76e00;
+  --difficulty-hard: #c62828;
+
+  /*Shadows*/
+  --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --card-shadow: 0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25);
+  --glow-shadow: 0 0 24px rgba(139, 63, 214, 0.45);
+
+  --life-primary: #8b3fd6;
+}
+
+/*These are copied from :root.light and adjusted for more themes*/
+/*A green verdant theme - like an alien dominant space */
+:root.verdant,
+[data-theme='verdant'] {
+
+  /*Backgrounds*/
+  --background: #06140a;
+  --background-elevated: rgba(232, 247, 217, 0.03);
+  --background-card: rgba(232, 247, 217, 0.05);
+
+  --primary: #9ccc3c;
+  --primary-dark: #4d661d;
+  --secondary: #f1f9e0;
+
+  /*Text*/
+  --text: #e8f7d9;
+  --primary-text: #e8f7d9;
+  --secondary-text: #3c5015;
+  --muted: rgba(232, 247, 217, 0.65);
+  --muted-text: rgba(232, 247, 217, 0.50);
+
+  /*Borders*/
+  --border: rgba(232, 247, 217, 0.08);
+  --border-hover: rgba(232, 247, 217, 0.18);
+
+  /*Cards*/
+  --card: var(--background-card);
+  --card-text: var(--primary-text);
+
+  /*Sidebar*/
+  --sidebar: #06140a;
+  --sidebar-text: var(--primary-text);
+  --sidebar-primary: #9ccc3c;
+  --sidebar-primary-text: #ffffff;
+  --sidebar-accent: rgba(232, 247, 217, 0.05);
+  --sidebar-accent-text: var(--primary-text);
+  --sidebar-border: rgba(232, 247, 217, 0.08);
+  --sidebar-ring: #9ccc3c;
+
+  /* Buttons */
+  --button-primary: #9ccc3c;
+  --button-secondary: transparent;
+  --button-text-primary: #FFFFFF;
+  --button-text-secondary: #e8f7d9;
+
+  /*Inputs*/
+  --input: rgba(232, 247, 217, 0.05);
+  --ring: #9ccc3c;
+  --accent: #b6e34f;
+  --accent-text: #ffffff;
+  --destructive: #e53935;
+
+  /*Status*/
+  --success: #2e7d32;
+  --danger: #c62828;
+  --warning: #b76e00;
+  --info: #1565c0;
+  --secondary-muted: rgba(232, 247, 217, 0.4);
+
+  /*Difficulty for questions*/
+  --difficulty-easy: #2e7d32;
+  --difficulty-medium: #b76e00;
+  --difficulty-hard: #c62828;
+
+  /*Shadows*/
+  --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --card-shadow: 0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25);
+  --glow-shadow: 0 0 24px rgba(156, 204, 60, 0.45);
+
+  --life-primary: #9ccc3c;
 }
 
 @layer base {
@@ -475,7 +921,7 @@
     box-shadow: var(--card-shadow);
   }
 
-  .animate-pop{
+  .animate-pop {
     animation: pop 0.35s ease-out forwards;
   }
 
@@ -486,7 +932,8 @@
     transition: all 0.2s ease;
   }
 
-  card-glass:hover {
+  .card-glass:hover {
+    background: var(--card-hover);
     border-color: var(--border-hover);
     transform: translateY(-2px);
   }
@@ -501,7 +948,7 @@
   }
 
   .eyebrow {
-    color: var(--primary);
+    color: var(--secondary);
     letter-spacing: 0.15rem;
     text-transform: uppercase;
     font-weight: 700;
@@ -541,7 +988,8 @@
     border: 2px solid var(--background);
   }
 
-  :root.light ::-webkit-scrollbar-thumb, [data-theme = 'light'] ::-webkit-scrollbar-thumb {
+  :root.light ::-webkit-scrollbar-thumb,
+  [data-theme='light'] ::-webkit-scrollbar-thumb {
     background: rgba(83, 10, 35, 0.15);
     border: 2px solid var(--background);
   }
@@ -550,12 +998,16 @@
     background: rgba(252, 236, 221, 0.3);
   }
 
-  :root.light ::-webkit-scrollbar-thumb:hover, [data-theme = 'light'] ::-webkit-scrollbar-thumb:hover {
+  :root.light ::-webkit-scrollbar-thumb:hover,
+  [data-theme='light'] ::-webkit-scrollbar-thumb:hover {
     background: rgba(83, 10, 35, 0.28);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
+
+    *,
+    *::before,
+    *::after {
       animation-duration: 0.001ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.001ms !important;
@@ -565,6 +1017,7 @@
 }
 
 @layer components {
+
   /*Buttons*/
   .btn {
     display: inline-flex;
@@ -582,7 +1035,8 @@
     transition: all 0.2s ease;
   }
 
-  .btn:disabled, .btn[aria-disabled="true"] {
+  .btn:disabled,
+  .btn[aria-disabled="true"] {
     opacity: 0.45;
     cursor: not-allowed;
     transform: none !important;
@@ -591,21 +1045,22 @@
   .btn-primary {
     background: var(--button-primary);
     color: var(--button-text-primary);
-    box-shadow: 0 4px 20px rgba(192, 57, 90, 0.35);
+    box-shadow: 0 4px 20px color-mix(in srgb, var(--primary) 35%, transparent);
   }
 
   .btn-primary:hover:not(:disabled) {
-    background: var(--pink-200, #e93577);
+    background: var(--button-primary-hover);
     transform: translateY(-1px);
   }
 
   .btn-secondary {
     background: var(--secondary);
     color: var(--secondary-text);
-    border: 1px solid rgba(252, 236, 221, 0.25);
+    border: 1px solid color-mix(in srgb, var(--secondary) 25%, transparent);
   }
 
   .btn-secondary:hover:not(:disabled) {
+    background: var(--secondary-hover);
     transform: translateY(-1px);
   }
 
@@ -616,7 +1071,8 @@
     z-index: 20;
   }
 
-  .btn-ghost { /*Used for back button - top left*/
+  .btn-ghost {
+    /*Used for back button - top left*/
     background: transparent;
     color: var(--primary-text);
     border: 1px solid var(--border);
@@ -624,16 +1080,17 @@
 
   .btn-ghost:hover:not(:disabled) {
     border-color: var(--border-hover);
-    background: var(--background-card);
+    background: var(--background-elevated-hover);
   }
 
   .btn-danger {
     background: var(--danger);
-    color: #ffffff;
+    color: var(--button-text-primary);
   }
 
   .btn-danger:hover:not(:disabled) {
     filter: brightness(1.1);
+    background: var(--danger-hover);
   }
 
   .btn-icon {
@@ -652,7 +1109,9 @@
   }
 
   /*Inputs and FOrms - this is copied, my previous clone broke and didnt track these changes*/
-  .input, .select, .textarea {
+  .input,
+  .select,
+  .textarea {
     width: 100%;
     background: var(--input);
     border: 1px solid var(--border);
@@ -664,18 +1123,23 @@
     transition: border-color 0.2s ease, background 0.2s ease;
   }
 
-  .input::placeholder, .textarea::placeholder {
-    color: rgba(252,235,221, 0.35);
+  .input::placeholder,
+  .textarea::placeholder {
+    color: rgba(252, 235, 221, 0.35);
   }
 
-  .input:hover, .select:hover, .textarea:hover {
+  .input:hover,
+  .select:hover,
+  .textarea:hover {
     border-color: var(--border-hover);
   }
 
-  .input:focus, .select:focus, .textarea:focus {
+  .input:focus,
+  .select:focus,
+  .textarea:focus {
     outline: none;
     border-color: var(--primary);
-    background: rgba(252, 236, 221, 0.08);
+    background: var(--background-elevated-hover);
   }
 
   .input-error {
@@ -694,7 +1158,7 @@
   }
 
   .field-hint {
-    color: rgba(252, 236, 221, 0.4);
+    color: var(--muted-text);
     font-size: 0.8rem;
     margin-top: 0.4rem;
   }
@@ -722,46 +1186,48 @@
   }
 
   .badge-difficulty-easy {
-    background: rgba(76, 175, 80, 0.15);
+    background: color-mix(in srgb, var(--difficulty-easy) 15%, transparent);
     color: var(--difficulty-easy);
-    border: 1px solid rgba(76, 175, 80, 0.35);
+    border: 1px solid color-mix(in srgb, var(--difficulty-easy) 35%, transparent);
   }
 
   .badge-difficulty-medium {
-    background: rgba(232, 163, 61, 0.15);
+    background: color-mix(in srgb, var(--difficulty-medium) 15%, transparent);
     color: var(--difficulty-medium);
-    border: 1px solid rgba(232, 163, 61, 0.35);
+    border: 1px solid color-mix(in srgb, var(--difficulty-medium) 35%, transparent);
   }
 
   .badge-difficulty-hard {
-    background: rgba(229, 57, 53, 0.15);
+    background: color-mix(in srgb, var(--difficulty-hard) 15%, transparent);
     color: var(--difficulty-hard);
-    border: 1px solid rgba(229, 57, 53, 0.35);
+    border: 1px solid color-mix(in srgb, var(--difficulty-hard) 35%, transparent);
   }
 
   /*Copied from above*/
   .badge-status-correct {
-    background: rgba(76, 175, 80, 0.15);
+    background: color-mix(in srgb, var(--success) 15%, transparent);
     color: var(--success);
-    border: 1px solid rgba(76, 175, 80, 0.35);
+    border: 1px solid color-mix(in srgb, var(--success) 35%, transparent);
   }
 
   .badge-status-pending {
-    background: rgba(232, 163, 61, 0.15);
+    background: color-mix(in srgb, var(--warning) 15%, transparent);
     color: var(--warning);
-    border: 1px solid rgba(232, 163, 61, 0.35);
+    border: 1px solid color-mix(in srgb, var(--warning) 35%, transparent);
     transition: all 0.2s ease-in-out;
   }
 
-  .badge-status-pending:hover, .badge-status-correct:hover, .badge-status-wrong:hover {
-     background: rgba(252, 236, 221, 0.03);
-     cursor: pointer;
+  .badge-status-pending:hover,
+  .badge-status-correct:hover,
+  .badge-status-wrong:hover {
+    background: rgba(252, 236, 221, 0.03);
+    cursor: pointer;
   }
 
   .badge-status-wrong {
-    background: rgba(229, 57, 53, 0.15);
+    background: color-mix(in srgb, var(--danger) 15%, transparent);
     color: var(--danger);
-    border: 1px solid rgba(229, 57, 53, 0.35);
+    border: 1px solid color-mix(in srgb, var(--danger) 35%, transparent);
   }
 
   /*Divider*/
@@ -780,11 +1246,20 @@
     box-shadow: var(--card-shadow);
   }
 
+  .card-elevated:hover {
+    border-color: var(--border-hover);
+  }
+
   .card-glow {
     background: var(--background-card);
     border: 1px solid var(--border);
     border-radius: 18px;
     box-shadow: var(--card-shadow);
+  }
+
+  .card-glass:hover {
+    background: var(--card-hover);
+    border-color: var(--border-hover);
   }
 
   /*A space themes star bg*/
@@ -804,9 +1279,10 @@
     animation: twinkle 3s ease-in-out infinite;
   }
 
-  :root.light .starfield span, [data-theme= 'light'] .starfield span {
+  :root.light .starfield span,
+  [data-theme='light'] .starfield span {
     width: 3px;
-    height: 3px; 
+    height: 3px;
     background: rgba(192, 57, 90, 0.35);
   }
 
@@ -823,17 +1299,39 @@
   .progress-track {
     width: 100%;
     height: 8px;
-    background: rgba(252, 236, 221, 0.08);
+    background: var(--border);
     border-radius: 999px;
     overflow: hidden;
   }
 
   .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--primary), var(--pink-200, #e93577));
+    background: linear-gradient(90deg, var(--primary), var(--accent-hover));
     border-radius: 999px;
     animation: progress-fill 0.6s ease-out;
   }
+
+  @keyframes life-shake {
+    0%, 100% {translate: 0 0;}
+    20% {translate: -6px 0;}
+    40% {translate: 6px 0;}
+    60% {translate: -4px 0;}
+    80% {translate: 4px 0;}
+  }
+
+  .life-shake {
+    animation: life-shake 0.4s ease-in-out;
+  }
+
+  @keyframes danger-pulse {
+    0%, 100% {box-shadow: inset 0 0 0 0 color-mix(in srgb, var(--danger) 0%, transparent); background-color: color-mix(in srgb, var(--danger) 35%, transparent);}
+    50% {box-shadow: inset 0 0 120px 30px color-mix(in srgb, var(--danger) 0%, transparent); background-color: color-mix(in srgb, var(--danger) 12%, transparent);}
+  }
+
+  .danger-pulse{
+    animation: danger-pulse 2s ease-in-out infinite;
+  }
+
 
   /*Avatars/Robots*/
   .avatar {
@@ -841,13 +1339,14 @@
     border: 2px solid var(--border);
     background: var(--background-card);
     object-fit: cover;
+    transition: border-color 0.2s ease;
   }
 
   .score-display {
     font-family: var(--font-dseg);
     color: var(--primary);
     letter-spacing: 0.05rem;
-    text-shadow: 0 0 12px rgba(192, 57, 90, 0.5);
+    text-shadow: 0 0 12px color-mix(in srgb, var(--primary) 50%, transparent);
   }
 
   /*For the confetti effect*/
@@ -858,11 +1357,18 @@
     animation: drift-up 3s ease-in infinite;
   }
 
-  .answer-flash-correct {
-    animation: answer-flash-correct 0.7s ease-out;
+  .answer-correct {
+    background-color: rgba(34, 197, 94, 0.35);
+    transition: background-color 200ms ease-out;
   }
 
-  .answer-flash-wrong {
-    animation: answer-flash-wrong 0.7s ease-out;
+  .answer-wrong {
+    background-color: #bc184179;
+    transition: background-color 200ms ease-out;
+
+  }
+
+  .life-shake {
+    animation: big-shake 0.4s ease-in-out;
   }
 }

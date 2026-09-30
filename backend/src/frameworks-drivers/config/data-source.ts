@@ -1,15 +1,17 @@
 import "reflect-metadata"
 import dotenv from 'dotenv'
 import { DataSource } from "typeorm"
-import { Matches, MatchLog, MatchProblems } from "src/entities/db-entities/match.entities";
-import { Answers } from "src/entities/db-entities/answers.entities";
-import { EloHistory, EloRatings } from "src/entities/db-entities/elo.entities";
-import { Questions } from "src/entities/db-entities/questions.entities";
-import { Submission } from "src/entities/db-entities/submission.entities";
-import { Users } from "src/entities/db-entities/user.entities";
-import { Achievement } from "src/entities/db-entities/achievement.entities";
-import { MatchStats } from "src/entities/db-entities/match-stats.entities";
-import { FriendInvite, Friendship } from "src/entities/db-entities/friendship.entities";
+import { Matches} from "src/entities/database/match.entities";
+import { Answers } from "src/entities/database/answers.entities";
+import { EloHistory } from "src/entities/database/elo.entities";
+import { ProgrammingTemplates, Questions, TestCases } from "src/entities/database/questions.entities";
+import { Users } from "src/entities/database/user.entities";
+import { Achievement } from "src/entities/database/achievement.entities";
+import { FriendInvite, Friendship } from "src/entities/database/friendship.entities";
+import { ShopItem } from "src/entities/database/shop-item.entities";
+import { Wallet } from "src/entities/database/wallet.entities";
+import { UserItem } from "src/entities/database/user-item.entities";
+import { EquippedItems } from "src/entities/database/equipped-items.entities";
 
 dotenv.config()
 
@@ -22,22 +24,23 @@ export const AppDataSource = new DataSource({
     username: env.DB_USER!,
     password: env.DB_PASSWORD!,
     database: env.DB_NAME!,
-    synchronize: true,
+    synchronize: false,
     logging: ["warn", "error"],
     entities: [
         Matches,
-        MatchLog,
-        MatchProblems,
         Answers,
-        EloRatings,
         EloHistory,
         Questions,
-        Submission,
         Users,
         Achievement,
-        MatchStats,
         Friendship,
-        FriendInvite
+        FriendInvite,
+        ShopItem,
+        Wallet,
+        UserItem,
+        EquippedItems,
+        ProgrammingTemplates,
+        TestCases
     ],
     migrations: [],
     subscribers: [],

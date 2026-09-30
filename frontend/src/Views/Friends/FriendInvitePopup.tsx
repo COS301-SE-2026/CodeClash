@@ -2,7 +2,7 @@
 
 import { Clock, UserCircle } from "lucide-react";
 import { robot_map } from "src/assets/Robots";
-import { useMatchmaking } from "src/context/Socket/hooks/useMatchmaking";
+import { useMatchmaking } from "src/context/Matchmaking/hooks/useMatchmaking";
 import { friendContent } from "src/Models/FriendsModel";
 
 import { useFriends } from "../../context/Friends/useFriends";

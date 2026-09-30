@@ -4,7 +4,9 @@ export interface Player{
     life: number,
     avatar_id: number,
     questions_answered: number,
-    username:string
+    username:string,
+    elo: number
+
 }
 
 export interface Answer{

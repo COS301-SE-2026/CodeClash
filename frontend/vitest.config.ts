@@ -3,6 +3,8 @@ import path from 'node:path';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vitest/config';
 
+process.env.NODE_OPTIONS = `${process.env.NODE_OPTIONS ?? ''} --no-experimental-webstorage`.trim();
+
 export default defineConfig({
   plugins: [react()],
   test: {
@@ -22,13 +24,13 @@ export default defineConfig({
     coverage: {
       provider: 'istanbul',
       reporter: ['text', 'html', 'lcov'],
-      include: ['**/*.tsx'],
-      exclude: ['**/@/components/ui/**', '**/@/hooks/**', '**/node_modules/**', '**/*.config.*'],
+      include: ['**/*.tsx', '**/*.ts'],
+      exclude: ['**/@/components/ui/**', '**/@/hooks/**', '**/node_modules/**', '**/*.config.*', 'tests/**', "**/dtos/**", "**/Models/**"],
     },
 
     globals: true,
     exclude: ['@/components/ui/**', '@/hooks/**', '**/node_modules/**'],  // exclude shadcn ui components
-    },
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './@'),

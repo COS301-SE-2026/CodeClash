@@ -6,6 +6,7 @@ export interface SignUpForm {
     phoneNumber: string;
     password: string;
     acceptedTerms: boolean;
+    countryCode: string;
 }
 
 export const SignUpRoutes = {
@@ -22,5 +23,6 @@ export const formData: SignUpForm = {
     phoneNumber: '',
     password: '',
     acceptedTerms: false,
+    countryCode: '+27'
 };
 

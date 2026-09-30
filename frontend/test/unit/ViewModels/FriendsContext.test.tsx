@@ -1,8 +1,8 @@
 import React, {useContext} from "react";
 import {renderHook, act, waitFor} from "@testing-library/react";
-import {describe, it, expect, beforeEach, afterEach, vi} from "vitest";
+import { it, expect, beforeEach, afterEach, vi} from "vitest";
 
-import {FriendsProvider, FriendsContextFunc} from '../../../src/ViewModels/FriendsViewModel/FriendsContext';
+import {FriendsProvider,FriendsContextFunc} from '../../../src/context/Friends/FriendsContext';
 
 const {mockUseAuth, mockUseSocket} = vi.hoisted(() => ({
     mockUseAuth: vi.fn(),

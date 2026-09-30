@@ -16,6 +16,7 @@ export function validateSignUpForm(data: SignUpForm): string | null {
     if (!data.phoneNumber.trim()) return 'Phone number is required';
     if (!data.password || data.password.length < 8) return 'Password must be atleast 8 characters';
     if (!data.acceptedTerms) return 'Please accept the terms and conditions';
+    if(data.phoneNumber.replace(/\D/g, '').length < 6) return 'Please enter a valid phone number';
     return null;
 }
 
@@ -31,8 +32,8 @@ export function SignUpViewModelFunction() {
     const [isConfirmed, setIsConfirmed] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [confirmMessage, setConfirmMessage] = useState<string | null>(null);
+    const [isSigningUp, setIsSigningUp] = useState(false);
     const nav = useNavigate();
-
 
     const setField = useCallback((field: keyof SignUpForm, value: string | boolean) => {
         setForm(prev => ({ ...prev, [field]: value })); //...prev will keep all exisiting values untouched and allow changes only to a specific field
@@ -46,16 +47,18 @@ export function SignUpViewModelFunction() {
             setLocalError(validationError);
             return;
         }
+        setIsSigningUp(true);
         try {
-
+            const formattedNumber = `${form.countryCode}${form.phoneNumber.trim()}`;
             const data: SignUpForm = {
                 username: form.username.trim(),
                 firstName: form.firstName,
                 lastName: form.lastName,
                 email: form.email.trim(),
-                phoneNumber: form.phoneNumber.trim(),
+                phoneNumber: formattedNumber,
                 password: form.password,
-                acceptedTerms: form.acceptedTerms
+                acceptedTerms: form.acceptedTerms,
+                countryCode: form.countryCode
             }
             await signUp(data);
             setSignupData(data);
@@ -63,6 +66,9 @@ export function SignUpViewModelFunction() {
         } catch {
             console.error("Sign up error")
         } //If Amplify throws an error, AuthContext will catch it and put it in error
+        finally {
+            setIsSigningUp(false);
+        }
     }, [form, signUp, clearError]); //Dependency array
 
     const handleConfirm = useCallback(async () => {
@@ -141,6 +147,7 @@ export function SignUpViewModelFunction() {
         confirmMessage,
         isConfirmed,
         isSubmitting,
+        isSigningUp,
 
         setField,
         setConfirmationCode,

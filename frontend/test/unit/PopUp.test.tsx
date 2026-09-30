@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from "vitest";
 
-import PopUp from '../../src/Views/Popup'
+import PopUp from '../../src/Views/Match/Popup'
 
 const mock_nav = vi.fn();
 vi.mock('react-router-dom', () => ({
@@ -9,8 +9,7 @@ vi.mock('react-router-dom', () => ({
 }))
 
 const mock_select_topic = vi.fn();
-const mock_cancel = vi.fn();
-vi.mock('src/ViewModels/PopUpViewModel', () => ({
+vi.mock('src/ViewModels/Matchmaking/PopUpViewModel', () => ({
     useSelectTopic: () => ({selectTopic: mock_select_topic, cancel: vi.fn()})
 }))
 

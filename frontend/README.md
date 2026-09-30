@@ -40,6 +40,8 @@ npm install react-router-dom
 npm install lucide-react
 npm install tailwindcss @tailwindcss/vite
 npm install socket.io-client
+npm install country-flag-icons
+npm install framer-motion
 ```
 
 Testing packages.

@@ -1,0 +1,118 @@
+import { useEffect, useState } from "react"
+import { useNavigate, useParams } from "react-router-dom";
+import { useSocket } from "src/context/Socket/hooks/useSocket";
+import { useUser } from "src/context/User/hooks/useUser";
+import type { PlayerDTO } from "src/dtos/match/match.dto"
+import type { TournamentDTO } from "src/dtos/tournaments/tournament.dto";
+import { useMatchStore } from "src/stores/match-store";
+
+const MIN_PLAYERS = 8;
+
+export const useTournamentLobby = () => {
+    const [players, setPLayers] = useState<PlayerDTO[]>([]);
+    const [tournament, setTournament] = useState<TournamentDTO | null>(null);
+    const [error, setError] = useState<string | null>(null);
+
+    const { tournamentSocket } = useSocket();
+    const { userId, league } = useUser();
+    const { tournament_id } = useParams<{ tournament_id: string }>();
+    const nav = useNavigate();
+
+
+    useEffect(() => {
+
+        if (!tournament_id || !tournamentSocket) return;
+
+        tournamentSocket.getTournament(tournament_id)
+            .then((t) => {
+                if (t.ok) {
+                    setTournament(t.data!);
+                    setPLayers(t.data?.players ?? []);
+                }
+                else setError('Error loading tournament');
+            });
+
+        const unsub_joined = tournamentSocket.playerJoined((data) => {
+            setPLayers((prev) => [...prev, data.player]);
+        });
+
+        const unsub_left = tournamentSocket.playerLeft((data) => {
+            setPLayers((prev) => prev.filter((p) => p.id !== data.player.id));
+        });
+
+        const unsub_cancel = tournamentSocket.tournamentCancelled(() => {
+            setError("Tournament was cancelled");
+            nav('/tournaments');
+        })
+
+        const unsub_started = tournamentSocket.tournamentStart((data) => {
+            useMatchStore.getState().setMatchData(data.match);
+            nav(`/tournamen/${tournament_id}`);
+        })
+
+        return () => {
+            unsub_joined();
+            unsub_left();
+            unsub_cancel();
+            unsub_started();
+        }
+    }, [tournamentSocket, tournament]);
+
+
+    const leave = (player: PlayerDTO) => {
+        if (tournament)
+            tournamentSocket?.leaveTournament({ tournament_id: tournament.tournament_id, player: player });
+
+        nav('/tournaments');
+    }
+
+    const cancel = () => {
+        if (tournament && tournament.host.id === userId) {
+            tournamentSocket?.cancelTournament(tournament_id!);
+        }
+        else
+            setError('Cannot cancel tournament');
+    }
+
+    const start = async () => {
+        if (tournament) {
+            const data = {
+                tournament_id: tournament.tournament_id,
+                league: league,
+
+            }
+            const res = await tournamentSocket?.startTournament(data);
+
+            if (res?.ok && res.data) {
+                useMatchStore.getState().setMatchData({
+                    match_id: res.data.match.match_id,
+                    rounds: res.data.match.rounds,
+                    players: res.data.match.players
+
+                });
+
+                nav(`/tournaments-match/${res.data.tournament.tournament_id}`);
+            }
+        }
+
+    }
+
+    // const tournament_started = ()=>{
+
+    // }
+
+    const is_host = () => {
+        return userId === tournament?.host.id;
+    }
+
+    return {
+        tournament,
+        players,
+        error,
+        leave,
+        cancel,
+        MIN_PLAYERS,
+        start,
+        is_host
+    }
+}

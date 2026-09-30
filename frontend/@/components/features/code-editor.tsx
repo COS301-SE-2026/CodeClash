@@ -1,26 +1,46 @@
 import { Editor } from "@monaco-editor/react"
-import { useRef } from "react"
+import { type TemplateDTO } from "src/dtos/match/match.dto"
+import { useCodeQuestion } from "src/services/code-question.service";
+import { Button } from "../ui/button";
+
+const LANGUAGES: Record<string, string> = {
+    cpp: "cpp",
+};
+
 
 interface codeEditorProps {
-    handleChange: (value: string) => void
+    question: { templates?: TemplateDTO[] },
+    onChange: (code: string, judge0_language_id: number) => void
 }
 
-export const CodeEditor = ({ handleChange }: codeEditorProps) => {
-    const placeholder = "Enter your code solution here";
-    const editorRef = useRef<any>(null);
+export const CodeEditor = ({ question, onChange }: codeEditorProps) => {
+
+    const { templates, selectedLanguage, code, changeLanguage, editCode } = useCodeQuestion(question, onChange);
+
 
     return (
-        <Editor
-            height="20vh"
-            width="100%"
-            defaultLanguage="Java"
-            defaultValue={placeholder}
-            onChange={(value) => handleChange(value ?? '')}
 
-            onMount={(editor: any) => {
-                editorRef.current = editor;
-            }}
+        <div className="flex flex-col h-full w-full">
+            <div className="flex gap-2 mb-2">
+                {templates.map(t => (
+                    <Button
+                        key={t.language}
+                        onClick={() => changeLanguage(t.language)}
+                        variant={"ghost"}
+                    >
+                        {t.language}
+                    </Button>
+                ))
+                }
+            </div>
+            <Editor
+                height="20vh"
+                language={LANGUAGES[selectedLanguage] ?? selectedLanguage}
+                value={code}
+                width="90%"
+                onChange={(v) => editCode(v ?? "")}
+            />
 
-        />
+        </div>
     )
 }

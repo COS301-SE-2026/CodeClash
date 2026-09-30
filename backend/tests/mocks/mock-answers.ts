@@ -1,5 +1,5 @@
 import { DeepPartial } from "typeorm";
-import { Answers } from "../../src/entities/db-entities/answers.entities";
+import { Answers } from "../../src/entities/database/answers.entities";
 import { mock_questions } from "./mock-questions";
 
 
@@ -10,7 +10,7 @@ const mock_answers: DeepPartial<Answers>[]= []
 for (const q of question) {
     mock_answers.push({
         question: q,
-        answer: `Answer ${q.title}`
+        answer: `Answer ${q.title}`,
     })
 }
 
