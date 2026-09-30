@@ -1,0 +1,19 @@
+frontend/@/components/features/Match/PowerUpandDownButtons.tsx
+  h_b13c5d77534129 20-21,23-30,34,41,50-55
+  h_b13c5d77534129 22
+frontend/src/context/Socket/modules/match.socket.ts
+  h_b13c5d77534129 71,76
+frontend/src/ViewModels/Match/MatchViewModel.ts
+  h_b13c5d77534129 13,38,126,130,150-168,177-180,184,220-224
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "d05c3a201c14a32ef55bf2058e9564566d31e3c9",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
