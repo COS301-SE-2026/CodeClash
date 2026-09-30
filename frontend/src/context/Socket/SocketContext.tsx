@@ -38,6 +38,8 @@ export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) 
                 setFriendsSocket(new FriendsSocket(socket));
             })
 
+            console.log("tournament socket", tournamentSocket);
+
             socket.on('disconnect', () => {
                 setIsConnected(false);
             })

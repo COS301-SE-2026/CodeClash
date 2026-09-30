@@ -34,7 +34,8 @@ export class TournamentEliminationService {
                         correct: 0,
                         total_time: 0,
                         elimination_round: -1,
-                        position: -1
+                        position: -1,
+                        in_danger: false
                     }
                 ])),
             current_round: -1,
@@ -42,6 +43,8 @@ export class TournamentEliminationService {
             round_questions: new Set(),
             progress: new Map()
         }
+
+        console.log("initializing tournament");
         this.state.set(tournament_id, init_state);
 
         return init_state.players
@@ -64,10 +67,12 @@ export class TournamentEliminationService {
     }
 
     async submit(tournament_id: string, submission: PlayerSubmissionDTO) {
+        console.log("submission", submission);
+
         const tournament = this.getTournament(tournament_id);
         const player = tournament.players.get(submission.player_id);
 
-        if (!player || player.elimination_round !== -1)
+        if (player?.elimination_round !== -1)
             throw new Error("Invalid player");
 
         if (!tournament.round_questions.has(submission.question_id))
@@ -122,9 +127,7 @@ export class TournamentEliminationService {
     endRound(tournament_id: string): PlayerStandingDTO[] {
         const tournament = this.getTournament(tournament_id);
 
-        const alive = [...tournament.players.values()]
-            .filter(p => p.elimination_round === -1)
-            .sort((a, b) => b.correct - a.correct || a.total_time - b.total_time);
+        const alive = this.aliveRanked(tournament);
 
         const keep = Math.max(1, Math.floor(alive.length / 2));
         alive.slice(keep).forEach(p => (p.elimination_round = tournament.current_round));
@@ -142,6 +145,11 @@ export class TournamentEliminationService {
     getStanding(tournament_id: string): PlayerStandingDTO[] {
         const tournament = this.getTournament(tournament_id);
 
+        const alive = this.aliveRanked(tournament);
+
+        const keep = Math.max(1, Math.floor(alive.length / 2));
+        const danger = new Set(alive.slice(keep).map(p => p.id));
+
         const rank = (p: PlayerStandingDTO) => p.elimination_round === -1 ? tournament.current_round + 1 : p.elimination_round;
 
         return [...tournament.players.values()]
@@ -150,6 +158,12 @@ export class TournamentEliminationService {
                 b.correct - a.correct ||
                 a.total_time - b.total_time
             )
-            .map((p, i) => ({ ...p, position: i + 1 }));
+            .map((p, i) => ({ ...p, position: i + 1, in_danger: danger.has(p.id) }));
+    }
+
+    private aliveRanked(tournament: TournamentState) {
+        return [...tournament.players.values()]
+            .filter(p => p.elimination_round === -1)
+            .sort((a, b) => b.correct - a.correct || a.total_time - b.total_time);
     }
 }

@@ -13,8 +13,9 @@ export const useTournament = () => {
     const [tournaments, setTournaments] = useState<TournamentDTO[]>([]);
     const { tournamentSocket } = useSocket();
     const { userId, elo, username, league } = useUser();
-   
-    let player: PlayerDTO = {
+    const [matchMode, setMatchMode] = useState<MatchMode>();
+
+    let this_player: PlayerDTO = {
         id: userId,
         elo: elo,
         username: username
@@ -31,14 +32,12 @@ export const useTournament = () => {
         data: {
             title: string,
             match_mode: MatchMode,
-            start_date: Date,
             min_players: number
         }) => {
 
         const create = {
-            start_date: data.start_date,
             match_mode: data.match_mode,
-            host: player,
+            host: this_player,
             title: data.title,
             min_players: data.min_players
         }
@@ -48,8 +47,9 @@ export const useTournament = () => {
             return { ok: false, error: "Error creating tournament." };
         }
 
+
         if (hosted.ok && hosted.data !== undefined) {
-            player = hosted.data.host;
+            setMatchMode(data.match_mode);
             setTournaments((prev) => [...prev, hosted.data!]);
         }
 
@@ -88,10 +88,15 @@ export const useTournament = () => {
 
     const handleJoined = (data: { player: PlayerDTO, tournament_id: string }) => {
         setTournaments((prev) =>
-            prev.map((t) => t.tournament_id === data.tournament_id ? { ...t, players: [...t.players, data.player] } : t)
+            prev.map((t) => t.tournament_id === data.tournament_id && !t.players.some(p => p.id === data.player.id)
+                ? { ...t, players: [...t.players, data.player] } : t)
         )
     }
 
+
+    const handleRemoved = (data: { tournament_id: string }) => {
+        setTournaments((prev) => prev.filter((t) => t.tournament_id !== data.tournament_id));
+    }
     const handleLeave = (data: { player: PlayerDTO, tournament_id: string }) => {
         setTournaments((prev) =>
             prev.map((t) => t.tournament_id === data.tournament_id ? { ...t, players: t.players.filter(p => p.id !== data.player.id) } : t)
@@ -129,23 +134,26 @@ export const useTournament = () => {
         const unsub_left = tournamentSocket.playerLeft(handleLeave);
         const unsub_join_failed = tournamentSocket.joinFailed((data) => { console.log(data) });
         const unsub_leave_failed = tournamentSocket.leaveFailed((data) => { console.log(data) });
+        const unsub_removed = tournamentSocket.tournamentRemoved(handleRemoved);
+
         return () => {
             unsub_created();
             unsub_joined();
             unsub_left();
             unsub_join_failed();
             unsub_leave_failed();
+            unsub_removed();
         }
     }, [token, tournamentSocket]);
 
-    return { 
-        lobby, 
-        tournaments, 
-        getTournaments, 
-        createTournament, 
-        joinTournamnet, 
-        leaveTournament, 
-        player,
-        starts_in
+    return {
+        lobby,
+        tournaments,
+        getTournaments,
+        createTournament,
+        joinTournamnet,
+        leaveTournament,
+        starts_in,
+        matchMode
     };
 }

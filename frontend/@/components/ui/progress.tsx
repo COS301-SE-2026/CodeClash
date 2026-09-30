@@ -2,7 +2,7 @@ import { Progress as ProgressPrimitive } from "radix-ui"
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-interface ProgressProps extends React.ComponentProps<typeof ProgressPrimitive.Root>{
+interface ProgressProps extends React.ComponentProps<typeof ProgressPrimitive.Root> {
   reverse?: boolean,
   from?: string,
   via?: string,
@@ -31,7 +31,8 @@ function Progress({
 
   const isVertical = orientation === "vertical";
   const remaining = 100 - (value || 0);
-  
+
+  console.log(value);
 
   return (
     <ProgressPrimitive.Root

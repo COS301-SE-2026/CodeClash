@@ -19,7 +19,7 @@ export class MatchCompletionSystem {
     }
 
 
-    async execute(match_id: number, player_ids: string[]) {
+    execute(match_id: number, player_ids: string[]) {
         const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(match_id, 'Submission');
         const match_component = this.getMatchComponent<MatchComponent>(match_id, 'Match');
 
@@ -58,6 +58,8 @@ export class MatchCompletionSystem {
             stats: Object.fromEntries(match_stats)
         };
         this.addMatchComponent(match_id, 'Result', data);
+
+        console.log("result", data);
 
         return { players, match_stats, total_questions };
     }// end execute

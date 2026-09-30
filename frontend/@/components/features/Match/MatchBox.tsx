@@ -24,9 +24,9 @@ export const MatchBox = ({children, className} : MatchBoxProps) => {
 
 export const TimerCard = ({children, className} : MatchBoxProps) => {
     return(
-        <MatchBox className={`flex text-white font-dseg border border-[var(--match-card)]
-            h-6 w-38 flex items-center justify-center text-[70%] text-center font-semibold rounded-sm ${className}`}>
-                <div className="flex flex-row whitespace-wrap">
+        <MatchBox className={`flex text-primary-text font-dseg border border-[var(--match-card)]
+            h-6 w-38 items-center justify-center text-[70%] text-center font-semibold rounded-sm ${className}`}>
+                <div className="flex flex-row whitespace-nowrap">
                     <Timer size={20} className="my-auto mr-3 text-muted-text"/>
                     {children}
                 </div>

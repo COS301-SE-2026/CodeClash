@@ -24,7 +24,8 @@ const MathsMatch = () => {
         submitQuestion,
         mathfieldRef,
         elos, colourClass, shake,
-        final_question, complete_round, confirmCompleteRound, confirmRound, cancelCompleteRound, completeRound
+        final_question, complete_round, confirmCompleteRound, confirmRound, cancelCompleteRound, completeRound,
+        matchType, matchMode
     } = useMatch();
 
 
@@ -79,9 +80,9 @@ const MathsMatch = () => {
                     <ChevronRight onClick={() => nextQuestion(currentQuestion)} className='size-[3rem] hover:scale-110 hover:bg-secondary/20 rounded-2xl w-[50%]' />
                 </div>
                 <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
-                    onClick={() => {
+                    onClick={async () => {
                         const answer = mathfieldRef.current?.value ?? '';
-                        submitQuestion({ answer: answer })
+                        await submitQuestion({ answer: answer }, matchType!,matchMode! )
                     }}
                 >
                     Submit Answer

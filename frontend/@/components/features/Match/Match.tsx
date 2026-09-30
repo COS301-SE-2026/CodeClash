@@ -44,7 +44,6 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
     // const questionsAnswered = question_results.flat().filter((qr) => qr === true || qr === false).length;
     // const progressValue = question_number > 0 ? (questionsAnswered / question_number) * 100 : 0;
 
-
     return (
         <div className="fixed inset-0 flex flex-col w-full overflow-y-auto">
             {/* Header */}
@@ -72,7 +71,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                     value={player_life[0]}
                                     bg="var(--button-tournament-secondary)"
                                     border="var(--button-tournament-secondary)"
-                                    height={2.5}
+                                    height={3}
                                     className={`max-w-[11rem] min-w-[1rem] h-sm mr-auto ml-5 -mt-1 `}
                                 />
                             </div>
@@ -99,7 +98,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                     border={"var(--button-tournament-secondary"}
                                     from={"#8b29b8"}
                                     via={"#BF4DF3"}
-                                    height={2.5}
+                                    height={3}
                                     className='max-w-[11rem] min-w-[1rem] h-sm ml-auto mr-5 -mt-2.5 rotate-180'
                                 />
                             </div>
