@@ -1,0 +1,20 @@
+frontend/@/components/features/Match/Match.tsx
+  h_b13c5d77534129 50,74,101
+frontend/src/Views/Match/MathsMatch.tsx
+  h_b13c5d77534129 12,76,115
+frontend/vite.config.ts
+  h_b13c5d77534129 26
+frontend/@/components/features/Match/PowerUpandDownButtons.tsx
+  h_b13c5d77534129 16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "18df6ba9b1859b98290435f11ee77d12c5b96452",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
