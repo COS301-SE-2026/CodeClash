@@ -55,7 +55,7 @@ export const TournamentCard = ({
     }
 
     const handleLeave = async () => {
-        console.log("leaving")
+      
         await onLeave(id);
     }
 
