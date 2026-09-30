@@ -1,0 +1,18 @@
+database/04-init-shop.sql
+  h_b13c5d77534129 28
+frontend/src/context/Shop/InventoryContext.tsx
+  h_b13c5d77534129 9
+frontend/src/Views/Match/Popup.tsx
+  h_b13c5d77534129 10-14,19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "eaae579958c4c81155f064099d870ab063c22fb0",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
