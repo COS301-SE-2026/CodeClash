@@ -1,0 +1,14 @@
+frontend/src/Views/Match/MathsMatch.tsx
+  h_b13c5d77534129 17,26,71
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "05e9b03b18713bb1fc2ae28a5b15ee3b3d91753b",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
