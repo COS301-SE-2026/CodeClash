@@ -28,7 +28,7 @@ export const HostTournament = ({ Cancel, Create }: HostProps) => {
 
     const handleCreate = async () => {
         if (!title.trim()) {
-            setError("Please fill in required fields.Required fields are indicated with a *")
+            setError("Please fill in required fields. Required fields are indicated with a *")
             return;
         }
 
@@ -59,14 +59,14 @@ export const HostTournament = ({ Cancel, Create }: HostProps) => {
     }
 
     return (
-        <Card className="bg-background rounded-3xl h-auto border-[0.01rem] border-muted-text/30 shadow-[0_0_20px_color-mix(in_srgb,var(--button-tournament)_10%,transparent)]">
-            <CardHeader className="flex items-center">
-                <div className="bg-primary/30 rounded-[1rem] p-[2%] mr-[3%] bg-green-300 border border-primary border-2">
+        <Card className="w-full max-w-xl gap-5 py-6 bg-background rounded-3xl h-auto border-[0.01rem] border-muted-text/30 shadow-[0_0_20px_color-mix(in_srgb,var(--button-tournament)_10%,transparent)]">
+            <CardHeader className="flex flex-row items-center gap-4 px-6">
+                <div className="bg-primary/30 rounded-[1rem] p-3 border-2 border-primary shrink-0">
                     <Sparkles className="text-button-tournament" />
                 </div>
                 <CardTitle className="text-l font-white ">
                     Host Tournament
-                    <CardDescription className="text-xsm">
+                    <CardDescription className="text-sm">
                         <p className="text-muted-text">Configure your tournament</p>
                     </CardDescription>
                 </CardTitle>
@@ -76,34 +76,34 @@ export const HostTournament = ({ Cancel, Create }: HostProps) => {
             <hr className="w-[95%] self-center border-muted-text"></hr>
 
             {error.length > 0 &&
-                <div className="">
+                <div className="mx-6 rounded-xl border border-danger/40 bg-danger/10 px-4 py-3 text-sm font-semibold text-danger">
                     {error}
                 </div>
             }
 
             {status === "success" &&
-                <div>
+                <div className="mx-6 rounded-xl border border-success/40 bg-success/10 px-4 py-3 text-sm font-semibold text-success">
                     Tournament created successfully!
                 </div>
             }
 
-            <CardContent className="flex flex-col">
+            <CardContent className="flex flex-col gap-6 px-6">
                 {/* Title */}
-                <div className="flex flex-col">
-                    <p className="text-xs font-bold text-white uppercase pb-[1%]">
+                <div className="flex flex-col gap-2">
+                    <p className="text-xs font-bold text-primary-text uppercase tracking-widest">
                         Tournament Title*
                     </p>
                     <Input
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         placeholder="Algorithmic Showdown"
-                        className="bg-match-box border-[0.01rem] border-muted-text/30 rounded-md h-[4rem] bg-primary/5 text-white"
+                        className="bg-match-box border-[0.01rem] border-muted-text/30 rounded-xl h-[4rem] bg-primary/5 text-primary-text"
                     />
                 </div>
 
                 {/* Mode */}
-                <div className="flex flex-col">
-                    <p className="text-xs font-bold text-white uppercase pb-[1%] pt-[3%]">
+                <div className="flex flex-col gap-2">
+                    <p className="text-xs font-bold text-primary-text uppercase tracking-widest">
                         Tournament Mode*
                     </p>
                     <div className="grid grid-cols-2 gap-3">
@@ -114,7 +114,7 @@ export const HostTournament = ({ Cancel, Create }: HostProps) => {
                                     : "border-match-card bg-match-box"}`}
                         >
                             <Sigma className="text-primary mr-[3%]"></Sigma>
-                            <p className="font-bold  w-[80%]" >Math & Logic</p>
+                            <p className="font-bold w-[80%]" >Math & Logic</p>
                             <Input
                                 type="radio"
                                 name="tournament-mode"
@@ -131,7 +131,7 @@ export const HostTournament = ({ Cancel, Create }: HostProps) => {
                             ${mode === "programming" ? "border-button-tournament bg-button-tournament/10"
                                     : "border-match-card bg-match-box"}`}
                         >
-                            <CodeXml className="text-primary w-[2rem] mr-[3%]"></CodeXml>
+                            <CodeXml className="text-primary mr-[3%]"></CodeXml>
                             <p className="font-bold w-[80%]" >Programming</p>
                             <Input
                                 type="radio"
@@ -147,7 +147,7 @@ export const HostTournament = ({ Cancel, Create }: HostProps) => {
                 </div>
 
                 <div className="flex flex-col items-start justify-between">
-                    <p className="text-xs font-bold text-white uppercase pb-[1%] pt-[3%]">
+                    <p className="text-xs font-bold text-primary-text uppercase pb-[1%] pt-[3%]">
                         Required minimum 8 players to start tournament*
                     </p>
 
@@ -175,11 +175,11 @@ export const HostTournament = ({ Cancel, Create }: HostProps) => {
                 </div>
             </CardContent>
 
-            <CardFooter className="flex items-center justify-between">
+            <CardFooter className="flex items-center justify-between gap-3 px-6">
                 <Button
                     type="button"
                     onClick={Cancel}
-                    className="rounded-3xl"
+                    className="btn btn-ghost w-[45%]"
                     variant={"outline"}
                     disabled={status === "loading"}
                 >
@@ -189,6 +189,7 @@ export const HostTournament = ({ Cancel, Create }: HostProps) => {
                 <Button
                     type="button"
                     onClick={handleCreate}
+                    className="btn btn-primary w-[45%]"
                     variant={"default"}
                     disabled={status === "loading" || status === "success"}
                 >

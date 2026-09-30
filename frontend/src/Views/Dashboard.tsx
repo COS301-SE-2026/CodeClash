@@ -1,4 +1,4 @@
-import {ChevronRight, Swords, Users2, Flame, Sparkles, Trophy} from 'lucide-react';
+import {ChevronRight, Swords,  Flame, Sparkles, Trophy} from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useEffect } from "react";
 import { UserAvatar } from '../avatar/UserAvatar';
@@ -9,7 +9,6 @@ import Popup from 'src/Views/Match/Popup'
 
 import Loading from '@/components/shared/Loading';
 import Starfield from '@/components/ui/animations/Starfield';
-import ComingSoon from '@/components/ui/ComingSoon';
 
 type SkillMetric = {
   label: string;
@@ -105,10 +104,6 @@ const Dashboard = () => {
                     <button className='btn btn-primary w-full' onClick={() => openPopUp('ranked')} type='button'>
                       <Swords size= {18}/>
                       Ranked Play
-                    </button>
-                    <button className='btn btn-secondary w-full' onClick={() => ComingSoon} type='button'  disabled title='Coming Soon!'>
-                      <Users2 size= {18}/>
-                      Casual Play
                     </button>
                   </div>
                 </div> 

@@ -16,7 +16,6 @@ import GameGuide from "./Views/GameGuide"
 import HelpMenu from "./Views/HelpMenu";
 import Leaderboard from "./Views/Match/Leaderboard/Leaderboard";
 import MatchSearching from "./Views/Matchmaking/MatchSearching";
-import Profile from "./Views/Profile";
 import SignIn from "./Views/Auth/SignIn";
 import SignUp from "./Views/Auth/SignUp";
 
@@ -27,7 +26,6 @@ import Agent from "./Views/AIAgent";
 import Shop from "./Views/Shop/Shop";
 import Friends from "./Views/Friends/Friends";
 import Achievements from "./Views/Achievements";
-import Settings from "./Views/Settings";
 import { ProgMatch } from "./Views/Match/ProgMatch";
 import SkillProgress from "./Views/SkillProgress";
 import TournamentsMatchPage from "./Views/Tournaments/TournamentMatchPage";
@@ -64,7 +62,6 @@ const App: React.FC = () => {
 
             <Route path='/sign-in' element={<SignIn />} />
             <Route path='/sign-up' element={<SignUp />} />
-            <Route path='/profile' element={<Profile />} />
             <Route path='/match-searching' element={<MatchSearching />} />
             <Route path='/match-found' element={<MatchFound />} />
             <Route path='/math-match/:match_id' element={<MathMatch />} />
@@ -91,7 +88,6 @@ const App: React.FC = () => {
                 <Route path='/match-history' element={<MatchHistory />} />
                 <Route path='/stats' element={<SkillProgress />} />
                 <Route path="/shop" element={<Shop />} />
-                <Route path='/settings' element={<Settings />} />
             </Route>
 
             <Route path="*" element={<Navigate to='/dashboard' replace />} />

@@ -1,9 +1,5 @@
 import * as React from "react";
-import ReactMarkDown from 'react-markdown';
-import remarkGfm from "remark-gfm";
-import remarkMath from 'remark-math'
-import rehypeKatex from 'rehype-katex'
-import "katex/dist/katex.min.css";
+
 import { Badge } from "@/components/ui/badge";
 
 import { cn } from "@/lib/utils";
@@ -17,15 +13,13 @@ interface QuestionProps {
   description?: string,
   className?: string
 }
-
-
-export const Question = ({
+function Question({
   className,
   children,
   difficulty,
   title,
   description,
-}: QuestionProps) => {
+}: QuestionProps) {
   return (
     <div
       className={cn(
@@ -33,18 +27,18 @@ export const Question = ({
         className,
       )}
     >
-      <MatchCard className="flex flex-col p-2 rounded-lg w-full h-[20rem] -mt-5 gap-3">
+      <MatchCard className="flex flex-col p-2 rounded-lg w-full h-auto -mt-5 gap-3">
         <div className="flex justify-between w-full">
 
           {difficulty.length > 0 && <Badge
-            className="w-[7%] h-[1.5rem] text-white text-xs mt-2 mr-2"
+            className="w-[7%] h-[1.5rem] text-primary-text text-xs mt-2 mr-2"
             variant={"default"}
           >
             {difficulty}
           </Badge>}
         </div>
 
-        <div className="ml-3 m-5 flex flex-col min-h-0 justify-evenly">
+        <div className="ml-3 m-5 flex flex-col justify-evenly">
           <h1 className="text-[1.6rem] -mt-8 font-semibold">{title}</h1>
           <div className="text-[1rem] text-muted-text mt-1 min-h-0 flex-1 overflow-y-auto">
             <QuestionDescription

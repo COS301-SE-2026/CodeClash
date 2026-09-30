@@ -26,6 +26,7 @@ import { IShopItemRepository } from 'src/application/interfaces/repositories/ISh
 import { TournamentService } from 'src/application/usecases/services/tournament/tournament.service';
 import { getTournamentByStatus } from 'src/interface-adapters/controllers/tournament.controllers';
 import { IWalletRepository } from 'src/application/interfaces/repositories/IWalletRepository';
+import { IInventoryRepository } from 'src/application/interfaces/repositories/IInventoryRepository';
 
 export const createAPIRoutes = (
   user_repo: IUserRepository,
@@ -41,6 +42,7 @@ export const createAPIRoutes = (
   purchase_service: PurchaseService,
   equipped_repo: IEquippedRepository,
   shop_item_repo: IShopItemRepository,
+  inventory_repo: IInventoryRepository,
   tournament_service: TournamentService,
   wallet_repo: IWalletRepository
 
@@ -48,7 +50,7 @@ export const createAPIRoutes = (
   const router = Router();
 
 
-  const create_user_service = new CreateUser(user_repo, equipped_repo, shop_item_repo, wallet_repo);
+  const create_user_service = new CreateUser(user_repo, equipped_repo, shop_item_repo, wallet_repo, inventory_repo);
 
   router.post('/create-user', creationRequireAuth(), createUser(create_user_service));
 
@@ -288,7 +290,7 @@ router.post('/shop/purchase', purchaseItem(purchase_service));
 router.get('/shop/wallet', getWallet(wallet_service));
 router.get('/shop/equipped', getEquipped(equipment_service));
 router.patch('/shop/equipped', updateEquipped(equipment_service));
-router.get('shop/powerups/me', getUserPowerups(inventory_service));
+router.get('/shop/powerups/me', getUserPowerups(inventory_service));
 router.post('/shop/powerups/use', usePowerup(powerup_service));
 
   // --------------------- user routes

@@ -1,5 +1,6 @@
 import { useEffect, useState, createContext, useContext } from "react";
 import type { ReactNode } from "react";
+import { useAuth } from "src/context/Auth/hooks/useAuth";
 
 export type Theme = 'dark' | 'light' | 'frost' | 'gold' |'nebula' | 'verdant';
 const themeKey = 'codeclash-themes';
@@ -34,6 +35,15 @@ function applyTheme(theme: Theme) {
 
 export const ThemeProvider = ({children}: {children: ReactNode}) => {
     const [theme, setThemes] = useState<Theme>(getDefTheme);
+    const { user } = useAuth();
+
+    useEffect(() => {
+        if (user === null) {
+           setThemes('dark');
+        window.localStorage.removeItem(themeKey);
+        }
+    }, [theme])
+
     useEffect(() => {
         applyTheme(theme);
         window.localStorage.setItem(themeKey, theme);
