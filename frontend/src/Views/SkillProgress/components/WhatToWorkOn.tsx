@@ -105,3 +105,9 @@ const SupportingCard: React.FC<{ insight: Insight }> = ({ insight }) => {
         </div>
     );
 };
+
+const trendBadge = (delta: number): { label: string; badge: string; Arrow: React.ComponentType<{ size?: number }> } => {
+    if (delta > 0) return { label: 'Up', badge: 'badge-status-correct', Arrow: ArrowUpRight };
+    if (delta < 0) return { label: 'Down', badge: 'badge-status-wrong', Arrow: ArrowDownRight };
+    return { label: 'Flat', badge: 'badge-status-pending', Arrow: Minus };
+};
