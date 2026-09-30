@@ -4,17 +4,16 @@ import { useInventory } from "src/context/Shop/InventoryContext";
 import type { PowerupShopItem, PowerupEffectType } from "src/Models/ShopModel";
 
 const Icons: Record<PowerupEffectType, React.ComponentType<{size?: number; className?: string}>> = {
-    timeDown: Timer,
-    hint: Lightbulb,
-    // blocks next power down used on the user:
-    shield: ShieldAlert,
-    scoreBoost: Zap,
-    secondWind: Heart,
-    bug: Bug,
-    wipe: Eraser,
-    questionVisibility: EyeOff,
-    timeUp: Hourglass,
-    lifeDrain: HeartCrack,
+    reduce_time: Timer,
+    reveal_hint: Lightbulb,
+    block_next_powerdown: ShieldAlert,
+    score_multiplier: Zap,
+    restore_life: Heart,
+    insert_bugs: Bug,
+    wipe_answer: Eraser,
+    block_question: EyeOff,
+    increase_time: Hourglass,
+    drain_life: HeartCrack,
 }
 
 interface PowerupProps {
@@ -48,10 +47,10 @@ export const PowerupPopup: React.FC<PowerupProps> = ({isOpen, onClose, maxSlots 
             }
             const item = owned.find((o) => o.item.id === itemId)?.item;
 
-            if (item?.effect.effectType === "wipe"){
+            if (item?.effect.effectType === "wipe_answer"){
                 const alreadySelected = prev.some((id) => {
                     const selectedItem = owned.find((o) => o.item.id === id)?.item;
-                    return selectedItem?.effect.effectType === "wipe";
+                    return selectedItem?.effect.effectType === "wipe_answer";
                 }) 
                 if (alreadySelected) {
                     return prev;
