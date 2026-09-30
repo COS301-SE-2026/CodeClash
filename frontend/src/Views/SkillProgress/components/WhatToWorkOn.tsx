@@ -154,3 +154,53 @@ const WeeklyTiles: React.FC<{ changes: WeeklyChange[] }> = ({ changes }) => {
         </div>
     );
 };
+
+const WhatToWorkOn: React.FC<WhatToWorkOnProps> = ({ title, report, gamesAnalysed, emptyState }) => {
+    const [showMore, setShowMore] = useState(false);
+
+    return (
+        <section className="card-elevated p-6 flex flex-col gap-6">
+            <WeeklyTiles changes={report.weekly} />
+
+            <div>
+                <div className="flex items-center gap-2">
+                    <Sparkles size={20} className="text-primary" />
+                    <h2 className="text-lg font-black text-primary-text">{title}</h2>
+                </div>
+                <p className="text-xsm text-muted-text mt-1">
+                    Built from {gamesAnalysed} {gamesAnalysed === 1 ? 'game' : 'games'} - every card shows the numbers behind it.
+                </p>
+            </div>
+
+            {report.focus ? (
+                <div className="grid grid-cols-1 xl:grid-cols-[1.2fr_1fr] gap-5 items-start">
+                    <FocusCard insight={report.focus} />
+                    <div className="flex flex-col gap-3">
+                        {report.supporting.map(insight => (
+                            <SupportingCard key={insight.id} insight={insight} />
+                        ))}
+                    </div>
+                </div>
+            ) : (
+                <p className="text-xsm text-muted-text">{emptyState}</p>
+            )}
+
+            {report.more.length > 0 && (
+                <div className="flex flex-col gap-3">
+                    <button
+                        type="button"
+                        className="self-start inline-flex items-center gap-1 text-xsm font-bold text-muted-text hover:text-primary-text"
+                        onClick={() => setShowMore(open => !open)}
+                        aria-expanded={showMore}
+                    >
+                        <ChevronDown size={14} className={showMore ? 'rotate-180 transition-transform' : 'transition-transform'} />
+                        {showMore ? 'Hide' : 'Show'} more insights
+                    </button>
+                    {showMore && <InsightList insights={report.more} />}
+                </div>
+            )}
+        </section>
+    );
+};
+
+export default WhatToWorkOn;
