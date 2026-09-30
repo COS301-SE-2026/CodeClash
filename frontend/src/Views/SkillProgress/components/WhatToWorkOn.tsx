@@ -42,3 +42,10 @@ const Sparkline: React.FC<{ series: number[] }> = ({ series }) => {
         </svg>
     );
 };
+
+const NextStep: React.FC<{ action: string }> = ({ action }) => (
+    <div className="rounded-2xl border border-border bg-card px-4 py-3">
+        <p className="eyebrow text-primary">Next step</p>
+        <p className="text-xsm text-primary-text mt-1.5 leading-snug">{action}</p>
+    </div>
+);
