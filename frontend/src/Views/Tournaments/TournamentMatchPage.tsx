@@ -2,13 +2,13 @@ import { MatchCard } from "@/components/features/Match/MatchCard";
 import TournamentButton from "@/components/features/Tournaments/TournamentButton";
 import { Trophy, Lock, ChevronsRight, Signal, Zap } from "lucide-react"
 import { Question } from "@/components/features/Questions/question";
-import {TimerCard } from "@/components/features/Match/MatchBox";
+import { TimerCard } from "@/components/features/Match/MatchBox";
 import { LiveTournamentPlayer } from "@/components/features/Tournaments/LiveTournamentPlayer";
 import { useTournamentMatch } from "src/ViewModels/Tournaments/TournamentMatchViewModel";
 import { Button } from "@/components/ui/button";
 import MathMatch from "@/components/features/Match/MathPage";
 import { CodeEditor } from "@/components/features/code-editor";
-import { useEffect, useMemo} from "react";
+import { useEffect, useMemo } from "react";
 
 const TournamentsMatchPage = () => {
     const { total_rounds,
@@ -21,7 +21,8 @@ const TournamentsMatchPage = () => {
         colourClass,
         setCode,
         setLanguageId,
-        handleSubmit,match_mode
+        handleSubmit, match_mode,
+        nextQuestion
     } = useTournamentMatch();
 
 
@@ -80,7 +81,7 @@ const TournamentsMatchPage = () => {
                             {match_mode === 'programming' && (
                                 <CodeEditor
                                     question={question}
-                                    onChange={(new_code,  judge0_id) => {
+                                    onChange={(new_code, judge0_id) => {
                                         setCode(new_code);
                                         setLanguageId(judge0_id)
                                     }}
@@ -98,7 +99,7 @@ const TournamentsMatchPage = () => {
                             </div>
 
                             <div className="flex flex-row items-center gap-3">
-                                {<Button
+                                <Button
                                     className="px-4 py-2 rounded-lg"
                                     variant={"default"}
                                     onClick={handleSubmit}
@@ -107,7 +108,19 @@ const TournamentsMatchPage = () => {
                                         <h1>Submit Answer</h1>
                                         <ChevronsRight size={30} />
                                     </div>
-                                </Button>}
+                                </Button>
+
+                                <Button
+                                    className="px-4 py-2 rounded-lg"
+                                    variant={"secondary"}
+                                    onClick={() => nextQuestion}
+                                    disabled={currentQuestion >= questions.length - 1}
+                                >
+                                    <div className="flex flex-row items-center gap-2">
+                                        <h1>Next</h1>
+                                        <ChevronsRight size={30} />
+                                    </div>
+                                </Button>
                             </div>
 
                         </div>

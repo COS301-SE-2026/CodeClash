@@ -94,4 +94,8 @@ export class TournamentCache implements ITournamentCache {
             .filter(t => t.status === status);
     }
 
+    async updateTournament(tournament: TournamentDTO): Promise<void>{
+        await this.redis.set(`tournament:${tournament.tournament_id}`, JSON.stringify(tournament));
+    }
+
 }

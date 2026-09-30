@@ -1,7 +1,7 @@
 import type { Socket } from "socket.io-client";
 import type { MatchDTO, PlayerDTO, MatchMode } from "src/dtos/match/match.dto";
 import { emit, on } from "../dispatch";
-import type { TournamentDTO } from "src/dtos/tournaments/tournament.dto";
+import type { PlayerStandingDTO, TournamentDTO } from "src/dtos/tournaments/tournament.dto";
 
 export class TournamentSocket {
     private readonly socket: Socket;
@@ -33,8 +33,12 @@ export class TournamentSocket {
     }
 
 
-    tournamentRemoved(handler: (data: {tournament_id: string})=>void){
-        return on<{tournament_id: string}>(this.socket, 'tournament_removed', handler);
+    tournamentRemoved(handler: (data: { tournament_id: string }) => void) {
+        return on<{ tournament_id: string }>(this.socket, 'tournament_removed', handler);
+    }
+
+    tournamentStandings(handler: (data: PlayerStandingDTO[]) => void) {
+        return on(this.socket, 'tournament_standings', handler);
     }
 
     // Error events
@@ -81,7 +85,7 @@ export class TournamentSocket {
         return emit<typeof data, { match: MatchDTO, tournament: TournamentDTO }>(this.socket, 'start_tournament', data);
     }
 
-    identity(){
-        return emit<void, {user_id: string}>(this.socket, 'identity', undefined);
+    identity() {
+        return emit<void, { user_id: string }>(this.socket, 'identity', undefined);
     }
 }

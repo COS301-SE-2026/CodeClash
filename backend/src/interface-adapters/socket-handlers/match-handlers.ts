@@ -11,11 +11,11 @@ import { UsePowerupDTO } from "src/entities/dtos/shop/powerup-use.dto";
 import { PowerupService } from "src/application/usecases/services/shop/powerup.service";
 
 export const submitQuestion = async (
-    io: Server, 
-    socket: Socket, 
+    io: Server,
+    socket: Socket,
     data: RawSubmissionDTO,
-     mark: MarkingService,
-    match_store: MatchStore, 
+    mark: MarkingService,
+    match_store: MatchStore,
     elimination_service: TournamentEliminationService,
     opponent_progress: OpponentProgress
 ) => {
@@ -27,10 +27,14 @@ export const submitQuestion = async (
     }
 
     switch (data.match_type) {
-        case MatchType.tournament:
+        case MatchType.tournament: {
             console.log("tournament submission")
-            return await elimination_service.submit(data.id, submission);
+            const result = await elimination_service.submit(data.id, submission);
+            const standings = elimination_service.getStanding(data.id);
 
+            io.to(data.id).emit('tournament_standings', standings);
+            return result;
+        }
         default: {
             const result = await mark.execute(submission);
             const opponent = opponent_progress.getOpponentId(submission.match_id, submission.player_id);

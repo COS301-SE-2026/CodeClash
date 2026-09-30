@@ -9,5 +9,6 @@ export interface ITournamentCache {
     getTournament(tournament_id: string): Promise<TournamentDTO | null>,
     deleteTournament(tournament_id: string): Promise<void>,
     updateStatus(tournament_id: string, status: MatchStatus): Promise<void>,
-    getTournamentsByStatus(status: MatchStatus): Promise<TournamentDTO[]>
+    getTournamentsByStatus(status: MatchStatus): Promise<TournamentDTO[]>,
+    updateTournament(tournament: TournamentDTO): Promise<void>,
 }

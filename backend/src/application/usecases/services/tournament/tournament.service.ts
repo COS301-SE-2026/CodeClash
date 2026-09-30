@@ -71,13 +71,13 @@ export class TournamentService {
     async startTournament(tournament: TournamentDTO, league: string) {
 
         if (tournament.status !== MatchStatus.Waiting) throw new Error("Tournament already started");
-
         if (tournament.players.length < tournament.min_players) throw new Error("Not enough players");
 
         const match = await this.creation_service.execute(tournament.players as PlayerDTO[], tournament.tournament_mode, league, MatchType.tournament, tournament.title);
 
         tournament.rounds = match.rounds;
         tournament.status = MatchStatus.In_progress;
+        await this.tournament_cache.updateTournament(tournament);
 
         const usernames = tournament.players.map(p => ({ id: p.id, username: p.username! }));
 
@@ -98,4 +98,5 @@ export class TournamentService {
     async getTournamentsByStatus(status: MatchStatus) {
         return this.tournament_cache.getTournamentsByStatus(status);
     }
+
 }
