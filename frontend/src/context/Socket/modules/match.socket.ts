@@ -6,7 +6,7 @@ import type { MatchResultDTO, ResultDTO } from "src/dtos/match/result.dto";
 import type { MatchMode } from "src/dtos/match/match.dto";
 import type { Player } from "src/Models/MatchModel";
 import type { OpponentDTO } from "src/dtos/match/opponent.dto";
-import { UsePowerupDTO, UsePowerupResultDTO } from "src/dtos/powerup.dto";
+import type { UsePowerupDTO, UsePowerupResultDTO } from "src/dtos/powerup.dto";
 
 
 export class MatchSocket {
@@ -64,8 +64,8 @@ export class MatchSocket {
         return on<UsePowerupResultDTO>(this.socket, 'powerup_received', handler)
     }
 
-    powerupBlocked(handler: (data: UsePowerupResultDTO) => void){
-        return on<UsePowerupResultDTO>(this.socket, 'powerup_blocked', handler)
+    powerdownBlocked(handler: (data: UsePowerupResultDTO) => void){
+        return on<UsePowerupResultDTO>(this.socket, 'powerdown_blocked', handler)
     }
 
     wipeInput(handler: () => void ){
@@ -76,8 +76,6 @@ export class MatchSocket {
     bugInput(handler: () => void){
         return on(this.socket, 'bug_input', handler)
     }
-
-
 
 
     /************************************** EMITTERS ******************************************* */
@@ -96,6 +94,10 @@ export class MatchSocket {
 
     cleanUpMatch(data: { match_id: string, pair_id: string }) {
         return emit<typeof data, void>(this.socket, 'clean_up', data);
+    }
+
+    usePowerup(data: UsePowerupDTO){
+        return emit<UsePowerupDTO, UsePowerupResultDTO>(this.socket, 'use_powerup', data)
     }
 }
 
