@@ -1,0 +1,14 @@
+backend/src/frameworks-drivers/socket/index.ts
+  h_58e143dc25f856 11-12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "0ef555853c4b284652cdfa912dd82a30ef3299b7",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

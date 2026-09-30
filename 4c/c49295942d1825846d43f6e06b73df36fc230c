@@ -1,0 +1,49 @@
+frontend/src/ViewModels/Matchmaking/MatchFoundViewModel.ts
+  h_94c952a9e14c58 33,40,44,52,57,120
+  h_94c952a9e14c58 122
+frontend/src/ViewModels/Tournaments/TournamentMatchViewModel.ts
+  h_94c952a9e14c58 20-22,25,29-31,65-78,98-105
+  h_94c952a9e14c58 9-19,23,79-81
+frontend/src/services/match.service.tsx
+  h_94c952a9e14c58 4,11,14
+frontend/src/dtos/match/match.dto.ts
+  h_94c952a9e14c58 4
+frontend/src/stores/match-store.ts
+  h_94c952a9e14c58 1,11-12,18,20,26,31,33,37-38,41-42,47-48
+backend/src/interface-adapters/socket-handlers/match-handlers.ts
+  h_94c952a9e14c58 29,32
+  h_94c952a9e14c58 14-21
+frontend/src/services/submission.service.tsx
+  h_94c952a9e14c58 8,46,54-55
+frontend/src/Views/Match/MathsMatch.tsx
+  h_94c952a9e14c58 27-28,83,85
+backend/src/application/usecases/services/tournament/elimination.service.ts
+  h_94c952a9e14c58 45-46,69-70,74
+frontend/src/Views/Tournaments/TournamentMatchPage.tsx
+  h_94c952a9e14c58 9-11,19-25,28,31,35-38,73-93,104,107,113
+  h_94c952a9e14c58 5,29
+frontend/src/ViewModels/Tournaments/TournamentViewModel.ts
+  h_94c952a9e14c58 16-17,51,149-150
+  h_94c952a9e14c58 141-147
+frontend/src/ViewModels/Tournaments/TournamentLobby.ts
+  h_94c952a9e14c58 44,63,98-100
+  h_94c952a9e14c58 73,93,101
+backend/src/application/usecases/services/tournament/tournament.service.ts
+  h_94c952a9e14c58 20-22,42-43,53-56,95,98,102,104
+  h_94c952a9e14c58 51
+frontend/src/ViewModels/Match/MatchViewModel.ts
+  h_94c952a9e14c58 18,98,102,105,167-169
+frontend/src/Views/Match/ProgMatch.tsx
+  h_94c952a9e14c58 31-32,87,89,93,102
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "4cc49295942d1825846d43f6e06b73df36fc230c",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+backend/src/interface-adapters/repositories/question.repository.ts
+  h_94c952a9e14c58 13-14
+backend/src/application/usecases/services/tournament/tournament.service.ts
+  h_94c952a9e14c58 72,82-83,92,95-96,99
+backend/src/application/usecases/services/questions.service.ts
+  h_94c952a9e14c58 24-26,29
+backend/src/application/usecases/services/match/match-creation.service.ts
+  h_94c952a9e14c58 40
+backend/src/interface-adapters/socket-handlers/tournament-handlers.ts
+  h_94c952a9e14c58 65-67
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "bcc515f46497f0ffd9f1c3947b3763478968743d",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

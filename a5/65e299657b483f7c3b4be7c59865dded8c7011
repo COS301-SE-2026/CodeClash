@@ -1,0 +1,28 @@
+frontend/src/Views/Tournaments/Tournaments.tsx
+  h_94c952a9e14c58 11,72
+frontend/@/components/features/Tournaments/TournamentCard.tsx
+  h_94c952a9e14c58 20-21,37-38,43,48,53,78,84,90,97-110,117,127-129
+  h_94c952a9e14c58 45
+frontend/src/ViewModels/Tournaments/TournamentViewModel.ts
+  h_94c952a9e14c58 60,92,97-100,138-139,146
+  h_94c952a9e14c58 93
+frontend/src/ViewModels/Tournaments/TournamentLobby.ts
+  h_94c952a9e14c58 30,36
+  h_94c952a9e14c58 31,37
+backend/src/interface-adapters/socket-handlers/tournament-handlers.ts
+  h_94c952a9e14c58 30,44,64-68
+  h_94c952a9e14c58 10,20,43
+frontend/src/context/Socket/modules/tournament.socket.ts
+  h_94c952a9e14c58 35-39
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "a565e299657b483f7c3b4be7c59865dded8c7011",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
