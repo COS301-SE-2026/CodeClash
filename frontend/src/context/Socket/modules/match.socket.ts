@@ -6,6 +6,7 @@ import type { MatchResultDTO, ResultDTO } from "src/dtos/match/result.dto";
 import type { MatchMode } from "src/dtos/match/match.dto";
 import type { Player } from "src/Models/MatchModel";
 import type { OpponentDTO } from "src/dtos/match/opponent.dto";
+import { UsePowerupDTO, UsePowerupResultDTO } from "src/dtos/powerup.dto";
 
 
 export class MatchSocket {
@@ -57,6 +58,14 @@ export class MatchSocket {
 
     startMatchError(handler: (data: { error: string }) => void) {
         return on(this.socket, 'start_match_failed', handler);
+    }
+
+    powerupReceived(handler: (data: UsePowerupResultDTO) => void){
+        return on<UsePowerupResultDTO>(this.socket, 'powerup_received', handler)
+    }
+
+    powerupBlocked(handler: (data: UsePowerupResultDTO) => void){
+        return on<UsePowerupResultDTO>(this.socket, 'powerup_blocked', handler)
     }
 
 
