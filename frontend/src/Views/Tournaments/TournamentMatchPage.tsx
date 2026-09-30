@@ -15,7 +15,7 @@ const TournamentsMatchPage = () => {
         roundIdx, activePlayers,
         seconds, minutes,
         questions, currentQuestion,
-        players, db_id,
+        db_id,
         round_telemetry,
         mathfieldRef,
         colourClass,
@@ -112,7 +112,7 @@ const TournamentsMatchPage = () => {
                                 <Button
                                     className="btn btn-secondary"
                                     variant={"secondary"}
-                                    onClick={() => nextQuestion}
+                                    onClick={() => nextQuestion(currentQuestion)}
                                     disabled={currentQuestion >= questions.length - 1}
                                 >
                                     <div className="flex flex-row items-center gap-2">
@@ -141,13 +141,13 @@ const TournamentsMatchPage = () => {
                         <hr className="border-muted-text/50" />
 
                         <div className="flex flex-col gap-2">
-                            {players.map((p) => {
+                            {telemetry.safe.map((p) => {
                                 return (
                                     <LiveTournamentPlayer
                                         key={p.id}
                                         place={p.position}
                                         username={p.username}
-                                        time={p.total_time.toString()}
+                                        time={(p.total_time/1000).toFixed() + "s"}
                                         you={p.id === db_id}
                                     />
                                 )
