@@ -1,4 +1,4 @@
-import { MathsSubmissionDTO, ProgSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
+import { PlayerSubmissionDTO, ProgSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
 import { IMarkingStrategy } from "src/application/interfaces/marking/IMarkingStategy";
 import { ICodeExecutor } from "src/application/interfaces/marking/ICodeExecutor";
 import { IQuestionRepository } from "src/application/interfaces/repositories/IQuestionRepository";
@@ -7,7 +7,10 @@ export class MarkProg implements IMarkingStrategy {
 
     private readonly executor;
 
-    constructor(private readonly code_executor: ICodeExecutor) {
+    constructor(
+        private readonly code_executor: ICodeExecutor,
+        private readonly question_repo: IQuestionRepository
+    ) {
         this.executor = code_executor;
     }
 
