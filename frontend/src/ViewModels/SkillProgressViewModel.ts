@@ -1,20 +1,20 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useAuth } from 'src/context/Auth/hooks/useAuth';
 import { useUser } from 'src/context/User/hooks/useUser';
+import type { FocusReport } from 'src/Models/SkillInsights';
+import { buildFocusReport } from 'src/Models/SkillInsights';
 import type {
     ComponentScore,
     DifficultyBand,
     GameDomain,
     GameMastery,
     GrowthResult,
-    Insight,
     SkillDomain,
     SkillProgressContent
 } from 'src/Models/SkillProgressModel';
 import {
     MASTERY_WINDOW,
     averageMastery,
-    buildInsights,
     componentScores,
     difficultyBands,
     gameMastery,
@@ -47,7 +47,7 @@ export interface SkillProgressViewModel {
     components: ComponentScore[];
     bands: DifficultyBand[];
     recentGames: GameMastery[];
-    insights: Insight[];
+    insights: FocusReport;
     /*True while any of the numbers come from generated telemetry.*/
     isSimulated: boolean;
     telemetrySource: SkillTelemetry['source'] | null;
@@ -125,8 +125,8 @@ export function useSkillProgressViewModel(): SkillProgressViewModel {
   }, [telemetry, domain]);
   
     const insights = useMemo(
-        () => buildInsights(components, growth, mastery, league, practice),
-        [components, growth, mastery, league, practice]
+      () => buildFocusReport({ games, allGames: competitive, components, bands, growth, mastery, league, winRate, practice }),
+        [games, competitive, components, bands, growth, mastery, league, winRate, practice]
     );
 
     return {
