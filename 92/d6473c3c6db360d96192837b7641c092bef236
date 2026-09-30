@@ -1,0 +1,37 @@
+backend/src/application/usecases/services/tournament/elimination.service.ts
+  h_94c952a9e14c58 37-38,71,130,148-152,161,163-167
+  h_94c952a9e14c58 162
+backend/src/application/usecases/services/tournament/tournament.service.ts
+  h_94c952a9e14c58 80,101
+backend/src/interface-adapters/socket-handlers/match-handlers.ts
+  h_94c952a9e14c58 30,32-33,35-37
+  h_94c952a9e14c58 14-15,17-18
+frontend/src/ViewModels/Tournaments/TournamentMatchViewModel.ts
+  h_94c952a9e14c58 7,29,37-38,44,75-89
+  h_94c952a9e14c58 63,70
+frontend/src/context/Socket/modules/tournament.socket.ts
+  h_94c952a9e14c58 4,40-41
+  h_94c952a9e14c58 36-39,88-89
+backend/src/application/interfaces/cache/ITournamentCache.ts
+  h_94c952a9e14c58 12-13
+backend/src/interface-adapters/cache/tournament-cache.ts
+  h_94c952a9e14c58 97-100
+frontend/src/dtos/tournaments/tournament.dto.ts
+  h_94c952a9e14c58 24-25
+frontend/src/Views/Tournaments/TournamentMatchPage.tsx
+  h_94c952a9e14c58 24-25,112-123
+  h_94c952a9e14c58 5,11,84,102,111
+backend/src/entities/dtos/tournaments/tournaments.dto.ts
+  h_94c952a9e14c58 23-24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "92d6473c3c6db360d96192837b7641c092bef236",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

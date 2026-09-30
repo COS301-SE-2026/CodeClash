@@ -1,0 +1,40 @@
+backend/src/frameworks-drivers/socket/modules/register-match-handlers.ts
+  h_94c952a9e14c58 14
+backend/src/application/usecases/services/match/match-completion.service.ts
+  h_94c952a9e14c58 24-25,28,34-36,53,55,58,63-64
+  h_94c952a9e14c58 76
+backend/src/interface-adapters/socket-handlers/match-handlers.ts
+  h_94c952a9e14c58 51,60,67
+frontend/src/Models/MatchHistoryModel.ts
+  h_94c952a9e14c58 1-2,5
+backend/src/application/usecases/systems/match-completion.system.ts
+  h_94c952a9e14c58 62-63
+  h_94c952a9e14c58 22
+frontend/src/services/api.service.tsx
+  h_94c952a9e14c58 3-4
+backend/src/interface-adapters/repositories/user.repository.ts
+  h_94c952a9e14c58 171-172
+  h_94c952a9e14c58 238
+frontend/src/context/Socket/modules/match.socket.ts
+  h_94c952a9e14c58 6,70
+backend/src/interface-adapters/repositories/match.repository.ts
+  h_94c952a9e14c58 79,104-105
+frontend/src/ViewModels/Match/MatchViewModel.ts
+  h_94c952a9e14c58 44,46,96
+frontend/@/components/ui/progress.tsx
+  h_94c952a9e14c58 34-35
+  h_94c952a9e14c58 5
+frontend/src/Views/Tournaments/TournamentMatchPage.tsx
+  h_94c952a9e14c58 83
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "88de519da9e00875df4ac1d260ace11dc6753148",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
