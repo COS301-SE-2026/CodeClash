@@ -434,12 +434,6 @@ export const skillProgressContent: SkillProgressContent = {
     sampleNote: 'No games on record yet, so this is a sample history. Play a match to replace it with your own.'
 };
 
-export interface Insight {
-    id: string;
-    tone: 'good' | 'warn' | 'info';
-    title: string;
-    body: string;
-}
 
 // making sure casual isnt part of mastery and growth
 export interface PracticeSummary {
