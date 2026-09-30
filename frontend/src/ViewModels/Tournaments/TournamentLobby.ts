@@ -6,6 +6,7 @@ import { useUser } from "src/context/User/hooks/useUser";
 import type { PlayerDTO } from "src/dtos/match/match.dto"
 import type { TournamentDTO } from "src/dtos/tournaments/tournament.dto";
 import { useMatchStore } from "src/stores/match-store";
+import { useDbId } from "./useDbId";
 
 const MIN_PLAYERS = 8;
 
@@ -15,8 +16,9 @@ export const useTournamentLobby = () => {
     const [error, setError] = useState<string | null>(null);
 
     const { tournamentSocket } = useSocket();
-    const { userId, league , username} = useUser();
+    const {league} = useUser();
     const { tournament_id } = useParams<{ tournament_id: string }>();
+    const db_id = useDbId();
     const nav = useNavigate();
 
 
@@ -44,6 +46,7 @@ export const useTournamentLobby = () => {
         })
 
         const unsub_started = tournamentSocket.tournamentStart(async (data) => {
+            console.log("tournament started reeived",data);
             useMatchStore.getState().setMatchData(data.match, data.tournament.tournament_mode);
             await nav(`/tournaments-match/${tournament_id}`);
         })
@@ -77,7 +80,7 @@ export const useTournamentLobby = () => {
     }
 
     const cancel = async () => {
-        if (tournament?.host.id === userId) {
+        if (tournament?.host.id === db_id) {
             await tournamentSocket?.cancelTournament(tournament_id!);
         }
         else
@@ -110,7 +113,7 @@ export const useTournamentLobby = () => {
     }
 
     const is_host = () => {
-        return username === tournament?.host.username;
+        return db_id === tournament?.host.id;
     }
 
     return {

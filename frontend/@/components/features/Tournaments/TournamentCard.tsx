@@ -49,8 +49,9 @@ export const TournamentCard = ({
     if (!db_id) return null;
 
     const handleJoin = async () => {
-        console.log("joining...")
-        await onJoin(id);
+        const ok = await onJoin(id);
+
+        if (ok) await nav(`/tournaments/waiting/${id}`);
     }
 
     const handleLeave = async () => {
@@ -85,7 +86,7 @@ export const TournamentCard = ({
 
             </div>
 
-            {is_host ? (
+            {is_host && (
 
                 <Button
                     onClick={async () => { await nav(`/tournaments/waiting/${id}`) }}
@@ -98,33 +99,23 @@ export const TournamentCard = ({
                     </div>
                 </Button>
 
-            ) : joined ? (
-                <div>
-                    <Button
-                        onClick={async () => { await nav(`/tournaments/waiting/${id}`) }}
-                        className="w-[12rem] h-[2.25rem] my-auto rounded-[11px]"
-                        variant={"default"}
-                    >
-                        <div className="flex flex-row w-full h-full gap-5 text-[1rem] justify-between items-center">
-                            View Lobby
-                            <ArrowRight size={25} className="flex justify-self-end my-auto -ml-9 mr-2" />
-                        </div>
-                    </Button>
-                    <Button
-                        onClick={handleLeave}
-                        className="w-[12rem] h-[2.25rem] my-auto rounded-[11px]"
-                        variant={"default"}
-                    >
+            )}
 
-                        <div className="flex flex-row w-full h-full gap-5 text-[1rem] justify-between items-center">
-                            Leave
-                            <X size={25} className="flex justify-self-end my-auto -ml-9 mr-2" />
+            {joined && !is_host && (
+                <Button
+                    onClick={handleLeave}
+                    className="w-[12rem] h-[2.25rem] my-auto rounded-[11px]"
+                    variant={"default"}
+                >
+                    <div className="flex flex-row w-full h-full gap-5 text-[1rem] justify-between items-center">
+                        Leave
+                        <X size={25} className="flex justify-self-end my-auto -ml-9 mr-2" />
 
-                        </div>
-                    </Button>
-                </div>
+                    </div>
+                </Button>
+            )}
 
-            ) : (
+            {!joined && (
                 <Button
                     onClick={handleJoin}
                     className="w-[12rem] h-[2.25rem] my-auto rounded-[11px]"

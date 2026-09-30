@@ -1,9 +1,9 @@
 // import { useParams } from "react-router-dom";
 import { useMatch } from "../Match/MatchViewModel";
 import { useEffect, useState } from "react";
-import { useUser } from "src/context/User/hooks/useUser";
 import type { PlayerStandingDTO } from "src/dtos/tournaments/tournament.dto";
 import { useMatchStore } from "src/stores/match-store";
+import { useDbId } from "./useDbId";
 
 export const useTournamentMatch = () => {
     const {
@@ -23,7 +23,7 @@ export const useTournamentMatch = () => {
     } = useMatch();
     const players = useMatchStore(state => state.players) as PlayerStandingDTO[];
     const match_mode = useMatchStore(state => state.match_mode);
-    const { userId } = useUser();
+    const db_id = useDbId();
     const [activePlayers, setActivePlayers] = useState<PlayerStandingDTO[]>([]);
 
     const [code, setCode] = useState('');
@@ -45,7 +45,7 @@ export const useTournamentMatch = () => {
         const in_danger = tied ? [] : activePlayers.slice(cutoff_count);
         const safe = tied ? cutoff_sort : activePlayers.slice(0, cutoff_count);
 
-        const my_standing = activePlayers.find(p => p.id === userId);
+        const my_standing = activePlayers.find(p => p.id === db_id);
         const my_rank = my_standing?.position ?? null;
         const my_pace = my_standing?.total_time ?? 0;
 
@@ -94,7 +94,7 @@ export const useTournamentMatch = () => {
         questions,
         activePlayers,
         currentQuestion,
-        userId,
+        db_id,
         round_telemetry,
         mathfieldRef,
         colourClass,

@@ -15,7 +15,7 @@ const TournamentsMatchPage = () => {
         roundIdx, activePlayers,
         seconds, minutes,
         questions, currentQuestion,
-        players, userId,
+        players, db_id,
         round_telemetry,
         mathfieldRef,
         colourClass,
@@ -138,7 +138,7 @@ const TournamentsMatchPage = () => {
                                         place={p.position}
                                         username={p.username}
                                         time={p.total_time.toString()}
-                                        you={p.id === userId}
+                                        you={p.id === db_id}
                                     />
                                 )
                             })
@@ -163,7 +163,7 @@ const TournamentsMatchPage = () => {
                                                 key={p.id}
                                                 place={p.position}
                                                 username={p.username}
-                                                you={p.id === userId}
+                                                you={p.id === db_id}
                                             />
                                         ))
                                     }

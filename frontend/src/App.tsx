@@ -38,8 +38,8 @@ const App: React.FC = () => {
     if (isLoading) {
         return <Loading isOpen={isLoading} />
     }
-   
-   
+
+
     const logged_in = user !== null
 
     if (!logged_in) {
@@ -52,7 +52,7 @@ const App: React.FC = () => {
                 <Route path='terms' element={<TermsAndConditions />} />
                 <Route path='/brand-style-guide' element={<BrandStyleGuide />} />
                 <Route path='/help-menu' element={<HelpMenu />} />
-                <Route path='/game-guide' element={<GameGuide/>}/>
+                <Route path='/game-guide' element={<GameGuide />} />
                 <Route path='*' element={<Navigate to='/sign-in' replace />} />
             </Routes>
         )
@@ -60,7 +60,7 @@ const App: React.FC = () => {
 
     return (
         <Routes>
-            <Route path='/' element={<Navigate to='/dashboard' replace/>} />
+            <Route path='/' element={<Navigate to='/dashboard' replace />} />
 
             <Route path='/sign-in' element={<SignIn />} />
             <Route path='/sign-up' element={<SignUp />} />
@@ -68,7 +68,7 @@ const App: React.FC = () => {
             <Route path='/match-searching' element={<MatchSearching />} />
             <Route path='/match-found' element={<MatchFound />} />
             <Route path='/math-match/:match_id' element={<MathMatch />} />
-            <Route path='/tournament-match' element={<TournamentsMatchPage/>}/>
+            <Route path='/tournament-match' element={<TournamentsMatchPage />} />
             <Route path='/programming-match/:match_id' element={<ProgMatch />} />
             <Route path='/results/:match_id' element={<FinalResults />} />
             <Route path='/forgot-password' element={<ForgotPassword />} />
@@ -76,14 +76,15 @@ const App: React.FC = () => {
             <Route path="/brand-style-guide" element={<BrandStyleGuide />} />
             <Route path="/agent" element={<Agent />} />
             <Route path='/game-guide' element={<GameGuide />} />
-
+            <Route path='/tournaments/waiting/:tournament_id' element={<TournamentsWaiting />} />
+            <Route path="/tournaments-match/:tournament_id" element={<TournamentsMatchPage />} />
+            
             {/* Pages with sidebar inside the app */}
             <Route element={<Layout />}>
                 <Route path='/dashboard' element={<Dashboard />} />
                 <Route path='/help-menu' element={<HelpMenu />} />
                 <Route path='/tournaments' element={<Tournaments />} />
-                <Route path='/tournaments/waiting/:tournament_id' element={<TournamentsWaiting/>}/>
-                <Route path="/tournaments-match/:tournament_id" element={<TournamentsMatchPage/>}/>
+
                 <Route path='/leaderboard' element={<Leaderboard />} />
                 <Route path='/achievements' element={<Achievements />} />
                 <Route path='/friends' element={<Friends />} />
@@ -93,7 +94,7 @@ const App: React.FC = () => {
                 <Route path='/settings' element={<Settings />} />
             </Route>
 
-            <Route path="*" element={<Navigate to='/dashboard' replace/>}/>
+            <Route path="*" element={<Navigate to='/dashboard' replace />} />
         </Routes>
     )
 }
