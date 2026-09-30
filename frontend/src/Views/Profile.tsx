@@ -3,7 +3,6 @@ import { useLogOut, getProfile  } from '../ViewModels/ProfileViewModel';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft} from "lucide-react"
 import Starfield from '@/components/ui/animations/Starfield';
-import "../styles/global.css"
 import {UserAvatar} from "../avatar/UserAvatar";
 
 function ProfileView(){

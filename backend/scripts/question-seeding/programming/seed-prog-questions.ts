@@ -1,7 +1,7 @@
 import { Pool } from "pg";
 import dotenv from "dotenv"
 import { DEFAULT_TIME_LIMIT, loadExercises, SeedProgrammingQuestion } from "./helper";
-dotenv.config({ path: ".env.test" })
+dotenv.config({ path: ".env.dev" })
 
 const env = process.env;
 

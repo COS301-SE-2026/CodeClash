@@ -1,7 +1,7 @@
 import { Pool } from "pg";
 import { containsDiagram, extractAnswer, fetchAllRows, SeedQuestion, transformRow } from "./helpers";
 import dotenv from 'dotenv'
-dotenv.config({path: ".env.test"});
+dotenv.config({path: ".env.dev"});
 
 
 const env = process.env;

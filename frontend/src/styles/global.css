@@ -239,6 +239,7 @@
   --color-warning: var(--warning);
   --color-info: var(--info);
   --color-muted: var(--muted);
+  --color-info: var(--info) --color-muted: var(--muted);
   --colour-secondary-muted: var(--secondary-muted);
 
   /* Pink */
@@ -533,6 +534,14 @@
     --button-tournament: #FF516A;
     --button-tournament-secondary: #fff0f3;
     --button-tournament-secondary-border: #e8c5cf;
+  /* Buttons */
+  --button-primary: #C0395A;
+  --button-secondary: transparent;
+  --button-text-primary: #FFFFFF;
+  --button-text-secondary: #520a23;
+  --button-tournament: #FF516A;
+  --button-tournament-secondary: #281e26;
+  --button-tournament-secondary-border: #5B4041;
 
   /*Inputs*/
   --input: rgba(83, 10, 35, 0.05);
@@ -558,9 +567,9 @@
   --card-shadow: 0rem 0.2rem 0.5rem rgba(83, 10, 35, 0.08);
   --glow-shadow: 0 0 24px rgba(192, 57, 90, 0.22);
 
-    --life-primary: #C0395A;
+  --life-primary: #C0395A;
 
-    /* Match and Tournaments Page */
+  /* Match and Tournaments Page */
   --card-tournaments: #12080F;
   --progress-bar-symbol: #1B0F1A;
   --match-card: #241822;
@@ -570,10 +579,10 @@
   --multiple-choice-box: #170d13;
   --multiple-choice-letter: #2a2024;
 
-    /*for the radial gradients*/
-    --glow-1: #f6c9d6;
-    --glow-2: #f9dde4;
-    --glow-3: #fceef1;
+  /*for the radial gradients*/
+  --glow-1: #f6c9d6;
+  --glow-2: #f9dde4;
+  --glow-3: #fceef1;
 }
 
 /*These are copied from :root.light and adjusted for more themes*/
@@ -601,9 +610,9 @@
   --border: rgba(231, 244, 255, 0.08);
   --border-hover: rgba(231, 244, 255, 0.18);
 
-    /*Cards*/
-    --card: var(--background-card);
-    --card-text: var(--primary-text);
+  /*Cards*/
+  --card: var(--background-card);
+  --card-text: var(--primary-text);
 
   /*Sidebar*/
   --sidebar: #020a14;
@@ -615,11 +624,11 @@
   --sidebar-border: rgba(231, 244, 255, 0.08);
   --sidebar-ring: #2f8fe0;
 
-    /* Buttons */
-    --button-primary: #2f8fe0;
-    --button-secondary: transparent;
-    --button-text-primary: #FFFFFF;
-    --button-text-secondary: #e7f4ff;
+  /* Buttons */
+  --button-primary: #2f8fe0;
+  --button-secondary: transparent;
+  --button-text-primary: #FFFFFF;
+  --button-text-secondary: #e7f4ff;
 
   /*Inputs*/
   --input: rgba(231, 244, 255, 0.05);
@@ -647,10 +656,10 @@
 
   --life-primary: #2f8fe0;
 
-    /*for the radial gradients*/
-    --glow-1: #4fa8f5;
-    --glow-2: #14487a;
-    --glow-3: #0a2540;
+  /*for the radial gradients*/
+  --glow-1: #4fa8f5;
+  --glow-2: #14487a;
+  --glow-3: #0a2540;
 }
 
 /*These are copied from :root.light and adjusted for more themes*/
@@ -678,9 +687,9 @@
   --border: rgba(242, 236, 216, 0.08);
   --border-hover: rgba(242, 236, 216, 0.18);
 
-    /*Cards*/
-    --card: var(--background-card);
-    --card-text: var(--primary-text);
+  /*Cards*/
+  --card: var(--background-card);
+  --card-text: var(--primary-text);
 
   /*Sidebar*/
   --sidebar: #05070f;
@@ -692,11 +701,11 @@
   --sidebar-border: rgba(242, 236, 216, 0.08);
   --sidebar-ring: #d4af37;
 
-    /* Buttons */
-    --button-primary: #d4af37;
-    --button-secondary: transparent;
-    --button-text-primary: #FFFFFF;
-    --button-text-secondary: #f2ecd8;
+  /* Buttons */
+  --button-primary: #d4af37;
+  --button-secondary: transparent;
+  --button-text-primary: #FFFFFF;
+  --button-text-secondary: #f2ecd8;
 
   /*Inputs*/
   --input: rgba(242, 236, 216, 0.05);
@@ -722,7 +731,7 @@
   --card-shadow: 0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25);
   --glow-shadow: 0 0 24px rgba(212, 175, 55, 0.45);
 
-    --life-primary: #d4af37;
+  --life-primary: #d4af37;
 }
 
 /*These are copied from :root.light and adjusted for more themes*/
@@ -750,9 +759,9 @@
   --border: rgba(242, 233, 255, 0.08);
   --border-hover: rgba(242, 233, 255, 0.18);
 
-    /*Cards*/
-    --card: var(--background-card);
-    --card-text: var(--primary-text);
+  /*Cards*/
+  --card: var(--background-card);
+  --card-text: var(--primary-text);
 
   /*Sidebar*/
   --sidebar: #0d0518;
@@ -764,11 +773,11 @@
   --sidebar-border: rgba(242, 233, 255, 0.08);
   --sidebar-ring: #8b3fd6;
 
-    /* Buttons */
-    --button-primary: #8b3fd6;
-    --button-secondary: transparent;
-    --button-text-primary: #FFFFFF;
-    --button-text-secondary: #f2e9ff;
+  /* Buttons */
+  --button-primary: #8b3fd6;
+  --button-secondary: transparent;
+  --button-text-primary: #FFFFFF;
+  --button-text-secondary: #f2e9ff;
 
   /*Inputs*/
   --input: rgba(242, 233, 255, 0.05);
@@ -794,7 +803,7 @@
   --card-shadow: 0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25);
   --glow-shadow: 0 0 24px rgba(139, 63, 214, 0.45);
 
-    --life-primary: #8b3fd6;
+  --life-primary: #8b3fd6;
 }
 
 /*These are copied from :root.light and adjusted for more themes*/
@@ -822,9 +831,9 @@
   --border: rgba(232, 247, 217, 0.08);
   --border-hover: rgba(232, 247, 217, 0.18);
 
-    /*Cards*/
-    --card: var(--background-card);
-    --card-text: var(--primary-text);
+  /*Cards*/
+  --card: var(--background-card);
+  --card-text: var(--primary-text);
 
   /*Sidebar*/
   --sidebar: #06140a;
@@ -836,11 +845,11 @@
   --sidebar-border: rgba(232, 247, 217, 0.08);
   --sidebar-ring: #9ccc3c;
 
-    /* Buttons */
-    --button-primary: #9ccc3c;
-    --button-secondary: transparent;
-    --button-text-primary: #FFFFFF;
-    --button-text-secondary: #e8f7d9;
+  /* Buttons */
+  --button-primary: #9ccc3c;
+  --button-secondary: transparent;
+  --button-text-primary: #FFFFFF;
+  --button-text-secondary: #e8f7d9;
 
   /*Inputs*/
   --input: rgba(232, 247, 217, 0.05);
@@ -866,7 +875,7 @@
   --card-shadow: 0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25);
   --glow-shadow: 0 0 24px rgba(156, 204, 60, 0.45);
 
-    --life-primary: #9ccc3c;
+  --life-primary: #9ccc3c;
 }
 
 @layer base {
@@ -1114,8 +1123,9 @@
     transition: border-color 0.2s ease, background 0.2s ease;
   }
 
-  .input::placeholder, .textarea::placeholder {
-    color: rgba(252,235,221, 0.35);
+  .input::placeholder,
+  .textarea::placeholder {
+    color: rgba(252, 235, 221, 0.35);
   }
 
   .input:hover,
@@ -1207,9 +1217,11 @@
     transition: all 0.2s ease-in-out;
   }
 
-  .badge-status-pending:hover, .badge-status-correct:hover, .badge-status-wrong:hover {
-     background: rgba(252, 236, 221, 0.03);
-     cursor: pointer;
+  .badge-status-pending:hover,
+  .badge-status-correct:hover,
+  .badge-status-wrong:hover {
+    background: rgba(252, 236, 221, 0.03);
+    cursor: pointer;
   }
 
   .badge-status-wrong {
@@ -1270,7 +1282,7 @@
   :root.light .starfield span,
   [data-theme='light'] .starfield span {
     width: 3px;
-    height: 3px; 
+    height: 3px;
     background: rgba(192, 57, 90, 0.35);
   }
 
@@ -1358,37 +1370,5 @@
 
   .life-shake {
     animation: big-shake 0.4s ease-in-out;
-  }
-
-  .nav-bar {
-    transition: background 0.3s ease, border-color 0.3s ease;
-    border-bottom: 1px solid transparent;
-  }
-
-  .nav-bar.scrolled {
-    background: var(--nav-scrolled-bg);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .nav-link {
-    color: var(--primary-text);
-    transition: color 0.2s ease;
-  }
-
-  .nav-link:hover {
-    color: var(--primary-hover);
-  }
-
-  .bg-radial-glow {
-    background: var(--gradient-radial);
-  }
-
-  .bg-radial-glow-corner {
-    background: var(--gradient-radial-corner);
-  }
-
-  .bg-radial-glow-blob {
-    background: var(--gradient-radial-blob);
   }
 }
