@@ -23,6 +23,16 @@ export const PowerUpAndDownButtons = ({children, className} : PowerUpAndDownButt
     const match_id = useMatchStore(state => state.match_id);
     const matchSocket = useSocket();
 
+    const handleSelect = async(itemIds: string[]) => {
+        for (const shop_item_id of itemIds)
+            try {
+                await matchSocket.usePowerup({match_id, shop_item_id})
+            }
+            catch (err) {
+                console.error('Failed to use powerup', err)
+            }
+    }
+
     return(
         <div className={`flex flex-row gap-5 bg-background-elevated border border-border rounded-3xl py-2 px-2 h-[70%] ${className}`}>
                 <Button className="card-elevated h-11 w-30 rounded-full my-auto">

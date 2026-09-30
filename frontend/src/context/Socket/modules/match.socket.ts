@@ -64,17 +64,17 @@ export class MatchSocket {
         return on<UsePowerupResultDTO>(this.socket, 'powerup_received', handler)
     }
 
-    powerdownBlocked(handler: (data: UsePowerupResultDTO) => void){
-        return on<UsePowerupResultDTO>(this.socket, 'powerdown_blocked', handler)
+    powerupBlocked(handler: (data: UsePowerupResultDTO) => void){
+        return on<UsePowerupResultDTO>(this.socket, 'powerup_blocked', handler)
     }
 
     wipeInput(handler: () => void ){
-        return on(this.socket, 'wipe_input', handler)
+        return on(this.socket, 'clear_input', handler)
 
     }
 
     bugInput(handler: () => void){
-        return on(this.socket, 'bug_input', handler)
+        return on(this.socket, 'corrupt_input', handler)
     }
 
 
