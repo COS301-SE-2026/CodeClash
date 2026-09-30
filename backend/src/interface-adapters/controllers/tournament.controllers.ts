@@ -17,7 +17,7 @@ export const getTournamentByStatus = (service: TournamentService) => {
             res.status(200).json(tournaments);
 
         } catch (error) {
-            console.log("Error fetching tournament", error);
+            console.error("Error fetching tournament", error);
             res.status(404).json({ message: "Error fetching tournament" });
         }
     }

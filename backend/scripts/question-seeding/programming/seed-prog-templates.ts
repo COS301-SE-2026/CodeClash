@@ -3,7 +3,7 @@ import dotnev from "dotenv"
 import { findStubFile, LANGUAGES, titleToSlug } from "./helper";
 import path from "node:path";
 import fs from "fs"
-dotnev.config({ path: ".env.dev" })
+dotnev.config({ path: ".env.test" })
 
 const env = process.env;
 

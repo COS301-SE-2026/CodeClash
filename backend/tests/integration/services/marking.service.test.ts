@@ -5,7 +5,6 @@ import redis from '../../../src/frameworks-drivers/config/redis-client'
 import { SubmissionSystem } from '../../../src/application/usecases/systems/submission.system'
 import { World } from '../../../src/entities/World'
 import { LifeSystem } from '../../../src/application/usecases/systems/life.system'
-import { NotificationService } from '../../../src/application/usecases/services/notification.service'
 import { Server } from 'socket.io'
 import { MarkProg } from '../../../src/application/usecases/services/marking/mark-prog'
 import { CodeExecutor } from '../../../src/interface-adapters/CodeExecutor'
@@ -18,7 +17,7 @@ import { GetTotalTime } from '../../../src/application/usecases/services/questio
 import { createTestDataSource } from "../../test-data-source";
 import { IQuestionRepository } from '../../../src/application/interfaces/repositories/IQuestionRepository'
 import { IAnswerRepository } from '../../../src/application/interfaces/repositories/IAnswerRepository'
-import { Questions } from '../../../src/entities/database/questions.entities'
+import { ProgrammingTemplates, Questions, TestCases } from '../../../src/entities/database/questions.entities'
 import { MatchMode, MatchType } from '../../../src/entities/dtos/matches/match.dto'
 import { Answers } from '../../../src/entities/database/answers.entities'
 import { QuestionRepository } from '../../../src/interface-adapters/repositories/question.repository'
@@ -38,6 +37,7 @@ import { RoundComponent } from '../../../src/entities/components'
 import { MarkMaths } from './../../../src/application/usecases/services/marking/mark-maths'
 import { SubmissionComponent } from '../../../src/entities/components'
 import { DeepPartial } from 'typeorm'
+import { MarkerRegistry } from '../../../src/application/usecases/services/marking/maths-marking/marker-registry'
 
 const io = {
     to: vi.fn().mockReturnValue({
@@ -51,31 +51,33 @@ const match_cache = new MatchCache(redis);
 const submission_system = new SubmissionSystem(world);
 const life_system = new LifeSystem(world);
 const opponent_progress = new OpponentProgress(world);
-const notification_service = new NotificationService(io);
 
-const executor = new CodeExecutor();
-const prog_marker = new MarkProg(executor);
-const math_marker = new MarkMaths();
 
-const marking_service = new MarkingService(match_cache, submission_system, life_system, math_marker, prog_marker, opponent_progress);
+
 
 const create_player_entity = new CreatePlayerEntity(world);
 const create_match_entity = new CreateMatchEntity(world);
 const create_rounds = new CreateRound();
 
 const data_source = await createTestDataSource();
-const question_repo: IQuestionRepository = new QuestionRepository(data_source.getRepository(Questions));
+const question_repo: IQuestionRepository = new QuestionRepository(data_source.getRepository(Questions), data_source.getRepository(TestCases), data_source.getRepository(ProgrammingTemplates));
 const answer_repo: IAnswerRepository = new AnswerRepository(data_source.getRepository(Answers))
 const match_repo: IMatchRepository = new MatchRepository(data_source.getRepository(Matches), data_source.getRepository(Users));
 const user_repo: IUserRepository = new UserRepository(data_source.getRepository(Users));
 
+const marker_registry = new MarkerRegistry();
+
+const executor = new CodeExecutor();
+const prog_marker = new MarkProg(executor, question_repo);
+const math_marker = new MarkMaths(marker_registry, match_cache);
 const get_questions = new GetQuestions(question_repo);
 const get_answers = new GetAnswers(answer_repo);
 const get_total_time = new GetTotalTime();
 
 const create_game = new MatchCreationSystem(create_player_entity, create_match_entity, create_rounds);
+const marking_service = new MarkingService(submission_system, life_system, math_marker, prog_marker);
 
-const match_service = new MatchCreationService(create_game, get_questions, get_total_time, get_answers, match_cache, match_repo, user_repo);
+const match_service = new MatchCreationService(create_game, get_questions, get_total_time, get_answers, match_cache, match_repo, user_repo,question_repo);
 
 const players: PlayerDTO[] = [
     {
@@ -126,8 +128,13 @@ describe("Tests Marking Services", () => {
         prog_question = saved_questions.find(q => q.match_mode === MatchMode.Programming)!;
         correct_answer = saved_answers.find(a => a.question!.question_id === prog_question!.question_id)!;
 
-        console.log("prog_question", prog_question);
-        console.log("correct_answer", correct_answer);
+        await data_source.getRepository(TestCases).save({
+            question: {question_id: prog_question.question_id},
+            input : '{"x":1}',
+            expected_output: correct_answer.answer,
+            is_sample: false,
+            ordinal: 0
+        })
     })
 
 
@@ -179,6 +186,7 @@ describe("Tests Marking Services", () => {
             player_id: players[0].id,
             question_id: crypto.randomUUID(),
             question_number: 1,
+            match_mode: MatchMode.Programming,
             submission: {
                 source_code: 'print("Programming marking integration test")',
                 language_id: 71,
@@ -186,6 +194,6 @@ describe("Tests Marking Services", () => {
             }
         }
 
-        await expect(marking_service.execute(submission)).rejects.toThrow('Invalid question id');
+        await expect(marking_service.execute(submission)).rejects.toThrow('No test cases found');
     })
 })  
