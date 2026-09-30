@@ -1,0 +1,38 @@
+backend/src/entities/dtos/submissions/submission.dto.ts
+  h_58e143dc25f856 31
+backend/src/interface-adapters/socket-handlers/match-handlers.ts
+  h_58e143dc25f856 32,35-39
+frontend/@/components/features/Match/Match.tsx
+  h_58e143dc25f856 74,101
+frontend/@/components/features/Match/MathPage.tsx
+  h_58e143dc25f856 46
+frontend/src/ViewModels/Match/MatchViewModel.ts
+  h_58e143dc25f856 63,65
+frontend/src/ViewModels/Tournaments/TournamentLobby.ts
+  h_58e143dc25f856 50,106-107
+frontend/src/ViewModels/Tournaments/TournamentMatchViewModel.ts
+  h_58e143dc25f856 27,29,60,65,72,78,85-86
+frontend/src/Views/Dashboard.tsx
+  h_58e143dc25f856 1
+frontend/src/Views/Tournaments/TournamentMatchPage.tsx
+  h_58e143dc25f856 18,115,144,150
+frontend/src/context/Socket/SocketContext.tsx
+  h_58e143dc25f856 40-41
+frontend/src/dtos/match/submission.dto.ts
+  h_58e143dc25f856 19
+frontend/src/services/submission.service.tsx
+  h_58e143dc25f856 46,48,60-66
+frontend/src/stores/match-store.ts
+  h_58e143dc25f856 5,9,11,18-19,33,35,40-41,44
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "1a5ff7698065a0a2969681a5a6a3742d5890a63b",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

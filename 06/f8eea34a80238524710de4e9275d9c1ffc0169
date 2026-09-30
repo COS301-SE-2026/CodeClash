@@ -1,0 +1,160 @@
+frontend/src/Views/Tournaments/TournamentMatchPage.tsx
+  h_94c952a9e14c58 41-46,69-71,78,101,103,109,114-115,149,153,155,176,178-180,207,210-213,217,219-220,223,227,238,249
+frontend/@/components/features/Questions/question.tsx
+  h_94c952a9e14c58 2,16,30,34,41
+  h_94c952a9e14c58 22
+frontend/@/components/features/Match/MathPage.tsx
+  h_94c952a9e14c58 50
+  h_94c952a9e14c58 60
+.vscode/settings.json
+  h_94c952a9e14c58 2-3
+backend/package-lock.json
+  h_94c952a9e14c58 31,40,2103-2105,5892-5894,5899,5959-5961
+backend/package.json
+  h_94c952a9e14c58 16,53,62
+backend/scripts/cpp
+  h_94c952a9e14c58 1
+backend/scripts/javascript
+  h_94c952a9e14c58 1
+backend/src/application/interfaces/repositories/IInventoryRepository.ts
+  h_94c952a9e14c58 8
+backend/src/application/usecases/services/notification.service.ts
+  h_94c952a9e14c58 1-2,5-8,10-12,14-16,18-19,21
+backend/src/application/usecases/services/shop/equipment.service.ts
+  h_94c952a9e14c58 15-16,18-30,32
+backend/src/application/usecases/services/shop/purchase.service.ts
+  h_94c952a9e14c58 29-32
+backend/src/application/usecases/services/user-creation.service.ts
+  h_94c952a9e14c58 6,16-18,41-43
+backend/src/frameworks-drivers/api.routes.ts
+  h_94c952a9e14c58 29,45,53,293
+backend/src/frameworks-drivers/app.ts
+  h_94c952a9e14c58 21,38,69-71
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 174,223
+backend/src/frameworks-drivers/socket/dependencies.ts
+  h_94c952a9e14c58 38-39
+backend/src/frameworks-drivers/socket/modules/register-friends-handler.ts
+  h_94c952a9e14c58 6-39,42-72,74-78
+backend/src/interface-adapters/repositories/inventory.repository.ts
+  h_94c952a9e14c58 62-73
+backend/src/interface-adapters/repositories/wallet.repository.ts
+  h_94c952a9e14c58 36-40
+backend/tsconfig.json
+  h_94c952a9e14c58 36
+backend/vitest.config.ts
+  h_94c952a9e14c58 8
+database/01-init.sql
+  h_94c952a9e14c58 156
+database/02-init-questions.sql
+  h_94c952a9e14c58 1-56
+database/04-init-shop.sql
+  h_94c952a9e14c58 4,6,8,10,12,16,18-20,22,24,28,30,32,34,36,38,40,42,44,47-58
+database/05-seed-codeclash-trigger.sql
+  h_94c952a9e14c58 1-20
+dockerfile/docker-compose.dev.yml
+  h_94c952a9e14c58 48,64
+frontend/@/components/Sidebar.tsx
+  h_94c952a9e14c58 1
+frontend/@/components/features/Match/Match.tsx
+  h_94c952a9e14c58 74,101
+frontend/@/components/features/Match/MatchBox.tsx
+  h_94c952a9e14c58 27-29
+frontend/@/components/features/Match/MatchCard.tsx
+  h_94c952a9e14c58 13,15
+frontend/@/components/features/Match/MatchTimer.tsx
+  h_94c952a9e14c58 31
+frontend/@/components/features/Match/RoundTree.tsx
+  h_94c952a9e14c58 22,30,32,37,44-47,51-52,56
+frontend/package-lock.json
+  h_94c952a9e14c58 4647,4669,6137,6284,8654-8661,8663-8667,8670-8673,8676-8683
+frontend/src/Models/ShopModel.ts
+  h_94c952a9e14c58 7,33-35,67,69
+frontend/src/ViewModels/Shop/ShopViewModel.ts
+  h_94c952a9e14c58 51
+frontend/src/Views/Dashboard.tsx
+  h_94c952a9e14c58 1
+frontend/src/Views/Friends/FriendInvitePopup.tsx
+  h_94c952a9e14c58 4-5,22,26-34
+frontend/src/Views/Friends/Friends.tsx
+  h_94c952a9e14c58 60,121-125,182,186
+frontend/src/Views/Match/Leaderboard/Leaderboard.tsx
+  h_94c952a9e14c58 35
+frontend/src/Views/Shop/Shop.tsx
+  h_94c952a9e14c58 88
+frontend/src/Views/Tournaments/HostTournament.tsx
+  h_94c952a9e14c58 31,62-64,69,79,85,90,92-93,100,105-106,117,134,150,178,182,192
+frontend/src/Views/Tournaments/Tournaments.tsx
+  h_94c952a9e14c58 24-26,28-29,33,43,76-77
+frontend/src/Views/Tournaments/TournamentsWaiting.tsx
+  h_94c952a9e14c58 18-21,29-31,33-34,36-40,45,50-52,60-63,65,68-70,74,82-84
+frontend/src/context/Achievement/AchievementToastContext.tsx
+  h_94c952a9e14c58 17-23,40,46-47,85-86,90,101,103-107
+frontend/src/context/Achievement/FriendRequestToast.tsx
+  h_94c952a9e14c58 5-7,11,38-40
+frontend/src/context/Friends/FriendsContext.tsx
+  h_94c952a9e14c58 5-6,14,43-45,52-53,65-66,71-79,224,229,255,260,264,272,277,307-324,328,341-351,354-355,358-363,366,370-416,441-443
+frontend/src/context/Shop/InventoryContext.tsx
+  h_94c952a9e14c58 8,45
+frontend/src/context/Shop/ThemeContext.tsx
+  h_94c952a9e14c58 3,38-46
+frontend/src/context/Socket/SocketContext.tsx
+  h_94c952a9e14c58 9,17,38,56
+frontend/src/context/Socket/SocketContextValue.tsx
+  h_94c952a9e14c58 6,12
+frontend/src/context/Socket/modules/friends.socket.ts
+  h_94c952a9e14c58 1-49
+frontend/src/dtos/friends/friend.dto.ts
+  h_94c952a9e14c58 1-41
+frontend/src/main.tsx
+  h_94c952a9e14c58 25,27-34
+frontend/src/services/shop.service.ts
+  h_94c952a9e14c58 1-22,24-37,39-42,44-55,57-74,76-84,86-104,106-107,110-112,114-138,140-142,144-147,149-150,152-188,191-203
+frontend/test/integration/Contexts/MatchmakingContext.integration.test.tsx
+  h_94c952a9e14c58 39,113
+tests/nfr/README.md
+  h_94c952a9e14c58 124-129,133-171,175-223,226-227,229
+tests/nfr/security/getUserTestToken.py
+  h_94c952a9e14c58 48-49
+tests/nfr/security/jwt_tool
+  h_94c952a9e14c58 1
+tests/nfr/security/reports/localhost:3000_api_achievements.txt
+  h_94c952a9e14c58 1-607
+tests/nfr/security/reports/localhost:3000_api_achievements_me.txt
+  h_94c952a9e14c58 1-607
+tests/nfr/security/reports/localhost:3000_api_create-user.txt
+  h_94c952a9e14c58 1-607
+tests/nfr/security/reports/localhost:3000_api_elo_elo-get.txt
+  h_94c952a9e14c58 1-607
+tests/nfr/security/reports/localhost:3000_api_friends.txt
+  h_94c952a9e14c58 1-607
+tests/nfr/security/reports/localhost:3000_api_friends_invite.txt
+  h_94c952a9e14c58 1-607
+tests/nfr/security/reports/localhost:3000_api_friends_request.txt
+  h_94c952a9e14c58 1-607
+tests/nfr/security/reports/localhost:3000_api_friends_requests.txt
+  h_94c952a9e14c58 1-607
+tests/nfr/security/reports/localhost:3000_api_leaderboard.txt
+  h_94c952a9e14c58 1-607
+tests/nfr/security/reports/localhost:3000_api_matches.txt
+  h_94c952a9e14c58 1-607
+tests/nfr/security/reports/localhost:3000_api_user_rank.txt
+  h_94c952a9e14c58 1-607
+tests/nfr/security/reports/localhost:3000_api_user_search.txt
+  h_94c952a9e14c58 1-607
+tests/nfr/security/testingReports.sh
+  h_94c952a9e14c58 1-32
+tests/nfr/security/token.txt
+  h_94c952a9e14c58 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "06f8eea34a80238524710de4e9275d9c1ffc0169",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
