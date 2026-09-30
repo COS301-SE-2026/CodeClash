@@ -24,6 +24,7 @@ export const useMatch = () => {
     const [waitingOpponent, setWaitingOpponent] = useState(false);
     const [roundIdx, setRoundIdx] = useState(0);
     const [confirmRound, setConfirmRound] = useState(false);
+    const [powerupPopupOpen, setPowerupPopupOpen] = useState(false);
 
 
     const finished_ref = useRef(false);
@@ -105,6 +106,15 @@ export const useMatch = () => {
         nav(`/results/${match_id}`, {
             replace: true,
         });
+    }
+
+    const openPowerupPopup = () => setPowerupPopupOpen(true);
+    const closePowerupPopup = () => setPowerupPopupOpen(false);
+
+    const usePowerups = async (itemIds : string[]) => {
+        if(!matchSocket || !match_id){
+            return;
+        }
     }
 
     useEffect(() => {
