@@ -66,6 +66,7 @@ export interface Consumable {
     category: 'powerup';
     itemId: string;
     quantity: number;
+    shop_item_id: string;
 }
 
 export interface UserInventory {

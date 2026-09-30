@@ -85,7 +85,7 @@ const Shop:React.FC = () => {
                     ) : (
                         <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1.25rem'}}>
                             {powerups.map((item) => (
-                                <PowerupCard key={item.id} item={item} owned={powerupQuantity()} affordable={canAfford(item)} purchasing={purchasingId === item.id} onPurchase={()=> purchase(item.id)}/>
+                                <PowerupCard key={item.id} item={item} owned={powerupQuantity(item.id)} affordable={canAfford(item)} purchasing={purchasingId === item.id} onPurchase={()=> purchase(item.id)}/>
                             ))}
                         </div>
                     )

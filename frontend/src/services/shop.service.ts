@@ -126,6 +126,7 @@ function mapInventory(userItems: RawUserItem[], equipped: RawEquipped): UserInve
             category: 'powerup',
             itemId: ui.item.shop_item_id,
             quantity: ui.quantity,
+            shop_item_id: ui.item.shop_item_id
         }));
 
         return {
