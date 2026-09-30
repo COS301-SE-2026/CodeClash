@@ -2,6 +2,7 @@ import { fetchCognitoId } from "./cognito.service";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 import { IEquippedRepository } from "src/application/interfaces/repositories/IEquippedRepository";
 import { IShopItemRepository } from "src/application/interfaces/repositories/IShopItemRepository";
+import { IInventoryRepository } from "src/application/interfaces/repositories/IInventoryRepository";
 
 
 export class CreateUser {
@@ -10,7 +11,8 @@ export class CreateUser {
     constructor(
         private readonly user_repo: IUserRepository,
         private readonly equipped_repo: IEquippedRepository,
-        private readonly shop_item_repo: IShopItemRepository
+        private readonly shop_item_repo: IShopItemRepository,
+        private readonly inventory_repo: IInventoryRepository
     ) {}
 
     async create(username: string, email: string) {
@@ -32,6 +34,9 @@ export class CreateUser {
         // setting default theme
         const default_theme= await this.shop_item_repo.getDefaultTheme();
         const defualt_avatar = await this.shop_item_repo.getDefaultAvatar();
+
+        await this.inventory_repo.grantItem(user.user_id!, default_theme.shop_item_id);
++       await this.inventory_repo.grantItem(user.user_id!, defualt_avatar.shop_item_id);
 
         await this.equipped_repo.updateEquipped(user.user_id!, { theme_id: default_theme.shop_item_id, avatar_item_id: defualt_avatar.shop_item_id });
     }
