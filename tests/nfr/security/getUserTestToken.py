@@ -47,5 +47,3 @@ def get_test_token(username = username_input, password = password_input):
 TOKEN = get_test_token(username_input, password_input)
 with open("token.txt", "w") as f:
     f.write(TOKEN.strip())
-
-print(TOKEN)
