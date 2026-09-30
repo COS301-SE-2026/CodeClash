@@ -9,6 +9,7 @@ import TournamentButton from "@/components/features/Tournaments/TournamentButton
 import { MatchCard } from "@/components/features/Match/MatchCard";
 import PopUp from "@/components/shared/PopUp";
 import { useUser } from 'src/context/User/hooks/useUser';
+import { Button } from "@/components/ui/button";
 
 export const ProgMatch = () => {
     const [code, setCode] = useState('');
@@ -22,10 +23,12 @@ export const ProgMatch = () => {
         seconds, minutes,
         currentQuestion, nextQuestion, prevQuestion,
         roundIdx, rounds,
-        opponentCurrent, waitingOpponent, finishGame,
+        opponentCurrent, waitingOpponent, finishMatch,
         loading,
         submitQuestion,
-        elos, colourClass, shake
+        elos, colourClass, shake,
+        final_question, complete_round, confirmCompleteRound, confirmRound, cancelCompleteRound, completeRound
+
     } = useMatch();
 
     const curr = questions[currentQuestion];
@@ -78,7 +81,7 @@ export const ProgMatch = () => {
                         <ChevronLeft onClick={() => prevQuestion(currentQuestion)} className='size-[3rem] hover:scale-110  hover:bg-secondary/20 rounded-2xl w-[50%]' />
                         <ChevronRight onClick={() => nextQuestion(currentQuestion)} className='size-[3rem] hover:scale-110 hover:bg-secondary/20 rounded-2xl w-[50%]' />
                     </TournamentButton>
-                    <TournamentButton className='w-[10%] h-[2.2rem] my-auto rounded-2xl text-[1.3rem] hover:-translate-y-1'
+                    <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
                         onClick={() => {
                             if (code.trim() && languageId !== null) {
                                 submitQuestion({
@@ -90,16 +93,33 @@ export const ProgMatch = () => {
                         }}
                     >
                         Submit Answer
-                    </TournamentButton>
-                    {currentQuestion === (questions.length - 1) &&
-                        <TournamentButton className='w-[10%] my-auto h-[2.2rem] rounded-2xl text-[1.3rem] hover:-translate-y-1'
-                            onClick={() => {
-                                finishGame();
-                            }}
+                    </Button>
+                    {final_question ? (
+
+                        <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
+                            onClick={() => { finishMatch(); }}
                         >
-                            <p>Finish</p>
-                        </TournamentButton>
+                            <p>Finish Match</p>
+                        </Button>) :
+                        complete_round && (
+                            <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
+                                onClick={() => { confirmCompleteRound() }}
+                            >
+                                <p>Complete Round</p>
+                            </Button>
+                        )
                     }
+
+                    {
+                        confirmRound && (
+                            <div>
+                                <p>You won't be able to go back once you've completed a round.</p>
+                                <Button onClick={cancelCompleteRound}>Cancel</Button>
+                                <Button onClick={completeRound}>Continue</Button>
+                            </div>
+                        )
+                    }
+
                 </div>
             </MatchCard>
             {waitingOpponent && (

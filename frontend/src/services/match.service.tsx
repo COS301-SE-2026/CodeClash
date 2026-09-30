@@ -58,7 +58,6 @@ export const useLoadRounds = (data: RoundDTO[]) => {
                 duration: 0
             }
         }
-
         let sumtime = 0;
         const rounds = data.map((round) => {
             const questions: QuestionDTO[] = round.questions.map(q => {
@@ -76,7 +75,7 @@ export const useLoadRounds = (data: RoundDTO[]) => {
             return shuffle(questions);
         });
 
-        return { rounds, duration: sumtime };
+        return { rounds, duration: sumtime};
 
     }, [data]);
 }
