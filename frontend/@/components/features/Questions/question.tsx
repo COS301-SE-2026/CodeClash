@@ -16,7 +16,7 @@ interface QuestionProps {
   description?: string,
   className?: string
 }
-function Question({
+export function Question({
   className,
   children,
   difficulty,
