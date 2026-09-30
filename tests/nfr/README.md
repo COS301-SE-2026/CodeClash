@@ -195,7 +195,27 @@ Testing https://localhost:3000/api/user/rank
 Saved to reports/https:__localhost:3000_api_user_rank.txt
 Testing https://localhost:3000/api/user/search
 Saved to reports/https:__localhost:3000_api_user_search.txt
-Done. The following are rows that did not provide an expected 200 or correct rejection 401 response code (rows that failed):
+Done. The following are rows that did not provide an expected 200 or correct rejection 401 response code (rows that need to be checked):
+
+
+...
+
+
+<!-- Any rows listed here must be tested in the following manner:
+
+If in their row they contain "(should always be valid)" - i.e. will always return a response code of 200,
+this row can be skipped
+
+else:
+
+In the jwt_tool directory:
+curl -s http://localhost:3000/api/<name-of-route> \ -H "Authorization: Bearer $(cat ../token.txt)" | jq .
+
+(Find names of api routes in testingReports.sh in ENDPOINTS)
+
+This should return [] or some form of empty value for every row that needs to be checked, if they return anything else, they have failed a test 
+
+-->
 
 
 
