@@ -1,0 +1,14 @@
+frontend/src/Views/Match/PowerupsPopup.tsx
+  h_b13c5d77534129 7-16,50,53
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "a7b2117e813c956e10330f440446a7116288125f",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

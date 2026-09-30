@@ -1,0 +1,19 @@
+tests/nfr/README.md
+  h_b13c5d77534129 198-199,201-202,204-218
+  h_b13c5d77534129 200,203
+tests/nfr/security/testingReports.sh
+  h_b13c5d77534129 29
+tests/nfr/security/token.txt
+  h_b13c5d77534129 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "652286b15b328729cb8537e70561a6cdfbbad1fb",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

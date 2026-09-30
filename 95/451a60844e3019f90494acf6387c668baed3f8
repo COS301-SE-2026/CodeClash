@@ -1,0 +1,14 @@
+.vscode/settings.json
+  h_b13c5d77534129 2-3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "95451a60844e3019f90494acf6387c668baed3f8",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
