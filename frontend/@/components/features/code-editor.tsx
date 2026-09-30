@@ -11,9 +11,10 @@ const LANGUAGES: Record<string, string> = {
 interface codeEditorProps {
     question: { templates?: TemplateDTO[] },
     onChange: (code: string, judge0_language_id: number) => void
+    className?: string
 }
 
-export const CodeEditor = ({ question, onChange }: codeEditorProps) => {
+export const CodeEditor = ({ question, onChange, className }: codeEditorProps) => {
 
     const { templates, selectedLanguage, code, changeLanguage, editCode } = useCodeQuestion(question, onChange);
 
@@ -21,7 +22,7 @@ export const CodeEditor = ({ question, onChange }: codeEditorProps) => {
     return (
 
         <div className="flex flex-col h-full w-full">
-            <div className="flex gap-2 mb-2">
+            <div className="flex gap-2 mb-2 ml-10">
                 {templates.map(t => (
                     <Button
                         key={t.language}
@@ -39,6 +40,7 @@ export const CodeEditor = ({ question, onChange }: codeEditorProps) => {
                 value={code}
                 width="90%"
                 onChange={(v) => editCode(v ?? "")}
+                className={className}
             />
 
         </div>

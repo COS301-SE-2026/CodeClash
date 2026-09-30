@@ -10,6 +10,7 @@ import { MatchCard } from "@/components/features/Match/MatchCard";
 import PopUp from "@/components/shared/PopUp";
 import { useUser } from 'src/context/User/hooks/useUser';
 import { Button } from "@/components/ui/button";
+import { PowerUpAndDownButtons } from "@/components/features/Match/PowerUpandDownButtons";
 
 export const ProgMatch = () => {
     const [code, setCode] = useState('');
@@ -65,23 +66,24 @@ export const ProgMatch = () => {
                 description={curr.description}
             />
 
-            <MatchCard className={`items-center mt-5 ${colourClass}`}>
+            <MatchCard className={`items-center justify-center mt-5 ${colourClass}`}>
                 <CodeEditor
                     question={question}
                     onChange={(new_code,  judge0_id) => {
                         setCode(new_code);
                         setLanguageId(judge0_id)
                     }}
+                    className="ml-15"
 
                 />
 
-                <div className='flex flex-row gap-6 w-full mx-auto justify-center my-auto'>
+                <div className='flex flex-row gap-5 flex-shrink-0 w-full mx-auto justify-center my-auto'>
 
                     <TournamentButton className='flex items-center justify-evenly text-secondary rounded-2xl w-[10%] h-auto'>
                         <ChevronLeft onClick={() => prevQuestion(currentQuestion)} className='size-[3rem] hover:scale-110  hover:bg-secondary/20 rounded-2xl w-[50%]' />
                         <ChevronRight onClick={() => nextQuestion(currentQuestion)} className='size-[3rem] hover:scale-110 hover:bg-secondary/20 rounded-2xl w-[50%]' />
                     </TournamentButton>
-                    <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
+                    <Button className='w-[20%] h-[3.6rem] rounded-2xl text-[1rem] hover:-translate-y-1 my-auto'
                         onClick={() => {
                             if (code.trim() && languageId !== null) {
                                 submitQuestion({
@@ -96,13 +98,13 @@ export const ProgMatch = () => {
                     </Button>
                     {final_question ? (
 
-                        <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
+                        <Button className='w-[20%] h-[3.6rem] rounded-2xl text-[1rem] hover:-translate-y-1 my-auto'
                             onClick={() => { finishMatch(); }}
                         >
                             <p>Finish Match</p>
                         </Button>) :
                         complete_round && (
-                            <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
+                            <Button className='w-[20%] h-[3.6rem] rounded-2xl text-[1rem] hover:-translate-y-1 my-auto'
                                 onClick={() => { confirmCompleteRound() }}
                             >
                                 <p>Complete Round</p>
@@ -119,6 +121,8 @@ export const ProgMatch = () => {
                             </div>
                         )
                     }
+
+                    <PowerUpAndDownButtons/>
 
                 </div>
             </MatchCard>
