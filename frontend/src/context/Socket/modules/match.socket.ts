@@ -6,7 +6,6 @@ import type { MatchResultDTO, ResultDTO } from "src/dtos/match/result.dto";
 import type { MatchMode } from "src/dtos/match/match.dto";
 import type { Player } from "src/Models/MatchModel";
 import type { OpponentDTO } from "src/dtos/match/opponent.dto";
-import usePowerU
 
 
 export class MatchSocket {
