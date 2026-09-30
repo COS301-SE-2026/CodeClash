@@ -35,6 +35,7 @@ export const useMatch = () => {
     const stored_rounds = useMatchStore(state => state.rounds)!;
     const match_id = useMatchStore(state => state.match_id);
 
+
     const { rounds, duration } = useLoadRounds(stored_rounds);
     const questions = rounds[roundIdx] ?? [];
     const { playerLife, updatePlayerLife } = useMatchProgress(players);
@@ -115,6 +116,22 @@ export const useMatch = () => {
         if(!matchSocket || !match_id){
             return;
         }
+
+        for(const shop_item_id of itemIds){
+            try{
+                const response = await matchSocket.usePowerup({
+                    match_id: Number(match_id),
+                    shop_item_id
+                });
+                if (response.ok){
+                    //put ui effects here 
+                }
+            } catch (err) {
+                console.error('Failed to use powerup', err);
+            }
+        }
+
+        setPowerupPopupOpen(false);
     }
 
     useEffect(() => {
