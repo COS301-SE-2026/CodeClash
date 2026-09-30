@@ -37,7 +37,7 @@ export const Question = ({
         <div className="flex justify-between w-full">
 
           {difficulty.length > 0 && <Badge
-            className="w-[7%] h-[1.5rem] text-white text-xs mt-2 mr-2"
+            className="w-[7%] h-[1.5rem] text-primary-text text-xs mt-2 mr-2"
             variant={"default"}
           >
             {difficulty}
