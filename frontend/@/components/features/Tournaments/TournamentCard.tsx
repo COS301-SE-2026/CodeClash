@@ -5,6 +5,7 @@ import { MatchCard } from '@/components/features/Match/MatchCard'
 import type { MatchMode, PlayerDTO } from 'src/dtos/match/match.dto'
 import { Button } from '@/components/ui/button'
 import { useNavigate } from 'react-router-dom'
+import { useDbId } from 'src/ViewModels/Tournaments/useDbId'
 
 interface TournamentCardProps {
     id: string
@@ -16,9 +17,8 @@ interface TournamentCardProps {
     player_count: number,
     onJoin: (tournament_id: string) => Promise<boolean>
     onLeave: (tournament_id: string) => Promise<boolean>
-    player: PlayerDTO,
+    host_player: PlayerDTO,
     players: PlayerDTO[],
-    host: string
 }
 
 //Any copied and pasted code below was all hand-written and pasted for the sake of saving time, ai did not generate this code
@@ -33,16 +33,20 @@ export const TournamentCard = ({
     player_count,
     onJoin,
     onLeave,
-    player,
+    host_player,
     players,
-    host
 }: TournamentCardProps) => {
+
+
+    const db_id = useDbId();
 
     const nav = useNavigate();
     const Icon = match_mode === 'math' ? Calculator : CodeXml;
     const progress = Math.min(100, (player_count / min_players) * 100);
-    const joined = players.some((p) => p.id === player.id);
-    const is_host = host === player.username;
+    const joined = players.some((p) => p?.id === db_id);
+    const is_host = host_player.id === db_id;
+
+    if (!db_id) return null;
 
     const handleJoin = async () => {
         console.log("joining...")
@@ -81,20 +85,8 @@ export const TournamentCard = ({
 
             </div>
 
-            {!joined && !is_host &&
-                <Button
-                    onClick={handleJoin}
-                    className="w-[12rem] h-[2.25rem] my-auto rounded-[11px]"
-                    variant={"default"}
-                >
-                    <div className="flex flex-row w-full h-full gap-5 text-[1rem] justify-between items-center">
-                        Join Tournament
-                        <ArrowRight size={25} className="flex justify-self-end my-auto -ml-9 mr-2" />
-                    </div>
-                </Button>
-            }
+            {is_host ? (
 
-            {is_host &&
                 <Button
                     onClick={async () => { await nav(`/tournaments/waiting/${id}`) }}
                     className="w-[12rem] h-[2.25rem] my-auto rounded-[11px]"
@@ -105,9 +97,8 @@ export const TournamentCard = ({
                         <ArrowRight size={25} className="flex justify-self-end my-auto -ml-9 mr-2" />
                     </div>
                 </Button>
-            }
 
-            {joined && !is_host &&
+            ) : joined ? (
                 <div>
                     <Button
                         onClick={async () => { await nav(`/tournaments/waiting/${id}`) }}
@@ -132,6 +123,20 @@ export const TournamentCard = ({
                         </div>
                     </Button>
                 </div>
+
+            ) : (
+                <Button
+                    onClick={handleJoin}
+                    className="w-[12rem] h-[2.25rem] my-auto rounded-[11px]"
+                    variant={"default"}
+                >
+                    <div className="flex flex-row w-full h-full gap-5 text-[1rem] justify-between items-center">
+                        Join Tournament
+                        <ArrowRight size={25} className="flex justify-self-end my-auto -ml-9 mr-2" />
+                    </div>
+                </Button>
+            )
+
             }
 
             {children}

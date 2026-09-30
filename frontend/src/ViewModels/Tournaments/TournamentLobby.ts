@@ -15,7 +15,7 @@ export const useTournamentLobby = () => {
     const [error, setError] = useState<string | null>(null);
 
     const { tournamentSocket } = useSocket();
-    const { userId, league } = useUser();
+    const { userId, league , username} = useUser();
     const { tournament_id } = useParams<{ tournament_id: string }>();
     const nav = useNavigate();
 
@@ -44,7 +44,6 @@ export const useTournamentLobby = () => {
         })
 
         const unsub_started = tournamentSocket.tournamentStart(async (data) => {
-            console.log("tournament started");
             useMatchStore.getState().setMatchData(data.match, data.tournament.tournament_mode);
             await nav(`/tournaments-match/${tournament_id}`);
         })
@@ -110,12 +109,8 @@ export const useTournamentLobby = () => {
 
     }
 
-    // const tournament_started = ()=>{
-
-    // }
-
     const is_host = () => {
-        return userId === tournament?.host.id;
+        return username === tournament?.host.username;
     }
 
     return {

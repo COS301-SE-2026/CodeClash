@@ -25,7 +25,6 @@ const TournamentsMatchPage = () => {
         handleSubmit,match_mode
     } = useTournamentMatch();
 
-    console.log(match_mode)
 
     const curr = questions[currentQuestion];
     const question = useMemo(() => ({ templates: curr?.templates }), [curr]);

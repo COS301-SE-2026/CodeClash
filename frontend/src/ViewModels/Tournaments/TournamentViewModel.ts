@@ -15,7 +15,7 @@ export const useTournament = () => {
     const { userId, elo, username, league } = useUser();
     const [matchMode, setMatchMode] = useState<MatchMode>();
 
-    let player: PlayerDTO = {
+    let this_player: PlayerDTO = {
         id: userId,
         elo: elo,
         username: username
@@ -37,7 +37,7 @@ export const useTournament = () => {
 
         const create = {
             match_mode: data.match_mode,
-            host: player,
+            host: this_player,
             title: data.title,
             min_players: data.min_players
         }
@@ -47,9 +47,9 @@ export const useTournament = () => {
             return { ok: false, error: "Error creating tournament." };
         }
 
+
         if (hosted.ok && hosted.data !== undefined) {
             setMatchMode(data.match_mode);
-            player = hosted.data.host;
             setTournaments((prev) => [...prev, hosted.data!]);
         }
 
@@ -57,7 +57,6 @@ export const useTournament = () => {
     }
 
     const joinTournamnet = async (tournament_id: string) => {
-        console.log("joining tournament")
         const player: PlayerDTO = {
             id: userId,
             elo: elo,
@@ -154,7 +153,6 @@ export const useTournament = () => {
         createTournament,
         joinTournamnet,
         leaveTournament,
-        player,
         starts_in,
         matchMode
     };

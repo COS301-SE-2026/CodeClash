@@ -80,4 +80,8 @@ export class TournamentSocket {
     startTournament(data: { tournament_id: string, league: string }) {
         return emit<typeof data, { match: MatchDTO, tournament: TournamentDTO }>(this.socket, 'start_tournament', data);
     }
+
+    identity(){
+        return emit<void, {user_id: string}>(this.socket, 'identity', undefined);
+    }
 }

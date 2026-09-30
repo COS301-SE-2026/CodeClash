@@ -17,9 +17,7 @@ export class TournamentService {
 
     async joinTournament(tournament_id: string, player: PlayerDTO): Promise<TournamentDTO> {
         try {
-
-            const db_player = await this.user_repo.getUserId(player.id);
-            await this.tournament_cache.addPlayer(tournament_id, { ...player, id: db_player?.user_id! });
+            await this.tournament_cache.addPlayer(tournament_id, player);
             const tournament = await this.tournament_cache.getTournament(tournament_id);
 
             if (!tournament) throw new Error("Tournament not found");
@@ -39,8 +37,7 @@ export class TournamentService {
 
             if (tournament?.status != MatchStatus.Waiting) throw new Error("Cannot leave tournament");
 
-            const db_player = await this.user_repo.getUserId(player.id);
-            await this.tournament_cache.removePlayer(tournament_id, db_player?.user_id!);
+            await this.tournament_cache.removePlayer(tournament_id, player.id);
         }
         catch (error) {
             console.error("Tournament Service Join error: ", error);
@@ -50,10 +47,7 @@ export class TournamentService {
 
     async hostTournament(match_mode: MatchMode, host: PlayerDTO, title: string, min_players: number) {
         const tournament_id = randomUUID();
-
-        const db_host = await this.user_repo.getUserId(host.id);
-
-        await this.tournament_cache.createTournament(tournament_id, match_mode, { ...host, id: db_host!.user_id! }, title, min_players);
+        await this.tournament_cache.createTournament(tournament_id, match_mode,host, title, min_players);
         const tournament = await this.tournament_cache.getTournament(tournament_id);
 
         return tournament;
@@ -75,33 +69,24 @@ export class TournamentService {
     }
 
     async startTournament(tournament: TournamentDTO, league: string) {
-        console.log("Tournament service start tournament");
+
         if (tournament.status !== MatchStatus.Waiting) throw new Error("Tournament already started");
+
         if (tournament.players.length < tournament.min_players) throw new Error("Not enough players");
 
-        const db_players = await Promise.all(
-            tournament.players.map(async (p) => ({
-                ...p,
-                id: (await this.user_repo.getUserId(p.id))!.user_id!
-            }))
-        );
-
-        console.log("creating match")
-        const match = await this.creation_service.execute(db_players as PlayerDTO[], tournament.tournament_mode, league, MatchType.tournament, tournament.title);
+        const match = await this.creation_service.execute(tournament.players as PlayerDTO[], tournament.tournament_mode, league, MatchType.tournament, tournament.title);
 
         tournament.rounds = match.rounds;
         tournament.status = MatchStatus.In_progress;
 
-        const players = db_players.map(p => ({ id: p.id, username: p.username! }));
+        const usernames = tournament.players.map(p => ({ id: p.id, username: p.username! }));
 
         /// updates stored tournament state
-        const init_players_map = this.elimination_service.init(match.match_id, players);
+        const init_players_map = this.elimination_service.init(match.match_id, usernames);
         const round_1 = match.rounds[0];
 
-        console.log("starting round")
         this.elimination_service.startRound(match.match_id, round_1!.round_number, round_1!.questions.map(q => q.id));
 
-        console.log("returning players ", players);
         return {
             ...match,
             players: Array.from(init_players_map.values())
