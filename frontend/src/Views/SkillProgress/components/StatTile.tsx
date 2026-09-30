@@ -9,10 +9,10 @@ interface StatTileProps {
     badge?: React.ReactNode;
     /*0-100. Leave undefined for figures without a natural maximum.*/
   progress?: number;
-  compact?: number;
+  compact?: boolean;
 }
 
-const StatTile: React.FC<StatTileProps> = ({ label, value, unit, caption, icon, badge, progress }) => (
+const StatTile: React.FC<StatTileProps> = ({ label, value, unit, caption, icon, badge, progress, compact }) => (
     <div className="card-elevated p-5 flex flex-col gap-3">
         <div className="flex items-start justify-between gap-2">
             <div className="flex items-center gap-2 text-muted-text">
@@ -23,8 +23,8 @@ const StatTile: React.FC<StatTileProps> = ({ label, value, unit, caption, icon, 
         </div>
 
         <div className="flex items-end gap-2">
-          <p className=`score-display ${compact ? 'text-lg' : text 'text-4xl'} font-black leading-none`>{value}</p>
-            {unit && <span className="text-xsm text-muted-text mb-1">{unit}</span>}
+        <p className={`score-display ${compact ? 'text-lg' : 'text-4xl'} font-black leading-none`}>{value}</p>
+          {unit && <span className="text-xsm text-muted-text mb-1">{unit}</span>}
         </div>
 
         {progress !== undefined && (
