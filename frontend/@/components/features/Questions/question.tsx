@@ -1,5 +1,8 @@
 import * as React from "react";
-
+import ReactMarkDown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 import { Badge } from "@/components/ui/badge";
 
 import { cn } from "@/lib/utils";
@@ -13,7 +16,7 @@ interface QuestionProps {
   description?: string,
   className?: string
 }
-function Question({
+export function Question({
   className,
   children,
   difficulty,
