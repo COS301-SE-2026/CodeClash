@@ -629,3 +629,32 @@ export function weeklyChanges(games: GameSample[], domains: GameDomain[], now: D
 
     return changes;
 }
+
+export function buildFocusReport(input: InsightInput): FocusReport {
+    const domains: GameDomain[] = Array.from(new Set(input.components.map(component => component.domain)));
+
+    const insights = [
+        ...difficultyInsights(input.bands),
+        ...attemptInsights(input.games),
+        ...domainGapInsight(input.allGames, input.league),
+        ...componentTrendInsights(input.games, domains),
+        ...consistencyInsight(input.games, input.league),
+        ...weakestComponentInsight(input.components),
+        ...runtimeInsight(input.games, input.components),
+        ...growthInsight(input.growth),
+        ...leagueInsights(input.mastery, input.league, input.winRate, input.games.length),
+        ...practiceInsight(input.practice)
+    ].sort((a, b) => b.score - a.score);
+
+    // the focus leads with something to fix; if nothing needs fixing, the best news leads instead
+    const focus = insights.find(insight => insight.tone === 'warn') ?? insights.find(insight => insight.tone === 'good') ?? null;
+    const rest = insights.filter(insight => insight !== focus);
+    const actionable = rest.filter(insight => insight.tone !== 'info');
+
+    return {
+        focus,
+        supporting: actionable.slice(0, 3),
+        more: rest.filter(insight => !actionable.slice(0, 3).includes(insight)),
+        weekly: weeklyChanges(input.games, domains, input.now)
+    };
+}
