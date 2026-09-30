@@ -53,7 +53,9 @@ export const useSubmission = ({
             submission: data
         }
         const result = await matchSocket?.submitAnswer(submission);
-        if (result !== undefined && result.ok)
+
+        if (result !== undefined && result.ok) {
+            updatePlayerLife(result.data!.player_id, result.data!.life_update);
             submissionResult(result.data!);
         else {
             submissionError("Marking Error");

@@ -17,6 +17,7 @@ import { PurchaseService } from 'src/application/usecases/services/shop/purchase
 import { IEquippedRepository } from 'src/application/interfaces/repositories/IEquippedRepository';
 import { IShopItemRepository } from 'src/application/interfaces/repositories/IShopItemRepository';
 import { TournamentService } from 'src/application/usecases/services/tournament/tournament.service';
+import { IWalletRepository } from 'src/application/interfaces/repositories/IWalletRepository';
 import { IInventoryRepository } from 'src/application/interfaces/repositories/IInventoryRepository';
 
 
@@ -35,7 +36,8 @@ export const createApp = (
   equipped_repo: IEquippedRepository,
   shop_item_repo: IShopItemRepository,
   inventory_repo: IInventoryRepository,
-  tournament_service: TournamentService
+  tournament_service: TournamentService,
+  wallet_repo: IWalletRepository
 ) => {
   const app = express();
   app.disable('x-powered-by');
@@ -66,6 +68,7 @@ export const createApp = (
     shop_item_repo,
     inventory_repo,
     tournament_service,
+    wallet_repo
   ));
 
   return app;

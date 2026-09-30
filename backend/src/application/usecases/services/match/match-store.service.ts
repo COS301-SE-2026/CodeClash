@@ -89,7 +89,7 @@ export class MatchStore {
 
         if (!match) return null;
 
-        return { match_id: match_id, result: match.result }
+        return  match.result 
     }
 
     deleteMatch(match_id: number) {

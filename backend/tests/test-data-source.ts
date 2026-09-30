@@ -2,7 +2,7 @@ import { DataSource } from 'typeorm'
 import { Users } from '../src/entities/database/user.entities'
 import { EloHistory } from '../src/entities/database/elo.entities'
 import dotenv from 'dotenv'
-import { Questions } from '../src/entities/database/questions.entities'
+import { ProgrammingTemplates, Questions, TestCases } from '../src/entities/database/questions.entities'
 import { Answers } from '../src/entities/database/answers.entities'
 import { Matches} from '../src/entities/database/match.entities'
 import { Achievement } from '../src/entities/database/achievement.entities'
@@ -38,7 +38,9 @@ export async function createTestDataSource() {
             FriendInvite,
             ShopItem,
             UserItem,
-            Wallet
+            Wallet,
+            TestCases,
+            ProgrammingTemplates
         ],
         dropSchema: true,
     })

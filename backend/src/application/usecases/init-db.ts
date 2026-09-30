@@ -2,10 +2,11 @@ import dotenv from 'dotenv';
 import { IUserRepository } from '../interfaces/repositories/IUserRepository';
 
 import { fetchAllCognitoUsers } from './services/cognito.service'
+import { IWalletRepository } from '../interfaces/repositories/IWalletRepository';
 
 dotenv.config();
 
-export async function initDB(user_repo: IUserRepository) {
+export async function initDB(user_repo: IUserRepository, wallet_repo: IWalletRepository) {
 
   try {
     let avatar_index = 0;
@@ -21,7 +22,13 @@ export async function initDB(user_repo: IUserRepository) {
       }
 
       // add user from cognito
-      await user_repo.createUser(user.Username!, email, cognito_id, ((avatar_index++) % 4), "Mercury")
+      const created = await user_repo.createUser(user.Username!, email, cognito_id, ((avatar_index++) % 4), "Mercury")
+
+      if (!created) {
+        continue;
+      }
+
+      await wallet_repo.createWallet(created.user_id!);
 
     }
   } catch (error) {

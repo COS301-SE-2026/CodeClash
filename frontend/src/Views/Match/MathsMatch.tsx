@@ -16,19 +16,19 @@ const MathsMatch = () => {
         results,
         playerLife, avatars, usernames,
         seconds, minutes,
-        currentQuestion, nextQuestion, prevQuestion, 
-        roundIdx,rounds,
-        opponentCurrent, waitingOpponent, finishGame,
+        currentQuestion, nextQuestion, prevQuestion,
+        roundIdx, rounds,
+        opponentCurrent, waitingOpponent, finishMatch,
         loading,
         submitQuestion,
         mathfieldRef,
-        elos
+        elos, colourClass, shake,
+        final_question, complete_round, confirmCompleteRound, confirmRound, cancelCompleteRound, completeRound
     } = useMatch();
 
 
-
     const curr = questions[currentQuestion];
-
+    const { username } = useUser();
     useEffect(() => {
         if (mathfieldRef.current) {
             mathfieldRef.current.value = '';
@@ -76,7 +76,7 @@ const MathsMatch = () => {
                     <ChevronLeft onClick={() => prevQuestion(currentQuestion)} className='size-[3rem] hover:scale-110  hover:bg-secondary/20 rounded-2xl w-[50%]' />
                     <ChevronRight onClick={() => nextQuestion(currentQuestion)} className='size-[3rem] hover:scale-110 hover:bg-secondary/20 rounded-2xl w-[50%]' />
                 </div>
-                <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem] hover:-translate-y-1'
+                <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
                     onClick={() => {
                         const answer = mathfieldRef.current?.value ?? '';
                         submitQuestion({ answer: answer })
@@ -84,14 +84,30 @@ const MathsMatch = () => {
                 >
                     Submit Answer
                 </Button>
-                {currentQuestion === (questions.length - 1) &&
-                    <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[2rem] hover:-translate-y-1'
-                        onClick={() => {
-                            finishGame();
-                        }}
+                {final_question ? (
+
+                    <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
+                        onClick={() => { finishMatch(); }}
                     >
-                        <p>Finish</p>
-                    </Button>
+                        <p>Finish Match</p>
+                    </Button>) :
+                    complete_round && (
+                        <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
+                            onClick={() => { confirmCompleteRound() }}
+                        >
+                            <p>Complete Round</p>
+                        </Button>
+                    )
+                }
+
+                {
+                    confirmRound && (
+                        <div>
+                            <p>You won't be able to go back once you've completed a round.</p>
+                            <Button onClick={cancelCompleteRound}>Cancel</Button>
+                            <Button onClick={completeRound}>Continue</Button>
+                        </div>
+                    )
                 }
             </div>
 

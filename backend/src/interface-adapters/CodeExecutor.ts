@@ -36,7 +36,6 @@ export class CodeExecutor implements ICodeExecutor {
                     }
                 });
 
-
             return result.data;
         }
         catch (error) {

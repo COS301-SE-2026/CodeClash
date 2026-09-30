@@ -62,7 +62,7 @@ export const startTournament = async (io: Server, socket: Socket, tournament_id:
         io.to(tournament_id).emit("tournament_started", data);
         return data;
     } catch (error) {
-        console.log("start tournament failed", error);
+        console.error("start tournament failed", error);
         socket.emit("start_tournament_failed", error);
     }
 }

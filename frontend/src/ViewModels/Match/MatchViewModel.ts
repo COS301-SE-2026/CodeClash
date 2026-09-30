@@ -9,6 +9,7 @@ import { useMatchStore } from 'src/stores/match-store';
 import { useMatchmaking } from 'src/context/Matchmaking/hooks/useMatchmaking';
 import { useSubmission } from 'src/services/submission.service';
 import type { Player } from 'src/Models/MatchModel';
+import { useResultStore } from 'src/stores/result-store';
 
 export const useMatch = () => {
     const nav = useNavigate();
@@ -22,8 +23,10 @@ export const useMatch = () => {
     const [loading, setLoading] = useState(false);
     const [waitingOpponent, setWaitingOpponent] = useState(false);
     const [roundIdx, setRoundIdx] = useState(0);
+    const [confirmRound, setConfirmRound] = useState(false);
 
-    const question_idx = useRef(0);
+
+    const finished_ref = useRef(false);
     const mathfieldRef = useRef<MathfieldElement | null>(null)
 
 
@@ -40,9 +43,13 @@ export const useMatch = () => {
     const { submissionError, submitQuestion, results } = useSubmission({ round_idx: roundIdx, curr_question: currentQuestion, question: questions[currentQuestion], match_id: match_id! })
     const { seconds, minutes } = useMatchTimer(duration, () => {
         setGameOver(true);
-        matchSocket?.finishMatch({ match_id: match_id!, match_mode: matchMode! })
+        finishMatch();
     })
 
+    const last_round = roundIdx === rounds.length - 1;
+    const last_q_of_round = questions.length > 0 && currentQuestion === questions.length - 1;
+    const complete_round = last_q_of_round && !last_round;
+    const final_question = last_q_of_round && last_round;
 
     const avatars = useMemo(() => players.map(p => robot_map[p.avatar_id]), [players]);
     const usernames = useMemo(() => players.map(p => p.username), [players]);
@@ -55,14 +62,6 @@ export const useMatch = () => {
     const nextQuestion = (curr: number) => {
         if (curr < questions.length - 1) {
             setCurrentQuestion(curr + 1);
-            return;
-        }
-
-        if (roundIdx < rounds.length - 1) {
-            setRoundIdx(roundIdx + 1);
-            setCurrentQuestion(0);
-            setNextRound(true);
-            setTimeout(() => setNextRound(false), 5000);
         }
     }
 
@@ -72,14 +71,36 @@ export const useMatch = () => {
         }
     }
 
-    const finishGame = () => {
-        if (question_idx.current === questions.length - 1) {
-            setWaitingOpponent(true);
-        }
+    const confirmCompleteRound = () => {
+        if (complete_round) setConfirmRound(true);
+    }
+
+    const cancelCompleteRound = () => {
+        setConfirmRound(false);
+    }
+
+    const completeRound = () => {
+        if (!complete_round) return;
+        setConfirmRound(false);
+        setRoundIdx(r => r + 1);
+        setCurrentQuestion(0);
+        setNextRound(true);
+        setTimeout(() => setNextRound(false), 500);
+    }
+
+    const finishMatch = async () => {
+        if (!final_question) return;
+        setWaitingOpponent(true);
+        finished_ref.current = true;
+
+        const response = await matchSocket?.finishMatch({ match_id: match_id!, match_mode: matchMode! });
+
+        if (response && response.ok)
+            useResultStore.getState().addResult(response.data!);
     }
 
     const both_done = () => {
-        useMatchStore.getState().reset();
+        // useMatchStore.getState().reset();
         setWaitingOpponent(false);
         nav(`/results/${match_id}`, {
             replace: true,
@@ -87,9 +108,7 @@ export const useMatch = () => {
     }
 
     useEffect(() => {
-
-
-        if (matchSocket && match_id && status === 'idle') {
+        if (matchSocket && match_id) {
             setLoading(true);
 
 
@@ -129,7 +148,7 @@ export const useMatch = () => {
         results,
         gameOver,
         waitingOpponent,
-        finishGame,
+        finishMatch,
         opponentCurrent,
         opponentDone,
         submitQuestion,
@@ -137,6 +156,14 @@ export const useMatch = () => {
         roundIdx,
         total_rounds: rounds.length,
         rounds,
-        elos
+        elos,
+        colourClass,
+        shake,
+        complete_round,
+        final_question,
+        confirmRound,
+        confirmCompleteRound,
+        cancelCompleteRound,
+        completeRound
     }
 }

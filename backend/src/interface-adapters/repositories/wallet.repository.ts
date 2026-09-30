@@ -3,7 +3,7 @@ import { Wallet } from "src/entities/database/wallet.entities";
 import { IWalletRepository } from "src/application/interfaces/repositories/IWalletRepository";
 import { WalletDTO } from "src/entities/dtos/shop/wallet.dto";
 
-export class WalletReposiroty implements IWalletRepository {
+export class WalletRepository implements IWalletRepository {
     constructor ( private readonly walletRepo: Repository<Wallet>) {}
 
     // copied from old file
