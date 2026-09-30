@@ -167,6 +167,9 @@ chmod +x testingReports.sh
 
 (enter signed-in user's details)
 
+This will proceed to generate a report detailing rows of different forged/expired tokens tested against each
+endpoint
+
 #### Expected output
 
 Testing https://localhost:3000/api/leaderboard
