@@ -8,7 +8,6 @@ import { MultipleChoice } from "@/components/features/Questions/MultipleChoice";
 import { LiveTournamentPlayer } from "@/components/features/Tournaments/LiveTournamentPlayer";
 import { useTournamentMatch } from "src/ViewModels/Tournaments/TournamentMatchViewModel";
 import { Button } from "@/components/ui/button";
-import { useEffect } from "react";
 
 const TournamentsMatchPage = () => {
 
@@ -22,11 +21,7 @@ const TournamentsMatchPage = () => {
 
     const curr = questions[currentQuestion];
     const telemetry = round_telemetry();
-    const my_rank = (telemetry && telemetry.my_rank! > 0) ? telemetry.my_rank : "-"
-
-    useEffect(() => {
-        console.log("players", players);
-    }, [])
+    const my_rank = (telemetry && telemetry.my_rank! > 0) ? telemetry.my_rank : "-";
 
     return (
         <div className="m-6 ml-4 min-h-screen">

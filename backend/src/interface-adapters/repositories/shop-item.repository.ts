@@ -43,5 +43,6 @@ export class ShopItemRepository implements IShopItemRepository {
         const item = await this.shopItemRepo.findOne({ where: { category: 'avatar', name: 'Vexa' } });
         if (!item) throw new Error('Default avatar not seeded');
         return this.toDTO(item);
+
     }
 }

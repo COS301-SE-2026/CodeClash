@@ -15,7 +15,9 @@
 }
 
 @keyframes pop {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(1);
   }
 
@@ -25,7 +27,9 @@
 }
 
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px);
   }
 
@@ -35,7 +39,9 @@
 }
 
 @keyframes glow {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.2;
   }
 
@@ -45,7 +51,9 @@
 }
 
 @keyframes twinkle {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.15;
     transform: scale(0.9);
   }
@@ -60,16 +68,21 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
 @keyframes thinking {
-  0%, 80%, 100% {
+
+  0%,
+  80%,
+  100% {
     opacity: 0.25;
     transform: translateY(0);
   }
+
   40% {
     opacity: 1;
     transform: translateY(-3px);
@@ -77,20 +90,50 @@
 }
 
 @keyframes shake {
-  10%, 90% {
+
+  10%,
+  90% {
     transform: translateX(-1px);
   }
 
-  20%, 80% {
+  20%,
+  80% {
     transform: translateX(2px);
   }
 
-  30%, 50%, 70% {
+  30%,
+  50%,
+  70% {
     transform: translateX(-4px);
   }
 
-  40%, 60% {
+  40%,
+  60% {
     transform: translateX(4px);
+  }
+}
+
+@keyframes big-shake {
+  0%,
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
+
+  20%{
+    transform: translateX(-6px) rotate(-1deg);
+  }
+
+ 40%{
+    transform: translateX(5px) rotate(1deg);
+  }
+
+
+  60% {
+    transform: translateX(-4px) rotate(-0.5deg);
+  }
+
+  80%{
+    transform: translateX(3px) rotate(0.5deg);
   }
 }
 
@@ -149,7 +192,9 @@
 }
 
 @keyframes answer-flash-correct {
-  0% , 100%{
+
+  0%,
+  100% {
     box-shadow: 0 0 0 transparent;
   }
 
@@ -159,7 +204,9 @@
 }
 
 @keyframes answer-flash-wrong {
-  0% , 100%{
+
+  0%,
+  100% {
     box-shadow: 0 0 0 transparent;
   }
 
@@ -409,7 +456,7 @@
   --danger: #e53935;
   --warning: #e8a33d;
   --info: #3d9be8;
-  --secondary-muted: rgba(252,236, 221, 0.4);
+  --secondary-muted: rgba(252, 236, 221, 0.4);
 
   /*Difficulty for questions*/
   --difficulty-easy: #4caf50;
@@ -440,43 +487,44 @@
 }
 
 /*These are copied from :root and adjusted for light mode*/
-:root.light, [data-theme = 'light'] {
+:root.light,
+[data-theme='light'] {
 
-    /*Backgrounds*/
-    --background: #fff7f5;
-    --background-elevated: rgba(83, 10, 35, 0.035);
-    --background-card: rgba(83, 10, 35, 0.045);
+  /*Backgrounds*/
+  --background: #fff7f5;
+  --background-elevated: rgba(83, 10, 35, 0.035);
+  --background-card: rgba(83, 10, 35, 0.045);
 
-    /*Brand Colours - these can still work well with light mode on whiter backgrounds */
-    --primary: #c0395a;
-    --primary-dark: #530a23;
-    --secondary: #fcecdd;
+  /*Brand Colours - these can still work well with light mode on whiter backgrounds */
+  --primary: #c0395a;
+  --primary-dark: #530a23;
+  --secondary: #fcecdd;
 
-    /*Text*/
-    --text: #2b0a15;
-    --primary-text: #2b0a15;
-    --secondary-text: #530a23;
-    --muted: rgba(43, 10, 21, 0.62);
-    --muted-text: rgba(43, 10, 21, 0.48);
+  /*Text*/
+  --text: #2b0a15;
+  --primary-text: #2b0a15;
+  --secondary-text: #530a23;
+  --muted: rgba(43, 10, 21, 0.62);
+  --muted-text: rgba(43, 10, 21, 0.48);
 
-    /*Borders*/
-    --border: rgba(83, 10, 35, 0.10);
-    --border-hover: rgba(83, 10, 35, 0.20);
+  /*Borders*/
+  --border: rgba(83, 10, 35, 0.10);
+  --border-hover: rgba(83, 10, 35, 0.20);
 
-    /*Cards*/
-    --card: var(--background-card);
-    --card-text: var(--primary-text);
-    --tournament-card: var(--card-tournaments);
+  /*Cards*/
+  --card: var(--background-card);
+  --card-text: var(--primary-text);
+  --tournament-card: var(--card-tournaments);
 
-    /*Sidebar*/
-    --sidebar: #ffffff;
-    --sidebar-text: var(--primary-text);
-    --sidebar-primary: #c0395a;
-    --sidebar-primary-text: #ffffff;
-    --sidebar-accent: rgba(83, 10, 35, 0.05);
-    --sidebar-accent-text: var(--primary-text);
-    --sidebar-border: rgba(83, 10, 35, 0.10);
-    --sidebar-ring: #c0395a;
+  /*Sidebar*/
+  --sidebar: #ffffff;
+  --sidebar-text: var(--primary-text);
+  --sidebar-primary: #c0395a;
+  --sidebar-primary-text: #ffffff;
+  --sidebar-accent: rgba(83, 10, 35, 0.05);
+  --sidebar-accent-text: var(--primary-text);
+  --sidebar-border: rgba(83, 10, 35, 0.10);
+  --sidebar-ring: #c0395a;
 
     /* Buttons */
     --button-primary: #C0395A;
@@ -495,31 +543,31 @@
   --button-tournament-secondary: #281e26;
   --button-tournament-secondary-border: #5B4041;
 
-    /*Inputs*/
-    --input: rgba(83, 10, 35, 0.05);
-    --ring: #c0395a;
-    --accent: #e93577;
-    --accent-text: #ffffff;
-    --destructive: #c62828;
+  /*Inputs*/
+  --input: rgba(83, 10, 35, 0.05);
+  --ring: #c0395a;
+  --accent: #e93577;
+  --accent-text: #ffffff;
+  --destructive: #c62828;
 
-    /*Status*/
-    --success: #2e7d32;
-    --danger: #c62828;
-    --warning: #b76e00;
-    --info: #1565c0;
-    --secondary-muted: rgba(83,10, 35, 0.35);
+  /*Status*/
+  --success: #2e7d32;
+  --danger: #c62828;
+  --warning: #b76e00;
+  --info: #1565c0;
+  --secondary-muted: rgba(83, 10, 35, 0.35);
 
-    /*Difficulty for questions*/
-    --difficulty-easy: #2e7d32;
-    --difficulty-medium: #b76e00;
-    --difficulty-hard: #c62828;
+  /*Difficulty for questions*/
+  --difficulty-easy: #2e7d32;
+  --difficulty-medium: #b76e00;
+  --difficulty-hard: #c62828;
 
-     /*Shadows*/
-    --badge-shadow: 0 2px 6px rgba(83, 10, 35, 0.10);
-    --card-shadow: 0rem 0.2rem 0.5rem rgba(83, 10, 35, 0.08);
-    --glow-shadow: 0 0 24px rgba(192, 57, 90, 0.22);
+  /*Shadows*/
+  --badge-shadow: 0 2px 6px rgba(83, 10, 35, 0.10);
+  --card-shadow: 0rem 0.2rem 0.5rem rgba(83, 10, 35, 0.08);
+  --glow-shadow: 0 0 24px rgba(192, 57, 90, 0.22);
 
-    --life-primary: #C0395A;
+  --life-primary: #C0395A;
 
   /* Match and Tournaments Page */
   --card-tournaments: #12080F;
@@ -539,47 +587,48 @@
 
 /*These are copied from :root.light and adjusted for more themes*/
 /*A light blue, frost kind of theme - like winter in space*/
-:root.frost, [data-theme = 'frost'] {
+:root.frost,
+[data-theme='frost'] {
 
-    /*Backgrounds*/
-    --background: #020a14;
-    --background-elevated: rgba(231, 244, 255, 0.03);
-    --background-card: rgba(231, 244, 255, 0.05);
+  /*Backgrounds*/
+  --background: #020a14;
+  --background-elevated: rgba(231, 244, 255, 0.03);
+  --background-card: rgba(231, 244, 255, 0.05);
 
-    --primary: #2f8fe0;
-    --primary-dark: #14487a;
-    --secondary: #e2f2fd;
+  --primary: #2f8fe0;
+  --primary-dark: #14487a;
+  --secondary: #e2f2fd;
 
-    /*Text*/
-    --text: #e7f4ff;
-    --primary-text: #e7f4ff;
-    --secondary-text: #123a63;
-    --muted:rgba(231, 244, 255, 0.65);
-    --muted-text: rgba(231, 244, 255, 0.50);
+  /*Text*/
+  --text: #e7f4ff;
+  --primary-text: #e7f4ff;
+  --secondary-text: #123a63;
+  --muted: rgba(231, 244, 255, 0.65);
+  --muted-text: rgba(231, 244, 255, 0.50);
 
-    /*Borders*/
-    --border: rgba(231, 244, 255, 0.08);
-    --border-hover: rgba(231, 244, 255, 0.18);
+  /*Borders*/
+  --border: rgba(231, 244, 255, 0.08);
+  --border-hover: rgba(231, 244, 255, 0.18);
 
   /*Cards*/
   --card: var(--background-card);
   --card-text: var(--primary-text);
 
-    /*Sidebar*/
-    --sidebar: #020a14;
-    --sidebar-text: var(--primary-text);
-    --sidebar-primary: #2f8fe0;
-    --sidebar-primary-text: #ffffff;
-    --sidebar-accent: rgba(231, 244, 255, 0.05);
-    --sidebar-accent-text: var(--primary-text);
-    --sidebar-border: rgba(231, 244, 255, 0.08);
-    --sidebar-ring: #2f8fe0;
+  /*Sidebar*/
+  --sidebar: #020a14;
+  --sidebar-text: var(--primary-text);
+  --sidebar-primary: #2f8fe0;
+  --sidebar-primary-text: #ffffff;
+  --sidebar-accent: rgba(231, 244, 255, 0.05);
+  --sidebar-accent-text: var(--primary-text);
+  --sidebar-border: rgba(231, 244, 255, 0.08);
+  --sidebar-ring: #2f8fe0;
 
-    /* Buttons */
-    --button-primary: #2f8fe0;
-    --button-secondary: transparent;
-    --button-text-primary: #FFFFFF;
-    --button-text-secondary: #e7f4ff;
+  /* Buttons */
+  --button-primary: #2f8fe0;
+  --button-secondary: transparent;
+  --button-text-primary: #FFFFFF;
+  --button-text-secondary: #e7f4ff;
 
   /*Inputs*/
   --input: rgba(231, 244, 255, 0.05);
@@ -588,24 +637,24 @@
   --accent-text: #ffffff;
   --destructive: #c62828;
 
-    /*Status*/
-    --success: #2e7d32;
-    --danger: #c62828;
-    --warning: #b76e00;
-    --info: #1565c0;
-    --secondary-muted: rgba(231, 244, 255, 0.4);
+  /*Status*/
+  --success: #2e7d32;
+  --danger: #c62828;
+  --warning: #b76e00;
+  --info: #1565c0;
+  --secondary-muted: rgba(231, 244, 255, 0.4);
 
-    /*Difficulty for questions*/
-    --difficulty-easy: #2e7d32;
-    --difficulty-medium: #b76e00;
-    --difficulty-hard: #c62828;
+  /*Difficulty for questions*/
+  --difficulty-easy: #2e7d32;
+  --difficulty-medium: #b76e00;
+  --difficulty-hard: #c62828;
 
-     /*Shadows*/
-    --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    --card-shadow: 0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25);
-    --glow-shadow: 0 0 24px rgba(47, 143, 224, 0.45);
+  /*Shadows*/
+  --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --card-shadow: 0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25);
+  --glow-shadow: 0 0 24px rgba(47, 143, 224, 0.45);
 
-    --life-primary: #2f8fe0;
+  --life-primary: #2f8fe0;
 
   /*for the radial gradients*/
   --glow-1: #4fa8f5;
@@ -615,47 +664,48 @@
 
 /*These are copied from :root.light and adjusted for more themes*/
 /*A midnight gold theme - like a more premium space */
-:root.gold, [data-theme = 'gold'] {
+:root.gold,
+[data-theme='gold'] {
 
-    /*Backgrounds*/
-    --background: #05070f;
-    --background-elevated: rgba(242, 236, 216, 0.03);
-    --background-card: rgba(242, 236, 216, 0.05);
+  /*Backgrounds*/
+  --background: #05070f;
+  --background-elevated: rgba(242, 236, 216, 0.03);
+  --background-card: rgba(242, 236, 216, 0.05);
 
-    --primary: #d4af37;
-    --primary-dark: #6b5716;
-    --secondary: #f7edcf;
+  --primary: #d4af37;
+  --primary-dark: #6b5716;
+  --secondary: #f7edcf;
 
-    /*Text*/
-    --text: #f2ecd8;
-    --primary-text: #f2ecd8;
-    --secondary-text: #4a3c10;
-    --muted:rgba(242, 236, 216, 0.65);
-    --muted-text: rgba(242, 236, 216, 0.50);
+  /*Text*/
+  --text: #f2ecd8;
+  --primary-text: #f2ecd8;
+  --secondary-text: #4a3c10;
+  --muted: rgba(242, 236, 216, 0.65);
+  --muted-text: rgba(242, 236, 216, 0.50);
 
-    /*Borders*/
-    --border: rgba(242, 236, 216, 0.08);
-    --border-hover: rgba(242, 236, 216, 0.18);
+  /*Borders*/
+  --border: rgba(242, 236, 216, 0.08);
+  --border-hover: rgba(242, 236, 216, 0.18);
 
   /*Cards*/
   --card: var(--background-card);
   --card-text: var(--primary-text);
 
-    /*Sidebar*/
-    --sidebar: #05070f;
-    --sidebar-text: var(--primary-text);
-    --sidebar-primary: #d4af37;
-    --sidebar-primary-text: #ffffff;
-    --sidebar-accent: rgba(242, 236, 216, 0.05);
-    --sidebar-accent-text: var(--primary-text);
-    --sidebar-border: rgba(242, 236, 216, 0.08);
-    --sidebar-ring: #d4af37;
+  /*Sidebar*/
+  --sidebar: #05070f;
+  --sidebar-text: var(--primary-text);
+  --sidebar-primary: #d4af37;
+  --sidebar-primary-text: #ffffff;
+  --sidebar-accent: rgba(242, 236, 216, 0.05);
+  --sidebar-accent-text: var(--primary-text);
+  --sidebar-border: rgba(242, 236, 216, 0.08);
+  --sidebar-ring: #d4af37;
 
-    /* Buttons */
-    --button-primary: #d4af37;
-    --button-secondary: transparent;
-    --button-text-primary: #FFFFFF;
-    --button-text-secondary: #f2ecd8;
+  /* Buttons */
+  --button-primary: #d4af37;
+  --button-secondary: transparent;
+  --button-text-primary: #FFFFFF;
+  --button-text-secondary: #f2ecd8;
 
   /*Inputs*/
   --input: rgba(242, 236, 216, 0.05);
@@ -664,69 +714,70 @@
   --accent-text: #ffffff;
   --destructive: #c62828;
 
-    /*Status*/
-    --success: #2e7d32;
-    --danger: #c62828;
-    --warning: #b76e00;
-    --info: #1565c0;
-    --secondary-muted: rgba(242, 236, 216, 0.4);
+  /*Status*/
+  --success: #2e7d32;
+  --danger: #c62828;
+  --warning: #b76e00;
+  --info: #1565c0;
+  --secondary-muted: rgba(242, 236, 216, 0.4);
 
-    /*Difficulty for questions*/
-    --difficulty-easy: #2e7d32;
-    --difficulty-medium: #b76e00;
-    --difficulty-hard: #c62828;
+  /*Difficulty for questions*/
+  --difficulty-easy: #2e7d32;
+  --difficulty-medium: #b76e00;
+  --difficulty-hard: #c62828;
 
-     /*Shadows*/
-    --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    --card-shadow: 0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25);
-    --glow-shadow: 0 0 24px rgba(212, 175, 55, 0.45);
+  /*Shadows*/
+  --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --card-shadow: 0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25);
+  --glow-shadow: 0 0 24px rgba(212, 175, 55, 0.45);
 
   --life-primary: #d4af37;
 }
 
 /*These are copied from :root.light and adjusted for more themes*/
 /*A nebula violet theme - like a more modern sci-fi space */
-:root.nebula, [data-theme = 'nebula'] {
+:root.nebula,
+[data-theme='nebula'] {
 
-    /*Backgrounds*/
-    --background: #0d0518;
-    --background-elevated: rgba(242, 233, 255, 0.03);
-    --background-card: rgba(242, 233, 255, 0.05);
+  /*Backgrounds*/
+  --background: #0d0518;
+  --background-elevated: rgba(242, 233, 255, 0.03);
+  --background-card: rgba(242, 233, 255, 0.05);
 
-    --primary: #8b3fd6;
-    --primary-dark: #4a1d80;
-    --secondary: #f0e5fc;
+  --primary: #8b3fd6;
+  --primary-dark: #4a1d80;
+  --secondary: #f0e5fc;
 
-    /*Text*/
-    --text: #f2e9ff;
-    --primary-text: #f2e9ff;
-    --secondary-text: #3d1a66;
-    --muted:rgba(242, 233, 255, 0.65);
-    --muted-text: rgba(242, 233, 255, 0.50);
+  /*Text*/
+  --text: #f2e9ff;
+  --primary-text: #f2e9ff;
+  --secondary-text: #3d1a66;
+  --muted: rgba(242, 233, 255, 0.65);
+  --muted-text: rgba(242, 233, 255, 0.50);
 
-    /*Borders*/
-    --border: rgba(242, 233, 255, 0.08);
-    --border-hover: rgba(242, 233, 255, 0.18);
+  /*Borders*/
+  --border: rgba(242, 233, 255, 0.08);
+  --border-hover: rgba(242, 233, 255, 0.18);
 
   /*Cards*/
   --card: var(--background-card);
   --card-text: var(--primary-text);
 
-    /*Sidebar*/
-    --sidebar: #0d0518;
-    --sidebar-text: var(--primary-text);
-    --sidebar-primary: #8b3fd6;
-    --sidebar-primary-text: #ffffff;
-    --sidebar-accent: rgba(242, 233, 255, 0.05);
-    --sidebar-accent-text: var(--primary-text);
-    --sidebar-border: rgba(242, 233, 255, 0.08);
-    --sidebar-ring: #8b3fd6;
+  /*Sidebar*/
+  --sidebar: #0d0518;
+  --sidebar-text: var(--primary-text);
+  --sidebar-primary: #8b3fd6;
+  --sidebar-primary-text: #ffffff;
+  --sidebar-accent: rgba(242, 233, 255, 0.05);
+  --sidebar-accent-text: var(--primary-text);
+  --sidebar-border: rgba(242, 233, 255, 0.08);
+  --sidebar-ring: #8b3fd6;
 
-    /* Buttons */
-    --button-primary: #8b3fd6;
-    --button-secondary: transparent;
-    --button-text-primary: #FFFFFF;
-    --button-text-secondary: #f2e9ff;
+  /* Buttons */
+  --button-primary: #8b3fd6;
+  --button-secondary: transparent;
+  --button-text-primary: #FFFFFF;
+  --button-text-secondary: #f2e9ff;
 
   /*Inputs*/
   --input: rgba(242, 233, 255, 0.05);
@@ -735,69 +786,70 @@
   --accent-text: #ffffff;
   --destructive: #e53935;
 
-    /*Status*/
-    --success: #2e7d32;
-    --danger: #c62828;
-    --warning: #b76e00;
-    --info: #1565c0;
-    --secondary-muted: rgba(242, 233, 255, 0.4);
+  /*Status*/
+  --success: #2e7d32;
+  --danger: #c62828;
+  --warning: #b76e00;
+  --info: #1565c0;
+  --secondary-muted: rgba(242, 233, 255, 0.4);
 
-    /*Difficulty for questions*/
-    --difficulty-easy: #2e7d32;
-    --difficulty-medium: #b76e00;
-    --difficulty-hard: #c62828;
+  /*Difficulty for questions*/
+  --difficulty-easy: #2e7d32;
+  --difficulty-medium: #b76e00;
+  --difficulty-hard: #c62828;
 
-     /*Shadows*/
-    --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    --card-shadow: 0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25);
-    --glow-shadow: 0 0 24px rgba(139, 63, 214, 0.45);
+  /*Shadows*/
+  --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --card-shadow: 0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25);
+  --glow-shadow: 0 0 24px rgba(139, 63, 214, 0.45);
 
   --life-primary: #8b3fd6;
 }
 
 /*These are copied from :root.light and adjusted for more themes*/
 /*A green verdant theme - like an alien dominant space */
-:root.verdant, [data-theme = 'verdant'] {
+:root.verdant,
+[data-theme='verdant'] {
 
-    /*Backgrounds*/
-    --background: #06140a;
-    --background-elevated: rgba(232, 247, 217, 0.03);
-    --background-card: rgba(232, 247, 217, 0.05);
+  /*Backgrounds*/
+  --background: #06140a;
+  --background-elevated: rgba(232, 247, 217, 0.03);
+  --background-card: rgba(232, 247, 217, 0.05);
 
-    --primary: #9ccc3c;
-    --primary-dark: #4d661d;
-    --secondary: #f1f9e0;
+  --primary: #9ccc3c;
+  --primary-dark: #4d661d;
+  --secondary: #f1f9e0;
 
-    /*Text*/
-    --text: #e8f7d9;
-    --primary-text: #e8f7d9;
-    --secondary-text: #3c5015;
-    --muted:rgba(232, 247, 217, 0.65);
-    --muted-text: rgba(232, 247, 217, 0.50);
+  /*Text*/
+  --text: #e8f7d9;
+  --primary-text: #e8f7d9;
+  --secondary-text: #3c5015;
+  --muted: rgba(232, 247, 217, 0.65);
+  --muted-text: rgba(232, 247, 217, 0.50);
 
-    /*Borders*/
-    --border: rgba(232, 247, 217, 0.08);
-    --border-hover: rgba(232, 247, 217, 0.18);
+  /*Borders*/
+  --border: rgba(232, 247, 217, 0.08);
+  --border-hover: rgba(232, 247, 217, 0.18);
 
   /*Cards*/
   --card: var(--background-card);
   --card-text: var(--primary-text);
 
-    /*Sidebar*/
-    --sidebar: #06140a;
-    --sidebar-text: var(--primary-text);
-    --sidebar-primary: #9ccc3c;
-    --sidebar-primary-text: #ffffff;
-    --sidebar-accent: rgba(232, 247, 217, 0.05);
-    --sidebar-accent-text: var(--primary-text);
-    --sidebar-border: rgba(232, 247, 217, 0.08);
-    --sidebar-ring: #9ccc3c;
+  /*Sidebar*/
+  --sidebar: #06140a;
+  --sidebar-text: var(--primary-text);
+  --sidebar-primary: #9ccc3c;
+  --sidebar-primary-text: #ffffff;
+  --sidebar-accent: rgba(232, 247, 217, 0.05);
+  --sidebar-accent-text: var(--primary-text);
+  --sidebar-border: rgba(232, 247, 217, 0.08);
+  --sidebar-ring: #9ccc3c;
 
-    /* Buttons */
-    --button-primary: #9ccc3c;
-    --button-secondary: transparent;
-    --button-text-primary: #FFFFFF;
-    --button-text-secondary: #e8f7d9;
+  /* Buttons */
+  --button-primary: #9ccc3c;
+  --button-secondary: transparent;
+  --button-text-primary: #FFFFFF;
+  --button-text-secondary: #e8f7d9;
 
   /*Inputs*/
   --input: rgba(232, 247, 217, 0.05);
@@ -806,22 +858,22 @@
   --accent-text: #ffffff;
   --destructive: #e53935;
 
-    /*Status*/
-    --success: #2e7d32;
-    --danger: #c62828;
-    --warning: #b76e00;
-    --info: #1565c0;
-    --secondary-muted: rgba(232, 247, 217, 0.4);
+  /*Status*/
+  --success: #2e7d32;
+  --danger: #c62828;
+  --warning: #b76e00;
+  --info: #1565c0;
+  --secondary-muted: rgba(232, 247, 217, 0.4);
 
-    /*Difficulty for questions*/
-    --difficulty-easy: #2e7d32;
-    --difficulty-medium: #b76e00;
-    --difficulty-hard: #c62828;
+  /*Difficulty for questions*/
+  --difficulty-easy: #2e7d32;
+  --difficulty-medium: #b76e00;
+  --difficulty-hard: #c62828;
 
-     /*Shadows*/
-    --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    --card-shadow: 0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25);
-    --glow-shadow: 0 0 24px rgba(156, 204, 60, 0.45);
+  /*Shadows*/
+  --badge-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --card-shadow: 0rem 0.2rem 0.5rem rgba(0, 0, 0, 0.25);
+  --glow-shadow: 0 0 24px rgba(156, 204, 60, 0.45);
 
   --life-primary: #9ccc3c;
 }
@@ -869,7 +921,7 @@
     box-shadow: var(--card-shadow);
   }
 
-  .animate-pop{
+  .animate-pop {
     animation: pop 0.35s ease-out forwards;
   }
 
@@ -936,7 +988,8 @@
     border: 2px solid var(--background);
   }
 
-  :root.light ::-webkit-scrollbar-thumb, [data-theme = 'light'] ::-webkit-scrollbar-thumb {
+  :root.light ::-webkit-scrollbar-thumb,
+  [data-theme='light'] ::-webkit-scrollbar-thumb {
     background: rgba(83, 10, 35, 0.15);
     border: 2px solid var(--background);
   }
@@ -945,12 +998,16 @@
     background: rgba(252, 236, 221, 0.3);
   }
 
-  :root.light ::-webkit-scrollbar-thumb:hover, [data-theme = 'light'] ::-webkit-scrollbar-thumb:hover {
+  :root.light ::-webkit-scrollbar-thumb:hover,
+  [data-theme='light'] ::-webkit-scrollbar-thumb:hover {
     background: rgba(83, 10, 35, 0.28);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
+
+    *,
+    *::before,
+    *::after {
       animation-duration: 0.001ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.001ms !important;
@@ -960,6 +1017,7 @@
 }
 
 @layer components {
+
   /*Buttons*/
   .btn {
     display: inline-flex;
@@ -977,7 +1035,8 @@
     transition: all 0.2s ease;
   }
 
-  .btn:disabled, .btn[aria-disabled="true"] {
+  .btn:disabled,
+  .btn[aria-disabled="true"] {
     opacity: 0.45;
     cursor: not-allowed;
     transform: none !important;
@@ -1012,7 +1071,8 @@
     z-index: 20;
   }
 
-  .btn-ghost { /*Used for back button - top left*/
+  .btn-ghost {
+    /*Used for back button - top left*/
     background: transparent;
     color: var(--primary-text);
     border: 1px solid var(--border);
@@ -1049,7 +1109,9 @@
   }
 
   /*Inputs and FOrms - this is copied, my previous clone broke and didnt track these changes*/
-  .input, .select, .textarea {
+  .input,
+  .select,
+  .textarea {
     width: 100%;
     background: var(--input);
     border: 1px solid var(--border);
@@ -1066,11 +1128,15 @@
     color: rgba(252, 235, 221, 0.35);
   }
 
-  .input:hover, .select:hover, .textarea:hover {
+  .input:hover,
+  .select:hover,
+  .textarea:hover {
     border-color: var(--border-hover);
   }
 
-  .input:focus, .select:focus, .textarea:focus {
+  .input:focus,
+  .select:focus,
+  .textarea:focus {
     outline: none;
     border-color: var(--primary);
     background: var(--background-elevated-hover);
@@ -1213,7 +1279,8 @@
     animation: twinkle 3s ease-in-out infinite;
   }
 
-  :root.light .starfield span, [data-theme= 'light'] .starfield span {
+  :root.light .starfield span,
+  [data-theme='light'] .starfield span {
     width: 3px;
     height: 3px;
     background: rgba(192, 57, 90, 0.35);
@@ -1290,8 +1357,9 @@
     animation: drift-up 3s ease-in infinite;
   }
 
-  .answer-flash-correct {
-    animation: answer-flash-correct 0.7s ease-out;
+  .answer-correct {
+    background-color: rgba(34, 197, 94, 0.35);
+    transition: background-color 200ms ease-out;
   }
 
   .answer-wrong {
