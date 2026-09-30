@@ -53,7 +53,7 @@ const NextStep: React.FC<{ action: string }> = ({ action }) => (
 const FocusCard: React.FC<{ insight: Insight }> = ({ insight }) => {
   const Icon = TONE_ICON[insight.tone];
     return (
-        <div className="card-glow p-6 flex flex-col gap-5">
+        <div className="card-glow p-6 flex flex-col justify center gap-5">
             <span className={`badge ${TONE_BADGE[insight.tone]}`}>
                 <Crosshair size={12} />
                 {insight.tone === 'warn' ? 'Your focus' : 'Your edge'}
@@ -67,7 +67,7 @@ const FocusCard: React.FC<{ insight: Insight }> = ({ insight }) => {
                 <p className="text-xsm text-muted-text mt-2 leading-snug">{insight.body}</p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
+            <div className="grid grid-cols-[repeat(auto-fit, minmax(9rem, 1fr))] gap-3">
                 {insight.evidence.map(item => (
                     <StatTile key={item.label} label={item.label} value={item.value} />
                 ))}
@@ -173,7 +173,7 @@ const WhatToWorkOn: React.FC<WhatToWorkOnProps> = ({ title, report, gamesAnalyse
             </div>
 
             {report.focus ? (
-                <div className="grid grid-cols-1 xl:grid-cols-[1.2fr_1fr] gap-5 items-start">
+                <div className="grid grid-cols-1 xl:grid-cols-[1.2fr_1fr] gap-5">
                     <FocusCard insight={report.focus} />
                     <div className="flex flex-col gap-3">
                         {report.supporting.map(insight => (
