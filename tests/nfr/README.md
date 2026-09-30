@@ -43,6 +43,7 @@ curl http://localhost:3000/health
 ## 1. Performance — `performance/`
 
 ### Tool
+'k6'
 
 ### What it tests
 - 100 virtual users hitting match and elo endpoints simultaneously for 5 minutes
@@ -50,7 +51,10 @@ curl http://localhost:3000/health
 - Error rate target: < 1%
 
 ### How to run
-
+- install with
+```
+sudo snap install k6
+```
 ### Expected output
 
 
