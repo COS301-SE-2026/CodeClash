@@ -11,7 +11,7 @@ http_req_failed: ['rate<0.01'],
 },
 };
 
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = 'http://localhost:3001';
 
 export default function () {
 const matchRes = http.get(`${BASE_URL}/api/matches`);
