@@ -184,7 +184,7 @@ return (
                           </SectionCard>
       </div>
       {/*show of the difficultiy split and difficulty sections*/}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 ">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 ">
           <SectionCard
               title={content.difficultyTitle}
               hint={content.difficultyHint}
