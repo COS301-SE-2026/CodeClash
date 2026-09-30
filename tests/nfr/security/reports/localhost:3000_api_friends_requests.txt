@@ -1,0 +1,607 @@
+=====================
+Decoded Token Values:
+=====================
+
+Token header values:
+[+] kid = "8s9KgZeWlNo5V4uRu7uMvNfew65+pUy0Lk0BymCkFMQ="
+[+] alg = "RS256"
+
+Token payload values:
+[+] sub = "10ec49fc-40c1-708a-64ad-5cacf1f5a674"
+[+] email_verified = True
+[+] iss = "https://cognito-idp.eu-north-1.amazonaws.com/eu-north-1_Mse59P0ET"
+[+] phone_number_verified = False
+[+] cognito:username = "test_user"
+[+] preferred_username = "test_user"
+[+] given_name = "test"
+[+] origin_jti = "eff7c2de-8513-4ef0-bb4e-27676db88a3f"
+[+] aud = "6e9fckn9ruch534omv3q082h8i"
+[+] event_id = "2f5efe45-2cf4-45c5-b37b-6fea9ab3646c"
+[+] token_use = "id"
+[+] auth_time = 1790743636
+[+] name = "test user"
+[+] phone_number = "+27685338762"
+[+] exp = 1790747236    ==> TIMESTAMP = 2026-09-30 07:47:16 (UTC)
+[+] iat = 1790743636    ==> TIMESTAMP = 2026-09-30 06:47:16 (UTC)
+[+] family_name = "user"
+[+] jti = "b184fcdf-a3bf-45af-94c1-2f03522b9fca"
+[+] email = "lihle.kwande@gmail.com"
+
+Seen timestamps:
+[*] exp was seen
+[*] iat is earlier than exp by: 0 days, 1 hours, 0 mins
+
+----------------------
+JWT common timestamps:
+iat = IssuedAt
+exp = Expires
+nbf = NotBefore
+----------------------
+
+[+] Sending token
+jwttool_9e995cc7448c5a5f2f700ec212195600 Sending token Response Code: 200, 2 bytes
+Running Scanning Module:
+Running prescan checks...
+jwttool_9e995cc7448c5a5f2f700ec212195600 Prescan: original token Response Code: 200, 2 bytes
+jwttool_2e9581b584de8448906d4bc1790fc5e6 Prescan: no token Response Code: 401, 38 bytes
+jwttool_c93a140ae2a15cb525df7e672e99b1a6 Prescan: Broken signature Response Code: 401, 38 bytes
+jwttool_9e995cc7448c5a5f2f700ec212195600 Prescan: repeat original token Response Code: 200, 2 bytes
+
+LAUNCHING SCAN: JWT Attack Playbook
+jwttool_c93a140ae2a15cb525df7e672e99b1a6 Broken signature Response Code: 401, 38 bytes
+jwttool_9e995cc7448c5a5f2f700ec212195600 Persistence check 1 (should always be valid) Response Code: 200, 2 bytes
+jwttool_cf4ebae26b22fcd068fed179df9695e1 Claim processing check in sub claim Response Code: 401, 38 bytes
+jwttool_a9817fb9201a69800439522b8163ddf9 Claim processing check in email_verified claim Response Code: 401, 38 bytes
+jwttool_eef986e791f5dbe9788b65e76fff2f23 Claim processing check in iss claim Response Code: 401, 38 bytes
+jwttool_48931454441650b1195347e67c9e71e4 Claim processing check in phone_number_verified claim Response Code: 401, 38 bytes
+jwttool_4eaa7e79fe32d5c2e227ec3ce3ae7671 Claim processing check in cognito:username claim Response Code: 401, 38 bytes
+jwttool_56d82a7495bd0155e52dde7da30b16b7 Claim processing check in preferred_username claim Response Code: 401, 38 bytes
+jwttool_a54955e3772e7fefa50774b8d4290967 Claim processing check in given_name claim Response Code: 401, 38 bytes
+jwttool_be0226dd01ed0fb253c5b212b3def89a Claim processing check in origin_jti claim Response Code: 401, 38 bytes
+jwttool_b61bfa33b99a3d8649e7f7aaa7269224 Claim processing check in aud claim Response Code: 401, 38 bytes
+jwttool_15b768dd6e81eb1d66207095fc4e268c Claim processing check in event_id claim Response Code: 401, 38 bytes
+jwttool_b3791011ad3c4017e9d0dd74d715b0d9 Claim processing check in token_use claim Response Code: 401, 38 bytes
+jwttool_0feb1e35e5fd6bb60585026638b84086 Claim processing check in auth_time claim Response Code: 401, 38 bytes
+jwttool_951487b466a266b72c88338ccbb773a0 Claim processing check in name claim Response Code: 401, 38 bytes
+jwttool_96e067be7be483ae34d4b415461a51f5 Claim processing check in phone_number claim Response Code: 401, 38 bytes
+jwttool_2d802746340492622a9a9fed521ba62c Claim processing check in exp claim Response Code: 401, 38 bytes
+jwttool_e3d0d1f01143814c9ea632966f4a4abc Claim processing check in iat claim Response Code: 401, 38 bytes
+jwttool_06e4907edbce9cab7e0f29571cf65a21 Claim processing check in family_name claim Response Code: 401, 38 bytes
+jwttool_a8eb4767828c6576264f265d0933899c Claim processing check in jti claim Response Code: 401, 38 bytes
+jwttool_ec1cc6f893c9eb8000ee97c6951a660d Claim processing check in email claim Response Code: 401, 38 bytes
+jwttool_9e995cc7448c5a5f2f700ec212195600 Persistence check 2 (should always be valid) Response Code: 200, 2 bytes
+jwttool_49e46cf62fd5ea8eda2c5df6957d3b8d Exploit: Blank password accepted in signature (-X b) Response Code: 401, 38 bytes
+jwttool_0c43ea024b83fba76774f21a588d1e14 Exploit: 'Psychic Signature' accepted in ECDSA signing (-X p) Response Code: 401, 38 bytes
+jwttool_2d88f6f8f2c508b1f0058bc21f18abce Exploit: Null signature (-X n) Response Code: 401, 38 bytes
+jwttool_71440c91e490caef58162ecfac120a1e Exploit: "alg":"none" (-X a) Response Code: 401, 38 bytes
+jwttool_a4c2895ecccdd0d928a5cc0d8c3dcbaf Exploit: "alg":"None" (-X a) Response Code: 401, 38 bytes
+jwttool_40cba816434932ca5cfd46cc488d846e Exploit: "alg":"NONE" (-X a) Response Code: 401, 38 bytes
+jwttool_ab2cf91010fd369ab70b7e071a5160e6 Exploit: "alg":"nOnE" (-X a) Response Code: 401, 38 bytes
+File loaded: /home/u24910882/.jwt_tool/jwttool_custom_public_RSA.pem
+jwttool_41632f51ae392c6a5debc3d3ad19c2c0 Exploit: RSA Key Confusion Exploit (provided Public Key) Response Code: 401, 38 bytes
+key: /home/u24910882/.jwt_tool/jwttool_custom_private_RSA.pem
+jwttool_0c292259789839d0073ab6bab28b3c69 Exploit: Injected JWKS (-X i) Response Code: 401, 38 bytes
+jwttool_c965fb9c5131f310a43c02bbff10f392 Exploit: Spoof JWKS (-X s) Response Code: 401, 38 bytes
+jwttool_a0ed2c3cda810aa93fb16fca226e84b2 Injected kid claim - null-signed with blank kid Response Code: 401, 38 bytes
+jwttool_40c7051b20974482daed49d9df48673d Injected kid claim - null-signed with kid="[path traversal]/dev/null" Response Code: 401, 38 bytes
+jwttool_2282e9d7e743dddc5361b5a1d4962221 Injected kid claim - null-signed with kid="/dev/null" Response Code: 401, 38 bytes
+jwttool_e308da05dd213d9788b0c5aa5c3aac26 Injected kid claim - null-signed with kid="/invalid_path" Response Code: 401, 38 bytes
+jwttool_3f4ba4a44ec5205c43970d4ca69a5532 Injected kid claim - RCE attempt - SLEEP 10 (did this request pause?) Response Code: 401, 38 bytes
+jwttool_33c0de74527ccb31eda9119348f5940c Injected kid claim - signed with secret = '1' from SQLi Response Code: 401, 38 bytes
+External service interactions not tested - enter listener URL into 'jwtconf.ini' to try this option
+Scanning mode completed: review the above results.
+
+The following additional checks should be performed that are better tested manually:
+[+] Try hunting for a Public Key for this token. Validate any JWKS you find (-V -jw [jwks_file]) and then use the generated Public Key file with the Playbook Scan (-pk [kid_from_jwks].pem)
+Common locations for Public Keys are either the web application's SSL key, or stored as a JWKS file in one of these locations:
+/oauth2/v1/keys
+/jwks.json
+/.well-known/jwks.json
+/.well-known/jwks_uri
+/.well-known/openid-configuration/jwks
+/openid/connect/jwks.json
+[+] Try waiting for the token to expire ("exp" value set to: 2026-09-30 07:47:16 (UTC))
+Check if still working once expired.
+
+LAUNCHING SCAN: Forced Errors
+jwttool_e1c5e21ea2b62c954d3c965cd1dfc89c Injected None into Header Claim: kid Response Code: 401, 38 bytes
+jwttool_6138b2d0c2878e988464d44e56d1a207 Injected None into Header Claim: alg Response Code: 401, 38 bytes
+jwttool_e111292ea586ffb747b25e8d8c43d10e Injected True into Header Claim: kid Response Code: 401, 38 bytes
+jwttool_8f17ab540c28b6ad108d3fca66d70dde Injected True into Header Claim: alg Response Code: 401, 38 bytes
+jwttool_de00c8cdb50c50440b13626a4cc93f56 Injected False into Header Claim: kid Response Code: 401, 38 bytes
+jwttool_2cb18ea7d1ef30172ce6e985364f341e Injected False into Header Claim: alg Response Code: 401, 38 bytes
+jwttool_a18ce56fc81c19c85abd8acc3fbc7593 Injected jwt_tool into Header Claim: kid Response Code: 401, 38 bytes
+jwttool_5b4f837563e65c2ce514b99fe453fb44 Injected jwt_tool into Header Claim: alg Response Code: 401, 38 bytes
+jwttool_8be1c8a2d83c292dd7fa3feda5b5c0c0 Injected 0 into Header Claim: kid Response Code: 401, 38 bytes
+jwttool_7f5de2b2a5493bad958e822a784f4efb Injected 0 into Header Claim: alg Response Code: 401, 38 bytes
+jwttool_dfc453781fa79d3de4975bcc3dc88da1 Injected None into Payload Claim: sub Response Code: 401, 38 bytes
+jwttool_3801a52ec0713be27c476a18f8d7db5b Injected None into Payload Claim: email_verified Response Code: 401, 38 bytes
+jwttool_27a3a49b90f7bbce2f21853875dc6609 Injected None into Payload Claim: iss Response Code: 401, 38 bytes
+jwttool_75a945a7ccf5a50b3ee8b61cdb9125ef Injected None into Payload Claim: phone_number_verified Response Code: 401, 38 bytes
+jwttool_7f6fc4b381934c8af545ae905a3f3689 Injected None into Payload Claim: cognito:username Response Code: 401, 38 bytes
+jwttool_732813c8f4b5d9d881a5be431338cfd1 Injected None into Payload Claim: preferred_username Response Code: 401, 38 bytes
+jwttool_9976044deb687f2ed76c3068d9e26ff9 Injected None into Payload Claim: given_name Response Code: 401, 38 bytes
+jwttool_37b16a5c13cc69b0e33965a5a4632ad6 Injected None into Payload Claim: origin_jti Response Code: 401, 38 bytes
+jwttool_e56509aab6d615ac190a66e17bc23e61 Injected None into Payload Claim: aud Response Code: 401, 38 bytes
+jwttool_a7354471b9ecd9488b2e59ec7ffe6350 Injected None into Payload Claim: event_id Response Code: 401, 38 bytes
+jwttool_534cbbfdc60c506a8ea41bacd96a956c Injected None into Payload Claim: token_use Response Code: 401, 38 bytes
+jwttool_a43be9ef17796e91529178db40e9d520 Injected None into Payload Claim: auth_time Response Code: 401, 38 bytes
+jwttool_cf2aeed0e039a82758176b4f16a1a4b1 Injected None into Payload Claim: name Response Code: 401, 38 bytes
+jwttool_7f4d7d00121f0297de7ede869e7ec474 Injected None into Payload Claim: phone_number Response Code: 401, 38 bytes
+jwttool_5745e27e3f31c7ed45a4623d54d76a8e Injected None into Payload Claim: exp Response Code: 401, 38 bytes
+jwttool_aa4c6d5a001bae1869322835c5ed5e2b Injected None into Payload Claim: iat Response Code: 401, 38 bytes
+jwttool_7d1b98d2a59779457a9f76cfa8b31bd6 Injected None into Payload Claim: family_name Response Code: 401, 38 bytes
+jwttool_43c3d69393dc7ac90c2c88b88d69334f Injected None into Payload Claim: jti Response Code: 401, 38 bytes
+jwttool_518538339a06daedbbcb0ef5bb755f18 Injected None into Payload Claim: email Response Code: 401, 38 bytes
+jwttool_d15a7383887c7c4ce5aae6bba85fb7c2 Injected True into Payload Claim: sub Response Code: 401, 38 bytes
+jwttool_6334e9d744b0d8ea48c0c942eb3a98e6 Injected True into Payload Claim: email_verified Response Code: 401, 38 bytes
+jwttool_1588a44bfe66893da2b5d80b3d94e357 Injected True into Payload Claim: iss Response Code: 401, 38 bytes
+jwttool_758e2bb61941ed2fefda133ff728d865 Injected True into Payload Claim: phone_number_verified Response Code: 401, 38 bytes
+jwttool_18d9794602c1091cd7c9af0a1835470d Injected True into Payload Claim: cognito:username Response Code: 401, 38 bytes
+jwttool_57513030bdb39a2c0789951e16447f5a Injected True into Payload Claim: preferred_username Response Code: 401, 38 bytes
+jwttool_19979bf9686f059dbeec4e5fb750bc14 Injected True into Payload Claim: given_name Response Code: 401, 38 bytes
+jwttool_3218cd93d734f6eaadfa2616ff821f74 Injected True into Payload Claim: origin_jti Response Code: 401, 38 bytes
+jwttool_721106f77c57112cbe64ac8b507d3547 Injected True into Payload Claim: aud Response Code: 401, 38 bytes
+jwttool_514667cd5140c45ee45f406c1f062033 Injected True into Payload Claim: event_id Response Code: 401, 38 bytes
+jwttool_c0def907da82f377b5fdc736f41345f3 Injected True into Payload Claim: token_use Response Code: 401, 38 bytes
+jwttool_2d42206043825f8f4cf7b87e8b31f55b Injected True into Payload Claim: auth_time Response Code: 401, 38 bytes
+jwttool_c81a68dca6618bbef66fae32c6f6035a Injected True into Payload Claim: name Response Code: 401, 38 bytes
+jwttool_64e16c23f6d18ffee8e0b4056e4cb1d2 Injected True into Payload Claim: phone_number Response Code: 401, 38 bytes
+jwttool_7b8df619975d787590133ed32acf6022 Injected True into Payload Claim: exp Response Code: 401, 38 bytes
+jwttool_a639bd0fd8b66bc64aeb1dc4d0c4f658 Injected True into Payload Claim: iat Response Code: 401, 38 bytes
+jwttool_fe19238be9dc00afddbbb811d60106b8 Injected True into Payload Claim: family_name Response Code: 401, 38 bytes
+jwttool_ca9d37e046ed803d780fd978e88d5ba2 Injected True into Payload Claim: jti Response Code: 401, 38 bytes
+jwttool_59893ccf30e998f1a7cdaee5195ce173 Injected True into Payload Claim: email Response Code: 401, 38 bytes
+jwttool_cde600fd2234aaa426f00ac0bc1cb934 Injected False into Payload Claim: sub Response Code: 401, 38 bytes
+jwttool_5c01b6616b64f6fe64637e606f0c1e21 Injected False into Payload Claim: email_verified Response Code: 401, 38 bytes
+jwttool_8d8470c22d43a093a6ad5694b130a8db Injected False into Payload Claim: iss Response Code: 401, 38 bytes
+jwttool_6334e9d744b0d8ea48c0c942eb3a98e6 Injected False into Payload Claim: phone_number_verified Response Code: 401, 38 bytes
+jwttool_32d6241359fd5d544957708f9b75c156 Injected False into Payload Claim: cognito:username Response Code: 401, 38 bytes
+jwttool_f262c9d0d5d8b1c9a489dd640f0e0699 Injected False into Payload Claim: preferred_username Response Code: 401, 38 bytes
+jwttool_d5e308ee82f4e8a8cea09cae76e11054 Injected False into Payload Claim: given_name Response Code: 401, 38 bytes
+jwttool_5189ed0dc00d408e5c2c61fff55df4c2 Injected False into Payload Claim: origin_jti Response Code: 401, 38 bytes
+jwttool_796831c97c52653cdfbc63a9bc00fe10 Injected False into Payload Claim: aud Response Code: 401, 38 bytes
+jwttool_8dbe03e35578fa47ee0bd7079074e259 Injected False into Payload Claim: event_id Response Code: 401, 38 bytes
+jwttool_ef2fc3c07d2b38d53eab3564db9fb906 Injected False into Payload Claim: token_use Response Code: 401, 38 bytes
+jwttool_1926fab85c3a0b376271b3fd318949f7 Injected False into Payload Claim: auth_time Response Code: 401, 38 bytes
+jwttool_2a19013484a41cef968efe7f6a5af133 Injected False into Payload Claim: name Response Code: 401, 38 bytes
+jwttool_8b6dbfd5c894b96cbac3b114a1f56dd2 Injected False into Payload Claim: phone_number Response Code: 401, 38 bytes
+jwttool_fddff9e3ec9aab60c46d9391c6bb41e6 Injected False into Payload Claim: exp Response Code: 401, 38 bytes
+jwttool_6e75302f56de01970060ea118bd09f46 Injected False into Payload Claim: iat Response Code: 401, 38 bytes
+jwttool_e9146c00c88b8aa81915fa163fc4d3e2 Injected False into Payload Claim: family_name Response Code: 401, 38 bytes
+jwttool_22a5669a896a395dda975ea903b7fcd0 Injected False into Payload Claim: jti Response Code: 401, 38 bytes
+jwttool_e743cec489f645b28778d61c512f4b78 Injected False into Payload Claim: email Response Code: 401, 38 bytes
+jwttool_3ae417fff7f6911adaf196c9c877be10 Injected jwt_tool into Payload Claim: sub Response Code: 401, 38 bytes
+jwttool_257db2cbd518d4d81031c8c74205f5b9 Injected jwt_tool into Payload Claim: email_verified Response Code: 401, 38 bytes
+jwttool_bb9bcf6458ebb70e7523c41309fe5571 Injected jwt_tool into Payload Claim: iss Response Code: 401, 38 bytes
+jwttool_796fd59b23715446e88183a0ac2b7cf6 Injected jwt_tool into Payload Claim: phone_number_verified Response Code: 401, 38 bytes
+jwttool_f2aa467e5e85a688e0aa890d869b4d68 Injected jwt_tool into Payload Claim: cognito:username Response Code: 401, 38 bytes
+jwttool_950a2a192a4dc440a6a50904adc8b699 Injected jwt_tool into Payload Claim: preferred_username Response Code: 401, 38 bytes
+jwttool_c6585ca95e351230c8c3da284a6f8299 Injected jwt_tool into Payload Claim: given_name Response Code: 401, 38 bytes
+jwttool_e2c89b4c99629dea6611f885ede75b9c Injected jwt_tool into Payload Claim: origin_jti Response Code: 401, 38 bytes
+jwttool_702721d935b5c8aead3f8ab67a7a77a8 Injected jwt_tool into Payload Claim: aud Response Code: 401, 38 bytes
+jwttool_9c2a1dd0b667df15e731e916b9d9b8aa Injected jwt_tool into Payload Claim: event_id Response Code: 401, 38 bytes
+jwttool_02c79d91bee101e15bc5f9e3e954799c Injected jwt_tool into Payload Claim: token_use Response Code: 401, 38 bytes
+jwttool_41a31f8c5ecd3db8cbfdc1c1bdec3ff6 Injected jwt_tool into Payload Claim: auth_time Response Code: 401, 38 bytes
+jwttool_adecff358a1814a8833ad58613406756 Injected jwt_tool into Payload Claim: name Response Code: 401, 38 bytes
+jwttool_17b431bef968d2c4e4346c1622afbc82 Injected jwt_tool into Payload Claim: phone_number Response Code: 401, 38 bytes
+jwttool_158c88d2c2b106f7aa12ad1c94b62705 Injected jwt_tool into Payload Claim: exp Response Code: 401, 38 bytes
+jwttool_8384510d0757e17c81def04b19e97c38 Injected jwt_tool into Payload Claim: iat Response Code: 401, 38 bytes
+jwttool_b920d60f9eac1c559177a37cf92e1d51 Injected jwt_tool into Payload Claim: family_name Response Code: 401, 38 bytes
+jwttool_dd81fcba12c1da53fc22c95b53d67344 Injected jwt_tool into Payload Claim: jti Response Code: 401, 38 bytes
+jwttool_8ec9d5e9c5624f3a84fadaa741d6e3b0 Injected jwt_tool into Payload Claim: email Response Code: 401, 38 bytes
+jwttool_73b2111e739544df6a34d0a064b7fbed Injected 0 into Payload Claim: sub Response Code: 401, 38 bytes
+jwttool_8ecc49d73c65137803888dc4254bc032 Injected 0 into Payload Claim: email_verified Response Code: 401, 38 bytes
+jwttool_cb2b3b0fbc183f9e96dfc2b0ec99300c Injected 0 into Payload Claim: iss Response Code: 401, 38 bytes
+jwttool_e9383a001ac6950715c21ae976ee2797 Injected 0 into Payload Claim: phone_number_verified Response Code: 401, 38 bytes
+jwttool_3eca4d03a2f3329ff2d29e86cd568ebd Injected 0 into Payload Claim: cognito:username Response Code: 401, 38 bytes
+jwttool_bdb882b22a501eddcf56eb9cf788eed5 Injected 0 into Payload Claim: preferred_username Response Code: 401, 38 bytes
+jwttool_ed87e6255c1875f29882051599425c49 Injected 0 into Payload Claim: given_name Response Code: 401, 38 bytes
+jwttool_1176486cd7c798816a0bdb09459a2431 Injected 0 into Payload Claim: origin_jti Response Code: 401, 38 bytes
+jwttool_f31d7a4873319295b3e5bb67c41f9e42 Injected 0 into Payload Claim: aud Response Code: 401, 38 bytes
+jwttool_046bd14062964173fee8317fc5f76f73 Injected 0 into Payload Claim: event_id Response Code: 401, 38 bytes
+jwttool_da608760b35375444ec1f6668668cb21 Injected 0 into Payload Claim: token_use Response Code: 401, 38 bytes
+jwttool_bf82ddfb42d7c6024dc705c16bfd59cd Injected 0 into Payload Claim: auth_time Response Code: 401, 38 bytes
+jwttool_474fcb27ba86579e466d7f7f3ff0e036 Injected 0 into Payload Claim: name Response Code: 401, 38 bytes
+jwttool_00a04e09c99afc7b9ba5ee33de153cb5 Injected 0 into Payload Claim: phone_number Response Code: 401, 38 bytes
+jwttool_984191c0cfef0ed71bdb66f28dae0ffc Injected 0 into Payload Claim: exp Response Code: 401, 38 bytes
+jwttool_4a419b550116c8b86f78f66af90bc3ad Injected 0 into Payload Claim: iat Response Code: 401, 38 bytes
+jwttool_a23fa1926cef886523fa3690c76bdb16 Injected 0 into Payload Claim: family_name Response Code: 401, 38 bytes
+jwttool_92461ab2a3ee41e243c6d32c818f964e Injected 0 into Payload Claim: jti Response Code: 401, 38 bytes
+jwttool_cec1173002d2f1f698f265661644782d Injected 0 into Payload Claim: email Response Code: 401, 38 bytes
+Scanning mode completed: review the above results.
+
+
+LAUNCHING SCAN: Common Claim Injection
+jwttool_8236ec0ccbd2c851a5aed976b3e1b57a Injected /inject_common_typ into Header Claim: typ Response Code: 401, 38 bytes
+jwttool_6582bc1f00a20efb98e88b233b97f3dc Injected /inject_common_jku into Header Claim: jku Response Code: 401, 38 bytes
+jwttool_7b355baad11f8c8bc603550c0485365a Injected /inject_common_kid into Header Claim: kid Response Code: 401, 38 bytes
+jwttool_2c83f05d91bc7b1822c6ea08f9f3062d Injected /inject_common_x5u into Header Claim: x5u Response Code: 401, 38 bytes
+jwttool_0af076d95cd0e1f2d61838df9fa4a2d0 Injected /inject_common_x5t into Header Claim: x5t Response Code: 401, 38 bytes
+jwttool_37640eb8f94cda1cb0036dbeb8b27231 Injected /inject_common_iss into Payload Claim: iss Response Code: 401, 38 bytes
+jwttool_e5458a2fa801d3dd60b52dfb0bc5bd04 Injected /inject_common_sub into Payload Claim: sub Response Code: 401, 38 bytes
+jwttool_cb957af819ebaf930dae57c7a5cc4b54 Injected /inject_common_aud into Payload Claim: aud Response Code: 401, 38 bytes
+jwttool_9bf034fdaaea6ae42de92e803b6a53bf Injected /inject_common_exp into Payload Claim: exp Response Code: 401, 38 bytes
+jwttool_dd774676044314e9c03ee6c7e3febfd3 Injected /inject_common_nbf into Payload Claim: nbf Response Code: 401, 38 bytes
+jwttool_cef290c712ab778a1684e045e1bd0738 Injected /inject_common_iat into Payload Claim: iat Response Code: 401, 38 bytes
+jwttool_2bbd7c09c4d9b0ab2bf7b8a5d95bffcd Injected /inject_common_jti into Payload Claim: jti Response Code: 401, 38 bytes
+jwttool_e8177af9618733faeae945f89f50aaee Injected /inject_common_name into Payload Claim: name Response Code: 401, 38 bytes
+jwttool_4613d32b3a0aed1f7c97dc666e64b664 Injected /inject_common_given_name into Payload Claim: given_name Response Code: 401, 38 bytes
+jwttool_4fc047646cfd0f1c2d63279f6c96ee5f Injected /inject_common_family_name into Payload Claim: family_name Response Code: 401, 38 bytes
+jwttool_ab50268a699c78c5178d9a114abeb504 Injected /inject_common_middle_name into Payload Claim: middle_name Response Code: 401, 38 bytes
+jwttool_09c425f02cc197e132ca38321b0ea549 Injected /inject_common_nickname into Payload Claim: nickname Response Code: 401, 38 bytes
+jwttool_644fe94d4e735b9683518e201be32d98 Injected /inject_common_preferred_username into Payload Claim: preferred_username Response Code: 401, 38 bytes
+jwttool_8233c89ab64e90181cc3bc64b59a9efd Injected /inject_common_profile into Payload Claim: profile Response Code: 401, 38 bytes
+jwttool_dbce9efea855747605fcb3269ea356f6 Injected /inject_common_picture into Payload Claim: picture Response Code: 401, 38 bytes
+jwttool_0a8c44302bc64d175502a5f1d0ad72a2 Injected /inject_common_website into Payload Claim: website Response Code: 401, 38 bytes
+jwttool_be659dd429ecf5fd6b5bf8cf7c743828 Injected /inject_common_email into Payload Claim: email Response Code: 401, 38 bytes
+jwttool_d06e610e78e4b295fb8efec63d62d4f2 Injected /inject_common_email_verified into Payload Claim: email_verified Response Code: 401, 38 bytes
+jwttool_1c13a5242a9c541eede3ca0f23c9f46d Injected /inject_common_gender into Payload Claim: gender Response Code: 401, 38 bytes
+jwttool_2087db72c1100ce5e680d6ca48b8a3ad Injected /inject_common_birthdate into Payload Claim: birthdate Response Code: 401, 38 bytes
+jwttool_f1d061b85691294fe83cb50388dc2460 Injected /inject_common_zoneinfo into Payload Claim: zoneinfo Response Code: 401, 38 bytes
+jwttool_8df9eb4b2c09af59957ecde22c346ed8 Injected /inject_common_locale into Payload Claim: locale Response Code: 401, 38 bytes
+jwttool_0f51c11244a4a4836e8ea9f2e7ecc47a Injected /inject_common_phone_number into Payload Claim: phone_number Response Code: 401, 38 bytes
+jwttool_ea2689ef05c40e5e4bfaaaa6f8ee0350 Injected /inject_common_phone_number_verified into Payload Claim: phone_number_verified Response Code: 401, 38 bytes
+jwttool_5dfce617d7fa62ebf701e0d8b57099d3 Injected /inject_common_address into Payload Claim: address Response Code: 401, 38 bytes
+jwttool_cfae323d035c28062cec77682668b475 Injected /inject_common_updated_at into Payload Claim: updated_at Response Code: 401, 38 bytes
+jwttool_3a11e433c0cd6f02888181cebc99e39d Injected /inject_common_azp into Payload Claim: azp Response Code: 401, 38 bytes
+jwttool_37735e506c04ef1d07ad93088ac719f8 Injected /inject_common_nonce into Payload Claim: nonce Response Code: 401, 38 bytes
+jwttool_440fe560a62ec3af27e6ca5dc9f3d34f Injected /inject_common_auth_time into Payload Claim: auth_time Response Code: 401, 38 bytes
+jwttool_7f6365deae0f95ec79cf73a14f779c91 Injected /inject_common_at_hash into Payload Claim: at_hash Response Code: 401, 38 bytes
+jwttool_41cc8adf777640d2551602b85dab525f Injected /inject_common_c_hash into Payload Claim: c_hash Response Code: 401, 38 bytes
+jwttool_40257d4ebf310a08fb0cceda8ae4807c Injected /inject_common_acr into Payload Claim: acr Response Code: 401, 38 bytes
+jwttool_103fdc7ab9e40955af5367c9ff811709 Injected /inject_common_amr into Payload Claim: amr Response Code: 401, 38 bytes
+jwttool_1c976bfa038ef815b7566b8d9b92df7b Injected /inject_common_sub_jwk into Payload Claim: sub_jwk Response Code: 401, 38 bytes
+jwttool_9279fa136d10a46bb4ea2b99b742eb7d Injected /inject_common_cnf into Payload Claim: cnf Response Code: 401, 38 bytes
+jwttool_218f1df5c907f5aa81ccaf1d0d19d87f Injected /inject_common_sip_from_tag into Payload Claim: sip_from_tag Response Code: 401, 38 bytes
+jwttool_1c2c8055ff1795a6062ea6122f4854f9 Injected /inject_common_sip_date into Payload Claim: sip_date Response Code: 401, 38 bytes
+jwttool_6a2ecf0a2fdb8d0bff67bec2aa9be391 Injected /inject_common_sip_callid into Payload Claim: sip_callid Response Code: 401, 38 bytes
+jwttool_7bde76dcbb6af706c6e16ab7c449b385 Injected /inject_common_sip_cseq_num into Payload Claim: sip_cseq_num Response Code: 401, 38 bytes
+jwttool_efca600ea074c2ac3123387a25969065 Injected /inject_common_sip_via_branch into Payload Claim: sip_via_branch Response Code: 401, 38 bytes
+jwttool_d0a572644a102108be9ed117f855cff9 Injected /inject_common_orig into Payload Claim: orig Response Code: 401, 38 bytes
+jwttool_beaecf279f6f8777bf032bea31c490f7 Injected /inject_common_dest into Payload Claim: dest Response Code: 401, 38 bytes
+jwttool_a62723bfcc8c933c3c9df072651665be Injected /inject_common_mky into Payload Claim: mky Response Code: 401, 38 bytes
+jwttool_0e560984d5526a870dcd4cb4860b08d5 Injected /inject_common_events into Payload Claim: events Response Code: 401, 38 bytes
+jwttool_4a03456adc412263692a254855395b98 Injected /inject_common_toe into Payload Claim: toe Response Code: 401, 38 bytes
+jwttool_f11f3d0b3802e73b37b9cbca09455dbf Injected /inject_common_txn into Payload Claim: txn Response Code: 401, 38 bytes
+jwttool_634885aadf33da1b5aa2134d75746a9b Injected /inject_common_rph into Payload Claim: rph Response Code: 401, 38 bytes
+jwttool_6d337183b986b8e197c40e1ede6007f2 Injected /inject_common_sid into Payload Claim: sid Response Code: 401, 38 bytes
+jwttool_cecc7ff076c446603e60ede032111de3 Injected /inject_common_vot into Payload Claim: vot Response Code: 401, 38 bytes
+jwttool_34beee88738654bcce32559d38ed2255 Injected /inject_common_vtm into Payload Claim: vtm Response Code: 401, 38 bytes
+jwttool_b84ea0e4c01a82d8c7488058ac219201 Injected /inject_common_attest into Payload Claim: attest Response Code: 401, 38 bytes
+jwttool_321d831fceddfc636816dbf7a7b17cdc Injected /inject_common_origid into Payload Claim: origid Response Code: 401, 38 bytes
+jwttool_6002820df01aed4d68e908e481cbc4e6 Injected /inject_common_act into Payload Claim: act Response Code: 401, 38 bytes
+jwttool_45d49f1bfc4923e3025d76450b94137c Injected /inject_common_scope into Payload Claim: scope Response Code: 401, 38 bytes
+jwttool_6b2b7b2ef9a61c197bd482aa80300ab1 Injected /inject_common_client_id into Payload Claim: client_id Response Code: 401, 38 bytes
+jwttool_092d3123f98ae5e3edc9140c9fdad4df Injected /inject_common_may_act into Payload Claim: may_act Response Code: 401, 38 bytes
+jwttool_9134140eed698042081b1187ca3b7c60 Injected /inject_common_jcard into Payload Claim: jcard Response Code: 401, 38 bytes
+jwttool_503981775f1f22fa795893e5959ce93e Injected /inject_common_at_use_nbr into Payload Claim: at_use_nbr Response Code: 401, 38 bytes
+jwttool_fdbb88844bfac8d3446b307cff9baa1c Injected /inject_common_div into Payload Claim: div Response Code: 401, 38 bytes
+jwttool_ca4c1fd9e16f9da7582327172edafff4 Injected /inject_common_opt into Payload Claim: opt Response Code: 401, 38 bytes
+jwttool_d471532cc3a00ce4a8dc978261de4dee Injected None into Common Header Claim: typ Response Code: 401, 38 bytes
+jwttool_ccabfb5ea5c4a9399a8f226fe1163696 Injected None into Common Header Claim: jku Response Code: 401, 38 bytes
+jwttool_fcb885f2300a4c45eb2ed3b793f56dff Injected None into Common Header Claim: kid Response Code: 401, 38 bytes
+jwttool_182bcec6f9e8cac98be23d7cdb43b623 Injected None into Common Header Claim: x5u Response Code: 401, 38 bytes
+jwttool_545131ee49edef1807637205274eceb5 Injected None into Common Header Claim: x5t Response Code: 401, 38 bytes
+jwttool_de8e3368a013812b07c0616f0cb41b78 Injected None into Common Payload Claim: iss Response Code: 401, 38 bytes
+jwttool_bc92e3c3df80b550ec8460c0214e74c3 Injected None into Common Payload Claim: sub Response Code: 401, 38 bytes
+jwttool_ff3c09d02c574a7eda100d40711895cf Injected None into Common Payload Claim: aud Response Code: 401, 38 bytes
+jwttool_4cec953b101ca0169da5f516831898be Injected None into Common Payload Claim: exp Response Code: 401, 38 bytes
+jwttool_3e4340b0a4a49016945518240ec812e6 Injected None into Common Payload Claim: nbf Response Code: 401, 38 bytes
+jwttool_1dbfb7bea1b5228b8146a1cdcbd55e54 Injected None into Common Payload Claim: iat Response Code: 401, 38 bytes
+jwttool_25bb3c0713ad2b671817b43c9d5e24a4 Injected None into Common Payload Claim: jti Response Code: 401, 38 bytes
+jwttool_75ac7186bc1b50768919687a2233ef49 Injected None into Common Payload Claim: name Response Code: 401, 38 bytes
+jwttool_954ad79ed87ccebf2a11539c97224bcf Injected None into Common Payload Claim: given_name Response Code: 401, 38 bytes
+jwttool_b54f4f7bdd0421312cbae5a753dc4c4a Injected None into Common Payload Claim: family_name Response Code: 401, 38 bytes
+jwttool_acbf4f5a6ac6b05ed46b191b904dbe0c Injected None into Common Payload Claim: middle_name Response Code: 401, 38 bytes
+jwttool_1158556792c479551e3bca72b6163df2 Injected None into Common Payload Claim: nickname Response Code: 401, 38 bytes
+jwttool_a80f6a3b6e1f6be59b760d49f6071693 Injected None into Common Payload Claim: preferred_username Response Code: 401, 38 bytes
+jwttool_c89723f63bdaa21b2df95bc1965116b4 Injected None into Common Payload Claim: profile Response Code: 401, 38 bytes
+jwttool_9ea1f0e17f97a6b06d610a30d09aff69 Injected None into Common Payload Claim: picture Response Code: 401, 38 bytes
+jwttool_39fae5a5665120d017d1587ce5b28b23 Injected None into Common Payload Claim: website Response Code: 401, 38 bytes
+jwttool_38ed1137da426f7a3d3060e2f5c127e5 Injected None into Common Payload Claim: email Response Code: 401, 38 bytes
+jwttool_b8f60d2ba6eee23fab28db7a0cb599fc Injected None into Common Payload Claim: email_verified Response Code: 401, 38 bytes
+jwttool_1a636089396df15ce3d5e3dbe6b48545 Injected None into Common Payload Claim: gender Response Code: 401, 38 bytes
+jwttool_ee0510659f49ed487ee568d260ca1fea Injected None into Common Payload Claim: birthdate Response Code: 401, 38 bytes
+jwttool_e57c4d716f9d6a1a969f3851889af905 Injected None into Common Payload Claim: zoneinfo Response Code: 401, 38 bytes
+jwttool_15446f61e934f4e3d207a0c68a187ab2 Injected None into Common Payload Claim: locale Response Code: 401, 38 bytes
+jwttool_fac1aec970d898e02cbd3c48bb9ed973 Injected None into Common Payload Claim: phone_number Response Code: 401, 38 bytes
+jwttool_5ddf4bb2668e4caa83449f8ab5388009 Injected None into Common Payload Claim: phone_number_verified Response Code: 401, 38 bytes
+jwttool_23871a1c3693cf122f9bd5d46011b581 Injected None into Common Payload Claim: address Response Code: 401, 38 bytes
+jwttool_c638ad87b28290bdd6fc40a44c4f5d83 Injected None into Common Payload Claim: updated_at Response Code: 401, 38 bytes
+jwttool_9f478d4a619978961a8e3cd94ac8cd03 Injected None into Common Payload Claim: azp Response Code: 401, 38 bytes
+jwttool_060d261777108a274775bc9c9a3419e7 Injected None into Common Payload Claim: nonce Response Code: 401, 38 bytes
+jwttool_5d86a2781e22daffef58632dfa3711a4 Injected None into Common Payload Claim: auth_time Response Code: 401, 38 bytes
+jwttool_b996b81fa72d7bfd158ad87789e346be Injected None into Common Payload Claim: at_hash Response Code: 401, 38 bytes
+jwttool_b5fe9ddf187004036eab8b4cd8e9b12b Injected None into Common Payload Claim: c_hash Response Code: 401, 38 bytes
+jwttool_8f1d824449d2cd097bc8fe4613f093fe Injected None into Common Payload Claim: acr Response Code: 401, 38 bytes
+jwttool_14e24d67e4bf4c0c3d77c8c94121a53d Injected None into Common Payload Claim: amr Response Code: 401, 38 bytes
+jwttool_e24c0635643f9b5aac19fb75496698e5 Injected None into Common Payload Claim: sub_jwk Response Code: 401, 38 bytes
+jwttool_8655b233ab5888379cf9f9cd6a84f2e6 Injected None into Common Payload Claim: cnf Response Code: 401, 38 bytes
+jwttool_7de218b13bf36a10748ead0e51c80c70 Injected None into Common Payload Claim: sip_from_tag Response Code: 401, 38 bytes
+jwttool_f1bdd4d380009a7874cd704474494116 Injected None into Common Payload Claim: sip_date Response Code: 401, 38 bytes
+jwttool_67fd8791f96cffaabe5bf492f6cb9bd6 Injected None into Common Payload Claim: sip_callid Response Code: 401, 38 bytes
+jwttool_d2c0b5328583ca6147092f6b8548545a Injected None into Common Payload Claim: sip_cseq_num Response Code: 401, 38 bytes
+jwttool_199f8b36a9ef7c8a5478012f9f59237c Injected None into Common Payload Claim: sip_via_branch Response Code: 401, 38 bytes
+jwttool_09c270842c885a3c044637a048db4db3 Injected None into Common Payload Claim: orig Response Code: 401, 38 bytes
+jwttool_7b854d537f28e994fed13cba144f0033 Injected None into Common Payload Claim: dest Response Code: 401, 38 bytes
+jwttool_0a9fbb1b28a6332d9c7bdf85530ae006 Injected None into Common Payload Claim: mky Response Code: 401, 38 bytes
+jwttool_4f54386444c6558c66a4f3d5cf22291b Injected None into Common Payload Claim: events Response Code: 401, 38 bytes
+jwttool_c9cbb9d35b5c95e076ed678fb22e8d50 Injected None into Common Payload Claim: toe Response Code: 401, 38 bytes
+jwttool_fc11f11680b3a93944237fb9b6b68c59 Injected None into Common Payload Claim: txn Response Code: 401, 38 bytes
+jwttool_c937c50e9d9aa1e3d2d1a8b836140b96 Injected None into Common Payload Claim: rph Response Code: 401, 38 bytes
+jwttool_4f591cbf28d151b5a98e1f90ea5c39bd Injected None into Common Payload Claim: sid Response Code: 401, 38 bytes
+jwttool_999b8d19932f11994d0250084397b75a Injected None into Common Payload Claim: vot Response Code: 401, 38 bytes
+jwttool_765348a420f992067b915781c0a08576 Injected None into Common Payload Claim: vtm Response Code: 401, 38 bytes
+jwttool_900863f3d2dff5f2bd9a823359b25f16 Injected None into Common Payload Claim: attest Response Code: 401, 38 bytes
+jwttool_fef6734ea65161ae67a2af0cc9de789e Injected None into Common Payload Claim: origid Response Code: 401, 38 bytes
+jwttool_88d9f2de6e566457e49172753b7c4d67 Injected None into Common Payload Claim: act Response Code: 401, 38 bytes
+jwttool_9c156793dc6279034ae1a4dd7949b19d Injected None into Common Payload Claim: scope Response Code: 401, 38 bytes
+jwttool_b1958a32c687155857589947d7f1897c Injected None into Common Payload Claim: client_id Response Code: 401, 38 bytes
+jwttool_84fe3f0c7d4117987121daba5537e119 Injected None into Common Payload Claim: may_act Response Code: 401, 38 bytes
+jwttool_44fa893a4b1b6b97bee8cafebf65b20c Injected None into Common Payload Claim: jcard Response Code: 401, 38 bytes
+jwttool_d02cd40fe1f0bc92911ccfa8276b32c8 Injected None into Common Payload Claim: at_use_nbr Response Code: 401, 38 bytes
+jwttool_7e0e7268177ccc89edfb3b04b6ddf2db Injected None into Common Payload Claim: div Response Code: 401, 38 bytes
+jwttool_d5fbb786c1f08e22c11e7f25ab9adb54 Injected None into Common Payload Claim: opt Response Code: 401, 38 bytes
+jwttool_6fdc4af8aad8c82e7977552221ea72ef Injected True into Common Header Claim: typ Response Code: 401, 38 bytes
+jwttool_e4968a057a873216510bb39a3d06b960 Injected True into Common Header Claim: jku Response Code: 401, 38 bytes
+jwttool_a4a3bbdac75933769ec8c1cad93c5be4 Injected True into Common Header Claim: kid Response Code: 401, 38 bytes
+jwttool_94aec61f711366d45a315abb21192abd Injected True into Common Header Claim: x5u Response Code: 401, 38 bytes
+jwttool_e0a0aab2d070480d8a66019d87583031 Injected True into Common Header Claim: x5t Response Code: 401, 38 bytes
+jwttool_afd3f1a29d2c2ed4b76d90b562c2faa8 Injected True into Common Payload Claim: iss Response Code: 401, 38 bytes
+jwttool_4c07927160c35862923c98befa6e38f8 Injected True into Common Payload Claim: sub Response Code: 401, 38 bytes
+jwttool_4318fa9a7a5ac9acf67a74aa675c2e25 Injected True into Common Payload Claim: aud Response Code: 401, 38 bytes
+jwttool_46b6f243fb0942f18488cf14af58e34c Injected True into Common Payload Claim: exp Response Code: 401, 38 bytes
+jwttool_bc7db9a7319d1cad4909e346d30e1adf Injected True into Common Payload Claim: nbf Response Code: 401, 38 bytes
+jwttool_8c4c7803e4bb7aca8d6923fa12d47bdb Injected True into Common Payload Claim: iat Response Code: 401, 38 bytes
+jwttool_40188954417d3812adf22c997ca94d56 Injected True into Common Payload Claim: jti Response Code: 401, 38 bytes
+jwttool_acad840fd60a50605bc7baab9544d55d Injected True into Common Payload Claim: name Response Code: 401, 38 bytes
+jwttool_770937a0126d296cc3de0ce04db29cbe Injected True into Common Payload Claim: given_name Response Code: 401, 38 bytes
+jwttool_271655db677f7471b078cfc34821ce6e Injected True into Common Payload Claim: family_name Response Code: 401, 38 bytes
+jwttool_8598c8be13ae0e0c5907f9d3b17d332e Injected True into Common Payload Claim: middle_name Response Code: 401, 38 bytes
+jwttool_5aef3223884c4af706f4a6b3fc79fb9d Injected True into Common Payload Claim: nickname Response Code: 401, 38 bytes
+jwttool_af1da48014550b1b3533555f2e9d11df Injected True into Common Payload Claim: preferred_username Response Code: 401, 38 bytes
+jwttool_771362c09649e5e2e5dc33b5cb5bec6b Injected True into Common Payload Claim: profile Response Code: 401, 38 bytes
+jwttool_1407861222720d7496c38348ff0fad3d Injected True into Common Payload Claim: picture Response Code: 401, 38 bytes
+jwttool_6d42add76ee6fc40ac05fe19bd3601c4 Injected True into Common Payload Claim: website Response Code: 401, 38 bytes
+jwttool_cefd755cacf1d655fd5ed72d230b830d Injected True into Common Payload Claim: email Response Code: 401, 38 bytes
+jwttool_f801e1c65110baaaa548510d25afc79d Injected True into Common Payload Claim: email_verified Response Code: 401, 38 bytes
+jwttool_404b67e012b3d7318bfa48d13e1672dc Injected True into Common Payload Claim: gender Response Code: 401, 38 bytes
+jwttool_e85226485505e3b5ddf6b429e337599f Injected True into Common Payload Claim: birthdate Response Code: 401, 38 bytes
+jwttool_09eb30114d21d79def4a31a2b770911e Injected True into Common Payload Claim: zoneinfo Response Code: 401, 38 bytes
+jwttool_38dfe2885b22329bae2ac64edd773fe2 Injected True into Common Payload Claim: locale Response Code: 401, 38 bytes
+jwttool_f36c6711038b40ee5517b396d55dc04b Injected True into Common Payload Claim: phone_number Response Code: 401, 38 bytes
+jwttool_bd6b8458cdb3bef6a89f01f081b09f31 Injected True into Common Payload Claim: phone_number_verified Response Code: 401, 38 bytes
+jwttool_d01fe077e51b649bb35c42c78a8f19e4 Injected True into Common Payload Claim: address Response Code: 401, 38 bytes
+jwttool_ff7059bbaf75d1a4573c3f4597625356 Injected True into Common Payload Claim: updated_at Response Code: 401, 38 bytes
+jwttool_629665014bcdf2371a0935de2808f036 Injected True into Common Payload Claim: azp Response Code: 401, 38 bytes
+jwttool_cfa7a1a2e48510517fa67e5a1fa70f23 Injected True into Common Payload Claim: nonce Response Code: 401, 38 bytes
+jwttool_041027a4970844f858b80189eb55467d Injected True into Common Payload Claim: auth_time Response Code: 401, 38 bytes
+jwttool_f241243267f16dabd8c408b5c3254881 Injected True into Common Payload Claim: at_hash Response Code: 401, 38 bytes
+jwttool_043f85c5fac4eb11f74fd3562b5c4c73 Injected True into Common Payload Claim: c_hash Response Code: 401, 38 bytes
+jwttool_4d4b59ae65084afd192b73fed8fc96c3 Injected True into Common Payload Claim: acr Response Code: 401, 38 bytes
+jwttool_9e97f7edfe29d187a08983ba0c0fe305 Injected True into Common Payload Claim: amr Response Code: 401, 38 bytes
+jwttool_1f18c07df2e99686519a052c83ca9336 Injected True into Common Payload Claim: sub_jwk Response Code: 401, 38 bytes
+jwttool_04a366f299f11a101c047eab3404b726 Injected True into Common Payload Claim: cnf Response Code: 401, 38 bytes
+jwttool_bed152ed0e379a7d2b1e311027265dca Injected True into Common Payload Claim: sip_from_tag Response Code: 401, 38 bytes
+jwttool_a218802a1230067953e5e7a9a229c0ba Injected True into Common Payload Claim: sip_date Response Code: 401, 38 bytes
+jwttool_3be3dc4a146ae98891a40ac690cf3e7a Injected True into Common Payload Claim: sip_callid Response Code: 401, 38 bytes
+jwttool_4f18cac778b750894414fa1fdd2fe65f Injected True into Common Payload Claim: sip_cseq_num Response Code: 401, 38 bytes
+jwttool_ab8d615c8b39e31a0f8ebbda148399bf Injected True into Common Payload Claim: sip_via_branch Response Code: 401, 38 bytes
+jwttool_352444364bc1625ce4b18285b1c1f4a6 Injected True into Common Payload Claim: orig Response Code: 401, 38 bytes
+jwttool_38535d3219bc8909677d6bc691d82874 Injected True into Common Payload Claim: dest Response Code: 401, 38 bytes
+jwttool_f12024d8211af82799b7bfdb4d826b8e Injected True into Common Payload Claim: mky Response Code: 401, 38 bytes
+jwttool_9eac65beadd06fc4c071ac0375a0ec0c Injected True into Common Payload Claim: events Response Code: 401, 38 bytes
+jwttool_b1174ee405c2745044b46e225993c34c Injected True into Common Payload Claim: toe Response Code: 401, 38 bytes
+jwttool_d13ba99258572cfbbad8ed068fccda86 Injected True into Common Payload Claim: txn Response Code: 401, 38 bytes
+jwttool_4615405e785865125a6cb2ac43087fb4 Injected True into Common Payload Claim: rph Response Code: 401, 38 bytes
+jwttool_939848a71198d62d793246f59744db9b Injected True into Common Payload Claim: sid Response Code: 401, 38 bytes
+jwttool_cf9dcdbdbf63656ecb1d735873403e0d Injected True into Common Payload Claim: vot Response Code: 401, 38 bytes
+jwttool_64d78360ada7cf36c3ba64d3d23d13df Injected True into Common Payload Claim: vtm Response Code: 401, 38 bytes
+jwttool_362d3fe2e4363f5dbd68bbcc22b4ccce Injected True into Common Payload Claim: attest Response Code: 401, 38 bytes
+jwttool_bd1e60c368a80d9c2eb99f2572d0636a Injected True into Common Payload Claim: origid Response Code: 401, 38 bytes
+jwttool_30d9ea1b40a5b224d9ca7bb4ac608646 Injected True into Common Payload Claim: act Response Code: 401, 38 bytes
+jwttool_f77ee6520b35f1d9c2c78dc58c330b66 Injected True into Common Payload Claim: scope Response Code: 401, 38 bytes
+jwttool_3eb82b7fc6a3753876419543e3747af2 Injected True into Common Payload Claim: client_id Response Code: 401, 38 bytes
+jwttool_23e5afaed742dfc3f472226f6aa41951 Injected True into Common Payload Claim: may_act Response Code: 401, 38 bytes
+jwttool_1fb55cbdc1e1660891470cf77eeaa038 Injected True into Common Payload Claim: jcard Response Code: 401, 38 bytes
+jwttool_ef8188d75821dc5b66af8aba5d8dad4c Injected True into Common Payload Claim: at_use_nbr Response Code: 401, 38 bytes
+jwttool_1413b118c463edb7c9bb1cd585ddd788 Injected True into Common Payload Claim: div Response Code: 401, 38 bytes
+jwttool_59f9ec0938d2218bb0f0c1619b3a8b52 Injected True into Common Payload Claim: opt Response Code: 401, 38 bytes
+jwttool_21fe5e274b2c27a05bea8786c45c3a20 Injected False into Common Header Claim: typ Response Code: 401, 38 bytes
+jwttool_e4841ae60399dc097ce7ad3c023eb4b1 Injected False into Common Header Claim: jku Response Code: 401, 38 bytes
+jwttool_d8a00a711c9c4941b4a756e052412c59 Injected False into Common Header Claim: kid Response Code: 401, 38 bytes
+jwttool_a670d86815e849af54888a5a1dc4412a Injected False into Common Header Claim: x5u Response Code: 401, 38 bytes
+jwttool_8c7631d9771fe82889ee6c22d53d9192 Injected False into Common Header Claim: x5t Response Code: 401, 38 bytes
+jwttool_c2073adfc6d18a584a44bfc7b9ba11d9 Injected False into Common Payload Claim: iss Response Code: 401, 38 bytes
+jwttool_fa2aa71b0426705da0988db359d9845c Injected False into Common Payload Claim: sub Response Code: 401, 38 bytes
+jwttool_ad9c5214439a76ceef695e02f6f0593b Injected False into Common Payload Claim: aud Response Code: 401, 38 bytes
+jwttool_605f60acdf5a9095ec49b3a18f517d74 Injected False into Common Payload Claim: exp Response Code: 401, 38 bytes
+jwttool_9e18b85a2116c389d5ab5d2df3f69305 Injected False into Common Payload Claim: nbf Response Code: 401, 38 bytes
+jwttool_644442ffd4d299709768fccf3e25a7b3 Injected False into Common Payload Claim: iat Response Code: 401, 38 bytes
+jwttool_7dd21ed56e199312eced835530a1bcd6 Injected False into Common Payload Claim: jti Response Code: 401, 38 bytes
+jwttool_72fb30d6486ba5509aa0149ef9fc49fc Injected False into Common Payload Claim: name Response Code: 401, 38 bytes
+jwttool_0220e8fc0c61ed42ef5d3dcfba5ff99c Injected False into Common Payload Claim: given_name Response Code: 401, 38 bytes
+jwttool_0526d4c5fbaed07f0a8a34df9e2ff3bf Injected False into Common Payload Claim: family_name Response Code: 401, 38 bytes
+jwttool_a1d9f98de56d27e65e236320c9760b07 Injected False into Common Payload Claim: middle_name Response Code: 401, 38 bytes
+jwttool_052cd727e036798b859fd95f915296bf Injected False into Common Payload Claim: nickname Response Code: 401, 38 bytes
+jwttool_69a9065ad0b27dab3989dcc41efde26c Injected False into Common Payload Claim: preferred_username Response Code: 401, 38 bytes
+jwttool_80a35efa4e1e2e48be3c6cd13d75eb55 Injected False into Common Payload Claim: profile Response Code: 401, 38 bytes
+jwttool_559bd48ecfac10ee544fb50c4945f6e5 Injected False into Common Payload Claim: picture Response Code: 401, 38 bytes
+jwttool_fb3d4bcae31d58ed6efa6212f5191050 Injected False into Common Payload Claim: website Response Code: 401, 38 bytes
+jwttool_06ffc591d2eeace9895a0fe55f51e183 Injected False into Common Payload Claim: email Response Code: 401, 38 bytes
+jwttool_771af1dbb80c81f1d866e3dfdee0ba11 Injected False into Common Payload Claim: email_verified Response Code: 401, 38 bytes
+jwttool_d27c174fbdf096b0e5e089cce5b492fc Injected False into Common Payload Claim: gender Response Code: 401, 38 bytes
+jwttool_93c957437b5ee29dc48c1866b06dc783 Injected False into Common Payload Claim: birthdate Response Code: 401, 38 bytes
+jwttool_4971b4f657bc5b17fc17eef4ebd8f975 Injected False into Common Payload Claim: zoneinfo Response Code: 401, 38 bytes
+jwttool_587649e2fa5fd7ec2b0fa2aa2d426070 Injected False into Common Payload Claim: locale Response Code: 401, 38 bytes
+jwttool_eab869fc058d3717880df792a2811fa7 Injected False into Common Payload Claim: phone_number Response Code: 401, 38 bytes
+jwttool_f801e1c65110baaaa548510d25afc79d Injected False into Common Payload Claim: phone_number_verified Response Code: 401, 38 bytes
+jwttool_c73759e5fa60c59c7aac2287b884d6e4 Injected False into Common Payload Claim: address Response Code: 401, 38 bytes
+jwttool_66a7f6d2222d4ff2c4a579a41539c814 Injected False into Common Payload Claim: updated_at Response Code: 401, 38 bytes
+jwttool_abb9c360457ee3422961c912bb9b7a5b Injected False into Common Payload Claim: azp Response Code: 401, 38 bytes
+jwttool_4f6648350c0858fbe970d01a50d2fe81 Injected False into Common Payload Claim: nonce Response Code: 401, 38 bytes
+jwttool_5252f38fcbfbba848e85ebf3c967c288 Injected False into Common Payload Claim: auth_time Response Code: 401, 38 bytes
+jwttool_4eb251da53bc5f8a3231239058db8d9f Injected False into Common Payload Claim: at_hash Response Code: 401, 38 bytes
+jwttool_efad81af388f431403580a08053baa96 Injected False into Common Payload Claim: c_hash Response Code: 401, 38 bytes
+jwttool_b1fdeed2c5aa8be48ef2ebd51befb84a Injected False into Common Payload Claim: acr Response Code: 401, 38 bytes
+jwttool_4e5e4409181eab7d2a4e3dc4bae3c4fd Injected False into Common Payload Claim: amr Response Code: 401, 38 bytes
+jwttool_2152e97edeeb8d267808a0377d29b074 Injected False into Common Payload Claim: sub_jwk Response Code: 401, 38 bytes
+jwttool_26a3bbd67ea4b8b827fd11eec7e7237f Injected False into Common Payload Claim: cnf Response Code: 401, 38 bytes
+jwttool_17de31dff49afdd9ddc7d25306e165e2 Injected False into Common Payload Claim: sip_from_tag Response Code: 401, 38 bytes
+jwttool_367c02cea43aed370b2764d04b58ac1e Injected False into Common Payload Claim: sip_date Response Code: 401, 38 bytes
+jwttool_9619c23ef59e25bb327c886333bbc083 Injected False into Common Payload Claim: sip_callid Response Code: 401, 38 bytes
+jwttool_baab89ef1e4d4e047b1d9678f9af3224 Injected False into Common Payload Claim: sip_cseq_num Response Code: 401, 38 bytes
+jwttool_105d9a4e05a4de244967d090cb4f3e58 Injected False into Common Payload Claim: sip_via_branch Response Code: 401, 38 bytes
+jwttool_d683577ab3f23679b5a4113cf16ef91e Injected False into Common Payload Claim: orig Response Code: 401, 38 bytes
+jwttool_97e147be3f77b20caa640640c6d5d8ff Injected False into Common Payload Claim: dest Response Code: 401, 38 bytes
+jwttool_146a90f1e8e9b98654d33432be1a95ee Injected False into Common Payload Claim: mky Response Code: 401, 38 bytes
+jwttool_c139409c99f2d255bf4c0abac6a25a34 Injected False into Common Payload Claim: events Response Code: 401, 38 bytes
+jwttool_f6329dcc50b9480b647b3af7ae35e284 Injected False into Common Payload Claim: toe Response Code: 401, 38 bytes
+jwttool_a6eea60e399793672c7f20a49caccb55 Injected False into Common Payload Claim: txn Response Code: 401, 38 bytes
+jwttool_b9b03eafeb8bfd6b309c2791accdc402 Injected False into Common Payload Claim: rph Response Code: 401, 38 bytes
+jwttool_55ea7a2d36b01d5fd4b377b77c2bbca7 Injected False into Common Payload Claim: sid Response Code: 401, 38 bytes
+jwttool_f4ef2452cae21b9c32e121aafdb0c815 Injected False into Common Payload Claim: vot Response Code: 401, 38 bytes
+jwttool_e1223bb44c1f64ecd5766ef3be524549 Injected False into Common Payload Claim: vtm Response Code: 401, 38 bytes
+jwttool_f2d1f57502c10c12a83ae1d89885a453 Injected False into Common Payload Claim: attest Response Code: 401, 38 bytes
+jwttool_3e9a84a472ee07983e938871df55d164 Injected False into Common Payload Claim: origid Response Code: 401, 38 bytes
+jwttool_ff0f600f0a79f111512cde64a8bc2c2a Injected False into Common Payload Claim: act Response Code: 401, 38 bytes
+jwttool_7f57cacae9a9e5b391fe45c4b479ff46 Injected False into Common Payload Claim: scope Response Code: 401, 38 bytes
+jwttool_e0f98a11124193d88a9de8090c4927f7 Injected False into Common Payload Claim: client_id Response Code: 401, 38 bytes
+jwttool_cc1187b935039833c8218b39647cf8bc Injected False into Common Payload Claim: may_act Response Code: 401, 38 bytes
+jwttool_94503f00983eda291233323b3ac4ba67 Injected False into Common Payload Claim: jcard Response Code: 401, 38 bytes
+jwttool_831bfadac65baaac494d762b95c60994 Injected False into Common Payload Claim: at_use_nbr Response Code: 401, 38 bytes
+jwttool_087436f5785a0c2edc2e7247c6f79257 Injected False into Common Payload Claim: div Response Code: 401, 38 bytes
+jwttool_88a9398d8a0a62df040823c457539674 Injected False into Common Payload Claim: opt Response Code: 401, 38 bytes
+jwttool_5fc5c0f3e65c877b36f96f2cbd472e98 Injected jwt_tool into Common Header Claim: typ Response Code: 401, 38 bytes
+jwttool_b9224857ddead53d3e21db65e7539673 Injected jwt_tool into Common Header Claim: jku Response Code: 401, 38 bytes
+jwttool_45d14db48272848ef08d3eb963d2f962 Injected jwt_tool into Common Header Claim: kid Response Code: 401, 38 bytes
+jwttool_1a2d15cbe942f8f80e8bb8980f29ed90 Injected jwt_tool into Common Header Claim: x5u Response Code: 401, 38 bytes
+jwttool_def5356614ec31e26b630bf2b4d7d55c Injected jwt_tool into Common Header Claim: x5t Response Code: 401, 38 bytes
+jwttool_90fac3cd65302b5fdfb54218253c49c3 Injected jwt_tool into Common Payload Claim: iss Response Code: 401, 38 bytes
+jwttool_7b2edb0471c5af2eab5511ca6086e2c7 Injected jwt_tool into Common Payload Claim: sub Response Code: 401, 38 bytes
+jwttool_30ba951816eeb69f0ba0b8c06b2cd18c Injected jwt_tool into Common Payload Claim: aud Response Code: 401, 38 bytes
+jwttool_3ece25ea0e1607965bbf45270dd5486e Injected jwt_tool into Common Payload Claim: exp Response Code: 401, 38 bytes
+jwttool_a51b694f8d198c5528a17c42fcf4380a Injected jwt_tool into Common Payload Claim: nbf Response Code: 401, 38 bytes
+jwttool_20f421e5ea640e3e70ff4f37b5ab35bc Injected jwt_tool into Common Payload Claim: iat Response Code: 401, 38 bytes
+jwttool_449ffb0a9a4682b9e200749c28c022d1 Injected jwt_tool into Common Payload Claim: jti Response Code: 401, 38 bytes
+jwttool_36a072b30edf740dc3e4c04907101dac Injected jwt_tool into Common Payload Claim: name Response Code: 401, 38 bytes
+jwttool_e17cc701334d9a0e41c7711d69518911 Injected jwt_tool into Common Payload Claim: given_name Response Code: 401, 38 bytes
+jwttool_e2c0108fc0703254becbec249aaea70e Injected jwt_tool into Common Payload Claim: family_name Response Code: 401, 38 bytes
+jwttool_8385943146290d298648c37790ee6b0a Injected jwt_tool into Common Payload Claim: middle_name Response Code: 401, 38 bytes
+jwttool_e63b9560a668a541d1274cc05c8aee2e Injected jwt_tool into Common Payload Claim: nickname Response Code: 401, 38 bytes
+jwttool_4429a207b9d2d2f6641461b9b268ea2e Injected jwt_tool into Common Payload Claim: preferred_username Response Code: 401, 38 bytes
+jwttool_76824c5a5cfe2137928e47bf32ada0aa Injected jwt_tool into Common Payload Claim: profile Response Code: 401, 38 bytes
+jwttool_ff9bb1eddcccfb7d7849a5e9ccefe2ca Injected jwt_tool into Common Payload Claim: picture Response Code: 401, 38 bytes
+jwttool_f399b575adb91371610426d494e3351e Injected jwt_tool into Common Payload Claim: website Response Code: 401, 38 bytes
+jwttool_4fec658509911016d9d5256f258b2296 Injected jwt_tool into Common Payload Claim: email Response Code: 401, 38 bytes
+jwttool_ce28a8ae6a3904795cbdacd982f3fde0 Injected jwt_tool into Common Payload Claim: email_verified Response Code: 401, 38 bytes
+jwttool_e260addee522bd03a9e23affa1078f31 Injected jwt_tool into Common Payload Claim: gender Response Code: 401, 38 bytes
+jwttool_1cefc46d9fa0e1a92ab04e646d2d2b84 Injected jwt_tool into Common Payload Claim: birthdate Response Code: 401, 38 bytes
+jwttool_b688e787ba9be57dc5fb829f43145d53 Injected jwt_tool into Common Payload Claim: zoneinfo Response Code: 401, 38 bytes
+jwttool_d268abc4da6015e6c5eb3615e30a031b Injected jwt_tool into Common Payload Claim: locale Response Code: 401, 38 bytes
+jwttool_ef07c8f843e2c7b8576f68621487e340 Injected jwt_tool into Common Payload Claim: phone_number Response Code: 401, 38 bytes
+jwttool_2b1309d1343de72d536e4ddf7aeead95 Injected jwt_tool into Common Payload Claim: phone_number_verified Response Code: 401, 38 bytes
+jwttool_17b2969ba97f271b349f0407e6186d15 Injected jwt_tool into Common Payload Claim: address Response Code: 401, 38 bytes
+jwttool_c6f20c4062635611cdb2d2db99b830e8 Injected jwt_tool into Common Payload Claim: updated_at Response Code: 401, 38 bytes
+jwttool_9d445a4ef17f01578753de3e2df1ec34 Injected jwt_tool into Common Payload Claim: azp Response Code: 401, 38 bytes
+jwttool_3ec3ecdbaf3a5236c1ffad624af2411f Injected jwt_tool into Common Payload Claim: nonce Response Code: 401, 38 bytes
+jwttool_a63ecc9c84fd4a334b3cf05cb65bde28 Injected jwt_tool into Common Payload Claim: auth_time Response Code: 401, 38 bytes
+jwttool_7e21dcdf935f3d47f57768af5669f022 Injected jwt_tool into Common Payload Claim: at_hash Response Code: 401, 38 bytes
+jwttool_08330eb08df995f8dbd1f1dd52e5510e Injected jwt_tool into Common Payload Claim: c_hash Response Code: 401, 38 bytes
+jwttool_e04456b273b08fd71d90cf2b4e44daa2 Injected jwt_tool into Common Payload Claim: acr Response Code: 401, 38 bytes
+jwttool_a14f0fd6a717226ee7c00a3788b6da25 Injected jwt_tool into Common Payload Claim: amr Response Code: 401, 38 bytes
+jwttool_9cc6042a6738f54575af3b37d8b6c951 Injected jwt_tool into Common Payload Claim: sub_jwk Response Code: 401, 38 bytes
+jwttool_2ddfd80915a68f484e9ca357f8036dc9 Injected jwt_tool into Common Payload Claim: cnf Response Code: 401, 38 bytes
+jwttool_32f09db1939a5397672d6ccdb37b226e Injected jwt_tool into Common Payload Claim: sip_from_tag Response Code: 401, 38 bytes
+jwttool_34e199a5c87750aab632aa16d0088207 Injected jwt_tool into Common Payload Claim: sip_date Response Code: 401, 38 bytes
+jwttool_a3cd43c2b7e73728f3448c49fb692de4 Injected jwt_tool into Common Payload Claim: sip_callid Response Code: 401, 38 bytes
+jwttool_c528bd3e9825518ed99dea4eb319d22c Injected jwt_tool into Common Payload Claim: sip_cseq_num Response Code: 401, 38 bytes
+jwttool_0c4d449f0ab9e3b964b5f947e104dd61 Injected jwt_tool into Common Payload Claim: sip_via_branch Response Code: 401, 38 bytes
+jwttool_465a2a7209e787062832efcc9347c734 Injected jwt_tool into Common Payload Claim: orig Response Code: 401, 38 bytes
+jwttool_d8de1a76a29bedb6bc420a8769e69f6e Injected jwt_tool into Common Payload Claim: dest Response Code: 401, 38 bytes
+jwttool_dd4d909b1c02c81b086d0ef109648f62 Injected jwt_tool into Common Payload Claim: mky Response Code: 401, 38 bytes
+jwttool_b9b28236d0c32f4c6e685bef8a9eca2a Injected jwt_tool into Common Payload Claim: events Response Code: 401, 38 bytes
+jwttool_4e65d163440928a2e11a8a629fc8bbda Injected jwt_tool into Common Payload Claim: toe Response Code: 401, 38 bytes
+jwttool_eaee012fb19d505acff39090f490a63c Injected jwt_tool into Common Payload Claim: txn Response Code: 401, 38 bytes
+jwttool_d35dbb8d2c471213782561958e83c5c7 Injected jwt_tool into Common Payload Claim: rph Response Code: 401, 38 bytes
+jwttool_306e9b1ce49063014ab6447470264094 Injected jwt_tool into Common Payload Claim: sid Response Code: 401, 38 bytes
+jwttool_0696c0b7efeb79630e2affaf33921ef5 Injected jwt_tool into Common Payload Claim: vot Response Code: 401, 38 bytes
+jwttool_8dbc98678749d56c6cd2bc90aef85244 Injected jwt_tool into Common Payload Claim: vtm Response Code: 401, 38 bytes
+jwttool_21d8a32d0c09001956fe53b121d0b0c8 Injected jwt_tool into Common Payload Claim: attest Response Code: 401, 38 bytes
+jwttool_1145b14360020a1af345caec7bfc09cf Injected jwt_tool into Common Payload Claim: origid Response Code: 401, 38 bytes
+jwttool_f9ce457a6cd6418b9197b7cafa3d8ed3 Injected jwt_tool into Common Payload Claim: act Response Code: 401, 38 bytes
+jwttool_ac54bc775c8bd3c15820d49277ff022e Injected jwt_tool into Common Payload Claim: scope Response Code: 401, 38 bytes
+jwttool_4805f86d7eb87fa4edc60325de7b4272 Injected jwt_tool into Common Payload Claim: client_id Response Code: 401, 38 bytes
+jwttool_05f6484ee6ba24f93d5c8b92ec89c9da Injected jwt_tool into Common Payload Claim: may_act Response Code: 401, 38 bytes
+jwttool_66f6b5816369ea4780d2681755a84f08 Injected jwt_tool into Common Payload Claim: jcard Response Code: 401, 38 bytes
+jwttool_bbf99221a19d4635bd74d594a725723b Injected jwt_tool into Common Payload Claim: at_use_nbr Response Code: 401, 38 bytes
+jwttool_63878d0a71b25a62eacee9b5d724e7cf Injected jwt_tool into Common Payload Claim: div Response Code: 401, 38 bytes
+jwttool_44f43538a485c3c8c2002dfc2a49f236 Injected jwt_tool into Common Payload Claim: opt Response Code: 401, 38 bytes
+jwttool_af8d37885df86cd3cd7145929b045bb3 Injected 0 into Common Header Claim: typ Response Code: 401, 38 bytes
+jwttool_44bf69cbe2d0618641101e19bfdaa232 Injected 0 into Common Header Claim: jku Response Code: 401, 38 bytes
+jwttool_663994546e481fece68978a4428a73c6 Injected 0 into Common Header Claim: kid Response Code: 401, 38 bytes
+jwttool_04b8f5bf0e50f884b23c2dd148ddd68e Injected 0 into Common Header Claim: x5u Response Code: 401, 38 bytes
+jwttool_353ebf9729278b586498001e54b90d88 Injected 0 into Common Header Claim: x5t Response Code: 401, 38 bytes
+jwttool_073cf57d9beab6af8be655b08fa13648 Injected 0 into Common Payload Claim: iss Response Code: 401, 38 bytes
+jwttool_8c920eb93f620b87b739acb955e2488e Injected 0 into Common Payload Claim: sub Response Code: 401, 38 bytes
+jwttool_3c1bde5d2d197f4b3c45bc54bf5f71a5 Injected 0 into Common Payload Claim: aud Response Code: 401, 38 bytes
+jwttool_61318ad9a8ee90a49c5fcb922a101a20 Injected 0 into Common Payload Claim: exp Response Code: 401, 38 bytes
+jwttool_feec29c28d9d8338dccefd69f6fb7778 Injected 0 into Common Payload Claim: nbf Response Code: 401, 38 bytes
+jwttool_ddbdbe51bd2d97158a26c4a89d2320c5 Injected 0 into Common Payload Claim: iat Response Code: 401, 38 bytes
+jwttool_610391196b6871667fa7286621e7dbfa Injected 0 into Common Payload Claim: jti Response Code: 401, 38 bytes
+jwttool_7f938890899dbff0dc92ca2693ac7a73 Injected 0 into Common Payload Claim: name Response Code: 401, 38 bytes
+jwttool_37f04f609a520d0589302d927c650a18 Injected 0 into Common Payload Claim: given_name Response Code: 401, 38 bytes
+jwttool_159a88197468f665ec258ebc358890e6 Injected 0 into Common Payload Claim: family_name Response Code: 401, 38 bytes
+jwttool_2d303a88c8f05d6b54e87ffbb4b9f85d Injected 0 into Common Payload Claim: middle_name Response Code: 401, 38 bytes
+jwttool_782a041136937688cdffa9e696435ac1 Injected 0 into Common Payload Claim: nickname Response Code: 401, 38 bytes
+jwttool_813ec1a18f6f1778f43046d1aa1f32d9 Injected 0 into Common Payload Claim: preferred_username Response Code: 401, 38 bytes
+jwttool_ccead5300ceb479d1c4c69a8bb01a5a2 Injected 0 into Common Payload Claim: profile Response Code: 401, 38 bytes
+jwttool_d507455c9115f177208037beb501ee71 Injected 0 into Common Payload Claim: picture Response Code: 401, 38 bytes
+jwttool_9e56ded8403b26982f5cf1e2780f91d0 Injected 0 into Common Payload Claim: website Response Code: 401, 38 bytes
+jwttool_a6fa18856254b20fd000629836af1108 Injected 0 into Common Payload Claim: email Response Code: 401, 38 bytes
+jwttool_a263e2028f170ea599a2c5765c97a78a Injected 0 into Common Payload Claim: email_verified Response Code: 401, 38 bytes
+jwttool_1fa824165d8b26af3beeccff56f3ac68 Injected 0 into Common Payload Claim: gender Response Code: 401, 38 bytes
+jwttool_cf106e483801e66e9bbb77769557554e Injected 0 into Common Payload Claim: birthdate Response Code: 401, 38 bytes
+jwttool_2e5f009e683963b8c97d1900304c486b Injected 0 into Common Payload Claim: zoneinfo Response Code: 401, 38 bytes
+jwttool_dd2c4179a0f50cfc7cc3475ff408ba3f Injected 0 into Common Payload Claim: locale Response Code: 401, 38 bytes
+jwttool_09a9d321d9a2d3e323537967aef2601a Injected 0 into Common Payload Claim: phone_number Response Code: 401, 38 bytes
+jwttool_a1f695e3b1f6db721ae0f93d2c0eadea Injected 0 into Common Payload Claim: phone_number_verified Response Code: 401, 38 bytes
+jwttool_b5043377ee54263a58e1e51f4590d38b Injected 0 into Common Payload Claim: address Response Code: 401, 38 bytes
+jwttool_66a3420949a8652a059c0009f6e2d051 Injected 0 into Common Payload Claim: updated_at Response Code: 401, 38 bytes
+jwttool_8b453d40d7825d5d9c93deaa76f9ffa1 Injected 0 into Common Payload Claim: azp Response Code: 401, 38 bytes
+jwttool_bcc8b46566ad0414a6c9734bdef0b795 Injected 0 into Common Payload Claim: nonce Response Code: 401, 38 bytes
+jwttool_77dd74f9399945380c0e5361c6a9fd95 Injected 0 into Common Payload Claim: auth_time Response Code: 401, 38 bytes
+jwttool_c9908a190c15924460326b997fdc1c9e Injected 0 into Common Payload Claim: at_hash Response Code: 401, 38 bytes
+jwttool_a6caee6340b61c73eefc326a13cd7b44 Injected 0 into Common Payload Claim: c_hash Response Code: 401, 38 bytes
+jwttool_8d95999a2fdd4af1c38ddce41d0a714b Injected 0 into Common Payload Claim: acr Response Code: 401, 38 bytes
+jwttool_ce6721917b861992aadfdc626f18ac9b Injected 0 into Common Payload Claim: amr Response Code: 401, 38 bytes
+jwttool_646acf7a31e2200a05f181285b0d5412 Injected 0 into Common Payload Claim: sub_jwk Response Code: 401, 38 bytes
+jwttool_253782fecc405e754d4ae8f50d23dbf0 Injected 0 into Common Payload Claim: cnf Response Code: 401, 38 bytes
+jwttool_657c42de499da646fbd6d5179379e932 Injected 0 into Common Payload Claim: sip_from_tag Response Code: 401, 38 bytes
+jwttool_55f31763c041e6a7d8ce9d2b2365b05f Injected 0 into Common Payload Claim: sip_date Response Code: 401, 38 bytes
+jwttool_6295a5c6e6a35f8d62ddb85c4a9f751c Injected 0 into Common Payload Claim: sip_callid Response Code: 401, 38 bytes
+jwttool_d74c05af690398ba63d3800d4093c5d8 Injected 0 into Common Payload Claim: sip_cseq_num Response Code: 401, 38 bytes
+jwttool_66a9596202b40add29f0ce455770a78f Injected 0 into Common Payload Claim: sip_via_branch Response Code: 401, 38 bytes
+jwttool_49e2e8bac2a193674c2c6ebd06b171a7 Injected 0 into Common Payload Claim: orig Response Code: 401, 38 bytes
+jwttool_be2771f618d060e513b0174699d25c89 Injected 0 into Common Payload Claim: dest Response Code: 401, 38 bytes
+jwttool_59477e5188a1c1b35a141cad9305ecb9 Injected 0 into Common Payload Claim: mky Response Code: 401, 38 bytes
+jwttool_c42770966a3f0d78cdbbd70ad9fdab89 Injected 0 into Common Payload Claim: events Response Code: 401, 38 bytes
+jwttool_c6ffc5794ee5f3e73551d8b3fd59d8b6 Injected 0 into Common Payload Claim: toe Response Code: 401, 38 bytes
+jwttool_741d5ccdc908dca53bf58dbd09251137 Injected 0 into Common Payload Claim: txn Response Code: 401, 38 bytes
+jwttool_1fc0d801d8e9f03a176e9b4d13410aee Injected 0 into Common Payload Claim: rph Response Code: 401, 38 bytes
+jwttool_544e28885d28138b62ff8e63adf05787 Injected 0 into Common Payload Claim: sid Response Code: 401, 38 bytes
+jwttool_b9683d95198009d23d43de6f74345d40 Injected 0 into Common Payload Claim: vot Response Code: 401, 38 bytes
+jwttool_fe9d191ed2d9c950a105345f49fdc3c1 Injected 0 into Common Payload Claim: vtm Response Code: 401, 38 bytes
+jwttool_58d427014949fb31561a94e302388757 Injected 0 into Common Payload Claim: attest Response Code: 401, 38 bytes
+jwttool_c01135558493a93626c858dd43a45662 Injected 0 into Common Payload Claim: origid Response Code: 401, 38 bytes
+jwttool_d166a3c4384451569cfc72d846af2792 Injected 0 into Common Payload Claim: act Response Code: 401, 38 bytes
+jwttool_aee993a566be46f19d6df80f1b1d511f Injected 0 into Common Payload Claim: scope Response Code: 401, 38 bytes
+jwttool_b0c45dc1c739e4cb3400b6b4234ff106 Injected 0 into Common Payload Claim: client_id Response Code: 401, 38 bytes
+jwttool_57579637221f770b72116e356cc5fa49 Injected 0 into Common Payload Claim: may_act Response Code: 401, 38 bytes
+jwttool_c774d24ccd070f13fb0517b0a3be6545 Injected 0 into Common Payload Claim: jcard Response Code: 401, 38 bytes
+jwttool_db290cf3655f2d1392063f282bc581ad Injected 0 into Common Payload Claim: at_use_nbr Response Code: 401, 38 bytes
+jwttool_a9f512a31c98ceb786ffe6c5b037775b Injected 0 into Common Payload Claim: div Response Code: 401, 38 bytes
+jwttool_e9f446bdd31412160615d59131d64454 Injected 0 into Common Payload Claim: opt Response Code: 401, 38 bytes
+Scanning mode completed: review the above results.
+
