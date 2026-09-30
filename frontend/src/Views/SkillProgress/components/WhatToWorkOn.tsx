@@ -111,3 +111,46 @@ const trendBadge = (delta: number): { label: string; badge: string; Arrow: React
     if (delta < 0) return { label: 'Down', badge: 'badge-status-wrong', Arrow: ArrowDownRight };
     return { label: 'Flat', badge: 'badge-status-pending', Arrow: Minus };
 };
+
+const WeeklyTiles: React.FC<{ changes: WeeklyChange[] }> = ({ changes }) => {
+    const [detailed, setDetailed] = useState(false);
+    if (changes.length === 0) return null;
+    return (
+        <div className="rounded-2xl border border-border bg-card p-4 flex flex-col gap-3">
+            <div className="flex items-center justify-between gap-3">
+                <p className="eyebrow text-primary">Since last week</p>
+                <button
+                    type="button"
+                    className="inline-flex items-center gap-1 text-xsm font-bold text-muted-text hover:text-primary-text"
+                    onClick={() => setDetailed(open => !open)}
+                    aria-expanded={detailed}
+                >
+                    <ChevronDown size={14} className={detailed ? 'rotate-180 transition-transform' : 'transition-transform'} />
+                    {detailed ? 'Fewer insights' : 'More insights'}
+                </button>
+            </div>
+            <div className="grid grid-cols-2 xl:grid-cols-4 gap-3">
+                {changes.map(change => {
+                    const trend = trendBadge(change.delta);
+                    return (
+                        <StatTile
+                            key={change.key}
+                            label={`${change.label} · ${change.domain === 'math' ? 'Maths' : 'Code'}`}
+                            value={`${change.delta > 0 ? '+' : ''}${change.delta}`}
+                            unit="pts"
+                            caption={detailed ? `Now at ${change.current}%, against the rest of your last 20 games.` : undefined}
+                            badge={
+                                <span className={`badge ${trend.badge}`}>
+                                    <trend.Arrow size={12} />
+                                    {trend.label}
+                                </span>
+                            }
+                            progress={detailed ? change.current : undefined}
+                            compact
+                        />
+                    );
+                })}
+            </div>
+        </div>
+    );
+};
