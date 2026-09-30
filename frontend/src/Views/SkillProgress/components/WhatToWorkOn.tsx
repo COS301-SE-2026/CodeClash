@@ -30,3 +30,15 @@ const TONE_BADGE: Record<Insight['tone'], string> = {
     warn: 'badge-status-wrong',
     info: 'badge-status-pending'
 };
+
+const Sparkline: React.FC<{ series: number[] }> = ({ series }) => {
+    if (series.length < 2) return null;
+    const points = series
+        .map((value, index) => `${(index / (series.length - 1)) * 100},${30 - (Math.min(100, Math.max(0, value)) / 100) * 28 - 1}`)
+        .join(' ');
+    return (
+        <svg viewBox="0 0 100 30" preserveAspectRatio="none" className="w-full h-10" aria-hidden="true">
+            <polyline points={points} fill="none" stroke="var(--primary)" strokeWidth="2" vectorEffect="non-scaling-stroke" strokeLinejoin="round" />
+        </svg>
+    );
+};
