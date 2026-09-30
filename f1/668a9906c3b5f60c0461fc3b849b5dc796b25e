@@ -1,0 +1,19 @@
+backend/package.json
+  s_df723ded4ca2a4::t_0f935f5a52542c 16-19,56,65,75
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "f1668a9906c3b5f60c0461fc3b849b5dc796b25e",
+  "prompts": {},
+  "sessions": {
+    "s_df723ded4ca2a4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "83362de6-3c08-469e-954b-aed663645f57",
+        "model": "unknown"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
