@@ -1,0 +1,20 @@
+frontend/@/components/features/Match/PowerUpandDownButtons.tsx
+  h_b13c5d77534129 1-36
+backend/scripts/cpp
+  h_b13c5d77534129 1
+backend/scripts/python
+  h_b13c5d77534129 1
+frontend/@/components/ui/animations/PowerEffect.tsx
+  h_b13c5d77534129 1-119
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "c756cb2b95825a4c2a7083da0ec1f2c116abdf8a",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
