@@ -14,7 +14,13 @@ interface ToastData {
 
 interface AchievementToastContextValue {
     showAchievement: (data: ToastData) => void;
-    showFriendRequest: (username:string) => void;
+    showFriendNotice: (primary:string, title?: string, secondary?: string) => void;
+}
+
+interface FriendToastData {
+    title: string;
+    primary: string;
+    secondary?: string;
 }
 
 const AchievementToastContext = createContext<AchievementToastContextValue | null>(null);
@@ -31,16 +37,14 @@ export const AchievementToastProvider: React.FC<{ children: React.ReactNode }> =
     const prevEarnedIds = useRef<Set<string>>(new Set());
     const isFirstFetch = useRef(true);
 
-    const [friendRequestQueue, setFriendRequestQueue] = useState<string[]>([]);
-    const prevRequestIds =  useRef<Set<string>>(new Set());
-    const isFriendFirstFetch = useRef(true);
+    const [friendToastQueue, setFriendToastQueue] = useState<FriendToastData[]>([]);
      
     const showAchievement = useCallback((data: ToastData) => {
         setQueue(prev => [...prev, data]);
     }, []);
 
-    const showFriendRequest = useCallback((username: string) => {
-        setFriendRequestQueue(prev => [...prev, username]);
+    const showFriendNotice = useCallback((primary: string, title: string = 'Friends', secondary?: string) => {
+        setFriendToastQueue(prev => [...prev, { title, primary, secondary }]);
     }, []);
 
     useEffect(() => {
@@ -78,46 +82,12 @@ export const AchievementToastProvider: React.FC<{ children: React.ReactNode }> =
         setQueue(prev => prev.slice(1));
     }, []);
 
-    useEffect(() => {
-        if (!token) return;
-
-        const checkFriendRequests = async () => {
-            try {
-                const res = await fetch('api/friends/requests?type=received', {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
-                if (!res.ok) return;
-                const data = await res.json();
-                // console.log('friend requests polled:', data); // ← add this
-                // console.log('prev ids:', prevRequestIds.current);
-
-                if(isFriendFirstFetch.current) {
-                    prevRequestIds.current = new Set(data.map((r: any) => r.friendship_id));
-                    isFriendFirstFetch.current = false;
-                    return;
-                }
-
-                const newRequests = data.filter((r: any) => !prevRequestIds.current.has(r.friendship_id));
-                for (const r of newRequests){
-                    showFriendRequest(r.username);
-                }
-                prevRequestIds.current = new Set(data.map((r: any) => r.friendship_id));
-            } catch (err) {
-                console.error('Error checking friend requests:', err);
-            }
-        };
-
-        checkFriendRequests();
-        const interval = setInterval(checkFriendRequests, 30_000);
-        return () => clearInterval(interval);
-    }, [token, showFriendRequest]);
-
-    const dismissFriendRequest = useCallback(() => {
-        setFriendRequestQueue(prev => prev.slice(1));
+    const dismissFriendToast = useCallback(() => {
+        setFriendToastQueue(prev => prev.slice(1));
     }, []);
 
     return(
-        <AchievementToastContext.Provider value={{ showAchievement, showFriendRequest }}>
+        <AchievementToastContext.Provider value={{ showAchievement, showFriendNotice }}>
             {children}
             {queue[0] && (
                 <AchievementToast
@@ -128,11 +98,13 @@ export const AchievementToastProvider: React.FC<{ children: React.ReactNode }> =
                     onDismiss={dismiss}
                 />
             )}
-            {friendRequestQueue[0] && (
+            {friendToastQueue[0] && (
                 <FriendRequestToast
-                    key={friendRequestQueue[0]}
-                    username={friendRequestQueue[0]}
-                    onDismiss={dismissFriendRequest}
+                    key={friendToastQueue[0].title + friendToastQueue[0].primary}
+                    title={friendToastQueue[0].title}
+                    primary={friendToastQueue[0].primary}
+                    secondary={friendToastQueue[0].secondary}
+                    onDismiss={dismissFriendToast}
                 />
             )}
         </AchievementToastContext.Provider>

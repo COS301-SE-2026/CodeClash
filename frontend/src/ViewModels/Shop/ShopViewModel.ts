@@ -48,7 +48,7 @@ export const ShopViewModelFunc = () => {
     )
 
     const powerupQuantity = useCallback(
-        () => inventory?.consumable.find((c) => c.category === 'powerup')?.quantity ?? 0, [inventory]
+        (itemId: string) => inventory?.consumable.find((c) => c.shop_item_id === itemId)?.quantity ?? 0, [inventory]
     )
 
     const canAfford = useCallback(
