@@ -67,10 +67,36 @@ const FocusCard: React.FC<{ insight: Insight }> = ({ insight }) => {
                 <p className="text-xsm text-muted-text mt-2 leading-snug">{insight.body}</p>
             </div>
 
-            {/*evidence uses the same tile as the headline figures on this page*/}
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
                 {insight.evidence.map(item => (
                     <StatTile key={item.label} label={item.label} value={item.value} />
+                ))}
+            </div>
+
+            {insight.series && <Sparkline series={insight.series} />}
+            {insight.action && <NextStep action={insight.action} />}
+        </div>
+    );
+};
+
+const SupportingCard: React.FC<{ insight: Insight }> = ({ insight }) => {
+    const Icon = TONE_ICON[insight.tone];
+    return (
+        <div className="rounded-2xl border border-border bg-card p-4 flex flex-col gap-3">
+            <div>
+                <div className="flex items-start gap-2">
+                    <Icon size={16} className={`${TONE_COLOUR[insight.tone]} shrink-0 mt-0.5`} />
+                    <p className="text-xsm font-bold text-primary-text leading-snug">{insight.title}</p>
+                </div>
+                <p className="text-xsm text-muted-text mt-1.5 leading-snug">{insight.body}</p>
+            </div>
+
+            <div className="flex flex-wrap gap-x-6 gap-y-2">
+                {insight.evidence.map(item => (
+                    <div key={item.label}>
+                        <p className="text-xsm uppercase tracking-wide font-bold text-muted-text">{item.label}</p>
+                        <p className="text-sm font-black text-primary-text leading-none mt-1">{item.value}</p>
+                    </div>
                 ))}
             </div>
 
