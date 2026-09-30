@@ -1,5 +1,5 @@
 import { PlayerSubmissionDTO, ProgSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
-import { IMarkingStrategy } from "src/application/interfaces/marking/IMarkingStategy";
+import { IMarkingStrategy, MarkOutcome } from "src/application/interfaces/marking/IMarkingStategy";
 import { ICodeExecutor } from "src/application/interfaces/marking/ICodeExecutor";
 import { IQuestionRepository } from "src/application/interfaces/repositories/IQuestionRepository";
 
@@ -14,25 +14,32 @@ export class MarkProg implements IMarkingStrategy {
         this.executor = code_executor;
     }
 
-    async mark(submission: PlayerSubmissionDTO): Promise<boolean> {
-
-        if (!submission.submission || !('source_code' in submission.submission)) return false;
-
-        const sub: ProgSubmissionDTO = submission.submission;
-        const test_cases = await this.question_repo.getTestCases(submission.question_id);
-
-        if (test_cases.length === 0) throw new Error("No test cases found");
-
-        for (const test of test_cases) {
-            const stdin = this.formatStdin(test.input);
-            const result = await this.executor.execute(sub.source_code, sub.language_id, stdin, test.expected_output);
-
-            if (result.status.id !== 3) return false;
-        }
-
-        return true;
-
-    }
+    async mark(submission: PlayerSubmissionDTO): Promise<MarkOutcome> {
+   
+           if (!submission.submission || !('source_code' in submission.submission)) return { correct: false };
+   
+           const sub: ProgSubmissionDTO = submission.submission;
+           const test_cases = await this.question_repo.getTestCases(submission.question_id);
+   
+           if (test_cases.length === 0) throw new Error("No test cases found");
+   
+           let run_time_ms: number | null = null; // slowest test case, judge0 time is seconds as a string
+           let memory_kb: number | null = null;
+   
+           for (const test of test_cases) {
+               const stdin = this.formatStdin(test.input);
+               const result = await this.executor.execute(sub.source_code, sub.language_id, stdin, test.expected_output);
+   
+               const seconds = Number.parseFloat(result.time);
+               if (Number.isFinite(seconds)) run_time_ms = Math.max(run_time_ms ?? 0, seconds * 1000);
+               if (result.memory) memory_kb = Math.max(memory_kb ?? 0, result.memory);
+   
+               if (result.status.id !== 3) return { correct: false, run_time_ms, memory_kb };
+           }
+   
+           return { correct: true, run_time_ms, memory_kb };
+   
+       }
 
 
     private formatStdin(input: string) {

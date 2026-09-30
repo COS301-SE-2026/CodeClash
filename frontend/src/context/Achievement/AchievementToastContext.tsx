@@ -83,7 +83,7 @@ export const AchievementToastProvider: React.FC<{ children: React.ReactNode }> =
 
         const checkFriendRequests = async () => {
             try {
-                const res = await fetch('api/friends/requests?type=received', {
+                const res = await fetch('/api/friends/requests?type=received', {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 if (!res.ok) return;

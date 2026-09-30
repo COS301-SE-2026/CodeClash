@@ -57,7 +57,7 @@ describe('Testing Programming Marker', () => {
 
         expect(question_repo.getTestCases).toHaveBeenCalledWith('q1');
         expect(executor.execute).toHaveBeenCalledWith('source-code-01', 1, '2,2,2', 'true');
-        expect(result).toBe(true);
+        expect(result.correct).toBe(true);
     })
 
     it('returns false when the executor reports wrong answer', async () => {
@@ -69,6 +69,6 @@ describe('Testing Programming Marker', () => {
         })
 
         const result = await new MarkProg(executor , question_repo).mark(submission);
-        expect(result).toBe(false);
+        expect(result.correct).toBe(false);
     })
 })

@@ -28,13 +28,13 @@ export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     }, []);
 
     useEffect(() => {
-        if (socket) {
-            socket.on('connect', () => {
-                setIsConnected(true);
-                setMatchSocket(new MatchSocket(socket));
-                setMatchmakingSocket(new MatchmakingSocket(socket));
-                setTournamentSocket(new TournamentSocket(socket));
+      if (socket) {
 
+        setMatchSocket(new MatchSocket(socket));
+        setMatchmakingSocket(new MatchmakingSocket(socket));
+        setTournamentSocket(new TournamentSocket(socket));
+        socket.on('connect', () => {
+                setIsConnected(true);
             })
 
             socket.on('disconnect', () => {

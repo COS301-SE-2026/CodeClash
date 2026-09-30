@@ -98,7 +98,7 @@ export class TournamentEliminationService {
         const round = tournament.current_round;
         let correct: boolean;
         try {
-            correct = await this.marking_service.mark(submission);
+            correct = (await this.marking_service.mark(submission)).correct;
         } catch (error) {
             progress.attempts--;
             throw error;

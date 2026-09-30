@@ -8,12 +8,12 @@ import ComponentBars from './SkillProgress/components/ComponentBars';
 import DifficultyBands from './SkillProgress/components/DifficultyBands';
 import DomainToggle from './SkillProgress/components/DomainToggle';
 import GrowthChart from './SkillProgress/components/GrowthChart';
-import InsightList from './SkillProgress/components/InsightList';
 import RecentGames from './SkillProgress/components/RecentGames';
 import StatTile from './SkillProgress/components/StatTile';
 
 import Loading from '@/components/shared/Loading';
 import Starfield from '@/components/ui/animations/Starfield';
+import WhatToWorkOn from './SkillProgress/components/WhatToWorkOn';
 
 const SectionCard: React.FC<{
     title: string;
@@ -115,7 +115,13 @@ return (
           </div>
       )}
 
-      {/*headlining figures in the page to be used*/}
+      <WhatToWorkOn
+      title={content.insightsTitle}
+      report={insights}
+      gamesAnalysed={gamesAnalysed}
+      emptyState={content.emptyState}
+      />
+      
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
           <StatTile
               label={content.masteryTitle}
@@ -194,14 +200,6 @@ return (
               icon={<Activity size={18} className="text-primary" />}
           >
               <RecentGames games={recentGames} ceiling={masteryCeiling} />
-          </SectionCard>
-
-          <SectionCard
-              title={content.insightsTitle}
-              scroll
-              icon={<Sparkles size={18} className="text-primary" />}
-          >
-              <InsightList insights={insights} />
           </SectionCard>
       </div>
   </div>

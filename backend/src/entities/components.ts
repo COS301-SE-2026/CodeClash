@@ -88,7 +88,9 @@ export interface SubmissionComponent {
     language?: string
     submitted_at: Date | null,
     correct: boolean | null,
-    token: string | undefined
+  token: string | undefined,
+  run_time_ms?: number | null,
+  memory_kb?: number | null,
 }
 
 /********************************** */

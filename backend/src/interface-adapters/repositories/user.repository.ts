@@ -5,6 +5,7 @@ import { Repository } from "typeorm";
 import { EloUpdateResultDTO } from "src/entities/dtos/user/elo.dto";
 import { LeaderboardEntryDTO } from "src/entities/dtos/leaderboard/leaderboard.dto";
 import { RankDTO } from "src/entities/dtos/user/rank.dto";
+import { leagueForElo } from "src/entities/league-mapping";
 
 export class UserRepository implements IUserRepository {
     private readonly K_FACTOR = 32;
@@ -167,7 +168,8 @@ export class UserRepository implements IUserRepository {
         const eloGained = newWinnerRating - winnerRating.elo;
         const eloLost = loserRating.elo - newLoserRating;
 
-
+        await this.userRepository.update({ user_id: winner_id }, { elo: newWinnerRating, league: leagueForElo(newWinnerRating) });
+        await this.userRepository.update({ user_id: loser_id }, { elo: newLoserRating, league: leagueForElo(newLoserRating) });
 
         return {
             winner: { user_id: winner_id, old_rating: winnerRating.elo, new_rating: newWinnerRating, elo_gained: eloGained },
@@ -193,7 +195,7 @@ export class UserRepository implements IUserRepository {
             const expected_score = 1 / (1 + Math.pow(10, (field_avg_elo - player.elo) / 400));
             const new_rating = Math.round(player.elo + this.K_FACTOR * (actual_score - expected_score));
 
-            await this.userRepository.update({ user_id }, { elo: new_rating });
+            await this.userRepository.update({ user_id }, { elo: new_rating, league: leagueForElo(new_rating) });
 
             updates.push({ user_id, old_rating: player.elo, new_rating, elo_gained: new_rating - player.elo });
         }

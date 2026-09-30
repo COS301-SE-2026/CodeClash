@@ -1,3 +1,5 @@
+name: codeclash-prod
+
 services:
   backend:
     build: ./backend

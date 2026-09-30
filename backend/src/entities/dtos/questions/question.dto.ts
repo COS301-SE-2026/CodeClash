@@ -4,6 +4,7 @@ export interface QuestionDTO {
     id: string,
     match_mode: MatchMode,
     difficulty: number | string,
+    difficulty_level?: number,
     title: string,
     description: string,
     time_limit: string,

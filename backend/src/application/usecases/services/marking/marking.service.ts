@@ -1,6 +1,6 @@
 import { LifeSystem } from "src/application/usecases/systems/life.system";
 import { SubmissionSystem } from "src/application/usecases/systems/submission.system";
-import { IMarkingStrategy } from "src/application/interfaces/marking/IMarkingStategy";
+import { IMarkingStrategy, MarkOutcome } from "src/application/interfaces/marking/IMarkingStategy";
 import { PlayerSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
 import type { MarkingResultDTO } from "src/entities/dtos/submissions/submission-result.dto";
 import { MatchMode } from "src/entities/dtos/matches/match.dto";
@@ -15,7 +15,7 @@ export class MarkingService {
     ) { }
 
 
-    async mark(player_submission: PlayerSubmissionDTO): Promise<boolean> {
+    async mark(player_submission: PlayerSubmissionDTO): Promise<MarkOutcome> {
         if (!player_submission.submission) throw new Error("Invalid Submission");
         
         const strategy = this.setStrategy(player_submission);
@@ -25,12 +25,12 @@ export class MarkingService {
     async execute(player_submission: PlayerSubmissionDTO): Promise<MarkingResultDTO> {
         try {
             const result = await this.mark(player_submission);
-            const submission = this.submission_system.saveSubmission(player_submission, result);
-            const new_life = this.life_System.updatePlayerLife(submission!.match_id, submission!.player_id, result);
+            const submission = this.submission_system.saveSubmission(player_submission, result.correct, result);
+            const new_life = this.life_System.updatePlayerLife(submission!.match_id, submission!.player_id, result.correct);
 
             return {
                 player_id: submission!.player_id,
-                correct: result,
+                correct: result.correct,
                 speed: submission!.submitted_at!.getTime() - submission!.started_at!.getTime(),
                 attempt_number: submission!.attempt_number,
                 life_update: new_life
