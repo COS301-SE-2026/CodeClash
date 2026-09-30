@@ -20,10 +20,10 @@ ENDPOINTS=(
 
 
 for url in "${ENDPOINTS[@]}"; do
-    name=$(echo "$url" | sed 's|http://||;s|/|_|g')
+    name=$(echo "$url" | sed 's|http://||;s|/|_|g') #NOSONAR - these are testing scripts and not production traffic which it flagged me for
     echo "Testing $url"
     python3 jwt_tool.py "$(cat ../token.txt)" -t "$url" -rh "Authorization: Bearer $(cat ../token.txt)" -M at -np 2>&1 | sed -n '/=====================/, $p' > "../reports/${name}.txt" 2>&1
-    echo "Saved to reports/${name}.txt"
+    echo "Saved to reports/${name}.txt" #NOSONAR - testing script line and not production traffic
 done
 
 echo "Done. The following are rows that did not provide an expected 200 or correct rejection 401 response code (rows that need to be checked):"
