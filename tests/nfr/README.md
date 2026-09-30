@@ -119,23 +119,91 @@ bash tests/nfr/reliability/websocket-disconnect.sh
 
 ## 3. Security — `security/`
 
-### Tool
-
 
 ### What it tests
-- Requests without a token return `401`
-- Requests with an expired token return `401`
-- Requests with a valid token return `200`
+The jwt security tests test hundreds of forged and/or expired tokens against various endpoints of the system.
+The following error codes should be received as response codes throughout this process, indicating whether 
+these forged/expired tokens were accepted or rejected.
+- Requests without a token return `401` - i.e. they were rejected
+- Requests with an expired token return `401` - i.e. they were rejected
+- Requests with a valid token return `200` - i.e. they were accepted
 
 ### How to run
 
+Sign into the app with a user whose token you want to obtain to use for testing
+
+From root run:
+sudo docker compose --env-file .env.dev -f dockerfile/docker-compose.dev.yml up -d --build
+cd judge0-v1.13.1
+docker compose up -d --build
+cd backend/scripts
+npm run seed:math && npm run seed:prog && npm run seed:templates
+
+<!-- if not already completed, perform git clones described in backend README inside the backend to allow seeding to work -->
+
+
+
+
+<!-- to perform a general health check on the backend to ensure it is running, run: -->
+
+curl -i http://localhost:3000/health
+
+<!-- Expected output to indicate you can proceed with testing:
+HTTP/1.1 200 OK
+...
+{"status":"ok"} -->
+
+
+Then, still from root run:
+
+cd tests/nfr/security
+pip3 install boto3
+pip3 install botocore[crt]
+
+<!-- or use pip instead of pip3 depending on your setup -->
+
+chmod +x testingReports.sh
+./TestingReports.sh
+
+(enter signed-in user's details)
 
 #### Expected output
 
+Testing https://localhost:3000/api/leaderboard
+Saved to reports/https:__localhost:3000_api_leaderboard.txt
+Testing https://localhost:3000/api/matches
+Saved to reports/https:__localhost:3000_api_matches.txt
+Testing https://localhost:3000/api/friends
+Saved to reports/https:__localhost:3000_api_friends.txt
+Testing https://localhost:3000/api/friends/requests
+Saved to reports/https:__localhost:3000_api_friends_requests.txt
+Testing https://localhost:3000/api/friends/invite
+Saved to reports/https:__localhost:3000_api_friends_invite.txt
+Testing https://localhost:3000/api/friends/request
+Saved to reports/https:__localhost:3000_api_friends_request.txt
+Testing https://localhost:3000/api/achievements
+Saved to reports/https:__localhost:3000_api_achievements.txt
+Testing https://localhost:3000/api/achievements/me
+Saved to reports/https:__localhost:3000_api_achievements_me.txt
+Testing https://localhost:3000/api/create-user
+Saved to reports/https:__localhost:3000_api_create-user.txt
+Testing https://localhost:3000/api/elo/elo-get
+Saved to reports/https:__localhost:3000_api_elo_elo-get.txt
+Testing https://localhost:3000/api/create-user
+Saved to reports/https:__localhost:3000_api_create-user.txt
+Testing https://localhost:3000/api/user/rank
+Saved to reports/https:__localhost:3000_api_user_rank.txt
+Testing https://localhost:3000/api/user/search
+Saved to reports/https:__localhost:3000_api_user_search.txt
+Done. The following are rows that did not provide an expected 200 or correct rejection 401 response code (rows that failed):
+
+
 
 #### Evidence to collect
+- There should be nothing following the final line of the output, if there is, that indicates there is a security vulnerability with that endpoint for that specific test
+- If all txt files in the reports directory
 
----
+--- 
 
 ## 4. Scalability — `scalability/`
 
