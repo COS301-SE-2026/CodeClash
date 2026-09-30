@@ -16,7 +16,7 @@ INSERT INTO shop_items (category, name, description, price, rarity, metadata) VA
 '{ "effect": "insert_bugs", "kind": "powerdown", "targeting": "opponent","scope": "current_answer" }'),
 ('powerup', 'Wipe', 'Erases your opponents''s current in-progress answer. Only one allowed per match.', 300, 'legendary',
 '{ "effect": "wipe_answer", "kind": "powerdown", "targeting": "opponent", "scope": "current_answer", "max_uses_per_match": 1 }'),
-('powerup', 'Question Blackout', 'Hides the opponent''s question from view for a set duration (or permanently).', 200, 'legendary',
+('powerup', 'Question Blackout', 'Hides the opponent''s question from view for a set duration.', 200, 'legendary',
 '{ "effect": "block_question", "kind": "powerdown", "targeting": "opponent", "duration_seconds": 30 }'),
 ('powerup', 'Time Sink', 'Increase your opponents''s time taken stat, lowering their score and ELO gain.', 150, 'common',
 '{ "effect": "increase_time", "kind": "powerdown", "targeting": "opponent", "value_seconds": 10 }' ),
