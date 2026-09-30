@@ -1,6 +1,6 @@
 import { CircleAlert, Info, TrendingUp } from 'lucide-react';
 import type React from 'react';
-import type { Insight } from 'src/Models/SkillProgressModel';
+import type { Insight } from 'src/Models/SkillInsights';
 
 interface InsightListProps {
     insights: Insight[];
