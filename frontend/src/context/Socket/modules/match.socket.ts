@@ -68,6 +68,15 @@ export class MatchSocket {
         return on<UsePowerupResultDTO>(this.socket, 'powerup_blocked', handler)
     }
 
+    wipeInput(handler: () => void ){
+        return on(this.socket, 'wipe_input', handler)
+
+    }
+
+    bugInput(handler: () => void){
+        return on(this.socket, 'bug_input', handler)
+    }
+
 
 
 
