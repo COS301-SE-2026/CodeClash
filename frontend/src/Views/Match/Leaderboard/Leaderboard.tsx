@@ -32,7 +32,7 @@ const Leaderboard = () => {
         </div>
 
         {error ? (
-          <div className="card-elevated p-6 text-center text-danger">{error}</div>
+          <div className="text-center text-danger text-sm">{error}</div>
         ): (
           <div className="flex flex-col gap-8">
             <div className="flex items-end justify-center gap-4">
