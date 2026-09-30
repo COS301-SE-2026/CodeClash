@@ -1,0 +1,14 @@
+frontend/src/Views/SkillProgress/components/InsightList.tsx
+  h_58e143dc25f856 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "125039b5e5d8d5479745742efca34461786245d1",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
