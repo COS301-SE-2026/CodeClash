@@ -5,8 +5,7 @@ import type { ReactNode } from "react";
 import type { ShopItem, Wallet, UserInventory, AvatarShopItem, } from "src/Models/ShopModel";
 import { useAuth } from "../Auth/hooks/useAuth";
 
-import { getCatalog,getWallet, getInv, purchaseItm, equipItm, } from "src/services/shop.service.mock"; //to be changed once backedn endpoints implemented
-
+import { getCatalog,getWallet, getInv, purchaseItm, equipItm, } from "src/services/shop.service";
 interface InventoryContextValue {
     catalog: ShopItem[];
     wallet: Wallet;
@@ -43,7 +42,7 @@ export const InventoryProvider = ({children}: {children: ReactNode}) => {
         setLoading(true);
         setError(null);
         try {
-            const [c,w,i] = await Promise.all([getCatalog(), getWallet(), getInv()]);
+            const [c,w,i] = await Promise.all([getCatalog(token), getWallet(token), getInv(token)]);
             setCatalog(c);
             setWallet(w);
             setInventory(i);

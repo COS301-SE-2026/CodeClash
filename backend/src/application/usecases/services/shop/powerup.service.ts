@@ -2,7 +2,6 @@ import { IInventoryRepository } from "src/application/interfaces/repositories/II
 import { IShopItemRepository } from "src/application/interfaces/repositories/IShopItemRepository";
 import { UsePowerupResultDTO } from "src/entities/dtos/shop/powerup-use.dto";
 import { PowerupSystem } from "../../systems/powerup.system";
-import { match } from "node:assert";
 
 export class PowerupService {
     constructor (

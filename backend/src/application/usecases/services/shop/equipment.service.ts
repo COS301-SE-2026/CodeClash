@@ -12,13 +12,24 @@ export class EquipmentService {
 
     async getEquipped(user_id: string): Promise<EquippedItemsDTO> {
         const equipped = await this.equipped_repo.getEquipped(user_id);
-        if (equipped && equipped.theme) return equipped;
+        const needs_theme = !equipped?.theme;
+        const needs_avatar = !equipped?.avatar;
 
-        const default_theme =  await this.shop_item_repo.getDefaultTheme();
-        if( equipped) {
-            return this.equipped_repo.updateEquipped(user_id, { theme_id: default_theme.shop_item_id });
+        if (!equipped || needs_avatar || needs_theme ) {
+            const updates: UpdatedEquippedDTO = {};
+            if(needs_theme){
+                const default_theme = await this.shop_item_repo.getDefaultTheme();
+                updates.theme_id = default_theme.shop_item_id;
+                await this.inventory_repo.grantItem(user_id, default_theme.shop_item_id)
+            }
+            if(needs_avatar) {
+                const defualt_avatar = await this.shop_item_repo.getDefaultAvatar();
+                updates.avatar_item_id = defualt_avatar.shop_item_id;
+                await this.inventory_repo.grantItem(user_id, defualt_avatar.shop_item_id);
+            }
+            return this.equipped_repo.updateEquipped(user_id, updates);
         }
-        return this.equipped_repo.updateEquipped(user_id, {theme_id: default_theme.shop_item_id });
+        return equipped;
     }
 
     async updateEquipped(user_id: string, updates: UpdatedEquippedDTO): Promise<EquippedItemsDTO> {

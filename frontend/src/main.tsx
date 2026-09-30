@@ -22,16 +22,16 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <InventoryProvider>
         <UserProvider>
           <MatchmakingProvider>
-            <FriendsProvider>
-              <BrowserRouter>
+            <BrowserRouter>
               <AchievementToastProvider>
-              <ThemeProvider>
-                <App />
-                </ThemeProvider>
-                <FriendInvitePopup/>
-                </AchievementToastProvider>
-              </BrowserRouter>
-            </FriendsProvider>
+                <FriendsProvider>
+                  <ThemeProvider>
+                  <App />
+                  </ThemeProvider>
+                  <FriendInvitePopup/>
+                </FriendsProvider>
+              </AchievementToastProvider>
+            </BrowserRouter>
           </MatchmakingProvider>
         </UserProvider>
       </InventoryProvider>

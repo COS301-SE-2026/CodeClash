@@ -26,8 +26,10 @@ export class PurchaseService {
                 throw new Error('Item already owned');
             }
 
-            const wallet = await walletRepo.findOne({ where: { user: { user_id } } });
-            if(!wallet) throw new Error('Wallet not found');
+            let wallet = await walletRepo.findOne({ where: { user: { user_id } } });
+            if(!wallet) {
+                wallet = await walletRepo.save(walletRepo.create({ user: { user_id } as any, balance: 0 }));
+            }
             if (wallet.balance < item.price) throw new Error('Insufficient balance');
 
             await walletRepo.update({ wallet_id: wallet.wallet_id }, { balance: wallet.balance - item.price });
