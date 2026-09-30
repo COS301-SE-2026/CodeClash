@@ -26,7 +26,6 @@ import Agent from "./Views/AIAgent";
 import Shop from "./Views/Shop/Shop";
 import Friends from "./Views/Friends/Friends";
 import Achievements from "./Views/Achievements";
-import Settings from "./Views/Settings";
 import { ProgMatch } from "./Views/Match/ProgMatch";
 import SkillProgress from "./Views/SkillProgress";
 import TournamentsMatchPage from "./Views/Tournaments/TournamentMatchPage";
@@ -87,7 +86,6 @@ const App: React.FC = () => {
                 <Route path='/match-history' element={<MatchHistory />} />
                 <Route path='/stats' element={<SkillProgress />} />
                 <Route path="/shop" element={<Shop />} />
-                <Route path='/settings' element={<Settings />} />
             </Route>
 
             <Route path="*" element={<Navigate to='/dashboard' replace/>}/>
