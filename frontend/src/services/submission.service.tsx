@@ -62,8 +62,8 @@ export const useSubmission = ({
         if (match_type === 'tournament') {
             result = await matchSocket?.submitAnswer({ ...submission, tournament_id: tournament_id });
 
-        }
-        result = await matchSocket?.submitAnswer(submission);
+        } else
+            result = await matchSocket?.submitAnswer(submission);
 
         if (result !== undefined && result.ok) {
             updatePlayerLife(result.data!.player_id, result.data!.life_update);
