@@ -1,0 +1,36 @@
+tests/nfr/security/reports/localhost:3000_api_achievements.txt
+  h_b13c5d77534129 1-607
+tests/nfr/security/reports/localhost:3000_api_achievements_me.txt
+  h_b13c5d77534129 1-607
+tests/nfr/security/reports/localhost:3000_api_create-user.txt
+  h_b13c5d77534129 1-607
+tests/nfr/security/reports/localhost:3000_api_elo_elo-get.txt
+  h_b13c5d77534129 1-607
+tests/nfr/security/reports/localhost:3000_api_friends.txt
+  h_b13c5d77534129 1-607
+tests/nfr/security/reports/localhost:3000_api_friends_invite.txt
+  h_b13c5d77534129 1-607
+tests/nfr/security/reports/localhost:3000_api_friends_request.txt
+  h_b13c5d77534129 1-607
+tests/nfr/security/reports/localhost:3000_api_friends_requests.txt
+  h_b13c5d77534129 1-607
+tests/nfr/security/reports/localhost:3000_api_leaderboard.txt
+  h_b13c5d77534129 1-607
+tests/nfr/security/reports/localhost:3000_api_matches.txt
+  h_b13c5d77534129 1-607
+tests/nfr/security/reports/localhost:3000_api_user_rank.txt
+  h_b13c5d77534129 1-607
+tests/nfr/security/reports/localhost:3000_api_user_search.txt
+  h_b13c5d77534129 1-607
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "9fe06ff93a4fa273c38e4682410b5fab1529d9e1",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
