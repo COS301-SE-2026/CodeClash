@@ -1,0 +1,16 @@
+tests/nfr/security/information.sh
+  h_b13c5d77534129 1-16
+tests/nfr/security/token.txt
+  h_b13c5d77534129 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "b55e85c84daadfef2fb82833ff70df325682a69a",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
