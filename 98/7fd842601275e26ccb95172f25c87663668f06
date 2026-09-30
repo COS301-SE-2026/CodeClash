@@ -1,0 +1,20 @@
+frontend/src/Views/SkillProgress/components/WhatToWorkOn.tsx
+  s_5b2d1960cf005f::t_73f9f8ba8c6084 108-111
+  s_5b2d1960cf005f::t_630c41e5fa3b7b 112-113
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "987fd842601275e26ccb95172f25c87663668f06",
+  "prompts": {},
+  "sessions": {
+    "s_5b2d1960cf005f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "571b3ee6-bbf3-440e-8500-2baaf21ee461",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": null
+    }
+  }
+}

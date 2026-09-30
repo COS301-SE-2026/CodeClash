@@ -1,0 +1,21 @@
+frontend/src/Models/SkillInsights.ts
+  s_5b2d1960cf005f::t_78ff6b7bd73d4a 37-39,41
+  s_5b2d1960cf005f::t_26ae28045110ee 40
+  s_5b2d1960cf005f::t_15460717d6860a 42-44
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "53c557e5877bc31e351618007c425af57b806edc",
+  "prompts": {},
+  "sessions": {
+    "s_5b2d1960cf005f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "571b3ee6-bbf3-440e-8500-2baaf21ee461",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": null
+    }
+  }
+}
