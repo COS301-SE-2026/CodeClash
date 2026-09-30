@@ -33,7 +33,6 @@ export class EquippedRepository implements IEquippedRepository {
         const payload: any = {};
         if(updates.theme_id !== undefined) payload.theme = {shop_item_id: updates.theme_id};
         if (updates.avatar_item_id !== undefined) payload.avatar = { shop_item_id: updates.avatar_item_id };
-        if (updates.theme_id !== undefined) payload.theme = { shop_item_id: updates.theme_id };
 
         if (!equipped) {
             await this.equippedRepo.save(this.equippedRepo.create({
