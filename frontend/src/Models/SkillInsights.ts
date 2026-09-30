@@ -601,3 +601,31 @@ function practiceInsight(practice?: PracticeSummary): Insight[] {
         score: 8
     }];
 }
+
+export function weeklyChanges(games: GameSample[], domains: GameDomain[], now: Date = new Date()): WeeklyChange[] {
+    const cutoff = now.getTime() - T.weekDays * DAY_MS;
+    const changes: WeeklyChange[] = [];
+
+    for (const domain of domains) {
+        const inDomain = games.filter(game => game.domain === domain).slice(0, MASTERY_WINDOW);
+        const thisWeek = inDomain.filter(game => new Date(game.playedAt).getTime() >= cutoff);
+        const before = inDomain.filter(game => new Date(game.playedAt).getTime() < cutoff);
+        if (thisWeek.length === 0 || before.length === 0) continue;
+
+        const recent = componentScores(thisWeek, domain);
+        const earlier = componentScores(before, domain);
+        componentsFor(domain).forEach((definition, index) => {
+            if (!definition.inMastery) return;
+            if (recent[index]!.gamesCounted === 0 || earlier[index]!.gamesCounted === 0) return;
+            changes.push({
+                key: `${domain}-${definition.key}`,
+                label: definition.label,
+                domain,
+                delta: recent[index]!.value - earlier[index]!.value,
+                current: recent[index]!.value
+            });
+        });
+    }
+
+    return changes;
+}
