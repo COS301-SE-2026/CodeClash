@@ -10,6 +10,7 @@ import { useMatchmaking } from 'src/context/Matchmaking/hooks/useMatchmaking';
 import { useAnswerResponse, useLifeShake, useSubmission } from 'src/services/submission.service';
 import type { Player } from 'src/Models/MatchModel';
 import { useResultStore } from 'src/stores/result-store';
+import { useUser } from 'src/context/User/hooks/useUser';
 
 export const useMatch = () => {
     const nav = useNavigate();
@@ -34,6 +35,7 @@ export const useMatch = () => {
     const players = useMatchStore(state => state.players) as Player[];
     const stored_rounds = useMatchStore(state => state.rounds)!;
     const match_id = useMatchStore(state => state.match_id);
+    const { userId: current_user_id } = useUser();
 
 
     const { rounds, duration } = useLoadRounds(stored_rounds);
@@ -121,10 +123,11 @@ export const useMatch = () => {
             try{
                 const response = await matchSocket.usePowerup({
                     match_id: Number(match_id),
-                    shop_item_id
+                    shop_item_id,
                 });
                 if (response.ok){
                     //put ui effects here 
+                    
                 }
             } catch (err) {
                 console.error('Failed to use powerup', err);
@@ -144,6 +147,25 @@ export const useMatch = () => {
             const unsub_opponent_progress = matchSocket.opponentProgress(opponentProgress);
             const unsub_opponent_done = matchSocket.opponentDone(handleOpponentDone);
 
+
+            const unsub_powerup_received = matchSocket.powerupReceived((data) => {
+                //tangible effects like actually gaining health points or your elo going up idk
+            });
+
+            const unsub_powerup_blocked = matchSocket.powerupBlocked((data) => {
+                //show blocked by shield feedback
+            });
+
+            const unsub_clear_input = matchSocket.clearInput(() => {
+                if(mathfieldRef.current) mathfieldRef.current.value = '';
+            })
+
+            const unsub_corrupt_input = matchSocket.corruptInput(() => {
+
+            })
+
+            
+
             setLoading(questions.length === 0);
 
 
@@ -152,10 +174,14 @@ export const useMatch = () => {
                 unsub_done();
                 unsub_opponent_progress();
                 unsub_opponent_done();
+                unsub_powerup_received();
+                unsub_powerup_blocked();
+                unsub_clear_input();
+                unsub_corrupt_input();
             }
         }
 
-    }, [matchSocket])
+    }, [matchSocket, match_id])
 
     return {
         status,
@@ -191,6 +217,10 @@ export const useMatch = () => {
         confirmRound,
         confirmCompleteRound,
         cancelCompleteRound,
-        completeRound
+        completeRound,
+        powerupPopupOpen,
+        openPowerupPopup,
+        closePowerupPopup,
+        usePowerups
     }
 }
