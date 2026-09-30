@@ -8,7 +8,8 @@ interface StatTileProps {
     icon?: React.ReactNode;
     badge?: React.ReactNode;
     /*0-100. Leave undefined for figures without a natural maximum.*/
-    progress?: number;
+  progress?: number;
+  compact?: number;
 }
 
 const StatTile: React.FC<StatTileProps> = ({ label, value, unit, caption, icon, badge, progress }) => (
@@ -22,7 +23,7 @@ const StatTile: React.FC<StatTileProps> = ({ label, value, unit, caption, icon, 
         </div>
 
         <div className="flex items-end gap-2">
-            <p className="score-display text-4xl font-black leading-none">{value}</p>
+          <p className=`score-display ${compact ? 'text-lg' : text 'text-4xl'} font-black leading-none`>{value}</p>
             {unit && <span className="text-xsm text-muted-text mb-1">{unit}</span>}
         </div>
 
