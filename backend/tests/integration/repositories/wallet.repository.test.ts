@@ -4,12 +4,12 @@ import { randomUUID } from "node:crypto";
 import { createTestDataSource } from "../../test-data-source";
 import { Wallet } from "../../../src/entities/database/wallet.entities";
 import { Users } from "../../../src/entities/database/user.entities";
-import { WalletReposiroty } from "../../../src/interface-adapters/repositories/wallet.repository";
+import { WalletRepository } from "../../../src/interface-adapters/repositories/wallet.repository";
 import { UserRepository } from "../../../src/interface-adapters/repositories/user.repository";
 import { IUserRepository } from "../../../src/application/interfaces/repositories/IUserRepository";
 
 let data_source: DataSource;
-let repo: WalletReposiroty;
+let repo: WalletRepository;
 let user_repo: IUserRepository;
 
 let user_id: string;
@@ -19,7 +19,7 @@ const username = `equipped_test_${randomUUID}`;
 describe('Tests WalletRepository', () => {
     beforeAll(async () => {
         data_source = await createTestDataSource();
-        repo = new WalletReposiroty(data_source.getRepository(Wallet));
+        repo = new WalletRepository(data_source.getRepository(Wallet));
         user_repo = new UserRepository(data_source.getRepository(Users));
 
         const user = await user_repo.createUser(username, `${username}@example.com`, cognito_id, 0, 'Mercury');

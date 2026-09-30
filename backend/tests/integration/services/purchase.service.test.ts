@@ -7,17 +7,16 @@ import { Wallet } from "../../../src/entities/database/wallet.entities";
 import { UserItem } from "../../../src/entities/database/user-item.entities";
 import { Users } from "../../../src/entities/database/user.entities";
 import { ShopItemRepository } from "../../../src/interface-adapters/repositories/shop-item.repository";
-import { WalletReposiroty } from "../../../src/interface-adapters/repositories/wallet.repository";
+import { WalletRepository } from "../../../src/interface-adapters/repositories/wallet.repository";
 import { UserRepository } from "../../../src/interface-adapters/repositories/user.repository";
 import { PurchaseService } from "../../../src/application/usecases/services/shop/purchase.service";
 import { IUserRepository } from "../../../src/application/interfaces/repositories/IUserRepository";
 import { mock_shop_items } from "../../mocks/mock-shop-items";
-import { after, before, mock } from "node:test";
 
 let data_source: DataSource;
 let purchase_service: PurchaseService;
 let shop_item_repo: ShopItemRepository;
-let wallet_repo: WalletReposiroty;
+let wallet_repo: WalletRepository;
 let user_repo: IUserRepository;
 
 let user_id: string;
@@ -29,7 +28,7 @@ describe('Tests PurchaseService', () => {
     beforeAll(async () => {
         data_source = await createTestDataSource();
         shop_item_repo = new ShopItemRepository(data_source.getRepository(ShopItem));
-        wallet_repo = new WalletReposiroty(data_source.getRepository(Wallet));
+        wallet_repo = new WalletRepository(data_source.getRepository(Wallet));
         user_repo = new UserRepository(data_source.getRepository(Users));
         purchase_service = new PurchaseService(shop_item_repo, data_source);
 

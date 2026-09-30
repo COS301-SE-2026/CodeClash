@@ -1,7 +1,6 @@
 import { PlayerSubmissionDTO, ProgSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
 import { IMarkingStrategy } from "src/application/interfaces/marking/IMarkingStategy";
 import { ICodeExecutor } from "src/application/interfaces/marking/ICodeExecutor";
-import { ProgSubmissionResult } from "src/entities/dtos/submissions/submission-result.dto";
 import { IQuestionRepository } from "src/application/interfaces/repositories/IQuestionRepository";
 
 export class MarkProg implements IMarkingStrategy {
@@ -22,14 +21,10 @@ export class MarkProg implements IMarkingStrategy {
         const sub: ProgSubmissionDTO = submission.submission;
         const test_cases = await this.question_repo.getTestCases(submission.question_id);
 
-        if (test_cases.length === 0) throw new Error("No test cases found ");
+        if (test_cases.length === 0) throw new Error("No test cases found");
 
         for (const test of test_cases) {
             const stdin = this.formatStdin(test.input);
-
-            console.log("TEST INPUT", test.input);
-            console.log("STDIN", stdin);
-            console.log("EXPECTED OUTPUT", JSON.stringify(test.expected_output));
             const result = await this.executor.execute(sub.source_code, sub.language_id, stdin, test.expected_output);
 
             if (result.status.id !== 3) return false;
