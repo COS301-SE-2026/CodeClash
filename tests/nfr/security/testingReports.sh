@@ -28,4 +28,5 @@ done
 
 echo "Done. The following are rows that did not provide an expected 200 or correct rejection 401 response code (rows that need to be checked):"
 grep -L "^\(.*Response Code: 401\)*$" ../reports/*.txt 2>/dev/null
-grep -rn "Response Code: 200\|Response Code: 500" ../reports/*.txt | grep -v "Prescan: original\|Persistence check\|repeat original"
+grep -rn "Response Code: 200\|Response Code: 500" ../reports/*.txt \
+ | grep -v "Prescan: original\|Persistence check\|repeat original\|jwttool_[a-f0-9]* Sending token Response Code:"

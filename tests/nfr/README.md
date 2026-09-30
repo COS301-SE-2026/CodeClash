@@ -212,7 +212,7 @@ this row can be skipped
 else:
 
 In the jwt_tool directory:
-curl -s http://localhost:3000/api/<name-of-route> \ -H "Authorization: Bearer $(cat ../token.txt)" | jq .
+curl -s http://localhost:3000/api/<name-of-route> -H "Authorization: Bearer $(cat ../token.txt)" | jq .
 
 (Find names of api routes in testingReports.sh in ENDPOINTS)
 
