@@ -1,0 +1,68 @@
+dockerfile/docker-compose.dev.yml
+  h_b13c5d77534129 33
+frontend/@/components/ui/TournamentButton.tsx
+  h_b13c5d77534129 12
+frontend/@/components/ui/progress.tsx
+  h_b13c5d77534129 27
+frontend/src/Models/LandingModel.ts
+  h_b13c5d77534129 62
+frontend/src/Models/ShopModel.ts
+  h_b13c5d77534129 17
+frontend/src/Views/Achievements.tsx
+  h_b13c5d77534129 64,95
+frontend/src/Views/Dashboard.tsx
+  h_b13c5d77534129 4,94
+frontend/src/Views/FinalResults.tsx
+  h_b13c5d77534129 49
+frontend/src/Views/GameGuide.tsx
+  h_b13c5d77534129 36,42
+frontend/src/Views/HelpMenu.tsx
+  h_b13c5d77534129 33-34,44-45,56,58,67,72,77,87,106-107,111
+frontend/src/Views/Landing.tsx
+  h_b13c5d77534129 42,55,61,65,69,76,94-95,116,135,157
+frontend/src/Views/MatchFound.tsx
+  h_b13c5d77534129 23
+frontend/src/Views/MatchSearching.tsx
+  h_b13c5d77534129 14
+frontend/src/Views/MathsMatch.tsx
+  h_b13c5d77534129 144
+frontend/src/Views/Profile.tsx
+  h_b13c5d77534129 4,7,38,59
+frontend/src/Views/ProgMatch.tsx
+  h_b13c5d77534129 141
+frontend/src/Views/SignIn.tsx
+  h_b13c5d77534129 19
+frontend/src/Views/SignUp.tsx
+  h_b13c5d77534129 31,75
+frontend/src/Views/TournamentsWaiting.tsx
+  h_b13c5d77534129 31,72
+frontend/src/avatar/PlayerAvatar.tsx
+  h_b13c5d77534129 5,8,13-14
+frontend/src/avatar/UserAvatar.tsx
+  h_b13c5d77534129 1-15
+frontend/src/context/Shop/InventoryContext.tsx
+  h_b13c5d77534129 18,75-83,128
+frontend/src/context/Shop/ThemeContext.tsx
+  h_b13c5d77534129 32
+frontend/src/context/User/UserContext.tsx
+  h_b13c5d77534129 20-21
+frontend/src/dtos/shop.dto.ts
+  h_b13c5d77534129 1-38
+frontend/src/dtos/shop.mapper.ts
+  h_b13c5d77534129 1-42
+frontend/src/layout.tsx
+  h_b13c5d77534129 4-5,7,27-28
+frontend/src/styles/global.css
+  h_b13c5d77534129 193,283-301,305-349,486-487,519-528,558,576-579,610-619,649,667-670,696-710,740,758-761,787-801,831,849-852,878-892,949-950,1055,1059,1066,1070,1089,1094,1099,1131,1141,1160,1188,1190,1194,1196,1200,1202,1207,1209,1213,1215,1220,1225,1227,1246-1249,1257-1261,1282,1298,1305,1338,1345,1363-1394
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "b8791894e14e70e0d0e206abfd3c648f4f9dce01",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
