@@ -23,6 +23,7 @@ const viteConfig = defineConfig({
     exclude: ['@monaco-editor/react', 'mathlive'],
   },
   server: {
+    port: 8080,
     proxy: {
       '/api': {
         target: 'http://localhost:3000',
