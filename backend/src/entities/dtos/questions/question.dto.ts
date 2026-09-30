@@ -8,7 +8,15 @@ export interface QuestionDTO {
     title: string,
     description: string,
     time_limit: string,
-    input_type: QuestionInputType
+    input_type: QuestionInputType,
+    templates?: TemplateDTO[]
+}
+
+
+export interface TemplateDTO {
+    language: string,
+    judge0_language_id: number,
+    starter_code: string
 }
 
 export interface StartQuestionDTO {

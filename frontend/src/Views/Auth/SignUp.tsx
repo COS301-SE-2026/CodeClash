@@ -28,8 +28,7 @@ const SignUp: React.FC= () => {
 
     if (needsConfirmation) {
         return (
-            <div className='relativew-full min-h-screen flex items-center justify-center overflow-hidden px-6 py-16'
-                style={{background: "radial-gradient(circle at 50% 12%, #b91551 0%, #850f3b 22%, #630b3c 34%, #0a0008 62%)"}}>
+            <div className='relativew-full min-h-screen flex items-center justify-center overflow-hidden px-6 py-16 bg-radial-glow'>
 
                 {/*Back Btn */}
                 <Link to='/' className='btn btn-ghost primary-back-button flex items-center gap-2 z-20'>
@@ -73,8 +72,7 @@ const SignUp: React.FC= () => {
 
     {/*The main signup page */}
     return (
-        <div className='relative w-full min-h-screen flex items-center justify-center overflow-hidden px-6 py-16'
-            style={{background: "radial-gradient(circle at 50% 12%, #b91551 0%, #850f3b 22%, #630b3c 34%, #0a0008 62%)"}}>
+        <div className='relative w-full min-h-screen flex items-center justify-center overflow-hidden px-6 py-16 bg-radial-glow'>
             <Starfield/>
 
             {/*Back Button - copied from signin*/}

@@ -70,7 +70,6 @@ export class UserRepository implements IUserRepository {
     async getUserId(cognito_id: string): Promise<UserDTO | null> {
         const user = await this.userRepository.findOneBy({ cognito_id: cognito_id })
 
-        console.log("found", user);
         if (!user) return null;
 
         const data: UserDTO = {

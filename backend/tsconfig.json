@@ -4,6 +4,7 @@
     "target": "esnext",
     "types": [
       "ts-node",
+      "node"
     ],
     "sourceMap": true,
     "declaration": true,
@@ -33,5 +34,5 @@
   },
   "include": [
     "src"
-  ],
+  ]
 }

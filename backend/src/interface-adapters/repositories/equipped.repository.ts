@@ -3,11 +3,12 @@ import { EquippedItems } from "src/entities/database/equipped-items.entities";
 import { IEquippedRepository } from "src/application/interfaces/repositories/IEquippedRepository";
 import { EquippedItemsDTO, UpdatedEquippedDTO } from "src/entities/dtos/shop/equipped-items.dto";
 import { ShopItemRepository } from "./shop-item.repository";
+import { IShopItemRepository } from "src/application/interfaces/repositories/IShopItemRepository";
 
 export class EquippedRepository implements IEquippedRepository {
     constructor(
         private readonly equippedRepo: Repository<EquippedItems>,
-        private readonly shopItemMapper: ShopItemRepository
+        private readonly shopItemMapper: IShopItemRepository
     ){}
 
     toDTO(e: EquippedItems): EquippedItemsDTO {

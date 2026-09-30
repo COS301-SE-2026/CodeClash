@@ -31,10 +31,11 @@ interface MathMatchProps {
   onValueChange?: (value: string) => void;
   mathfieldRef: React.RefObject<MathfieldElement | null>;
   className?: string
-  children?: React.ReactNode
+  children?: React.ReactNode,
+  colourClass: string
 }
 
-const MathMatch = ({ onValueChange, mathfieldRef, className, children }: MathMatchProps) => {
+const MathMatch = ({ onValueChange, mathfieldRef, className, children, colourClass }: MathMatchProps) => {
   const [value, setValue] = useState<string>('');
 
   const handleInput = (evt: React.SyntheticEvent<MathfieldElement>) => {
@@ -45,11 +46,11 @@ const MathMatch = ({ onValueChange, mathfieldRef, className, children }: MathMat
   };
 
   return (
-    <MatchCard className="flex flex-col items-center w-[100%] h-[40%] mb-auto rounded-2xl mt-5">
+    <MatchCard className={`flex flex-col items-center w-[100%] h-[40%] mb-auto rounded-2xl mt-5 bg-card-tournament ${colourClass}`}>
       <math-field
         ref={mathfieldRef}
         onInput={handleInput}
-        className={`${className} w-[95%] min-h-[10rem] rounded-2xl bg-[var(--match-box)] border-[2px] border-[var(--button-tournament-secondary)] text-secondary text-sm mb-auto my-auto mx-auto`}
+        className={`w-[95%] min-h-[10rem] rounded-2xl bg-[var(--match-box)] border-[2px] border-[var(--button-tournament-secondary)] text-[var(--card-tournaments)] text-sm mb-auto my-auto mx-auto ${className}`}
       >
         {value}
       </math-field>

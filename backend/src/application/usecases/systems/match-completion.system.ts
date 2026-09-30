@@ -24,12 +24,15 @@ export class MatchCompletionSystem {
 
     async execute(match_id: number, player_ids: string[]) {
         const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(match_id, 'Submission');
+        const match_component = this.getMatchComponent<MatchComponent>(match_id, 'Match');
+
         if (!submission_registry) throw new Error('Error finishing game')
+        if(!match_component) throw new Error("Error completing game");
 
         const match = this.match_store.get(match_id);
         if (!match?.database_id) throw new Error("Match not found");
 
-      const match_stats = this.getStats(submission_registry.submissions, player_ids);
+        const match_stats = this.getStats(submission_registry.submissions, player_ids,match_component.start_time);
       const match_start = this.getMatchComponent<MatchComponent>(match_id, 'Match')?.start_time ?? new Date();
 
         const ranked_players = [...match_stats.entries()]
@@ -65,33 +68,40 @@ export class MatchCompletionSystem {
         return { players, match_stats, total_questions };
     }// end execute
 
-    getStats(submissions: Map<string, number>, player_ids: string[]) {
-        const game_stats = new Map<string, { num_correct: number, total_time: number }>();
+    getStats(submissions: Map<string, number>, player_ids: string[], match_start: Date | null) {
+        const game_stats = new Map<string, { num_correct: number, total_time: number, num_answered: number }>();
+        const last_time = new Map<string, Date | null>();
+
         for (const id of player_ids) {
-            game_stats.set(id, { num_correct: 0, total_time: 0 })
+            game_stats.set(id, { num_correct: 0, total_time: 0, num_answered: 0 })
+            last_time.set(id, match_start);
         }
 
-        for (const [key, submission] of submissions) {
-            const [player] = key.split('::')
+        const entires = [...submissions].map(([key, submission]) => {
+            const [player] = key.split("::");
+            if (!player) throw new Error("Couldn't fecth player submissions");
 
-            if (!player) throw new Error("Couldn't fetch player submissions");
+            const component = this.getSubmissionComponent(submission, 'Submission');
+            if (!component) throw new Error("Couldn't get player submission");
+            return { player, component };
+        }).sort((a, b) => (a.component.submitted_at?.getTime() ?? 0) - (b.component.submitted_at?.getTime() ?? 0));
+
+
+
+        for (const { player, component } of entires) {
             const stat = game_stats.get(player);
 
             if (!stat) throw new Error("Couldn't get player data");
+            if (component.correct) stat.num_correct += 1;
 
-            // get submission component 
-            const component = this.getSubmissionComponent(submission, 'Submission');
-
-            if (!component) throw new Error("Couldn't get player submissions")
-
-            const correct = component.correct ?? false; // null -> false
-            if (correct) stat.num_correct += 1;
-
-            const time = component.submitted_at && component.started_at
-                ? component.submitted_at!.getTime() - component.started_at!.getTime()
-                : 0; // unanswered questions are treated as 0 time
-            stat.total_time += time
+            if (component.submitted_at) {
+                const prev = last_time.get(player) ?? component.submitted_at;
+                stat.total_time += component.submitted_at.getTime() - prev.getTime();
+                stat.num_answered += 1;
+                last_time.set(player, component.submitted_at);
+            }
         }
+
 
         return game_stats
 

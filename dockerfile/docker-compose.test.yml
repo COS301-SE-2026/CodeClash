@@ -91,3 +91,4 @@ volumes:
 
 networks:
   pgnetwork:
+    name: pgnetwork

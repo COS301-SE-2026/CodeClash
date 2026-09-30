@@ -1,6 +1,6 @@
 import type { Socket } from "socket.io-client";
 import type { MatchAcceptedDTO, MatchmakingUserDTO } from "src/dtos/matchmaking/matchmaking.dto";
-import { on } from "../dispatch";
+import { on, emit } from "../dispatch";
 import type { MatchedUsersDTO } from "src/dtos/matchmaking/matched-user.dto";
 
 export class MatchmakingSocket {
@@ -26,19 +26,18 @@ export class MatchmakingSocket {
 
 
     joinQueue(data: MatchmakingUserDTO) {
-        // return emit<MatchmakingUserDTO, void>(this.socket, 'join_match_queue', data);
-        this.socket.emit('join_match_queue', data);
+        return emit<MatchmakingUserDTO, void>(this.socket, 'join_match_queue', data);
     }
 
     leaveQueue() {
-        this.socket.emit('leave_match_queue');
+        return emit(this.socket, 'leave_match_queue');
     }
 
     acceptMatch(data: MatchAcceptedDTO) {
-        this.socket.emit('match_accepted', data);
+        return emit<MatchAcceptedDTO, void>(this.socket, 'match_accepted', data);
     }
 
     declineMatch(data: { group_id: string, match_mode: string }) {
-        this.socket.emit('decline_match', data);
+        return emit<{ group_id: string, match_mode: string }, void>(this.socket, 'decline_match', data);
     }
 }

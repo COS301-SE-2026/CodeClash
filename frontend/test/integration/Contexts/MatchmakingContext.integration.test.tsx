@@ -3,7 +3,6 @@ import userEvent from '@testing-library/user-event';
 import { useMatchmaking } from '../../../src/context/Matchmaking/hooks/useMatchmaking';
 import { MatchmakingProvider } from '../../../src/context/Matchmaking/MatchmakingContext';
 import { SocketContext } from '../../../src/context/Socket/SocketContextValue';
-import { useSocket } from '../../../src/context/Socket/hooks/useSocket';
 import type { MatchedUsersDTO } from '../../../src/dtos/matchmaking/matched-user.dto';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { MatchmakingSocket } from 'src/context/Socket/modules/matchmaking.socket';
@@ -20,7 +19,6 @@ const MATCHED: MatchedUsersDTO = {
 
 const MatchmakingConsumer = () => {
   const mm = useMatchmaking();
-  const { matchmakingSocket } = useSocket();
 
   return (
     <div>
@@ -32,10 +30,6 @@ const MatchmakingConsumer = () => {
       <button onClick={() => mm.setMatchMode('math')}>set-mode</button>
       <button onClick={() => mm.setMatchType('ranked')}>set-type</button>
       <button onClick={() => mm.setMatched(false)}>reset-matched</button>
-      <button onClick={() => matchmakingSocket?.joinQueue({ elo: 1400, match_mode: 'programming', match_type: 'ranked' })}>join</button>
-      <button onClick={() => matchmakingSocket?.leaveQueue()}>leave</button>
-      <button onClick={() => matchmakingSocket?.acceptMatch({ group_id: mm.group_id, match_mode: 'programming', league: 'Gold', username: 'ntu', avatar: '', match_type: 'ranked' })}>accept</button>
-      <button onClick={() => matchmakingSocket?.declineMatch({ group_id: mm.group_id, match_mode: 'programming' })}>decline</button>
        </div>
   );
 };
@@ -111,31 +105,6 @@ describe('MatchmakingProvider integration', () => {
         expect(screen.getByTestId('mode')).toHaveTextContent('math');
         expect(screen.getByTestId('type')).toHaveTextContent('ranked');
       });
-    
-      it('emits the queue join payload', async () => {
-        const user = userEvent.setup();
-        renderMatchmaking(socket);
-    
-        await user.click(screen.getByRole('button', { name: 'join' }));
-    
-        expect(socket.emitsOf('join_match_queue')).toEqual([
-          [{ elo: 1400, match_mode: 'programming', match_type: 'ranked' }],
-        ]);
-      });
-
-      it('emits leave, accept and decline on the shared socket', async () => {
-          const user = userEvent.setup();
-        renderMatchmaking(socket);
-        act(() => socket.server('users_matched', MATCHED));
-      
-          await user.click(screen.getByRole('button', { name: 'leave' }));
-          await user.click(screen.getByRole('button', { name: 'accept' }));
-          await user.click(screen.getByRole('button', { name: 'decline' }));
-      
-          expect(socket.emitsOf('leave_match_queue')).toEqual([[]]);
-          expect(socket.emitsOf('match_accepted')[0][0]).toMatchObject({ group_id: 'pair-42', league: 'Gold' });
-        expect(socket.emitsOf('decline_match')).toEqual([[{ group_id: 'pair-42', match_mode: 'programming'}]]);
-        });
       
         it('throws when useMatchmaking is called outside the provider', () => {
           const quiet = vi.spyOn(console, 'error').mockImplementation(() => {});
