@@ -21,7 +21,8 @@ export interface PlayerStandingDTO {
     position: number,
     correct: number,
     total_time: number,
-    eliminated: boolean
+    eliminated: boolean,
+    in_danger:boolean
 }
 
 export interface TournamentStandingsDTO{

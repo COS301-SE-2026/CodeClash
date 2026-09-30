@@ -16,7 +16,6 @@ import GameGuide from "./Views/GameGuide"
 import HelpMenu from "./Views/HelpMenu";
 import Leaderboard from "./Views/Match/Leaderboard/Leaderboard";
 import MatchSearching from "./Views/Matchmaking/MatchSearching";
-import Profile from "./Views/Profile";
 import SignIn from "./Views/Auth/SignIn";
 import SignUp from "./Views/Auth/SignUp";
 
@@ -27,7 +26,6 @@ import Agent from "./Views/AIAgent";
 import Shop from "./Views/Shop/Shop";
 import Friends from "./Views/Friends/Friends";
 import Achievements from "./Views/Achievements";
-import Settings from "./Views/Settings";
 import { ProgMatch } from "./Views/Match/ProgMatch";
 import SkillProgress from "./Views/SkillProgress";
 import TournamentsMatchPage from "./Views/Tournaments/TournamentMatchPage";
@@ -38,8 +36,8 @@ const App: React.FC = () => {
     if (isLoading) {
         return <Loading isOpen={isLoading} />
     }
-   
-   
+
+
     const logged_in = user !== null
 
     if (!logged_in) {
@@ -52,7 +50,7 @@ const App: React.FC = () => {
                 <Route path='terms' element={<TermsAndConditions />} />
                 <Route path='/brand-style-guide' element={<BrandStyleGuide />} />
                 <Route path='/help-menu' element={<HelpMenu />} />
-                <Route path='/game-guide' element={<GameGuide/>}/>
+                <Route path='/game-guide' element={<GameGuide />} />
                 <Route path='*' element={<Navigate to='/sign-in' replace />} />
             </Routes>
         )
@@ -60,15 +58,14 @@ const App: React.FC = () => {
 
     return (
         <Routes>
-            <Route path='/' element={<Navigate to='/dashboard' replace/>} />
+            <Route path='/' element={<Navigate to='/dashboard' replace />} />
 
             <Route path='/sign-in' element={<SignIn />} />
             <Route path='/sign-up' element={<SignUp />} />
-            <Route path='/profile' element={<Profile />} />
             <Route path='/match-searching' element={<MatchSearching />} />
             <Route path='/match-found' element={<MatchFound />} />
             <Route path='/math-match/:match_id' element={<MathMatch />} />
-            <Route path='/tournament-match' element={<TournamentsMatchPage/>}/>
+            <Route path='/tournament-match' element={<TournamentsMatchPage />} />
             <Route path='/programming-match/:match_id' element={<ProgMatch />} />
             <Route path='/results/:match_id' element={<FinalResults />} />
             <Route path='/forgot-password' element={<ForgotPassword />} />
@@ -76,24 +73,24 @@ const App: React.FC = () => {
             <Route path="/brand-style-guide" element={<BrandStyleGuide />} />
             <Route path="/agent" element={<Agent />} />
             <Route path='/game-guide' element={<GameGuide />} />
-
+            <Route path='/tournaments/waiting/:tournament_id' element={<TournamentsWaiting />} />
+            <Route path="/tournaments-match/:tournament_id" element={<TournamentsMatchPage />} />
+            
             {/* Pages with sidebar inside the app */}
             <Route element={<Layout />}>
                 <Route path='/dashboard' element={<Dashboard />} />
                 <Route path='/help-menu' element={<HelpMenu />} />
                 <Route path='/tournaments' element={<Tournaments />} />
-                <Route path='/tournaments/waiting/:tournament_id' element={<TournamentsWaiting/>}/>
-                <Route path="/tournaments-match/:tournament_id" element={<TournamentsMatchPage/>}/>
+
                 <Route path='/leaderboard' element={<Leaderboard />} />
                 <Route path='/achievements' element={<Achievements />} />
                 <Route path='/friends' element={<Friends />} />
                 <Route path='/match-history' element={<MatchHistory />} />
                 <Route path='/stats' element={<SkillProgress />} />
                 <Route path="/shop" element={<Shop />} />
-                <Route path='/settings' element={<Settings />} />
             </Route>
 
-            <Route path="*" element={<Navigate to='/dashboard' replace/>}/>
+            <Route path="*" element={<Navigate to='/dashboard' replace />} />
         </Routes>
     )
 }

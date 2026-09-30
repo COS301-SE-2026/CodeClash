@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import type { MathsSubmissionDTO, ProgSubmissionDTO } from "src/dtos/match/submission.dto";
 import type { Question } from "src/Models/MatchModel";
 import { useUser } from "src/context/User/hooks/useUser";
-import { useMatchmaking } from "src/context/Matchmaking/hooks/useMatchmaking";
 import { type SubmissionDTO } from "src/dtos/match/submission.dto";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
+import type { MatchMode, MatchType } from "src/dtos/match/match.dto";
 
 interface SubmissionProps {
     round_idx: number,
@@ -25,7 +25,6 @@ export const useSubmission = ({
     const [results, setResults] = useState<(boolean | null)[][]>([]);
     const [lastResult, setLastResult] = useState<{ correct: boolean; id: number } | null>(null);
     const { userId } = useUser();
-    const { matchMode, matchType } = useMatchmaking();
     const { matchSocket } = useSocket();
 
     const submissionResult = (result: MarkingResultDTO) => {
@@ -44,20 +43,27 @@ export const useSubmission = ({
         console.error(error)
     }
 
-    const submitQuestion = async (data: MathsSubmissionDTO | ProgSubmissionDTO) => {
+    const submitQuestion = async (data: MathsSubmissionDTO | ProgSubmissionDTO, match_type: MatchType, match_mode: MatchMode, tournament_id?: string) => {
 
+        console.log("tournament submission", tournament_id);
         const submission: SubmissionDTO = {
             id: match_id,
             player_id: userId,
             question_id: question.id!,
             round_number: round_idx,
             question_number: curr_question,
-            match_type: matchType!,
-            match_mode: matchMode!,
+            match_type: match_type,
+            match_mode: match_mode,
             submission: data
         }
 
-        const result = await matchSocket?.submitAnswer(submission);
+        let result;
+
+        if (match_type === 'tournament') {
+            result = await matchSocket?.submitAnswer({ ...submission, tournament_id: tournament_id });
+
+        }
+        result = await matchSocket?.submitAnswer(submission);
 
         if (result !== undefined && result.ok) {
             updatePlayerLife(result.data!.player_id, result.data!.life_update);

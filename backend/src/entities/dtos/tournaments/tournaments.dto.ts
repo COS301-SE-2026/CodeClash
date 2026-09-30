@@ -8,7 +8,7 @@ export interface TournamentDTO {
     tournament_mode: MatchMode,
     status: MatchStatus,
     created_at: Date,
-    start_date: Date,
+    start_date?: Date,
     host: PlayerDTO,
     title: string
     min_players: number
@@ -20,7 +20,8 @@ export interface PlayerStandingDTO {
     position: number,
     correct: number,
     total_time: number,
-    elimination_round: number
+    elimination_round: number,
+    in_danger: boolean
 }
 
 export interface TournamentStandingsDTO {

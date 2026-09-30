@@ -21,12 +21,12 @@ export class GetQuestions {
 
 
 
-        const easy_questions = await this.question_repo.getRandQuestions(easy_count, mapping.easy.difficulty, match_mode);
-        const medium_questions = await this.question_repo.getRandQuestions(medium_count, mapping.medium.difficulty, match_mode);
-        const hard_questions = await this.question_repo.getRandQuestions(hard_count, mapping.hard.difficulty, match_mode);
+        const easy_questions = await this.question_repo.getRandQuestions(Math.max(2,easy_count), mapping.easy.difficulty, match_mode);
+        const medium_questions = await this.question_repo.getRandQuestions(Math.max(2,medium_count), mapping.medium.difficulty, match_mode);
+        const hard_questions = await this.question_repo.getRandQuestions(Math.max(2,hard_count), mapping.hard.difficulty, match_mode);
 
 
-
+    
         return {
             easy: easy_questions.map(q => ({ ...q, difficulty: "Easy" })),
             medium: medium_questions.map(q => ({ ...q, difficulty: "Medium" })),

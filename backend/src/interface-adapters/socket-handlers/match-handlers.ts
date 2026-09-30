@@ -11,9 +11,14 @@ import { UsePowerupDTO } from "src/entities/dtos/shop/powerup-use.dto";
 import { PowerupService } from "src/application/usecases/services/shop/powerup.service";
 
 export const submitQuestion = async (
-    io: Server, socket: Socket, data: RawSubmissionDTO, mark: MarkingService,
-    match_store: MatchStore, elimination_service: TournamentEliminationService,
-    opponent_progress: OpponentProgress) => {
+    io: Server,
+    socket: Socket,
+    data: RawSubmissionDTO,
+    mark: MarkingService,
+    match_store: MatchStore,
+    elimination_service: TournamentEliminationService,
+    opponent_progress: OpponentProgress
+) => {
     const ecs_id = match_store.getEcsId(data.id);
     const submission: PlayerSubmissionDTO = {
         ...data,
@@ -22,9 +27,18 @@ export const submitQuestion = async (
     }
 
     switch (data.match_type) {
-        case MatchType.tournament:
-            return await elimination_service.submit(data.id, submission);
+        case MatchType.tournament: {
+            console.log("tournament submission")
+            const result = await elimination_service.submit(data.id!, submission);
+            const standings = elimination_service.getStanding(data.id);
 
+            console.log("Calculated", result);
+            console.log("standings", standings);
+            const sockets = await io.in(data.tournament_id!).fetchSockets();
+            console.log("room members", sockets.map(s => s.id), "for room", data.tournament_id!);
+            io.to(data.tournament_id!).emit('tournament_standings', standings);
+            return result;
+        }
         default: {
             const result = await mark.execute(submission);
             const opponent = opponent_progress.getOpponentId(submission.match_id, submission.player_id);
@@ -42,6 +56,7 @@ export const submitQuestion = async (
 
 export const matchDone = async (io: Server, socket: Socket, match_id: string, match_type: MatchType, match_completion_service: MatchCompletionService, match_store: MatchStore) => {
     // wait for both players to be done
+    console.log("Match done handler");
     const ecs_id = match_store.getEcsId(match_id);
     const match = match_store.get(ecs_id!);
 
@@ -50,12 +65,14 @@ export const matchDone = async (io: Server, socket: Socket, match_id: string, ma
         return;
     }
 
+    console.log("setting done in match store");
     match_store.setDone(socket.data.user_id, ecs_id!);
 
     if (match_store.playersDone(ecs_id!)) {
 
         const ids = match.players.map(player => player.id);
         const match_result = await match_completion_service.execute(ecs_id!, match.database_id, ids, match_type);
+        console.log("Result build from match completion service", match_result);
         match_store.saveResult(ecs_id!, match_result);
 
         for (const id of ids) {
