@@ -16,8 +16,7 @@ const SignIn: React.FC= () => {
     } = SignInViewModelFunction();
 
     return (
-        <div className="relative w-full min-h-screen flex items-center justify-center overflow-hidden px-6 py-16" 
-            style={{background: "radial-gradient(circle at 50% 12%, #b91551 0%, #850f3b 22%, #630b3c 34%, #0a0008 62%)"}}>
+        <div className="relative w-full min-h-screen flex items-center justify-center overflow-hidden px-6 py-16 bg-radial-glow">
             
             <Starfield/>
 
