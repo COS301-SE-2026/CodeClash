@@ -1,0 +1,20 @@
+"docs/Demo_4/SAS (1).md"
+  h_58e143dc25f856 1-393
+docs/Demo_4/api-spec.json
+  h_58e143dc25f856 1-573
+docs/Demo_4/coding-standards.md
+  h_58e143dc25f856 1-176
+docs/Demo_4/testing-policy.md
+  h_58e143dc25f856 1-108
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ad66fd76cb36d7e47b500923b725f366d6c0f407",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
