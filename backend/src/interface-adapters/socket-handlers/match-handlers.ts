@@ -29,10 +29,14 @@ export const submitQuestion = async (
     switch (data.match_type) {
         case MatchType.tournament: {
             console.log("tournament submission")
-            const result = await elimination_service.submit(data.id, submission);
+            const result = await elimination_service.submit(data.id!, submission);
             const standings = elimination_service.getStanding(data.id);
 
-            io.to(data.id).emit('tournament_standings', standings);
+            console.log("Calculated", result);
+            console.log("standings", standings);
+            const sockets = await io.in(data.tournament_id!).fetchSockets();
+            console.log("room members", sockets.map(s => s.id), "for room", data.tournament_id!);
+            io.to(data.tournament_id!).emit('tournament_standings', standings);
             return result;
         }
         default: {

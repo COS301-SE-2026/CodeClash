@@ -24,8 +24,9 @@ export const useTournamentMatch = () => {
     } = useMatch();
     const players = useMatchStore(state => state.players) as PlayerStandingDTO[];
     const match_mode = useMatchStore(state => state.match_mode);
+    const tournament_id = useMatchStore(state => state.tournament_id);
     const db_id = useDbId();
-    const [activePlayers, setActivePlayers] = useState<PlayerStandingDTO[]>([]);
+    const [activePlayers, setActivePlayers] = useState<PlayerStandingDTO[]>(players ?? []);
     const { tournamentSocket } = useSocket();
 
     const [code, setCode] = useState('');
@@ -56,29 +57,33 @@ export const useTournamentMatch = () => {
 
     const handleSubmit = async () => {
         console.log("handle submit ", match_mode);
+        console.log("tournament id", tournament_id);
         if (match_mode === 'math') {
             const answer = mathfieldRef.current?.value ?? '';
 
             if (!answer.trim()) return;
-            await submitQuestion({ answer }, 'tournament', 'math');
+            await submitQuestion({ answer }, 'tournament', 'math', tournament_id!);
         } else {
             if (!code.trim() || languageId === null) return;
             await submitQuestion({
                 source_code: code,
                 language_id: languageId,
                 stdin: null
-            }, 'tournament', 'programming')
+            }, 'tournament', 'programming', tournament_id!)
         }
     }
 
 
     const handleStandings = (standings: PlayerStandingDTO[]) => {
+        console.log("handling standings", standings);
         setActivePlayers(standings);
     }
 
 
     useEffect(() => {
         if (!tournamentSocket) return;
+        console.log("Questions", questions);
+
 
         const unsub_standings = tournamentSocket.tournamentStandings(handleStandings)
 
