@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 type FlashProps = {
     result: boolean | null;
-    children: React.ReactNode;
+    children?: React.ReactNode;
     className?: string;
     trigger: number;
 }

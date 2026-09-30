@@ -20,6 +20,8 @@ import { MarkingResultDTO } from '../../../src/entities/dtos/submissions/submiss
 import { createTestMatch, createTestServer, user_repo, match_store, socketSetup } from './helper';
 import { TournamentEliminationService } from '../../../src/application/usecases/services/tournament/elimination.service'
 import { RawSubmissionDTO } from '../../../src/entities/dtos/submissions/submission.dto';
+import {OpponentProgress} from '../../../src/application/usecases/systems/opponent-progress'
+import {PowerupService} from'../../../src/application/usecases/services/shop/powerup.service'
 
 let server: Server;
 let http: HttpServer;
@@ -87,7 +89,12 @@ describe("Submit Question socket integration test", () => {
             match_completion_service: {} as MatchCompletionService,
             match_deletion_system: {} as DeleteGame,
             match_store: store,
-            elimination_service: {} as TournamentEliminationService
+            elimination_service: {} as TournamentEliminationService,
+            opponent_progress: {
+                getOpponentId: vi.fn().mockReturnValue(undefined),
+                updateOpponent: vi.fn().mockReturnValue({})
+            } as unknown as OpponentProgress,
+            powerup_service: {} as PowerupService
         }
 
         server.on("connection", (socket) => {

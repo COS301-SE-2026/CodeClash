@@ -2,7 +2,7 @@ import { Pool } from "pg";
 import dotnev from "dotenv"
 import { findStubFile, LANGUAGES, titleToSlug } from "./helper";
 import path from "node:path";
-import fs from "fs"
+import fs from "node:fs"
 dotnev.config({ path: ".env.dev" })
 
 const env = process.env;

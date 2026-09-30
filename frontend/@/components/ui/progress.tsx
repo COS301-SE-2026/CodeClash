@@ -3,6 +3,7 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 
 interface ProgressProps extends React.ComponentProps<typeof ProgressPrimitive.Root>{
+  reverse?: boolean,
   from?: string,
   via?: string,
   to?: string,
@@ -16,11 +17,12 @@ interface ProgressProps extends React.ComponentProps<typeof ProgressPrimitive.Ro
 function Progress({
   className,
   value,
+  reverse = false,
   from = "var(--primary)",
   via = "var(--button-tournament)",
   to = "#FFFFFF",
   bg = "var(--primary-dark)",
-  border = "#631631",
+  border = "var(--primary-text)",
   glow = "#FFFFFF",
   height = 1.5,
   orientation = "horizontal",
@@ -28,6 +30,7 @@ function Progress({
 }: ProgressProps) {
 
   const isVertical = orientation === "vertical";
+  const remaining = 100 - (value || 0);
   
 
   return (
@@ -48,8 +51,8 @@ function Progress({
       <ProgressPrimitive.Indicator
         data-slot="progress-indicator"
         style={{
-          transform: isVertical ? `translateY(${100 - (value || 0)}%)` : `translateX(-${100 - (value || 0)}%)`,
-          backgroundImage: isVertical ? `linear-gradient(to top, ${from}, ${via}, ${to})` : `linear-gradient(to right, ${from}, ${via}, ${to})`
+          transform: isVertical ? `translateY(${remaining}%)` : `translateX(${reverse ? '' : '-'}${remaining}%)`,
+          backgroundImage: isVertical ? `linear-gradient(to top, ${from}, ${via}, ${to})` : `linear-gradient(${reverse ? 'to left' : 'to right'}, ${from}, ${via}, ${to})`
         }}
         className={`relative size-full transition-transform rounded-full`}
       >

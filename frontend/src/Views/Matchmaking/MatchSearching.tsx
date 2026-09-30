@@ -11,8 +11,7 @@ const MatchSearching = () => {
   const leftPlayer = players.find((player) => player.side === 'left');
 
   return (
-    <div className="relative w-full min-h-screen overflow-hidden" 
-        style={{background: "radial-gradient(circle at 50% 12%, #b91551 0%, #850f3b 22%, #630b3c 34%, #0a0008 62%)"}}>
+    <div className="relative w-full min-h-screen overflow-hidden bg-radial-glow">
           <Starfield/>
       <div className="relative z-10 flex h-full flex-col items-center justify-between px-6 py-8 md:px-10 md:py-10">
         <div className="w-full text-center">

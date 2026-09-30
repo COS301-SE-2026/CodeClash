@@ -3,8 +3,9 @@ import { submitQuestion } from '../../../src/interface-adapters/socket-handlers/
 import { MarkingService } from '../../../src/application/usecases/services/marking/marking.service';
 import { MathsSubmissionDTO, PlayerSubmissionDTO, RawSubmissionDTO } from '../../../src/entities/dtos/submissions/submission.dto';
 import { MatchStore } from '../../../src/application/usecases/services/match/match-store.service'
-import {TournamentEliminationService} from '../../../src/application/usecases/services/tournament/elimination.service'
+import { TournamentEliminationService } from '../../../src/application/usecases/services/tournament/elimination.service'
 import { MatchMode, MatchType } from '../../../src/entities/dtos/matches/match.dto';
+import { OpponentProgress } from '../../../src/application/usecases/systems/opponent-progress'
 
 // Mock Helpers
 const mockIo = () => {
@@ -29,12 +30,18 @@ const mockMatchStore = () => ({
 
 const mockElimination = () => ({} as any)
 
+const mockOpponentPorgress = () => ({
+    getOpponentId: vi.fn().mockReturnValue(undefined),
+    updateOpponent: vi.fn().mockReturnValue({})
+} as unknown as OpponentProgress);
+
 
 describe('submitQuestion socket handler', () => {
     let io: ReturnType<typeof mockIo>;
     let check_answer: MarkingService;
     let match_store: MatchStore;
     let elimination: TournamentEliminationService;
+    let opponent_progress: OpponentProgress
 
     const data: RawSubmissionDTO = {
         id: 1,
@@ -50,17 +57,26 @@ describe('submitQuestion socket handler', () => {
     } as unknown as RawSubmissionDTO;
 
     beforeEach(() => {
+        vi.clearAllMocks();
         io = mockIo();
         check_answer = mockCheckAnswer();
         match_store = mockMatchStore();
         elimination = mockElimination();
-        vi.clearAllMocks();
+        opponent_progress = mockOpponentPorgress();
+
     });
 
     it('emits submission_result to the submitting player', async () => {
         const socket = mockSocket('player-a');
 
-        await submitQuestion(socket, data, check_answer, match_store, elimination);
+        (check_answer.execute as Mock).mockResolvedValueOnce({
+            playaer_id: 'player-a',
+            correct: true,
+            speec: 0,
+            attempt_number: 1,
+            life_update: 100
+        })
+       await submitQuestion(io as any, socket, data, check_answer, match_store, elimination, opponent_progress);
 
         expect(check_answer.execute).toHaveBeenCalledWith({
             ...data,
@@ -75,6 +91,6 @@ describe('submitQuestion socket handler', () => {
 
         (check_answer.execute as Mock).mockRejectedValueOnce(new Error('Invalid question id'));
 
-        await expect(submitQuestion(socket, data, check_answer,  match_store, elimination)).rejects.toThrow('Invalid question id')
+        await expect(submitQuestion(io as any, socket, data, check_answer, match_store, elimination, opponent_progress)).rejects.toThrow('Invalid question id')
     });
 });

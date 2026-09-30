@@ -33,13 +33,13 @@ const GameGuide = () => {
                     </p>
                     <div className="flex flex-col gap-3">
                         <div className="flex items-center gap-2">
-                            <span className="bg-primary text-white font-bold text-xsm px-4 py-1 rounded-md shrink-0">
+                            <span className="bg-primary text-button-text-primary font-bold text-xsm px-4 py-1 rounded-md shrink-0">
                                 AGE:
                             </span>
                             <span className="text-primary-text font-semibold">
                                 13+
                             </span>
-                            <span className="bg-primary text-white font-bold text-xsm px-4 py-1 rounded-md shrink-0">
+                            <span className="bg-primary text-button-text-primary font-bold text-xsm px-4 py-1 rounded-md shrink-0">
                                 PLATFORM:
                             </span>
                             <span className="text-primary-text font-semibold">

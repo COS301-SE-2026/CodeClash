@@ -41,7 +41,6 @@ export const submitQuestion = async (
                 io.to(opponent).emit("opponent_progress", progress);
             }
 
-            console.log("marking result", result);
             return result;
         }
     }
@@ -50,11 +49,9 @@ export const submitQuestion = async (
 
 export const matchDone = async (io: Server, socket: Socket, match_id: string, match_type: MatchType, match_completion_service: MatchCompletionService, match_store: MatchStore) => {
     // wait for both players to be done
-    console.log("MATCH DONE");
     const ecs_id = match_store.getEcsId(match_id);
     const match = match_store.get(ecs_id!);
 
-    console.log("match ", match);
     if (!match) {
         console.error("No match found");
         return;
@@ -64,10 +61,8 @@ export const matchDone = async (io: Server, socket: Socket, match_id: string, ma
 
     if (match_store.playersDone(ecs_id!)) {
 
-        console.log("completing match");
         const ids = match.players.map(player => player.id);
         const match_result = await match_completion_service.execute(ecs_id!, match.database_id, ids, match_type);
-        console.log("results", match_result)
         match_store.saveResult(ecs_id!, match_result);
 
         for (const id of ids) {
