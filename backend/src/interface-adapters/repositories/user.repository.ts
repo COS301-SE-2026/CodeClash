@@ -168,6 +168,8 @@ export class UserRepository implements IUserRepository {
         const eloLost = loserRating.elo - newLoserRating;
 
 
+        await this.userRepository.update({ user_id: winner_id }, { elo: newWinnerRating });
+        await this.userRepository.update({ user_id: loser_id }, { elo: newLoserRating });
 
         return {
             winner: { user_id: winner_id, old_rating: winnerRating.elo, new_rating: newWinnerRating, elo_gained: eloGained },
@@ -233,7 +235,7 @@ export class UserRepository implements IUserRepository {
 
         const ahead = await this.userRepository
             .createQueryBuilder('user')
-            .where('user.elo > :rating', { rating: row.elo})
+            .where('user.elo > :rating', { rating: row.elo })
             .orWhere('user.elo = :rating AND user.username < :username',
                 { rating: row.elo, username: row.username })
             .getCount()

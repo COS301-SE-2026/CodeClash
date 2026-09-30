@@ -21,12 +21,18 @@ export class MatchCompletionService {
     async execute(ecs_match_id: number, db_match_id: string, player_ids: string[], match_type: MatchType) {
         const { players, match_stats, total_questions } = await this.completion_system.execute(ecs_match_id, player_ids);
 
+        console.log("Match type", match_type)
+
         switch (match_type) {
             case MatchType.ranked: {
+                console.log("Ranked match");
                 const first = players[0]!.id;
                 const second = players[1]!.id;
 
                 const { winner, loser } = await this.user_repo.updateEloAfterMatch(first, second);
+
+                console.log("Winner", winner);
+                console.log("Loser", loser);
 
                 players[0]!.elo_change = winner.elo_gained;
                 players[1]!.elo_change = loser.elo_gained;
@@ -44,14 +50,18 @@ export class MatchCompletionService {
             }
         }
 
+        console.log("earning coins")
         for (const player of players) {
+            console.log("Player", player);
             const stat = match_stats.get(player.id)!;
             const reward = this.reward_service.calculateReward(match_type, player.position, players.length, stat);
+            console.log("reward", reward);
             await this.wallet_repo.updateBalance(player.id, reward);
         }
 
-        await this.achievement_service.evaluateForMatch(match_stats, players, match_type, total_questions);
 
+        await this.achievement_service.evaluateForMatch(match_stats, players, match_type, total_questions);
+        console.log("Achievements");
         await this.match_repo.updatePlayers(db_match_id, players);
         await this.match_repo.completeMatch(db_match_id, MatchStatus.Completed);
 
@@ -63,7 +73,7 @@ export class MatchCompletionService {
         return this.match_repo.buildMatchResult(match_id);
     }
 
-    async getMatchHistory(user_id: string){
+    async getMatchHistory(user_id: string) {
         return this.match_repo.getMatchHistory(user_id);
     }
 }

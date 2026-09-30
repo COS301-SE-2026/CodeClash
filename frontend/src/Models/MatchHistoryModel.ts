@@ -1,6 +1,7 @@
-export type MatchMode = 'RANKED';
-export type MatchType = 'PROGRAMMING' | 'MATH';
+import type{MatchMode, MatchType } from "src/dtos/match/match.dto";
+
 export type MatchResult = 'WIN' | 'LOSS' | 'DRAW';
+
 
 export interface MatchDetails {
     score: string;

@@ -20,7 +20,6 @@ const TournamentsMatchPage = () => {
         mathfieldRef,
         colourClass,
         setCode,
-        setLanguage,
         setLanguageId,
         handleSubmit,match_mode
     } = useTournamentMatch();
@@ -81,9 +80,8 @@ const TournamentsMatchPage = () => {
                             {match_mode === 'programming' && (
                                 <CodeEditor
                                     question={question}
-                                    onChange={(new_code, new_language, judge0_id) => {
+                                    onChange={(new_code,  judge0_id) => {
                                         setCode(new_code);
-                                        setLanguage(new_language);
                                         setLanguageId(judge0_id)
                                     }}
 

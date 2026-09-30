@@ -76,6 +76,7 @@ export class MatchRepository implements IMatchRepository {
     }
 
     async buildMatchResult(match_id: string): Promise<MatchResultDTO> {
+        console.log("match repo building match results");
         const match = await this.match_repo.findOne({ where: { match_id } });
 
         if (!match) throw new Error("Match not found");
@@ -100,6 +101,8 @@ export class MatchRepository implements IMatchRepository {
                     };
                 })
         );
+
+        console.log("Built players", players);
         return {
             match_id,
             players
