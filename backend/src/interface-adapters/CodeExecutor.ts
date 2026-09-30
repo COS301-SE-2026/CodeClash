@@ -1,7 +1,7 @@
 import { ICodeExecutor } from 'src/application/interfaces/marking/ICodeExecutor'
 import axios from 'axios'
 import dotenv from 'dotenv'
-import { ProgSubmissionResult } from 'src/entities/dtos/submission-result.dto';
+import { ProgSubmissionResult } from 'src/entities/dtos/submissions/submission-result.dto';
 dotenv.config();
 
 export class CodeExecutor implements ICodeExecutor {
@@ -15,11 +15,10 @@ export class CodeExecutor implements ICodeExecutor {
     async execute(source_code: string, language_id: number, stdin: string | null, expected_output: string): Promise<ProgSubmissionResult> {
 
         // !!!! Submission queue can be full, we need to plan for this
-
         const data = {
             source_code: Buffer.from(source_code).toString('base64'),
             language_id: language_id,
-            stdin: stdin,
+            stdin: stdin ? Buffer.from(stdin).toString('base64') : null,
             expected_output: Buffer.from(expected_output).toString('base64'),
             memory_limit: this.memory_limit,
             stack_limit: this.stack_limit,
@@ -34,7 +33,6 @@ export class CodeExecutor implements ICodeExecutor {
                         "X-Auth-Token": process.env.JUDGE_0_TOKEN
                     }
                 });
-
 
             return result.data;
         }

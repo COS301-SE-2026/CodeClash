@@ -24,13 +24,13 @@ export default defineConfig({
     coverage: {
       provider: 'istanbul',
       reporter: ['text', 'html', 'lcov'],
-      include: ['**/*.tsx'],
-      exclude: ['**/@/components/ui/**', '**/@/hooks/**', '**/node_modules/**', '**/*.config.*', 'test/**'],
+      include: ['**/*.tsx', '**/*.ts'],
+      exclude: ['**/@/components/ui/**', '**/@/hooks/**', '**/node_modules/**', '**/*.config.*', 'tests/**', "**/dtos/**", "**/Models/**"],
     },
 
     globals: true,
     exclude: ['@/components/ui/**', '@/hooks/**', '**/node_modules/**'],  // exclude shadcn ui components
-    },
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './@'),

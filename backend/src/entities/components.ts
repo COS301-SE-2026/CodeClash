@@ -2,8 +2,9 @@
 
 /* MATCH ENTITY */
 
-import { GameType } from "./db-entities/questions.entities"
-import { MathsSubmissionDTO, ProgSubmissionDTO } from "./dtos/components.dto"
+import { MatchPlayer, MatchType } from "src/entities/dtos/matches/match.dto"
+import { MathsSubmissionDTO, ProgSubmissionDTO } from "./dtos/submissions/submission.dto"
+import { QuestionDTO } from "./dtos/questions/question.dto"
 
 // Player Component holds array of ids for a match
 export interface PlayersComponent {
@@ -15,10 +16,9 @@ export interface MatchComponent {
     title: string,
     status: string,
     game_mode: string,
-    match_type: GameType
-    difficulty: number,
+    match_type: MatchType
     winner: number,
-    rounds: number[],
+    rounds: RoundComponent[]
     start_time: Date,
     end_time: Date,
     question_number: number,
@@ -26,22 +26,20 @@ export interface MatchComponent {
 
 // SubmissionRegistryComponent maps player_id-question_id -> submission entity
 
-export interface SubmissionRegistryComponent{
+export interface SubmissionRegistryComponent {
     submissions: Map<string, number>
 }
 
-
 // Result component 
-export interface ResultComponent{
-    winner: {
-        id: string,
-        elo: number
-    },
-    loser: {
-        id: string,
-        elo: number
-    }
-    stats: Record<string, {num_correct: number, total_time:number}>
+export interface ResultComponent {
+    players: MatchPlayer[];
+    stats: Record<string, { num_correct: number, total_time: number }>
+}
+
+// Round Component
+export interface RoundComponent {
+    round_number: number,
+    questions: QuestionDTO[]
 }
 
 /********************************** */
@@ -72,14 +70,7 @@ export interface BadgeComponent {
     unlocked_at: Date
 }
 
-/********************************** */
 
-/** ROUND ENTITY */
-
-export interface RoundComponent {
-    question_ids: string[],
-    question_number: number
-}
 
 /********************************** */
 
@@ -89,29 +80,37 @@ export interface SubmissionComponent {
     match_id: number,
     player_id: string,
     question_id: string,
+    round_number: number,
     question_number: number,
     started_at: Date,
     attempt_number: number,
     answer: MathsSubmissionDTO | ProgSubmissionDTO | null,
     language?: string
     submitted_at: Date | null,
-    correct:boolean | null,
+    correct: boolean | null,
     token: string | undefined
 }
 
 /********************************** */
-
-
+/** POWERUP ENTITIES */
+export interface PlayerPowerupState {
+    shield_active: boolean;             // Shield
+    blocked_until: number | null;       // Question blackout: epock ms when the block lifts
+    time_delta_seconds: number;         // net of time Boost / time sink
+    score_multiplier_percent: number;   // net score surge, applied at scoring
+    wipe_used: boolean;                 // Wipe: maximum 1 use per match
+}
 
 
 // union for all components - for the map
+export type PowerupStateComponent = Record<string, PlayerPowerupState>;
 
 export type PlayerComponentTypes = LifeComponent | PlayerInfoComponent | RankComponent | BadgeComponent;
-export type MatchComponentTypes = PlayersComponent | MatchComponent | SubmissionRegistryComponent |ResultComponent;
+export type MatchComponentTypes = PlayersComponent | MatchComponent | SubmissionRegistryComponent | ResultComponent | PowerupStateComponent;
 
 export type Component =
     PlayerComponentTypes |
     MatchComponentTypes |
     RoundComponent |
-    SubmissionComponent 
+    SubmissionComponent
 

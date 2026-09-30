@@ -1,16 +1,14 @@
 import { Request, Response } from 'express';
-import { UserDTO } from 'src/entities/dtos/user.dto';
+import { UserDTO } from 'src/entities/dtos/user/user.dto';
 
 import { validStat } from '../auth/auth.service';
 import { CreateUser } from 'src/application/usecases/services/user-creation.service';
 import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
 
-
 /// GET api/user/:stat
 export const getUserStat = (user_repo: IUserRepository) => {
 
     return async (req: Request, res: Response) => {
-
         const { stat } = req.params;
 
         if (!stat || typeof stat !== 'string' || !validStat(stat)) {

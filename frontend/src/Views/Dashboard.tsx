@@ -5,7 +5,7 @@ import { UserAvatar } from '../avatar/UserAvatar';
 import { useDashboardViewModel } from '../ViewModels/DashboardViewModel';
 import { useSkillProgressViewModel } from '../ViewModels/SkillProgressViewModel';
 
-import Popup from './Popup'
+import Popup from 'src/Views/Match/Popup'
 
 import Loading from '@/components/shared/Loading';
 import Starfield from '@/components/ui/animations/Starfield';
