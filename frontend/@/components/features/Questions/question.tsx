@@ -40,7 +40,12 @@ function Question({
 
         <div className="ml-3 m-5 flex flex-col justify-evenly">
           <h1 className="text-[1.6rem] -mt-8 font-semibold">{title}</h1>
-          <div className="text-[1rem] text-muted-text mt-1">{description?.replaceAll(String.raw`\n`, '\n')}</div>
+          <div className="text-[1rem] text-muted-text mt-1 min-h-0 flex-1 overflow-y-auto">
+            <QuestionDescription
+              description={description!}
+
+            />
+          </div>
         </div>
       </MatchCard>
 
@@ -51,4 +56,37 @@ function Question({
   );
 }
 
-export { Question };
+
+const tableRegex = new RegExp(String.raw`\\begin\{tabular\}\{[^]*\}([\s\S]*?)\\end\{tabular\}`, 'g');
+
+const tableToMarkdown = (text: string): string => {
+  return text.replace(tableRegex, (_, body: string) => {
+    const rows = body.split(`\\\\`)
+      .map(row => row.trim())
+      .filter(Boolean)
+      .map(row => row.split('&').map(cell => cell.trim()));
+
+
+    if (rows.length === 0) return '';
+
+    const header = rows[0];
+    const separator = header.map(() => '----');
+    const dataRows = rows.slice(1);
+
+    const toMdRow = (cells: string[]) => `| ${cells.join('|')}`;
+    return [toMdRow(header), toMdRow(separator), ...dataRows.map(toMdRow)].join('\n');
+  })
+}
+
+export const QuestionDescription = ({ description }: { description: string }) => {
+  const processed = React.useMemo(() => tableToMarkdown(description), [description]);
+
+  return (
+    <div className="prose prose-invert max-w-none pt-[1rem]">
+      <ReactMarkDown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]}>
+        {processed}
+      </ReactMarkDown>
+    </div>
+  )
+}
+

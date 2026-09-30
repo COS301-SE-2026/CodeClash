@@ -6,6 +6,7 @@ import { TournamentDTO } from "src/entities/dtos/tournaments/tournaments.dto";
 import { TournamentEliminationService } from "./elimination.service";
 import { MatchStart } from "../match/match-start.service";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
+import { subscribe } from "node:diagnostics_channel";
 
 export class TournamentService {
     constructor(
@@ -97,6 +98,22 @@ export class TournamentService {
 
     async getTournamentsByStatus(status: MatchStatus) {
         return this.tournament_cache.getTournamentsByStatus(status);
+    }
+
+    async advancedRound(tournament_id: string){
+        const tournament = await this.getTournament(tournament_id);
+
+        const survirors = this.elimination_service.endRound(tournament_id);
+        const current_idx = this.elimination_service.getCurrentRound(tournament_id);
+        const next_idx = current_idx + 1;
+
+        if(next_idx >= tournament.rounds.length || survirors.length <= 1){
+            return {finished: true as const, standings: this.elimination_service.getStanding(tournament_id)};
+        }
+
+        const next_round = tournament.rounds[next_idx];
+        this.elimination_service.startRound(tournament_id, next_round!.round_number, next_round!.questions.map(q=>q.id));
+        return {finished: false as const, round: next_round, standings: this.elimination_service.getStanding(tournament_id)}
     }
 
 }

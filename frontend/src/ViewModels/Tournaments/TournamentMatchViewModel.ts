@@ -56,8 +56,6 @@ export const useTournamentMatch = () => {
     }
 
     const handleSubmit = async () => {
-        console.log("handle submit ", match_mode);
-        console.log("tournament id", tournament_id);
         if (match_mode === 'math') {
             const answer = mathfieldRef.current?.value ?? '';
 
@@ -75,15 +73,12 @@ export const useTournamentMatch = () => {
 
 
     const handleStandings = (standings: PlayerStandingDTO[]) => {
-        console.log("handling standings", standings);
         setActivePlayers(standings);
     }
 
 
     useEffect(() => {
         if (!tournamentSocket) return;
-        console.log("Questions", questions);
-
 
         const unsub_standings = tournamentSocket.tournamentStandings(handleStandings)
 

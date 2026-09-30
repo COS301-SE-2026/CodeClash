@@ -9,9 +9,10 @@ import { Button } from "@/components/ui/button";
 import MathMatch from "@/components/features/Match/MathPage";
 import { CodeEditor } from "@/components/features/code-editor";
 import { useEffect, useMemo } from "react";
+import { Badge } from "@/components/ui/badge";
 
 const TournamentsMatchPage = () => {
-    const { total_rounds,
+    const {
         roundIdx, activePlayers,
         seconds, minutes,
         questions, currentQuestion,
@@ -22,7 +23,8 @@ const TournamentsMatchPage = () => {
         setCode,
         setLanguageId,
         handleSubmit, match_mode,
-        nextQuestion
+        nextQuestion,
+        finishMatch
     } = useTournamentMatch();
 
 
@@ -44,13 +46,18 @@ const TournamentsMatchPage = () => {
                         <TournamentButton className="rounded-[10px] min-w-0 w-11 h-11 flex items-center justify-center">
                             <Trophy size={20} className="text-[var(--match-box)] mx-auto" />
                         </TournamentButton>
-                        <div className="flex flex-col gap-0.5">
-                            <h1 className="font-semibold text-secondary text-[1.1rem] leading-tight">Round {roundIdx + 1}/ {total_rounds}</h1>
-                            <div className="text-muted-text text-[0.75rem]">{activePlayers.length} Players Remaining</div>
+                        <div className="flex flex-col ml-4">
+                            <div className="text-muted-text text-[0.7rem] -mt-0.5">{activePlayers.length} Players Remaining</div>
                         </div>
                     </div>
 
-                    <TimerCard>
+                    <Badge
+                        variant={'ghost'}
+                        >
+                        Question {currentQuestion + 1} / {questions.length}
+                    </Badge>
+
+                    <TimerCard className="mr-2.5">
                         <span>
                             {String(minutes).padStart(2, "0")}:
                             {String(seconds).padStart(2, "0")}
@@ -109,17 +116,27 @@ const TournamentsMatchPage = () => {
                                     </div>
                                 </Button>
 
-                                <Button
-                                    className="btn btn-secondary"
-                                    variant={"secondary"}
+                                { currentQuestion < questions.length - 1 && <Button
+                                    className="px-4 py-2 rounded-lg"
+                                    variant={"ghost"}
                                     onClick={() => nextQuestion(currentQuestion)}
                                     disabled={currentQuestion >= questions.length - 1}
                                 >
                                     <div className="flex flex-row items-center gap-2">
-                                        <h1 className="font-semibold">Next</h1>
-                                        <ChevronsRight size={24} />
+                                        <h1>Next</h1>
+                                        <ChevronsRight size={30} />
                                     </div>
-                                </Button>
+                                </Button>}
+                                { currentQuestion == questions.length - 1 && <Button
+                                    className="px-4 py-2 rounded-lg"
+                                    variant={"ghost"}
+                                    onClick={() => finishMatch()}
+                                >
+                                    <div className="flex flex-row items-center gap-2">
+                                        <h1>Finish</h1>
+                                        <ChevronsRight size={30} />
+                                    </div>
+                                </Button>}
                             </div>
 
                         </div>
@@ -147,7 +164,7 @@ const TournamentsMatchPage = () => {
                                         key={p.id}
                                         place={p.position}
                                         username={p.username}
-                                        time={(p.total_time/1000).toFixed() + "s"}
+                                        time={(p.total_time / 1000).toFixed() + "s"}
                                         you={p.id === db_id}
                                     />
                                 )
@@ -173,6 +190,7 @@ const TournamentsMatchPage = () => {
                                                 key={p.id}
                                                 place={p.position}
                                                 username={p.username}
+                                                time={(p.total_time / 1000).toFixed() + "s"}
                                                 you={p.id === db_id}
                                             />
                                         ))
@@ -210,7 +228,7 @@ const TournamentsMatchPage = () => {
                                 {/* the below code was copied and pasted from the handwritten code above, it was not generated by ai: */}
                                 <div className="flex flex-col items-center text-center gap-1 text-xs">
                                     <h1 className="text-muted-text">FASTEST SOLVE</h1>
-                                    <h1 className="text-[1.1rem] font-bold">{telemetry.fastest_solve.total_time}</h1>
+                                    <h1 className="text-[#be883c]">{(telemetry.fastest_solve.total_time / 1000).toFixed(1)}</h1>
                                     <h1 className="text-muted-text">{telemetry.fastest_solve.username}</h1>
                                 </div>
                             </MatchCard>
