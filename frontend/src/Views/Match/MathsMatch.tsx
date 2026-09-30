@@ -8,6 +8,7 @@ import Loading from '@/components/shared/Loading';
 import { MatchScreen } from '@/components/features/Match/Match';
 import { Button } from '@/components/ui/button';
 import PopUp from '@/components/shared/PopUp'
+import { useUser } from 'src/context/User/hooks/useUser';
 
 const MathsMatch = () => {
     const {
@@ -35,10 +36,9 @@ const MathsMatch = () => {
         }
     }, [currentQuestion])
 
-
     if (status !== 'ready' || !curr) {
         return (
-            <Loading isOpen={loading}></Loading>
+            <Loading isOpen={loading || status !== 'ready' || !curr}></Loading>
         )
     }
 
@@ -56,6 +56,8 @@ const MathsMatch = () => {
             question_results={results ?? []}
             rounds={rounds}
             current_round={roundIdx}
+            current_user={username}
+            shake={shake}
         >
 
             <Question
@@ -64,10 +66,10 @@ const MathsMatch = () => {
                 title={curr.title!}
                 description={curr.description}
             />
-
-            <div className='w-[100%] h-[100%] min-h-[35%] flex items-center justify-center'>
+            <div className={`w-[100%] flex items-center justify-center`}>
                 <MathMatch
                     mathfieldRef={mathfieldRef}
+                    colourClass={colourClass}
                 ></MathMatch>
             </div>
             <div className='w-[100%] h-[6rem]  flex flex-shrink-0 items-center justify-evenly rounded-4xl'>

@@ -3,9 +3,8 @@ import { Question } from "@/components/features/Questions/question";
 import { MatchScreen } from "@/components/features/Match/Match";
 import { useMatch } from "src/ViewModels/Match/MatchViewModel"
 import { ChevronRight, ChevronLeft } from 'lucide-react'
-import { MatchBox } from "@/components/features/Match/MatchBox";
 import Loading from '@/components/shared/Loading';
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import TournamentButton from "@/components/features/Tournaments/TournamentButton";
 import { MatchCard } from "@/components/features/Match/MatchCard";
 import PopUp from "@/components/shared/PopUp";
@@ -14,6 +13,8 @@ import { Button } from "@/components/ui/button";
 
 export const ProgMatch = () => {
     const [code, setCode] = useState('');
+    const [languageId, setLanguageId] = useState<number | null>(null);
+
     const {
         status,
         questions,
@@ -31,6 +32,8 @@ export const ProgMatch = () => {
     } = useMatch();
 
     const curr = questions[currentQuestion];
+    const question = useMemo(() => ({ templates: curr.templates }), [curr]);
+    const { username } = useUser();
 
     if (status !== 'ready' || !curr) {
         return (
@@ -52,8 +55,9 @@ export const ProgMatch = () => {
             question_results={results ?? []}
             rounds={rounds}
             current_round={roundIdx}
+            current_user={username}
+            shake={shake}
         >
-
             <Question
                 className={` h-[20rem] `}
                 difficulty={curr.difficulty!}
@@ -61,13 +65,15 @@ export const ProgMatch = () => {
                 description={curr.description}
             />
 
-            <MatchBox className="w-full min-h-40 h-50 rounded-lg bg-[var(--match-box)] -mt-4"></MatchBox>
-
-            <MatchCard className="items-center mt-5">
+            <MatchCard className={`items-center mt-5 ${colourClass}`}>
                 <CodeEditor
-                    handleChange={setCode}
-                />
+                    question={question}
+                    onChange={(new_code,  judge0_id) => {
+                        setCode(new_code);
+                        setLanguageId(judge0_id)
+                    }}
 
+                />
 
                 <div className='flex flex-row gap-6 w-full mx-auto justify-center my-auto'>
 
@@ -77,10 +83,10 @@ export const ProgMatch = () => {
                     </TournamentButton>
                     <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
                         onClick={() => {
-                            if (code.trim()) {
+                            if (code.trim() && languageId !== null) {
                                 submitQuestion({
                                     source_code: code,
-                                    language_id: 54,
+                                    language_id: languageId,
                                     stdin: null
                                 })
                             }
@@ -117,18 +123,11 @@ export const ProgMatch = () => {
                 </div>
             </MatchCard>
             {waitingOpponent && (
-                <div className="fixed inset-0 z-50  bg-background/60 flex items-center justify-center p-4 ">
-
-                    <Card className="relative w-full max-w-lg rounded-3xl  text-center flex flex-col items-center gap-4 p-8 overflow-hidden bg-radial-glow">
-                        <h1 className="text-md text-primary-text font-extrabold whitespace-nowrap">
-                            Waiting For Opponent To Finish
-                        </h1>
-                        <h2 className="text-sm text-primary-text/80 text-center">
-                            Hang on while your opponent finishes up
-                        </h2>
-                        <Spinner className='w-12 h-12 text-secondary'></Spinner>
-                    </Card>
-                </div>
+                <PopUp
+                    isOpen={waitingOpponent}
+                    title={'Waiting For Opponent To Finish'}
+                    subtitle={'Hang on while your opponent finishes up'}
+                />
             )}
 
         </MatchScreen >
