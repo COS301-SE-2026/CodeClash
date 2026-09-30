@@ -25,3 +25,7 @@ for url in "${ENDPOINTS[@]}"; do
     python3 jwt_tool.py "$TOKEN" -t "url" -rh "Authorization: Bearer $TOKEN" -M at -np > "../reports/${name}.txt" 2>&1
     echo "Saved to reports/${name}.txt"
 done
+
+echo "Done. The following are rows that did not provide an expected 200 or correct rejection 401 response code (rows that failed):"
+grep -L "^\(.*Response Code: 401\)*$" ../reports/*.txt 2>/dev/null
+grep -rn "Response Code: 200\|Response Code: 500" ../reports/*.txt | grep -v "Prescan: original\|Persistence check\|repeat original"
