@@ -1,0 +1,14 @@
+frontend/src/ViewModels/Match/MatchViewModel.ts
+  h_b13c5d77534129 27,111-119
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "8e01dca960d82a287c3cf6f47147d1478d02af95",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
