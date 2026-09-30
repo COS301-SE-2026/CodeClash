@@ -168,6 +168,7 @@ AppDataSource.initialize()
             purchase_service,
             equipped_repo,
             shop_item_repo,
+            inventory_repo,
             tournament_service
         );
         const httpServer = createServer(app)     // can update to https
