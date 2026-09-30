@@ -1,0 +1,48 @@
+frontend/src/Views/Match/MathsMatch.tsx
+  h_b13c5d77534129 1,64,77,117
+frontend/src/Views/Match/ProgMatch.tsx
+  h_b13c5d77534129 78,124-125
+frontend/@/components/features/Questions/question.tsx
+  h_b13c5d77534129 36
+database/01-init.sql
+  h_b13c5d77534129 174
+database/03-init-shop.sql
+  h_b13c5d77534129 4,6,8,10,12,16,18,20,22,24,28,30,32,34,36,38,40,42,44,47-58
+dockerfile/docker-compose.dev.yml
+  h_b13c5d77534129 39-40
+frontend/@/components/features/Match/PowerUpandDownButtons.tsx
+  h_b13c5d77534129 1-36
+frontend/@/components/features/Tournaments/TournamentPlayer.tsx
+  h_b13c5d77534129 17
+frontend/@/components/ui/animations/PowerEffect.tsx
+  h_b13c5d77534129 1-119
+frontend/src/Models/ShopModel.ts
+  h_b13c5d77534129 7,33-35,66
+frontend/src/ViewModels/Shop/TryOn.ts
+  h_b13c5d77534129 11
+frontend/src/Views/Match/Popup.tsx
+  h_b13c5d77534129 10-14,19
+frontend/src/Views/Match/PowerupsPopup.tsx
+  h_b13c5d77534129 1-16,19-24,26-28,31-74,77-82,86-122,124-125,127,130
+frontend/src/Views/Shop/AvatarCustomizer.tsx
+  h_b13c5d77534129 37
+frontend/src/Views/Tournaments/TournamentMatchPage.tsx
+  h_b13c5d77534129 61,80-81,86,166,173,181,191,195
+frontend/src/context/Shop/InventoryContext.tsx
+  h_b13c5d77534129 8-9,45
+frontend/src/services/shop.service.ts
+  h_b13c5d77534129 1-22,24-37,39-42,44-55,57-74,76-84,86-104,106-107,110-112,114-137,139-141,143-146,148-149,151-187,190-202
+frontend/src/styles/global.css
+  h_b13c5d77534129 218-297,1454-1549
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "d7fc1b5d9c16f05c2953b95f0a185d0589c6c6ed",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
