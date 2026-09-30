@@ -82,8 +82,6 @@ export const startTournament = async (io: Server, socket: Socket, tournament_id:
         const match = await tournament_service.startTournament(tournament, league);
         const data = { match: match, tournament: tournament };
 
-        const sockets = await io.in(tournament_id).fetchSockets();
-        console.log("in room", sockets.map(s => s.data.user_id), "expected", tournament.players.length);
 
         io.emit('tournament_removed', { tournament_id });
         io.to(tournament_id).emit("tournament_started", data);

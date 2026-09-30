@@ -60,9 +60,7 @@ export const useMatch = () => {
     const closeLoading = () => setLoading(false);
 
     const nextQuestion = (curr: number) => {
-        console.log("current question", curr);
         if (curr < questions.length - 1) {
-            console.log("mosing to next");
             setCurrentQuestion(curr + 1);
         }
     }

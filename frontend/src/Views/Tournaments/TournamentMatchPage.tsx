@@ -12,7 +12,7 @@ import { useEffect, useMemo } from "react";
 import { Badge } from "@/components/ui/badge";
 
 const TournamentsMatchPage = () => {
-    const { total_rounds,
+    const {
         roundIdx, activePlayers,
         seconds, minutes,
         questions, currentQuestion,
@@ -23,7 +23,8 @@ const TournamentsMatchPage = () => {
         setCode,
         setLanguageId,
         handleSubmit, match_mode,
-        nextQuestion
+        nextQuestion,
+        finishMatch
     } = useTournamentMatch();
 
 
@@ -46,7 +47,6 @@ const TournamentsMatchPage = () => {
                             <Trophy size={20} className="text-[var(--match-box)] mx-auto" />
                         </TournamentButton>
                         <div className="flex flex-col ml-4">
-                            <h1 className="font-semibold text-secondary text-[1.1rem] mt-1">Round {roundIdx + 1}/ {total_rounds}</h1>
                             <div className="text-muted-text text-[0.7rem] -mt-0.5">{activePlayers.length} Players Remaining</div>
                         </div>
                     </div>
@@ -117,7 +117,7 @@ const TournamentsMatchPage = () => {
                                     </div>
                                 </Button>
 
-                                <Button
+                                { currentQuestion < questions.length - 1 && <Button
                                     className="px-4 py-2 rounded-lg"
                                     variant={"ghost"}
                                     onClick={() => nextQuestion(currentQuestion)}
@@ -127,7 +127,17 @@ const TournamentsMatchPage = () => {
                                         <h1>Next</h1>
                                         <ChevronsRight size={30} />
                                     </div>
-                                </Button>
+                                </Button>}
+                                { currentQuestion == questions.length - 1 && <Button
+                                    className="px-4 py-2 rounded-lg"
+                                    variant={"ghost"}
+                                    onClick={() => finishMatch()}
+                                >
+                                    <div className="flex flex-row items-center gap-2">
+                                        <h1>Finish</h1>
+                                        <ChevronsRight size={30} />
+                                    </div>
+                                </Button>}
                             </div>
 
                         </div>

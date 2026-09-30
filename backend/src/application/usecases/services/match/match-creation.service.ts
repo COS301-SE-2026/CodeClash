@@ -39,7 +39,7 @@ export class MatchCreationService {
 
         // get questions
         const questions = await this.getQuestions.execute(league, avg_elo, match_mode);
-        console.log("fetched questions for tournament", questions);
+
         const time = this.getTotalTime.execute(questions)
 
         if (!questions) throw new Error("Error fetching questions")

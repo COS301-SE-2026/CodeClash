@@ -1,6 +1,8 @@
 import { PlayerStandingDTO } from "src/entities/dtos/tournaments/tournaments.dto";
 import { MarkingService } from "../marking/marking.service";
 import { PlayerSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
+import { toUnicode } from "node:punycode";
+import { MatchStatus } from "src/entities/dtos/matches/match.dto";
 
 
 const MAX_ATTEMPTS = 3;
@@ -44,7 +46,6 @@ export class TournamentEliminationService {
             progress: new Map()
         }
 
-        console.log("initializing tournament");
         this.state.set(tournament_id, init_state);
 
         return init_state.players
@@ -67,7 +68,7 @@ export class TournamentEliminationService {
     }
 
     async submit(tournament_id: string, submission: PlayerSubmissionDTO) {
-        console.log("submission", submission);
+
 
         const tournament = this.getTournament(tournament_id);
         const player = tournament.players.get(submission.player_id);
@@ -135,6 +136,10 @@ export class TournamentEliminationService {
         return alive.slice(0, keep);
     }
 
+    getCurrentRound(tournament_id: string): number {
+        return this.getTournament(tournament_id).current_round;
+    }
+
     private getTournament(tournament_id: string) {
         const tournament = this.state.get(tournament_id);
 
@@ -166,4 +171,5 @@ export class TournamentEliminationService {
             .filter(p => p.elimination_round === -1)
             .sort((a, b) => b.correct - a.correct || a.total_time - b.total_time);
     }
+
 }

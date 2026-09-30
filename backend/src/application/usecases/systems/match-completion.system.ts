@@ -59,8 +59,6 @@ export class MatchCompletionSystem {
         };
         this.addMatchComponent(match_id, 'Result', data);
 
-        console.log("result", data);
-
         return { players, match_stats, total_questions };
     }// end execute
 
