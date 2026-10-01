@@ -35,7 +35,8 @@ export const createApp = (
   equipped_repo: IEquippedRepository,
   shop_item_repo: IShopItemRepository,
   tournament_service: TournamentService,
-  wallet_repo: IWalletRepository
+  wallet_repo: IWalletRepository,
+
 ) => {
   const app = express();
   app.disable('x-powered-by');

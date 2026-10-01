@@ -156,7 +156,6 @@ AppDataSource.initialize()
         const tournament_service = new TournamentService(tournament_cache, match_start, elimination_service, user_repo);
 
 
-
         const app = createApp(
             user_repo,
             leaderboard_service,
@@ -172,7 +171,7 @@ AppDataSource.initialize()
             equipped_repo,
             shop_item_repo,
             tournament_service, 
-            wallet_repo
+            wallet_repo   
         );
         const httpServer = createServer(app)     // can update to https
         const io = new Server(httpServer, {
