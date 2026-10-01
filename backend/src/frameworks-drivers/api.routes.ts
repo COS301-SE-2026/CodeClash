@@ -289,7 +289,7 @@ router.post('/shop/purchase', purchaseItem(purchase_service));
 router.get('/shop/wallet', getWallet(wallet_service));
 router.get('/shop/equipped', getEquipped(equipment_service));
 router.patch('/shop/equipped', updateEquipped(equipment_service));
-router.get('shop/powerups/me', getUserPowerups(inventory_service));
+router.get('/shop/powerups/me', getUserPowerups(inventory_service));
 router.post('/shop/powerups/use', usePowerup(powerup_service));
 
   // --------------------- user routes

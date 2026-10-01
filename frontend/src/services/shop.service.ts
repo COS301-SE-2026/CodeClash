@@ -143,8 +143,12 @@ function authHeaders(token: string): HeadersInit {
 
 async function handle<T>(res: Response): Promise<T> {
     if (!res.ok) {
-        const body = await res.json().catch(() => null);
-        throw new Error(body?.error ?? body?.message ?? `Request failed (${res.status})`);
+        // const body = await res.json().catch(() => null);
+        const text = await res.text();
+        console.error(`Req Morgan failed (${res.status}):`, text)
+        throw new Error(
+            // body?.error ?? body?.message ??
+            `Request failed (${res.status})`);
     }
     return res.json();
 }
@@ -193,10 +197,14 @@ export const equipItm = async (
     itemId: string,
     token: string
 ): Promise<UserInventory> => {
+
+    const payload: {avatar_item_id?: string; theme_id?: string} =
+    category === 'avatar' ? { avatar_item_id: itemId } : { theme_id: itemId}
+
     const res = await fetch(EQUIP_URL, {
-        method: 'POST',
+        method: 'PATCH',
         headers: authHeaders(token),
-        body: JSON.stringify({ category, shop_item_id: itemId }),
+        body: JSON.stringify(payload),
     });
 
     await handle(res);
