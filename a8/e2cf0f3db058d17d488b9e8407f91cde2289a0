@@ -1,0 +1,23 @@
+backend/src/application/interfaces/repositories/IInventoryRepository.ts
+  h_b13c5d77534129 8
+frontend/src/context/User/UserContext.tsx
+  h_b13c5d77534129 5,21-23
+backend/src/interface-adapters/repositories/wallet.repository.ts
+  h_b13c5d77534129 30
+backend/src/interface-adapters/repositories/inventory.repository.ts
+  h_b13c5d77534129 62-65
+backend/src/application/usecases/services/user-creation.service.ts
+  h_b13c5d77534129 6-7,16-18,36,43-55
+  h_b13c5d77534129 56
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "a8e2cf0f3db058d17d488b9e8407f91cde2289a0",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
