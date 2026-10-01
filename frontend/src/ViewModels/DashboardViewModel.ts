@@ -4,6 +4,7 @@ import { useMatchmaking } from "src/context/Matchmaking/hooks/useMatchmaking";
 import { useUser } from "src/context/User/hooks/useUser";
 import type { MatchType } from "src/dtos/match/match.dto";
 import { getIcon } from "src/utils/achievementIcon";
+import { robot_map } from "src/assets/Robots";
 
 export function useDashboardViewModel() {
     const [isOpen, setIsOpen] = useState(false);
