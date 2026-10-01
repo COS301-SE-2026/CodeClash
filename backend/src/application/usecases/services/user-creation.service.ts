@@ -3,7 +3,8 @@ import { IUserRepository } from "src/application/interfaces/repositories/IUserRe
 import { IEquippedRepository } from "src/application/interfaces/repositories/IEquippedRepository";
 import { IShopItemRepository } from "src/application/interfaces/repositories/IShopItemRepository";
 import { IWalletRepository } from "src/application/interfaces/repositories/IWalletRepository";
-
+import { UserItem } from "src/entities/database/user-item.entities";
+import { DataSource } from "typeorm";
 
 export class CreateUser {
     private avatar_index = 0;
@@ -12,7 +13,9 @@ export class CreateUser {
         private readonly user_repo: IUserRepository,
         private readonly equipped_repo: IEquippedRepository,
         private readonly shop_item_repo: IShopItemRepository,
-        private readonly wallet_repo: IWalletRepository
+        private readonly wallet_repo: IWalletRepository,
+        //below was added by Morgan, read note below:
+        private readonly dataSource: DataSource
     ) { }
 
     async create(username: string, email: string) {
@@ -30,11 +33,26 @@ export class CreateUser {
             throw new Error("Error creating user");
         }
 
+
         this.avatar_index = ++this.avatar_index % 4;
         // setting default theme
         const default_theme = await this.shop_item_repo.getDefaultTheme();
         const defualt_avatar = await this.shop_item_repo.getDefaultAvatar();
         await this.wallet_repo.createWallet(user.user_id!);
+
+
+        // the following is my (Morgan's) fix for the fact that default items aren't actually "owned" upon creation of the user, 
+        // they are just shown as default, if this breaks the system please remove the following block. The following code was 
+        // inspired by what was done in purchase.service.ts
+
+
+        await this.dataSource.transaction(async (manager) => {
+            const userItemRepo = manager.getRepository(UserItem);
+            await userItemRepo.save()
+        })
+
+
+        ////////////////////////////////////////////////////////////////////////////
 
         await this.equipped_repo.updateEquipped(user.user_id!, { theme_id: default_theme.shop_item_id, avatar_item_id: defualt_avatar.shop_item_id });
     }

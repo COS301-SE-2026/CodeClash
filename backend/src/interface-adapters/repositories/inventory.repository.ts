@@ -59,4 +59,8 @@ export class InventoryRepository implements IInventoryRepository {
             await this.userItemRepo.update({ user_item_id: user_item.user_item_id }, { quantity: user_item.quantity -1 });
         }
     }
+
+    // async addItem(user_id: string, shop_item_id: string): Promise<void> {
+    //     const existing = await this.
+    // }
 }

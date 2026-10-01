@@ -27,7 +27,7 @@ export class WalletRepository implements IWalletRepository {
     async createWallet(user_id: string): Promise<WalletDTO> {
         await this.walletRepo.save(this.walletRepo.create({
             user: { user_id } as any,
-            balance: 0
+            balance: 300
         }));
         return this.getWallet(user_id) as Promise<WalletDTO>;
     }

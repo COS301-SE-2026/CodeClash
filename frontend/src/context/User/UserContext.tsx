@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState, type ReactNode } from "react";
 import { authGet } from "src/services/api.service";
 import { useInventory } from "../Shop/InventoryContext";
 import { useAuth } from "../Auth/hooks/useAuth";
+import Datasou
 
 import { UserContext } from "./UserContextValue";
 
@@ -17,7 +18,9 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const userId = user?.userId ?? ""
     const username = user?.username ?? '';
 
-    const {equippedAvatarKey} = useInventory();
+    const {equippedAvatarKey, inventory} = useInventory();
+    console.log(inventory);
+    console.log(inventory?.owned)
     const avatar = equippedAvatarKey ?? '';
 
     const getElo = async () => {
