@@ -1,0 +1,14 @@
+backend/src/application/usecases/services/user-creation.service.ts
+  h_b13c5d77534129 40,51-61,65
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "f7537004c7efee4f37fc7bebd679be8be887e1ba",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
