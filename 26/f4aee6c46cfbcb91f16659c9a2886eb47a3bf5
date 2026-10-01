@@ -1,0 +1,14 @@
+frontend/src/Views/SkillProgress.tsx
+  h_58e143dc25f856 93,98
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "26f4aee6c46cfbcb91f16659c9a2886eb47a3bf5",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

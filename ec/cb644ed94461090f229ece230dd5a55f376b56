@@ -1,0 +1,32 @@
+backend/src/application/usecases/systems/match-completion.system.ts
+  h_94c952a9e14c58 50
+backend/tests/unit/controllers/user.controller.test.ts
+  h_94c952a9e14c58 3,85-137
+  h_94c952a9e14c58 68
+backend/tests/integration/services/marking.service.test.ts
+  h_94c952a9e14c58 66,75
+backend/tests/integration/services/user-creation.service.test.ts
+  h_94c952a9e14c58 36
+frontend/src/context/User/UserContext.tsx
+  h_94c952a9e14c58 24
+backend/tests/integration/services/match-creation.service.test.ts
+  h_94c952a9e14c58 35
+  h_94c952a9e14c58 3
+backend/tests/mocks/mock-questions.ts
+  h_94c952a9e14c58 8,16,24,32,39,46
+backend/src/frameworks-drivers/api.routes.ts
+  h_94c952a9e14c58 36
+backend/tests/test-data-source.ts
+  h_94c952a9e14c58 3,7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "eccb644ed94461090f229ece230dd5a55f376b56",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

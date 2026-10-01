@@ -1,0 +1,14 @@
+frontend/src/Views/SkillProgress/components/WhatToWorkOn.tsx
+  h_58e143dc25f856 56,70,176
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "e1a4b05d48e0fce9d33bcfe8479b90053efa5fa5",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

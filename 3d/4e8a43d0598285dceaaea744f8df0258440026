@@ -1,0 +1,45 @@
+frontend/src/context/Matchmaking/MatchmakingContextValue.tsx
+  h_94c952a9e14c58 9,13-14
+  h_94c952a9e14c58 12
+backend/src/interface-adapters/socket-handlers/matchmaking-handlers.ts
+  h_94c952a9e14c58 9,46-47,95-96,98,112-118
+  h_94c952a9e14c58 97,99,108
+dockerfile/docker-compose.dev.yml
+  h_94c952a9e14c58 6-11,49-50
+frontend/src/Views/Match/Popup.tsx
+  h_94c952a9e14c58 6,9,26-27,29
+frontend/src/context/Socket/modules/matchmaking.socket.ts
+  h_94c952a9e14c58 33,45-47
+  h_94c952a9e14c58 19,24
+frontend/src/ViewModels/Matchmaking/MatchFoundViewModel.ts
+  h_94c952a9e14c58 1,17-19,23,35,37-42,44-45,59,62-65,73
+  h_94c952a9e14c58 7
+backend/src/frameworks-drivers/socket/modules/register-matchmaking-handlers.ts
+  h_94c952a9e14c58 5,12
+backend/src/interface-adapters/cache/matchmaking-cache.ts
+  h_94c952a9e14c58 13
+backend/src/application/usecases/services/matchmaking.service.ts
+  h_94c952a9e14c58 73-74
+frontend/src/ViewModels/Matchmaking/PopUpViewModel.ts
+  h_94c952a9e14c58 1-36
+frontend/src/context/Socket/dispatch.ts
+  h_94c952a9e14c58 19,21,24
+frontend/src/ViewModels/Match/FinalResultsViewModel.ts
+  h_94c952a9e14c58 32,43,45,66,73
+backend/src/application/usecases/services/match/match-confirmation.service.ts
+  h_94c952a9e14c58 9,11,13,15-18,50,52
+frontend/src/context/Matchmaking/MatchmakingContext.tsx
+  h_94c952a9e14c58 8,14,20,22,24,27-30,34,44,48-50
+  h_94c952a9e14c58 35
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "3d4e8a43d0598285dceaaea744f8df0258440026",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

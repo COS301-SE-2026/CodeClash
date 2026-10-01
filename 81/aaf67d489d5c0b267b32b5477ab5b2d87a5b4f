@@ -1,0 +1,14 @@
+backend/src/frameworks-drivers/server.ts
+  h_58e143dc25f856 156,162-173,175-179
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "81aaf67d489d5c0b267b32b5477ab5b2d87a5b4f",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

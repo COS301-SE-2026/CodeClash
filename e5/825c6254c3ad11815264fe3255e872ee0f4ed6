@@ -1,0 +1,24 @@
+frontend/src/dtos/game-questionDTO.tsx
+  h_b13c5d77534129 6
+frontend/@/components/features/MathPage.tsx
+  h_b13c5d77534129 45
+frontend/@/components/ui/TimerBox.tsx
+  h_b13c5d77534129 1-24
+frontend/@/components/shared/Match.tsx
+  h_b13c5d77534129 4,42,46-47,52,80-81,83,89,130
+frontend/src/Views/MathsMatch.tsx
+  h_b13c5d77534129 75-77
+frontend/@/components/features/question.tsx
+  h_b13c5d77534129 29,31,40-41
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "e5825c6254c3ad11815264fe3255e872ee0f4ed6",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

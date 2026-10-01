@@ -1,0 +1,17 @@
+frontend/src/context/Socket/modules/match.socket.ts
+  h_94c952a9e14c58 58,61-62
+  h_94c952a9e14c58 59-60
+frontend/src/context/Socket/modules/matchmaking.socket.ts
+  h_94c952a9e14c58 25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "77c089c0ea2edf1ccc2900e60a8357de463e87bc",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+frontend/src/dtos/match/match-questionDTO.tsx
+  h_94c952a9e14c58 1-20
+frontend/src/ViewModels/MatchFoundViewModel.ts
+  h_94c952a9e14c58 45
+frontend/src/App.tsx
+  h_94c952a9e14c58 67-69
+frontend/src/Views/MathsMatch.tsx
+  h_94c952a9e14c58 15-16,49
+frontend/src/dtos/matchmaking/matched-user.dto.ts
+  h_94c952a9e14c58 1,7
+frontend/src/dtos/match/match.dto.ts
+  h_94c952a9e14c58 3-8
+frontend/src/ViewModels/MatchViewModel.ts
+  h_94c952a9e14c58 12-13,17-18,26,98-99,129-130
+  h_94c952a9e14c58 46,67,83
+frontend/src/stores/match-store.ts
+  h_94c952a9e14c58 1-39
+frontend/src/services/match.service.tsx
+  h_94c952a9e14c58 5,10,12-17,115
+  h_94c952a9e14c58 3,8,179
+frontend/src/context/Socket/modules/match.socket.ts
+  h_94c952a9e14c58 4,6,21-22,57-60
+  h_94c952a9e14c58 53,83-84,87-88
+frontend/package-lock.json
+  h_94c952a9e14c58 33-34,11819-11847
+frontend/package.json
+  h_94c952a9e14c58 40-41
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "c98accea0fdd57da8dfec03f7cc7d2d45344bc37",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

@@ -1,0 +1,47 @@
+backend/src/entities/dtos/match/match.dto.ts
+  h_94c952a9e14c58 25-26,42-43,56-86
+  h_94c952a9e14c58 29
+backend/src/frameworks-drivers/api.routes.ts
+  h_94c952a9e14c58 17,23-24,51,80-81
+  h_94c952a9e14c58 16,29
+backend/src/entities/components.ts
+  h_94c952a9e14c58 5,35,37-41
+backend/src/interface-adapters/repositories/user.repository.ts
+  h_94c952a9e14c58 7,226-238,240-243,245-248
+  h_94c952a9e14c58 178,239,244
+backend/src/interface-adapters/repositories/friend.repository.ts
+  h_94c952a9e14c58 5,11,29-30
+backend/src/application/interfaces/repositories/IUserRepository.ts
+  h_94c952a9e14c58 4,19
+  h_94c952a9e14c58 16-17
+backend/src/interface-adapters/repositories/match.repository.ts
+  h_94c952a9e14c58 4-7,11-12,15,18,20-29,31,33,36,40-42,44-103,105
+  h_94c952a9e14c58 10,13,43
+backend/src/application/interfaces/repositories/IMatchRepository.ts
+  h_94c952a9e14c58 1-3,6-9
+  h_94c952a9e14c58 5
+backend/src/interface-adapters/controllers/match-history.controllers.ts
+  h_94c952a9e14c58 2,4,9
+backend/src/interface-adapters/controllers/elo.controllers.ts
+  h_94c952a9e14c58 2,6,8
+backend/src/frameworks-drivers/app.ts
+  h_94c952a9e14c58 10,17-18,33
+backend/src/application/usecases/services/leaderboard.service.ts
+  h_94c952a9e14c58 2,5,9
+backend/src/application/usecases/systems/match-completion.system.ts
+  h_94c952a9e14c58 4,7,18-19,28,36,38,40-43,45-46,48-64,70-72,96,104
+  h_94c952a9e14c58 47
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 68-69,71-72,99,108
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "de0540f7608ce8db94c94c2d88f1cffcf63c968e",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

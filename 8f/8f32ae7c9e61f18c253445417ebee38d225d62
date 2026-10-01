@@ -1,0 +1,22 @@
+backend/src/application/usecases/systems/life.system.ts
+  h_94c952a9e14c58 22-24,32-36
+  h_94c952a9e14c58 14
+backend/src/application/usecases/services/match-completion.service.ts
+  h_94c952a9e14c58 16,25-28,30,40-43,48-49,51,54-63,66-70,74-98,100-101,104,106,109,126
+  h_94c952a9e14c58 8,12,15,22,29,31-39,46,99,125,131
+backend/src/entities/dtos/player-stats.dto.ts
+  h_94c952a9e14c58 5
+backend/src/entities/components.ts
+  h_94c952a9e14c58 55-56
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "8f8f32ae7c9e61f18c253445417ebee38d225d62",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

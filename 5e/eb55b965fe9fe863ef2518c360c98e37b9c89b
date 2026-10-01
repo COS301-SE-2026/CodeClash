@@ -1,0 +1,20 @@
+frontend/@/components/features/MathPage.tsx
+  h_b13c5d77534129 45,49
+frontend/@/components/features/question.tsx
+  h_b13c5d77534129 28,30,32
+frontend/@/components/shared/Match.tsx
+  h_b13c5d77534129 45
+frontend/src/Views/MathsMatch.tsx
+  h_b13c5d77534129 74,81
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "5eeb55b965fe9fe863ef2518c360c98e37b9c89b",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

@@ -1,0 +1,71 @@
+frontend/src/styles/global.css
+  h_94c952a9e14c58 240,330-348,352-396,534-535,926-927,1039,1043,1050,1054,1074,1079,1084,1132,1151,1179,1181,1185,1187,1191,1193,1198,1200,1204,1206,1216,1218,1237-1240,1248-1250,1290,1297,1302-1316,1319-1323,1330,1337,1362-1392
+  h_94c952a9e14c58 241,528-533,561,563,573-576,604-606,618-622,650-653,681-683,695-699,725,753-755,767-771,797,825-827,839-843,869,1117-1118,1210-1212,1251-1252,1273,1317-1318,1393
+frontend/src/Views/Matchmaking/MatchFound.tsx
+  h_94c952a9e14c58 23
+  h_94c952a9e14c58 24
+frontend/@/components/features/Match/MathPage.tsx
+  h_94c952a9e14c58 50
+frontend/src/Views/Profile.tsx
+  h_94c952a9e14c58 6-7,38,59
+  h_94c952a9e14c58 4
+dockerfile/docker-compose.dev.yml
+  h_94c952a9e14c58 39
+frontend/@/components/ui/Shake.tsx
+  h_94c952a9e14c58 1-33
+frontend/@/components/ui/animations/Flash.tsx
+  h_94c952a9e14c58 8
+frontend/@/components/ui/progress.tsx
+  h_94c952a9e14c58 6,20,25,33,54-55
+frontend/src/Models/LandingModel.ts
+  h_94c952a9e14c58 62
+frontend/src/Models/ShopModel.ts
+  h_94c952a9e14c58 17
+frontend/src/Views/Achievements.tsx
+  h_94c952a9e14c58 64,95
+frontend/src/Views/Auth/SignIn.tsx
+  h_94c952a9e14c58 19
+frontend/src/Views/Auth/SignUp.tsx
+  h_94c952a9e14c58 31,75
+frontend/src/Views/Dashboard.tsx
+  h_94c952a9e14c58 4,94
+frontend/src/Views/GameGuide.tsx
+  h_94c952a9e14c58 36,42
+frontend/src/Views/HelpMenu.tsx
+  h_94c952a9e14c58 33-34,44-45,56,58,67,72,77,87,106-107,111
+frontend/src/Views/Landing.tsx
+  h_94c952a9e14c58 42,55,61,65,69,76,94-95,116,135,157
+frontend/src/Views/Match/FinalResults.tsx
+  h_94c952a9e14c58 49
+frontend/src/Views/Matchmaking/MatchSearching.tsx
+  h_94c952a9e14c58 14
+frontend/src/avatar/PlayerAvatar.tsx
+  h_94c952a9e14c58 5,8,13-14
+frontend/src/avatar/UserAvatar.tsx
+  h_94c952a9e14c58 1-15
+frontend/src/context/Shop/InventoryContext.tsx
+  h_94c952a9e14c58 18,75-83,128
+frontend/src/context/Shop/ThemeContext.tsx
+  h_94c952a9e14c58 32
+frontend/src/context/User/UserContext.tsx
+  h_94c952a9e14c58 20-21
+frontend/src/dtos/shop.dto.ts
+  h_94c952a9e14c58 1-38
+frontend/src/dtos/shop.mapper.ts
+  h_94c952a9e14c58 1-42
+frontend/src/layout.tsx
+  h_94c952a9e14c58 4-5,7,27-28
+frontend/src/services/shop.service.mock.tsx
+  h_94c952a9e14c58 17-18,28-29,39-40,50-51,61-62
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "0412717d512fa5c8b17798e46c3141f99a38f9a7",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

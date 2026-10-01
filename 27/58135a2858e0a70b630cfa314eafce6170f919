@@ -1,0 +1,25 @@
+backend/src/application/interfaces/marking/IMarkingStategy.ts
+  h_94c952a9e14c58 6
+backend/tests/integration/services/marking.service.test.ts
+  h_94c952a9e14c58 25,41-42,70-75,173
+  h_94c952a9e14c58 59
+backend/src/application/usecases/services/marking/marking.service.ts
+  h_94c952a9e14c58 12,23,25
+backend/src/application/usecases/services/marking/mark-maths.ts
+  h_94c952a9e14c58 5,10-11,15-19,22,24
+  h_94c952a9e14c58 9,12
+backend/src/application/usecases/services/marking/mark-prog.ts
+  h_94c952a9e14c58 16
+  h_94c952a9e14c58 23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "2758135a2858e0a70b630cfa314eafce6170f919",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

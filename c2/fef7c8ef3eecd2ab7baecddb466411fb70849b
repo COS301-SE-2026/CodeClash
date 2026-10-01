@@ -1,0 +1,56 @@
+frontend/src/context/Matchmaking/MatchmakingContext.tsx
+  h_94c952a9e14c58 1-52
+frontend/src/Views/ProgMatch.tsx
+  h_94c952a9e14c58 4
+frontend/src/Views/MathsMatch.tsx
+  h_94c952a9e14c58 3
+frontend/src/main.tsx
+  h_94c952a9e14c58 13
+frontend/src/context/Matchmaking/hooks/useMatchmaking.tsx
+  h_94c952a9e14c58 1
+frontend/src/ViewModels/MatchViewModels/PopUpViewModel.ts
+  h_94c952a9e14c58 1-34
+frontend/src/context/Friends/useFriends.ts
+  h_94c952a9e14c58 5
+frontend/src/ViewModels/MatchViewModels/MatchViewModel.ts
+  h_94c952a9e14c58 1-162
+frontend/src/context/Friends/FriendsContext.tsx
+  h_94c952a9e14c58 1-356
+frontend/src/ViewModels/MatchViewModels/MatchFoundViewModel.ts
+  h_94c952a9e14c58 1-147
+backend/src/application/interfaces/cache/IMatchmakingCache.ts
+  h_94c952a9e14c58 15
+frontend/src/Views/Popup.tsx
+  h_94c952a9e14c58 7
+frontend/src/Views/Leaderboard.tsx
+  h_94c952a9e14c58 3
+frontend/src/ViewModels/DashboardViewModel.ts
+  h_94c952a9e14c58 3
+frontend/src/ViewModels/MatchViewModels/MatchSearchingViewModel.ts
+  h_94c952a9e14c58 1-59
+frontend/src/dtos/matchmaking/matched-user.dto.ts
+  h_94c952a9e14c58 4-6
+frontend/src/Views/Friends/FriendInvitePopup.tsx
+  h_94c952a9e14c58 5
+frontend/src/ViewModels/MatchViewModels/FinalResultsViewModel.ts
+  h_94c952a9e14c58 1-96
+backend/src/application/usecases/services/matchmaking.service.ts
+  h_94c952a9e14c58 26-27,39-42,45,57-66,68-71
+  h_94c952a9e14c58 3
+backend/src/interface-adapters/cache/matchmaking-cache.ts
+  h_94c952a9e14c58 53
+backend/src/interface-adapters/socket-handlers/matchmaking-handlers.ts
+  h_94c952a9e14c58 12,24,28,30-38,40-48
+  h_94c952a9e14c58 26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "c2fef7c8ef3eecd2ab7baecddb466411fb70849b",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

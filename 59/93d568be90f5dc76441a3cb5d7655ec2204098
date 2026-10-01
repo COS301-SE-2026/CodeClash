@@ -1,0 +1,22 @@
+frontend/src/Views/TournamentsWaiting.tsx
+  h_b13c5d77534129 12,18,21-22,28
+frontend/@/components/ui/TournamentButton.tsx
+  h_b13c5d77534129 12-14,16
+  h_b13c5d77534129 17
+frontend/@/components/ui/TournamentCard.tsx
+  h_b13c5d77534129 18,32,41-42,46,52,67,90-91,93,95,101
+  h_b13c5d77534129 92
+frontend/src/Views/Tournaments.tsx
+  h_b13c5d77534129 32,34-42
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "5993d568be90f5dc76441a3cb5d7655ec2204098",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

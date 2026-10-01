@@ -1,0 +1,20 @@
+frontend/@/components/ui/TournamentPlayer.tsx
+  h_b13c5d77534129 15
+frontend/@/components/ui/progress.tsx
+  h_b13c5d77534129 5,11,17,27
+frontend/src/Views/TournamentsWaiting.tsx
+  h_b13c5d77534129 20,22-23,25-26,28,40
+frontend/src/styles/global.css
+  h_b13c5d77534129 278,382,464
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "efe29aa85759c3122050bab5722d7778320f559e",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

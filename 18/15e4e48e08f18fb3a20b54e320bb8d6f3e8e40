@@ -1,0 +1,14 @@
+frontend/src/ViewModels/SignUpViewModel.ts
+  h_58e143dc25f856 81-82,84,86-91,93,102-103
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "1815e4e48e08f18fb3a20b54e320bb8d6f3e8e40",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

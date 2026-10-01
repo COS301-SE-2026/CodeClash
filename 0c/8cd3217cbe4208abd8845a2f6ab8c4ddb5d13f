@@ -1,0 +1,14 @@
+frontend/src/Views/SkillProgress/components/DifficultyBands.tsx
+  h_58e143dc25f856 1-31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "0c8cd3217cbe4208abd8845a2f6ab8c4ddb5d13f",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

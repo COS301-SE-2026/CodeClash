@@ -1,0 +1,14 @@
+backend/tests/unit/services/mark-prog.test.ts
+  h_94c952a9e14c58 40
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "b0c831ae6253948ca0d0f033b71894a573fb698b",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+frontend/src/styles/global.css
+  h_b13c5d77534129 1187-1191
+frontend/@/components/ui/Shake.tsx
+  h_b13c5d77534129 1-8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "d376cabcf39a10c84fe6ff68836193eb03c93460",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

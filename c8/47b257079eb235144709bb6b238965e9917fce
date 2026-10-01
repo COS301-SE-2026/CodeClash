@@ -1,0 +1,18 @@
+frontend/@/components/ui/LiveTournamentPlayer.tsx
+  h_b13c5d77534129 27,30,34,36
+frontend/@/components/ui/MultipleChoice.tsx
+  h_b13c5d77534129 22,25
+frontend/src/Views/TournamentMatchPage.tsx
+  h_b13c5d77534129 38-39,50,53,60,62-65,68-76
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "c847b257079eb235144709bb6b238965e9917fce",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

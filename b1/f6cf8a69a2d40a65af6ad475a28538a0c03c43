@@ -1,0 +1,29 @@
+backend/src/application/usecases/services/marking/marking.service.ts
+  h_94c952a9e14c58 38-39
+backend/src/interface-adapters/socket-handlers/match-handlers.ts
+  h_94c952a9e14c58 6,10-18
+  h_94c952a9e14c58 39
+frontend/src/ViewModels/Match/MatchViewModel.ts
+  h_94c952a9e14c58 3,31,37-39,42,83,91
+frontend/src/ViewModels/Matchmaking/MatchFoundViewModel.ts
+  h_94c952a9e14c58 111-113,126,130
+backend/src/frameworks-drivers/socket/modules/register-match-handlers.ts
+  h_94c952a9e14c58 4,10
+backend/src/interface-adapters/socket-handlers/matchmaking-handlers.ts
+  h_94c952a9e14c58 49,52,54,56,63
+  h_94c952a9e14c58 53
+backend/src/entities/dtos/submissions/submission.dto.ts
+  h_94c952a9e14c58 18-26
+  h_94c952a9e14c58 1,5,8,11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "b1f6cf8a69a2d40a65af6ad475a28538a0c03c43",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

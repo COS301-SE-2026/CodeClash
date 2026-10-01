@@ -1,0 +1,14 @@
+frontend/test/integration/AchievementToast.integration.test.tsx
+  h_58e143dc25f856 97-226,228-232
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "deff42f7dae41b5291cfa26cca5b0f10a84e782c",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

@@ -1,0 +1,70 @@
+frontend/src/context/User/UserContext.tsx
+  h_94c952a9e14c58 4,21-24,113-114
+frontend/src/App.tsx
+  h_94c952a9e14c58 26
+frontend/src/Models/ShopModel.ts
+  h_94c952a9e14c58 1-81
+frontend/src/ViewModels/SettingsViewModel.ts
+  h_94c952a9e14c58 1-42,45,49-52
+frontend/src/ViewModels/Shop/ShopViewModel.ts
+  h_94c952a9e14c58 1-93
+frontend/src/ViewModels/Shop/TryOn.ts
+  h_94c952a9e14c58 1-118
+frontend/src/Views/Settings.tsx
+  h_94c952a9e14c58 5,19-36
+frontend/src/Views/Shop/AvatarCustomizer.tsx
+  h_94c952a9e14c58 1-222
+frontend/src/Views/Shop/Shop.tsx
+  h_94c952a9e14c58 1-167
+frontend/src/Views/Shop/ThemeSwatch.tsx
+  h_94c952a9e14c58 1,3,5-12,15,19
+frontend/src/assets/Shop/ResolveShopImages.ts
+  h_94c952a9e14c58 1-19
+frontend/src/assets/Shop/index.ts
+  h_94c952a9e14c58 1-91
+frontend/src/avatar/AvatarRenderer.tsx
+  h_94c952a9e14c58 1-123
+frontend/src/avatar/PlayerAvatar.tsx
+  h_94c952a9e14c58 1-20
+frontend/src/context/Shop/InventoryContext.tsx
+  h_94c952a9e14c58 1-182
+frontend/src/context/Shop/ThemeContext.tsx
+  h_94c952a9e14c58 4,6,17-20,26,30-34
+frontend/src/main.tsx
+  h_94c952a9e14c58 11,15,22-37
+frontend/src/services/shop.service.mock.tsx
+  h_94c952a9e14c58 1-386
+frontend/src/styles/global.css
+  h_94c952a9e14c58 362-366,438-731
+frontend/test/integration/AchievementToast.integration.test.tsx
+  h_94c952a9e14c58 3-4
+frontend/test/integration/Contexts/AuthContext.integration.test.tsx
+  h_94c952a9e14c58 19-20
+frontend/test/integration/Contexts/MatchmakingContext.integration.test.tsx
+  h_94c952a9e14c58 3-6
+frontend/test/integration/Contexts/SocketContext.integration.test.tsx
+  h_94c952a9e14c58 9-10
+frontend/test/integration/Contexts/ThemeContext.integration.test.tsx
+  h_94c952a9e14c58 3
+frontend/test/integration/Contexts/UserContext.integration.test.tsx
+  h_94c952a9e14c58 12-15
+frontend/test/integration/Match.service.integration.test.tsx
+  h_94c952a9e14c58 5-6,20
+frontend/test/integration/ProgMatch.integration.test.tsx
+  h_94c952a9e14c58 2
+frontend/test/integration/Proviers/AppProviders.integration.test.tsx
+  h_94c952a9e14c58 24-34
+frontend/test/integration/services.integration.test.tsx
+  h_94c952a9e14c58 11-14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "7ec04c6dd53a7e75fbec698cef625e74931eba81",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

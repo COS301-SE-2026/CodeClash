@@ -1,0 +1,19 @@
+frontend/@/components/ui/TournamentCard.tsx
+  h_b13c5d77534129 17-18,29,46,48
+frontend/src/Views/Tournaments.tsx
+  h_b13c5d77534129 7,15,17-18,21,29,31,34,37,42
+  h_b13c5d77534129 30,32-33,35-36,38
+frontend/@/components/ui/FilterButton.tsx
+  h_b13c5d77534129 14-15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "3fde469c38a224404a8793e0f9cc0e7464d7338b",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

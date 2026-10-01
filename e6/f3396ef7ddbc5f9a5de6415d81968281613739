@@ -1,0 +1,14 @@
+frontend/test/integration/AuthContext.integration.test.tsx
+  h_58e143dc25f856 128-138
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "e6f3396ef7ddbc5f9a5de6415d81968281613739",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

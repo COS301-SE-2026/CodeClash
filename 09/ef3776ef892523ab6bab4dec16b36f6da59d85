@@ -1,0 +1,14 @@
+frontend/test/integration/SocketHandlers/tournament.socket.test.ts
+  h_58e143dc25f856 25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "09ef3776ef892523ab6bab4dec16b36f6da59d85",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

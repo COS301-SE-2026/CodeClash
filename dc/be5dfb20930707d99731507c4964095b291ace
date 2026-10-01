@@ -1,0 +1,40 @@
+.gitignore
+  h_94c952a9e14c58 483-493
+backend/package-lock.json
+  h_94c952a9e14c58 31,40,2103-2105,5892-5894,5899,5959-5961
+backend/package.json
+  h_94c952a9e14c58 16-19,56,65
+backend/scripts/question-seeding/math/helpers.ts
+  h_94c952a9e14c58 1-196
+backend/scripts/question-seeding/math/seed-math-questions.ts
+  h_94c952a9e14c58 1-84
+backend/scripts/question-seeding/programming/helper.ts
+  h_94c952a9e14c58 1-160
+backend/scripts/question-seeding/programming/seed-prog-questions.ts
+  h_94c952a9e14c58 1-69
+backend/scripts/question-seeding/programming/seed-prog-templates.ts
+  h_94c952a9e14c58 1-84
+backend/scripts/tsconfig.json
+  h_94c952a9e14c58 1-19
+backend/tsconfig.json
+  h_94c952a9e14c58 7,37
+backend/vitest.config.ts
+  h_94c952a9e14c58 8,23-24
+database/01-init.sql
+  h_94c952a9e14c58 97-114
+dockerfile/docker-compose.dev.yml
+  h_94c952a9e14c58 64
+frontend/@/components/shared/Match/Match.tsx
+  h_94c952a9e14c58 137,154
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "dcbe5dfb20930707d99731507c4964095b291ace",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

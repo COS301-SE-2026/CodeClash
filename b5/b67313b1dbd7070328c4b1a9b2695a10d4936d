@@ -1,0 +1,20 @@
+frontend/src/utils/seededRandom.ts
+  s_97fc86e7b5c868::t_26d44642b12fde 1-12
+  s_97fc86e7b5c868::t_f0ecf529fe26ba 13-15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "b5b67313b1dbd7070328c4b1a9b2695a10d4936d",
+  "prompts": {},
+  "sessions": {
+    "s_97fc86e7b5c868": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f4b6676a-4ef3-4d98-a966-3847c47ca245",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

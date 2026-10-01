@@ -1,0 +1,17 @@
+frontend/test/integration/SocketHandlers/tournament.socket.test.ts
+  h_94c952a9e14c58 1,73-74,76-79
+  h_94c952a9e14c58 75
+frontend/vitest.config.ts
+  h_94c952a9e14c58 27-28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ae778eace44cb07dbc47b80741af767baf86cd9c",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

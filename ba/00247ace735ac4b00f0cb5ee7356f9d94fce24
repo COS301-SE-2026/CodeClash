@@ -1,0 +1,84 @@
+database/01-init.sql
+  h_b13c5d77534129 174
+database/03-init-shop.sql
+  h_b13c5d77534129 4,6,8,10,12,16,18,20,22,24,28,30,32,34,36,38,40,42,44,47-58
+frontend/@/components/features/Match/PowerUpandDownButtons.tsx
+  h_b13c5d77534129 1-36
+frontend/@/components/features/Tournaments/TournamentPlayer.tsx
+  h_b13c5d77534129 17
+frontend/@/components/ui/animations/PowerEffect.tsx
+  h_b13c5d77534129 1-119
+frontend/@/components/ui/progress.tsx
+  h_b13c5d77534129 23
+frontend/src/Models/LandingModel.ts
+  h_b13c5d77534129 62
+frontend/src/Models/ShopModel.ts
+  h_b13c5d77534129 7,17,33-35,66
+frontend/src/ViewModels/Shop/TryOn.ts
+  h_b13c5d77534129 11
+frontend/src/Views/Achievements.tsx
+  h_b13c5d77534129 64,95
+frontend/src/Views/Auth/SignIn.tsx
+  h_b13c5d77534129 19
+frontend/src/Views/Auth/SignUp.tsx
+  h_b13c5d77534129 31,75
+frontend/src/Views/Dashboard/Dashboard.tsx
+  h_b13c5d77534129 4,39
+frontend/src/Views/GameGuide.tsx
+  h_b13c5d77534129 36,42
+frontend/src/Views/HelpMenu.tsx
+  h_b13c5d77534129 33-34,44-45,56,58,67,72,77,87,106-107,111
+frontend/src/Views/Landing.tsx
+  h_b13c5d77534129 42,55,61,65,69,76,94-95,116,135,157
+frontend/src/Views/Match/FinalResults.tsx
+  h_b13c5d77534129 49
+frontend/src/Views/Match/MathsMatch.tsx
+  h_b13c5d77534129 1,10-12,67,80,120
+frontend/src/Views/Match/Popup.tsx
+  h_b13c5d77534129 10-14,19
+frontend/src/Views/Match/PowerupsPopup.tsx
+  h_b13c5d77534129 1-130
+frontend/src/Views/Match/ProgMatch.tsx
+  h_b13c5d77534129 78,124-125,128-139
+frontend/src/Views/Matchmaking/MatchFound.tsx
+  h_b13c5d77534129 23-24
+frontend/src/Views/Matchmaking/MatchSearching.tsx
+  h_b13c5d77534129 14
+frontend/src/Views/Profile.tsx
+  h_b13c5d77534129 4,6-7,38,59
+frontend/src/Views/Shop/AvatarCustomizer.tsx
+  h_b13c5d77534129 37
+frontend/src/Views/Tournaments/TournamentMatchPage.tsx
+  h_b13c5d77534129 61,80-81,86,166,173,181,191,195
+frontend/src/avatar/PlayerAvatar.tsx
+  h_b13c5d77534129 5,8,13-14
+frontend/src/avatar/UserAvatar.tsx
+  h_b13c5d77534129 1-15
+frontend/src/context/Shop/InventoryContext.tsx
+  h_b13c5d77534129 8-9,17,45,74-82,127
+frontend/src/context/Shop/ThemeContext.tsx
+  h_b13c5d77534129 32
+frontend/src/context/User/UserContext.tsx
+  h_b13c5d77534129 20-21
+frontend/src/dtos/shop.dto.ts
+  h_b13c5d77534129 1-38
+frontend/src/dtos/shop.mapper.ts
+  h_b13c5d77534129 1-42
+frontend/src/layout.tsx
+  h_b13c5d77534129 4-5,7,27-28
+frontend/src/services/shop.service.ts
+  h_b13c5d77534129 1-22,24-37,39-42,44-55,57-74,76-84,86-104,106-107,110-112,114-137,139-141,143-146,148-149,151-187,190-202
+frontend/src/styles/global.css
+  h_b13c5d77534129 218-297,320-321,410-428,432-476,608-615,641-656,684-687,699-707,735-748,776-779,791-799,825-840,868-871,883-891,917-932,960-963,975-983,1009-1024,1081-1082,1194,1198,1205,1209,1229,1234,1239,1272-1273,1287,1306,1334,1336,1340,1342,1346,1348,1353,1355,1359,1361,1365-1367,1371,1373,1392-1395,1403-1407,1428-1429,1445,1452,1463,1470,1481-1486,1489-1492,1494-1497,1500-1614
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ba00247ace735ac4b00f0cb5ee7356f9d94fce24",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

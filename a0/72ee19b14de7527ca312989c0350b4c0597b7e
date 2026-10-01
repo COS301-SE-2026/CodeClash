@@ -1,0 +1,44 @@
+frontend/src/App.tsx
+  h_94c952a9e14c58 33,71
+.github/workflows/deploy-main.yml
+  h_94c952a9e14c58 7-10,15-16,18-64
+backend/src/interface-adapters/CodeExecutor.ts
+  h_94c952a9e14c58 9
+backend/tests/integration/services/user-creation.service.test.ts
+  h_94c952a9e14c58 1-74
+dockerfile/docker-compose.dev.yml
+  h_94c952a9e14c58 39
+dockerfile/docker-compose.prod.yml
+  h_94c952a9e14c58 34
+frontend/@/components/shared/Match/Match.tsx
+  h_94c952a9e14c58 3,7,51,79,81-85
+frontend/@/components/ui/LiveTournamentPlayer.tsx
+  h_94c952a9e14c58 1-39
+frontend/@/components/ui/MatchBox.tsx
+  h_94c952a9e14c58 6-7,10,16,26-37
+frontend/@/components/ui/MultipleChoice.tsx
+  h_94c952a9e14c58 1-42
+frontend/@/components/ui/TournamentButton.tsx
+  h_94c952a9e14c58 12
+frontend/@/components/ui/TournamentPlayer.tsx
+  h_94c952a9e14c58 12
+frontend/src/Views/Match/ProgMatch.tsx
+  h_94c952a9e14c58 6,55
+frontend/src/Views/TournamentMatchPage.tsx
+  h_94c952a9e14c58 1-204
+frontend/src/Views/Tournaments/TournamentsWaiting.tsx
+  h_94c952a9e14c58 32
+frontend/src/styles/global.css
+  h_94c952a9e14c58 280-281,392-393,477-478
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "a072ee19b14de7527ca312989c0350b4c0597b7e",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+frontend/src/Views/Match/MathsMatch.tsx
+  h_94c952a9e14c58 28-29,42
+frontend/src/ViewModels/Matchmaking/MatchFoundViewModel.ts
+  h_94c952a9e14c58 120,122,127
+frontend/src/services/match.service.tsx
+  h_94c952a9e14c58 9,11,15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "f2d1d73a94b808bd24719f6161ad708a56969383",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+backend/src/interface-adapters/cache/tournament-cache.ts
+  h_94c952a9e14c58 15-18,39-42,54,73-82
+  h_94c952a9e14c58 72
+backend/src/application/interfaces/cache/ITournamentCache.ts
+  h_94c952a9e14c58 2,10-11
+backend/tests/unit/cache/tournament-cache.test.ts
+  h_94c952a9e14c58 1-116
+backend/src/frameworks-drivers/socket/modules/register-tournament-handler.ts
+  h_94c952a9e14c58 6
+backend/src/entities/dtos/tournaments/tournaments.dto.ts
+  h_94c952a9e14c58 11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "08f9227af8d9479aea67b83710ec20c19b7b2430",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

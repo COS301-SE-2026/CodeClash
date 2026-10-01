@@ -1,0 +1,14 @@
+frontend/test/integration/services.integration.test.tsx
+  h_58e143dc25f856 18-81
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "a5a1f6cd9122f7317568da18ba609c72c235743b",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

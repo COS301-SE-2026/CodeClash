@@ -1,0 +1,16 @@
+backend/src/frameworks-drivers/socket/dispatch.ts
+  h_94c952a9e14c58 1-22
+backend/src/entities/dtos/socket/socket.dto.ts
+  h_94c952a9e14c58 1-13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "68fb3c8843082a2c5dd196dec3a58997a8b34562",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

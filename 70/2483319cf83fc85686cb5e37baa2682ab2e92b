@@ -1,0 +1,51 @@
+backend/src/frameworks-drivers/socket/dependencies.ts
+  h_94c952a9e14c58 10,18
+backend/src/application/usecases/services/matchmaking.service.ts
+  h_94c952a9e14c58 2
+backend/src/application/usecases/services/match/match-store.service.ts
+  h_94c952a9e14c58 3
+backend/src/application/usecases/systems/submission.system.ts
+  h_94c952a9e14c58 68,70,74
+  h_94c952a9e14c58 2,21,69
+backend/src/entities/dtos/matchmaking/matchmaking.dto.ts
+  h_94c952a9e14c58 1
+backend/src/interface-adapters/socket-handlers/matchmaking-handlers.ts
+  h_94c952a9e14c58 3
+backend/src/frameworks-drivers/socket/modules/register-matchmaking-handlers.ts
+  h_94c952a9e14c58 4
+backend/src/interface-adapters/repositories/question.repository.ts
+  h_94c952a9e14c58 2,5
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 13,26,105,113,127
+backend/src/interface-adapters/socket-handlers/match-handlers.ts
+  h_94c952a9e14c58 3-4,6,8,17-19,21,36
+backend/src/frameworks-drivers/socket/modules/register-match-handlers.ts
+  h_94c952a9e14c58 8,24-28
+  h_94c952a9e14c58 5
+backend/src/application/interfaces/cache/IMatchmakingCache.ts
+  h_94c952a9e14c58 1
+backend/src/application/usecases/services/match/match-creation.service.ts
+  h_94c952a9e14c58 48-56,59-60,76-77
+  h_94c952a9e14c58 5,46
+backend/src/application/interfaces/repositories/IQuestionRepository.ts
+  h_94c952a9e14c58 1
+backend/src/application/usecases/services/marking/marking.service.ts
+  h_94c952a9e14c58 28,31
+backend/src/application/usecases/services/match/match-start.service.ts
+  h_94c952a9e14c58 4
+backend/src/interface-adapters/cache/matchmaking-cache.ts
+  h_94c952a9e14c58 3
+backend/src/application/usecases/services/questions.service.ts
+  h_94c952a9e14c58 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "702483319cf83fc85686cb5e37baa2682ab2e92b",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

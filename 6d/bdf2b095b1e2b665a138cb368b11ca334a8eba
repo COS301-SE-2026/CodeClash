@@ -1,0 +1,24 @@
+frontend/test/integration/AchievementToast.integration.test.tsx
+  s_bb092336219d7c::t_7a3110ef38305f 5
+  s_bb092336219d7c::t_02312c0bd9beff 61,67
+frontend/src/context/User/UserContext.tsx
+  s_bb092336219d7c::t_5280c4a65bfbcb 69
+frontend/test/integration/Contexts/UserContext.integration.test.tsx
+  s_bb092336219d7c::t_7c0b53a0e40085 159
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "6dbdf2b095b1e2b665a138cb368b11ca334a8eba",
+  "prompts": {},
+  "sessions": {
+    "s_bb092336219d7c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a9dd7b37-31b7-439d-a2a7-a8d2161616c7",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

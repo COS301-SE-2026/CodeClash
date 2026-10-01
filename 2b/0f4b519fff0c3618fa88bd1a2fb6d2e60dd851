@@ -1,0 +1,29 @@
+backend/src/entities/dtos/components.dto.ts
+  h_94c952a9e14c58 43
+backend/src/application/usecases/systems/submission.system.ts
+  h_94c952a9e14c58 28,50,60,74
+backend/src/entities/components.ts
+  h_94c952a9e14c58 7,22,47-50,91
+  h_94c952a9e14c58 30,35,44-46,98,110,116
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 13,97
+frontend/src/dtos/match/submission.dto.ts
+  h_94c952a9e14c58 15
+frontend/src/ViewModels/Match/MatchViewModel.ts
+  h_94c952a9e14c58 90-91
+backend/src/application/usecases/systems/match-creation.system.ts
+  h_94c952a9e14c58 3,10,14,18-19,22,24,73-74,76-83,85-87,89-92,95-98,100-102,118,125
+backend/src/application/usecases/services/match/match-creation.service.ts
+  h_94c952a9e14c58 11,59,70-71,82,84
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "2b0f4b519fff0c3618fa88bd1a2fb6d2e60dd851",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

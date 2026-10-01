@@ -1,0 +1,14 @@
+frontend/vitest.config.ts
+  h_58e143dc25f856 26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "49b6bbe03e48459aa03e9611e46802a7a48a13ea",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

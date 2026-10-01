@@ -1,0 +1,26 @@
+backend/src/interface-adapters/repositories/friend.repository.ts
+  h_94c952a9e14c58 4
+backend/src/application/usecases/services/friend.service.ts
+  h_94c952a9e14c58 2
+backend/src/frameworks-drivers/socket/modules/friends/handlers.ts
+  h_94c952a9e14c58 1-10
+backend/src/entities/dtos/friends/friendship.dto.ts
+  h_94c952a9e14c58 1-25
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 225
+backend/src/application/interfaces/repositories/IFriendRepository.ts
+  h_94c952a9e14c58 1
+backend/src/frameworks-drivers/socket/modules/friends/register-handler.ts
+  h_94c952a9e14c58 1-14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "42b56ba6d55213fb6290ad62444b35c318c2db55",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

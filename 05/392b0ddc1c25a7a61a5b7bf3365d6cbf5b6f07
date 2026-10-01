@@ -1,0 +1,19 @@
+backend/src/frameworks-drivers/app.ts
+  s_cb63807196421f::t_ce54502a91b513 30
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "05392b0ddc1c25a7a61a5b7bf3365d6cbf5b6f07",
+  "prompts": {},
+  "sessions": {
+    "s_cb63807196421f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4deffe78-84eb-4112-b74f-b72536672616",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+backend/tests/integration/services/user-creation.service.test.ts
+  h_58e143dc25f856 3,54-64
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "be0664eed98e11e6164e16ecdb78fe92dc0ad340",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

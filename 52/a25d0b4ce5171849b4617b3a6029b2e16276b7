@@ -1,0 +1,45 @@
+frontend/src/Views/Match/Leaderboard/Leaderboard.tsx
+  h_94c952a9e14c58 3,7
+frontend/src/Views/Match/Popup.tsx
+  h_94c952a9e14c58 6
+frontend/src/ViewModels/Matchmaking/MatchFoundViewModel.ts
+  h_94c952a9e14c58 1-133
+backend/src/entities/dtos/match-data.dto.ts
+  h_94c952a9e14c58 6
+backend/src/frameworks-drivers/socket/modules/register-matchmaking-handlers.ts
+  h_94c952a9e14c58 4,10-11
+  h_94c952a9e14c58 9
+frontend/src/Views/Match/FinalResults.tsx
+  h_94c952a9e14c58 4
+frontend/src/Views/Match/ProgMatch.tsx
+  h_94c952a9e14c58 4
+backend/src/interface-adapters/socket-handlers/matchmaking-handlers.ts
+  h_94c952a9e14c58 66,69,71,73,93-96,98,102-109
+  h_94c952a9e14c58 112
+frontend/src/App.tsx
+  h_94c952a9e14c58 8,18
+frontend/@/components/shared/PopUp.tsx
+  h_94c952a9e14c58 2,17-22,24-25,27
+  h_94c952a9e14c58 12,23,26,28
+frontend/src/Views/Match/MathsMatch.tsx
+  h_94c952a9e14c58 3,12-13,112-117
+  h_94c952a9e14c58 23
+backend/src/application/usecases/services/match/match-confirmation.service.ts
+  h_94c952a9e14c58 29
+  h_94c952a9e14c58 28
+frontend/src/Views/Matchmaking/MatchFound.tsx
+  h_94c952a9e14c58 3
+frontend/src/Views/Matchmaking/MatchSearching.tsx
+  h_94c952a9e14c58 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "52a25d0b4ce5171849b4617b3a6029b2e16276b7",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

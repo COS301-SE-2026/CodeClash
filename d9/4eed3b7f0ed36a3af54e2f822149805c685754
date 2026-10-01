@@ -1,0 +1,14 @@
+frontend/src/Views/SkillProgress/components/RecentGames.tsx
+  h_58e143dc25f856 16-56
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "d94eed3b7f0ed36a3af54e2f822149805c685754",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

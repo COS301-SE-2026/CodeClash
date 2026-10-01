@@ -1,0 +1,15 @@
+frontend/test/unit/Views/TournamentsWaiting.test.tsx
+  h_94c952a9e14c58 2,5-8,10-28,35-45
+  h_94c952a9e14c58 33-34,46-47,49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "165d0d39265c9ac46adaeed577ae6bddb5b7dff0",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

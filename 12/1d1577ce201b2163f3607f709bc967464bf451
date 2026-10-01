@@ -1,0 +1,14 @@
+frontend/src/ViewModels/SkilllProgressViewModel.ts
+  h_58e143dc25f856 29-53
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "121d1577ce201b2163f3607f709bc967464bf451",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

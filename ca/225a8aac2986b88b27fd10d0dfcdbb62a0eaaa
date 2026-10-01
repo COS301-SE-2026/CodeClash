@@ -1,0 +1,23 @@
+frontend/src/stores/match-store.ts
+  h_94c952a9e14c58 2,8,14,26,32
+  h_94c952a9e14c58 27
+frontend/src/services/match.service.tsx
+  h_94c952a9e14c58 91-93,98,114-115
+  h_94c952a9e14c58 52
+frontend/src/context/Socket/modules/match.socket.ts
+  h_94c952a9e14c58 6,57
+frontend/src/ViewModels/Match/MatchViewModel.ts
+  h_94c952a9e14c58 3,13,19-24,30-33,36-61,100
+  h_94c952a9e14c58 8,17,62-64,112
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ca225a8aac2986b88b27fd10d0dfcdbb62a0eaaa",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

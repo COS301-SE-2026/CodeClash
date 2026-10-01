@@ -1,0 +1,17 @@
+backend/scripts/question-seeding/math/helpers.ts
+  h_94c952a9e14c58 60-64,117-120
+  h_94c952a9e14c58 78
+backend/src/interface-adapters/repositories/question.repository.ts
+  h_94c952a9e14c58 18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "814cf98329241b78fba93e1dfb0d90ed2f00f4df",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

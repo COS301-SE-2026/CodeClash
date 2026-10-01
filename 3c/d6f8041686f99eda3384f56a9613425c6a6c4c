@@ -1,0 +1,26 @@
+frontend/src/Views/Tournaments.tsx
+  h_b13c5d77534129 14-15,17-18,21,29,36
+frontend/@/components/ui/TournamentCard.tsx
+  h_b13c5d77534129 38,41,43,46-49
+frontend/@/components/ui/FilterButton.tsx
+  h_b13c5d77534129 14-15
+frontend/package-lock.json
+  h_b13c5d77534129 19,7257-7259,7262-7263,8800-8802,8805,8809-8811
+frontend/package.json
+  h_b13c5d77534129 26
+package-lock.json
+  h_b13c5d77534129 16,4956-4978,6340-6354
+package.json
+  h_b13c5d77534129 53
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "3cd6f8041686f99eda3384f56a9613425c6a6c4c",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

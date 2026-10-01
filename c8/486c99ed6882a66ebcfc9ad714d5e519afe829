@@ -1,0 +1,19 @@
+frontend/test/integration/AuthContext.integration.test.tsx
+  s_c195aba9126b9c::t_9fc289cf60656f 19-20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "c8486c99ed6882a66ebcfc9ad714d5e519afe829",
+  "prompts": {},
+  "sessions": {
+    "s_c195aba9126b9c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f6aafc30effejSlMO9pxgUXQVy",
+        "model": "big-pickle"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

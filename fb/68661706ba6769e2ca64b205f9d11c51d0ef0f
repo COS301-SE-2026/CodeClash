@@ -1,0 +1,14 @@
+frontend/test/integration/SocketContext.integration.test.tsx
+  h_58e143dc25f856 68-85
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "fb68661706ba6769e2ca64b205f9d11c51d0ef0f",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

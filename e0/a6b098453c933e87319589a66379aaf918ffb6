@@ -1,0 +1,43 @@
+frontend/src/Views/Match/MathsMatch.tsx
+  h_94c952a9e14c58 5,42-44,69
+  h_94c952a9e14c58 22
+frontend/@/components/shared/Match/Match.tsx
+  h_94c952a9e14c58 22
+backend/src/frameworks-drivers/socket/index.ts
+  h_94c952a9e14c58 6,16
+frontend/test/integration/SocketHandlers/tournament.socket.test.ts
+  h_94c952a9e14c58 1-5,7,10-12,14,25-41,53-55,62-65,69,74
+  h_94c952a9e14c58 8,56
+frontend/src/amplify-config.ts
+  h_94c952a9e14c58 3
+backend/src/interface-adapters/socket-handlers/tournament-handlers.ts
+  h_94c952a9e14c58 11,24,35
+  h_94c952a9e14c58 31
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 58-60,96,107,175-176
+frontend/tsconfig.app.json
+  h_94c952a9e14c58 33
+frontend/src/context/Socket/modules/tournament.socket.ts
+  h_94c952a9e14c58 60
+frontend/src/Views/Match/ProgMatch.tsx
+  h_94c952a9e14c58 1
+frontend/src/context/Socket/dispatch.ts
+  h_94c952a9e14c58 19
+backend/src/frameworks-drivers/socket/dependencies.ts
+  h_94c952a9e14c58 34-37,42
+frontend/@/components/features/MathPage.tsx
+  h_94c952a9e14c58 1-57
+frontend/@/components/features/code-editor.tsx
+  h_94c952a9e14c58 1-26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "e0a6b098453c933e87319589a66379aaf918ffb6",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

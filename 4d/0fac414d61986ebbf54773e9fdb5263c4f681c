@@ -1,0 +1,34 @@
+frontend/src/dtos/match/match.dto.ts
+  h_94c952a9e14c58 12-59
+backend/src/frameworks-drivers/socket/dependencies.ts
+  h_94c952a9e14c58 13
+backend/src/entities/dtos/tournaments/tournaments.dto.ts
+  h_94c952a9e14c58 12-26
+backend/src/interface-adapters/socket-handlers/tournament-handlers.ts
+  h_94c952a9e14c58 2
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 60
+frontend/src/dtos/tournaments/tournament.dto.ts
+  h_94c952a9e14c58 1,14-27
+  h_94c952a9e14c58 13
+backend/src/application/usecases/services/tournament/elimination.service.ts
+  h_94c952a9e14c58 1-130
+backend/src/application/usecases/services/tournament/tournament.service.ts
+  h_94c952a9e14c58 1-71
+backend/src/application/usecases/systems/match-creation.system.ts
+  h_94c952a9e14c58 2
+backend/src/application/usecases/services/marking/marking.service.ts
+  h_94c952a9e14c58 24-25,27-28,30-32,36
+  h_94c952a9e14c58 34-35
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "4d0fac414d61986ebbf54773e9fdb5263c4f681c",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

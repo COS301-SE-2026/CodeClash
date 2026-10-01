@@ -1,0 +1,40 @@
+backend/src/application/usecases/services/match/match-creation.service.ts
+  h_94c952a9e14c58 1
+backend/src/frameworks-drivers/socket/modules/register-match-handlers.ts
+  h_94c952a9e14c58 16
+  h_94c952a9e14c58 10,12-14,18
+backend/src/application/interfaces/cache/ITournamentCache.ts
+  h_94c952a9e14c58 1-11
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 16
+backend/src/entities/dtos/tournaments/tournaments.dto.ts
+  h_94c952a9e14c58 1-13
+backend/src/frameworks-drivers/socket/dependencies.ts
+  h_94c952a9e14c58 38-39
+  h_94c952a9e14c58 37
+backend/src/frameworks-drivers/socket/modules/register-tournament-handler.ts
+  h_94c952a9e14c58 1-7
+backend/src/application/usecases/services/marking/marking.service.ts
+  h_94c952a9e14c58 1
+backend/src/interface-adapters/cache/tournament-cache.ts
+  h_94c952a9e14c58 1-64
+backend/src/interface-adapters/cache/match-cache.ts
+  h_94c952a9e14c58 2
+backend/src/application/usecases/services/tournament.service.ts
+  h_94c952a9e14c58 1-2
+backend/src/interface-adapters/socket-handlers/tournament-handlers.ts
+  h_94c952a9e14c58 1-7
+backend/src/entities/dtos/components.dto.ts
+  h_94c952a9e14c58 24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "db8c23cc9fd9dca30756c8a33593cddbf23759b9",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

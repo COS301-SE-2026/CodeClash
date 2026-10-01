@@ -1,0 +1,15 @@
+frontend/src/context/Socket/modules/tournament.socket.ts
+  h_94c952a9e14c58 3,15-35,37-47
+  h_94c952a9e14c58 36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "354a4de4773ee13f8588dee69503f6ea6cd09c2e",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

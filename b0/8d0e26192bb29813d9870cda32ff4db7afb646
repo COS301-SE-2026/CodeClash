@@ -1,0 +1,26 @@
+frontend/src/animations/poses/rig.tsx
+  h_b13c5d77534129 55,70-94,109,111,113
+frontend/src/animations/poses/thinking.tsx
+  h_b13c5d77534129 7,43-44
+frontend/src/animations/poses/peace.tsx
+  h_b13c5d77534129 8-9,25,46
+frontend/src/animations/poses/okay.tsx
+  h_b13c5d77534129 8-9,44,46
+frontend/src/animations/armRaise.tsx
+  h_b13c5d77534129 10,42
+frontend/src/Views/Dashboard.tsx
+  h_b13c5d77534129 77
+backend/src/entities/db-entities/user.entities.ts
+  h_b13c5d77534129 1-41
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "b08d0e26192bb29813d9870cda32ff4db7afb646",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+tests/nfr/security/getUserTestToken.py
+  h_b13c5d77534129 48-49
+tests/nfr/security/jwt_tool
+  h_b13c5d77534129 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "c835909d25ac8bd01254ed4737b50688644eb722",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

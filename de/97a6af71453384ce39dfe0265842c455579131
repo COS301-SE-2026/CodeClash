@@ -1,0 +1,25 @@
+frontend/src/ViewModels/MatchFoundViewModel.ts
+  h_94c952a9e14c58 6,22,65-66
+frontend/src/ViewModels/PopUpViewModel.ts
+  h_94c952a9e14c58 6,14,20-21
+  h_94c952a9e14c58 5
+frontend/src/Views/Popup.tsx
+  h_94c952a9e14c58 4,18
+frontend/src/context/Socket/MatchmakingContextValue.tsx
+  h_94c952a9e14c58 8,12
+frontend/src/context/Socket/MatchmakingContext.tsx
+  h_94c952a9e14c58 11,35,40,43
+frontend/src/dtos/matchmaking/matched-user.dto.ts
+  h_94c952a9e14c58 1,17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "de97a6af71453384ce39dfe0265842c455579131",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

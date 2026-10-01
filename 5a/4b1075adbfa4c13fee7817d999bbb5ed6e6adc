@@ -1,0 +1,40 @@
+frontend/src/context/Socket/dispatch.ts
+  h_94c952a9e14c58 4,13,16,19-22,24-25
+  h_94c952a9e14c58 23,26
+frontend/src/ViewModels/MatchViewModel.ts
+  h_94c952a9e14c58 14-15,36,42,92-95,97-106,117,120
+frontend/src/context/Socket/SocketContext.tsx
+  h_94c952a9e14c58 6-7,13-14,32-34,48-49
+frontend/src/context/Socket/modules/matchmaking.socket.ts
+  h_94c952a9e14c58 1-37
+frontend/src/context/Socket/modules/match.socket.ts
+  h_94c952a9e14c58 2-4,6-8,21-22,25-26,29-30,34,38,42,45-46,50,56,60,63-64,67-68,72
+frontend/src/context/Socket/MatchmakingContext.tsx
+  h_94c952a9e14c58 4-5,11-12,16,26-27,29,34,41
+frontend/src/context/Socket/SocketContextValue.tsx
+  h_94c952a9e14c58 3-4,7-8
+frontend/src/services/match.service.tsx
+  h_94c952a9e14c58 4,11-12,51-52,67-68,70,72-75,78,84
+  h_94c952a9e14c58 71,191,193
+frontend/src/dtos/matchmaking/matchmaking.dto.ts
+  h_94c952a9e14c58 1-2,5-7,13-17
+frontend/src/dtos/match/submission.dto.ts
+  h_94c952a9e14c58 1,3,5-7,11,15,17-18
+  h_94c952a9e14c58 21,25
+frontend/src/dtos/match/match.dto.ts
+  h_94c952a9e14c58 1-2
+frontend/src/context/Socket/MatchmakingContextValue.tsx
+  h_94c952a9e14c58 2-4,8-9,12-14
+  h_94c952a9e14c58 15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "5a4b1075adbfa4c13fee7817d999bbb5ed6e6adc",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

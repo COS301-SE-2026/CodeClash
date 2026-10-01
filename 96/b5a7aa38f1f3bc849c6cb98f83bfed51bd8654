@@ -1,0 +1,19 @@
+database/02-init-questions.sql
+  s_7db9f6f714541c::t_c929d83b35d033 1-39
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "96b5a7aa38f1f3bc849c6cb98f83bfed51bd8654",
+  "prompts": {},
+  "sessions": {
+    "s_7db9f6f714541c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "520a199c-58d3-45e2-9583-9982e39b1ab7",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

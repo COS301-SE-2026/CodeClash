@@ -1,0 +1,14 @@
+frontend/test/integration/ThemeContext.integration.test.tsx
+  h_58e143dc25f856 27-99
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "76f9e8b34489e1611f954ccdcbd5d99d119030c6",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

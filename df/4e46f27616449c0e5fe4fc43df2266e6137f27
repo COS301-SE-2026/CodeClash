@@ -1,0 +1,20 @@
+backend/src/interface-adapters/socket-handlers/match-handlers.ts
+  h_94c952a9e14c58 38,50,53,59
+backend/src/application/usecases/services/match/match-completion.service.ts
+  h_94c952a9e14c58 53
+frontend/src/ViewModels/Match/MatchViewModel.ts
+  h_94c952a9e14c58 82
+backend/src/frameworks-drivers/socket/modules/register-match-handlers.ts
+  h_94c952a9e14c58 11,14-15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "df4e46f27616449c0e5fe4fc43df2266e6137f27",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
