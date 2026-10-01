@@ -110,6 +110,7 @@ const player = match.players.find(p => p.id === user_id)!;
   }
 
     async buildMatchResult(match_id: string): Promise<MatchResultDTO> {
+
         const match = await this.match_repo.findOne({ where: { match_id } });
 
         if (!match) throw new Error("Match not found");
@@ -134,6 +135,7 @@ const player = match.players.find(p => p.id === user_id)!;
                     };
                 })
         );
+
         return {
             match_id,
             players

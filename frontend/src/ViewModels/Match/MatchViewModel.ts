@@ -15,7 +15,7 @@ export const useMatch = () => {
     const nav = useNavigate();
     const { matchSocket } = useSocket();
     const status = useMatchStore(state => state.status);
-    const { matchType } = useMatchmaking();
+    const { matchMode, matchType } = useMatchmaking();
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [gameOver, setGameOver] = useState(false);
@@ -41,9 +41,9 @@ export const useMatch = () => {
 
 
     const { submissionError, submitQuestion, results, lastResult } = useSubmission({ round_idx: roundIdx, curr_question: currentQuestion, question: questions[currentQuestion], match_id: match_id!, updatePlayerLife })
-    const { seconds, minutes } = useMatchTimer(duration, () => {
+    const { seconds, minutes } = useMatchTimer(duration, async () => {
         setGameOver(true);
-        finishMatch();
+        await finishMatch();
     })
 
     const last_round = roundIdx === rounds.length - 1;
@@ -95,11 +95,11 @@ export const useMatch = () => {
 
         const response = await matchSocket?.finishMatch({ match_id: match_id!, match_type: matchType! });
 
-        if (response && response.ok)
+        if (response?.ok)
             useResultStore.getState().addResult(response.data!);
     }
 
-    const both_done = () => {
+    const both_done = async () => {
         // useMatchStore.getState().reset();
         setWaitingOpponent(false);
         nav(`/results/${match_id}`, {
@@ -165,6 +165,8 @@ export const useMatch = () => {
         confirmRound,
         confirmCompleteRound,
         cancelCompleteRound,
-        completeRound
+        completeRound,
+        matchType,
+        matchMode
     }
 }

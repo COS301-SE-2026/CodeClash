@@ -33,6 +33,8 @@ export class MatchCompletionService {
 
                 const { winner, loser } = await this.user_repo.updateEloAfterMatch(first, second);
 
+
+
                 players[0]!.elo_change = winner.elo_gained;
                 players[1]!.elo_change = loser.elo_gained;
                 break;
@@ -57,6 +59,7 @@ export class MatchCompletionService {
             await this.wallet_repo.updateBalance(player.id, reward);
         }
 
+
         await this.achievement_service.evaluateForMatch(match_stats, players, match_type, total_questions);
 
         await this.match_repo.updatePlayers(db_match_id, players);
@@ -70,7 +73,7 @@ export class MatchCompletionService {
         return this.match_repo.buildMatchResult(match_id);
     }
 
-    async getMatchHistory(user_id: string){
+    async getMatchHistory(user_id: string) {
         return this.match_repo.getMatchHistory(user_id);
     }
 

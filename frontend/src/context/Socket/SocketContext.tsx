@@ -6,7 +6,7 @@ import { SocketContext } from './SocketContextValue'
 import { MatchSocket } from './modules/match.socket'
 import { MatchmakingSocket } from './modules/matchmaking.socket'
 import { TournamentSocket } from './modules/tournament.socket'
-
+import { FriendsSocket } from './modules/friends.socket'
 
 export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [socket, setSocket] = useState<Socket | null>(null);
@@ -14,6 +14,7 @@ export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     const [matchSocket, setMatchSocket] = useState<MatchSocket | null>(null);
     const [matchmakingSocket, setMatchmakingSocket] = useState<MatchmakingSocket | null>(null);
     const [tournamentSocket, setTournamentSocket] = useState<TournamentSocket|null>(null);
+    const [friendsSocket, setFriendsSocket] = useState<FriendsSocket | null>(null);
 
     useEffect(() => {
         createSocket().then((conn) => {
@@ -28,14 +29,15 @@ export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     }, []);
 
     useEffect(() => {
-      if (socket) {
-
-        setMatchSocket(new MatchSocket(socket));
-        setMatchmakingSocket(new MatchmakingSocket(socket));
-        setTournamentSocket(new TournamentSocket(socket));
-        socket.on('connect', () => {
+        if (socket) {
+            socket.on('connect', () => {
                 setIsConnected(true);
+                setMatchSocket(new MatchSocket(socket));
+                setMatchmakingSocket(new MatchmakingSocket(socket));
+                setTournamentSocket(new TournamentSocket(socket));
+                setFriendsSocket(new FriendsSocket(socket));
             })
+
 
             socket.on('disconnect', () => {
                 setIsConnected(false);
@@ -51,6 +53,7 @@ export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) 
                 matchSocket,
                 matchmakingSocket,
                 tournamentSocket,
+                friendsSocket,
                 isConnected,
 
             }}

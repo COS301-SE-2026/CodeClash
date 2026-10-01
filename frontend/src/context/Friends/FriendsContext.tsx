@@ -2,7 +2,8 @@ import {
     createContext, useCallback, useEffect, 
     useMemo, useRef, useState,
 } from "react";
-// import { useSocket } from "src/context/Socket/hooks/useSocket";
+import { useSocket } from "src/context/Socket/hooks/useSocket";
+import { useUser } from "../User/hooks/useUser";
 
 import { useAuth } from "../Auth/hooks/useAuth";
 import {friendContent} from "../../Models/FriendsModel";
@@ -10,7 +11,7 @@ import type {
     Friend, FriendRequest, Invite, 
     Search, Summary, Relation
 } from "../../Models/FriendsModel";
-
+import { useAchievementToast } from "../Achievement/AchievementToastContext";
 
 const API_BASE = '/api'; 
 const INVITE_EXPIRY = 10 * 60 * 1000; 
@@ -39,13 +40,17 @@ interface FriendsContext {
     acceptInvite: () => void;
     declineInvite: () => void;
     dismissInviteError: () => void;
+
+    matchReady: boolean;
+    clearMatchReady: () => void;
 }
 // eslint-disable-next-line react-refresh/only-export-components
 export const FriendsContextFunc = createContext<FriendsContext | null>(null);
 
 export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
     const {token, user} = useAuth();
-    // const { socket } = useSocket();
+    const { friendsSocket} = useSocket();
+    const {elo: myElo } = useUser();
     const [isLoading, setIsLoading] = useState(true);
     const [profile, setProfile] = useState<Summary | null>(null);
     const [friend, setFriend] = useState<Friend[]>([]);
@@ -57,9 +62,20 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
     const [now, setNow] = useState(() => Date.now());
     const [allUsers, setAllUsers] = useState<Search[]>([]);
     const [error, setError] = useState<string | null>(null);
+    const [matchReady, setMatchReady] = useState(false);
+    const { showFriendNotice } = useAchievementToast();
 
     const friendsRef = useRef(friend); //this is so closures dont capture a stale list
     friendsRef.current = friend;
+
+    const requestsRef = useRef(requests); // so socket handlers don't capture a astale requests list
+    requestsRef.current = requests;
+
+    const profileRef= useRef(profile);
+    profileRef.current = profile;
+
+    const activeInviteRef = useRef(activeInvite);
+    activeInviteRef.current = activeInvite;
 
     const activeInviteIdRef = useRef<string | null>(null); //tracks the current id for Invites, so we can differentiate same invite to new invite without resetting local countdown
 
@@ -205,11 +221,12 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
             }
 
             setSentRequest((prev) => new Set(prev).add(id));
+            friendsSocket?.sendFriendRequest({ receiver_id: id, from_username: user?.username ?? '' });
             await fetchAll();
         } catch (err) {
             console.error('Error sending friends request:', err);
         }
-    }, [token, fetchAll]);
+    }, [token, fetchAll, friendsSocket, user]);
 
     /*Requests - needs accept and decline endpoint */
     const acceptRequest = useCallback( async (id: string) => {
@@ -235,14 +252,16 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
                     elo: 600
                 }
             ]);
+            friendsSocket?.respondFriendRequest({ requester_id: req.fromUser, status: 'accepted' });
         } catch (err) {
             console.error('Error accepting friend request:', err);
         }
         await fetchAll();
-    }, [token, requests])
+    }, [token, requests, friendsSocket])
 
     const declineRequest = useCallback( async (id: string) => {
         if (!token) return;
+        const req =  requests.find((r) => r.id === id);
         try{
             await fetch(`${API_BASE}/friends/request/${id}`, {
                 method: 'PATCH',
@@ -250,16 +269,15 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
                 body: JSON.stringify({ status: 'declined' })
             });
             setRequests((prev) => prev.filter((r) => r.id !== id));
+            if (req) friendsSocket?.respondFriendRequest({ requester_id: req.fromUser, status: 'declined' });
         } catch (err) {
             console.error('Error declining friend request:', err);
         }
         await fetchAll();
-    }, [token])
+    }, [token, requests, friendsSocket])
 
     const removeFriend = useCallback( async (friendship_id: string) => {
         if (!token) return;
-        // const f = friend.find((fr) => fr.id === id);
-        // if(!f) return;
         try{
             await fetch(`${API_BASE}/friends/${friendship_id}`, {
                 method: 'DELETE',
@@ -286,19 +304,28 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
                 },
                 body: JSON.stringify({ user_id: user.userId })
             });
-           await res.json();
+            const invite = await res.json();
 
-            // THIS WILL BE REPLACED WITH THE NOTIFICATION SYSTEM
-            // socket.emit('send_friend_invite', {  
-            //     receiver_id: friendId,
-            //     invite_code: invite.invite_code,
-            //     sender_name: user.username,
-            //     expires_at: invite.expires_at
-            // });
+            friendsSocket?.sendPlayInvite({
+                receiver_id: friendId,
+                invite: {
+                    id: invite?.invite_code ?? crypto.randomUUID(),
+                    mode: 'casual',
+                    participants: [{
+                        name: user.username ?? '',
+                        elo: myElo,
+                        friendId: user.userId,
+                        avatar: profileRef.current?.avatar,
+                        status: 'online',
+                    }],
+                    expires: Date.now(),
+                }
+            });
+
         } catch (err) {
             console.error('Error sending invite:', err);
         }
-    }, [token, user])
+    }, [token, user, friendsSocket, myElo])
 
     const acceptInvite = useCallback(() => {
         if (!activeInvite) {
@@ -311,16 +338,81 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
             setActiveInvite(null);
             return;
         }
+        const sender = activeInvite.participants[0];
+        const sender_id = sender?.friendId;
+        if (sender_id && user) {
+            friendsSocket?.respondPlayInvite({ 
+                sender_id, 
+                invite_id: activeInvite.id, 
+                accepted: true, 
+                sender: { id: sender_id, elo: sender.elo, username: sender.name }, 
+                responder: { id: user.userId ?? '', elo: myElo, username: user.username ?? '' },
+            });
+        }
         activeInviteIdRef.current = null;
         setActiveInvite(null);
-    }, [activeInvite])
+        setMatchReady(true);
+    }, [activeInvite, friendsSocket, user, myElo])
 
     const declineInvite = useCallback(() => {
+        if (activeInvite) {
+            const sender_id = activeInvite.participants[0]?.friendId;
+            if (sender_id) {
+                friendsSocket?.respondPlayInvite({ sender_id, invite_id: activeInvite.id, accepted: false });
+            }
+        }
         activeInviteIdRef.current = null;
         setActiveInvite(null);
-    }, [])
+    }, [activeInvite, friendsSocket])
 
     const dismissInviteError = useCallback(() => setInviteError(null), []);
+
+    const clearMatchReady = useCallback(()=> setMatchReady(false), []);
+
+    /*Real time listeners */
+    useEffect(() => {
+        if(!friendsSocket) return;
+
+        const unsub_request_received = friendsSocket.friendRequestReceived((data) => {
+            showFriendNotice(`${data.from_username} sent you a friend request`, 'Friend Request');
+            void fetchAll();
+        });
+
+        const unsub_request_responded = friendsSocket.friendRequestResponded((data) => {
+            showFriendNotice(
+                data.status === 'accepted'
+                ? `${data.from_username} accepted your friend request`
+                : `${data.from_username} declined your friend request`,
+                'Friends'
+            );
+            setSentRequest((prev) => {
+                const next = new Set(prev);
+                next.delete(data.from_user_id);
+                return next;
+            });
+            void fetchAll();
+        });
+        const unsub_invite_received = friendsSocket.playInviteReceived((invite) => {
+            activeInviteIdRef.current = invite.id;
+            setActiveInvite(invite);
+        });
+
+        const unsub_invite_responded = friendsSocket.playInviteResponded((data) => {
+            if(data.accepted) {
+                showFriendNotice('Your friend accepted. Starting match', 'Play Invite');
+                setMatchReady(true);
+            }else {
+                showFriendNotice('Your friend declined the invite', 'Play invite');
+            }
+        });
+
+        return () => {
+            unsub_request_received();
+            unsub_request_responded();
+            unsub_invite_received();
+            unsub_invite_responded();
+        };
+    }, [friendsSocket, fetchAll, showFriendNotice]);
 
     const value: FriendsContext = {
         isLoading,
@@ -346,6 +438,9 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
         acceptInvite,
         declineInvite,
         dismissInviteError,
+
+        matchReady,
+        clearMatchReady,
     };
 
     return (

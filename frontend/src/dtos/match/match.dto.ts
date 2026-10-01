@@ -1,7 +1,7 @@
 import type { Player } from "src/Models/MatchModel";
 import type { PlayerStandingDTO } from "../tournaments/tournament.dto";
 
-export type MatchType = 'ranked' | 'casual';
+export type MatchType = 'ranked' | 'casual' | 'tournament';
 export type MatchMode = 'math' | 'programming';
 export type MatchStatus = 'waiting' | 'starting' | 'in_progress' | 'completed' | 'abandoned';
 

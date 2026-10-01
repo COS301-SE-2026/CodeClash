@@ -235,7 +235,7 @@ export class UserRepository implements IUserRepository {
 
         const ahead = await this.userRepository
             .createQueryBuilder('user')
-            .where('user.elo > :rating', { rating: row.elo})
+            .where('user.elo > :rating', { rating: row.elo })
             .orWhere('user.elo = :rating AND user.username < :username',
                 { rating: row.elo, username: row.username })
             .getCount()

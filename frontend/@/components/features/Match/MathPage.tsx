@@ -46,11 +46,11 @@ const MathMatch = ({ onValueChange, mathfieldRef, className, children, colourCla
   };
 
   return (
-    <MatchCard className={`flex flex-col items-center w-[100%] h-[40%] mb-auto rounded-2xl mt-5 bg-card-tournament ${colourClass}`}>
+    <MatchCard className={`flex flex-col items-center w-[100%] h-[40%] mb-auto rounded-2xl mt-5 bg-card-tournament text-white ${colourClass}`}>
       <math-field
         ref={mathfieldRef}
         onInput={handleInput}
-        className={`w-[95%] min-h-[10rem] rounded-2xl bg-[var(--match-box)] border-[2px] border-[var(--button-tournament-secondary)] text-[var(--card-tournaments)] text-sm mb-auto my-auto mx-auto ${className}`}
+        className={`w-[95%] min-h-[10rem] rounded-2xl bg-[var(--match-box)] border-[2px] border-[var(--button-tournament-secondary)] text-secondary text-sm mb-auto mx-auto ${className}`}
       >
         {value}
       </math-field>

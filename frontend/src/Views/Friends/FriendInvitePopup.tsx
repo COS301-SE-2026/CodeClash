@@ -1,6 +1,8 @@
 //Popup that will come whereever the user is (besides in a ranked match) to tell them that someone is inviting them.
 
 import { Clock, UserCircle } from "lucide-react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { robot_map } from "src/assets/Robots";
 import { useMatchmaking } from "src/context/Matchmaking/hooks/useMatchmaking";
 import { friendContent } from "src/Models/FriendsModel";
@@ -17,9 +19,19 @@ const FriendInvitePopup = () => {
     const {
         activeInvite, inviteCountdown, inviteError,
         acceptInvite, declineInvite, dismissInviteError,
+        matchReady, clearMatchReady,
     } = useFriends();
 
     const {matched} = useMatchmaking();
+    const nav = useNavigate();
+
+    useEffect(() => {
+        if (matchReady) {
+            clearMatchReady();
+            nav('/match-found');
+        }
+    }, [matchReady, clearMatchReady, nav]);
+ 
     if (matched) return null;
 
     if (inviteError) {

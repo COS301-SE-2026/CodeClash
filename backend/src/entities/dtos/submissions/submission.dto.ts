@@ -28,5 +28,6 @@ export interface RawSubmissionDTO {
     question_number?: number,
     match_type: MatchType,
     match_mode: MatchMode,
+    tournament_id?: string,
     submission: MathsSubmissionDTO | ProgSubmissionDTO | null
 }

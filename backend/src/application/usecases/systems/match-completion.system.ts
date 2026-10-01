@@ -22,7 +22,7 @@ export class MatchCompletionSystem {
     }
 
 
-    async execute(match_id: number, player_ids: string[]) {
+    execute(match_id: number, player_ids: string[]) {
         const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(match_id, 'Submission');
         const match_component = this.getMatchComponent<MatchComponent>(match_id, 'Match');
 

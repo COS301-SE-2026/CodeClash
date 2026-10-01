@@ -1,7 +1,7 @@
 import type { Socket } from "socket.io-client";
 import type { MatchDTO, PlayerDTO, MatchMode } from "src/dtos/match/match.dto";
 import { emit, on } from "../dispatch";
-import type { TournamentDTO } from "src/dtos/tournaments/tournament.dto";
+import type { PlayerStandingDTO, TournamentDTO } from "src/dtos/tournaments/tournament.dto";
 
 export class TournamentSocket {
     private readonly socket: Socket;
@@ -32,6 +32,15 @@ export class TournamentSocket {
         return on(this.socket, 'tournament_started', handler);
     }
 
+
+    tournamentRemoved(handler: (data: { tournament_id: string }) => void) {
+        return on<{ tournament_id: string }>(this.socket, 'tournament_removed', handler);
+    }
+
+    tournamentStandings(handler: (data: PlayerStandingDTO[]) => void) {
+        return on(this.socket, 'tournament_standings', handler);
+    }
+
     // Error events
     joinFailed(handler: (data: Error) => void) {
         return on<Error>(this.socket, 'join_tournament_failed', handler);
@@ -60,7 +69,7 @@ export class TournamentSocket {
         return emit<typeof data, void>(this.socket, 'leave_tournament', data);
     }
 
-    hostTournament(data: { start_date: Date, match_mode: MatchMode, host: PlayerDTO, title: string, min_players: number }) {
+    hostTournament(data: { match_mode: MatchMode, host: PlayerDTO, title: string, min_players: number }) {
         return emit<typeof data, TournamentDTO>(this.socket, 'host_tournament', data);
     }
 
@@ -74,5 +83,9 @@ export class TournamentSocket {
 
     startTournament(data: { tournament_id: string, league: string }) {
         return emit<typeof data, { match: MatchDTO, tournament: TournamentDTO }>(this.socket, 'start_tournament', data);
+    }
+
+    identity() {
+        return emit<void, { user_id: string }>(this.socket, 'identity', undefined);
     }
 }
