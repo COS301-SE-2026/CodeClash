@@ -6,6 +6,7 @@ import TournamentButton from '@/components/features/Tournaments/TournamentButton
 import { TournamentsBadge } from '@/components/features/Tournaments/TournamentsBadge'
 import { RoundTree } from './RoundTree'
 import type { QuestionDTO } from 'src/dtos/match/match.dto'
+import UserAvatar from 'src/avatar/UserAvatar'
 
 interface MatchScreenProps {
     player_life: number[],
@@ -55,9 +56,9 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                     <div className="shrink-0 min-w-0 w-xl flex-1 ml-7 h-[6rem] mt-10">
                         <div className="flex flex-row items-center gap-2 w-full mt-2">
                             <TournamentButton className="my-auto min-w-0 w-18 h-12 items-center -px-1 -py-4 -ml-3 -mt-1 my-auto">
-                                <div style={{ backgroundImage: `url(${avatars[0]})` }} className="w-full h-full bg-no-repeat bg-cover bg-center">
+                                <UserAvatar className="w-full h-full bg-no-repeat bg-cover bg-center"/>
 
-                                </div>
+                                
                             </TournamentButton>
 
                             <div className="flex flex-col ml-2">
@@ -112,9 +113,8 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                             </div>
 
                             <TournamentButton className="my-auto min-w-0 w-20 h-12 items-center -px-1 -py-4 -mr-3 -mt-2.5">
-                                <div style={{ backgroundImage: `url(${avatars[1]})` }} className="w-full h-full bg-no-repeat bg-cover bg-center">
+                                <UserAvatar className="w-full h-full bg-no-repeat bg-cover bg-center"/>
 
-                                </div>
                             </TournamentButton>
                         </div>
                     </div>
