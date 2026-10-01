@@ -8,6 +8,7 @@ import { robot_map } from "../../assets/Robots";
 import { useFriends } from "../../context/Friends/useFriends";
 import { friendContent } from "../../Models/FriendsModel";
 import type { FriendStatus, Relation } from "../../Models/FriendsModel";
+import UserAvatar from "src/avatar/UserAvatar";
 
 
 const status: Record<FriendStatus, string> = {
@@ -132,7 +133,7 @@ const Friends: React.FC = () => {
             <div className="relative z-10 max-w-2xl mx-auto flex flex-col gap-6">
                 {/*A header that gives the user his own details */}
                 <div className="card-elevated p-5 flex items-center gap-4">
-                    <img src={robot_map[profile.avatar]} alt={profile.username} className="avatar w-16 h-16 object-cover shrink-0"/>
+                    <UserAvatar/>
                     <div className="flex-1 min-w-0">
                         <p className="text-primary-text font-black text-md truncate">{profile.username}</p>
                         <p className="text-muted text-sm truncate">@{profile.handle}</p>

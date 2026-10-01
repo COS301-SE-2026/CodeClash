@@ -143,12 +143,9 @@ function authHeaders(token: string): HeadersInit {
 
 async function handle<T>(res: Response): Promise<T> {
     if (!res.ok) {
-        // const body = await res.json().catch(() => null);
-        const text = await res.text();
-        console.error(`Req Morgan failed (${res.status}):`, text)
-        throw new Error(
-            // body?.error ?? body?.message ??
-            `Request failed (${res.status})`);
+        const body = await res.json().catch(() => null);
+        console.error(`Request failed (${res.status})`)
+        throw new Error(body?.error ?? body?.message ?? `Request failed (${res.status})`);
     }
     return res.json();
 }
