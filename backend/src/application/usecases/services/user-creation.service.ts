@@ -3,8 +3,7 @@ import { IUserRepository } from "src/application/interfaces/repositories/IUserRe
 import { IEquippedRepository } from "src/application/interfaces/repositories/IEquippedRepository";
 import { IShopItemRepository } from "src/application/interfaces/repositories/IShopItemRepository";
 import { IWalletRepository } from "src/application/interfaces/repositories/IWalletRepository";
-import { UserItem } from "src/entities/database/user-item.entities";
-import { DataSource } from "typeorm";
+import { IInventoryRepository } from "src/application/interfaces/repositories/IInventoryRepository";
 
 
 export class CreateUser {
@@ -14,7 +13,8 @@ export class CreateUser {
         private readonly user_repo: IUserRepository,
         private readonly equipped_repo: IEquippedRepository,
         private readonly shop_item_repo: IShopItemRepository,
-        private readonly wallet_repo: IWalletRepository
+        private readonly wallet_repo: IWalletRepository,
+        private readonly inventory_repo: IInventoryRepository
     ) { }
 
     async create(username: string, email: string) {
@@ -40,5 +40,7 @@ export class CreateUser {
         await this.wallet_repo.createWallet(user.user_id!);
 
         await this.equipped_repo.updateEquipped(user.user_id!, { theme_id: default_theme.shop_item_id, avatar_item_id: default_avatar.shop_item_id });
+        await this.inventory_repo.grantItem(user.user_id!, default_theme.shop_item_id);
+        await this.inventory_repo.grantItem(user.user_id!, default_avatar.shop_item_id);
     }
 }

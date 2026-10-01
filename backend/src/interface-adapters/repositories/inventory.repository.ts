@@ -60,7 +60,15 @@ export class InventoryRepository implements IInventoryRepository {
         }
     }
 
-    // async addItem(user_id: string, shop_item_id: string): Promise<void> {
-    //     const existing = await this.
-    // }
+    async grantItem(user_id: string, shop_item_id: string): Promise<void> {
+        const existing = await this.userItemRepo.findOne({
+            where: { user: {user_id}, shop_item: {shop_item_id}}
+        });
+        if (existing) return;
+
+        await this.userItemRepo.save(this.userItemRepo.create({
+            user: { user_id } as any,
+            shop_item: { shop_item_id } as any
+        }));
+    }
 }

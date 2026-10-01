@@ -9,6 +9,7 @@ export function resolve(imageKey?: string): string | undefined {
     if (!resolved) {
         console.warn(`[Shop] No bundled asset found for imageKey "${imageKey}"`)
     }
+
     return resolved;
 }
 

@@ -35,8 +35,8 @@ const Dashboard = () => {
         <div className='grid grid-cols-1 lg:grid-cols-[1.1fr_1fr_1.2fr] gap-6 max-w-[1400px] mx-auto items-start'>
           {/*Profile + Play */}
           <div className='flex flex-col gap-6'>
-            <div className='card-elevated flex items-center gap-4 p-8'>
-              <UserAvatar/>
+            <div className='card-elevated flex items-center gap-6'>
+              <UserAvatar size={166}/>
               <div>
                 <p className='text-xl font-black text-primary-text'>{username}</p>
                 <span className='text-sm text-primary-text'>{league}</span>

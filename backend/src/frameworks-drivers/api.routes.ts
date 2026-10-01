@@ -26,7 +26,7 @@ import { IShopItemRepository } from 'src/application/interfaces/repositories/ISh
 import { TournamentService } from 'src/application/usecases/services/tournament/tournament.service';
 import { getTournamentByStatus } from 'src/interface-adapters/controllers/tournament.controllers';
 import { IWalletRepository } from 'src/application/interfaces/repositories/IWalletRepository';
-import { DataSource } from 'typeorm';
+import { IInventoryRepository } from 'src/application/interfaces/repositories/IInventoryRepository';
 
 export const createAPIRoutes = (
   user_repo: IUserRepository,
@@ -44,11 +44,12 @@ export const createAPIRoutes = (
   shop_item_repo: IShopItemRepository,
   tournament_service: TournamentService,
   wallet_repo: IWalletRepository,
+  inventory_repo: IInventoryRepository
 
 ) => {
   const router = Router();
 
-  const create_user_service = new CreateUser(user_repo, equipped_repo, shop_item_repo, wallet_repo);
+  const create_user_service = new CreateUser(user_repo, equipped_repo, shop_item_repo, wallet_repo, inventory_repo);
 
   router.post('/create-user', creationRequireAuth(), createUser(create_user_service));
 

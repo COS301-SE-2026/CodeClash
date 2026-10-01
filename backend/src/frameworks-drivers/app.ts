@@ -18,6 +18,7 @@ import { IEquippedRepository } from 'src/application/interfaces/repositories/IEq
 import { IShopItemRepository } from 'src/application/interfaces/repositories/IShopItemRepository';
 import { TournamentService } from 'src/application/usecases/services/tournament/tournament.service';
 import { IWalletRepository } from 'src/application/interfaces/repositories/IWalletRepository';
+import { IInventoryRepository } from 'src/application/interfaces/repositories/IInventoryRepository';
 
 
 export const createApp = (
@@ -36,6 +37,7 @@ export const createApp = (
   shop_item_repo: IShopItemRepository,
   tournament_service: TournamentService,
   wallet_repo: IWalletRepository,
+  inventory_repo: IInventoryRepository
 
 ) => {
   const app = express();
@@ -65,7 +67,7 @@ export const createApp = (
     purchase_service,
     equipped_repo,
     shop_item_repo,
-    tournament_service, wallet_repo
+    tournament_service, wallet_repo, inventory_repo
   ));
 
   return app;
