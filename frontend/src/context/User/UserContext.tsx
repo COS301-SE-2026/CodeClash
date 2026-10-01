@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState, type ReactNode } from "react";
 import { authGet } from "src/services/api.service";
 import { useInventory } from "../Shop/InventoryContext";
 import { useAuth } from "../Auth/hooks/useAuth";
-import Datasou
 
 import { UserContext } from "./UserContextValue";
 

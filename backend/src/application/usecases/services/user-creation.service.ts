@@ -37,7 +37,7 @@ export class CreateUser {
         this.avatar_index = ++this.avatar_index % 4;
         // setting default theme
         const default_theme = await this.shop_item_repo.getDefaultTheme();
-        const defualt_avatar = await this.shop_item_repo.getDefaultAvatar();
+        const default_avatar = await this.shop_item_repo.getDefaultAvatar();
         await this.wallet_repo.createWallet(user.user_id!);
 
 
@@ -48,12 +48,20 @@ export class CreateUser {
 
         await this.dataSource.transaction(async (manager) => {
             const userItemRepo = manager.getRepository(UserItem);
-            await userItemRepo.save()
-        })
+                
+                await userItemRepo.save(userItemRepo.create({
+                    user : {user_id: user.user_id!} as any,
+                    shop_item: {shop_item_id: default_theme.shop_item_id} as any
+                }));
 
+                await userItemRepo.save(userItemRepo.create({
+                    user : {user_id: user.user_id!} as any,
+                    shop_item: {shop_item_id: default_avatar.shop_item_id}
+                }));
+            });
 
         ////////////////////////////////////////////////////////////////////////////
 
-        await this.equipped_repo.updateEquipped(user.user_id!, { theme_id: default_theme.shop_item_id, avatar_item_id: defualt_avatar.shop_item_id });
+        await this.equipped_repo.updateEquipped(user.user_id!, { theme_id: default_theme.shop_item_id, avatar_item_id: default_avatar.shop_item_id });
     }
 }
