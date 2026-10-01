@@ -4,7 +4,7 @@ services:
       context: ../backend
       dockerfile: Dockerfile.dev
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      test: ["CMD", "wget", "-qO-", "-T", "3", "http://localhost:3000/health"]
       interval: 5s
       timeout: 3s
       retries: 5
@@ -45,7 +45,7 @@ services:
       - VITE_API_URL=${VITE_API_URL}
       - VITE_WEBSOCKET_URL=${VITE_WEBSOCKET_URL}
     ports:
-      - "80:8080"
+      - "8080:8080"
     depends_on:
       - backend
     volumes:
@@ -111,4 +111,4 @@ volumes:
 
 networks:
   pgnetwork:
-  
+    name: pgnetwork
