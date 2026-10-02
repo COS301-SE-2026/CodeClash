@@ -25,6 +25,7 @@
     "country-flag-icons": "^1.6.20",
     "dotenv": "^17.4.2",
     "framer-motion": "^13.4.0",
+    "katex": "^0.16.47",
     "lucide-react": "^1.24.0",
     "mathlive": "^0.109.2",
     "mock-socket": "^9.3.1",

@@ -6,6 +6,8 @@ import { IQuestionRepository } from "src/application/interfaces/repositories/IQu
 export class MarkProg implements IMarkingStrategy {
 
     private readonly executor;
+    // Max test cases sent to Judge0 at once; keeps a single submission from flooding its queue
+    private static readonly CONCURRENCY = 8;
 
     constructor(
         private readonly code_executor: ICodeExecutor,
@@ -26,15 +28,21 @@ export class MarkProg implements IMarkingStrategy {
            let run_time_ms: number | null = null; // slowest test case, judge0 time is seconds as a string
            let memory_kb: number | null = null;
    
-           for (const test of test_cases) {
-               const stdin = this.formatStdin(test.input);
-               const result = await this.executor.execute(sub.source_code, sub.language_id, stdin, test.expected_output);
+           // Judge0 runs submissions in parallel, so send test cases in batches instead of one at a time
+           // (each run is a full compile + execute, which made sequential marking take tens of seconds)
+           for (let i = 0; i < test_cases.length; i += MarkProg.CONCURRENCY) {
+               const batch = test_cases.slice(i, i + MarkProg.CONCURRENCY);
+               const results = await Promise.all(batch.map((test) =>
+                   this.executor.execute(sub.source_code, sub.language_id, this.formatStdin(test.input), test.expected_output)
+               ));
    
-               const seconds = Number.parseFloat(result.time);
-               if (Number.isFinite(seconds)) run_time_ms = Math.max(run_time_ms ?? 0, seconds * 1000);
-               if (result.memory) memory_kb = Math.max(memory_kb ?? 0, result.memory);
+               for (const result of results) {
+                   const seconds = Number.parseFloat(result.time);
+                   if (Number.isFinite(seconds)) run_time_ms = Math.max(run_time_ms ?? 0, seconds * 1000);
+                   if (result.memory) memory_kb = Math.max(memory_kb ?? 0, result.memory);
+               }
    
-               if (result.status.id !== 3) return { correct: false, run_time_ms, memory_kb };
+               if (results.some((result) => result.status.id !== 3)) return { correct: false, run_time_ms, memory_kb };
            }
    
            return { correct: true, run_time_ms, memory_kb };

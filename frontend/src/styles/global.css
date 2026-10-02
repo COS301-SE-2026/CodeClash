@@ -1357,18 +1357,18 @@
     animation: drift-up 3s ease-in infinite;
   }
 
-  .answer-correct {
-    background-color: rgba(34, 197, 94, 0.35);
-    transition: background-color 200ms ease-out;
-  }
-
-  .answer-wrong {
-    background-color: #bc184179;
-    transition: background-color 200ms ease-out;
-
-  }
-
   .life-shake {
     animation: big-shake 0.4s ease-in-out;
   }
+}
+
+/* Answer feedback sits outside @layer so it beats card background utilities (e.g. MatchCard's bg-[...]) */
+.answer-correct {
+  background-color: rgba(34, 197, 94, 0.35);
+  transition: background-color 200ms ease-out;
+}
+
+.answer-wrong {
+  background-color: #bc184179;
+  transition: background-color 200ms ease-out;
 }

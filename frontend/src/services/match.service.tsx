@@ -50,6 +50,12 @@ function shuffle(array: QuestionDTO[]) {
 }
 
 
+// time_limit is a postgres TIME (HH:MM:SS); returns minutes, possibly fractional
+function timeLimitMinutes(time_limit: string): number {
+    const [hours = 0, minutes = 0, seconds = 0] = time_limit.split(':').map(Number);
+    return hours * 60 + minutes + seconds / 60;
+}
+
 export const useLoadRounds = (data: RoundDTO[]) => {
     return useMemo(() => {
         if (!data || data.length === 0) {
@@ -61,7 +67,7 @@ export const useLoadRounds = (data: RoundDTO[]) => {
         let sumtime = 0;
         const rounds = data.map((round) => {
             const questions: QuestionDTO[] = round.questions.map(q => {
-                sumtime += Number(q.time_limit!.split(":")[0]);
+                sumtime += timeLimitMinutes(q.time_limit!);
                 return {
                     id: q.id,
                     title: q.title,
