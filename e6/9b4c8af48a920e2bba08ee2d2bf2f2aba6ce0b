@@ -1,0 +1,85 @@
+.env.example
+  s_03352315d7ac65::t_f52f2e5dbb9804 3
+backend/package.json
+  s_03352315d7ac65::t_5ab410aa63c9aa 16
+backend/scripts/question-seeding/math/helpers.ts
+  s_03352315d7ac65::t_3f12c592a4841c 134
+backend/scripts/question-seeding/math/seed-math-questions.ts
+  s_03352315d7ac65::t_c15f2690c276dc 1,3-17,64
+backend/scripts/question-seeding/programming/helper.ts
+  s_03352315d7ac65::t_792836abfefeb9 1,11,134
+backend/scripts/question-seeding/programming/seed-prog-questions.ts
+  s_03352315d7ac65::t_f6bca1f7ed7232 1-2,4-15,42,68-69
+backend/scripts/question-seeding/programming/seed-prog-templates.ts
+  s_03352315d7ac65::t_ffcfa855ff74de 1-2,6-17,61,84
+backend/src/application/usecases/services/marking/mark-prog.ts
+  s_03352315d7ac65::t_6b35ed3020665b 26-28,30
+backend/src/application/usecases/services/questions.service.ts
+  s_03352315d7ac65::t_ce609b456c6ac8 41-53,55
+backend/src/entities/dtos/matches/match.dto.ts
+  s_03352315d7ac65::t_cbd111506f0f45 43
+backend/src/frameworks-drivers/api.routes.ts
+  s_03352315d7ac65::t_0fc16bdf7a86fb 15
+backend/src/frameworks-drivers/socket/modules/register-matchmaking-handlers.ts
+  s_03352315d7ac65::t_ddcd1b4dd2a36f 8-11
+backend/src/interface-adapters/repositories/match.repository.ts
+  s_03352315d7ac65::t_ee221854597183 69,96
+backend/src/interface-adapters/socket-handlers/matchmaking-handlers.ts
+  s_03352315d7ac65::t_0eacd2cd0ce5fe 16,90-93
+backend/tests/unit/usecases/services/mark-prog.test.ts
+  s_03352315d7ac65::t_d3be85f596e06f 74
+backend/vitest.config.ts
+  s_03352315d7ac65::t_de56d1da33afa4 8
+dockerfile/docker-compose.dev.yml
+  s_03352315d7ac65::t_2288d3aa06169e 114
+dockerfile/docker-compose.prod.yml
+  s_03352315d7ac65::t_1126bde5666a0e 46,58
+frontend/@/components/features/Questions/question.tsx
+  s_03352315d7ac65::t_6835451407a553 33,44,88,94-95
+frontend/@/components/features/code-editor.tsx
+  s_03352315d7ac65::t_e055c44d4417e0 36,42
+frontend/src/Models/MatchHistoryModel.ts
+  s_03352315d7ac65::t_2c8899da9bad6b 9
+frontend/src/ViewModels/Match/MatchViewModel.ts
+  s_03352315d7ac65::t_94a555c38b30c4 43
+frontend/src/ViewModels/MatchHistoryViewModel.ts
+  s_03352315d7ac65::t_75cb5348fb6f73 23,33-34,39,46,54-58,66,82-87
+frontend/src/ViewModels/Shop/ShopViewModel.ts
+  s_03352315d7ac65::t_d0035c2aac6435 31,82
+frontend/src/Views/Match/FinalResults.tsx
+  s_03352315d7ac65::t_fcf65373adc580 216
+frontend/src/Views/Match/MatchHistory.tsx
+  s_03352315d7ac65::t_5d62e35ef00702 111-112
+frontend/src/Views/Match/ProgMatch.tsx
+  s_03352315d7ac65::t_679459d6b80e08 28,86,95
+frontend/src/Views/Shop/Shop.tsx
+  s_03352315d7ac65::t_0aa839c8aa6d1d 78-79
+frontend/src/context/Shop/ThemeContext.tsx
+  s_03352315d7ac65::t_be7a9459bace98 37-38,40-45,49-51,56
+frontend/src/services/match.service.tsx
+  s_03352315d7ac65::t_010b24057cec80 64
+frontend/src/services/shop.service.ts
+  s_03352315d7ac65::t_d48d31833cbdb7 86,196-200
+frontend/src/services/submission.service.tsx
+  s_03352315d7ac65::t_52d45732a3a00f 59,61-62,64-65,67-70,72-73
+frontend/src/styles/global.css
+  s_03352315d7ac65::t_e3a67b8a138253 1360-1362,1365-1367,1369-1373
+judge0-v1.13.1/docker-compose.yml
+  s_03352315d7ac65::t_25dd9e6851c30f 50
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "e69b4c8af48a920e2bba08ee2d2bf2f2aba6ce0b",
+  "prompts": {},
+  "sessions": {
+    "s_03352315d7ac65": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c48e1e11-ed7a-436c-9865-fe8b21cab8ce",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
