@@ -28,12 +28,13 @@ export const Tabs: ShopTab[] = [
 
 export const ShopViewModelFunc = () => {
     const {
-        catalog, wallet, inventory, loading, error: inventoryError, purchase: purchaseFromContext, equip, isOwned, isEquipped
+        catalog, wallet, inventory, loading, error: inventoryError, purchase: purchaseFromContext, equip: equipFromContext, isOwned, isEquipped
     } = useInventory();
 
     const [activeTabId, setActiveTabId] = useState('avatars');
     const [purchasingId, setPurchasingId] = useState<string | null>(null);
     const [purchaseError, setPurchaseError] = useState<string | null>(null);
+    const [equipError, setEquipError] = useState<string | null>(null);
 
     const activeTab = useMemo(
         () => Tabs.find((t) => t.id === activeTabId) ?? Tabs[0], [activeTabId]
@@ -70,6 +71,20 @@ export const ShopViewModelFunc = () => {
         }
     }, [purchaseFromContext])
 
+    // Resolves to true only once the server has saved the equip, so callers can apply it afterwards
+    const equip = useCallback(async (category: 'avatar' | 'theme', itemId: string): Promise<boolean> => {
+        setEquipError(null);
+
+        try {
+            await equipFromContext(category, itemId);
+            return true;
+        }
+        catch (e) {
+            setEquipError(e instanceof Error ? e.message : 'Equip failed');
+            return false;
+        }
+    }, [equipFromContext])
+
     return {
         tabs: Tabs,
         activeTabId,
@@ -79,7 +94,7 @@ export const ShopViewModelFunc = () => {
         wallet, 
         inventory,
         loading,
-        error: inventoryError ?? purchaseError,
+        error: inventoryError ?? purchaseError ?? equipError,
         purchasingId,
         isOwned,
         isEquipped,

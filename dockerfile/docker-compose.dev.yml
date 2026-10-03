@@ -28,6 +28,7 @@ services:
       - PORT=${PORT}
       - JUDGE_0_URL=${JUDGE_0_URL}
       - JUDGE_0_TOKEN=${JUDGE_0_TOKEN}
+      - JUDGE_0_MEMORY_LIMIT=${JUDGE_0_MEMORY_LIMIT:-128000}
     depends_on:
       - db
     volumes:
@@ -111,4 +112,5 @@ volumes:
 
 networks:
   pgnetwork:
-  
+    # Fixed name so the Judge0 compose (judge0-v1.13.1) can join it
+    name: pgnetwork

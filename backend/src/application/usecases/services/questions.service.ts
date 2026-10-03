@@ -35,23 +35,19 @@ export class GetQuestions {
     }
 }
 
+// time_limit is a postgres TIME (HH:MM:SS)
+const timeLimitMs = (time_limit: string): number => {
+    const [hours = 0, minutes = 0, seconds = 0] = time_limit.split(':').map(Number);
+    return ((hours * 60 + minutes) * 60 + seconds) * 1000;
+};
+
 export class GetTotalTime {
 
+    // Total match time in minutes (may be fractional)
     execute(questions: MatchQuestionArrays) {
-        let time = 0;
+        const all = [...questions.easy, ...questions.medium, ...questions.hard];
+        const total_ms = all.reduce((sum, question) => sum + timeLimitMs(question.time_limit), 0);
 
-        for (const question of questions.easy) {
-            time += Number(question.time_limit.split(":")[1]);  //minutes
-        }
-
-        for (const question of questions.medium) {
-            time += Number(question.time_limit.split(":")[1]);  //minutes
-        }
-
-        for (const question of questions.hard) {
-            time += Number(question.time_limit.split(":")[1]);  //minutes
-        }
-
-        return time;
+        return total_ms / 60000;
     }
 }

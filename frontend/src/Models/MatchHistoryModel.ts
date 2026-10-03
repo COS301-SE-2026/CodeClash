@@ -6,7 +6,7 @@ export type MatchResult = 'WIN' | 'LOSS' | 'DRAW';
 export interface MatchDetails {
     score: string;
     totalTime: string;
-    numCorrect: number;
+    eloChange: number;
     date: string;
     time: string;
 }

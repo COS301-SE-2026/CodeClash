@@ -55,6 +55,8 @@ export class MatchCompletionService {
 
         await this.achievement_service.evaluateForMatch(match_stats, players, match_type, total_questions);
 
+        for (const player of players) player.num_questions = total_questions;
+
         await this.match_repo.updatePlayers(db_match_id, players);
         await this.match_repo.completeMatch(db_match_id, MatchStatus.Completed);
 

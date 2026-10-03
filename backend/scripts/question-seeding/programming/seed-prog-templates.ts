@@ -1,20 +1,7 @@
-import { Pool } from "pg";
-import dotnev from "dotenv"
+import { pool } from "../db";
 import { findStubFile, LANGUAGES, titleToSlug } from "./helper";
 import path from "node:path";
 import fs from "node:fs"
-dotnev.config({ path: ".env.dev" })
-
-const env = process.env;
-
-const pool = new Pool({
-    host: "localhost",
-    port: Number(env.DB_PORT),
-    user: env.DB_USER,
-    password: env.DB_PASSWORD,
-    database: env.DB_NAME
-});
-
 
 function stripLocalIncludes(code: string) {
     return code.split('\n')
@@ -58,7 +45,7 @@ async function insertTemplates(questions_by_slug: Map<string, string>) {
                 if (!stub_path) continue;
 
                 let starter_code = fs.readFileSync(stub_path, "utf-8");
-                if(lang.language == 'cpp'){
+                if(lang.language === 'cpp'){
                     starter_code = stripLocalIncludes(starter_code);
                 }
 
@@ -80,7 +67,6 @@ async function insertTemplates(questions_by_slug: Map<string, string>) {
         client.release();
     }
 }
-
 
 async function main() {
     const questions_by_slug = await getQuestionsByTitle();

@@ -40,7 +40,8 @@ export interface MatchPlayer {
     elo_change: number,
     num_correct: number,
     total_time: number,
-    elimination_round: number | null
+    elimination_round: number | null,
+    num_questions?: number // questions in the match, set on completion (match.questions is not populated)
 }
 
 export interface MatchQuestion {

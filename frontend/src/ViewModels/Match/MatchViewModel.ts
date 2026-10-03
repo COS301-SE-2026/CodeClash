@@ -40,7 +40,7 @@ export const useMatch = () => {
     const { opponentProgress, handleOpponentDone, opponentCurrent, opponentDone } = useOpponentProgress(questions.length, players, updatePlayerLife);
 
 
-    const { submissionError, submitQuestion, results, lastResult } = useSubmission({ round_idx: roundIdx, curr_question: currentQuestion, question: questions[currentQuestion], match_id: match_id!, updatePlayerLife })
+    const { submissionError, submitQuestion, results, lastResult, marking, markingError } = useSubmission({ round_idx: roundIdx, curr_question: currentQuestion, question: questions[currentQuestion], match_id: match_id!, updatePlayerLife })
     const { seconds, minutes } = useMatchTimer(duration, async () => {
         setGameOver(true);
         await finishMatch();
@@ -152,6 +152,8 @@ export const useMatch = () => {
         opponentCurrent,
         opponentDone,
         submitQuestion,
+        marking,
+        markingError,
         nextRound,
         roundIdx,
         total_rounds: rounds.length,

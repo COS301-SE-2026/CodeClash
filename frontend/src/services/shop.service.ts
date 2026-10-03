@@ -60,6 +60,13 @@ interface RawEquipped {
 }
 
 // ----- Mappers
+// The shop seeds the default themes as cosmos-dark/cosmos-light, but the CSS theme classes are dark/light
+const THEME_KEY_ALIASES: Record<string, string> = { 'cosmos-dark': 'dark', 'cosmos-light': 'light' };
+
+function toThemeKey(theme_id: string): string {
+    return THEME_KEY_ALIASES[theme_id] ?? theme_id;
+}
+
 function mapItem(raw: RawShopItem): ShopItem {
     const base = {
         id: raw.shop_item_id,
@@ -83,7 +90,7 @@ function mapItem(raw: RawShopItem): ShopItem {
         const theme: ThemeShopItem = {
             ...base,
             category: 'theme',
-            themeId: raw.metadata.theme_id,
+            themeId: toThemeKey(raw.metadata.theme_id),
             isDefault: raw.metadata.is_default,
             swatchColors: [raw.metadata.hex_color_1, raw.metadata.hex_color_2, raw.metadata.hex_color_3],
         };
@@ -193,11 +200,18 @@ export const equipItm = async (
     itemId: string,
     token: string
 ): Promise<UserInventory> => {
-    const res = await fetch(EQUIP_URL, {
-        method: 'POST',
-        headers: authHeaders(token),
-        body: JSON.stringify({ category, shop_item_id: itemId }),
-    });
+    // Themes use the backend's PATCH /shop/equipped contract; the avatar request is unchanged in this release
+    const res = category === 'theme'
+        ? await fetch(EQUIP_URL, {
+            method: 'PATCH',
+            headers: authHeaders(token),
+            body: JSON.stringify({ theme_id: itemId }),
+        })
+        : await fetch(EQUIP_URL, {
+            method: 'POST',
+            headers: authHeaders(token),
+            body: JSON.stringify({ category, shop_item_id: itemId }),
+        });
 
     await handle(res);
     return getInv(token);

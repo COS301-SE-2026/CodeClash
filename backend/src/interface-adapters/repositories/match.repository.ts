@@ -66,13 +66,18 @@ export class MatchRepository implements IMatchRepository {
                 elimination_round: me.elimination_round,
                 score: {
                     correct: me.num_correct,
-                    total: match.questions.length,
+                    total: me.num_questions ?? match.questions.length,
                     time: me.total_time
                 }
             };
 
             return data
         }).filter((match): match is MatchHistoryRow => match != null);
+    }
+
+    // 0-100, as documented on the frontend's result DTO
+    private correctnessPercent(num_correct: number, num_questions: number): number {
+        return num_questions > 0 ? Math.round((num_correct / num_questions) * 100) : 0;
     }
 
     async buildMatchResult(match_id: string): Promise<MatchResultDTO> {
@@ -93,7 +98,7 @@ export class MatchRepository implements IMatchRepository {
                         user_id: player.id,
                         username: user.username!,
                         avatar: user.avatar_id!,
-                        correctness: (match.questions.length > 0) ? player.num_correct / match.questions.length : 0,
+                        correctness: this.correctnessPercent(player.num_correct, player.num_questions ?? match.questions.length),
                         speed: player.total_time,
                         eloEffect: player.elo_change,
                         position: player.position,
