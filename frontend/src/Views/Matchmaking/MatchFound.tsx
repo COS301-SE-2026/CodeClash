@@ -1,12 +1,12 @@
 import Starfield from '@/components/ui/animations/Starfield';
-import pinkCelebrate from 'src/assets/Robots/pink_celebrate.png';
 import { useMatchFound } from 'src/ViewModels/Matchmaking/MatchFoundViewModel';
 
 import Loading from '@/components/shared/Loading';
 import { Button } from '@/components/ui/button';
+import PlayerAvatar from 'src/avatar/PlayerAvatar';
 
 const MatchFound = () => {
-  const { content, players, matchDetails, decline, accept, loading } =
+  const { content, players, rightPlayerAvatar, leftPlayerAvatar, matchDetails, decline, accept, loading } =
     useMatchFound();
 
 
@@ -34,9 +34,8 @@ const MatchFound = () => {
 
         <div className="grid w-full max-w-5xl grid-cols-1 items-end gap-6 md:grid-cols-[1fr_auto_1fr] md:gap-10 lg:gap-20">
           <div className="flex flex-col items-center md:items-start">
-            <img
-              src={pinkCelebrate}
-              alt={`${leftPlayer?.username ?? 'Player'} avatar`}
+            <PlayerAvatar
+              assetKey={leftPlayerAvatar ?? ""}
               className="w-[14rem] drop-shadow-2xl md:w-[19rem] lg:w-[23rem]"
             />
             <div className="mt-1 text-center md:text-left">
@@ -62,11 +61,9 @@ const MatchFound = () => {
           </div>
 
           <div className="flex flex-col items-center md:items-end">
-            <img
-              src={pinkCelebrate}
-              alt={`${rightPlayer?.username ?? 'Opponent'} avatar`}
+            <PlayerAvatar
+              assetKey={rightPlayerAvatar ?? ""}
               className="w-[14rem] drop-shadow-2xl md:w-[19rem] lg:w-[23rem]"
-              style={{ transform: 'scaleX(-1)' }}
             />
             <div className="mt-1 text-center md:text-right">
               <p
