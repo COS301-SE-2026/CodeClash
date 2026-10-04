@@ -9,7 +9,8 @@ import { robot_map } from "src/assets/Robots";
 export function useDashboardViewModel() {
     const [isOpen, setIsOpen] = useState(false);
     const { setMatchType } = useMatchmaking();
-    const { username, elo, avatar, league, current_streak, winning_streak, refresh } = useUser()
+    const { username, elo, avatar, league, userId, current_streak, winning_streak, refresh } = useUser()
+    
     const { isLoading, token } = useAuth()
 
     const [recentAchievement, setRecentAchievement] = useState<{

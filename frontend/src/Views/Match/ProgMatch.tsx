@@ -20,7 +20,7 @@ export const ProgMatch = () => {
         status,
         questions,
         results,
-        playerLife, avatars, usernames,
+        playerLife, playerOneAvatar, playerTwoAvatar, usernames,
         seconds, minutes,
         currentQuestion, nextQuestion, prevQuestion,
         roundIdx, rounds,
@@ -47,7 +47,8 @@ export const ProgMatch = () => {
             player_life={playerLife}
             seconds={seconds}
             minutes={minutes}
-            avatars={avatars}
+            playerOneAvatar={playerOneAvatar}
+            playerTwoAvatar={playerTwoAvatar}
             usernames={usernames}
             elos={elos}
             current_question={currentQuestion}

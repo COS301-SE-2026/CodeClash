@@ -27,6 +27,7 @@ import { TournamentService } from 'src/application/usecases/services/tournament/
 import { getTournamentByStatus } from 'src/interface-adapters/controllers/tournament.controllers';
 import { IWalletRepository } from 'src/application/interfaces/repositories/IWalletRepository';
 import { IInventoryRepository } from 'src/application/interfaces/repositories/IInventoryRepository';
+import { getEquippedFor } from 'src/interface-adapters/controllers/shop.controllers';
 
 export const createAPIRoutes = (
   user_repo: IUserRepository,
@@ -291,6 +292,7 @@ router.get('/shop/equipped', getEquipped(equipment_service));
 router.patch('/shop/equipped', updateEquipped(equipment_service));
 router.get('/shop/powerups/me', getUserPowerups(inventory_service));
 router.post('/shop/powerups/use', usePowerup(powerup_service));
+router.get('/shop/equipped/:user_id', getEquippedFor(equipment_service));
 
   // --------------------- user routes
   router.get('/user/rank', getUserRank(leaderboard_service));
