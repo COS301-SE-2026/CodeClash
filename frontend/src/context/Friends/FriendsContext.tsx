@@ -11,6 +11,7 @@ import type {
     Search, Summary, Relation
 } from "../../Models/FriendsModel";
 import { getEquippedFor } from "src/services/shop.service";
+import { useInventory } from "../Shop/InventoryContext";
 
 
 const API_BASE = '/api'; 
@@ -60,6 +61,11 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
     const [error, setError] = useState<string | null>(null);
 
     const tokenInv = token ?? "";
+    const {equippedAvatarImage} = useInventory();
+    console.log(equippedAvatarImage)
+    const equippedCrop = equippedAvatarImage?.replace("/src/assets/Shop/Avatars/","");
+    const equippedCropEnd = equippedCrop?.replace(".png", "");
+    const equipped = equippedCropEnd ?? "";
 
     //copied and pasted from shop.service.ts, not ai generated!
     const EQUIPPED_FOR_URL = (user_id: string) => `/api/shop/equipped/${user_id}`
@@ -112,7 +118,7 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
                         setProfile({
                             id: user.userId ?? '',
                             username: user.username ?? '',
-                            avatar: "",
+                            avatar: equipped,
                             league: leagueData?.league ?? 'Mercury',
                             handle: user.username ?? ''
                         });
