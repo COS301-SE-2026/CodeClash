@@ -126,7 +126,8 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
                     username: r.username,
                     avatar: avatar ?? "",
                     sentAt: r.created_at,
-                    fromUser: r.user_id
+                    fromUser: r.user_id,
+                    elo: r.elo
                 })));
 
 
@@ -212,7 +213,11 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
                 const usersWithAvatars = await Promise.all(
                     data.map(async (u: any) => {
                         const { avatarImage } = await getEquippedFor(u.user_id, tokenInv);
-                        return { user: u, avatar: avatarImage};
+                        //the following is pasted from above and was not ai generated!!! I did so to save time
+                        const avatarCrop = avatarImage?.replace("/src/assets/Shop/Avatars/","");
+                        const avatarEndCrop = avatarCrop?.replace(".png", "");
+                        const avatarImg = avatarEndCrop ?? "";
+                        return { user: u, avatar: avatarImg};
                     })
                 )
 
@@ -276,23 +281,27 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
             });
             setRequests((prev) => prev.filter((r) => r.id !== id));
 
-            
+            const { avatarImage } = await getEquippedFor(req.fromUser, tokenInv);
+            //the following block was pasted from above and is not ai generated!!! i was trying to save time
+            const avatarCrop = avatarImage?.replace("/src/assets/Shop/Avatars/","");
+            const avatarEndCrop = avatarCrop?.replace(".png", "");
+            const avatarImg = avatarEndCrop ?? "";
 
             setFriend((prev) => [
                 ...prev, {
                     id: req.fromUser, 
                     friendship_id: req.id,
                     username: req.username,
-                    avatar: req.avatar,
+                    avatar: avatarImg ?? "",
                     status: 'offline',
-                    elo: 600
+                    elo: req.elo
                 }
             ]);
         } catch (err) {
             console.error('Error accepting friend request:', err);
         }
         await fetchAll();
-    }, [token, requests])
+    }, [token, requests, tokenInv])
 
     const declineRequest = useCallback( async (id: string) => {
         if (!token) return;

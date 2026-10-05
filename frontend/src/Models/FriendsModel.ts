@@ -15,6 +15,7 @@ export interface FriendRequest {
     avatar: string | undefined;
     sentAt: string; //A timestamp for when the request was sent, I see this on most apps
     fromUser: string;
+    elo: number
 }
 
 export type Relation = 'none' | 'friend' | 'pending-sent' | 'pending-received' | 'self';

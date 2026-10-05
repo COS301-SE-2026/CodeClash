@@ -216,8 +216,6 @@ export const getEquippedFor = async (
     const res = await fetch(EQUIPPED_FOR_URL(user_id), { headers: authHeaders(token)});
     const raw = await handle<RawEquipped>(res);
 
-    console.log('raw', raw)
-
     if(!raw.avatar || raw.avatar.category !== 'avatar'){
         return {}
     }
