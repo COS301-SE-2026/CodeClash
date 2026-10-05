@@ -1,0 +1,234 @@
+.vscode/settings.json
+  h_58e143dc25f856 2-3
+backend/package-lock.json
+  h_58e143dc25f856 31,40,2103-2105,5892-5894,5899,5959-5961
+backend/package.json
+  h_58e143dc25f856 16,53,62
+backend/scripts/cpp
+  h_58e143dc25f856 1
+backend/scripts/javascript
+  h_58e143dc25f856 1
+backend/src/application/interfaces/cache/ITournamentCache.ts
+  h_58e143dc25f856 6,12-13
+backend/src/application/interfaces/repositories/IInventoryRepository.ts
+  h_58e143dc25f856 8
+backend/src/application/usecases/services/match/match-completion.service.ts
+  h_58e143dc25f856 36-37,62,76
+backend/src/application/usecases/services/match/match-creation.service.ts
+  h_58e143dc25f856 42
+backend/src/application/usecases/services/notification.service.ts
+  h_58e143dc25f856 1-2,5-8,10-12,14-16,18-19,21
+backend/src/application/usecases/services/questions.service.ts
+  h_58e143dc25f856 24-26,29
+backend/src/application/usecases/services/shop/equipment.service.ts
+  h_58e143dc25f856 15-16,18-30,32
+backend/src/application/usecases/services/shop/purchase.service.ts
+  h_58e143dc25f856 29-32
+backend/src/application/usecases/services/tournament/elimination.service.ts
+  h_58e143dc25f856 4-5,39-40,48,71-72,76,131,139-142,153-157,166-172,174
+backend/src/application/usecases/services/tournament/tournament.service.ts
+  h_58e143dc25f856 9,49,51,73,77,81,83,86,88-89,102-118
+backend/src/application/usecases/services/user-creation.service.ts
+  h_58e143dc25f856 6,16-18,41-43
+backend/src/application/usecases/systems/match-completion.system.ts
+  h_58e143dc25f856 25
+backend/src/entities/dtos/submissions/submission.dto.ts
+  h_58e143dc25f856 31
+backend/src/entities/dtos/tournaments/tournaments.dto.ts
+  h_58e143dc25f856 11,23-24
+backend/src/frameworks-drivers/api.routes.ts
+  h_58e143dc25f856 29,45,53,296
+backend/src/frameworks-drivers/app.ts
+  h_58e143dc25f856 21,38,69-71
+backend/src/frameworks-drivers/server.ts
+  h_58e143dc25f856 174,223
+backend/src/frameworks-drivers/socket/dependencies.ts
+  h_58e143dc25f856 38-39
+backend/src/frameworks-drivers/socket/modules/register-friends-handler.ts
+  h_58e143dc25f856 6-39,42-72,74-78
+backend/src/frameworks-drivers/socket/modules/register-match-handlers.ts
+  h_58e143dc25f856 11-12,23
+backend/src/frameworks-drivers/socket/modules/register-tournament-handler.ts
+  h_58e143dc25f856 5,8,16-17,28-29
+backend/src/interface-adapters/cache/tournament-cache.ts
+  h_58e143dc25f856 13,41,97-100
+backend/src/interface-adapters/repositories/inventory.repository.ts
+  h_58e143dc25f856 62-73
+backend/src/interface-adapters/repositories/match.repository.ts
+  h_58e143dc25f856 113,138
+backend/src/interface-adapters/repositories/user.repository.ts
+  h_58e143dc25f856 238
+backend/src/interface-adapters/repositories/wallet.repository.ts
+  h_58e143dc25f856 36-40
+backend/src/interface-adapters/socket-handlers/match-handlers.ts
+  h_58e143dc25f856 12,15-22,31-33,35-39,54-67,71,86
+backend/src/interface-adapters/socket-handlers/matchmaking-handlers.ts
+  h_58e143dc25f856 13
+backend/src/interface-adapters/socket-handlers/tournament-handlers.ts
+  h_58e143dc25f856 6-14,17-20,29-32,39,41-45,58,67-72,80,84-86
+backend/tsconfig.json
+  h_58e143dc25f856 36
+backend/vitest.config.ts
+  h_58e143dc25f856 8
+database/01-init.sql
+  h_58e143dc25f856 156
+database/02-init-questions.sql
+  h_58e143dc25f856 1-56
+database/04-init-shop.sql
+  h_58e143dc25f856 4,6,8,10,12,16,18-20,22,24,28,30,32,34,36,38,40,42,44,47-58
+database/05-seed-codeclash-trigger.sql
+  h_58e143dc25f856 1-20
+dockerfile/docker-compose.dev.yml
+  h_58e143dc25f856 50,66
+frontend/@/components/Sidebar.tsx
+  h_58e143dc25f856 1
+frontend/@/components/features/Match/Match.tsx
+  h_58e143dc25f856 74,101
+frontend/@/components/features/Match/MatchBox.tsx
+  h_58e143dc25f856 27-29
+frontend/@/components/features/Match/MatchCard.tsx
+  h_58e143dc25f856 13,15
+frontend/@/components/features/Match/MatchTimer.tsx
+  h_58e143dc25f856 31
+frontend/@/components/features/Match/MathPage.tsx
+  h_58e143dc25f856 49,53,63
+frontend/@/components/features/Match/RoundTree.tsx
+  h_58e143dc25f856 22,30,32,37,44-47,51-52,56
+frontend/@/components/features/Questions/question.tsx
+  h_58e143dc25f856 2,16,22,30,34,41,46,60-80,82-83,87
+frontend/@/components/features/Tournaments/TournamentCard.tsx
+  h_58e143dc25f856 1-2,8,20,36,40-42,45-49,52-54,58,83,89-118,124,129
+frontend/@/components/ui/progress.tsx
+  h_58e143dc25f856 5,34-35
+frontend/package-lock.json
+  h_58e143dc25f856 4647,4669,6137,6284,8654-8661,8663-8667,8670-8673,8676-8683
+frontend/src/App.tsx
+  h_58e143dc25f856 39-40,53,61,68,76-78,84,93
+frontend/src/Models/MatchHistoryModel.ts
+  h_58e143dc25f856 1-2,5
+frontend/src/Models/ShopModel.ts
+  h_58e143dc25f856 7,33-35,67,69
+frontend/src/ViewModels/Match/MatchViewModel.ts
+  h_58e143dc25f856 18,44,46,98,102,168-170
+frontend/src/ViewModels/Matchmaking/MatchFoundViewModel.ts
+  h_58e143dc25f856 33,40,44,52,57,120,122
+frontend/src/ViewModels/Shop/ShopViewModel.ts
+  h_58e143dc25f856 51
+frontend/src/ViewModels/Tournaments/TournamentLobby.ts
+  h_58e143dc25f856 4,9,14,19,21,29,32-34,38-40,43,45,48-51,60,63-75,77,79,82-84,103-107,109,116
+frontend/src/ViewModels/Tournaments/TournamentMatchViewModel.ts
+  h_58e143dc25f856 6-7,10-24,26-30,32-34,38-39,41,45,58-88,104-112
+frontend/src/ViewModels/Tournaments/TournamentViewModel.ts
+  h_58e143dc25f856 16-18,40,50,52,91-92,96-99,137-138,145,149-157
+frontend/src/ViewModels/Tournaments/useDbId.ts
+  h_58e143dc25f856 1-29
+frontend/src/Views/Dashboard.tsx
+  h_58e143dc25f856 1
+frontend/src/Views/Friends/FriendInvitePopup.tsx
+  h_58e143dc25f856 4-5,22,26-34
+frontend/src/Views/Friends/Friends.tsx
+  h_58e143dc25f856 60,121-125,182,186
+frontend/src/Views/Match/Leaderboard/Leaderboard.tsx
+  h_58e143dc25f856 35
+frontend/src/Views/Match/MathsMatch.tsx
+  h_58e143dc25f856 27-28,83,85-86
+frontend/src/Views/Match/ProgMatch.tsx
+  h_58e143dc25f856 30-31,85,87,91,100
+frontend/src/Views/Shop/Shop.tsx
+  h_58e143dc25f856 88
+frontend/src/Views/Tournaments/HostTournament.tsx
+  h_58e143dc25f856 30-31,55-60,62-64,69,79,85,90,92-93,100,105-106,117,134,149-150,154,178,182,192,196
+frontend/src/Views/Tournaments/TournamentMatchPage.tsx
+  h_58e143dc25f856 5,9-12,15,19-27,30,32,36-39,41-46,54-59,69-71,73-75,78-97,101,103,109,111,114-115,118-139,149,153,155,161,167-168,176,178-180,193-194,207,210-213,217,219-220,223,227,231,238,249
+frontend/src/Views/Tournaments/Tournaments.tsx
+  h_58e143dc25f856 11,24-26,28-29,33,43,68,76-77
+frontend/src/Views/Tournaments/TournamentsWaiting.tsx
+  h_58e143dc25f856 18-21,29-31,33-34,36-40,45,50-52,60-63,65,68-70,74,82-84
+frontend/src/context/Achievement/AchievementToastContext.tsx
+  h_58e143dc25f856 17-23,40,46-47,85-86,90,101,103-107
+frontend/src/context/Achievement/FriendRequestToast.tsx
+  h_58e143dc25f856 5-7,11,38-40
+frontend/src/context/Friends/FriendsContext.tsx
+  h_58e143dc25f856 5-6,14,43-45,52-53,65-66,71-79,224,229,255,260,264,272,277,307-324,328,341-351,354-355,358-363,366,370-416,441-443
+frontend/src/context/Shop/InventoryContext.tsx
+  h_58e143dc25f856 8,45
+frontend/src/context/Shop/ThemeContext.tsx
+  h_58e143dc25f856 3,38-46
+frontend/src/context/Socket/SocketContext.tsx
+  h_58e143dc25f856 9,17,32-33,35-38,41,56
+frontend/src/context/Socket/SocketContextValue.tsx
+  h_58e143dc25f856 6,12
+frontend/src/context/Socket/modules/friends.socket.ts
+  h_58e143dc25f856 1-49
+frontend/src/context/Socket/modules/match.socket.ts
+  h_58e143dc25f856 6,70
+frontend/src/context/Socket/modules/tournament.socket.ts
+  h_58e143dc25f856 4,35-43,72,87-91
+frontend/src/dtos/friends/friend.dto.ts
+  h_58e143dc25f856 1-41
+frontend/src/dtos/match/match.dto.ts
+  h_58e143dc25f856 4
+frontend/src/dtos/match/submission.dto.ts
+  h_58e143dc25f856 19
+frontend/src/dtos/tournaments/tournament.dto.ts
+  h_58e143dc25f856 24-25
+frontend/src/main.tsx
+  h_58e143dc25f856 25,27-34
+frontend/src/services/api.service.tsx
+  h_58e143dc25f856 3
+frontend/src/services/match.service.tsx
+  h_58e143dc25f856 4,11,14
+frontend/src/services/shop.service.ts
+  h_58e143dc25f856 1-22,24-37,39-42,44-55,57-74,76-84,86-104,106-107,110-112,114-138,140-142,144-147,149-150,152-188,191-203
+frontend/src/services/submission.service.tsx
+  h_58e143dc25f856 8,46,54-55,59-65
+frontend/src/stores/match-store.ts
+  h_58e143dc25f856 1,5,9,11-13,18-19,21,27,32-33,35,39-41,44-45,50-51
+frontend/test/integration/Contexts/MatchmakingContext.integration.test.tsx
+  h_58e143dc25f856 39,113
+tests/nfr/README.md
+  h_58e143dc25f856 124-129,133-171,175-223,226-227,229
+tests/nfr/security/getUserTestToken.py
+  h_58e143dc25f856 48-49
+tests/nfr/security/jwt_tool
+  h_58e143dc25f856 1
+tests/nfr/security/reports/localhost:3000_api_achievements.txt
+  h_58e143dc25f856 1-607
+tests/nfr/security/reports/localhost:3000_api_achievements_me.txt
+  h_58e143dc25f856 1-607
+tests/nfr/security/reports/localhost:3000_api_create-user.txt
+  h_58e143dc25f856 1-607
+tests/nfr/security/reports/localhost:3000_api_elo_elo-get.txt
+  h_58e143dc25f856 1-607
+tests/nfr/security/reports/localhost:3000_api_friends.txt
+  h_58e143dc25f856 1-607
+tests/nfr/security/reports/localhost:3000_api_friends_invite.txt
+  h_58e143dc25f856 1-607
+tests/nfr/security/reports/localhost:3000_api_friends_request.txt
+  h_58e143dc25f856 1-607
+tests/nfr/security/reports/localhost:3000_api_friends_requests.txt
+  h_58e143dc25f856 1-607
+tests/nfr/security/reports/localhost:3000_api_leaderboard.txt
+  h_58e143dc25f856 1-607
+tests/nfr/security/reports/localhost:3000_api_matches.txt
+  h_58e143dc25f856 1-607
+tests/nfr/security/reports/localhost:3000_api_user_rank.txt
+  h_58e143dc25f856 1-607
+tests/nfr/security/reports/localhost:3000_api_user_search.txt
+  h_58e143dc25f856 1-607
+tests/nfr/security/testingReports.sh
+  h_58e143dc25f856 1-32
+tests/nfr/security/token.txt
+  h_58e143dc25f856 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "116a01b616df83d2361cc25ff1fde9cffba609f6",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
