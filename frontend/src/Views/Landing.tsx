@@ -2,8 +2,7 @@ import { Rocket, Swords, Trophy, Calculator, Code2, ChartNoAxesColumn, Medal, Hi
 import React from "react";
 import { Link } from "react-router";
 import { docs } from "src/Models/LandingModel";
-
-import helloRobot from '../assets/Robots/HelloRobot_Pink.png';
+import Vexa from "../assets/Shop/Avatars/Vexa.png"
 import { LandingViewModelFunction } from "../ViewModels/LandingViewModel";
 
 
@@ -73,8 +72,8 @@ const Landing:React.FC = ()=>{
                 </div>
 
                 <div className="relative z-10 w-1/2 flex items-center justify-center">
-                <div className="absolute w-[90%] aspect-square rounded-full bg-radial-glow-corner">
-                    <img src = {helloRobot} alt = "Robot" className="relative select-none pointer-events-none" style={{width: "88%", maxWidth: "650px", height: "auto", transform: "translateX(20px) translateY(30px),", zIndex: 1}}/>
+                <div className="absolute w-[90%] aspect-square rounded-full">
+                    <img src = {Vexa} alt = "Robot" className="relative select-none pointer-events-none" style={{width: "88%", maxWidth: "650px", height: "auto", transform: "translateX(20px) translateY(30px),", zIndex: 1}}/>
                 </div>
                 </div>
             </section>
