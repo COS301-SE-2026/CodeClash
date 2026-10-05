@@ -11,7 +11,6 @@ import type { FriendStatus, Relation } from "../../Models/FriendsModel";
 import PlayerAvatar from "src/avatar/PlayerAvatar";
 import { useAuth } from "src/context/Auth/hooks/useAuth";
 import { getEquippedFor } from "src/services/shop.service";
-import { useInventory } from "src/context/Shop/InventoryContext";
 
 
 const status: Record<FriendStatus, string> = {
@@ -142,7 +141,7 @@ const Friends: React.FC = () => {
             <div className="relative z-10 max-w-2xl mx-auto flex flex-col gap-6">
                 {/*A header that gives the user his own details */}
                 <div className="card-elevated p-5 flex items-center gap-4">
-                    <PlayerAvatar assetKey={getEquippedFor(profile.id, tokenEquip) ?? ""}/>
+                    <PlayerAvatar assetKey={profile.avatar}/>
                     <div className="flex-1 min-w-0">
                         <p className="text-primary-text font-black text-md truncate">{profile.username}</p>
                         <p className="text-muted text-sm truncate">@{profile.handle}</p>

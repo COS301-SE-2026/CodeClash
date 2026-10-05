@@ -62,7 +62,6 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
 
     const tokenInv = token ?? "";
     const {equippedAvatarImage} = useInventory();
-    console.log(equippedAvatarImage)
     const equippedCrop = equippedAvatarImage?.replace("/src/assets/Shop/Avatars/","");
     const equippedCropEnd = equippedCrop?.replace(".png", "");
     const equipped = equippedCropEnd ?? "";
@@ -85,15 +84,29 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
                 const friendsData = friendsRes.ok ? await friendsRes.json() : [];
                 const requestsData = requestRes.ok ? await requestRes.json() : [];
 
+                const friendsWithAvatars = await Promise.all(
+                    friendsData.map(async (f: any) => {
+                        const { avatarImage } = await getEquippedFor(f.user_id, tokenInv);
+                        const avatarCrop = avatarImage?.replace("/src/assets/Shop/Avatars/","");
+                        const avatarEndCrop = avatarCrop?.replace(".png", "");
+                        const avatarImg = avatarEndCrop ?? "";
+                        return { friend: f, avatar: avatarImg }
+                    })
+                );
+
         
-                setFriend(friendsData.map((f: any) => ({
+                setFriend(friendsWithAvatars.map(({friend : f, avatar}) => ({
                     id: f.user_id,
                     friendship_id: f.friendship_id,
                     username: f.username,
-                    avatar: getEquippedFor(f.user_id, tokenInv) ?? "",
+                    avatar: 
+                    avatar
+                    ?? 
+                    "",
                     status: 'offline' as const, // status not stored in DB, defailt offline
                     elo: f.elo ?? 600
                 })));
+
 
                 setRequests(requestsData.map((r: any) => ({
                     id: r.friendship_id,
@@ -102,6 +115,7 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
                     sentAt: r.created_at,
                     fromUser: r.user_id
                 })));
+
 
                 // build profile from auth user
                 if (user && token) {
@@ -134,7 +148,7 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
             } finally {
                 setIsLoading(false);
             }
-        }, [token, user]); //end fetchAll
+        }, [token, user, equipped]); //end fetchAll
    
     useEffect(()=> {
         if(!token) return;
@@ -156,6 +170,7 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
             setActiveInvite(null);
         }
     }, [activeInvite, now])
+
 
     const inviteCountdown = useMemo(() => {
         if (!activeInvite) {
@@ -181,7 +196,14 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
                 const friendIds = new Set(friend.map((f) => f.id));
                 const incomingReqs = new Set(requests.map((r) => r.fromUser));
 
-                setAllUsers(data.map((u: any): Search => {
+                const usersWithAvatars = await Promise.all(
+                    data.map(async (u: any) => {
+                        const { avatarImage } = await getEquippedFor(u.user_id, tokenInv);
+                        return { user: u, avatar: avatarImage};
+                    })
+                )
+
+                setAllUsers(usersWithAvatars.map(({user: u, avatar}): Search => {
                     let relationship: Relation = 'none';
                     if (u.user_id === profile?.id) relationship = 'self';
                     else if (friendIds.has(u.user_id)) relationship = 'friend';
@@ -190,7 +212,7 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
                     return {
                         id: u.user_id,
                         username: u.username,
-                        avatar: u.avatar,
+                        avatar,
                         relationship
                     };
                 }));
