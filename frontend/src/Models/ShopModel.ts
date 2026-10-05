@@ -55,16 +55,8 @@ export interface Owned {
     acquiredAt: string;
 }
 
-export interface Consumable {
-    category: 'powerup';
-    itemId: string;
-    quantity: number;
-    shop_item_id: string;
-}
-
 export interface UserInventory {
     owned: Owned[];
-    consumable: Consumable[];
     equippedAvatarId: string | null;
     equippedThemeId: string | null;
 }
