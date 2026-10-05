@@ -1,5 +1,8 @@
 import * as React from "react";
-
+import ReactMarkDown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 import { Badge } from "@/components/ui/badge";
 
 import { cn } from "@/lib/utils";
@@ -13,7 +16,7 @@ interface QuestionProps {
   description?: string,
   className?: string
 }
-function Question({
+export function Question({
   className,
   children,
   difficulty,
@@ -56,35 +59,12 @@ function Question({
   );
 }
 
-
-const tableRegex = new RegExp(String.raw`\\begin\{tabular\}\{[^]*\}([\s\S]*?)\\end\{tabular\}`, 'g');
-
-const tableToMarkdown = (text: string): string => {
-  return text.replace(tableRegex, (_, body: string) => {
-    const rows = body.split(`\\\\`)
-      .map(row => row.trim())
-      .filter(Boolean)
-      .map(row => row.split('&').map(cell => cell.trim()));
-
-
-    if (rows.length === 0) return '';
-
-    const header = rows[0];
-    const separator = header.map(() => '----');
-    const dataRows = rows.slice(1);
-
-    const toMdRow = (cells: string[]) => `| ${cells.join('|')}`;
-    return [toMdRow(header), toMdRow(separator), ...dataRows.map(toMdRow)].join('\n');
-  })
-}
-
 export const QuestionDescription = ({ description }: { description: string }) => {
-  const processed = React.useMemo(() => tableToMarkdown(description), [description]);
 
   return (
     <div className="prose prose-invert max-w-none pt-[1rem]">
       <ReactMarkDown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]}>
-        {processed}
+        {description}
       </ReactMarkDown>
     </div>
   )
