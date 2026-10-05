@@ -1,0 +1,33 @@
+backend/src/interface-adapters/controllers/shop.controllers.ts
+  h_b13c5d77534129 124-138
+  h_b13c5d77534129 123
+frontend/src/ViewModels/Match/MatchViewModel.ts
+  h_b13c5d77534129 14-18,25,27,37,50-78,83-88
+  h_b13c5d77534129 26,38,46-47,79-82,89-101,254-255
+frontend/src/services/shop.service.ts
+  h_b13c5d77534129 14,211-229
+  h_b13c5d77534129 210
+backend/src/frameworks-drivers/api.routes.ts
+  h_b13c5d77534129 30,295
+backend/src/interface-adapters/repositories/wallet.repository.ts
+  h_b13c5d77534129 30
+frontend/@/components/features/Match/Match.tsx
+  h_b13c5d77534129 9,15-16,34-35,61,118
+frontend/src/ViewModels/DashboardViewModel.ts
+  h_b13c5d77534129 12-13
+frontend/src/Views/Match/MathsMatch.tsx
+  h_b13c5d77534129 19,51-52
+frontend/src/Views/Match/ProgMatch.tsx
+  h_b13c5d77534129 23,50-51
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "3dbccab304d9c872009f69351e248466e24abfa6",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
