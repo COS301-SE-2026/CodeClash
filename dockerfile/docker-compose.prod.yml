@@ -1,6 +1,9 @@
+name: codeclash-prod
+
 services:
   backend:
     build: ./backend
+    restart: unless-stopped
     ports:
       - "3000:3000"
     environment: 
@@ -18,11 +21,16 @@ services:
       - FRONTEND_URL=${FRONTEND_URL}
       - COGNITO_JWKS_URI=${COGNITO_JWKS_URI} 
       - PORT=${PORT}
+      - NODE_ENV=${NODE_ENV} # production = connect to the database over SSL (needed for RDS)
+      - JUDGE_0_URL=${JUDGE_0_URL}
+      - JUDGE_0_TOKEN=${JUDGE_0_TOKEN}
+      - JUDGE_0_MEMORY_LIMIT=${JUDGE_0_MEMORY_LIMIT:-128000}
 
     networks:
       - pgnetwork
 
   frontend: # Copied from deployment branch
+    restart: unless-stopped
     build:
       context: ./frontend
       args:
@@ -43,7 +51,7 @@ services:
       - '6379:6379'
     volumes:
       - redis-data:/data
-      - ./backend/src/config/redis.conf:/etc/redis/redis.conf
+      - ./backend/src/frameworks-drivers/config/redis.conf:/etc/redis/redis.conf
     command: ["redis-server", "/etc/redis/redis.conf"]
     restart: unless-stopped
     networks:
@@ -55,4 +63,5 @@ volumes:
 
 networks:
   pgnetwork:
-  
+    # Fixed name so the Judge0 compose (judge0-v1.13.1) can join it
+    name: pgnetwork

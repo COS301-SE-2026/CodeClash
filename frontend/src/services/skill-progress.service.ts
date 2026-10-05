@@ -12,14 +12,39 @@ import { seededRandom } from 'src/utils/seededRandom';
 // skill progress requires question by question information, so this is to grab questions from match history and then 
 // use that information for atleast some of the logic and code n stff
 // 
-interface MatchHistoryRow {
-    match_id: string;
-    mode: string;
-    game_type: string;
-    match_start: string;
-    result: MatchOutcome;
-    score: string;
+// interface MatchHistoryRow {
+//     match_id: string;
+//     mode: string;
+//     game_type: string;
+//     match_start: string;
+//     result: MatchOutcome;
+//     score: string;
+// }
+
+interface QuestionResultRow {
+  question_id: string;
+  difficulty: number;
+  correct: boolean;
+  attempts: number;
+  time_ratio: number;
+  accuracy_ratio: number | null;
+  speed_ratio: number | null;
+  time_cx_ratio: number | null;
+  space_cx_ratio: number | null;  
 }
+
+interface SkillProgressRow {
+  match_id: string;
+  match_type: 'ranked' | 'casual' | 'tournament';
+  match_mode: string;
+  match_start: string | null;
+  match_end: string | null;
+  position: number;
+  league: string | null;
+  questions: QuestionResultRow[];
+}
+
+
 
 export interface SkillTelemetry {
     games: GameSample[];
@@ -41,8 +66,10 @@ const baselineFor = (result: MatchOutcome): number => {
     return 0.5;
 };
 
-const toDomain = (gameType: string): GameDomain =>
-  gameType?.toLowerCase() === 'math' ? 'math' : 'programming';
+const toDomain = (matchMode: string): GameDomain =>
+  matchMode?.toLowerCase() === 'math' ? 'math' : 'programming';
+
+const measured = (ratio: number | null): number | undefined => ratio ?? undefined;
 
 function difficultyFor(random: () => number, difficulties: [number, number, number]): number {
     const roll = random();
@@ -114,18 +141,32 @@ async function buildQuestions(
     return questions;
 }
 
-async function toGameSample(row: MatchHistoryRow, league: string): Promise<GameSample> {
-    const domain = toDomain(row.game_type);
-    return {
-        matchId: row.match_id,
-        playedAt: new Date(row.match_start).toISOString(),
-        domain,
-        league,
-        result: row.result,
-        questions: await buildQuestions(row.match_id, domain, league, row.result),
-        simulated: true
-    };
+ function toGameSample(row: SkillProgressRow, league: string): GameSample {
+  return {
+    matchId: row.match_id,
+    playedAt: new Date(row.match_end ?? row.match_start ?? Date.now()).toISOString(),
+    domain: toDomain(row.match_mode),
+    // the league the game was played in, which can differ from the player's league today
+    league: row.league ?? league,
+    result: row.position === 1 ? 'WIN' : 'LOSS',
+    questions: row.questions.map(question => ({
+      difficulty: question.difficulty,
+      correct: question.correct,
+      attempts: question.attempts,
+      ratios: {
+        time: question.time_ratio,
+        accuracy: measured(question.accuracy_ratio),
+        speed: measured(question.speed_ratio),
+        timeCx: measured(question.time_cx_ratio),
+        spaceCx: measured(question.space_cx_ratio)
+      }
+    })),
+    simulated: false,
+    practice: row.match_type === 'casual'
+  };
 }
+
+const competitive = (games: GameSample[]) => games.filter(game => !game.practice);
 
 async function simulatedHistory(league: string, now: Date): Promise<GameSample[]> {
     const random = seededRandom(`demo:${league}`);
@@ -149,7 +190,8 @@ async function simulatedHistory(league: string, now: Date): Promise<GameSample[]
             league,
             result,
             questions: await buildQuestions(matchId, domain, league, result),
-            simulated: true
+            simulated: true,
+            practice: false
         });
     }
 
@@ -161,12 +203,12 @@ export async function loadSkillTelemetry(
     league: string,
     now: Date = new Date()
 ): Promise<SkillTelemetry> {
-    let rows: MatchHistoryRow[] = [];
+    let rows: SkillProgressRow[] = [];
 
     // A failed fetch is left to reject so the ViewModel reports it. Falling back to the
     // sample history here would show a network error as a page of made up games.
     if (token) {
-        const response = await axios.get<MatchHistoryRow[]>('/api/matches', {
+        const response = await axios.get<SkillProgressRow[]>('/api/skill-progress', {
             headers: { Authorization: `Bearer ${token}` }
         });
         rows = Array.isArray(response.data) ? response.data : [];
@@ -183,17 +225,15 @@ export async function loadSkillTelemetry(
         };
     }
 
-    const sorted = rows
-        .slice()
-        .sort((a, b) => new Date(b.match_start).getTime() - new Date(a.match_start).getTime());
-
-    const games = await Promise.all(sorted.map(row => toGameSample(row, league)));
+    const games = rows
+      .map(row => toGameSample(row, league))
+    .sort((a, b) => new Date(b.playedAt).getTime() - new Date(a.playedAt).getTime());
 
     return {
         games,
         source: 'matches',
-        matchCount: games.length,
-        wins: games.filter(game => game.result === 'WIN').length,
-        losses: games.filter(game => game.result === 'LOSS').length
+        matchCount: competitive(games).length,
+        wins: competitive(games).filter(game => game.result === 'WIN').length,
+        losses: competitive(games).filter(game => game.result === 'LOSS').length
     };
 }

@@ -6,6 +6,11 @@ import { MatchType, MatchStatus } from "src/entities/dtos/matches/match.dto";
 import { RewardService } from "./reward.service";
 import { IWalletRepository } from "src/application/interfaces/repositories/IWalletRepository";
 
+const SKILL_PROGRESS_DAYS = 30;
+const SKILL_PROGRESS_WINDOW = 20;
+
+
+
 
 export class MatchCompletionService {
     constructor(
@@ -48,12 +53,15 @@ export class MatchCompletionService {
 
         for (const player of players) {
             const stat = match_stats.get(player.id)!;
-            const reward = this.reward_service.calculateReward(match_type, player.position, players.length, stat);
+          const reward = this.reward_service.calculateReward(match_type, player.position, players.length, stat);
+          const existing = await this.wallet_repo.getWallet(player.id);
+          if (!existing) await this.wallet_repo.createWallet(player.id);
             await this.wallet_repo.updateBalance(player.id, reward);
         }
 
 
         await this.achievement_service.evaluateForMatch(match_stats, players, match_type, total_questions);
+
 
         await this.match_repo.updatePlayers(db_match_id, players);
         await this.match_repo.completeMatch(db_match_id, MatchStatus.Completed);
@@ -68,6 +76,11 @@ export class MatchCompletionService {
 
     async getMatchHistory(user_id: string) {
         return this.match_repo.getMatchHistory(user_id);
+    }
+
+    async getSkillProgress(user_id: string) {
+        const since = new Date(Date.now() - SKILL_PROGRESS_DAYS * 24 * 60 * 60 * 1000);
+        return this.match_repo.getSkillProgress(user_id, since, SKILL_PROGRESS_WINDOW); // will get back to this
     }
 }
 

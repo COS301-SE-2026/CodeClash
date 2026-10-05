@@ -75,8 +75,9 @@ const Shop:React.FC = () => {
                     <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1.25rem'}}>
                         {themes.map((item) => (
                             <ThemeCard key={item.id} item={item} owned={isOwned(item.id)} equipped={isEquipped('theme', item.id)}
-                                affordable={canAfford(item)} purchasing={purchasingId === item.id} onPurchase={() => purchase(item.id)} onEquip={() => {equip('theme', item.id); setTheme(item.themeId as Parameters<typeof setTheme>[0]);
-                            }}/>
+                                affordable={canAfford(item)} purchasing={purchasingId === item.id} onPurchase={() => purchase(item.id)} onEquip={async () => {
+                                    if (await equip('theme', item.id)) setTheme(item.themeId as Parameters<typeof setTheme>[0]);
+                                }}/>
                         ))}
                     </div>
                 ) : activeTabId === 'powerups' ? (

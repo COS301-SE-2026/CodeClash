@@ -40,7 +40,26 @@ export interface MatchPlayer {
     elo_change: number,
     num_correct: number,
     total_time: number,
-    elimination_round: number | null
+  elimination_round: number | null,
+    league?: string,
+    questions?: QuestionResult[] // it'll me for question by question analysis`
+}
+
+export interface QuestionResult {
+  question_id: string,
+  round_number: number,
+  difficulty: number,
+  time_limit_ms: number,
+  correct: boolean,
+  attempts: number,
+  time_taken_ms: number | null,
+  run_time_ms: number | null,
+  memory_kb: number | null,
+  time_ratio: number,
+  accuracy_ratio: number | null,
+  speed_ratio: number | null,
+  time_cx_ratio: number | null,
+  space_cx_ratio: number | null    
 }
 
 export interface MatchQuestion {
@@ -68,6 +87,17 @@ export interface MatchHistoryRow {
         total: number,
         time: number
     },
+}
+
+export interface SkillProgressGame {
+  match_id: string,
+  match_type: MatchType,
+  match_mode: MatchMode,
+  match_start: Date | null,
+  match_end: Date | null,
+  position: number,
+  league: string | null,
+  questions: QuestionResult[]
 }
 
 export interface PlayerResultDTO {

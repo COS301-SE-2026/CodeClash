@@ -5,6 +5,21 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 const THEME_KEY = 'codeclash-themes';
 
+// ThemeProvider reads the signed-in user and their equipped theme; both are controlled per test
+const authState: { user: { username: string; userId: string } | null; isLoading: boolean } = {
+  user: { username: 'tester', userId: 'user-1' },
+  isLoading: false,
+};
+const inventoryState: { catalog: unknown[]; inventory: { equippedThemeId: string | null } | null } = {
+  catalog: [],
+  inventory: null,
+};
+
+vi.mock('src/context/Auth/hooks/useAuth', () => ({ useAuth: () => authState }));
+vi.mock('src/context/Shop/InventoryContext', () => ({ useInventory: () => inventoryState }));
+
+const frostItem = { id: 'item-frost', category: 'theme', themeId: 'frost' };
+
 const ThemeConsumer = () => {
   const { theme, isLight, toggleTheme, setTheme } = useTheme();
 
@@ -28,6 +43,10 @@ const renderTheme = () =>
 
 describe('ThemeProvider integration', () => {
   beforeEach(() => {
+    authState.user = { username: 'tester', userId: 'user-1' };
+    authState.isLoading = false;
+    inventoryState.catalog = [];
+    inventoryState.inventory = null;
     window.localStorage.clear();
     document.documentElement.classList.remove('light');
   });
@@ -90,6 +109,39 @@ describe('ThemeProvider integration', () => {
      expect(screen.getByTestId('theme')).toHaveTextContent('dark');
    });
  
+   it('keeps the stored theme while auth is still loading', () => {
+     window.localStorage.setItem(THEME_KEY, 'light');
+     authState.user = null;
+     authState.isLoading = true;
+
+     renderTheme();
+
+     expect(screen.getByTestId('theme')).toHaveTextContent('light');
+     expect(window.localStorage.getItem(THEME_KEY)).toBe('light');
+   });
+
+   it('resets to dark and clears storage once auth finishes with no user', () => {
+     window.localStorage.setItem(THEME_KEY, 'light');
+     authState.user = null;
+
+     renderTheme();
+
+     expect(screen.getByTestId('theme')).toHaveTextContent('dark');
+     expect(window.localStorage.getItem(THEME_KEY)).toBeNull();
+   });
+
+   it('adopts the equipped theme from the server over the stored one', () => {
+     window.localStorage.setItem(THEME_KEY, 'light');
+     inventoryState.catalog = [frostItem];
+     inventoryState.inventory = { equippedThemeId: 'item-frost' };
+
+     renderTheme();
+
+     expect(screen.getByTestId('theme')).toHaveTextContent('frost');
+     expect(document.documentElement.classList.contains('frost')).toBe(true);
+     expect(window.localStorage.getItem(THEME_KEY)).toBe('frost');
+   });
+
    it('throws when useTheme is called outside the provider', () => {
      const quiet = vi.spyOn(console, 'error').mockImplementation(() => {});
      expect(() => render(<ThemeConsumer />)).toThrow('useTheme must be within a ThemeProvider');

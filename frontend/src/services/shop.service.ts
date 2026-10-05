@@ -60,6 +60,13 @@ interface RawEquipped {
 }
 
 // ----- Mappers
+// The shop seeds the default themes as cosmos-dark/cosmos-light, but the CSS theme classes are dark/light
+const THEME_KEY_ALIASES: Record<string, string> = { 'cosmos-dark': 'dark', 'cosmos-light': 'light' };
+
+function toThemeKey(theme_id: string): string {
+    return THEME_KEY_ALIASES[theme_id] ?? theme_id;
+}
+
 function mapItem(raw: RawShopItem): ShopItem {
     const base = {
         id: raw.shop_item_id,
@@ -83,7 +90,7 @@ function mapItem(raw: RawShopItem): ShopItem {
         const theme: ThemeShopItem = {
             ...base,
             category: 'theme',
-            themeId: raw.metadata.theme_id,
+            themeId: toThemeKey(raw.metadata.theme_id),
             isDefault: raw.metadata.is_default,
             swatchColors: [raw.metadata.hex_color_1, raw.metadata.hex_color_2, raw.metadata.hex_color_3],
         };
@@ -144,6 +151,7 @@ function authHeaders(token: string): HeadersInit {
 async function handle<T>(res: Response): Promise<T> {
     if (!res.ok) {
         const body = await res.json().catch(() => null);
+        console.error(`Request failed (${res.status})`)
         throw new Error(body?.error ?? body?.message ?? `Request failed (${res.status})`);
     }
     return res.json();
@@ -193,10 +201,13 @@ export const equipItm = async (
     itemId: string,
     token: string
 ): Promise<UserInventory> => {
+    const payload: { avatar_item_id?: string; theme_id?: string } =
+        category === 'avatar' ? { avatar_item_id: itemId } : { theme_id: itemId };
+
     const res = await fetch(EQUIP_URL, {
-        method: 'POST',
+        method: 'PATCH',
         headers: authHeaders(token),
-        body: JSON.stringify({ category, shop_item_id: itemId }),
+        body: JSON.stringify(payload),
     });
 
     await handle(res);

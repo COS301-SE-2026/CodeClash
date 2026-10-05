@@ -3,6 +3,7 @@ import ReactMarkDown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css";
 import { Badge } from "@/components/ui/badge";
 
 import { cn } from "@/lib/utils";
@@ -30,7 +31,7 @@ export function Question({
         className,
       )}
     >
-      <MatchCard className="flex flex-col p-2 rounded-lg w-full h-auto -mt-5 gap-3">
+      <MatchCard className="flex flex-col p-2 rounded-lg w-full h-full min-h-0 -mt-5 gap-3">
         <div className="flex justify-between w-full">
 
           {difficulty.length > 0 && <Badge
@@ -41,7 +42,7 @@ export function Question({
           </Badge>}
         </div>
 
-        <div className="ml-3 m-5 flex flex-col justify-evenly">
+        <div className="ml-3 m-5 flex flex-col justify-evenly min-h-0 flex-1">
           <h1 className="text-[1.6rem] -mt-8 font-semibold">{title}</h1>
           <div className="text-[1rem] text-muted-text mt-1 min-h-0 flex-1 overflow-y-auto">
             <QuestionDescription
@@ -85,11 +86,10 @@ export const QuestionDescription = ({ description }: { description: string }) =>
   const processed = React.useMemo(() => tableToMarkdown(description), [description]);
 
   return (
-    <div className="prose prose-invert max-w-none pt-[1rem]">
+    <div className="prose prose-invert max-w-none pt-[1rem] [&_pre]:whitespace-pre-wrap [&_pre]:break-words [&_code]:break-words">
       <ReactMarkDown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]}>
         {processed}
       </ReactMarkDown>
     </div>
   )
 }
-

@@ -1,7 +1,7 @@
 import { Repository } from 'typeorm';
 import { Matches } from 'src/entities/database/match.entities';
 import { IMatchRepository } from 'src/application/interfaces/repositories/IMatchRepository';
-import { MatchMode, MatchStatus, MatchType, MatchPlayer, MatchHistoryRow, MatchResultDTO } from 'src/entities/dtos/matches/match.dto';
+import { MatchMode, MatchStatus, MatchType, MatchPlayer, MatchHistoryRow, MatchResultDTO, SkillProgressGame } from 'src/entities/dtos/matches/match.dto';
 import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
 
 export class MatchRepository implements IMatchRepository {
@@ -66,7 +66,7 @@ export class MatchRepository implements IMatchRepository {
                 elimination_round: me.elimination_round,
                 score: {
                     correct: me.num_correct,
-                    total: match.questions.length,
+                    total: me.questions?.length ?? 0,
                     time: me.total_time
                 }
             };
@@ -74,6 +74,40 @@ export class MatchRepository implements IMatchRepository {
             return data
         }).filter((match): match is MatchHistoryRow => match != null);
     }
+
+  async getSkillProgress(user_id: string, since: Date, older_games: number): Promise<SkillProgressGame[]> {
+    const me = JSON.stringify([{ id: user_id, questions: [] }]);
+
+    const query = () => this.match_repo.createQueryBuilder('match')
+        .where('match.status = :status', { status: MatchStatus.Completed })
+        .andWhere('match.players @> CAST(:me AS jsonb)', { me })
+        .orderBy('match.match_end', 'DESC');
+
+    const recent = await query()
+      .andWhere('match.match_end >= :since', { since })
+      .getMany();
+
+    const older = await query()
+      .andWhere('match.match_end < :since', { since })
+      .andWhere('match.match_type != :type', { type: MatchType.casual })
+      .take(older_games)
+      .getMany();
+
+    return [...recent, ...older].map(match => {
+const player = match.players.find(p => p.id === user_id)!;
+
+        return {
+            match_id: match.match_id,
+            match_type: match.match_type,
+            match_mode: match.match_mode,
+            match_start: match.match_start,
+            match_end: match.match_end,
+            position: player.position,
+            league: player.league ?? null,
+            questions: player.questions ?? []
+        };
+    });
+  }
 
     async buildMatchResult(match_id: string): Promise<MatchResultDTO> {
 
@@ -93,7 +127,7 @@ export class MatchRepository implements IMatchRepository {
                         user_id: player.id,
                         username: user.username!,
                         avatar: user.avatar_id!,
-                        correctness: (match.questions.length > 0) ? player.num_correct / match.questions.length : 0,
+                        correctness: player.questions?.length ? Math.round((player.num_correct / player.questions.length) * 100) : 0,
                         speed: player.total_time,
                         eloEffect: player.elo_change,
                         position: player.position,
