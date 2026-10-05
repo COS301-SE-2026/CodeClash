@@ -1,0 +1,14 @@
+frontend/src/context/Friends/FriendsContext.tsx
+  h_b13c5d77534129 14,64-68,121
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6207be61f3a3c8dceb30addcad9a337a83596fa7",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
