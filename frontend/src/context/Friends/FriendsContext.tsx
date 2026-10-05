@@ -10,6 +10,7 @@ import type {
     Friend, FriendRequest, Invite, 
     Search, Summary, Relation
 } from "../../Models/FriendsModel";
+import { getEquippedFor } from "src/services/shop.service";
 
 
 const API_BASE = '/api'; 
@@ -58,6 +59,11 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
     const [allUsers, setAllUsers] = useState<Search[]>([]);
     const [error, setError] = useState<string | null>(null);
 
+    const tokenInv = token ?? "";
+
+    //copied and pasted from shop.service.ts, not ai generated!
+    const EQUIPPED_FOR_URL = (user_id: string) => `/api/shop/equipped/${user_id}`
+
     const friendsRef = useRef(friend); //this is so closures dont capture a stale list
     friendsRef.current = friend;
 
@@ -73,11 +79,12 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
                 const friendsData = friendsRes.ok ? await friendsRes.json() : [];
                 const requestsData = requestRes.ok ? await requestRes.json() : [];
 
+        
                 setFriend(friendsData.map((f: any) => ({
                     id: f.user_id,
                     friendship_id: f.friendship_id,
                     username: f.username,
-                    avatar: f.avatar_id ?? 0,
+                    avatar: getEquippedFor(f.user_id, tokenInv) ?? "",
                     status: 'offline' as const, // status not stored in DB, defailt offline
                     elo: f.elo ?? 600
                 })));
@@ -85,7 +92,7 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
                 setRequests(requestsData.map((r: any) => ({
                     id: r.friendship_id,
                     username: r.username,
-                    avatar: r.avatar_id ?? 0,
+                    avatar: getEquippedFor(r.user_id, tokenInv) ?? "",
                     sentAt: r.created_at,
                     fromUser: r.user_id
                 })));
@@ -93,17 +100,19 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
                 // build profile from auth user
                 if (user && token) {
                     try {
-                        const [avatarRes, leagueRes] = await Promise.all([
-                            fetch(`${API_BASE}/user/avatar_id`, {headers: { Authorization: `Bearer ${token}` }}),
+                        const [
+                            // avatarRes, 
+                            leagueRes] = await Promise.all([
+                            // fetch(`${API_BASE}/shop/equipped/:user_id`, {headers: { Authorization: `Bearer ${token}` }}),
                             fetch(`${API_BASE}/user/league`, {headers: { Authorization: `Bearer ${token}` }}),
                         ]);
-                        const avatarData = avatarRes.ok ? await avatarRes.json() : null;
+                        // const avatarData = avatarRes.ok ? await avatarRes.json() : null;
                         const leagueData = leagueRes.ok ? await leagueRes.json() : null;
 
                         setProfile({
                             id: user.userId ?? '',
                             username: user.username ?? '',
-                            avatar: avatarData?.avatar_id ?? 0,
+                            avatar: "",
                             league: leagueData?.league ?? 'Mercury',
                             handle: user.username ?? ''
                         });
@@ -175,7 +184,7 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
                     return {
                         id: u.user_id,
                         username: u.username,
-                        avatar: u.avatar_id ?? 0,
+                        avatar: u.avatar,
                         relationship
                     };
                 }));

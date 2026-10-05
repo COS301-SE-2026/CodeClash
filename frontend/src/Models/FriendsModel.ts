@@ -4,7 +4,7 @@ export interface Friend {
     id: string;
     friendship_id: string;
     username: string;
-    avatar: number;
+    avatar: string | undefined;
     status: FriendStatus;
     elo: number; //they can see each others elo, like how you can see snapscore
 }
@@ -12,7 +12,7 @@ export interface Friend {
 export interface FriendRequest {
     id: string;
     username: string;
-    avatar: number;
+    avatar: string | undefined;
     sentAt: string; //A timestamp for when the request was sent, I see this on most apps
     fromUser: string;
 }
@@ -22,7 +22,7 @@ export type Relation = 'none' | 'friend' | 'pending-sent' | 'pending-received' |
 export interface Search {
     id: string;
     username: string;
-    avatar: number;
+    avatar: string | undefined;
     relationship: Relation;
 }
 
@@ -43,7 +43,7 @@ export interface Invite {
         name: string;
         elo: number;
         friendId?: string;
-        avatar?: number;
+        avatar?: string | undefined;
         status?: FriendStatus;
     } [];
     expires: number; //This is to not leave the invite hanging forever if it doesnt get accepted - **API needs to add support this, for now I will add a 10 minute client-side approx
@@ -52,7 +52,7 @@ export interface Invite {
 export interface Summary {
     id: string;
     username: string;
-    avatar: number;
+    avatar: string | undefined;
     league: string;
     handle: string;
 }
