@@ -75,7 +75,7 @@ const Landing:React.FC = ()=>{
 
                 <div className="relative z-10 w-1/2 flex items-center justify-center">
                 <div className="absolute w-[120%] aspect-square rounded-full bg-radial-glow-corner">
-                    <PlayerAvatar assetKey='Vexa' size={600} className="m-auto mt-10"/>
+                    <PlayerAvatar assetKey='Vexa' size={700} className="m-auto mt-15"/>
                 </div>
                 </div>
             </section>
