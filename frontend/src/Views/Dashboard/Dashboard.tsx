@@ -1,4 +1,4 @@
-import { ChevronRight, Swords, Users2, Flame, Sparkles, Trophy } from 'lucide-react';
+import { ChevronRight, Swords, Flame, Sparkles, Trophy } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useEffect } from "react";
 import UseUserAvatar  from '../../avatar/UserAvatar'
@@ -8,7 +8,7 @@ import Popup from 'src/Views/Match/Popup'
 
 import Loading from '@/components/shared/Loading';
 import Starfield from '@/components/ui/animations/Starfield';
-import ComingSoon from '@/components/ui/ComingSoon';
+//import ComingSoon from '@/components/ui/ComingSoon';
 
 import { SkillProgressCard } from './components/skill-progress';
 
@@ -45,16 +45,17 @@ const Dashboard = () => {
 
             <div className='card-elevated p-6 text-center'>
               <h2 className='text-md font-black text-primary-text mb-1 whitespace-nowrap'>Enter the arena</h2>
-              <p className='text-xsm text-muted mb-5'>Select a game mode and start competing</p>
+              {/*<p className='text-xsm text-muted mb-5'>Select a game mode and start competing</p>*/}
+              <p className='text-xsm text-muted mb-5'>Select ranked mode and start competing</p>
               <div className='flex flex-col gap-3'>
                 <button className='btn btn-primary w-full' onClick={() => openPopUp('ranked')} type='button'>
                   <Swords size={18} />
                   Ranked Play
                 </button>
-                <button className='btn btn-secondary w-full' onClick={() => ComingSoon} type='button' disabled title='Coming Soon!'>
+                {/*<button className='btn btn-secondary w-full' onClick={() => ComingSoon} type='button' disabled title='Coming Soon!'>
                   <Users2 size={18} />
                   Casual Play
-                </button>
+                </button>*/}
               </div>
             </div>
           </div>
