@@ -16,7 +16,7 @@ const Shop:React.FC = () => {
     const themes = itemsByCategory('theme') as ThemeShopItem[];
 
     return (
-        <div className="relative min-h-[100vh-80px] overflow-hidden" style={{background: 'var(--background)', color: 'var(--text)'}}>
+        <div className="relative w-full min-w-0 max-w-full min-h-[calc(100vh-80px)] overflow-x-hidden" style={{background: 'var(--background)', color: 'var(--text)'}}>
             <section style={{padding: '3rem 8% 1.5rem', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem'}}>
                 <h1 className="text-l font-black text-primary-text">Shop</h1>
                 <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.3rem'}}>
@@ -44,7 +44,7 @@ const Shop:React.FC = () => {
                 </div>
             </section>
 
-            <section style={{padding: '0 8% 6rem'}}>
+            <section style={{padding: '0 8% 6rem', width: '100%', boxSizing: 'border-box'}}>
                 {error && (
                     <div style={{marginBottom: '1.5rem', padding: '1rem 1.25rem', borderRadius: 'var(--radius-lg), 20px', background: 'transparent',color: 'var(--danger)'}}>
                         {error}

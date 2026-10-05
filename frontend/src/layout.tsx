@@ -17,8 +17,8 @@ export default function Layout() {
     return (
         <SidebarProvider className="bg-background">
             <AppSidebar />
-            <SidebarInset>
-                    <div className='flex flex-col min-h-screen'>
+            <SidebarInset className="min-w-0 overflow-x-hidden">
+                    <div className='flex flex-col min-h-screen min-w-0 w-full overflow-x-hidden'>
                         <header className='relative z-50 w-full flex items-center justify-between gap-4 px-8 py-4 border-b border-border bg-sidebar backdrop-blur-md'>
                             <div className='flex items-center gap-3 w-full max-w-md'>
                                 {layoutExtra}
