@@ -36,17 +36,17 @@ const MatchFound = () => {
           <div className="flex flex-col items-center md:items-start">
             <PlayerAvatar
               assetKey={leftPlayerAvatar ?? ""}
-              size={140}
-              className="size-[14rem] drop-shadow-2xl md:w-[19rem] lg:w-[23rem]"
+              size={250}
+              className="size-[14rem] drop-shadow-2xl md:w-[19rem] lg:w-[23rem] md:-ml-20"
             />
             <div className="mt-1 text-center md:text-left">
               <p
-                className="text-md font-bold leading-none text-primary-text"
+                className="text-sm font-bold leading-none text-primary-text"
               >
                 {leftPlayer?.username}
               </p>
               <p
-                className="mt-2 text-md font-bold leading-none text-primary-text"
+                className="mt-2 text-sm font-bold leading-none text-primary-text"
               >
                 {leftPlayer?.elo.toLocaleString()} ELO
               </p>
@@ -64,17 +64,17 @@ const MatchFound = () => {
           <div className="flex flex-col items-center md:items-end">
             <PlayerAvatar
               assetKey={rightPlayerAvatar ?? ""}
-              size={140}
-              className="w-[14rem] drop-shadow-2xl md:w-[19rem] lg:w-[23rem]"
+              size={250}
+              className="w-[14rem] drop-shadow-2xl md:w-[19rem] lg:w-[23rem] md:-mr-20"
             />
             <div className="mt-1 text-center md:text-right">
               <p
-                className="text-md font-bold leading-none text-primary-text"
+                className="text-sm font-bold leading-none text-primary-text"
               >
                 {rightPlayer?.username}
               </p>
               <p
-                className="mt-2 text-md font-bold leading-none text-primary-text"
+                className="mt-2 text-sm font-bold leading-none text-primary-text"
               >
                 {rightPlayer?.elo.toLocaleString()} ELO
               </p>
@@ -82,7 +82,7 @@ const MatchFound = () => {
           </div>
         </div>
 
-        <div className="w-full max-w-[42rem]">
+        <div className="w-full max-w-[42rem] -mt-5">
           <div className="rounded-[2rem] border border-border px-8 py-7 backdrop-blur-[18px] shadow-[0_24px_80px_rgba(0,0,0,0.32)]">
             <div className="flex flex-col gap-6">
               {matchDetails?.map((detail) => (
@@ -111,7 +111,7 @@ const MatchFound = () => {
           </div>
         </div>
 
-        <div className="flex w-full max-w-6xl flex-col items-center justify-center gap-5 pt-6 md:flex-row md:gap-8">
+        <div className="flex w-full max-w-6xl flex-col items-center justify-center gap-5 pt-6 md:flex-row md:gap-8 -mt-5">
           <Button
             type="button"
             onClick={decline}

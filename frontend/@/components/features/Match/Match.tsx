@@ -49,15 +49,15 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
 
 
     return (
-        <div className="fixed inset-0 flex flex-col w-full overflow-y-auto">
+        <div className="fixed inset-0 flex flex-col min-w-[64rem] overflow-y-auto">
             {/* Header */}
-            <MatchCard className="rounded-[12px] w-[88%] h-[4rem] shrink-0 mb-10 mt-10 ml-10 mr-10 flex items-center overflow-x-auto">
+            <MatchCard className="rounded-[12px] w-[88%] h-[4rem] shrink-0 m-10 flex items-center overflow-x-auto">
                 <div className="flex w-full h-full items-center gap-2">
 
                     {/* Player 1 Progress */}
                     <div className="shrink-0 min-w-0 w-xl flex-1 ml-7 h-[6rem] mt-10">
                         <div className="flex flex-row items-center gap-2 w-full mt-2">
-                            <TournamentButton className="my-auto min-w-0 w-18 h-12 items-center -px-1 -py-4 -ml-3 -mt-1 my-auto">
+                            <TournamentButton className="my-auto min-w-0 w-18 h-12 items-center -px-1 -py-4 -ml-3 -mt-1">
                                 <PlayerAvatar assetKey={playerOneAvatar ?? ""} className="w-full h-full bg-no-repeat bg-cover bg-center"/>
 
                                 
