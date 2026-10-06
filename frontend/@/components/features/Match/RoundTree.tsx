@@ -8,7 +8,7 @@ interface RoundTreeProps {
     results: (boolean | null)[][],
     current_round: number,
     current_question: number,
-    progressValue?: number,
+    opponent_progress?: {round: number, question: number},
     className?: string
 }
 
@@ -17,17 +17,21 @@ export const RoundTree = ({
     results,
     current_round,
     current_question,
-    progressValue,
+    opponent_progress,
     className
 
 }: RoundTreeProps) => {
     return (
-        <div className={cn("flex flex-col h-full", className)}>
+        <div className={cn("flex flex-col-reverse gap-4 h-full", className)}>
             {rounds.map((round_question, round_idx) => {
                 const round_key = round_question.map(q => q.id).join('-');
                 const past_round = round_idx < current_round;
                 const current = round_idx === current_round;
                 const next_round = round_idx > current_round;
+
+
+                const questionsAnswered = (results[round_idx] ?? []).filter((qr) => qr === true || qr === false).length;
+                const progressValue = rounds[current_round].length > 0 ? (questionsAnswered / rounds[current_round].length) * 100 : 0
 
                 return (
                     <div key={round_key} className="flex flex-col" >

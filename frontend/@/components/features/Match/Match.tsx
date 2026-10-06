@@ -24,8 +24,7 @@ interface MatchScreenProps {
     question_results: (boolean | null)[][],
     rounds: QuestionDTO[][],
     current_round: number,
-    current_user: string,
-    shake: boolean
+    current_user: string
 }
 
 export const MatchScreen: React.FC<MatchScreenProps> = ({
@@ -41,8 +40,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
     question_results,
     rounds,
     current_round,
-    current_user,
-    shake
+    current_user
 }) => {
 
     // const questionsAnswered = question_results.flat().filter((qr) => qr === true || qr === false).length;
