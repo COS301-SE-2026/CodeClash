@@ -141,7 +141,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 <div className='flex flex-col items-center w-[20%] justify-between'>
                     {/* progress  */}
                     <div className='my-auto ml-[40%] w-[100%] flex'>
-                        <MatchCard className='relative rounded-[20px] flex flex-col-reverse items-center justify-between h-auto w-[7rem] gap-2 p-3 -mt-27'>
+                        <MatchCard className='relative rounded-[20px] flex flex-col-reverse items-center justify-between h-auto w-[7rem] gap-2 p-3 my-auto -mt-5'>
                             <RoundTree
                                 rounds={rounds}
                                 results={question_results}

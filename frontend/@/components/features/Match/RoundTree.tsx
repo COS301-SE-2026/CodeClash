@@ -22,7 +22,7 @@ export const RoundTree = ({
 
 }: RoundTreeProps) => {
     return (
-        <div className={cn("flex flex-col-reverse gap-4 h-full", className)}>
+        <div className={cn("flex flex-col gap-4 h-full", className)}>
             {rounds.map((round_question, round_idx) => {
                 const round_key = round_question.map(q => q.id).join('-');
                 const past_round = round_idx < current_round;
@@ -34,14 +34,19 @@ export const RoundTree = ({
                 const progressValue = rounds[current_round].length > 0 ? (questionsAnswered / rounds[current_round].length) * 100 : 0
 
                 return (
-                    <div key={round_key} className="flex flex-col" >
+                    <div key={round_key} className="flex flex-col gap-1" >
                         <span
-                            className={cn("text-sm font-bol mb-1", current && "text-button-tournament", next_round && "text-muted-text/50", past_round && "text-button-tournament-secondary")}
+                            className={cn("text-sm font-bold mb-1", current && "text-button-tournament", next_round && "text-muted-text/50", past_round && "text-button-tournament-secondary")}
                         >
                             Round {round_idx + 1}
                         </span>
 
-                        <div className="flex flex-col ml-2">
+                        <div className="relative flex flex-col-reverse items-center mx-auto ml-3.5">
+                            <Progress
+                                value={progressValue}
+                                orientation="vertical"
+                                className="absolute top-0 bottom-3 left-5/8 -translate-x-2/5 w-2 rounded-3xl bg-card opacity-40"
+                            />
                             {round_question.map((question, q_idx) => {
                                 const result = results[round_idx]?.[q_idx];
                                 const is_current = current && q_idx === current_question;
@@ -60,7 +65,7 @@ export const RoundTree = ({
                                     next && "text-muted-text/50"
                                     )}>
 
-                                        <span className="-ml-[9px]">-</span>
+                                        {/* <span className="-ml-[9px]">-</span> */}
                                         {Symbol()}
 
                                     </div>
