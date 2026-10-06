@@ -7,6 +7,8 @@ import { type PlayerResultDTO, } from "src/dtos/match/result.dto";
 import { finalResultsContent } from "src/Models/FinalResultsModel";
 import type { FinalResultsContent } from "src/Models/FinalResultsModel";
 import { useResultStore } from "src/stores/result-store";
+import { useAuth } from "src/context/Auth/hooks/useAuth";
+import { getEquippedFor } from "src/services/shop.service";
 
 
 
@@ -15,7 +17,9 @@ interface FinalResultsViewModel {
     state: 'loading' | 'results' | 'error';
     loadingProgress: number; //for user to see how far the loading is
     winner: PlayerResultDTO | null,
-    loser: PlayerResultDTO | null
+    loser: PlayerResultDTO | null,
+    avatarImageWinner: string | null,
+    avatarImageLoser: string | null
 
 }
 
@@ -26,9 +30,33 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
     const { matchSocket } = useSocket();
     const { group_id } = useMatchmaking();
     const results = useResultStore(s => s.results.find(r => r?.match_id === match_id));
+    const {token} = useAuth();
+    const tokenInv = token ?? "";
 
     const winner = useMemo(() => results?.players.find(p => p.position === 1) ?? null, [results]);
     const loser = useMemo(() => results?.players.find(p => p.position === 2) ?? null, [results]);
+
+    const [avatarImageWinner, setAvatarImageWinner] = useState<string | null>(null);
+    const [avatarImageLoser, setAvatarImageLoser] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (!tokenInv){
+            return;
+        }
+
+        const loadAvatars = async () => {
+            const [winnerRes, loserRes] = await Promise.all([
+                getEquippedFor(winner?.user_id ?? "", tokenInv),
+                getEquippedFor(loser?.user_id ?? "", tokenInv)
+            ]);
+
+
+            setAvatarImageWinner(winnerRes.avatarImage ?? null);
+            setAvatarImageLoser(loserRes.avatarImage ?? null);
+        };
+
+        void loadAvatars();
+    }, [winner?.user_id, loser?.user_id, tokenInv])
 
 
     useEffect(() => {
@@ -80,6 +108,8 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
         state,
         loadingProgress,
         winner,
-        loser
+        loser,
+        avatarImageWinner,
+        avatarImageLoser
     };
 }

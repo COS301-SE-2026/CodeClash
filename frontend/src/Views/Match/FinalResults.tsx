@@ -8,13 +8,14 @@ import Loading from "@/components/shared/Loading";
 import Confetti from "@/components/ui/animations/Confetti";
 import Starfield from "@/components/ui/animations/Starfield";
 import { finalResultsContent, type PlayerFinalResults } from "src/Models/FinalResultsModel";
+import PlayerAvatar from "src/avatar/PlayerAvatar";
 
 const FinalResults: React.FC = () => {
     const navigate = useNavigate();
 
     const {
         content, state, loadingProgress,
-        winner, loser
+        winner, loser, avatarImageWinner, avatarImageLoser
     } = FinalResultsViewModelFunction();
 
     const [res, setRes] = useState(false); // moved
@@ -198,7 +199,7 @@ const PlayerResultCard: React.FC<{
                         // <img src={robot_map[player.avatar]} alt = {player.username} className="w-full h-full object-cover" onError={() => setAvatarFailed(true)}/>
                         <div>
                             {player.position === 1 ?
-                            <ArmRaise vb1={175} vb2={220}/> : <Lose vb1={170} vb2={220}/>
+                            <PlayerAvatar assetKey={avatarImageWinner}/> : <PlayerAvatar assetKey={avatarImageLoser}/>
                             }
                         </div>
 
