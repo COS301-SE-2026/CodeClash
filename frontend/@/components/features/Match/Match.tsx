@@ -90,32 +90,29 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 {/* Player 2 Progress */}
 
                 {/* the code below was copied and rearranged from the human-written code above for the sake of time, none of this code is ai-generated */}
-                <div className="min-w-0 w-xl flex-1 mr-7 h-[6rem] mt-10 shrink-0">
-                    <div className="flex flex-row items-center gap-2 w-full mt-3">
-                        <div className='w-full'>
-                            <Shake value={player_life[1]}>
-                            <Progress
-                                value={player_life[1]}
-                                bg={"var(--button-tournament-secondary)"}
-                                border={"var(--button-tournament-secondary"}
-                                from={"#8b29b8"}
-                                via={"#BF4DF3"}
-                                height={3}
-                                className='max-w-[11rem] min-w-[1rem] h-sm ml-auto mr-5 -mt-2.5 rotate-180'
-                            />
-                            </Shake>
-                        </div>
+                <div className="flex flex-1 min-w-0 items-center gap-2">
+                    <div className="flex flex-1 min-w-0">
+                        <Shake value={player_life[1]} className="w-full flex">
+                        <Progress
+                            value={player_life[1]}
+                            bg={"var(--button-tournament-secondary)"}
+                            border={"var(--button-tournament-secondary"}
+                            from={"#8b29b8"}
+                            via={"#BF4DF3"}
+                            height={3}
+                            className='w-full max-w-[11rem] min-w-[1rem] mr-auto rotate-180'
+                        />
+                        </Shake>
 
                         <PlayerBadge username={usernames[1]} current_user={current_user} />
 
-                        <div className="flex flex-col mr-2">
-                            <div className="text-[1.25rem] w-xsm h-sm -mt-2">{usernames[1]}</div>
-                            <div className="text-xs text-muted-text ml-auto">{elos[1]} ELO</div>
+                        <div className="flex flex-col items-end shrink-0">
+                            <div className="text-[1.25rem]">{usernames[1]}</div>
+                            <div className="text-xs text-muted-text">{elos[1]} ELO</div>
                         </div>
 
-                        <TournamentButton className="my-auto min-w-0 w-20 h-12 items-center">
-                            <PlayerAvatar assetKey={playerTwoAvatar ?? ""} className="w-full h-full bg-no-repeat bg-cover bg-center"/>
-
+                        <TournamentButton className="shrink-0 w-18 h-12 overflow-hidden">
+                            <PlayerAvatar assetKey={playerTwoAvatar ?? ""} className="w-full h-full" preserveAspectRatio="xMidYMin slice"/>
                         </TournamentButton>
                     </div>
                 </div>
