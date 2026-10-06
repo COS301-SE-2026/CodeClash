@@ -40,6 +40,7 @@ export const useTournamentMatch = () => {
     const [code, setCode] = useState('');
     const [, setLanguage] = useState('');
     const [languageId, setLanguageId] = useState<number | null>(null);
+    const [eliminated, setEliminated] = useState(false);
 
     const round_telemetry = () => {
 
@@ -95,6 +96,8 @@ export const useTournamentMatch = () => {
 
         if (player.elimination_round === -1) {
             completeRound();
+        }else{
+            setEliminated(true);
         }
     }
 
@@ -104,7 +107,7 @@ export const useTournamentMatch = () => {
 
     const handlerPlayerEliminated = (player: PlayerStandingDTO) => {
         // notification
-        console.log(player);
+        console.log("Player eliminated",player);
     }
 
     useEffect(() => {
@@ -148,6 +151,7 @@ export const useTournamentMatch = () => {
         confirmRound,
         cancelCompleteRound,
         completeTournamentRound,
+        eliminated
     }
 
 }

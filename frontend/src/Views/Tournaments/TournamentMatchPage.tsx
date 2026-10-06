@@ -10,6 +10,7 @@ import MathMatch from "@/components/features/Match/MathPage";
 import { CodeEditor } from "@/components/features/code-editor";
 import { useEffect, useMemo } from "react";
 import { Badge } from "@/components/ui/badge";
+import { TournamentEliminated } from "./TournamentEliminated";
 
 const TournamentsMatchPage = () => {
     const {
@@ -31,7 +32,8 @@ const TournamentsMatchPage = () => {
         confirmRound,
         cancelCompleteRound,
         completeTournamentRound,
-        total_rounds
+        total_rounds,
+        eliminated
     } = useTournamentMatch();
 
 
@@ -46,6 +48,11 @@ const TournamentsMatchPage = () => {
 
     return (
         <div className="m-6 min-h-screen flex flex-col gap-6">
+
+            {eliminated && (
+                <TournamentEliminated />
+            )}
+            
             <MatchCard className="rounded-[12px] w-full min-h-[4.5rem] px-4 py-2
                 shrink-0 flex items-center overflow-x-auto">
                 <div className="flex flex-row items-center justify-between gap-4 w-full">
