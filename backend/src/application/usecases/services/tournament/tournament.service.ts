@@ -7,6 +7,7 @@ import { TournamentEliminationService } from "./elimination.service";
 import { MatchStart } from "../match/match-start.service";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 import { subscribe } from "node:diagnostics_channel";
+import { HttpError } from "src/entities/errors/http-error";
 
 export class TournamentService {
     constructor(
@@ -21,7 +22,7 @@ export class TournamentService {
             await this.tournament_cache.addPlayer(tournament_id, player);
             const tournament = await this.tournament_cache.getTournament(tournament_id);
 
-            if (!tournament) throw new Error("Tournament not found");
+            if (!tournament) throw new HttpError(404, "Tournament not found");
 
             return tournament;
         }
@@ -34,9 +35,9 @@ export class TournamentService {
     async leaveTournament(tournament_id: string, player: PlayerDTO) {
         try {
             const tournament = await this.tournament_cache.getTournament(tournament_id);
-            if (!tournament) throw new Error("Tournament not found");
+            if (!tournament) throw new HttpError(404, "Tournament not found");
 
-            if (tournament?.status != MatchStatus.Waiting) throw new Error("Cannot leave tournament");
+            if (tournament?.status != MatchStatus.Waiting) throw new HttpError(409, "Cannot leave tournament");
 
             await this.tournament_cache.removePlayer(tournament_id, player.id);
         }
@@ -56,23 +57,23 @@ export class TournamentService {
 
     async cancelTournament(tournament_id: string) {
         const tournament = await this.tournament_cache.getTournament(tournament_id);
-        if (!tournament) throw new Error("Tournament not found");
+        if (!tournament) throw new HttpError(404, "Tournament not found");
 
-        if (tournament.status !== MatchStatus.Waiting) throw new Error("Cannot cancel tournament");
+        if (tournament.status !== MatchStatus.Waiting) throw new HttpError(409, "Cannot cancel tournament");
         await this.tournament_cache.deleteTournament(tournament_id);
     }
 
     async getTournament(tournament_id: string) {
         const tournament = await this.tournament_cache.getTournament(tournament_id);
-        if (!tournament) throw new Error("Tournament not found");
+        if (!tournament) throw new HttpError(404, "Tournament not found");
 
         return tournament;
     }
 
     async startTournament(tournament: TournamentDTO, league: string) {
 
-        if (tournament.status !== MatchStatus.Waiting) throw new Error("Tournament already started");
-        if (tournament.players.length < tournament.min_players) throw new Error("Not enough players");
+        if (tournament.status !== MatchStatus.Waiting) throw new HttpError(409, "Tournament already started");
+        if (tournament.players.length < tournament.min_players) throw new HttpError(409, "Not enough players");
 
         const match = await this.creation_service.execute(tournament.players as PlayerDTO[], tournament.tournament_mode, league, MatchType.tournament, tournament.title);
 
