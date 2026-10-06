@@ -60,7 +60,7 @@ function timeLimitMinutes(time_limit: string): number {
     return hours * 60 + minutes + seconds / 60;
 }
 
-export const useLoadRounds = (data: RoundDTO[]) => {
+export const useLoadRounds = (data: RoundDTO[], match_id?: string | null) => {
 
   const { userId } = useUser();
   
