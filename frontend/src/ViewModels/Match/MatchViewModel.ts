@@ -251,6 +251,7 @@ export const useMatch = () => {
     }, [matchSocket, match_id])
 
     return {
+        lastResult,
         myIndex,
         status,
         players,

@@ -1368,6 +1368,14 @@
 
   }
 
+  .answer-flash-correct{
+    animation: answer-flash-correct 0.7s ease-out
+  }
+
+  .answer-flash-wrong{
+    animation: answer-flash-wrong 0.7s ease-out;
+  }
+
   .life-shake {
     animation: big-shake 0.4s ease-in-out;
   }
