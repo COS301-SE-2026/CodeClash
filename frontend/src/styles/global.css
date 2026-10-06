@@ -215,6 +215,20 @@
   }
 }
 
+@keyframes symbol-float {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10%, 90% {
+    opacity: var(--opacity);
+  }
+  100% {
+    transform: translate3d(var(--drift), -120vh, 0) rotate(var(--rot));
+    opacity: 0;
+  }
+}
+
 @theme inline {
   /* radius */
   --radius-sm: calc(var(--radius) - 4px);
@@ -1076,6 +1090,12 @@
       transition-duration: 0.001ms !important;
       scroll-behavior: auto !important;
     }
+
+    .floating-symbols span {
+      animation: none;
+      opacity: var(--opacity);
+      top: auto;
+    }
   }
 }
 
@@ -1395,7 +1415,6 @@
     animation: danger-pulse 2s ease-in-out infinite;
   }
 
-
   /*Avatars/Robots*/
   .avatar {
     border-radius: 999px;
@@ -1466,4 +1485,29 @@
 
   .bg-radial-glow-blob {
     background: var(--gradient-radial-blob);
+  }
+
+  /*A floating symbols animation for some pages to reinforce math and programming*/
+  .floating-symbols {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .floating-symbols img {
+    position: absolute;
+    top: 100%;
+    background-color: var(--primary);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    opacity: 0;
+    will-change: transform, opacity;
+    animation-name: symbol-float;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
   }
