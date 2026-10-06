@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import { secureRandom } from "./Starfield";
 
 const modules = import.meta.glob("src/assets/Decor/Symbols/*.png", {
@@ -27,4 +27,25 @@ const FloatingSymbols = ({count = 24}: FloatingSymbolsProps) => {
         })),
         [count]
     )
+
+    return (
+        <div className="floating-symbols" aria-hidden="true">
+            {items.map((s) => (
+                <img key={s.id} src={s.src} alt="" draggable={false} 
+                style={{
+                    left: `${s.left}%`,
+                    width: `${s.size}rem`,
+                    height: `${s.size}rem`,
+                    animationDuration: `${s.duration}s`,
+                    animationDelay: `${s.delay}s`,
+                    "--drift": `${s.drift}px`,
+                    "--rot": `${s.rotate}deg`,
+                    "--opacity": s.opacity
+                } as React.CSSProperties }
+                /> 
+            ))}
+        </div>
+    )
 }
+
+export default FloatingSymbols;
