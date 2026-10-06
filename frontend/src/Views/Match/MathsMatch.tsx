@@ -27,7 +27,7 @@ const MathsMatch = () => {
         loading,
         submitQuestion,
         mathfieldRef,
-        elos, colourClass,
+        elos,
         final_question, complete_round, confirmCompleteRound, confirmRound, cancelCompleteRound, completeRound
     } = useMatch();
 
