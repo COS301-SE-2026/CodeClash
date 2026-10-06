@@ -31,7 +31,6 @@ export const useTournamentMatch = () => {
     } = useMatch();
     const players = useMatchStore(state => state.players) as PlayerStandingDTO[];
     const match_mode = useMatchStore(state => state.match_mode);
-    const match_id = useMatchStore(state => state.match_id);
     const tournament_id = useMatchStore(state => state.tournament_id);
     const db_id = useDbId();
     const [activePlayers, setActivePlayers] = useState<PlayerStandingDTO[]>(players ?? []);
@@ -84,44 +83,39 @@ export const useTournamentMatch = () => {
 
     const completeTournamentRound = async () => {
         console.log("complete tournament round")
+
         if (!complete_round) return;
-        const response = await tournamentSocket?.getStandings(tournament_id!);
+        const response = await tournamentSocket?.completeRound(tournament_id!);
 
         console.log("reponse ", response);
         if (!response?.ok) return;
 
-        const standings = response.data!;
-        setActivePlayers(standings);
+        const player = response.data!;
+        setActivePlayers(prev => prev.map(p => p.id === player.id ? player : p));
 
-        console.log("standings", standings);
-
-        const survivors = standings.filter(p => p.elimination_round === -1);
-        const me = standings.find(p => p.id == db_id);
-        const me_out = (me?.elimination_round ?? -1) !== -1;
-
-        if (survivors.length < 2) {
-            await tournamentSocket?.endTournament({
-                tournament_id: tournament_id!,
-                match_id: match_id!
-            })
-            return;
+        if (player.elimination_round === -1) {
+            completeRound();
         }
-
-        if (me_out) return;
-        completeRound();
     }
 
     const finishTournament = (data: { tournament_id: string }) => {
         if (data.tournament_id === tournament_id) nav(`/tournament-results/${tournament_id}`);
     }
 
+    const handlerPlayerEliminated = (player: PlayerStandingDTO) => {
+        // notification
+        console.log(player);
+    }
+
     useEffect(() => {
         if (!tournamentSocket) return;
 
         const unsub_ended = tournamentSocket.tournamentEnded(finishTournament);
+        const unsub_eliminated = tournamentSocket.playerEliminated(handlerPlayerEliminated);
 
         return () => {
             unsub_ended();
+            unsub_eliminated();
         }
     }, [tournamentSocket])
 

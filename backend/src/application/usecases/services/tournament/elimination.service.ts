@@ -13,9 +13,10 @@ interface QuestionProgress {
 interface TournamentState {
     players: Map<string, PlayerStandingDTO>,
     rounds: RoundDTO[],
+    round_players: Set<string>[],   // ids of players in each round
     progress: Map<string, QuestionProgress>,
     finished: boolean,
-    start: Date 
+    start: Date
 }
 
 export class TournamentEliminationService {
@@ -41,10 +42,11 @@ export class TournamentEliminationService {
                         in_danger: false
                     }
                 ])),
-            rounds:[],
+            rounds: [],
             progress: new Map(),
             finished: false,
-            start: new Date()
+            start: new Date(),
+            round_players: [new Set(players.map(p => p.id))],
         }
 
         this.state.set(tournament_id, init_state);
@@ -56,7 +58,6 @@ export class TournamentEliminationService {
 
     async submit(tournament_id: string, submission: PlayerSubmissionDTO) {
         const tournament = this.getTournament(tournament_id);
-
         const player = tournament.players.get(submission.player_id);
 
         if (player?.elimination_round !== -1)
@@ -84,7 +85,6 @@ export class TournamentEliminationService {
         if (progress.attempts >= MAX_ATTEMPTS) throw new Error("No attempts left");
 
         progress.attempts++;
-        // const round = tournament.current_round;
         let correct: boolean;
         try {
             correct = await this.marking_service.mark(submission);
@@ -102,15 +102,54 @@ export class TournamentEliminationService {
         return {
             player_id: submission.player_id,
             correct,
-            speed:received_at.getTime() - tournament.start?.getTime(),
+            speed: received_at.getTime() - tournament.start?.getTime(),
             attempt_number: progress.attempts
         };
     }
 
 
-    // getCurrentRound(tournament_id: string): number {
-    //     return this.getTournament(tournament_id).current_round;
-    // }
+    completeRound(tournament_id: string, player_id: string) {
+        const tournament = this.getTournament(tournament_id);
+        const player = tournament.players.get(player_id);
+
+        if (!player || player.elimination_round !== -1) {
+            throw new Error("Invalid player");
+        }
+
+
+        const curr_round = player.current_round;
+        const next_round = curr_round + 1;
+        const curr_size = tournament.round_players[curr_round]!.size;
+        const survivor_size = Math.max(1, Math.floor(curr_size / 2));
+
+        tournament.round_players[next_round] ??= new Set();
+
+        player.current_round = next_round;
+        tournament.round_players[next_round]!.add(player_id);
+        tournament.round_players[curr_round]?.delete(player_id);
+
+        const next = tournament.round_players[next_round]!;
+
+        if (next.size >= survivor_size) {
+            for (const p of tournament.players.values()) {
+                if (p.current_round === curr_round) {
+                    p.elimination_round = curr_round;
+                    p.in_danger = false;
+                }
+            }
+        } else {
+            const curr_players = tournament.round_players[curr_round];
+
+            if (curr_players) {
+                for (const p of curr_players.values()) {
+                    const danger = tournament.players.get(p);
+                    danger!.in_danger = true;
+                }
+            }
+        }
+
+        return player;
+    }
 
     getTournament(tournament_id: string) {
         const tournament = this.state.get(tournament_id);

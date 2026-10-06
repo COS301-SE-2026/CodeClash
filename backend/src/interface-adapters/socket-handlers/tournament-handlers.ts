@@ -100,6 +100,17 @@ export const getStandings = async (tournament_id: string, elimination_service: T
     return tournament_standings;
 }
 
+export const completeRound = async (io: Server, socket: Socket, tournament_id: string, elimination_service: TournamentEliminationService) => {
+    const player = elimination_service.completeRound(tournament_id, socket.data.user_id);
+
+    if (player.elimination_round !== -1) {
+        return player;
+    }
+
+    io.to(tournament_id).emit('player_eliminated', player);
+    return player;
+}
+
 
 export const endTournament = async (io: Server, tournament_id: string, match_id: string, tournament_service: TournamentService) => {
     const end = await tournament_service.endTournament(tournament_id, match_id);

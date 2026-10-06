@@ -37,8 +37,12 @@ export class TournamentSocket {
         return on<{ tournament_id: string }>(this.socket, 'tournament_removed', handler);
     }
 
-    tournamentEnded(handler: (data: {tournament_id: string})=> void){
-        return on<{tournament_id: string}>(this.socket, 'tournament_ended', handler);
+    tournamentEnded(handler: (data: { tournament_id: string }) => void) {
+        return on<{ tournament_id: string }>(this.socket, 'tournament_ended', handler);
+    }
+
+    playerEliminated(handler: (player: PlayerStandingDTO) => void) {
+        return on<PlayerStandingDTO>(this.socket, 'player_eliminated', handler);
     }
 
     // Error events
@@ -91,8 +95,12 @@ export class TournamentSocket {
         return emit<void, { user_id: string }>(this.socket, 'identity', undefined);
     }
 
-    getStandings(tournament_id:string){
+    getStandings(tournament_id: string) {
         return emit<string, PlayerStandingDTO[]>(this.socket, 'get_standings', tournament_id);
+    }
+
+    completeRound(tournament_id: string) {
+        return emit<string, PlayerStandingDTO>(this.socket, 'complete_round', tournament_id);
     }
 
     endTournament(data: { tournament_id: string, match_id: string }) {
