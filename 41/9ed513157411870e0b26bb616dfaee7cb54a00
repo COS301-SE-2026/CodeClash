@@ -1,0 +1,14 @@
+backend/src/application/usecases/services/match/match-creation.service.ts
+  h_58e143dc25f856 100-101
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "419ed513157411870e0b26bb616dfaee7cb54a00",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
