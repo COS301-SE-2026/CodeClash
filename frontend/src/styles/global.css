@@ -1498,7 +1498,7 @@
   .floating-symbols img {
     position: absolute;
     top: 100%;
-    background-color: var(--primary);
+    background-color: var(--secondary);
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
     -webkit-mask-position: center;
