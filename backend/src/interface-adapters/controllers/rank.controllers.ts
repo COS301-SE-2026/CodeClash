@@ -4,7 +4,6 @@ import { LeaderboardService } from "src/application/usecases/services/leaderboar
 
 export const getUserRank = (service: LeaderboardService) => {
     return async (req: Request, res: Response) => {
-        try {
             const userId = req.user?.id //after checking auth.service.ts and the other controllers, this id value is the same as user_id
 
             if (!userId) {
@@ -21,10 +20,6 @@ export const getUserRank = (service: LeaderboardService) => {
 
             res.status(200).json(rank);
 
-
-        }
-        catch (error) {
-            res.status(500).json({ message: `Error getting user rank. Error: ${error}` })
-        }
+        
     };
 }

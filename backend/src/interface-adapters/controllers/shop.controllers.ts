@@ -37,17 +37,10 @@ export const purchaseItem = (service: PurchaseService) =>
         const { shop_item_id } = req.body;
         if (!user_id) { res.status(401).json({ message: 'Unauthorized' }); return; }
         if (!shop_item_id) { res.status(400).json({ message: 'shop_item_id is required' }); return; }
-        try {
+        
             const result = await service.purchaseItem(user_id, shop_item_id);
             res.status(201).json(result);
-        } catch (error: any) {
-            console.error ('Error purchasing item :', error);
-            const status = error.message === 'Insufficient balance' ? 409
-            : error.message === 'Item already owned' ? 409
-            : error.message === 'Item not found' ? 404
-            : 500;
-            res.status(status).json({ message: error.message ?? 'Internal server error' });
-        }
+        
     };
 
 export const getWallet = (service: WalletService) => 
@@ -81,14 +74,10 @@ export const updateEquipped = (service: EquipmentService) =>
         const user_id = req.user?.id;
         const updates: UpdatedEquippedDTO = req.body;
         if (!user_id) { res.status(401).json({ message: 'Unauthorized' }); return; }
-        try {
+
             const equipped = await service.updateEquipped(user_id, updates);
             res.status(200).json(equipped);
-        } catch (error: any) {
-            console.error ('Error updating equipped items:', error);
-            const status = error.message === 'Item not owned' ? 403 : 500;
-            res.status(status).json({ message: error.message ??'Internal server error' });
-        }
+        
     };
 
 export const getUserPowerups = (service: InventoryService) => 
@@ -110,14 +99,8 @@ export const usePowerup = (service: PowerupService) =>
         const { match_id, shop_item_id, target_user_id } = req.body;
         if (!user_id) { res.status(401).json({ message: 'Unauthorized' }); return; }
         if (!match_id || !shop_item_id) { res.status(400).json({ message: 'match_id and shop_item_id are required' }); return; }
-        try {
+        
             const result = await service.usePowerup(user_id, match_id, shop_item_id, target_user_id);
             res.status(200).json(result);
-        } catch (error: any) {
-            console.error ('Error using powerup:', error);
-            const status = error.message === 'Powerup not owned' ? 403
-                : error.message === 'Item not found' ? 404
-                : 500
-            res.status(status).json({ message: error.message ?? 'Internal server error' });
-        }
+        
     };

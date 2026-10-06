@@ -117,7 +117,7 @@ export class PowerupSystem {
 
 
             default:
-                throw new Error(`Uknown powerup effect: ${effect}`);
+                throw new Error(`Unknown powerup effect: ${effect}`);
         }
         return { blocked: false, effect };
     }
