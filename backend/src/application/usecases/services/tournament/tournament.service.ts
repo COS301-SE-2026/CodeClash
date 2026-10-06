@@ -6,7 +6,6 @@ import { TournamentDTO } from "src/entities/dtos/tournaments/tournaments.dto";
 import { TournamentEliminationService } from "./elimination.service";
 import { MatchStart } from "../match/match-start.service";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
-import { subscribe } from "node:diagnostics_channel";
 import { HttpError } from "src/entities/errors/http-error";
 
 export class TournamentService {
@@ -18,33 +17,15 @@ export class TournamentService {
     ) { }
 
     async joinTournament(tournament_id: string, player: PlayerDTO): Promise<TournamentDTO> {
-        try {
             await this.tournament_cache.addPlayer(tournament_id, player);
-            const tournament = await this.tournament_cache.getTournament(tournament_id);
-
-            if (!tournament) throw new HttpError(404, "Tournament not found");
-
+            const tournament = await this.getTournament(tournament_id);
             return tournament;
-        }
-        catch (error) {
-            console.error("Tournament Service Join error: ", error);
-            throw (`${error}`);
-        }
     }
 
     async leaveTournament(tournament_id: string, player: PlayerDTO) {
-        try {
-            const tournament = await this.tournament_cache.getTournament(tournament_id);
-            if (!tournament) throw new HttpError(404, "Tournament not found");
-
-            if (tournament?.status != MatchStatus.Waiting) throw new HttpError(409, "Cannot leave tournament");
-
+            const tournament = await this.getTournament(tournament_id);
+            if (tournament?.status != MatchStatus.Waiting) throw new HttpError(409, "Cannot leave tournament that has started");
             await this.tournament_cache.removePlayer(tournament_id, player.id);
-        }
-        catch (error) {
-            console.error("Tournament Service Join error: ", error);
-            throw (`${error}`);
-        }
     }
 
     async hostTournament(match_mode: MatchMode, host: PlayerDTO, title: string, min_players: number) {
