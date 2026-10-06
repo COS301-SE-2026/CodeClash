@@ -96,7 +96,7 @@ export const useTournamentMatch = () => {
 
         if (player.elimination_round === -1) {
             completeRound();
-        }else{
+        } else {
             setEliminated(true);
         }
     }
@@ -107,7 +107,9 @@ export const useTournamentMatch = () => {
 
     const handlerPlayerEliminated = (player: PlayerStandingDTO) => {
         // notification
-        console.log("Player eliminated",player);
+        console.log("Player eliminated", player);
+        if (player.id === db_id)
+            setEliminated(true);
     }
 
     useEffect(() => {

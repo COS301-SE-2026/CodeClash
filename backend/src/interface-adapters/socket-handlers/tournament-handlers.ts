@@ -106,6 +106,7 @@ export const completeRound = async (io: Server, socket: Socket, tournament_id: s
     const tournament = elimination_service.getTournament(tournament_id);
 
     for(const p of tournament.players.values()){
+        
         if(p.elimination_round !== -1){
             io.to(tournament_id).emit('player_eliminated', p);
         }

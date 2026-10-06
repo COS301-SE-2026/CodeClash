@@ -46,13 +46,15 @@ const TournamentsMatchPage = () => {
         if (mathfieldRef.current) mathfieldRef.current.value = '';
     }, [currentQuestion]);
 
+    console.log(eliminated);
+
+    if (eliminated) {
+        return (
+            <TournamentEliminated />
+        )
+    }
     return (
         <div className="m-6 min-h-screen flex flex-col gap-6">
-
-            {eliminated && (
-                <TournamentEliminated />
-            )}
-            
             <MatchCard className="rounded-[12px] w-full min-h-[4.5rem] px-4 py-2
                 shrink-0 flex items-center overflow-x-auto">
                 <div className="flex flex-row items-center justify-between gap-4 w-full">
