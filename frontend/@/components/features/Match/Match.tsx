@@ -7,6 +7,7 @@ import { TournamentsBadge } from '@/components/features/Tournaments/TournamentsB
 import { RoundTree } from './RoundTree'
 import type { QuestionDTO } from 'src/dtos/match/match.dto'
 import PlayerAvatar from 'src/avatar/PlayerAvatar'
+import Shake from '@/components/ui/Shake'
 
 interface MatchScreenProps {
     player_life: number[],
@@ -68,9 +69,10 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                 <h1 className="text-muted-text text-xs">{elos[0]} ELO</h1>
                             </div>
 
-                            <PlayerBadge username={usernames[0]} current_user={current_user} />
+                            <PlayerBadge username={usernames[0]} current_user={current_user}/>
 
-                            <div className={`w-full life-bar ${shake && usernames[0] === current_user ? 'life-shake' : ''}`}>
+                            <div className='w-full'>
+                                <Shake value={player_life[0]}>
                                 <Progress
                                     value={player_life[0]}
                                     bg="var(--button-tournament-secondary)"
@@ -78,12 +80,13 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                     height={3}
                                     className={`max-w-[11rem] min-w-[1rem] h-sm mr-auto ml-5 -mt-1 `}
                                 />
+                                </Shake>
                             </div>
                         </div>
                     </div>
 
                     {/* Clock */}
-                    <TimerCard className="mr-2.5">
+                    <TimerCard className="mr-2.5 -mt-4.5">
                         <span>
                             {String(minutes).padStart(2, "0")}:
                             {String(seconds).padStart(2, "0")}
@@ -95,7 +98,8 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                     {/* the code below was copied and rearranged from the human-written code above for the sake of time, none of this code is ai-generated */}
                     <div className="min-w-0 w-xl flex-1 mr-7 h-[6rem] mt-10 shrink-0">
                         <div className="flex flex-row items-center gap-2 w-full mt-3">
-                            <div className={`w-full life-bar ${shake && usernames[1] === current_user ? 'life-shake' : ''}`}>
+                            <div className='w-full'>
+                                <Shake value={player_life[1]}>
                                 <Progress
                                     value={player_life[1]}
                                     bg={"var(--button-tournament-secondary)"}
@@ -105,6 +109,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                     height={3}
                                     className='max-w-[11rem] min-w-[1rem] h-sm ml-auto mr-5 -mt-2.5 rotate-180'
                                 />
+                                </Shake>
                             </div>
 
                             <PlayerBadge username={usernames[1]} current_user={current_user} />
@@ -138,7 +143,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 <div className='flex flex-col items-center w-[20%] justify-between'>
                     {/* progress  */}
                     <div className='my-auto ml-[40%] w-[100%] flex'>
-                        <MatchCard className='relative rounded-[20px] flex flex-col-reverse items-center justify-between h-auto w-[5rem] gap-2 p-3'>
+                        <MatchCard className='relative rounded-[20px] flex flex-col-reverse items-center justify-between h-auto w-[7rem] gap-2 p-3 -mt-27'>
                             <RoundTree
                                 rounds={rounds}
                                 results={question_results}
@@ -164,7 +169,7 @@ interface PlayerBadgeProps {
 
 const PlayerBadge = ({ username, current_user }: PlayerBadgeProps) => {
     return (
-        <TournamentsBadge className="flex min-w-9 mr-[0.5%] h-[1.5rem] mb-auto text-muted-text text-xs -mt-2">
+        <TournamentsBadge className="flex min-w-9 mr-[0.5%] h-[1.5rem] mb-auto text-muted-text text-xs">
             <h1 className="mt-1">
                 {username === current_user ? "YOU" : "RIVAL"}
 

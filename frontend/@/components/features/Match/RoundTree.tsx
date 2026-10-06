@@ -1,12 +1,14 @@
 import { cn } from "@/lib/utils"
 import { Target, Check, X, LockKeyhole } from "lucide-react"
 import type { QuestionDTO } from "src/dtos/match/match.dto"
+import { Progress } from "@/components/ui/progress"
 
 interface RoundTreeProps {
     rounds: QuestionDTO[][],
     results: (boolean | null)[][],
     current_round: number,
     current_question: number,
+    progressValue?: number,
     className?: string
 }
 
@@ -15,6 +17,7 @@ export const RoundTree = ({
     results,
     current_round,
     current_question,
+    progressValue,
     className
 
 }: RoundTreeProps) => {
@@ -34,7 +37,7 @@ export const RoundTree = ({
                             Round {round_idx + 1}
                         </span>
 
-                        <div className="flex flex-col ml-2 border-1 border-match-card">
+                        <div className="flex flex-col ml-2">
                             {round_question.map((question, q_idx) => {
                                 const result = results[round_idx]?.[q_idx];
                                 const is_current = current && q_idx === current_question;
