@@ -36,7 +36,8 @@ const MatchFound = () => {
           <div className="flex flex-col items-center md:items-start">
             <PlayerAvatar
               assetKey={leftPlayerAvatar ?? ""}
-              className="w-[14rem] drop-shadow-2xl md:w-[19rem] lg:w-[23rem]"
+              size={140}
+              className="size-[14rem] drop-shadow-2xl md:w-[19rem] lg:w-[23rem]"
             />
             <div className="mt-1 text-center md:text-left">
               <p
@@ -63,6 +64,7 @@ const MatchFound = () => {
           <div className="flex flex-col items-center md:items-end">
             <PlayerAvatar
               assetKey={rightPlayerAvatar ?? ""}
+              size={140}
               className="w-[14rem] drop-shadow-2xl md:w-[19rem] lg:w-[23rem]"
             />
             <div className="mt-1 text-center md:text-right">

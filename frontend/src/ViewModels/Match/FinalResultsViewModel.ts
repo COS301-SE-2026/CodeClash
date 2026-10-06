@@ -44,15 +44,25 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
             return;
         }
 
+        //the following code block was written by hand just pasted because it was in the wrong place
+        const cropAvatar = (url: string | undefined): string | null => {
+                
+                if (!url) {
+                    return null;
+                }
+
+                return url.replace("src/assets/Shop/Avatars", "").replace(".png", "");
+                
+            }
+
         const loadAvatars = async () => {
             const [winnerRes, loserRes] = await Promise.all([
                 getEquippedFor(winner?.user_id ?? "", tokenInv),
                 getEquippedFor(loser?.user_id ?? "", tokenInv)
             ]);
 
-
-            setAvatarImageWinner(winnerRes.avatarImage ?? null);
-            setAvatarImageLoser(loserRes.avatarImage ?? null);
+            setAvatarImageWinner(cropAvatar(winnerRes.avatarImage) ?? null);
+            setAvatarImageLoser(cropAvatar(loserRes.avatarImage) ?? null);
         };
 
         void loadAvatars();

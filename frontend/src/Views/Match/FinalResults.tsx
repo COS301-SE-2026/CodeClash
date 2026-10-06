@@ -15,7 +15,7 @@ const FinalResults: React.FC = () => {
 
     const {
         content, state, loadingProgress,
-        winner, loser, avatarImageWinner, avatarImageLoser
+        winner, loser
     } = FinalResultsViewModelFunction();
 
     const [res, setRes] = useState(false); // moved
@@ -189,6 +189,7 @@ const PlayerResultCard: React.FC<{
     emphasize?: boolean; //emphasis on the winners card, so its somewhat more visible and different to loser card
 }> = ({player, emphasize}) => {
     const [avatarFailed] = useState(false);
+    const {avatarImageWinner, avatarImageLoser} = FinalResultsViewModelFunction()
     return (
         <div className={`${emphasize? 'card-glow' : 'card-elevated'} p-4 flex flex-col sm:flex-row items-center gap-4`}>
             <div className="flex flex-col items-center gap-1 shrink-0 w-30">
@@ -199,7 +200,7 @@ const PlayerResultCard: React.FC<{
                         // <img src={robot_map[player.avatar]} alt = {player.username} className="w-full h-full object-cover" onError={() => setAvatarFailed(true)}/>
                         <div>
                             {player.position === 1 ?
-                            <PlayerAvatar assetKey={avatarImageWinner}/> : <PlayerAvatar assetKey={avatarImageLoser}/>
+                            <PlayerAvatar assetKey={avatarImageWinner ?? ""}/> : <PlayerAvatar assetKey={avatarImageLoser ?? ""}/>
                             }
                         </div>
 
