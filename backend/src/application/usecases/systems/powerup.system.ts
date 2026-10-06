@@ -4,6 +4,7 @@ import { LifeSystem } from './life.system';
 import { SubmissionSystem } from './submission.system';
 import { PowerupStateComponent, PlayerPowerupState } from 'src/entities/components';
 import { HttpError } from 'src/entities/errors/http-error';
+import { match } from 'node:assert';
 
 const POSITIVE_EFFECTS = new Set([
     'reduce_time', 'reveal_hint', 'score_multiplier', 'restore_life', 'block_next_powerdown'
@@ -46,6 +47,12 @@ export class PowerupSystem {
 
     isPowerdown(effect: string): boolean {
         return !POSITIVE_EFFECTS.has(effect);
+    }
+    
+    validate(match_id: number, effect: string, target_id?: string): void {
+        if (effect === 'wipe_answer' && target_id && this.getPlayerState(match_id, target_id).wipe_used) {
+            throw new HttpError(409, 'Wipe already used this match');
+        }
     }
 
     /**

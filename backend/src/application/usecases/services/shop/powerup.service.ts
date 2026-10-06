@@ -19,6 +19,7 @@ export class PowerupService {
             throw new HttpError(400, 'This effect requires a target player')
         }
 
+        this.powerup_system.validate(match_id, item.metadata.effect, target_user_id);
         await this.inventory_repo.consumeItem(user_id,shop_item_id);
 
         const result = this.powerup_system.apply(
