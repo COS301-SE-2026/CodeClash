@@ -8,10 +8,12 @@ interface PlayerAvatarProps {
     assetKey?: string;
     size?: number;
     className?: string;
+    viewBox?: string;
+    preserveAspectRatio?: string;
 }
 
-export const PlayerAvatar: React.FC<PlayerAvatarProps> = ({assetKey,size = 120, className}) => (
-    <AvatarRenderer avatarImageUrl={resolve(assetKey)} className={className} style={{width: size, height:size}}/>
+export const PlayerAvatar: React.FC<PlayerAvatarProps> = ({assetKey, size = 120, className, viewBox, preserveAspectRatio}) => (
+    <AvatarRenderer avatarImageUrl={resolve(assetKey)} className={className} viewBox={viewBox} preserveAspectRatio={preserveAspectRatio} style={size ? {width: size, height:size} : undefined}/>
 )
 
 export default PlayerAvatar;

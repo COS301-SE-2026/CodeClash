@@ -41,7 +41,7 @@ export const RoundTree = ({
                             Round {round_idx + 1}
                         </span>
 
-                        <div className="relative flex flex-col-reverse items-center mx-auto ml-6">
+                        <div className="relative flex flex-col-reverse items-center mx-auto ml-6 w-8.5">
                             <Progress
                                 value={progressValue}
                                 orientation="vertical"
@@ -69,7 +69,7 @@ export const RoundTree = ({
                                 return(
                                     <div key={question.id} className={`
                                         
-                                        flex items-center text-center justify-center py-1 text-xs", 
+                                    relative flex items-center text-center justify-center py-1 text-xs", 
                                     is_current && "text-button-tournament font-semibold",
                                     next && "text-muted-text/50`
                                     }>

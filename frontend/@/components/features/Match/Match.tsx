@@ -50,80 +50,76 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
     return (
         <div className="fixed inset-0 flex flex-col min-w-[64rem] overflow-y-auto">
             {/* Header */}
-            <MatchCard className="rounded-[12px] w-[88%] h-[4rem] shrink-0 m-10 flex items-center overflow-x-auto">
-                <div className="flex w-full h-full items-center gap-2">
+            <MatchCard className="rounded-[12px] w-[88%] h-[4rem] shrink-0 m-10 flex items-center px-6 flex-row">
+                
+                {/* Player 1 Progress */}
+                <div className="flex flex-1 min-w-0 items-center gap-2 w-full">
+                    <TournamentButton className="shrink-0 w-18 h-12 overflow-hidden">
+                        <PlayerAvatar assetKey={playerOneAvatar ?? ""} className="w-full h-full m-auto" viewBox="0 20 300 350" preserveAspectRatio="xMidYMin slice" size={40}/>
+                    </TournamentButton>
 
-                    {/* Player 1 Progress */}
-                    <div className="shrink-0 min-w-0 w-xl flex-1 ml-7 h-[6rem] mt-10">
-                        <div className="flex flex-row items-center gap-2 w-full mt-2">
-                            <TournamentButton className="my-auto min-w-0 w-18 h-12 items-center -px-1 -py-4 -ml-3 -mt-1">
-                                <PlayerAvatar assetKey={playerOneAvatar ?? ""} className="w-full h-full bg-no-repeat bg-cover bg-center"/>
-
-                                
-                            </TournamentButton>
-
-                            <div className="flex flex-col ml-2">
-                                <div className="sm:text-[1.25rem] h-sm -mt-2">{usernames[0]}</div>
-                                <h1 className="text-muted-text text-xs">{elos[0]} ELO</h1>
-                            </div>
-
-                            <PlayerBadge username={usernames[0]} current_user={current_user}/>
-
-                            <div className='w-full'>
-                                <Shake value={player_life[0]}>
-                                <Progress
-                                    value={player_life[0]}
-                                    bg="var(--button-tournament-secondary)"
-                                    border="var(--button-tournament-secondary)"
-                                    height={3}
-                                    className={`max-w-[11rem] min-w-[1rem] h-sm mr-auto ml-5 -mt-1 `}
-                                />
-                                </Shake>
-                            </div>
-                        </div>
+                    <div className="flex flex-col ml-2 shrink-0">
+                        <div className="sm:text-[1.25rem]">{usernames[0]}</div>
+                        <h1 className="text-muted-text text-xs">{elos[0]} ELO</h1>
                     </div>
 
-                    {/* Clock */}
-                    <TimerCard className="mr-2.5 -mt-4.5">
-                        <span>
-                            {String(minutes).padStart(2, "0")}:
-                            {String(seconds).padStart(2, "0")}
-                        </span>
-                    </TimerCard>
+                    <PlayerBadge username={usernames[0]} current_user={current_user}/>
 
-                    {/* Player 2 Progress */}
-
-                    {/* the code below was copied and rearranged from the human-written code above for the sake of time, none of this code is ai-generated */}
-                    <div className="min-w-0 w-xl flex-1 mr-7 h-[6rem] mt-10 shrink-0">
-                        <div className="flex flex-row items-center gap-2 w-full mt-3">
-                            <div className='w-full'>
-                                <Shake value={player_life[1]}>
-                                <Progress
-                                    value={player_life[1]}
-                                    bg={"var(--button-tournament-secondary)"}
-                                    border={"var(--button-tournament-secondary"}
-                                    from={"#8b29b8"}
-                                    via={"#BF4DF3"}
-                                    height={3}
-                                    className='max-w-[11rem] min-w-[1rem] h-sm ml-auto mr-5 -mt-2.5 rotate-180'
-                                />
-                                </Shake>
-                            </div>
-
-                            <PlayerBadge username={usernames[1]} current_user={current_user} />
-
-                            <div className="flex flex-col mr-2">
-                                <div className="text-[1.25rem] w-xsm h-sm -mt-2">{usernames[1]}</div>
-                                <div className="text-xs text-muted-text ml-auto">{elos[1]} ELO</div>
-                            </div>
-
-                            <TournamentButton className="my-auto min-w-0 w-20 h-12 items-center -px-1 -py-4 -mr-3 -mt-2.5">
-                                <PlayerAvatar assetKey={playerTwoAvatar ?? ""} className="w-full h-full bg-no-repeat bg-cover bg-center"/>
-
-                            </TournamentButton>
-                        </div>
+                    <div className='flex flex-1 min-w-0 flex'>
+                        <Shake value={player_life[0]} className="w-full flex">
+                        <Progress
+                            value={player_life[0]}
+                            bg="var(--button-tournament-secondary)"
+                            border="var(--button-tournament-secondary)"
+                            height={3}
+                            className={`w-full max-w-[11rem] min-w-[1rem] h-sm mr-auto ml-auto `}
+                        />
+                        </Shake>
                     </div>
                 </div>
+                
+
+                {/* Clock */}
+                <TimerCard className="shrink-0 mx-5">
+                    <span>
+                        {String(minutes).padStart(2, "0")}:
+                        {String(seconds).padStart(2, "0")}
+                    </span>
+                </TimerCard>
+
+                {/* Player 2 Progress */}
+
+                {/* the code below was copied and rearranged from the human-written code above for the sake of time, none of this code is ai-generated */}
+                <div className="min-w-0 w-xl flex-1 mr-7 h-[6rem] mt-10 shrink-0">
+                    <div className="flex flex-row items-center gap-2 w-full mt-3">
+                        <div className='w-full'>
+                            <Shake value={player_life[1]}>
+                            <Progress
+                                value={player_life[1]}
+                                bg={"var(--button-tournament-secondary)"}
+                                border={"var(--button-tournament-secondary"}
+                                from={"#8b29b8"}
+                                via={"#BF4DF3"}
+                                height={3}
+                                className='max-w-[11rem] min-w-[1rem] h-sm ml-auto mr-5 -mt-2.5 rotate-180'
+                            />
+                            </Shake>
+                        </div>
+
+                        <PlayerBadge username={usernames[1]} current_user={current_user} />
+
+                        <div className="flex flex-col mr-2">
+                            <div className="text-[1.25rem] w-xsm h-sm -mt-2">{usernames[1]}</div>
+                            <div className="text-xs text-muted-text ml-auto">{elos[1]} ELO</div>
+                        </div>
+
+                        <TournamentButton className="my-auto min-w-0 w-20 h-12 items-center">
+                            <PlayerAvatar assetKey={playerTwoAvatar ?? ""} className="w-full h-full bg-no-repeat bg-cover bg-center"/>
+
+                        </TournamentButton>
+                    </div>
+                </div>
+                
             </MatchCard>
 
 
