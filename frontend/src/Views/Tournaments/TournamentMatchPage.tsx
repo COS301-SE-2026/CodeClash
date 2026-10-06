@@ -25,9 +25,6 @@ const TournamentsMatchPage = () => {
         setLanguageId,
         handleSubmit, match_mode,
         nextQuestion,
-        finishMatch,
-        final_question,
-        complete_round,
         confirmCompleteRound,
         confirmRound,
         cancelCompleteRound,
@@ -45,8 +42,6 @@ const TournamentsMatchPage = () => {
     useEffect(() => {
         if (mathfieldRef.current) mathfieldRef.current.value = '';
     }, [currentQuestion]);
-
-    console.log(eliminated);
 
     if (eliminated) {
         return (
@@ -136,32 +131,24 @@ const TournamentsMatchPage = () => {
 
 
 
-                                {currentQuestion < questions.length - 1 ? (<Button
-                                    className="px-4 py-2 rounded-lg"
-                                    variant={"ghost"}
-                                    onClick={() => nextQuestion(currentQuestion)}
-                                    disabled={currentQuestion >= questions.length - 1}
-                                >
-                                    <div className="flex flex-row items-center gap-2">
-                                        <h1>Next</h1>
-                                        <ChevronsRight size={30} />
-                                    </div>
-                                </Button>) :
-                                    final_question ? (
-
-                                        <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
-                                            onClick={async () => { await finishMatch(); }}
-                                        >
-                                            <p>Finish Match</p>
-                                        </Button>) :
-                                        complete_round && (
-                                            <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
-                                                onClick={() => { confirmCompleteRound() }}
-                                            >
-                                                <p>Complete Round</p>
-                                            </Button>
-                                        )
-
+                                {currentQuestion < questions.length - 1 ? (
+                                    <Button
+                                        className="px-4 py-2 rounded-lg"
+                                        variant={"ghost"}
+                                        onClick={() => nextQuestion(currentQuestion)}
+                                        disabled={currentQuestion >= questions.length - 1}
+                                    >
+                                        <div className="flex flex-row items-center gap-2">
+                                            <h1>Next</h1>
+                                            <ChevronsRight size={30} />
+                                        </div>
+                                    </Button>
+                                ) :
+                                    <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
+                                        onClick={() => { confirmCompleteRound() }}
+                                    >
+                                        <p>Complete Round</p>
+                                    </Button>
                                 }
 
                                 {
@@ -169,20 +156,13 @@ const TournamentsMatchPage = () => {
                                         <div>
                                             <p>You won't be able to go back once you've completed a round.</p>
                                             <Button onClick={cancelCompleteRound}>Cancel</Button>
-                                            <Button onClick={completeTournamentRound}>Continue</Button>
+                                            <Button onClick={async () => {
+                                                console.log("CLICKINGGG!!!!!")
+                                                await completeTournamentRound()
+                                                }}>Continue</Button>
                                         </div>
                                     )
                                 }
-                                {currentQuestion == questions.length - 1 && <Button
-                                    className="px-4 py-2 rounded-lg"
-                                    variant={"ghost"}
-                                    onClick={() => finishMatch()}
-                                >
-                                    <div className="flex flex-row items-center gap-2">
-                                        <h1>Finish</h1>
-                                        <ChevronsRight size={30} />
-                                    </div>
-                                </Button>}
                             </div>
 
                         </div>

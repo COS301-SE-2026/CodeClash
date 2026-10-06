@@ -9,7 +9,6 @@ import { TournamentEliminationService } from "src/application/usecases/services/
 import { OpponentProgress } from "src/application/usecases/systems/opponent-progress";
 import { UsePowerupDTO } from "src/entities/dtos/shop/powerup-use.dto";
 import { PowerupService } from "src/application/usecases/services/shop/powerup.service";
-import { TournamentService } from "src/application/usecases/services/tournament/tournament.service";
 
 export const submitQuestion = async (
     io: Server,
@@ -21,7 +20,6 @@ export const submitQuestion = async (
     opponent_progress: OpponentProgress
 ) => {
 
-    console.log("raw submission", data);
     const ecs_id = match_store.getEcsId(data.id);
     const submission: PlayerSubmissionDTO = {
         ...data,

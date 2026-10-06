@@ -72,7 +72,7 @@ export const useMatch = () => {
     }
 
     const confirmCompleteRound = () => {
-        if (complete_round) setConfirmRound(true);
+        if (complete_round || final_question) setConfirmRound(true);
     }
 
     const cancelCompleteRound = () => {

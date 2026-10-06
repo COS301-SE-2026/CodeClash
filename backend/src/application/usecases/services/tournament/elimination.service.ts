@@ -109,6 +109,7 @@ export class TournamentEliminationService {
 
 
     completeRound(tournament_id: string, player_id: string) {
+
         const tournament = this.getTournament(tournament_id);
         const player = tournament.players.get(player_id);
 
@@ -116,15 +117,36 @@ export class TournamentEliminationService {
             throw new Error("Invalid player");
         }
 
-
+        console.log("Player ", player.username, " Completing round ", player.current_round);
         const curr_round = player.current_round;
         const next_round = curr_round + 1;
+
+        console.log("Player current round", curr_round);
+        const final_round = curr_round === tournament.rounds.length - 1;
+
+        if (final_round) {
+            console.log("FINAL ROUND");
+
+            for (const p of tournament.players.values()) {
+                console.log("updating existing players");
+                if (p.id !== player_id && p.elimination_round === -1) {
+                    p.elimination_round = curr_round;
+                    p.in_danger = false;
+                }
+            }
+
+            return player;
+        }
+
         const curr_size = tournament.round_players[curr_round]!.size;
         const survivor_size = Math.max(1, Math.floor(curr_size / 2));
 
         tournament.round_players[next_round] ??= new Set();
 
         player.current_round = next_round;
+
+        console.log("UPDATED ", player.current_round);
+
         tournament.round_players[next_round]!.add(player_id);
         tournament.round_players[curr_round]?.delete(player_id);
 
@@ -167,8 +189,6 @@ export class TournamentEliminationService {
         const danger = new Set(alive.slice(keep).map(p => p.id));
 
         const rank = (p: PlayerStandingDTO) => p.elimination_round === -1 ? p.current_round : p.elimination_round;
-
-        console.log("rank ", rank)
 
         return [...tournament.players.values()]
             .sort((a, b) =>

@@ -100,26 +100,29 @@ export const getStandings = async (tournament_id: string, elimination_service: T
     return tournament_standings;
 }
 
-export const completeRound = async (io: Server, socket: Socket, tournament_id: string, elimination_service: TournamentEliminationService) => {
+export const completeRound = async (io: Server, socket: Socket, tournament_id: string, match_id: string, elimination_service: TournamentEliminationService, tournament_service: TournamentService) => {
+
+
     const player = elimination_service.completeRound(tournament_id, socket.data.user_id);
 
     const tournament = elimination_service.getTournament(tournament_id);
 
-    for(const p of tournament.players.values()){
-        
-        if(p.elimination_round !== -1){
+    for (const p of tournament.players.values()) {
+        if (p.elimination_round !== -1) {
             io.to(tournament_id).emit('player_eliminated', p);
         }
     }
 
-    return player;
-}
+    const alive = [...tournament.players.values()].filter(p => p.elimination_round === -1);
 
+  //  console.log("living players", alive);
 
-export const endTournament = async (io: Server, tournament_id: string, match_id: string, tournament_service: TournamentService) => {
-    const end = await tournament_service.endTournament(tournament_id, match_id);
-
-    if (end) {
-        io.to(tournament_id).emit('tournament_ended', { tournament_id });
+    if (alive.length === 1) {
+        const results = await tournament_service.endTournament(tournament_id, match_id,);
+     //   console.log("Tournament ended", results);
+        io.to(tournament_id).emit('tournament_ended', results);
+        return null
     }
+
+    return player;
 }

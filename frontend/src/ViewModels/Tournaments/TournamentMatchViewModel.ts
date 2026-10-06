@@ -6,6 +6,8 @@ import { useMatchStore } from "src/stores/match-store";
 import { useDbId } from "./useDbId";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
 import { useNavigate } from "react-router-dom";
+import type { MatchResultDTO } from "src/dtos/match/result.dto";
+import { useResultStore } from "src/stores/result-store";
 
 export const useTournamentMatch = () => {
     const {
@@ -13,7 +15,6 @@ export const useTournamentMatch = () => {
         minutes,
         rounds,
         submitQuestion,
-        finishMatch,
         nextQuestion,
         prevQuestion,
         questions,
@@ -32,6 +33,8 @@ export const useTournamentMatch = () => {
     const players = useMatchStore(state => state.players) as PlayerStandingDTO[];
     const match_mode = useMatchStore(state => state.match_mode);
     const tournament_id = useMatchStore(state => state.tournament_id);
+    const match_id = useMatchStore(state => state.match_id);
+    const addResult = useResultStore(state => state.addResult);
     const db_id = useDbId();
     const [activePlayers, setActivePlayers] = useState<PlayerStandingDTO[]>(players ?? []);
     const { tournamentSocket } = useSocket();
@@ -70,6 +73,7 @@ export const useTournamentMatch = () => {
 
             if (!answer.trim()) return;
             await submitQuestion({ answer }, 'tournament', 'math', tournament_id!);
+
         } else {
             if (!code.trim() || languageId === null) return;
             await submitQuestion({
@@ -78,31 +82,45 @@ export const useTournamentMatch = () => {
                 stdin: null
             }, 'tournament', 'programming', tournament_id!)
         }
+
+        const response = await tournamentSocket?.getStandings(tournament_id!);
+        if (response?.ok) {
+            setActivePlayers(response.data!);
+        }
     }
 
 
 
     const completeTournamentRound = async () => {
-        console.log("complete tournament round")
-
-        if (!complete_round) return;
-        const response = await tournamentSocket?.completeRound(tournament_id!);
-
-        console.log("reponse ", response);
+        if (!complete_round && !final_question) return;
+        const response = await tournamentSocket?.completeRound({
+            tournament_id: tournament_id!,
+            match_id: match_id!
+        });
         if (!response?.ok) return;
 
+        console.log(response);
         const player = response.data!;
-        setActivePlayers(prev => prev.map(p => p.id === player.id ? player : p));
+        if (player) {
+            const res_player = player as PlayerStandingDTO;
+            setActivePlayers(prev => prev.map(p => p.id === res_player.id ? res_player : p));
 
-        if (player.elimination_round === -1) {
-            completeRound();
-        } else {
-            setEliminated(true);
+            if (res_player.elimination_round === -1) {
+                completeRound();
+            } else {
+                setEliminated(true);
+            }
         }
+
     }
 
-    const finishTournament = (data: { tournament_id: string }) => {
-        if (data.tournament_id === tournament_id) nav(`/tournament-results/${tournament_id}`);
+    const finishTournament = (data: MatchResultDTO) => {
+
+        console.log("Result", data);
+        if (data.match_id !== match_id) return;
+
+        addResult(data);
+        nav(`/tournament-results/${data.match_id}`);
     }
 
     const handlerPlayerEliminated = (player: PlayerStandingDTO) => {
@@ -130,7 +148,6 @@ export const useTournamentMatch = () => {
         minutes,
         rounds,
         submitQuestion,
-        finishMatch,
         nextQuestion,
         prevQuestion,
         roundIdx,
