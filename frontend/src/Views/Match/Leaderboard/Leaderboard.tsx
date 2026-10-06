@@ -7,12 +7,13 @@ import LeaderboardTable from './components/LeaderboardTable';
 import Pagination from '@/components/shared/Pagination';
 import Loading from '@/components/shared/Loading';
 import Starfield from '@/components/ui/animations/Starfield';
+import PlayerAvatar from 'src/avatar/PlayerAvatar';
 
 
 const PLACEHOLDER = { username: '-', elo: 0, avatarUrl: ''};
 
 const Leaderboard = () => {
-  const { userData, topThree, isLoadingData, error, page, totalPages, setPage, nextPage, prevPage } = LeaderboardViewModel('earth');
+  const { userData, topThree, firstAvatar, secondAvatar, thirdAvatar, isLoadingData, error, page, totalPages, setPage, nextPage, prevPage } = LeaderboardViewModel('earth');
 
   if (isLoadingData) return <Loading isOpen={isLoadingData} />
 
@@ -36,9 +37,9 @@ const Leaderboard = () => {
         ): (
           <div className="flex flex-col gap-8">
             <div className="flex items-end justify-center gap-4">
-              <PodiumCard rank={2} user={podium[1]} />
-              <PodiumCard rank={1} user={podium[0]} />
-              <PodiumCard rank={3} user={podium[2]} />
+              <PodiumCard avatar={secondAvatar ?? ""} rank={2} user={podium[1]} />
+              <PodiumCard avatar={firstAvatar ?? ""} rank={1} user={podium[0]} />
+              <PodiumCard avatar={thirdAvatar ?? ""} rank={3} user={podium[2]} />
             </div>
 
             <LeaderboardTable rows={displayedRows} startRank={startRank} />
