@@ -53,25 +53,25 @@ export const COMPONENTS: ComponentDefinition[] = [
         points: [20, 20, 10],
         inMastery: true,
         hint: 'Judge0 runtime of the against.'
-    },
-    {
-        key: 'timeCx',
-        label: 'Time Cx',
-        domain: 'programming',
-        points: [0, 25, 20],
-        inMastery: false,
-        hint: 'How close your time complexity sits to the optimal solution.',
-        estimated: true
-    },
-    {
-        key: 'spaceCx',
-        label: 'Space Cx',
-        domain: 'programming',
-        points: [0, 25, 20],
-        inMastery: false,
-        hint: 'How close your space complexity sits to the optimal solution.',
-        estimated: true
     }
+    // {
+    //     key: 'timeCx',
+    //     label: 'Time Cx',
+    //     domain: 'programming',
+    //     points: [0, 25, 20],
+    //     inMastery: false,
+    //     hint: 'How close your time complexity sits to the optimal solution.',
+    //     estimated: true
+    // },
+    // {
+    //     key: 'spaceCx',
+    //     label: 'Space Cx',
+    //     domain: 'programming',
+    //     points: [0, 25, 20],
+    //     inMastery: false,
+    //     hint: 'How close your space complexity sits to the optimal solution.',
+    //     estimated: true
+    // }
 ];
 
 export const componentsFor = (domain: GameDomain): ComponentDefinition[] =>
