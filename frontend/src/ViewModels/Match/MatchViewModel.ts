@@ -10,9 +10,10 @@ import { useMatchmaking } from 'src/context/Matchmaking/hooks/useMatchmaking';
 import { useAnswerResponse, useLifeShake, useSubmission } from 'src/services/submission.service';
 import type { Player } from 'src/Models/MatchModel';
 import { useResultStore } from 'src/stores/result-store';
-import { useUser } from 'src/context/User/hooks/useUser';
+import { getCurrentPlayerIndex } from 'src/services/match.service';
 import { useAuth } from 'src/context/Auth/hooks/useAuth';
 import { getEquippedFor } from 'src/services/shop.service';
+import { useUser } from 'src/context/User/hooks/useUser';
 
 
 export const useMatch = () => {
@@ -21,6 +22,7 @@ export const useMatch = () => {
     const status = useMatchStore(state => state.status);
     const { matchMode } = useMatchmaking();
     const {token} = useAuth();
+    const {username} = useUser();
 
     const tokenInv = token ?? ""
 
@@ -249,6 +251,7 @@ export const useMatch = () => {
     }, [matchSocket, match_id])
 
     return {
+        myIndex,
         status,
         players,
         questions,

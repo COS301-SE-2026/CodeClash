@@ -11,9 +11,11 @@ import PopUp from '@/components/shared/PopUp'
 import { useUser } from 'src/context/User/hooks/useUser';
 import { PowerUpAndDownButtons } from '@/components/features/Match/PowerUpandDownButtons';
 import Flash from '@/components/ui/animations/Flash';
+import { useState } from 'react';
 
 const MathsMatch = () => {
     const {
+        myIndex,
         status,
         questions,
         results,
@@ -31,6 +33,7 @@ const MathsMatch = () => {
 
 
     const curr = questions[currentQuestion];
+    const correct = results[roundIdx][currentQuestion];
     const { username } = useUser();
 
     //the following block of code was copied from an older version of this file and was hand-written,
