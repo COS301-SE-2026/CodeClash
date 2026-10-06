@@ -51,10 +51,15 @@ export const useMatch = () => {
         setGameOver(true);
         await finishMatch(!tournament_id);
     })
-    
-    const last_q_of_round = questions.length > 0 && currentQuestion === questions.length - 1;
-    const complete_round = last_q_of_round && !last_round;
-    const final_question = last_q_of_round && last_round;
+
+  useEffect(() => {
+    useMatchStore.getState().setProgress(roundIdx, currentQuestion);
+  }, [roundIdx, currentQuestion])
+
+  const last_round = roundIdx === rounds.length - 1;
+  const last_q_of_round = questions.length > 0 && currentQuestion === questions.length - 1;
+  const complete_round = last_q_of_round && !last_round;
+  const final_question = last_q_of_round && last_round;
 
     const avatars = useMemo(() => players.map(p => robot_map[p.avatar_id]), [players]);
     const usernames = useMemo(() => players.map(p => p.username), [players]);
@@ -127,6 +132,7 @@ export const useMatch = () => {
             }
 
             useMatchStore.getState().setEndTime(state.end_time, state.server_time);
+            state.players.forEach(player => updatePlayerLife(player.id, player.life));
             if (state.opponent_progress) opponentProgress(state.opponent_progress);
             if (state.opponent_done) handleOpponentDone();
 
