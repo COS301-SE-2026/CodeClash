@@ -1,0 +1,25 @@
+backend/scripts/question-seeding/db.ts
+  s_03352315d7ac65::t_4661df07513726 1-18
+frontend/@/components/features/monaco-setup.ts
+  s_03352315d7ac65::t_566c112a53e7cc 1-11
+backend/tests/unit/usecases/services/get-total-time.test.ts
+  s_03352315d7ac65::t_ae915a50f365db 1-20
+.gitmodules
+  s_03352315d7ac65::t_8b14af41fa0c84 1-20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "17d7e8296eb2c5fdc48baac48e0b11990777f359",
+  "prompts": {},
+  "sessions": {
+    "s_03352315d7ac65": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c48e1e11-ed7a-436c-9865-fe8b21cab8ce",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

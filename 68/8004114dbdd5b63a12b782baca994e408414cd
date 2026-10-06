@@ -1,0 +1,23 @@
+frontend/src/Views/Dashboard/Dashboard.tsx
+  h_b13c5d77534129 4,39
+frontend/src/assets/Shop/index.ts
+  h_b13c5d77534129 1-9
+frontend/src/ViewModels/DashboardViewModel.ts
+  h_b13c5d77534129 7
+database/03-init-shop.sql
+  h_b13c5d77534129 28,30,32,34,36,38,40,42,44
+frontend/src/context/Shop/InventoryContext.tsx
+  h_b13c5d77534129 1,3-6,8,11-16,18-19,21-39,44-50,52-53,55-62,64-69,71-115,119,127,130,134,139-140,142-147
+  h_b13c5d77534129 40-43,63,70,116-118,120-126,128-129,131-133,135-138,148-149
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "688004114dbdd5b63a12b782baca994e408414cd",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
