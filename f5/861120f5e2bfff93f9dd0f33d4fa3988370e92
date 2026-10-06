@@ -1,0 +1,51 @@
+backend/src/frameworks-drivers/socket/modules/register-tournament-handler.ts
+  h_94c952a9e14c58 5,30-34
+  h_94c952a9e14c58 16-17,28-29
+frontend/src/services/match.service.tsx
+  h_94c952a9e14c58 4,27,63
+backend/src/application/usecases/services/tournament/elimination.service.ts
+  h_94c952a9e14c58 4,15-18,25-26,38,44-47,51,59,73,79,87,99,105,111-113,130,132,149-151
+  h_94c952a9e14c58 96,115,131
+frontend/src/dtos/tournaments/tournament.dto.ts
+  h_94c952a9e14c58 24-25
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 152,156,224
+  h_94c952a9e14c58 175
+frontend/src/Views/Tournaments/TournamentMatchPage.tsx
+  h_94c952a9e14c58 27-34,57,64,128-130,140-167
+  h_94c952a9e14c58 65
+frontend/src/ViewModels/Tournaments/TournamentMatchViewModel.ts
+  h_94c952a9e14c58 8,24-30,34,39,85-93,95-111,114-116,121,124,150-156
+  h_94c952a9e14c58 84
+backend/src/frameworks-drivers/socket/dependencies.ts
+  h_94c952a9e14c58 43
+frontend/src/Views/Match/MathsMatch.tsx
+  h_94c952a9e14c58 93
+frontend/src/context/Socket/modules/tournament.socket.ts
+  h_94c952a9e14c58 40-41,62,93-100
+  h_94c952a9e14c58 63
+frontend/src/ViewModels/Tournaments/TournamentLobby.ts
+  h_94c952a9e14c58 49,100
+backend/src/entities/dtos/tournaments/tournaments.dto.ts
+  h_94c952a9e14c58 23
+backend/src/interface-adapters/socket-handlers/tournament-handlers.ts
+  h_94c952a9e14c58 2,81,96-110
+backend/src/application/usecases/services/tournament/tournament.service.ts
+  h_94c952a9e14c58 8-9,16-17,87,89-99,108-109,111-112,115-118,120-121,123
+  h_94c952a9e14c58 52,125-126
+frontend/src/ViewModels/Match/MatchViewModel.ts
+  h_94c952a9e14c58 89-91
+backend/src/interface-adapters/socket-handlers/match-handlers.ts
+  h_94c952a9e14c58 23-24,34-35
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f5861120f5e2bfff93f9dd0f33d4fa3988370e92",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
