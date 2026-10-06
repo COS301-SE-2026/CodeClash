@@ -53,17 +53,19 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
             <MatchCard className="rounded-[12px] w-[88%] h-[4rem] shrink-0 m-10 flex items-center px-6 flex-row">
                 
                 {/* Player 1 Progress */}
-                <div className="flex flex-1 min-w-0 items-center gap-2 w-full">
-                    <TournamentButton className="shrink-0 w-18 h-12 overflow-hidden">
-                        <PlayerAvatar assetKey={playerOneAvatar ?? ""} className="w-full h-full m-auto" viewBox="0 20 300 350" preserveAspectRatio="xMidYMin slice" size={40}/>
-                    </TournamentButton>
+                <div className="flex flex-1 min-w-0 items-center gap-3">
+                    <div className="flex items-center gap-2 w-[17rem] shrink-0">
+                        <TournamentButton className="shrink-0 w-12.5 h-12 overflow-hidden -ml-2">
+                            <PlayerAvatar assetKey={playerOneAvatar ?? ""} className="w-full h-full m-auto" viewBox="-33 12 320 320" preserveAspectRatio="xMidYMin slice" size={45}/>
+                        </TournamentButton>
 
-                    <div className="flex flex-col ml-2 shrink-0">
-                        <div className="sm:text-[1.25rem]">{usernames[0]}</div>
-                        <h1 className="text-muted-text text-xs">{elos[0]} ELO</h1>
+                        <div className="flex flex-col ml-2 shrink-0">
+                            <div className="sm:text-[1.25rem]">{usernames[0]}</div>
+                            <h1 className="text-muted-text text-xs">{elos[0]} ELO</h1>
+                        </div>
+
+                        <PlayerBadge username={usernames[0]} current_user={current_user}/>
                     </div>
-
-                    <PlayerBadge username={usernames[0]} current_user={current_user}/>
 
                     <div className='flex flex-1 min-w-0 flex'>
                         <Shake value={player_life[0]} className="w-full flex">
@@ -72,15 +74,16 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                             bg="var(--button-tournament-secondary)"
                             border="var(--button-tournament-secondary)"
                             height={3}
-                            className={`w-full max-w-[11rem] min-w-[1rem] h-sm mr-auto ml-auto `}
+                            className={`w-full max-w-[11rem] min-w-[1rem] h-sm mr-auto shrink-0`}
                         />
                         </Shake>
                     </div>
+                    
                 </div>
                 
 
                 {/* Clock */}
-                <TimerCard className="shrink-0 mx-5">
+                <TimerCard className="shrink-0 -mt-4.5">
                     <span>
                         {String(minutes).padStart(2, "0")}:
                         {String(seconds).padStart(2, "0")}
@@ -90,20 +93,22 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 {/* Player 2 Progress */}
 
                 {/* the code below was copied and rearranged from the human-written code above for the sake of time, none of this code is ai-generated */}
-                <div className="flex flex-1 min-w-0 items-center gap-2">
-                    <div className="flex flex-1 min-w-0">
+                <div className="flex flex-1 min-w-0 items-center gap-3">
+                    <div className="flex-1 min-w-0 flex">
                         <Shake value={player_life[1]} className="w-full flex">
-                        <Progress
-                            value={player_life[1]}
-                            bg={"var(--button-tournament-secondary)"}
-                            border={"var(--button-tournament-secondary"}
-                            from={"#8b29b8"}
-                            via={"#BF4DF3"}
-                            height={3}
-                            className='w-full max-w-[11rem] min-w-[1rem] mr-auto rotate-180'
-                        />
+                            <Progress
+                                value={player_life[1]}
+                                bg={"var(--button-tournament-secondary)"}
+                                border={"var(--button-tournament-secondary"}
+                                from={"#8b29b8"}
+                                via={"#BF4DF3"}
+                                height={3}
+                                className='w-full max-w-[11rem] min-w-[1rem] ml-auto rotate-180 my-auto'
+                            />
                         </Shake>
+                    </div>
 
+                    <div className="flex items-center gap-2 w-[17rem] shrink-0 justify-end">
                         <PlayerBadge username={usernames[1]} current_user={current_user} />
 
                         <div className="flex flex-col items-end shrink-0">
@@ -111,8 +116,9 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                             <div className="text-xs text-muted-text">{elos[1]} ELO</div>
                         </div>
 
-                        <TournamentButton className="shrink-0 w-18 h-12 overflow-hidden">
-                            <PlayerAvatar assetKey={playerTwoAvatar ?? ""} className="w-full h-full" preserveAspectRatio="xMidYMin slice"/>
+                        <TournamentButton className="shrink-0 w-12.5 h-12 overflow-hidden -mr-2">
+                            {/* copied and pasted from above, not generated by ai */}
+                            <PlayerAvatar assetKey={playerTwoAvatar ?? ""} className="w-full h-full m-auto" viewBox="-40 12 320 320" preserveAspectRatio="xMidYMin slice" size={45}/>
                         </TournamentButton>
                     </div>
                 </div>
