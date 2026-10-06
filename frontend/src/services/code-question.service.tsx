@@ -18,6 +18,7 @@ export const useCodeQuestion = (
         const first = templates[0];
         setSelectedLanguage(first.language);
         setCode(first.starter_code);
+        onChange(first.starter_code, first.judge0_language_id);
     }, [question]);
 
     const changeLanguage = (lang: string) => {
