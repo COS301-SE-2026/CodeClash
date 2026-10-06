@@ -1,0 +1,14 @@
+backend/src/frameworks-drivers/socket/dependencies.ts
+  h_58e143dc25f856 17,27-28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "529efecc4a3a7350f4bb9baf44d147757c636a21",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
