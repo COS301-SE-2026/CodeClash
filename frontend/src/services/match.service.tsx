@@ -111,22 +111,31 @@ export const useMatchProgress = (players: Player[]) => {
 
 export type OpponentPosition = {round: number, question : number};
 
-export const useOpponentProgress = (num_questions: number, players: Player[], updatePlayerLife: (player_id: string, life: number) => void) => {
-    const [opponentCurrent, setOpponentCurrent] = useState(0);
+export const useOpponentProgress = (rounds: QuestionDTO[][], players: Player[], updatePlayerLife: (player_id: string, life: number) => void) => {
+    const [opponentCurrent, setOpponentCurrent] = useState<OpponentPosition>({round : 0, question: 0});
     const [opponentDone, setOpponentDone] = useState(false);
 
     const players_ref = useRef(players);
+    const rounds_ref = useRef(rounds);
 
     useEffect(() => {
         players_ref.current = players;
     }, [players]);
 
+    useEffect(() => {
+        rounds_ref.current = rounds;
+    }, [rounds]);
+
     const opponentProgress = (data: OpponentDTO) => {
-        console.log('opponent progress', data);
         const player_index = players_ref.current.findIndex(p => p.id === data.player_id)
         if (player_index === -1) return;
 
         updatePlayerLife(data.player_id, data.opponent_life);
+
+        const r = rounds_ref.current;
+        const round_length = r[data.round]?.length ?? 0;
+
+        
 
         setOpponentCurrent((prev) => {
             const next = data.question + 1;
