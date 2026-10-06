@@ -5,6 +5,7 @@ import type { PlayerStandingDTO } from "src/dtos/tournaments/tournament.dto";
 import { useMatchStore } from "src/stores/match-store";
 import { useDbId } from "./useDbId";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
+import { useNavigate } from "react-router-dom";
 
 export const useTournamentMatch = () => {
     const {
@@ -20,14 +21,22 @@ export const useTournamentMatch = () => {
         total_rounds,
         currentQuestion,
         mathfieldRef,
-        colourClass
+        colourClass,
+        final_question,
+        complete_round,
+        confirmCompleteRound,
+        confirmRound,
+        cancelCompleteRound,
+        completeRound,
     } = useMatch();
     const players = useMatchStore(state => state.players) as PlayerStandingDTO[];
     const match_mode = useMatchStore(state => state.match_mode);
+    const match_id = useMatchStore(state => state.match_id);
     const tournament_id = useMatchStore(state => state.tournament_id);
     const db_id = useDbId();
     const [activePlayers, setActivePlayers] = useState<PlayerStandingDTO[]>(players ?? []);
     const { tournamentSocket } = useSocket();
+    const nav = useNavigate();
 
     const [code, setCode] = useState('');
     const [, setLanguage] = useState('');
@@ -72,18 +81,47 @@ export const useTournamentMatch = () => {
     }
 
 
-    const handleStandings = (standings: PlayerStandingDTO[]) => {
+
+    const completeTournamentRound = async () => {
+        console.log("complete tournament round")
+        if (!complete_round) return;
+        const response = await tournamentSocket?.getStandings(tournament_id!);
+
+        console.log("reponse ", response);
+        if (!response?.ok) return;
+
+        const standings = response.data!;
         setActivePlayers(standings);
+
+        console.log("standings", standings);
+
+        const survivors = standings.filter(p => p.elimination_round === -1);
+        const me = standings.find(p => p.id == db_id);
+        const me_out = (me?.elimination_round ?? -1) !== -1;
+
+        if (survivors.length < 2) {
+            await tournamentSocket?.endTournament({
+                tournament_id: tournament_id!,
+                match_id: match_id!
+            })
+            return;
+        }
+
+        if (me_out) return;
+        completeRound();
     }
 
+    const finishTournament = (data: { tournament_id: string }) => {
+        if (data.tournament_id === tournament_id) nav(`/tournament-results/${tournament_id}`);
+    }
 
     useEffect(() => {
         if (!tournamentSocket) return;
 
-        const unsub_standings = tournamentSocket.tournamentStandings(handleStandings)
+        const unsub_ended = tournamentSocket.tournamentEnded(finishTournament);
 
         return () => {
-            unsub_standings();
+            unsub_ended();
         }
     }, [tournamentSocket])
 
@@ -109,7 +147,13 @@ export const useTournamentMatch = () => {
         setLanguage,
         setLanguageId,
         handleSubmit,
-        match_mode
+        match_mode,
+        final_question,
+        complete_round,
+        confirmCompleteRound,
+        confirmRound,
+        cancelCompleteRound,
+        completeTournamentRound,
     }
 
 }

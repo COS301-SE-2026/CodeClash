@@ -86,6 +86,9 @@ export const useMatch = () => {
         setCurrentQuestion(0);
         setNextRound(true);
         setTimeout(() => setNextRound(false), 500);
+
+        console.log("rounds", rounds);
+        console.log("round idx", roundIdx)
     }
 
     const finishMatch = async () => {

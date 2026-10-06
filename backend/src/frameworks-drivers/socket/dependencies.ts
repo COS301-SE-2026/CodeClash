@@ -40,6 +40,7 @@ export interface FriendDeps {
 
 export interface TournamentDeps {
     tournament_service: TournamentService
+    elimination_service: TournamentEliminationService,
 }
 
 export interface SocketDeps {

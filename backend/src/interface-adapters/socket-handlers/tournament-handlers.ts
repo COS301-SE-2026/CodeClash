@@ -1,4 +1,5 @@
 import { Server, Socket } from "socket.io"
+import { TournamentEliminationService } from "src/application/usecases/services/tournament/elimination.service";
 import { TournamentService } from "src/application/usecases/services/tournament/tournament.service"
 import { PlayerDTO } from "src/entities/dtos/matches/match-component.dto";
 import { MatchMode } from "src/entities/dtos/matches/match.dto";
@@ -77,6 +78,7 @@ export const getTournament = async (socket: Socket, tournament_id: string, tourn
 
 export const startTournament = async (io: Server, socket: Socket, tournament_id: string, league: string, tournament_service: TournamentService) => {
     try {
+        console.log("starting tournament", tournament_id);
 
         const tournament = await tournament_service.getTournament(tournament_id);
         const match = await tournament_service.startTournament(tournament, league);
@@ -89,5 +91,20 @@ export const startTournament = async (io: Server, socket: Socket, tournament_id:
     } catch (error) {
         console.error("start tournament failed", error);
         socket.emit("start_tournament_failed", error);
+    }
+}
+
+
+export const getStandings = async (tournament_id: string, elimination_service: TournamentEliminationService) => {
+    const tournament_standings = elimination_service.getStanding(tournament_id);
+    return tournament_standings;
+}
+
+
+export const endTournament = async (io: Server, tournament_id: string, match_id: string, tournament_service: TournamentService) => {
+    const end = await tournament_service.endTournament(tournament_id, match_id);
+
+    if (end) {
+        io.to(tournament_id).emit('tournament_ended', { tournament_id });
     }
 }

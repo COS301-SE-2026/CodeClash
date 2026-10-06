@@ -90,7 +90,7 @@ const MathsMatch = () => {
                 {final_question ? (
 
                     <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
-                        onClick={() => { finishMatch(); }}
+                        onClick={async () => { await finishMatch(); }}
                     >
                         <p>Finish Match</p>
                     </Button>) :

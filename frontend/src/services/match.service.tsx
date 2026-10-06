@@ -1,8 +1,7 @@
 import { useMemo, useRef, useState, useEffect } from "react";
 import { useTimer } from "react-timer-hook";
 import type { Player } from "src/Models/MatchModel";
-import type { MatchMode, QuestionDTO } from "src/dtos/match/match.dto";
-import type { RoundDTO } from "src/dtos/match/match.dto";
+import type { MatchMode, QuestionDTO, RoundDTO } from "src/dtos/match/match.dto";
 import type { OpponentDTO } from "src/dtos/match/opponent.dto";
 import type { MatchSocket } from "src/context/Socket/modules/match.socket";
 import { useMatchStore } from "src/stores/match-store";
@@ -25,7 +24,7 @@ export const useMatchTimer = (duration: number, onExpire: () => void) => {
 
     const timer = useTimer({
         expiryTimestamp: expiry_time,
-        autoStart: true,
+        autoStart: false,
         onExpire
     });
 
@@ -61,7 +60,7 @@ export const useLoadRounds = (data: RoundDTO[]) => {
         let sumtime = 0;
         const rounds = data.map((round) => {
             const questions: QuestionDTO[] = round.questions.map(q => {
-                sumtime += Number(q.time_limit!.split(":")[0]);
+                sumtime += Number(q.time_limit!.split(":")[1]);
                 return {
                     id: q.id,
                     title: q.title,
