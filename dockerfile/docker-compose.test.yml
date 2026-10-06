@@ -10,6 +10,7 @@ services:
     ports:
       - "3001:3000"
     environment: #Copied from deployment branch
+      - PORT=${PORT:-3000}
       - DB_HOST=${DB_HOST}
       - DB_PORT=${DB_PORT}
       - DB_USER=${DB_USER}

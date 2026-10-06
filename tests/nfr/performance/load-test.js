@@ -12,15 +12,16 @@ http_req_failed: ['rate<0.01'],
 };
 
 const BASE_URL = 'http://localhost:3001';
+const params = { headers: { Authorization: `Bearer ${__ENV.TOKEN}` } };
 
 export default function () {
-const matchRes = http.get(`${BASE_URL}/api/matches`);
+const matchRes = http.get(`${BASE_URL}/api/matches`, params);
 check(matchRes, {
 'status is 200': (r) => r.status === 200,
 'response time < 500ms': (r) => r.timings.duration < 500,
 });
 
-const eloRes = http.get(`${BASE_URL}/api/elo/leaderboard`);
+const eloRes = http.get(`${BASE_URL}/api/leaderboard`, params);
 check(eloRes, {
 'status is 200': (r) => r.status === 200,
 'response time < 500ms': (r) => r.timings.duration < 500,

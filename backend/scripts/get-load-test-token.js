@@ -1,5 +1,5 @@
 const { CognitoIdentityProviderClient, AdminInitiateAuthCommand } = require('@aws-sdk/client-cognito-identity-provider');
-require('dotenv').config();
+require('dotenv').config({ quiet: true });
 
 const client = new CognitoIdentityProviderClient({ 
   region: process.env.COGNITO_REGION, 
