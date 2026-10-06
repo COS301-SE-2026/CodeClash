@@ -1,6 +1,6 @@
 import { IShopItemRepository } from "src/application/interfaces/repositories/IShopItemRepository";
 import { PurchaseResultDTO } from "src/entities/dtos/shop/purchase-result.dto";
-import { Wallet } from "src/entities/database/wallet.entities";
+import { STARTING_STARDUST, Wallet } from "src/entities/database/wallet.entities";
 import { UserItem } from "src/entities/database/user-item.entities";
 import { DataSource } from "typeorm";
 
@@ -28,7 +28,7 @@ export class PurchaseService {
 
             let wallet = await walletRepo.findOne({ where: { user: { user_id } } });
             if(!wallet) {
-                wallet = await walletRepo.save(walletRepo.create({ user: { user_id } as any, balance: 0 }));
+                wallet = await walletRepo.save(walletRepo.create({ user: { user_id } as any, balance: STARTING_STARDUST }));
             }
             if (wallet.balance < item.price) throw new Error('Insufficient balance');
 
