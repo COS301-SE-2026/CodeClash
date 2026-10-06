@@ -109,6 +109,8 @@ export const useMatchProgress = (players: Player[]) => {
     }
 }
 
+export type OpponentPosition = {round: number, question : number};
+
 export const useOpponentProgress = (num_questions: number, players: Player[], updatePlayerLife: (player_id: string, life: number) => void) => {
     const [opponentCurrent, setOpponentCurrent] = useState(0);
     const [opponentDone, setOpponentDone] = useState(false);
@@ -120,6 +122,7 @@ export const useOpponentProgress = (num_questions: number, players: Player[], up
     }, [players]);
 
     const opponentProgress = (data: OpponentDTO) => {
+        console.log('opponent progress', data);
         const player_index = players_ref.current.findIndex(p => p.id === data.player_id)
         if (player_index === -1) return;
 

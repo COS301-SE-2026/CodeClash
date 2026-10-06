@@ -37,15 +37,12 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
     elos,
     children,
     current_question,
+    opponent_progress,
     question_results,
     rounds,
     current_round,
     current_user
 }) => {
-
-    // const questionsAnswered = question_results.flat().filter((qr) => qr === true || qr === false).length;
-    // const progressValue = question_number > 0 ? (questionsAnswered / question_number) * 100 : 0;
-
 
     return (
         <div className="fixed inset-0 flex flex-col min-w-[64rem] overflow-y-auto">
@@ -146,6 +143,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                 results={question_results}
                                 current_question={current_question}
                                 current_round={current_round}
+                                opponent_progress={opponent_progress}
                             />
 
                         </MatchCard>
