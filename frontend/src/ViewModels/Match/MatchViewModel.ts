@@ -104,7 +104,7 @@ export const useMatch = () => {
     const { rounds, duration } = useLoadRounds(stored_rounds);
     const questions = rounds[roundIdx] ?? [];
     const { playerLife, updatePlayerLife } = useMatchProgress(players);
-    const { opponentProgress, handleOpponentDone, opponentCurrent, opponentDone } = useOpponentProgress(questions.length, players, updatePlayerLife);
+    const { opponentProgress, handleOpponentDone, opponentCurrent, opponentDone } = useOpponentProgress(rounds, players, updatePlayerLife);
 
 
     const { submissionError, submitQuestion, results, lastResult } = useSubmission({ round_idx: roundIdx, curr_question: currentQuestion, question: questions[currentQuestion], match_id: match_id!, updatePlayerLife })

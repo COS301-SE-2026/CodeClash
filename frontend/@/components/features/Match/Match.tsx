@@ -20,7 +20,7 @@ interface MatchScreenProps {
     children: React.ReactNode,
     question_number: number,
     current_question: number,
-    opponent_progress: number,
+    opponent_progress?: {round: number, question: number},
     question_results: (boolean | null)[][],
     rounds: QuestionDTO[][],
     current_round: number,

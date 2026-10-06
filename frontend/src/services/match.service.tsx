@@ -135,11 +135,15 @@ export const useOpponentProgress = (rounds: QuestionDTO[][], players: Player[], 
         const r = rounds_ref.current;
         const round_length = r[data.round]?.length ?? 0;
 
-        
+        const next: OpponentPosition = data.question + 1 < round_length ? {round: data.round, question: data.question + 1} :
+        {round: data.round, question: data.question};
 
         setOpponentCurrent((prev) => {
-            const next = data.question + 1;
-            return (next < num_questions) ? next : prev;
+            //the logic behind the following code is so that you see the last question the opponent answered, not what 
+            //happens as they move around the round. Additionally, it also won't show if an opponent resubmits an alrady answered question
+            //as the point of this is to show their general progress
+            const behind = next.round < prev.round || (next.round === prev.round && next.question <= prev.question);
+            return behind ? prev : next
         });
     }
 
