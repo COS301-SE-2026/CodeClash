@@ -117,10 +117,13 @@ export const useTournamentMatch = () => {
     const finishTournament = (data: MatchResultDTO) => {
 
         console.log("Result", data);
+
+        console.log("comparing ", data.match_id, " to ", match_id);
         if (data.match_id !== match_id) return;
 
         addResult(data);
-        nav(`/tournament-results/${data.match_id}`);
+        console.log("navigating to ", `/results/${data.match_id}`);
+        nav(`/results/${data.match_id}`);
     }
 
     const handlerPlayerEliminated = (player: PlayerStandingDTO) => {
