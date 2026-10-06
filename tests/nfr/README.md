@@ -43,24 +43,70 @@ curl http://localhost:3000/health
 ## 1. Performance — `performance/`
 
 ### Tool
-'k6'
+[k6](https://k6.io/) (`sudo snap install k6`)
 
 ### What it tests
 - 100 virtual users hitting match and elo endpoints simultaneously for 5 minutes
 - p95 response time target: < 500ms
 - Error rate target: < 1%
+- Every request must return `200` (auth, routing and DB all working under load)
+
+Scope: REST reads against a single test user on the local Docker test stack.
+
+### Prerequisites
+- k6 installed (above)
+- Test stack running (backend is published on **port 3001** here, not 3000):
+```bash
+  sudo docker compose --env-file .env.test -f dockerfile/docker-compose.test.yml up -d --build
+```
+  `.env.test` must use container network names, not `localhost`: `DB_HOST=test-db`, `DB_PORT=5432`, `REDIS_URL=redis://test-redis:6379`. The backend service must also receive `PORT` (`- PORT=${PORT:-3000}` under `environment:`), otherwise Node listens on a random port and every request is `Connection reset by peer`.
+- A Cognito user `k6_load_test_user` (password in `get-load-test-token.js`) that also exists in the database
+- Node 20+ on the host and AWS/Cognito credentials in `backend/.env` (`COGNITO_REGION`, `COGNITO_USER_POOL_ID`, `COGNITO_CLIENT_ID`, `AWS_ACCESS_KEY`, `AWS_SECRET_KEY`) for the token script
 
 ### How to run
-- install with
+All routes require a JWT, so generate a token first and pass it to k6. Run from the repo root:
+
+```bash
+# 1. get a token (stderr hidden; dotenv must be quiet so only the token is printed)
+cd backend
+TOKEN=$(node scripts/get-load-test-token.js 2>/dev/null)
+cd ..
+
+# 2. sanity-check the token and the endpoint (expect: eyJ..., then HTTP 200)
+echo ${TOKEN:0:20}
+curl -i -H "Authorization: Bearer $TOKEN" http://localhost:3001/api/leaderboard
+
+# 3. run the load test
+k6 run -e TOKEN=$TOKEN -e BASE_URL=http://localhost:3001 tests/nfr/performance/load-test.js
 ```
-sudo snap install k6
-```
+
+Tokens expire after about an hour, so regenerate before each session. `get-load-test-token.js` must call `require('dotenv').config({ quiet: true })`, otherwise dotenv's log line is captured into `$TOKEN` and the server rejects the request with a bare `400`.
+
 ### Expected output
+Both thresholds show `✓`, `http_req_failed` is `0.00%`, and every request passes `status is 200`. Sample run (2026-10-06, local Docker test stack):
+
+```
+http_req_duration  ✓ 'p(95)<500'  p(95)=61.23ms   (avg=30.04ms, med=20.17ms, max=2.01s)
+http_req_failed    ✓ 'rate<0.01'  rate=0.00%      (0 out of 56664)
+http_reqs ........ 56664  (~188 req/s)
+checks_succeeded . 99.77%  (256 of 113328 "response time < 500ms" checks missed; thresholds unaffected)
+```
+
+The per-request "response time < 500ms" check is separate from the thresholds. A small number of slow outliers (cold start, GC) fail it without failing the run.
 
 
 ### Evidence to collect
 - Screenshot of k6 summary output
-- Note p95 latency and error rate
+- Note p95 latency and error rate, throughput and number of VUs / duration
+
+### Troubleshooting
+| Symptom | Cause / fix |
+|---------|-------------|
+| `curl: Connection reset by peer` | Backend not listening on the container port. Check `printenv PORT` in the container prints `3000`, and read `docker compose ... logs backend` |
+| `HTTP/1.1 400 Bad Request` with an empty body | `$TOKEN` contains extra text (dotenv log line). Use `quiet: true` / regenerate the token |
+| All checks fail with `401` | Token expired, or the script emits `IdToken` while the server expects `AccessToken` (or vice versa); also check the user exists in the DB |
+| `http_req_failed` threshold fails | k6 counts any non-2xx/3xx response as a failure, so a bad token or wrong route fails the run |
+| `MODULE_NOT_FOUND` for the token script | Script lives in `backend/scripts/` (plural); run `npm install` in `backend/` |
 
 ---
 
