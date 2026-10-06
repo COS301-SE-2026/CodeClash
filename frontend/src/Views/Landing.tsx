@@ -4,7 +4,7 @@ import { Link } from "react-router";
 import { docs } from "src/Models/LandingModel";
 import Vexa from "../assets/Shop/Avatars/Vexa.png"
 import { LandingViewModelFunction } from "../ViewModels/LandingViewModel";
-
+import FloatingSymbols from "@/components/ui/animations/FloatingSymbols";
 
 const Landing:React.FC = ()=>{
     const {
@@ -52,6 +52,7 @@ const Landing:React.FC = ()=>{
 
             {/*Hero img */}
             <section id = "home" className="relative min-h-screen flex items-center px-[8%] overflow-hidden bg-radial-glow-corner">
+                <FloatingSymbols count={50}/>
                 <div className="relative z-10 flex flex-col gap-6 w-1/2">
                     <h1 style={{fontSize: "clamp(2.5rem, 5vw, 4.5rem)", fontWeight: 900, lineHeight: 1.05, margin: 0,}}>Code.
                         <br/> Calculate. <br/>
