@@ -1,0 +1,20 @@
+frontend/src/ViewModels/Match/FinalResultsViewModel.ts
+  h_b13c5d77534129 47-56,64-65
+  h_b13c5d77534129 57
+frontend/src/Views/Matchmaking/MatchFound.tsx
+  h_b13c5d77534129 39-40,67
+frontend/src/Views/Match/FinalResults.tsx
+  h_b13c5d77534129 192,203
+  h_b13c5d77534129 18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1dfd1e3f019155eb23e95f0af189436f5790ef18",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

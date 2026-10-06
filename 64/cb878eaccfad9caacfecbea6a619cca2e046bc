@@ -1,0 +1,33 @@
+backend/src/application/usecases/services/shop/equipment.service.ts
+  h_b13c5d77534129 15-32
+  h_b13c5d77534129 33
+backend/src/frameworks-drivers/app.ts
+  h_b13c5d77534129 21,40,70
+backend/src/application/interfaces/repositories/IInventoryRepository.ts
+  h_b13c5d77534129 8
+backend/src/frameworks-drivers/api.routes.ts
+  h_b13c5d77534129 29,47,52
+backend/src/interface-adapters/repositories/inventory.repository.ts
+  h_b13c5d77534129 63-73
+frontend/src/context/User/UserContext.tsx
+  h_b13c5d77534129 20-25
+backend/src/application/usecases/services/user-creation.service.ts
+  h_b13c5d77534129 6,16-17,43-44
+frontend/src/Views/Dashboard/Dashboard.tsx
+  h_b13c5d77534129 38-39
+frontend/src/assets/Shop/ResolveShopImages.ts
+  h_b13c5d77534129 12
+backend/src/frameworks-drivers/server.ts
+  h_b13c5d77534129 78,175-176
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "64cb878eaccfad9caacfecbea6a619cca2e046bc",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
