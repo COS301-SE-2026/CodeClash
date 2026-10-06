@@ -11,6 +11,7 @@ import { UsePowerupDTO } from "src/entities/dtos/shop/powerup-use.dto";
 import { PowerupService } from "src/application/usecases/services/shop/powerup.service";
 import { TournamentService } from "src/application/usecases/services/tournament/tournament.service";
 import { SubmissionSystem } from "../../application/usecases/systems/submission.system";
+import { LifeSystem } from "../../application/usecases/systems/life.system";
 
 const SUBMISSION_GRACE_MS = 5000; // 5 second grace to submit otherwise submission wont be counted as match will have ended by then
 
