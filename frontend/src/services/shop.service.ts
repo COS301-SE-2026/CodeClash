@@ -119,7 +119,9 @@ async function handle<T>(res: Response): Promise<T> {
 export const getCatalog = async (token: string) : Promise<ShopItem[]> => {
     const res = await fetch(CATALOG_URL, {headers: authHeaders(token) });
     const raw = await handle<RawShopItem[]>(res);
-    return raw.map(mapItem);
+    return raw
+        .filter((r) => r.category === 'avatar' || r.category === 'theme') // TODO remove this to bring back powerups
+        .map(mapItem);
 };
 
 export const getWallet = async (token: string): Promise<Wallet> => {

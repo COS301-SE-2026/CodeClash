@@ -7,7 +7,7 @@ export class ShopItemService {
     ) {}
 
     async getAllItems(): Promise<ShopItemDTO[]> {
-        return this.shop_item_repo.getAllItems();
+        return (await this.shop_item_repo.getAllItems()).filter((i) => i.category !== 'powerup') ;
     }
 
 }
