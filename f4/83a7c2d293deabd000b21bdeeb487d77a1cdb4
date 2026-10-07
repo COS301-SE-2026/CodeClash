@@ -1,0 +1,15 @@
+frontend/src/Views/Tournaments/TournamentEliminated.tsx
+  h_94c952a9e14c58 1-2,4,6-8,10-14,16-18,20-23,25-33
+  h_94c952a9e14c58 34-37
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f483a7c2d293deabd000b21bdeeb487d77a1cdb4",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

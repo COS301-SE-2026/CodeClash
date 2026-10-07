@@ -1,0 +1,17 @@
+frontend/@/components/features/Tournaments/TournamentPlayer.tsx
+  h_94c952a9e14c58 15-18
+frontend/src/Views/Tournaments/TournamentsWaiting.tsx
+  h_94c952a9e14c58 9-10,19,29-34,37,40-44,47,60-61,63-69
+  h_94c952a9e14c58 1,52-53
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "047aa42d72633e42a261d3d09a8950906206d292",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
