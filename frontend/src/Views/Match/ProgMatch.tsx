@@ -11,6 +11,9 @@ import PopUp from "@/components/shared/PopUp";
 import { useUser } from 'src/context/User/hooks/useUser';
 import { Button } from "@/components/ui/button";
 import Flash from "@/components/ui/animations/Flash";
+import { useSocket } from  "src/context/Socket/hooks/useSocket";
+import ConfirmationPopup from "../Confirmation";
+import type { ConfirmationViewModel } from "src/ViewModels/ConfirmationViewModel";
 
 export const ProgMatch = () => {
     const [code, setCode] = useState('');
@@ -36,7 +39,8 @@ export const ProgMatch = () => {
 
     const curr = questions[currentQuestion];
     const question = useMemo(() => ({ templates: curr?.templates }), [curr]);
-    const { username } = useUser();
+  const { username } = useUser();
+  const { isConnected } = useSocket();
     const currentResult = results?.[roundIdx]?.[currentQuestion];
 
     const correct : boolean | null = results?.[roundIdx]?.[currentQuestion] ?? null;
@@ -70,6 +74,18 @@ export const ProgMatch = () => {
     
         /////////////////////////////////////////////////////////////////
 
+
+    const roundConf: ConfirmationViewModel = {
+        content: {
+            title: "Complete Round?",
+            message: "You won't be able to go back.",
+            cancelLabel: "Cancel",
+            confirmLabel: "Confirm"
+        },
+        isVisible: confirmRound,
+        handleConfirm: completeRound,
+        handleCancel: cancelCompleteRound,
+    }
 
     if (status !== 'ready' || !curr) {
         return (
@@ -129,20 +145,20 @@ export const ProgMatch = () => {
                         <ChevronLeft onClick={() => prevQuestion(currentQuestion)} className='size-[3rem] hover:scale-110  hover:bg-secondary/20 rounded-2xl w-[50%]' />
                         <ChevronRight onClick={() => nextQuestion(currentQuestion)} className='size-[3rem] hover:scale-110 hover:bg-secondary/20 rounded-2xl w-[50%]' />
                     </TournamentButton>
-                    <Button className='w-[20%] h-[3.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
-                        // disabled={marking}
-                        onClick={async () => {
-                            if (!marking && code.trim() && languageId !== null) {
-                                await submitQuestion({
-                                    source_code: code,
-                                    language_id: languageId,
-                                    stdin: null
-                                }, matchType!,matchMode!)
-                            }
-                        }}
-                    >
-                        {marking ? 'Marking...' : 'Submit Answer'}
-                    </Button>
+                    <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
+                                            disabled={marking || !isConnected}
+                                           onClick={async () => {
+                                                if (!marking && isConnected && code.trim() && languageId !== null) {
+                                                   await submitQuestion({
+                                                      source_code: code,
+                                                        language_id: languageId,
+                                                       stdin: null
+                                                   }, matchType!,matchMode!)
+                                              }
+                                           }}
+                                       >
+                                           {marking ? 'Marking...' : isConnected ? 'Submit Answer' : 'Connecting...'}
+                                       </Button>
                     {final_question ? (
 
                         <Button className='w-[20%] h-[3.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
@@ -161,11 +177,7 @@ export const ProgMatch = () => {
 
                     {
                         confirmRound && (
-                            <div>
-                                <p>You won't be able to go back once you've completed a round.</p>
-                                <Button onClick={cancelCompleteRound}>Cancel</Button>
-                                <Button onClick={completeRound}>Continue</Button>
-                            </div>
+                            <ConfirmationPopup confirmation={roundConf}/>
                         )
                     }
 

@@ -30,7 +30,7 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
     const [avatars, setAvatars] = useState<Record<string, string | null  | undefined>>({});
     const { match_id } = useParams();
     const { matchSocket } = useSocket();
-    const { group_id } = useMatchmaking();
+    const { group_id, reset } = useMatchmaking();
     const results = useResultStore(s => s.results.find(r => r?.match_id === match_id));
     const {token} = useAuth();
     const tokenInv = token ?? "";
@@ -44,7 +44,7 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
     const losers = useMemo(() => players.filter(p => p.user_id !== winner?.user_id), [players, winner])
 
     useEffect(() => {
-      if (useMatchStore.getState().match_id === match_id) useMatchStore.getState().reset();
+        if (useMatchStore.getState().match_id === match_id) useMatchStore.getState().reset();
     }, [match_id])
     
 
@@ -115,6 +115,7 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
 
         return () => {
             clearTimeout(timeout)
+            reset();
         }
     }, [results]);
 

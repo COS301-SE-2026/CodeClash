@@ -85,7 +85,7 @@ export class CreateRound {
                 { round_number: 0, questions: question_pool.slice(0, third) },
                 { round_number: 1, questions: question_pool.slice(third, third * 2) },
                 { round_number: 2, questions: question_pool.slice(third * 2) },
-            ];
+                ].filter(round => round.questions.length > 0);
         }
 
 
