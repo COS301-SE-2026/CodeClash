@@ -1,0 +1,55 @@
+backend/src/application/usecases/services/tournament/elimination.service.ts
+  h_94c952a9e14c58 5,63-66,87,174
+backend/src/application/usecases/services/tournament/tournament.service.ts
+  h_94c952a9e14c58 10-11,30,44,46,52,59-60
+  h_94c952a9e14c58 24,29
+backend/src/application/usecases/services/friend.service.ts
+  h_94c952a9e14c58 4,20,42-43
+backend/src/application/usecases/services/match/match-confirmation.service.ts
+  h_94c952a9e14c58 3,19,22,40,46,54
+backend/src/application/usecases/services/match/match-creation.service.ts
+  h_94c952a9e14c58 53-54
+backend/src/application/usecases/services/shop/equipment.service.ts
+  h_94c952a9e14c58 5,40
+backend/src/application/usecases/services/shop/powerup.service.ts
+  h_94c952a9e14c58 5,16,19,22-24
+backend/src/application/usecases/services/shop/purchase.service.ts
+  h_94c952a9e14c58 6,16,27,34
+backend/src/application/usecases/services/user-creation.service.ts
+  h_94c952a9e14c58 7,25,43
+backend/src/application/usecases/systems/powerup.system.ts
+  h_94c952a9e14c58 6-7,51-56,70-71,110,128
+backend/src/entities/errors/http-error.ts
+  h_94c952a9e14c58 1-6
+backend/src/frameworks-drivers/app.ts
+  h_94c952a9e14c58 3,5,75-83
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 228
+backend/src/frameworks-drivers/socket/modules/register-friends-handler.ts
+  h_94c952a9e14c58 31,39
+backend/src/interface-adapters/controllers/rank.controllers.ts
+  h_94c952a9e14c58 23
+backend/src/interface-adapters/controllers/shop.controllers.ts
+  h_94c952a9e14c58 40,43,77,80,102,105
+backend/src/interface-adapters/controllers/tournament.controllers.ts
+  h_94c952a9e14c58 7,19
+backend/src/interface-adapters/controllers/user.controllers.ts
+  h_94c952a9e14c58 56
+backend/src/interface-adapters/repositories/inventory.repository.ts
+  h_94c952a9e14c58 6,54
+frontend/src/Views/Friends/Friends.tsx
+  h_94c952a9e14c58 12,183,189
+frontend/src/context/Friends/FriendsContext.tsx
+  h_94c952a9e14c58 187,203,205,218-220,222-223
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "57e862d9bd604b3689de1c5ea85aed0c29909b87",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

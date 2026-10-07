@@ -1,0 +1,14 @@
+backend/src/application/usecases/services/tournament/tournament.service.ts
+  h_58e143dc25f856 108-119
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d0e6c705992983b0101c025ef40f47acc3d15a02",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
