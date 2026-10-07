@@ -1,0 +1,14 @@
+backend/src/application/usecases/systems/submission.system.ts
+  h_58e143dc25f856 89,96
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b5519e6e2df47650c65d7a5220e4ea0109d6b84e",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

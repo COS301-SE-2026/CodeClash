@@ -1,0 +1,14 @@
+backend/src/interface-adapters/socket-handlers/match-handlers.ts
+  h_58e143dc25f856 13-15,43-47,84,88,90-96,116-147
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "050f1047c01a191bd8f404a1f6b06ea6716c1627",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

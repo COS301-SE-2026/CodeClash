@@ -1,0 +1,14 @@
+frontend/src/stores/match-store.ts
+  h_58e143dc25f856 1,14-17,23-25,28-29,33-35,44-47,56-59,65-68,74-78
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2f53fe02843a48cd1490e8e72200895d89598df0",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

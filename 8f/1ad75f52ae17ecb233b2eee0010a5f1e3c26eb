@@ -1,0 +1,14 @@
+frontend/src/services/code-question.service.tsx
+  h_58e143dc25f856 21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8f1ad75f52ae17ecb233b2eee0010a5f1e3c26eb",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

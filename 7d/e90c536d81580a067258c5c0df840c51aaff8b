@@ -1,0 +1,14 @@
+frontend/src/services/match.service.tsx
+  h_58e143dc25f856 63
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7de90c536d81580a067258c5c0df840c51aaff8b",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
