@@ -10,7 +10,7 @@ interface ConfirmationPopupProps {
 const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({ confirmation }) => {
     const {
         content,
-        isVisible, dontAskAgain, handleDontAsk,
+        isVisible,
         handleConfirm, handleCancel,
     } = confirmation;
 
@@ -27,13 +27,6 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({ confirmation }) =
                 
                 <h2 className="text-black font-extrabold text-center whitespace-nowrap" style = {{fontSize: 'var(--heading-size)'}}>{content.title}</h2>
                 <p className="text-black text-center" style={{fontSize: 'var(--font-size-sm)'}}>{content.message}</p>
-
-                {/*Dont ask me again option */}
-                <label className="flex items-center gap-3 cursor-pointer">
-                    <input type="checkbox" checked={dontAskAgain} onChange={(e) => handleDontAsk(e.target.checked)}
-                        className="w-5 h-5 cursor-pointer rounded" />
-                    <span className="text-black" style={{ fontSize: 'var(--font-size-sm)' }}>{content.dontAskAgainLabel}</span>
-                </label>
 
                 {/*The cancel and submit buttons */}
                 <div className="flex w-full gap-3">
