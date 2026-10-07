@@ -2,6 +2,7 @@ import { PlayerStandingDTO } from "src/entities/dtos/tournaments/tournaments.dto
 import { MarkingService } from "../marking/marking.service";
 import { PlayerSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
 import { RoundDTO } from "src/entities/dtos/matches/match-component.dto";
+import { HttpError } from "src/entities/errors/http-error";
 
 
 const MAX_ATTEMPTS = 3;
@@ -61,7 +62,11 @@ export class TournamentEliminationService {
         const player = tournament.players.get(submission.player_id);
 
         if (player?.elimination_round !== -1)
-            throw new Error("Invalid player");
+            throw new HttpError(403, "Player is not active in this tournament");
+
+        const exists = tournament.rounds[submission.round_number]?.questions.find(q => q.id == submission.question_id);
+        if (!exists)
+            throw new HttpError(400, "Question not in this round");
 
         const key = `${submission.player_id}:${submission.question_id}`;
         let progress = tournament.progress.get(key);
@@ -82,7 +87,7 @@ export class TournamentEliminationService {
             }
         }
 
-        if (progress.attempts >= MAX_ATTEMPTS) throw new Error("No attempts left");
+        if (progress.attempts >= MAX_ATTEMPTS) throw new HttpError(409, "No attempts left");
 
         progress.attempts++;
         let correct: boolean;
@@ -181,7 +186,7 @@ export class TournamentEliminationService {
     getTournament(tournament_id: string) {
         const tournament = this.state.get(tournament_id);
 
-        if (!tournament) throw new Error("Tournament not initialised");
+        if (!tournament) throw new HttpError(404, "Tournament not found");
         return tournament;
     }
 

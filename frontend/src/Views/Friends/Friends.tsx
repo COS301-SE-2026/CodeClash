@@ -9,6 +9,7 @@ import { useFriends } from "../../context/Friends/useFriends";
 import { friendContent } from "../../Models/FriendsModel";
 import type { FriendStatus, Relation } from "../../Models/FriendsModel";
 
+const SHOW_PLAY_INVITE = false; // TODO set true after redemo
 
 const status: Record<FriendStatus, string> = {
     online: 'bg-sucess',
@@ -179,11 +180,13 @@ const Friends: React.FC = () => {
                                             <span className="score-display text-primary-text text-xsm">{f.elo}</span> {/*Need to add icon here ? */}
                                         </div>
                                     </div>
+                                    { SHOW_PLAY_INVITE && (
                                     <button className="btn btn-ghost btn-sm" onClick={() => sendInvite(f.id)} disabled={f.status === 'playing'} 
                                         title={f.status === 'playing' ? 'Already in a match' : undefined} type="button">
                                         {f.status === 'playing' ? <Clock3 size={16}/> : <Swords size={16}/>}
                                         {friendContent.inviteToPlay}
                                     </button>
+                                    )}
                                     <button className="btn btn-ghost bg-danger btn-icon" onClick={() => removeFriend(f.friendship_id)} 
                                         aria-label= {`${friendContent.removeLabel} ${f.username}`} type="button">
                                         <X size={18}/>

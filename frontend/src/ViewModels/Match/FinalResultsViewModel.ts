@@ -6,7 +6,6 @@ import { type PlayerResultDTO, } from "src/dtos/match/result.dto";
 
 import { finalResultsContent } from "src/Models/FinalResultsModel";
 import type { FinalResultsContent } from "src/Models/FinalResultsModel";
-import { useMatchStore } from "src/stores/match-store";
 import { useResultStore } from "src/stores/result-store";
 
 

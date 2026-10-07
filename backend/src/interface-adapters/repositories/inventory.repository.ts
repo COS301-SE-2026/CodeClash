@@ -3,6 +3,7 @@ import { UserItem } from "src/entities/database/user-item.entities";
 import { IInventoryRepository } from "src/application/interfaces/repositories/IInventoryRepository";
 import { UserItemDTO } from "src/entities/dtos/shop/user-item.dto";
 import { ShopItemRepository } from "./shop-item.repository";
+import { HttpError } from "src/entities/errors/http-error";
 
 export class InventoryRepository implements IInventoryRepository {
     constructor (
@@ -50,7 +51,7 @@ export class InventoryRepository implements IInventoryRepository {
         });
 
         if (!user_item || user_item.quantity <= 0) {
-            throw new Error('Item not owned');
+            throw new HttpError(403, 'Item not owned');
         }
 
         if (user_item.quantity === 1) {
