@@ -1,0 +1,14 @@
+frontend/nginx.conf
+  h_b13c5d77534129 1-41
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e6a6e3d2b308593ff5b78fe546fcf07fd45f9b07",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
