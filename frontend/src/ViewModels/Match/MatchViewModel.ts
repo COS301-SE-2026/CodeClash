@@ -115,7 +115,7 @@ export const useMatch = () => {
 
     const { submissionError, submitQuestion, results, setResults, lastResult, marking, markingError } = useSubmission({ round_idx: roundIdx, curr_question: currentQuestion, question: questions[currentQuestion], match_id: match_id!, updatePlayerLife })
     const { seconds, minutes } = useMatchTimer(duration, end_time, async () => {
-        setGameOver(true);
+        setGameOver(true);  
         await finishMatch(!tournament_id);
     })
 
@@ -211,7 +211,7 @@ export const useMatch = () => {
             for (const submission of state.submissions) {
                 const index = rounds[submission.round_number]?.findIndex(q => q.id === submission.question_id) ?? -1;
                 if (index !== -1) restored[submission.round_number]![index] = submission.correct;
-            }
+            }   
             setResults(restored);
 
             if (state.done) {

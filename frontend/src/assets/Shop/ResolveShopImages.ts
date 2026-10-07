@@ -5,6 +5,8 @@ export function resolve(imageKey?: string): string | undefined {
         return undefined;
     }
 
+    console.log('[RESOLVE DEBUG] received imageKey:', JSON.stringify(imageKey));
+
     const resolved = shop_map[imageKey];
     if (!resolved) {
         console.warn(`[Shop] No bundled asset found for imageKey "${imageKey}"`)
