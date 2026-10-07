@@ -24,7 +24,7 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
     const [loadingProgress, setLoadingProgress] = useState(0);
     const { match_id } = useParams();
     const { matchSocket } = useSocket();
-    const { group_id } = useMatchmaking();
+    const { group_id, reset } = useMatchmaking();
     const results = useResultStore(s => s.results.find(r => r?.match_id === match_id));
 
     const players = useMemo(
@@ -33,9 +33,9 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
     )
 
     useEffect(() => {
-      if (useMatchStore.getState().match_id === match_id) useMatchStore.getState().reset();
+        if (useMatchStore.getState().match_id === match_id) useMatchStore.getState().reset();
     }, [match_id])
-  
+
     useEffect(() => {
         if (results || !matchSocket || !match_id) return;
 
@@ -77,6 +77,7 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
 
         return () => {
             clearTimeout(timeout)
+            reset();
         }
     }, [results]);
 

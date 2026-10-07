@@ -52,18 +52,20 @@ export const useMatch = (timeUp?: () => Promise<void>) => {
         if (timeUp) {
             await timeUp();
         }
-        else
+        else {
+
             await finishMatch(!tournament_id);
+        }
     })
 
-  useEffect(() => {
-    useMatchStore.getState().setProgress(roundIdx, currentQuestion);
-  }, [roundIdx, currentQuestion])
+    useEffect(() => {
+        useMatchStore.getState().setProgress(roundIdx, currentQuestion);
+    }, [roundIdx, currentQuestion])
 
-  const last_round = roundIdx === rounds.length - 1;
-  const last_q_of_round = questions.length > 0 && currentQuestion === questions.length - 1;
-  const complete_round = last_q_of_round && !last_round;
-  const final_question = last_q_of_round && last_round;
+    const last_round = rounds.slice(roundIdx + 1).every(round => round.length === 0);
+    const last_q_of_round = questions.length > 0 && currentQuestion === questions.length - 1;
+    const complete_round = last_q_of_round && !last_round;
+    const final_question = last_q_of_round && last_round;
 
     const avatars = useMemo(() => players.map(p => robot_map[p.avatar_id]), [players]);
     const usernames = useMemo(() => players.map(p => p.username), [players]);
@@ -104,7 +106,7 @@ export const useMatch = (timeUp?: () => Promise<void>) => {
 
     const finishMatch = async (force = false) => {
         // if (!final_question) return;
-      if (!matchSocket || finished_ref.current || (!final_question && !force)) return;
+        if (!matchSocket || finished_ref.current || (!final_question && !force)) return;
         setWaitingOpponent(true);
         finished_ref.current = true;
 

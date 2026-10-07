@@ -10,6 +10,7 @@ import { MatchCard } from "@/components/features/Match/MatchCard";
 import PopUp from "@/components/shared/PopUp";
 import { useUser } from 'src/context/User/hooks/useUser';
 import { Button } from "@/components/ui/button";
+import { useSocket } from  "src/context/Socket/hooks/useSocket";
 import ConfirmationPopup from "../Confirmation";
 import type { ConfirmationViewModel } from "src/ViewModels/ConfirmationViewModel";
 
@@ -35,7 +36,8 @@ export const ProgMatch = () => {
 
     const curr = questions[currentQuestion];
     const question = useMemo(() => ({ templates: curr?.templates }), [curr]);
-    const { username } = useUser();
+  const { username } = useUser();
+  const { isConnected } = useSocket();
     const currentResult = results?.[roundIdx]?.[currentQuestion];
 
     const roundConf: ConfirmationViewModel = {
@@ -97,19 +99,19 @@ export const ProgMatch = () => {
                         <ChevronRight onClick={() => nextQuestion(currentQuestion)} className='size-[3rem] hover:scale-110 hover:bg-secondary/20 rounded-2xl w-[50%]' />
                     </TournamentButton>
                     <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
-                        disabled={marking}
-                        onClick={async () => {
-                            if (!marking && code.trim() && languageId !== null) {
-                                await submitQuestion({
-                                    source_code: code,
-                                    language_id: languageId,
-                                    stdin: null
-                                }, matchType!,matchMode!)
-                            }
-                        }}
-                    >
-                        {marking ? 'Marking...' : 'Submit Answer'}
-                    </Button>
+                                            disabled={marking || !isConnected}
+                                           onClick={async () => {
+                                                if (!marking && isConnected && code.trim() && languageId !== null) {
+                                                   await submitQuestion({
+                                                      source_code: code,
+                                                        language_id: languageId,
+                                                       stdin: null
+                                                   }, matchType!,matchMode!)
+                                              }
+                                           }}
+                                       >
+                                           {marking ? 'Marking...' : isConnected ? 'Submit Answer' : 'Connecting...'}
+                                       </Button>
                     {final_question ? (
 
                         <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
