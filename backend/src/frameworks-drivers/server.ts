@@ -75,6 +75,7 @@ import { PurchaseService } from 'src/application/usecases/services/shop/purchase
 import { PowerupSystem } from 'src/application/usecases/systems/powerup.system';
 import { RewardService } from 'src/application/usecases/services/match/reward.service';
 import { MarkerRegistry } from 'src/application/usecases/services/marking/maths-marking/marker-registry';
+import { IInventoryRepository } from 'src/application/interfaces/repositories/IInventoryRepository';
 
 dotnev.config()
 
@@ -156,7 +157,6 @@ AppDataSource.initialize()
         const tournament_service = new TournamentService(tournament_cache, match_start, elimination_service, match_completion_service, match_store);
 
 
-
         const app = createApp(
             user_repo,
             leaderboard_service,
@@ -171,9 +171,9 @@ AppDataSource.initialize()
             purchase_service,
             equipped_repo,
             shop_item_repo,
-            inventory_repo,
-            tournament_service,
-            wallet_repo
+            tournament_service, 
+            wallet_repo,
+            inventory_repo   
         );
         const httpServer = createServer(app)     // can update to https
         const io = new Server(httpServer, {

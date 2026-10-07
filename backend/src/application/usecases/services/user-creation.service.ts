@@ -16,7 +16,7 @@ export class CreateUser {
         private readonly shop_item_repo: IShopItemRepository,
         private readonly wallet_repo: IWalletRepository,
         private readonly inventory_repo: IInventoryRepository
-    ) {}
+    ) { }
 
     async create(username: string, email: string) {
         const user_id = await fetchCognitoId(email);
@@ -33,15 +33,15 @@ export class CreateUser {
             throw new Error("Error creating user");
         }
 
+
         this.avatar_index = ++this.avatar_index % 4;
         // setting default theme
         const default_theme = await this.shop_item_repo.getDefaultTheme();
-        const defualt_avatar = await this.shop_item_repo.getDefaultAvatar();
+        const default_avatar = await this.shop_item_repo.getDefaultAvatar();
         await this.wallet_repo.createWallet(user.user_id!);
 
+        await this.equipped_repo.updateEquipped(user.user_id!, { theme_id: default_theme.shop_item_id, avatar_item_id: default_avatar.shop_item_id });
         await this.inventory_repo.grantItem(user.user_id!, default_theme.shop_item_id);
-        await this.inventory_repo.grantItem(user.user_id!, defualt_avatar.shop_item_id);
-
-        await this.equipped_repo.updateEquipped(user.user_id!, { theme_id: default_theme.shop_item_id, avatar_item_id: defualt_avatar.shop_item_id });
+        await this.inventory_repo.grantItem(user.user_id!, default_avatar.shop_item_id);
     }
 }

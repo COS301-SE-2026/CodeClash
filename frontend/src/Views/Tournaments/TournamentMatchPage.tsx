@@ -123,7 +123,7 @@ const TournamentsMatchPage = () => {
                                         setCode(new_code);
                                         setLanguageId(judge0_id)
                                     }}
-                                    colourClass={colourClass}
+                                    // colourClass={colourClass}
                                 />
                             )}
                         </MatchCard>

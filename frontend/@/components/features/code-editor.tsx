@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { type TemplateDTO } from "src/dtos/match/match.dto"
 import { useCodeQuestion } from "src/services/code-question.service";
 import { Button } from "../ui/button";
-import { MatchCard } from "./Match/MatchCard";
 
 // Monaco is a large separate chunk, so it is only loaded the first time a code editor is shown
 let monacoReady: Promise<unknown> | null = null;
@@ -17,10 +16,10 @@ const LANGUAGES: Record<string, string> = {
 interface codeEditorProps {
     question: { templates?: TemplateDTO[] },
     onChange: (code: string, judge0_language_id: number) => void
-    colourClass?: string
+    className?: string
 }
 
-export const CodeEditor = ({ question, onChange, colourClass }: codeEditorProps) => {
+export const    CodeEditor = ({ question, onChange, className }: codeEditorProps) => {
 
     const { templates, selectedLanguage, code, changeLanguage, editCode } = useCodeQuestion(question, onChange);
     const [monacoLoaded, setMonacoLoaded] = useState(false);
@@ -34,8 +33,8 @@ export const CodeEditor = ({ question, onChange, colourClass }: codeEditorProps)
 
     return (
 
-        <div className={`flex flex-col h-full w-full rounded-4xl`}>
-            <div className="flex gap-2 mb-2">
+        <div className="flex flex-col h-full w-full">
+            <div className="flex gap-2 mb-2 ml-10">
                 {templates.map(t => (
                     <Button
                         key={t.language}
@@ -48,18 +47,15 @@ export const CodeEditor = ({ question, onChange, colourClass }: codeEditorProps)
                 }
                 <p>Include a main method and print the required results to the console.</p>
             </div>
-
-            <MatchCard className={`flex justify-center  items-center ${colourClass}`}>
-                {monacoLoaded && (
-                    <Editor
-                        height="20vh"
-                        language={LANGUAGES[selectedLanguage] ?? selectedLanguage}
-                        value={code}
-                        width="90%"
-                        onChange={(v) => editCode(v ?? "")}
-                    />)}
-            </MatchCard>
-
+            {monacoLoaded && <Editor
+                height="20vh"
+                language={LANGUAGES[selectedLanguage] ?? selectedLanguage}
+                value={code}
+                width="90%"
+                onChange={(v) => editCode(v ?? "")}
+                className={className}
+            />
+        }
         </div>
     )
 }

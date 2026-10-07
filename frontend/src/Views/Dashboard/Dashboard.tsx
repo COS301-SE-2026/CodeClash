@@ -1,7 +1,7 @@
 import { ChevronRight, Swords, Flame, Sparkles, Trophy } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useEffect } from "react";
-import UseUserAvatar  from '../../avatar/UserAvatar'
+import UserAvatar from 'src/avatar/UserAvatar';
 import { useDashboardViewModel } from '../../ViewModels/DashboardViewModel';
 
 import Popup from 'src/Views/Match/Popup'
@@ -35,8 +35,8 @@ const Dashboard = () => {
         <div className='grid grid-cols-1 lg:grid-cols-[1.1fr_1fr_1.2fr] gap-6 max-w-[1400px] mx-auto items-start'>
           {/*Profile + Play */}
           <div className='flex flex-col gap-6'>
-            <div className='card-elevated flex items-center gap-4 p-8'>
-              <UseUserAvatar/>
+            <div className='card-elevated flex items-center gap-6'>
+              <UserAvatar size={166}/>
               <div>
                 <p className='text-xl font-black text-primary-text'>{username}</p>
                 <span className='text-sm text-primary-text'>{league}</span>

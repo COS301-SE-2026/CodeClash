@@ -28,10 +28,11 @@ export class OpponentProgress {
 
     }
 
-    updateOpponent(player_id: string, question_number: number,result: boolean,life: number) {
+    updateOpponent(player_id: string, round_idx : number, question_number: number,result: boolean,life: number) {
         const progress: OpponentProgressDTO = {
             player_id: player_id,
             opponent_life: life,
+            round: round_idx,
             question: question_number
         }
 

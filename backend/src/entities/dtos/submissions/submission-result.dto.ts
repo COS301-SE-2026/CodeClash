@@ -23,7 +23,8 @@ export type SubmissionResult = ProgSubmissionResult | MathsSubmissionResult
 export interface OpponentProgressDTO {
     player_id: string,
     opponent_life: number,
-    question: number
+    round: number,
+    question: number,
 }
 
 export interface MarkingResultDTO {
