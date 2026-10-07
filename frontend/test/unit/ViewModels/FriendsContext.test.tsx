@@ -1,10 +1,15 @@
-import React, {useContext} from "react";
-import {renderHook, act, waitFor} from "@testing-library/react";
-import { it, expect, beforeEach, afterEach, vi} from "vitest";
+import React, { useContext } from "react";
+import { renderHook, act, waitFor } from "@testing-library/react";
+import { it, expect, beforeEach, afterEach, vi } from "vitest";
 
-import {FriendsProvider,FriendsContextFunc} from '../../../src/context/Friends/FriendsContext';
+import { FriendsProvider, FriendsContextFunc } from '../../../src/context/Friends/FriendsContext';
+import { UserProvider } from "src/context/User/UserContext";
+import { InventoryProvider } from "src/context/Shop/InventoryContext";
+import { SocketProvider } from "src/context/Socket/SocketContext";
+import { AchievementToastProvider } from "src/context/Achievement/AchievementToastContext";
 
-const {mockUseAuth, mockUseSocket} = vi.hoisted(() => ({
+
+const { mockUseAuth, mockUseSocket } = vi.hoisted(() => ({
     mockUseAuth: vi.fn(),
     mockUseSocket: vi.fn()
 }))
@@ -23,8 +28,9 @@ vi.mock("src/Models/FriendsModel", () => ({
     }
 }))
 
+
 type routeHandler = (
-    url: string, 
+    url: string,
     init?: RequestInit
 ) => {
     ok: boolean;
@@ -35,25 +41,25 @@ let handlers: routeHandler[] = [];
 
 function jsonRes(ok: boolean, body: any) {
     return {
-        ok, json:async() => body
+        ok, json: async () => body
     }
 }
 
 function defaultHandlers(): routeHandler[] {
     return [
         (url) => (url === "/api/friends" ? jsonRes(true, []) : null),
-        (url) => (url.startsWith ("/api/friends/requests") ? jsonRes(true, []) : null),
-        (url) => (url === "/api/user/avatar_id" ? jsonRes(true, {avatar_id: 3}) : null),
-        (url) => (url === "/api/user/league" ? jsonRes(true, {league: "Venus"}) : null),
-        (url) => (url.startsWith ("/api/user/search") ? jsonRes(true, []) : null),
-        (url) => (url === "/api/friends/invite" ? jsonRes(true, {invite_code: "Venus", expires_at: Date.now()}) : null),
+        (url) => (url.startsWith("/api/friends/requests") ? jsonRes(true, []) : null),
+        (url) => (url === "/api/user/avatar_id" ? jsonRes(true, { avatar_id: 3 }) : null),
+        (url) => (url === "/api/user/league" ? jsonRes(true, { league: "Venus" }) : null),
+        (url) => (url.startsWith("/api/user/search") ? jsonRes(true, []) : null),
+        (url) => (url === "/api/friends/invite" ? jsonRes(true, { invite_code: "Venus", expires_at: Date.now() }) : null),
         (url) => (url === "/api/friends/request" ? jsonRes(true, {}) : null),
         (url) => (/^\/api\/friends\/request\/.+/.test(url) ? jsonRes(true, {}) : null),
     ]
 }
 
 function setMockFetch() {
-    (globalThis as any).fetch = vi.fn(async(url:string, init?: RequestInit) => {
+    (globalThis as any).fetch = vi.fn(async (url: string, init?: RequestInit) => {
         for (const h of handlers) {
             const res = h(url, init);
             if (res) {
@@ -66,44 +72,54 @@ function setMockFetch() {
 
 function renderFriends() {
     return renderHook(() => useContext(FriendsContextFunc), {
-        wrapper: ({children}: {children: React.ReactNode}) => (
-            <FriendsProvider>{children}</FriendsProvider>
+        wrapper: ({ children }: { children: React.ReactNode }) => (
+            <SocketProvider>
+                <InventoryProvider>
+                    <UserProvider>
+                        <AchievementToastProvider>
+                            <FriendsProvider>{children}</FriendsProvider>
+                        </AchievementToastProvider>
+                    </UserProvider>
+                </InventoryProvider>
+            </SocketProvider>
+
+
         )
     })
 }
 
 const base = {
-    userId: 'u1', 
+    userId: 'u1',
     username: 'TestUser'
 }
 
 beforeEach(() => {
     handlers = defaultHandlers();
     setMockFetch();
-    mockUseAuth.mockReturnValue({token: 'tokenTest', user: base});
-    mockUseSocket.mockReturnValue({socket: {emit: vi.fn()}});
-    vi.spyOn(console, 'error').mockImplementation(() => {});
+    mockUseAuth.mockReturnValue({ token: 'tokenTest', user: base });
+    mockUseSocket.mockReturnValue({ socket: { emit: vi.fn() } });
+    vi.spyOn(console, 'error').mockImplementation(() => { });
 })
 
 afterEach(() => {
     vi.useRealTimers();
-    vi.restoreAllMocks(); 
+    vi.restoreAllMocks();
 })
 
 it('loads and maps friends, requests and header profile', async () => {
-    handlers.unshift((url) => 
+    handlers.unshift((url) =>
         url === "/api/friends" ? jsonRes(true, [{
             user_id: 'id1', username: 'usersname1',
             avatar_id: 2, elo: 888
         }]) : null
     )
-    handlers.unshift((url) => 
+    handlers.unshift((url) =>
         url.startsWith("/api/friends/requests") ? jsonRes(true, [{
-            friendship_id: 'id2', username: 'friends2', 
+            friendship_id: 'id2', username: 'friends2',
             avatar_id: 5, created_at: '2024-05-05', user_id: 'user2'
-        }]): null
+        }]) : null
     )
-    const {result} = renderFriends();
+    const { result } = renderFriends();
     await waitFor(() => expect(result.current?.isLoading).toBe(false));
 
     expect(result.current?.friend).toEqual([{
@@ -119,24 +135,24 @@ it('loads and maps friends, requests and header profile', async () => {
 
 it('accepts a request into friends and removes it from requests list', async () => {
     let accepted = false;
-    handlers.unshift((url, init) => 
-        url === "/api/friends/request/f1" && init?.method === 'PATCH' ? (accepted = true, jsonRes(true, {})) :null
+    handlers.unshift((url, init) =>
+        url === "/api/friends/request/f1" && init?.method === 'PATCH' ? (accepted = true, jsonRes(true, {})) : null
     )
 
-    handlers.unshift((url) => 
-        url ==="/api/friends" ? jsonRes(true, accepted? [{
+    handlers.unshift((url) =>
+        url === "/api/friends" ? jsonRes(true, accepted ? [{
             user_id: 'friendUserId', username: 'friendUsername', avatar_id: 7, elo: 600
-        }]: []) : null
+        }] : []) : null
     )
 
-    handlers.unshift((url) => 
-        url.startsWith("/api/friends/requests") ? jsonRes(true, accepted? [] : [{
+    handlers.unshift((url) =>
+        url.startsWith("/api/friends/requests") ? jsonRes(true, accepted ? [] : [{
             friendship_id: 'f1', username: 'friendUsername', avatar_id: 7, created_at: '2022-02-02', user_id: 'friendUserId'
         }]) : null
     )
-    const {result} = renderFriends();
-    await waitFor(() =>expect(result.current?.isLoading).toBe(false));
-    await act(async() => await result.current?.acceptRequest('f1'));
+    const { result } = renderFriends();
+    await waitFor(() => expect(result.current?.isLoading).toBe(false));
+    await act(async () => await result.current?.acceptRequest('f1'));
 
     expect(fetch).toHaveBeenCalledWith("/api/friends/request/f1", expect.objectContaining({
         method: 'PATCH', body: JSON.stringify({
@@ -145,24 +161,24 @@ it('accepts a request into friends and removes it from requests list', async () 
     }));
     expect(result.current?.requests).toEqual([]);
     expect(result.current?.friend).toContainEqual({
-        id: 'friendUserId', username: 'friendUsername', avatar: 7, status: 'offline',elo: 600
+        id: 'friendUserId', username: 'friendUsername', avatar: 7, status: 'offline', elo: 600
     })
 })
 
 it('declines a request and removes it from requests list', async () => {
     let declined = false;
-    handlers.unshift((url, init) => 
-        url === "/api/friends/request/f2" && init?.method === 'PATCH' ? (declined = true, jsonRes(true, {})) :null
+    handlers.unshift((url, init) =>
+        url === "/api/friends/request/f2" && init?.method === 'PATCH' ? (declined = true, jsonRes(true, {})) : null
     )
 
-    handlers.unshift((url) => 
-        url.startsWith("/api/friends/requests") ? jsonRes(true, declined? [] : [{
+    handlers.unshift((url) =>
+        url.startsWith("/api/friends/requests") ? jsonRes(true, declined ? [] : [{
             friendship_id: 'f2', username: 'friendUsername2', avatar_id: 7, created_at: '2022-05-05', user_id: 'friendUserId2'
         }]) : null
     )
-    const {result} = renderFriends();
-    await waitFor(() =>expect(result.current?.isLoading).toBe(false));
-    await act(async() => await result.current?.declineRequest('f2'));
+    const { result } = renderFriends();
+    await waitFor(() => expect(result.current?.isLoading).toBe(false));
+    await act(async () => await result.current?.declineRequest('f2'));
 
     expect(fetch).toHaveBeenCalledWith("/api/friends/request/f2", expect.objectContaining({
         method: 'PATCH', body: JSON.stringify({
@@ -172,17 +188,17 @@ it('declines a request and removes it from requests list', async () => {
     expect(result.current?.requests).toEqual([]);
 })
 
-it ('removes a friend from the friends list', async () => {
+it('removes a friend from the friends list', async () => {
     let removed = false;
-    handlers.unshift((url) => 
-        url === "/api/friends"? jsonRes(true, removed ? [] : [{
+    handlers.unshift((url) =>
+        url === "/api/friends" ? jsonRes(true, removed ? [] : [{
             user_id: 'id3', username: 'removeFriend', avatar_id: '4, elo: 700'
         }]) : null
     )
 
-    const {result} = renderFriends();
+    const { result } = renderFriends();
     await waitFor(() => expect(result.current?.isLoading).toBe(false));
-    await act(async() => {
+    await act(async () => {
         removed = true;
         await result.current?.removeFriend('id3');
     })
@@ -191,7 +207,7 @@ it ('removes a friend from the friends list', async () => {
 
 it('sets an error when the network request throws', async () => {
     (globalThis as any).fetch = vi.fn(() => Promise.reject(new Error('down')));
-    const {result} = renderFriends();
+    const { result } = renderFriends();
     await waitFor(() => expect(result.current?.isLoading).toBe(false));
-    expect (result.current?.error).toBe('Failed to load friends. Please try again.');
+    expect(result.current?.error).toBe('Failed to load friends. Please try again.');
 })
