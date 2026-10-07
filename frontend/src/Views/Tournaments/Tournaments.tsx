@@ -5,6 +5,7 @@ import { useTournament } from "src/ViewModels/Tournaments/TournamentViewModel"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { HostTournament } from "./HostTournament"
+import Starfield from "@/components/ui/animations/Starfield"
 
 const Tournaments = () => {
     const { tournaments, createTournament, joinTournamnet,leaveTournament } = useTournament();
@@ -20,26 +21,28 @@ const Tournaments = () => {
     )
 
     return (
-        <div className="w-full max-w-4xl min-h-screen overflow-hidden relative mx-auto px-4 py-4">
-            <div className="w-full flex flex-col gap-8">
-                <div className="flex flex-row items-start justify-between w-full gap-3">
+        <div className="relative w-full min-h-screen overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/75 to-background" />
+            <Starfield />
+            
+            <div className="relative z-10 w-full mx-auto px-6 py-6 flex flex-col gap-8">
+                <div className="flex flex-row items-center justify-between w-full gap-3">
                     <div className="flex flex-col w-full">
                         <h1 className="font-black text-primary-text text-xl leading-tight">Tournaments</h1>
                         <h2 className=" text-muted-text text-sm ">Join Live Battles or Clash With Friends</h2>
                     </div>
                     <Button
                         onClick={() => setHostTournament(true)}
-                        className="btn btn-primary w-[26%] h-full"
+                        className="btn btn-primary shrink-0"
                         variant={"default"}
+                        type="button"
                     >
-                        <div className="flex flex-row w-full my-auto">
-                            <PlusIcon size={30} className="ml-2 my-auto " />
-                            <h2 className="font-font text-secondary font-semibold text-sm my-auto ml-1">Host Tournament</h2>
-                        </div>
+                        <PlusIcon size={30} />
+                        Host Tournament
                     </Button>
                 </div>
 
-                <div className="overflow-y-auto w-full flex flex-col gap-9 items-center">
+                <div className="w-full flex flex-col gap-9 items-center">
                     {tournaments.length > 0 && tournaments.map((tournament) => {
                         return (
                             <TournamentCard
@@ -59,8 +62,9 @@ const Tournaments = () => {
 
                     {tournaments.length <= 0 &&
                         (
-                            <div className="text-center text-danger text-sm">
-                                <p>Nothing to show yet. Host your own tournament.</p>
+                            <div className="card-elevated p-8 text-center">
+                                <p className="text-sm font-bold text-primary-text mb-1">Nothing to show yet</p>
+                                <p className="text-xsm text-muted-text">Host your own tournament to get started.</p>
                             </div>
                         )
                     }

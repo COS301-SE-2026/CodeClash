@@ -61,91 +61,82 @@ export const TournamentCard = ({
 
 
     return (
-        <MatchCard className={`flex flex-row justify-between w-[95%] relative  ${className} overflow-x-auto`}>
-            <div>
+        <MatchCard className={`w-full p-5! gap-5! md:flex-row md:items-center ${className ?? ''}`}>
+            <div className="flex items-center gap-4 md:w-[35%] min-w-0">
+                <div className="w-14 h-14 rounded-full border-2 border-primary flex items-center justify-center shrink-0">
+                    <Icon size={35} className="text-primary" />
+                </div>
 
-                <div className="flex flex-col max-w-full h-full">
-                    <div className="flex flex-col">
-                        <Icon size={50} className="ml-5 my-auto" />
-                    </div>
-                    <div className="font-font font-semibold text-[1.5rem]">
-                        {title}
-                    </div>
+                <div className="min-w-0">
+                    <p className="text-sm font-bold text-secondary truncate">{title}</p>
+                    <p className="text-xsm text-secondary/60 captilize">{match_mode}</p>
                 </div>
             </div>
 
-            <div>
-                <div className="flex flex-col ml-auto mr-5">
-                    <div className="flex flex-row mt-1.5 w-[140%]">
-                        <div className=" text-xs text-muted-text uppercase flex flex-col ">
-                            <p>Capacity: {player_count} Players</p>
-                            <p>Minimum: {min_players} Players</p>
-                        </div>
-                    </div>
-                    <Progress value={progress} className="mt-2 w-[130%] h-[0.5rem]" />
+            <div className="flex-1 min-w-0 flex flex-col gap-2">
+                <div className="flex justify-between text-xsm text-secondary/60 uppercase">
+                    <span>Capacity: {player_count} Players</span>
+                    <span>Minimum: {min_players} Players</span>
                 </div>
-
-
+                <Progress value={progress} className="w-full h-2" />
             </div>
 
-            {is_host && (
-
-                <Button
-                    onClick={async () => { await nav(`/tournaments/waiting/${id}`) }}
-                    className="w-[12rem] h-[2.25rem] my-auto rounded-[11px]"
-                    variant={"default"}
-                >
-                    <div className="flex flex-row w-full h-full gap-5 text-[1rem] justify-between items-center">
-                        View Lobby
-                        <ArrowRight size={25} className="flex justify-self-end my-auto -ml-9 mr-2" />
-                    </div>
-                </Button>
-
-            )}
-
-            {joined && !is_host && (
-                <div className='flex flex-col'>
-                    <Button
-                        onClick={handleLeave}
-                        className="w-[12rem] h-[2.25rem] my-auto rounded-[11px]"
-                        variant={"default"}
-                    >
-                        <div className="flex flex-row w-full h-full gap-5 text-[1rem] justify-between items-center">
-                            Leave
-                            <X size={25} className="flex justify-self-end my-auto -ml-9 mr-2" />
-
-                        </div>
-                    </Button>
-
+            <div className="flex flex-row md:flex-col gap-2 md:w-48 shrink-0">
+                {is_host && (
                     <Button
                         onClick={async () => { await nav(`/tournaments/waiting/${id}`) }}
                         className="w-[12rem] h-[2.25rem] my-auto rounded-[11px]"
                         variant={"default"}
                     >
                         <div className="flex flex-row w-full h-full gap-5 text-[1rem] justify-between items-center">
-                            View Lobby
+                                View Lobby
+                                <ArrowRight size={25} className="flex justify-self-end my-auto -ml-9 mr-2" />
+                            </div>
+                    </Button>
+                )}
+
+                {joined && !is_host && (
+                    <div className='flex flex-col'>
+                        <Button
+                            onClick={handleLeave}
+                            className="w-[12rem] h-[2.25rem] my-auto rounded-[11px]"
+                            variant={"default"}
+                        >
+                            <div className="flex flex-row w-full h-full gap-5 text-[1rem] justify-between items-center">
+                                Leave
+                                <X size={25} className="flex justify-self-end my-auto -ml-9 mr-2" />
+
+                            </div>
+                        </Button>
+
+                        <Button
+                            onClick={async () => { await nav(`/tournaments/waiting/${id}`) }}
+                            className="w-[12rem] h-[2.25rem] my-auto rounded-[11px]"
+                            variant={"default"}
+                        >
+                            <div className="flex flex-row w-full h-full gap-5 text-[1rem] justify-between items-center">
+                                View Lobby
+                                <ArrowRight size={25} className="flex justify-self-end my-auto -ml-9 mr-2" />
+                            </div>
+                        </Button>
+                    </div>
+
+                )}
+
+                {!joined && (
+                    <Button
+                        onClick={handleJoin}
+                        className="w-[12rem] h-[2.25rem] my-auto rounded-[11px]"
+                        variant={"default"}
+                    >
+                        <div className="flex flex-row w-full h-full gap-5 text-[1rem] justify-between items-center">
+                            Join Tournament
                             <ArrowRight size={25} className="flex justify-self-end my-auto -ml-9 mr-2" />
                         </div>
                     </Button>
-                </div>
-
-            )}
-
-            {!joined && (
-                <Button
-                    onClick={handleJoin}
-                    className="w-[12rem] h-[2.25rem] my-auto rounded-[11px]"
-                    variant={"default"}
-                >
-                    <div className="flex flex-row w-full h-full gap-5 text-[1rem] justify-between items-center">
-                        Join Tournament
-                        <ArrowRight size={25} className="flex justify-self-end my-auto -ml-9 mr-2" />
-                    </div>
-                </Button>
-            )
-
-            }
-
+                )}
+            </div>
+            
             {children}
         </MatchCard>
     )
