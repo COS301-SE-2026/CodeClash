@@ -53,7 +53,7 @@ export const useMatch = (timeUp?: () => Promise<void>) => {
             await timeUp();
         }
         else
-            await finishMatch();
+            await finishMatch(!tournament_id);
     })
 
   useEffect(() => {
