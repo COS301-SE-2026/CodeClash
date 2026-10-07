@@ -1,0 +1,18 @@
+frontend/@/components/features/Match/Match.tsx
+  h_b13c5d77534129 23
+frontend/src/ViewModels/Match/MatchViewModel.ts
+  h_b13c5d77534129 107
+frontend/src/services/match.service.tsx
+  h_b13c5d77534129 138-139,142-146
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1bb3c17f51dbca30e34fc9cdf0548a422705aee3",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
