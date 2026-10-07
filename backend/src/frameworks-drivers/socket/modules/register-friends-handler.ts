@@ -1,12 +1,6 @@
 import { Socket , Server} from "socket.io";
 import { FriendDeps } from "../dependencies";
 import { registerHandler } from "../dispatch";
-import { FriendInviteDTO } from "src/entities/dtos/friends/friendship.dto";
-import { received_invite } from "src/interface-adapters/socket-handlers/friends-handlers";
-import { sendFriendRequest } from "src/interface-adapters/controllers/friend.controllers";
-import { Player } from "src/entities/ecs-entities";
-import { deepStrictEqual } from "node:assert";
-import { isPartOfTypeOnlyImportOrExportDeclaration } from "typescript";
 
 interface sendFriendRequestPayload { receiver_id: string; from_username: string }
 interface RespondFriendRequestPayload { requester_id: string; status: 'accepted' | 'declined' }
@@ -34,7 +28,7 @@ export function registerFriendHandlers(io: Server, socket: Socket, _deps: Friend
         'friend_request_sent', async (s, payload: sendFriendRequestPayload) => {
             io.to(`user:${payload.receiver_id}`).emit('friend_request_received', {
                 from_user_id: s.data.user_id,
-                from_username: payload.from_username,
+                from_username: s.data.username,
             });
         });
 
@@ -42,7 +36,7 @@ export function registerFriendHandlers(io: Server, socket: Socket, _deps: Friend
         'friend_request_respond', async (s, payload: RespondFriendRequestPayload) => {
             io.to(`user:${payload.requester_id}`).emit('friend_request_responded', {
                 from_user_id: s.data.user_id,
-                from_userame: s.data.username,
+                from_username: s.data.username,
                 status: payload.status,
             });
         });

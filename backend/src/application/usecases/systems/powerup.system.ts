@@ -3,6 +3,8 @@ import { World } from '../../../entities/World';
 import { LifeSystem } from './life.system';
 import { SubmissionSystem } from './submission.system';
 import { PowerupStateComponent, PlayerPowerupState } from 'src/entities/components';
+import { HttpError } from 'src/entities/errors/http-error';
+import { match } from 'node:assert';
 
 const POSITIVE_EFFECTS = new Set([
     'reduce_time', 'reveal_hint', 'score_multiplier', 'restore_life', 'block_next_powerdown'
@@ -46,6 +48,12 @@ export class PowerupSystem {
     isPowerdown(effect: string): boolean {
         return !POSITIVE_EFFECTS.has(effect);
     }
+    
+    validate(match_id: number, effect: string, target_id?: string): void {
+        if (effect === 'wipe_answer' && target_id && this.getPlayerState(match_id, target_id).wipe_used) {
+            throw new HttpError(409, 'Wipe already used this match');
+        }
+    }
 
     /**
      * actor_id = player who used the item
@@ -59,9 +67,9 @@ export class PowerupSystem {
         target_id?: string
     ): ApplyPowerupResult {
         if(this.isPowerdown(effect)) {
-            if(!target_id) throw new Error('This effect requires a target_user_id');
+            const target_state = this.getPlayerState(match_id, target_id!);
+            if(target_state.wipe_used) throw new HttpError(409, 'Wipe already used');
 
-            const target_state = this.getPlayerState(match_id, target_id);
             if (target_state.shield_active) {
                 target_state.shield_active = false;
                 return { blocked: true, effect };
@@ -99,7 +107,7 @@ export class PowerupSystem {
 
             case 'wipe_answer': {
                 const target_state = this.getPlayerState(match_id,target_id!);
-                if (target_state.wipe_used) throw new Error('Wipe already used this match');
+                if (target_state.wipe_used) throw new HttpError(409,'Wipe already used this match');
                 target_state.wipe_used = true;
                 // client side clearing of input
                 break;
@@ -117,7 +125,7 @@ export class PowerupSystem {
 
 
             default:
-                throw new Error(`Uknown powerup effect: ${effect}`);
+                throw new Error(`Unknown powerup effect: ${effect}`);
         }
         return { blocked: false, effect };
     }

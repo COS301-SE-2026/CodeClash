@@ -3,6 +3,7 @@ import { PurchaseResultDTO } from "src/entities/dtos/shop/purchase-result.dto";
 import { STARTING_STARDUST, Wallet } from "src/entities/database/wallet.entities";
 import { UserItem } from "src/entities/database/user-item.entities";
 import { DataSource } from "typeorm";
+import { HttpError } from "src/entities/errors/http-error";
 
 export class PurchaseService {
     constructor (
@@ -12,7 +13,7 @@ export class PurchaseService {
 
      async purchaseItem(user_id: string, shop_item_id: string): Promise< PurchaseResultDTO> {
         const item = await this. shop_item_repo.getItemById(shop_item_id);
-        if (!item) throw new Error('Item not found');
+        if (!item) throw new HttpError(404, "Item not found");
 
         return this.dataSource.transaction(async (manager) => {
             const walletRepo = manager.getRepository(Wallet);
@@ -23,14 +24,14 @@ export class PurchaseService {
             });
 
             if (existing && item.category !== 'powerup'){
-                throw new Error('Item already owned');
+                throw new HttpError(409,'Item already owned');
             }
 
             let wallet = await walletRepo.findOne({ where: { user: { user_id } } });
             if(!wallet) {
                 wallet = await walletRepo.save(walletRepo.create({ user: { user_id } as any, balance: STARTING_STARDUST }));
             }
-            if (wallet.balance < item.price) throw new Error('Insufficient balance');
+            if (wallet.balance < item.price) throw new HttpError(400, 'Insufficient balance');
 
             await walletRepo.update({ wallet_id: wallet.wallet_id }, { balance: wallet.balance - item.price });
 

@@ -2,6 +2,7 @@ import { IEquippedRepository } from "src/application/interfaces/repositories/IEq
 import { IInventoryRepository } from "src/application/interfaces/repositories/IInventoryRepository";
 import { IShopItemRepository } from "src/application/interfaces/repositories/IShopItemRepository";
 import { EquippedItemsDTO, UpdatedEquippedDTO } from "src/entities/dtos/shop/equipped-items.dto";
+import { HttpError } from "src/entities/errors/http-error";
 
 export class EquipmentService {
     constructor(
@@ -36,7 +37,7 @@ export class EquipmentService {
         for (const [, item_id] of Object.entries(updates)) {
             if(!item_id) continue;
             const owned = await this.inventory_repo.hasItem(user_id, item_id);
-            if (!owned) throw new Error('Item not owned');
+            if (!owned) throw new HttpError(403, 'Item not owned');
         }
         return this.equipped_repo.updateEquipped(user_id, updates);
     }

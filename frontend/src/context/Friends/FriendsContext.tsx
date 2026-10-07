@@ -184,7 +184,7 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
 
                 setAllUsers(data.map((u: any): Search => {
                     let relationship: Relation = 'none';
-                    if (u.user_id === profile?.id) relationship = 'self';
+                    if (u.username === user?.username) relationship = 'self';
                     else if (friendIds.has(u.user_id)) relationship = 'friend';
                     else if (sentRequest.has(u.user_id)) relationship = 'pending-sent';
                     else if (incomingReqs.has(u.user_id)) relationship = 'pending-received';
@@ -200,8 +200,9 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
             }
         }, 300); // debounce
         return () => clearTimeout(timeout);
-    }, [searchQuery, token, friend, requests, sentRequest, profile]);
+    }, [searchQuery, token, friend, requests, sentRequest, profile, user]);
 
+    /*Requests - needs accept and decline endpoint */
     const sendFriendRequest = useCallback(async (id: string) => {
         if(!token) return;
         try{
@@ -214,10 +215,12 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
             if (!res.ok) {
                 const err = await res.json();
                 if (err.message?.includes('24 hours')) {
-                    setError('You need to wait 24 hours before sending another request to this person.');
-                    setTimeout(() => setError(null), 4000);
-                    return;
+                    setError('You need to wait 24 hours before sending another request to this person.'); 
+                } else {
+                    setError(err.message ?? 'Could not send friend request');
                 }
+                setTimeout(() => setError(null), 4000);
+                return;
             }
 
             setSentRequest((prev) => new Set(prev).add(id));
@@ -228,7 +231,6 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
         }
     }, [token, fetchAll, friendsSocket, user]);
 
-    /*Requests - needs accept and decline endpoint */
     const acceptRequest = useCallback( async (id: string) => {
         if(!token) return;
         const req = requests.find((r) => r.id === id);
