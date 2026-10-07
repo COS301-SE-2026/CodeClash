@@ -32,6 +32,7 @@ export const help: Help[] = [
         title: 'Tutorials',
         desc: 'Step-by-step walkthroughs to help you master CodeClash.',
         icon: 'graduation',
+        link: "/tutorials"
     },
     {
         title: 'About CodeClash',
