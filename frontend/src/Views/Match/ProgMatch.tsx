@@ -41,7 +41,7 @@ export const ProgMatch = () => {
     const roundConf: ConfirmationViewModel = {
         content: {
             title: "Complete Round?",
-            message: "You won't be able to go back once you've completed a round.",
+            message: "You won't be able to go back.",
             cancelLabel: "Cancel",
             confirmLabel: "Confirm"
         },
