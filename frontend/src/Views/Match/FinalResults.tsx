@@ -2,8 +2,8 @@ import { TrendingUp, TrendingDown, Minus, Clock, UserCircle, ArrowRight} from "l
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FinalResultsViewModelFunction } from "src/ViewModels/Match/FinalResultsViewModel";
-import { ArmRaise } from "src/animations/armRaise";
-import { Lose } from "src/animations/lose"
+// import { ArmRaise } from "src/animations/armRaise";
+// import { Lose } from "src/animations/lose"
 import Loading from "@/components/shared/Loading";
 import Confetti from "@/components/ui/animations/Confetti";
 import Starfield from "@/components/ui/animations/Starfield";

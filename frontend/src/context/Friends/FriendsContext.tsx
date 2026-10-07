@@ -74,7 +74,7 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
     const equipped = equippedCropEnd ?? "";
 
     //copied and pasted from shop.service.ts, not ai generated!
-    const EQUIPPED_FOR_URL = (user_id: string) => `/api/shop/equipped/${user_id}`
+    // const EQUIPPED_FOR_URL = (user_id: string) => `/api/shop/equipped/${user_id}`
 
     const friendsRef = useRef(friend); //this is so closures dont capture a stale list
     friendsRef.current = friend;
@@ -319,7 +319,7 @@ export const FriendsProvider: React.FC<{children: React.ReactNode}> = ({children
             console.error('Error accepting friend request:', err);
         }
         await fetchAll();
-    }, [token, requests, friendsSocket, tokenInv])
+    }, [token, requests])
 
     const declineRequest = useCallback( async (id: string) => {
         if (!token) return;

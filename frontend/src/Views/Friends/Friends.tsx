@@ -8,7 +8,7 @@ import { useFriends } from "../../context/Friends/useFriends";
 import { friendContent } from "../../Models/FriendsModel";
 import type { FriendStatus, Relation } from "../../Models/FriendsModel";
 import PlayerAvatar from "src/avatar/PlayerAvatar";
-import { useAuth } from "src/context/Auth/hooks/useAuth";
+// import { useAuth } from "src/context/Auth/hooks/useAuth";
 
 
 const status: Record<FriendStatus, string> = {
@@ -62,7 +62,7 @@ const Friends: React.FC = () => {
     } = useFriends();
 
 
-    const { token } = useAuth();
+    // const { token } = useAuth();
 
     
     const [isDropDownOpen, setIsDropDownOpen] = useState(false);
@@ -134,7 +134,7 @@ const Friends: React.FC = () => {
                     <div className="flex-1 min-w-0">
                         <p className="text-primary-text font-black text-md truncate">{profile.username}</p>
                         <p className="text-muted text-sm truncate">@{profile.handle}</p>
-                        <p>{profile.avatar}</p>
+                        <p>{profile.league}</p>
                     </div>
                 </div>
 

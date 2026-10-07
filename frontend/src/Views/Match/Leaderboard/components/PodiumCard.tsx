@@ -17,7 +17,7 @@ type PodiumCardProps = {
 
 const PodiumCard = ({ rank, user, avatar }: PodiumCardProps) => {
     const { size, icon, order } = RANK_STYLE[rank];
-    const initial = user.username?.[0]?.toUpperCase() ?? '-';
+    // const initial = user.username?.[0]?.toUpperCase() ?? '-';
 
     return (
         <div className={`card-elevated flex flex-col items-center gap-2 px-4 ${size} ${order} ${rank === 1 ? 'card-glow' : ''}`}>

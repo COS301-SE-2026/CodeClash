@@ -16,7 +16,7 @@ export interface PlayInvitePayload {
         name: string;
         elo: number;
         friendId?: string;
-        avatar?: number;
+        avatar?: string | undefined;
         status?: 'online' | 'offline' | 'playing';
     }[];
     expires: number;

@@ -7,7 +7,7 @@ import LeaderboardTable from './components/LeaderboardTable';
 import Pagination from '@/components/shared/Pagination';
 import Loading from '@/components/shared/Loading';
 import Starfield from '@/components/ui/animations/Starfield';
-import PlayerAvatar from 'src/avatar/PlayerAvatar';
+// import PlayerAvatar from 'src/avatar/PlayerAvatar';
 
 
 const PLACEHOLDER = { username: '-', elo: 0, avatarUrl: ''};

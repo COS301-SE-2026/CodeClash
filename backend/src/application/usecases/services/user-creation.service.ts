@@ -4,7 +4,6 @@ import { IEquippedRepository } from "src/application/interfaces/repositories/IEq
 import { IShopItemRepository } from "src/application/interfaces/repositories/IShopItemRepository";
 import { IWalletRepository } from "src/application/interfaces/repositories/IWalletRepository";
 import { IInventoryRepository } from "src/application/interfaces/repositories/IInventoryRepository";
-import { IInventoryRepository } from "src/application/interfaces/repositories/IInventoryRepository";
 
 
 export class CreateUser {

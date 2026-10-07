@@ -2,7 +2,7 @@ import { MathfieldElement } from 'mathlive';
 import { useEffect, useState, useRef, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
-import { robot_map } from 'src/assets/Robots';
+// import { robot_map } from 'src/assets/Robots';
 import { useLoadRounds, useMatchProgress, useMatchTimer, useOpponentProgress } from 'src/services/match.service';
 
 import { useMatchStore } from 'src/stores/match-store';
@@ -33,7 +33,7 @@ export const useMatch = () => {
     const [waitingOpponent, setWaitingOpponent] = useState(false);
     const [roundIdx, setRoundIdx] = useState(0);
     const [confirmRound, setConfirmRound] = useState(false);
-    const [powerupPopupOpen, setPowerupPopupOpen] = useState(false);
+    // const [powerupPopupOpen, setPowerupPopupOpen] = useState(false);
     const [playerOneAvatar, setPlayerOneAvatar] = useState<string | null>(null);
     const [playerTwoAvatar, setPlayerTwoAvatar] = useState<string | null>(null);
 
@@ -118,7 +118,7 @@ export const useMatch = () => {
     const complete_round = last_q_of_round && !last_round;
     const final_question = last_q_of_round && last_round;
 
-    const avatars = useMemo(() => players.map(p => robot_map[p.avatar_id]), [players]);
+    // const avatars = useMemo(() => players.map(p => robot_map[p.avatar_id]), [players]);
     const usernames = useMemo(() => players.map(p => p.username), [players]);
     const elos = useMemo(() => players.map(p => p.elo), [players]);
     const colourClass = useAnswerResponse(lastResult, currentQuestion);
@@ -242,13 +242,13 @@ export const useMatch = () => {
             const unsub_opponent_done = matchSocket.opponentDone(handleOpponentDone);
 
 
-            const unsub_powerup_received = matchSocket.powerupReceived((data) => {
-                //tangible effects like actually gaining health points or your elo going up idk
-            });
+            // const unsub_powerup_received = matchSocket.powerupReceived((data) => {
+            //     //tangible effects like actually gaining health points or your elo going up idk
+            // });
 
-            const unsub_powerup_blocked = matchSocket.powerupBlocked((data) => {
-                //show blocked by shield feedback
-            });
+            // const unsub_powerup_blocked = matchSocket.powerupBlocked((data) => {
+            //     //show blocked by shield feedback
+            // });
 
             const unsub_clear_input = matchSocket.clearInput(() => {
                 if(mathfieldRef.current) mathfieldRef.current.value = '';
@@ -268,8 +268,8 @@ export const useMatch = () => {
                 unsub_done();
                 unsub_opponent_progress();
                 unsub_opponent_done();
-                unsub_powerup_received();
-                unsub_powerup_blocked();
+                // unsub_powerup_received();
+                // unsub_powerup_blocked();
                 unsub_clear_input();
                 unsub_corrupt_input();
             }

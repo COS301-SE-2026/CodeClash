@@ -78,7 +78,6 @@
                 return undefined;
             }
             const avatar = catalog.find((i): i is AvatarShopItem => i.category === 'avatar' && i.id === inventory.equippedAvatarId);
-
             return avatar?.asset_key;
         }, [catalog, inventory])
 

@@ -82,7 +82,7 @@ function mapItem(raw: RawShopItem): ShopItem {
             ...base,
             category: 'avatar',
             isDefault: raw.metadata.is_default,
-            previewImageUrl: resolve(raw.metadata.asset_key),
+            previewImageUrl: raw.metadata.asset_key,
         };
         return avatar;
     }
