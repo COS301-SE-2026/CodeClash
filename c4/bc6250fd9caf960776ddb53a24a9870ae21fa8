@@ -1,0 +1,14 @@
+frontend/src/context/Socket/SocketContext.tsx
+  h_58e143dc25f856 33,39-43
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c4bc6250fd9caf960776ddb53a24a9870ae21fa8",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
