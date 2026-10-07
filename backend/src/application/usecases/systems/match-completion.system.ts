@@ -22,7 +22,7 @@ export class MatchCompletionSystem {
     }
 
 
-    execute(match_id: number, player_ids: string[]) {
+    execute(match_id: number, player_ids: string[], times?: Map<string, number>) {
         const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(match_id, 'Submission');
         const match_component = this.getMatchComponent<MatchComponent>(match_id, 'Match');
 
@@ -51,7 +51,7 @@ export class MatchCompletionSystem {
             elimination_round: null,
             elo_change: 0,
             num_correct: stat.num_correct,
-            total_time: stat.total_time,
+            total_time: times?.get(user_id) ?? stat.total_time,
             league: leagueForElo(match.players.find(player => player.id === user_id)?.elo ?? 0),
             questions: this.question_results.build(match.rounds, this.playerSubmissions(submission_registry.submissions, user_id), match_start)
         }));
