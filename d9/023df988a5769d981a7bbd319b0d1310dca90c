@@ -1,0 +1,38 @@
+backend/tests/integration/socket-handlers/tournament-handler.test.ts
+  h_94c952a9e14c58 5,56,69-70
+frontend/src/Views/Match/FinalResults.tsx
+  h_94c952a9e14c58 41,193-196,222
+frontend/src/ViewModels/Tournaments/TournamentMatchViewModel.ts
+  h_94c952a9e14c58 88-93,130-131
+  h_94c952a9e14c58 94
+backend/src/application/usecases/services/tournament/elimination.service.ts
+  h_94c952a9e14c58 88,94
+backend/src/application/usecases/services/tournament/tournament.service.ts
+  h_94c952a9e14c58 110,115
+backend/tests/integration/socket-handlers/helper.ts
+  h_94c952a9e14c58 21,39-42,53-58,60-63,93,109
+  h_94c952a9e14c58 59,67,113,132
+backend/src/application/usecases/services/achievement.service.ts
+  h_94c952a9e14c58 84,87
+backend/tests/integration/socket-handlers/submit-question.test.ts
+  h_94c952a9e14c58 110,153
+backend/src/application/usecases/services/match/match-creation.service.ts
+  h_94c952a9e14c58 2,92-96,99
+backend/src/interface-adapters/repositories/match.repository.ts
+  h_94c952a9e14c58 4,13,26
+backend/src/application/interfaces/repositories/IMatchRepository.ts
+  h_94c952a9e14c58 1,6
+frontend/src/Views/Tournaments/TournamentMatchPage.tsx
+  h_94c952a9e14c58 161
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d9023df988a5769d981a7bbd319b0d1310dca90c",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
