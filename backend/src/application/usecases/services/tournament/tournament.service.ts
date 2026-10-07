@@ -105,12 +105,18 @@ export class TournamentService {
         };
     }
 
-    async endTournament(tournament_id: string, match_id: string) {
-        const standings = this.elimination_service.getStanding(tournament_id);
-        const tournament = await this.getTournament(tournament_id);
+  async endTournament(tournament_id: string, match_id: string) {
+      // based on new timing, once time ends, everyones time would run out at the same time, so it'll just grab the first match id and broadcast the results to the rest to avoid multiple calculations and function calls
+    const state = this.elimination_service.getTournament(tournament_id);
+    if (state.finished) throw new Error("Tournament already ended");
+    state.finished = true;
+    
+    const standings = this.elimination_service.getStanding(tournament_id);
+    const times = this.elimination_service.timeInTournament(tournament_id);
+    const tournament = await this.getTournament(tournament_id);
 
-        const ecs_id = this.match_store.getEcsId(match_id);
-        const result = await this.completion_service.execute(ecs_id!, match_id, standings.map(p => p.id), MatchType.tournament);
+    const ecs_id = this.match_store.getEcsId(match_id);
+    const result = await this.completion_service.execute(ecs_id!, match_id, standings.map(p => p.id), MatchType.tournament, times);
 
 
         if (tournament) {
