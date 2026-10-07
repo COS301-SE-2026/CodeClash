@@ -1,0 +1,14 @@
+backend/src/interface-adapters/controllers/shop.controllers.ts
+  h_b13c5d77534129 103
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ae6ad99621bf8e2a24f5e38c265ff1eccb235cbe",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
