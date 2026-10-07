@@ -1,0 +1,35 @@
+frontend/src/context/Friends/FriendsContext.tsx
+  h_b13c5d77534129 17,73-75,107-109,120,133-135,144,234-237,306-309,316
+frontend/src/Views/Match/FinalResults.tsx
+  h_b13c5d77534129 12,204
+frontend/src/Views/Friends/Friends.tsx
+  h_b13c5d77534129 9,15-19,181
+frontend/src/context/User/UserContext.tsx
+  h_b13c5d77534129 21-24
+frontend/src/ViewModels/Match/LeaderboardViewModel.ts
+  h_b13c5d77534129 61-63
+frontend/src/avatar/PlayerAvatar.tsx
+  h_b13c5d77534129 5
+  h_b13c5d77534129 16
+frontend/src/Views/Match/Leaderboard/Leaderboard.tsx
+  h_b13c5d77534129 11,41-43
+frontend/src/ViewModels/Matchmaking/MatchFoundViewModel.ts
+  h_b13c5d77534129 119-121,124,144-146,149
+frontend/@/components/features/Match/Match.tsx
+  h_b13c5d77534129 11,60,122
+frontend/src/ViewModels/Match/MatchViewModel.ts
+  h_b13c5d77534129 68-70,73,94-96,99
+frontend/src/Views/Matchmaking/MatchFound.tsx
+  h_b13c5d77534129 7,13-14,41,69
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3696448cf9955ad627bc17380046fcf228ea4137",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
