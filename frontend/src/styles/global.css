@@ -215,6 +215,20 @@
   }
 }
 
+@keyframes symbol-float {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10%, 90% {
+    opacity: var(--opacity);
+  }
+  100% {
+    transform: translate3d(var(--drift), -120vh, 0) rotate(var(--rot));
+    opacity: 0;
+  }
+}
+
 @theme inline {
   /* radius */
   --radius-sm: calc(var(--radius) - 4px);
@@ -532,16 +546,8 @@
     --button-text-primary: #FFFFFF;
     --button-text-secondary: #520a23;
     --button-tournament: #FF516A;
-    --button-tournament-secondary: #fff0f3;
-    --button-tournament-secondary-border: #e8c5cf;
-  /* Buttons */
-  --button-primary: #C0395A;
-  --button-secondary: transparent;
-  --button-text-primary: #FFFFFF;
-  --button-text-secondary: #520a23;
-  --button-tournament: #FF516A;
-  --button-tournament-secondary: #281e26;
-  --button-tournament-secondary-border: #5B4041;
+    --button-tournament-secondary: #281e26;
+    --button-tournament-secondary-border: #5B4041;
 
   /*Inputs*/
   --input: rgba(83, 10, 35, 0.05);
@@ -613,6 +619,7 @@
   /*Cards*/
   --card: var(--background-card);
   --card-text: var(--primary-text);
+  --tournament-card: var(--card-tournaments);
 
   /*Sidebar*/
   --sidebar: #020a14;
@@ -629,6 +636,9 @@
   --button-secondary: transparent;
   --button-text-primary: #FFFFFF;
   --button-text-secondary: #e7f4ff;
+  --button-tournament: #399aef;
+  --button-tournament-secondary: #1e2328;
+  --button-tournament-secondary-border: #404e5b;
 
   /*Inputs*/
   --input: rgba(231, 244, 255, 0.05);
@@ -660,6 +670,16 @@
   --glow-1: #4fa8f5;
   --glow-2: #14487a;
   --glow-3: #0a2540;
+
+    /* Match and Tournaments Page */
+    --card-tournaments: #080d12;
+    --progress-bar-symbol: #0f151b;
+    --match-card: #181e34;
+    --profile-tournaments: #0e1820;
+    --gradient-tournament: #8bc5f9;
+    --match-box: #040a10;
+    --multiple-choice-box: #0d1217;
+    --multiple-choice-letter: #20252a;
 }
 
 /*These are copied from :root.light and adjusted for more themes*/
@@ -690,6 +710,7 @@
   /*Cards*/
   --card: var(--background-card);
   --card-text: var(--primary-text);
+  --tournament-card: var(--card-tournaments);
 
   /*Sidebar*/
   --sidebar: #05070f;
@@ -706,6 +727,9 @@
   --button-secondary: transparent;
   --button-text-primary: #FFFFFF;
   --button-text-secondary: #f2ecd8;
+  --button-tournament: #ecb213;
+  --button-tournament-secondary: #28251e;
+  --button-tournament-secondary-border: #5b5440;
 
   /*Inputs*/
   --input: rgba(242, 236, 216, 0.05);
@@ -732,6 +756,21 @@
   --glow-shadow: 0 0 24px rgba(212, 175, 55, 0.45);
 
   --life-primary: #d4af37;
+
+      /*for the radial gradients*/
+    --glow-1: #e8c34a;
+    --glow-2: #6b5716;
+    --glow-3: #35290b;
+
+    /* Match and Tournaments Page */
+    --card-tournaments: #120f08;
+    --progress-bar-symbol: #1b180f;
+    --match-card: #242118;
+    --profile-tournaments: #201b0e;
+    --gradient-tournament: #f5d784;
+    --match-box: #100d04;
+    --multiple-choice-box: #17140d;
+    --multiple-choice-letter: #2a2720;
 }
 
 /*These are copied from :root.light and adjusted for more themes*/
@@ -762,6 +801,7 @@
   /*Cards*/
   --card: var(--background-card);
   --card-text: var(--primary-text);
+  --tournament-card: var(--card-tournaments);
 
   /*Sidebar*/
   --sidebar: #0d0518;
@@ -778,6 +818,9 @@
   --button-secondary: transparent;
   --button-text-primary: #FFFFFF;
   --button-text-secondary: #f2e9ff;
+  --button-tournament: #a44cf0;
+  --button-tournament-secondary: #231e28;
+  --button-tournament-secondary-border: #4e405b;
 
   /*Inputs*/
   --input: rgba(242, 233, 255, 0.05);
@@ -804,6 +847,21 @@
   --glow-shadow: 0 0 24px rgba(139, 63, 214, 0.45);
 
   --life-primary: #8b3fd6;
+
+    /*for the radial gradients*/
+    --glow-1: #a855f7;
+    --glow-2: #4a1d80;
+    --glow-3: #23103d;
+
+    /* Match and Tournaments Page */
+    --card-tournaments: #0d0812;
+    --progress-bar-symbol: #150f18;
+    --match-card: #1e1824;
+    --profile-tournaments: #180e20;
+    --gradient-tournament: #cf9efa;
+    --match-box: #0a0410;
+    --multiple-choice-box: #120d17;
+    --multiple-choice-letter: #25202a;
 }
 
 /*These are copied from :root.light and adjusted for more themes*/
@@ -834,6 +892,7 @@
   /*Cards*/
   --card: var(--background-card);
   --card-text: var(--primary-text);
+  --tournament-card: var(--card-tournaments);
 
   /*Sidebar*/
   --sidebar: #06140a;
@@ -850,6 +909,9 @@
   --button-secondary: transparent;
   --button-text-primary: #FFFFFF;
   --button-text-secondary: #e8f7d9;
+  --button-tournament: #a8d93f;
+  --button-tournament-secondary: #1f2920;
+  --button-tournament-secondary-border: #3f5a44;
 
   /*Inputs*/
   --input: rgba(232, 247, 217, 0.05);
@@ -876,6 +938,21 @@
   --glow-shadow: 0 0 24px rgba(156, 204, 60, 0.45);
 
   --life-primary: #9ccc3c;
+
+    /*for the radial gradients*/
+    --glow-1: #aac075;
+    --glow-2: #4d661d;
+    --glow-3: #24210e;
+
+    /* Match and Tournaments Page */
+    --card-tournaments: #08120a;
+    --progress-bar-symbol: #0e1a10;
+    --match-card: #18251b;
+    --profile-tournaments: #0e2011;
+    --gradient-tournament: #c8ea86;
+    --match-box: #041006;
+    --multiple-choice-box: #0d170f;
+    --multiple-choice-letter: #212c23;
 }
 
 @layer base {
@@ -1012,6 +1089,12 @@
       animation-iteration-count: 1 !important;
       transition-duration: 0.001ms !important;
       scroll-behavior: auto !important;
+    }
+
+    .floating-symbols span {
+      animation: none;
+      opacity: var(--opacity);
+      top: auto;
     }
   }
 }
@@ -1332,7 +1415,6 @@
     animation: danger-pulse 2s ease-in-out infinite;
   }
 
-
   /*Avatars/Robots*/
   .avatar {
     border-radius: 999px;
@@ -1371,7 +1453,64 @@
 .answer-wrong {
   background-color: #bc184179;
   transition: background-color 200ms ease-out;
+}
 
+.nav-bar {
+    transition: background 0.3s ease, border-color 0.3s ease;
+    border-bottom: 1px solid transparent;
+  }
+
+  .nav-bar.scrolled {
+    background: var(--nav-scrolled-bg);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-link {
+    color: var(--primary-text);
+    transition: color 0.2s ease;
+  }
+
+  .nav-link:hover {
+    color: var(--primary-hover);
+  }
+
+  .bg-radial-glow {
+    background: var(--gradient-radial);
+  }
+
+  .bg-radial-glow-corner {
+    background: var(--gradient-radial-corner);
+  }
+
+  .bg-radial-glow-blob {
+    background: var(--gradient-radial-blob);
+  }
+
+  /*A floating symbols animation for some pages to reinforce math and programming*/
+  .floating-symbols {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .floating-symbols img {
+    position: absolute;
+    top: 100%;
+    background-color: var(--secondary);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    opacity: 0;
+    will-change: transform, opacity;
+    animation-name: symbol-float;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  
 }
 
 .answer-flash-correct{

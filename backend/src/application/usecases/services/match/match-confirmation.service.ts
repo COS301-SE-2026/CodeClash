@@ -1,5 +1,6 @@
 import { PlayerDTO } from "src/entities/dtos/matches/match-component.dto";
 import { createHash } from "node:crypto";
+import { HttpError } from "src/entities/errors/http-error";
 
 export class MatchConfirmationService {
 
@@ -15,10 +16,10 @@ export class MatchConfirmationService {
 
     accept(id: string, user_id: string) {
         const players = this.PLAYERS.get(id);
-        if (!players) throw new Error("Players not Found");
+        if (!players) throw new HttpError(404, "Match offer no longer available");
 
         const player = players.find(p => p.id === user_id);
-        if (!player) throw new Error("Player not Found");
+        if (!player) throw new HttpError(404, "Match offer no longer available");
 
         player.accepted = true;        
     }
@@ -36,13 +37,13 @@ export class MatchConfirmationService {
 
         const players = this.PLAYERS.get(group_id);
 
-        if (!players) throw new Error("Pair not Found");
+        if (!players) throw new HttpError(404, "Match offer no longer available");
         return [...players.values()].every(val => val.accepted);
     }
 
     getPlayers(id: string) {
         const players = this.PLAYERS.get(id);
-        if (!players) throw new Error("Pair not Found");
+        if (!players) throw new HttpError(404, "Match offer no longer available");
 
         return players;
     }
@@ -50,7 +51,7 @@ export class MatchConfirmationService {
     getKeys(pair_id: string) {
         const pair = this.PLAYERS.get(pair_id);
 
-        if (!pair) throw new Error("Pair not Found");
+        if (!pair) throw new HttpError(404, "Match offer no longer available");
 
         return [...pair.keys()];
     }

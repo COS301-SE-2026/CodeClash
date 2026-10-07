@@ -6,6 +6,7 @@ import { type PlayerResultDTO, } from "src/dtos/match/result.dto";
 
 import { finalResultsContent } from "src/Models/FinalResultsModel";
 import type { FinalResultsContent } from "src/Models/FinalResultsModel";
+import { useMatchStore } from "src/stores/match-store";
 import { useResultStore } from "src/stores/result-store";
 import { useAuth } from "src/context/Auth/hooks/useAuth";
 import { getEquippedFor } from "src/services/shop.service";
@@ -34,7 +35,11 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
     const tokenInv = token ?? "";
 
     const winner = useMemo(() => results?.players.find(p => p.position === 1) ?? null, [results]);
-    const loser = useMemo(() => results?.players.find(p => p.position === 2) ?? null, [results]);
+  const loser = useMemo(() => results?.players.find(p => p.position === 2) ?? null, [results]);
+
+    useEffect(() => {
+        if (useMatchStore.getState().match_id === match_id) useMatchStore.getState().reset();
+    }, [results])
 
     const [avatarImageWinner, setAvatarImageWinner] = useState<string | null>(null);
     const [avatarImageLoser, setAvatarImageLoser] = useState<string | null>(null);

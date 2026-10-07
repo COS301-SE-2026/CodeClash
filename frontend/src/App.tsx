@@ -1,8 +1,9 @@
 import React from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 
 import { useAuth } from "./context/Auth/hooks/useAuth";
 import Layout from "./layout";
+import { useMatchStore } from "./stores/match-store";
 import BrandStyleGuide from "./Views/BrandStyleGuide";
 import Dashboard from "./Views/Dashboard/Dashboard";
 import MatchFound from "./Views/Matchmaking/MatchFound";
@@ -30,12 +31,35 @@ import { ProgMatch } from "./Views/Match/ProgMatch";
 import SkillProgress from "./Views/SkillProgress";
 import TournamentsMatchPage from "./Views/Tournaments/TournamentMatchPage";
 
+const MATCH_END_GRACE_MS = 69 * 1000;
+const MATCH_ROUTE = /^\/(math|programming)-match\//; // regex to enfource limitimng route logic
+
+const matchClockRunning = (end_time: number) => Date.now() < end_time + MATCH_END_GRACE_MS;
+
+function useMatchRedirect(pathname: string): string | null {
+  const match_id = useMatchStore(state => state.match_id);
+  const match_mode = useMatchStore(state => state.match_mode);
+  const status = useMatchStore(state => state.status);
+  const end_time = useMatchStore(state => state.end_time);
+  const tournament_id = useMatchStore(state => state.tournament_id);
+  
+  const in_match = status === 'ready' && !!match_id && !tournament_id && end_time !== null && matchClockRunning(end_time);
+  const match_path = `/${match_mode}-match/${match_id}`;
+  
+  if (in_match) return (pathname === match_path || pathname === `/results/${match_id}`) ? null : match_path;
+  if (MATCH_ROUTE.test(pathname)) return '/dashboard';
+  return null;
+}
+
 const App: React.FC = () => {
 
-    const { user, isLoading } = useAuth();
-    if (isLoading) {
-        return <Loading isOpen={isLoading} />
-    }
+  const { user, isLoading } = useAuth();
+  const { pathname } = useLocation();
+  const match_redirect = useMatchRedirect(pathname);
+  
+  if (isLoading) {
+    return <Loading isOpen={isLoading} />
+  }
 
 
     const logged_in = user !== null
@@ -55,6 +79,10 @@ const App: React.FC = () => {
             </Routes>
         )
     }
+
+  if (match_redirect) {
+    return <Navigate to={match_redirect} replace />
+  }
 
     return (
         <Routes>

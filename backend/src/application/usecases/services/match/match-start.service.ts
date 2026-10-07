@@ -11,7 +11,7 @@ export class MatchStart {
 
     async execute(players: PlayerDTO[], match_mode: MatchMode, league: string, match_type: MatchType, title?: string) {
         const setup = await this.match_service.execute(players, match_mode, league, match_type, title);
-        await this.match_store.create(setup.match_entity, setup.match_id, players, setup.rounds);
+        await this.match_store.create(setup.match_entity, setup.match_id, players, setup.rounds, setup.end_time);
 
         const match = this.match_store.get(setup.match_entity);
 
@@ -20,7 +20,10 @@ export class MatchStart {
         return {
             match_id: setup.match_id,
             rounds: match.rounds,
-            players: match.players
+          players: match.players,
+            match_type: match_type,
+            end_time: match.end_time.getTime(),
+            server_time: Date.now()     // lets the client correct for its own clock being off
         }
     }
 }

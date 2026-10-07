@@ -57,7 +57,7 @@ describe('Tests PurchaseService', () => {
         expect(result.item.item.shop_item_id).toBe(item_id);
 
         const wallet = await wallet_repo.getWallet(user_id);
-        expect(wallet!.balance).toBe(400); 
+        expect(wallet!.balance).toBe(1400); 
     });
 
     it('Throws and does not deduct balance when item is already owned', async () => {

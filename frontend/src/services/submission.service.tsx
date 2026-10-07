@@ -93,13 +93,14 @@ export const useSubmission = ({
 
 
     return {
-        results,
-        lastResult,
-        marking,
-        markingError,
-        submissionError,
-        submissionResult,
-        submitQuestion
+      results,
+      setResults,
+      lastResult,
+      marking,
+      markingError,
+      submissionError,
+      submissionResult,
+      submitQuestion
     }
 
 }

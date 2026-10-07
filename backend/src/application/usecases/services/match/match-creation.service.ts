@@ -42,7 +42,6 @@ export class MatchCreationService {
 
         const time = this.getTotalTime.execute(questions)
 
-        if (!questions) throw new Error("Error fetching questions")
 
         // Rounds 
         const q_easy = questions.easy.map(q => q.id);
@@ -51,6 +50,8 @@ export class MatchCreationService {
 
         // get answers 
         const q_ids = [...q_easy, ...q_medium, ...q_hard];
+        if (q_ids.length ===0) throw new Error('No questions available, is the database seeded?');
+        
         const answers = await this.getAnswers.execute(q_ids);
 
         // templates for programming 
@@ -97,7 +98,8 @@ export class MatchCreationService {
             match_entity: match.match_entity,
             match_id: db_match_id,
             rounds: match.rounds,
-            answers: answers
+            answers: answers,
+            end_time: match_data.end_time
         }
     }
 }

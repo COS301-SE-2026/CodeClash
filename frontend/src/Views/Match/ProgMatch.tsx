@@ -35,7 +35,7 @@ export const ProgMatch = () => {
     } = useMatch();
 
     const curr = questions[currentQuestion];
-    const question = useMemo(() => ({ templates: curr.templates }), [curr]);
+    const question = useMemo(() => ({ templates: curr?.templates }), [curr]);
     const { username } = useUser();
     const currentResult = results?.[roundIdx]?.[currentQuestion];
 

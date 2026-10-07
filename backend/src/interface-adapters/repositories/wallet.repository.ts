@@ -1,5 +1,5 @@
 import { Repository } from "typeorm";
-import { Wallet } from "src/entities/database/wallet.entities";
+import {STARTING_STARDUST, Wallet } from "src/entities/database/wallet.entities";
 import { IWalletRepository } from "src/application/interfaces/repositories/IWalletRepository";
 import { WalletDTO } from "src/entities/dtos/shop/wallet.dto";
 
@@ -27,7 +27,7 @@ export class WalletRepository implements IWalletRepository {
     async createWallet(user_id: string): Promise<WalletDTO> {
         await this.walletRepo.save(this.walletRepo.create({
             user: { user_id } as any,
-            balance: 1000
+            balance: STARTING_STARDUST
         }));
         return this.getWallet(user_id) as Promise<WalletDTO>;
     }

@@ -1,7 +1,7 @@
 import type { Socket } from "socket.io-client";
 import { emit, on } from "../dispatch";
 import type { SubmissionDTO, MarkingResultDTO } from "src/dtos/match/submission.dto";
-import type { MatchQuestionsDTO, RoundDTO } from "src/dtos/match/match.dto";
+import type { MatchQuestionsDTO, RejoinMatchDTO, RoundDTO } from "src/dtos/match/match.dto";
 import type { MatchResultDTO, ResultDTO } from "src/dtos/match/result.dto";
 import type {  MatchType } from "src/dtos/match/match.dto";
 import type { Player } from "src/Models/MatchModel";
@@ -52,7 +52,7 @@ export class MatchSocket {
         return on(this.socket, 'get_results', handler);
     }
 
-    startMatch(handler: (data: { match_id: string, rounds: RoundDTO[], players: Player[] }) => void) {
+    startMatch(handler: (data: { match_id: string, rounds: RoundDTO[], players: Player[], match_type: MatchType, end_time: number, server_time: number }) => void) {
         return on(this.socket, 'start_match', handler);
     }
 
@@ -91,6 +91,10 @@ export class MatchSocket {
     sendResults(data: { match_id: string, pair_id: string }) {
         return emit<typeof data, MatchResultDTO>(this.socket, 'send_results', data);
     }
+
+  rejoinMatch(data: { match_id: string }) {
+    return emit<typeof data, RejoinMatchDTO>(this.socket, 'rejoin_match', data);
+  }
 
     cleanUpMatch(data: { match_id: string, pair_id: string }) {
         return emit<typeof data, void>(this.socket, 'clean_up', data);

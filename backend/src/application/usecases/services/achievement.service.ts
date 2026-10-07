@@ -16,7 +16,7 @@ export interface AchievementStats {
     total_matches: number;
     perfect_math: boolean;
     perfect_code: boolean;
-    match_duration_ms: number;
+    match_duration_ms: number | null; // null when player never submits
     correct_in_match: number;
     friend_count: number;
     life_lost_before_win: number;
@@ -29,7 +29,7 @@ const CONDITIONS: AchievementCondition[] = [
     { name: 'Unstoppable', check: s => s.win_streak >= 10 },
     { name: 'Math Wizard', check: s => s.perfect_math },
     { name: 'Code Breaker', check: s => s.perfect_code },
-    { name: 'Speed Demon', check: s => s.match_duration_ms < 2 * 60 * 1000 },
+    { name: 'Speed Demon', check: s => s.match_duration_ms !== null && s.match_duration_ms < 2 * 60 * 1000 },
     { name: 'Veteran', check: s => s.total_matches >= 50 },
     { name: 'Century', check: s => s.total_matches >= 100 },
     { name: 'Sharp Shooter', check: s => s.correct_in_match >= 5 },
@@ -76,7 +76,7 @@ export class AchievementService {
         return awarded;
     }
 
-    async evaluateForMatch(match_stats: Map<string, { num_correct: number, total_time: number }>, players: MatchPlayer[], match_type: MatchType, total_questions: number) {
+    async evaluateForMatch(match_stats: Map<string, { num_correct: number, total_time: number, num_answered: number }>, players: MatchPlayer[], match_type: MatchType, total_questions: number) {
         for (const [user_id, stat] of match_stats) {
             const player = players.find(p => p.id === user_id);
             const is_winner = player?.position === 1;
@@ -95,7 +95,7 @@ export class AchievementService {
                 total_matches: userStats.total_matches + 1,
                 perfect_math: stat.num_correct === total_questions && match_type !== MatchType.ranked,
                 perfect_code: false,
-                match_duration_ms: 0,
+                match_duration_ms: stat.num_answered > 0 ? stat.total_time : null,
                 correct_in_match: stat.num_correct,
                 friend_count: 0,
                 life_lost_before_win: 0,

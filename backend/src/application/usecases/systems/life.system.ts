@@ -56,6 +56,15 @@ export class LifeSystem {
         return life.current_life
     }
 
+    getPlayerLife(match_id: number, player_id: string) {
+        const players = this.getMatchComponent<PlayersComponent>(match_id, 'Players');
+        const player_entity = players!.players.get(player_id);
+
+        if (player_entity === undefined) throw new Error("Invalid Player");
+
+        return this.getCurrentLife(player_entity);
+    }
+
     updatePlayerLife(match_id: number, player_id: string, correct: boolean) {
         const match = this.getMatchComponent<MatchComponent>(match_id, 'Match');
         const players = this.getMatchComponent<PlayersComponent>(match_id, 'Players');
