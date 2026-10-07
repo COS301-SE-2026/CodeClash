@@ -1,0 +1,17 @@
+frontend/src/Views/Tournaments/TournamentMatchPage.tsx
+  h_94c952a9e14c58 46,176,185
+  h_94c952a9e14c58 26-27,177-184
+backend/src/application/usecases/services/tournament/elimination.service.ts
+  h_94c952a9e14c58 65-66
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "65d2a45c44e336160cfb27efd894ca258c58306d",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

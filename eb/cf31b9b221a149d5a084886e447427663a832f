@@ -1,0 +1,17 @@
+frontend/src/Views/Shop/AvatarCustomizer.tsx
+  h_b13c5d77534129 37
+dockerfile/docker-compose.dev.yml
+  h_b13c5d77534129 41
+  h_b13c5d77534129 40
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ebcf31b9b221a149d5a084886e447427663a832f",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

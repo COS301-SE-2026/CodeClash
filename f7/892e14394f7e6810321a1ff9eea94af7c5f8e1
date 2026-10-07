@@ -1,0 +1,46 @@
+backend/src/frameworks-drivers/app.ts
+  h_b13c5d77534129 71-72
+dockerfile/docker-compose.dev.yml
+  h_b13c5d77534129 40
+frontend/@/components/features/Match/PowerUpandDownButtons.tsx
+  h_b13c5d77534129 7,20,26-29,52
+frontend/@/components/features/Match/RoundTree.tsx
+  h_b13c5d77534129 53
+frontend/src/ViewModels/DashboardViewModel.ts
+  h_b13c5d77534129 12
+frontend/src/ViewModels/Match/LeaderboardViewModel.ts
+  h_b13c5d77534129 50-51,53,57,68-73
+frontend/src/ViewModels/Match/MatchViewModel.ts
+  h_b13c5d77534129 5,36,121,245-247,249-251,271-272
+frontend/src/Views/Friends/Friends.tsx
+  h_b13c5d77534129 11,65,137
+frontend/src/Views/Match/FinalResults.tsx
+  h_b13c5d77534129 5-6
+frontend/src/Views/Match/Leaderboard/Leaderboard.tsx
+  h_b13c5d77534129 10
+frontend/src/Views/Match/Leaderboard/components/LeaderboardRow.tsx
+  h_b13c5d77534129 15
+frontend/src/Views/Match/Leaderboard/components/PodiumCard.tsx
+  h_b13c5d77534129 20
+frontend/src/Views/Match/ProgMatch.tsx
+  h_b13c5d77534129 133
+frontend/src/context/Friends/FriendsContext.tsx
+  h_b13c5d77534129 77,322
+frontend/src/dtos/friends/friend.dto.ts
+  h_b13c5d77534129 19
+frontend/src/services/shop.service.ts
+  h_b13c5d77534129 85
+frontend/src/styles/global.css
+  h_b13c5d77534129 1371-1373,1375,1377-1379,1381-1383,1385-1387
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f7892e14394f7e6810321a1ff9eea94af7c5f8e1",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

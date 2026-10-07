@@ -1,0 +1,24 @@
+backend/src/application/usecases/systems/opponent-progress.ts
+  h_b13c5d77534129 31,35
+backend/src/entities/dtos/submissions/submission-result.dto.ts
+  h_b13c5d77534129 26-27
+backend/src/interface-adapters/socket-handlers/match-handlers.ts
+  h_b13c5d77534129 31
+frontend/@/components/features/Match/Match.tsx
+  h_b13c5d77534129 40,146
+frontend/src/dtos/match/opponent.dto.ts
+  h_b13c5d77534129 4
+frontend/src/services/match.service.tsx
+  h_b13c5d77534129 112-113,125
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "812199803f11f33834aedef66706abc618940b69",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
