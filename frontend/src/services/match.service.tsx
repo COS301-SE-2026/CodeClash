@@ -1,8 +1,7 @@
 import { useMemo, useRef, useState, useEffect } from "react";
 import { useTimer } from "react-timer-hook";
 import type { Player } from "src/Models/MatchModel";
-import type { MatchMode, QuestionDTO } from "src/dtos/match/match.dto";
-import type { RoundDTO } from "src/dtos/match/match.dto";
+import type { MatchMode, QuestionDTO, RoundDTO } from "src/dtos/match/match.dto";
 import type { OpponentDTO } from "src/dtos/match/opponent.dto";
 import type { MatchSocket } from "src/context/Socket/modules/match.socket";
 import { useMatchStore } from "src/stores/match-store";
@@ -10,10 +9,9 @@ import { useUser } from "src/context/User/hooks/useUser";
 import { seededRandom } from "src/utils/seededRandom";
 import { type NavigateFunction } from "react-router-dom";
 
-export function matchStart(match_socket: MatchSocket, path: string, nav: NavigateFunction, match_mode:MatchMode) {
+export function matchStart(match_socket: MatchSocket, path: string, nav: NavigateFunction, match_mode: MatchMode) {
     return match_socket.startMatch((data) => {
-        console.log("Match starting with data", data);
-        useMatchStore.getState().setMatchData(data,match_mode);
+        useMatchStore.getState().setMatchData(data, match_mode);
         nav(`${path}/${data.match_id}`);
     })
 }
@@ -29,7 +27,7 @@ export const useMatchTimer = (duration: number, end_time: number | null, onExpir
 
     const timer = useTimer({
         expiryTimestamp: expiry_time,
-        autoStart: true,
+        autoStart: false,
         onExpire
     });
 
@@ -89,7 +87,7 @@ export const useLoadRounds = (data: RoundDTO[], match_id?: string | null) => {
             return shuffle(questions, next);
         });
 
-        return { rounds, duration: sumtime};
+        return { rounds, duration: sumtime };
 
     }, [data, match_id, userId]);
 }

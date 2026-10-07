@@ -16,7 +16,7 @@ import redis from '../../../src/frameworks-drivers/config/redis-client'
 import { IMatchRepository } from '../../../src/application/interfaces/repositories/IMatchRepository';
 import { MatchRepository } from '../../../src/interface-adapters/repositories/match.repository';
 import { Matches } from '../../../src/entities/database/match.entities';
-import { Questions } from '../../../src/entities/database/questions.entities';
+import { ProgrammingTemplates, Questions, TestCases } from '../../../src/entities/database/questions.entities';
 import { Answers } from '../../../src/entities/database/answers.entities';
 import { IUserRepository } from '../../../src/application/interfaces/repositories/IUserRepository';
 import { UserRepository } from '../../../src/interface-adapters/repositories/user.repository';
@@ -29,7 +29,7 @@ import { AnswerDTO } from '../../../src/entities/dtos/questions/answer.dto';
 const world = World();
 
 const data_source = await createTestDataSource();
-const question_repo: IQuestionRepository = new QuestionRepository(data_source.getRepository(Questions));
+const question_repo: IQuestionRepository = new QuestionRepository(data_source.getRepository(Questions), data_source.getRepository(TestCases), data_source.getRepository(ProgrammingTemplates));
 const answer_repo: IAnswerRepository = new AnswerRepository(data_source.getRepository(Answers));
 const user_repo: IUserRepository = new UserRepository(data_source.getRepository(Users));
 const match_repo: IMatchRepository = new MatchRepository(data_source.getRepository(Matches), user_repo);
@@ -48,7 +48,8 @@ const game_service = new MatchCreationService(
     get_answers as unknown as GetAnswers,
     match_cache,
     match_repo,
-    user_repo
+    user_repo,
+    question_repo
 )
 
 

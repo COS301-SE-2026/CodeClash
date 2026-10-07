@@ -9,6 +9,7 @@ const api = vi.hoisted(() => ({
 
 vi.mock('axios', () => ({ default: { create: () => api } }));
 
+
 import { AuthContext, type AuthContextValue } from '../../../src/context/Auth/AuthContextValue';
 import { UserProvider } from '../../../src/context/User/UserContext';
 import { useUser } from '../../../src/context/User/hooks/useUser';
@@ -88,7 +89,7 @@ describe('UserProvider integration', () => {
     renderUser();
 
     await waitFor(() => expect(screen.getByTestId('elo')).toHaveTextContent('1420'));
-    await waitFor(()=> expect(screen.getByTestId('avatar')).toHaveTextContent('Vexa.png'));
+    await waitFor(() => expect(screen.getByTestId('avatar')).toHaveTextContent('Vexa.png'));
     expect(screen.getByTestId('league')).toHaveTextContent('Gold');
     expect(screen.getByTestId('rank')).toHaveTextContent('7');
     expect(screen.getByTestId('current')).toHaveTextContent('4');
@@ -152,7 +153,7 @@ describe('UserProvider integration', () => {
   });
 
   it('surfaces a non-200 elo response as an error', async () => {
-    respondWith({ 'user/elo': { status: 500, data: { message: 'server exploded'} } });
+    respondWith({ 'user/elo': { status: 500, data: { message: 'server exploded' } } });
 
     renderUser();
 
@@ -217,6 +218,7 @@ describe('UserProvider integration', () => {
     api.get.mockImplementation(() => {
       throw new Error('axios exploded');
     });
+
 
     renderUser();
 

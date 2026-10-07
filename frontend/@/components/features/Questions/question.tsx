@@ -60,35 +60,37 @@ export function Question({
   );
 }
 
+// so, because math questions are fetched in Latex, latex only works between $$...$$ or $...$ tags, so regex is added so that math segments are rendered correctly
+const MATH_SEGMENT = /(\$\$[\s\S]*?\$\$|\$(?:\\\$|[^$])*?\$)/;
 
-const tableRegex = new RegExp(String.raw`\\begin\{tabular\}\{[^]*\}([\s\S]*?)\\end\{tabular\}`, 'g');
+const tableCell = (cell: string) => {
+  const text = cell.trim();
+  if (text.includes('$')) return text.replace(/\$/g, '');
+  return /[a-zA-Z]/.test(text) && !text.startsWith('\\') ? `\\text{${text}}` : text;
+}; // same thing, regex added so that table cells are properly rendered as well
 
-const tableToMarkdown = (text: string): string => {
-  return text.replace(tableRegex, (_, body: string) => {
-    const rows = body.split(`\\\\`)
-      .map(row => row.trim())
-      .filter(Boolean)
-      .map(row => row.split('&').map(cell => cell.trim()));
-
-
-    if (rows.length === 0) return '';
-
-    const header = rows[0];
-    const separator = header.map(() => '----');
-    const dataRows = rows.slice(1);
-
-    const toMdRow = (cells: string[]) => `| ${cells.join('|')}`;
-    return [toMdRow(header), toMdRow(separator), ...dataRows.map(toMdRow)].join('\n');
+const toMarkdownMath = (text: string) => text
+  // markdown also uses \[ \] to escape brackets (SGF[4]), therefore it'll only treat it as math if it conatins it
+  .replace(/\\\[([\s\S]*?)\\\]/g, (match, body: string) => /\\|=|\^/.test(body) ? `$$${body}$$` : match)
+  .replace(/\\begin\{tabular\}\{([^}]*)\}([\s\S]*?)\\end\{tabular\}/g, (_, cols, body: string) =>
+    `$$\\begin{array}{${cols}}${body.split('\\\\').map(row => row.split('&').map(tableCell).join(' & ')).join(' \\\\ ')}\\end{array}$$`)
+  .split(MATH_SEGMENT)
+  .map((part, i) => {
+    if (i % 2 === 0) return part.replace(/\\begin\{align\*?\}([\s\S]*?)\\end\{align\*?\}/g, (_, body) => `\n\n$$\n\\begin{aligned}${body}\\end{aligned}\n$$\n\n`);
+    // an escaped dollar ($\$5$) would end the maths early, so use KaTeX's own dollar sign
+    const maths = part.replace(/\\\$/g, '\\text{\\textdollar}');
+    // $$...$$ only renders as a block when it sits on its own lines
+    return maths.startsWith('$$') ? `\n\n$$\n${maths.slice(2, -2).trim()}\n$$\n\n` : maths;
   })
-}
+  .join(''); // i wont even act like i understand this regex, but basically as said above, latex requires the $ to be rendered properly, so this is just making sure that the markdown that it reseives is properly translated in the math sections
+
 
 export const QuestionDescription = ({ description }: { description: string }) => {
-  const processed = React.useMemo(() => tableToMarkdown(description), [description]);
 
   return (
     <div className="prose prose-invert max-w-none pt-[1rem] [&_pre]:whitespace-pre-wrap [&_pre]:break-words [&_code]:break-words">
       <ReactMarkDown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]}>
-        {processed}
+        {toMarkdownMath(description ?? '')}
       </ReactMarkDown>
     </div>
   )

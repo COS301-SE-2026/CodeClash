@@ -11,7 +11,7 @@ import { useAnswerResponse, useLifeShake, useSubmission } from 'src/services/sub
 import type { Player } from 'src/Models/MatchModel';
 import { useResultStore } from 'src/stores/result-store';
 
-export const useMatch = () => {
+export const useMatch = (timeUp?: () => Promise<void>) => {
     const nav = useNavigate();
     const { matchSocket } = useSocket();
     const status = useMatchStore(state => state.status);
@@ -49,7 +49,11 @@ export const useMatch = () => {
     const { submissionError, submitQuestion, results, setResults, lastResult, marking, markingError } = useSubmission({ round_idx: roundIdx, curr_question: currentQuestion, question: questions[currentQuestion], match_id: match_id!, updatePlayerLife })
     const { seconds, minutes } = useMatchTimer(duration, end_time, async () => {
         setGameOver(true);
-        await finishMatch(!tournament_id);
+        if (timeUp) {
+            await timeUp();
+        }
+        else
+            await finishMatch(!tournament_id);
     })
 
   useEffect(() => {
@@ -82,7 +86,7 @@ export const useMatch = () => {
     }
 
     const confirmCompleteRound = () => {
-        if (complete_round) setConfirmRound(true);
+        if (complete_round || final_question) setConfirmRound(true);
     }
 
     const cancelCompleteRound = () => {
@@ -114,8 +118,8 @@ export const useMatch = () => {
         // useMatchStore.getState().reset();
         setWaitingOpponent(false);
         nav(`/results/${match_id}`, {
-          replace: true,
-          state: { id: match_id }
+            replace: true,
+            state: { id: match_id }
         });
     }
 

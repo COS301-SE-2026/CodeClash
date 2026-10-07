@@ -67,6 +67,7 @@ function mapItem(raw: RawShopItem): ShopItem {
         const avatar: AvatarShopItem = {
             ...base,
             category: 'avatar',
+            asset_key: raw.metadata.asset_key,
             isDefault: raw.metadata.is_default,
             previewImageUrl: resolve(raw.metadata.asset_key),
         };

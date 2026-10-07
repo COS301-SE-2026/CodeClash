@@ -1,4 +1,5 @@
 import { Server, Socket } from "socket.io"
+import { TournamentEliminationService } from "src/application/usecases/services/tournament/elimination.service";
 import { TournamentService } from "src/application/usecases/services/tournament/tournament.service"
 import { PlayerDTO } from "src/entities/dtos/matches/match-component.dto";
 import { MatchMode } from "src/entities/dtos/matches/match.dto";
@@ -82,7 +83,6 @@ export const startTournament = async (io: Server, socket: Socket, tournament_id:
         const match = await tournament_service.startTournament(tournament, league);
         const data = { match: match, tournament: tournament };
 
-
         io.emit('tournament_removed', { tournament_id });
         io.to(tournament_id).emit("tournament_started", data);
         return data;
@@ -90,4 +90,42 @@ export const startTournament = async (io: Server, socket: Socket, tournament_id:
         console.error("start tournament failed", error);
         socket.emit("start_tournament_failed", error);
     }
+}
+
+
+export const getStandings = async (tournament_id: string, elimination_service: TournamentEliminationService) => {
+    const tournament_standings = elimination_service.getStanding(tournament_id);
+    return tournament_standings;
+}
+
+export const completeRound = async (io: Server, socket: Socket, tournament_id: string, match_id: string, elimination_service: TournamentEliminationService, tournament_service: TournamentService) => {
+
+
+    const player = elimination_service.completeRound(tournament_id, socket.data.user_id);
+
+    const tournament = elimination_service.getTournament(tournament_id);
+
+    for (const p of tournament.players.values()) {
+        if (p.elimination_round !== -1) {
+            io.to(tournament_id).emit('player_eliminated', p);
+        }
+    }
+
+    const alive = [...tournament.players.values()].filter(p => p.elimination_round === -1);
+
+    if (alive.length === 1) {
+        const results = await tournament_service.endTournament(tournament_id, match_id,);
+        io.to(tournament_id).emit('tournament_ended', results);
+        return null
+    }
+
+    return player;
+}
+
+
+export const endTournament = async (io: Server, tournament_id: string, match_id: string, tournament_service: TournamentService) => {
+    const result = await tournament_service.endTournament(tournament_id, match_id);
+
+    io.to(tournament_id).emit('tournament_ended', result);
+    return result;
 }

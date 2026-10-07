@@ -81,9 +81,10 @@ export class AchievementService {
             const player = players.find(p => p.id === user_id);
             const is_winner = player?.position === 1;
             const is_ranked = match_type === MatchType.ranked;
+            const is_tournament = match_type === MatchType.tournament;
 
             // update streaks
-            if (is_ranked) {
+            if (is_ranked || is_tournament) {
                 await this.user_repo.updateStreaks(user_id, is_winner);
             }
 
