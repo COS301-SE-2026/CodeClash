@@ -8,23 +8,27 @@ type Tutorial = {
     title: string;
     src: string;
     description?: string;
+    poster?: string; //thumbnail if we want
 }
 
 const tutorial: Tutorial[] = [
     {
-        title: "1. How to play a competitive match",
+        title: "1. Navigate to a match",
         src: '',
-        description: ''
+        description: '',
+        poster: ''
     },
     {
-        title: "2. How to view the results and statistics of your match",
+        title: "2. View the results and statistics of your recently played match",
         src: '',
-        description: ''
+        description: '',
+        poster: ''
     },
     {
-        title: "3. How to play in or host a tournament",
+        title: "3. Play in or host a tournament",
         src: '',
-        description: ''
+        description: '',
+        poster: ''
     }
 ]
 
@@ -46,11 +50,19 @@ const Tutorials: React.FC = () => {
                     <p className="text-muted text-sm text-center">No tutorials yet. Check back soon!</p>
                 ) : (
                     <div className="flex flex-col gap-12">
-                        {tutorial.map((tut, i) => (
+                        {tutorial.map((tut) => (
                             <section key={tut.title} className="flex flex-col gap-4">
                                 <div className="flex items-center gap-4">
                                     <h2 className="section-title text-sm">{tut.title}</h2>
                                 </div>
+
+                                <div className="w-[50%] aspect-video overflow-hidden rounded-[18px] border border-border bg-background-card">
+                                    <video src={tut.src} poster={tut.poster} controls preload="metadata" className="w-full h-full"/>
+                                </div>
+
+                                {tut.description && (
+                                    <p className="section-description text-xsm">{tut.description}</p>
+                                )}
                             </section>
                         ))}
                     </div>
