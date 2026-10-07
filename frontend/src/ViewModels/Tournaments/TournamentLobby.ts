@@ -100,6 +100,8 @@ export const useTournamentLobby = () => {
                     match_id: res.data.match.match_id,
                     rounds: res.data.match.rounds,
                     players: res.data.match.players,
+                    end_time: res.data.match.end_time,
+                    server_time: res.data.match.server_time,
                 },
                     tournament.tournament_mode,
                     tournament.tournament_id
