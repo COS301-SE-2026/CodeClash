@@ -51,7 +51,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
     return (
         <div className="fixed inset-0 flex flex-col min-w-[64rem] overflow-y-auto">
             {/* Header */}
-            <MatchCard className="rounded-[12px] w-[88%] h-[4rem] shrink-0 m-10 flex items-center px-6 flex-row mb-5">
+            <MatchCard className="rounded-[12px] w-[88%] h-[4rem] shrink-0 m-10 flex items-center px-6 flex-row mb-10">
                 
                 {/* Player 1 Progress */}
                 <div className="flex flex-1 min-w-0 items-center gap-3">

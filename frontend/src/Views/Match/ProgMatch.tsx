@@ -32,7 +32,7 @@ export const ProgMatch = () => {
         opponentCurrent, waitingOpponent, finishMatch,
         loading,
         submitQuestion, marking, markingError,
-        elos, colourClass,
+        elos,
         final_question, complete_round, confirmCompleteRound, confirmRound, cancelCompleteRound, completeRound,
         matchType, matchMode
     } = useMatch();
@@ -121,12 +121,12 @@ export const ProgMatch = () => {
                 description={curr.description}
             />
 
-            <MatchCard className={`items-center justify-center mt-5 ${colourClass}`}>
+            <MatchCard className={`items-center justify-center mt-5`}>
                 <Flash
                     result={correct ?? null}
                     trigger={flashTrigger}
-                    className="w-[100%] flex flex-col items-center justify-center mt-5 rounded-2xl">
-                    <MatchCard className={`w-[95%] h-[95%] ${result_colour()} ${result_border()}`}>
+                    className="w-[95%] flex flex-col items-center justify-center mt-5 rounded-2xl">
+                    <MatchCard className={`w-[100%] h-[95%] ${result_colour()} ${result_border()}`}>
                         <CodeEditor
                             question={question}
                             onChange={(new_code,  judge0_id) => {
