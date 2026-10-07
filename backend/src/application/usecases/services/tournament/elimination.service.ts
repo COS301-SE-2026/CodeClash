@@ -16,7 +16,8 @@ interface TournamentState {
     round_players: Set<string>[],   // ids of players in each round
     progress: Map<string, QuestionProgress>,
     finished: boolean,
-    start: Date
+    start: Date,
+    left_at: Map<string, number>
 }
 
 export class TournamentEliminationService {
@@ -47,6 +48,7 @@ export class TournamentEliminationService {
             finished: false,
             start: new Date(),
             round_players: [new Set(players.map(p => p.id))],
+            left_at: new Map(),
         }
 
         this.state.set(tournament_id, init_state);
@@ -91,7 +93,7 @@ export class TournamentEliminationService {
             throw error;
         }
 
-        player.total_time += received_at.getTime() - tournament.start?.getTime();
+        player.total_time = received_at.getTime() - tournament.start?.getTime(); // time of latest answer, rather than running summation
         if (correct && !progress.solved) {
             progress.solved = true;
             ++player.correct;
@@ -120,11 +122,12 @@ export class TournamentEliminationService {
         const final_round = curr_round === tournament.rounds.length - 1;
 
         if (final_round) {
-
+          this.leave(tournament, player_id);
             for (const p of tournament.players.values()) {
                 if (p.id !== player_id && p.elimination_round === -1) {
                     p.elimination_round = curr_round;
-                    p.in_danger = false;
+                  p.in_danger = false;
+                  this.leave(tournament, p.id)
                 }
             }
 
@@ -147,7 +150,8 @@ export class TournamentEliminationService {
             for (const p of tournament.players.values()) {
                 if (p.current_round === curr_round) {
                     p.elimination_round = curr_round;
-                    p.in_danger = false;
+                  p.in_danger = false;
+                  this.leave(tournament, p.id);
                 }
             }
         } else {
@@ -163,6 +167,16 @@ export class TournamentEliminationService {
 
         return player;
     }
+
+  private leave(tournament: TournamentState, player_id: string) {
+    if (!tournament.left_at.has(player_id)) tournament.left_at.set(player_id, Date.now());
+  }
+
+  timeInTournament(tournament_id: string): Map<string, number> {
+    const tournament = this.getTournament(tournament_id);
+    const now = Date.now();
+    return new Map([...tournament.players.keys()].map(id => [id, (tournament.left_at.get(id) ?? now) - tournament.start.getTime()]));
+  }
 
     getTournament(tournament_id: string) {
         const tournament = this.state.get(tournament_id);
