@@ -1,0 +1,17 @@
+frontend/@/components/features/Tournaments/TournamentCard.tsx
+  h_94c952a9e14c58 64-67,70-72,76-79,81,84-85,87,92-93,96-101,106-111,122,124-126,128,133,139
+  h_94c952a9e14c58 68,94,102-105,112-121,137-138
+frontend/src/Views/Tournaments/Tournaments.tsx
+  h_94c952a9e14c58 8,24-29,36,38,40-41,45,65-67
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ad0815aec7982f968f225efea4af61f59786fe08",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
