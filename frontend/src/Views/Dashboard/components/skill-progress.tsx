@@ -8,16 +8,18 @@ type SkillMetric = {
 
 
 export const SkillProgressCard = ({
-    items, seeAll,
+items, seeAll, isSample = false,
 }: {
-    items: SkillMetric[];
-    seeAll: string;
-}) => (
+   items: SkillMetric[];
+   seeAll: string;
+   isSample?: boolean;
+ }) => (
     <div className='card-elevated p-5'>
-        <div className='blur-[1px] pointer-events-none select-none opacity-60'>
-            <div className='flex items-center justify-between mb-3'>
-                <div>
-                    <p className='text-sm font-bold text-primary-text'>Skills Progress</p>
+        <div>
+           <div className='flex items-center justify-between mb-3'>
+               <div>
+                   <p className='text-sm font-bold text-primary-text'>Skills Progress</p>
+                   {isSample && <p className='text-xsm text-muted'>Sample data until you play a match</p>}
                 </div>
                 <Link to={seeAll} className='badge badge-status-pending'>
                     See all

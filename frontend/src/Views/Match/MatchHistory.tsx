@@ -108,8 +108,8 @@ const MatchDetailsPanel: React.FC<{details: MatchDetails}> = ({details}) => (
                 style={{fontSize: 'var(--font-size-sm)'}}>MY STATS</p>
                     {/*copied from match info */}
                     <div className="bg-secondary rounded-lg flex  justify-between items-center px-3 py-1">
-                        <span className="text-secondary-text font-semibold" style={{fontSize: 'var(--font-size-xsm)'}}>CORRECT ANSWERS</span>
-                        <span className="text-secondary-text font-semibold" style={{fontSize: 'var(--font-size-xsm)'}}>{details.numCorrect}</span>
+                        <span className="text-secondary-text font-semibold" style={{fontSize: 'var(--font-size-xsm)'}}>ELO CHANGE</span>
+                        <span className="text-secondary-text font-semibold" style={{fontSize: 'var(--font-size-xsm)'}}>{details.eloChange > 0 ? `+${details.eloChange}` : details.eloChange}</span>
                     </div>                 
         </div>
 

@@ -16,6 +16,10 @@ services:
     privileged: true
     <<: *default-logging
     restart: always
+    # Joins the app network so the backend can reach it as http://server:2358
+    networks:
+      - default
+      - pgnetwork
 
   workers:
     image: judge0/judge0:1.13.1
@@ -47,4 +51,7 @@ services:
 volumes:
   data:
 
-
+networks:
+  pgnetwork:
+    external: true
+    name: pgnetwork
