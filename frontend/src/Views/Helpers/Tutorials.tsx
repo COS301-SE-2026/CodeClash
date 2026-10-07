@@ -3,6 +3,9 @@ import Starfield from "@/components/ui/animations/Starfield";
 import { Link } from "react-router";
 import { ArrowLeft } from "lucide-react";
 import bg from "../../../src/assets/Background/solar_system.jpg"
+import vid1 from "src/assets/Tutorials/Tut_Vid_1.mp4"
+import vid2 from "src/assets/Tutorials/Tut_Vid_2.mp4"
+import vid3 from "src/assets/Tutorials/Tut_Vid_3.mp4"
 
 type Tutorial = {
     title: string;
@@ -14,20 +17,20 @@ type Tutorial = {
 const tutorial: Tutorial[] = [
     {
         title: "1. Navigate to a match",
-        src: '',
-        description: '',
+        src: vid1,
+        description: 'Getting Started with CodeClash? Here\'s how to create an account and get right into improving your Maths and Programming skills by queuing up for and entering a ranked PvP match.',
         poster: ''
     },
     {
         title: "2. View the results and statistics of your recently played match",
-        src: '',
-        description: '',
+        src: vid2,
+        description: 'Here is how to view your match results, history and any achievements you may have earned during a match.',
         poster: ''
     },
     {
         title: "3. Play in or host a tournament",
-        src: '',
-        description: '',
+        src: vid3,
+        description: 'So you want to play in a tournament? Here is how to start or join one.',
         poster: ''
     }
 ]
