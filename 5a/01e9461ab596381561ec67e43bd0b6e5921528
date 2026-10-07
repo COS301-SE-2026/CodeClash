@@ -1,0 +1,20 @@
+frontend/src/Views/Tournaments/TournamentMatchPage.tsx
+  h_94c952a9e14c58 13,35-36,51-55
+frontend/src/ViewModels/Tournaments/TournamentMatchViewModel.ts
+  h_94c952a9e14c58 43,99-100,110,154
+backend/src/interface-adapters/socket-handlers/tournament-handlers.ts
+  h_94c952a9e14c58 106-111
+frontend/src/Views/Tournaments/TournamentEliminated.tsx
+  h_94c952a9e14c58 1-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5a01e9461ab596381561ec67e43bd0b6e5921528",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

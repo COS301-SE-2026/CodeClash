@@ -1,0 +1,19 @@
+backend/src/application/usecases/services/skill/reference-runtimes.ts
+  s_95696176a5e8d1::t_597ca050672c52 7-16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6235a9503b861394f2cbfbe462f7ad773cce7155",
+  "prompts": {},
+  "sessions": {
+    "s_95696176a5e8d1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "77fa55e0-674c-4ab2-86e8-c0f1968582f5",
+        "model": "unknown"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

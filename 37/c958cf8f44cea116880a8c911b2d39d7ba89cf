@@ -1,0 +1,14 @@
+frontend/src/services/websocket.service.tsx
+  h_58e143dc25f856 18-26,28-34,37-43
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "37c958cf8f44cea116880a8c911b2d39d7ba89cf",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

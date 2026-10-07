@@ -1,0 +1,14 @@
+backend/tests/integration/repositories/wallet.repository.test.ts
+  h_58e143dc25f856 40,43,50,54
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "08665d37f26cfb7c098d6703510d1ece3274f24c",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+frontend/src/Views/SkillProgress/components/WhatToWorkOn.tsx
+  s_95696176a5e8d1::t_72360c0c5c3f56 176,178-184
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "29bc0bda9fb0f0d18556533e2181458661e4bc4f",
+  "prompts": {},
+  "sessions": {
+    "s_95696176a5e8d1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "77fa55e0-674c-4ab2-86e8-c0f1968582f5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

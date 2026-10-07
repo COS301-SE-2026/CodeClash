@@ -1,0 +1,14 @@
+backend/src/frameworks-drivers/socket/modules/register-match-handlers.ts
+  h_58e143dc25f856 5,17-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3925a7c7fa932623d899a1b8d5ee1efabde543d2",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

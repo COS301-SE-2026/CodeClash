@@ -1,0 +1,106 @@
+frontend/src/ViewModels/Match/FinalResultsViewModel.ts
+  h_94c952a9e14c58 9
+frontend/src/ViewModels/Match/MatchViewModel.ts
+  h_94c952a9e14c58 18,20-26,31,43,49-50,59-61,105-107,126-159,174
+  h_94c952a9e14c58 62-66,160-161
+backend/src/interface-adapters/socket-handlers/match-handlers.ts
+  h_94c952a9e14c58 12-16,44-46,69,73,75-81,101-130
+  h_94c952a9e14c58 43,47,131-132
+backend/src/application/usecases/services/achievement.service.ts
+  h_94c952a9e14c58 19,32,79,99
+backend/src/application/usecases/services/marking/mark-prog.ts
+  h_94c952a9e14c58 36,69-79
+backend/src/application/usecases/services/match/match-creation.service.ts
+  h_94c952a9e14c58 105-106
+backend/src/application/usecases/services/match/match-start.service.ts
+  h_94c952a9e14c58 14,23-26
+backend/src/application/usecases/services/match/match-store.service.ts
+  h_94c952a9e14c58 12-14,24,45-47
+backend/src/application/usecases/services/shop/purchase.service.ts
+  h_94c952a9e14c58 3,31
+backend/src/application/usecases/services/shop/shop-item.service.ts
+  h_94c952a9e14c58 10
+backend/src/application/usecases/services/skill/reference-runtimes.ts
+  h_94c952a9e14c58 7-16
+backend/src/application/usecases/systems/life.system.ts
+  h_94c952a9e14c58 59-67
+backend/src/application/usecases/systems/submission.system.ts
+  h_94c952a9e14c58 89-105
+backend/src/entities/database/wallet.entities.ts
+  h_94c952a9e14c58 4-5,15
+backend/src/frameworks-drivers/server.ts
+  h_94c952a9e14c58 221
+backend/src/frameworks-drivers/socket/dependencies.ts
+  h_94c952a9e14c58 17,27-28
+backend/src/frameworks-drivers/socket/modules/register-match-handlers.ts
+  h_94c952a9e14c58 5,17-19
+backend/src/interface-adapters/repositories/wallet.repository.ts
+  h_94c952a9e14c58 2,30
+backend/tests/integration/repositories/wallet.repository.test.ts
+  h_94c952a9e14c58 40,43,50,54
+backend/tests/integration/services/purchase.service.test.ts
+  h_94c952a9e14c58 60
+backend/tests/unit/socket-handlers/game.handler.unit.test.ts
+  h_94c952a9e14c58 28-29
+database/01-init.sql
+  h_94c952a9e14c58 195
+frontend/@/components/ui/animations/FloatingSymbols.tsx
+  h_94c952a9e14c58 1-51
+frontend/src/App.tsx
+  h_94c952a9e14c58 2,6,34-53,56-62,83-86
+frontend/src/Models/ShopModel.ts
+  h_94c952a9e14c58 7,46
+frontend/src/Models/SkillProgressModel.ts
+  h_94c952a9e14c58 57-74
+frontend/src/Views/Dashboard/Dashboard.tsx
+  h_94c952a9e14c58 1,11,48-49,55,58
+frontend/src/Views/Landing.tsx
+  h_94c952a9e14c58 5,7,55,76-77
+frontend/src/Views/Match/MatchHistory.tsx
+  h_94c952a9e14c58 6,20-21,23
+frontend/src/Views/Match/ProgMatch.tsx
+  h_94c952a9e14c58 35
+frontend/src/Views/Shop/AvatarCustomizer.tsx
+  h_94c952a9e14c58 53-54,77
+frontend/src/Views/Shop/Shop.tsx
+  h_94c952a9e14c58 1-2,12,19,47
+frontend/src/Views/SkillProgress/components/WhatToWorkOn.tsx
+  h_94c952a9e14c58 70,176,178-184
+frontend/src/context/Socket/modules/match.socket.ts
+  h_94c952a9e14c58 4,54,78-81
+frontend/src/dtos/match/match.dto.ts
+  h_94c952a9e14c58 75-86
+frontend/src/dtos/shop.dto.ts
+  h_94c952a9e14c58 15
+frontend/src/dtos/shop.mapper.ts
+  h_94c952a9e14c58 2
+frontend/src/layout.tsx
+  h_94c952a9e14c58 5,11,16-25,30-31,37,39
+frontend/src/services/code-question.service.tsx
+  h_94c952a9e14c58 21
+frontend/src/services/match.service.tsx
+  h_94c952a9e14c58 8-9,19-24,26,36,41,46,61-64,72-73,87,92
+frontend/src/services/shop.service.ts
+  h_94c952a9e14c58 2-3,123-125
+frontend/src/services/submission.service.tsx
+  h_94c952a9e14c58 96-103
+frontend/src/services/websocket.service.tsx
+  h_94c952a9e14c58 18-26,28-34,37-43
+frontend/src/stores/match-store.ts
+  h_94c952a9e14c58 1,14-17,23-25,28-29,33-35,44-47,56-59,65-68,74-78
+frontend/src/styles/global.css
+  h_94c952a9e14c58 218-231,549-550,622,639-641,673-682,713,730-732,759-773,804,821-823,850-864,895,912-914,941-955,1093-1098,1456-1513
+frontend/test/unit/ViewModels/FriendsContext.test.tsx
+  h_94c952a9e14c58 25-32
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4f58f1f0b1653347cf5b02f9c98e6a9d9eb580d1",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

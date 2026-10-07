@@ -1,0 +1,20 @@
+frontend/src/Views/Match/FinalResults.tsx
+  h_94c952a9e14c58 17,38,41,96-111,113-114,116-118,127,136,147,154,193
+  h_94c952a9e14c58 1,31,33,42,50-53,55,82,95,120-125,134-135,137-142,146,148-153,155-160,164-180,182-184,190,197-198,202,228-230,238
+frontend/src/ViewModels/Match/FinalResultsViewModel.ts
+  h_94c952a9e14c58 17,28,30-33,82
+  h_94c952a9e14c58 37
+frontend/src/ViewModels/Tournaments/TournamentMatchViewModel.ts
+  h_94c952a9e14c58 120-121,125-126
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f2e97f41dda1629ac4179d0be0f940dcafd6fec9",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

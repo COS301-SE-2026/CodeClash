@@ -1,0 +1,167 @@
+frontend/src/services/match.service.tsx
+  h_94c952a9e14c58 51-56,68
+backend/src/interface-adapters/repositories/match.repository.ts
+  h_94c952a9e14c58 4,69,78-111,130
+backend/src/application/usecases/services/match/match-completion.service.ts
+  h_94c952a9e14c58 9-10,12-13,57-58,78-81
+  h_94c952a9e14c58 11,56,82
+dockerfile/docker-compose.dev.yml
+  h_94c952a9e14c58 7,30-31,39,57,77,90,106,112,115
+  h_94c952a9e14c58 1-6,8-29,32-38,40-56,58-76,78-89,91-105,107-111,113-114
+frontend/@/components/features/Questions/question.tsx
+  h_94c952a9e14c58 6,34,45,66
+  h_94c952a9e14c58 72
+.env.example
+  h_94c952a9e14c58 3-6
+.gitmodules
+  h_94c952a9e14c58 1-20
+backend/README.md
+  h_94c952a9e14c58 99-121
+backend/scripts/question-seeding/db.ts
+  h_94c952a9e14c58 1-18
+backend/scripts/question-seeding/math/helpers.ts
+  h_94c952a9e14c58 134
+backend/scripts/question-seeding/math/seed-math-questions.ts
+  h_94c952a9e14c58 1
+backend/scripts/question-seeding/programming/helper.ts
+  h_94c952a9e14c58 10,64-100,134,171
+backend/scripts/question-seeding/programming/seed-prog-questions.ts
+  h_94c952a9e14c58 1,9-14,16-17,37
+backend/scripts/question-seeding/programming/seed-prog-templates.ts
+  h_94c952a9e14c58 1,48
+backend/src/application/interfaces/marking/IMarkingStategy.ts
+  h_94c952a9e14c58 3-9,11
+backend/src/application/interfaces/repositories/IMatchRepository.ts
+  h_94c952a9e14c58 4-5,12-13
+backend/src/application/interfaces/skill/IQuestionTiming.ts
+  h_94c952a9e14c58 1-8
+backend/src/application/usecases/services/marking/mark-maths.ts
+  h_94c952a9e14c58 2,14,18,21,23
+backend/src/application/usecases/services/marking/mark-prog.ts
+  h_94c952a9e14c58 2,9-10,19-50
+backend/src/application/usecases/services/marking/marking.service.ts
+  h_94c952a9e14c58 3,18,28-29,33
+backend/src/application/usecases/services/questions.service.ts
+  h_94c952a9e14c58 5,32-34,41,43-44,46
+backend/src/application/usecases/services/skill/previous-answer-timing.ts
+  h_94c952a9e14c58 1-22
+backend/src/application/usecases/services/skill/question-results.ts
+  h_94c952a9e14c58 1-71
+backend/src/application/usecases/services/skill/reference-runtimes.ts
+  h_94c952a9e14c58 1-13
+backend/src/application/usecases/systems/match-completion.system.ts
+  h_94c952a9e14c58 1,5-6,16,36,54-56,109-119
+backend/src/application/usecases/systems/submission.system.ts
+  h_94c952a9e14c58 4,22-23,39-42,61-63
+backend/src/entities/components.ts
+  h_94c952a9e14c58 91-93
+backend/src/entities/dtos/matches/match.dto.ts
+  h_94c952a9e14c58 43-62,92-102
+backend/src/entities/dtos/questions/question.dto.ts
+  h_94c952a9e14c58 7
+backend/src/entities/league-mapping.ts
+  h_94c952a9e14c58 15-21
+backend/src/frameworks-drivers/api.routes.ts
+  h_94c952a9e14c58 15,89,105-107
+backend/src/frameworks-drivers/socket/index.ts
+  h_94c952a9e14c58 11-12
+backend/src/frameworks-drivers/socket/modules/register-matchmaking-handlers.ts
+  h_94c952a9e14c58 6-8,11-14
+backend/src/interface-adapters/controllers/match.controllers.ts
+  h_94c952a9e14c58 39-50
+backend/src/interface-adapters/repositories/user.repository.ts
+  h_94c952a9e14c58 8,171-172,198
+backend/src/interface-adapters/socket-handlers/matchmaking-handlers.ts
+  h_94c952a9e14c58 14-22,25,99-106
+backend/tests/unit/usecases/services/get-total-time.test.ts
+  h_94c952a9e14c58 1-20
+backend/tests/unit/usecases/services/mark-prog.test.ts
+  h_94c952a9e14c58 60,72,74-91
+backend/vitest.config.ts
+  h_94c952a9e14c58 8
+database/01-init.sql
+  h_94c952a9e14c58 97-114
+dockerfile/docker-compose.prod.yml
+  h_94c952a9e14c58 1-2,6,24-27,33,54,66-67
+frontend/@/components/features/Match/MathPage.tsx
+  h_94c952a9e14c58 8-10
+frontend/@/components/features/code-editor.tsx
+  h_94c952a9e14c58 2,7-10,24-30,48,54
+frontend/@/components/features/monaco-setup.ts
+  h_94c952a9e14c58 1-11
+frontend/package-lock.json
+  h_94c952a9e14c58 21,8599-8601,8608,8615-8617,8620,9669-9693,11329-11353
+frontend/package.json
+  h_94c952a9e14c58 28
+frontend/src/Models/MatchHistoryModel.ts
+  h_94c952a9e14c58 9
+frontend/src/Models/SkillInsights.ts
+  h_94c952a9e14c58 1-660
+frontend/src/Models/SkillProgressModel.ts
+  h_94c952a9e14c58 16-18,29-30,37-39,45-46,53-55,61-62,70-71,85-86,90-97,115-117,129,156-170,183,380,382-383,438-443,445-453
+frontend/src/ViewModels/DashboardViewModel.ts
+  h_94c952a9e14c58 1-82
+frontend/src/ViewModels/Match/MatchViewModel.ts
+  h_94c952a9e14c58 43,105-107,156-157
+frontend/src/ViewModels/MatchHistoryViewModel.ts
+  h_94c952a9e14c58 23,33-34,39,46,51-55,59-63,71,87-91
+frontend/src/ViewModels/Shop/ShopViewModel.ts
+  h_94c952a9e14c58 31,37,74-87,97
+frontend/src/ViewModels/SkillProgressViewModel.ts
+  h_94c952a9e14c58 4-5,24,50,92-93,95-98,110-111,122-126,128-129
+frontend/src/Views/Dashboard/Dashboard.tsx
+  h_94c952a9e14c58 16,113-115
+frontend/src/Views/Dashboard/components/skill-progress.tsx
+  h_94c952a9e14c58 11,13-16,18-22
+frontend/src/Views/Match/MatchHistory.tsx
+  h_94c952a9e14c58 111-112
+frontend/src/Views/Match/ProgMatch.tsx
+  h_94c952a9e14c58 28,37,86,88,97,126-134
+frontend/src/Views/Shop/Shop.tsx
+  h_94c952a9e14c58 78-80
+frontend/src/Views/SkillProgress.tsx
+  h_94c952a9e14c58 16,118-124,187
+frontend/src/Views/SkillProgress/components/InsightList.tsx
+  h_94c952a9e14c58 3
+frontend/src/Views/SkillProgress/components/StatTile.tsx
+  h_94c952a9e14c58 11-12,15,26-27
+frontend/src/Views/SkillProgress/components/WhatToWorkOn.tsx
+  h_94c952a9e14c58 1-206
+frontend/src/context/Shop/ThemeContext.tsx
+  h_94c952a9e14c58 4,38-40,42-57,61-64,69-72
+frontend/src/context/User/UserContext.tsx
+  h_94c952a9e14c58 69
+frontend/src/services/shop.service.ts
+  h_94c952a9e14c58 63-69,93,154,204-206,208,210
+frontend/src/services/skill-progress.service.ts
+  h_94c952a9e14c58 15-33,36-48,69-72,144-166,169-170,193-194,206,211,228-230,235-237
+frontend/src/services/submission.service.tsx
+  h_94c952a9e14c58 27-28,46,62-63,65-67,69-70,72-85,87-88,98-99
+frontend/src/styles/global.css
+  h_94c952a9e14c58 1363-1373
+frontend/test/integration/AchievementToast.integration.test.tsx
+  h_94c952a9e14c58 1-238
+frontend/test/integration/Contexts/ThemeContext.integration.test.tsx
+  h_94c952a9e14c58 8-22,46-49,112-144
+frontend/test/integration/Contexts/UserContext.integration.test.tsx
+  h_94c952a9e14c58 1-236
+frontend/test/integration/SocketHandlers/tournament.socket.test.ts
+  h_94c952a9e14c58 1-117
+judge0-v1.13.1/docker-compose.yml
+  h_94c952a9e14c58 19-22,54-57
+package-lock.json
+  h_94c952a9e14c58 18,22,24-26,2656-2664,2686-2694,2720-2728,2752-2772,2854-2859,3105-3110,3737-3746,3933-3942,3960-3999,4133-4142,4301-4313,4376-4388,4863-4872,4911-4916,5338-5529,5560-5569,5670-5675,5685-5708,5725-5734,5771-5780,5791-5802,5956-5980,6663-6677,6702-7625,7627-7631,7634-7648,7650-7663,9679-9703,9894-9903,9954-9980,10068-10193,10486-10495,10571-10584,10640-10657,10813-10832,11148-11262,11365-11406,11587-11596,11775-11784
+package.json
+  h_94c952a9e14c58 17-27,65,69,71-73
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ca81da480cbff49091c6c31b0c201f1d28796748",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
