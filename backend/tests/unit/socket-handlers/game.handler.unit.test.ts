@@ -25,7 +25,8 @@ const mockCheckAnswer = (): MarkingService => ({
 } as unknown as MarkingService);
 
 const mockMatchStore = () => ({
-    getEcsId: vi.fn().mockReturnValue(1)
+  getEcsId: vi.fn().mockReturnValue(1),
+  get: vi.fn().mockReturnValue(undefined),
 } as unknown as MatchStore)
 
 const mockElimination = () => ({} as any)

@@ -32,8 +32,6 @@ function Progress({
   const isVertical = orientation === "vertical";
   const remaining = 100 - (value || 0);
 
-  console.log(value);
-
   return (
     <ProgressPrimitive.Root
       data-slot="progress"

@@ -2,6 +2,7 @@ import type { Socket } from "socket.io-client";
 import type { MatchDTO, PlayerDTO, MatchMode } from "src/dtos/match/match.dto";
 import { emit, on } from "../dispatch";
 import type { PlayerStandingDTO, TournamentDTO } from "src/dtos/tournaments/tournament.dto";
+import type { MatchResultDTO } from "src/dtos/match/result.dto";
 
 export class TournamentSocket {
     private readonly socket: Socket;
@@ -37,8 +38,12 @@ export class TournamentSocket {
         return on<{ tournament_id: string }>(this.socket, 'tournament_removed', handler);
     }
 
-    tournamentStandings(handler: (data: PlayerStandingDTO[]) => void) {
-        return on(this.socket, 'tournament_standings', handler);
+    tournamentEnded(handler: (data: MatchResultDTO) => void) {
+        return on<MatchResultDTO>(this.socket, 'tournament_ended', handler);
+    }
+
+    playerEliminated(handler: (player: PlayerStandingDTO) => void) {
+        return on<PlayerStandingDTO>(this.socket, 'player_eliminated', handler);
     }
 
     // Error events
@@ -57,6 +62,8 @@ export class TournamentSocket {
     cancelFailed(handler: (data: Error) => void) {
         return on<Error>(this.socket, 'cancel_tournament_failed', handler);
     }
+
+
 
 
     /************************************** EMITTERS ******************************************* */
@@ -88,4 +95,17 @@ export class TournamentSocket {
     identity() {
         return emit<void, { user_id: string }>(this.socket, 'identity', undefined);
     }
+
+    getStandings(tournament_id: string) {
+        return emit<string, PlayerStandingDTO[]>(this.socket, 'get_standings', tournament_id);
+    }
+
+    completeRound(data: { tournament_id: string, match_id: string }) {
+        return emit<typeof data, PlayerStandingDTO | null>(this.socket, 'complete_round', data);
+    }
+
+    endTournament(data:  { tournament_id: string, match_id: string }){
+        return emit<typeof data, MatchResultDTO>(this.socket, 'end_tournament',data);
+    }
+
 }

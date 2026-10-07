@@ -3,6 +3,7 @@ import React from "react";
 import type { MatchDetails } from "src/Models/MatchHistoryModel";
 import { MatchHistoryViewModelFunction } from "src/ViewModels/MatchHistoryViewModel";
 import Starfield from "@/components/ui/animations/Starfield";
+import { History } from "lucide-react";
 
 const MatchHistory: React.FC = () => {
     const {
@@ -16,10 +17,10 @@ const MatchHistory: React.FC = () => {
             <div className="relative z-10 flex flex-col items-center w-full px-6 pt-16 pb-10">
                 <div className="flex flex-col items-center gap-1 mb-6">
                         <div className="flex items-center gap-3">
-                            <h1 className="text-primary-text font-black text-center text-xl">Match History</h1>
+                            <History size={32} className="text-primary" />
+                            <h1 className="heading text-center">Match History</h1>
                         </div>
-                        <p className="text-primary opacity-80 tracking-widest uppercase"
-                            style = {{fontSize: 'var(--font-size-xsm)'}}>Click on a row for more information</p>
+                        <p className="text-muted-text text-sm">Click on a row for more information</p>
                 </div>
 
                 <div className="flex items-start justify-center gap-8 w-full transition-all duration-100">
@@ -108,8 +109,8 @@ const MatchDetailsPanel: React.FC<{details: MatchDetails}> = ({details}) => (
                 style={{fontSize: 'var(--font-size-sm)'}}>MY STATS</p>
                     {/*copied from match info */}
                     <div className="bg-secondary rounded-lg flex  justify-between items-center px-3 py-1">
-                        <span className="text-secondary-text font-semibold" style={{fontSize: 'var(--font-size-xsm)'}}>CORRECT ANSWERS</span>
-                        <span className="text-secondary-text font-semibold" style={{fontSize: 'var(--font-size-xsm)'}}>{details.numCorrect}</span>
+                        <span className="text-secondary-text font-semibold" style={{fontSize: 'var(--font-size-xsm)'}}>ELO CHANGE</span>
+                        <span className="text-secondary-text font-semibold" style={{fontSize: 'var(--font-size-xsm)'}}>{details.eloChange > 0 ? `+${details.eloChange}` : details.eloChange}</span>
                     </div>                 
         </div>
 

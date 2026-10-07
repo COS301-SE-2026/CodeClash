@@ -8,7 +8,8 @@ import { registerTournamentHandlers } from "./modules/register-tournament-handle
 
 export function attachSocketModules(io: Server, deps: SocketDeps){
     io.on('connection', (socket)=>{
-        socket.join(`user:${socket.data.user_id}`);
+      socket.join(`user:${socket.data.user_id}`);
+      socket.join(socket.data.user_id);
 
         registerMatchHandlers(io, socket,deps.match);
         registerMatchmakingHndlers(io,socket, deps.matchmaking);

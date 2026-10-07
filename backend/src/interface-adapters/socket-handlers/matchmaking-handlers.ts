@@ -11,9 +11,18 @@ import { PlayerDTO } from "src/entities/dtos/matches/match-component.dto";
 
 export const joinMatchQueue = (async (io: Server, socket: Socket, data: any, matchmaking_service: MatchmakingService, match_confirmation_service: MatchConfirmationService, user_repo: IUserRepository) => {
     await socket.join(socket.data.user_id)
+
+    // Use the stored elo rather than trusting the client; a missing elo made the queue range NaN and crashed Redis calls
+    const stored = await user_repo.getUserData(socket.data.user_id, 'elo');
+    const elo = Number(stored?.elo ?? data?.elo);
+    if (!Number.isFinite(elo)) {
+        console.warn(`join_match_queue: no valid elo for user ${socket.data.user_id}, ignoring request`);
+        return;
+    }
+
     const user: MatchmakingUserDTO = {
         id: socket.data.user_id,
-        elo: data.elo,
+        elo,
         match_mode: data.match_mode,
         match_attempt: 1,
         joined_at: new Date()
@@ -87,10 +96,14 @@ export const matchDeclined = (async (io: Server, group_id: string, match_mode: M
             const delay = 6000 + Math.random() * 12000; //NOSONAR
 
             setTimeout(async () => {
-                const match = await matchmaking_service.matchmaking(requeue);
+                try {
+                    const match = await matchmaking_service.matchmaking(requeue);
 
-                if (!match) return;
-                await notifyMatchFound(io, match, match_mode, match_confirmation_service, user_repo);
+                    if (!match) return;
+                    await notifyMatchFound(io, match, match_mode, match_confirmation_service, user_repo);
+                } catch (error) {
+                    console.error('Failed to requeue player:', error);
+                }
             }, delay);
         }
 

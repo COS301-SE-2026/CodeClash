@@ -1,6 +1,7 @@
 import { useEffect, useState, createContext, useContext } from "react";
 import type { ReactNode } from "react";
 import { useAuth } from "src/context/Auth/hooks/useAuth";
+import { useInventory } from "src/context/Shop/InventoryContext";
 
 export type Theme = 'dark' | 'light' | 'frost' | 'gold' |'nebula' | 'verdant';
 const themeKey = 'codeclash-themes';
@@ -34,26 +35,41 @@ function applyTheme(theme: Theme) {
 }
 
 export const ThemeProvider = ({children}: {children: ReactNode}) => {
-    const [theme, setThemes] = useState<Theme>(getDefTheme);
-    const { user } = useAuth();
+    const [selectedTheme, setThemes] = useState<Theme>(getDefTheme);
+    const { user, isLoading } = useAuth();
+    const { catalog, inventory } = useInventory();
 
-    useEffect(() => {
-        if (user === null) {
-           setThemes('dark');
-        window.localStorage.removeItem(themeKey);
-        }
-    }, [theme])
+    // The server's equipped theme is the source of truth; localStorage only avoids a flash on load
+    const equippedItem = user && inventory?.equippedThemeId
+        ? catalog.find((i) => i.category === 'theme' && i.id === inventory.equippedThemeId)
+        : undefined;
+    const equippedThemeKey = equippedItem && 'themeId' in equippedItem ? equippedItem.themeId : null;
+
+    // Adopt the equipped theme whenever it changes (adjusting state during render rather than in an effect)
+    const [syncedThemeKey, setSyncedThemeKey] = useState<string | null>(null);
+    if (equippedThemeKey !== syncedThemeKey) {
+        setSyncedThemeKey(equippedThemeKey);
+        if (isTheme(equippedThemeKey)) setThemes(equippedThemeKey);
+    }
+
+    // Only treat the user as logged out once auth has finished loading, otherwise every reload wipes the theme
+    const loggedOut = !isLoading && user === null;
+    const theme: Theme = loggedOut ? 'dark' : selectedTheme;
 
     useEffect(() => {
         applyTheme(theme);
-        window.localStorage.setItem(themeKey, theme);
-    }, [theme])
-    
+        if (loggedOut) window.localStorage.removeItem(themeKey);
+        else window.localStorage.setItem(themeKey, theme);
+    }, [theme, loggedOut])
+
     const toggleTheme = () => {
         setThemes((prev) => (prev === 'dark' ? 'light' : 'dark'));
     }
 
-    const setTheme = (next: Theme) => setThemes(next);
+    // Ignore keys without a matching CSS theme class (callers may pass shop metadata through a cast)
+    const setTheme = (next: Theme) => {
+        if (isTheme(next)) setThemes(next);
+    };
 
     return (
         <ThemeContext.Provider value = {{theme, isLight: theme === 'light', toggleTheme, setTheme}}>

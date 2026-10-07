@@ -4,7 +4,7 @@ export interface Price {
     amount: number;
 }
 
-export type ShopCategory = 'avatar' | 'theme' | 'powerup';
+export type ShopCategory = 'avatar' | 'theme' ;
 
 interface ShopItemBase {
     id: string;
@@ -43,14 +43,7 @@ export interface PowerupEffectConf {
     notes?: string;
 }
 
-export interface PowerupShopItem extends ShopItemBase {
-    category: 'powerup';
-    kind: 'powerup' | 'powerdown';
-    effect: PowerupEffectConf;
-    quantityGranted: number;
-}
-
-export type ShopItem = AvatarShopItem | ThemeShopItem | PowerupShopItem;
+export type ShopItem = AvatarShopItem | ThemeShopItem ;
 
 export interface Wallet {
     stardust: number;
@@ -62,16 +55,8 @@ export interface Owned {
     acquiredAt: string;
 }
 
-export interface Consumable {
-    category: 'powerup';
-    itemId: string;
-    quantity: number;
-    shop_item_id: string;
-}
-
 export interface UserInventory {
     owned: Owned[];
-    consumable: Consumable[];
     equippedAvatarId: string | null;
     equippedThemeId: string | null;
 }

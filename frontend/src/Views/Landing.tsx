@@ -2,10 +2,9 @@ import { Rocket, Swords, Trophy, Calculator, Code2, ChartNoAxesColumn, Medal, Hi
 import React from "react";
 import { Link } from "react-router";
 import { docs } from "src/Models/LandingModel";
-
-import helloRobot from '../assets/Robots/HelloRobot_Pink.png';
+import Vexa from "../assets/Shop/Avatars/Vexa.png"
 import { LandingViewModelFunction } from "../ViewModels/LandingViewModel";
-
+import FloatingSymbols from "@/components/ui/animations/FloatingSymbols";
 
 const Landing:React.FC = ()=>{
     const {
@@ -53,6 +52,7 @@ const Landing:React.FC = ()=>{
 
             {/*Hero img */}
             <section id = "home" className="relative min-h-screen flex items-center px-[8%] overflow-hidden bg-radial-glow-corner">
+                <FloatingSymbols count={50}/>
                 <div className="relative z-10 flex flex-col gap-6 w-1/2">
                     <h1 style={{fontSize: "clamp(2.5rem, 5vw, 4.5rem)", fontWeight: 900, lineHeight: 1.05, margin: 0,}}>Code.
                         <br/> Calculate. <br/>
@@ -73,8 +73,8 @@ const Landing:React.FC = ()=>{
                 </div>
 
                 <div className="relative z-10 w-1/2 flex items-center justify-center">
-                <div className="absolute w-[90%] aspect-square rounded-full bg-radial-glow-corner">
-                    <img src = {helloRobot} alt = "Robot" className="relative select-none pointer-events-none" style={{width: "88%", maxWidth: "650px", height: "auto", transform: "translateX(20px) translateY(30px),", zIndex: 1}}/>
+                <div className="absolute w-[90%] aspect-square rounded-full">
+                    <img src = {Vexa} alt = "Robot" className="relative select-none pointer-events-none" style={{width: "88%", maxWidth: "650px", height: "auto", transform: "translateX(20px) translateY(30px),", zIndex: 1}}/>
                 </div>
                 </div>
             </section>

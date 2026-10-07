@@ -59,13 +59,6 @@ const submission_system = new SubmissionSystem(world);
 const create_server = await createTestServer(players);
 const store: MatchStore = match_store;
 
-const db_players = await Promise.all(
-    players.map(async (p) => ({
-        ...p,
-        id: (await user_repo.getUserId(p.id))!.user_id!
-    }))
-);
-
 
 describe("Submit Question socket integration test", () => {
 
@@ -114,7 +107,7 @@ describe("Submit Question socket integration test", () => {
 
     it("Submit Maths Question", async () => {
 
-        match = await createTestMatch(db_players, MatchMode.Maths, MatchType.ranked);
+        match = await createTestMatch(players, MatchMode.Maths, MatchType.ranked);
 
         const socket = await socketSetup(players[0].id);
 
@@ -157,7 +150,7 @@ describe("Submit Question socket integration test", () => {
 
 
     it("Submits Prog Question", async () => {
-        match = await createTestMatch(db_players, MatchMode.Maths, MatchType.ranked);
+        match = await createTestMatch(players, MatchMode.Maths, MatchType.ranked);
 
         const address = http.address();
 

@@ -10,6 +10,10 @@ import { OpponentProgress } from "src/application/usecases/systems/opponent-prog
 import { UsePowerupDTO } from "src/entities/dtos/shop/powerup-use.dto";
 import { PowerupService } from "src/application/usecases/services/shop/powerup.service";
 import { TournamentService } from "src/application/usecases/services/tournament/tournament.service";
+import { SubmissionSystem } from "../../application/usecases/systems/submission.system";
+import { LifeSystem } from "../../application/usecases/systems/life.system";
+
+const SUBMISSION_GRACE_MS = 5000; // 5 second grace to submit otherwise submission wont be counted as match will have ended by then
 
 export const submitQuestion = async (
     io: Server,
@@ -20,6 +24,7 @@ export const submitQuestion = async (
     elimination_service: TournamentEliminationService,
     opponent_progress: OpponentProgress
 ) => {
+
     const ecs_id = match_store.getEcsId(data.id);
     const submission: PlayerSubmissionDTO = {
         ...data,
@@ -29,17 +34,17 @@ export const submitQuestion = async (
 
     switch (data.match_type) {
         case MatchType.tournament: {
-            const result = await elimination_service.submit(data.id!, submission);
-            const standings = elimination_service.getStanding(data.id);
+            const result = await elimination_service.submit(data.tournament_id!, submission);
+            const standings = elimination_service.getStanding(data.tournament_id!);
 
-         
-            const sockets = await io.in(data.tournament_id!).fetchSockets();
             io.to(data.tournament_id!).emit('tournament_standings', standings);
             return result;
         }
-        default: {
-            const result = await mark.execute(submission);
-            const opponent = opponent_progress.getOpponentId(submission.match_id, submission.player_id);
+      default: {
+        const match = match_store.get(ecs_id!);
+        if (match && Date.now() > match.end_time.getTime() + SUBMISSION_GRACE_MS) throw new Error("Time has finished"); // not allowing submissions after the match has ended after server time with a little bit of grace
+        const result = await mark.execute(submission);
+        const opponent = opponent_progress.getOpponentId(submission.match_id, submission.player_id);
             const progress = opponent_progress.updateOpponent(submission.player_id, submission.question_number!, result.correct, result.life_update!);
 
             if (opponent !== undefined) {
@@ -51,23 +56,8 @@ export const submitQuestion = async (
     }
 }
 
-export const advancedRound = async(io: Server, socket: Socket, tournament_id: string, tournament_service: TournamentService)=>{
-    try{
-        const result  = await tournament_service.advancedRound(tournament_id);
-
-        if(result.finished){
-            io.to(tournament_id).emit("tournament_finished", {standing: result.standings});
-        }
-        else {
-            io.to(tournament_id).emit("tournament_round_started", {round: result.round, standings: result.standings});
-        }
-    }catch(error){
-        socket.emit("advance_round_failed", error)
-    }
-}
 
 export const matchDone = async (io: Server, socket: Socket, match_id: string, match_type: MatchType, match_completion_service: MatchCompletionService, match_store: MatchStore) => {
-    // wait for both players to be done
 
     const ecs_id = match_store.getEcsId(match_id);
     const match = match_store.get(ecs_id!);
@@ -76,14 +66,19 @@ export const matchDone = async (io: Server, socket: Socket, match_id: string, ma
         console.error("No match found");
         return;
     }
+    if (match.completed) return match.result ?? undefined;
 
     match_store.setDone(socket.data.user_id, ecs_id!);
-
     if (match_store.playersDone(ecs_id!)) {
-
+        match.completed = true;
         const ids = match.players.map(player => player.id);
-        const match_result = await match_completion_service.execute(ecs_id!, match.database_id, ids, match_type);
-    
+        let match_result;
+        try {
+            match_result = await match_completion_service.execute(ecs_id!, match.database_id, ids, match_type);
+        } catch (error) {
+            match.completed = false;
+            throw error;
+        }
         match_store.saveResult(ecs_id!, match_result);
 
         for (const id of ids) {
@@ -101,6 +96,38 @@ export const matchDone = async (io: Server, socket: Socket, match_id: string, ma
         }
     }
 
+}
+
+export const rejoinMatch = (socket: Socket, match_id: string, match_store: MatchStore, submission_system: SubmissionSystem, life_system: LifeSystem) => {
+    const ecs_id = match_store.getEcsId(match_id);
+    const match = ecs_id === undefined ? undefined : match_store.get(ecs_id);
+    const me = match?.players.find(player => player.id === socket.data.user_id);
+
+    if (ecs_id === undefined || !match || !me) throw new Error("Match not found");
+
+    // the opponent's latest submission is the last opponent_progress this player was sent
+    const opponent = match.players.find(player => player.id !== me.id);
+    const latest = opponent && submission_system.playerSubmissions(ecs_id, opponent.id)
+        .sort((a, b) => (b.submitted_at?.getTime() ?? 0) - (a.submitted_at?.getTime() ?? 0))[0];
+
+    return {
+        players: match.players.map(player => ({ id: player.id, life: life_system.getPlayerLife(ecs_id, player.id) })),
+        submissions: submission_system.playerSubmissions(ecs_id, me.id).map(submission => ({
+            round_number: submission.round_number,
+            question_id: submission.question_id,
+            correct: submission.correct
+        })),
+        opponent_progress: opponent && latest ? {
+            player_id: opponent.id,
+            opponent_life: life_system.getPlayerLife(ecs_id, opponent.id),
+            question: latest.question_number
+        } : null,
+        opponent_done: opponent?.done ?? false,
+        end_time: match.end_time.getTime(),
+        server_time: Date.now(),
+        done: me.done ?? false,
+        completed: match.result !== null
+    };
 }
 
 export const sendResults = (io: Server, match_id: string, match_store: MatchStore) => {

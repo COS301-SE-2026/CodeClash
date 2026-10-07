@@ -1,4 +1,3 @@
-import "dotenv/config";
 import path from "node:path";
 import fs from "node:fs";
 
@@ -8,7 +7,7 @@ export const EXERCISES_DIR = path.join(__dirname, REPO_PATH, "exercises");
 
 const DIFFICULTY_SOURCE_CONFIG = path.join(__dirname, "../../python/config.json");
 
-export const DEFAULT_TIME_LIMIT = "10:00";
+export const DEFAULT_TIME_LIMIT = "00:10:00";
 
 function mapDifficulty(excercism_difficulty: number) {
     const scaled = Math.round(((excercism_difficulty - 1) / 9) * 23) + 1;
@@ -62,6 +61,43 @@ function flattenCases(cases: any[]): TestCase[] {
     return result;
 }
 
+// Must stay in sync with MarkProg.formatStdin: test inputs reach the program as their values joined by spaces
+function formatStdin(input: unknown): string {
+    if (input === null || typeof input !== 'object') return String(input);
+    return Object.values(input as Record<string, unknown>).map(String).join(' ');
+}
+
+function hasUnrepresentableValue(value: unknown): boolean {
+    // Numbers past 2^53 have already lost their digits (e.g. 1.867e+32), so no program can recover them
+    if (typeof value === 'number') return Math.abs(value) > Number.MAX_SAFE_INTEGER;
+    if (Array.isArray(value)) {
+        // String() flattens nested arrays/objects ([[1],[2]] -> "1,2"), losing their structure
+        return value.some((v) => (v !== null && typeof v === 'object') || hasUnrepresentableValue(v));
+    }
+    return value !== null && typeof value === 'object';
+}
+
+// A question is only answerable if every test case reaches the program as distinct, lossless stdin
+export function isSolvable(test_cases: TestCase[]): boolean {
+    const expected_by_stdin = new Map<string, string>();
+
+    for (const test of test_cases) {
+        const values = test.input !== null && typeof test.input === 'object'
+            ? Object.values(test.input as Record<string, unknown>)
+            : [test.input];
+        if (values.some(hasUnrepresentableValue)) return false;
+
+        // Same stdin but different expected output (e.g. one input checked by several properties) cannot all pass
+        const stdin = formatStdin(test.input);
+        const expected = JSON.stringify(test.expected);
+        const previous = expected_by_stdin.get(stdin);
+        if (previous !== undefined && previous !== expected) return false;
+        expected_by_stdin.set(stdin, expected);
+    }
+
+    return true;
+}
+
 export function loadExercises(): SeedProgrammingQuestion[] {
     const slugs = fs.readdirSync(EXERCISES_DIR).filter((entry) => {
         const stat = fs.statSync(path.join(EXERCISES_DIR, entry));
@@ -95,6 +131,7 @@ export function loadExercises(): SeedProgrammingQuestion[] {
 
         const test_cases = flattenCases(canonical.cases ?? []);
         if (test_cases.length === 0) continue;
+        if (!isSolvable(test_cases)) continue;
 
         questions.push({
             title: getTitle(slug),
@@ -131,7 +168,7 @@ export function titleToSlug(title: string) {
 
 function slugToPascalCase(slug: string) {
     return slug.split("-")
-        .map((word) => word.charAt(0).toUpperCase + word.slice(1))
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join("");
 }
 

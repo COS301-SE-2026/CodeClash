@@ -9,7 +9,9 @@ export class MatchStore {
         players: PlayerDTO[],
         rounds: RoundDTO[],
         result: MatchResultDTO | null,
-        ack_count: number
+        ack_count: number,
+        end_time: Date,
+        completed: boolean,
     }>();
 
     private readonly DB_ECS = new Map<string, number>();    // maps the matches db id to its ecs id
@@ -19,7 +21,7 @@ export class MatchStore {
     ) { }
 
 
-    async create(match_id: number, db_id: string, players: PlayerDTO[], rounds: RoundDTO[]) {
+    async create(match_id: number, db_id: string, players: PlayerDTO[], rounds: RoundDTO[], end_time: Date) {
 
         const populatePlayerData = await Promise.all(
             players.map(async (player) => {
@@ -40,7 +42,9 @@ export class MatchStore {
             players: populatePlayerData,
             rounds: rounds,
             result: null,
-            ack_count: 0
+            ack_count: 0,
+          end_time: end_time,
+          completed: false
         });
 
         this.DB_ECS.set(db_id, match_id);

@@ -131,7 +131,7 @@ function getTimeLimit(difficulty: number) {
 
     const m = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
     const s = String(seconds % 60).padStart(2, "0");
-    return `${m}:${s}`;
+    return `00:${m}:${s}`;
 }
 
 const ASSIGNMENT_NAME = /^[a-z][a-z0-9]*$/;

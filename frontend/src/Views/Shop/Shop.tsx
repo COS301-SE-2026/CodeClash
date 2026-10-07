@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import type { ThemeShopItem, PowerupShopItem } from "src/Models/ShopModel";
+import React from "react";
+import type { ThemeShopItem } from "src/Models/ShopModel";
 import { ShopViewModelFunc } from "src/ViewModels/Shop/ShopViewModel";
 import { useTheme } from "src/context/Shop/ThemeContext";
 import AvatarCustomizer from "./AvatarCustomizer";
@@ -9,16 +9,14 @@ import {Check, Loader2, Sparkles } from "lucide-react";
 const Shop:React.FC = () => {
     const {
         tabs, activeTabId, setActiveTabId, itemsByCategory, wallet, loading, error, purchasingId,
-        isOwned, isEquipped, powerupQuantity, canAfford, purchase, equip,
+        isOwned, isEquipped, canAfford, purchase, equip,
     } = ShopViewModelFunc();
 
-    const [powerupFIlter, setPowerupFIlter] = useState<'all' | 'powerup' | 'powerdown'>('all');
     const {setTheme} = useTheme();
     const themes = itemsByCategory('theme') as ThemeShopItem[];
-    const powerups = (itemsByCategory('powerup') as PowerupShopItem[]).filter((item) => powerupFIlter === 'all' || item.kind === powerupFIlter);
 
     return (
-        <div className="relative min-h-[100vh-80px] overflow-hidden" style={{background: 'var(--background)', color: 'var(--text)'}}>
+        <div className="relative w-full min-w-0 max-w-full min-h-[calc(100vh-80px)] overflow-x-hidden" style={{background: 'var(--background)', color: 'var(--text)'}}>
             <section style={{padding: '3rem 8% 1.5rem', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem'}}>
                 <h1 className="text-l font-black text-primary-text">Shop</h1>
                 <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.3rem'}}>
@@ -46,21 +44,7 @@ const Shop:React.FC = () => {
                 </div>
             </section>
 
-            {activeTabId === 'powerups' && (
-                <section style={{padding: '0 8%', marginBottom: '1.5rem'}}>
-                    <div style={{display: 'flex', gap: '0.5rem'}}>
-                        {(['all', 'powerup', 'powerdown'] as const).map((p) => (
-                            <button key={p} type="button" onClick={()=> setPowerupFIlter(p)} style={{padding: '0.4rem 0.9rem', borderRadius: '999px',
-                                fontSize: '0.75rem', fontWeight: 700, border: powerupFIlter === p ? '1px solid var(--primary)' : '1px solid var(--border)',
-                                background: powerupFIlter === p ? 'var(--background-elevated)' : 'transparent', color: powerupFIlter === p ? 'var(--primary-text)' : 'var(--muted-text)', cursor: 'pointer'}}>
-                                {p === 'all' ? 'All' : p === 'powerup' ? 'Power Ups' : 'Power Downs'}
-                            </button>
-                        ))}
-                    </div>
-                </section>
-            )}
-
-            <section style={{padding: '0 8% 6rem'}}>
+            <section style={{padding: '0 8% 6rem', width: '100%', boxSizing: 'border-box'}}>
                 {error && (
                     <div style={{marginBottom: '1.5rem', padding: '1rem 1.25rem', borderRadius: 'var(--radius-lg), 20px', background: 'transparent',color: 'var(--danger)'}}>
                         {error}
@@ -75,20 +59,11 @@ const Shop:React.FC = () => {
                     <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1.25rem'}}>
                         {themes.map((item) => (
                             <ThemeCard key={item.id} item={item} owned={isOwned(item.id)} equipped={isEquipped('theme', item.id)}
-                                affordable={canAfford(item)} purchasing={purchasingId === item.id} onPurchase={() => purchase(item.id)} onEquip={() => {equip('theme', item.id); setTheme(item.themeId as Parameters<typeof setTheme>[0]);
-                            }}/>
+                                affordable={canAfford(item)} purchasing={purchasingId === item.id} onPurchase={() => purchase(item.id)} onEquip={async () => {
+                                    if (await equip('theme', item.id)) setTheme(item.themeId as Parameters<typeof setTheme>[0]);
+                                }}/>
                         ))}
                     </div>
-                ) : activeTabId === 'powerups' ? (
-                    powerups.length === 0 ? (
-                        <p className="text-muted text-sm">Nothing here yet</p>
-                    ) : (
-                        <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1.25rem'}}>
-                            {powerups.map((item) => (
-                                <PowerupCard key={item.id} item={item} owned={powerupQuantity(item.id)} affordable={canAfford(item)} purchasing={purchasingId === item.id} onPurchase={()=> purchase(item.id)}/>
-                            ))}
-                        </div>
-                    )
                 ) : null}
             </section>
         </div>
@@ -138,30 +113,5 @@ const ThemeCard: React.FC<{
         </div>
     </div>
 ) 
-
-{/*Copied theme card */}
-const PowerupCard: React.FC<{
-    item: PowerupShopItem;
-    owned: number;
-    affordable: boolean;
-    purchasing: boolean;
-    onPurchase: () => void;
-}> = ({item, owned, affordable, purchasing, onPurchase}) => {
-    return (
-        <div className="card-glass" style={{padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.9rem'}}>
-            <div>
-                <h3 style={{color: 'var(--primary-text)', fontWeight: 900, fontSize: '0.95rem'}}>{item.name}</h3>
-                {item.description && <p className="text-muted" style={{fontSize: '0.75rem', lineHeight: 1.5, marginTop: '0.25rem', fontWeight: 400,}}>{item.description}</p>}
-                <p className="text-muted" style={{fontSize: '0.7rem', marginTop: '0.4rem', fontWeight: 700,}}>Owned: {owned}</p>
-            </div>
-            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', marginTop: 'auto'}}>
-            <PriceTag amount={item.price.amount}/>
-                <button type="button" onClick={onPurchase} disabled={purchasing || !affordable} className="btn btn-sm btn-primary">
-                    {purchasing ? <Loader2 size={14} className="animate-spin"/> : affordable ? 'Buy' : "Can't afford"}
-                </button>
-            </div>
-        </div>
-    )
-}
 
 export default Shop;

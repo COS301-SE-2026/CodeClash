@@ -51,12 +51,8 @@ export const createUser = (create_user: CreateUser) => {
             return;
         }
 
-        try {
             await create_user.create(username, email);
             res.status(200).json({ message: 'User was created' });
-        }
-        catch (error) {
-            res.status(400).json({ message: (error as Error).message });
-        }
+        
     }
 }

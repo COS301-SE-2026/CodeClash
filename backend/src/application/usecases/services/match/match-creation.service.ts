@@ -1,5 +1,5 @@
 import { IMatchCache } from "src/application/interfaces/cache/IMatchCache";
-import { MatchMode, MatchType } from "src/entities/dtos/matches/match.dto";
+import { MatchMode, MatchQuestion, MatchType } from "src/entities/dtos/matches/match.dto";
 import { MatchDTO, PlayerDTO } from "src/entities/dtos/matches/match-component.dto";
 
 import { MatchCreationSystem } from "../../systems/match-creation.system";
@@ -42,7 +42,6 @@ export class MatchCreationService {
 
         const time = this.getTotalTime.execute(questions)
 
-        if (!questions) throw new Error("Error fetching questions")
 
         // Rounds 
         const q_easy = questions.easy.map(q => q.id);
@@ -51,6 +50,8 @@ export class MatchCreationService {
 
         // get answers 
         const q_ids = [...q_easy, ...q_medium, ...q_hard];
+        if (q_ids.length ===0) throw new Error('No questions available, is the database seeded?');
+        
         const answers = await this.getAnswers.execute(q_ids);
 
         // templates for programming 
@@ -89,15 +90,21 @@ export class MatchCreationService {
             await this.match_cache.saveAnswer(answer)
         }
 
+        const match_questions: MatchQuestion[] = q_ids.map(id => ({
+            id,
+            answer_time: 0,
+            attempt_number: 0
+        }))
 
         const ids = players.map((p) => p.id);
-        const db_match_id = await this.match_repo.createMatch(ids, match_type, match_mode, start, match_title!); //mode is math or programming
+        const db_match_id = await this.match_repo.createMatch(ids, match_type, match_mode, start, match_title!, match_questions); //mode is math or programming
 
         return {
             match_entity: match.match_entity,
             match_id: db_match_id,
             rounds: match.rounds,
-            answers: answers
+            answers: answers,
+            end_time: match_data.end_time
         }
     }
 }

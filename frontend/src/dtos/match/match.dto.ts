@@ -59,7 +59,9 @@ export interface MatchDTO {
     match_id: string
     players: (Player | PlayerStandingDTO)[]
     duration: number
-    rounds: RoundDTO[]
+  rounds: RoundDTO[],
+  end_time?: number,
+  server_time?: number
 }
 
 export interface MatchQuestionsDTO {
@@ -71,4 +73,16 @@ export interface MatchQuestionsDTO {
 export interface RoundDTO {
     round_number: number,
     questions: QuestionDTO[]
+}
+
+export interface RejoinMatchDTO {
+  players: { id: string, life: number }[],
+  submissions: { round_number: number, question_id: string, correct: boolean | null }[],
+  opponent_progress: { player_id: string, opponent_life: number, question: number } | null,   // same shape as an opponent_progress event
+  opponent_done: boolean,
+  end_time: number,
+  server_time: number,
+  done: boolean,
+  completed: boolean
+    
 }

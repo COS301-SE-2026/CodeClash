@@ -1,6 +1,7 @@
 import { IFriendRepository } from "src/application/interfaces/repositories/IFriendRepository";
 import { FriendDTO, FriendRequestDTO, FriendInviteDTO } from "src/entities/dtos/friends/friendship.dto";
 import { randomBytes } from "node:crypto";
+import { HttpError } from "src/entities/errors/http-error";
 
 export class FriendService {
     constructor(
@@ -16,7 +17,7 @@ export class FriendService {
     }
 
     async sendFriendRequests(requester_id: string, receiver_id: string): Promise<void> {
-        if (requester_id === receiver_id) throw new Error('Cannot send friend request to yourself');
+        if (requester_id === receiver_id) throw new HttpError(400, 'Cannot send friend request to yourself');
 
         return this.friend_repo.sendFriendRequest(requester_id, receiver_id);
     }
@@ -38,8 +39,8 @@ export class FriendService {
 
     async acceptInvite(invite_code: string, receiver_id: string): Promise<void> {
         const invite = await this.friend_repo.getInviteByCode(invite_code);
-        if(!invite) throw new Error('Invite not found');
-        if (new Date() > invite.expires_at) throw new Error('Invite has expired');
+        if(!invite) throw new HttpError(404, 'Invite not found');
+        if (new Date() > invite.expires_at) throw new HttpError(410, 'Invite has expired');
         // TODO sender_id needs to come from invite. Might have to extend FriendInviteDTO
      }
 

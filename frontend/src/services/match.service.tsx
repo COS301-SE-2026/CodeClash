@@ -1,47 +1,49 @@
 import { useMemo, useRef, useState, useEffect } from "react";
 import { useTimer } from "react-timer-hook";
 import type { Player } from "src/Models/MatchModel";
-import type { MatchMode, QuestionDTO } from "src/dtos/match/match.dto";
-import type { RoundDTO } from "src/dtos/match/match.dto";
+import type { MatchMode, QuestionDTO, RoundDTO } from "src/dtos/match/match.dto";
 import type { OpponentDTO } from "src/dtos/match/opponent.dto";
 import type { MatchSocket } from "src/context/Socket/modules/match.socket";
 import { useMatchStore } from "src/stores/match-store";
+import { useUser } from "src/context/User/hooks/useUser";
+import { seededRandom } from "src/utils/seededRandom";
 import { type NavigateFunction } from "react-router-dom";
 
-export function matchStart(match_socket: MatchSocket, path: string, nav: NavigateFunction, match_mode:MatchMode) {
+export function matchStart(match_socket: MatchSocket, path: string, nav: NavigateFunction, match_mode: MatchMode) {
     return match_socket.startMatch((data) => {
-        console.log("Match starting with data", data);
-        useMatchStore.getState().setMatchData(data,match_mode);
+        useMatchStore.getState().setMatchData(data, match_mode);
         nav(`${path}/${data.match_id}`);
     })
 }
 
-export const useMatchTimer = (duration: number, onExpire: () => void) => {
-    const expiry_time = useMemo(() => {
-        const time = new Date();
-        time.setSeconds(time.getSeconds() + duration * 60);
+export const useMatchTimer = (duration: number, end_time: number | null, onExpire: () => void) => {
+  const expiry_time = useMemo(() => {
+      // coutndown to server end time, both players share a clock and reloading shouldnt restart it
+      if (end_time) return new Date(end_time);
+      const time = new Date();
+      time.setSeconds(time.getSeconds() + duration * 60);
         return time;
-    }, [duration]);
+    }, [duration, end_time]);
 
     const timer = useTimer({
         expiryTimestamp: expiry_time,
-        autoStart: true,
+        autoStart: false,
         onExpire
     });
 
     useEffect(() => {
         if (duration > 0) timer.restart(expiry_time);
-    }, [duration]);
+    }, [expiry_time]);
 
     return timer;
 }
 
-function shuffle(array: QuestionDTO[]) {
+function shuffle(array: QuestionDTO[], next: () => number = Math.random) {
     let curr = array.length;
     let random;
 
     while (curr !== 0) {
-        random = Math.floor(Math.random() * curr);  // NOSONAR - Math.random() is just to shuffle questions
+        random = Math.floor(next() * curr);  // NOSONAR - Math.random() is just to shuffle questions
         curr--;
 
         [array[curr], array[random]] = [array[random], array[curr]]
@@ -50,7 +52,16 @@ function shuffle(array: QuestionDTO[]) {
 }
 
 
-export const useLoadRounds = (data: RoundDTO[]) => {
+// time_limit is a postgres TIME (HH:MM:SS); returns minutes, possibly fractional
+function timeLimitMinutes(time_limit: string): number {
+    const [hours = 0, minutes = 0, seconds = 0] = time_limit.split(':').map(Number);
+    return hours * 60 + minutes + seconds / 60;
+}
+
+export const useLoadRounds = (data: RoundDTO[], match_id?: string | null) => {
+
+  const { userId } = useUser();
+  
     return useMemo(() => {
         if (!data || data.length === 0) {
             return {
@@ -58,10 +69,11 @@ export const useLoadRounds = (data: RoundDTO[]) => {
                 duration: 0
             }
         }
-        let sumtime = 0;
+      let sumtime = 0;
+      const next = match_id ? seededRandom(`${match_id}:${userId}`) : Math.random;
         const rounds = data.map((round) => {
             const questions: QuestionDTO[] = round.questions.map(q => {
-                sumtime += Number(q.time_limit!.split(":")[0]);
+                sumtime += timeLimitMinutes(q.time_limit!);
                 return {
                     id: q.id,
                     title: q.title,
@@ -72,12 +84,12 @@ export const useLoadRounds = (data: RoundDTO[]) => {
 
                 };
             });
-            return shuffle(questions);
+            return shuffle(questions, next);
         });
 
-        return { rounds, duration: sumtime};
+        return { rounds, duration: sumtime };
 
-    }, [data]);
+    }, [data, match_id, userId]);
 }
 
 export const useMatchProgress = (players: Player[]) => {

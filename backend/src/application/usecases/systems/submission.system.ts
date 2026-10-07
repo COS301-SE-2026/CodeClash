@@ -1,6 +1,7 @@
 import { SubmissionComponent, SubmissionRegistryComponent } from "src/entities/components";
 import { PlayerSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
 import { World } from "src/entities/World";
+import { MarkOutcome } from "src/application/interfaces/marking/IMarkingStategy";
 
 export class SubmissionSystem {
     private readonly getMatchComponent
@@ -18,7 +19,8 @@ export class SubmissionSystem {
         this.getSubmissionComponent = getSubmissionComponent
     }
 
-    saveSubmission(sub: PlayerSubmissionDTO, is_correct: boolean | null) {
+    saveSubmission(sub: PlayerSubmissionDTO, is_correct: boolean | null, outcome?: MarkOutcome) {
+
         // 1 lookup submission entity
         const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(sub.match_id, "Submission");
 
@@ -34,7 +36,10 @@ export class SubmissionSystem {
             submission_component!.attempt_number += 1;
             submission_component!.correct = is_correct;
             submission_component!.answer = sub.submission;
-            submission_component!.submitted_at = new Date();
+          submission_component!.submitted_at = new Date();
+          submission_component!.run_time_ms = outcome?.run_time_ms ?? null;
+          submission_component!.memory_kb = outcome?.memory_kb ?? null;
+
         }
         else {  // 3 if not found 
             //  3.1 create submission enity
@@ -53,7 +58,9 @@ export class SubmissionSystem {
                 answer: sub.submission,
                 submitted_at: new Date(),
                 correct: is_correct,
-                token: undefined
+              token: undefined,
+              run_time_ms: outcome?.run_time_ms ?? null,
+              memory_kb: outcome?.memory_kb ?? null,
             }
 
             this.addSubmissionComponent(submission, 'Submission', submission_component!);
@@ -77,6 +84,23 @@ export class SubmissionSystem {
 
         const submission_component = this.getSubmissionComponent(submission_entity, 'Submission')
         return submission_component;
+    }
+
+    playerSubmissions(match_id: number, player_id: string): SubmissionComponent[] {
+        const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(match_id, "Submission");
+
+      if (!submission_registry) { throw new Error("Error getting submissions") }
+
+      const found: SubmissionComponent[] = [];
+      for (const [key, submission_entity] of submission_registry.submissions) {
+        if (key.split('::')[0]!== player_id) continue;
+
+        const component = this.getSubmissionComponent(submission_entity, 'Submission')
+        if (component) found.push(component);
+      }
+
+      return found;
+        
     }
 
 }
