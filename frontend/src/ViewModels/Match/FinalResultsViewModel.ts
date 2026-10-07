@@ -17,16 +17,17 @@ interface FinalResultsViewModel {
     content: FinalResultsContent;
     state: 'loading' | 'results' | 'error';
     loadingProgress: number; //for user to see how far the loading is
-    winner: PlayerResultDTO | null,
-    loser: PlayerResultDTO | null,
-    avatarImageWinner: string | null,
-    avatarImageLoser: string | null
+    players: PlayerResultDTO[],
+    winner: PlayerResultDTO | undefined,
+    losers: PlayerResultDTO[],
+    avatars: Record<string, string | null | undefined>
 
 }
 
 export function FinalResultsViewModelFunction(): FinalResultsViewModel {
     const [state, setState] = useState<'loading' | 'results' | 'error'>('loading');
     const [loadingProgress, setLoadingProgress] = useState(0);
+    const [avatars, setAvatars] = useState<Record<string, string | null  | undefined>>({});
     const { match_id } = useParams();
     const { matchSocket } = useSocket();
     const { group_id } = useMatchmaking();
@@ -34,50 +35,49 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
     const {token} = useAuth();
     const tokenInv = token ?? "";
 
-    const winner = useMemo(() => results?.players.find(p => p.position === 1) ?? null, [results]);
-  const loser = useMemo(() => results?.players.find(p => p.position === 2) ?? null, [results]);
+    const players = useMemo(
+        () => [...results?.players ?? []].sort((a, b) => a.position - b.position),
+        [results]
+    );
+
+    const winner = useMemo(() => players.find(p => p.position === 1), [players]);
+    const losers = useMemo(() => players.filter(p => p.user_id !== winner?.user_id), [players, winner])
 
     useEffect(() => {
-        if (useMatchStore.getState().match_id === match_id) useMatchStore.getState().reset();
-    }, [results])
-
-    const [avatarImageWinner, setAvatarImageWinner] = useState<string | null>(null);
-    const [avatarImageLoser, setAvatarImageLoser] = useState<string | null>(null);
+      if (useMatchStore.getState().match_id === match_id) useMatchStore.getState().reset();
+    }, [match_id])
+    
 
     useEffect(() => {
-        if (!tokenInv){
+        if (!tokenInv || players.length === 0){
             return;
         }
 
         //the following code block was written by hand just pasted because it was in the wrong place
-        const cropAvatar = (url: string | undefined): string | null => {
-                
-                if (!url) {
-                    return null;
-                }
-
-                return url.replace("src/assets/Shop/Avatars", "").replace(".png", "");
-                
-            }
 
         const loadAvatars = async () => {
-            const [winnerRes, loserRes] = await Promise.all([
-                getEquippedFor(winner?.user_id ?? "", tokenInv),
-                getEquippedFor(loser?.user_id ?? "", tokenInv)
-            ]);
-
-            setAvatarImageWinner(cropAvatar(winnerRes.avatarImage) ?? null);
-            setAvatarImageLoser(cropAvatar(loserRes.avatarImage) ?? null);
+            const entries = await Promise.all(
+                players.map(async (p) => {
+                    try{
+                        const res = await getEquippedFor(p.user_id, tokenInv);
+                        return [p.user_id, res.avatarImage] as const;
+                    }
+                    catch{
+                        return [p.user_id, null] as const;
+                    }
+                })
+            );
+            setAvatars(Object.fromEntries(entries))
         };
 
         void loadAvatars();
-    }, [winner?.user_id, loser?.user_id, tokenInv])
+    }, [players, tokenInv])
 
-
+  
     useEffect(() => {
         if (results || !matchSocket || !match_id) return;
 
-         matchSocket.sendResults({ match_id, pair_id: group_id })
+        matchSocket.sendResults({ match_id, pair_id: group_id })
             .then(res => {
                 if (res.ok) {
                     useResultStore.getState().addResult(res.data!)
@@ -122,9 +122,9 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
         content: finalResultsContent,
         state,
         loadingProgress,
+        players,
         winner,
-        loser,
-        avatarImageWinner,
-        avatarImageLoser
+        losers,
+        avatars
     };
 }

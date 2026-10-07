@@ -59,7 +59,9 @@ export interface MatchDTO {
     match_id: string
     players: (Player | PlayerStandingDTO)[]
     duration: number
-    rounds: RoundDTO[]
+  rounds: RoundDTO[],
+  end_time?: number,
+  server_time?: number
 }
 
 export interface MatchQuestionsDTO {

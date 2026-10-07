@@ -5,6 +5,8 @@ import { MatchMode, MatchStatus, MatchType } from "src/entities/dtos/matches/mat
 import { TournamentDTO } from "src/entities/dtos/tournaments/tournaments.dto";
 import { TournamentEliminationService } from "./elimination.service";
 import { MatchStart } from "../match/match-start.service";
+import { MatchCompletionService } from "../match/match-completion.service";
+import { MatchStore } from "../match/match-store.service";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 import { HttpError } from "src/entities/errors/http-error";
 
@@ -13,7 +15,8 @@ export class TournamentService {
         private readonly tournament_cache: ITournamentCache,
         private readonly creation_service: MatchStart,
         private readonly elimination_service: TournamentEliminationService,
-        private readonly user_repo: IUserRepository
+        private readonly completion_service: MatchCompletionService,
+        private readonly match_store: MatchStore
     ) { }
 
     async joinTournament(tournament_id: string, player: PlayerDTO): Promise<TournamentDTO> {
@@ -30,7 +33,7 @@ export class TournamentService {
 
     async hostTournament(match_mode: MatchMode, host: PlayerDTO, title: string, min_players: number) {
         const tournament_id = randomUUID();
-        await this.tournament_cache.createTournament(tournament_id, match_mode,host, title, min_players);
+        await this.tournament_cache.createTournament(tournament_id, match_mode, host, title, min_players);
         const tournament = await this.tournament_cache.getTournament(tournament_id);
 
         return tournament;
@@ -65,10 +68,19 @@ export class TournamentService {
         const usernames = tournament.players.map(p => ({ id: p.id, username: p.username! }));
 
         /// updates stored tournament state
-        const init_players_map = this.elimination_service.init(match.match_id, usernames);
-        const round_1 = match.rounds[0];
+        const init_players_map = this.elimination_service.init(tournament.tournament_id, usernames);
 
-        this.elimination_service.startRound(match.match_id, round_1!.round_number, round_1!.questions.map(q => q.id));
+        const tournament_state = this.elimination_service.getTournament(tournament.tournament_id);
+        tournament_state.start = new Date();
+        tournament_state.rounds = match.rounds;
+        tournament_state.progress.clear();
+
+        for (const p of tournament_state.players.values()) {
+            if (p.elimination_round !== -1) continue;
+
+            p.correct = 0;
+            p.total_time = 0;
+        }
 
         return {
             ...match,
@@ -77,25 +89,32 @@ export class TournamentService {
         };
     }
 
+  async endTournament(tournament_id: string, match_id: string) {
+      // based on new timing, once time ends, everyones time would run out at the same time, so it'll just grab the first match id and broadcast the results to the rest to avoid multiple calculations and function calls
+    const state = this.elimination_service.getTournament(tournament_id);
+    if (state.finished) throw new Error("Tournament already ended");
+    state.finished = true;
+    
+    const standings = this.elimination_service.getStanding(tournament_id);
+    const times = this.elimination_service.timeInTournament(tournament_id);
+    const tournament = await this.getTournament(tournament_id);
+
+    const ecs_id = this.match_store.getEcsId(match_id);
+    const result = await this.completion_service.execute(ecs_id!, match_id, standings.map(p => p.id), MatchType.tournament, times);
+
+
+        if (tournament) {
+            tournament.status = MatchStatus.Completed;
+            await this.tournament_cache.updateTournament(tournament);
+        }
+
+        this.elimination_service.clear(tournament_id);
+        return result;
+
+    }
 
     async getTournamentsByStatus(status: MatchStatus) {
         return this.tournament_cache.getTournamentsByStatus(status);
-    }
-
-    async advancedRound(tournament_id: string){
-        const tournament = await this.getTournament(tournament_id);
-
-        const survirors = this.elimination_service.endRound(tournament_id);
-        const current_idx = this.elimination_service.getCurrentRound(tournament_id);
-        const next_idx = current_idx + 1;
-
-        if(next_idx >= tournament.rounds.length || survirors.length <= 1){
-            return {finished: true as const, standings: this.elimination_service.getStanding(tournament_id)};
-        }
-
-        const next_round = tournament.rounds[next_idx];
-        this.elimination_service.startRound(tournament_id, next_round!.round_number, next_round!.questions.map(q=>q.id));
-        return {finished: false as const, round: next_round, standings: this.elimination_service.getStanding(tournament_id)}
     }
 
 }

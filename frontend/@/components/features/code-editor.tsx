@@ -19,7 +19,7 @@ interface codeEditorProps {
     className?: string
 }
 
-export const CodeEditor = ({ question, onChange, className }: codeEditorProps) => {
+export const    CodeEditor = ({ question, onChange, className }: codeEditorProps) => {
 
     const { templates, selectedLanguage, code, changeLanguage, editCode } = useCodeQuestion(question, onChange);
     const [monacoLoaded, setMonacoLoaded] = useState(false);
@@ -45,6 +45,7 @@ export const CodeEditor = ({ question, onChange, className }: codeEditorProps) =
                     </Button>
                 ))
                 }
+                <p>Include a main method and print the required results to the console.</p>
             </div>
             {monacoLoaded && <Editor
                 height="20vh"

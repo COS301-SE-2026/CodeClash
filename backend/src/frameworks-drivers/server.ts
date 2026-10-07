@@ -150,11 +150,11 @@ AppDataSource.initialize()
         const prog_marker: IMarkingStrategy = new MarkProg(code_executor, question_repo);
 
         const opponent_progress = new OpponentProgress(world);
-        
+
         const marking_service = new MarkingService(submission_system, life_system, maths_marker, prog_marker);
 
         const elimination_service = new TournamentEliminationService(marking_service);
-        const tournament_service = new TournamentService(tournament_cache, match_start, elimination_service, user_repo);
+        const tournament_service = new TournamentService(tournament_cache, match_start, elimination_service, match_completion_service, match_store);
 
 
         const app = createApp(
@@ -221,7 +221,7 @@ AppDataSource.initialize()
             match: { marking_service, submission_system, match_completion_service, match_deletion_system, match_store, powerup_service, elimination_service, opponent_progress, life_system },
             matchmaking: { matchmaking_service, matched_users_service, match_service, match_store, user_repo, match_start },
             friends: { matched_users_service },
-            tournament: { tournament_service }
+            tournament: { tournament_service, elimination_service }
         })
 
         // start server

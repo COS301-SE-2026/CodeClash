@@ -23,8 +23,8 @@ export class MatchCompletionService {
     ) { }
 
 
-    async execute(ecs_match_id: number, db_match_id: string, player_ids: string[], match_type: MatchType) {
-        const { players, match_stats, total_questions } = await this.completion_system.execute(ecs_match_id, player_ids);
+    async execute(ecs_match_id: number, db_match_id: string, player_ids: string[], match_type: MatchType, times?: Map<string, number>) {
+        const { players, match_stats, total_questions } = await this.completion_system.execute(ecs_match_id, player_ids, times);
 
         switch (match_type) {
             case MatchType.ranked: {
@@ -61,8 +61,6 @@ export class MatchCompletionService {
 
 
         await this.achievement_service.evaluateForMatch(match_stats, players, match_type, total_questions);
-
-
         await this.match_repo.updatePlayers(db_match_id, players);
         await this.match_repo.completeMatch(db_match_id, MatchStatus.Completed);
 

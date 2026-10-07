@@ -54,7 +54,7 @@ export const useMatchStore = create<MatchState>()(
                 status: 'ready',
                 match_mode: match_mode ?? get().match_mode,
                 match_type: data.match_type ?? null,
-                end_time: !tournament_id && data.end_time && data.server_time ? localEndTime(data.end_time, data.server_time) : null,
+                end_time: data.end_time && data.server_time ? localEndTime(data.end_time, data.server_time) : null,
                 round_idx: 0,
                 current_question: 0,
                 tournament_id: tournament_id

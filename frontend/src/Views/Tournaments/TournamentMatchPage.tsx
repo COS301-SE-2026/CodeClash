@@ -10,6 +10,7 @@ import MathMatch from "@/components/features/Match/MathPage";
 import { CodeEditor } from "@/components/features/code-editor";
 import { useEffect, useMemo } from "react";
 import { Badge } from "@/components/ui/badge";
+import { TournamentEliminated } from "./TournamentEliminated";
 
 const TournamentsMatchPage = () => {
     const {
@@ -22,9 +23,18 @@ const TournamentsMatchPage = () => {
         colourClass,
         setCode,
         setLanguageId,
-        handleSubmit, match_mode,
+        handleSubmit,
+        match_mode,
         nextQuestion,
-        finishMatch
+        confirmCompleteRound,
+        confirmRound,
+        cancelCompleteRound,
+        completeTournamentRound,
+        total_rounds,
+        eliminated,
+        marking,
+        markingError,
+        results
     } = useTournamentMatch();
 
 
@@ -32,11 +42,18 @@ const TournamentsMatchPage = () => {
     const question = useMemo(() => ({ templates: curr?.templates }), [curr]);
     const telemetry = round_telemetry();
     const my_rank = (telemetry && telemetry.my_rank! > 0) ? telemetry.my_rank : "-";
+    const currentResult = results?.[roundIdx]?.[currentQuestion];
+    console.log("Match mode", match_mode);
 
     useEffect(() => {
         if (mathfieldRef.current) mathfieldRef.current.value = '';
     }, [currentQuestion]);
 
+    if (eliminated) {
+        return (
+            <TournamentEliminated />
+        )
+    }
     return (
         <div className="m-6 min-h-screen flex flex-col gap-6">
             <MatchCard className="rounded-[12px] w-full min-h-[4.5rem] px-4 py-2
@@ -47,13 +64,15 @@ const TournamentsMatchPage = () => {
                             <Trophy size={20} className="text-[var(--match-box)] mx-auto" />
                         </TournamentButton>
                         <div className="flex flex-col ml-4">
+                            <h1 className="font-semibold text-secondary text-[1.1rem] mt-1">Round {roundIdx + 1}/ {total_rounds}</h1>
                             <div className="text-muted-text text-[0.7rem] -mt-0.5">{activePlayers.length} Players Remaining</div>
                         </div>
                     </div>
 
                     <Badge
                         variant={'ghost'}
-                        >
+                        className="text-sm"
+                    >
                         Question {currentQuestion + 1} / {questions.length}
                     </Badge>
 
@@ -91,7 +110,7 @@ const TournamentsMatchPage = () => {
                                         setCode(new_code);
                                         setLanguageId(judge0_id)
                                     }}
-
+                                    // colourClass={colourClass}
                                 />
                             )}
                         </MatchCard>
@@ -106,38 +125,64 @@ const TournamentsMatchPage = () => {
 
                             <div className="flex flex-row items-center gap-3">
                                 <Button
+                                    disabled={marking}
                                     className="btn btn-primary"
                                     variant={"default"}
                                     onClick={handleSubmit}
                                 >
                                     <div className="flex flex-row items-center gap-2">
-                                        <h1 className="font-semibold">Submit Answer</h1>
+                                        <h1 className="font-semibold">
+                                            {marking ? 'Marking...' : 'Submit Answer'}
+                                        </h1>
                                         <ChevronsRight size={24} />
                                     </div>
                                 </Button>
 
-                                { currentQuestion < questions.length - 1 && <Button
-                                    className="px-4 py-2 rounded-lg"
-                                    variant={"ghost"}
-                                    onClick={() => nextQuestion(currentQuestion)}
-                                    disabled={currentQuestion >= questions.length - 1}
-                                >
-                                    <div className="flex flex-row items-center gap-2">
-                                        <h1>Next</h1>
-                                        <ChevronsRight size={30} />
-                                    </div>
-                                </Button>}
-                                { currentQuestion == questions.length - 1 && <Button
-                                    className="px-4 py-2 rounded-lg"
-                                    variant={"ghost"}
-                                    onClick={() => finishMatch()}
-                                >
-                                    <div className="flex flex-row items-center gap-2">
-                                        <h1>Finish</h1>
-                                        <ChevronsRight size={30} />
-                                    </div>
-                                </Button>}
+
+
+                                {currentQuestion < questions.length - 1 ? (
+                                    <Button
+                                        className="px-4 py-2 rounded-lg"
+                                        variant={"ghost"}
+                                        onClick={() => nextQuestion(currentQuestion)}
+                                        disabled={currentQuestion >= questions.length - 1}
+                                    >
+                                        <div className="flex flex-row items-center gap-2">
+                                            <h1>Next</h1>
+                                            <ChevronsRight size={30} />
+                                        </div>
+                                    </Button>
+                                ) :
+                                    <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
+                                        onClick={() => { confirmCompleteRound() }}
+                                    >
+                                        <p>Complete Round</p>
+                                    </Button>
+                                }
+
+                                {
+                                    confirmRound && (
+                                        <div>
+                                            <p>You won't be able to go back once you've completed a round.</p>
+                                            <Button onClick={cancelCompleteRound}>Cancel</Button>
+                                            <Button onClick={async () => {
+                                                await completeTournamentRound()
+                                            }}>Continue</Button>
+                                        </div>
+                                    )
+                                }
                             </div>
+
+                            {match_mode === 'programming' &&
+                                <p className='text-center text-[0.95rem] font-semibold mb-3 min-h-[1.5rem]' aria-live='polite'>
+                                    {marking ? <span className='text-muted-text'>Running your code against the test cases...</span>
+                                        : markingError ? <span className='text-danger'>Could not mark submission: {markingError}</span>
+                                            : currentResult === true ? <span className='text-success'>Correct! All test cases passed.</span>
+                                                : currentResult === false ? <span className='text-danger'>Incorrect - some test cases failed.</span>
+                                                    : null
+                                    }
+                                </p>
+                            }
 
                         </div>
 
@@ -217,14 +262,14 @@ const TournamentsMatchPage = () => {
                         <hr className="border-muted-text/40 " />
 
                         <div className="grid grid-cols-3 gap-3 ">
-                            <MatchCard className="bg-danger border-muted-text rounded-xl p-3">
+                            <MatchCard className="bg-danger/20 border-muted-text rounded-xl p-3">
                                 <div className="flex flex-col items-center text-center gap-1 text-xs">
                                     <h1 className="text-muted-text">CUTOFF DANGER</h1>
                                     <h1 className="text-[1.1rem] font-bold">{telemetry.in_danger.length} / {activePlayers.length}</h1>
                                     <h1 className="text-red-300">Facing Exit</h1>
                                 </div>
                             </MatchCard>
-                            <MatchCard className="bg-warning border-muted-text rounded-xl p-3">
+                            <MatchCard className="bg-warning/20 border-muted-text rounded-xl p-3">
                                 {/* the below code was copied and pasted from the handwritten code above, it was not generated by ai: */}
                                 <div className="flex flex-col items-center text-center gap-1 text-xs">
                                     <h1 className="text-muted-text">FASTEST SOLVE</h1>
@@ -241,18 +286,6 @@ const TournamentsMatchPage = () => {
                             </MatchCard>
 
                         </div>
-
-                        <MatchCard className="bg-[var(--match-box)] rounded-lg p-3">
-                            <div className="flex flex-row items-center gap-2 text-xs">
-                                <ChevronsRight />
-                                <h1>Next: Round 3</h1>
-                                <MatchCard className="bg-accent border-accent rounded-[10px] px-3 py-1 text-xs ml-auto text-secondary/60">
-                                    SUDDEN DEATH
-                                </MatchCard>
-                            </div>
-
-                        </MatchCard>
-
                     </MatchCard>
                 </div>
 

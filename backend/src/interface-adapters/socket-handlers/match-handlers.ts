@@ -24,6 +24,7 @@ export const submitQuestion = async (
     elimination_service: TournamentEliminationService,
     opponent_progress: OpponentProgress
 ) => {
+
     const ecs_id = match_store.getEcsId(data.id);
     const submission: PlayerSubmissionDTO = {
         ...data,
@@ -33,11 +34,9 @@ export const submitQuestion = async (
 
     switch (data.match_type) {
         case MatchType.tournament: {
-            const result = await elimination_service.submit(data.id!, submission);
-            const standings = elimination_service.getStanding(data.id);
+            const result = await elimination_service.submit(data.tournament_id!, submission);
+            const standings = elimination_service.getStanding(data.tournament_id!);
 
-         
-            const sockets = await io.in(data.tournament_id!).fetchSockets();
             io.to(data.tournament_id!).emit('tournament_standings', standings);
             return result;
         }
@@ -57,23 +56,8 @@ export const submitQuestion = async (
     }
 }
 
-export const advancedRound = async(io: Server, socket: Socket, tournament_id: string, tournament_service: TournamentService)=>{
-    try{
-        const result  = await tournament_service.advancedRound(tournament_id);
-
-        if(result.finished){
-            io.to(tournament_id).emit("tournament_finished", {standing: result.standings});
-        }
-        else {
-            io.to(tournament_id).emit("tournament_round_started", {round: result.round, standings: result.standings});
-        }
-    }catch(error){
-        socket.emit("advance_round_failed", error)
-    }
-}
 
 export const matchDone = async (io: Server, socket: Socket, match_id: string, match_type: MatchType, match_completion_service: MatchCompletionService, match_store: MatchStore) => {
-    // wait for both players to be done
 
     const ecs_id = match_store.getEcsId(match_id);
     const match = match_store.get(ecs_id!);

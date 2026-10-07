@@ -18,7 +18,7 @@ import { IQuestionRepository } from '../../../src/application/interfaces/reposit
 import { QuestionRepository } from '../../../src/interface-adapters/repositories/question.repository';
 import { IAnswerRepository } from '../../../src/application/interfaces/repositories/IAnswerRepository';
 import { AnswerRepository } from '../../../src/interface-adapters/repositories/answer.repository';
-import { Questions } from '../../../src/entities/database/questions.entities';
+import { Questions, TestCases, ProgrammingTemplates } from '../../../src/entities/database/questions.entities';
 import { Answers } from '../../../src/entities/database/answers.entities';
 import { IMatchRepository } from '../../../src/application/interfaces/repositories/IMatchRepository';
 import { MatchRepository } from '../../../src/interface-adapters/repositories/match.repository';
@@ -36,6 +36,10 @@ import { AnswerDTO } from '../../../src/entities/dtos/questions/answer.dto';
 import { mock_questions } from '../../mocks/mock-questions';
 import { mock_answers } from '../../mocks/mock-answers';
 import { MatchStart } from '../../../src/application/usecases/services/match/match-start.service'
+import { RewardService } from '../../../src/application/usecases/services/match/reward.service';
+import {IWalletRepository} from '../../../src/application/interfaces/repositories/IWalletRepository'
+import {WalletRepository} from '../../../src/interface-adapters/repositories/wallet.repository'
+import { Wallet } from '../../../src/entities/database/wallet.entities';
 
 let http: HttpServer;
 let server: Server;
@@ -46,11 +50,21 @@ const world = World()
 const match_repo: IMatchRepository = new MatchRepository(data_source.getRepository(Matches), data_source.getRepository(Users));
 export const match_store = new MatchStore(user_repo);
 
+const achievement_repo: IAchievementRepository = new AchievementRepository(data_source.getRepository(Achievement), data_source.getRepository(Users));
+const wallet_repo: IWalletRepository = new WalletRepository(data_source.getRepository(Wallet));
+
+const completion_system = new MatchCompletionSystem(world, match_store);
+const achievement_service = new AchievementService(achievement_repo, user_repo);
+const reward_service = new RewardService();
+
+
+export const delete_match = new MatchCompletionService(match_repo, completion_system, user_repo, achievement_service,reward_service,wallet_repo);
+
+
 export const createTestServer = async (players: PlayerDTO[]) => {
     for (const p of players) {
         const user = await user_repo.createUser(p.username!, `${p.username}@email.com`, p.id, 0, 'Mercury')
-       // p.id = user.user_id;
-       console.log(user);
+        p.id = user.user_id;
     }
 
     http = createServer();
@@ -76,7 +90,7 @@ export const createTestServer = async (players: PlayerDTO[]) => {
 }
 
 export const test_match_creation = async () => {
-    const question_repo: IQuestionRepository = new QuestionRepository(data_source.getRepository(Questions));
+    const question_repo: IQuestionRepository = new QuestionRepository(data_source.getRepository(Questions), data_source.getRepository(TestCases), data_source.getRepository(ProgrammingTemplates));
     const answer_repo: IAnswerRepository = new AnswerRepository(data_source.getRepository(Answers))
 
     await data_source.getRepository(Questions).save(mock_questions);
@@ -92,11 +106,11 @@ export const test_match_creation = async () => {
 
     const match_cache = new MatchCache(redis);
     const create_game = new MatchCreationSystem(create_player_entity, create_match_entity, create_rounds);
-    const match_service = new MatchCreationService(create_game, get_questions, get_total_time, get_answers, match_cache, match_repo, user_repo);
+    const match_service = new MatchCreationService(create_game, get_questions, get_total_time, get_answers, match_cache, match_repo, user_repo,question_repo);
 
     const match_start = new MatchStart(match_service, match_store);
 
-    return {match_start, match_service};
+    return { match_start, match_service };
 }
 
 export const createTestMatch = async (players: PlayerDTO[], match_mode: MatchMode, match_type: MatchType) => {
@@ -114,16 +128,8 @@ export const deleteTestMatch = (players: string[], match_type: MatchType,
         rounds: RoundComponent[],
         answers: AnswerDTO[]
     }) => {
-  
-    const achievement_repo: IAchievementRepository = new AchievementRepository(data_source.getRepository(Achievement), data_source.getRepository(Users));
 
-
-    const completion_system = new MatchCompletionSystem(world, match_store);
-    const achievement_service = new AchievementService(achievement_repo, user_repo);
-
-    const delete_match = new MatchCompletionService(match_repo, completion_system, user_repo, achievement_service);
-
-   delete_match.execute(match.match_entity, match.match_id, players, match_type);
+    delete_match.execute(match.match_entity, match.match_id, players, match_type);
 }
 
 

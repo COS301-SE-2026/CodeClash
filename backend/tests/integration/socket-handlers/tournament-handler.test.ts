@@ -2,7 +2,7 @@ import { beforeAll, describe, expect, it, vi } from 'vitest'
 import { Server } from 'socket.io'
 import { Server as HttpServer } from 'http'
 import { PlayerDTO } from '../../../src/entities/dtos/matches/match-component.dto';
-import { createTestServer, test_match_creation, socketSetup, user_repo } from './helper';
+import { createTestServer, test_match_creation, socketSetup, user_repo, delete_match, match_store } from './helper';
 import { TournamentService } from '../../../src/application/usecases/services/tournament/tournament.service'
 import { TournamentCache } from '../../../src/interface-adapters/cache/tournament-cache'
 import { ITournamentCache } from '../../../src/application/interfaces/cache/ITournamentCache'
@@ -53,7 +53,7 @@ const marking_service = {
 const tournament_cache: ITournamentCache = new TournamentCache(redis);
 const test_create_match = await test_match_creation();
 const elimination_service = new TournamentEliminationService(marking_service as unknown as MarkingService);
-const tournament_service = new TournamentService(tournament_cache, test_create_match.match_start, elimination_service, user_repo);
+const tournament_service = new TournamentService(tournament_cache, test_create_match.match_start, elimination_service,delete_match, match_store);
 const create_server = await createTestServer(players);
 
 let tournament: TournamentDTO;
@@ -66,7 +66,8 @@ describe("Tournament Socket Handelr", () => {
         server = create_server.server;
 
         const deps: TournamentDeps = {
-            tournament_service: tournament_service
+            tournament_service: tournament_service,
+            elimination_service: elimination_service
         };
 
         server.on("connection", (socket) => {
@@ -189,7 +190,6 @@ describe("Tournament Socket Handelr", () => {
             socket.on("connect_error", reject);
         })
 
-        console.log(response)
         expect(response.ok).toBe(true);
         expect(response.data).toBeDefined();
     })
