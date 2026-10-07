@@ -3,15 +3,25 @@ import { renderHook, act, waitFor } from "@testing-library/react";
 import { it, expect, beforeEach, afterEach, vi } from "vitest";
 
 import { FriendsProvider, FriendsContextFunc } from '../../../src/context/Friends/FriendsContext';
-import { UserProvider } from "src/context/User/UserContext";
-import { InventoryProvider } from "src/context/Shop/InventoryContext";
-import { SocketProvider } from "src/context/Socket/SocketContext";
-import { AchievementToastProvider } from "src/context/Achievement/AchievementToastContext";
+// import { UserProvider } from "src/context/User/UserContext";
+// import { InventoryProvider } from "src/context/Shop/InventoryContext";
+// import { SocketProvider } from "src/context/Socket/SocketContext";
+// import { AchievementToastProvider } from "src/context/Achievement/AchievementToastContext";
 
 
-const { mockUseAuth, mockUseSocket } = vi.hoisted(() => ({
+const { mockUseAuth, mockUseSocket, mockFriendsSocket } = vi.hoisted(() => ({
     mockUseAuth: vi.fn(),
-    mockUseSocket: vi.fn()
+    mockUseSocket: vi.fn(),
+    mockFriendsSocket: {
+        friendRequestReceived: vi.fn(() => () => {}),   // each returns an unsubscribe fn
+        friendRequestResponded: vi.fn(() => () => {}),
+        playInviteReceived: vi.fn(() => () => {}),
+        playInviteResponded: vi.fn(() => () => {}),
+        sendFriendRequest: vi.fn(),
+        respondFriendRequest: vi.fn(),
+        sendPlayInvite: vi.fn(),
+        respondPlayInvite: vi.fn(),
+    },
 }))
 
 vi.mock("src/context/Auth/hooks/useAuth", () => ({
@@ -81,16 +91,8 @@ function setMockFetch() {
 function renderFriends() {
     return renderHook(() => useContext(FriendsContextFunc), {
         wrapper: ({ children }: { children: React.ReactNode }) => (
-            <SocketProvider>
-                <InventoryProvider>
-                    <UserProvider>
-                        <AchievementToastProvider>
-                            <FriendsProvider>{children}</FriendsProvider>
-                        </AchievementToastProvider>
-                    </UserProvider>
-                </InventoryProvider>
-            </SocketProvider>
-
+      
+            <FriendsProvider>{children}</FriendsProvider>
 
         )
     })
@@ -105,7 +107,7 @@ beforeEach(() => {
     handlers = defaultHandlers();
     setMockFetch();
     mockUseAuth.mockReturnValue({ token: 'tokenTest', user: base });
-    mockUseSocket.mockReturnValue({ socket: { emit: vi.fn() } });
+    mockUseSocket.mockReturnValue({ friendsSocket: mockFriendsSocket });
     vi.spyOn(console, 'error').mockImplementation(() => { });
 })
 
