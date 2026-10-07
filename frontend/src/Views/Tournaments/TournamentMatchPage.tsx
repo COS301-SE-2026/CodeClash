@@ -157,9 +157,8 @@ const TournamentsMatchPage = () => {
                                             <p>You won't be able to go back once you've completed a round.</p>
                                             <Button onClick={cancelCompleteRound}>Cancel</Button>
                                             <Button onClick={async () => {
-                                                console.log("CLICKINGGG!!!!!")
                                                 await completeTournamentRound()
-                                                }}>Continue</Button>
+                                            }}>Continue</Button>
                                         </div>
                                     )
                                 }

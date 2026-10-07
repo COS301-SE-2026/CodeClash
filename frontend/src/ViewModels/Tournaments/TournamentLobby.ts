@@ -46,7 +46,6 @@ export const useTournamentLobby = () => {
         })
 
         const unsub_started = tournamentSocket.tournamentStart(async (data) => {
-            console.log("starting", data);
             useMatchStore.getState().setMatchData(data.match, data.tournament.tournament_mode, tournament_id);
             await nav(`/tournaments-match/${tournament_id}`);
         })
@@ -97,7 +96,6 @@ export const useTournamentLobby = () => {
             const res = await tournamentSocket?.startTournament(data);
 
             if (res?.ok && res.data) {
-                console.log("starting tournament ", res.data)
                 useMatchStore.getState().setMatchData({
                     match_id: res.data.match.match_id,
                     rounds: res.data.match.rounds,

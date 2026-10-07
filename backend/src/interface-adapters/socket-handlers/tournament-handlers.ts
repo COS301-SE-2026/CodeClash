@@ -78,12 +78,10 @@ export const getTournament = async (socket: Socket, tournament_id: string, tourn
 
 export const startTournament = async (io: Server, socket: Socket, tournament_id: string, league: string, tournament_service: TournamentService) => {
     try {
-        console.log("starting tournament", tournament_id);
 
         const tournament = await tournament_service.getTournament(tournament_id);
         const match = await tournament_service.startTournament(tournament, league);
         const data = { match: match, tournament: tournament };
-
 
         io.emit('tournament_removed', { tournament_id });
         io.to(tournament_id).emit("tournament_started", data);
@@ -115,11 +113,8 @@ export const completeRound = async (io: Server, socket: Socket, tournament_id: s
 
     const alive = [...tournament.players.values()].filter(p => p.elimination_round === -1);
 
-  //  console.log("living players", alive);
-
     if (alive.length === 1) {
         const results = await tournament_service.endTournament(tournament_id, match_id,);
-     //   console.log("Tournament ended", results);
         io.to(tournament_id).emit('tournament_ended', results);
         return null
     }

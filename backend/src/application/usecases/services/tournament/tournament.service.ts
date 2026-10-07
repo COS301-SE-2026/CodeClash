@@ -107,11 +107,12 @@ export class TournamentService {
 
     async endTournament(tournament_id: string, match_id: string) {
         const standings = this.elimination_service.getStanding(tournament_id);
+        const tournament = await this.getTournament(tournament_id);
 
         const ecs_id = this.match_store.getEcsId(match_id);
         const result = await this.completion_service.execute(ecs_id!, match_id, standings.map(p => p.id), MatchType.tournament);
 
-        const tournament = await this.getTournament(tournament_id);
+
         if (tournament) {
             tournament.status = MatchStatus.Completed;
             await this.tournament_cache.updateTournament(tournament);

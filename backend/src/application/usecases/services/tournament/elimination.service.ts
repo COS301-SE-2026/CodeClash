@@ -50,8 +50,6 @@ export class TournamentEliminationService {
         }
 
         this.state.set(tournament_id, init_state);
-        console.log("elimination service setting", tournament_id);
-
         return init_state.players
     }
 
@@ -87,16 +85,16 @@ export class TournamentEliminationService {
         progress.attempts++;
         let correct: boolean;
         try {
-            correct = await this.marking_service.mark(submission);
+            correct = (await this.marking_service.execute(submission)).correct;
         } catch (error) {
             progress.attempts--;
             throw error;
         }
 
+        player.total_time += received_at.getTime() - tournament.start?.getTime();
         if (correct && !progress.solved) {
             progress.solved = true;
             ++player.correct;
-            player.total_time += received_at.getTime() - tournament.start?.getTime();
         }
 
         return {
@@ -117,18 +115,13 @@ export class TournamentEliminationService {
             throw new Error("Invalid player");
         }
 
-        console.log("Player ", player.username, " Completing round ", player.current_round);
         const curr_round = player.current_round;
         const next_round = curr_round + 1;
-
-        console.log("Player current round", curr_round);
         const final_round = curr_round === tournament.rounds.length - 1;
 
         if (final_round) {
-            console.log("FINAL ROUND");
 
             for (const p of tournament.players.values()) {
-                console.log("updating existing players");
                 if (p.id !== player_id && p.elimination_round === -1) {
                     p.elimination_round = curr_round;
                     p.in_danger = false;
@@ -144,8 +137,6 @@ export class TournamentEliminationService {
         tournament.round_players[next_round] ??= new Set();
 
         player.current_round = next_round;
-
-        console.log("UPDATED ", player.current_round);
 
         tournament.round_players[next_round]!.add(player_id);
         tournament.round_players[curr_round]?.delete(player_id);

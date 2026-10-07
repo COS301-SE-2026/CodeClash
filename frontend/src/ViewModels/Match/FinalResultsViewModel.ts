@@ -25,7 +25,6 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
     const { matchSocket } = useSocket();
     const { group_id } = useMatchmaking();
     const results = useResultStore(s => s.results.find(r => r?.match_id === match_id));
-    console.log("FINAL RESULTS: ", match_id, results)
 
     const players = useMemo(
         () => [...results?.players ?? []].sort((a, b) => a.position - b.position),

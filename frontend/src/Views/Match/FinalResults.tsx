@@ -38,6 +38,7 @@ const FinalResults: React.FC = () => {
         return `${min}:${sec.toString().padStart(2, '0')}`;
     }
 
+
     if (!players) {
         return (
             <Loading />
@@ -189,6 +190,10 @@ const PlayerResultCard: React.FC<{
     emphasize?: boolean; //emphasis on the winners card, so its somewhat more visible and different to loser card
 }> = ({ player, emphasize }) => {
     const [avatarFailed] = useState(false);
+    const formatCorrectness = (correctness: number) => {
+        return `${(correctness * 100).toFixed(2)}%`
+    }
+    
     return (
         <div className={`${emphasize ? 'card-glow' : 'card-elevated'} p-4 flex flex-col sm:flex-row items-center gap-4`}>
             <div className="flex flex-col items-center gap-1 shrink-0 w-30">
@@ -214,7 +219,7 @@ const PlayerResultCard: React.FC<{
             <div className="grid grid-cols-4 gap-2 flex-1 w-full">
                 <div className="flex flex-col items-center gap-0.5">
                     <span className="text-xsm uppercase tracking-wide text-muted">Correctness</span>
-                    <span className="score-display text-base text-primary-text">{player.correctness}</span>
+                    <span className="score-display text-base text-primary-text">{formatCorrectness(player.correctness)}</span>
                 </div>
                 {/*Copied from above and modified */}
                 <div className="flex flex-col items-center gap-0.5">

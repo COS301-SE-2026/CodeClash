@@ -1,7 +1,7 @@
 import { Repository } from 'typeorm';
 import { Matches } from 'src/entities/database/match.entities';
 import { IMatchRepository } from 'src/application/interfaces/repositories/IMatchRepository';
-import { MatchMode, MatchStatus, MatchType, MatchPlayer, MatchHistoryRow, MatchResultDTO } from 'src/entities/dtos/matches/match.dto';
+import { MatchMode, MatchStatus, MatchType, MatchPlayer, MatchHistoryRow, MatchResultDTO, MatchQuestion } from 'src/entities/dtos/matches/match.dto';
 import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
 
 export class MatchRepository implements IMatchRepository {
@@ -10,7 +10,7 @@ export class MatchRepository implements IMatchRepository {
         private readonly user_repo: IUserRepository
     ) { }
 
-    async createMatch(players: string[], type: MatchType, match_mode: MatchMode, match_start: Date, title: string): Promise<string> {
+    async createMatch(players: string[], type: MatchType, match_mode: MatchMode, match_start: Date, title: string, questions: MatchQuestion[]): Promise<string> {
         if (players.length < 2) throw new Error("Not Enough Players");
 
         const match = this.match_repo.create(
@@ -23,7 +23,7 @@ export class MatchRepository implements IMatchRepository {
                     total_time: 0,
                     elimination_round: null
                 })),
-                questions: [],
+                questions: questions,
                 power_ups: [],
                 match_type: type,
                 match_mode: match_mode,

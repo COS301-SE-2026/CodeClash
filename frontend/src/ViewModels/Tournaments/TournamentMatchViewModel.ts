@@ -85,7 +85,13 @@ export const useTournamentMatch = () => {
 
         const response = await tournamentSocket?.getStandings(tournament_id!);
         if (response?.ok) {
-            setActivePlayers(response.data!);
+            setActivePlayers(prev => {
+                const active_ids = new Set(prev.map(p => p.id));
+
+                return response.data!.filter(p => active_ids.has(p.id));
+
+            }
+            );
         }
     }
 
@@ -98,8 +104,6 @@ export const useTournamentMatch = () => {
             match_id: match_id!
         });
         if (!response?.ok) return;
-
-        console.log(response);
         const player = response.data!;
         if (player) {
             const res_player = player as PlayerStandingDTO;
@@ -115,20 +119,16 @@ export const useTournamentMatch = () => {
     }
 
     const finishTournament = (data: MatchResultDTO) => {
-
-        console.log("Result", data);
-
-        console.log("comparing ", data.match_id, " to ", match_id);
         if (data.match_id !== match_id) return;
 
         addResult(data);
-        console.log("navigating to ", `/results/${data.match_id}`);
         nav(`/results/${data.match_id}`);
     }
 
     const handlerPlayerEliminated = (player: PlayerStandingDTO) => {
         // notification
-        console.log("Player eliminated", player);
+
+        setActivePlayers(prev => prev.filter(p => p.id !== player.id));
         if (player.id === db_id)
             setEliminated(true);
     }
