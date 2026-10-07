@@ -1,0 +1,96 @@
+frontend/src/ViewModels/Match/MatchViewModel.ts
+  h_b13c5d77534129 19,119-122,160
+  h_b13c5d77534129 118,123,192-193
+backend/src/frameworks-drivers/server.ts
+  h_b13c5d77534129 153,157,224
+frontend/src/Views/Tournaments/TournamentMatchPage.tsx
+  h_b13c5d77534129 13,29-37,45-46,52-56,67,74,113,128,135,141-143,155-172,176-185,265,272
+  h_b13c5d77534129 26-27,75,134,136,144-154,173,186
+frontend/src/Views/Match/FinalResults.tsx
+  h_b13c5d77534129 19,40,43-44,54,99,102,104,106-114,116-117,119-120,130,139,150,157,193-199,201,204,207,210-212,224
+  h_b13c5d77534129 1,33,35,45,53,55-56,58,85,98,100-101,103,105,121,123-128,137-138,140-145,149,151-156,158-163,167-183,185-187,205,209,235-237,245
+frontend/@/components/features/code-editor.tsx
+  h_b13c5d77534129 22,48
+frontend/src/ViewModels/Match/FinalResultsViewModel.ts
+  h_b13c5d77534129 20-23,30,38-39,41,43-44,48-49,52,59-70,74,76,125,127-128
+  h_b13c5d77534129 40,46-47,80
+backend/package-lock.json
+  h_b13c5d77534129 31,40,2103-2105,5892-5894,5897,5899,5907,5919-5921,5926-5928,5959-5961
+backend/package.json
+  h_b13c5d77534129 56,65
+backend/src/application/interfaces/repositories/IMatchRepository.ts
+  h_b13c5d77534129 1,8
+backend/src/application/usecases/services/achievement.service.ts
+  h_b13c5d77534129 84,87
+backend/src/application/usecases/services/match/match-completion.service.ts
+  h_b13c5d77534129 26-27
+backend/src/application/usecases/services/match/match-creation.service.ts
+  h_b13c5d77534129 2,93-97,100
+backend/src/application/usecases/services/tournament/elimination.service.ts
+  h_b13c5d77534129 4,16-21,28-29,41,47-52,67-68,79,85,95,101-102,110,116-117,119,121-123,125-137,139-152,154-173,176-186,201,218-220
+backend/src/application/usecases/services/tournament/tournament.service.ts
+  h_b13c5d77534129 8-9,18-19,36,71,73-83,92-100,102-103,106-108,111-117
+backend/src/application/usecases/systems/match-completion.system.ts
+  h_b13c5d77534129 25,54
+backend/src/entities/dtos/tournaments/tournaments.dto.ts
+  h_b13c5d77534129 23
+backend/src/frameworks-drivers/socket/dependencies.ts
+  h_b13c5d77534129 45
+backend/src/frameworks-drivers/socket/modules/register-tournament-handler.ts
+  h_b13c5d77534129 5,16-17,28-37
+backend/src/interface-adapters/repositories/match.repository.ts
+  h_b13c5d77534129 4,13,26
+backend/src/interface-adapters/socket-handlers/match-handlers.ts
+  h_b13c5d77534129 27,37-38
+backend/src/interface-adapters/socket-handlers/tournament-handlers.ts
+  h_b13c5d77534129 2,94-131
+backend/tests/integration/services/match-creation.service.test.ts
+  h_b13c5d77534129 19,32,51-52
+backend/tests/integration/socket-handlers/helper.ts
+  h_b13c5d77534129 21,39-42,53-63,67,93,109,113,132
+backend/tests/integration/socket-handlers/submit-question.test.ts
+  h_b13c5d77534129 110,153
+backend/tests/integration/socket-handlers/tournament-handler.test.ts
+  h_b13c5d77534129 5,56,69-70
+frontend/@/components/features/Questions/question.tsx
+  h_b13c5d77534129 63-83,85-86,93
+frontend/@/components/features/Tournaments/TournamentCard.tsx
+  h_b13c5d77534129 58,80-83,107-130
+frontend/src/ViewModels/Tournaments/TournamentLobby.ts
+  h_b13c5d77534129 103-104
+frontend/src/ViewModels/Tournaments/TournamentMatchViewModel.ts
+  h_b13c5d77534129 8-10,13-33,46-57,60,65-68,98,107-117,121-147,150-156,161-162,165-166,191-201
+frontend/src/Views/Match/MathsMatch.tsx
+  h_b13c5d77534129 144
+frontend/src/Views/Tournaments/TournamentEliminated.tsx
+  h_b13c5d77534129 1-19
+frontend/src/Views/Tournaments/TournamentsWaiting.tsx
+  h_b13c5d77534129 1,36,69,71
+frontend/src/context/Socket/modules/tournament.socket.ts
+  h_b13c5d77534129 5,41-46,67-68,98-110
+frontend/src/dtos/match/match.dto.ts
+  h_b13c5d77534129 62-64
+frontend/src/dtos/tournaments/tournament.dto.ts
+  h_b13c5d77534129 24-25
+frontend/src/services/match.service.tsx
+  h_b13c5d77534129 4,12,14,30,90
+frontend/src/services/shop.service.ts
+  h_b13c5d77534129 71
+frontend/src/stores/match-store.ts
+  h_b13c5d77534129 57
+frontend/test/integration/Contexts/UserContext.integration.test.tsx
+  h_b13c5d77534129 12,92,156,222
+frontend/test/unit/ViewModels/FriendsContext.test.tsx
+  h_b13c5d77534129 1-3,5-9,11-12,14-24,49,51,62,69-73,80,93-94,96,102,109-111,116,120,126,128,130,132,148-149,152-153,155,158-159,163-165,174,180-181,184-185,189-191,201,203-204,209,211,220,222
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "140bf9a680571145608195052b66f14c89f2795e",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
