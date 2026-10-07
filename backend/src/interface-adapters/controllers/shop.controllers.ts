@@ -100,6 +100,7 @@ export const usePowerup = (service: PowerupService) =>
         if (!user_id) { res.status(401).json({ message: 'Unauthorized' }); return; }
         if (!match_id || !shop_item_id) { res.status(400).json({ message: 'match_id and shop_item_id are required' }); return; }
         
+        try{
             const result = await service.usePowerup(user_id, match_id, shop_item_id, target_user_id);
             res.status(200).json(result);
         } catch (error: any) {
