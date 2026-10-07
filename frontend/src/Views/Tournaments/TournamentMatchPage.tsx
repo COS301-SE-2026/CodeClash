@@ -153,7 +153,7 @@ const TournamentsMatchPage = () => {
                                         </div>
                                     </Button>
                                 ) :
-                                    <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
+                                    <Button className='w-[40%]  text-[1rem] hover:-translate-y-1'
                                         onClick={() => { confirmCompleteRound() }}
                                     >
                                         <p>Complete Round</p>
