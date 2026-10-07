@@ -62,7 +62,8 @@ export class TournamentEliminationService {
         if (player?.elimination_round !== -1)
             throw new HttpError(403, "Player is not active in this tournament");
 
-        if (!tournament.round_questions.has(submission.question_id))
+        const exists = tournament.rounds[submission.round_number]?.questions.find(q => q.id == submission.question_id);
+        if (!exists)
             throw new HttpError(400, "Question not in this round");
 
         const key = `${submission.player_id}:${submission.question_id}`;

@@ -23,7 +23,8 @@ const TournamentsMatchPage = () => {
         colourClass,
         setCode,
         setLanguageId,
-        handleSubmit, match_mode,
+        handleSubmit,
+        match_mode,
         nextQuestion,
         confirmCompleteRound,
         confirmRound,
@@ -42,6 +43,7 @@ const TournamentsMatchPage = () => {
     const telemetry = round_telemetry();
     const my_rank = (telemetry && telemetry.my_rank! > 0) ? telemetry.my_rank : "-";
     const currentResult = results?.[roundIdx]?.[currentQuestion];
+    console.log("Match mode", match_mode);
 
     useEffect(() => {
         if (mathfieldRef.current) mathfieldRef.current.value = '';
@@ -171,14 +173,16 @@ const TournamentsMatchPage = () => {
                                 }
                             </div>
 
-                            <p className='text-center text-[0.95rem] font-semibold mb-3 min-h-[1.5rem]' aria-live='polite'>
-                                {marking && match_mode === 'programming' ? <span className='text-muted-text'>Running your code against the test cases...</span>
-                                : markingError ? <span className='text-danger'>Could not mark submission: {markingError}</span>
-                                : currentResult === true ? <span className='text-success'>Correct! All test cases passed.</span>
-                                : currentResult === false ? <span className='text-danger'>Incorrect - some test cases failed.</span>
-                                : null
-                                }
-                            </p>
+                            {match_mode === 'programming' &&
+                                <p className='text-center text-[0.95rem] font-semibold mb-3 min-h-[1.5rem]' aria-live='polite'>
+                                    {marking ? <span className='text-muted-text'>Running your code against the test cases...</span>
+                                        : markingError ? <span className='text-danger'>Could not mark submission: {markingError}</span>
+                                            : currentResult === true ? <span className='text-success'>Correct! All test cases passed.</span>
+                                                : currentResult === false ? <span className='text-danger'>Incorrect - some test cases failed.</span>
+                                                    : null
+                                    }
+                                </p>
+                            }
 
                         </div>
 
