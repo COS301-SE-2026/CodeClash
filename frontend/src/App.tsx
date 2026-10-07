@@ -103,6 +103,7 @@ const App: React.FC = () => {
             <Route path="/brand-style-guide" element={<BrandStyleGuide />} />
             <Route path="/agent" element={<Agent />} />
             <Route path='/game-guide' element={<GameGuide />} />
+            <Route path='/tutorials' element={<Tutorials/>}/>
             <Route path='/tournaments/waiting/:tournament_id' element={<TournamentsWaiting />} />
             <Route path="/tournaments-match/:tournament_id" element={<TournamentsMatchPage />} />
             
