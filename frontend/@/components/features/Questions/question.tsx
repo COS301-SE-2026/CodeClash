@@ -60,6 +60,16 @@ export function Question({
   );
 }
 
+// so, because math questions are fetched in Latex, latex only works between $$...$$ or $...$ tags, so regex is added so that math segments are rendered correctly
+const MATH_SEGMENT = /(\$\$[\s\S]*?\$\$|\$(?:\\\$|[^$])*?\$)/;
+
+const tableCell = (cell: string) => {
+  const text = cell.trim();
+  if (text.includes('$')) return text.replace(/\$/g, '');
+  return /[a-zA-Z]/.test(text) && !text.startsWith('\\') ? `\\text{${text}}` : text;
+}; // same thing, regex added so that table cells are properly rendered as well
+
+
 export const QuestionDescription = ({ description }: { description: string }) => {
 
   return (
