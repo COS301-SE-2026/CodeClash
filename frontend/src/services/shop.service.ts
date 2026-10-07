@@ -1,6 +1,6 @@
 import type {
-    ShopItem, AvatarShopItem, ThemeShopItem, PowerupShopItem,
-    Wallet, UserInventory, Owned, Consumable, PowerupEffectType
+    ShopItem, AvatarShopItem, ThemeShopItem,
+    Wallet, UserInventory, Owned,
 } from "src/Models/ShopModel";
 
 import { resolve } from "../assets/Shop/ResolveShopImages";
@@ -23,23 +23,10 @@ interface RawShopItemBase {
 
 interface RawAvatarMetadata { asset_key: string; is_default?: boolean }
 interface RawThemeMetadata { theme_id: string; hex_color_1: string; hex_color_2: string; hex_color_3: string; is_default?: boolean }
-interface RawPowerupMetadata {
-    effect: string;
-    kind: 'powerup' | 'powerdown';
-    targeting: 'self' | 'opponent';
-    value?: number;
-    value_seconds?: number;
-    value_percent?: number;
-    duration_seconds?: number | null;
-    max_uses_per_match?: number;
-    consumed_on_use?: boolean;
-    scope?: string;
-}
 
 type RawShopItem = 
     | (RawShopItemBase & { category: 'avatar'; metadata: RawAvatarMetadata })
     | (RawShopItemBase & { category: 'theme'; metadata: RawThemeMetadata })
-    | (RawShopItemBase & { category: 'powerup'; metadata: RawPowerupMetadata })
 
 interface RawUserItem {
     user_item_id: string;
@@ -87,7 +74,6 @@ function mapItem(raw: RawShopItem): ShopItem {
         return avatar;
     }
 
-    if (raw.category === 'theme') {
         const theme: ThemeShopItem = {
             ...base,
             category: 'theme',
@@ -96,23 +82,6 @@ function mapItem(raw: RawShopItem): ShopItem {
             swatchColors: [raw.metadata.hex_color_1, raw.metadata.hex_color_2, raw.metadata.hex_color_3],
         };
         return theme;
-    }
-
-    const m = raw.metadata;
-    const powerup: PowerupShopItem = {
-        ...base,
-        category: 'powerup',
-        kind: m.kind,
-        quantityGranted: 1,
-        effect: {
-            effectType: m.effect as PowerupEffectType,
-            targeting: m.targeting,
-            durationSeconds: m.duration_seconds ?? undefined,
-            magnitude: m.value ?? m.value_seconds ?? m.value_percent,
-            maxUsesPerMatch: m.max_uses_per_match,
-        },
-    };
-    return powerup;
 }
 
 function mapWallet(raw: RawWallet): Wallet {
@@ -128,18 +97,8 @@ function mapInventory(userItems: RawUserItem[], equipped: RawEquipped): UserInve
         acquiredAt: ui.acquired_at,
     }));
 
-    const consumable: Consumable[] = userItems
-        .filter((ui) => ui.item.category === 'powerup')
-        .map((ui) => ({
-            category: 'powerup',
-            itemId: ui.item.shop_item_id,
-            quantity: ui.quantity,
-            shop_item_id: ui.item.shop_item_id
-        }));
-
         return {
             owned,
-            consumable,
             equippedAvatarId: equipped.avatar?.shop_item_id ?? null,
             equippedThemeId: equipped.theme?.shop_item_id ?? null,
         };
@@ -161,7 +120,9 @@ async function handle<T>(res: Response): Promise<T> {
 export const getCatalog = async (token: string) : Promise<ShopItem[]> => {
     const res = await fetch(CATALOG_URL, {headers: authHeaders(token) });
     const raw = await handle<RawShopItem[]>(res);
-    return raw.map(mapItem);
+    return raw
+        .filter((r) => r.category === 'avatar' || r.category === 'theme') // TODO remove this to bring back powerups
+        .map(mapItem);
 };
 
 export const getWallet = async (token: string): Promise<Wallet> => {

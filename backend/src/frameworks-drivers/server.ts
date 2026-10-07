@@ -218,7 +218,7 @@ AppDataSource.initialize()
 
         // attach socket handlers
         attachSocketModules(io, {
-            match: { marking_service, submission_system, match_completion_service, match_deletion_system, match_store, powerup_service, elimination_service, opponent_progress },
+            match: { marking_service, submission_system, match_completion_service, match_deletion_system, match_store, powerup_service, elimination_service, opponent_progress, life_system },
             matchmaking: { matchmaking_service, matched_users_service, match_service, match_store, user_repo, match_start },
             friends: { matched_users_service },
             tournament: { tournament_service, elimination_service }

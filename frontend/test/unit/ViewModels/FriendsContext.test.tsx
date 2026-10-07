@@ -22,6 +22,14 @@ vi.mock("src/context/Socket/hooks/useSocket", () => ({
     useSocket: mockUseSocket
 }))
 
+vi.mock("src/context/User/hooks/useUser", () => ({
+    useUser: () => ({ elo: 1000 })
+}))
+
+vi.mock("src/context/Achievement/AchievementToastContext", () => ({
+    useAchievementToast: () => ({ showFriendNotice: vi.fn() })
+}))
+
 vi.mock("src/Models/FriendsModel", () => ({
     friendContent: {
         inviteInvalid: 'This invite is no longer valid'

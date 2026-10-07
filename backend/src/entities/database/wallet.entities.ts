@@ -1,6 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, UpdateDateColumn } from "typeorm";
 import { Users } from "./user.entities";
 
+export const STARTING_STARDUST = 1000;
+
 @Entity('wallets')
 export class Wallet {
     @PrimaryGeneratedColumn('uuid')
@@ -10,7 +12,7 @@ export class Wallet {
     @JoinColumn({ name: 'user_id'})
     user!: Users;
 
-    @Column('integer', {default: 0 })
+    @Column('integer', {default: STARTING_STARDUST  })
     balance!: number;
 
     @UpdateDateColumn()

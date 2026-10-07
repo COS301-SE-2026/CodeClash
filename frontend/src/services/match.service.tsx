@@ -5,6 +5,8 @@ import type { MatchMode, QuestionDTO, RoundDTO } from "src/dtos/match/match.dto"
 import type { OpponentDTO } from "src/dtos/match/opponent.dto";
 import type { MatchSocket } from "src/context/Socket/modules/match.socket";
 import { useMatchStore } from "src/stores/match-store";
+import { useUser } from "src/context/User/hooks/useUser";
+import { seededRandom } from "src/utils/seededRandom";
 import { type NavigateFunction } from "react-router-dom";
 
 export function matchStart(match_socket: MatchSocket, path: string, nav: NavigateFunction, match_mode: MatchMode) {
@@ -14,12 +16,14 @@ export function matchStart(match_socket: MatchSocket, path: string, nav: Navigat
     })
 }
 
-export const useMatchTimer = (duration: number, onExpire: () => void) => {
-    const expiry_time = useMemo(() => {
-        const time = new Date();
-        time.setSeconds(time.getSeconds() + duration * 60);
+export const useMatchTimer = (duration: number, end_time: number | null, onExpire: () => void) => {
+  const expiry_time = useMemo(() => {
+      // coutndown to server end time, both players share a clock and reloading shouldnt restart it
+      if (end_time) return new Date(end_time);
+      const time = new Date();
+      time.setSeconds(time.getSeconds() + duration * 60);
         return time;
-    }, [duration]);
+    }, [duration, end_time]);
 
     const timer = useTimer({
         expiryTimestamp: expiry_time,
@@ -29,17 +33,17 @@ export const useMatchTimer = (duration: number, onExpire: () => void) => {
 
     useEffect(() => {
         if (duration > 0) timer.restart(expiry_time);
-    }, [duration]);
+    }, [expiry_time]);
 
     return timer;
 }
 
-function shuffle(array: QuestionDTO[]) {
+function shuffle(array: QuestionDTO[], next: () => number = Math.random) {
     let curr = array.length;
     let random;
 
     while (curr !== 0) {
-        random = Math.floor(Math.random() * curr);  // NOSONAR - Math.random() is just to shuffle questions
+        random = Math.floor(next() * curr);  // NOSONAR - Math.random() is just to shuffle questions
         curr--;
 
         [array[curr], array[random]] = [array[random], array[curr]]
@@ -54,7 +58,10 @@ function timeLimitMinutes(time_limit: string): number {
     return hours * 60 + minutes + seconds / 60;
 }
 
-export const useLoadRounds = (data: RoundDTO[]) => {
+export const useLoadRounds = (data: RoundDTO[], match_id?: string | null) => {
+
+  const { userId } = useUser();
+  
     return useMemo(() => {
         if (!data || data.length === 0) {
             return {
@@ -62,7 +69,8 @@ export const useLoadRounds = (data: RoundDTO[]) => {
                 duration: 0
             }
         }
-        let sumtime = 0;
+      let sumtime = 0;
+      const next = match_id ? seededRandom(`${match_id}:${userId}`) : Math.random;
         const rounds = data.map((round) => {
             const questions: QuestionDTO[] = round.questions.map(q => {
                 sumtime += timeLimitMinutes(q.time_limit!);
@@ -76,12 +84,12 @@ export const useLoadRounds = (data: RoundDTO[]) => {
 
                 };
             });
-            return shuffle(questions);
+            return shuffle(questions, next);
         });
 
         return { rounds, duration: sumtime };
 
-    }, [data]);
+    }, [data, match_id, userId]);
 }
 
 export const useMatchProgress = (players: Player[]) => {

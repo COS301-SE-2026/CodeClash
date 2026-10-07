@@ -15,14 +15,20 @@ export const useMatch = (timeUp?: () => Promise<void>) => {
     const nav = useNavigate();
     const { matchSocket } = useSocket();
     const status = useMatchStore(state => state.status);
-    const { matchMode, matchType } = useMatchmaking();
+    const matchmaking = useMatchmaking();
 
-    const [currentQuestion, setCurrentQuestion] = useState(0);
+    // the stored copies survive a reload, the matchmaking context doesn't
+    const matchMode = useMatchStore(state => state.match_mode) ?? matchmaking.matchMode;
+    const matchType = useMatchStore(state => state.match_type) ?? matchmaking.matchType;
+    const end_time = useMatchStore(state => state.end_time);
+    const tournament_id = useMatchStore(state => state.tournament_id);
+
+    const [currentQuestion, setCurrentQuestion] = useState(() => useMatchStore.getState().current_question);
     const [gameOver, setGameOver] = useState(false);
     const [nextRound, setNextRound] = useState(false);
     const [loading, setLoading] = useState(false);
     const [waitingOpponent, setWaitingOpponent] = useState(false);
-    const [roundIdx, setRoundIdx] = useState(0);
+    const [roundIdx, setRoundIdx] = useState(() => useMatchStore.getState().round_idx);
     const [confirmRound, setConfirmRound] = useState(false);
 
 
@@ -34,14 +40,14 @@ export const useMatch = (timeUp?: () => Promise<void>) => {
     const stored_rounds = useMatchStore(state => state.rounds)!;
     const match_id = useMatchStore(state => state.match_id);
 
-    const { rounds, duration } = useLoadRounds(stored_rounds);
+    const { rounds, duration } = useLoadRounds(stored_rounds, match_id);
     const questions = rounds[roundIdx] ?? [];
     const { playerLife, updatePlayerLife } = useMatchProgress(players);
     const { opponentProgress, handleOpponentDone, opponentCurrent, opponentDone } = useOpponentProgress(questions.length, players, updatePlayerLife);
 
 
-    const { submissionError, submitQuestion, results, lastResult, marking, markingError } = useSubmission({ round_idx: roundIdx, curr_question: currentQuestion, question: questions[currentQuestion], match_id: match_id!, updatePlayerLife })
-    const { seconds, minutes } = useMatchTimer(duration, async () => {
+    const { submissionError, submitQuestion, results, setResults, lastResult, marking, markingError } = useSubmission({ round_idx: roundIdx, curr_question: currentQuestion, question: questions[currentQuestion], match_id: match_id!, updatePlayerLife })
+    const { seconds, minutes } = useMatchTimer(duration, end_time, async () => {
         setGameOver(true);
         if (timeUp) {
             await timeUp();
@@ -50,10 +56,14 @@ export const useMatch = (timeUp?: () => Promise<void>) => {
             await finishMatch();
     })
 
-    const last_round = roundIdx === rounds.length - 1;
-    const last_q_of_round = questions.length > 0 && currentQuestion === questions.length - 1;
-    const complete_round = last_q_of_round && !last_round;
-    const final_question = last_q_of_round && last_round;
+  useEffect(() => {
+    useMatchStore.getState().setProgress(roundIdx, currentQuestion);
+  }, [roundIdx, currentQuestion])
+
+  const last_round = roundIdx === rounds.length - 1;
+  const last_q_of_round = questions.length > 0 && currentQuestion === questions.length - 1;
+  const complete_round = last_q_of_round && !last_round;
+  const final_question = last_q_of_round && last_round;
 
     const avatars = useMemo(() => players.map(p => robot_map[p.avatar_id]), [players]);
     const usernames = useMemo(() => players.map(p => p.username), [players]);
@@ -92,8 +102,9 @@ export const useMatch = (timeUp?: () => Promise<void>) => {
         setTimeout(() => setNextRound(false), 500);
     }
 
-    const finishMatch = async () => {
-        if (!final_question) return;
+    const finishMatch = async (force = false) => {
+        // if (!final_question) return;
+      if (!matchSocket || finished_ref.current || (!final_question && !force)) return;
         setWaitingOpponent(true);
         finished_ref.current = true;
 
@@ -112,6 +123,42 @@ export const useMatch = (timeUp?: () => Promise<void>) => {
         });
     }
 
+    // puts back what the server knows based on the match stored state (clock, lives, answers, opponent's question) after a reload or reconnect
+    const rejoin = async (socket: NonNullable<typeof matchSocket>, id: string) => {
+        try {
+            const response = await socket.rejoinMatch({ match_id: id });
+            if (!response.ok || !response.data) throw new Error("Match not found");
+            const state = response.data;
+
+            if (state.completed) {
+                await both_done();
+                return;
+            }
+
+            useMatchStore.getState().setEndTime(state.end_time, state.server_time);
+            state.players.forEach(player => updatePlayerLife(player.id, player.life));
+            if (state.opponent_progress) opponentProgress(state.opponent_progress);
+            if (state.opponent_done) handleOpponentDone();
+
+            const restored: (boolean | null)[][] = rounds.map(() => []);
+            for (const submission of state.submissions) {
+                const index = rounds[submission.round_number]?.findIndex(q => q.id === submission.question_id) ?? -1;
+                if (index !== -1) restored[submission.round_number]![index] = submission.correct;
+            }
+            setResults(restored);
+
+            if (state.done) {
+                finished_ref.current = true;
+                setWaitingOpponent(true);
+            }
+        }
+        catch {
+            // the server no longer has this match, so there's nothing to go back to
+            useMatchStore.getState().reset();
+            nav('/dashboard', { replace: true });
+        }
+    }
+
     useEffect(() => {
         if (matchSocket && match_id) {
             setLoading(true);
@@ -124,6 +171,7 @@ export const useMatch = (timeUp?: () => Promise<void>) => {
 
             setLoading(questions.length === 0);
 
+            if (!tournament_id) void rejoin(matchSocket, match_id);
 
             return () => {
                 unsub_submission_error();

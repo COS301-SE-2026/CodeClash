@@ -67,7 +67,7 @@ const FocusCard: React.FC<{ insight: Insight }> = ({ insight }) => {
                 <p className="text-xsm text-muted-text mt-2 leading-snug">{insight.body}</p>
             </div>
 
-            <div className="grid grid-cols-[repeat(auto-fit, minmax(9rem, 1fr))] gap-3">
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(9rem,1fr))] gap-3">
                 {insight.evidence.map(item => (
                     <StatTile key={item.label} label={item.label} value={item.value} />
                 ))}
@@ -173,13 +173,15 @@ const WhatToWorkOn: React.FC<WhatToWorkOnProps> = ({ title, report, gamesAnalyse
             </div>
 
             {report.focus ? (
-                <div className="grid grid-cols-1 xl:grid-cols-[1.2fr_1fr] gap-5">
+                <div className={`grid grid-cols-1 gap-5 ${report.supporting.length > 0 ? 'xl:grid-cols-[1.2fr_1fr]' : ''}`}>
                     <FocusCard insight={report.focus} />
-                    <div className="flex flex-col gap-3">
-                        {report.supporting.map(insight => (
-                            <SupportingCard key={insight.id} insight={insight} />
-                        ))}
-                    </div>
+                    {report.supporting.length > 0 && (
+                        <div className="flex flex-col gap-3">
+                            {report.supporting.map(insight => (
+                                <SupportingCard key={insight.id} insight={insight} />
+                            ))}
+                        </div>
+                    )}
                 </div>
             ) : (
                 <p className="text-xsm text-muted-text">{emptyState}</p>

@@ -86,4 +86,21 @@ export class SubmissionSystem {
         return submission_component;
     }
 
+    playerSubmissions(match_id: number, player_id: string): SubmissionComponent[] {
+        const submission_registry = this.getMatchComponent<SubmissionRegistryComponent>(match_id, "Submission");
+
+      if (!submission_registry) { throw new Error("Error getting submissions") }
+
+      const found: SubmissionComponent[] = [];
+      for (const [key, submission_entity] of submission_registry.submissions) {
+        if (key.split('::')[0]!== player_id) continue;
+
+        const component = this.getSubmissionComponent(submission_entity, 'Submission')
+        if (component) found.push(component);
+      }
+
+      return found;
+        
+    }
+
 }
