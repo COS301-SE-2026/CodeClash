@@ -1,0 +1,14 @@
+frontend/src/ViewModels/Tournaments/TournamentLobby.ts
+  h_58e143dc25f856 103-104
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0a688ccdec4772a75ac1ea3970e586bc553f0bd7",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
