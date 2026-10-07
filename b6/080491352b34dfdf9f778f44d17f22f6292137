@@ -1,0 +1,14 @@
+backend/tests/integration/services/purchase.service.test.ts
+  h_58e143dc25f856 60
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b6080491352b34dfdf9f778f44d17f22f6292137",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
