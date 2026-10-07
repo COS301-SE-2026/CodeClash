@@ -1,0 +1,14 @@
+backend/src/interface-adapters/CodeExecutor.ts
+  h_58e143dc25f856 12-13,36-37,43-46
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0e22d39289f176c768104f4ad43b72b0f3b1c585",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
