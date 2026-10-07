@@ -37,20 +37,20 @@ describe('Tests WalletRepository', () => {
         expect(wallet).toBeNull();
     });
 
-    it('Creates a wallet with zero balance', async () => {
+    it('Creates a wallet with the starting 1000 stardust', async () => {
         const wallet = await repo.createWallet(user_id);
 
-        expect(wallet.balance).toBe(0);
+        expect(wallet.balance).toBe(1000);
         expect(wallet.user_id).toBe(user_id);
     });
 
     it('Increases balance with a positive delta', async () => {
         const wallet = await repo.updateBalance(user_id, 150);
 
-        expect(wallet.balance).toBe(150);
+        expect(wallet.balance).toBe(1150);
     });
 
     it('Throws when balance would go negative', async () => {
-        await expect(repo.updateBalance(user_id, -1000)).rejects.toThrow('Insufficient balance');
+        await expect(repo.updateBalance(user_id, -2000)).rejects.toThrow('Insufficient balance');
     });
 });
