@@ -20,15 +20,15 @@ export const MatchmakingProvider: React.FC<{ children: ReactNode }> = ({ childre
         setMatchMode(data.match_mode);
     }
 
-    const reset = ()=>{
+    const reset = () => {
         setMatched(false);
         setMatchedUsers(null);
     }
 
     useEffect(() => {
         if (matchmakingSocket) {
-           
-           matchmakingSocket.matched(handleMatched);
+
+            matchmakingSocket.matched(handleMatched);
         }
     }, [matchmakingSocket])
 
