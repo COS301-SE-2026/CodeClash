@@ -225,6 +225,7 @@ AppDataSource.initialize()
         })
 
         // start server
+        process.on('unhandledRejection', (r) => console.error('Unhandled rejection:', r));
         httpServer.listen(process.env.PORT, () => {
             console.log(`Server listening`)
         });

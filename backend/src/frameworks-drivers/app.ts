@@ -1,7 +1,8 @@
 import cors from 'cors'
 import { requireAuth } from 'src/interface-adapters/auth/auth.service'
-import express, { Request, Response } from 'express'
+import express, { NextFunction, Request, Response } from 'express'
 import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
+import { HttpError } from 'src/entities/errors/http-error';
 
 import { createAPIRoutes } from './api.routes';
 import { LeaderboardService } from 'src/application/usecases/services/leaderboard.service';
@@ -70,6 +71,15 @@ export const createApp = (
     tournament_service,
     wallet_repo
   ));
+
+  app.use((err:any, req: Request, res: Response, _next: NextFunction) => {
+    if (err instanceof HttpError) {
+      res.status(err.status).json({ message: err.message });
+      return;
+    }
+    console.error(err);
+    res.status(500).json({ message: 'Internal server error' });
+  });
 
   return app;
 }

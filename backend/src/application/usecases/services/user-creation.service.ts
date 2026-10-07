@@ -4,6 +4,7 @@ import { IEquippedRepository } from "src/application/interfaces/repositories/IEq
 import { IShopItemRepository } from "src/application/interfaces/repositories/IShopItemRepository";
 import { IWalletRepository } from "src/application/interfaces/repositories/IWalletRepository";
 import { IInventoryRepository } from "src/application/interfaces/repositories/IInventoryRepository";
+import { HttpError } from "src/entities/errors/http-error";
 
 
 export class CreateUser {
@@ -21,7 +22,7 @@ export class CreateUser {
         const user_id = await fetchCognitoId(email);
 
         if (user_id == undefined || (user_id.length ?? 0) !== 1) {
-            throw new Error("Invalid Paramaters");
+            throw new HttpError(400, "Invalid parameters");
         }
 
         const id = user_id[0]!.Attributes!.find(attr => attr.Name === "sub")?.Value;
@@ -39,7 +40,7 @@ export class CreateUser {
         await this.wallet_repo.createWallet(user.user_id!);
 
         await this.inventory_repo.grantItem(user.user_id!, default_theme.shop_item_id);
-+       await this.inventory_repo.grantItem(user.user_id!, defualt_avatar.shop_item_id);
+        await this.inventory_repo.grantItem(user.user_id!, defualt_avatar.shop_item_id);
 
         await this.equipped_repo.updateEquipped(user.user_id!, { theme_id: default_theme.shop_item_id, avatar_item_id: defualt_avatar.shop_item_id });
     }
