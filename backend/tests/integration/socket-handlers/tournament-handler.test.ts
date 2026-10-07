@@ -190,7 +190,6 @@ describe("Tournament Socket Handelr", () => {
             socket.on("connect_error", reject);
         })
 
-        console.log(response)
         expect(response.ok).toBe(true);
         expect(response.data).toBeDefined();
     })

@@ -55,7 +55,7 @@ export const TournamentCard = ({
     }
 
     const handleLeave = async () => {
-      
+
         await onLeave(id);
     }
 
@@ -77,10 +77,12 @@ export const TournamentCard = ({
             <div>
                 <div className="flex flex-col ml-auto mr-5">
                     <div className="flex flex-row mt-1.5 w-[140%]">
-                        <div className=" text-xs text-muted-text uppercase">Capacity: {player_count}/{min_players} Players</div>
+                        <div className=" text-xs text-muted-text uppercase flex flex-col ">
+                            <p>Capacity: {player_count} Players</p>
+                            <p>Minimum: {min_players} Players</p>
+                        </div>
                     </div>
                     <Progress value={progress} className="mt-2 w-[130%] h-[0.5rem]" />
-                    <div className=" text-xs text-muted-text ">{Math.max(0, min_players - player_count)} Available slots</div>
                 </div>
 
 
@@ -102,17 +104,31 @@ export const TournamentCard = ({
             )}
 
             {joined && !is_host && (
-                <Button
-                    onClick={handleLeave}
-                    className="w-[12rem] h-[2.25rem] my-auto rounded-[11px]"
-                    variant={"default"}
-                >
-                    <div className="flex flex-row w-full h-full gap-5 text-[1rem] justify-between items-center">
-                        Leave
-                        <X size={25} className="flex justify-self-end my-auto -ml-9 mr-2" />
+                <div className='flex flex-col'>
+                    <Button
+                        onClick={handleLeave}
+                        className="w-[12rem] h-[2.25rem] my-auto rounded-[11px]"
+                        variant={"default"}
+                    >
+                        <div className="flex flex-row w-full h-full gap-5 text-[1rem] justify-between items-center">
+                            Leave
+                            <X size={25} className="flex justify-self-end my-auto -ml-9 mr-2" />
 
-                    </div>
-                </Button>
+                        </div>
+                    </Button>
+
+                    <Button
+                        onClick={async () => { await nav(`/tournaments/waiting/${id}`) }}
+                        className="w-[12rem] h-[2.25rem] my-auto rounded-[11px]"
+                        variant={"default"}
+                    >
+                        <div className="flex flex-row w-full h-full gap-5 text-[1rem] justify-between items-center">
+                            View Lobby
+                            <ArrowRight size={25} className="flex justify-self-end my-auto -ml-9 mr-2" />
+                        </div>
+                    </Button>
+                </div>
+
             )}
 
             {!joined && (

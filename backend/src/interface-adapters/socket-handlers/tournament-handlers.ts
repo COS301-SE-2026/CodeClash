@@ -121,3 +121,11 @@ export const completeRound = async (io: Server, socket: Socket, tournament_id: s
 
     return player;
 }
+
+
+export const endTournament = async (io: Server, tournament_id: string, match_id: string, tournament_service: TournamentService) => {
+    const result = await tournament_service.endTournament(tournament_id, match_id);
+
+    io.to(tournament_id).emit('tournament_ended', result);
+    return result;
+}

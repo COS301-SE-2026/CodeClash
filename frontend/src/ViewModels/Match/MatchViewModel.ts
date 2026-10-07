@@ -11,7 +11,7 @@ import { useAnswerResponse, useLifeShake, useSubmission } from 'src/services/sub
 import type { Player } from 'src/Models/MatchModel';
 import { useResultStore } from 'src/stores/result-store';
 
-export const useMatch = () => {
+export const useMatch = (timeUp?: () => Promise<void>) => {
     const nav = useNavigate();
     const { matchSocket } = useSocket();
     const status = useMatchStore(state => state.status);
@@ -43,7 +43,11 @@ export const useMatch = () => {
     const { submissionError, submitQuestion, results, lastResult, marking, markingError } = useSubmission({ round_idx: roundIdx, curr_question: currentQuestion, question: questions[currentQuestion], match_id: match_id!, updatePlayerLife })
     const { seconds, minutes } = useMatchTimer(duration, async () => {
         setGameOver(true);
-        await finishMatch();
+        if (timeUp) {
+            await timeUp();
+        }
+        else
+            await finishMatch();
     })
 
     const last_round = roundIdx === rounds.length - 1;
@@ -103,8 +107,8 @@ export const useMatch = () => {
         // useMatchStore.getState().reset();
         setWaitingOpponent(false);
         nav(`/results/${match_id}`, {
-          replace: true,
-          state: { id: match_id }
+            replace: true,
+            state: { id: match_id }
         });
     }
 

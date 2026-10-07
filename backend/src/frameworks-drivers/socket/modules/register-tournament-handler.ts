@@ -2,7 +2,7 @@ import { Server, Socket } from "socket.io";
 import { TournamentDeps } from "../dependencies";
 import { registerHandler } from "../dispatch";
 import { PlayerDTO } from "src/entities/dtos/matches/match-component.dto";
-import { cancelTournament, getTournament, hostTournament, joinTournament, leaveTournament, startTournament, identity,getStandings, completeRound } from "src/interface-adapters/socket-handlers/tournament-handlers";
+import { cancelTournament, getTournament, hostTournament, joinTournament, leaveTournament, startTournament, identity, getStandings, completeRound, endTournament } from "src/interface-adapters/socket-handlers/tournament-handlers";
 import { MatchMode } from "src/entities/dtos/matches/match.dto";
 
 
@@ -30,8 +30,10 @@ export function registerTournamentHandlers(io: Server, socket: Socket, deps: Tou
     registerHandler(socket, 'get_standings', (socket, tournament_id: string) =>
         getStandings(tournament_id, deps.elimination_service));
 
-    registerHandler(socket, 'complete_round', (socket, data: {tournament_id: string, match_id: string}) =>
+    registerHandler(socket, 'complete_round', (socket, data: { tournament_id: string, match_id: string }) =>
         completeRound(io, socket, data.tournament_id, data.match_id, deps.elimination_service, deps.tournament_service));
 
+    registerHandler(socket, 'end_tournament', (socket, data: { tournament_id: string, match_id: string }) =>
+        endTournament(io, data.tournament_id, data.match_id, deps.tournament_service));
 
 }

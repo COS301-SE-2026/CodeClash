@@ -1,17 +1,15 @@
-import { LogOut, Rocket, Timer, UserRoundPlus } from "lucide-react"
+import { LogOut, Rocket} from "lucide-react"
 import { Progress } from "@/components/ui/progress"
 import { TournamentPlayer } from "@/components/features/Tournaments/TournamentPlayer"
 import { MatchCard } from "@/components/features/Match/MatchCard"
 import { useNavigate } from "react-router-dom"
 import { useTournamentLobby } from "src/ViewModels/Tournaments/TournamentLobby"
 import { Button } from "@/components/ui/button"
-import { useTournament } from "src/ViewModels/Tournaments/TournamentViewModel"
 
 const TournamentsWaiting = () => {
 
     const nav = useNavigate();
     const { tournament, is_host, players, start } = useTournamentLobby();
-    const { starts_in } = useTournament();
 
     if (!tournament) {
         return (
@@ -35,7 +33,7 @@ const TournamentsWaiting = () => {
 
                         <div className="flex flex-row items-center gap-4">
                             <MatchCard className="h-11 px-4 flex items-center rounded-xl hover:opacity-90 hover:scale-105 transition-transform duration-300">
-                                <button onClick={() => nav('/tournaments')} className="flex flex-row gap-2 items-center cursor-pointer">
+                                <button onClick={() => nav('/tournaments')} className="flex flex-row gap-2 items-center justify-center cursor-pointer">
                                     <LogOut size={20} className="text-muted-text" />
                                     <h2 className="font-font font-semibold text-[0.9rem] text-muted-text whitespace-nowrap">Leave Waiting Room</h2>
                                 </button>
@@ -64,25 +62,16 @@ const TournamentsWaiting = () => {
                         </div>
                         <Progress value={(players.length / tournament.min_players) * 100} height={2.5} className="w-full" />
                     </div>
-
-                    <div className="flex flex-row items-center gap-2">
-                        <Timer size={30} className="text-muted-text" />
-                        <div className="font-font font-semibold text-xs text-muted-text">Starts in {starts_in(new Date(tournament.start_date))}</div>
-                    </div>
                 </MatchCard>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
                     {
-                        tournament.players.map((player) => {
+                        players.map((player) => {
                             return (
-                                <TournamentPlayer player={player} />
+                                <TournamentPlayer key={player.id} player={player} />
                             )
                         })
                     }
-                    <MatchCard className="border-dashed flex flex-row text-muted-text text-[1.1rem] items-center justify-center hover:opacity-90 hover:scale-105 transform-transition duration-300">
-                        <UserRoundPlus size={28} />
-                        <h1 >Invite Friend</h1>
-                    </MatchCard>
                 </div>
             </div>
         </div>

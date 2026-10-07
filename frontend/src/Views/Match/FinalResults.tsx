@@ -191,7 +191,7 @@ const PlayerResultCard: React.FC<{
 }> = ({ player, emphasize }) => {
     const [avatarFailed] = useState(false);
     const formatCorrectness = (correctness: number) => {
-        return `${(correctness * 100).toFixed(2)}%`
+        return `${correctness.toFixed(2)}%`
     }
     
     return (

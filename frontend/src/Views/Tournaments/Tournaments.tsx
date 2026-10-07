@@ -1,5 +1,4 @@
 import { TournamentCard } from "@/components/features/Tournaments/TournamentCard"
-import FilterButton from "@/components/ui/FilterButton"
 import { PlusIcon, Search } from "lucide-react"
 import { useExtraLayout } from "src/extra-layout"
 import { useTournament } from "src/ViewModels/Tournaments/TournamentViewModel"
@@ -39,19 +38,6 @@ const Tournaments = () => {
                         </div>
                     </Button>
                 </div>
-
-                <div className="justify-end max-w-4xl flex flex-row gap-4 h-9 cursor-pointer">
-                    <FilterButton className="text-xs min-w-[3rem]">
-                        Math
-                    </FilterButton>
-                    <FilterButton className="text-xs min-w-[6rem]">
-                        Programming
-                    </FilterButton>
-                    <FilterButton className="text-xs min-w-[3rem]">
-                        Both
-                    </FilterButton>
-                </div>
-
 
                 <div className="overflow-y-auto w-full flex flex-col gap-9 items-center">
                     {tournaments.length > 0 && tournaments.map((tournament) => {

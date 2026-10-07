@@ -10,6 +10,27 @@ import type { MatchResultDTO } from "src/dtos/match/result.dto";
 import { useResultStore } from "src/stores/result-store";
 
 export const useTournamentMatch = () => {
+
+    const players = useMatchStore(state => state.players) as PlayerStandingDTO[];
+    const match_mode = useMatchStore(state => state.match_mode);
+    const tournament_id = useMatchStore(state => state.tournament_id);
+    const match_id = useMatchStore(state => state.match_id);
+    const addResult = useResultStore(state => state.addResult);
+    const db_id = useDbId();
+
+    const timeUp = async () => {
+        const response = await tournamentSocket?.endTournament({
+            tournament_id: tournament_id!,
+            match_id: match_id!
+        });
+
+        if (response?.ok) {
+            const result = response.data!;
+
+            finishTournament(result);
+        }
+    }
+
     const {
         seconds,
         minutes,
@@ -29,13 +50,11 @@ export const useTournamentMatch = () => {
         confirmRound,
         cancelCompleteRound,
         completeRound,
-    } = useMatch();
-    const players = useMatchStore(state => state.players) as PlayerStandingDTO[];
-    const match_mode = useMatchStore(state => state.match_mode);
-    const tournament_id = useMatchStore(state => state.tournament_id);
-    const match_id = useMatchStore(state => state.match_id);
-    const addResult = useResultStore(state => state.addResult);
-    const db_id = useDbId();
+        marking,
+        markingError,
+        results
+    } = useMatch(timeUp);
+
     const [activePlayers, setActivePlayers] = useState<PlayerStandingDTO[]>(players ?? []);
     const { tournamentSocket } = useSocket();
     const nav = useNavigate();
@@ -44,6 +63,9 @@ export const useTournamentMatch = () => {
     const [, setLanguage] = useState('');
     const [languageId, setLanguageId] = useState<number | null>(null);
     const [eliminated, setEliminated] = useState(false);
+
+
+
 
     const round_telemetry = () => {
 
@@ -173,7 +195,10 @@ export const useTournamentMatch = () => {
         confirmRound,
         cancelCompleteRound,
         completeTournamentRound,
-        eliminated
+        eliminated,
+        marking,
+        markingError,
+        results
     }
 
 }

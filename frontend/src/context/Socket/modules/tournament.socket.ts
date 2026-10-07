@@ -104,4 +104,8 @@ export class TournamentSocket {
         return emit<typeof data, PlayerStandingDTO | null>(this.socket, 'complete_round', data);
     }
 
+    endTournament(data:  { tournament_id: string, match_id: string }){
+        return emit<typeof data, MatchResultDTO>(this.socket, 'end_tournament',data);
+    }
+
 }

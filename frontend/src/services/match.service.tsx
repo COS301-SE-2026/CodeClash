@@ -7,9 +7,9 @@ import type { MatchSocket } from "src/context/Socket/modules/match.socket";
 import { useMatchStore } from "src/stores/match-store";
 import { type NavigateFunction } from "react-router-dom";
 
-export function matchStart(match_socket: MatchSocket, path: string, nav: NavigateFunction, match_mode:MatchMode) {
+export function matchStart(match_socket: MatchSocket, path: string, nav: NavigateFunction, match_mode: MatchMode) {
     return match_socket.startMatch((data) => {
-        useMatchStore.getState().setMatchData(data,match_mode);
+        useMatchStore.getState().setMatchData(data, match_mode);
         nav(`${path}/${data.match_id}`);
     })
 }
@@ -79,7 +79,7 @@ export const useLoadRounds = (data: RoundDTO[]) => {
             return shuffle(questions);
         });
 
-        return { rounds, duration: sumtime};
+        return { rounds, duration: sumtime };
 
     }, [data]);
 }
