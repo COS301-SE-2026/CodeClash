@@ -9,6 +9,8 @@ import { MatchScreen } from '@/components/features/Match/Match';
 import { Button } from '@/components/ui/button';
 import PopUp from '@/components/shared/PopUp'
 import { useUser } from 'src/context/User/hooks/useUser';
+import ConfirmationPopup from "../Confirmation";
+import type { ConfirmationViewModel } from "src/ViewModels/ConfirmationViewModel";
 
 const MathsMatch = () => {
     const {
@@ -27,7 +29,18 @@ const MathsMatch = () => {
         final_question, complete_round, confirmCompleteRound, confirmRound, cancelCompleteRound, completeRound,
         matchType, matchMode
     } = useMatch();
-
+    
+    const roundConf: ConfirmationViewModel = {
+            content: {
+                title: "Complete Round?",
+                message: "You won't be able to go back.",
+                cancelLabel: "Cancel",
+                confirmLabel: "Confirm"
+            },
+            isVisible: confirmRound,
+            handleConfirm: completeRound,
+            handleCancel: cancelCompleteRound,
+        }
 
     const curr = questions[currentQuestion];
     const { username } = useUser();
@@ -105,11 +118,7 @@ const MathsMatch = () => {
 
                 {
                     confirmRound && (
-                        <div>
-                            <p>You won't be able to go back once you've completed a round.</p>
-                            <Button onClick={cancelCompleteRound}>Cancel</Button>
-                            <Button onClick={completeRound}>Continue</Button>
-                        </div>
+                        <ConfirmationPopup confirmation={roundConf}/>
                     )
                 }
             </div>

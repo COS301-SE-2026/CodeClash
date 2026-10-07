@@ -11,6 +11,8 @@ import { CodeEditor } from "@/components/features/code-editor";
 import { useEffect, useMemo } from "react";
 import { Badge } from "@/components/ui/badge";
 import { TournamentEliminated } from "./TournamentEliminated";
+import ConfirmationPopup from "../Confirmation";
+import type { ConfirmationViewModel } from "src/ViewModels/ConfirmationViewModel";
 
 const TournamentsMatchPage = () => {
     const {
@@ -37,6 +39,17 @@ const TournamentsMatchPage = () => {
         results
     } = useTournamentMatch();
 
+        const roundConf: ConfirmationViewModel = {
+        content: {
+            title: "Complete Round?",
+            message: "You won't be able to go back.",
+            cancelLabel: "Cancel",
+            confirmLabel: "Confirm"
+        },
+        isVisible: confirmRound,
+        handleConfirm: completeTournamentRound,
+        handleCancel: cancelCompleteRound,
+    }
 
     const curr = questions[currentQuestion];
     const question = useMemo(() => ({ templates: curr?.templates }), [curr]);
@@ -162,13 +175,7 @@ const TournamentsMatchPage = () => {
 
                                 {
                                     confirmRound && (
-                                        <div>
-                                            <p>You won't be able to go back once you've completed a round.</p>
-                                            <Button onClick={cancelCompleteRound}>Cancel</Button>
-                                            <Button onClick={async () => {
-                                                await completeTournamentRound()
-                                            }}>Continue</Button>
-                                        </div>
+                                        <ConfirmationPopup confirmation={roundConf}/>
                                     )
                                 }
                             </div>
