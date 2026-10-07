@@ -1,0 +1,36 @@
+frontend/@/components/shared/PopUp.tsx
+  h_58e143dc25f856 19
+frontend/src/App.tsx
+  h_58e143dc25f856 16-17,33,79,106
+frontend/src/Models/HelpMenuModel.ts
+  h_58e143dc25f856 35
+frontend/src/ViewModels/ConfirmationViewModel.ts
+  h_58e143dc25f856 26
+frontend/src/Views/Confirmation.tsx
+  h_58e143dc25f856 13,25,28-29,33,39
+frontend/src/Views/Helpers/GameGuide.tsx
+  h_58e143dc25f856 4,25
+frontend/src/Views/Helpers/HelpMenu.tsx
+  h_58e143dc25f856 5
+frontend/src/Views/Helpers/Tutorials.tsx
+  h_58e143dc25f856 1-74
+frontend/src/Views/Match/FinalResults.tsx
+  h_58e143dc25f856 52-53
+frontend/src/Views/Match/MathsMatch.tsx
+  h_58e143dc25f856 12-13,32-43,121
+frontend/src/Views/Match/ProgMatch.tsx
+  h_58e143dc25f856 14-15,43-54,133
+frontend/src/Views/Tournaments/TournamentMatchPage.tsx
+  h_58e143dc25f856 14-15,42-52,178
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "cb20529cdb129399b77a2f8a514ecf007b4c3327",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
