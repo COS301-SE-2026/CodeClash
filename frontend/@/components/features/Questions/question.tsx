@@ -78,7 +78,7 @@ const toMarkdownMath = (text: string) => text
   .map((part, i) => {
     if (i % 2 === 0) return part.replace(/\\begin\{align\*?\}([\s\S]*?)\\end\{align\*?\}/g, (_, body) => `\n\n$$\n\\begin{aligned}${body}\\end{aligned}\n$$\n\n`);
     // an escaped dollar ($\$5$) would end the maths early, so use KaTeX's own dollar sign
-    const maths = part.replace(/\\\$/g, '\\textdollar ');
+    const maths = part.replace(/\\\$/g, '\\text{\\textdollar}');
     // $$...$$ only renders as a block when it sits on its own lines
     return maths.startsWith('$$') ? `\n\n$$\n${maths.slice(2, -2).trim()}\n$$\n\n` : maths;
   })
