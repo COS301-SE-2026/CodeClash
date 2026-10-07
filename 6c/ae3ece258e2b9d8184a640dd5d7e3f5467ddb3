@@ -1,0 +1,14 @@
+dockerfile/docker-compose.dev.yml
+  h_b13c5d77534129 39
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6cae3ece258e2b9d8184a640dd5d7e3f5467ddb3",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
