@@ -31,6 +31,11 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
         () => [...results?.players ?? []].sort((a, b) => a.position - b.position),
         [results]
     )
+
+    useEffect(() => {
+      if (useMatchStore.getState().match_id === match_id) useMatchStore.getState().reset();
+    }, [match_id])
+  
     useEffect(() => {
         if (results || !matchSocket || !match_id) return;
 
