@@ -9,6 +9,7 @@ import Confetti from "@/components/ui/animations/Confetti";
 import Starfield from "@/components/ui/animations/Starfield";
 import { finalResultsContent, type PlayerFinalResults } from "src/Models/FinalResultsModel";
 import PlayerAvatar from "src/avatar/PlayerAvatar";
+import { resolve } from "src/assets/Shop/ResolveShopImages";
 
 const FinalResults: React.FC = () => {
     const navigate = useNavigate();
@@ -200,7 +201,7 @@ const PlayerResultCard: React.FC<{
                         // <img src={robot_map[player.avatar]} alt = {player.username} className="w-full h-full object-cover" onError={() => setAvatarFailed(true)}/>
                         <div>
                             {player.position === 1 ?
-                            <PlayerAvatar assetKey={avatarImageWinner ?? ""}/> : <PlayerAvatar assetKey={avatarImageLoser ?? ""}/>
+                            <PlayerAvatar assetKey={resolve(avatarImageWinner ?? "") ?? ""}/> : <PlayerAvatar assetKey={resolve(avatarImageLoser ?? "") ?? ""}/>
                             }
                         </div>
 

@@ -65,12 +65,12 @@ export const useMatch = () => {
 
         getEquippedFor(ids[0], tokenInv).then(({ avatarImage }) => {
             const avatarImg = avatarImage ?? "";
-            const avatarCropStart = avatarImg.replace("/src/assets/Shop/Avatars/", "");
-            const avatarCropEnd = avatarCropStart.replace(".png", "");
-            const avatarImageCrop = avatarCropEnd ?? "";
+            // const avatarCropStart = avatarImg.replace("/src/assets/Shop/Avatars/", "");
+            // const avatarCropEnd = avatarCropStart.replace(".png", "");
+            // const avatarImageCrop = avatarCropEnd ?? "";
 
             if(!cancelled){
-                setPlayerOneAvatar(avatarImageCrop)
+                setPlayerOneAvatar(avatarImg)
             }
         }).catch((err) => {
             console.error('Failed to fetch player 1 avatar', err);
@@ -91,12 +91,12 @@ export const useMatch = () => {
 
         getEquippedFor(ids[1], tokenInv).then(({ avatarImage }) => {
             const avatarImg = avatarImage ?? "";
-            const avatarCropStart = avatarImg.replace("/src/assets/Shop/Avatars/", "");
-            const avatarCropEnd = avatarCropStart.replace(".png", "");
-            const avatarImageCrop = avatarCropEnd ?? "";
+            // const avatarCropStart = avatarImg.replace("/src/assets/Shop/Avatars/", "");
+            // const avatarCropEnd = avatarCropStart.replace(".png", "");
+            // const avatarImageCrop = avatarCropEnd ?? "";
 
             if(!cancelled){
-                setPlayerTwoAvatar(avatarImageCrop)
+                setPlayerTwoAvatar(avatarImg)
             }
         }).catch((err) => {
             console.error('Failed to fetch player 2 avatar', err);

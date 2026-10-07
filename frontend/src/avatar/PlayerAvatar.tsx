@@ -2,7 +2,7 @@
 
     import React from "react";
     import AvatarRenderer from './AvatarRenderer'
-    import {resolve} from '../assets/Shop/ResolveShopImages';
+    // import {resolve} from '../assets/Shop/ResolveShopImages';
 
     interface PlayerAvatarProps {
         assetKey?: string;
@@ -13,7 +13,7 @@
     }
 
     export const PlayerAvatar: React.FC<PlayerAvatarProps> = ({assetKey, size = 120, className, viewBox, preserveAspectRatio}) => (
-        <AvatarRenderer avatarImageUrl={resolve(assetKey)} className={className} viewBox={viewBox} preserveAspectRatio={preserveAspectRatio} style={size ? {width: size, height:size} : undefined}/>
+        <AvatarRenderer avatarImageUrl={assetKey} className={className} viewBox={viewBox} preserveAspectRatio={preserveAspectRatio} style={size ? {width: size, height:size} : undefined}/>
     )
 
     export default PlayerAvatar;

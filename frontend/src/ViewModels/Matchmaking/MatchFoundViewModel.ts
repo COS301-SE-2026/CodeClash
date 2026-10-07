@@ -116,12 +116,12 @@ export function useMatchFound() {
 
     getEquippedFor(left_player_id, tokenInv).then(({ avatarImage }) => {
         const avatarImg = avatarImage ?? "";
-        const avatarCropStart = avatarImg.replace("/src/assets/Shop/Avatars/", "");
-        const avatarCropEnd = avatarCropStart.replace(".png", "");
-        const avatarImageCrop = avatarCropEnd ?? "";
+        // const avatarCropStart = avatarImg.replace("/src/assets/Shop/Avatars/", "");
+        // const avatarCropEnd = avatarCropStart.replace(".png", "");
+        // const avatarImageCrop = avatarCropEnd ?? "";
 
         if(!cancelled){
-            setPlayerLeftAvatar(avatarImageCrop)
+            setPlayerLeftAvatar(avatarImg)
         }
     }).catch((err) => {
         console.error('Failed to fetch left player avatar', err);
@@ -141,12 +141,12 @@ export function useMatchFound() {
 
     getEquippedFor(right_player_id, tokenInv).then(({ avatarImage }) => {
         const avatarImg = avatarImage ?? "";
-        const avatarCropStart = avatarImg.replace("/src/assets/Shop/Avatars/", "");
-        const avatarCropEnd = avatarCropStart.replace(".png", "");
-        const avatarImageCrop = avatarCropEnd ?? "";
+        // const avatarCropStart = avatarImg.replace("/src/assets/Shop/Avatars/", "");
+        // const avatarCropEnd = avatarCropStart.replace(".png", "");
+        // const avatarImageCrop = avatarCropEnd ?? "";
 
         if(!cancelled){
-            setRightPlayerAvatar(avatarImageCrop)
+            setRightPlayerAvatar(avatarImg)
         }
     }).catch((err) => {
         console.error('Failed to fetch right player avatar', err);

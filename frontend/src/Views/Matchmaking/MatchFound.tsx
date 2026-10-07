@@ -4,10 +4,13 @@ import { useMatchFound } from 'src/ViewModels/Matchmaking/MatchFoundViewModel';
 import Loading from '@/components/shared/Loading';
 import { Button } from '@/components/ui/button';
 import PlayerAvatar from 'src/avatar/PlayerAvatar';
+import { resolve } from 'src/assets/Shop/ResolveShopImages';
 
 const MatchFound = () => {
   const { content, players, rightPlayerAvatar, leftPlayerAvatar, matchDetails, decline, accept, loading } =
     useMatchFound();
+
+    console.log("leftPlayerAvatar", leftPlayerAvatar)
 
 
   if (!players) {
@@ -35,7 +38,7 @@ const MatchFound = () => {
         <div className="grid w-full max-w-5xl grid-cols-1 items-end gap-6 md:grid-cols-[1fr_auto_1fr] md:gap-10 lg:gap-20">
           <div className="flex flex-col items-center md:items-start">
             <PlayerAvatar
-              assetKey={leftPlayerAvatar ?? ""}
+              assetKey={resolve(leftPlayerAvatar ?? "") ?? ""}
               size={250}
               className="size-[14rem] drop-shadow-2xl md:w-[19rem] lg:w-[23rem] md:-ml-20"
             />
@@ -63,7 +66,7 @@ const MatchFound = () => {
 
           <div className="flex flex-col items-center md:items-end">
             <PlayerAvatar
-              assetKey={rightPlayerAvatar ?? ""}
+              assetKey={resolve(rightPlayerAvatar ?? "") ?? ""}
               size={250}
               className="w-[14rem] drop-shadow-2xl md:w-[19rem] lg:w-[23rem] md:-mr-20"
             />

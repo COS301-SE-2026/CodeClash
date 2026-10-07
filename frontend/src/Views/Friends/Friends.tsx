@@ -6,17 +6,17 @@ import Loading from "../../../@/components/shared/Loading"
 import Starfield from "../../../@/components/ui/animations/Starfield";
 import { useFriends } from "../../context/Friends/useFriends";
 import { friendContent } from "../../Models/FriendsModel";
-import type { FriendStatus, Relation } from "../../Models/FriendsModel";
+import type { Relation } from "../../Models/FriendsModel";
 import PlayerAvatar from "src/avatar/PlayerAvatar";
 // import { useAuth } from "src/context/Auth/hooks/useAuth";
 
 const SHOW_PLAY_INVITE = false; // TODO set true after redemo
 
-const status: Record<FriendStatus, string> = {
-    online: 'bg-sucess',
-    'playing': 'bg-primary',
-    offline: 'bg-muted-text'
-}
+// const status: Record<FriendStatus, string> = {
+//     online: 'bg-sucess',
+//     'playing': 'bg-primary',
+//     offline: 'bg-muted-text'
+// }
 
 function timeTracker (iso: string): string {
     const difference = Date.now() - new Date(iso).getTime();
@@ -178,7 +178,7 @@ const Friends: React.FC = () => {
                                 <div key={f.id} className="card-elevated p-4 flex items-center gap-4">
                                     <div className="relative shrink-0">
                                         <PlayerAvatar assetKey={f.avatar} className="avatar w-20 h-20 object-cover mx-auto"/>
-                                        <span className= {`absolute bottom-1 right-2 w-4.5 h-4.5 rounded-full border-2 border-background ${status[f.status]}`}/>
+                                        {/* <span className= {`absolute bottom-1 right-2 w-4.5 h-4.5 rounded-full border-2 border-background ${status[f.status]}`}/> */}
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <p className="text-primary-text font-semibold truncate">{f.username}</p>
