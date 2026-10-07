@@ -62,7 +62,7 @@ export const useMatch = (timeUp?: () => Promise<void>) => {
         useMatchStore.getState().setProgress(roundIdx, currentQuestion);
     }, [roundIdx, currentQuestion])
 
-    const last_round = roundIdx === rounds.length - 1;
+    const last_round = rounds.slice(roundIdx + 1).every(round => round.length === 0);
     const last_q_of_round = questions.length > 0 && currentQuestion === questions.length - 1;
     const complete_round = last_q_of_round && !last_round;
     const final_question = last_q_of_round && last_round;
