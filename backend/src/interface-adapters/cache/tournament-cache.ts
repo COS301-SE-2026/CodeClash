@@ -10,7 +10,7 @@ export class TournamentCache implements ITournamentCache {
         private readonly redis: Redis
     ) { }
 
-    async createTournament(tournament_id: string, start_date: Date, match_mode: MatchMode, host: PlayerDTO, title:string, min_players: number): Promise<void> {
+    async createTournament(tournament_id: string, match_mode: MatchMode, host: PlayerDTO, title:string, min_players: number): Promise<void> {
 
         const exists = await this.redis.get(`tournament:${tournament_id}`);
 
@@ -23,7 +23,6 @@ export class TournamentCache implements ITournamentCache {
             tournament_mode: match_mode,
             status: MatchStatus.Waiting,
             created_at: new Date(),
-            start_date: start_date,
             host: host,
             title: title,
             min_players: min_players
@@ -39,7 +38,7 @@ export class TournamentCache implements ITournamentCache {
 
         const data: TournamentDTO = JSON.parse(tournament);
 
-        if (new Date(data.start_date) < new Date() || (data.status !== MatchStatus.Waiting && data.status !== MatchStatus.Starting)) {
+        if ((data.status !== MatchStatus.Waiting && data.status !== MatchStatus.Starting)) {
             throw new Error("Cannot add player to past or in progress tournaments");
         }
 
@@ -93,6 +92,10 @@ export class TournamentCache implements ITournamentCache {
             .filter((t) => t !== null)
             .map(t => JSON.parse(t) as TournamentDTO)
             .filter(t => t.status === status);
+    }
+
+    async updateTournament(tournament: TournamentDTO): Promise<void>{
+        await this.redis.set(`tournament:${tournament.tournament_id}`, JSON.stringify(tournament));
     }
 
 }

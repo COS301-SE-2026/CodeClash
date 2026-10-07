@@ -2,6 +2,7 @@ import { MatchMode, MatchQuestionArrays } from "src/entities/dtos/matches/match.
 import { leagueMapping } from "src/entities/league-mapping";
 
 import { IQuestionRepository } from "../../interfaces/repositories/IQuestionRepository";
+import { timeLimitMs } from "./skill/question-results";
 
 
 export class GetQuestions {
@@ -21,37 +22,27 @@ export class GetQuestions {
 
 
 
-        const easy_questions = await this.question_repo.getRandQuestions(easy_count, mapping.easy.difficulty, match_mode);
-        const medium_questions = await this.question_repo.getRandQuestions(medium_count, mapping.medium.difficulty, match_mode);
-        const hard_questions = await this.question_repo.getRandQuestions(hard_count, mapping.hard.difficulty, match_mode);
+        const easy_questions = await this.question_repo.getRandQuestions(Math.max(2,easy_count), mapping.easy.difficulty, match_mode);
+        const medium_questions = await this.question_repo.getRandQuestions(Math.max(2,medium_count), mapping.medium.difficulty, match_mode);
+        const hard_questions = await this.question_repo.getRandQuestions(Math.max(2,hard_count), mapping.hard.difficulty, match_mode);
 
 
-
+    
         return {
-            easy: easy_questions.map(q => ({ ...q, difficulty: "Easy" })),
-            medium: medium_questions.map(q => ({ ...q, difficulty: "Medium" })),
-            hard: hard_questions.map(q => ({ ...q, difficulty: "Hard" }))
+          easy: easy_questions.map(q=>({...q, difficulty_level: Number(q.difficulty), difficulty: "Easy"})),
+          medium: medium_questions.map(q=>({...q, difficulty_level: Number(q.difficulty), difficulty: "Medium"})),
+          hard: hard_questions.map(q=>({...q, difficulty_level: Number(q.difficulty), difficulty: "Hard"}))
         }
     }
 }
 
 export class GetTotalTime {
 
+    // Total match time in minutes (may be fractional); time_limit is a postgres TIME (HH:MM:SS)
     execute(questions: MatchQuestionArrays) {
-        let time = 0;
+        const all = [...questions.easy, ...questions.medium, ...questions.hard];
+        const total_ms = all.reduce((sum, question) => sum + timeLimitMs(question.time_limit), 0);
 
-        for (const question of questions.easy) {
-            time += Number(question.time_limit.split(":")[1]);  //minutes
-        }
-
-        for (const question of questions.medium) {
-            time += Number(question.time_limit.split(":")[1]);  //minutes
-        }
-
-        for (const question of questions.hard) {
-            time += Number(question.time_limit.split(":")[1]);  //minutes
-        }
-
-        return time;
+        return total_ms / 60000;
     }
 }

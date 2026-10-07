@@ -171,7 +171,7 @@ CREATE TABLE IF NOT EXISTS player_achievements (
 -- ------- SHOP -----------
 CREATE TABLE IF NOT EXISTS shop_items (
   shop_item_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  category VARCHAR(20) CHECK (category IN ('avatar', 'accessory', 'powerup', 'theme')) NOT NULL,
+  category VARCHAR(20) CHECK (category IN ('avatar', 'powerup', 'theme')) NOT NULL,
   name VARCHAR(50) NOT NULL,
   description TEXT,
   price FLOAT NOT NULL,

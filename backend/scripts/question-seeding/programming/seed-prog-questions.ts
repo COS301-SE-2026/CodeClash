@@ -1,25 +1,20 @@
-import { Pool } from "pg";
-import dotenv from "dotenv"
+import { pool } from "../db";
 import { DEFAULT_TIME_LIMIT, loadExercises, SeedProgrammingQuestion } from "./helper";
-dotenv.config({ path: ".env.dev" })
-
-const env = process.env;
-
-const pool = new Pool({
-    host: "localhost",
-    port: Number(env.DB_PORT),
-    user: env.DB_USER,
-    password: env.DB_PASSWORD,
-    database: env.DB_NAME
-});
-
 
 async function insertQuestions(questions: SeedProgrammingQuestion[]) {
     const client = await pool.connect();
     try {
         await client.query("BEGIN");
 
+        // Skip questions that are already seeded so the script can be re-run safely
+        const existing = await client.query(
+            `SELECT title FROM questions WHERE match_mode = 'programming'`
+        );
+        const seeded_titles = new Set<string>(existing.rows.map((row) => row.title));
+
         for (const q of questions) {
+            if (seeded_titles.has(q.title)) continue;
+
             const result = await client.query(
                 `INSERT INTO questions (match_mode, difficulty, title, description, time_limit, answer_format, answer_precision, input_type)
                 VALUES ('programming', $1, $2, $3, $4, NULL, NULL, 'code')
@@ -39,7 +34,7 @@ async function insertQuestions(questions: SeedProgrammingQuestion[]) {
                         question_id,
                         JSON.stringify(test!.input),
                         JSON.stringify(test!.expected),
-                        i == 0,
+                        i === 0,
                         i
                     ]
                 );
@@ -65,5 +60,3 @@ main().catch((error) => {
     console.error("Seeding failed", error);
     process.exit(1);
 })
-
-

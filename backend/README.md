@@ -96,41 +96,28 @@ You should see:
 { "status": "ok" }
 ```
 
+## Seeding Questions
 
-## Seeding Questions 
-
-Questions for this project are seeded from:
+Questions are seeded from:
 - [Hugging Face](https://huggingface.co/datasets/qwedsacf/competition_math/viewer/default/train) for maths
 - [Exercism](https://github.com/exercism/exercism) for programming
 
+The Exercism repos are git submodules under `backend/scripts`. Fetch them once (from the repo root):
 
 ```
-cd backend/scripts
+git submodule update --init --depth 1 backend/scripts
 ```
 
-### Seeding Maths 
+With the dev database running (`npm run docker:dev:build`), from `backend/`:
 
 ```
 npm run seed:math
-```
-
-### Seeding Programming 
-clone the exercism repo folders 
-
-```
-git clone --depth 1 https://github.com/exercism/problem-specifications.git
-
-git clone --depth 1 https://github.com/exercism/python.git
-
-git clone --depth 1 https://github.com/exercism/cpp.git
-
-git clone --depth 1 https://github.com/exercism/javascript.git
-```
-
-```
 npm run seed:prog
 npm run seed:templates
 ```
+
+The scripts read credentials from `backend/.env.dev` and connect to `localhost:5433` (the port the dev compose publishes).
+Set `SEED_DB_HOST` / `SEED_DB_PORT` to point them elsewhere. `seed:prog` skips questions that already exist, so it is safe to re-run.
 
 ## Testing
 

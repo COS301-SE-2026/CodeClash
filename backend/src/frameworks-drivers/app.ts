@@ -67,7 +67,9 @@ export const createApp = (
     purchase_service,
     equipped_repo,
     shop_item_repo,
-    tournament_service, wallet_repo, inventory_repo
+    inventory_repo,
+    tournament_service,
+    wallet_repo
   ));
 
   return app;

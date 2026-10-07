@@ -28,15 +28,16 @@ export const ProgMatch = () => {
         roundIdx, rounds,
         opponentCurrent, waitingOpponent, finishMatch,
         loading,
-        submitQuestion,
+        submitQuestion, marking, markingError,
         elos, colourClass,
-        final_question, complete_round, confirmCompleteRound, confirmRound, cancelCompleteRound, completeRound
-
+        final_question, complete_round, confirmCompleteRound, confirmRound, cancelCompleteRound, completeRound,
+        matchType, matchMode
     } = useMatch();
 
     const curr = questions[currentQuestion];
     const question = useMemo(() => ({ templates: curr.templates }), [curr]);
     const { username } = useUser();
+    const currentResult = results?.[roundIdx]?.[currentQuestion];
 
     const correct : boolean | null = results?.[roundIdx]?.[currentQuestion] ?? null;
 
@@ -128,23 +129,24 @@ export const ProgMatch = () => {
                         <ChevronLeft onClick={() => prevQuestion(currentQuestion)} className='size-[3rem] hover:scale-110  hover:bg-secondary/20 rounded-2xl w-[50%]' />
                         <ChevronRight onClick={() => nextQuestion(currentQuestion)} className='size-[3rem] hover:scale-110 hover:bg-secondary/20 rounded-2xl w-[50%]' />
                     </TournamentButton>
-                    <Button className='w-[20%] h-[3.6rem] rounded-2xl text-[1rem] hover:-translate-y-1 my-auto'
-                        onClick={() => {
-                            if (code.trim() && languageId !== null) {
-                                submitQuestion({
+                    <Button className='w-[20%] h-[3.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
+                        disabled={marking}
+                        onClick={async () => {
+                            if (!marking && code.trim() && languageId !== null) {
+                                await submitQuestion({
                                     source_code: code,
                                     language_id: languageId,
                                     stdin: null
-                                })
+                                }, matchType!,matchMode!)
                             }
                         }}
                     >
-                        Submit Answer
+                        {marking ? 'Marking...' : 'Submit Answer'}
                     </Button>
                     {final_question ? (
 
-                        <Button className='w-[20%] h-[3.6rem] rounded-2xl text-[1rem] hover:-translate-y-1 my-auto'
-                            onClick={() => { finishMatch(); }}
+                        <Button className='w-[20%] h-[3.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
+                            onClick={async () => { await finishMatch(); }}
                         >
                             <p>Finish Match</p>
                         </Button>) :
@@ -168,6 +170,15 @@ export const ProgMatch = () => {
                     }
 
                 </div>
+
+                {/* Judge0 runs every test case, so give explicit feedback rather than relying on the card flash alone */}
+                <p className='text-center text-[0.95rem] font-semibold mb-3 min-h-[1.5rem]' aria-live='polite'>
+                    {marking ? <span className='text-muted-text'>Running your code against the test cases...</span>
+                        : markingError ? <span className='text-danger'>Could not mark submission: {markingError}</span>
+                        : currentResult === true ? <span className='text-success'>Correct! All test cases passed.</span>
+                        : currentResult === false ? <span className='text-danger'>Incorrect - some test cases failed.</span>
+                        : null}
+                </p>
             </MatchCard>
             {waitingOpponent && (
                 <PopUp

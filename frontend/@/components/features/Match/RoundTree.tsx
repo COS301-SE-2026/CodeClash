@@ -36,7 +36,7 @@ export const RoundTree = ({
                 return (
                     <div key={round_key} className="flex flex-col gap-1" >
                         <span
-                            className={cn("text-sm font-bold mb-1", current && "text-button-tournament", next_round && "text-muted-text/50", past_round && "text-button-tournament-secondary")}
+                            className={cn("text-sm font-bold uppercase tracking-widest", current && "text-button-tournament", next_round && "text-muted-text/50", past_round && "text-button-tournament-secondary")}
                         >
                             Round {round_idx + 1}
                         </span>

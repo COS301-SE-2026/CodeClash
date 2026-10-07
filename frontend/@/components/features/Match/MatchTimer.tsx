@@ -28,7 +28,7 @@ export const MatchTimer = ({ duration, onExpire }: MatchTimerProps) => {
     const {minutes, seconds} = timer;
 
     return (
-        <div className='text-white font-dseg w-[15%] h-20 flex items-center justify-center text-5xl font-semibold border-6 rounded-l'>
+        <div className='text-primary-text font-dseg w-[15%] h-20 flex items-center justify-center text-5xl font-semibold border-6 rounded-l'>
             <span>
                 {String(minutes).padStart(2, "0")}:
                 {String(seconds).padStart(2, "0")}

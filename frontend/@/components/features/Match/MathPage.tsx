@@ -5,6 +5,9 @@ import { MathfieldElement } from "mathlive";
 import React, { useState } from "react";
 import { MatchCard } from "@/components/features/Match/MatchCard";
 import VirtualKeyboard from "./VirtualKeyboard";
+import "mathlive/fonts.css";
+
+MathfieldElement.fontsDirectory = null;
 
 declare module "react" {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -43,11 +46,19 @@ const MathMatch = ({ onValueChange, mathfieldRef, className, children, colourCla
   };
 
   return (
+<<<<<<< HEAD
     <MatchCard className={`flex flex-col items-center w-[100%] h-[40%] mb-auto rounded-2xl bg-card-tournament ${colourClass}`}>
       <math-field
         ref={mathfieldRef}
         onInput={handleInput}
         className={`w-[95%] min-h-[10rem] rounded-2xl bg-[var(--match-box)] border-[2px] border-[var(--button-tournament-secondary)] text-secondary text-sm mb-auto my-auto mx-auto ${className}`}
+=======
+    <MatchCard className={`flex flex-col items-center w-[100%] h-[40%] mb-auto rounded-2xl mt-5 bg-card-tournament text-white ${colourClass}`}>
+      <math-field
+        ref={mathfieldRef}
+        onInput={handleInput}
+        className={`w-[95%] min-h-[10rem] rounded-2xl bg-[var(--match-box)] border-[2px] border-[var(--button-tournament-secondary)] text-secondary text-sm mb-auto mx-auto ${className}`}
+>>>>>>> dev
       >
         {value}
       </math-field>

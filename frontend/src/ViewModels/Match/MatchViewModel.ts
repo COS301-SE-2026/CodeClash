@@ -20,7 +20,7 @@ export const useMatch = () => {
     const nav = useNavigate();
     const { matchSocket } = useSocket();
     const status = useMatchStore(state => state.status);
-    const { matchMode } = useMatchmaking();
+    const { matchMode, matchType } = useMatchmaking();
     const {token} = useAuth();
     const {username} = useUser();
 
@@ -107,10 +107,10 @@ export const useMatch = () => {
     const { opponentProgress, handleOpponentDone, opponentCurrent, opponentDone } = useOpponentProgress(rounds, players, updatePlayerLife);
 
 
-    const { submissionError, submitQuestion, results, lastResult } = useSubmission({ round_idx: roundIdx, curr_question: currentQuestion, question: questions[currentQuestion], match_id: match_id!, updatePlayerLife })
-    const { seconds, minutes } = useMatchTimer(duration, () => {
+    const { submissionError, submitQuestion, results, lastResult, marking, markingError } = useSubmission({ round_idx: roundIdx, curr_question: currentQuestion, question: questions[currentQuestion], match_id: match_id!, updatePlayerLife })
+    const { seconds, minutes } = useMatchTimer(duration, async () => {
         setGameOver(true);
-        finishMatch();
+        await finishMatch();
     })
 
     const last_round = roundIdx === rounds.length - 1;
@@ -164,45 +164,72 @@ export const useMatch = () => {
         setWaitingOpponent(true);
         finished_ref.current = true;
 
-        const response = await matchSocket?.finishMatch({ match_id: match_id!, match_mode: matchMode! });
+        const response = await matchSocket?.finishMatch({ match_id: match_id!, match_type: matchType! });
 
-        if (response && response.ok)
+        if (response?.ok)
             useResultStore.getState().addResult(response.data!);
     }
 
-    const both_done = () => {
+    const both_done = async () => {
         // useMatchStore.getState().reset();
         setWaitingOpponent(false);
         nav(`/results/${match_id}`, {
-            replace: true,
+          replace: true,
+          state: { id: match_id }
         });
     }
 
-    const openPowerupPopup = () => setPowerupPopupOpen(true);
-    const closePowerupPopup = () => setPowerupPopupOpen(false);
+    // const openPowerupPopup = () => setPowerupPopupOpen(true);
+    // const closePowerupPopup = () => setPowerupPopupOpen(false);
 
-    const usePowerups = async (itemIds : string[]) => {
-        if(!matchSocket || !match_id){
-            return;
-        }
+    // const usePowerups = async (itemIds : string[]) => {
+    //     if(!matchSocket || !match_id){
+    //         return;
+    //     }
 
-        for(const shop_item_id of itemIds){
-            try{
-                const response = await matchSocket.usePowerup({
-                    match_id: Number(match_id),
-                    shop_item_id,
-                });
-                if (response.ok){
-                    //put ui effects here 
+    //     for(const shop_item_id of itemIds){
+    //         try{
+    //             const response = await matchSocket.usePowerup({
+    //                 match_id: Number(match_id),
+    //                 shop_item_id,
+    //             });
+    //             if (response.ok){
+    //                 //put ui effects here 
                     
-                }
-            } catch (err) {
-                console.error('Failed to use powerup', err);
-            }
-        }
+    //             }
+    //         } catch (err) {
+    //             console.error('Failed to use powerup', err);
+    //         }
+    //     }
 
-        setPowerupPopupOpen(false);
-    }
+    //     setPowerupPopupOpen(false);
+    // }
+
+    // const openPowerupPopup = () => setPowerupPopupOpen(true);
+    // const closePowerupPopup = () => setPowerupPopupOpen(false);
+
+    // const usePowerups = async (itemIds : string[]) => {
+    //     if(!matchSocket || !match_id){
+    //         return;
+    //     }
+
+    //     for(const shop_item_id of itemIds){
+    //         try{
+    //             const response = await matchSocket.usePowerup({
+    //                 match_id: Number(match_id),
+    //                 shop_item_id,
+    //             });
+    //             if (response.ok){
+    //                 //put ui effects here 
+                    
+    //             }
+    //         } catch (err) {
+    //             console.error('Failed to use powerup', err);
+    //         }
+    //     }
+
+    //     setPowerupPopupOpen(false);
+    // }
 
     useEffect(() => {
         if (matchSocket && match_id) {
@@ -275,6 +302,8 @@ export const useMatch = () => {
         opponentCurrent,
         opponentDone,
         submitQuestion,
+        marking,
+        markingError,
         nextRound,
         roundIdx,
         total_rounds: rounds.length,
@@ -288,9 +317,7 @@ export const useMatch = () => {
         confirmCompleteRound,
         cancelCompleteRound,
         completeRound,
-        powerupPopupOpen,
-        openPowerupPopup,
-        closePowerupPopup,
-        usePowerups
+        matchType,
+        matchMode
     }
 }

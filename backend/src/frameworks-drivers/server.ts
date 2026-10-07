@@ -171,6 +171,7 @@ AppDataSource.initialize()
             purchase_service,
             equipped_repo,
             shop_item_repo,
+            inventory_repo,
             tournament_service, 
             wallet_repo,
             inventory_repo   
@@ -220,7 +221,7 @@ AppDataSource.initialize()
         attachSocketModules(io, {
             match: { marking_service, submission_system, match_completion_service, match_deletion_system, match_store, powerup_service, elimination_service, opponent_progress },
             matchmaking: { matchmaking_service, matched_users_service, match_service, match_store, user_repo, match_start },
-            friends: {},
+            friends: { matched_users_service },
             tournament: { tournament_service }
         })
 

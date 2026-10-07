@@ -44,6 +44,9 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
     current_user
 }) => {
 
+    // const questionsAnswered = question_results.flat().filter((qr) => qr === true || qr === false).length;
+    // const progressValue = question_number > 0 ? (questionsAnswered / question_number) * 100 : 0;
+
     return (
         <div className="fixed inset-0 flex flex-col min-w-[64rem] overflow-y-auto">
             {/* Header */}

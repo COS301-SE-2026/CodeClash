@@ -4,7 +4,7 @@ services:
       context: ../backend
       dockerfile: Dockerfile.dev
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      test: ["CMD", "wget", "-qO-", "-T", "3", "http://localhost:3000/health"]
       interval: 5s
       timeout: 3s
       retries: 5
@@ -28,6 +28,7 @@ services:
       - PORT=${PORT}
       - JUDGE_0_URL=${JUDGE_0_URL}
       - JUDGE_0_TOKEN=${JUDGE_0_TOKEN}
+      - JUDGE_0_MEMORY_LIMIT=${JUDGE_0_MEMORY_LIMIT:-128000}
     depends_on:
       - db
     volumes:
@@ -61,7 +62,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
     ports:
-      - "${DB_PORT}:5432"
+      - "5433:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
       interval: 5s
@@ -112,4 +113,3 @@ volumes:
 networks:
   pgnetwork:
     name: pgnetwork
-  

@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { HostTournament } from "./HostTournament"
 
 const Tournaments = () => {
-    const { tournaments, createTournament, joinTournamnet,leaveTournament, player, starts_in } = useTournament();
+    const { tournaments, createTournament, joinTournamnet,leaveTournament } = useTournament();
     const [hostTournament, setHostTournament] = useState(false);
 
     useExtraLayout(
@@ -21,16 +21,16 @@ const Tournaments = () => {
     )
 
     return (
-        <div className="w-full max-w-4xl min-h-screen overflow-hidden relative mx-auto">
-            <div className="w-full flex flex-col">
-                <div className="flex flex-row h-full w-full overflow-x-auto gap-3">
+        <div className="w-full max-w-4xl min-h-screen overflow-hidden relative mx-auto px-4 py-4">
+            <div className="w-full flex flex-col gap-8">
+                <div className="flex flex-row items-start justify-between w-full gap-3">
                     <div className="flex flex-col w-full">
-                        <h1 className="font-black text-primary-text text-xl ml-4 mt-1">Tournaments</h1>
-                        <h2 className=" text-primary-text text-sm ml-4 -mt-1 w-full mb-10 ">Join Live Battles or Clash With Friends</h2>
+                        <h1 className="font-black text-primary-text text-xl leading-tight">Tournaments</h1>
+                        <h2 className=" text-muted-text text-sm ">Join Live Battles or Clash With Friends</h2>
                     </div>
                     <Button
                         onClick={() => setHostTournament(true)}
-                        className="w-2xs h-auto mb-19 mt-3 mr-3 justify-self-end items-center"
+                        className="btn btn-primary w-[26%] h-full"
                         variant={"default"}
                     >
                         <div className="flex flex-row w-full my-auto">
@@ -40,9 +40,7 @@ const Tournaments = () => {
                     </Button>
                 </div>
 
-
-
-                <div className="justify-end max-w-4xl flex flex-row gap-2 mb-15 h-8 gap-5">
+                <div className="justify-end max-w-4xl flex flex-row gap-4 h-9 cursor-pointer">
                     <FilterButton className="text-xs min-w-[3rem]">
                         Math
                     </FilterButton>
@@ -65,20 +63,18 @@ const Tournaments = () => {
                                 title={tournament.title}
                                 min_players={tournament.min_players}
                                 player_count={tournament.players.length}
-                                start_date={new Date(tournament.start_date)}
                                 onJoin={joinTournamnet}
                                 onLeave={leaveTournament}
-                                player={player}
+                                host_player={tournament.host}
                                 players={tournament.players}
-                                starts_in={starts_in}
                             />
                         )
                     })}
 
                     {tournaments.length <= 0 &&
                         (
-                            <div className="text-center text-primary">
-                                <p>Nothing to show yet. Host your own tournament</p>
+                            <div className="text-center text-danger text-sm">
+                                <p>Nothing to show yet. Host your own tournament.</p>
                             </div>
                         )
                     }

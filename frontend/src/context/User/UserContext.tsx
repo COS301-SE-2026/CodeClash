@@ -70,7 +70,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     const getWinningStreak = async () => {
         try {
-            const data = await authGet<{ winning_streak: number }>('/user/winning_streak', token!);
+            const data = await authGet<{ winning_streak: number }>('user/winning_streak', token!);
             setWinningStreak(data.winning_streak);
         }
         catch (error) {

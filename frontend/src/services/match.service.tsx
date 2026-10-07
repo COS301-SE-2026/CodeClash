@@ -1,17 +1,17 @@
 import { useMemo, useRef, useState, useEffect } from "react";
 import { useTimer } from "react-timer-hook";
 import type { Player } from "src/Models/MatchModel";
-import type { QuestionDTO } from "src/dtos/match/match.dto";
+import type { MatchMode, QuestionDTO } from "src/dtos/match/match.dto";
 import type { RoundDTO } from "src/dtos/match/match.dto";
 import type { OpponentDTO } from "src/dtos/match/opponent.dto";
 import type { MatchSocket } from "src/context/Socket/modules/match.socket";
 import { useMatchStore } from "src/stores/match-store";
 import { type NavigateFunction } from "react-router-dom";
 
-export function matchStart(match_socket: MatchSocket, path: string, nav: NavigateFunction) {
+export function matchStart(match_socket: MatchSocket, path: string, nav: NavigateFunction, match_mode:MatchMode) {
     return match_socket.startMatch((data) => {
         console.log("Match starting with data", data);
-        useMatchStore.getState().setMatchData(data);
+        useMatchStore.getState().setMatchData(data,match_mode);
         nav(`${path}/${data.match_id}`);
     })
 }
@@ -50,6 +50,12 @@ function shuffle(array: QuestionDTO[]) {
 }
 
 
+// time_limit is a postgres TIME (HH:MM:SS); returns minutes, possibly fractional
+function timeLimitMinutes(time_limit: string): number {
+    const [hours = 0, minutes = 0, seconds = 0] = time_limit.split(':').map(Number);
+    return hours * 60 + minutes + seconds / 60;
+}
+
 export const useLoadRounds = (data: RoundDTO[]) => {
     return useMemo(() => {
         if (!data || data.length === 0) {
@@ -61,7 +67,7 @@ export const useLoadRounds = (data: RoundDTO[]) => {
         let sumtime = 0;
         const rounds = data.map((round) => {
             const questions: QuestionDTO[] = round.questions.map(q => {
-                sumtime += Number(q.time_limit!.split(":")[0]);
+                sumtime += timeLimitMinutes(q.time_limit!);
                 return {
                     id: q.id,
                     title: q.title,
