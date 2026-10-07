@@ -22,21 +22,21 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({ confirmation }) =
                 handleCancel();
             }
         }}>
-            <div className="bg-white rounded-3xl p-8 w-[90%] max-w-[550px] flex flex-col items-center gap-5 shadow-xl" onMouseDown={(e) => e.stopPropagation()}>
+            <div className="relative w-full max-w-lg rounded-3xl  text-center flex flex-col items-center gap-4 p-8 overflow-hidden bg-radial-glow" onMouseDown={(e) => e.stopPropagation()}>
                 <AlertTriangle className="w-15 h-15 text-danger" strokeWidth={1.5}/>
                 
-                <h2 className="text-black font-extrabold text-center whitespace-nowrap" style = {{fontSize: 'var(--heading-size)'}}>{content.title}</h2>
-                <p className="text-black text-center" style={{fontSize: 'var(--font-size-sm)'}}>{content.message}</p>
+                <h2 className="text-md text-primary-text font-extrabold whitespace-nowrap">{content.title}</h2>
+                <p className="text-sm text-primary-text font-extrabold">{content.message}</p>
 
                 {/*The cancel and submit buttons */}
                 <div className="flex w-full gap-3">
-                    <button className="flex-1 py-3 rounded-2xl bg-secondary text-secondary-text font-bold hover:opacity-80 transition-opacity"
+                    <button className="btn btn-secondary w-full"
                         style = {{fontSize: 'var(--font-size-sm)'}} onClick={handleCancel} type="button">
                         {content.cancelLabel}
                     </button>
 
                     {/*copying above button but changing cancel to confirm */}
-                    <button className="flex-1 py-3 rounded-2xl bg-primary text-primary-text font-bold hover:opacity-80 transition-opacity"
+                    <button className="btn btn-primary w-full"
                         style = {{fontSize: 'var(--font-size-sm)'}} onClick={handleConfirm} type="button">
                         {content.confirmLabel}
                     </button>
