@@ -41,11 +41,12 @@ export const RoundTree = ({
                             Round {round_idx + 1}
                         </span>
 
-                        <div className="relative flex flex-col-reverse items-center mx-auto ml-6 w-8.5">
+                        <div className="relative flex flex-col items-center mx-auto ml-6 w-8.5">
                             <Progress
                                 value={progressValue}
                                 orientation="vertical"
                                 className="absolute top-0 bottom-3 w-2 rounded-3xl bg-card opacity-40"
+                                reverse
                             />
                             {round_question.map((question, q_idx) => {
                                 const result = results[round_idx]?.[q_idx];
