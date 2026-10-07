@@ -10,6 +10,8 @@ import { MatchCard } from "@/components/features/Match/MatchCard";
 import PopUp from "@/components/shared/PopUp";
 import { useUser } from 'src/context/User/hooks/useUser';
 import { Button } from "@/components/ui/button";
+import ConfirmationPopup from "../Confirmation";
+import type { ConfirmationViewModel } from "src/ViewModels/ConfirmationViewModel";
 
 export const ProgMatch = () => {
     const [code, setCode] = useState('');
@@ -35,6 +37,18 @@ export const ProgMatch = () => {
     const question = useMemo(() => ({ templates: curr?.templates }), [curr]);
     const { username } = useUser();
     const currentResult = results?.[roundIdx]?.[currentQuestion];
+
+    const roundConf: ConfirmationViewModel = {
+        content: {
+            title: "Complete Round?",
+            message: "You won't be able to go back once you've completed a round.",
+            cancelLabel: "Cancel",
+            confirmLabel: "Confirm"
+        },
+        isVisible: confirmRound,
+        handleConfirm: completeRound,
+        handleCancel: cancelCompleteRound,
+    }
 
     if (status !== 'ready' || !curr) {
         return (
@@ -114,11 +128,7 @@ export const ProgMatch = () => {
 
                     {
                         confirmRound && (
-                            <div>
-                                <p>You won't be able to go back once you've completed a round.</p>
-                                <Button onClick={cancelCompleteRound}>Cancel</Button>
-                                <Button onClick={completeRound}>Continue</Button>
-                            </div>
+                            <ConfirmationPopup confirmation={roundConf}/>
                         )
                     }
 
