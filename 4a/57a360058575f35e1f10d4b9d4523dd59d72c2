@@ -1,0 +1,143 @@
+frontend/src/styles/global.css
+  h_b13c5d77534129 218-231,622,639-641,673-682,713,730-732,759-773,804,821-823,850-864,895,912-914,941-955,1093-1097,1456-1480,1482-1513
+  h_b13c5d77534129 549-550,1098
+backend/src/interface-adapters/repositories/wallet.repository.ts
+  h_b13c5d77534129 2,30
+backend/src/interface-adapters/controllers/shop.controllers.ts
+  h_b13c5d77534129 40,43,77,80,102
+frontend/src/ViewModels/Match/MatchViewModel.ts
+  h_b13c5d77534129 23-29,35,40,110,116-117,119,122-124,126,172-174,193-228,312
+  h_b13c5d77534129 125,127-129
+backend/src/interface-adapters/socket-handlers/match-handlers.ts
+  h_b13c5d77534129 13-14,16,45-47,85,89,91-97,117-146
+  h_b13c5d77534129 15,44,48,147-148
+frontend/src/Views/Landing.tsx
+  h_b13c5d77534129 5,7,56-58,78-79
+backend/src/application/usecases/services/user-creation.service.ts
+  h_b13c5d77534129 7,25
+backend/src/application/usecases/services/achievement.service.ts
+  h_b13c5d77534129 19,32,79,98
+backend/src/application/usecases/services/friend.service.ts
+  h_b13c5d77534129 4,20,42-43
+backend/src/application/usecases/services/marking/mark-prog.ts
+  h_b13c5d77534129 36,69-79
+backend/src/application/usecases/services/match/match-confirmation.service.ts
+  h_b13c5d77534129 3,19,22,40,46,54
+backend/src/application/usecases/services/match/match-creation.service.ts
+  h_b13c5d77534129 53-54,101-102
+backend/src/application/usecases/services/match/match-start.service.ts
+  h_b13c5d77534129 14,23-26
+backend/src/application/usecases/services/match/match-store.service.ts
+  h_b13c5d77534129 12-14,24,45-47
+backend/src/application/usecases/services/shop/equipment.service.ts
+  h_b13c5d77534129 5,42
+backend/src/application/usecases/services/shop/powerup.service.ts
+  h_b13c5d77534129 5,16,19,22-24
+backend/src/application/usecases/services/shop/purchase.service.ts
+  h_b13c5d77534129 3,6,16,27,32,34
+backend/src/application/usecases/services/shop/shop-item.service.ts
+  h_b13c5d77534129 10
+backend/src/application/usecases/services/skill/reference-runtimes.ts
+  h_b13c5d77534129 7-16
+backend/src/application/usecases/services/tournament/elimination.service.ts
+  h_b13c5d77534129 4,76,79,100,145
+backend/src/application/usecases/services/tournament/tournament.service.ts
+  h_b13c5d77534129 9,21,26-27,41,43,49,56-57
+backend/src/application/usecases/systems/life.system.ts
+  h_b13c5d77534129 59-67
+backend/src/application/usecases/systems/powerup.system.ts
+  h_b13c5d77534129 6-7,51-56,70-71,110,128
+backend/src/application/usecases/systems/submission.system.ts
+  h_b13c5d77534129 89-105
+backend/src/entities/database/wallet.entities.ts
+  h_b13c5d77534129 4-5,15
+backend/src/entities/errors/http-error.ts
+  h_b13c5d77534129 1-6
+backend/src/frameworks-drivers/app.ts
+  h_b13c5d77534129 3,5,76-84
+backend/src/frameworks-drivers/server.ts
+  h_b13c5d77534129 221,228
+backend/src/frameworks-drivers/socket/dependencies.ts
+  h_b13c5d77534129 17,27-28
+backend/src/frameworks-drivers/socket/modules/register-friends-handler.ts
+  h_b13c5d77534129 31,39
+backend/src/frameworks-drivers/socket/modules/register-match-handlers.ts
+  h_b13c5d77534129 5,17-19
+backend/src/interface-adapters/controllers/rank.controllers.ts
+  h_b13c5d77534129 23
+backend/src/interface-adapters/controllers/tournament.controllers.ts
+  h_b13c5d77534129 7,19
+backend/src/interface-adapters/controllers/user.controllers.ts
+  h_b13c5d77534129 56
+backend/src/interface-adapters/repositories/inventory.repository.ts
+  h_b13c5d77534129 6,54
+backend/tests/integration/repositories/wallet.repository.test.ts
+  h_b13c5d77534129 40,43,50,54
+backend/tests/integration/services/purchase.service.test.ts
+  h_b13c5d77534129 60
+backend/tests/unit/socket-handlers/game.handler.unit.test.ts
+  h_b13c5d77534129 28-29
+database/01-init.sql
+  h_b13c5d77534129 195
+frontend/@/components/ui/animations/FloatingSymbols.tsx
+  h_b13c5d77534129 1-51
+frontend/src/App.tsx
+  h_b13c5d77534129 2,6,34-53,56-62,83-86
+frontend/src/Models/ShopModel.ts
+  h_b13c5d77534129 7,46
+frontend/src/Models/SkillProgressModel.ts
+  h_b13c5d77534129 57-74
+frontend/src/ViewModels/Match/FinalResultsViewModel.ts
+  h_b13c5d77534129 9,38-42
+frontend/src/Views/Dashboard/Dashboard.tsx
+  h_b13c5d77534129 1,11,48-49,55,58
+frontend/src/Views/Friends/Friends.tsx
+  h_b13c5d77534129 13,189,195
+frontend/src/Views/Match/MatchHistory.tsx
+  h_b13c5d77534129 6,20-21,23
+frontend/src/Views/Match/ProgMatch.tsx
+  h_b13c5d77534129 38
+frontend/src/Views/Shop/AvatarCustomizer.tsx
+  h_b13c5d77534129 54-55,78
+frontend/src/Views/Shop/Shop.tsx
+  h_b13c5d77534129 1-2,12,19,47
+frontend/src/Views/SkillProgress/components/WhatToWorkOn.tsx
+  h_b13c5d77534129 70,176,178-184
+frontend/src/context/Friends/FriendsContext.tsx
+  h_b13c5d77534129 242,258,260,273-275,277-278
+frontend/src/context/Socket/modules/match.socket.ts
+  h_b13c5d77534129 4,55,95-98
+frontend/src/dtos/match/match.dto.ts
+  h_b13c5d77534129 75-86
+frontend/src/dtos/shop.dto.ts
+  h_b13c5d77534129 15
+frontend/src/dtos/shop.mapper.ts
+  h_b13c5d77534129 2
+frontend/src/layout.tsx
+  h_b13c5d77534129 5,11,16-25,30-31,37,39
+frontend/src/services/code-question.service.tsx
+  h_b13c5d77534129 21
+frontend/src/services/match.service.tsx
+  h_b13c5d77534129 9-10,21-26,28,38,43,48,63-66,74-75,89,94
+frontend/src/services/shop.service.ts
+  h_b13c5d77534129 2-3,123-125
+frontend/src/services/submission.service.tsx
+  h_b13c5d77534129 96-103
+frontend/src/services/websocket.service.tsx
+  h_b13c5d77534129 18-26,28-34,37-43
+frontend/src/stores/match-store.ts
+  h_b13c5d77534129 1,14-17,23-25,28-29,33-35,44-47,56-59,65-68,74-78
+frontend/test/unit/ViewModels/FriendsContext.test.tsx
+  h_b13c5d77534129 20-27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4a57a360058575f35e1f10d4b9d4523dd59d72c2",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
