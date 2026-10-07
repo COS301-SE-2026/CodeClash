@@ -192,7 +192,7 @@ CREATE TABLE IF NOT EXISTS transactions (
 CREATE TABLE IF NOT EXISTS wallets (
   wallet_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID REFERENCES users(user_id),
-  balance FLOAT NOT NULL DEFAULT 0,
+  balance FLOAT NOT NULL DEFAULT 1000,
   updated_at TIMESTAMP DEFAULT NOW()
 );
 

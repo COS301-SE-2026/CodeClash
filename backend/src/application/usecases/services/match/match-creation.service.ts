@@ -97,7 +97,8 @@ export class MatchCreationService {
             match_entity: match.match_entity,
             match_id: db_match_id,
             rounds: match.rounds,
-            answers: answers
+            answers: answers,
+            end_time: match_data.end_time
         }
     }
 }

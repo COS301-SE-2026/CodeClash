@@ -33,7 +33,7 @@ export class MarkProg implements IMarkingStrategy {
            for (let i = 0; i < test_cases.length; i += MarkProg.CONCURRENCY) {
                const batch = test_cases.slice(i, i + MarkProg.CONCURRENCY);
                const results = await Promise.all(batch.map((test) =>
-                   this.executor.execute(sub.source_code, sub.language_id, this.formatStdin(test.input), test.expected_output)
+                    this.executor.execute(sub.source_code, sub.language_id, this.formatStdin(test.input), this.formatExpected(test.expected_output))
                ));
    
                for (const result of results) {
@@ -66,4 +66,15 @@ export class MarkProg implements IMarkingStrategy {
 
         return Object.values(parsed as Record<string, unknown>).map(String).join(' ');
     }
+
+  private formatExpected(expected: string) {
+    try {
+      const parsed = JSON.parse(expected);
+      if (typeof parsed === 'string') return parsed;
+    }
+    catch {
+      return expected;
+    }
+    return expected;
+  }
 }
