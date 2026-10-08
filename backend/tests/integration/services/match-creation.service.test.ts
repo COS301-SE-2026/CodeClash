@@ -25,6 +25,9 @@ import { randomUUID } from 'node:crypto';
 import type { UserDTO } from '../../../src/entities/dtos/user/user.dto'
 import { RoundComponent } from '../../../src/entities/components';
 import { AnswerDTO } from '../../../src/entities/dtos/questions/answer.dto';
+import { mock_questions } from '../../mocks/mock-questions';
+import { mock_answers } from '../../mocks/mock-answers';
+import { mock_templates } from '../../mocks/mock-templates';
 
 const world = World();
 
@@ -89,6 +92,10 @@ describe("Tests Match Creation", () => {
             username: p2_username,
             elo: 606
         }
+
+        await data_source.getRepository(Questions).save(mock_questions);
+        await data_source.getRepository(Answers).save(mock_answers);
+        await data_source.getRepository(ProgrammingTemplates).save(mock_templates);
 
     });
 

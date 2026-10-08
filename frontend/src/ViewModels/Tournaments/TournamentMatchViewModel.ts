@@ -52,7 +52,8 @@ export const useTournamentMatch = () => {
         completeRound,
         marking,
         markingError,
-        results
+        results,
+        lastResult
     } = useMatch(timeUp);
 
     const [activePlayers, setActivePlayers] = useState<PlayerStandingDTO[]>(players ?? []);
@@ -105,16 +106,7 @@ export const useTournamentMatch = () => {
             }, 'tournament', 'programming', tournament_id!)
         }
 
-        const response = await tournamentSocket?.getStandings(tournament_id!);
-        if (response?.ok) {
-            setActivePlayers(prev => {
-                const active_ids = new Set(prev.map(p => p.id));
-
-                return response.data!.filter(p => active_ids.has(p.id));
-
-            }
-            );
-        }
+        await refreshStandings();
     }
 
 
@@ -154,6 +146,39 @@ export const useTournamentMatch = () => {
         if (player.id === db_id)
             setEliminated(true);
     }
+
+    const refreshStandings = async () => {
+        if (!tournament_id) return;
+
+        const response = await tournamentSocket?.getStandings(tournament_id);
+        if (response?.ok) {
+            setActivePlayers(prev => {
+                const active_ids = new Set(prev.map(p => p.id));
+                return response.data!.filter(p => active_ids.has(p.id));
+            }
+            );
+        }
+    }
+
+    useEffect(() => {
+        if (!tournamentSocket || eliminated) return;
+
+        const interval = setInterval(refreshStandings, 3000);
+        return () => clearInterval(interval)
+    }, [tournamentSocket, tournament_id, eliminated])
+
+  // this is to make sure that reloading will give the same socket and tournament id and also state of elimination as previously this was lost on reload
+  useEffect(() => {
+    if (!tournamentSocket || !tournament_id || !db_id) return;
+
+    void tournamentSocket.getTournament(tournament_id);
+    tournamentSocket.getStandings(tournament_id).then(response => {
+      if (!response.ok) return;
+      const standings = response.data!;
+      setActivePlayers(standings.filter(p => p.elimination_round === -1));
+      if (standings.some(p => p.id === db_id && p.elimination_round !== -1)) setEliminated(true);
+    }).catch(() => { /* Tournament already over, the match rejoin sends this player to the results  */ })
+  }, [tournamentSocket, tournament_id, db_id])
 
     useEffect(() => {
         if (!tournamentSocket) return;
@@ -198,7 +223,8 @@ export const useTournamentMatch = () => {
         eliminated,
         marking,
         markingError,
-        results
+        results,
+        lastResult
     }
 
 }
