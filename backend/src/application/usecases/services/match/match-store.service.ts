@@ -79,6 +79,17 @@ export class MatchStore {
         return match.players.every(player => player.done)
     }
 
+  eliminate(player_id: string, match_id: number) {
+    const match = this.MATCH.get(match_id);
+
+    if (!match) throw new Error("Invalid match id")
+
+    match.players.forEach((player) => {
+      player.done = true;
+      if (player.id === player_id) player.eliminated = true;
+    })
+  }
+
     saveResult(match_id: number, result: MatchResultDTO) {
         const match = this.MATCH.get(match_id);
 

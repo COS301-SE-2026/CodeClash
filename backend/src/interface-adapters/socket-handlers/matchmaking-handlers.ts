@@ -31,14 +31,15 @@ export const joinMatchQueue = (async (io: Server, socket: Socket, data: any, mat
     const match = await searchExclusive(() => matchmaking_service.matchmaking(user));
    
         if (!match) {
-           retryMatchmaking(io, socket, user, matchmaking_service, match_confirmation_service, user_repo);
+           retryMatchmaking(io, user, matchmaking_service, match_confirmation_service, user_repo);
             return;
        }
        await notifyMatchFound(io, match, data.match_mode, match_confirmation_service, user_repo);
    
     })
    
-    const MATCH_RETRY_MS = 10000;
+const MATCH_RETRY_MS = 10000;
+const QUEUE_TIMEOUT_MS = 15000;
    
     // one search at a time: two searches running together (e.g. two waiting players retrying at once) could each pick the other and match them twice
     let search_lock: Promise<unknown> = Promise.resolve();
@@ -50,21 +51,30 @@ export const joinMatchQueue = (async (io: Server, socket: Socket, data: any, mat
    
     // matchmaking only runs when someone joins, so a waiting player's elo window (elo_difference * match_attempt) never grew and
     // players further apart than that could never meet; keep searching with a wider window until they're matched or leave the queue
-    const retryMatchmaking = (io: Server, socket: Socket, user: MatchmakingUserDTO, matchmaking_service: MatchmakingService, match_confirmation_service: MatchConfirmationService, user_repo: IUserRepository) => {
-        setTimeout(async () => {
-            try {
-               const next = { ...user, match_attempt: user.match_attempt + 1 };
-           // stop once they've left the queue: cancelled, disconnected, or matched by someone else's search
-           const match = await searchExclusive(async () =>
-              socket.connected && await matchmaking_service.isQueued(user.id, user.match_mode) ? matchmaking_service.matchmaking(next) : 'left' as const);
-
-          if (match === 'left') return;
-         if (!match) return retryMatchmaking(io, socket, next, matchmaking_service, match_confirmation_service, user_repo);
-         await notifyMatchFound(io, match, user.match_mode, match_confirmation_service, user_repo);
-     } catch (error) {
+    const retryMatchmaking = (io: Server, user: MatchmakingUserDTO, matchmaking_service: MatchmakingService, match_confirmation_service: MatchConfirmationService, user_repo: IUserRepository) => {
+        const delay = Math.min(MATCH_RETRY_MS, Math.max(0, user.joined_at.getTime() + QUEUE_TIMEOUT_MS - Date.now()));
+    setTimeout(async () => {
+                  try {
+                      const next = { ...user, match_attempt: user.match_attempt + 1 };
+                 // stop once they've left the queue (cancelled, or matched by someone else's search); searching too long or having no connection left takes them out
+                  const match = await searchExclusive(async () => {
+                     if (!await matchmaking_service.isQueued(user.id, user.match_mode)) return 'left' as const;
+                    const connected = (await io.in(user.id).fetchSockets()).length > 0;
+                    if (!connected || Date.now() - user.joined_at.getTime() >= QUEUE_TIMEOUT_MS) {
+                        await matchmaking_service.dequeue(user.id, user.match_mode);
+                        return 'timed_out' as const;
+                    }
+                    return matchmaking_service.matchmaking(next);
+                 });
+  
+                 if (match === 'left') return;
+                 if (match === 'timed_out') return void io.to(user.id).emit('queue_timeout');
+                if (!match) return retryMatchmaking(io, next, matchmaking_service, match_confirmation_service, user_repo);
+                await notifyMatchFound(io, match, user.match_mode, match_confirmation_service, user_repo);
+            } catch (error) {
         console.error('Failed to retry matchmaking:', error);
     }
-}, MATCH_RETRY_MS);
+}, delay);
  }
 
 export const leaveMatchQueue = (async (io: Server, socket: Socket, matchmaking_service: MatchmakingService) => {
@@ -126,18 +136,21 @@ export const matchDeclined = (async (io: Server, group_id: string, match_mode: M
                 joined_at: new Date()   // this is a bit unfair coz they get requeued at the end of the queue but it's fine for now
             }
 
-            const delay = 6000 + Math.random() * 12000; //NOSONAR
-
-            setTimeout(async () => {
-                try {
-                    const match = await matchmaking_service.matchmaking(requeue);
-
-                    if (!match) return;
-                    await notifyMatchFound(io, match, match_mode, match_confirmation_service, user_repo);
-                } catch (error) {
-                    console.error('Failed to requeue player:', error);
-                }
-            }, delay);
+//             const delay = 6000 + Math.random() * 12000; //NOSONAR
+// 
+//             setTimeout(async () => {
+//                 try {
+//                     const match = await matchmaking_service.matchmaking(requeue);
+// 
+//                     if (!match) return;
+//                     await notifyMatchFound(io, match, match_mode, match_confirmation_service, user_repo);
+//                 } catch (error) {
+//                     console.error('Failed to requeue player:', error);
+//                 }
+//             }, delay);
+// 
+          await matchmaking_service.enqueue(requeue, match_mode);
+          retryMatchmaking(io, requeue, matchmaking_service, match_confirmation_service, user_repo);
         }
 
     }
