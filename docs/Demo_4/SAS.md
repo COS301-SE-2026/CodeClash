@@ -340,12 +340,10 @@ The server validates the JWT and attaches `socket.data.user_id` and `socket.data
 | Event (on) | Payload | Description |
 |-----------|---------|-------------|
 | `friend_invite_received` | `{ invite_id, sender_name, expires_at }` | Incoming casual game invite |
-| <!-- CONFIRM event name --> | <!-- CONFIRM --> | Friend request received |
-| <!-- CONFIRM event name --> | <!-- CONFIRM --> | Friend request responded to |
+| `friend_invite_responded` | <!-- CONFIRM --> | Friend invite responded to |
+| `friend_request_responded` | `{from_user_id, from_username, status}` | Friend request responded to |
+| `friend_request_received` | `{from_user_id, from_username}` | Friend request received |
 
-**Tournament events:**
-
-<!-- CONFIRM: add the tournament socket event names and payloads from the tournament handler file -->
 
 ---
 
