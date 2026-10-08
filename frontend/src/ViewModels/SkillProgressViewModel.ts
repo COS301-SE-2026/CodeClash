@@ -1,26 +1,27 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useAuth } from 'src/context/Auth/hooks/useAuth';
 import { useUser } from 'src/context/User/hooks/useUser';
+import type { FocusReport } from 'src/Models/SkillInsights';
+import { buildFocusReport } from 'src/Models/SkillInsights';
 import type {
     ComponentScore,
     DifficultyBand,
     GameDomain,
     GameMastery,
     GrowthResult,
-    Insight,
     SkillDomain,
     SkillProgressContent
 } from 'src/Models/SkillProgressModel';
 import {
     MASTERY_WINDOW,
     averageMastery,
-    buildInsights,
     componentScores,
     difficultyBands,
     gameMastery,
     growthFromReadings,
     growthReadings,
     masteryCeiling,
+    practiceSummary,
     skillProgressContent
 } from 'src/Models/SkillProgressModel';
 import type { SkillTelemetry } from 'src/services/skill-progress.service';
@@ -46,7 +47,7 @@ export interface SkillProgressViewModel {
     components: ComponentScore[];
     bands: DifficultyBand[];
     recentGames: GameMastery[];
-    insights: Insight[];
+    insights: FocusReport;
     /*True while any of the numbers come from generated telemetry.*/
     isSimulated: boolean;
     telemetrySource: SkillTelemetry['source'] | null;
@@ -88,11 +89,13 @@ export function useSkillProgressViewModel(): SkillProgressViewModel {
         };
     }, [token, league, isAuthLoading]);
 
+  const competitive = useMemo(() => (telemetry?.games ?? []).filter(game => !game.practice), [telemetry]);
+
     /*Games for the selected domain, newest first. 'overall' keeps everything.*/
-    const games = useMemo(() => {
-        const all = telemetry?.games ?? [];
-        return domain === 'overall' ? all : all.filter(game => game.domain === domain);
-    }, [telemetry, domain]);
+    const games = useMemo(
+        () => domain === 'overall' ? competitive : competitive.filter(game => game.domain === domain),
+        [competitive, domain]
+    );
 
     const masteries = useMemo<GameMastery[]>(() => games.map(gameMastery), [games]);
 
@@ -103,10 +106,9 @@ export function useSkillProgressViewModel(): SkillProgressViewModel {
     /*Components are per domain by definition - math and programming score different
     things - so 'overall' shows both sets stacked.*/
     const components = useMemo<ComponentScore[]>(() => {
-        const all = telemetry?.games ?? [];
         const domains: GameDomain[] = domain === 'overall' ? ['math', 'programming'] : [domain];
-        return domains.flatMap(target => componentScores(all, target));
-    }, [telemetry, domain]);
+      return domains.flatMap(target => componentScores(competitive, target));
+    }, [competitive, domain]);
 
     const bands = useMemo(() => difficultyBands(games, league), [games, league]);
 
@@ -117,9 +119,14 @@ export function useSkillProgressViewModel(): SkillProgressViewModel {
         return Math.round((wins / sampled.length) * 100);
     }, [games]);
 
+  const practice = useMemo(() => {
+    const all = telemetry?.games ?? [];
+     return practiceSummary(domain === 'overall' ? all : all.filter(game => game.domain === domain));
+  }, [telemetry, domain]);
+  
     const insights = useMemo(
-        () => buildInsights(components, growth, mastery, league),
-        [components, growth, mastery, league]
+      () => buildFocusReport({ games, allGames: competitive, components, bands, growth, mastery, league, winRate, practice }),
+        [games, competitive, components, bands, growth, mastery, league, winRate, practice]
     );
 
     return {

@@ -5,7 +5,7 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
     test: {
         globals: true,
-        exclude: ['**/node_modules/**', '**/config/**'],
+        exclude: ['**/node_modules/**', '**/config/**', 'scripts/**'],
 
         coverage: {
             provider: 'v8',
@@ -16,11 +16,12 @@ export default defineConfig({
                 '**/config/**', 
                 'src/**/*.dto.*', 
                 'src/application/interfaces/**', 
-                'src/entities/db-entities/**',
+                'src/entities/database/**',
                 'src/entities/components.ts',
                 'src/entities/ecs-entities.ts',
                 'src/frameworks-drivers/config/**',
-                'src/interface-adapters/auth/index.d.ts'
+                'src/interface-adapters/auth/index.d.ts',
+                'scripts/**'
             ]
         },
         setupFiles: ['./tests/setup.ts'],

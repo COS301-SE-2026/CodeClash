@@ -3,6 +3,12 @@ services:
     build: 
       context: ../backend
       dockerfile: Dockerfile.dev
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "-T", "3", "http://localhost:3000/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 15s
     ports:
       - "3000:3000"
     environment: 
@@ -22,6 +28,7 @@ services:
       - PORT=${PORT}
       - JUDGE_0_URL=${JUDGE_0_URL}
       - JUDGE_0_TOKEN=${JUDGE_0_TOKEN}
+      - JUDGE_0_MEMORY_LIMIT=${JUDGE_0_MEMORY_LIMIT:-128000}
     depends_on:
       - db
     volumes:
@@ -30,7 +37,7 @@ services:
     networks:
       - pgnetwork
 
-  frontend:    
+  frontend:                      
     build: 
       context: ../frontend
       args:
@@ -39,7 +46,9 @@ services:
       - VITE_API_URL=${VITE_API_URL}
       - VITE_WEBSOCKET_URL=${VITE_WEBSOCKET_URL}
     ports:
-      - "80:8080"
+      - "8080:8080"
+    depends_on:
+      - backend
     volumes:
       - ../frontend:/app
       - /app/node_modules
@@ -103,4 +112,4 @@ volumes:
 
 networks:
   pgnetwork:
-  
+    name: pgnetwork

@@ -96,6 +96,29 @@ You should see:
 { "status": "ok" }
 ```
 
+## Seeding Questions
+
+Questions are seeded from:
+- [Hugging Face](https://huggingface.co/datasets/qwedsacf/competition_math/viewer/default/train) for maths
+- [Exercism](https://github.com/exercism/exercism) for programming
+
+The Exercism repos are git submodules under `backend/scripts`. Fetch them once (from the repo root):
+
+```
+git submodule update --init --depth 1 backend/scripts
+```
+
+With the dev database running (`npm run docker:dev:build`), from `backend/`:
+
+```
+npm run seed:math
+npm run seed:prog
+npm run seed:templates
+```
+
+The scripts read credentials from `backend/.env.dev` and connect to `localhost:5433` (the port the dev compose publishes).
+Set `SEED_DB_HOST` / `SEED_DB_PORT` to point them elsewhere. `seed:prog` skips questions that already exist, so it is safe to re-run.
+
 ## Testing
 
 Backend 
@@ -154,7 +177,7 @@ backend/
 |   |             ├── services/
 |   |             ├── systems/
 │   ├── entities/                           # System objects and entities 
-|   |       ├── db-entities/
+|   |       ├── database/
 |   |       ├── dtos/
 │   ├── frameworks-drivers/                 # Framework, driver and library config
 |   |       ├── routes/                     # API route wiring      

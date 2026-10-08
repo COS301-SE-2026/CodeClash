@@ -4,17 +4,19 @@ import { useExtraLayout } from "src/extra-layout";
 
 import Loading from "../../../@/components/shared/Loading"
 import Starfield from "../../../@/components/ui/animations/Starfield";
-import { robot_map } from "../../assets/Robots";
 import { useFriends } from "../../context/Friends/useFriends";
 import { friendContent } from "../../Models/FriendsModel";
-import type { FriendStatus, Relation } from "../../Models/FriendsModel";
+import type { Relation } from "../../Models/FriendsModel";
+import PlayerAvatar from "src/avatar/PlayerAvatar";
+// import { useAuth } from "src/context/Auth/hooks/useAuth";
 
+const SHOW_PLAY_INVITE = false; // TODO set true after redemo
 
-const status: Record<FriendStatus, string> = {
-    online: 'bg-sucess',
-    'playing': 'bg-primary',
-    offline: 'bg-muted-text'
-}
+// const status: Record<FriendStatus, string> = {
+//     online: 'bg-sucess',
+//     'playing': 'bg-primary',
+//     offline: 'bg-muted-text'
+// }
 
 function timeTracker (iso: string): string {
     const difference = Date.now() - new Date(iso).getTime();
@@ -37,15 +39,15 @@ const RelationResult: React.FC<{ relationship: Relation; onAdd: () => void; isPe
     switch (relationship) {
         case 'self': return null;
         case 'friend': 
-            return <span className="badge badge-status-correct shrink-0">{friendContent.alreadyFriends}</span>;
+            return <span className="badge badge-status-correct shrink-0 my-auto">{friendContent.alreadyFriends}</span>;
         case 'pending-sent':
-            return <span className="badge badge-status-pending shrink-0">{friendContent.sendRequestLabel}</span>;
+            return <span className="badge badge-status-pending shrink-0 my-auto">{friendContent.sendRequestLabel}</span>;
         case 'pending-received':
-            return <span className="badge badge-status-pending shrink-0">{friendContent.respondLabel}</span>;
+            return <span className="badge badge-status-pending shrink-0 my-auto">{friendContent.respondLabel}</span>;
         default:
             return (
                 <button 
-                    className={`btn btn-primary btn-sm shirnk-0 transition-all duration-200 ${isPending ? 'btn-ghost opacity-50' : 'btn-primary'}`}
+                    className={`btn btn-primary btn-sm shrink-0 transition-all duration-200 my-auto ${isPending ? 'btn-ghost opacity-50' : 'btn-primary'}`}
                         onClick={onAdd} 
                         type="button">
                         {isPending ? 'Sending...' : friendContent.sendRequestLabel}
@@ -57,12 +59,14 @@ const RelationResult: React.FC<{ relationship: Relation; onAdd: () => void; isPe
 const Friends: React.FC = () => {
     const {
         isLoading, profile, error, friend, removeFriend, requests, acceptRequest, declineRequest, searchQuery, setSearchQuery, 
-        allUsers, sendFriendRequest
+        allUsers, sendFriendRequest, sendInvite
     } = useFriends();
 
+
+    // const { token } = useAuth();
+
+    
     const [isDropDownOpen, setIsDropDownOpen] = useState(false);
-    const [tooltipId, setTooltipId] = useState<string | null>(null);
-    const tooltipTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
     const searchRef = useRef<HTMLDivElement>(null);
     const [pendingIds, setPendingIds] = useState<Set<string>>(new Set());
 
@@ -71,11 +75,6 @@ const Friends: React.FC = () => {
         await sendFriendRequest(id);
         setPendingIds(prev => { const next = new Set(prev); next.delete(id); return next; });
     }
-    const showTooltip = (id: string) => {
-        setTooltipId(id);
-        if (tooltipTimeout.current) clearTimeout(tooltipTimeout.current);
-        tooltipTimeout.current = setTimeout(() => setTooltipId(null), 2500);
-    };
 
     useEffect(() => {
         const handleClickOutside  = (e:MouseEvent) => {
@@ -107,7 +106,7 @@ const Friends: React.FC = () => {
                     ) : (
                         allUsers.map((result) => (
                             <div key={result.id} className="p-2 rounded-full flex items-center gap-3 hover:bg-background-elevated">
-                                <img src={robot_map[result.avatar]} alt={result.username} className="avatar w-10 h-10 object-cover shrink-0"/>
+                                <PlayerAvatar assetKey={result.avatar} className="avatar w-10 h-10 object-cover shrink-0"/>
                                 <p className="text-primary-text text-sm font-semibold truncate flex-1 min-w-0">{result.username}</p>
                                 <RelationResult relationship={result.relationship} onAdd={() => handleSendRequest(result.id)} isPending={pendingIds.has(result.id)}/>
                             </div>
@@ -121,21 +120,22 @@ const Friends: React.FC = () => {
     if (isLoading || !profile) {
         return <Loading isOpen={true}/>
     }
-    {error && (
-        <div className="mb-4 px-4 py-3 rounded-xl bg-danger/10 border border-danger/30 text-xsm text-danger text-center">
-            {error}
-        </div>
-    )}
     return (
         <div className="relative min-h-[100vh-80px] overflow-hidden">
             <Starfield count={30}/>
             <div className="relative z-10 max-w-2xl mx-auto flex flex-col gap-6">
+                {error && (
+                    <div className="mb-4 px-4 py-3 rounded-xl bg-danger/10 border border-danger/30 text-xsm text-danger text-center">
+                        {error}
+                    </div>
+                )}
                 {/*A header that gives the user his own details */}
                 <div className="card-elevated p-5 flex items-center gap-4">
-                    <img src={robot_map[profile.avatar]} alt={profile.username} className="avatar w-16 h-16 object-cover shrink-0"/>
+                    <PlayerAvatar assetKey={profile.avatar}/>
                     <div className="flex-1 min-w-0">
                         <p className="text-primary-text font-black text-md truncate">{profile.username}</p>
                         <p className="text-muted text-sm truncate">@{profile.handle}</p>
+                        <p>{profile.league}</p>
                     </div>
                 </div>
 
@@ -146,7 +146,7 @@ const Friends: React.FC = () => {
                         <div className="flex flex-col gap-3">
                             {requests.map((request) => (
                                 <div key={request.id} className="card-elevated p-4 flex items-center gap-4">
-                                    <img src={robot_map[request.avatar]} alt={request.username} className="avatar w-16 h-16 object-cover shrink-0"/>
+                                    <PlayerAvatar assetKey={request.avatar} className="avatar w-16 h-16 object-cover shrink-0"/>
                                     <div className="flex-1 min-w-0">
                                         <p className="text-primary-text font-semibold truncate">{request.username}</p>
                                         <p className="text-xsm text-muted">Sent {timeTracker(request.sentAt)}</p>
@@ -177,8 +177,8 @@ const Friends: React.FC = () => {
                             {friend.map((f) => (
                                 <div key={f.id} className="card-elevated p-4 flex items-center gap-4">
                                     <div className="relative shrink-0">
-                                        <img src={robot_map[f.avatar]} alt={f.username} className="avatar w-16 h-16 object-cover"/>
-                                        <span className= {`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-background ${status[f.status]}`}/>
+                                        <PlayerAvatar assetKey={f.avatar} className="avatar w-20 h-20 object-cover mx-auto"/>
+                                        {/* <span className= {`absolute bottom-1 right-2 w-4.5 h-4.5 rounded-full border-2 border-background ${status[f.status]}`}/> */}
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <p className="text-primary-text font-semibold truncate">{f.username}</p>
@@ -186,28 +186,13 @@ const Friends: React.FC = () => {
                                             <span className="score-display text-primary-text text-xsm">{f.elo}</span> {/*Need to add icon here ? */}
                                         </div>
                                     </div>
-                                    {/* return when casual gaming is implemented */}
-                                    {/* <button className="btn btn-ghost btn-sm" onClick={() => sendInvite(f.id)} disabled={f.status === 'playing'} 
+                                    { SHOW_PLAY_INVITE && (
+                                    <button className="btn btn-ghost btn-sm" onClick={() => sendInvite(f.id)} disabled={f.status === 'playing'} 
                                         title={f.status === 'playing' ? 'Already in a match' : undefined} type="button">
                                         {f.status === 'playing' ? <Clock3 size={16}/> : <Swords size={16}/>}
                                         {friendContent.inviteToPlay}
-                                    </button> */}
-                                    <div className="relative">
-                                        <button
-                                            className="btn btn-ghost btn-sm"
-                                            onClick={() => showTooltip(f.id)}
-                                            type="button"
-                                         >
-                                            {f.status === 'playing' ? <Clock3 size={16}/> : <Swords size={16}/>}
-                                            {friendContent.inviteToPlay}
-                                        </button> 
-                                        {tooltipId === f.id && (
-                                            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 rounded-x1 bg-card border border-border text-xsm tex-primary-text whitespace-nowrap z-50 shadow-lg">
-                                                Casual gaming coming soon!
-                                                <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-card"/>
-                                            </div>
-                                        )}  
-                                    </div>
+                                    </button>
+                                    )}
                                     <button className="btn btn-ghost bg-danger btn-icon" onClick={() => removeFriend(f.friendship_id)} 
                                         aria-label= {`${friendContent.removeLabel} ${f.username}`} type="button">
                                         <X size={18}/>

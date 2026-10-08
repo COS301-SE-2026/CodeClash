@@ -1,6 +1,12 @@
-import { MathsSubmissionDTO, ProgSubmissionDTO } from "src/entities/dtos/components.dto";
-import { AnswerDTO } from "../../../entities/dtos/answer.dto";
+import { PlayerSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
 
-export interface MarkingStrategy{
-    mark(submission: MathsSubmissionDTO | ProgSubmissionDTO, answer: AnswerDTO): Promise<boolean>;
+export interface MarkOutcome {
+    correct: boolean;
+    run_time_ms?: number | null;
+    memory_kb?: number | null;
+    
+}
+
+export interface IMarkingStrategy {
+  mark(submission: PlayerSubmissionDTO): Promise<MarkOutcome>;
 }

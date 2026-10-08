@@ -50,8 +50,8 @@ const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasing
 
     return (
         <div>
-            <div className="card-glass" style={{padding: '2rem', display: 'flex', gap: '2rem',  flexWrap: 'wrap', alignItems: 'center',marginBottom: '2.5rem'}}>
-                <div style={{flex: '1 1 240px', minWidth: '220px'}}>
+            <div className="card-glass" style={{width: '100%', maxWidth: '100%',boxSizing: 'border-box', minWidth: 0,padding: '2rem', display: 'flex', gap: '2rem',  flexWrap: 'wrap', alignItems: 'center',marginBottom: '2.5rem'}}>
+                <div style={{flex: '1 1 240px', minWidth: 0}}>
                     <h2 style={{color: 'var(--primary-text)', fontWeight: 800, fontSize: '3.5rem', marginBottom: '0.5rem'}}>{draftAvatar?.name}</h2>
                     {draftAvatar?.description && (
                         <p className="text-muted" style={{fontSize: '1rem', lineHeight: 1.6, marginBottom: '1.25rem'}}>{draftAvatar.description}</p>
@@ -74,7 +74,7 @@ const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasing
                         )
                     )}
                 </div>
-                <div style={{flex: '0 0 auto'}}>
+                <div style={{flex: '0 1 200px', minWidth: 0, maxWidth: '100%'}}>
                     <AvatarRenderer avatarImageUrl={draftAvatarImg} style={{width: '200px', height: 'auto', maxWidth: '40vw'}}/>
                 </div>
             </div>
@@ -89,6 +89,8 @@ const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasing
                 {avatars.map((a) => {
                     const owned = isOwned(a.id);
                     const selected = draftAvatarId === a.id;
+                    console.log("image url", a.previewImageUrl);
+                    console.log('draft image', draftAvatarImg)
                     return (
                         <button key={a.id} type="button" onClick={()=> tryOnAvatar(a.id)}
                             style={{position: 'relative', flexShrink: 0, width: '200px', height: '200px', borderRadius: 'var(--radius-md, 18px)', border: selected ? '2px solid var(--primary)' : '1px solid var(--border)',

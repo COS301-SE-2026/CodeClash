@@ -13,7 +13,9 @@ export interface ComponentDefinition {
     domain: GameDomain;
 
     //    sum to 1, so weight_k = fraction_k * M and sum_k weight_k = M as the doc requires.*/
-    fraction: number;
+    points: [number, number, number];
+    inMastery: boolean;
+    
     hint: string;
 // true because mock for now, but otherwise will be non deterministic innit
     estimated?: boolean;
@@ -24,46 +26,52 @@ export const COMPONENTS: ComponentDefinition[] = [
         key: 'time',
         label: 'Time',
         domain: 'math',
-        fraction: 0.55,
+        points: [200, 110, 85],
+        inMastery: true,
         hint: 'How much of the question clock you had left when you answered.'
     },
     {
         key: 'accuracy',
         label: 'Accuracy',
         domain: 'math',
-        fraction: 0.45,
-        hint: 'Correct answers against submissions made.'
+        points: [0, 40, 35],
+        inMastery: true,
+        hint: 'Given. Scored from Mars up.'
     },
     {
         key: 'time',
         label: 'Time',
         domain: 'programming',
-        fraction: 80 / 150, // 80 elo points of the 150 pool, straight from the doc
+        points: [180, 80, 70],
+        inMastery: true,
         hint: 'How much of the question clock you had left when you submitted.'
     },
     {
         key: 'speed',
         label: 'Speed (ms)',
         domain: 'programming',
-        fraction: 30 / 150,
-        hint: 'Judge0 wall clock runtime of the accepted submission.'
-    },
-    {
-        key: 'timeCx',
-        label: 'Time Cx',
-        domain: 'programming',
-        fraction: 25 / 150,
-        hint: 'How close your time complexity sits to the optimal solution.',
-        estimated: true
-    },
-    {
-        key: 'spaceCx',
-        label: 'Space Cx',
-        domain: 'programming',
-        fraction: 15 / 150,
-        hint: 'How close your space complexity sits to the optimal solution.',
-        estimated: true
+        points: [20, 20, 10],
+        inMastery: true,
+        hint: 'Judge0 runtime of the against.'
     }
+    // {
+    //     key: 'timeCx',
+    //     label: 'Time Cx',
+    //     domain: 'programming',
+    //     points: [0, 25, 20],
+    //     inMastery: false,
+    //     hint: 'How close your time complexity sits to the optimal solution.',
+    //     estimated: true
+    // },
+    // {
+    //     key: 'spaceCx',
+    //     label: 'Space Cx',
+    //     domain: 'programming',
+    //     points: [0, 25, 20],
+    //     inMastery: false,
+    //     hint: 'How close your space complexity sits to the optimal solution.',
+    //     estimated: true
+    // }
 ];
 
 export const componentsFor = (domain: GameDomain): ComponentDefinition[] =>
@@ -74,18 +82,19 @@ export interface LeagueProfile {
     name: string;
     difficulty: [number, number, number];
     questionCount: number;
-    pool: number;
+  pool: number;
+  tier: 0 | 1 | 2;
 }
 
 export const LEAGUES: LeagueProfile[] = [
-    { name: 'Mercury', difficulty: [1, 2, 3], questionCount: 5, pool: 200 },
-    { name: 'Venus', difficulty: [4, 5, 6], questionCount: 10, pool: 200 },
-    { name: 'Earth', difficulty: [7, 8, 9], questionCount: 15, pool: 200 },
-    { name: 'Mars', difficulty: [10, 11, 12], questionCount: 20, pool: 150 },
-    { name: 'Jupiter', difficulty: [13, 14, 15], questionCount: 25, pool: 150 },
-    { name: 'Saturn', difficulty: [16, 17, 18], questionCount: 30, pool: 150 },
-    { name: 'Uranus', difficulty: [19, 20, 21], questionCount: 35, pool: 120 },
-    { name: 'Neptune', difficulty: [22, 23, 24], questionCount: 40, pool: 120 }
+    { name: 'Mercury', difficulty: [1, 2, 3], questionCount: 5, pool: 200, tier: 0 },
+    { name: 'Venus', difficulty: [4, 5, 6], questionCount: 10, pool: 200, tier: 0 },
+    { name: 'Earth', difficulty: [7, 8, 9], questionCount: 15, pool: 200, tier: 0 },
+    { name: 'Mars', difficulty: [10, 11, 12], questionCount: 20, pool: 150, tier: 1 },
+    { name: 'Jupiter', difficulty: [13, 14, 15], questionCount: 25, pool: 150, tier: 1 },
+    { name: 'Saturn', difficulty: [16, 17, 18], questionCount: 30, pool: 150, tier: 1 },
+    { name: 'Uranus', difficulty: [19, 20, 21], questionCount: 35, pool: 120, tier: 2 },
+    { name: 'Neptune', difficulty: [22, 23, 24], questionCount: 40, pool: 120, tier: 2}
 ];
 
 export const DIFFICULTY_CEILING = 24;
@@ -103,7 +112,9 @@ export function masteryCeiling(league: string | undefined): number {
 // single quesiton in game n stuff
 export interface QuestionSample {
     difficulty: number;
-    ratios: Partial<Record<ComponentKey, number>>;
+  ratios: Partial<Record<ComponentKey, number>>;
+  correct?: boolean;
+  attempts?: number;
 }
 
 export interface GameSample {
@@ -115,6 +126,7 @@ export interface GameSample {
     questions: QuestionSample[];
     // for per question telemetries and game mastery calculations
     simulated: boolean;
+    practice: boolean;
 }
 
 export interface GameMastery {
@@ -141,20 +153,21 @@ const clamp01 = (value: number): number => Math.min(1, Math.max(0, value));
 
 /*(1) and (2): f_i = Score_i / M. Since the weights sum to M, the fraction is just the
 weighted mean of the question's component ratios - no need to carry M around.*/
-export function questionFraction(question: QuestionSample, domain: GameDomain): number {
-    const definitions = componentsFor(domain);
-    let weighted = 0;
-    let fractionSum = 0;
+export function questionFraction(question: QuestionSample, domain: GameDomain, league: string): number {
+  const tier = leagueProfile(league).tier;
+  let weighted = 0;
+  let weightSum = 0;
+  for (const definition of componentsFor(domain)) {
+    const weight = definition.points[tier];
+    if (!definition.inMastery || weight === 0) continue;
 
-    for (const definition of definitions) {
-        const ratio = question.ratios[definition.key];
-        if (ratio === undefined) continue;
-        weighted += definition.fraction * clamp01(ratio);
-        fractionSum += definition.fraction;
-    }
-
-    if (fractionSum === 0) return 0;
-    return clamp01(weighted / fractionSum);
+    const ratio = question.ratios[definition.key];
+    if (ratio === undefined) continue;
+    weighted += weight * clamp01(ratio);
+    weightSum += weight;
+  }
+  if (weightSum === 0) return 0;
+  return clamp01(weighted / weightSum);
 }
 
 /* Mastery_g = 1/N * sum_i (f_i * d_i). N is every question the game offered, so
@@ -167,7 +180,7 @@ export function gameMastery(game: GameSample): GameMastery {
     let difficultySum = 0;
 
     for (const question of game.questions) {
-        const fraction = questionFraction(question, game.domain);
+        const fraction = questionFraction(question, game.domain, game.league);
         masterySum += fraction * question.difficulty;
         fractionSum += fraction;
         difficultySum += question.difficulty;
@@ -364,9 +377,10 @@ export function difficultyBands(games: GameSample[], league: string): Difficulty
         let fractionSum = 0;
         let questionCount = 0;
         for (const game of games.slice(0, MASTERY_WINDOW)) {
+            const band = leagueProfile(game.league).difficulty;
             for (const question of game.questions) {
-                if (question.difficulty !== difficulty) continue;
-                fractionSum += questionFraction(question, game.domain);
+                if (band.indexOf(question.difficulty) !== index) continue
+                fractionSum += questionFraction(question, game.domain, game.league);
                 questionCount += 1;
             }
         }
@@ -420,89 +434,21 @@ export const skillProgressContent: SkillProgressContent = {
     sampleNote: 'No games on record yet, so this is a sample history. Play a match to replace it with your own.'
 };
 
-export interface Insight {
-    id: string;
-    tone: 'good' | 'warn' | 'info';
-    title: string;
-    body: string;
+
+// making sure casual isnt part of mastery and growth
+export interface PracticeSummary {
+  games: number;
+  questions: number;
+  correct: number;
 }
 
-export function buildInsights(
-    components: ComponentScore[],
-    growth: GrowthResult,
-    mastery: number,
-    league: string
-): Insight[] {
-    const insights: Insight[] = [];
-    const scored = components.filter(component => component.gamesCounted > 0);
-
-    if (scored.length > 0) {
-        const weakest = scored.reduce((low, component) => (component.value < low.value ? component : low), scored[0]!);
-        const strongest = scored.reduce((high, component) => (component.value > high.value ? component : high), scored[0]!);
-
-        insights.push({
-            id: 'weakest',
-            tone: 'warn',
-            title: `${weakest.label} is your weakest component at ${weakest.value}%`,
-            body: weakest.hint
-        });
-
-        if (strongest.key !== weakest.key) {
-            insights.push({
-                id: 'strongest',
-                tone: 'good',
-                title: `${strongest.label} is carrying you at ${strongest.value}%`,
-                body: 'Keep it there and spend your practice time on the weaker components.'
-            });
-        }
-    }
-
-    if (growth.readings.length < 2) {
-        insights.push({
-            id: 'growth-thin',
-            tone: 'info',
-            title: 'Not enough readings for a trend yet',
-            body: `Growth needs a few games inside the ${growth.windowDays} day window before the line means anything.`
-        });
-    } else if (growth.growth > GROWTH_FLAT_THRESHOLD) {
-        insights.push({
-            id: 'growth-up',
-            tone: 'good',
-            title: `Mastery is climbing ${growth.growth.toFixed(2)} points a week`,
-            body: 'The trend line is pointing up over the last 30 days. Whatever you changed, keep doing it.'
-        });
-    } else if (growth.growth < -GROWTH_FLAT_THRESHOLD) {
-        insights.push({
-            id: 'growth-down',
-            tone: 'warn',
-            title: `Mastery is sliding ${Math.abs(growth.growth).toFixed(2)} points a week`,
-            body: 'Your recent games are scoring below your earlier ones in this window.'
-        });
-    } else {
-        insights.push({
-            id: 'growth-flat',
-            tone: 'info',
-            title: 'Mastery is holding flat',
-            body: 'Your last 30 days sit on a level trend line. Harder questions are the usual way to move it.'
-        });
-    }
-
-    const ceiling = masteryCeiling(league);
-    insights.push({
-        id: 'league-scale',
-        tone: 'info',
-        title: `Scored against ${league || 'your'} league difficulty`,
-        body: `Mastery is capped at ${ceiling.toFixed(0)} here, so expect a dip on promotion - the questions get harder before you do. It measures your own progress, not other players.`
-    });
-
-    if (mastery === 0) {
-        insights.push({
-            id: 'no-data',
-            tone: 'info',
-            title: 'Mastery starts at zero',
-            body: skillProgressContent.emptyState
-        });
-    }
-
-    return insights;
+export function practiceSummary(games: GameSample[]): PracticeSummary {
+  const practice = games.filter(game => game.practice);
+  const questions = practice.flatMap(game => game.questions);
+  return {
+    games: practice.length,
+    questions: questions.length,
+    correct: questions.filter(question => question.correct).length
+  };
 }
+

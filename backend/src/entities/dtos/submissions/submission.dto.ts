@@ -1,0 +1,33 @@
+import { MatchMode, MatchType } from "../matches/match.dto"
+
+export interface MathsSubmissionDTO {
+    answer: string
+}
+
+export interface ProgSubmissionDTO {
+    source_code: string,
+    language_id: number,
+    stdin: string | null,
+}
+
+export interface PlayerSubmissionDTO {
+    match_id: number,
+    match_mode: MatchMode
+    player_id: string,
+    question_id: string,
+    round_number: number,
+    question_number?: number,
+    submission: MathsSubmissionDTO | ProgSubmissionDTO | null
+}
+
+export interface RawSubmissionDTO {
+    id: string,
+    player_id: string,
+    question_id: string,
+    round_number: number,
+    question_number?: number,
+    match_type: MatchType,
+    match_mode: MatchMode,
+    tournament_id?: string,
+    submission: MathsSubmissionDTO | ProgSubmissionDTO | null
+}

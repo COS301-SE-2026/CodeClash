@@ -4,18 +4,6 @@ import {describe, expect, it, vi} from "vitest";
 import { ConfirmationViewModelFunction } from "../../../src/ViewModels/ConfirmationViewModel";
 
 describe("ConfirmationViewModel", () => {
-    it("shows the popup when showConfirm is called", () => {
-        const {result} = renderHook(() => 
-            ConfirmationViewModelFunction({ 
-                onConfirm: vi.fn(),
-            })
-        );
-        act(() => {
-            result.current.showConfirm();
-        });
-
-        expect(result.current.isVisible).toBe(true);
-    });
 
     it("calls onConfirm when confirmed", () => {
         const confirm = vi.fn();
@@ -25,7 +13,6 @@ describe("ConfirmationViewModel", () => {
             })
         );
         act(() => {
-            result.current.showConfirm();
             result.current. handleConfirm();
         });
 
@@ -41,7 +28,6 @@ describe("ConfirmationViewModel", () => {
             })
         );
         act(()=> {
-            result.current.showConfirm();
             result.current.handleCancel();
         });
 

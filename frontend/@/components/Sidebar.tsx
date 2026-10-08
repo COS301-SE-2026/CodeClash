@@ -1,4 +1,4 @@
-import { LayoutDashboard, HelpCircle, Trophy, BarChart2, Medal, Users, Settings, History, Store, TrendingUp } from 'lucide-react'
+import { LayoutDashboard, HelpCircle, Trophy, BarChart2, Medal, Users, History, Store, TrendingUp } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
 
 import {
@@ -24,7 +24,6 @@ const navItems = [
     { to: '/friends', label: 'Friends', icon: Users },
     { to: '/shop', label: 'Shop', icon: Store},
     { to: '/help-menu', label: 'Help Menu', icon: HelpCircle},
-    {to: '/settings', label: 'Settings', icon: Settings},
 ]
 
 export function AppSidebar() {

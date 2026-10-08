@@ -2,10 +2,9 @@ import { Rocket, Swords, Trophy, Calculator, Code2, ChartNoAxesColumn, Medal, Hi
 import React from "react";
 import { Link } from "react-router";
 import { docs } from "src/Models/LandingModel";
-
-import helloRobot from '../assets/Robots/HelloRobot_Pink.png';
+import Vexa from "../assets/Shop/Avatars/Vexa.png"
 import { LandingViewModelFunction } from "../ViewModels/LandingViewModel";
-
+import FloatingSymbols from "@/components/ui/animations/FloatingSymbols";
 
 const Landing:React.FC = ()=>{
     const {
@@ -39,7 +38,7 @@ const Landing:React.FC = ()=>{
             style={{fontFamily: "Roboto, sans-serif"}}>
             
             {/*landing page navigation */}
-            <nav className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-4 nav-bar ${scrollY > 50 ? 'scrolled' : ''}`}>
+            <nav className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-4 nav-bar ${scrollY > 50 ? 'scrolled' : ''} `}>
                 <span style={{color: 'var(--primary)', fontWeight: 900, fontSize: "1.2rem", letterSpacing: "0.05rem",}}>CODECLASH</span>
 
                 <div style={{display: "flex", alignItems: "center", gap: "3rem"}}>
@@ -49,10 +48,13 @@ const Landing:React.FC = ()=>{
                     <a href="#audience">Who it's For</a>
                     <a href="#documentation">Documentation</a>
                 </div>
+               
             </nav>
+
 
             {/*Hero img */}
             <section id = "home" className="relative min-h-screen flex items-center px-[8%] overflow-hidden bg-radial-glow-corner">
+                <FloatingSymbols count={50}/>
                 <div className="relative z-10 flex flex-col gap-6 w-1/2">
                     <h1 style={{fontSize: "clamp(2.5rem, 5vw, 4.5rem)", fontWeight: 900, lineHeight: 1.05, margin: 0,}}>Code.
                         <br/> Calculate. <br/>
@@ -61,7 +63,7 @@ const Landing:React.FC = ()=>{
                     <p style={{color: 'var(--text)', maxWidth: 420, lineHeight: 2, fontSize: "1rem"}}>
                         Battle opponents in real-time coding and mathematics challenges. Climb the leaderboard. Earn your rank. 
                     </p>
-                    <div className="flex items-center gap-4 mt-2">
+                    <div className="flex flex-wrap items-center gap-4 mt-2">
                         <Link to="/sign-up" className="btn btn-primary">
                             Start Competing
                         </Link>
@@ -73,8 +75,8 @@ const Landing:React.FC = ()=>{
                 </div>
 
                 <div className="relative z-10 w-1/2 flex items-center justify-center">
-                <div className="absolute w-[90%] aspect-square rounded-full bg-radial-glow-corner">
-                    <img src = {helloRobot} alt = "Robot" className="relative select-none pointer-events-none" style={{width: "88%", maxWidth: "650px", height: "auto", transform: "translateX(20px) translateY(30px),", zIndex: 1}}/>
+                <div className="absolute w-[90%] aspect-square rounded-full">
+                    <img src = {Vexa} alt = "Robot" className="relative select-none pointer-events-none" style={{width: "88%", maxWidth: "650px", height: "auto", transform: "translateX(20px) translateY(30px),", zIndex: 1}}/>
                 </div>
                 </div>
             </section>

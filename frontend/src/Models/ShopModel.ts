@@ -4,7 +4,7 @@ export interface Price {
     amount: number;
 }
 
-export type ShopCategory = 'avatar' | 'accessory' | 'theme' | 'powerup';
+export type ShopCategory = 'avatar' | 'theme' ;
 
 interface ShopItemBase {
     id: string;
@@ -30,7 +30,9 @@ export interface ThemeShopItem extends ShopItemBase {
     isDefault?: boolean; //current cosmos dark will be default to all users at sign up time
 }
 
-export type PowerupEffectType = 'bug' | 'wipe' | 'questionVisibility' | 'timeDown' | 'timeUp' | 'lifeDrain' | 'hint' | 'shield' | 'scoreBoost' | 'secondWind';
+export type PowerupEffectType = 
+    | 'reduce_time' | 'reveal_hint' | 'block_next_powerdown' | 'score_multiplier' | 'restore_life' 
+    | 'insert_bugs' | 'wipe_answer' | 'block_question' | 'increase_time' | 'drain_life';
 
 export interface PowerupEffectConf {
     effectType: PowerupEffectType;
@@ -41,14 +43,7 @@ export interface PowerupEffectConf {
     notes?: string;
 }
 
-export interface PowerupShopItem extends ShopItemBase {
-    category: 'powerup';
-    kind: 'powerup' | 'powerdown';
-    effect: PowerupEffectConf;
-    quantityGranted: number;
-}
-
-export type ShopItem = AvatarShopItem | ThemeShopItem | PowerupShopItem;
+export type ShopItem = AvatarShopItem | ThemeShopItem ;
 
 export interface Wallet {
     stardust: number;
@@ -60,14 +55,8 @@ export interface Owned {
     acquiredAt: string;
 }
 
-export interface Consumable {
-    category: 'powerup';
-    quantity: number;
-}
-
 export interface UserInventory {
     owned: Owned[];
-    consumable: Consumable[];
     equippedAvatarId: string | null;
     equippedThemeId: string | null;
 }

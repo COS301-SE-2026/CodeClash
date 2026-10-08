@@ -1,16 +1,14 @@
 import { Request, Response } from 'express';
-import { UserDTO } from 'src/entities/dtos/user.dto';
+import { UserDTO } from 'src/entities/dtos/user/user.dto';
 
 import { validStat } from '../auth/auth.service';
 import { CreateUser } from 'src/application/usecases/services/user-creation.service';
 import { IUserRepository } from 'src/application/interfaces/repositories/IUserRepository';
 
-
 /// GET api/user/:stat
 export const getUserStat = (user_repo: IUserRepository) => {
 
     return async (req: Request, res: Response) => {
-
         const { stat } = req.params;
 
         if (!stat || typeof stat !== 'string' || !validStat(stat)) {
@@ -53,12 +51,8 @@ export const createUser = (create_user: CreateUser) => {
             return;
         }
 
-        try {
             await create_user.create(username, email);
             res.status(200).json({ message: 'User was created' });
-        }
-        catch (error) {
-            res.status(400).json({ message: (error as Error).message });
-        }
+        
     }
 }

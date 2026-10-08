@@ -1,0 +1,101 @@
+import Redis from "ioredis";
+import { ITournamentCache } from "src/application/interfaces/cache/ITournamentCache";
+import { PlayerDTO } from "src/entities/dtos/matches/match-component.dto";
+import { MatchMode, MatchStatus } from "src/entities/dtos/matches/match.dto";
+import { TournamentDTO } from "src/entities/dtos/tournaments/tournaments.dto";
+
+export class TournamentCache implements ITournamentCache {
+
+    constructor(
+        private readonly redis: Redis
+    ) { }
+
+    async createTournament(tournament_id: string, match_mode: MatchMode, host: PlayerDTO, title:string, min_players: number): Promise<void> {
+
+        const exists = await this.redis.get(`tournament:${tournament_id}`);
+
+        if (exists) throw new Error("Tournament already exists");
+
+        const tournament: TournamentDTO = {
+            tournament_id: tournament_id,
+            rounds: [],
+            players: [host],
+            tournament_mode: match_mode,
+            status: MatchStatus.Waiting,
+            created_at: new Date(),
+            host: host,
+            title: title,
+            min_players: min_players
+        }
+
+        await this.redis.set(`tournament:${tournament_id}`, JSON.stringify(tournament));
+    }
+
+    async addPlayer(tournament_id: string, player: PlayerDTO): Promise<void> {
+        const tournament = await this.redis.get(`tournament:${tournament_id}`);
+
+        if (!tournament) throw new Error("invalid tournament id");
+
+        const data: TournamentDTO = JSON.parse(tournament);
+
+        if ((data.status !== MatchStatus.Waiting && data.status !== MatchStatus.Starting)) {
+            throw new Error("Cannot add player to past or in progress tournaments");
+        }
+
+        data.players = data.players.some(p=> p.id === player.id)? data.players: [...data.players, player];
+ 
+        await this.redis.set(`tournament:${tournament_id}`, JSON.stringify(data));
+    }
+
+    async removePlayer(tournament_id: string, player_id: string): Promise<void> {
+        const tournament = await this.redis.get(`tournament:${tournament_id}`);
+
+        if (!tournament) throw new Error("invalid tournament id");
+
+        const data: TournamentDTO = JSON.parse(tournament);
+
+        const removed = data.players.filter(p => p.id !== player_id);
+        data.players = removed;
+
+        await this.redis.set(`tournament:${tournament_id}`, JSON.stringify(data));
+
+    }
+
+    async getTournament(tournament_id: string): Promise<TournamentDTO | null> {
+        const tournament = await this.redis.get(`tournament:${tournament_id}`);
+        if (!tournament) return null;
+
+        const data: TournamentDTO = JSON.parse(tournament);
+        return data;
+    }
+
+    async deleteTournament(tournament_id: string): Promise<void> {
+        await this.redis.del(`tournament:${tournament_id}`);
+    }
+
+    async updateStatus(tournament_id: string, status: MatchStatus): Promise<void> {
+        const tournament = await this.redis.get(`tournament:${tournament_id}`);
+        if (!tournament) throw new Error("invalid tournament id");
+
+        const data: TournamentDTO = JSON.parse(tournament);
+
+        data.status = status;
+        await this.redis.set(`tournament:${tournament_id}`, JSON.stringify(data));
+    }
+
+    async getTournamentsByStatus(status: MatchStatus): Promise<TournamentDTO[]> {
+        const keys = await this.redis.keys("tournament:*");
+        if (keys.length === 0) return [];
+
+        const tournament = await this.redis.mget(keys);
+        return tournament
+            .filter((t) => t !== null)
+            .map(t => JSON.parse(t) as TournamentDTO)
+            .filter(t => t.status === status);
+    }
+
+    async updateTournament(tournament: TournamentDTO): Promise<void>{
+        await this.redis.set(`tournament:${tournament.tournament_id}`, JSON.stringify(tournament));
+    }
+
+}

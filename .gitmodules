@@ -1,0 +1,20 @@
+[submodule "backend/scripts/problem-specifications"]
+	path = backend/scripts/problem-specifications
+	url = https://github.com/exercism/problem-specifications.git
+	shallow = true
+[submodule "backend/scripts/python"]
+	path = backend/scripts/python
+	url = https://github.com/exercism/python.git
+	shallow = true
+[submodule "backend/scripts/cpp"]
+	path = backend/scripts/cpp
+	url = https://github.com/exercism/cpp.git
+	shallow = true
+[submodule "backend/scripts/javascript"]
+	path = backend/scripts/javascript
+	url = https://github.com/exercism/javascript.git
+	shallow = true
+[submodule "tests/nfr/security/jwt_tool"]
+	path = tests/nfr/security/jwt_tool
+	url = https://github.com/ticarpi/jwt_tool.git
+	shallow = true

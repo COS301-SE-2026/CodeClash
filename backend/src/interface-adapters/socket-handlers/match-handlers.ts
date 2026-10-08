@@ -1,0 +1,195 @@
+import { Server, Socket } from "socket.io";
+import { MarkingService } from "src/application/usecases/services/marking/marking.service";
+import { MatchStore } from "src/application/usecases/services/match/match-store.service";
+import { MatchType } from "src/entities/dtos/matches/match.dto";
+import { DeleteGame } from "src/application/usecases/systems/delete-game";
+import { PlayerSubmissionDTO, RawSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
+import { MatchCompletionService } from "src/application/usecases/services/match/match-completion.service";
+import { TournamentEliminationService } from "src/application/usecases/services/tournament/elimination.service";
+import { OpponentProgress } from "src/application/usecases/systems/opponent-progress";
+import { UsePowerupDTO } from "src/entities/dtos/shop/powerup-use.dto";
+import { PowerupService } from "src/application/usecases/services/shop/powerup.service";
+import { TournamentService } from "src/application/usecases/services/tournament/tournament.service";
+import { SubmissionSystem } from "../../application/usecases/systems/submission.system";
+import { LifeSystem } from "../../application/usecases/systems/life.system";
+
+const SUBMISSION_GRACE_MS = 5000; // 5 second grace to submit otherwise submission wont be counted as match will have ended by then
+
+export const submitQuestion = async (
+    io: Server,
+    socket: Socket,
+    data: RawSubmissionDTO,
+    mark: MarkingService,
+    match_store: MatchStore,
+    elimination_service: TournamentEliminationService,
+    opponent_progress: OpponentProgress
+) => {
+
+    const ecs_id = match_store.getEcsId(data.id);
+    const submission: PlayerSubmissionDTO = {
+        ...data,
+        match_id: ecs_id!,
+        player_id: socket.data.user_id
+    }
+
+    switch (data.match_type) {
+        case MatchType.tournament: {
+            const result = await elimination_service.submit(data.tournament_id!, submission);
+            const standings = elimination_service.getStanding(data.tournament_id!);
+
+            io.to(data.tournament_id!).emit('tournament_standings', standings);
+            return result;
+        }
+      default: {
+        const match = match_store.get(ecs_id!);
+        if (match && Date.now() > match.end_time.getTime() + SUBMISSION_GRACE_MS) throw new Error("Time has finished"); // not allowing submissions after the match has ended after server time with a little bit of grace
+        const result = await mark.execute(submission);
+        const opponent = opponent_progress.getOpponentId(submission.match_id, submission.player_id);
+            const progress = opponent_progress.updateOpponent(submission.player_id, submission.round_number, submission.question_number!, result.correct, result.life_update!);
+
+            if (opponent !== undefined) {
+                io.to(opponent).emit("opponent_progress", progress);
+            }
+
+            return result;
+        }
+    }
+}
+
+
+export const matchDone = async (io: Server, socket: Socket, match_id: string, match_type: MatchType, match_completion_service: MatchCompletionService, match_store: MatchStore) => {
+
+    const ecs_id = match_store.getEcsId(match_id);
+    const match = match_store.get(ecs_id!);
+
+    if (!match) {
+        console.error("No match found");
+        return;
+    }
+    if (match.completed) return match.result ?? undefined;
+
+    match_store.setDone(socket.data.user_id, ecs_id!);
+    if (match_store.playersDone(ecs_id!)) {
+        match.completed = true;
+        const ids = match.players.map(player => player.id);
+        let match_result;
+        try {
+            match_result = await match_completion_service.execute(ecs_id!, match.database_id, ids, match_type);
+        } catch (error) {
+            match.completed = false;
+            throw error;
+        }
+        match_store.saveResult(ecs_id!, match_result);
+
+        for (const id of ids) {
+            io.to(id).emit('both_done');
+        }
+        return match_result;
+    } else {
+        socket.emit('waiting_opponent');
+
+        for (const p of match.players) {
+            if (p.id !== socket.data.user_id) {
+                io.to(p.id).emit('opponent_done');
+                return;
+            }
+        }
+    }
+
+}
+
+export const rejoinMatch = (socket: Socket, match_id: string, match_store: MatchStore, submission_system: SubmissionSystem, life_system: LifeSystem) => {
+    const ecs_id = match_store.getEcsId(match_id);
+    const match = ecs_id === undefined ? undefined : match_store.get(ecs_id);
+    const me = match?.players.find(player => player.id === socket.data.user_id);
+
+    if (ecs_id === undefined || !match || !me) throw new Error("Match not found");
+
+    // the opponent's latest submission is the last opponent_progress this player was sent
+    const opponent = match.players.find(player => player.id !== me.id);
+    const latest = opponent && submission_system.playerSubmissions(ecs_id, opponent.id)
+        .sort((a, b) => (b.submitted_at?.getTime() ?? 0) - (a.submitted_at?.getTime() ?? 0))[0];
+
+    return {
+        players: match.players.map(player => ({ id: player.id, life: life_system.getPlayerLife(ecs_id, player.id) })),
+        submissions: submission_system.playerSubmissions(ecs_id, me.id).map(submission => ({
+            round_number: submission.round_number,
+            question_id: submission.question_id,
+            correct: submission.correct
+        })),
+        opponent_progress: opponent && latest ? {
+            player_id: opponent.id,
+            opponent_life: life_system.getPlayerLife(ecs_id, opponent.id),
+            question: latest.question_number
+        } : null,
+        opponent_done: opponent?.done ?? false,
+        end_time: match.end_time.getTime(),
+        server_time: Date.now(),
+        done: me.done ?? false,
+        completed: match.result !== null
+    };
+}
+
+export const sendResults = (io: Server, match_id: string, match_store: MatchStore) => {
+    const ecs_id = match_store.getEcsId(match_id);
+    const result = match_store.getResult(ecs_id!);
+    const match = match_store.get(ecs_id!);
+    if (!match) {
+        console.warn(`send_results: match ${ecs_id} not found`);
+        return;
+    }
+    if (!result) {
+        console.error("No result foud")
+        return;
+    }
+
+    return result;
+}
+
+export const cleanUp = (match_id: string, pair_id: string, delete_match: DeleteGame, match_store: MatchStore) => {
+
+
+    const ecs_id = match_store.getEcsId(match_id);
+    const match = match_store.get(ecs_id!);
+
+    if (match) {
+        match.ack_count += 1;
+
+        if (match.ack_count >= 4) {
+            delete_match.execute(ecs_id!, pair_id);
+        }
+    }
+
+}
+
+export const usePowerup = async (
+    io: Server,
+    socket: Socket,
+    data: UsePowerupDTO,
+    powerup_service: PowerupService
+) => {
+    const result = await powerup_service.usePowerup(
+        socket.data.user_id,
+        data.match_id,
+        data.shop_item_id,
+        data.target_user_id
+    );
+
+    // io.to(`user:${socket.data.user_id}`).emit('powerup_used', result);
+
+    if (!data.target_user_id) return;
+
+    if (!result.applied) {
+        io.to(data.target_user_id).emit('powerup_blocked', result);
+        return;
+    }
+
+    if (result.effect === 'wipe_answer') {
+        io.to(data.target_user_id).emit('clear_input');
+    } else if (result.effect === 'insert_bugs') {
+        io.to(data.target_user_id).emit('corrupt_input');
+    } else {
+        io.to(data.target_user_id).emit('powerup_received', result);
+    }
+    return result;
+};

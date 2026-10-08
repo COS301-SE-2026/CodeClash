@@ -1,0 +1,90 @@
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { MatchMode } from "../dtos/matches/match.dto";
+import { AnswerFormat } from "../dtos/questions/answer.dto";
+import { QuestionInputType } from "../dtos/questions/question.dto";
+
+
+@Entity()
+export class Questions {
+  @PrimaryGeneratedColumn('uuid')
+  question_id!: string
+
+  @Column({
+    nullable: false,
+    type: "enum",
+    enum: MatchMode,
+    enumName: "MATCH_MODES"
+  })
+  match_mode!: MatchMode
+
+  @Column({ nullable: false })
+  difficulty!: number
+
+  @Column({ nullable: false, type: "text" })
+  title!: string
+
+  @Column({ nullable: false, type: "text" })
+  description!: string
+
+  @Column({ nullable: false, type: "time" })
+  time_limit!: string
+
+  @Column({ nullable: true, type: "enum", enum: AnswerFormat, enumName: "answer_formats" })
+  answer_format!: AnswerFormat | null // for prog matches, a prog match wouldnt like, need a numerical answer format requirement
+
+  @Column({ nullable: true, type: "integer" })
+  answer_precision!: number | null
+
+  @Column({
+    type: 'enum',
+    enum: QuestionInputType,
+    enumName: "question_input_types",
+    nullable: false
+  })
+  input_type!: QuestionInputType
+}
+
+@Entity()
+export class ProgrammingTemplates {
+  @PrimaryGeneratedColumn('uuid')
+  template_id!: string
+
+  @ManyToOne(() => Questions, {
+    onDelete: "CASCADE"
+  })
+  @JoinColumn({ name: "question_id" })
+  question!: Questions
+
+  @Column()
+  language!: string
+
+  @Column()
+  judge0_language_id!: number
+
+  @Column()
+  starter_code!: string
+}
+
+@Entity()
+export class TestCases {
+  @PrimaryGeneratedColumn("uuid")
+  test_case_id!: string
+
+  @ManyToOne(() => Questions, {
+    onDelete: "CASCADE"
+  })
+  @JoinColumn({ name: "question_id" })
+  question!: Questions
+
+  @Column()
+  input!: string
+
+  @Column()
+  expected_output!: string
+
+  @Column({ default: false })
+  is_sample!: boolean
+
+  @Column({ default: 0 })
+  ordinal!: number
+}

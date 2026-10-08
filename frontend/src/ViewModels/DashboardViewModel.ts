@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react"
 import { useAuth } from "src/context/Auth/hooks/useAuth";
-import { useMatchmaking } from "src/context/Socket/hooks/useMatchmaking";
+import { useMatchmaking } from "src/context/Matchmaking/hooks/useMatchmaking";
 import { useUser } from "src/context/User/hooks/useUser";
-import type { GameType } from "src/dtos/matchmaking.dto";
+import type { MatchType } from "src/dtos/match/match.dto";
 import { getIcon } from "src/utils/achievementIcon";
+import { useSkillProgressViewModel } from "./SkillProgressViewModel";
 
 export function useDashboardViewModel() {
     const [isOpen, setIsOpen] = useState(false);
-    const {setGameType} = useMatchmaking();
-    const {username, elo, avatar, league, current_streak, winning_streak, refresh} = useUser()
-    const {isLoading, token} = useAuth()
+    const { setMatchType } = useMatchmaking();
+    const { username, elo, avatar, league, current_streak, winning_streak, refresh } = useUser()
+    
+    const { isLoading, token } = useAuth();
+    const skill = useSkillProgressViewModel();
 
     const [recentAchievement, setRecentAchievement] = useState<{
         name: string;
@@ -22,35 +25,48 @@ export function useDashboardViewModel() {
         if (!token) {
             return;
         }
-        fetch('/api/achievements/me', { headers: { Authorization: `Bearer ${token}`}})
-        .then(res => res.ok ? res.json() : [])
-        .then((data: any[]) => {
-            // sort by earned_at descending, take firs
-            const sorted = [...data].sort((a, b) => 
-            new Date(b.earned_at).getTime() - new Date(a.earned_at).getTime() 
-            );
-            const latest = sorted[0];
-            setRecentAchievement({
-                name: latest.achievement_name,
-                description: latest.description,
-                icon: getIcon(latest.achievement_name),
-                earnedAt: latest.earned_at
-            });
-        }).catch(() => {});
+        fetch('/api/achievements/me', { headers: { Authorization: `Bearer ${token}` } })
+            .then(res => res.ok ? res.json() : [])
+            .then((data: any[]) => {
+                // sort by earned_at descending, take firs
+                const sorted = [...data].sort((a, b) =>
+                    new Date(b.earned_at).getTime() - new Date(a.earned_at).getTime()
+                );
+                const latest = sorted[0];
+                setRecentAchievement({
+                    name: latest.achievement_name,
+                    description: latest.description,
+                    icon: getIcon(latest.achievement_name),
+                    earnedAt: latest.earned_at
+                });
+            }).catch(() => { });
     }, [token]);
 
-    const openPopUp = (type: GameType) => {
-        setGameType(type)
+    useEffect(() => {
+        if (!token) return;
+        void refresh();
+    }, []);
+
+    const openPopUp = (type: MatchType) => {
+        setMatchType(type)
         setIsOpen(true);
     }
     const closePopUp = () => {
         setIsOpen(false);
-        setGameType(null)
-    }
+        setMatchType(null)
+  }
 
-    return { 
-        isOpen, 
-        openPopUp, 
+  const skillItems = [
+    { label: 'Mastery', value: skill.masteryCeiling ? Math.min(100, Math.round((skill.mastery / skill.masteryCeiling) * 100)) : 0 },
+    ...skill.components
+      .filter(component => component.inMastery && component.gamesCounted > 0)
+      .slice(0, 3)
+      .map(component => ({  label: `${component.label} · ${component.domain === 'math' ? 'Maths' : 'Programming'}`, value: component.value}))
+  ]
+
+    return {
+        isOpen,
+        openPopUp,
         closePopUp,
         username,
         elo,
@@ -59,7 +75,9 @@ export function useDashboardViewModel() {
         current_streak, winning_streak,
         recentAchievement,
         isLoading,
-        refresh
+      refresh,
+      skillItems,
+      skillIsSample: skill.telemetrySource === 'simulated'
     };
 }
 

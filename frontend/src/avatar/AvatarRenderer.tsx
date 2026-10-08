@@ -6,10 +6,12 @@ interface AvatarRendererProps {
     avatarImageUrl?: string;
     className?: string;
     style?: React.CSSProperties;
+    viewBox?: string;
+    preserveAspectRatio?: string;
 }
 
-export const AvatarRenderer: React.FC<AvatarRendererProps> = ({avatarImageUrl, className, style}) => (
-    <svg viewBox="0 0 240 340" className={className} style={style}>
+export const AvatarRenderer: React.FC<AvatarRendererProps> = ({avatarImageUrl, className, style, viewBox = "0 0 240 340", preserveAspectRatio}) => (
+    <svg viewBox={viewBox} preserveAspectRatio={preserveAspectRatio} className={className} style={style}>
         {avatarImageUrl && <image href={avatarImageUrl} x={0} y={0} width={240} height={340}/>}
     </svg>
 )

@@ -6,11 +6,11 @@ import { AchievementToastProvider } from './context/Achievement/AchievementToast
 import { AuthProvider } from './context/Auth/AuthContext'
 import './amplify-config'
 import './styles/global.css'
-import { MatchmakingProvider } from './context/Socket/MatchmakingContext'
+import { MatchmakingProvider } from './context/Matchmaking/MatchmakingContext'
 import { SocketProvider } from './context/Socket/SocketContext'
 import { ThemeProvider } from './context/Shop/ThemeContext'
 import { UserProvider } from './context/User/UserContext'
-import { FriendsProvider } from './ViewModels/FriendsViewModel/FriendsContext'
+import { FriendsProvider } from './context/Friends/FriendsContext'
 import FriendInvitePopup from './Views/Friends/FriendInvitePopup'
 import { InventoryProvider } from './context/Shop/InventoryContext'
 
@@ -22,16 +22,16 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <InventoryProvider>
         <UserProvider>
           <MatchmakingProvider>
-            <FriendsProvider>
-              <BrowserRouter>
+            <BrowserRouter>
               <AchievementToastProvider>
-              <ThemeProvider>
-                <App />
-                </ThemeProvider>
-                <FriendInvitePopup/>
-                </AchievementToastProvider>
-              </BrowserRouter>
-            </FriendsProvider>
+                <FriendsProvider>
+                  <ThemeProvider>
+                    <App />
+                  </ThemeProvider>
+                  <FriendInvitePopup />
+                </FriendsProvider>
+              </AchievementToastProvider>
+            </BrowserRouter>
           </MatchmakingProvider>
         </UserProvider>
       </InventoryProvider>

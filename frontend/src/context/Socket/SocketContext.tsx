@@ -3,11 +3,18 @@ import type { Socket } from 'socket.io-client'
 import { createSocket } from 'src/services/websocket.service'
 
 import { SocketContext } from './SocketContextValue'
-
+import { MatchSocket } from './modules/match.socket'
+import { MatchmakingSocket } from './modules/matchmaking.socket'
+import { TournamentSocket } from './modules/tournament.socket'
+import { FriendsSocket } from './modules/friends.socket'
 
 export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [socket, setSocket] = useState<Socket | null>(null);
     const [isConnected, setIsConnected] = useState(false);
+    const [matchSocket, setMatchSocket] = useState<MatchSocket | null>(null);
+    const [matchmakingSocket, setMatchmakingSocket] = useState<MatchmakingSocket | null>(null);
+    const [tournamentSocket, setTournamentSocket] = useState<TournamentSocket|null>(null);
+    const [friendsSocket, setFriendsSocket] = useState<FriendsSocket | null>(null);
 
     useEffect(() => {
         createSocket().then((conn) => {
@@ -23,9 +30,18 @@ export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) 
 
     useEffect(() => {
         if (socket) {
-            socket.on('connect', () => {
+            const onConnect = () => {
                 setIsConnected(true);
-            })
+                setMatchSocket(new MatchSocket(socket));
+                setMatchmakingSocket(new MatchmakingSocket(socket));
+                setTournamentSocket(new TournamentSocket(socket));
+                setFriendsSocket(new FriendsSocket(socket));
+        }
+          socket.on('connect', onConnect)
+
+          if (socket.connected) onConnect();
+            
+
 
             socket.on('disconnect', () => {
                 setIsConnected(false);
@@ -38,7 +54,10 @@ export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     return (
         <SocketContext.Provider
             value={{
-                socket,
+                matchSocket,
+                matchmakingSocket,
+                tournamentSocket,
+                friendsSocket,
                 isConnected,
 
             }}

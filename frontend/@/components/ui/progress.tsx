@@ -1,10 +1,8 @@
 import { Progress as ProgressPrimitive } from "radix-ui"
 import * as React from "react"
-
 import { cn } from "@/lib/utils"
-import "../../../src/styles/global.css"
 
-interface ProgressProps extends React.ComponentProps<typeof ProgressPrimitive.Root>{
+interface ProgressProps extends React.ComponentProps<typeof ProgressPrimitive.Root> {
   reverse?: boolean,
   from?: string,
   via?: string,
@@ -33,7 +31,6 @@ function Progress({
 
   const isVertical = orientation === "vertical";
   const remaining = 100 - (value || 0);
-  
 
   return (
     <ProgressPrimitive.Root
@@ -53,8 +50,8 @@ function Progress({
       <ProgressPrimitive.Indicator
         data-slot="progress-indicator"
         style={{
-          transform: isVertical ? `translateY(${remaining}%)` : `translateX(${reverse ? '' : '-'}${remaining}%)`,
-          backgroundImage: isVertical ? `linear-gradient(to top, ${from}, ${via}, ${to})` : `linear-gradient(${reverse ? 'to left' : 'to right'}, ${from}, ${via}, ${to})`
+          transform: isVertical ? `translateY(${reverse ? '-' : ''}${remaining}%)` : `translateX(${reverse ? '' : '-'}${remaining}%)`,
+          backgroundImage: isVertical ? `linear-gradient(${reverse ? 'to bottom' : 'to top'}, ${from}, ${via}, ${to})` : `linear-gradient(${reverse ? 'to left' : 'to right'}, ${from}, ${via}, ${to})`
         }}
         className={`relative size-full transition-transform rounded-full`}
       >

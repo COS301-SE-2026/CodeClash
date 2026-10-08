@@ -13,7 +13,7 @@ This document describes the conventions, styles, and structures that all CodeCla
 - Prefer `type` over `interface` for DTOs and plain data shapes. Use `interface` for class contracts (repository interfaces, context values).
 - Never use `any` unless wrapping a third-party library with no types. Prefer `unknown` and narrow explicitly.
 - Use explicit return types on all exported functions and class methods.
-- Use TypeScript enums (e.g. `GameMode`, `GameType`) rather than raw string literals for values shared across layers.
+- Use TypeScript enums (e.g. `MatchMode`, `MatchType`) rather than raw string literals for values shared across layers.
 
 ---
 
@@ -21,7 +21,7 @@ This document describes the conventions, styles, and structures that all CodeCla
 
 | Construct | Convention | Example |
 |-----------|-----------|---------|
-| Classes, Enums | PascalCase | `MatchResultService`, `GameType` |
+| Classes, Enums | PascalCase | `MatchResultService`, `MatchType` |
 | Interfaces, Types | PascalCase | `IEloRepository`, `MatchResultDTO` |
 | Functions, methods | camelCase | `finaliseMatch`, `getUserElo` |
 | Variables, parameters | snake_case (backend), camelCase (frontend) | `user_id`, `matchId` |
