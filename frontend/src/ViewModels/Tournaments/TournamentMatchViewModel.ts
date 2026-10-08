@@ -167,6 +167,19 @@ export const useTournamentMatch = () => {
         return () => clearInterval(interval)
     }, [tournamentSocket, tournament_id, eliminated])
 
+  // this is to make sure that reloading will give the same socket and tournament id and also state of elimination as previously this was lost on reload
+  useEffect(() => {
+    if (!tournamentSocket || !tournament_id || !db_id) return;
+
+    void tournamentSocket.getTournament(tournament_id);
+    tournamentSocket.getStandings(tournament_id).then(response => {
+      if (!response.ok) return;
+      const standings = response.data!;
+      setActivePlayers(standings.filter(p => p.elimination_round === -1));
+      if (standings.some(p => p.id === db_id && p.elimination_round !== -1)) setEliminated(true);
+    }).catch(() => { /* Tournament already over, the match rejoin sends this player to the results  */ })
+  }, [tournamentSocket, tournament_id, db_id])
+
     useEffect(() => {
         if (!tournamentSocket) return;
 
