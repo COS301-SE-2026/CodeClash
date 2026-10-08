@@ -101,6 +101,7 @@ export class TournamentService {
 
     const ecs_id = this.match_store.getEcsId(match_id);
     const result = await this.completion_service.execute(ecs_id!, match_id, standings.map(p => p.id), MatchType.tournament, times);
+    this.match_store.saveResult(ecs_id!, result); // allows rejoin and send results to to be found for anyone who reloads and missed the broadcast
 
 
         if (tournament) {
