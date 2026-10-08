@@ -21,7 +21,7 @@ npm run frontend
 Verify the backend is healthy:
 
 ```bash
-curl http://localhost:3000/health
+curl http://localhost:3001/health
 # Expected: {"status":"ok"}
 ```
 
