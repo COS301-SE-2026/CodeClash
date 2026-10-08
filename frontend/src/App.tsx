@@ -33,7 +33,7 @@ import TournamentsMatchPage from "./Views/Tournaments/TournamentMatchPage";
 import Tutorials from "./Views/Helpers/Tutorials";
 
 const MATCH_END_GRACE_MS = 69 * 1000;
-const MATCH_ROUTE = /^\/(math|programming)-match\//; // regex to enfource limitimng route logic
+const MATCH_ROUTE = /^\/(math|programming|tournaments)-match\//; // regex to enfource limitimng route logic
 
 const matchClockRunning = (end_time: number) => Date.now() < end_time + MATCH_END_GRACE_MS;
 
@@ -44,8 +44,8 @@ function useMatchRedirect(pathname: string): string | null {
   const end_time = useMatchStore(state => state.end_time);
   const tournament_id = useMatchStore(state => state.tournament_id);
   
-  const in_match = status === 'ready' && !!match_id && !tournament_id && end_time !== null && matchClockRunning(end_time);
-  const match_path = `/${match_mode}-match/${match_id}`;
+ const in_match = status === 'ready' && !!match_id && end_time !== null && matchClockRunning(end_time);
+const match_path = tournament_id ? `/tournaments-match/${tournament_id}` : `/${match_mode}-match/${match_id}`;
   
   if (in_match) return (pathname === match_path || pathname === `/results/${match_id}`) ? null : match_path;
   if (MATCH_ROUTE.test(pathname)) return '/dashboard';
