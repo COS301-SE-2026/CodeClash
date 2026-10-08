@@ -42,19 +42,21 @@ describe('MatchmakingService', () => {
     })
 
     it("enqueues user when a match isn't found", async () => {
-        mock_cache.getPlayers.mockResolvedValue([]);
-        mock_cache.getUserElo.mockResolvedValue(null);
-
-        const user = mock_user();
-        const result = await service.matchmaking(user);
-
-        expect(result).toBeNull();
-        expect(mock_cache.enqueue).toHaveBeenCalledWith(user.match_mode, user);
-    })
-
-    it("increases users match attempt if they're already waiting", async () => {
-        mock_cache.getPlayers.mockResolvedValue([]);
-        mock_cache.getUserElo.mockResolvedValue(1000);
+           mock_cache.getPlayers.mockResolvedValue([]);
+           mock_cache.getUserElo.mockResolvedValue(null);
+           mock_cache.getJoinedAt.mockResolvedValue([null]);
+  
+         const user = mock_user();
+         const result = await service.matchmaking(user);
+  
+          expect(result).toBeNull();
+         expect(mock_cache.enqueue).toHaveBeenCalledWith(user.match_mode, user);
+      })
+   
+      it("increases users match attempt if they're already waiting", async () => {
+         mock_cache.getPlayers.mockResolvedValue([]);
+         mock_cache.getUserElo.mockResolvedValue(1000);
+         mock_cache.getJoinedAt.mockResolvedValue(['2026-09-15T08:56:42.467Z']);
 
         const user = mock_user();
         const result = await service.matchmaking(user);

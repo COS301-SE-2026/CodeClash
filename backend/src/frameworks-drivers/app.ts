@@ -36,9 +36,10 @@ export const createApp = (
   purchase_service: PurchaseService,
   equipped_repo: IEquippedRepository,
   shop_item_repo: IShopItemRepository,
-  inventory_repo: IInventoryRepository,
   tournament_service: TournamentService,
-  wallet_repo: IWalletRepository
+  wallet_repo: IWalletRepository,
+  inventory_repo: IInventoryRepository
+
 ) => {
   const app = express();
   app.disable('x-powered-by');
@@ -67,9 +68,9 @@ export const createApp = (
     purchase_service,
     equipped_repo,
     shop_item_repo,
-    inventory_repo,
     tournament_service,
-    wallet_repo
+    wallet_repo,
+    inventory_repo
   ));
 
   app.use((err:any, req: Request, res: Response, _next: NextFunction) => {

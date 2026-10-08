@@ -1,7 +1,7 @@
 import { Trophy, TrendingUp, Gamepad2, ArrowLeft} from 'lucide-react';
 import { Link } from "react-router";
 
-import bg from "../../src/assets/Background/solar_system.jpg"
+import bg from "../../../src/assets/Background/solar_system.jpg"
 
 import Starfield from "@/components/ui/animations/Starfield";
 
@@ -22,7 +22,7 @@ const GameGuide = () => {
             <div className="absolute inset-0 bg-background/75"/>
             <Starfield/>
             <Link to="/help-menu" className="btn btn-ghost primary-back-button">
-            <ArrowLeft size={18}/>Back
+                <ArrowLeft size={18}/>Back
             </Link>
             <div className="relative z-10 max-w-[1100px] mx-auto flex flex-col gap-10 pb-10">
                 <div className="items-center flex flex-col gap-4 pt-13">

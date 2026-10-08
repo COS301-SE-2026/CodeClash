@@ -3,7 +3,6 @@ export interface ConfirmationContent {
     message: string;
     confirmLabel: string;
     cancelLabel: string;
-    dontAskAgainLabel: string;
 }
 
 export const confirmationContent: ConfirmationContent = {
@@ -11,5 +10,4 @@ export const confirmationContent: ConfirmationContent = {
     message: 'You are about to submit your answer. This action cannot be undone.',
     confirmLabel: 'Submit',
     cancelLabel: 'Cancel',
-    dontAskAgainLabel: "Don't ask me again",
 };

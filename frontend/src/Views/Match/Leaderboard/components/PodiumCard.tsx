@@ -1,6 +1,7 @@
 import type { ReactElement } from 'react';
 import { Crown, Medal } from 'lucide-react'
 import type { LeaderboardUserProps } from 'src/Models/LeaderboardModel'
+import PlayerAvatar from 'src/avatar/PlayerAvatar';
 
 const RANK_STYLE: Record<1 | 2 | 3, { size: string; icon: ReactElement; order: string }> = {
     1: { size: 'w-[220px] py-8', icon: <Crown size={28} className="text-primary" />, order: 'order-2' },
@@ -11,17 +12,18 @@ const RANK_STYLE: Record<1 | 2 | 3, { size: string; icon: ReactElement; order: s
 type PodiumCardProps = {
     rank: 1 | 2 | 3;
     user: LeaderboardUserProps;
+    avatar?: string;
 };
 
-const PodiumCard = ({ rank, user }: PodiumCardProps) => {
+const PodiumCard = ({ rank, user, avatar }: PodiumCardProps) => {
     const { size, icon, order } = RANK_STYLE[rank];
-    const initial = user.username?.[0]?.toUpperCase() ?? '-';
+    // const initial = user.username?.[0]?.toUpperCase() ?? '-';
 
     return (
         <div className={`card-elevated flex flex-col items-center gap-2 px-4 ${size} ${order} ${rank === 1 ? 'card-glow' : ''}`}>
             {icon}
             <div className="avatar w-14 h-14 flex items-center justify-center text-lg font-black text-primary-text bg-background-elevated">
-                {user.avatarUrl ? <img src={user.avatarUrl} alt="" className="w-full h-full rounded-full object-cover" /> : initial}
+                <PlayerAvatar assetKey={avatar} className="w-full h-full rounded-full object-cover"/>
             </div>
             <p className="text-md font-black text-primary-text truncate max-w-full px-2">{user.username}</p>
             <p className="score-display text-xl font-black">{user.elo}</p>

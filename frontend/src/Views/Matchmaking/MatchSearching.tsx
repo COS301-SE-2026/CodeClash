@@ -1,5 +1,5 @@
 import Starfield from '@/components/ui/animations/Starfield';
-import robot from 'src/assets/Robots/Pink_fighting.png';
+import UserAvatar from 'src/avatar/UserAvatar';
 import { MatchSearchingViewModelFunction } from 'src/ViewModels/Matchmaking/MatchSearchingViewModel';
 
 import { Link } from 'react-router-dom';
@@ -29,11 +29,7 @@ const MatchSearching = () => {
 
         <div className="grid w-full max-w-5xl grid-cols-1 items-end gap-3 md:grid-cols-[1fr_auto_1fr]">
           <div className="flex flex-col items-center md:items-start">
-            <img
-              src={robot}
-              alt={`${leftPlayer?.username ?? 'Player'} avatar`}
-              className="w-[50%] drop-shadow-2xl md:w-[18rem] lg:w-[22rem]"
-            />
+            <UserAvatar size={400} className="-ml-37"/>
             <div className="mt-0 text-center md:text-left">
               <p
                 className="text-md font-bold leading-none text-primary-text"

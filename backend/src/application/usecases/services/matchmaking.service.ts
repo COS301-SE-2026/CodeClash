@@ -23,6 +23,10 @@ export class MatchmakingService {
         return await this.cache.dequeue(user_id, queue);
     }
 
+  async isQueued(user_id: string, queue: MatchMode): Promise<boolean> {
+    return (await this.cache.getUserElo(queue, user_id)) !== null;
+  }
+
     async matchmaking(user: MatchmakingUserDTO, group_size: number = 2) {
         const player_count = group_size - 1;
         const range = this.elo_difference * user.match_attempt;
@@ -42,9 +46,10 @@ export class MatchmakingService {
 
 
         if (candidates.length < player_count) {
-            const waiting = await this.cache.getUserElo(user.match_mode, user.id);
+          const waiting = await this.cache.getUserElo(user.match_mode, user.id);
+          const [joined] = await this.cache.getJoinedAt(user.id);
 
-            if (waiting)   //user is already in the queue
+            if (waiting && joined)   //user is already in the queue
                 this.cache.incrementMatchAttempt(user.id);
             else {
                 await this.enqueue(user, user.match_mode);
