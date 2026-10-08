@@ -1,0 +1,14 @@
+backend/src/interface-adapters/cache/matchmaking-cache.ts
+  h_58e143dc25f856 22-23,26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "28f87a36d6a7e5ddcc92e1bb2e8884a109f0fd6d",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
