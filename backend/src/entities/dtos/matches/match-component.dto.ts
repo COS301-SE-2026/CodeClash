@@ -7,7 +7,8 @@ export interface PlayerDTO {
     avatar?:string,
     life?:number,
     username?:string,
-    done?:boolean
+  done?: boolean,
+  eliminated?: boolean
 }
 
 export interface MatchDTO {
