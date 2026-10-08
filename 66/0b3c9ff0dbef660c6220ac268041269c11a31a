@@ -1,0 +1,14 @@
+frontend/src/Views/Matchmaking/MatchSearching.tsx
+  h_58e143dc25f856 5,10,24-27,75-78
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "660b3c9ff0dbef660c6220ac268041269c11a31a",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
