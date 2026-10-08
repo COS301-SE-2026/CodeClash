@@ -13,7 +13,8 @@ services:
       start_period: 30s
     ports:
       - "3001:3000"
-    environment:
+    environment: #Copied from deployment branch
+      - PORT=${PORT:-3000}
       - DB_HOST=${DB_HOST}
       - DB_PORT=${DB_PORT}
       - DB_USER=${DB_USER}

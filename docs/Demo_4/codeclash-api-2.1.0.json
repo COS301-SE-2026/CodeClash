@@ -1,0 +1,3261 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "CodeClash API",
+    "description": "Outlines API endpoints for CodeClash",
+    "contact": {
+      "email": "quantdevs@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "2.1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api",
+      "description": "Local backend (all paths are under /api)"
+    },
+    {
+      "url": "https://virtserver.swaggerhub.com/universityofpretoria-f31/CodeClash_API/1.0.0",
+      "description": "SwaggerHub API Auto Mocking"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Users"
+    },
+    {
+      "name": "Leaderboard"
+    },
+    {
+      "name": "Matches"
+    },
+    {
+      "name": "Friends"
+    },
+    {
+      "name": "Achievements"
+    },
+    {
+      "name": "Shop"
+    },
+    {
+      "name": "Tournaments"
+    }
+  ],
+  "paths": {
+    "/create-user": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "CreateUser",
+        "operationId": "post-create-user",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/user_createuser_body"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_2"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request (creation failed)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_400_UsernameAlreadyExists"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Missing parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_404_MissingParamaters"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_401_Unauthorized"
+                }
+              }
+            }
+          }
+        },
+        "description": "Creates the DB user for the authenticated Cognito account. Mounted before the auth middleware; only a valid Cognito token is required."
+      }
+    },
+    "/leaderboard": {
+      "get": {
+        "tags": [
+          "Leaderboard"
+        ],
+        "summary": "GetLeaderboard",
+        "operationId": "get-leaderboard",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Entries per page (default 10)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 10
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number (default 1)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/leaderboard_entry"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_401_Unauthorized"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/matches": {
+      "get": {
+        "tags": [
+          "Matches"
+        ],
+        "summary": "GetMatchHistory",
+        "operationId": "get-matches",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/match_history_entry"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_401_Unauthorized"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/matches/{match_id}": {
+      "get": {
+        "tags": [
+          "Matches"
+        ],
+        "summary": "GetMatchResults",
+        "operationId": "get-matches-match_id",
+        "parameters": [
+          {
+            "name": "match_id",
+            "in": "path",
+            "description": "Match ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/match_result"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_400_MatchIdIsRequired"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_401_Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Results not ready",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_404_ResultsNotReady"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/skill-progress": {
+      "get": {
+        "tags": [
+          "Matches"
+        ],
+        "summary": "GetSkillProgress",
+        "operationId": "get-skill-progress",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/skill_progress"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_401_Unauthorized"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/friends": {
+      "get": {
+        "tags": [
+          "Friends"
+        ],
+        "summary": "GetFriends",
+        "operationId": "get-friends",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_3"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_401_1"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/friends/requests": {
+      "get": {
+        "tags": [
+          "Friends"
+        ],
+        "summary": "GetFriendRequests",
+        "operationId": "get-friends-requests",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_4"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_401_1"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/friends/invite": {
+      "post": {
+        "tags": [
+          "Friends"
+        ],
+        "summary": "CreateFriendInvite",
+        "operationId": "post-friends-invite",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/friends_invite_body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_201_1"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/friends/request": {
+      "post": {
+        "tags": [
+          "Friends"
+        ],
+        "summary": "SendFriendRequest",
+        "operationId": "post-friends-request",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/friends_requests_body"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_201"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400_1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_401_1"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Request already exists, or wait 24 hours before re-requesting",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_409_FriendRequestAlreadyExists"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/friends/request/{friendship_id}": {
+      "patch": {
+        "tags": [
+          "Friends"
+        ],
+        "summary": "RespondToFriendRequest",
+        "operationId": "patch-friends-request-friendship_id",
+        "parameters": [
+          {
+            "name": "friendship_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authroization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/requests_friendship_id_body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_6"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400_3"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/friends/{friendship_id}": {
+      "delete": {
+        "tags": [
+          "Friends"
+        ],
+        "summary": "RemoveFriend",
+        "operationId": "delete-friends",
+        "parameters": [
+          {
+            "name": "friendship_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_5"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400_2"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Friendship not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_404_FriendshipNotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/achievements/me": {
+      "get": {
+        "tags": [
+          "Achievements"
+        ],
+        "summary": "GetUserAchievements",
+        "operationId": "get-achievements-me",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/achievement"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_401_Unauthorized"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/achievements": {
+      "get": {
+        "tags": [
+          "Achievements"
+        ],
+        "summary": "GetAllAchievements",
+        "operationId": "get-achievements",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/achievement"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_401_Unauthorized"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/shop/items": {
+      "get": {
+        "tags": [
+          "Shop"
+        ],
+        "summary": "GetShopItems",
+        "operationId": "get-shop-items",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/inline_response_200_14"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/shop/items/me": {
+      "get": {
+        "tags": [
+          "Shop"
+        ],
+        "summary": "GetUserItems",
+        "operationId": "get-shop-items-me",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/inline_response_200_15"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_401_3"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/shop/purchase": {
+      "post": {
+        "tags": [
+          "Shop"
+        ],
+        "summary": "PurchaseItem",
+        "operationId": "post-shop-purchase",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/shop_purchase_body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_201_3"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400_4"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_401_3"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_404_4"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_409"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/shop/wallet": {
+      "get": {
+        "tags": [
+          "Shop"
+        ],
+        "summary": "GetWallet",
+        "operationId": "get-shop-wallet",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_16"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_401_3"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/shop/equipped": {
+      "get": {
+        "tags": [
+          "Shop"
+        ],
+        "summary": "GetEquipped",
+        "operationId": "get-shop-equipped",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_17"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_401_3"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_500"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Shop"
+        ],
+        "summary": "UpdateEquipped",
+        "operationId": "patch-shop-equipped",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/shop_equipped_body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_17"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_401_3"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_403"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/shop/equipped/{user_id}": {
+      "get": {
+        "tags": [
+          "Shop"
+        ],
+        "summary": "GetEquippedFor",
+        "operationId": "get-shop-equipped-user_id",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "ID of the user whose equipped items to fetch",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_17"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_401_Unauthorized"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/shop/powerups/me": {
+      "get": {
+        "tags": [
+          "Shop"
+        ],
+        "summary": "GetUserPowerups",
+        "operationId": "get-shop-powerups-me",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/inline_response_200_15"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_401_3"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/shop/powerups/use": {
+      "post": {
+        "tags": [
+          "Shop"
+        ],
+        "summary": "UsePowerup",
+        "operationId": "post-shop-powerups-use",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/powerups_use_body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_18"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400_5"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_401_3"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_403_1"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_404_5"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_500"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Wipe already used this match",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_409_WipeAlreadyUsedThisMatch"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/rank": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "GetUserRank",
+        "operationId": "get-user-rank",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/rank_response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_401_Unauthorised"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Rank not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_404_RankNotFound"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/search": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "SearchUsers",
+        "operationId": "get-user-search",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Username search (minimum 2 characters)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 2
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/user_search_result"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "default": "Search query must be at least 3 characters"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_401_Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/{stat}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "GetUserData",
+        "description": "Returns the value of the specified attribute of the authenticated user. Registered last in the router, so /user/rank and /user/search take precedence.",
+        "operationId": "get-user-:stat",
+        "parameters": [
+          {
+            "name": "stat",
+            "in": "path",
+            "description": "user attribute to be fetched",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "username",
+                "email",
+                "avatar_id",
+                "league",
+                "current_streak",
+                "winning_streak"
+              ]
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_401_1"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_404_UserNotFound"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid stat",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_400_InvalidRequest"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/elo": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "gets user elo",
+        "description": "[Not implemented in api.routes.ts. Use GET /leaderboard or GET /user/rank] By passing in the appropriate paramaters you can fetch users elo\n",
+        "operationId": "gets user elo",
+        "parameters": [
+          {
+            "name": "Authorization:",
+            "in": "header",
+            "description": "Takes in a user token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_401"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_404"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tournament/{status}": {
+      "get": {
+        "tags": [
+          "Tournaments"
+        ],
+        "summary": "GetTournamentsByStatus",
+        "operationId": "get-tournament-status",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "path",
+            "description": "Tournament status (a MatchStatus value)",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/match_status"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_400_InvalidRequest"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_401_Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_404_ErrorFetchingTournament"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tournaments": {
+      "get": {
+        "tags": [
+          "Tournaments"
+        ],
+        "summary": "GetTournaments",
+        "operationId": "get-tournaments",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/inline_response_200_7"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_401_1"
+                }
+              }
+            }
+          }
+        },
+        "description": "[Not implemented in api.routes.ts yet]"
+      },
+      "post": {
+        "tags": [
+          "Tournaments"
+        ],
+        "summary": "CreateTournament",
+        "operationId": "post-tournaments",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/tournaments_body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_201_2"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_401_1"
+                }
+              }
+            }
+          }
+        },
+        "description": "[Not implemented in api.routes.ts yet]"
+      }
+    },
+    "/tournaments/{id}": {
+      "get": {
+        "tags": [
+          "Tournaments"
+        ],
+        "summary": "GetTournament",
+        "operationId": "get-tournaments-id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_8"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_401_1"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_404_3"
+                }
+              }
+            }
+          }
+        },
+        "description": "[Not implemented in api.routes.ts yet]"
+      },
+      "delete": {
+        "tags": [
+          "Tournaments"
+        ],
+        "summary": "CancelTournament",
+        "operationId": "delete-tournaments-id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_9"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_401_1"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_404_3"
+                }
+              }
+            }
+          }
+        },
+        "description": "[Not implemented in api.routes.ts yet]"
+      }
+    },
+    "/tournaments/{id}/register": {
+      "post": {
+        "tags": [
+          "Tournaments"
+        ],
+        "summary": "RegisterTournament",
+        "operationId": "post-tournaments-id-register",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/id_register_body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_10"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_401_2"
+                }
+              }
+            }
+          }
+        },
+        "description": "[Not implemented in api.routes.ts yet]"
+      },
+      "delete": {
+        "tags": [
+          "Tournaments"
+        ],
+        "summary": "DeregisterTournament",
+        "operationId": "delete-tournaments-id-register",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_11"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_401_1"
+                }
+              }
+            }
+          }
+        },
+        "description": "[Not implemented in api.routes.ts yet]"
+      }
+    },
+    "/tournaments/{id}/start": {
+      "patch": {
+        "tags": [
+          "Tournaments"
+        ],
+        "summary": "StartTournament",
+        "operationId": "patch-tournaments-id-start",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_12"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_401_1"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_404_3"
+                }
+              }
+            }
+          }
+        },
+        "description": "[Not implemented in api.routes.ts yet]"
+      }
+    },
+    "/tournaments/{id}/players": {
+      "get": {
+        "tags": [
+          "Tournaments"
+        ],
+        "summary": "GetTournamentPlayers",
+        "operationId": "get-tournaments-id-players",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token for request authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_13"
+                }
+              }
+            }
+          }
+        },
+        "description": "[Not implemented in api.routes.ts yet]"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "inline_response_200": {
+        "type": "object",
+        "properties": {
+          "rating": {
+            "type": "number",
+            "default": 600
+          }
+        }
+      },
+      "inline_response_401": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Missing or invalid credentials."
+          }
+        }
+      },
+      "inline_response_404": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "User not found."
+          }
+        }
+      },
+      "inline_response_200_1": {
+        "type": "object",
+        "properties": {
+          "[stat]": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          }
+        }
+      },
+      "inline_response_401_1": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Missing or invalid credentials"
+          }
+        }
+      },
+      "inline_response_404_1": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Data not found"
+          }
+        }
+      },
+      "user_stat_body": {
+        "required": [
+          "stat",
+          "user_id"
+        ],
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string"
+          },
+          "stat": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          }
+        }
+      },
+      "inline_response_404_2": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "User not found"
+          }
+        }
+      },
+      "user_createuser_body": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "username",
+          "email"
+        ]
+      },
+      "inline_response_200_2": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "User was created"
+          }
+        }
+      },
+      "inline_response_400": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "inline_response_200_3": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "friendship_id": {
+            "type": "string"
+          },
+          "elo": {
+            "type": "number"
+          },
+          "avatar_id": {
+            "type": "number"
+          }
+        }
+      },
+      "inline_response_200_4": {
+        "type": "object",
+        "properties": {
+          "friendship_id": {
+            "type": "string"
+          },
+          "user_id": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "accepted",
+              "declined",
+              "blocked"
+            ]
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "friends_requests_body": {
+        "type": "object",
+        "properties": {
+          "receiver_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "receiver_id"
+        ]
+      },
+      "inline_response_201": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Friend request sent"
+          }
+        }
+      },
+      "inline_response_400_1": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "receiver_id is required"
+          }
+        }
+      },
+      "friends_invite_body": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string"
+          }
+        }
+      },
+      "inline_response_201_1": {
+        "type": "object",
+        "properties": {
+          "invite_id": {
+            "type": "string"
+          },
+          "invite_code": {
+            "type": "string"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "inline_response_200_5": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Friend removed"
+          }
+        }
+      },
+      "inline_response_400_2": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Friendship id is required"
+          }
+        }
+      },
+      "requests_friendship_id_body": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "accepted",
+              "declined"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "inline_response_200_6": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Friend request accepted"
+          }
+        }
+      },
+      "inline_response_400_3": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Invalid Status value"
+          }
+        }
+      },
+      "tournaments_players": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "position": {
+            "type": "integer",
+            "default": -1
+          }
+        }
+      },
+      "inline_response_200_7": {
+        "type": "object",
+        "properties": {
+          "tournament_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "registraton_open",
+              "in_progress",
+              "completed",
+              "cancelled"
+            ]
+          },
+          "created_by": {
+            "type": "string"
+          },
+          "players": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tournaments_players"
+            }
+          },
+          "min_players": {
+            "minimum": 3,
+            "type": "integer"
+          },
+          "max_players": {
+            "maximum": 20,
+            "minimum": 3,
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "started_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "completed_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "tournaments_body": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "registraton_open",
+              "in_progress",
+              "completed",
+              "cancelled"
+            ]
+          },
+          "created_by": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "players": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tournaments_players"
+            }
+          },
+          "min_players": {
+            "minimum": 3,
+            "type": "integer"
+          },
+          "max_players": {
+            "maximum": 20,
+            "minimum": 3,
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "started_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "completed_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "inline_response_201_2": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Tournament Created"
+          }
+        }
+      },
+      "inline_response_200_8": {
+        "type": "object",
+        "properties": {
+          "tournament_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "registraton_open",
+              "in_progress",
+              "completed",
+              "cancelled"
+            ]
+          },
+          "created_by": {
+            "type": "string"
+          },
+          "players": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "position": {
+                  "type": "integer",
+                  "default": -1
+                }
+              }
+            }
+          },
+          "min_players": {
+            "minimum": 3,
+            "type": "integer"
+          },
+          "max_players": {
+            "maximum": 20,
+            "minimum": 3,
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "started_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "completed_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "inline_response_404_3": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "id is required"
+          }
+        }
+      },
+      "inline_response_200_9": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Tournament cancelled"
+          }
+        }
+      },
+      "id_register_body": {
+        "type": "object",
+        "properties": {
+          "tournament_id": {
+            "type": "string"
+          },
+          "user_id": {
+            "type": "string"
+          },
+          "registration_date": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "inline_response_200_10": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Registration Successful"
+          }
+        }
+      },
+      "inline_response_401_2": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Registration error"
+          }
+        }
+      },
+      "inline_response_200_11": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Successfully deregistered"
+          }
+        }
+      },
+      "inline_response_200_12": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "default": "in_progress"
+          },
+          "started_at": {
+            "type": "string",
+            "format": "time"
+          }
+        }
+      },
+      "inline_response_200_13": {
+        "type": "object",
+        "properties": {
+          "tournament_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "players": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "position": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "inline_response_200_14": {
+        "type": "object",
+        "properties": {
+          "shop_item_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "avatar",
+              "theme",
+              "powerup"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "rarity": {
+            "type": "string",
+            "enum": [
+              "common",
+              "rare",
+              "epic",
+              "legendary"
+            ]
+          },
+          "metadata": {
+            "type": "object",
+            "description": "avatar/theme: { asset_key }",
+            "properties": {
+              "asset_key": {
+                "type": "string"
+              }
+            }
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "inline_response_500": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Internal server error"
+          }
+        }
+      },
+      "inline_response_200_15": {
+        "type": "object",
+        "properties": {
+          "user_item_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "item": {
+            "type": "object"
+          },
+          "acquired_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "inline_response_401_3": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Unauthorized"
+          }
+        }
+      },
+      "shop_purchase_body": {
+        "required": [
+          "shop_item_id"
+        ],
+        "type": "object",
+        "properties": {
+          "shop_item_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "inline_response_201_3": {
+        "type": "object",
+        "properties": {
+          "wallet": {
+            "type": "object",
+            "properties": {
+              "wallet_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "user_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "balance": {
+                "type": "number"
+              },
+              "updated_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          },
+          "item": {
+            "type": "object",
+            "properties": {
+              "user_item_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "user_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "item": {
+                "type": "object"
+              },
+              "acquired_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        }
+      },
+      "inline_response_400_4": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "shop_item_id is required"
+          }
+        }
+      },
+      "inline_response_404_4": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Item not found"
+          }
+        }
+      },
+      "inline_response_409": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Item already owned"
+          }
+        }
+      },
+      "inline_response_200_16": {
+        "type": "object",
+        "properties": {
+          "wallet_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "balance": {
+            "type": "number"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "inline_response_200_17": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "avatar": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/inline_response_200_14"
+              }
+            ],
+            "nullable": true
+          },
+          "theme": {
+            "$ref": "#/components/schemas/inline_response_200_14"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "shop_equipped_body": {
+        "type": "object",
+        "properties": {
+          "avatar_item_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "theme_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "inline_response_403": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Item not owned"
+          }
+        }
+      },
+      "powerups_use_body": {
+        "required": [
+          "match_id",
+          "shop_item_id"
+        ],
+        "type": "object",
+        "properties": {
+          "match_id": {
+            "type": "integer"
+          },
+          "shop_item_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "target_user_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "inline_response_200_18": {
+        "type": "object",
+        "properties": {
+          "applied": {
+            "type": "boolean",
+            "default": true
+          },
+          "effect": {
+            "type": "string"
+          },
+          "match_id": {
+            "type": "integer"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "target_user_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "inline_response_400_5": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "match_id and shop_item_id are required"
+          }
+        }
+      },
+      "inline_response_403_1": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Powerup not owned"
+          }
+        }
+      },
+      "inline_response_404_5": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Match not found"
+          }
+        }
+      },
+      "error_400_UsernameAlreadyExists": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Username already exists"
+          }
+        }
+      },
+      "error_404_MissingParamaters": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Missing paramaters"
+          }
+        }
+      },
+      "error_401_Unauthorized": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Unauthorized"
+          }
+        }
+      },
+      "error_409_FriendRequestAlreadyExists": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Friend request already exists"
+          }
+        }
+      },
+      "error_404_FriendshipNotFound": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Friendship not found"
+          }
+        }
+      },
+      "error_400_InvalidRequest": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Invalid request"
+          }
+        }
+      },
+      "error_404_UserNotFound": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "User not found"
+          }
+        }
+      },
+      "rank_response": {
+        "type": "object",
+        "description": "Shape returned by LeaderboardService.getUserRank",
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "username": {
+            "type": "string"
+          },
+          "elo": {
+            "type": "integer"
+          },
+          "rank": {
+            "type": "integer"
+          }
+        }
+      },
+      "user_search_result": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "username": {
+            "type": "string"
+          },
+          "avatar_id": {
+            "type": "string"
+          }
+        }
+      },
+      "error_401_Unauthorised": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Unauthorised"
+          }
+        }
+      },
+      "error_404_RankNotFound": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Rank not found"
+          }
+        }
+      },
+      "leaderboard_entry": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "username": {
+            "type": "string"
+          },
+          "elo": {
+            "type": "integer"
+          },
+          "rank": {
+            "type": "integer"
+          }
+        }
+      },
+      "match_history_entry": {
+        "type": "object",
+        "description": "Shape returned by IMatchRepository.getMatchHistory",
+        "additionalProperties": true,
+        "properties": {
+          "match_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "match_result": {
+        "type": "object",
+        "description": "Shape returned by IMatchRepository.buildMatchResult",
+        "additionalProperties": true,
+        "properties": {
+          "match_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "players": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "skill_progress": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "description": "Per-game skill progress for the authenticated user"
+      },
+      "error_400_MatchIdIsRequired": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "match ID is required"
+          }
+        }
+      },
+      "error_404_ResultsNotReady": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Results not ready"
+          }
+        }
+      },
+      "achievement": {
+        "type": "object",
+        "additionalProperties": true,
+        "description": "AchievementDTO",
+        "properties": {
+          "achievement_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "match_status": {
+        "type": "string",
+        "description": "MatchStatus enum value (see match.dto.ts)"
+      },
+      "error_404_ErrorFetchingTournament": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Error fetching tournament"
+          }
+        }
+      },
+      "error_404_ItemNotFound": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Item not found"
+          }
+        }
+      },
+      "error_409_WipeAlreadyUsedThisMatch": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "Wipe already used this match"
+          }
+        }
+      }
+    }
+  }
+}
