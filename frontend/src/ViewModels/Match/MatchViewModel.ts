@@ -314,8 +314,8 @@ export const useMatch = (timeUp?: () => Promise<void>) => {
             
 
             setLoading(questions.length === 0);
-
-            if (!tournament_id) void rejoin(matchSocket, match_id);
+          void rejoin(matchSocket, match_id); // no longer skips for tournaments and will just rejoin no matter what kind of game it is
+            // if (!tournament_id) void rejoin(matchSocket, match_id);
 
             return () => {
                 unsub_submission_error();
