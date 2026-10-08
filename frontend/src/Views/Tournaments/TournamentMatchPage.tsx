@@ -8,13 +8,12 @@ import { useTournamentMatch } from "src/ViewModels/Tournaments/TournamentMatchVi
 import { Button } from "@/components/ui/button";
 import MathMatch from "@/components/features/Match/MathPage";
 import { CodeEditor } from "@/components/features/code-editor";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { TournamentEliminated } from "./TournamentEliminated";
 import ConfirmationPopup from "../Confirmation";
 import type { ConfirmationViewModel } from "src/ViewModels/ConfirmationViewModel";
 import Flash from "@/components/ui/animations/Flash";
-import { useState } from "react";
 
 const TournamentsMatchPage = () => {
     const {
