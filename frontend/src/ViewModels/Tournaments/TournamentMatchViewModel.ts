@@ -52,7 +52,8 @@ export const useTournamentMatch = () => {
         completeRound,
         marking,
         markingError,
-        results
+        results,
+        lastResult
     } = useMatch(timeUp);
 
     const [activePlayers, setActivePlayers] = useState<PlayerStandingDTO[]>(players ?? []);
@@ -209,7 +210,8 @@ export const useTournamentMatch = () => {
         eliminated,
         marking,
         markingError,
-        results
+        results,
+        lastResult
     }
 
 }
