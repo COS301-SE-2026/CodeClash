@@ -1,0 +1,19 @@
+backend/tests/mocks/mock-templates.ts
+  h_94c952a9e14c58 1-29
+backend/tests/integration/services/marking.service.test.ts
+  h_94c952a9e14c58 41-42,126,153-159
+  h_94c952a9e14c58 82,135-136
+backend/tests/integration/services/match-creation.service.test.ts
+  h_94c952a9e14c58 28-30,96-99
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6c6e8dcd8379397df0be1f1ad9a318ef4d912f79",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
