@@ -1,0 +1,14 @@
+frontend/src/Models/MatchSearchingModel.ts
+  h_58e143dc25f856 12-13,20-21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8b3bddde6de78aaea47ef8e9b3c04393f011d64b",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
