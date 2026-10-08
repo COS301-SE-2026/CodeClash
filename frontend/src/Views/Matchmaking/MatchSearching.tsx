@@ -2,12 +2,12 @@ import Starfield from '@/components/ui/animations/Starfield';
 import UserAvatar from 'src/avatar/UserAvatar';
 import { MatchSearchingViewModelFunction } from 'src/ViewModels/Matchmaking/MatchSearchingViewModel';
 
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 const headingFont = { fontFamily: 'var(--heading)' };
 
 const MatchSearching = () => {
-  const { formattedTime, content, players} = MatchSearchingViewModelFunction();
+  const { formattedTime, content, players, handleCancel, timedOut} = MatchSearchingViewModelFunction();
   const leftPlayer = players.find((player) => player.side === 'left');
 
   return (
@@ -21,10 +21,10 @@ const MatchSearching = () => {
             {formattedTime}
           </p>
           <h1
-            className="mt-4 text-xl font-bold leading-none text-primary-text"
-          >
-            {content.title}
-          </h1>
+                 className="mt-4 text-xl font-bold leading-none text-primary-text"
+               >
+                        {timedOut ? content.timeoutTitle : content.title}
+                     </h1>
         </div>
 
         <div className="grid w-full max-w-5xl grid-cols-1 items-end gap-3 md:grid-cols-[1fr_auto_1fr]">
@@ -72,10 +72,10 @@ const MatchSearching = () => {
         </div>
 
         <div className="flex items-center gap-3 w-[30%]">
-          <Link to='/dashboard' className="btn btn-primary w-full group">
-            <span>{content.cancelLabel}</span>
-          </Link>
-        </div>
+                    <button type="button" onClick={handleCancel} className="btn btn-primary w-full group">
+                      <span>{timedOut ? content.backLabel : content.cancelLabel}</span>
+                    </button>
+                  </div>
       </div>
     </div>
   );

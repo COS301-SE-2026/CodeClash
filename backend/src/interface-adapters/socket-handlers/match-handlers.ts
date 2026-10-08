@@ -22,7 +22,8 @@ export const submitQuestion = async (
     mark: MarkingService,
     match_store: MatchStore,
     elimination_service: TournamentEliminationService,
-    opponent_progress: OpponentProgress
+  opponent_progress: OpponentProgress,
+    match_completion_service?: MatchCompletionService
 ) => {
 
     const ecs_id = match_store.getEcsId(data.id);
@@ -50,6 +51,12 @@ export const submitQuestion = async (
             if (opponent !== undefined) {
                 io.to(opponent).emit("opponent_progress", progress);
             }
+
+        if (result.life_update !== undefined && result.life_update <= 0 && match_completion_service) {
+          match_store.eliminate(submission.player_id, ecs_id!);
+          await matchDone(io, socket, data.id, data.match_type, match_completion_service, match_store)
+            .catch(error => console.error('Failed to end match after eliminiation:', error));
+        }
 
             return result;
         }

@@ -27,7 +27,7 @@ export class LifeSystem {
 
         const change = life.max_life / (question_number * 3);
         life.current_life -= change;
-        if (life.current_life < 0) life.current_life = 0
+        if (life.current_life < 1e-9) life.current_life = 0
 
         return life.current_life;
     }

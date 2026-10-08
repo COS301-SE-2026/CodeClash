@@ -33,12 +33,14 @@ export class MatchCompletionSystem {
         if (!match?.database_id) throw new Error("Match not found");
 
         const match_stats = this.getStats(submission_registry.submissions, player_ids,match_component.start_time);
-      const match_start = this.getMatchComponent<MatchComponent>(match_id, 'Match')?.start_time ?? new Date();
-
-        const ranked_players = [...match_stats.entries()]
-            .sort(([, a], [, b]) => {
-                if (a.num_correct !== b.num_correct) {
-                    return b.num_correct - a.num_correct;
+        const match_start = this.getMatchComponent<MatchComponent>(match_id, 'Match')?.start_time ?? new Date();
+       
+                   const eliminated = (id: string) => match.players.find(player => player.id === id)?.eliminated ? 1 : 0;
+                   const ranked_players = [...match_stats.entries()]
+                       .sort(([a_id, a], [b_id, b]) => {
+                           if (eliminated(a_id) !== eliminated(b_id)) return eliminated(a_id) - eliminated(b_id);   // knocked out on life places below everyone still standing
+                          if (a.num_correct !== b.num_correct) {
+                              return b.num_correct - a.num_correct;
                 }
                 return a.total_time - b.total_time;
             });

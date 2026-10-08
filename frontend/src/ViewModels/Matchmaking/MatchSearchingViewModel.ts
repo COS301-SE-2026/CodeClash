@@ -14,29 +14,38 @@ import { useMatchStore } from 'src/stores/match-store';
 export function MatchSearchingViewModelFunction() {
   const navigate = useNavigate();
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
+  const [timedOut, setTimedOut] = useState(false);
   const { elo, username } = useUser();
 
   const { matchmakingSocket } = useSocket()
   const { matched, reset } = useMatchmaking()
 
   useEffect(() => {
-    const intervalId = window.setInterval(() => {
-      setElapsedSeconds((current) => current + 1);
-    }, 1000);
-
-    return () => {
-      window.clearInterval(intervalId);
-    };
-  }, []);
-
-  const handleCancel = () => {
-
-    if (!matchmakingSocket) throw new Error("500 Internal Server Error")
-    matchmakingSocket.leaveQueue();
-    reset();
-    useMatchStore.getState().reset();
-    navigate('/dashboard');
-  };
+         if (timedOut) return;
+         const intervalId = window.setInterval(() => {
+           setElapsedSeconds((current) => current + 1);
+         }, 1000);
+ 
+         return () => {
+           window.clearInterval(intervalId);
+         };
+       }, [timedOut]);
+ 
+      // the server took them out of the queue after searching too long
+      useEffect(() => {
+         if (!matchmakingSocket) return;
+         const unsub_timeout = matchmakingSocket.queueTimeout(() => setTimedOut(true));
+         return () => { unsub_timeout(); };
+       }, [matchmakingSocket]);
+ 
+      const handleCancel = () => {
+ 
+        if (!matchmakingSocket) throw new Error("500 Internal Server Error")
+        void matchmakingSocket.leaveQueue().catch(() => { });   // the server doesn't acknowledge leaving, so don't let the emit time out as an error
+        reset();
+        useMatchStore.getState().reset();
+        navigate('/dashboard');
+      };
 
   const user: MatchSearchingPlayer = {
     username: username,
@@ -56,6 +65,7 @@ export function MatchSearchingViewModelFunction() {
     content: matchSearchingContent,
     players: [user],
     handleCancel,
+    timedOut,
   };
 }
 

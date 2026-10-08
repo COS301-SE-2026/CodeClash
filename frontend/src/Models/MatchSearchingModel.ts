@@ -9,12 +9,16 @@ export interface MatchSearchingContent {
   title: string;
   matchupLabel: string;
   cancelLabel: string;
+  timeoutTitle: string;
+  backLabel: string;
 }
 
 export const matchSearchingContent: MatchSearchingContent = {
   title: 'Searching for a match...',
   matchupLabel: 'VS',
   cancelLabel: 'Cancel Queue',
+  timeoutTitle: 'No opponent found, try again in a bit',
+  backLabel: 'Back to Dashboard',
 }
 
 export const mockMatchSearchingPlayer: MatchSearchingPlayer[] = [

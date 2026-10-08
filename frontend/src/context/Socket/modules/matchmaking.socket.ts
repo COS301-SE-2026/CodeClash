@@ -21,6 +21,10 @@ export class MatchmakingSocket {
         return on(this.socket, 'match_declined', handler);
     }
 
+  queueTimeout(handler: () => void) {
+    return on(this.socket, 'queue_timeout', handler);
+  }
+
 
     /************************************** EMITTERS ******************************************* */
 

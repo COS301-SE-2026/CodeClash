@@ -44,8 +44,16 @@ export class MatchmakingService {
             .filter(p => p.join !== null && p.user_id !== user.id)
             .sort((a, b) => Number(a.join) - Number(b.join));
 
+      const matched_players: { id: string, elo: number }[] = [];
+      for (const candidate of candidates) {
+        if (matched_players.length === player_count) break;
+        const elo = Number(await this.cache.getUserElo(user.match_mode, candidate.user_id));
+        if (await this.cache.deleteUser(user.match_mode, candidate.user_id) > 0) matched_players.push({ id: candidate.user_id, elo });
+      }
+      
 
-        if (candidates.length < player_count) {
+      if (matched_players.length < player_count) {
+        await Promise.all(matched_players.map(p => this.enqueue({ id: p.id, elo: p.elo, match_mode: user.match_mode, match_attempt: 1, joined_at: new Date() }, user.match_mode)));
           const waiting = await this.cache.getUserElo(user.match_mode, user.id);
           const [joined] = await this.cache.getJoinedAt(user.id);
 
@@ -57,19 +65,10 @@ export class MatchmakingService {
 
             return null;
         }
-
-        const chosen = candidates.slice(0, player_count);
-        const matched_players = await Promise.all(
-            chosen.map(async (c) => {
-                const elo = Number(await this.cache.getUserElo(user.match_mode, c.user_id));
-                await this.cache.deleteUser(user.match_mode, c.user_id);
-                return { id: c.user_id, elo };
-            })
-        )
-
+      
         const not_chosen = candidates.slice(player_count);
         await Promise.all(
-            not_chosen.map(candidate => this.cache.incrementMatchAttempt(candidate.user_id))
+              not_chosen.map(candidate => this.cache.incrementMatchAttempt(candidate.user_id))
         );
 
 
