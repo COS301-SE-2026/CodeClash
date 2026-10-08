@@ -73,23 +73,34 @@ export class CreatePlayerEntity {
 export class CreateRound {
     constructor() { }
 
+    private roundsNeeded(players: number) {
+        let rounds = 0;
+        let size = players;
+
+        while (size > 1) {
+            rounds++;
+            size = Math.floor(size / 2);
+        }
+
+        return Math.max(1, rounds);
+    }
+
     execute(question: MatchQuestionArrays, player_count: number): RoundComponent[] {
 
         const question_pool = [...question.easy, ...question.medium, ...question.hard];
 
         const third = Math.ceil(question_pool.length / 3);
-
         if (player_count === 2) {
 
             return [
                 { round_number: 0, questions: question_pool.slice(0, third) },
                 { round_number: 1, questions: question_pool.slice(third, third * 2) },
                 { round_number: 2, questions: question_pool.slice(third * 2) },
-                ].filter(round => round.questions.length > 0);
+            ].filter(round => round.questions.length > 0);
         }
 
 
-        let round_count = Math.ceil(Math.log2(player_count));
+        let round_count = this.roundsNeeded(player_count);
         let q_per_round = Math.floor(question_pool.length / round_count);
 
         while (q_per_round < 5 && round_count >= 3) {

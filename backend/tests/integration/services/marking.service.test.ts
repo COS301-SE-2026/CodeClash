@@ -38,6 +38,8 @@ import { MarkMaths } from './../../../src/application/usecases/services/marking/
 import { SubmissionComponent } from '../../../src/entities/components'
 import { DeepPartial } from 'typeorm'
 import { MarkerRegistry } from '../../../src/application/usecases/services/marking/maths-marking/marker-registry'
+import { mock_test_cases } from '../../mocks/mock-templates'
+import { mock_templates } from '../../mocks/mock-templates'
 
 const io = {
     to: vi.fn().mockReturnValue({
@@ -77,7 +79,7 @@ const get_total_time = new GetTotalTime();
 const create_game = new MatchCreationSystem(create_player_entity, create_match_entity, create_rounds);
 const marking_service = new MarkingService(submission_system, life_system, math_marker, prog_marker);
 
-const match_service = new MatchCreationService(create_game, get_questions, get_total_time, get_answers, match_cache, match_repo, user_repo,question_repo);
+const match_service = new MatchCreationService(create_game, get_questions, get_total_time, get_answers, match_cache, match_repo, user_repo, question_repo);
 
 const players: PlayerDTO[] = [
     {
@@ -121,6 +123,7 @@ describe("Tests Marking Services", () => {
 
         saved_questions = await data_source.getRepository(Questions).save(mock_questions);
         saved_answers = await data_source.getRepository(Answers).save(mock_answers);
+        await data_source.getRepository(ProgrammingTemplates).save(mock_templates);
 
 
         match = await match_service.execute(players, MatchMode.Programming, 'Mercury', MatchType.ranked);
@@ -129,8 +132,8 @@ describe("Tests Marking Services", () => {
         correct_answer = saved_answers.find(a => a.question!.question_id === prog_question!.question_id)!;
 
         await data_source.getRepository(TestCases).save({
-            question: {question_id: prog_question.question_id},
-            input : '{"x":1}',
+            question: { question_id: prog_question.question_id },
+            input: '{"x":1}',
             expected_output: correct_answer.answer,
             is_sample: false,
             ordinal: 0
@@ -147,8 +150,13 @@ describe("Tests Marking Services", () => {
             question_id: prog_question?.question_id,
             question_number: 1,
             submission: {
-                source_code: `print("${correct_answer!.answer}")`,
-                language_id: 71,
+                source_code: `#include <iostream> 
+                    int main(){
+                    std::cout<<${JSON.stringify(correct_answer.answer)}<<std::endl;
+                    return 0;
+                    }        
+                `,
+                language_id: 54,
                 stdin: null
             }
         }

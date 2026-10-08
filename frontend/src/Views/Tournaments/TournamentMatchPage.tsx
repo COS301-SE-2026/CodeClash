@@ -8,11 +8,12 @@ import { useTournamentMatch } from "src/ViewModels/Tournaments/TournamentMatchVi
 import { Button } from "@/components/ui/button";
 import MathMatch from "@/components/features/Match/MathPage";
 import { CodeEditor } from "@/components/features/code-editor";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { TournamentEliminated } from "./TournamentEliminated";
 import ConfirmationPopup from "../Confirmation";
 import type { ConfirmationViewModel } from "src/ViewModels/ConfirmationViewModel";
+import Flash from "@/components/ui/animations/Flash";
 
 const TournamentsMatchPage = () => {
     const {
@@ -22,7 +23,6 @@ const TournamentsMatchPage = () => {
         db_id,
         round_telemetry,
         mathfieldRef,
-        colourClass,
         setCode,
         setLanguageId,
         handleSubmit,
@@ -36,10 +36,11 @@ const TournamentsMatchPage = () => {
         eliminated,
         marking,
         markingError,
-        results
+        results,
+        lastResult
     } = useTournamentMatch();
 
-        const roundConf: ConfirmationViewModel = {
+    const roundConf: ConfirmationViewModel = {
         content: {
             title: "Complete Round?",
             message: "You won't be able to go back.",
@@ -56,11 +57,33 @@ const TournamentsMatchPage = () => {
     const telemetry = round_telemetry();
     const my_rank = (telemetry && telemetry.my_rank! > 0) ? telemetry.my_rank : "-";
     const currentResult = results?.[roundIdx]?.[currentQuestion];
-    console.log("Match mode", match_mode);
+    const correct: boolean | null = results?.[roundIdx]?.[currentQuestion] ?? null;
+
+    const result_colour = () => {
+        if (correct === true) return 'bg-success/50'
+        else if (correct === false) return 'bg-danger/50'
+        else return 'bg-card-tournament'
+    }
+
+    const result_border = () => {
+        if (correct === true) return "border border-success"
+        else if (correct === false) return "border border-danger"
+        else return ""
+    }
+
+    const [flashTrigger, setFlashTrigger] = useState(0);
+
+    useEffect(() => {
+        if (correct !== null) {
+            setFlashTrigger(t => t + 1);
+        }
+    }, [lastResult, currentQuestion, roundIdx, correct]);
 
     useEffect(() => {
         if (mathfieldRef.current) mathfieldRef.current.value = '';
     }, [currentQuestion]);
+
+
 
     if (eliminated) {
         return (
@@ -107,11 +130,15 @@ const TournamentsMatchPage = () => {
                             description={curr?.description ?? " "}
                         />
 
-                        <MatchCard className="items-center p-3 overflow-hidden">
+                        <Flash
+                            result={correct}
+                            trigger={flashTrigger}
+                            className="w-full flex flex-col rounded-2xl"
+                        >
                             {match_mode === "math" && (
                                 <MathMatch
                                     mathfieldRef={mathfieldRef}
-                                    colourClass={colourClass}
+                                    className={`${result_colour()} ${result_border()}`}
                                 >
                                 </MathMatch>
                             )}
@@ -123,11 +150,9 @@ const TournamentsMatchPage = () => {
                                         setCode(new_code);
                                         setLanguageId(judge0_id)
                                     }}
-                                    // colourClass={colourClass}
                                 />
                             )}
-                        </MatchCard>
-
+                        </Flash>
                         <hr className="border-muted-text/40"></hr>
 
                         <div className="flex flex-row items-center justify-between gap-4 flex-wrap">
@@ -175,7 +200,7 @@ const TournamentsMatchPage = () => {
 
                                 {
                                     confirmRound && (
-                                        <ConfirmationPopup confirmation={roundConf}/>
+                                        <ConfirmationPopup confirmation={roundConf} />
                                     )
                                 }
                             </div>

@@ -52,7 +52,8 @@ export const useTournamentMatch = () => {
         completeRound,
         marking,
         markingError,
-        results
+        results,
+        lastResult
     } = useMatch(timeUp);
 
     const [activePlayers, setActivePlayers] = useState<PlayerStandingDTO[]>(players ?? []);
@@ -105,16 +106,7 @@ export const useTournamentMatch = () => {
             }, 'tournament', 'programming', tournament_id!)
         }
 
-        const response = await tournamentSocket?.getStandings(tournament_id!);
-        if (response?.ok) {
-            setActivePlayers(prev => {
-                const active_ids = new Set(prev.map(p => p.id));
-
-                return response.data!.filter(p => active_ids.has(p.id));
-
-            }
-            );
-        }
+        await refreshStandings();
     }
 
 
@@ -154,6 +146,26 @@ export const useTournamentMatch = () => {
         if (player.id === db_id)
             setEliminated(true);
     }
+
+    const refreshStandings = async () => {
+        if (!tournament_id) return;
+
+        const response = await tournamentSocket?.getStandings(tournament_id);
+        if (response?.ok) {
+            setActivePlayers(prev => {
+                const active_ids = new Set(prev.map(p => p.id));
+                return response.data!.filter(p => active_ids.has(p.id));
+            }
+            );
+        }
+    }
+
+    useEffect(() => {
+        if (!tournamentSocket || eliminated) return;
+
+        const interval = setInterval(refreshStandings, 3000);
+        return () => clearInterval(interval)
+    }, [tournamentSocket, tournament_id, eliminated])
 
     useEffect(() => {
         if (!tournamentSocket) return;
@@ -198,7 +210,8 @@ export const useTournamentMatch = () => {
         eliminated,
         marking,
         markingError,
-        results
+        results,
+        lastResult
     }
 
 }
