@@ -3,7 +3,7 @@
 import { Clock, UserCircle } from "lucide-react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { robot_map } from "src/assets/Robots";
+import PlayerAvatar from "src/avatar/PlayerAvatar";
 import { useMatchmaking } from "src/context/Matchmaking/hooks/useMatchmaking";
 import { friendContent } from "src/Models/FriendsModel";
 
@@ -54,7 +54,7 @@ const FriendInvitePopup = () => {
             <div className="modal-panel card-glow max-w-sm w-full p-8 text-center">
                 <div className="flex flex-col items-center gap-2 mb-6">
                     {primary?.avatar !== undefined ? (
-                        <img src={robot_map[primary.avatar]} alt={primary.name} className="avatar w-16 h-16 object-cover mb-2"/>
+                        <PlayerAvatar assetKey={primary.avatar} className="avatar w-16 h-16 object-cover mb-2"/>
                     ) : (
                         <div className="avatar w-16 h-16 flex items-center justify-center mb-2">
                             <UserCircle size={32} className="text-muted-text"/>

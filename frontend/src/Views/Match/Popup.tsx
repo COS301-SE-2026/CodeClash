@@ -6,7 +6,7 @@ import { type PopupProps } from 'src/Models/PopUpModel';
 import { useSelectTopic } from 'src/ViewModels/Matchmaking/PopUpViewModel';
 
 import { Card } from '@/components/ui/card'
-import robot from 'src/assets/Robots/arms_up.png'
+import UserAvatar from "src/avatar/UserAvatar";
 
 const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
     const { selectTopic, cancel } = useSelectTopic();
@@ -24,7 +24,7 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose }) => {
 
     return (
         <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
-            <img src={robot} alt='robot-background' className='absolute h-[60%] bottom-[200px]' />
+            <UserAvatar size={600} className='absolute h-[60%] my-auto -mt-10 mx-auto -ml-15'/>
            
         
             <div className="relative w-[60%] h-[2rem] top-[-2rem] ">

@@ -10,8 +10,9 @@ export function useDashboardViewModel() {
     const [isOpen, setIsOpen] = useState(false);
     const { setMatchType } = useMatchmaking();
     const { username, elo, avatar, league, current_streak, winning_streak, refresh } = useUser()
-  const { isLoading, token } = useAuth(); 
-  const skill = useSkillProgressViewModel();
+    
+    const { isLoading, token } = useAuth();
+    const skill = useSkillProgressViewModel();
 
     const [recentAchievement, setRecentAchievement] = useState<{
         name: string;

@@ -8,6 +8,8 @@ import { finalResultsContent } from "src/Models/FinalResultsModel";
 import type { FinalResultsContent } from "src/Models/FinalResultsModel";
 import { useMatchStore } from "src/stores/match-store";
 import { useResultStore } from "src/stores/result-store";
+import { useAuth } from "src/context/Auth/hooks/useAuth";
+import { getEquippedFor } from "src/services/shop.service";
 
 
 
@@ -15,26 +17,62 @@ interface FinalResultsViewModel {
     content: FinalResultsContent;
     state: 'loading' | 'results' | 'error';
     loadingProgress: number; //for user to see how far the loading is
-    players: PlayerResultDTO[]
+    players: PlayerResultDTO[],
+    winner: PlayerResultDTO | undefined,
+    losers: PlayerResultDTO[],
+    avatars: Record<string, string | null | undefined>
 
 }
 
 export function FinalResultsViewModelFunction(): FinalResultsViewModel {
     const [state, setState] = useState<'loading' | 'results' | 'error'>('loading');
     const [loadingProgress, setLoadingProgress] = useState(0);
+    const [avatars, setAvatars] = useState<Record<string, string | null  | undefined>>({});
     const { match_id } = useParams();
     const { matchSocket } = useSocket();
-    const { group_id } = useMatchmaking();
+    const { group_id, reset } = useMatchmaking();
     const results = useResultStore(s => s.results.find(r => r?.match_id === match_id));
+    const {token} = useAuth();
+    const tokenInv = token ?? "";
 
     const players = useMemo(
         () => [...results?.players ?? []].sort((a, b) => a.position - b.position),
         [results]
-    )
+    );
+
+    const winner = useMemo(() => players.find(p => p.position === 1), [players]);
+    const losers = useMemo(() => players.filter(p => p.user_id !== winner?.user_id), [players, winner])
 
     useEffect(() => {
-      if (useMatchStore.getState().match_id === match_id) useMatchStore.getState().reset();
+        if (useMatchStore.getState().match_id === match_id) useMatchStore.getState().reset();
     }, [match_id])
+    
+
+    useEffect(() => {
+        if (!tokenInv || players.length === 0){
+            return;
+        }
+
+        //the following code block was written by hand just pasted because it was in the wrong place
+
+        const loadAvatars = async () => {
+            const entries = await Promise.all(
+                players.map(async (p) => {
+                    try{
+                        const res = await getEquippedFor(p.user_id, tokenInv);
+                        return [p.user_id, res.avatarImage] as const;
+                    }
+                    catch{
+                        return [p.user_id, null] as const;
+                    }
+                })
+            );
+            setAvatars(Object.fromEntries(entries))
+        };
+
+        void loadAvatars();
+    }, [players, tokenInv])
+
   
     useEffect(() => {
         if (results || !matchSocket || !match_id) return;
@@ -77,6 +115,7 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
 
         return () => {
             clearTimeout(timeout)
+            reset();
         }
     }, [results]);
 
@@ -84,6 +123,9 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
         content: finalResultsContent,
         state,
         loadingProgress,
-        players
+        players,
+        winner,
+        losers,
+        avatars
     };
 }

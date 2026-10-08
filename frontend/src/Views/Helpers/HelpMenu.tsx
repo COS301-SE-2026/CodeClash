@@ -2,7 +2,7 @@ import { BookOpen, HelpCircle, GraduationCap, Info, ChevronDown, ChevronRight, M
 import React from "react";
 import { Link } from "react-router";
 
-import { HelpMenuViewModelFunction } from "../ViewModels/HelpMenuViewModel";
+import { HelpMenuViewModelFunction } from "../../ViewModels/HelpMenuViewModel";
 
 const HelpMenu: React.FC = () => {
     const {

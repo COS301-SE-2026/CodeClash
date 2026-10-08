@@ -45,7 +45,7 @@ export const submitQuestion = async (
         if (match && Date.now() > match.end_time.getTime() + SUBMISSION_GRACE_MS) throw new Error("Time has finished"); // not allowing submissions after the match has ended after server time with a little bit of grace
         const result = await mark.execute(submission);
         const opponent = opponent_progress.getOpponentId(submission.match_id, submission.player_id);
-            const progress = opponent_progress.updateOpponent(submission.player_id, submission.question_number!, result.correct, result.life_update!);
+            const progress = opponent_progress.updateOpponent(submission.player_id, submission.round_number, submission.question_number!, result.correct, result.life_update!);
 
             if (opponent !== undefined) {
                 io.to(opponent).emit("opponent_progress", progress);

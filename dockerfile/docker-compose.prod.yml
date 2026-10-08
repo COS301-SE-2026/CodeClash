@@ -2,7 +2,7 @@ name: codeclash-prod
 
 services:
   backend:
-    build: ./backend
+    build: ../backend
     restart: unless-stopped
     ports:
       - "3000:3000"
@@ -32,7 +32,7 @@ services:
   frontend: # Copied from deployment branch
     restart: unless-stopped
     build:
-      context: ./frontend
+      context: ../frontend
       args:
       - VITE_COGNITO_USER_POOL_ID=${VITE_COGNITO_USER_POOL_ID}
       - VITE_COGNITO_CLIENT_ID=${VITE_COGNITO_CLIENT_ID}

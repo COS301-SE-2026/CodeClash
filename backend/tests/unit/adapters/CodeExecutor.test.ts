@@ -40,22 +40,19 @@ describe("Testing Code Executor", () => {
         await expect(executor.execute('print("hello, Judge0")', 711, null, 'hello, Judge0')).rejects.toThrow("Error Marking Submission")
     })
 
-    it("return compilation error when an axios error occurs", async () => {
-        const axios_error = {
-            response: {
-                data: {
-                    stderr: "AXIOS ERROR",
-                    compile_output: "an axiso error has occured"
-                }
-            }
-        }
-
+    it("throws when judge0 responds with an error instead of marking it wrong", async () => {
+      const axios_error = {
+               response: {
+                   data: {
+                      stderr: "AXIOS ERROR",
+                     compile_output: "an axiso error has occured"
+                  }
+             }
+         }
+  
         vi.mocked(axios.isAxiosError).mockReturnValue(true);
-        vi.mocked(axios.post).mockRejectedValue(axios_error);
-
-        const result = await executor.execute('print("hello, Judge0")', 71, null, 'hello, Judge0');
-
-        expect(result.status.id).toBe(6);
-        expect(result.status.description).toBe('Compilation Error');
-    })
+         vi.mocked(axios.post).mockRejectedValue(axios_error);
+  
+       await expect(executor.execute('print("hello, Judge0")', 71, null, 'hello, Judge0')).rejects.toThrow("Error Marking Submission")
+     })
 })

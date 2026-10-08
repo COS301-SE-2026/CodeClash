@@ -50,8 +50,8 @@ function Progress({
       <ProgressPrimitive.Indicator
         data-slot="progress-indicator"
         style={{
-          transform: isVertical ? `translateY(${remaining}%)` : `translateX(${reverse ? '' : '-'}${remaining}%)`,
-          backgroundImage: isVertical ? `linear-gradient(to top, ${from}, ${via}, ${to})` : `linear-gradient(${reverse ? 'to left' : 'to right'}, ${from}, ${via}, ${to})`
+          transform: isVertical ? `translateY(${reverse ? '-' : ''}${remaining}%)` : `translateX(${reverse ? '' : '-'}${remaining}%)`,
+          backgroundImage: isVertical ? `linear-gradient(${reverse ? 'to bottom' : 'to top'}, ${from}, ${via}, ${to})` : `linear-gradient(${reverse ? 'to left' : 'to right'}, ${from}, ${via}, ${to})`
         }}
         className={`relative size-full transition-transform rounded-full`}
       >

@@ -89,6 +89,8 @@ const AvatarCustomizer: React.FC<AvatarCustomizerProps> = ({purchase, purchasing
                 {avatars.map((a) => {
                     const owned = isOwned(a.id);
                     const selected = draftAvatarId === a.id;
+                    console.log("image url", a.previewImageUrl);
+                    console.log('draft image', draftAvatarImg)
                     return (
                         <button key={a.id} type="button" onClick={()=> tryOnAvatar(a.id)}
                             style={{position: 'relative', flexShrink: 0, width: '200px', height: '200px', borderRadius: 'var(--radius-md, 18px)', border: selected ? '2px solid var(--primary)' : '1px solid var(--border)',

@@ -12,12 +12,10 @@ interface TournamentPlayerProps {
 export const TournamentPlayer = ({ children, className, player }: TournamentPlayerProps) => {
 
     return (
-        <MatchCard className={`flex flex-row w-auto overflow-x-auto gap-1 min-w-[10%] ${className}`}>
-            <div className="bg-profile-tournaments border-[0.5px] my-auto sm:min-w-0 
-                border-button-tournament-secondary rounded-sm ml-2 w-10 h-10"
-            >
-            </div>
-            <h1 className="font-semibold text-sm ml-3 mt-1">{player.username}</h1>
+        <MatchCard className={`flex flex-row items-center w-full p-4! gap-3! ${className ?? ''}`}>
+            <div className="bg-[var(--profile-tournaments)] border-2 border-priamry rounded-full w-10 h-10 shrink-0" />
+            
+            <h1 className="text-sm font-bold text-secondary truncate min-w-0">{player.username}</h1>
             {children}
         </MatchCard>
     )

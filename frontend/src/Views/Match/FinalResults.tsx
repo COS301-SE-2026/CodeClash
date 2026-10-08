@@ -2,19 +2,21 @@ import { TrendingUp, TrendingDown, Minus, Clock, UserCircle, ArrowRight } from "
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FinalResultsViewModelFunction } from "src/ViewModels/Match/FinalResultsViewModel";
-import { ArmRaise } from "src/animations/armRaise";
-import { Lose } from "src/animations/lose"
+// import { ArmRaise } from "src/animations/armRaise";
+// import { Lose } from "src/animations/lose"
 import Loading from "@/components/shared/Loading";
 import Confetti from "@/components/ui/animations/Confetti";
 import Starfield from "@/components/ui/animations/Starfield";
 import { finalResultsContent, type PlayerFinalResults } from "src/Models/FinalResultsModel";
+import PlayerAvatar from "src/avatar/PlayerAvatar";
+import { resolve } from "src/assets/Shop/ResolveShopImages";
 
 const FinalResults: React.FC = () => {
     const navigate = useNavigate();
 
     const {
         content, state, loadingProgress,
-        players
+        players, avatars
     } = FinalResultsViewModelFunction();
 
     const [res, setRes] = useState(false); // moved
@@ -49,8 +51,8 @@ const FinalResults: React.FC = () => {
         <div className="bg-background min-h-screen w-full flex items-center justify-center">
             <div className={`absolute inset-0 transition-opacity duration-700 ease-out pointer-events-none bg-radial-glow ${res ? 'opacity-100' : 'opacity-0'}`}>
                 <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background" />
-                <div style={{ position: 'absolute', width: 420, height: 420, top: '5%', left: '-8%', background: 'var(--primary)', borderRadius: '9999px', filter: 'blur(70px)', opacity:' 0.45' }} />
-                <div style={{ position: 'absolute', width: 320, height: 320, bottom: '0%', right: '-6%', background: 'var(--color-pink-300)', borderRadius: '9999px', filter: 'blur(70px)', opacity: 0.45 }} />
+                <div style={{ position: 'absolute', width: 420, height: 420, top: '5%', left: '-8%', background: 'var(--primary)', borderRadius: '9999px', filter: 'blur(70px)', opacity: 0.45 }} />
+                <div style={{ position: 'absolute', width: 320, height: 320, bottom: '0%', right: '-6%', background: 'var(--primary)', borderRadius: '9999px', filter: 'blur(70px)', opacity: 0.45 }} />
                 {state === 'results' && <Starfield count={60} />}
             </div>
             {state === 'results' && <Confetti count={35} />}
@@ -111,7 +113,7 @@ const FinalResults: React.FC = () => {
                                     rank: player.rank,
                                     rank_before: player.rank_before
                                 }}
-
+                                avatarKey={avatars[player.user_id] ?? null}
                                 emphasize={player.position === 1}
                             />
                         ))
@@ -188,8 +190,9 @@ const Badge: React.FC<{ rankBefore?: number | null, rank?: number | null }> = ({
 const PlayerResultCard: React.FC<{
     player: PlayerFinalResults;
     emphasize?: boolean; //emphasis on the winners card, so its somewhat more visible and different to loser card
-}> = ({ player, emphasize }) => {
-    const [avatarFailed] = useState(false);
+    avatarKey: string | null;
+}> = ({ player, emphasize, avatarKey }) => {
+    // const [avatarFailed] = useState(false);
     const formatCorrectness = (correctness: number) => {
         return `${correctness.toFixed(2)}%`
     }
@@ -198,16 +201,15 @@ const PlayerResultCard: React.FC<{
         <div className={`${emphasize ? 'card-glow' : 'card-elevated'} p-4 flex flex-col sm:flex-row items-center gap-4`}>
             <div className="flex flex-col items-center gap-1 shrink-0 w-30">
                 <div className="w-30 h-30 rounded-full overflow-hidden border-2 border-primary flex items-center justify-center bg-card">
-                    {avatarFailed ? (
-                        <UserCircle size={26} className="text-muted-text" />
-                    ) : (
+                    {avatarKey ?
+                    (
                         // <img src={robot_map[player.avatar]} alt = {player.username} className="w-full h-full object-cover" onError={() => setAvatarFailed(true)}/>
-                        <div>
-                            {player.position === 1 ?
-                                <ArmRaise vb1={175} vb2={220} /> : <Lose vb1={170} vb2={220} />
-                            }
-                        </div>
+                        <PlayerAvatar assetKey={resolve(avatarKey) ?? ""}/>
 
+                    )
+                    :
+                    (
+                        <UserCircle size={26} className="text-muted-text" />
                     )}
                 </div>
                 <span className="text-primary-text font-semibold text-center truncate w-full text-xs">{player.username}</span>

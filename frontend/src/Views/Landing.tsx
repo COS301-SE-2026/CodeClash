@@ -38,7 +38,7 @@ const Landing:React.FC = ()=>{
             style={{fontFamily: "Roboto, sans-serif"}}>
             
             {/*landing page navigation */}
-            <nav className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-4 nav-bar ${scrollY > 50 ? 'scrolled' : ''}`}>
+            <nav className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-4 nav-bar ${scrollY > 50 ? 'scrolled' : ''} `}>
                 <span style={{color: 'var(--primary)', fontWeight: 900, fontSize: "1.2rem", letterSpacing: "0.05rem",}}>CODECLASH</span>
 
                 <div style={{display: "flex", alignItems: "center", gap: "3rem"}}>
@@ -48,7 +48,9 @@ const Landing:React.FC = ()=>{
                     <a href="#audience">Who it's For</a>
                     <a href="#documentation">Documentation</a>
                 </div>
+               
             </nav>
+
 
             {/*Hero img */}
             <section id = "home" className="relative min-h-screen flex items-center px-[8%] overflow-hidden bg-radial-glow-corner">
@@ -61,7 +63,7 @@ const Landing:React.FC = ()=>{
                     <p style={{color: 'var(--text)', maxWidth: 420, lineHeight: 2, fontSize: "1rem"}}>
                         Battle opponents in real-time coding and mathematics challenges. Climb the leaderboard. Earn your rank. 
                     </p>
-                    <div className="flex items-center gap-4 mt-2">
+                    <div className="flex flex-wrap items-center gap-4 mt-2">
                         <Link to="/sign-up" className="btn btn-primary">
                             Start Competing
                         </Link>

@@ -26,9 +26,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
               <AchievementToastProvider>
                 <FriendsProvider>
                   <ThemeProvider>
-                  <App />
+                    <App />
                   </ThemeProvider>
-                  <FriendInvitePopup/>
+                  <FriendInvitePopup />
                 </FriendsProvider>
               </AchievementToastProvider>
             </BrowserRouter>

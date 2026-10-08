@@ -13,8 +13,8 @@ import ForgotPassword from "./Views/Auth/ForgotPassword";
 import TermsAndConditions from "./Views/TermsAndConditions";
 import FinalResults from "./Views/Match/FinalResults";
 import Landing from "./Views/Landing";
-import GameGuide from "./Views/GameGuide"
-import HelpMenu from "./Views/HelpMenu";
+import GameGuide from "./Views/Helpers/GameGuide"
+import HelpMenu from "./Views/Helpers/HelpMenu";
 import Leaderboard from "./Views/Match/Leaderboard/Leaderboard";
 import MatchSearching from "./Views/Matchmaking/MatchSearching";
 import SignIn from "./Views/Auth/SignIn";
@@ -30,6 +30,7 @@ import Achievements from "./Views/Achievements";
 import { ProgMatch } from "./Views/Match/ProgMatch";
 import SkillProgress from "./Views/SkillProgress";
 import TournamentsMatchPage from "./Views/Tournaments/TournamentMatchPage";
+import Tutorials from "./Views/Helpers/Tutorials";
 
 const MATCH_END_GRACE_MS = 69 * 1000;
 const MATCH_ROUTE = /^\/(math|programming)-match\//; // regex to enfource limitimng route logic
@@ -75,6 +76,7 @@ const App: React.FC = () => {
                 <Route path='/brand-style-guide' element={<BrandStyleGuide />} />
                 <Route path='/help-menu' element={<HelpMenu />} />
                 <Route path='/game-guide' element={<GameGuide />} />
+                <Route path='/tutorials' element={<Tutorials/>}/>
                 <Route path='*' element={<Navigate to='/sign-in' replace />} />
             </Routes>
         )
@@ -101,6 +103,7 @@ const App: React.FC = () => {
             <Route path="/brand-style-guide" element={<BrandStyleGuide />} />
             <Route path="/agent" element={<Agent />} />
             <Route path='/game-guide' element={<GameGuide />} />
+            <Route path='/tutorials' element={<Tutorials/>}/>
             <Route path='/tournaments/waiting/:tournament_id' element={<TournamentsWaiting />} />
             <Route path="/tournaments-match/:tournament_id" element={<TournamentsMatchPage />} />
             
