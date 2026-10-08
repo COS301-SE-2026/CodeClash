@@ -19,13 +19,11 @@ export class MatchmakingCache implements IMatchmakingCache {
 
     async dequeue(user_id: string, queue: MatchMode): Promise<boolean> {
 
-        const rem_joined_hash = await this.redis.hdel(`user:${user_id}`, 'user_joined_at');
+        // const rem_joined_hash = await this.redis.hdel(`user:${user_id}`, 'user_joined_at');
+        await this.redis.hdel(`user:${user_id}`, 'user_joined_at');
         const rem_user = await this.redis.zrem(queue, user_id);
 
-        if (rem_joined_hash == 0 || rem_user == 0)
-            return false;
-
-        return true;
+      return rem_user > 0;
     }
 
 
