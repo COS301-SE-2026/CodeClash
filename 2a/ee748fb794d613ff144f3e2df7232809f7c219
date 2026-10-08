@@ -1,0 +1,22 @@
+backend/src/application/usecases/services/matchmaking.service.ts
+  s_aef8359338df21::t_0c5b0e11a37a8f 56
+  s_aef8359338df21::t_05f6c3715f64fb 49
+  s_aef8359338df21::t_79110a37ae6d2f 47-48
+  s_aef8359338df21::t_ae7b9542ee9356 50-55
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2aee748fb794d613ff144f3e2df7232809f7c219",
+  "prompts": {},
+  "sessions": {
+    "s_aef8359338df21": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "747d3a28-f405-4e60-8d30-af4f6b85869b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
