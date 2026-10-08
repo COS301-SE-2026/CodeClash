@@ -1,0 +1,24 @@
+backend/src/interface-adapters/socket-handlers/matchmaking-handlers.ts
+  s_aef8359338df21::t_5933dd64c9548b 77
+  s_aef8359338df21::t_1db6af53e8509a 55
+  s_aef8359338df21::t_a3ade050782d52 42
+  s_aef8359338df21::t_161dd78f9a9871 41
+  s_aef8359338df21::t_708dd835754ba9 54
+  s_aef8359338df21::t_86e69d5ff2d270 56-58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7dc8e9ca4498e9af613917fdb1a12f645a198b32",
+  "prompts": {},
+  "sessions": {
+    "s_aef8359338df21": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "747d3a28-f405-4e60-8d30-af4f6b85869b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
