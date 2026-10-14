@@ -11,6 +11,7 @@ const INVENTORY_URL = "/api/shop/items/me";
 const EQUIPPED_URL = "/api/shop/equipped";
 const PURCHASE_URL = "/api/shop/purchase";
 const EQUIP_URL = "/api/shop/equipped";
+const EQUIPPED_FOR_URL = (user_id: string) => `/api/shop/equipped/${user_id}`
 
 interface RawShopItemBase {
     shop_item_id: string;
@@ -213,3 +214,25 @@ export const equipItm = async (
     await handle(res);
     return getInv(token);
 }
+
+//copied from Morgans code 
+export const getEquippedFor = async (
+    user_id: string, 
+    token: string
+): Promise<{ avatarImage?: string }> => {
+    const res = await fetch(EQUIPPED_FOR_URL(user_id), { headers: authHeaders(token)});
+    const raw = await handle<RawEquipped>(res);
+
+    console.log("raw", raw)
+
+    if(!raw.avatar || raw.avatar.category !== 'avatar'){
+        return {}
+    }
+
+    else{
+        return{
+            avatarImage: raw.avatar.metadata.asset_key
+        };
+    }
+
+};
