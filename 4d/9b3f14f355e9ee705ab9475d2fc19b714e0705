@@ -1,0 +1,21 @@
+backend/tests/unit/socket-handlers/matchmaking-handlers.test.ts
+  h_94c952a9e14c58 1-134
+backend/tests/unit/usecases/services/matchmaking.service.test.ts
+  h_94c952a9e14c58 4,10,16-17,56,96-97
+backend/tests/unit/socket-handlers/game.handler.unit.test.ts
+  h_94c952a9e14c58 4
+backend/src/interface-adapters/socket-handlers/matchmaking-handlers.ts
+  h_94c952a9e14c58 57,59,64,67-69,74-75
+  h_94c952a9e14c58 80
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4d9b3f14f355e9ee705ab9475d2fc19b714e0705",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
