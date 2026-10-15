@@ -1,0 +1,17 @@
+frontend/src/styles/global.css
+  h_b13c5d77534129 1447-1452
+dockerfile/docker-compose.dev.yml
+  h_b13c5d77534129 41
+  h_b13c5d77534129 40
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "815cc1f6e08abdc7aca1447ade28dedde43d9a01",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
