@@ -7,11 +7,12 @@ import { PlayerSubmissionDTO, RawSubmissionDTO } from "src/entities/dtos/submiss
 import { MatchCompletionService } from "src/application/usecases/services/match/match-completion.service";
 import { TournamentEliminationService } from "src/application/usecases/services/tournament/elimination.service";
 import { OpponentProgress } from "src/application/usecases/systems/opponent-progress";
-import { UsePowerupDTO } from "src/entities/dtos/shop/powerup-use.dto";
+import { UsePowerupDTO, UsePowerupSocketDTO } from "src/entities/dtos/shop/powerup-use.dto";
 import { PowerupService } from "src/application/usecases/services/shop/powerup.service";
 import { TournamentService } from "src/application/usecases/services/tournament/tournament.service";
 import { SubmissionSystem } from "../../application/usecases/systems/submission.system";
 import { LifeSystem } from "../../application/usecases/systems/life.system";
+import { PowerupSystem } from "src/application/usecases/systems/powerup.system";
 
 const SUBMISSION_GRACE_MS = 5000; // 5 second grace to submit otherwise submission wont be counted as match will have ended by then
 
@@ -172,31 +173,48 @@ export const cleanUp = (match_id: string, pair_id: string, delete_match: DeleteG
 export const usePowerup = async (
     io: Server,
     socket: Socket,
-    data: UsePowerupDTO,
-    powerup_service: PowerupService
+    data: UsePowerupSocketDTO,
+    powerup_service: PowerupService, powerup_system: PowerupSystem,
+    life_system: LifeSystem, match_store: MatchStore
 ) => {
+    const actor_id: string = socket.data.user_id;
+    const ecs_id = match_store.getEcsId(data.match_id);
+    const match = ecs_id === undefined ? undefined : match_store.get(ecs_id);
+    if (ecs_id == undefined || !match || match.completed) throw new Error('Match not found');
+    if (match.players.length !== 2) throw new Error('Powerupds are not available in this match type'); // remove this if or when adding powerups in tournaments
+
+    const opponent = match.players.find(p => p.id !== actor_id);
+    if (!opponent || !match.players.some(p => p.id === actor_id)) throw new Error('Match not found');
+
     const result = await powerup_service.usePowerup(
-        socket.data.user_id,
-        data.match_id,
-        data.shop_item_id,
-        data.target_user_id
+        actor_id, ecs_id, data.shop_item_id, opponent.id
     );
 
-    // io.to(`user:${socket.data.user_id}`).emit('powerup_used', result);
-
-    if (!data.target_user_id) return;
+    const pushLife = (id: string) => {
+        const life = life_system.getPlayerLife(ecs_id, id);
+        for (const p of match.players) io.to(p.id).emit('life_update', { player_id: id, life });
+    }
+    
+    if (!powerup_system.isPowerdown(result.effect)) {
+        if (result.effect ==='restore_life') pushLife(actor_id);
+        else if (result.effect === 'block_next_powerdown') io.to (opponent.id).emit('powerup_received', result);
+        return result;
+        
+    }
 
     if (!result.applied) {
-        io.to(data.target_user_id).emit('powerup_blocked', result);
-        return;
+        io.to(opponent.id).emit('powerup_blocked', result);
+        return result;
     }
 
     if (result.effect === 'wipe_answer') {
-        io.to(data.target_user_id).emit('clear_input');
+        io.to(opponent.id).emit('clear_input');
     } else if (result.effect === 'insert_bugs') {
-        io.to(data.target_user_id).emit('corrupt_input');
-    } else {
-        io.to(data.target_user_id).emit('powerup_received', result);
+        io.to(opponent.id).emit('corrupt_input');
+    } else if (result.effect === 'drain_life') {
+        pushLife(opponent.id);
     }
+    io.to(opponent.id).emit('powerup_received', result);
+    
     return result;
 };

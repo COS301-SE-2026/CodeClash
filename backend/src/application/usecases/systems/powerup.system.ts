@@ -67,7 +67,7 @@ export class PowerupSystem {
     ): ApplyPowerupResult {
         if(this.isPowerdown(effect)) {
             const target_state = this.getPlayerState(match_id, target_id!);
-            if(target_state.wipe_used) throw new HttpError(409, 'Wipe already used');
+            // if(target_state.wipe_used) throw new HttpError(409, 'Wipe already used');
 
             if (target_state.shield_active) {
                 target_state.shield_active = false;
@@ -92,10 +92,11 @@ export class PowerupSystem {
                 this.life_system.adjustLife(match_id, actor_id, metadata.value!);
                 break;
 
-            case 'drain_life':
+            case 'drain_life':{
                 const life = this.life_system.getPlayerLife(match_id, target_id!);
                 this.life_system.adjustLife(match_id, target_id!, -Math.min(metadata.value!, Math.max(life - 1, 0)));
                 break;
+            }
 
             case 'block_next_powerdown':
                 this.getPlayerState(match_id, actor_id).shield_active = true;
