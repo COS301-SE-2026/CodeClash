@@ -27,11 +27,11 @@ export function Question({
   return (
     <div
       className={cn(
-        "flex flex-col justify-between text-secondary",
+        "text-secondary",
         className,
       )}
     >
-      <MatchCard className="flex flex-col p-2 rounded-lg w-full h-full min-h-0 -mt-5 gap-3">
+      <MatchCard className="flex flex-col p-2 rounded-lg w-full h-auto min-h-0 -mt-5 gap-3">
         <div className="flex justify-between w-full">
 
           {difficulty.length > 0 && <Badge
@@ -42,12 +42,11 @@ export function Question({
           </Badge>}
         </div>
 
-        <div className="ml-3 m-5 flex flex-col justify-evenly min-h-0 flex-1">
+        <div className="ml-3 m-5 flex flex-col justify-evenly min-h-0 flex-1 mt-7">
           <h1 className="text-[1.6rem] -mt-8 font-semibold">{title}</h1>
           <div className="text-[1rem] text-muted-text mt-1 min-h-0 flex-1 overflow-y-auto">
             <QuestionDescription
               description={description!}
-
             />
           </div>
         </div>

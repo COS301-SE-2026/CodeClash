@@ -118,7 +118,7 @@ const MathsMatch = () => {
             {lowLife && <div className="danger-pulse pointer-events-none fixed inset-0 z-40"/>}
 
             <Question
-                className={` h-[20rem] `}
+                className={``}
                 difficulty={curr.difficulty!}
                 title={curr.title!}
                 description={curr.description}
