@@ -1442,6 +1442,16 @@
   .life-shake {
     animation: big-shake 0.4s ease-in-out;
   }
+
+  @keyframes damage-shake{
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px);}
+    40%, 80% { transform: translateX(6px);}
+  }
+
+  .damage-shake{
+    animation: damage-shake 0.6s ease-in-out;
+  }
 }
 
 /* Answer feedback sits outside @layer so it beats card background utilities (e.g. MatchCard's bg-[...]) */
