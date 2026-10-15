@@ -1415,6 +1415,18 @@
     animation: danger-pulse 2s ease-in-out infinite;
   }
 
+  @keyframes shield-settle {
+    0% {
+      transform: scale(1.5);
+    }
+    60% {
+      transform: scale(0.9);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
   /*Avatars/Robots*/
   .avatar {
     border-radius: 999px;
@@ -1510,7 +1522,6 @@
     animation-name: symbol-float;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
-  
 }
 
 .answer-flash-correct{
@@ -1523,4 +1534,56 @@
 
 .life-shake {
   animation: big-shake 0.4s ease-in-out;
+}
+
+.power-user {
+  max-width: 18rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--heading);
+  font-weight: 600;
+  font-size: var(--font-size-xsm);
+  letter-spacing: 0.05rem;
+  color: var(--primary-text);
+  opacity: 0.85;
+}
+
+.power-fly {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 4.5rem;
+  height: 4.5rem;
+  opacity: 0;
+  pointer-events: none;
+  color: var(--power-color);
+}
+
+.power-fly svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 12px var(--power-color));
+}
+
+.shield-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  color: var(--success);
+  opacity: 0;
+}
+
+.shield-indicator svg {
+  width: 100%;
+  height: 100%;
+}
+
+.shield-indicator.shield-on {
+  opacity: 1;
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--success) 70%, transparent));
+  animation: shield-settle 0.45s ease-out;
 }
