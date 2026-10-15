@@ -1,16 +1,19 @@
 import { MatchmakingUserDTO } from '../../../../src/entities/dtos/matchmaking/matchmaking.dto';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { MatchmakingService } from '../../../../src/application/usecases/services/matchmaking.service'
-import { MatchMode } from '../../../../src/entities/dtos/matches/match.dto';
+import { MatchMode, MatchType } from '../../../../src/entities/dtos/matches/match.dto';
 
 const mock_user = (data: Partial<MatchmakingUserDTO> = {}): MatchmakingUserDTO => ({
     id: 'user-1',
     elo: 1000,
     match_mode: MatchMode.Maths,
+    match_type: MatchType.ranked,
     match_attempt: 1,
     joined_at: new Date(),
     ...data
 });
+
+const mock_queue = MatchType.ranked + "-" + MatchMode.Maths;
 
 let mock_cache: {
     enqueue: ReturnType<typeof vi.fn>,
@@ -50,7 +53,7 @@ describe('MatchmakingService', () => {
          const result = await service.matchmaking(user);
   
           expect(result).toBeNull();
-         expect(mock_cache.enqueue).toHaveBeenCalledWith(user.match_mode, user);
+         expect(mock_cache.enqueue).toHaveBeenCalledWith(mock_queue, user);
       })
    
       it("increases users match attempt if they're already waiting", async () => {
@@ -90,8 +93,8 @@ describe('MatchmakingService', () => {
             { id: 'user-1', elo: 1000 },
             { id: 'user-2', elo: 950 }
         ])
-        expect(mock_cache.deleteUser).toHaveBeenCalledWith(user.match_mode, 'user-2');
-        expect(mock_cache.deleteUser).toHaveBeenCalledWith(user.match_mode, 'user-1');
+        expect(mock_cache.deleteUser).toHaveBeenCalledWith(mock_queue, 'user-2');
+        expect(mock_cache.deleteUser).toHaveBeenCalledWith(mock_queue, 'user-1');
     })
 
 
