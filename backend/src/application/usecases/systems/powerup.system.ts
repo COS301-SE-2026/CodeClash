@@ -93,7 +93,8 @@ export class PowerupSystem {
                 break;
 
             case 'drain_life':
-                this.life_system.adjustLife(match_id, target_id!, -metadata.value!);
+                const life = this.life_system.getPlayerLife(match_id, target_id!);
+                this.life_system.adjustLife(match_id, target_id!, -Math.min(metadata.value!, Math.max(life - 1, 0)));
                 break;
 
             case 'block_next_powerdown':
@@ -106,7 +107,7 @@ export class PowerupSystem {
 
             case 'wipe_answer': {
                 const target_state = this.getPlayerState(match_id,target_id!);
-                if (target_state.wipe_used) throw new HttpError(409,'Wipe already used this match');
+                // if (target_state.wipe_used) throw new HttpError(409,'Wipe already used this match');
                 target_state.wipe_used = true;
                 // client side clearing of input
                 break;
@@ -142,5 +143,10 @@ export class PowerupSystem {
 
     getScoreMultiplierPercent(match_id: number, user_id: string): number {
         return this.getPlayerState(match_id, user_id).score_multiplier_percent;
+    }
+
+    getClientState(match_id: number, user_id: string) { 
+        const s= this.getPlayerState(match_id, user_id);
+        return { shield_active: s.shield_active, blocked_until: s.blocked_until };
     }
 }
