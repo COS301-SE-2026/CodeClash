@@ -4,10 +4,9 @@ import { LifeSystem } from './life.system';
 import { SubmissionSystem } from './submission.system';
 import { PowerupStateComponent, PlayerPowerupState } from 'src/entities/components';
 import { HttpError } from 'src/entities/errors/http-error';
-import { match } from 'node:assert';
 
 const POSITIVE_EFFECTS = new Set([
-    'reduce_time', 'reveal_hint', 'score_multiplier', 'restore_life', 'block_next_powerdown'
+    'reduce_time', 'score_multiplier', 'restore_life', 'block_next_powerdown'
 ]);
 
 const defaultState = (): PlayerPowerupState => ({
@@ -119,10 +118,7 @@ export class PowerupSystem {
                 break;
             }
 
-            case 'reveal_hint':
-                // No server state to mutate. Handled by socket
-                break;
-
+            // removed hints. We're no longer using them
 
             default:
                 throw new Error(`Unknown powerup effect: ${effect}`);

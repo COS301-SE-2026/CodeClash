@@ -31,7 +31,7 @@ export interface ThemeShopItem extends ShopItemBase {
 }
 
 export type PowerupEffectType = 
-    | 'reduce_time' | 'reveal_hint' | 'block_next_powerdown' | 'score_multiplier' | 'restore_life' 
+    | 'reduce_time' | 'block_next_powerdown' | 'score_multiplier' | 'restore_life' 
     | 'insert_bugs' | 'wipe_answer' | 'block_question' | 'increase_time' | 'drain_life';
 
 export interface PowerupEffectConf {
