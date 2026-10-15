@@ -34,7 +34,8 @@ export class PowerupService {
             effect: item.metadata.effect,
             match_id,
             user_id,
-            ...(target_user_id !== undefined && { target_user_id })
+            ...(target_user_id !== undefined && { target_user_id }),
+            ...(item.metadata.duration_seconds != null && { duration_seconds: item.metadata.duration_seconds })
         };
     }
 }
