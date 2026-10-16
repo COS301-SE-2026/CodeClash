@@ -2,21 +2,20 @@ import { TrendingUp, TrendingDown, Minus, Clock, UserCircle, ArrowRight } from "
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FinalResultsViewModelFunction } from "src/ViewModels/Match/FinalResultsViewModel";
-// import { ArmRaise } from "src/animations/armRaise";
-// import { Lose } from "src/animations/lose"
 import Loading from "@/components/shared/Loading";
 import Confetti from "@/components/ui/animations/Confetti";
 import Starfield from "@/components/ui/animations/Starfield";
 import { finalResultsContent, type PlayerFinalResults } from "src/Models/FinalResultsModel";
 import PlayerAvatar from "src/avatar/PlayerAvatar";
 import { resolve } from "src/assets/Shop/ResolveShopImages";
+import type { MatchType } from "src/dtos/match/match.dto";
 
 const FinalResults: React.FC = () => {
     const navigate = useNavigate();
 
     const {
         content, state, loadingProgress,
-        players, avatars
+        players, avatars, matchType
     } = FinalResultsViewModelFunction();
 
     const [res, setRes] = useState(false); // moved
@@ -115,6 +114,7 @@ const FinalResults: React.FC = () => {
                                 }}
                                 avatarKey={avatars[player.user_id] ?? null}
                                 emphasize={player.position === 1}
+                                match_type={matchType}
                             />
                         ))
                         }
@@ -191,7 +191,8 @@ const PlayerResultCard: React.FC<{
     player: PlayerFinalResults;
     emphasize?: boolean; //emphasis on the winners card, so its somewhat more visible and different to loser card
     avatarKey: string | null;
-}> = ({ player, emphasize, avatarKey }) => {
+    match_type: MatchType | null;
+}> = ({ player, emphasize, avatarKey,match_type }) => {
     // const [avatarFailed] = useState(false);
     const formatCorrectness = (correctness: number) => {
         return `${correctness.toFixed(2)}%`
@@ -228,7 +229,7 @@ const PlayerResultCard: React.FC<{
                     <span className="text-xsm uppercase tracking-wide text-muted">Time</span>
                     <span className="score-display text-base text-primary-text">{player.speed}</span>
                 </div>
-                <div className="flex flex-col items-center gap-0.5">
+                {(match_type === 'ranked' || match_type === 'tournament') && <div className="flex flex-col items-center gap-0.5">
                     <span className="text-xsm uppercase tracking-wide text-muted">ELO</span>
                     <span className={`flex items-center gap-1 text-sm font-bold ${player.eloEffect >= 0 ? 'text-success' : 'text-danger'}`}>
                         {player.eloEffect >= 0 ? (
@@ -238,7 +239,7 @@ const PlayerResultCard: React.FC<{
                         )}
                         {player.eloEffect}
                     </span>
-                </div>
+                </div>}
                 {/*Copied from above and modified - placement now, not position*/}
                 <div className="flex flex-col items-center gap-0.5">
                     <span className="text-xsm uppercase tracking-wide text-muted">Placement</span>

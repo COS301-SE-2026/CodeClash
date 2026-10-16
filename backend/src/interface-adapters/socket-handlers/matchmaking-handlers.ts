@@ -35,7 +35,7 @@ export const joinMatchQueue = (async (io: Server, socket: Socket, data: any, mat
         retryMatchmaking(io, user, matchmaking_service, match_confirmation_service, user_repo);
         return;
     }
-    await notifyMatchFound(io, match, data.match_mode, match_confirmation_service, user_repo);
+    await notifyMatchFound(io, match, data.match_mode,data.match_type, match_confirmation_service, user_repo);
 
 })
 
@@ -79,7 +79,7 @@ const retryMatchmaking = (io: Server, user: MatchmakingUserDTO, matchmaking_serv
             if (match === 'left') return;
             if (match === 'timed_out') return io.to(user.id).emit('queue_timeout');
             if (!match) return retryMatchmaking(io, next, matchmaking_service, match_confirmation_service, user_repo);
-            await notifyMatchFound(io, match, user.match_mode, match_confirmation_service, user_repo);
+            await notifyMatchFound(io, match, user.match_mode,user.match_type, match_confirmation_service, user_repo);
         } catch (error) {
             console.error('Failed to retry matchmaking:', error);
         }
@@ -159,7 +159,7 @@ export const matchDeclined = (async (io: Server, group_id: string, match_mode: M
 })
 
 
-export const notifyMatchFound = (async (io: Server, match: PlayerDTO[], match_mode: MatchMode, match_confirmation_service: MatchConfirmationService, user_repo: IUserRepository) => {
+export const notifyMatchFound = (async (io: Server, match: PlayerDTO[], match_mode: MatchMode, match_type: MatchType, match_confirmation_service: MatchConfirmationService, user_repo: IUserRepository) => {
     const group_id = match_confirmation_service.create(match);
     const players = await Promise.all(
         match.map(async (p) => {
@@ -174,7 +174,8 @@ export const notifyMatchFound = (async (io: Server, match: PlayerDTO[], match_mo
     const result = {
         players: players,
         group_id: group_id,
-        match_mode: match_mode
+        match_mode: match_mode,
+        match_type: match_type
     };
 
     for (const p of match) {
