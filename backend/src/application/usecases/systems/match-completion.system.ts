@@ -4,6 +4,7 @@ import { MatchStore } from "../services/match/match-store.service";
 import { MatchPlayer } from "src/entities/dtos/matches/match.dto";
 import { QuestionResultBuilder } from "../services/skill/question-results";
 import { leagueForElo } from "src/entities/league-mapping";
+import { PowerupSystem } from "./powerup.system";
 
 export class MatchCompletionSystem {
     private readonly getMatchComponent
@@ -13,7 +14,8 @@ export class MatchCompletionSystem {
     constructor(
         private readonly world: ReturnType<typeof World>,
         private readonly match_store: MatchStore,
-        private readonly question_results: QuestionResultBuilder = new QuestionResultBuilder()
+        private readonly question_results: QuestionResultBuilder = new QuestionResultBuilder(),
+        private readonly powerup_system: PowerupSystem
     ) {
         const { getMatchComponent, getSubmissionComponent, addMatchComponent } = this.world
         this.getMatchComponent = getMatchComponent;
@@ -33,6 +35,9 @@ export class MatchCompletionSystem {
         if (!match?.database_id) throw new Error("Match not found");
 
         const match_stats = this.getStats(submission_registry.submissions, player_ids,match_component.start_time);
+        for (const [id, stat] of match_stats) {
+            stat.total_time = Math.max(0, stat.total_time + this.powerup_system.getTimeDeltaSeconds(match_id, id) * 1000);
+        }
         const match_start = this.getMatchComponent<MatchComponent>(match_id, 'Match')?.start_time ?? new Date();
        
                    const eliminated = (id: string) => match.players.find(player => player.id === id)?.eliminated ? 1 : 0;
