@@ -13,6 +13,7 @@ import { TournamentService } from "src/application/usecases/services/tournament/
 import { SubmissionSystem } from "../../application/usecases/systems/submission.system";
 import { LifeSystem } from "../../application/usecases/systems/life.system";
 import { PowerupSystem } from "src/application/usecases/systems/powerup.system";
+import { findPackageJSON } from "node:module";
 
 const SUBMISSION_GRACE_MS = 5000; // 5 second grace to submit otherwise submission wont be counted as match will have ended by then
 
@@ -118,6 +119,8 @@ export const rejoinMatch = (socket: Socket, match_id: string, match_store: Match
     const latest = opponent && submission_system.playerSubmissions(ecs_id, opponent.id)
         .sort((a, b) => (b.submitted_at?.getTime() ?? 0) - (a.submitted_at?.getTime() ?? 0))[0];
 
+    const mine = powerup_system.getClientState(ecs_id, me.id);
+    const theirs = opponent ? powerup_system.getClientState(ecs_id, opponent.id) : null;
     return {
         players: match.players.map(player => ({ id: player.id, life: life_system.getPlayerLife(ecs_id, player.id) })),
         submissions: submission_system.playerSubmissions(ecs_id, me.id).map(submission => ({
@@ -135,9 +138,10 @@ export const rejoinMatch = (socket: Socket, match_id: string, match_store: Match
         server_time: Date.now(),
         done: me.done ?? false,
         completed: match.result !== null,
-        powerups: { shield: powerup_system.getClientState(ecs_id, me.id).shield_active,
-                    opponent_shield: !!opponent && powerup_system.getClientState(ecs_id, opponent.id).shield_active,
-                    blocked_until: powerup_system.getClientState(ecs_id, me.id).blocked_until }
+        powerups: { shield: mine.shield_active,
+                    opponent_shield: theirs?.shield_active ?? false,
+                    blackout_question_id: mine.blackout_question_id,
+        },
     };
 }
 
@@ -188,9 +192,10 @@ export const usePowerup = async (
 
     const opponent = match.players.find(p => p.id !== actor_id);
     if (!opponent || !match.players.some(p => p.id === actor_id)) throw new Error('Match not found');
-
+    
+    const question_ids = match.rounds.flatMap(r => r.questions.map(q => q.id));
     const result = await powerup_service.usePowerup(
-        actor_id, ecs_id, data.shop_item_id, opponent.id
+        actor_id, ecs_id, data.shop_item_id, opponent.id, question_ids
     );
 
     const pushLife = (id: string) => {

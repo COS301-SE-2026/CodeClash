@@ -155,6 +155,6 @@ export class PowerupSystem {
 
     getClientState(match_id: number, user_id: string) { 
         const s= this.getPlayerState(match_id, user_id);
-        return { shield_active: s.shield_active, blocked_until: s.blackout_question_id };
+        return { shield_active: s.shield_active, blackout_question_id: s.blackout_question_id };
     }
 }
