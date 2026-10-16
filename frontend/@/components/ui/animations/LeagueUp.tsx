@@ -1,14 +1,14 @@
-import { act, useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { secureRandom } from "./Starfield"
 
-import mercury from "../../../../src/assets/Planets/Mercury.jpg";
-import venus from "../../../../src/assets/Planets/Venus.jpg";
-import earth from "../../../../src/assets/Planets/Earth.jpg";
-import mars from "../../../../src/assets/Planets/Mars.jpg";
-import jupiter from "../../../../src/assets/Planets/Jupiter.jpg";
-import saturn from "../../../../src/assets/Planets/Saturn.jpg";
-import uranus from "../../../../src/assets/Planets/Uranus.jpg";
-import neptune from "../../../../src/assets/Planets/Neptune.jpg";
+import mercury from "../../../../src/assets/Planets/Mercury.png";
+import venus from "../../../../src/assets/Planets/Venus.png";
+import earth from "../../../../src/assets/Planets/Earth.png";
+import mars from "../../../../src/assets/Planets/Mars.png";
+import jupiter from "../../../../src/assets/Planets/Jupiter.png";
+import saturn from "../../../../src/assets/Planets/Saturn.png";
+import uranus from "../../../../src/assets/Planets/Uranus.png";
+import neptune from "../../../../src/assets/Planets/Neptune.png";
 
 type LeagueConf = {
     label: string;
@@ -115,4 +115,25 @@ const LeagueUp = ({league, trigger}: LeagueUpProps) => {
         setLeaving(true);
         setTimeout(() => setActive(null), LEAVE_MS);
     }
+
+    return (
+        <div key={trigger} className={`league-up ${leaving ? 'leaving': ''}`} style={{['--league-color' as string]: color}}
+            onClick={close} role="status" aria-live="polite">
+            <div className="league-stage">
+                <div className="league-planet-wrap">
+                    <span className="league-glow"/>
+                    <span className="league-orbit"/>
+                    {sparks.map((s) => (
+                        <span key={s.id} style={{width: s.size, height: s.size, animationDelay: `${s.delay}s`, ['--dx' as string]: `${s.dx}px`, ['--dy' as string]: `${s.dy}px`}}/>
+                    ))}
+                    <img src={image} alt={`${label} League`} className="league-img"/>
+                </div>
+
+                <h1 className="league-title">Congratulations!</h1>
+                <p className="league-name">You have reached <strong>{label}</strong> League</p>
+            </div>
+        </div>
+    )
 }
+
+export default LeagueUp;
