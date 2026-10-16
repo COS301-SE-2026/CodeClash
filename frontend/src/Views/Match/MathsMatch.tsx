@@ -51,7 +51,7 @@ const MathsMatch = () => {
     const curr = questions[currentQuestion];
     const { username } = useUser();
     const opponentName = myIndex >= 0 ? usernames[1 - myIndex]: '';
-    const {fire, consumeShield, shields, effectProps} = usePowerEffect(username ?? '', opponentName);
+    const { shields, effectProps} = usePowerEffect(username ?? '', opponentName);
 
     const correct : boolean | null = 
     results?.[roundIdx]?.[currentQuestion] ?? null;

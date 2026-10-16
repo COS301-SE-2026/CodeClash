@@ -43,7 +43,7 @@ export const ProgMatch = () => {
     const question = useMemo(() => ({ templates: curr?.templates }), [curr]);
     const { username } = useUser();
     const opponentName = myIndex >= 0 ? usernames[1 - myIndex]: '';
-    const {fire, consumeShield, shields, effectProps} = usePowerEffect(username ?? '', opponentName);
+    const { shields, effectProps} = usePowerEffect(username ?? '', opponentName);
     const { isConnected } = useSocket();
     const currentResult = results?.[roundIdx]?.[currentQuestion];
 
