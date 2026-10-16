@@ -31,7 +31,7 @@ export function Question({
         className,
       )}
     >
-      <MatchCard className="flex flex-col p-2 rounded-lg w-full h-auto min-h-0 -mt-5 gap-3">
+      <MatchCard className="flex flex-col p-2 rounded-lg w-full h-auto min-h-0 max-h-72 -mt-5 gap-3">
         <div className="flex justify-between w-full">
 
           {difficulty.length > 0 && <Badge

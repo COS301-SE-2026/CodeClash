@@ -123,11 +123,11 @@ export const ProgMatch = () => {
                 description={curr.description}
             />
 
-            <MatchCard className={`items-center justify-center mt-5`}>
+            <MatchCard className={`items-center justify-center mt-5 h-[50%]`}>
                 <Flash
                     result={correct ?? null}
                     trigger={flashTrigger}
-                    className="w-[95%] flex flex-col items-center justify-center mt-5 rounded-2xl">
+                    className="w-[90%] flex flex-col items-center justify-center mt-7 rounded-2xl -mb-3">
                     <MatchCard className={`w-[100%] h-[95%] ${result_colour()} ${result_border()}`}>
                         <CodeEditor
                             question={question}
@@ -141,7 +141,7 @@ export const ProgMatch = () => {
                     </MatchCard>
                 </Flash>
 
-                <div className='flex flex-row gap-5 flex-shrink-0 w-full mx-auto justify-center my-auto'>
+                <div className='flex flex-row gap-5 flex-shrink-0 w-full m-auto justify-center -mb-7'>
 
                     <TournamentButton className='flex items-center justify-evenly text-secondary rounded-2xl w-[10%] h-auto'>
                         <ChevronLeft onClick={() => prevQuestion(currentQuestion)} className='size-[3rem] hover:scale-110  hover:bg-secondary/20 rounded-2xl w-[50%]' />
