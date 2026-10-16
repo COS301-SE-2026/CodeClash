@@ -106,7 +106,7 @@ export const matchDone = async (io: Server, socket: Socket, match_id: string, ma
 
 }
 
-export const rejoinMatch = (socket: Socket, match_id: string, match_store: MatchStore, submission_system: SubmissionSystem, life_system: LifeSystem) => {
+export const rejoinMatch = (socket: Socket, match_id: string, match_store: MatchStore, submission_system: SubmissionSystem, life_system: LifeSystem, powerup_system:PowerupSystem) => {
     const ecs_id = match_store.getEcsId(match_id);
     const match = ecs_id === undefined ? undefined : match_store.get(ecs_id);
     const me = match?.players.find(player => player.id === socket.data.user_id);
@@ -134,7 +134,10 @@ export const rejoinMatch = (socket: Socket, match_id: string, match_store: Match
         end_time: match.end_time.getTime(),
         server_time: Date.now(),
         done: me.done ?? false,
-        completed: match.result !== null
+        completed: match.result !== null,
+        powerups: { shield: powerup_system.getClientState(ecs_id, me.id).shield_active,
+                    opponent_shield: !!opponent && powerup_system.getClientState(ecs_id, opponent.id).shield_active,
+                    blocked_until: powerup_system.getClientState(ecs_id, me.id).blocked_until }
     };
 }
 
