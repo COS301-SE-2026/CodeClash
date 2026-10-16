@@ -50,7 +50,7 @@ async function main() {
     const raw_rows = await fetchAllRows();
 
     const questions = raw_rows.map((row) => {
-        if (containsDiagram(row.problem)) return null;
+      //  if (containsDiagram(row.problem)) return null;
 
         const boxed = extractAnswer(row.solution);
         if (!boxed) return null;
