@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { act, useEffect, useMemo, useState } from "react"
 import { secureRandom } from "./Starfield"
 
 import mercury from "../../../../src/assets/Planets/Mercury.jpg";
@@ -57,4 +57,62 @@ export const LEAGUES: Record<string, LeagueConf> = {
         image: neptune,
         color: 'var(--primary)'
     },
+}
+
+const SHOW_MS = 4500;
+const LEAVE_MS = 400;
+const SPARKS = 24;
+
+type LeagueUpProps = {
+    league: string | null;
+    trigger: number;
+}
+
+const LeagueUp = ({league, trigger}: LeagueUpProps) => {
+    const [active, setActive] = useState<string | null>(null);
+    const [leaving, setLeaving] = useState(false);
+
+    useEffect(() => {
+        const key = league?.toLowerCase();
+        if (trigger === 0 || !key || !LEAGUES[key]) {
+            return;
+        }
+        setActive(key);
+        setLeaving(false);
+
+        const leave = setTimeout(() => setLeaving(true), SHOW_MS - LEAVE_MS);
+        const done = setTimeout(() => setActive(null), SHOW_MS);
+
+        return () => {
+            clearTimeout(leave);
+            clearTimeout(done);
+        }
+    }, [trigger, league])
+
+    const sparks = useMemo(
+        () => Array.from({length: SPARKS}, (_, i) => {
+            const angle = (i/SPARKS) * Math.PI * 2 + secureRandom() * 0.4;
+            const dist = 140 + secureRandom() * 120;
+            return {
+                id: i,
+                dx: Math.cos(angle) * dist,
+                dy: Math.sin(angle) * dist,
+                delay: 0.35 + secureRandom() *0.25,
+                size: 4 + secureRandom() * 6
+            }
+        }), [trigger]
+    )
+
+    if (!active) {
+        return null;
+    }
+
+    const {
+        label, image, color
+    } = LEAGUES[active];
+
+    const close = () => {
+        setLeaving(true);
+        setTimeout(() => setActive(null), LEAVE_MS);
+    }
 }
