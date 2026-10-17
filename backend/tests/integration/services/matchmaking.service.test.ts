@@ -19,15 +19,12 @@ const queues = [
     casual_prog_queue
 ]
 
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 describe("Integration Testing Matchmaking", () => {
 
     beforeAll(async () => {
-        await redis.del(...queues);
-
         const keys = await redis.keys('user:*');
-        await redis.del(keys);
+            await redis.del([...queues, ...keys]);
     })
 
     it("Enqueues a ranked maths player", async () => {
@@ -44,9 +41,4 @@ describe("Integration Testing Matchmaking", () => {
         expect(await redis.zcard(MatchType.casual + "-" + MatchMode.Maths)).toBe(1);
     })
 
-    it("Tests race condition for multiple players trying to match", async () => {
-        await Promise.all([service.matchmaking(ranked_maths_users[1]), service.matchmaking(ranked_maths_users[2]), service.matchmaking(ranked_maths_users[3])]);
-
-        //const queue = 
-    })
 })

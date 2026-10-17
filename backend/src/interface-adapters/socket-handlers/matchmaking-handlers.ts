@@ -19,7 +19,6 @@ export const joinMatchQueue = (async (io: Server, socket: Socket, data: any, mat
         console.warn(`join_match_queue: no valid elo for user ${socket.data.user_id}, ignoring request`);
         return;
     }
-
     const user: MatchmakingUserDTO = {
         id: socket.data.user_id,
         elo,
@@ -35,7 +34,7 @@ export const joinMatchQueue = (async (io: Server, socket: Socket, data: any, mat
         retryMatchmaking(io, user, matchmaking_service, match_confirmation_service, user_repo);
         return;
     }
-    await notifyMatchFound(io, match, data.match_mode,data.match_type, match_confirmation_service, user_repo);
+    await notifyMatchFound(io, match, data.match_mode, data.match_type, match_confirmation_service, user_repo);
 
 })
 
@@ -56,30 +55,25 @@ const retryMatchmaking = (io: Server, user: MatchmakingUserDTO, matchmaking_serv
     const delay = Math.min(MATCH_RETRY_MS, Math.max(0, user.joined_at.getTime() + QUEUE_TIMEOUT_MS - Date.now()));
 
     setTimeout(async () => {
-        console.log("retrying");
+
         try {
             const next = { ...user, match_attempt: user.match_attempt + 1 };
             // stop once they've left the queue (cancelled, or matched by someone else's search); searching too long or having no connection left takes them out
             const match = await searchExclusive(async () => {
-                console.log("search exclusive");
                 if (!await matchmaking_service.isQueued(user.id, user.match_mode, user.match_type)) return 'left' as const;
                 const connected = (await io.in(user.id).fetchSockets()).length > 0;
-
-                console.log('user is still queued');
 
                 if (!connected || Date.now() - user.joined_at.getTime() >= QUEUE_TIMEOUT_MS) {
                     await matchmaking_service.dequeue(user.id, user.match_mode, user.match_type);
                     return 'timed_out' as const;
                 }
-
-                console.log("returning")
                 return matchmaking_service.matchmaking(next);
             });
 
             if (match === 'left') return;
             if (match === 'timed_out') return io.to(user.id).emit('queue_timeout');
             if (!match) return retryMatchmaking(io, next, matchmaking_service, match_confirmation_service, user_repo);
-            await notifyMatchFound(io, match, user.match_mode,user.match_type, match_confirmation_service, user_repo);
+            await notifyMatchFound(io, match, user.match_mode, user.match_type, match_confirmation_service, user_repo);
         } catch (error) {
             console.error('Failed to retry matchmaking:', error);
         }
