@@ -1,0 +1,14 @@
+backend/src/application/usecases/services/marking/mark-prog.ts
+  h_94c952a9e14c58 10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e274f99a0649458f6cd2a142c017107f93c26dcc",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
