@@ -108,7 +108,7 @@ function mapItem(raw: RawShopItem): ShopItem {
             effectType: m.effect as PowerupEffectType,
             targeting: m.targeting,
             durationSeconds: m.duration_seconds ?? undefined,
-            magnitude: m.value ?? m.value_seconds ?? m.value_percent,
+            magnitude: m.value,
             maxUsesPerMatch: m.max_uses_per_match,
         },
     };

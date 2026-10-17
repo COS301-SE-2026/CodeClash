@@ -84,5 +84,5 @@ export interface RejoinMatchDTO {
   server_time: number,
   done: boolean,
   completed: boolean, 
-  powerups: { shield: boolean, opponent_shield: boolean, blocked_until: number }
+  powerups: { shield: boolean, opponent_shield: boolean, blackout_question_id: string | null }
 }

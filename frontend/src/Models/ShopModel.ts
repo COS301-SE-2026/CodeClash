@@ -75,3 +75,12 @@ export interface UserInventory {
     equippedAvatarId: string | null;
     equippedThemeId: string | null;
 }
+
+export interface MatchPowerup {
+    shop_item_id: string;
+    name: string;
+    description?: string;
+    kind: 'powerup' | 'powerdown';
+    effectType: PowerupEffectType,
+    quantity: number;
+}

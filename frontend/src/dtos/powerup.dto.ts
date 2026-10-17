@@ -11,6 +11,7 @@ export interface UsePowerupResultDTO {
     user_id: string;
     target_user_id?: string;
     duration_seconds?: number;
+    question_id?: string
 }
 
 export interface UsePowerupSocketDTO { match_id: string; shop_item_id: string }
