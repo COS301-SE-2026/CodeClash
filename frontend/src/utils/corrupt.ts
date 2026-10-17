@@ -9,3 +9,5 @@ export function corruptCode(src: string): string {
     }
     return lines.join('\n');
 }
+
+export const corruptMath = (s: string) => s.replace(/\+/g, '\\div ').replace(/-/g, '\\times ') + (Math.random() < 0.5 ? '7' : '0');

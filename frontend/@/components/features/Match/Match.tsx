@@ -10,6 +10,7 @@ import PlayerAvatar from 'src/avatar/PlayerAvatar'
 import Shake from '@/components/ui/Shake'
 import { resolve } from 'src/assets/Shop/ResolveShopImages'
 import { ShieldIndicator } from '@/components/ui/animations/PowerEffect'
+import type { MatchPowerup } from 'src/Models/ShopModel'
 
 interface MatchScreenProps {
     player_life: number[],
@@ -27,7 +28,11 @@ interface MatchScreenProps {
     rounds: QuestionDTO[][],
     current_round: number,
     current_user: string,
-    shields?: {me: boolean; opponent: boolean}
+    shields?: {me: boolean; opponent: boolean},
+    powerups?: MatchPowerup[];
+    onUsePowerup?: (shop_item_id: string) => void;
+    powerupBusy?: boolean;
+    powerupError?: string | null;
 }
 
 export const MatchScreen: React.FC<MatchScreenProps> = ({
@@ -45,7 +50,11 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
     rounds,
     current_round,
     current_user,
-    shields
+    shields,
+    powerups,
+    onUsePowerup,
+    powerupBusy,
+    powerupError
 }) => {
 
     // const questionsAnswered = question_results.flat().filter((qr) => qr === true || qr === false).length;
@@ -156,7 +165,21 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                             />
 
                         </MatchCard>
-
+                        <MatchCard className='rounded-[20px] w-[7rem] p-2 mt-4 ml-[40%] flex flex-col gap-2 items-center'>
+                            {(powerups ?? []).length === 0 && <p className="text-xs text-muted-text">No Powerups</p>}
+                            {(powerups ?? []).map(p => (
+                                <button
+                                key={p.shop_item_id}
+                                title={p.description}
+                                disabled={powerupBusy}
+                                onClick={() => onUsePowerup?.(p.shop_item_id)}
+                                className={`w-full text-xs rounded-lg py-1 hover:bg-secondary/20 disabled:opacity-50 ${p.kind === 'powerdown' ? 'text-danger' : 'text-success'}`}
+                                >
+                                    {p.name} ×{p.quantity}
+                                </button>
+                            ))}
+                            {powerupError && <p className='text-danger text=[0.7rem] tet-center'>{powerupError}</p>}
+                        </MatchCard>
                     </div>
                 </div>
             </div>
