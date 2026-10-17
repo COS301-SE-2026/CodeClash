@@ -1,4 +1,4 @@
-import {MatchmakingUserDTO} from '../../src/entities/dtos/matchmaking/matchmaking.dto';
+import { MatchmakingUserDTO } from '../../src/entities/dtos/matchmaking/matchmaking.dto';
 import { randomUUID } from 'node:crypto';
 import { MatchMode, MatchType } from '../../src/entities/dtos/matches/match.dto';
 
@@ -25,7 +25,7 @@ export const mock_users_array = [
         current_streal: 0,
         winning_streak: 0
     },
-     {
+    {
         cognito_id: 'cognito-user-id_02',
         username: 'integration_test_user_02',
         email: 'integration02@test.com',
@@ -34,7 +34,7 @@ export const mock_users_array = [
         current_streal: 0,
         winning_streak: 0
     },
-     {
+    {
         cognito_id: 'cognito-user-id_03',
         username: 'integration_test_user_03',
         email: 'integration01@test.com',
@@ -66,6 +66,14 @@ export const ranked_maths_users: MatchmakingUserDTO[] = [
     {
         id: randomUUID(),
         elo: 800,
+        joined_at: new Date(),
+        match_mode: MatchMode.Maths,
+        match_type: MatchType.ranked,
+        match_attempt: 1
+    },
+    {
+        id: randomUUID(),
+        elo: 850,
         joined_at: new Date(),
         match_mode: MatchMode.Maths,
         match_type: MatchType.ranked,
