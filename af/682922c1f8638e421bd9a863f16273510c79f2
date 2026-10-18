@@ -1,0 +1,15 @@
+backend/tests/setup.ts
+  h_94c952a9e14c58 5
+  h_94c952a9e14c58 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "af682922c1f8638e421bd9a863f16273510c79f2",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
