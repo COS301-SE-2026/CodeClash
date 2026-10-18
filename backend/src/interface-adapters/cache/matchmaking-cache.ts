@@ -29,7 +29,7 @@ export class MatchmakingCache implements IMatchmakingCache {
         const lower = Math.max(0, elo - range);
         const upper = elo + range;
 
-        return this.redis.zrangebyscore(queue, lower, upper);
+        return await this.redis.zrangebyscore(queue, lower, upper);
 
     }
 

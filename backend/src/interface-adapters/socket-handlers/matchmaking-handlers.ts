@@ -82,11 +82,11 @@ const retryMatchmaking = (io: Server, user: MatchmakingUserDTO, matchmaking_serv
 
 export const leaveMatchQueue = (async (io: Server, socket: Socket, matchmaking_service: MatchmakingService) => {
     const removed = await Promise.all(
-        Object.values(MatchType).flatMap((type) => {
-            Object.values(MatchMode).map((mode) => {
-                matchmaking_service.dequeue(socket.data.user_id, mode, type);
-            })
-        })
+        Object.values(MatchType).flatMap((type) =>
+            Object.values(MatchMode).forEach((mode) =>
+                matchmaking_service.dequeue(socket.data.user_id, mode, type)
+            )
+        )
     )
     const remove = removed.some(Boolean);
 
@@ -105,7 +105,7 @@ export const matchAccepted = (
         match_confirmation_service: MatchConfirmationService,
         match_start: MatchStart
     ) => {
-        socket.join(data.group_id);
+        await socket.join(data.group_id);
         match_confirmation_service.accept(data.group_id, socket.data.user_id);
 
         if (!match_confirmation_service.bothAccepted(data.group_id)) {
@@ -135,20 +135,25 @@ export const matchDeclined = (async (io: Server, group_id: string, match_mode: M
 
     // requeue players
     if (players) {
-        for (const player of players) {
-            io.to(player.id).emit("match_declined");
-            const requeue: MatchmakingUserDTO = {
-                id: player.id,
-                elo: player.elo,
-                match_mode: match_mode,
-                match_type: match_type,
-                match_attempt: 1,
-                joined_at: new Date()
-            }
-            await matchmaking_service.enqueue(requeue);
-            retryMatchmaking(io, requeue, matchmaking_service, match_confirmation_service, user_repo);
+        const requeues: MatchmakingUserDTO[] = players.map((player) => ({
+            id: player.id,
+            elo: player.elo,
+            match_mode: match_mode,
+            match_type: match_type,
+            match_attempt: 1,
+            joined_at: new Date()
+        }));
+
+        for (const requeue of requeues) {
+            io.to(requeue.id).emit("match_declined");
+
         }
 
+        await Promise.all(requeues.map((requeue) => matchmaking_service.enqueue(requeue)));
+
+        for (const requeue of requeues) {
+            retryMatchmaking(io, requeue, matchmaking_service, match_confirmation_service, user_repo);
+        }
     }
 })
 

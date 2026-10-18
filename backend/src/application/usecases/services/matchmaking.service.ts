@@ -31,7 +31,7 @@ export class MatchmakingService {
     }
 
     async matchmaking(user: MatchmakingUserDTO) {
-        const player_count = 2- 1;
+        const player_count = 2 - 1;
         const range = this.elo_difference * user.match_attempt;
         const queue = user.match_type + "-" + user.match_mode;
         const elo_range = await this.cache.getPlayers(queue, user.elo, range);
@@ -48,11 +48,15 @@ export class MatchmakingService {
             .filter(p => p.join !== null && p.user_id !== user.id)
             .sort((a, b) => Number(a.join) - Number(b.join));
 
+        const elos = await Promise.all(candidates.map((c) => this.cache.getUserElo(queue, c.user_id)));
         const matched_players: { id: string, elo: number }[] = [];
-        for (const candidate of candidates) {
+
+        for (const [i, candidate] of candidates.entries()) {
             if (matched_players.length === player_count) break;
-            const elo = Number(await this.cache.getUserElo(queue, candidate.user_id));
-            if (await this.cache.deleteUser(queue, candidate.user_id) > 0) matched_players.push({ id: candidate.user_id, elo });
+
+            if (await this.cache.deleteUser(queue, candidate.user_id) > 0) { // NOSONAR
+                matched_players.push({ id: candidate.user_id, elo: Number(elos[i])});
+            }
         }
 
 
