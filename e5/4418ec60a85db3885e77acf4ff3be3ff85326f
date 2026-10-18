@@ -1,0 +1,23 @@
+backend/src/interface-adapters/socket-handlers/matchmaking-handlers.ts
+  h_94c952a9e14c58 86,108,138,145-149,152-156
+  h_94c952a9e14c58 85,87-89,139-144
+backend/src/application/usecases/services/matchmaking.service.ts
+  h_94c952a9e14c58 51,53-54,56-59
+  h_94c952a9e14c58 34
+backend/src/interface-adapters/cache/matchmaking-cache.ts
+  h_94c952a9e14c58 32
+backend/scripts/question-seeding/math/seed-math-questions.ts
+  h_94c952a9e14c58 13,31
+  h_94c952a9e14c58 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e54418ec60a85db3885e77acf4ff3be3ff85326f",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
