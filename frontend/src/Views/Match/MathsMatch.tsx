@@ -14,7 +14,6 @@ import { useState } from 'react';
 import ConfirmationPopup from "../Confirmation";
 import type { ConfirmationViewModel } from "src/ViewModels/ConfirmationViewModel";
 import PowerEffect from "@/components/ui/animations/PowerEffect";
-import { usePowerEffect } from "src/utils/usePowerEffect";
 import { corruptMath } from 'src/utils/corrupt';
 import { MatchCard } from '@/components/features/Match/MatchCard';
 
@@ -57,7 +56,6 @@ const MathsMatch = () => {
 
     const curr = questions[currentQuestion];
     const { username } = useUser();
-    const opponentName = myIndex >= 0 ? usernames[1 - myIndex]: '';
 
     const correct : boolean | null = 
     results?.[roundIdx]?.[currentQuestion] ?? null;

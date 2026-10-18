@@ -12,7 +12,7 @@ const Icons: Record<PowerupEffectType, React.ComponentType<{size?: number; class
     restore_life: Heart,
     insert_bugs: Bug,
     wipe_answer: Eraser,
-    block_question: EyeOff,
+    blackout_question: EyeOff,
     increase_time: Hourglass,
     drain_life: HeartCrack,
 }
