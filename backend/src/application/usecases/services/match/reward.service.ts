@@ -7,17 +7,17 @@ export class RewardService {
         total_players: number,
         stat: { num_correct: number; total_time:number }
     ):  number {
-        const base = mode === MatchType.tournament ? 60 
-        : mode === MatchType.ranked ? 60
-        : 25;
+        const base = mode === MatchType.tournament ? 150 
+        : mode === MatchType.ranked ? 150
+        : 75;
 
         if (position === 1) {
             // winner bonus
-            return base + 40; 
+            return base + 100; 
         }
 
         // Everyone else frfr
-        const taper = (position - 1) * 15;
-        return Math.max(15, base-taper);
+        const taper = (position - 1) * 40;
+        return Math.max(40, base-taper);
     }
 }

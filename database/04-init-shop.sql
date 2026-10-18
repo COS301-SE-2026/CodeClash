@@ -1,6 +1,6 @@
 INSERT INTO shop_items (category, name, description, price, rarity, metadata) VALUES
 -- POWERUPS
-('powerup', 'Time Boost', 'Reduces your time-taken stat, improving your final score and ELO gain', 150, 'common',
+('powerup', 'Time Boost', 'Reduces your time-taken stat, improving your final score and Stardust gain', 150, 'common',
 '{"effect": "reduce_time", "kind": "powerup", "targeting": "self", "value": 10 }'),
 ('powerup', 'Shield', 'Blocks the next power-down used against you this match.', 275, 'epic',
 '{"effect": "block_next_powerdown", "kind": "powerup", "targeting": "self", "consumed_on_use": true }'),
@@ -16,7 +16,7 @@ INSERT INTO shop_items (category, name, description, price, rarity, metadata) VA
 '{ "effect": "wipe_answer", "kind": "powerdown", "targeting": "opponent", "scope": "current_answer", "max_uses_per_match": 1 }'),
 ('powerup', 'Question Blackout', 'Blacks out one random question your opponent hasn''t answered yet. They can still answer it, but can''t read it.', 200, 'legendary',
 '{ "effect": "blackout_question", "kind": "powerdown", "targeting": "opponent", "scope": "random_unanswered_question" }'),
-('powerup', 'Time Sink', 'Increase your opponents''s time taken stat, lowering their score and ELO gain.', 150, 'common',
+('powerup', 'Time Sink', 'Increase your opponents''s time taken stat, lowering their score and Stardust gain.', 150, 'common',
 '{ "effect": "increase_time", "kind": "powerdown", "targeting": "opponent", "value": 10 }' ),
 ('powerup', 'Life Drain', 'Removes one life point from your opponent.', 250, 'epic',
 '{ "effect": "drain_life", "kind": "powerdown", "targeting": "opponent", "value": 1 }' ),
