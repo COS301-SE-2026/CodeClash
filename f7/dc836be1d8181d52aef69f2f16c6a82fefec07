@@ -1,0 +1,18 @@
+dockerfile/docker-compose.dev.yml
+  h_b13c5d77534129 41
+frontend/@/components/features/Match/Match.tsx
+  h_b13c5d77534129 56-59
+backend/src/application/usecases/systems/powerup.system.ts
+  h_b13c5d77534129 133
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f7dc836be1d8181d52aef69f2f16c6a82fefec07",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
