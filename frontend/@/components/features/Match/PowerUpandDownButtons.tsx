@@ -49,7 +49,7 @@ export const PowerUpAndDownButtons = ({powerups, onUse, busy = false, error, clo
         }
     }
 
-    const category = filter === 'powerup' ? 'Powerups' : 'PowerDowns'
+    const category = filter === 'powerup' ? 'Powerups' : 'Powerdowns'
 
 
     return(
@@ -79,10 +79,11 @@ export const PowerUpAndDownButtons = ({powerups, onUse, busy = false, error, clo
                     <div
                         role="dialog"
                         aria-label={category}
-                        className="w-[22rem] max-h-[70vh] flex flex-col gap-3 rounded-xl border border-border bg-background-elevated p-5 shadow-xl">
+                        className="w-[22rem] max-h-[70vh] flex flex-col gap-3 rounded-xl border border-border bg-background-elevated p-5"
+                    >
                     
                         <div className="flex items-center justify-between">
-                            <h2 className="text-lg font-semibold">{category}</h2>
+                            <h2 className="text-[1.5rem] font-semibold">{category}</h2>
                             <button onClick={close} aria-label="Close" className="rounded-full p-1 hover:bg-secondary/20">
                                 <X size={20}/>
                             </button>
@@ -91,7 +92,7 @@ export const PowerUpAndDownButtons = ({powerups, onUse, busy = false, error, clo
                         <div className="flex flex-col gap-2 overflow-y-auto">
                             {items.length === 0 && (
                                 <p className="text-sm text-muted-text text-center py-4">
-                                    No {category} owned
+                                    No {category} Owned
                                 </p>
                             )}
 
@@ -101,8 +102,8 @@ export const PowerUpAndDownButtons = ({powerups, onUse, busy = false, error, clo
                                     title={p.description}
                                     disabled={busy || p.quantity <= 0}
                                     onClick={() => handleUse(p.shop_item_id)}
-                                    className={cn("w-full text-sm rounded-xl py-2 px-3 flex justify-between border border-border hover:bg-secondary/20 disabled:opacity-50", p.kind === 'powerdown' ? 'text-danger' : 'text-success')}
-                                    >
+                                    className={cn("w-full text-[1rem] rounded-xl py-2 px-3 flex justify-between border border-border hover:bg-secondary/20 disabled:opacity-50 btn btn-ghost", p.kind === 'powerdown' ? 'text-danger' : 'text-success')}
+                                >
                                         <span>{p.name}</span>
                                         <span>×{p.quantity}</span>
 

@@ -174,7 +174,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                             />
 
                         </MatchCard>
-                        <MatchCard className='rounded-[20px] w-[7rem] p-2 mt-4 ml-[40%] flex flex-col gap-2 items-center'>
+                        {/* <MatchCard className='rounded-[20px] w-[7rem] p-2 mt-4 ml-[40%] flex flex-col gap-2 items-center'>
                             {(powerups ?? []).length === 0 && <p className="text-xs text-muted-text">No Powerups</p>}
                             {(powerups ?? []).map(p => (
                                 <button
@@ -188,7 +188,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                                 </button>
                             ))}
                             {powerupError && <p className='text-danger text=[0.7rem] tet-center'>{powerupError}</p>}
-                        </MatchCard>
+                        </MatchCard> */}
                     </div>
                 </div>
             </div>
