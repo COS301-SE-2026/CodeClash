@@ -1,0 +1,22 @@
+backend/tests/unit/usecases/services/mark-maths.test.ts
+  h_94c952a9e14c58 1-174
+backend/src/application/usecases/services/marking/mark-maths.ts
+  h_94c952a9e14c58 9
+backend/tsconfig.json
+  h_94c952a9e14c58 6
+backend/package-lock.json
+  h_94c952a9e14c58 31,2574-2576,2693-2695,3353-3355,3856-3858,6123-6125,6133-6136,6763-6765,7196-7198,7215-7218
+backend/package.json
+  h_94c952a9e14c58 56
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "30d17e0ffe551ac8efeeb4f8bfef0fd0a434fb72",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
