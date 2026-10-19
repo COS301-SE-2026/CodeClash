@@ -171,9 +171,9 @@ export const PowerupPopup: React.FC<PowerupProps> = ({isOpen, onClose, maxSlots 
                             const item = itemId ? owned.find((o) => o.item.id === itemId)?.item : undefined;
                             const Icon = item ? Icons[item.effect.effectType] : Sparkles;
                             return (
-                                <div key={i} onClick={() => item && removeFromLoadout(i)} className={`flex items-center justify-center w-16 h-16 rounded-md ${item ? `cursor-pointer border border-border bg-card` : 'cursor-default border border-dashed border-border'}`}>
+                                <button key={i} type="button" disabled={!item} onClick={() => removeFromLoadout(i)} className={`flex items-center justify-center w-16 h-16 rounded-md ${item ? `cursor-pointer border border-border bg-card` : 'cursor-default border border-dashed border-border'}`} aria-label={item ? `Remove ${item.name} from loadout slot ${i + 1}` : `Loadout slot ${i + 1}, empty`}>
                                     <Icon size={24} className={item ? tintText(item.kind) : 'text-muted-text'}/>
-                                </div>
+                                </button>
                             )
                         })}
                     </div>
