@@ -1,0 +1,41 @@
+backend/src/application/interfaces/repositories/IUserRepository.ts
+  h_94c952a9e14c58 7
+backend/tests/integration/services/marking.service.test.ts
+  h_94c952a9e14c58 120
+backend/src/application/usecases/services/user-creation.service.ts
+  h_94c952a9e14c58 30
+backend/tests/integration/socket-handlers/helper.ts
+  h_94c952a9e14c58 66
+backend/vitest.config.ts
+  h_94c952a9e14c58 27-28
+backend/tests/integration/repositories/inventory.repository.test.ts
+  h_94c952a9e14c58 31
+backend/tests/integration/repositories/equipped.repository.test.ts
+  h_94c952a9e14c58 31
+backend/tests/integration/repositories/wallet.repository.test.ts
+  h_94c952a9e14c58 25
+backend/tests/integration/services/match-creation.service.test.ts
+  h_94c952a9e14c58 82
+  h_94c952a9e14c58 81
+backend/tests/integration/repositories/user.repository.test.ts
+  h_94c952a9e14c58 26
+backend/tests/unit/usecases/init-db.test.ts
+  h_94c952a9e14c58 1-74
+backend/src/application/usecases/init-db.ts
+  h_94c952a9e14c58 25
+backend/src/interface-adapters/repositories/user.repository.ts
+  h_94c952a9e14c58 16
+backend/tests/integration/services/purchase.service.test.ts
+  h_94c952a9e14c58 35,60,72
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "cdb4717fa2f4e94401090cde2c839affaefc6d55",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
