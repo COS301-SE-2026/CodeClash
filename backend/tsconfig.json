@@ -3,7 +3,7 @@
     "module": "nodenext",
     "target": "esnext",
     "types": [
-      "ts-node",
+      "ts-node","node"
     ],
     "sourceMap": true,
     "declaration": true,
