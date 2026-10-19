@@ -6,6 +6,12 @@ import AvatarCustomizer from "./AvatarCustomizer";
 import ThemeSwatch from "./ThemeSwatch";
 import {Check, Loader2, Sparkles } from "lucide-react";
 
+const powerupLabels = {
+    all: 'All',
+    powerup: 'Power Ups',
+    powerdown: 'Power Downs',
+} as const;
+
 const Shop:React.FC = () => {
     const {
         tabs, activeTabId, setActiveTabId, itemsByCategory, wallet, loading, error, purchasingId,
@@ -53,7 +59,7 @@ const Shop:React.FC = () => {
                             <button key={p} type="button" onClick={()=> setPowerupFIlter(p)} style={{padding: '0.4rem 0.9rem', borderRadius: '999px',
                                 fontSize: '0.75rem', fontWeight: 700, border: powerupFIlter === p ? '1px solid var(--primary)' : '1px solid var(--border)',
                                 background: powerupFIlter === p ? 'var(--background-elevated)' : 'transparent', color: powerupFIlter === p ? 'var(--primary-text)' : 'var(--muted-text)', cursor: 'pointer'}}>
-                                {p === 'all' ? 'All' : p === 'powerup' ? 'Power Ups' : 'Power Downs'}
+                                {powerupLabels[p]}
                             </button>
                         ))}
                     </div>
