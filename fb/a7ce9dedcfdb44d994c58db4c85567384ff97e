@@ -1,0 +1,18 @@
+backend/tests/unit/usecases/services/match-completion.service.test.ts
+  h_94c952a9e14c58 1-107
+backend/tests/unit/usecases/services/user-creation.service.test.ts
+  h_94c952a9e14c58 1-58
+backend/src/application/usecases/services/match/match-completion.service.ts
+  h_94c952a9e14c58 25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "fba7ce9dedcfdb44d994c58db4c85567384ff97e",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
