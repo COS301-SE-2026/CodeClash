@@ -54,7 +54,7 @@ export const PowerUpAndDownButtons = ({powerups, onUse, busy = false, error, clo
 
     return(
         <>
-        <div className={`flex flex-row gap-5 bg-background-elevated border border-border rounded-3xl py-2 px-2 h-[70%] ${className}`}>
+        <div className={`flex flex-row gap-5 bg-background-elevated border border-border rounded-3xl py-2 px-2 ${className}`}>
                 <Button className="card-elevated h-11 w-30 rounded-full my-auto" onClick={() => setFilter('powerup')}>
                     <div className="flex flex-row">
                         <ChevronUp className="text-[var(--match-box)] size-6.5"/>

@@ -20,7 +20,7 @@ interface codeEditorProps {
     forcedValue?: { text: string; nonce: number } | null
 }
 
-export const    CodeEditor = ({ question, onChange, className, forcedValue }: codeEditorProps) => {
+export const CodeEditor = ({ question, onChange, className, forcedValue }: codeEditorProps) => {
 
     const { templates, selectedLanguage, code, changeLanguage, editCode } = useCodeQuestion(question, onChange);
     const [monacoLoaded, setMonacoLoaded] = useState(false);

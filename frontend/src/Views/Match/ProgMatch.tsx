@@ -16,6 +16,7 @@ import ConfirmationPopup from "../Confirmation";
 import type { ConfirmationViewModel } from "src/ViewModels/ConfirmationViewModel";
 import PowerEffect from "@/components/ui/animations/PowerEffect";
 import { corruptCode } from "src/utils/corrupt";
+import { PowerUpAndDownButtons } from "@/components/features/Match/PowerUpandDownButtons";
 
 export const ProgMatch = () => {
     const [code, setCode] = useState('');
@@ -152,15 +153,15 @@ export const ProgMatch = () => {
                 <Flash
                     result={correct ?? null}
                     trigger={flashTrigger}
-                    className="w-[90%] flex flex-col items-center justify-center mt-7 rounded-2xl -mb-3">
-                    <MatchCard className={`w-[100%] h-[95%] ${result_colour()} ${result_border()}`}>
+                    className="w-[90%] flex flex-col items-center justify-center mt-10 rounded-2xl -mb-2">
+                    <MatchCard className={`w-[100%] ${result_colour()} ${result_border()}`}>
                         <CodeEditor
                             question={question}
                             onChange={(new_code,  judge0_id) => {
                                 setCode(new_code);
                                 setLanguageId(judge0_id)
                             }}
-                            className="ml-20 "
+                            className="ml-20"
                             forcedValue={forced}
                         />
                         
@@ -209,10 +210,17 @@ export const ProgMatch = () => {
                         )
                     }
 
+                    <PowerUpAndDownButtons
+                        powerups={powerups ?? []}
+                        onUse={activatePowerup}
+                        busy={powerupBusy}
+                        error={powerupError}>
+                    </PowerUpAndDownButtons>
+
                 </div>
 
                 {/* Judge0 runs every test case, so give explicit feedback rather than relying on the card flash alone */}
-                <p className='text-center text-[0.95rem] font-semibold mb-3 min-h-[1.5rem]' aria-live='polite'>
+                <p className='text-center text-[0.95rem] font-semibold mb-5 mt-2 min-h-[1.5rem]' aria-live='polite'>
                     {marking ? <span className='text-muted-text'>Running your code against the test cases...</span>
                         : markingError ? <span className='text-danger'>Could not mark submission: {markingError}</span>
                         : currentResult === true ? <span className='text-success'>Correct! All test cases passed.</span>
