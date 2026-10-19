@@ -1,5 +1,5 @@
 import { Bug, Eraser, EyeOff, Heart, HeartCrack, Hourglass, Lightbulb, ShieldAlert, Sparkles, Timer, X, Zap } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useInventory } from "src/context/Shop/InventoryContext";
 import type { 
     PowerupShopItem, 
@@ -29,11 +29,67 @@ export const PowerupPopup: React.FC<PowerupProps> = ({isOpen, onClose, maxSlots 
     const {catalog, inventory} = useInventory();
     const [load, setLoad] = useState<string[]>([]);
 
+    const dialogRef = useRef<HTMLDivElement>(null);
+    const prevRef = useRef<HTMLElement | null>(null);
+
     useEffect(() => {
         if (isOpen) {
             setLoad([]);
         }
     }, [isOpen])
+
+    useEffect(() => {
+        if (!isOpen) {
+            return;
+        }
+
+        prevRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+        const dialog = dialogRef.current;
+        const getEls = (): HTMLElement[] => {
+            if (!dialog) {
+                return [];
+            }
+            return Array.from(dialog.querySelectorAll<HTMLElement>('button:not(:disabled), [href], input:not(:disabled),'
+                + 'select:not(:disabled), textarea:not(:disabled),' + '[tabindex]:not([tabindex="-1"])'
+            )).filter(
+                (element) => !element.hasAttribute("hidden") && element.getAttribute("aria-hidden") !== "true"
+            )
+        }
+
+        const els = getEls();
+        els[0]?.focus();
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') {
+                event.preventDefault();
+                onClose();
+                return;
+            }
+            if (event.key === "Tab") {
+                const el = getEls();
+                if (el.length === 0) {
+                    event.preventDefault();
+                    dialog?.focus();
+                    return;
+                }
+                const first = el[0];
+                const last = el[el.length - 1];
+
+                if (event.shiftKey && (document.activeElement === first || document.activeElement === dialog)) {
+                    event.preventDefault();
+                    last.focus();
+                }
+                else if ( !event.shiftKey && document.activeElement === last) {
+                    event.preventDefault();
+                    first.focus();
+                }
+            }
+        }
+        document.addEventListener("keydown", handleKeyDown);
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown);
+            prevRef.current?.focus();
+        }
+    }, [isOpen, onClose])
 
     if (!isOpen) {
         return null;
@@ -76,10 +132,10 @@ export const PowerupPopup: React.FC<PowerupProps> = ({isOpen, onClose, maxSlots 
     const tintGlow = (kind: PowerupShopItem['kind']) => kind === 'powerdown' ? 'shadow-[0_0_16px_var(--danger)]' : 'shadow-[0_0_16px_var(--success)]';
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/60" onClick={onClose}>
-            <div className="card-elevated w-full max-w-[700px] max-h-[85vh] overflow-y-auto flex flex-col gap-5 p-6" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/60">
+            <div className="card-elevated w-full max-w-[700px] max-h-[85vh] overflow-y-auto flex flex-col gap-5 p-6" ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="powerup-popup-title" tabIndex={-1}>
                 <div className="flex items-center justify-between">
-                    <h2 className="section-title text-md">Your Power-Ups</h2>
+                    <h2 className="section-title text-md" id="powerup-popup-title">Your Power-Ups</h2>
                     <button type="button" onClick={onClose} className="btn btn-ghost btn-icon" aria-label="Close">
                         <X size={18}/>
                     </button>
