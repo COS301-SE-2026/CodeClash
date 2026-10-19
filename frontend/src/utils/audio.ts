@@ -9,6 +9,7 @@ import purchase from 'src/assets/Audio/purchase.mp3';
 import matchComplete from 'src/assets/Audio/match_complete.mp3';
 import rankUp from 'src/assets/Audio/rank-up.mp3';
 import rankDown from 'src/assets/Audio/rank-down.mp3';
+import correct from 'src/assets/Audio/correct.mp3';
 
 const SFX = {
     life_lost: lifeLost,
@@ -19,7 +20,8 @@ const SFX = {
     purchase,
     match_complete: matchComplete,
     rank_up: rankUp,
-    rank_down: rankDown
+    rank_down: rankDown,
+    correct
 } as const;
 
 const MUSIC = {
