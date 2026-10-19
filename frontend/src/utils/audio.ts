@@ -5,13 +5,21 @@ import achievement from 'src/assets/Audio/achievement.wav';
 import notification from 'src/assets/Audio/notification.wav';
 import musicMatch from 'src/assets/Audio/music-match.mp3';
 import musicTournament from 'src/assets/Audio/music-tournament.ogg';
+import purchase from 'src/assets/Audio/purchase.mp3';
+import matchComplete from 'src/assets/Audio/match_complete.mp3';
+import rankUp from 'src/assets/Audio/rank-up.mp3';
+import rankDown from 'src/assets/Audio/rank-down.mp3';
 
 const SFX = {
     life_lost: lifeLost,
     powerup,
     powerdown,
     achievement,
-    notification
+    notification,
+    purchase,
+    match_complete: matchComplete,
+    rank_up: rankUp,
+    rank_down: rankDown
 } as const;
 
 const MUSIC = {

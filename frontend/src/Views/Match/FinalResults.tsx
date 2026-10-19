@@ -10,6 +10,7 @@ import Starfield from "@/components/ui/animations/Starfield";
 import { finalResultsContent, type PlayerFinalResults } from "src/Models/FinalResultsModel";
 import PlayerAvatar from "src/avatar/PlayerAvatar";
 import { resolve } from "src/assets/Shop/ResolveShopImages";
+import { playSfx } from "src/utils/audio";
 
 const FinalResults: React.FC = () => {
     const navigate = useNavigate();
@@ -22,6 +23,7 @@ const FinalResults: React.FC = () => {
     const [res, setRes] = useState(false); // moved
 
     useEffect(() => {
+        playSfx('match_complete');
         if (state !== 'results') {
             setRes(false);
             return;
