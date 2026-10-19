@@ -16,6 +16,7 @@ import type { ConfirmationViewModel } from "src/ViewModels/ConfirmationViewModel
 import PowerEffect from "@/components/ui/animations/PowerEffect";
 import { corruptMath } from 'src/utils/corrupt';
 import { MatchCard } from '@/components/features/Match/MatchCard';
+import { PowerUpAndDownButtons } from '@/components/features/Match/PowerUpandDownButtons';
 
 const MathsMatch = () => {
     const {
@@ -197,6 +198,24 @@ const MathsMatch = () => {
                         <ConfirmationPopup confirmation={roundConf}/>
                     )
                 }
+
+                <PowerUpAndDownButtons>
+                    {/* the code below was copied and pasted from Match.tsx, it was my teammate's code that I am refactoring
+                    it is not a product of ai! */}
+                    {(powerups ?? []).length === 0 && <p className="text-xs text-muted-text">No Powerups</p>}
+                        {(powerups ?? []).map(p => (
+                            <button
+                            key={p.shop_item_id}
+                            title={p.description}
+                            disabled={powerupBusy}
+                            onClick={() => activatePowerup?.(p.shop_item_id)}
+                            className={`w-full text-xs rounded-lg py-1 hover:bg-secondary/20 disabled:opacity-50 ${p.kind === 'powerdown' ? 'text-danger' : 'text-success'}`}
+                            >
+                                {p.name} ×{p.quantity}
+                            </button>
+                        ))}
+                    {powerupError && <p className='text-danger text=[0.7rem] tet-center'>{powerupError}</p>}
+                </PowerUpAndDownButtons>
 
 
             </div>

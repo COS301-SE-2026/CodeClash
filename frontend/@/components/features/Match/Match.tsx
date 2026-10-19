@@ -143,6 +143,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                             <PlayerAvatar assetKey={resolve(playerTwoAvatar ?? "") ?? ""} className="w-full h-full m-auto" viewBox="-40 18 330 330" preserveAspectRatio="xMidYMin slice" size={52}/>
                             </div>
                         </TournamentButton>
+
                     </div>
                 </div>
                 
