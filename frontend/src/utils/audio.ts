@@ -1,15 +1,22 @@
+import lifeLost from 'src/assets/Audio/life-lost.ogg';
+import powerup from 'src/assets/Audio/powerup.mp3';
+import powerdown from 'src/assets/Audio/powerdown.mp3';
+import achievement from 'src/assets/Audio/achievement.wav';
+import notification from 'src/assets/Audio/notification.wav';
+import musicMatch from 'src/assets/Audio/music-match.mp3';
+import musicTournament from 'src/assets/Audio/music-tournament.ogg';
+
 const SFX = {
-    life_lost: '/audio/life-lost.mp3',
-    powerup: 'audio/powerup.mp3',
-    powerdown: '/audio/powerdown.mp3',
-    achievement: '/audio/achievement.mp3',
-    friend_request: '/audio/friend-request.mp3',
-    friend_accepted: '/audio/notification.mp3',
+    life_lost: lifeLost,
+    powerup,
+    powerdown,
+    achievement,
+    notification
 } as const;
 
 const MUSIC = {
-    match: '/audio/music-match.mp3',
-    tournament: '/audio/music-tournament.mp3'
+    match: musicMatch,
+    tournament: musicTournament
 } as const;
 
 export type Sfx = keyof typeof SFX;
