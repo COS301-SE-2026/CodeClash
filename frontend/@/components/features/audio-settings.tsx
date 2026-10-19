@@ -56,7 +56,7 @@ export const AudioSettings = () => {
                 <Settings size={18} />
             </button>
             {open && (
-                <div className="absolute right-0 top-full z-50 mt-2 w-56 rounded-2xl border border-border bg-card p-4 shadow-md">
+                <div className="absolute right-0 top-full z-50 mt-2 w-56 rounded-2xl border border-border bg-background p-4 shadow-md">
                     <p className="mb-1 text-xs font-bold uppercase tracking-wide text-secondary">Audio</p>
                     <Toggle label="Music" on={prefs.music} onChange={() => toggle('music')} />
                     <Toggle label="Sound effects" on={prefs.sfx} onChange={() => toggle('sfx')} />
