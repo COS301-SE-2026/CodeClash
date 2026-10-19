@@ -34,7 +34,7 @@ const MathsMatch = () => {
         mathfieldRef,
         elos,
         final_question, complete_round, confirmCompleteRound, confirmRound, cancelCompleteRound, completeRound,
-        matchType, matchMode,
+        matchType, matchMode, playerOneDamage, playerTwoDamage,
         powerups, activatePowerup, powerupBusy, powerupError,
         blackoutQuestionId,
         inputEffect,
@@ -124,6 +124,8 @@ const MathsMatch = () => {
             rounds={rounds}
             current_round={roundIdx}
             current_user={username}
+            playerOneDamage={playerOneDamage}
+            playerTwoDamage={playerTwoDamage}
             shields={shields}
             powerups={powerups}
             onUsePowerup={activatePowerup}
@@ -139,7 +141,7 @@ const MathsMatch = () => {
                     Question blacked out
                 </MatchCard>
             ) : (<Question
-                className={` h-[20rem] `}
+                className={``}
                 difficulty={curr.difficulty!}
                 title={curr.title!}
                 description={curr.description}

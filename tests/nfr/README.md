@@ -130,12 +130,13 @@ these forged/expired tokens were accepted or rejected.
 
 ### How to run
 
-Sign into the app with a user whose token you want to obtain to use for testing
+Sign into the app with a DEDICATED, LOW-PRIVILEGE TEST USER (N.B. THIS IS VERY IMPORTANT, WE DO NOT WANT TO ACCIDENTALLY EXPOSE A REAL USER'S TOKEN OR OTHER INFORMATION!) whose token you want to obtain to use for testing
 
 From root run:
 sudo docker compose --env-file .env.dev -f dockerfile/docker-compose.dev.yml up -d --build
 cd judge0-v1.13.1
 docker compose up -d --build
+cd ..
 cd backend/scripts
 npm run seed:math && npm run seed:prog && npm run seed:templates
 
@@ -154,7 +155,7 @@ HTTP/1.1 200 OK
 {"status":"ok"} -->
 
 
-Then, still from root run:
+Then, from root run:
 
 cd tests/nfr/security
 pip3 install boto3
@@ -163,41 +164,28 @@ pip3 install botocore[crt]
 <!-- or use pip instead of pip3 depending on your setup -->
 
 chmod +x testingReports.sh
-./TestingReports.sh
+./testingReports.sh
 
 (enter signed-in user's details)
 
 This will proceed to generate a report detailing rows of different forged/expired tokens tested against each
-endpoint
+endpoint, in the /reports directory
 
 #### Expected output
 
 Testing https://localhost:3000/api/leaderboard
-Saved to reports/https:__localhost:3000_api_leaderboard.txt
 Testing https://localhost:3000/api/matches
-Saved to reports/https:__localhost:3000_api_matches.txt
 Testing https://localhost:3000/api/friends
-Saved to reports/https:__localhost:3000_api_friends.txt
 Testing https://localhost:3000/api/friends/requests
-Saved to reports/https:__localhost:3000_api_friends_requests.txt
 Testing https://localhost:3000/api/friends/invite
-Saved to reports/https:__localhost:3000_api_friends_invite.txt
 Testing https://localhost:3000/api/friends/request
-Saved to reports/https:__localhost:3000_api_friends_request.txt
 Testing https://localhost:3000/api/achievements
-Saved to reports/https:__localhost:3000_api_achievements.txt
 Testing https://localhost:3000/api/achievements/me
-Saved to reports/https:__localhost:3000_api_achievements_me.txt
 Testing https://localhost:3000/api/create-user
-Saved to reports/https:__localhost:3000_api_create-user.txt
 Testing https://localhost:3000/api/elo/elo-get
-Saved to reports/https:__localhost:3000_api_elo_elo-get.txt
 Testing https://localhost:3000/api/create-user
-Saved to reports/https:__localhost:3000_api_create-user.txt
 Testing https://localhost:3000/api/user/rank
-Saved to reports/https:__localhost:3000_api_user_rank.txt
 Testing https://localhost:3000/api/user/search
-Saved to reports/https:__localhost:3000_api_user_search.txt
 Done. The following are rows that did not provide an expected 200 or correct rejection 401 response code (rows that need to be checked):
 
 
@@ -212,7 +200,7 @@ this row can be skipped
 else:
 
 In the jwt_tool directory:
-curl -s http://localhost:3000/api/<name-of-route> -H "Authorization: Bearer $(cat ../token.txt)" | jq .
+curl -s http://localhost:3000/api/<name-of-route> -H "Authorization: Bearer $TOKEN" | jq .
 
 (Find names of api routes in testingReports.sh in ENDPOINTS)
 
