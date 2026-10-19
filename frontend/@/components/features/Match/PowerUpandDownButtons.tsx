@@ -1,8 +1,9 @@
 import "../../../../src/styles/global.css"
 import React from "react"
 import { Button } from "@/components/ui/button";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, X } from "lucide-react";
 import { useState, useEffect } from "react";
+import {createPortal} from "react-dom"
 
 export interface PowerupItem {
     shop_item_id: string;
@@ -69,6 +70,27 @@ export const PowerUpAndDownButtons = ({powerups, onUse, busy = false, error, clo
                 {children}
 
             </div>
+
+            {filter && createPortal(
+                <div
+                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/60" onClick={close}
+                >
+                    <div
+                        role="dialog"
+                        aria-label={category}
+                        className="w-[22rem] max-h-[70vh] flex flex-col gap-3 rounded-xl border border-border bg-background-elevated p-5 shadow-xl">
+                    
+                        <div className="flex items-center justify-between">
+                            <h2 className="text-lg font-semibold">{category}</h2>
+                            <button onClick={close} aria-label="Close" className="rounded-full p-1 hover:bg-secondary/20">
+                                <X size={20}/>
+                            </button>
+                        </div>
+
+                        
+                    </div>
+                </div>
+            )}
     );
 
 }
