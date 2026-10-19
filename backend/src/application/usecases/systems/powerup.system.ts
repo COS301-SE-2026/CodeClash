@@ -130,7 +130,7 @@ export class PowerupSystem {
                 break;
             }
 
-            case 'block_question': {
+            case 'blackout_question': {
                 const pool = this.unanswered(match_id, target_id!, question_ids);
                 const pick = pool[Math.floor(Math.random() * pool.length)]!;
                 this.getPlayerState(match_id, target_id!).blackout_question_id = pick;
