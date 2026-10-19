@@ -1253,14 +1253,17 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    :root {
+      scroll-behavior: auto;
+    }
 
     *,
     *::before,
     *::after {
-      animation-duration: 0.001ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.001ms !important;
-      scroll-behavior: auto !important;
+      animation-duration: 0.001ms ;
+      animation-iteration-count: 1 ;
+      transition-duration: 0.001ms ;
+      scroll-behavior: auto ;
     }
 
     .floating-symbols span {
@@ -1294,7 +1297,7 @@
   .btn[aria-disabled="true"] {
     opacity: 0.45;
     cursor: not-allowed;
-    transform: none !important;
+    transform: none ;
   }
 
   .btn-primary {
