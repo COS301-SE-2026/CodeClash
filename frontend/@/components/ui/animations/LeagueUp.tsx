@@ -13,49 +13,48 @@ import neptune from "../../../../src/assets/Planets/Neptune.png";
 type LeagueConf = {
     label: string;
     image: string;
-    color: string;
 }
 
 export const LEAGUES: Record<string, LeagueConf> = {
     mercury: {
         label: 'Mercury',
         image: mercury,
-        color: 'var(--primary)'
+
     },
     venus: {
         label: 'Venus',
         image: venus,
-        color: 'var(--primary)'
+
     },
     earth: {
         label: 'Earth',
         image: earth,
-        color: 'var(--primary)'
+
     },
     mars: {
         label: 'Mars',
         image: mars,
-        color: 'var(--primary)'
+
     },
     jupiter: {
         label: 'Jupiter',
         image: jupiter,
-        color: 'var(--primary)'
+
     },
     saturn: {
         label: 'Saturn',
         image: saturn,
-        color: 'var(--primary)'
+
     },
     uranus: {
         label: 'Uranus',
         image: uranus,
-        color: 'var(--primary)'
+
     },
     neptune: {
         label: 'Neptune',
         image: neptune,
-        color: 'var(--primary)'
+
     },
 }
 
@@ -63,12 +62,27 @@ const SHOW_MS = 4500;
 const LEAVE_MS = 400;
 const SPARKS = 24;
 
-type LeagueUpProps = {
+type Direction = 'up' | 'down';
+
+const LABELS: Record<Direction, {title: string; line: string}> = {
+    up: {
+        title: 'Congratulations!',
+        line: 'You have reached'
+    },
+    down: {
+        title: 'Oh no!',
+        line: 'You have dropped to'
+    }
+}
+
+type LeagueProps = {
     league: string | null;
     trigger: number;
 }
 
-const LeagueUp = ({league, trigger}: LeagueUpProps) => {
+type LeagueBaseProps = LeagueProps & {direction: Direction}
+
+const LeagueBase = ({league, trigger, direction}: LeagueBaseProps) => {
     const [active, setActive] = useState<string | null>(null);
     const [leaving, setLeaving] = useState(false);
 
@@ -93,14 +107,16 @@ const LeagueUp = ({league, trigger}: LeagueUpProps) => {
         () => Array.from({length: SPARKS}, (_, i) => {
             const angle = (i/SPARKS) * Math.PI * 2 + secureRandom() * 0.4;
             const dist = 140 + secureRandom() * 120;
+            const dx = Math.cos(angle) * dist;
+            const dy = Math.sin(angle) * dist;
             return {
                 id: i,
-                dx: Math.cos(angle) * dist,
-                dy: Math.sin(angle) * dist,
+                dx: direction === 'down' ? dx * 0.6 : dx,
+                dy: direction === 'down' ? Math.abs(dy) + 40: dy,
                 delay: 0.35 + secureRandom() *0.25,
                 size: 4 + secureRandom() * 6
             }
-        }), [trigger]
+        }), [trigger, direction]
     )
 
     if (!active) {
@@ -108,8 +124,13 @@ const LeagueUp = ({league, trigger}: LeagueUpProps) => {
     }
 
     const {
-        label, image, color
+        label, image
     } = LEAGUES[active];
+
+    const accent = direction === 'down' ? 'var(--danger)' : 'var(--success)';
+    const {
+        title, line
+    } = LABELS[direction];
 
     const close = () => {
         setLeaving(true);
@@ -117,23 +138,25 @@ const LeagueUp = ({league, trigger}: LeagueUpProps) => {
     }
 
     return (
-        <div key={trigger} className={`league-up ${leaving ? 'leaving': ''}`} style={{['--league-color' as string]: color}}
+        <div key={trigger} className={`league-up league-${direction} ${leaving ? 'leaving': ''}`} style={{['--league-color' as string]: accent}}
             onClick={close} role="status" aria-live="polite">
             <div className="league-stage">
                 <div className="league-planet-wrap">
                     <span className="league-glow"/>
                     <span className="league-orbit"/>
                     {sparks.map((s) => (
-                        <span key={s.id} style={{width: s.size, height: s.size, animationDelay: `${s.delay}s`, ['--dx' as string]: `${s.dx}px`, ['--dy' as string]: `${s.dy}px`}}/>
+                        <span key={s.id} className="league-spark" style={{width: s.size, height: s.size, animationDelay: `${s.delay}s`, ['--dx' as string]: `${s.dx}px`, ['--dy' as string]: `${s.dy}px`}}/>
                     ))}
                     <img src={image} alt={`${label} League`} className="league-img"/>
                 </div>
 
-                <h1 className="league-title">Congratulations!</h1>
-                <p className="league-name">You have reached <strong>{label}</strong> League</p>
+                <h1 className="league-title">{title}</h1>
+                <p className="league-name">{line} <strong>{label}</strong> League</p>
             </div>
         </div>
     )
 }
+const LeagueUp = (props: LeagueProps) => <LeagueBase {...props} direction="up"/>;
+export const LeagueDown = (props: LeagueProps) => <LeagueBase {...props} direction="down"/>
 
 export default LeagueUp;
