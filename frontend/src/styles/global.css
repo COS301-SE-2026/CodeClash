@@ -1938,7 +1938,6 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
-    translate: 0 -10rem;
     filter: drop-shadow(0 0 24px color-mix(in srgb, var(--league-color) 60%, transparent));
     animation: league-planet-in 0.9s cubic-bezier(0.2, 1.2, 0.3, 1) backwards, float 5s ease-in-out 0.9s infinite;
   }
