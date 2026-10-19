@@ -10,8 +10,6 @@ const SKILL_PROGRESS_DAYS = 30;
 const SKILL_PROGRESS_WINDOW = 20;
 
 
-
-
 export class MatchCompletionService {
     constructor(
         private readonly match_repo: IMatchRepository,
@@ -24,7 +22,7 @@ export class MatchCompletionService {
 
 
     async execute(ecs_match_id: number, db_match_id: string, player_ids: string[], match_type: MatchType, times?: Map<string, number>) {
-        const { players, match_stats, total_questions } = await this.completion_system.execute(ecs_match_id, player_ids, times);
+        const { players, match_stats, total_questions } = this.completion_system.execute(ecs_match_id, player_ids, times);
 
         switch (match_type) {
             case MatchType.ranked: {
