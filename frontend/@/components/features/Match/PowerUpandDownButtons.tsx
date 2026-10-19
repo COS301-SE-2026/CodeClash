@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronDown, ChevronUp, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import {createPortal} from "react-dom"
+import { cn } from "@/lib/utils";
 
 export interface PowerupItem {
     shop_item_id: string;
@@ -52,6 +53,7 @@ export const PowerUpAndDownButtons = ({powerups, onUse, busy = false, error, clo
 
 
     return(
+        <>
         <div className={`flex flex-row gap-5 bg-background-elevated border border-border rounded-3xl py-2 px-2 h-[70%] ${className}`}>
                 <Button className="card-elevated h-11 w-30 rounded-full my-auto" onClick={() => setFilter('powerup')}>
                     <div className="flex flex-row">
@@ -67,7 +69,6 @@ export const PowerUpAndDownButtons = ({powerups, onUse, busy = false, error, clo
                     </div>
                 </Button>
 
-                {children}
 
             </div>
 
@@ -87,10 +88,36 @@ export const PowerUpAndDownButtons = ({powerups, onUse, busy = false, error, clo
                             </button>
                         </div>
 
-                        
-                    </div>
-                </div>
-            )}
-    );
+                        <div className="flex flex-col gap-2 overflow-y-auto">
+                            {items.length === 0 && (
+                                <p className="text-sm text-muted-text text-center py-4">
+                                    No {category} owned
+                                </p>
+                            )}
 
+                            {items.map(p => (
+                                <button
+                                    key={p.shop_item_id}
+                                    title={p.description}
+                                    disabled={busy || p.quantity <= 0}
+                                    onClick={() => handleUse(p.shop_item_id)}
+                                    className={cn("w-full text-sm rounded-xl py-2 px-3 flex justify-between border border-border hover:bg-secondary/20 disabled:opacity-50", p.kind === 'powerdown' ? 'text-danger' : 'text-success')}
+                                    >
+                                        <span>{p.name}</span>
+                                        <span>×{p.quantity}</span>
+
+                                </button>
+                            ))}
+                        </div>
+                        
+                        {error && <p className="text-danger text-xs text-center">{error}</p>}
+
+                    </div>
+                    {children}
+                </div>,
+                document.body
+            )}
+
+        </>
+    )
 }

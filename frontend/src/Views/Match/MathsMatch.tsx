@@ -199,7 +199,11 @@ const MathsMatch = () => {
                     )
                 }
 
-                <PowerUpAndDownButtons>
+                <PowerUpAndDownButtons
+                    powerups={powerups ?? []}
+                    onUse={activatePowerup}
+                    busy={powerupBusy}
+                    error={powerupError}>
                     {/* the code below was copied and pasted from Match.tsx, it was my teammate's code that I am refactoring
                     it is not a product of ai! */}
                     {(powerups ?? []).length === 0 && <p className="text-xs text-muted-text">No Powerups</p>}
