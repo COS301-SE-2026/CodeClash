@@ -35,9 +35,41 @@ done
 
 cd ..
 
+
 echo "Done. The following are rows that did not provide an expected 200 or correct rejection 401 response code (rows that need to be checked):"
 grep -L "^\(.*Response Code: 401\)*$" reports/*.txt 2>/dev/null
 grep -rn "Response Code: 200\|Response Code: 500" reports/*.txt \
  | grep -v "Prescan: original\|Persistence check\|repeat original\|jwttool_[a-f0-9]* Sending token Response Code:"
 
+
+
+# the code below was pasted from another part in this file and moved down here, it is not ai generated!
+echo ""
+echo "Explicit checking beyond what jwt_tool does, checks that when no authentication token is provided, the request is rejected:"
+
+FAILURES=0
+
+for url in "${ENDPOINTS[@]}"; do
+
+    if [[ "$url" == *"/create-user" ]]; then
+        echo "SKIPPING $url endpoint as it is deliberately exempt from auth as it is a route for signup"
+        continue
+    fi
+
+    no_token_status=$(curl -s -o /dev/null -w "%{http_code}" "$url")
+
+    if [ "$no_token_status" == "401" ]; then 
+        echo "This test passed correctly for $url, the no-token request was rightfully rejected with response code 401"
+
+    else
+        echo "This test failed for $url, the no-token request returned $no_token_status, expected 401" >&2
+        FAILURES=1
+    fi
+done
+
 unset TOKEN
+
+if [ "$FAILURES" -ne 0 ]; then
+    echo "Due to failures in the no token request tests, security testing has failed and can not exit successfully"
+    exit 1
+fi

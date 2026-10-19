@@ -123,14 +123,15 @@ bash tests/nfr/reliability/websocket-disconnect.sh
 ### What it tests
 The jwt security tests test hundreds of forged and/or expired tokens against various endpoints of the system.
 The following error codes should be received as response codes throughout this process, indicating whether 
-these forged/expired tokens were accepted or rejected.
+these forged/expired tokens were accepted or rejected. Additionally, a test was added that exists beyond the testing
+scope of jwt_tool to test the response to requests without a token to our endpoints.
 - Requests without a token return `401` - i.e. they were rejected
 - Requests with an expired token return `401` - i.e. they were rejected
 - Requests with a valid token return `200` - i.e. they were accepted
 
 ### How to run
 
-Sign into the app with a DEDICATED, LOW-PRIVILEGE TEST USER (N.B. THIS IS VERY IMPORTANT, WE DO NOT WANT TO ACCIDENTALLY EXPOSE A REAL USER'S TOKEN OR OTHER INFORMATION!) whose token you want to obtain to use for testing
+Sign into the app with a DEDICATED, LOW-PRIVILEGE TEST USER (N.B. THIS IS VERY IMPORTANT, WE DO NOT WANT TO ACCIDENTALLY EXPOSE A REAL USER'S TOKEN OR OTHER INFORMATION! BECAUSE TOKEN IS AN EXPORTED SHELL VARIABLE, IT'S BRIEFLY VISIBLE TO ANY CHILD PROCESS AND WITH CERTAIN COMMANDS, THE ENTIRE MACHINE! THIS IS A NATURAL, ACCEPTED RISK OF HAVING TO TEST USING USER TOKENS BUT TO MITIAGTE RISK PLEASE ONLY USE A DEDICATED TESTING ACCOUNT FOR THIS STEP) whose token you want to obtain to use for testing
 
 From root run:
 sudo docker compose --env-file .env.dev -f dockerfile/docker-compose.dev.yml up -d --build
@@ -152,6 +153,8 @@ curl -i http://localhost:3000/health
 <!-- Expected output to indicate you can proceed with testing:
 HTTP/1.1 200 OK
 ...
+...
+...
 {"status":"ok"} -->
 
 
@@ -166,12 +169,14 @@ pip3 install botocore[crt]
 chmod +x testingReports.sh
 ./testingReports.sh
 
-(enter signed-in user's details)
+(enter desired user's details)
 
 This will proceed to generate a report detailing rows of different forged/expired tokens tested against each
 endpoint, in the /reports directory
 
 #### Expected output
+
+
 
 Testing https://localhost:3000/api/leaderboard
 Testing https://localhost:3000/api/matches
