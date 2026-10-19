@@ -24,8 +24,8 @@ export default defineConfig({
                 'scripts/**'
             ],
             thresholds: {   // initial boundaries to improve coverage - this will be increased
-                branches: 20,
-                functions: 30
+                branches: 50,
+                functions: 50
             }
         },
         setupFiles: ['./tests/setup.ts'],

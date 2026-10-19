@@ -13,7 +13,7 @@ export class UserRepository implements IUserRepository {
         private readonly userRepository: Repository<Users>,
     ) { }
 
-    async createUser(username: string, email: string, cognito_id: string, avatar_id: number, league: string): Promise<UserDTO | null> {
+    async createUser(username: string, email: string, cognito_id: string, league: string): Promise<UserDTO | null> {
 
         const insert = await this.userRepository.createQueryBuilder()
             .insert()
@@ -22,7 +22,6 @@ export class UserRepository implements IUserRepository {
                 username: username,
                 email: email,
                 cognito_id: cognito_id,
-                avatar_id: avatar_id,
                 league: league
             })
             .orIgnore()
