@@ -4,15 +4,15 @@ import { LifeSystem } from './life.system';
 import { SubmissionSystem } from './submission.system';
 import { PowerupStateComponent, PlayerPowerupState } from 'src/entities/components';
 import { HttpError } from 'src/entities/errors/http-error';
-import { match } from 'node:assert';
+import { number } from 'mathjs';
 
 const POSITIVE_EFFECTS = new Set([
-    'reduce_time', 'reveal_hint', 'score_multiplier', 'restore_life', 'block_next_powerdown'
+    'reduce_time', 'score_multiplier', 'restore_life', 'block_next_powerdown'
 ]);
 
 const defaultState = (): PlayerPowerupState => ({
     shield_active: false,
-    blocked_until: null,
+    blackout_question_id: null,
     time_delta_seconds: 0,
     score_multiplier_percent: 0,
     wipe_used: false,
@@ -21,6 +21,7 @@ const defaultState = (): PlayerPowerupState => ({
 export interface ApplyPowerupResult {
     blocked: boolean;   // true if a shield absorbed a powerdown
     effect: string;
+    question_id?: string;
 }
 
 export class PowerupSystem {
@@ -45,13 +46,24 @@ export class PowerupSystem {
         return state[user_id];
     }
 
+    private unanswered(match_id: number, target_id: string, question_ids: string[]): string[] {
+        const answered = new Set(this.submission_system.playerSubmissions(match_id, target_id).map(s => s.question_id));
+        return question_ids.filter(id => !answered.has(id));
+    }
+
     isPowerdown(effect: string): boolean {
         return !POSITIVE_EFFECTS.has(effect);
     }
     
-    validate(match_id: number, effect: string, target_id?: string): void {
+    validate(match_id: number, effect: string, target_id?: string, question_ids: string[] = []): void {
         if (effect === 'wipe_answer' && target_id && this.getPlayerState(match_id, target_id).wipe_used) {
             throw new HttpError(409, 'Wipe already used this match');
+        }
+            if (effect === 'blackout_question' && target_id) {
+            if (this.getPlayerState(match_id, target_id).blackout_question_id)
+                throw new HttpError(409, 'A question is already blacked out');
+            if (this.unanswered(match_id, target_id, question_ids).length === 0)
+                throw new HttpError(409, 'Opponent has no unanswered questions left');
         }
     }
 
@@ -64,11 +76,12 @@ export class PowerupSystem {
         effect: string,
         metadata: PowerupMetadata,
         actor_id: string,
-        target_id?: string
+        target_id?: string,
+        question_ids: string[]=[]
     ): ApplyPowerupResult {
         if(this.isPowerdown(effect)) {
             const target_state = this.getPlayerState(match_id, target_id!);
-            if(target_state.wipe_used) throw new HttpError(409, 'Wipe already used');
+            // if(target_state.wipe_used) throw new HttpError(409, 'Wipe already used');
 
             if (target_state.shield_active) {
                 target_state.shield_active = false;
@@ -89,13 +102,17 @@ export class PowerupSystem {
                 this.getPlayerState(match_id, actor_id).score_multiplier_percent += metadata.value!;
                 break;
 
-            case 'restore_life':
-                this.life_system.adjustLife(match_id, actor_id, metadata.value!);
+            case 'restore_life': {
+                const life = this.life_system.getPlayerLife(match_id, target_id!);
+                this.life_system.adjustLife(match_id, actor_id, Math.min(metadata.value!, 100-life));
                 break;
+            }
 
-            case 'drain_life':
-                this.life_system.adjustLife(match_id, target_id!, -metadata.value!);
+            case 'drain_life':{
+                const life = this.life_system.getPlayerLife(match_id, target_id!);
+                this.life_system.adjustLife(match_id, target_id!, -Math.min(metadata.value!, Math.max(life - 1, 0)));
                 break;
+            }
 
             case 'block_next_powerdown':
                 this.getPlayerState(match_id, actor_id).shield_active = true;
@@ -107,37 +124,25 @@ export class PowerupSystem {
 
             case 'wipe_answer': {
                 const target_state = this.getPlayerState(match_id,target_id!);
-                if (target_state.wipe_used) throw new HttpError(409,'Wipe already used this match');
+                // if (target_state.wipe_used) throw new HttpError(409,'Wipe already used this match');
                 target_state.wipe_used = true;
                 // client side clearing of input
                 break;
             }
 
             case 'block_question': {
-                const duration_ms = (metadata.duration_seconds as number) * 1000;
-                this.getPlayerState(match_id, target_id!).blocked_until = Date.now() + duration_ms;
-                break;
+                const pool = this.unanswered(match_id, target_id!, question_ids);
+                const pick = pool[Math.floor(Math.random() * pool.length)]!;
+                this.getPlayerState(match_id, target_id!).blackout_question_id = pick;
+                return { blocked: false, effect, question_id: pick }
             }
 
-            case 'reveal_hint':
-                // No server state to mutate. Handled by socket
-                break;
-
+            // removed hints. We're no longer using them
 
             default:
                 throw new Error(`Unknown powerup effect: ${effect}`);
         }
         return { blocked: false, effect };
-    }
-
-    isQuestionBlocked(match_id: number, user_id: string): boolean {
-        const state = this.getPlayerState(match_id, user_id);
-        if (!state.blocked_until) return false;
-        if (Date.now() >= state.blocked_until) {
-            state.blocked_until = null;
-            return false;
-        }
-        return true;
     }
 
     getTimeDeltaSeconds(match_id: number, user_id: string): number {
@@ -146,5 +151,10 @@ export class PowerupSystem {
 
     getScoreMultiplierPercent(match_id: number, user_id: string): number {
         return this.getPlayerState(match_id, user_id).score_multiplier_percent;
+    }
+
+    getClientState(match_id: number, user_id: string) { 
+        const s= this.getPlayerState(match_id, user_id);
+        return { shield_active: s.shield_active, blackout_question_id: s.blackout_question_id };
     }
 }

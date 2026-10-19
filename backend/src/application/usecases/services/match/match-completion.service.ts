@@ -5,6 +5,7 @@ import { AchievementService } from "../achievement.service";
 import { MatchType, MatchStatus } from "src/entities/dtos/matches/match.dto";
 import { RewardService } from "./reward.service";
 import { IWalletRepository } from "src/application/interfaces/repositories/IWalletRepository";
+import { PowerupSystem } from "../../systems/powerup.system";
 
 const SKILL_PROGRESS_DAYS = 30;
 const SKILL_PROGRESS_WINDOW = 20;
@@ -19,7 +20,8 @@ export class MatchCompletionService {
         private readonly user_repo: IUserRepository,
         private readonly achievement_service: AchievementService,
         private readonly reward_service: RewardService,
-        private readonly wallet_repo: IWalletRepository
+        private readonly wallet_repo: IWalletRepository,
+        private readonly powerup_system: PowerupSystem
     ) { }
 
 
@@ -51,12 +53,14 @@ export class MatchCompletionService {
             }
         }
 
+        // Reward Loop
         for (const player of players) {
             const stat = match_stats.get(player.id)!;
-          const reward = this.reward_service.calculateReward(match_type, player.position, players.length, stat);
-          const existing = await this.wallet_repo.getWallet(player.id);
-          if (!existing) await this.wallet_repo.createWallet(player.id);
-            await this.wallet_repo.updateBalance(player.id, reward);
+            const reward = this.reward_service.calculateReward(match_type, player.position, players.length, stat);
+            const existing = await this.wallet_repo.getWallet(player.id);
+            if (!existing) await this.wallet_repo.createWallet(player.id);
+            const pct = this.powerup_system.getScoreMultiplierPercent(ecs_match_id, player.id);
+            await this.wallet_repo.updateBalance(player.id, Math.round(reward * (1 + pct / 100)));
         }
 
 
