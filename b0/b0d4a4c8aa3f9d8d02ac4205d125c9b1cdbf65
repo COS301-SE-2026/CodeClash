@@ -1,0 +1,59 @@
+frontend/src/Views/Match/MathsMatch.tsx
+  h_b13c5d77534129 37,127-128,144
+frontend/src/Views/Match/ProgMatch.tsx
+  h_b13c5d77534129 39,128-129,145,151,155,170,176
+frontend/@/components/features/Match/Match.tsx
+  h_b13c5d77534129 31-32,59-61,77-79,142-144,166
+frontend/src/ViewModels/Match/MatchViewModel.ts
+  h_b13c5d77534129 299-308,310-317,413-414
+  h_b13c5d77534129 309
+dockerfile/docker-compose.dev.yml
+  h_b13c5d77534129 40
+frontend/@/components/features/Match/RoundTree.tsx
+  h_b13c5d77534129 39,44,59-62,67
+frontend/@/components/features/Questions/question.tsx
+  h_b13c5d77534129 30,34,45
+frontend/src/styles/global.css
+  h_b13c5d77534129 1546-1558
+tests/nfr/README.md
+  h_b13c5d77534129 133,139,158,167,172,203
+tests/nfr/security/getUserTestToken.py
+  h_b13c5d77534129 2,7,15-16,19,48-58
+tests/nfr/security/reports/localhost:3000_api_achievements.txt
+  h_b13c5d77534129 2-10,12-13,16,19-22,25-53,55,57-64,77,81-185,190-579
+tests/nfr/security/reports/localhost:3000_api_achievements_me.txt
+  h_b13c5d77534129 2-10,12-13,16,19-22,25-53,55,57-64,77,81-185,190-579
+tests/nfr/security/reports/localhost:3000_api_create-user.txt
+  h_b13c5d77534129 2-10,12-13,16,19-22,25-53,55,57-64,77,81-185,190-579
+tests/nfr/security/reports/localhost:3000_api_elo_elo-get.txt
+  h_b13c5d77534129 2-10,12-13,16,19-22,25-53,55,57-64,77,81-185,190-579
+tests/nfr/security/reports/localhost:3000_api_friends.txt
+  h_b13c5d77534129 2-10,12-13,16,19-22,25-53,55,57-64,77,81-185,190-579
+tests/nfr/security/reports/localhost:3000_api_friends_invite.txt
+  h_b13c5d77534129 2-10,12-13,16,19-22,25-53,55,57-64,77,81-185,190-579
+tests/nfr/security/reports/localhost:3000_api_friends_request.txt
+  h_b13c5d77534129 2-10,12-13,16,19-22,25-53,55,57-64,77,81-185,190-579
+tests/nfr/security/reports/localhost:3000_api_friends_requests.txt
+  h_b13c5d77534129 2-10,12-13,16,19-22,25-53,55,57-64,77,81-185,190-579
+tests/nfr/security/reports/localhost:3000_api_leaderboard.txt
+  h_b13c5d77534129 2-10,12-13,16,19-22,25-53,55,57-64,77,81-185,190-579
+tests/nfr/security/reports/localhost:3000_api_matches.txt
+  h_b13c5d77534129 2-10,12-13,16,19-22,25-53,55,57-64,77,81-185,190-579
+tests/nfr/security/reports/localhost:3000_api_user_rank.txt
+  h_b13c5d77534129 2-10,12-13,16,19-22,25-53,55,57-64,77,81-185,190-579
+tests/nfr/security/reports/localhost:3000_api_user_search.txt
+  h_b13c5d77534129 2-10,12-13,16,19-22,25-53,55,57-64,77,81-185,190-579
+tests/nfr/security/testingReports.sh
+  h_b13c5d77534129 1-5,9,29-33,36-37,39-40,42-43
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b0b0d4a4c8aa3f9d8d02ac4205d125c9b1cdbf65",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

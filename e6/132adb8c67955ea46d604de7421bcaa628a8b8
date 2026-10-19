@@ -1,0 +1,22 @@
+frontend/@/components/features/Match/PowerUpandDownButtons.tsx
+  h_b13c5d77534129 7-15,17-21,25-27,30,33,37,42,51,58,60,66,69
+  h_b13c5d77534129 2-6,16,22-24,28-29,31-32,34-36,38-41,43-50,52-57,59,61-65,67-68,70
+frontend/@/components/features/Match/Match.tsx
+  h_b13c5d77534129 146
+dockerfile/docker-compose.dev.yml
+  h_b13c5d77534129 41
+  h_b13c5d77534129 40
+frontend/src/Views/Match/MathsMatch.tsx
+  h_b13c5d77534129 19,202-219
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e6132adb8c67955ea46d604de7421bcaa628a8b8",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
