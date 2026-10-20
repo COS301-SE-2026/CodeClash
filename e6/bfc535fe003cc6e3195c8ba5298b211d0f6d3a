@@ -1,0 +1,40 @@
+tests/nfr/README.md
+  h_b13c5d77534129 126-127,134,156-157,172,179-180
+tests/nfr/security/testingReports.sh
+  h_b13c5d77534129 38,44-75
+tests/nfr/security/reports/localhost:3000_api_achievements.txt
+  h_b13c5d77534129 16,19-22,25-53,55,57-64,77,81-185,190-579
+tests/nfr/security/reports/localhost:3000_api_achievements_me.txt
+  h_b13c5d77534129 16,19-22,25-53,55,57-64,77,81-185,190-579
+tests/nfr/security/reports/localhost:3000_api_create-user.txt
+  h_b13c5d77534129 16,19-22,25-53,55,57-64,77,81-185,190-579
+tests/nfr/security/reports/localhost:3000_api_elo_elo-get.txt
+  h_b13c5d77534129 16,19-22,25-53,55,57-64,77,81-185,190-579
+tests/nfr/security/reports/localhost:3000_api_friends.txt
+  h_b13c5d77534129 16,19-22,25-53,55,57-64,77,81-185,190-579
+tests/nfr/security/reports/localhost:3000_api_friends_invite.txt
+  h_b13c5d77534129 16,19-22,25-53,55,57-64,77,81-185,190-579
+tests/nfr/security/reports/localhost:3000_api_friends_request.txt
+  h_b13c5d77534129 16,19-22,25-53,55,57-64,77,81-185,190-579
+tests/nfr/security/reports/localhost:3000_api_friends_requests.txt
+  h_b13c5d77534129 16,19-22,25-53,55,57-64,77,81-185,190-579
+tests/nfr/security/reports/localhost:3000_api_leaderboard.txt
+  h_b13c5d77534129 16,19-22,25-53,55,57-64,77,81-185,190-579
+tests/nfr/security/reports/localhost:3000_api_matches.txt
+  h_b13c5d77534129 16,19-22,25-53,55,57-64,77,81-185,190-579
+tests/nfr/security/reports/localhost:3000_api_user_rank.txt
+  h_b13c5d77534129 16,19-22,25-53,55,57-64,77,81-185,190-579
+tests/nfr/security/reports/localhost:3000_api_user_search.txt
+  h_b13c5d77534129 16,19-22,25-53,55,57-64,77,81-185,190-579
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e6bfc535fe003cc6e3195c8ba5298b211d0f6d3a",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}

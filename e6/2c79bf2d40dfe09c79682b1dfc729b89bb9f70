@@ -1,0 +1,14 @@
+frontend/src/dtos/match/submission.dto.ts
+  h_58e143dc25f856 3-13,19-20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e62c79bf2d40dfe09c79682b1dfc729b89bb9f70",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

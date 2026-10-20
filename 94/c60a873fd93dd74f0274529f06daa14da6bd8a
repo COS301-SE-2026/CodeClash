@@ -1,0 +1,14 @@
+frontend/src/Views/Tournaments/TournamentMatchPage.tsx
+  h_58e143dc25f856 11,39-40,61-62,220-222
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "94c60a873fd93dd74f0274529f06daa14da6bd8a",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

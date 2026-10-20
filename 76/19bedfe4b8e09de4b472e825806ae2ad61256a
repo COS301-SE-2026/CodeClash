@@ -1,0 +1,14 @@
+frontend/src/services/submission.service.tsx
+  h_58e143dc25f856 1,25-26,42-49,107
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7619bedfe4b8e09de4b472e825806ae2ad61256a",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}

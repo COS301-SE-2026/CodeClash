@@ -1,0 +1,14 @@
+frontend/src/ViewModels/Matchmaking/MatchFoundViewModel.ts
+  h_58e143dc25f856 188-194
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "933bf312b3b7aa59c3a4c3ad5b20f57cb03197e0",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
