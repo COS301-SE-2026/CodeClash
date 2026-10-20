@@ -8,6 +8,7 @@ import { useTournamentMatch } from "src/ViewModels/Tournaments/TournamentMatchVi
 import { Button } from "@/components/ui/button";
 import MathMatch from "@/components/features/Match/MathPage";
 import { CodeEditor } from "@/components/features/code-editor";
+import { TestCaseFeedback } from "@/components/features/Match/TestCaseFeedback";
 import { useEffect, useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { TournamentEliminated } from "./TournamentEliminated";
@@ -35,7 +36,8 @@ const TournamentsMatchPage = () => {
         total_rounds,
         eliminated,
         marking,
-        markingError,
+      markingError,
+        feedback,
         results,
         lastResult
     } = useTournamentMatch();
@@ -56,7 +58,8 @@ const TournamentsMatchPage = () => {
     const question = useMemo(() => ({ templates: curr?.templates }), [curr]);
     const telemetry = round_telemetry();
     const my_rank = (telemetry && telemetry.my_rank! > 0) ? telemetry.my_rank : "-";
-    const currentResult = results?.[roundIdx]?.[currentQuestion];
+  const currentResult = results?.[roundIdx]?.[currentQuestion];
+  const currentFeedback = feedback?.[roundIdx]?.[currentQuestion];
     const correct: boolean | null = results?.[roundIdx]?.[currentQuestion] ?? null;
 
     const result_colour = () => {
@@ -214,7 +217,9 @@ const TournamentsMatchPage = () => {
                                                     : null
                                     }
                                 </p>
-                            }
+                }
+
+                { match_mode === 'programming' && !marking && !markingError && currentResult === false && currentFeedback && <TestCaseFeedback feedback={currentFeedback} /> }
 
                         </div>
 
