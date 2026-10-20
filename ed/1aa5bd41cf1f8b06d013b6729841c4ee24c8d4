@@ -1,0 +1,14 @@
+frontend/src/ViewModels/Tournaments/TournamentMatchViewModel.ts
+  h_58e143dc25f856 54-55,226-227
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ed1aa5bd41cf1f8b06d013b6729841c4ee24c8d4",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
