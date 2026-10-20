@@ -1,0 +1,14 @@
+backend/src/application/usecases/services/marking/mark-prog.ts
+  h_58e143dc25f856 5,11-12,54-71
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "aafba782ff74dfcd61f0580503cfd8f3423617f3",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
