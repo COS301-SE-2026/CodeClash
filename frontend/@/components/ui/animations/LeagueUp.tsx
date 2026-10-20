@@ -132,14 +132,9 @@ const LeagueBase = ({league, trigger, direction}: LeagueBaseProps) => {
         title, line
     } = LABELS[direction];
 
-    const close = () => {
-        setLeaving(true);
-        setTimeout(() => setActive(null), LEAVE_MS);
-    }
-
     return (
         <div key={trigger} className={`league-up league-${direction} ${leaving ? 'leaving': ''}`} style={{['--league-color' as string]: accent}}
-            onClick={close} role="status" aria-live="polite">
+            role="status" aria-live="polite">
             <div className="league-stage">
                 <div className="league-planet-wrap">
                     <span className="league-glow"/>
