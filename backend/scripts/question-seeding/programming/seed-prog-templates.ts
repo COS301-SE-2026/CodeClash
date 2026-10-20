@@ -11,7 +11,7 @@ function stripLocalIncludes(code: string) {
 
 function wrapCppTemplate(code: string) {
   let wrapped = code.trim();
-  if (!wrapped.incluedes('#include <iostream>')) wrapped = `#include <iostream>\n\n${wrapped}`;
+  if (!wrapped.includes('#include <iostream>')) wrapped = `#include <iostream>\n\n${wrapped}`;
   if (!/\bint\s+main\s*\(/.test(wrapped)) wrapped = `${wrapped}\n\nint main() {}`;
   return `${wrapped}\n`;
 }
