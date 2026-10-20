@@ -1,0 +1,14 @@
+tests/nfr/README.md
+  h_b13c5d77534129 218-219
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "548d8cc9824b41dda5f2b977b1897459135c08f4",
+  "prompts": {},
+  "humans": {
+    "h_b13c5d77534129": {
+      "author": "morganthegirlboss <u24910882@tuks.co.za>"
+    }
+  }
+}
