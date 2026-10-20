@@ -3,6 +3,7 @@ import { MarkingService } from "../marking/marking.service";
 import { PlayerSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
 import { RoundDTO } from "src/entities/dtos/matches/match-component.dto";
 import { HttpError } from "src/entities/errors/http-error";
+import { ProgFeedbackDTO } from "src/entities/dtos/submissions/submission-result.dto";
 
 
 const MAX_ATTEMPTS = 3;
@@ -90,9 +91,10 @@ export class TournamentEliminationService {
         if (progress.attempts >= MAX_ATTEMPTS) throw new HttpError(409, "No attempts left");
 
         progress.attempts++;
-        let correct: boolean;
+      let correct: boolean;
+      let feedback: ProgFeedbackDTO | undefined;
         try {
-            correct = (await this.marking_service.execute(submission)).correct;
+            ({correct, feedback } = await this.marking_service.execute(submission)).correct;
         } catch (error) {
             progress.attempts--;
             throw error;
@@ -108,7 +110,8 @@ export class TournamentEliminationService {
             player_id: submission.player_id,
             correct,
             speed: received_at.getTime() - tournament.start?.getTime(),
-            attempt_number: progress.attempts
+          attempt_number: progress.attempts,
+            feedback
         };
     }
 
