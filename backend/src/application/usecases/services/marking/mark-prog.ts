@@ -2,12 +2,14 @@ import { PlayerSubmissionDTO, ProgSubmissionDTO } from "src/entities/dtos/submis
 import { IMarkingStrategy, MarkOutcome } from "src/application/interfaces/marking/IMarkingStategy";
 import { ICodeExecutor } from "src/application/interfaces/marking/ICodeExecutor";
 import { IQuestionRepository } from "src/application/interfaces/repositories/IQuestionRepository";
+import { ProgFeedbackDTO, ProgSubmissionResult } from "src/entities/dtos/submissions/submission-result.dto";
 
 export class MarkProg implements IMarkingStrategy {
 
     private readonly executor;
     // Max test cases sent to Judge0 at once; keeps a single submission from flooding its queue
-    private static readonly CONCURRENCY = 2;
+  private static readonly CONCURRENCY = 2;
+  private static readonly MAX_FEEDBACK_LENGTH = 1000;
 
     constructor(
         private readonly code_executor: ICodeExecutor,
@@ -48,6 +50,24 @@ export class MarkProg implements IMarkingStrategy {
         return { correct: true, run_time_ms, memory_kb };
 
     }
+
+  private feedback(test: { input: string, expected_output: string }, test_number: number, total_tests: number, result: ProgSubmissionResult): ProgFeedbackDTO {
+    const error = result.compile_output || result.stderr || result.message;
+    return {
+      test_number,
+      total_tests, 
+      status_id: result.status.id,
+      verdict: result.status.description,
+      input: this.truncate(this.formatStdin(test.input)),
+      expected_output: this.truncate(this.formatExpected(test.expected_output)),
+      actual_output: result.stdout ? this.truncate(result.stdout) : null,
+      error: error ? this.truncate(error) : null
+    }
+  }
+
+  private truncate(text: string) {
+    return text.length > MarkProg.MAX_FEEDBACK_LENGTH ?  `${text.slice(0, MarkProg.MAX_FEEDBACK_LENGTH)}\n...` : text;
+  }
 
 
     private formatStdin(input: string) {
