@@ -100,7 +100,6 @@ export class UserRepository implements IUserRepository {
         return users.map(u => ({
             user_id: u.user_id,
             username: u.username,
-            avatar_id: u.avatar_id,
             league: u.league
         }));
     }
@@ -215,7 +214,6 @@ export class UserRepository implements IUserRepository {
             data: results.map((user, index) => ({
                 user_id: user.user_id,
                 username: user.username,
-                avatar_id: user.avatar_id,
                 league: user.league,
                 rating: user.elo,
                 rank: offset + index + 1

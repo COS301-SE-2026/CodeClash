@@ -41,8 +41,8 @@ export class MatchStore {
             rounds: rounds,
             result: null,
             ack_count: 0,
-          end_time: end_time,
-          completed: false
+            end_time: end_time,
+            completed: false
         });
 
         this.DB_ECS.set(db_id, match_id);
@@ -77,16 +77,16 @@ export class MatchStore {
         return match.players.every(player => player.done)
     }
 
-  eliminate(player_id: string, match_id: number) {
-    const match = this.MATCH.get(match_id);
+    eliminate(player_id: string, match_id: number) {
+        const match = this.MATCH.get(match_id);
 
-    if (!match) throw new Error("Invalid match id")
+        if (!match) throw new Error("Invalid match id")
 
-    match.players.forEach((player) => {
-      player.done = true;
-      if (player.id === player_id) player.eliminated = true;
-    })
-  }
+        match.players.forEach((player) => {
+            player.done = true;
+            if (player.id === player_id) player.eliminated = true;
+        })
+    }
 
     saveResult(match_id: number, result: MatchResultDTO) {
         const match = this.MATCH.get(match_id);
@@ -102,7 +102,7 @@ export class MatchStore {
 
         if (!match) return null;
 
-        return  match.result 
+        return match.result
     }
 
     deleteMatch(match_id: number) {
