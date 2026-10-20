@@ -3,6 +3,15 @@ export interface AvatarMetadataDTO {
     asset_key: string;
 }
 
+export interface PowerupMetadataDTO {
+    effect: string;
+    value?: number;
+    duration_seconds?: number | null;
+    max_uses_per_match?: number;
+    consumed_on_use?: boolean;
+    scope?: string;
+}
+
 type ShopItemBaseDTO = {
     shop_item_id: string;
     name: string;
@@ -12,7 +21,9 @@ type ShopItemBaseDTO = {
     created_at: Date;
 };
 
-export type ShopItemDTO = ShopItemBaseDTO & { category: 'avatar'; metadata: AvatarMetadataDTO }
+export type ShopItemDTO = 
+    | (ShopItemBaseDTO & { category: 'avatar'; metadata: AvatarMetadataDTO })
+    | (ShopItemBaseDTO & { category: 'powerup'; metadata: PowerupMetadataDTO });
 
 export interface EquippedItemsDTO {
     user_id: string;

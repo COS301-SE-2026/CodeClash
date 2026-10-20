@@ -9,6 +9,7 @@ import type { QuestionDTO } from 'src/dtos/match/match.dto'
 import PlayerAvatar from 'src/avatar/PlayerAvatar'
 import Shake from '@/components/ui/Shake'
 import { resolve } from 'src/assets/Shop/ResolveShopImages'
+import { ShieldIndicator } from '@/components/ui/animations/PowerEffect'
 
 interface MatchScreenProps {
     player_life: number[],
@@ -25,7 +26,8 @@ interface MatchScreenProps {
     question_results: (boolean | null)[][],
     rounds: QuestionDTO[][],
     current_round: number,
-    current_user: string
+    current_user: string,
+    shields?: {me: boolean; opponent: boolean}
 }
 
 export const MatchScreen: React.FC<MatchScreenProps> = ({
@@ -42,11 +44,13 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
     question_results,
     rounds,
     current_round,
-    current_user
+    current_user,
+    shields
 }) => {
 
     // const questionsAnswered = question_results.flat().filter((qr) => qr === true || qr === false).length;
     // const progressValue = question_number > 0 ? (questionsAnswered / question_number) * 100 : 0;
+    const ownerOf = (i: number) => (usernames[i] === current_user ? 'me' : 'opponent')
 
     return (
         <div className="fixed inset-0 flex flex-col min-w-[64rem] overflow-y-auto">
@@ -77,12 +81,12 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                             height={3}
                             className={`w-full max-w-[11rem] min-w-[1rem] h-sm mr-auto shrink-0`}
                         />
+                        <ShieldIndicator owner={ownerOf(0)} active={shields?.[ownerOf(0)] ?? false}/>
                         </Shake>
                     </div>
                     
                 </div>
                 
-
                 {/* Clock */}
                 <TimerCard className="shrink-0 -mt-4.5">
                     <span>
@@ -97,6 +101,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 <div className="flex flex-1 min-w-0 items-center gap-3">
                     <div className="flex-1 min-w-0 flex">
                         <Shake value={player_life[1]} className="w-full flex">
+                            <ShieldIndicator owner={ownerOf(1)} active={shields?.[ownerOf(1)] ?? false}/>
                             <Progress
                                 value={player_life[1]}
                                 bg={"var(--button-tournament-secondary)"}
