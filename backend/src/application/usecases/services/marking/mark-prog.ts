@@ -44,7 +44,12 @@ export class MarkProg implements IMarkingStrategy {
                 if (result.memory) memory_kb = Math.max(memory_kb ?? 0, result.memory);
             }
 
-            if (results.some((result) => result.status.id !== 3)) return { correct: false, run_time_ms, memory_kb };
+            // if (results.some((result) => result.status.id !== 3)) return { correct: false, run_time_ms, memory_kb };
+          const failed = results.findIndex((result) => result.status.id !== 3);
+          if (failed !== -1) {
+            const feedback = this.feedback(batch[failed]!, i + failed + 1, test_cases.length, results[failed]!);
+            return { correct: false, run_time_ms, memory_kb, feedback}
+          }
         }
 
         return { correct: true, run_time_ms, memory_kb };
