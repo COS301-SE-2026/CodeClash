@@ -94,7 +94,7 @@ export class TournamentEliminationService {
       let correct: boolean;
       let feedback: ProgFeedbackDTO | undefined;
         try {
-            ({correct, feedback } = await this.marking_service.execute(submission)).correct;
+            ({ correct, feedback } = await this.marking_service.execute(submission));
         } catch (error) {
             progress.attempts--;
             throw error;
