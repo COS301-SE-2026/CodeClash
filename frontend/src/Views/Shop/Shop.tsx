@@ -23,6 +23,44 @@ const Shop:React.FC = () => {
     const themes = itemsByCategory('theme') as ThemeShopItem[];
     const powerups = (itemsByCategory('powerup') as PowerupShopItem[]).filter((item) => powerupFIlter === 'all' || item.kind === powerupFIlter);
 
+    let shopContent: React.ReactNode;
+    if( loading) {
+        shopContent = (
+            <p className="text-muted text-sm">Loading shop...</p>
+        );
+    } else if (activeTabId === 'avatars') { 
+        shopContent = (
+            <AvatarCustomizer purchase={purchase} purchasingId={purchasingId} canAfford={canAfford}/>
+        );
+    } else if (activeTabId === 'themes') { 
+        shopContent = (
+            <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1.25rem'}}>
+                {themes.map((item) => (
+                    <ThemeCard key={item.id} item={item} owned={isOwned(item.id)} equipped={isEquipped('theme', item.id)}
+                        affordable={canAfford(item)} purchasing={purchasingId === item.id} onPurchase={() => purchase(item.id)} onEquip={async () => {
+                            if (await equip('theme', item.id)) setTheme(item.themeId as Parameters<typeof setTheme>[0]);
+                    }}/>
+                ))}
+            </div>
+        );
+    } else if (activeTabId === 'powerups') { 
+            if (powerups.length === 0) {
+                shopContent = (
+                    <p className="text-muted text-sm">Nothing here yet</p>
+                ); 
+            } else { 
+                shopContent = (
+                    <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1.25rem'}}>
+                        {powerups.map((item) => (
+                            <PowerupCard key={item.id} item={item} owned={powerupQuantity(item.id)} affordable={canAfford(item)} purchasing={purchasingId === item.id} onPurchase={()=> purchase(item.id)}/>
+                        ))}
+                    </div>
+                );
+            } 
+        } else {
+                shopContent = null;
+        }
+
     return (
         <div className="relative min-h-[100vh-80px] overflow-hidden" style={{background: 'var(--background)', color: 'var(--text)'}}>
             <section style={{padding: '3rem 8% 1.5rem', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem'}}>
@@ -73,30 +111,8 @@ const Shop:React.FC = () => {
                     </div>
                 )}
 
-                {loading ? (
-                    <p className="text-muted text-sm">Loading shop...</p>
-                ) : activeTabId === 'avatars' ? (
-                    <AvatarCustomizer purchase={purchase} purchasingId={purchasingId} canAfford={canAfford}/>
-                ) : activeTabId === 'themes' ? (
-                    <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1.25rem'}}>
-                        {themes.map((item) => (
-                            <ThemeCard key={item.id} item={item} owned={isOwned(item.id)} equipped={isEquipped('theme', item.id)}
-                                affordable={canAfford(item)} purchasing={purchasingId === item.id} onPurchase={() => purchase(item.id)} onEquip={async () => {
-                                    if (await equip('theme', item.id)) setTheme(item.themeId as Parameters<typeof setTheme>[0]);
-                                }}/>
-                        ))}
-                    </div>
-                ) : activeTabId === 'powerups' ? (
-                    powerups.length === 0 ? (
-                        <p className="text-muted text-sm">Nothing here yet</p>
-                    ) : (
-                        <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1.25rem'}}>
-                            {powerups.map((item) => (
-                                <PowerupCard key={item.id} item={item} owned={powerupQuantity(item.id)} affordable={canAfford(item)} purchasing={purchasingId === item.id} onPurchase={()=> purchase(item.id)}/>
-                            ))}
-                        </div>
-                    )
-                ) : null}
+                {shopContent}
+                
             </section>
         </div>
     )
