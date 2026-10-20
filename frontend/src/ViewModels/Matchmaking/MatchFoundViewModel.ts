@@ -185,7 +185,13 @@ export function useMatchFound() {
 
       const unsub_start = matchStart(matchSocket, path, nav, matchMode!);
       const unsub_match_declined = matchmakingSocket.gameDeclined(gameDeclined);
-      const unsub_start_failed = matchSocket.startMatchError(() => { console.error("Error starting match") })
+      const unsub_start_failed = matchSocket.startMatchError(() => {
+        console.error("Error starting match");
+        setLoading(false);
+        reset();
+        useMatchStore.getState().reset();
+        void nav('/dashboard');
+      })
 
       return () => {
         unsub_start();
