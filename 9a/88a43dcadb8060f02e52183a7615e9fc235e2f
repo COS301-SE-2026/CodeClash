@@ -1,0 +1,30 @@
+frontend/src/Views/Match/Leaderboard/components/PodiumCard.tsx
+  h_94c952a9e14c58 30
+backend/scripts/question-seeding/math/seed-math-questions.ts
+  h_94c952a9e14c58 53
+frontend/src/Views/Match/Leaderboard/components/LeaderboardTable.tsx
+  h_94c952a9e14c58 16-17
+backend/scripts/question-seeding/math/helpers.ts
+  h_94c952a9e14c58 122-129,132,193
+frontend/src/Models/LeaderboardModel.ts
+  h_94c952a9e14c58 6,13-14
+  h_94c952a9e14c58 1-5,9-12
+frontend/src/Views/Match/Leaderboard/components/LeaderboardRow.tsx
+  h_94c952a9e14c58 19,21
+  h_94c952a9e14c58 20
+frontend/src/ViewModels/Match/LeaderboardViewModel.ts
+  h_94c952a9e14c58 45-46
+backend/src/entities/league-mapping.ts
+  h_94c952a9e14c58 6-13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9a88a43dcadb8060f02e52183a7615e9fc235e2f",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}

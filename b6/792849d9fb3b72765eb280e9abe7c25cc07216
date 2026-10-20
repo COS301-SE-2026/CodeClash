@@ -1,0 +1,28 @@
+frontend/test/unit/PopUp.test.tsx
+  h_94c952a9e14c58 3,6-8,20-31,34-40,46-50,58-60,62-65,74-77,79-80,88-93,100-102,104-105,112,117-118
+  h_94c952a9e14c58 17,51,61,78,103,113-116
+backend/src/interface-adapters/socket-handlers/matchmaking-handlers.ts
+  h_94c952a9e14c58 58
+  h_94c952a9e14c58 37,76
+backend/tests/integration/socket-handlers/matchmaking-handler.test.ts
+  h_94c952a9e14c58 1-15,17,20-62,65-97
+backend/tests/integration/services/matchmaking.service.test.ts
+  h_94c952a9e14c58 27
+backend/vitest.config.ts
+  h_94c952a9e14c58 25-29
+frontend/test/integration/Contexts/UserContext.integration.test.tsx
+  h_94c952a9e14c58 44,92,228
+frontend/vitest.config.ts
+  h_94c952a9e14c58 29-32
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b6792849d9fb3b72765eb280e9abe7c25cc07216",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
