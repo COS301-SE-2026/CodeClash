@@ -1,6 +1,6 @@
 import { Socket, Server } from "socket.io"
 import { MatchmakingService } from 'src/application/usecases/services/matchmaking.service';
-import { MatchDataDTO, MatchMode } from "src/entities/dtos/matches/match.dto";
+import { MatchDataDTO, MatchMode, MatchType } from "src/entities/dtos/matches/match.dto";
 import { MatchmakingUserDTO } from 'src/entities/dtos/matchmaking/matchmaking.dto';
 import { MatchConfirmationService } from "src/application/usecases/services/match/match-confirmation.service";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
@@ -19,66 +19,75 @@ export const joinMatchQueue = (async (io: Server, socket: Socket, data: any, mat
         console.warn(`join_match_queue: no valid elo for user ${socket.data.user_id}, ignoring request`);
         return;
     }
-
     const user: MatchmakingUserDTO = {
         id: socket.data.user_id,
         elo,
         match_mode: data.match_mode,
+        match_type: data.match_type,
         match_attempt: 1,
         joined_at: new Date()
     };
 
     const match = await searchExclusive(() => matchmaking_service.matchmaking(user));
-   
-        if (!match) {
-           retryMatchmaking(io, user, matchmaking_service, match_confirmation_service, user_repo);
-            return;
-       }
-       await notifyMatchFound(io, match, data.match_mode, match_confirmation_service, user_repo);
-   
-    })
-   
+
+    if (!match) {
+        retryMatchmaking(io, user, matchmaking_service, match_confirmation_service, user_repo);
+        return;
+    }
+    await notifyMatchFound(io, match, data.match_mode, data.match_type, match_confirmation_service, user_repo);
+
+})
+
 const MATCH_RETRY_MS = 10000;
 const QUEUE_TIMEOUT_MS = 15000;
-   
-    // one search at a time: two searches running together (e.g. two waiting players retrying at once) could each pick the other and match them twice
-    let search_lock: Promise<unknown> = Promise.resolve();
-    const searchExclusive = <T>(search: () => Promise<T>): Promise<T> => {
-        const run = search_lock.then(search);
-        search_lock = run.catch(() => undefined);
-       return run;
-    }
-   
-    // matchmaking only runs when someone joins, so a waiting player's elo window (elo_difference * match_attempt) never grew and
-    // players further apart than that could never meet; keep searching with a wider window until they're matched or leave the queue
-    const retryMatchmaking = (io: Server, user: MatchmakingUserDTO, matchmaking_service: MatchmakingService, match_confirmation_service: MatchConfirmationService, user_repo: IUserRepository) => {
-        const delay = Math.min(MATCH_RETRY_MS, Math.max(0, user.joined_at.getTime() + QUEUE_TIMEOUT_MS - Date.now()));
+
+// one search at a time: two searches running together (e.g. two waiting players retrying at once) could each pick the other and match them twice
+let search_lock: Promise<unknown> = Promise.resolve();
+const searchExclusive = <T>(search: () => Promise<T>): Promise<T> => {
+    const run = search_lock.then(search);
+    search_lock = run.catch(() => undefined);
+    return run;
+}
+
+// matchmaking only runs when someone joins, so a waiting player's elo window (elo_difference * match_attempt) never grew and
+// players further apart than that could never meet; keep searching with a wider window until they're matched or leave the queue
+const retryMatchmaking = (io: Server, user: MatchmakingUserDTO, matchmaking_service: MatchmakingService, match_confirmation_service: MatchConfirmationService, user_repo: IUserRepository) => {
+    const delay = Math.min(MATCH_RETRY_MS, Math.max(0, user.joined_at.getTime() + QUEUE_TIMEOUT_MS - Date.now()));
+
     setTimeout(async () => {
-                  try {
-                      const next = { ...user, match_attempt: user.match_attempt + 1 };
-                 // stop once they've left the queue (cancelled, or matched by someone else's search); searching too long or having no connection left takes them out
-                  const match = await searchExclusive(async () => {
-                     if (!await matchmaking_service.isQueued(user.id, user.match_mode)) return 'left' as const;
-                    const connected = (await io.in(user.id).fetchSockets()).length > 0;
-                    if (!connected || Date.now() - user.joined_at.getTime() >= QUEUE_TIMEOUT_MS) {
-                        await matchmaking_service.dequeue(user.id, user.match_mode);
-                        return 'timed_out' as const;
-                    }
-                    return matchmaking_service.matchmaking(next);
-                 });
-  
-                 if (match === 'left') return;
-                 if (match === 'timed_out') return void io.to(user.id).emit('queue_timeout');
-                if (!match) return retryMatchmaking(io, next, matchmaking_service, match_confirmation_service, user_repo);
-                await notifyMatchFound(io, match, user.match_mode, match_confirmation_service, user_repo);
-            } catch (error) {
-        console.error('Failed to retry matchmaking:', error);
-    }
-}, delay);
- }
+
+        try {
+            const next = { ...user, match_attempt: user.match_attempt + 1 };
+            // stop once they've left the queue (cancelled, or matched by someone else's search); searching too long or having no connection left takes them out
+            const match = await searchExclusive(async () => {
+                if (!await matchmaking_service.isQueued(user.id, user.match_mode, user.match_type)) return 'left' as const;
+                const connected = (await io.in(user.id).fetchSockets()).length > 0;
+
+                if (!connected || Date.now() - user.joined_at.getTime() >= QUEUE_TIMEOUT_MS) {
+                    await matchmaking_service.dequeue(user.id, user.match_mode, user.match_type);
+                    return 'timed_out' as const;
+                }
+                return matchmaking_service.matchmaking(next);
+            });
+
+            if (match === 'left') return;
+            if (match === 'timed_out') return io.to(user.id).emit('queue_timeout');
+            if (!match) return retryMatchmaking(io, next, matchmaking_service, match_confirmation_service, user_repo);
+            await notifyMatchFound(io, match, user.match_mode, user.match_type, match_confirmation_service, user_repo);
+        } catch (error) {
+            console.error('Failed to retry matchmaking:', error);
+        }
+    }, delay);
+}
 
 export const leaveMatchQueue = (async (io: Server, socket: Socket, matchmaking_service: MatchmakingService) => {
-    const removed = await Promise.all(Object.values(MatchMode).map(mode => matchmaking_service.dequeue(socket.data.user_id, mode)));
+    const removed = await Promise.all(
+        Object.values(MatchType).flatMap((type) =>
+            Object.values(MatchMode).forEach((mode) =>
+                matchmaking_service.dequeue(socket.data.user_id, mode, type)
+            )
+        )
+    )
     const remove = removed.some(Boolean);
 
     if (remove) {
@@ -96,7 +105,7 @@ export const matchAccepted = (
         match_confirmation_service: MatchConfirmationService,
         match_start: MatchStart
     ) => {
-        socket.join(data.group_id);
+        await socket.join(data.group_id);
         match_confirmation_service.accept(data.group_id, socket.data.user_id);
 
         if (!match_confirmation_service.bothAccepted(data.group_id)) {
@@ -119,45 +128,37 @@ export const matchAccepted = (
         // waiting for other player(s) to accept
     })
 
-export const matchDeclined = (async (io: Server, group_id: string, match_mode: MatchMode, match_confirmation_service: MatchConfirmationService, matchmaking_service: MatchmakingService, user_repo: IUserRepository) => {
+export const matchDeclined = (async (io: Server, group_id: string, match_mode: MatchMode, match_type: MatchType, match_confirmation_service: MatchConfirmationService, matchmaking_service: MatchmakingService, user_repo: IUserRepository) => {
     const players = match_confirmation_service.getPlayers(group_id);   //get all players
 
     match_confirmation_service.decline(group_id); //delete player grouping
 
     // requeue players
     if (players) {
-        for (const player of players) {
-            io.to(player.id).emit("match_declined");
-            const requeue: MatchmakingUserDTO = {
-                id: player.id,
-                elo: player.elo,
-                match_mode: match_mode,
-                match_attempt: 1,
-                joined_at: new Date()   // this is a bit unfair coz they get requeued at the end of the queue but it's fine for now
-            }
+        const requeues: MatchmakingUserDTO[] = players.map((player) => ({
+            id: player.id,
+            elo: player.elo,
+            match_mode: match_mode,
+            match_type: match_type,
+            match_attempt: 1,
+            joined_at: new Date()
+        }));
 
-//             const delay = 6000 + Math.random() * 12000; //NOSONAR
-// 
-//             setTimeout(async () => {
-//                 try {
-//                     const match = await matchmaking_service.matchmaking(requeue);
-// 
-//                     if (!match) return;
-//                     await notifyMatchFound(io, match, match_mode, match_confirmation_service, user_repo);
-//                 } catch (error) {
-//                     console.error('Failed to requeue player:', error);
-//                 }
-//             }, delay);
-// 
-          await matchmaking_service.enqueue(requeue, match_mode);
-          retryMatchmaking(io, requeue, matchmaking_service, match_confirmation_service, user_repo);
+        for (const requeue of requeues) {
+            io.to(requeue.id).emit("match_declined");
+
         }
 
+        await Promise.all(requeues.map((requeue) => matchmaking_service.enqueue(requeue)));
+
+        for (const requeue of requeues) {
+            retryMatchmaking(io, requeue, matchmaking_service, match_confirmation_service, user_repo);
+        }
     }
 })
 
 
-export const notifyMatchFound = (async (io: Server, match: PlayerDTO[], match_mode: MatchMode, match_confirmation_service: MatchConfirmationService, user_repo: IUserRepository) => {
+export const notifyMatchFound = (async (io: Server, match: PlayerDTO[], match_mode: MatchMode, match_type: MatchType, match_confirmation_service: MatchConfirmationService, user_repo: IUserRepository) => {
     const group_id = match_confirmation_service.create(match);
     const players = await Promise.all(
         match.map(async (p) => {
@@ -172,7 +173,8 @@ export const notifyMatchFound = (async (io: Server, match: PlayerDTO[], match_mo
     const result = {
         players: players,
         group_id: group_id,
-        match_mode: match_mode
+        match_mode: match_mode,
+        match_type: match_type
     };
 
     for (const p of match) {

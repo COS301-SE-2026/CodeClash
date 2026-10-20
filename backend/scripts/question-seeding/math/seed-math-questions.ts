@@ -1,5 +1,5 @@
 import { pool } from "../db";
-import { containsDiagram, extractAnswer, fetchAllRows, SeedQuestion, transformRow } from "./helpers";
+import { extractAnswer, fetchAllRows, SeedQuestion, transformRow } from "./helpers";
 
 // INSERTING INTO DB
 
@@ -10,7 +10,7 @@ async function insertQuestions(questions: SeedQuestion[]) {
     try {
         await client.query("BEGIN");
         for (const q of questions) {
-            const result = await client.query(
+            const result = await client.query( //NOSONAR
                 `INSERT INTO questions (match_mode, difficulty, title, description, time_limit, answer_format, answer_precision, input_type)
                 VALUES ($1, $2, $3, $4,$5,$6,$7,$8)
                 RETURNING question_id`,
@@ -28,7 +28,7 @@ async function insertQuestions(questions: SeedQuestion[]) {
 
             const question_id = result.rows[0].question_id;
 
-            await client.query(
+            await client.query( //NOSONAR
                 `INSERT INTO answers (question_id, answer) VALUES ($1, $2)`,
                 [question_id, q.correct_answer]
             );
@@ -50,7 +50,7 @@ async function main() {
     const raw_rows = await fetchAllRows();
 
     const questions = raw_rows.map((row) => {
-        if (containsDiagram(row.problem)) return null;
+      //  if (containsDiagram(row.problem)) return null;
 
         const boxed = extractAnswer(row.solution);
         if (!boxed) return null;

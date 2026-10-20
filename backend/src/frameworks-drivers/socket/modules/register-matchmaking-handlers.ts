@@ -1,7 +1,7 @@
 import { Server, Socket } from "socket.io";
 import { MatchmakingDeps } from "../dependencies";
 import { joinMatchQueue, leaveMatchQueue, matchAccepted, matchDeclined } from "src/interface-adapters/socket-handlers/matchmaking-handlers";
-import { MatchDataDTO, MatchMode } from "src/entities/dtos/matches/match.dto";
+import { MatchDataDTO, MatchMode, MatchType } from "src/entities/dtos/matches/match.dto";
 
 // Handlers don't send acknowledgements, but their errors must still be caught: an unhandled rejection stops the whole server
 const logErrors = (event: string) => (error: unknown) => console.error(`socket: ${event}`, error);
@@ -11,5 +11,5 @@ export function registerMatchmakingHndlers(io: Server, socket: Socket, deps: Mat
     socket.on('join_match_queue', (data) => joinMatchQueue(io, socket, data, deps.matchmaking_service, deps.matched_users_service, deps.user_repo).catch(logErrors('join_match_queue')));
     socket.on('leave_match_queue', () => leaveMatchQueue(io, socket, deps.matchmaking_service).catch(logErrors('leave_match_queue')));
     socket.on('match_accepted', (data: MatchDataDTO) => matchAccepted(io, socket, data, deps.matched_users_service, deps.match_start).catch(logErrors('match_accepted')));
-    socket.on('decline_match', (data: { group_id: string, match_mode: MatchMode }) => matchDeclined(io, data.group_id, data.match_mode, deps.matched_users_service, deps.matchmaking_service, deps.user_repo).catch(logErrors('decline_match')));
+    socket.on('decline_match', (data: { group_id: string, match_mode: MatchMode, match_type: MatchType }) => matchDeclined(io, data.group_id, data.match_mode, data.match_type,deps.matched_users_service, deps.matchmaking_service, deps.user_repo).catch(logErrors('decline_match')));
 }

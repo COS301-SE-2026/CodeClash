@@ -7,7 +7,7 @@ export class MarkProg implements IMarkingStrategy {
 
     private readonly executor;
     // Max test cases sent to Judge0 at once; keeps a single submission from flooding its queue
-    private static readonly CONCURRENCY = 2;
+    private static readonly CONCURRENCY = 8;
 
     constructor(
         private readonly code_executor: ICodeExecutor,

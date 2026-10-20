@@ -16,7 +16,9 @@ const LeaderboardRow = ({ rank, user }: LeaderboardRowProps) => {
             </div>
 
             <span className="flex-1 text-sm font-semibold text-primary-text truncate">{user.username}</span>
-                <span className="score-display text-md">{user.elo}</span>
+            <span className="flex-1 text-sm font-semibold text-primary-text truncate">{user.league}</span>
+            <span className="score-display text-md">{user.elo}</span>
+
         </div>
     );
 };

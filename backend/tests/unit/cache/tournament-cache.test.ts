@@ -29,7 +29,7 @@ describe("Tournament Cache Test", () => {
     })
 
     it("Creates a tournament", async () => {
-        await tournament_cache.createTournament(tournament_id, start_date, match_mode,host, "Testing cache", 3);
+        await tournament_cache.createTournament(tournament_id,  match_mode,host, "Testing cache", 3);
 
         const tournament = await redis.get(`tournament:${tournament_id}`)
         expect(tournament).not.toBeNull();
@@ -39,7 +39,7 @@ describe("Tournament Cache Test", () => {
     })
 
     it("Throws an error when creating a tournament with an existing id", async () => {
-        await expect(tournament_cache.createTournament(tournament_id, start_date, match_mode,host,"Testing cache", 3)).rejects.toThrow("Tournament already exists");
+        await expect(tournament_cache.createTournament(tournament_id, match_mode,host,"Testing cache", 3)).rejects.toThrow("Tournament already exists");
     })
 
     it("Adds a player to a tournament", async () => {
@@ -77,7 +77,7 @@ describe("Tournament Cache Test", () => {
         const start = new Date(2025, 8, 10, 18, 24);
 
 
-        await tournament_cache.createTournament(id, start, match_mode,host,"Testing cache", 3);
+        await tournament_cache.createTournament(id, match_mode,host,"Testing cache", 3);
         await tournament_cache.updateStatus(id, MatchStatus.Abandoned);
 
         await expect(tournament_cache.addPlayer(id, player.id)).rejects.toThrow("Cannot add player to past or in progress tournaments");
@@ -98,7 +98,7 @@ describe("Tournament Cache Test", () => {
             host: host
         }
 
-        await tournament_cache.createTournament(expected.tournament_id, expected.start_date, match_mode,host,"Testing cache", 3);
+        await tournament_cache.createTournament(expected.tournament_id, match_mode,host,"Testing cache", 3);
         const tournament = await tournament_cache.getTournament(expected.tournament_id);
         const data = await redis.get(`tournament:${expected.tournament_id}`);
         expect(tournament).toEqual(JSON.parse(data!));
