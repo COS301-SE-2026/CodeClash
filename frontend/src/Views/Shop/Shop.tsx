@@ -133,7 +133,16 @@ const ThemeCard: React.FC<{
     purchasing: boolean;
     onPurchase: () => void;
     onEquip: () => void;
-}> = ({item, owned, equipped, affordable, purchasing, onPurchase, onEquip}) => (
+}> = ({item, owned, equipped, affordable, purchasing, onPurchase, onEquip}) => {
+    let purchaseLabel: string;
+
+    if (affordable){
+        purchaseLabel = 'Buy';
+    } else {
+        purchaseLabel = "Can't afford";
+    }
+
+    return (
     <div className="card-glass" style={{padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.9rem'}}>
         <div style={{display: 'flex', justifyContent: 'center', padding: '0.5rem 0'}}>
             <ThemeSwatch colors={item.swatchColors} size={64}/>
@@ -144,23 +153,24 @@ const ThemeCard: React.FC<{
         </div>
         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem'}}>
             <PriceTag amount={item.price.amount}/>
-            {owned ? (
-                equipped ? (
+            {owned && equipped && (
                     <button type="button" disabled className="btn btn-sm" style={{background: 'var(--background-elevated)', color: 'var(--muted)', cursor: 'default'}}>
                         <Check size={14}/>
                         Equipped
                     </button>
-                ) : (
+                )}
+                {owned && equipped && (
                     <button type="button" onClick={onEquip} className="btn btn-sm btn-secondary">Equip</button>
-                )
-            ) : (
+                )}
+            {!owned && (
                 <button type="button" onClick={onPurchase} disabled={purchasing || !affordable} className="btn btn-sm btn-primary">
-                    {purchasing ? <Loader2 size={14} className="animate-spin"/> : affordable ? 'Buy' : "Can't afford"}
+                    {purchasing ? (<Loader2 size={14} className="animate-spin"/> ): (purchaseLabel)}
                 </button>
             )}
         </div>
     </div>
 ) 
+}
 
 {/*Copied theme card */}
 const PowerupCard: React.FC<{
@@ -170,6 +180,13 @@ const PowerupCard: React.FC<{
     purchasing: boolean;
     onPurchase: () => void;
 }> = ({item, owned, affordable, purchasing, onPurchase}) => {
+    let purchaseLabel: string;
+
+    if (affordable){
+        purchaseLabel = 'Buy';
+    } else {
+        purchaseLabel = "Can't afford";
+    }
     return (
         <div className="card-glass" style={{padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.9rem'}}>
             <div>
@@ -180,7 +197,7 @@ const PowerupCard: React.FC<{
             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', marginTop: 'auto'}}>
             <PriceTag amount={item.price.amount}/>
                 <button type="button" onClick={onPurchase} disabled={purchasing || !affordable} className="btn btn-sm btn-primary">
-                    {purchasing ? <Loader2 size={14} className="animate-spin"/> : affordable ? 'Buy' : "Can't afford"}
+                    {purchasing ? (<Loader2 size={14} className="animate-spin"/> ): (purchaseLabel)}
                 </button>
             </div>
         </div>
