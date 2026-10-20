@@ -53,10 +53,6 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
     current_round,
     current_user,
     shields,
-    // powerups,
-    // onUsePowerup,
-    // powerupBusy,
-    // powerupError,
     playerOneDamage,
     playerTwoDamage
 }) => {
