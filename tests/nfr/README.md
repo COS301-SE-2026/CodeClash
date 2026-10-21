@@ -214,6 +214,23 @@ This should return [] or some form of empty value for every row that needs to be
 -->
 
 
+Then the following output should also be included as well:
+
+Explicit checking beyond what jwt_tool does, checks that when no authentication token is provided, the request is rejected:
+This test passed correctly for http://localhost:3000/api/leaderboard, the no-token request was rightfully rejected with response code 401
+This test passed correctly for http://localhost:3000/api/matches, the no-token request was rightfully rejected with response code 401
+This test passed correctly for http://localhost:3000/api/friends, the no-token request was rightfully rejected with response code 401
+This test passed correctly for http://localhost:3000/api/friends/requests, the no-token request was rightfully rejected with response code 401
+This test passed correctly for http://localhost:3000/api/friends/invite, the no-token request was rightfully rejected with response code 401
+This test passed correctly for http://localhost:3000/api/friends/request, the no-token request was rightfully rejected with response code 401
+This test passed correctly for http://localhost:3000/api/achievements, the no-token request was rightfully rejected with response code 401
+This test passed correctly for http://localhost:3000/api/achievements/me, the no-token request was rightfully rejected with response code 401
+SKIPPING http://localhost:3000/api/create-user endpoint as it is deliberately exempt from auth as it is a route for signup
+This test passed correctly for http://localhost:3000/api/elo/elo-get, the no-token request was rightfully rejected with response code 401
+This test passed correctly for http://localhost:3000/api/user/rank, the no-token request was rightfully rejected with response code 401
+This test passed correctly for http://localhost:3000/api/user/search, the no-token request was rightfully rejected with response code 401
+
+
 
 #### Evidence to collect
 - There should be nothing following the final line of the output, if there is, that indicates there is a security vulnerability with that endpoint for that specific test
