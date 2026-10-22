@@ -25,10 +25,11 @@ export class MatchStore {
 
         const populatePlayerData = await Promise.all(
             players.map(async (player) => {
-                const user_name = await this.user_repo.getUserData(player.id, 'username');
+                const user = await this.user_repo.getUserData(player.id, 'username');
+
                 return {
                     ...player,
-                    username: user_name!.username!,
+                    username: user!.username!,
                     done: false,
                     life: 100
                 }
