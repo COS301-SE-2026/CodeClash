@@ -33,7 +33,8 @@ export class MarkingService {
                 correct: result.correct,
                 speed: submission!.submitted_at!.getTime() - submission!.started_at!.getTime(),
                 attempt_number: submission!.attempt_number,
-                life_update: new_life
+              life_update: new_life,
+                ...(result.feedback !== undefined && { feedback: result.feedback })
             };
         }
         catch (error) {

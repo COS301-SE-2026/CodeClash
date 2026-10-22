@@ -7,6 +7,7 @@ import Loading from '@/components/shared/Loading';
 import { useState, useMemo, useEffect } from "react";
 import TournamentButton from "@/components/features/Tournaments/TournamentButton";
 import { MatchCard } from "@/components/features/Match/MatchCard";
+import { TestCaseFeedback } from "@/components/features/Match/TestCaseFeedback";
 import PopUp from "@/components/shared/PopUp";
 import { useUser } from 'src/context/User/hooks/useUser';
 import { Button } from "@/components/ui/button";
@@ -31,7 +32,7 @@ export const ProgMatch = () => {
         roundIdx, rounds,
         opponentCurrent, waitingOpponent, finishMatch,
         loading,
-        submitQuestion, marking, markingError,
+        submitQuestion, marking, markingError, feedback,
         elos,
         final_question, complete_round, confirmCompleteRound, confirmRound, cancelCompleteRound, completeRound,
         matchType, matchMode
@@ -41,7 +42,8 @@ export const ProgMatch = () => {
     const question = useMemo(() => ({ templates: curr?.templates }), [curr]);
   const { username } = useUser();
   const { isConnected } = useSocket();
-    const currentResult = results?.[roundIdx]?.[currentQuestion];
+  const currentResult = results?.[roundIdx]?.[currentQuestion];
+  const currentFeedback = feedback?.[roundIdx]?.[currentQuestion];
 
     const correct : boolean | null = results?.[roundIdx]?.[currentQuestion] ?? null;
 
@@ -190,7 +192,8 @@ export const ProgMatch = () => {
                         : currentResult === true ? <span className='text-success'>Correct! All test cases passed.</span>
                         : currentResult === false ? <span className='text-danger'>Incorrect - some test cases failed.</span>
                         : null}
-                </p>
+          </p>
+          {!marking && !markingError && currentResult === false && currentFeedback && <TestCaseFeedback feedback={currentFeedback } />}
             </MatchCard>
             {waitingOpponent && (
                 <PopUp

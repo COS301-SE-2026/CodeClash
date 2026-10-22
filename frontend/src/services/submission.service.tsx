@@ -1,4 +1,4 @@
-import { type MarkingResultDTO } from "src/dtos/match/submission.dto";
+import { type MarkingResultDTO, type ProgFeedbackDTO } from "src/dtos/match/submission.dto";
 import { useEffect, useState } from "react";
 import type { MathsSubmissionDTO, ProgSubmissionDTO } from "src/dtos/match/submission.dto";
 import type { Question } from "src/Models/MatchModel";
@@ -22,7 +22,8 @@ export const useSubmission = ({
     match_id,
     updatePlayerLife
 }: SubmissionProps) => {
-    const [results, setResults] = useState<(boolean | null)[][]>([]);
+  const [results, setResults] = useState<(boolean | null)[][]>([]);
+  const [feedback, setFeedback] = useState<(ProgFeedbackDTO | null)[][]>([]);
     const [lastResult, setLastResult] = useState<{ correct: boolean; id: number } | null>(null);
     const [marking, setMarking] = useState(false);
     const [markingError, setMarkingError] = useState<string | null>(null);
@@ -37,6 +38,14 @@ export const useSubmission = ({
             next[round_idx] = round_results;
             return next
         });
+
+      setFeedback((prev) => {
+        const next = [...prev];
+        const round_feedback = [...(next[round_idx] ?? [])];
+        round_feedback[curr_question] = result.feedback ?? null;
+        next[round_idx] = round_feedback;
+        return next;
+      })
 
     }
 
@@ -95,6 +104,7 @@ export const useSubmission = ({
     return {
       results,
       setResults,
+      feedback,
       lastResult,
       marking,
       markingError,
