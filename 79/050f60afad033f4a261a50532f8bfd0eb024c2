@@ -1,0 +1,19 @@
+frontend/@/components/features/Match/TestCaseFeedback.tsx
+  s_58c9539b1553c3::t_1d86a6cecf2075 1-38
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "79050f60afad033f4a261a50532f8bfd0eb024c2",
+  "prompts": {},
+  "sessions": {
+    "s_58c9539b1553c3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "925e6ffa-1f1c-4965-a96e-1d80902edd6b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
