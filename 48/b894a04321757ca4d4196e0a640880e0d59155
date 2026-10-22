@@ -1,0 +1,18 @@
+backend/tests/unit/usecases/services/match.store.service.test.ts
+  h_94c952a9e14c58 1-44
+backend/src/interface-adapters/repositories/friend.repository.ts
+  h_94c952a9e14c58 39
+backend/src/application/usecases/services/match/match-store.service.ts
+  h_94c952a9e14c58 44-45,80-81,83,85-89,105
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "48b894a04321757ca4d4196e0a640880e0d59155",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
