@@ -16,6 +16,7 @@ import ConfirmationPopup from "../Confirmation";
 import type { ConfirmationViewModel } from "src/ViewModels/ConfirmationViewModel";
 import PowerEffect from "@/components/ui/animations/PowerEffect";
 import { corruptCode } from "src/utils/corrupt";
+import { PowerUpAndDownButtons } from "@/components/features/Match/PowerUpandDownButtons";
 
 export const ProgMatch = () => {
     const [code, setCode] = useState('');
@@ -36,7 +37,7 @@ export const ProgMatch = () => {
         submitQuestion, marking, markingError,
         elos,
         final_question, complete_round, confirmCompleteRound, confirmRound, cancelCompleteRound, completeRound,
-        matchType, matchMode,
+        matchType, matchMode, playerOneDamage, playerTwoDamage,
         powerups, activatePowerup, powerupBusy, powerupError,
         blackoutQuestionId,
         inputEffect,
@@ -125,6 +126,8 @@ export const ProgMatch = () => {
             rounds={rounds}
             current_round={roundIdx}
             current_user={username}
+            playerOneDamage={playerOneDamage}
+            playerTwoDamage={playerTwoDamage}
             shields={shields}
             powerups={powerups}
             onUsePowerup={activatePowerup}
@@ -140,38 +143,38 @@ export const ProgMatch = () => {
                 </MatchCard>
             ) : (
             <Question
-                className={` h-[20rem] `}
+                className={``}
                 difficulty={curr.difficulty!}
                 title={curr.title!}
                 description={curr.description}
             />)}
             
-            <MatchCard className={`items-center justify-center mt-5`}>
+            <MatchCard className={`items-center justify-center mt-5 h-[50%]`}>
                 <Flash
                     result={correct ?? null}
                     trigger={flashTrigger}
-                    className="w-[95%] flex flex-col items-center justify-center mt-5 rounded-2xl">
-                    <MatchCard className={`w-[100%] h-[95%] ${result_colour()} ${result_border()}`}>
+                    className="w-[90%] flex flex-col items-center justify-center mt-10 rounded-2xl -mb-2">
+                    <MatchCard className={`w-[100%] ${result_colour()} ${result_border()}`}>
                         <CodeEditor
                             question={question}
                             onChange={(new_code,  judge0_id) => {
                                 setCode(new_code);
                                 setLanguageId(judge0_id)
                             }}
-                            className="ml-20 "
+                            className="ml-20"
                             forcedValue={forced}
                         />
                         
                     </MatchCard>
                 </Flash>
 
-                <div className='flex flex-row gap-5 flex-shrink-0 w-full mx-auto justify-center my-auto'>
+                <div className='flex flex-row gap-5 flex-shrink-0 w-full m-auto justify-center -mb-7'>
 
                     <TournamentButton className='flex items-center justify-evenly text-secondary rounded-2xl w-[10%] h-auto'>
                         <ChevronLeft onClick={() => prevQuestion(currentQuestion)} className='size-[3rem] hover:scale-110  hover:bg-secondary/20 rounded-2xl w-[50%]' />
                         <ChevronRight onClick={() => nextQuestion(currentQuestion)} className='size-[3rem] hover:scale-110 hover:bg-secondary/20 rounded-2xl w-[50%]' />
                     </TournamentButton>
-                    <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[1rem] hover:-translate-y-1'
+                    <Button className='w-[20%] h-[2.6rem] rounded-2xl text-[1rem] hover:-translate-y-1 my-auto'
                                             disabled={marking || !isConnected}
                                            onClick={async () => {
                                                 if (!marking && isConnected && code.trim() && languageId !== null) {
@@ -207,10 +210,17 @@ export const ProgMatch = () => {
                         )
                     }
 
+                    <PowerUpAndDownButtons
+                        powerups={powerups ?? []}
+                        onUse={activatePowerup}
+                        busy={powerupBusy}
+                        error={powerupError}>
+                    </PowerUpAndDownButtons>
+
                 </div>
 
                 {/* Judge0 runs every test case, so give explicit feedback rather than relying on the card flash alone */}
-                <p className='text-center text-[0.95rem] font-semibold mb-3 min-h-[1.5rem]' aria-live='polite'>
+                <p className='text-center text-[0.95rem] font-semibold mb-5 mt-2 min-h-[1.5rem]' aria-live='polite'>
                     {marking ? <span className='text-muted-text'>Running your code against the test cases...</span>
                         : markingError ? <span className='text-danger'>Could not mark submission: {markingError}</span>
                         : currentResult === true ? <span className='text-success'>Correct! All test cases passed.</span>

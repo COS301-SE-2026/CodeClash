@@ -308,57 +308,25 @@ export const useMatch = (timeUp?: () => Promise<void>) => {
         }
     }
 
-    // const openPowerupPopup = () => setPowerupPopupOpen(true);
-    // const closePowerupPopup = () => setPowerupPopupOpen(false);
+    const useDamageShake = (life: number) => {
+        const prevLife = useRef(life);
+        const [damage, setDamage] = useState(0); //instead of using boolean values, i will use a counter which in the case of quick, successive damage being taken by a player, the animation plays however many times damage was taken and not just once
+    
+        useEffect(() => {
+            const beforeDamage = prevLife.current;
+            prevLife.current = life;
 
-    // const usePowerups = async (itemIds : string[]) => {
-    //     if(!matchSocket || !match_id){
-    //         return;
-    //     }
+            if(life < beforeDamage){
+                setDamage(d => d + 1);
+            }
+        }, [life]);
 
-    //     for(const shop_item_id of itemIds){
-    //         try{
-    //             const response = await matchSocket.usePowerup({
-    //                 match_id: Number(match_id),
-    //                 shop_item_id,
-    //             });
-    //             if (response.ok){
-    //                 //put ui effects here 
-                    
-    //             }
-    //         } catch (err) {
-    //             console.error('Failed to use powerup', err);
-    //         }
-    //     }
+        return damage;
+    }
 
-    //     setPowerupPopupOpen(false);
-    // }
+    const playerOneDamage = useDamageShake(playerLife[0]);
+    const playerTwoDamage = useDamageShake(playerLife[1]);
 
-    // const openPowerupPopup = () => setPowerupPopupOpen(true);
-    // const closePowerupPopup = () => setPowerupPopupOpen(false);
-
-    // const usePowerups = async (itemIds : string[]) => {
-    //     if(!matchSocket || !match_id){
-    //         return;
-    //     }
-
-    //     for(const shop_item_id of itemIds){
-    //         try{
-    //             const response = await matchSocket.usePowerup({
-    //                 match_id: Number(match_id),
-    //                 shop_item_id,
-    //             });
-    //             if (response.ok){
-    //                 //put ui effects here 
-                    
-    //             }
-    //         } catch (err) {
-    //             console.error('Failed to use powerup', err);
-    //         }
-    //     }
-
-    //     setPowerupPopupOpen(false);
-    // }
 
     useEffect(() => {
         if (matchSocket && match_id) {
@@ -454,6 +422,8 @@ export const useMatch = (timeUp?: () => Promise<void>) => {
         completeRound,
         matchType,
         matchMode,
+        playerOneDamage,
+        playerTwoDamage,
         // powerups
         powerups,
         activatePowerup,
