@@ -159,7 +159,7 @@ const ThemeCard: React.FC<{
                         Equipped
                     </button>
                 )}
-                {owned && equipped && (
+                {owned && !equipped && (
                     <button type="button" onClick={onEquip} className="btn btn-sm btn-secondary">Equip</button>
                 )}
             {!owned && (
