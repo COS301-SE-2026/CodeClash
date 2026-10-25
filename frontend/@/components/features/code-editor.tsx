@@ -17,9 +17,10 @@ interface codeEditorProps {
     question: { templates?: TemplateDTO[] },
     onChange: (code: string, judge0_language_id: number) => void
     className?: string
+    forcedValue?: { text: string; nonce: number } | null
 }
 
-export const    CodeEditor = ({ question, onChange, className }: codeEditorProps) => {
+export const CodeEditor = ({ question, onChange, className, forcedValue }: codeEditorProps) => {
 
     const { templates, selectedLanguage, code, changeLanguage, editCode } = useCodeQuestion(question, onChange);
     const [monacoLoaded, setMonacoLoaded] = useState(false);
@@ -31,6 +32,10 @@ export const    CodeEditor = ({ question, onChange, className }: codeEditorProps
     }, []);
 
 
+    useEffect(() => {
+        if (forcedValue) editCode(forcedValue.text);
+    }, [forcedValue?.nonce]);
+    
     return (
 
         <div className="flex flex-col h-full w-full">

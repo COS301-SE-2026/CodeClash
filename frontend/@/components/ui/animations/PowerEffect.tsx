@@ -46,7 +46,7 @@ export const POWER_EFFECTS: Record<string, PowerConf> = {
         label: 'Wipe',
         icon: Eraser
     },
-    block_question: {
+    blackout_question: {
         kind: 'powerdown',
         label: 'Question Blackout',
         icon: EyeOff

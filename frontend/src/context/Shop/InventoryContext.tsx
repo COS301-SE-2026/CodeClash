@@ -6,7 +6,7 @@
     import { useAuth } from "../Auth/hooks/useAuth";
 
     import { getCatalog,getWallet, getInv, purchaseItm, equipItm, } from "src/services/shop.service.ts"; //to be changed once backedn endpoints implemented 
-
+    import { playSfx } from "src/utils/audio";
 
     interface InventoryContextValue {
         catalog: ShopItem[];
@@ -89,6 +89,7 @@
             const res = await purchaseItm(itemId, token);
             setWallet(res.wallet);
             setInventory(res.inventory);
+            playSfx('purchase');
         }, [token])
 
         const equip = useCallback(async (category: 'avatar' | 'theme', itemId: string) => {

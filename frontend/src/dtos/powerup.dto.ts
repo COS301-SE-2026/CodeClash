@@ -10,5 +10,9 @@ export interface UsePowerupResultDTO {
     match_id: number;
     user_id: string;
     target_user_id?: string;
-
+    duration_seconds?: number;
+    question_id?: string
 }
+
+export interface UsePowerupSocketDTO { match_id: string; shop_item_id: string }
+export interface LifeUpdateDTO { player_id: string; life: number }

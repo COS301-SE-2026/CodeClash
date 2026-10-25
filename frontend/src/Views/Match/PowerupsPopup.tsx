@@ -1,4 +1,4 @@
-import { Bug, Eraser, EyeOff, Heart, HeartCrack, Hourglass, Lightbulb, ShieldAlert, Sparkles, Timer, X, Zap } from "lucide-react";
+import { Bug, Eraser, EyeOff, Heart, HeartCrack, Hourglass, ShieldAlert, Sparkles, Timer, X, Zap } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import { useInventory } from "src/context/Shop/InventoryContext";
 import type { 
@@ -7,13 +7,12 @@ import type {
 
 const Icons: Record<PowerupEffectType, React.ComponentType<{size?: number; className?: string}>> = {
     reduce_time: Timer,
-    reveal_hint: Lightbulb,
     block_next_powerdown: ShieldAlert,
     score_multiplier: Zap,
     restore_life: Heart,
     insert_bugs: Bug,
     wipe_answer: Eraser,
-    block_question: EyeOff,
+    blackout_question: EyeOff,
     increase_time: Hourglass,
     drain_life: HeartCrack,
 }
