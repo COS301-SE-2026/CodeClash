@@ -1,0 +1,14 @@
+backend/scripts/question-seeding/programming/seed-prog-templates.ts
+  h_58e143dc25f856 22
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c26868ee271dbcb51ec4cb1ab4a6bbcdff40a580",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
