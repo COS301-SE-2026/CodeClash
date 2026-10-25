@@ -9,10 +9,17 @@ function stripLocalIncludes(code: string) {
         .join('\n')
 }
 
+function stripNamespaces(code: string) {
+  return code.split('\n')
+    .filter((line) => !/^\s*namespace\s+\w+\s*\{/.test(line) && !/^\s*\}\s*\/\/\s*namespace/.test(line))
+    .join('\n')
+    .replace(/\n{3,}/g, '\n\n')
+}
+
 function wrapCppTemplate(code: string) {
   let wrapped = code.trim();
   if (!wrapped.includes('#include <iostream>')) wrapped = `#include <iostream>\n\n${wrapped}`;
-  if (!/\bint\s+main\s*\(/.test(wrapped)) wrapped = `${wrapped}\n\nint main() {}`;
+  if (!/\bint\s+main\s*\(/.test(wrapped)) wrapped = `${wrapped.trimEnd()}\n\nint main(\n) {\n    // read your inputs with cin\n    // print your outputs to the console\n}`;
   return `${wrapped}\n`;
 }
 
@@ -53,7 +60,7 @@ async function insertTemplates(questions_by_slug: Map<string, string>) {
 
                 let starter_code = fs.readFileSync(stub_path, "utf-8");
                 if(lang.language === 'cpp'){
-                    starter_code = wrapCppTemplate(stripLocalIncludes(starter_code));
+                    starter_code = wrapCppTemplate(stripNamespaces(stripLocalIncludes(starter_code)));
                 }
 
                 await client.query(
