@@ -19,7 +19,7 @@ function stripNamespaces(code: string) {
 function wrapCppTemplate(code: string) {
   let wrapped = code.trim();
   if (!wrapped.includes('#include <iostream>')) wrapped = `#include <iostream>\n\n${wrapped}`;
-  if (!/\bint\s+main\s*\(/.test(wrapped)) wrapped = `${wrapped.trimEnd()}\n\nint main(\n) {\n    // read your inputs with cin\n    // print your outputs to the console\n}`;
+  if (!/\bint\s+main\s*\(/.test(wrapped)) wrapped = `${wrapped.trimEnd()}\n\nint main(\n) {\n    // READ INPUTS FROM THE CONSOLE \n    // print your outputs to the console\n}`;
   return `${wrapped}\n`;
 }
 
