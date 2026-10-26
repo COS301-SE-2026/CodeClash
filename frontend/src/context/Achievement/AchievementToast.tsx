@@ -1,6 +1,7 @@
 import { Trophy, Flame, Zap, Medal } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import type { Icons } from "src/Models/AchievementsModel";
+import { playSfx } from "src/utils/audio";
 
 const AchIcons: Record<Icons, React.ComponentType<{ size?: number; className?: string }>> = {
     trophy: Trophy, flame: Flame, zap: Zap, medal: Medal
@@ -18,6 +19,7 @@ export const AchievementToast: React.FC<AchievementToastProps> = ({ name, descri
     const Icon = AchIcons[icon];
 
     useEffect(() => {
+        playSfx('achievement');
         // fade in
         const show = requestAnimationFrame(() => setVisible(true));
         // auto dismiss after 4s

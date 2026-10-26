@@ -6,6 +6,7 @@ import { useUser } from "src/context/User/hooks/useUser";
 import { type SubmissionDTO } from "src/dtos/match/submission.dto";
 import { useSocket } from "src/context/Socket/hooks/useSocket";
 import type { MatchMode, MatchType } from "src/dtos/match/match.dto";
+import { playSfx } from "src/utils/audio";
 
 interface SubmissionProps {
     round_idx: number,
@@ -76,6 +77,7 @@ export const useSubmission = ({
                 updatePlayerLife(result.data!.player_id, result.data!.life_update);
                 submissionResult(result.data!);
                 setLastResult({ correct: result.data!.correct, id: Date.now() });
+                if (result.data!.correct) playSfx('correct');
             }
             else {
                 submissionError("Marking Error");

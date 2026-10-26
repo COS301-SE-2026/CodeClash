@@ -19,6 +19,11 @@ export const Tabs: ShopTab[] = [
         label: 'Themes',
         categories: ['theme']
     },
+    {
+        id: 'powerups',
+        label: 'Power-Ups',
+        categories: ['powerup']
+    },
 ]
 
 export const ShopViewModelFunc = () => {
@@ -41,6 +46,10 @@ export const ShopViewModelFunc = () => {
 
     const itemsByCategory = useCallback(
         (category: ShopCategory) => items.filter((i) => i.category === category), [items]
+    )
+
+    const powerupQuantity = useCallback(
+        (itemId: string) => inventory?.consumable.find((c) => c.shop_item_id === itemId)?.quantity ?? 0, [inventory]
     )
 
     const canAfford = useCallback(
@@ -89,6 +98,7 @@ export const ShopViewModelFunc = () => {
         purchasingId,
         isOwned,
         isEquipped,
+        powerupQuantity,
         canAfford,
         purchase,
         equip,
