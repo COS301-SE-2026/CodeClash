@@ -17,10 +17,9 @@ const FinalResults: React.FC = () => {
 
     const {
         content, state, loadingProgress,
-        players, avatars, userId
+        players, avatars
     } = FinalResultsViewModelFunction();
 
-    // console.log('reward debug', { userId, players: players.map(p => ({ id: p.user_id, reward: p.reward })) });
     const [res, setRes] = useState(false); // moved
 
     useEffect(() => {
@@ -115,7 +114,7 @@ const FinalResults: React.FC = () => {
                                     isWinner: player.position === 1,
                                     rank: player.rank,
                                     rank_before: player.rank_before,
-                                    reward: player.user_id === userId ? player.reward : undefined,
+                                    reward: player.reward,
                                 }}
                                 avatarKey={avatars[player.user_id] ?? null}
                                 emphasize={player.position === 1}

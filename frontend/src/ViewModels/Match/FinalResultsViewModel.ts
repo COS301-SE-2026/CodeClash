@@ -10,7 +10,6 @@ import { useMatchStore } from "src/stores/match-store";
 import { useResultStore } from "src/stores/result-store";
 import { useAuth } from "src/context/Auth/hooks/useAuth";
 import { getEquippedFor } from "src/services/shop.service";
-import { useUser } from "src/context/User/hooks/useUser";
 
 
 interface FinalResultsViewModel {
@@ -21,7 +20,6 @@ interface FinalResultsViewModel {
     winner: PlayerResultDTO | undefined,
     losers: PlayerResultDTO[],
     avatars: Record<string, string | null | undefined>
-    userId: string;
 }
 
 export function FinalResultsViewModelFunction(): FinalResultsViewModel {
@@ -34,7 +32,7 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
     const results = useResultStore(s => s.results.find(r => r?.match_id === match_id));
     const {token} = useAuth();
     const tokenInv = token ?? "";
-    const { userId } = useUser();
+
 
     const players = useMemo(
         () => [...results?.players ?? []].sort((a, b) => a.position - b.position),
@@ -127,7 +125,6 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
         players,
         winner,
         losers,
-        avatars,
-        userId
+        avatars
     };
 }

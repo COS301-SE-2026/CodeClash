@@ -14,7 +14,7 @@ export function registerMatchHandlers(io: Server, socket: Socket, deps: MatchDep
     registerHandler(socket, 'match_done', (socket, payload: { match_id: string, match_type: MatchType }) =>
         matchDone(io, socket, payload.match_id, payload.match_type, deps.match_completion_service, deps.match_store)
     );
-  registerHandler(socket, 'send_results', async (socket, payload: { match_id: string }) => sendResults(io, payload.match_id, deps.match_store));
+  registerHandler(socket, 'send_results', async (socket, payload: { match_id: string }) => sendResults(io, payload.match_id, deps.match_store, socket.data.user_id));
 
   registerHandler(socket, 'rejoin_match', async (socket, payload: { match_id: string }) => rejoinMatch(socket, payload.match_id, deps.match_store, deps.submission_system, deps.life_system, deps.powerup_system));
 
