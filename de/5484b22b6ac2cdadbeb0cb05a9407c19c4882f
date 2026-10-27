@@ -1,0 +1,14 @@
+backend/vitest.config.ts
+  h_94c952a9e14c58 27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "de5484b22b6ac2cdadbeb0cb05a9407c19c4882f",
+  "prompts": {},
+  "humans": {
+    "h_94c952a9e14c58": {
+      "author": "Swe-yy <u24584585@tuks.co.za>"
+    }
+  }
+}
