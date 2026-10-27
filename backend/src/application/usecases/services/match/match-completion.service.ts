@@ -54,13 +54,16 @@ export class MatchCompletionService {
         }
 
         // Reward Loop
+        const rewards = new Map<string,number>();
         for (const player of players) {
             const stat = match_stats.get(player.id)!;
             const reward = this.reward_service.calculateReward(match_type, player.position, players.length, stat);
             const existing = await this.wallet_repo.getWallet(player.id);
             if (!existing) await this.wallet_repo.createWallet(player.id);
             const pct = this.powerup_system.getScoreMultiplierPercent(ecs_match_id, player.id);
-            await this.wallet_repo.updateBalance(player.id, Math.round(reward * (1 + pct / 100)));
+            const paid = Math.round(reward * (1+pct/100));
+            await this.wallet_repo.updateBalance(player.id, paid);
+            rewards.set(player.id, paid);
         }
 
 
@@ -68,7 +71,11 @@ export class MatchCompletionService {
         await this.match_repo.updatePlayers(db_match_id, players);
         await this.match_repo.completeMatch(db_match_id, MatchStatus.Completed);
 
-        return this.match_repo.buildMatchResult(db_match_id);
+        const result = await this.match_repo.buildMatchResult(db_match_id);
+        return {
+            ...result,
+            players: result.players.map(p => ({ ...p, reward: rewards.get(p.user_id) ?? 0 })),
+        };
     }
 
 

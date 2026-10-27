@@ -12,7 +12,6 @@ import { useAuth } from "src/context/Auth/hooks/useAuth";
 import { getEquippedFor } from "src/services/shop.service";
 
 
-
 interface FinalResultsViewModel {
     content: FinalResultsContent;
     state: 'loading' | 'results' | 'error';
@@ -21,7 +20,6 @@ interface FinalResultsViewModel {
     winner: PlayerResultDTO | undefined,
     losers: PlayerResultDTO[],
     avatars: Record<string, string | null | undefined>
-
 }
 
 export function FinalResultsViewModelFunction(): FinalResultsViewModel {
@@ -34,6 +32,7 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
     const results = useResultStore(s => s.results.find(r => r?.match_id === match_id));
     const {token} = useAuth();
     const tokenInv = token ?? "";
+
 
     const players = useMemo(
         () => [...results?.players ?? []].sort((a, b) => a.position - b.position),
