@@ -22,7 +22,7 @@ describe('Tests WalletRepository', () => {
         repo = new WalletRepository(data_source.getRepository(Wallet));
         user_repo = new UserRepository(data_source.getRepository(Users));
 
-        const user = await user_repo.createUser(username, `${username}@example.com`, cognito_id, 0, 'Mercury');
+        const user = await user_repo.createUser(username, `${username}@example.com`, cognito_id, 'Mercury');
         user_id = user.user_id!;
     });
 

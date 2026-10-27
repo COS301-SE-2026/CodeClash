@@ -1,7 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 import { MarkProg } from '../../../../src/application/usecases/services/marking/mark-prog'
 import { PlayerSubmissionDTO, ProgSubmissionDTO } from '../../../../src/entities/dtos/submissions/submission.dto'
-import { AnswerDTO } from '../../../../src/entities/dtos/questions/answer.dto'
 import { MatchMode } from '../../../../src/entities/dtos/matches/match.dto'
 
 
@@ -17,13 +16,6 @@ const submission: PlayerSubmissionDTO = {
         language_id: 1,
         stdin: null
     }
-}
-
-const answer: AnswerDTO = {
-    answer: 'correct-answer-01',
-    question_id: 'q1',
-    format: null,
-    precision: null
 }
 
 describe('Testing Programming Marker', () => {

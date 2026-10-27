@@ -5,7 +5,6 @@ export interface FriendDTO {
     username: string;
     friendship_id: string;
     elo: number;
-    avatar_id: number;
 }
 
 export interface FriendRequestDTO {
