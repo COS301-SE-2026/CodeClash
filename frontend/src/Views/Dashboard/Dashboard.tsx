@@ -1,4 +1,4 @@
-import { ChevronRight, Swords, Flame, Sparkles, Trophy } from 'lucide-react';
+import { ChevronRight, Swords, Flame, Sparkles, Trophy, Users2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useEffect } from "react";
 import UserAvatar from 'src/avatar/UserAvatar';
@@ -53,7 +53,7 @@ const Dashboard = () => {
                   Ranked Play
                 </button>
                 <button className='btn btn-secondary w-full' onClick={() => openPopUp('casual')} type='button'>
-                  <Swords size={18} />
+                  <Users2 size={18} />
                   Casual Play
                 </button>
               </div>

@@ -97,7 +97,7 @@ export interface SubmissionComponent {
 /** POWERUP ENTITIES */
 export interface PlayerPowerupState {
     shield_active: boolean;             // Shield
-    blocked_until: number | null;       // Question blackout: epock ms when the block lifts
+    blackout_question_id: string | null;       // Question blackout: epock ms when the block lifts
     time_delta_seconds: number;         // net of time Boost / time sink
     score_multiplier_percent: number;   // net score surge, applied at scoring
     wipe_used: boolean;                 // Wipe: maximum 1 use per match

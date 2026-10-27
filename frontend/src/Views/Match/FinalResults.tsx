@@ -9,6 +9,7 @@ import { finalResultsContent, type PlayerFinalResults } from "src/Models/FinalRe
 import PlayerAvatar from "src/avatar/PlayerAvatar";
 import { resolve } from "src/assets/Shop/ResolveShopImages";
 import type { MatchType } from "src/dtos/match/match.dto";
+import { playSfx } from "src/utils/audio";
 
 const FinalResults: React.FC = () => {
     const navigate = useNavigate();
@@ -21,6 +22,7 @@ const FinalResults: React.FC = () => {
     const [res, setRes] = useState(false); // moved
 
     useEffect(() => {
+        playSfx('match_complete');
         if (state !== 'results') {
             setRes(false);
             return;

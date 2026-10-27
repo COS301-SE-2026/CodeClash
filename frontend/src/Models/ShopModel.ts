@@ -4,7 +4,7 @@ export interface Price {
     amount: number;
 }
 
-export type ShopCategory = 'avatar' | 'theme' ;
+export type ShopCategory = 'avatar' | 'theme' | 'powerup';
 
 interface ShopItemBase {
     id: string;
@@ -31,8 +31,8 @@ export interface ThemeShopItem extends ShopItemBase {
 }
 
 export type PowerupEffectType = 
-    | 'reduce_time' | 'reveal_hint' | 'block_next_powerdown' | 'score_multiplier' | 'restore_life' 
-    | 'insert_bugs' | 'wipe_answer' | 'block_question' | 'increase_time' | 'drain_life';
+    | 'reduce_time' | 'block_next_powerdown' | 'score_multiplier' | 'restore_life' 
+    | 'insert_bugs' | 'wipe_answer' | 'blackout_question' | 'increase_time' | 'drain_life';
 
 export interface PowerupEffectConf {
     effectType: PowerupEffectType;
@@ -43,7 +43,14 @@ export interface PowerupEffectConf {
     notes?: string;
 }
 
-export type ShopItem = AvatarShopItem | ThemeShopItem ;
+export interface PowerupShopItem extends ShopItemBase {
+    category: 'powerup';
+    kind: 'powerup' | 'powerdown';
+    effect: PowerupEffectConf;
+    quantityGranted: number;
+}
+
+export type ShopItem = AvatarShopItem | ThemeShopItem | PowerupShopItem;
 
 export interface Wallet {
     stardust: number;
@@ -55,8 +62,25 @@ export interface Owned {
     acquiredAt: string;
 }
 
+export interface Consumable {
+    category: 'powerup';
+    itemId: string;
+    quantity: number;
+    shop_item_id: string;
+}
+
 export interface UserInventory {
     owned: Owned[];
+    consumable: Consumable[];
     equippedAvatarId: string | null;
     equippedThemeId: string | null;
+}
+
+export interface MatchPowerup {
+    shop_item_id: string;
+    name: string;
+    description?: string;
+    kind: 'powerup' | 'powerdown';
+    effectType: PowerupEffectType,
+    quantity: number;
 }

@@ -9,6 +9,7 @@ import type { OutletContext } from "./extra-layout";
 import { AppSidebar } from "@/components/Sidebar";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar/sidebar";
 import { useAuth } from "./context/Auth/hooks/useAuth";
+import { AudioSettings } from "@/components/features/audio-settings";
 
 export default function Layout() {
     const [layoutExtra, setExtra] = useState<React.ReactNode>(null); //whatever renders in place of the headers previous search bar will be owned by that page that is curr active
@@ -33,10 +34,13 @@ export default function Layout() {
                             <div className='flex items-center gap-3 w-full max-w-md'>
                                 {layoutExtra}
                             </div>
-                            <div className="flex items-center gap-2 shrink-0 rounded-full border border-border bg-card pl-1 pr-1.5 py-1">
-                                <button onClick={handleLogout} className="btn btn-primary btn-sm">
-                                    Log Out
-                                </button>
+                            <div className="flex items-center gap-3 shrink-0">
+                                <AudioSettings />
+                                <div className="flex items-center gap-2 shrink-0 rounded-full border border-border bg-card pl-1 pr-1.5 py-1">
+                                    <button onClick={handleLogout} className="btn btn-primary btn-sm">
+                                        Log Out
+                                    </button>
+                                </div>
                             </div>
                         </header>
                         <main className="flex-1 px-8 py-8">
