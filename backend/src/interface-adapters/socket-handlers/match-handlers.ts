@@ -1,7 +1,7 @@
 import { Server, Socket } from "socket.io";
 import { MarkingService } from "src/application/usecases/services/marking/marking.service";
 import { MatchStore } from "src/application/usecases/services/match/match-store.service";
-import { MatchType } from "src/entities/dtos/matches/match.dto";
+import { MatchType, MatchResultDTO } from "src/entities/dtos/matches/match.dto";
 import { DeleteGame } from "src/application/usecases/systems/delete-game";
 import { PlayerSubmissionDTO, RawSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
 import { MatchCompletionService } from "src/application/usecases/services/match/match-completion.service";
@@ -13,9 +13,19 @@ import { TournamentService } from "src/application/usecases/services/tournament/
 import { SubmissionSystem } from "../../application/usecases/systems/submission.system";
 import { LifeSystem } from "../../application/usecases/systems/life.system";
 import { PowerupSystem } from "src/application/usecases/systems/powerup.system";
-import { findPackageJSON } from "node:module";
+
 
 const SUBMISSION_GRACE_MS = 5000; // 5 second grace to submit otherwise submission wont be counted as match will have ended by then
+
+const forPlayer = (result: MatchResultDTO, user_id: string): MatchResultDTO => ({
+    ...result,
+    players: result.players.map(p=>{
+        if (p.user_id === user_id) return p;
+        const { reward, ...rest } = p;
+        void reward;
+        return rest;
+    }),
+});
 
 export const submitQuestion = async (
     io: Server,
@@ -75,7 +85,7 @@ export const matchDone = async (io: Server, socket: Socket, match_id: string, ma
         console.error("No match found");
         return;
     }
-    if (match.completed) return match.result ?? undefined;
+    if (match.completed) return match.result ? forPlayer(match.result, socket.data.user_id) : undefined;
 
     match_store.setDone(socket.data.user_id, ecs_id!);
     if (match_store.playersDone(ecs_id!)) {
@@ -93,7 +103,7 @@ export const matchDone = async (io: Server, socket: Socket, match_id: string, ma
         for (const id of ids) {
             io.to(id).emit('both_done');
         }
-        return match_result;
+        return forPlayer(match_result, socket.data.user_id);
     } else {
         socket.emit('waiting_opponent');
 
@@ -145,7 +155,7 @@ export const rejoinMatch = (socket: Socket, match_id: string, match_store: Match
     };
 }
 
-export const sendResults = (io: Server, match_id: string, match_store: MatchStore) => {
+export const sendResults = (io: Server, match_id: string, match_store: MatchStore, user_id: string) => {
     const ecs_id = match_store.getEcsId(match_id);
     const result = match_store.getResult(ecs_id!);
     const match = match_store.get(ecs_id!);
@@ -158,7 +168,7 @@ export const sendResults = (io: Server, match_id: string, match_store: MatchStor
         return;
     }
 
-    return result;
+    return forPlayer(result, user_id);
 }
 
 export const cleanUp = (match_id: string, pair_id: string, delete_match: DeleteGame, match_store: MatchStore) => {
