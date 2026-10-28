@@ -1,7 +1,7 @@
 import { Server, Socket } from "socket.io";
 import { MarkingService } from "src/application/usecases/services/marking/marking.service";
 import { MatchStore } from "src/application/usecases/services/match/match-store.service";
-import { MatchType, MatchResultDTO } from "src/entities/dtos/matches/match.dto";
+import { MatchType, MatchResultDTO, MatchMode} from "src/entities/dtos/matches/match.dto";
 import { DeleteGame } from "src/application/usecases/systems/delete-game";
 import { PlayerSubmissionDTO, RawSubmissionDTO } from "src/entities/dtos/submissions/submission.dto";
 import { MatchCompletionService } from "src/application/usecases/services/match/match-completion.service";
@@ -13,7 +13,6 @@ import { TournamentService } from "src/application/usecases/services/tournament/
 import { SubmissionSystem } from "../../application/usecases/systems/submission.system";
 import { LifeSystem } from "../../application/usecases/systems/life.system";
 import { PowerupSystem } from "src/application/usecases/systems/powerup.system";
-
 
 const SUBMISSION_GRACE_MS = 5000; // 5 second grace to submit otherwise submission wont be counted as match will have ended by then
 
@@ -66,7 +65,7 @@ export const submitQuestion = async (
 
         if (result.life_update !== undefined && result.life_update <= 0 && match_completion_service) {
           match_store.eliminate(submission.player_id, ecs_id!);
-          await matchDone(io, socket, data.id, data.match_type, match_completion_service, match_store)
+          await matchDone(io, socket, data.id, data.match_type, match_completion_service, match_store, data.match_mode)
             .catch(error => console.error('Failed to end match after eliminiation:', error));
         }
 
@@ -76,7 +75,7 @@ export const submitQuestion = async (
 }
 
 
-export const matchDone = async (io: Server, socket: Socket, match_id: string, match_type: MatchType, match_completion_service: MatchCompletionService, match_store: MatchStore) => {
+export const matchDone = async (io: Server, socket: Socket, match_id: string, match_type: MatchType, match_completion_service: MatchCompletionService, match_store: MatchStore, match_mode?: MatchMode) => {
 
     const ecs_id = match_store.getEcsId(match_id);
     const match = match_store.get(ecs_id!);
@@ -93,7 +92,7 @@ export const matchDone = async (io: Server, socket: Socket, match_id: string, ma
         const ids = match.players.map(player => player.id);
         let match_result;
         try {
-            match_result = await match_completion_service.execute(ecs_id!, match.database_id, ids, match_type);
+            match_result = await match_completion_service.execute(ecs_id!, match.database_id, ids, match_type, undefined, match_mode);
         } catch (error) {
             match.completed = false;
             throw error;

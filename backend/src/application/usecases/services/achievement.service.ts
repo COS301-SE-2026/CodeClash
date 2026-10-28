@@ -1,7 +1,7 @@
 import { IAchievementRepository } from "src/application/interfaces/repositories/IAchievementRepository";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 import { AchievementDTO } from "src/entities/dtos/achievements/achievement.dto";
-import { MatchPlayer, MatchType } from "src/entities/dtos/matches/match.dto";
+import { MatchMode, MatchPlayer, MatchType } from "src/entities/dtos/matches/match.dto";
 
 // Achievement conditions -- will be extended as needed
 // N.B I haven't implemented "Comeback Kid" because of how life is calculated at the moment, it's too match dependent
@@ -76,7 +76,7 @@ export class AchievementService {
         return awarded;
     }
 
-    async evaluateForMatch(match_stats: Map<string, { num_correct: number, total_time: number, num_answered: number }>, players: MatchPlayer[], match_type: MatchType, total_questions: number) {
+    async evaluateForMatch(match_stats: Map<string, { num_correct: number, total_time: number, num_answered: number }>, players: MatchPlayer[], match_type: MatchType, total_questions: number, match_mode?: MatchMode) {
         for (const [user_id, stat] of match_stats) {
             const player = players.find(p => p.id === user_id);
             const is_winner = player?.position === 1;
@@ -92,12 +92,14 @@ export class AchievementService {
 
             const streak_counts = is_ranked || is_tournament;
 
+            const is_math = (match_mode as string | undefined) === 'math';
+            
             const achievementStats: AchievementStats = {
                 total_wins: streak_counts && is_winner ? userStats.total_wins + 1 : userStats.total_wins,
                 win_streak: streak_counts? userStats.winning_streak : 0,
                 total_matches: userStats.total_matches + 1,
-                perfect_math: stat.num_correct === total_questions && match_type !== MatchType.ranked,
-                perfect_code: false,
+                perfect_math: is_math && total_questions > 0 && stat.num_correct === total_questions,
+                perfect_code: !is_math && total_questions > 0 && stat.num_correct === total_questions,
                 match_duration_ms: stat.num_answered > 0 ? stat.total_time : null,
                 correct_in_match: stat.num_correct,
                 friend_count: 0,

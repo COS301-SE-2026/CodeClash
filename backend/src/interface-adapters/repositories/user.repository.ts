@@ -142,8 +142,8 @@ export class UserRepository implements IUserRepository {
                 COUNT(*)::int AS total_matches,
                 COUNT(*) FILTER (WHERE players @> $2::jsonb)::int AS total_wins
             FROM matches
-            WHERE status = 'completed
-                AND match_type IN ('ranked', 'tournament)
+            WHERE status = 'completed'
+                AND match_type IN ('ranked', 'tournament')
                 AND players @> $1::jsonb`,
             [
                 JSON.stringify([{ id: user_id }]),

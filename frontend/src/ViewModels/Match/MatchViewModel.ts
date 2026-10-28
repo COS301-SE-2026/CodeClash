@@ -255,7 +255,7 @@ export const useMatch = (timeUp?: () => Promise<void>) => {
         setWaitingOpponent(true);
         finished_ref.current = true;
 
-        const response = await matchSocket?.finishMatch({ match_id: match_id!, match_type: matchType! });
+        const response = await matchSocket?.finishMatch({ match_id: match_id!, match_type: matchType!, match_mode: matchMode! });
 
         if (response?.ok)
             useResultStore.getState().addResult(response.data!);

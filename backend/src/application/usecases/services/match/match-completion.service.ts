@@ -2,7 +2,7 @@ import { IMatchRepository } from "src/application/interfaces/repositories/IMatch
 import { MatchCompletionSystem } from "../../systems/match-completion.system";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 import { AchievementService } from "../achievement.service";
-import { MatchType, MatchStatus } from "src/entities/dtos/matches/match.dto";
+import { MatchType, MatchStatus, MatchMode } from "src/entities/dtos/matches/match.dto";
 import { RewardService } from "./reward.service";
 import { IWalletRepository } from "src/application/interfaces/repositories/IWalletRepository";
 import { PowerupSystem } from "../../systems/powerup.system";
@@ -25,7 +25,7 @@ export class MatchCompletionService {
     ) { }
 
 
-    async execute(ecs_match_id: number, db_match_id: string, player_ids: string[], match_type: MatchType, times?: Map<string, number>) {
+    async execute(ecs_match_id: number, db_match_id: string, player_ids: string[], match_type: MatchType, times?: Map<string, number>, match_mode?: MatchMode) {
         const { players, match_stats, total_questions } = await this.completion_system.execute(ecs_match_id, player_ids, times);
 
         switch (match_type) {
@@ -66,8 +66,12 @@ export class MatchCompletionService {
             rewards.set(player.id, paid);
         }
 
-
-        await this.achievement_service.evaluateForMatch(match_stats, players, match_type, total_questions);
+        try {
+            await this.achievement_service.evaluateForMatch(match_stats, players, match_type, total_questions, match_mode);
+        } catch (e) {
+            console.error('[achievements} evaluateForMatch failed:', e);
+        }
+        
         await this.match_repo.updatePlayers(db_match_id, players);
         await this.match_repo.completeMatch(db_match_id, MatchStatus.Completed);
 
