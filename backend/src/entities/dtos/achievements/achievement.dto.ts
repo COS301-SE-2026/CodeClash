@@ -2,6 +2,7 @@ export interface AchievementDTO {
     achievement_id: string;
     achievement_name: string;
     description: string;
+    earned_at?: Date
 }
 
 export interface UserAchievementsDTO {

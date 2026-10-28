@@ -90,9 +90,11 @@ export class AchievementService {
 
             const userStats = await this.user_repo.getTotalStats(user_id);
 
+            const streak_counts = is_ranked || is_tournament;
+
             const achievementStats: AchievementStats = {
-                total_wins: is_winner ? userStats.total_wins + 1 : userStats.total_wins,
-                win_streak: is_winner ? userStats.winning_streak + 1 : 0,
+                total_wins: streak_counts && is_winner ? userStats.total_wins + 1 : userStats.total_wins,
+                win_streak: streak_counts? userStats.winning_streak : 0,
                 total_matches: userStats.total_matches + 1,
                 perfect_math: stat.num_correct === total_questions && match_type !== MatchType.ranked,
                 perfect_code: false,

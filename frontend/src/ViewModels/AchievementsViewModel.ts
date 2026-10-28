@@ -43,7 +43,7 @@ export function AchievementsViewModelFunc(): AchievementsViewModel {
                 name: a.achievement_name,
                 description: a.description,
                 icon: getIcon(a.achievement_name),
-                earnedAt: a.earned_at ?? new Date().toISOString()
+                earnedAt: a.earned_at ?? ''
             })).sort((a: any, b: any) => new Date(b.earnedAt).getTime() - new Date(a.earnedAt).getTime());
 
             const lockedList: Achievements[] = allData

@@ -16,6 +16,7 @@ const AchIcons: Record<Icons, React.ComponentType<{size?: number; className?: st
 }
 
 function timeTracker(iso:string): string {
+    if (!iso) return 'Earned';
     const difference = Date.now() - new Date(iso).getTime();
     const days = Math.floor(difference/(1000* 60*60 *24));
 

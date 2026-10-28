@@ -136,13 +136,26 @@ export class UserRepository implements IUserRepository {
     }
 
     async getTotalStats(user_id: string): Promise<{ total_wins: number; total_matches: number; winning_streak: number; league: string; }> {
-        const user = await this.userRepository.findOneBy({ user_id });
-        if (!user) return { total_wins: 0, total_matches: 0, winning_streak: 0, league: 'Mercury' };
+        const user = await this.userRepository.findOneByOrFail({ user_id });
+        const [row] = await this.userRepository.query(
+            `SELECT 
+                COUNT(*)::int AS total_matches,
+                COUNT(*) FILTER (WHERE players @> $2::jsonb)::int AS total_wins
+            FROM matches
+            WHERE status = 'completed
+                AND match_type IN ('ranked', 'tournament)
+                AND players @> $1::jsonb`,
+            [
+                JSON.stringify([{ id: user_id }]),
+                JSON.stringify([{ id: user_id, position: 1 }])
+            ]
+        );
+        
         return {
-            total_wins: (user as any).total_wins ?? 0,
-            total_matches: (user as any).total_matches ?? 0,
-            winning_streak: user?.winning_streak,
-            league: user.league
+            total_wins: row.total_wins,
+            total_matches: row.total_matches,
+            winning_streak: user?.winning_streak ?? 0,
+            league: user?.league ?? 'Mercury'
         };
     }
 
