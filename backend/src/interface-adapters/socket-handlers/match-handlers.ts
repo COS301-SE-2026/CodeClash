@@ -148,7 +148,7 @@ export const rejoinMatch = (socket: Socket, match_id: string, match_store: Match
         done: me.done ?? false,
         completed: match.result !== null,
         powerups: { shield: mine.shield_active,
-                    // opponent_shield: theirs?.shield_active ?? false,
+                    opponent_shield: false,
                     blackout_question_id: mine.blackout_question_id,
         },
     };
