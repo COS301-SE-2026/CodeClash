@@ -102,7 +102,7 @@ export class AchievementService {
                 perfect_code: !is_math && total_questions > 0 && stat.num_correct === total_questions,
                 match_duration_ms: stat.num_answered > 0 ? stat.total_time : null,
                 correct_in_match: stat.num_correct,
-                friend_count: 0,
+                friend_count: ,
                 life_lost_before_win: is_winner ? Math.round(100 - stat.min_life) : 0,
                 league: userStats.league
             };

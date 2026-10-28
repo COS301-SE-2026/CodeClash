@@ -6,7 +6,7 @@ INSERT INTO shop_items (category, name, description, price, rarity, metadata) VA
 '{"effect": "block_next_powerdown", "kind": "powerup", "targeting": "self", "consumed_on_use": true }'),
 ('powerup', 'Score Surge', 'Adds 10% of your total earned score to your final score.', 250, 'epic',
 '{ "effect": "score_multiplier", "kind": "powerup", "targeting": "self", "value": 10 }'),
-('powerup', 'Second Wind', 'Restores one lost life unit point during the match.', 200, 'rare',
+('powerup', 'Second Wind', 'Restores 20 lost life points during the match.', 250, 'rare',
 '{ "effect": "restore_life", "kind": "powerup", "targeting": "self", "value": 20 }'),
 
 -- POWER DOWNS --------
@@ -18,7 +18,7 @@ INSERT INTO shop_items (category, name, description, price, rarity, metadata) VA
 '{ "effect": "blackout_question", "kind": "powerdown", "targeting": "opponent", "scope": "random_unanswered_question" }'),
 ('powerup', 'Time Sink', 'Increase your opponents''s time taken stat, lowering their score and Stardust gain.', 150, 'common',
 '{ "effect": "increase_time", "kind": "powerdown", "targeting": "opponent", "value": 10 }' ),
-('powerup', 'Life Drain', 'Removes one life point from your opponent.', 250, 'epic',
+('powerup', 'Life Drain', 'Removes 20 life points from your opponent.', 250, 'epic',
 '{ "effect": "drain_life", "kind": "powerdown", "targeting": "opponent", "value": 20 }' ),
 
 -- AVATARS ---------
