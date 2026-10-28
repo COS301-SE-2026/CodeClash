@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { randomUUID } from 'crypto'
 import { MatchType } from '../../../../src/entities/dtos/matches/match.dto'
 
-let match_repo: any, completion_system: any, user_repo: any, achievement_service: any, reward_service: any, wallet_repo: any;
+let match_repo: any, completion_system: any, user_repo: any, achievement_service: any, reward_service: any, wallet_repo: any, powerup: any;
 
 let service: MatchCompletionService;
 
@@ -70,7 +70,11 @@ describe('Tests match completion', () => {
             buildMatchResult: vi.fn(),
         }
 
-        service = new MatchCompletionService(match_repo, completion_system, user_repo, achievement_service, reward_service, wallet_repo);
+        powerup = {
+            getScoreMultiplierPercent: vi.fn()
+        }
+
+        service = new MatchCompletionService(match_repo, completion_system, user_repo, achievement_service, reward_service, wallet_repo,powerup);
     }
     )
 
