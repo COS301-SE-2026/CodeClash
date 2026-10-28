@@ -148,7 +148,7 @@ export const rejoinMatch = (socket: Socket, match_id: string, match_store: Match
         done: me.done ?? false,
         completed: match.result !== null,
         powerups: { shield: mine.shield_active,
-                    opponent_shield: theirs?.shield_active ?? false,
+                    // opponent_shield: theirs?.shield_active ?? false,
                     blackout_question_id: mine.blackout_question_id,
         },
     };
@@ -214,7 +214,7 @@ export const usePowerup = async (
     
     if (!powerup_system.isPowerdown(result.effect)) {
         if (result.effect ==='restore_life') pushLife(actor_id);
-        else if (result.effect === 'block_next_powerdown') io.to (opponent.id).emit('powerup_received', result);
+        // else if (result.effect === 'block_next_powerdown') io.to (opponent.id).emit('powerup_received', result);
         return result;
         
     }

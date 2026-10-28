@@ -204,6 +204,7 @@ export const useMatch = (timeUp?: () => Promise<void>) => {
             }
             void refetchInventory();   // the server consumed one
             if (!res.data.applied) {
+                fxRef.current.fire('block_next_powerdown', false);
                 fxRef.current.consumeShield('opponent');
                 showPowerupError('Blocked by their shield');
                 return;
@@ -295,7 +296,6 @@ export const useMatch = (timeUp?: () => Promise<void>) => {
 
             setBlackoutQuestionId(state.powerups.blackout_question_id);
             if (state.powerups.shield) fxRef.current.fire('block_next_powerdown', true);
-            if (state.powerups.opponent_shield) fxRef.current.fire('block_next_powerdown', false);
             if (state.done) {
                 finished_ref.current = true;
                 setWaitingOpponent(true);
