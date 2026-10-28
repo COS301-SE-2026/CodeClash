@@ -4,7 +4,6 @@ import { AchievementDTO } from "src/entities/dtos/achievements/achievement.dto";
 import { MatchMode, MatchPlayer, MatchType } from "src/entities/dtos/matches/match.dto";
 
 // Achievement conditions -- will be extended as needed
-// N.B I haven't implemented "Comeback Kid" because of how life is calculated at the moment, it's too match dependent
 export type AchievementCondition = {
     name: string;
     check: (stats: AchievementStats) => boolean;
