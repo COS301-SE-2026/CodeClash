@@ -103,8 +103,7 @@ export class PowerupSystem {
                 break;
 
             case 'restore_life': {
-                const life = this.life_system.getPlayerLife(match_id, target_id!);
-                this.life_system.adjustLife(match_id, actor_id, Math.min(metadata.value!, 100-life));
+                this.life_system.adjustLife(match_id, actor_id, metadata.value!);
                 break;
             }
 

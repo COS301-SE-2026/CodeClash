@@ -14,4 +14,4 @@ INSERT INTO achievements(achievement_name, description ) VALUES
     ('Elite',           'Reach Mars league'),
     ('Champion',        'Reach Saturn league'),
     ('Legend',          'Reach Neptune league'),
-    ('Comback Kid',     'Win a match ofter losing 60% of your life');
+    ('Comeback Kid',     'Win a match after losing 60% of your life');

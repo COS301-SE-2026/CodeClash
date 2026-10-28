@@ -37,8 +37,8 @@ const CONDITIONS: AchievementCondition[] = [
     { name: 'Challenger', check: s => s.league === 'Venus' },
     { name: 'Elite', check: s => s.league === 'Mars' },
     { name: 'Champion', check: s => s.league === 'Saturn' },
-    { name: 'Legend', check: s => s.league === 'Neptune' }
-    //{ name: 'Comeback Kid',   check: s => s.life_lost_before_win >= 60 },
+    { name: 'Legend', check: s => s.league === 'Neptune' },
+    { name: 'Comeback Kid',   check: s => s.life_lost_before_win >= 60 },
 ]
 
 export class AchievementService {
@@ -76,7 +76,7 @@ export class AchievementService {
         return awarded;
     }
 
-    async evaluateForMatch(match_stats: Map<string, { num_correct: number, total_time: number, num_answered: number }>, players: MatchPlayer[], match_type: MatchType, total_questions: number, match_mode?: MatchMode) {
+    async evaluateForMatch(match_stats: Map<string, { num_correct: number, total_time: number, num_answered: number, min_life: number }>, players: MatchPlayer[], match_type: MatchType, total_questions: number, match_mode?: MatchMode) {
         for (const [user_id, stat] of match_stats) {
             const player = players.find(p => p.id === user_id);
             const is_winner = player?.position === 1;
@@ -93,7 +93,7 @@ export class AchievementService {
             const streak_counts = is_ranked || is_tournament;
 
             const is_math = (match_mode as string | undefined) === 'math';
-            
+
             const achievementStats: AchievementStats = {
                 total_wins: streak_counts && is_winner ? userStats.total_wins + 1 : userStats.total_wins,
                 win_streak: streak_counts? userStats.winning_streak : 0,
@@ -103,7 +103,7 @@ export class AchievementService {
                 match_duration_ms: stat.num_answered > 0 ? stat.total_time : null,
                 correct_in_match: stat.num_correct,
                 friend_count: 0,
-                life_lost_before_win: 0,
+                life_lost_before_win: is_winner ? Math.round(100 - stat.min_life) : 0,
                 league: userStats.league
             };
             await this.evaluateAndAward(user_id, achievementStats);

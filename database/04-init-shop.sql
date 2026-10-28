@@ -7,7 +7,7 @@ INSERT INTO shop_items (category, name, description, price, rarity, metadata) VA
 ('powerup', 'Score Surge', 'Adds 10% of your total earned score to your final score.', 250, 'epic',
 '{ "effect": "score_multiplier", "kind": "powerup", "targeting": "self", "value": 10 }'),
 ('powerup', 'Second Wind', 'Restores one lost life unit point during the match.', 200, 'rare',
-'{ "effect": "restore_life", "kind": "powerup", "targeting": "self", "value": 1 }'),
+'{ "effect": "restore_life", "kind": "powerup", "targeting": "self", "value": 20 }'),
 
 -- POWER DOWNS --------
 ('powerup', 'Bug Injection', 'Inserts bugs or random characters into your opponent''s current answer.', 150, 'common',
@@ -19,7 +19,7 @@ INSERT INTO shop_items (category, name, description, price, rarity, metadata) VA
 ('powerup', 'Time Sink', 'Increase your opponents''s time taken stat, lowering their score and Stardust gain.', 150, 'common',
 '{ "effect": "increase_time", "kind": "powerdown", "targeting": "opponent", "value": 10 }' ),
 ('powerup', 'Life Drain', 'Removes one life point from your opponent.', 250, 'epic',
-'{ "effect": "drain_life", "kind": "powerdown", "targeting": "opponent", "value": 1 }' ),
+'{ "effect": "drain_life", "kind": "powerdown", "targeting": "opponent", "value": 20 }' ),
 
 -- AVATARS ---------
 ('avatar', 'Vexa', 'She appeared through a mysterious portal beyond the edge of mapped space. Her technology is unlike anything in the galaxy and she seems strangely familiar with Earth''s programming languages.',

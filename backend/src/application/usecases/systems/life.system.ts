@@ -16,6 +16,9 @@ export class LifeSystem {
         this.getMatchComponent = getMatchComponent;
     }
 
+    private trackMin(life: LifeComponent) {
+        life.min_life = Math.min(life.min_life ?? life.max_life, life.current_life);
+    }
     decrement(player_entity: number, question_number: number) {
         const life = this.getPlayerComponents<LifeComponent>(player_entity, 'Life');
 
@@ -29,6 +32,7 @@ export class LifeSystem {
         life.current_life -= change;
         if (life.current_life < 1e-9) life.current_life = 0
 
+        this.trackMin(life);
         return life.current_life;
     }
 
@@ -45,7 +49,7 @@ export class LifeSystem {
 
         const change = life.max_life / question_number;
         life.current_life += change;
-
+        this.trackMin(life);
         return life.current_life
     }
 
