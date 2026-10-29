@@ -18,10 +18,10 @@ export const usePowerEffect = (myName: string, opponentName: string) => {
     }
 
     const onSettled = (eff: string, who: Owner) => {
-        if (who === 'me' && POWER_EFFECTS[eff]?.persistent) setShields((S) => ({...S, [who]: true}));
+        if (who === 'me' && POWER_EFFECTS[eff]?.persistent) setShields((S) => ({...S, me: true}));
     }
 
-    const consumeShield = () => setShields((s) => ({...s, me: true }));
+    const consumeShield = () => setShields((s) => ({...s, me: false }));
 
     return {
         fire,
