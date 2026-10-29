@@ -11,8 +11,6 @@ const SKILL_PROGRESS_DAYS = 30;
 const SKILL_PROGRESS_WINDOW = 20;
 
 
-
-
 export class MatchCompletionService {
     constructor(
         private readonly match_repo: IMatchRepository,

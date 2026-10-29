@@ -26,6 +26,10 @@ export default defineConfig({
       reporter: ['text', 'html', 'lcov'],
       include: ['**/*.tsx', '**/*.ts'],
       exclude: ['**/@/components/ui/**', '**/@/hooks/**', '**/node_modules/**', '**/*.config.*', 'tests/**', "**/dtos/**", "**/Models/**"],
+      // thresholds: {   // initial boundaries to improve coverage - this will be increased
+      //   branches: 20,
+      //   functions: 30
+      // }
     },
 
     globals: true,

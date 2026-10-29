@@ -103,7 +103,6 @@ export interface SkillProgressGame {
 export interface PlayerResultDTO {
     user_id: string,
     username: string,
-    avatar: number,
     correctness: number,// percentage 0-100
     speed: number,
     eloEffect: number,//signed 

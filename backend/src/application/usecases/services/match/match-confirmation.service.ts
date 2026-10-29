@@ -55,8 +55,4 @@ export class MatchConfirmationService {
 
         return [...pair.keys()];
     }
-
-    deletePair(pair_id: string) {
-        this.PLAYERS.delete(pair_id);
-    }
 }

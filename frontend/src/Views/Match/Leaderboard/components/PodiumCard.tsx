@@ -27,6 +27,7 @@ const PodiumCard = ({ rank, user, avatar }: PodiumCardProps) => {
             </div>
             <p className="text-md font-black text-primary-text truncate max-w-full px-2">{user.username}</p>
             <p className="score-display text-xl font-black">{user.elo}</p>
+            <p className="text-sm font-black text-primary-text truncate max-w-full px-2 uppercase">{user.league}</p>
         </div>
     );
 };

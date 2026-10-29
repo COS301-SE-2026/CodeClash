@@ -8,16 +8,17 @@ export const MatchmakingProvider: React.FC<{ children: ReactNode }> = ({ childre
 
     const [matchMode, setMatchMode] = useState<MatchMode | null>(null)
     const [matchType, setMatchType] = useState<MatchType | null>(null);
-    const [group_id, set_group_id] = useState('');
+    const [groupId, setGroupId] = useState('');
     const [matched, setMatched] = useState(false);
     const [matchedUsers, setMatchedUsers] = useState<MatchedUsersDTO | null>(null);
     const { matchmakingSocket } = useSocket()
 
     const handleMatched = (data: MatchedUsersDTO) => {
         setMatched(true)
-        set_group_id(data.group_id);
+        setGroupId(data.group_id);
         setMatchedUsers(data);
         setMatchMode(data.match_mode);
+        setMatchType(data.match_type);
     }
 
     const reset = () => {
@@ -27,7 +28,6 @@ export const MatchmakingProvider: React.FC<{ children: ReactNode }> = ({ childre
 
     useEffect(() => {
         if (matchmakingSocket) {
-
             matchmakingSocket.matched(handleMatched);
         }
     }, [matchmakingSocket])
@@ -37,13 +37,13 @@ export const MatchmakingProvider: React.FC<{ children: ReactNode }> = ({ childre
         matchedUsers,
         matchMode,
         matchType,
-        group_id,
+        groupId,
         matched,
         setMatchType,
         setMatchMode,
         setMatched,
         reset
-    }), [matchMode, matchType, group_id, matched, setMatchType])
+    }), [matchMode, matchType, groupId, matched, setMatchType])
 
     return (
         <MatchmakingContext.Provider

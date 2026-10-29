@@ -66,7 +66,6 @@ CREATE TABLE IF NOT EXISTS users (
   username VARCHAR(50) UNIQUE NOT NULL,
   email VARCHAR(100) UNIQUE NOT NULL,
   elo INTEGER NOT NULL DEFAULT 600,
-  avatar_id Integer,
   league VARCHAR(10) NOT NULL DEFAULT 'Mercury',
   current_streak INTEGER NOT NULL DEFAULT 0,
   winning_streak INTEGER NOT NULL DEFAULT 0,

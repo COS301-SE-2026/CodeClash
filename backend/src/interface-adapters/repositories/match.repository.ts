@@ -126,7 +126,6 @@ const player = match.players.find(p => p.id === user_id)!;
                     return {
                         user_id: player.id,
                         username: user.username!,
-                        avatar: user.avatar_id!,
                         correctness: player.questions?.length ? Math.round((player.num_correct / player.questions.length) * 100) : 0,
                         speed: player.total_time,
                         eloEffect: player.elo_change,

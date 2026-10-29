@@ -4,7 +4,7 @@ import { LeaderboardEntryDTO } from "src/entities/dtos/leaderboard/leaderboard.d
 import { RankDTO } from "src/entities/dtos/user/rank.dto";
 
 export interface IUserRepository {
-    createUser(username: string, email: string, cognito_id: string, avatar_id: number, league: string): Promise<UserDTO | null>,
+    createUser(username: string, email: string, cognito_id: string, league: string): Promise<UserDTO | null>,
     getUser(user_id: string): Promise<UserDTO | null>,
     getUsers(user_ids: string[]): Promise<UserDTO[] | null>,
     getAllUsers(): Promise<UserDTO[] | null>,
