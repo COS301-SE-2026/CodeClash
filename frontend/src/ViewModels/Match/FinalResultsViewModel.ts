@@ -11,8 +11,7 @@ import { useResultStore } from "src/stores/result-store";
 import { useAuth } from "src/context/Auth/hooks/useAuth";
 import { getEquippedFor } from "src/services/shop.service";
 import type { MatchType } from "src/dtos/match/match.dto";
-
-
+import { useInventory } from "src/context/Shop/InventoryContext";
 
 interface FinalResultsViewModel {
     content: FinalResultsContent;
@@ -35,6 +34,7 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
     const results = useResultStore(s => s.results.find(r => r?.match_id === match_id));
     const {token} = useAuth();
     const tokenInv = token ?? "";
+    const { refreshWallet } = useInventory();
 
     const players = useMemo(
         () => [...results?.players ?? []].sort((a, b) => a.position - b.position),
@@ -48,6 +48,7 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
         if (useMatchStore.getState().match_id === match_id) useMatchStore.getState().reset();
     }, [match_id])
     
+    useEffect(() => { if (results) void refreshWallet(); }, [results, refreshWallet]);
 
     useEffect(() => {
         if (!tokenInv || players.length === 0){

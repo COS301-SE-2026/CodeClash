@@ -84,13 +84,13 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                     </div>
 
                     <div className='flex flex-1 min-w-0 flex'>
-                        <Shake value={player_life[0]} className="w-full flex">
+                        <Shake value={player_life[0]} className="w-full flex items-center justify-end gap-2">
                         <Progress
                             value={player_life[0]}
                             bg="var(--button-tournament-secondary)"
                             border="var(--button-tournament-secondary)"
                             height={3}
-                            className={`w-full max-w-[11rem] min-w-[1rem] h-sm mr-auto shrink-0`}
+                            className={`w-full max-w-[11rem] min-w-[1rem] h-sm my-auto`}
                         />
                         <ShieldIndicator owner={ownerOf(0)} active={shields?.[ownerOf(0)] ?? false}/>
                         </Shake>
@@ -110,17 +110,17 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
 
                 {/* the code below was copied and rearranged from the human-written code above for the sake of time, none of this code is ai-generated */}
                 <div className="flex flex-1 min-w-0 items-center gap-3">
-                    <div className="flex-1 min-w-0 flex">
-                        <Shake value={player_life[1]} className="w-full flex">
+                    <div className="flex flex-1 min-w-0">
+                        <Shake value={player_life[1]} className="w-full flex items-center justify-start gap-2">
                             <ShieldIndicator owner={ownerOf(1)} active={shields?.[ownerOf(1)] ?? false}/>
                             <Progress
                                 value={player_life[1]}
                                 bg={"var(--button-tournament-secondary)"}
-                                border={"var(--button-tournament-secondary"}
+                                border={"var(--button-tournament-secondary)"}
                                 from={"#8b29b8"}
                                 via={"#BF4DF3"}
                                 height={3}
-                                className='w-full max-w-[11rem] min-w-[1rem] ml-auto rotate-180 my-auto'
+                                className='w-full max-w-[11rem] min-w-[1rem] h-sm my-auto rotate-180'
                             />
                         </Shake>
                     </div>
@@ -159,7 +159,7 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 {/* Progress bar */}
                 <div className='flex flex-col items-center w-[20%] justify-between -mt-5'>
                     {/* progress  */}
-                    <div className=' ml-[40%] w-[100%] flex'>
+                    <div className=' ml-[21.5%] w-[100%] flex'>
                         <MatchCard className='relative rounded-[20px] flex flex-col-reverse items-center justify-between w-[7rem] gap-2 p-3 '>
                             <RoundTree
                                 rounds={rounds}

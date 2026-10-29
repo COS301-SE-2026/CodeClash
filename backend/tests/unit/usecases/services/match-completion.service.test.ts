@@ -67,7 +67,9 @@ describe('Tests match completion', () => {
         match_repo = {
             updatePlayers: vi.fn(),
             completeMatch: vi.fn(),
-            buildMatchResult: vi.fn(),
+            buildMatchResult: vi.fn(async () => ({                      
+                players: [{ user_id: 'winner' }, { user_id: 'loser' }]
+            })),
         }
 
         powerup = {

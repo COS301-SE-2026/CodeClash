@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { ShopCategory, ShopItem } from "src/Models/ShopModel";
 import { useInventory } from "src/context/Shop/InventoryContext";
 
@@ -28,13 +28,15 @@ export const Tabs: ShopTab[] = [
 
 export const ShopViewModelFunc = () => {
     const {
-        catalog, wallet, inventory, loading, error: inventoryError, purchase: purchaseFromContext, equip: equipFromContext, isOwned, isEquipped
+        catalog, wallet, inventory, loading, error: inventoryError, purchase: purchaseFromContext, equip: equipFromContext, isOwned, isEquipped, refreshWallet
     } = useInventory();
 
     const [activeTabId, setActiveTabId] = useState('avatars');
     const [purchasingId, setPurchasingId] = useState<string | null>(null);
     const [purchaseError, setPurchaseError] = useState<string | null>(null);
     const [equipError, setEquipError] = useState<string | null>(null);
+    
+    useEffect(() => { void refreshWallet(); }, [refreshWallet]);
 
     const activeTab = useMemo(
         () => Tabs.find((t) => t.id === activeTabId) ?? Tabs[0], [activeTabId]

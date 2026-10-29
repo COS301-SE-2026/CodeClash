@@ -107,7 +107,8 @@ export interface PlayerResultDTO {
     speed: number,
     eloEffect: number,//signed 
     position: number,
-    rank: number | null
+    rank: number | null,
+    reward?: number
 }
 
 export interface MatchResultDTO {

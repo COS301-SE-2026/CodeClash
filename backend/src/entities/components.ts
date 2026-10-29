@@ -50,7 +50,8 @@ export interface RoundComponent {
 
 export interface LifeComponent {
     current_life: number,
-    max_life: number
+    max_life: number,
+    min_life?: number
 }
 
 export interface PlayerInfoComponent {

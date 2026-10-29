@@ -204,7 +204,7 @@ export const useMatch = (timeUp?: () => Promise<void>) => {
             }
             void refetchInventory();   // the server consumed one
             if (!res.data.applied) {
-                fxRef.current.consumeShield('opponent');
+                fxRef.current.fire('block_next_powerdown', false);
                 showPowerupError('Blocked by their shield');
                 return;
             }
@@ -255,7 +255,7 @@ export const useMatch = (timeUp?: () => Promise<void>) => {
         setWaitingOpponent(true);
         finished_ref.current = true;
 
-        const response = await matchSocket?.finishMatch({ match_id: match_id!, match_type: matchType! });
+        const response = await matchSocket?.finishMatch({ match_id: match_id!, match_type: matchType!, match_mode: matchMode! });
 
         if (response?.ok)
             useResultStore.getState().addResult(response.data!);
@@ -295,7 +295,6 @@ export const useMatch = (timeUp?: () => Promise<void>) => {
 
             setBlackoutQuestionId(state.powerups.blackout_question_id);
             if (state.powerups.shield) fxRef.current.fire('block_next_powerdown', true);
-            if (state.powerups.opponent_shield) fxRef.current.fire('block_next_powerdown', false);
             if (state.done) {
                 finished_ref.current = true;
                 setWaitingOpponent(true);
@@ -347,7 +346,7 @@ export const useMatch = (timeUp?: () => Promise<void>) => {
 
             // my shield absorbed one
             const unsub_powerup_blocked = matchSocket.powerupBlocked(() => {
-                fxRef.current.consumeShield('me');
+                fxRef.current.consumeShield();
             });
 
             const unsub_life = matchSocket.lifeUpdate(({ player_id, life }) => updatePlayerLife(player_id, life));

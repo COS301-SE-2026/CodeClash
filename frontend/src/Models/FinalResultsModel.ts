@@ -8,6 +8,7 @@ export interface PlayerFinalResults {
     rank_before?: number | null;
     rank?: number | null;
     isWinner: boolean;
+    reward?: number;
 }
 
 export interface FinalResultsContent {

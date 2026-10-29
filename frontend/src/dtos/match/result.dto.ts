@@ -9,6 +9,7 @@ export interface PlayerResultDTO {
     position: 1 | 2; 
     rank_before?: number | null;
     rank?: number | null;
+    reward?: number
 }
 
 export interface MatchResultDTO {
