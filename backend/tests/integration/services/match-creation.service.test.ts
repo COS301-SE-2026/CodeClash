@@ -78,8 +78,8 @@ let match: {
 describe("Tests Match Creation", () => {
 
     beforeAll(async () => {
-        const save_p1: UserDTO = await user_repo.createUser(p1_username, 'player1@example.com', p1_cognito, 0, 'Mercury');
-        const save_p2: UserDTO = await user_repo.createUser(p2_username, 'player2@example.com', p2_cognito, 0, 'Mercury');
+        const save_p1: UserDTO = await user_repo.createUser(p1_username, 'player1@example.com', p1_cognito, 'Mercury');
+        const save_p2: UserDTO = await user_repo.createUser(p2_username, 'player2@example.com', p2_cognito, 'Mercury');
 
         player_1 = {
             id: save_p1.user_id!,

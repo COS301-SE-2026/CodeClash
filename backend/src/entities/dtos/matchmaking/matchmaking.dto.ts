@@ -5,7 +5,7 @@ export interface MatchmakingUserDTO{
     elo: number;
     joined_at: Date;
     match_mode: MatchMode;
-    match_type?: MatchType;
+    match_type: MatchType;
     match_attempt: number;
 }
 

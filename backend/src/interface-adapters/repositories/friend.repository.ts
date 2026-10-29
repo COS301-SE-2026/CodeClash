@@ -36,8 +36,7 @@ export class FriendRepository implements IFriendRepository {
                 user_id: friend.user_id,
                 username: friend.username,
                 friendship_id: f.friendship_id,
-                elo: eloMap.get(friend.user_id) ?? 600,
-                avatar_id: friend.avatar_id
+                elo: eloMap.get(friend.user_id) ?? 600
             };
         });
     }

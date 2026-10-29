@@ -27,7 +27,7 @@ export class CreateUser {
 
         const id = user_id[0]!.Attributes!.find(attr => attr.Name === "sub")?.Value;
 
-        const user = await this.user_repo.createUser(username, email, id!, this.avatar_index, "Mercury");
+        const user = await this.user_repo.createUser(username, email, id!, "Mercury");
 
         if (!user) {
             throw new Error("Error creating user");

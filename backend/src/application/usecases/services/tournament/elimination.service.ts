@@ -5,8 +5,6 @@ import { RoundDTO } from "src/entities/dtos/matches/match-component.dto";
 import { HttpError } from "src/entities/errors/http-error";
 import { ProgFeedbackDTO } from "src/entities/dtos/submissions/submission-result.dto";
 
-
-const MAX_ATTEMPTS = 3;
 interface QuestionProgress {
     attempts: number,
     solved: boolean
@@ -87,8 +85,6 @@ export class TournamentEliminationService {
                 attempt_number: progress.attempts
             }
         }
-
-        if (progress.attempts >= MAX_ATTEMPTS) throw new HttpError(409, "No attempts left");
 
         progress.attempts++;
       let correct: boolean;

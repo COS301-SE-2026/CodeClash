@@ -22,7 +22,7 @@ export async function initDB(user_repo: IUserRepository, wallet_repo: IWalletRep
       }
 
       // add user from cognito
-      const created = await user_repo.createUser(user.Username!, email, cognito_id, ((avatar_index++) % 4), "Mercury")
+      const created = await user_repo.createUser(user.Username!, email, cognito_id, "Mercury")
 
       if (!created) {
         continue;

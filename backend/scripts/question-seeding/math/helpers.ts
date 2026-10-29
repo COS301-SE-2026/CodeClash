@@ -119,10 +119,17 @@ export function containsDiagram(problem: string) {
     return problem.includes("[asy]") || problem.includes("[/asy]");
 }
 
+const DIFFICULTY_BANDS: Record<number, [number, number]> = {
+    1: [1, 3],
+    2: [4, 8],
+    3: [9, 13],
+    4: [14, 18],
+    5: [19, 24]
+};
+
 function levelToDifficulty(level: string) {
     const n = Math.min(5, Math.max(1, Number.parseInt(level.replace("Level ", ""), 10) || 3));
-    const start = Math.round(((n - 1) * 24) / 5) + 1;
-    const end = Math.round((n * 24) / 5);
+    const [start, end] = DIFFICULTY_BANDS[n] ?? [9, 13];
     return randomInt(start, end + 1);
 }
 
@@ -183,7 +190,7 @@ function inputTypeFormat(format: SeedQuestion["answer_format"]) {
 }
 
 export function transformRow(row: HFRow): SeedQuestion | null {
-    if (containsDiagram(row.problem)) return null;
+    // if (containsDiagram(row.problem)) return null;
 
     const answer = extractAnswer(row.solution);
     if (!answer) return null;
