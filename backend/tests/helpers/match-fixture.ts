@@ -20,7 +20,14 @@ import { MatchCompletionService } from '../../src/application/usecases/services/
 import { RewardService } from '../../src/application/usecases/services/match/reward.service';
 
 export const START = new Date('2026-01-01T00:00:00Z');
-export const ROUNDS: any = [{ round_number: 0, questions: [{ id: 'q1' }, { id: 'q2' }] }];
+const question = (id: string) => ({
+    id, title: `Question ${id}`,
+    description: 'test',
+    difficulty: 1,
+    time_limit: '00:02:00',
+    match_mode: MatchMode.Maths,
+});
+export const ROUNDS: any = [{ round_number: 0, questions: [question('q1'), question('q2')]}];
 
 // ADJUST these constructor calls if your repositories take different arguments
 export const buildDeps = (ds: DataSource) => {

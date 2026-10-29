@@ -96,6 +96,7 @@ export class LifeSystem {
         if(!life) throw new Error('Error getting player life');
 
         life.current_life = Math.max(0, Math.min(life.max_life, life.current_life + delta));
+        this.trackMin(life);
         return life.current_life;
     }
 }

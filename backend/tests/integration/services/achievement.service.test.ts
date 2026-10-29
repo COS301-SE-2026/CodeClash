@@ -27,9 +27,8 @@ beforeAll(async () => {
     await ds.query(`ALTER TABLE player_achievements ADD COLUMN IF NOT EXISTS earned_at TIMESTAMP DEFAULT NOW()`);
     await ds.getRepository(Achievement).save(NAMES.map(achievement_name => ({ achievement_name, description: 'test' })));
 
-    // CHANGE THESE TWO LINES if your repository constructors take something else
-    user_repo = new UserRepository(ds as any);
-    achievement_repo = new AchievementRepository(ds as any, user_repo as any);
+    user_repo = new UserRepository(ds.getRepository(Users) as any);
+    achievement_repo = new AchievementRepository(ds.getRepository(Achievement) as any, ds.getRepository(Users) as any);
     svc = new AchievementService(achievement_repo as any, user_repo as any);
 });
 

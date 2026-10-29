@@ -75,6 +75,21 @@ export class AchievementService {
         return awarded;
     }
 
+    async evaluateSocial(user_id: string): Promise<AchievementDTO[]> {
+        const s= await this.user_repo.getTotalStats(user_id);
+        return this.evaluateAndAward(user_id, {
+            total_wins: 0,
+            win_streak: 0,
+            total_matches: 0,
+            perfect_math: false,
+            perfect_code: false,
+            match_duration_ms: null,
+            correct_in_match: 0,
+            friend_count: s.friend_count,
+            life_lost_before_win: 0,
+            league:s.league
+        });
+    }
     async evaluateForMatch(match_stats: Map<string, { num_correct: number, total_time: number, num_answered: number, min_life: number }>, players: MatchPlayer[], match_type: MatchType, total_questions: number, match_mode?: MatchMode) {
         for (const [user_id, stat] of match_stats) {
             const player = players.find(p => p.id === user_id);
@@ -101,7 +116,7 @@ export class AchievementService {
                 perfect_code: !is_math && total_questions > 0 && stat.num_correct === total_questions,
                 match_duration_ms: stat.num_answered > 0 ? stat.total_time : null,
                 correct_in_match: stat.num_correct,
-                friend_count: ,
+                friend_count: userStats.friend_count,
                 life_lost_before_win: is_winner ? Math.round(100 - stat.min_life) : 0,
                 league: userStats.league
             };
