@@ -3,9 +3,9 @@ import { LeagueDTO } from "src/entities/dtos/leaderboard/league.dto"
 
 const leagues = new Map<string, LeagueDTO>();
 
-leagues.set("Mercury", { name: "Mercury", difficulty: [1, 2, 3], elo: [600, 609], question_number: 10 })
-leagues.set("Venus", { name: "Venus", difficulty: [4, 5, 6], elo: [610, 619], question_number: 15 })
-leagues.set("Earth", { name: "Earth", difficulty: [7, 8, 9], elo: [620, 629], question_number: 20 })
+leagues.set("Mercury", { name: "Mercury", difficulty: [1, 2, 3], elo: [600, 1199], question_number: 10 })
+leagues.set("Venus", { name: "Venus", difficulty: [4, 5, 6], elo: [1200, 1799], question_number: 15 })
+leagues.set("Earth", { name: "Earth", difficulty: [7, 8, 9], elo: [1800, 2399], question_number: 20 })
 leagues.set("Mars", { name: "Mars", difficulty: [10, 11, 12], elo: [2400, 2999], question_number: 25 })
 leagues.set("Jupiter", { name: "Jupiter", difficulty: [13, 14, 15], elo: [3000, 3599], question_number: 30 })
 leagues.set("Saturn", { name: "Saturn", difficulty: [16, 17, 18], elo: [3600, 4199], question_number: 30 })
