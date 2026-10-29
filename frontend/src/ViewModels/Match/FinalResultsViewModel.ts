@@ -46,14 +46,13 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
         if (useMatchStore.getState().match_id === match_id) useMatchStore.getState().reset();
     }, [match_id])
     
+    useEffect(() => { if (results) void refreshWallet(); }, [results, refreshWallet]);
 
     useEffect(() => {
         if (!tokenInv || players.length === 0){
             return;
         }
 
-    useEffect(() => { if (results) void refreshWallet(); }, [results, refreshWallet]);
-    
         //the following code block was written by hand just pasted because it was in the wrong place
 
         const loadAvatars = async () => {

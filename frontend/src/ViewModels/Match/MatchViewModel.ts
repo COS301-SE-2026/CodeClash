@@ -346,7 +346,7 @@ export const useMatch = (timeUp?: () => Promise<void>) => {
 
             // my shield absorbed one
             const unsub_powerup_blocked = matchSocket.powerupBlocked(() => {
-                fxRef.current.consumeShield('me');
+                fxRef.current.consumeShield();
             });
 
             const unsub_life = matchSocket.lifeUpdate(({ player_id, life }) => updatePlayerLife(player_id, life));

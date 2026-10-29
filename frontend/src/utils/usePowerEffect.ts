@@ -21,7 +21,7 @@ export const usePowerEffect = (myName: string, opponentName: string) => {
         if (who === 'me' && POWER_EFFECTS[eff]?.persistent) setShields((S) => ({...S, [who]: true}));
     }
 
-    const consumeShield = (who: Owner) => setShields((s) => ({...s, me: true }));
+    const consumeShield = () => setShields((s) => ({...s, me: true }));
 
     return {
         fire,
