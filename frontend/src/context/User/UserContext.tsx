@@ -1,7 +1,8 @@
-import React, { useEffect, useMemo, useState, type ReactNode } from "react";
+import React, { useEffect, useMemo, useState, useRef, type ReactNode } from "react";
 import { authGet } from "src/services/api.service";
 import { useInventory } from "../Shop/InventoryContext";
 import { useAuth } from "../Auth/hooks/useAuth";
+import LeagueUp, { LeagueDown, LEAGUES } from "@/components/ui/animations/LeagueUp";
 
 import { UserContext } from "./UserContextValue";
 
@@ -18,10 +19,14 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const username = user?.username ?? '';
 
     const {equippedAvatarImage} = useInventory();
-    // const imageUrl = equippedAvatarImage?.replace("/src/assets/Shop/Avatars/","");
-    // const imageUrlResolved = imageUrl?.replace(".png","")
-    // const avatarUrl = imageUrlResolved ?? "";
     const avatar = equippedAvatarImage ?? "";
+
+    const leagueRef = useRef<string | null>(null);
+    const [leagueEvent, setLeagueEvent] = useState<{
+        league: string;
+        direction: 'up' | 'down';
+        trigger: number;
+    }>({ league: '', direction: 'up', trigger: 0})
 
 
     const getElo = async () => {
@@ -37,7 +42,26 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const getLeague = async () => {
         try {
             const data = await authGet<{ league: string }>('user/league', token!);
-            setLeague(data.league);
+            const next = data.league;
+            const prev = leagueRef.current;
+
+            //skip after the first "load", only applies when the load brings in changes
+            if(prev !== null && prev !== next){
+                const order = Object.keys(LEAGUES);
+                const prevIndex = order.indexOf(prev.toLowerCase());
+                const nextIndex = order.indexOf(next.toLowerCase());
+
+                if(prevIndex !== -1 && nextIndex !== -1 && prevIndex !== nextIndex){
+                    setLeagueEvent(e => ({
+                        league: next,
+                        direction: nextIndex > prevIndex ? 'up' : 'down',
+                        trigger: e.trigger + 1
+                    }));
+                }
+                
+            }
+            leagueRef.current = next;
+            setLeague(next);
 
         }
         catch (error) {
@@ -119,6 +143,11 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             value={value}
         >
             {children}
+
+            {leagueEvent.trigger > 0 && (leagueEvent.direction === "up"
+                ? <LeagueUp key={leagueEvent.trigger} league={leagueEvent.league} trigger={leagueEvent.trigger}/> 
+                : <LeagueDown key={leagueEvent.trigger} league={leagueEvent.league} trigger={leagueEvent.trigger}/>
+            )}
         </UserContext.Provider>
     )
 }
