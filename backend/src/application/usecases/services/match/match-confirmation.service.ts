@@ -1,18 +1,26 @@
 import { PlayerDTO } from "src/entities/dtos/matches/match-component.dto";
 import { createHash } from "node:crypto";
 import { HttpError } from "src/entities/errors/http-error";
+import { MatchType } from "src/entities/dtos/matches/match.dto";
 
 export class MatchConfirmationService {
 
-    private readonly PLAYERS = new Map<string, { id: string, elo: number, accepted: boolean }[]>();
+  private readonly PLAYERS = new Map<string, { id: string, elo: number, accepted: boolean }[]>();
+  private readonly MATCH_TYPES = new Map<string, MatchType>();
 
-    create(players: PlayerDTO[]) {
+    create(players: PlayerDTO[], match_type?: MatchType) {
         const sort = players.map(p => p.id).sort((a, b) => a.localeCompare(b)).join('::');
         const key = createHash('sha256').update(sort).digest('hex');
 
-        this.PLAYERS.set(key, players.map(p => ({ id: p.id, elo: p.elo, accepted: false })));
+      this.PLAYERS.set(key, players.map(p => ({ id: p.id, elo: p.elo, accepted: false })));
+      if (match_type) this.MATCH_TYPES.set(key, match_type);
+      else this.MATCH_TYPES.delete(key);
         return key;
     }
+
+  getMatchType(id: string) {
+    return this.MATCH_TYPES.get(id);
+  }
 
     accept(id: string, user_id: string) {
         const players = this.PLAYERS.get(id);
@@ -26,7 +34,8 @@ export class MatchConfirmationService {
 
 
     decline(id: string) {
-        this.PLAYERS.delete(id);
+      this.PLAYERS.delete(id);
+      this.MATCH_TYPES.delete(id);
     }
 
     get(pair_id: string) {

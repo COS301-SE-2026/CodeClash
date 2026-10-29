@@ -1,11 +1,23 @@
 import type { MatchMode, MatchType } from "./match.dto"
 
+export interface ProgFeedbackDTO {
+  test_number: number;
+  total_tests: number;
+  status_id: number;
+  verdict: string;
+  input: string;
+  expected_output: string;
+  actual_output: string | null;
+  error: string | null
+}
+
 export interface MarkingResultDTO {
     player_id: string,
     correct: boolean,
     speed: number,
     attempt_number: number,
-    life_update: number
+  life_update: number,
+  feedback?: ProgFeedbackDTO
 }
 
 export interface SubmissionDTO {

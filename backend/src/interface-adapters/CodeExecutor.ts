@@ -37,7 +37,7 @@ export class CodeExecutor implements ICodeExecutor {
                   timeout: this.timeout_ms
                 });
 
-            return result.data;
+            return this.decode(result.data);
         }
         catch (error) {
           // Judge0 reports compile errors inside a normal response, so an error here means Judge0 itself failed (unreachable, auth, full queue).
@@ -46,4 +46,16 @@ export class CodeExecutor implements ICodeExecutor {
           throw new Error('Error Marking Submission');
         }
     }
+
+  // judge sends output in base 64 so this is to change that back to normal string utf
+  private decode(result: ProgSubmissionResult): ProgSubmissionResult {
+    const text = (value: string | null) => value ? Buffer.from(value, 'base64').toString('utf-8') : value;
+    return {
+      ...result,
+      stdout: text(result.stdout),
+      stderr: text(result.stderr),
+      compile_output: text(result.compile_output),
+      message: text(result.message)
+    }
+  }
 }

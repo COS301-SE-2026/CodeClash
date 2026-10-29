@@ -83,7 +83,7 @@ const retryMatchmaking = (io: Server, user: MatchmakingUserDTO, matchmaking_serv
 export const leaveMatchQueue = (async (io: Server, socket: Socket, matchmaking_service: MatchmakingService) => {
     const removed = await Promise.all(
         Object.values(MatchType).flatMap((type) =>
-            Object.values(MatchMode).forEach((mode) =>
+            Object.values(MatchMode).map((mode) =>
                 matchmaking_service.dequeue(socket.data.user_id, mode, type)
             )
         )
@@ -105,17 +105,19 @@ export const matchAccepted = (
         match_confirmation_service: MatchConfirmationService,
         match_start: MatchStart
     ) => {
-        await socket.join(data.group_id);
-        match_confirmation_service.accept(data.group_id, socket.data.user_id);
-
-        if (!match_confirmation_service.bothAccepted(data.group_id)) {
-            return;
-        }
-
-        try {
-            const players = match_confirmation_service.getPlayers(data.group_id);
-            let payload = null;
-            payload = await match_start.execute(players, data.match_mode, data.league, data.match_type);
+      await socket.join(data.group_id);
+      
+                try {
+                      match_confirmation_service.accept(data.group_id, socket.data.user_id);
+    
+                      if (!match_confirmation_service.bothAccepted(data.group_id)) {
+                        return;
+                    }
+    
+                      const players = match_confirmation_service.getPlayers(data.group_id);
+                      const match_type = match_confirmation_service.getMatchType(data.group_id) ?? data.match_type;
+                      let payload = null;
+                      payload = await match_start.execute(players, data.match_mode, data.league, match_type);
             for (const player of payload.players) {
                 io.to(player.id).emit('start_match', payload);
             }
@@ -129,7 +131,8 @@ export const matchAccepted = (
     })
 
 export const matchDeclined = (async (io: Server, group_id: string, match_mode: MatchMode, match_type: MatchType, match_confirmation_service: MatchConfirmationService, matchmaking_service: MatchmakingService, user_repo: IUserRepository) => {
-    const players = match_confirmation_service.getPlayers(group_id);   //get all players
+  const players = match_confirmation_service.getPlayers(group_id);   //get all players
+  const type = match_confirmation_service.getMatchType(group_id) ?? match_type; // client no longer sends match_type on decline
 
     match_confirmation_service.decline(group_id); //delete player grouping
 
@@ -139,7 +142,7 @@ export const matchDeclined = (async (io: Server, group_id: string, match_mode: M
             id: player.id,
             elo: player.elo,
             match_mode: match_mode,
-            match_type: match_type,
+            match_type: type,
             match_attempt: 1,
             joined_at: new Date()
         }));
@@ -159,7 +162,7 @@ export const matchDeclined = (async (io: Server, group_id: string, match_mode: M
 
 
 export const notifyMatchFound = (async (io: Server, match: PlayerDTO[], match_mode: MatchMode, match_type: MatchType, match_confirmation_service: MatchConfirmationService, user_repo: IUserRepository) => {
-    const group_id = match_confirmation_service.create(match);
+    const group_id = match_confirmation_service.create(match, match_type);
     const players = await Promise.all(
         match.map(async (p) => {
             const user_data = await user_repo.getUserData(p.id, 'username');

@@ -115,7 +115,7 @@ export const useMatch = (timeUp?: () => Promise<void>) => {
     const { opponentProgress, handleOpponentDone, opponentCurrent, opponentDone } = useOpponentProgress(rounds, players, updatePlayerLife);
 
 
-    const { submissionError, submitQuestion, results, setResults, lastResult, marking, markingError } = useSubmission({ round_idx: roundIdx, curr_question: currentQuestion, question: questions[currentQuestion], match_id: match_id!, updatePlayerLife })
+    const { submissionError, submitQuestion, results, setResults, feedback, lastResult, marking, markingError } = useSubmission({ round_idx: roundIdx, curr_question: currentQuestion, question: questions[currentQuestion], match_id: match_id!, updatePlayerLife })
     const { seconds, minutes } = useMatchTimer(duration, end_time, async () => {
         setGameOver(true);
         if (timeUp) {
@@ -405,7 +405,8 @@ export const useMatch = (timeUp?: () => Promise<void>) => {
         opponentDone,
         submitQuestion,
         marking,
-        markingError,
+      markingError,
+        feedback,
         nextRound,
         roundIdx,
         total_rounds: rounds.length,
