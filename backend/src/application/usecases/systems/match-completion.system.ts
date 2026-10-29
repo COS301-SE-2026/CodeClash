@@ -1,4 +1,4 @@
-import { MatchComponent, ResultComponent, SubmissionComponent, SubmissionRegistryComponent } from "src/entities/components";
+import { MatchComponent, ResultComponent, SubmissionComponent, SubmissionRegistryComponent, LifeComponent, PlayersComponent } from "src/entities/components";
 import { World } from "src/entities/World"
 import { MatchStore } from "../services/match/match-store.service";
 import { MatchPlayer } from "src/entities/dtos/matches/match.dto";
@@ -37,6 +37,10 @@ export class MatchCompletionSystem {
         const match_stats = this.getStats(submission_registry.submissions, player_ids,match_component.start_time);
         for (const [id, stat] of match_stats) {
             stat.total_time = Math.max(0, stat.total_time + this.powerup_system.getTimeDeltaSeconds(match_id, id) * 1000);
+            const players_comp = this.getMatchComponent<PlayersComponent>(match_id, 'Players');   
+            const entity = players_comp?.players.get(id);
+            const life = entity !== undefined ? this.world.getPlayerComponent<LifeComponent>(entity, 'Life') : undefined;
+            if (life) stat.min_life = life.min_life ?? life.max_life;
         }
         const match_start = this.getMatchComponent<MatchComponent>(match_id, 'Match')?.start_time ?? new Date();
        
@@ -76,11 +80,11 @@ export class MatchCompletionSystem {
     }// end execute
 
     getStats(submissions: Map<string, number>, player_ids: string[], match_start: Date | null) {
-        const game_stats = new Map<string, { num_correct: number, total_time: number, num_answered: number }>();
+        const game_stats = new Map<string, { num_correct: number, total_time: number, num_answered: number, min_life: number }>();
         const last_time = new Map<string, Date | null>();
 
         for (const id of player_ids) {
-            game_stats.set(id, { num_correct: 0, total_time: 0, num_answered: 0 })
+            game_stats.set(id, { num_correct: 0, total_time: 0, num_answered: 0, min_life: 100 })
             last_time.set(id, match_start);
         }
 

@@ -13,7 +13,8 @@ const LeaderboardTable = ({ rows, startRank }: LeaderboardTableProps) => (
             <span className="w-8 text-center">#</span>
             <span className="w-9 shrink-0" />
             <span className="flex-1">Name</span>
-            <span>Elo</span>
+            <span className="flex-1">League</span>
+            <span className='w-16 shrink-0 text-right'>Elo</span>
         </div>
 
         <div className="flex flex-col gap-2">

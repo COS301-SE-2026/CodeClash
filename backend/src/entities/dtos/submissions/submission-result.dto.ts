@@ -3,7 +3,7 @@ export interface ProgSubmissionResult {
     stdout: string | null,
     time: string,
     memory: number,
-    stderr: number | null,
+    stderr: string | null,
     token: string,
     compile_output: string | null,
     message: string | null,
@@ -11,6 +11,17 @@ export interface ProgSubmissionResult {
         id: number,
         description: string
     },
+}
+
+export interface ProgFeedbackDTO {
+  test_number: number,
+  total_tests: number,
+  status_id: number,
+  verdict: string,
+  input: string,
+  expected_output: string,
+  actual_output: string | null,
+  error: string | null
 }
 
 export interface MathsSubmissionResult {
@@ -32,5 +43,6 @@ export interface MarkingResultDTO {
     correct: boolean,
     speed: number,
     attempt_number: number,
-    life_update?: number
+  life_update?: number,
+  feedback?: ProgFeedbackDTO
 }

@@ -20,15 +20,21 @@ export class AchievementRepository implements IAchievementRepository {
     }
 
     async getUserAchievements(user_id: string): Promise<AchievementDTO[]> {
-        const user = await this.userRepo.findOne({
-            where: { user_id },
-            relations: { achievements: true }
-        });
-        if (!user || !user.achievements) return [];
-        return user.achievements.map(a => ({
+        const rows: { achievement_id: string; achievement_name: string; description: string;earned_at: Date }[] =
+        await this.achievementRepo.query(
+            `SELECT a.achievement_id, a.achievement_name, a.description, pa.earned_at
+             FROM player_achievements pa
+             JOIN achievements a ON a.achievement_id = pa.achievement_id
+             WHERE pa.user_id = $1
+             ORDER BY pa.earned_at DESC`,
+             [user_id]
+        );
+        
+        return rows.map(a => ({
             achievement_id: a.achievement_id,
             achievement_name: a.achievement_name,
-            description: a.description
+            description: a.description,
+            earned_at: a.earned_at
         }));
     }
 
@@ -36,16 +42,10 @@ export class AchievementRepository implements IAchievementRepository {
         const already = await this.hasAchievement(user_id, achievement_id);
         if (already) return;
 
-        const user = await this.userRepo.findOne({
-            where: { user_id },
-            relations: { achievements: true }
-        });
-        const achievement = await this.achievementRepo.findOne({ where: { achievement_id }});
-
-        if(!user || !achievement) throw new Error('User or achievement not found');
-
-        user.achievements = [...(user.achievements ?? []), achievement];
-        await this.userRepo.save(user);
+        await this.userRepo.createQueryBuilder()
+        .relation(Users, 'achievements')
+        .of(user_id)
+        .add(achievement_id)
     }
 
     async hasAchievement(user_id: string, achievement_id: string): Promise<boolean> {

@@ -51,7 +51,8 @@ export const useTournamentMatch = () => {
         cancelCompleteRound,
         completeRound,
         marking,
-        markingError,
+      markingError,
+        feedback,
         results,
         lastResult
     } = useMatch(timeUp);
@@ -222,7 +223,8 @@ export const useTournamentMatch = () => {
         completeTournamentRound,
         eliminated,
         marking,
-        markingError,
+      markingError,
+        feedback,
         results,
         lastResult
     }

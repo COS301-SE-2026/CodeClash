@@ -134,8 +134,6 @@ describe("Submit Question socket integration test", () => {
             socket.on("connect_error", reject);
         });
 
-        console.log(response);
-
         expect(response.ok).toBe(true);
         expect(response.data).toEqual({
             player_id: players[0].id,

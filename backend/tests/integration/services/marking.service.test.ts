@@ -117,7 +117,7 @@ describe("Tests Marking Services", () => {
         let user;
 
         for (const p of players) {
-            user = await user_repo.createUser(p.username!, `${p.username}@email.com`, crypto.randomUUID(), 0, 'Mercury')
+            user = await user_repo.createUser(p.username!, `${p.username}@email.com`, crypto.randomUUID(),'Mercury')
             p.id = user.user_id;
         }
 

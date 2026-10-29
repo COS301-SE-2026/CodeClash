@@ -54,7 +54,7 @@ export class DeleteGame {
             this.game_store.deleteMatch(match_id);
         }
         // remove from matched_users
-        this.matched_users.deletePair(pair_id)
+        this.matched_users.decline(pair_id)
 
 
     }

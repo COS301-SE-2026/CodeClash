@@ -52,7 +52,7 @@ const Dashboard = () => {
                   <Swords size={18} />
                   Ranked Play
                 </button>
-                <button className='btn btn-secondary w-full' onClick={() => openPopUp('casual')} type='button' disabled title='Coming Soon!'>
+                <button className='btn btn-secondary w-full' onClick={() => openPopUp('casual')} type='button'>
                   <Users2 size={18} />
                   Casual Play
                 </button>

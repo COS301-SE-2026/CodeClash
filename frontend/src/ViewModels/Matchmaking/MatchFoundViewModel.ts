@@ -21,7 +21,7 @@ export function useMatchFound() {
   const nav = useNavigate();
   const { league, username, avatar } = useUser();
   const { matchmakingSocket, matchSocket } = useSocket()
-  const { matchType, group_id, matchedUsers, matchMode, reset } = useMatchmaking()
+  const { matchType, groupId, matchedUsers, matchMode, reset } = useMatchmaking()
   const [path, setPath] = useState('');
   const [loading, setLoading] = useState(false);
   const [socketError, setSocketError] = useState('');
@@ -40,7 +40,7 @@ export function useMatchFound() {
   const decline = async () => {
     if (matchmakingSocket) {
       const data = {
-        group_id,
+        group_id: groupId,
         match_mode: matchMode!
       };
 
@@ -71,7 +71,7 @@ export function useMatchFound() {
       setPath(new_path);
 
       const data: MatchAcceptedDTO = {
-        group_id: group_id,
+        group_id: groupId,
         match_mode: matchedUsers.match_mode!,
         league: league,
         username: username,
@@ -185,7 +185,13 @@ export function useMatchFound() {
 
       const unsub_start = matchStart(matchSocket, path, nav, matchMode!);
       const unsub_match_declined = matchmakingSocket.gameDeclined(gameDeclined);
-      const unsub_start_failed = matchSocket.startMatchError(() => { console.error("Error starting match") })
+      const unsub_start_failed = matchSocket.startMatchError(() => {
+        console.error("Error starting match");
+        setLoading(false);
+        reset();
+        useMatchStore.getState().reset();
+        void nav('/dashboard');
+      })
 
       return () => {
         unsub_start();

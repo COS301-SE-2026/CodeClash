@@ -3,7 +3,6 @@ import { IMatchCache } from "src/application/interfaces/cache/IMatchCache";
 import { AnswerDTO } from "src/entities/dtos/questions/answer.dto";
 
 
-
 export class MatchCache implements IMatchCache {
     constructor(
         private readonly redis: Redis

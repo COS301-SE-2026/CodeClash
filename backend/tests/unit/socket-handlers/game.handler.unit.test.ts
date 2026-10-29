@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, type Mock, vi } from 'vitest';
 import { submitQuestion } from '../../../src/interface-adapters/socket-handlers/match-handlers';
 import { MarkingService } from '../../../src/application/usecases/services/marking/marking.service';
-import { MathsSubmissionDTO, PlayerSubmissionDTO, RawSubmissionDTO } from '../../../src/entities/dtos/submissions/submission.dto';
+import { MathsSubmissionDTO, RawSubmissionDTO } from '../../../src/entities/dtos/submissions/submission.dto';
 import { MatchStore } from '../../../src/application/usecases/services/match/match-store.service'
 import { TournamentEliminationService } from '../../../src/application/usecases/services/tournament/elimination.service'
 import { MatchMode, MatchType } from '../../../src/entities/dtos/matches/match.dto';

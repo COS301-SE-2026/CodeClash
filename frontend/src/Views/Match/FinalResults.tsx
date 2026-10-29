@@ -1,15 +1,14 @@
-import { TrendingUp, TrendingDown, Minus, Clock, UserCircle, ArrowRight } from "lucide-react";
+import { TrendingUp, TrendingDown, Minus, Clock, UserCircle, ArrowRight, Sparkles } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FinalResultsViewModelFunction } from "src/ViewModels/Match/FinalResultsViewModel";
-// import { ArmRaise } from "src/animations/armRaise";
-// import { Lose } from "src/animations/lose"
 import Loading from "@/components/shared/Loading";
 import Confetti from "@/components/ui/animations/Confetti";
 import Starfield from "@/components/ui/animations/Starfield";
 import { finalResultsContent, type PlayerFinalResults } from "src/Models/FinalResultsModel";
 import PlayerAvatar from "src/avatar/PlayerAvatar";
 import { resolve } from "src/assets/Shop/ResolveShopImages";
+import type { MatchType } from "src/dtos/match/match.dto";
 import { playSfx } from "src/utils/audio";
 
 const FinalResults: React.FC = () => {
@@ -17,17 +16,17 @@ const FinalResults: React.FC = () => {
 
     const {
         content, state, loadingProgress,
-        players, avatars
+        players, avatars, matchType
     } = FinalResultsViewModelFunction();
 
     const [res, setRes] = useState(false); // moved
 
     useEffect(() => {
-        playSfx('match_complete');
         if (state !== 'results') {
             setRes(false);
             return;
         }
+        playSfx('match_complete');
         const anim = requestAnimationFrame(() => setRes(true));
         return () => cancelAnimationFrame(anim);
     }, [state]);
@@ -96,7 +95,7 @@ const FinalResults: React.FC = () => {
             )}
 
             {state === 'results' && (
-                <div className="relative z-10 w-full max-w-2xl flex flex-col gap-4 p-6">
+                <div className="relative z-10 w-full max-w-3xl flex flex-col gap-4 p-6">
                     <h1 className="text-primary-text font-bold text-center text-xl">{content.titleResults}</h1>
 
                     {/*Table of results */}
@@ -113,10 +112,12 @@ const FinalResults: React.FC = () => {
                                     position: player.position,
                                     isWinner: player.position === 1,
                                     rank: player.rank,
-                                    rank_before: player.rank_before
+                                    rank_before: player.rank_before,
+                                    reward: player.reward,
                                 }}
                                 avatarKey={avatars[player.user_id] ?? null}
                                 emphasize={player.position === 1}
+                                match_type={matchType}
                             />
                         ))
                         }
@@ -189,11 +190,51 @@ const Badge: React.FC<{ rankBefore?: number | null, rank?: number | null }> = ({
     );
 }
 
+const useCountUp = (target: number, duration = 1200) => {
+    const [value, setValue] = useState(0);
+    useEffect(() => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            setValue(target);
+            return;
+        }
+        let raf = 0;
+        const start = performance.now();
+        const tick = (now: number) => {
+            const t = Math.min((now - start) / duration, 1);
+            setValue(Math.round(target * (1 - Math.pow(1 - t, 3))));
+            if (t < 1) raf = requestAnimationFrame(tick);
+        };
+        raf = requestAnimationFrame(tick);
+        return () => cancelAnimationFrame(raf);
+    }, [target, duration]);
+    return value;
+};
+
+const RewardCell: React.FC<{ reward?: number }> = ({ reward }) => {
+    const shown = useCountUp(reward ?? 0);
+    return (
+        <div className="flex flex-col items-center gap-0.5">
+            <span className="text-xsm uppercase tracking-wide text-muted">Stardust</span>
+            {reward === undefined ? (
+                <span className="text-muted-text text-sm">--</span>
+            ) : (
+                <span className="relative flex items-center gap-1 text-sm font-bold text-primary">
+                    <Sparkles size={16} className="reward-pop" />
+                    +{shown}
+                    <Sparkles size={10} className="reward-float absolute -top-1 left-0" />
+                    <Sparkles size={8} className="reward-float absolute -top-1 right-0" style={{ animationDelay: '0.3s'}} />
+                </span>
+            )}
+        </div>
+    );
+};
+
 const PlayerResultCard: React.FC<{
     player: PlayerFinalResults;
     emphasize?: boolean; //emphasis on the winners card, so its somewhat more visible and different to loser card
     avatarKey: string | null;
-}> = ({ player, emphasize, avatarKey }) => {
+    match_type: MatchType | null;
+}> = ({ player, emphasize, avatarKey,match_type }) => {
     // const [avatarFailed] = useState(false);
     const formatCorrectness = (correctness: number) => {
         return `${correctness.toFixed(2)}%`
@@ -220,7 +261,7 @@ const PlayerResultCard: React.FC<{
                 )}
             </div>
 
-            <div className="grid grid-cols-4 gap-2 flex-1 w-full">
+            <div className="grid grid-cols-5 gap-2 flex-1 w-full">
                 <div className="flex flex-col items-center gap-0.5">
                     <span className="text-xsm uppercase tracking-wide text-muted">Correctness</span>
                     <span className="score-display text-base text-primary-text">{formatCorrectness(player.correctness)}</span>
@@ -230,7 +271,7 @@ const PlayerResultCard: React.FC<{
                     <span className="text-xsm uppercase tracking-wide text-muted">Time</span>
                     <span className="score-display text-base text-primary-text">{player.speed}</span>
                 </div>
-                <div className="flex flex-col items-center gap-0.5">
+                {(match_type === 'ranked' || match_type === 'tournament') && <div className="flex flex-col items-center gap-0.5">
                     <span className="text-xsm uppercase tracking-wide text-muted">ELO</span>
                     <span className={`flex items-center gap-1 text-sm font-bold ${player.eloEffect >= 0 ? 'text-success' : 'text-danger'}`}>
                         {player.eloEffect >= 0 ? (
@@ -240,12 +281,13 @@ const PlayerResultCard: React.FC<{
                         )}
                         {player.eloEffect}
                     </span>
-                </div>
+                </div>}
                 {/*Copied from above and modified - placement now, not position*/}
                 <div className="flex flex-col items-center gap-0.5">
                     <span className="text-xsm uppercase tracking-wide text-muted">Placement</span>
                     <Badge rank={player.rank} rankBefore={player.rank_before} />
                 </div>
+                <RewardCell reward={player.reward} />
             </div>
         </div>
     )

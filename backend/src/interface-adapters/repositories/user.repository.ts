@@ -6,6 +6,7 @@ import { EloUpdateResultDTO } from "src/entities/dtos/user/elo.dto";
 import { LeaderboardEntryDTO } from "src/entities/dtos/leaderboard/leaderboard.dto";
 import { RankDTO } from "src/entities/dtos/user/rank.dto";
 import { leagueForElo } from "src/entities/league-mapping";
+import { Friendship } from "src/entities/database/friendship.entities";
 
 export class UserRepository implements IUserRepository {
     private readonly K_FACTOR = 32;
@@ -13,7 +14,7 @@ export class UserRepository implements IUserRepository {
         private readonly userRepository: Repository<Users>,
     ) { }
 
-    async createUser(username: string, email: string, cognito_id: string, avatar_id: number, league: string): Promise<UserDTO | null> {
+    async createUser(username: string, email: string, cognito_id: string, league: string): Promise<UserDTO | null> {
 
         const insert = await this.userRepository.createQueryBuilder()
             .insert()
@@ -22,7 +23,6 @@ export class UserRepository implements IUserRepository {
                 username: username,
                 email: email,
                 cognito_id: cognito_id,
-                avatar_id: avatar_id,
                 league: league
             })
             .orIgnore()
@@ -101,7 +101,6 @@ export class UserRepository implements IUserRepository {
         return users.map(u => ({
             user_id: u.user_id,
             username: u.username,
-            avatar_id: u.avatar_id,
             league: u.league
         }));
     }
@@ -135,14 +134,34 @@ export class UserRepository implements IUserRepository {
         });
     }
 
-    async getTotalStats(user_id: string): Promise<{ total_wins: number; total_matches: number; winning_streak: number; league: string; }> {
-        const user = await this.userRepository.findOneBy({ user_id });
-        if (!user) return { total_wins: 0, total_matches: 0, winning_streak: 0, league: 'Mercury' };
+    async getTotalStats(user_id: string): Promise<{ total_wins: number; total_matches: number; winning_streak: number; league: string; friend_count: number; }> {
+        const user = await this.userRepository.findOneByOrFail({ user_id });
+        const [row] = await this.userRepository.query(
+            `SELECT 
+                COUNT(*)::int AS total_matches,
+                COUNT(*) FILTER (WHERE players @> $2::jsonb)::int AS total_wins
+            FROM matches
+            WHERE status = 'completed'
+                AND match_type IN ('ranked', 'tournament')
+                AND players @> $1::jsonb`,
+            [
+                JSON.stringify([{ id: user_id }]),
+                JSON.stringify([{ id: user_id, position: 1 }])
+            ]
+        );
+        const friendship_table = this.userRepository.manager.getRepository(Friendship).metadata.tableName;
+        const [{ friend_count }] = await this.userRepository.query(
+            `SELECT COUNT (*)::int AS friend_count
+            FROM "${friendship_table}"
+            WHERE status = 'accepted' AND (requester_id = $1 OR receiver_id = $1)`,
+            [user_id]
+        );
         return {
-            total_wins: (user as any).total_wins ?? 0,
-            total_matches: (user as any).total_matches ?? 0,
-            winning_streak: user?.winning_streak,
-            league: user.league
+            total_wins: row.total_wins,
+            total_matches: row.total_matches,
+            winning_streak: user?.winning_streak ?? 0,
+            league: user?.league ?? 'Mercury',
+            friend_count
         };
     }
 
@@ -216,7 +235,6 @@ export class UserRepository implements IUserRepository {
             data: results.map((user, index) => ({
                 user_id: user.user_id,
                 username: user.username,
-                avatar_id: user.avatar_id,
                 league: user.league,
                 rating: user.elo,
                 rank: offset + index + 1

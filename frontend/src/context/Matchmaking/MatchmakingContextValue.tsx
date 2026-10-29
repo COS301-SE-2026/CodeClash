@@ -6,7 +6,7 @@ export interface MatchmakingContextValue {
     matchedUsers: MatchedUsersDTO | null,
     matchMode: MatchMode | null,
     matchType: MatchType | null,
-    group_id: string,
+    groupId: string,
     matched: boolean,
     setMatchMode: (mode: MatchMode) => void,
     setMatchType: (type: MatchType | null) => void,

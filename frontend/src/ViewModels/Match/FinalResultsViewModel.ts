@@ -10,8 +10,8 @@ import { useMatchStore } from "src/stores/match-store";
 import { useResultStore } from "src/stores/result-store";
 import { useAuth } from "src/context/Auth/hooks/useAuth";
 import { getEquippedFor } from "src/services/shop.service";
-
-
+import type { MatchType } from "src/dtos/match/match.dto";
+import { useInventory } from "src/context/Shop/InventoryContext";
 
 interface FinalResultsViewModel {
     content: FinalResultsContent;
@@ -21,7 +21,7 @@ interface FinalResultsViewModel {
     winner: PlayerResultDTO | undefined,
     losers: PlayerResultDTO[],
     avatars: Record<string, string | null | undefined>
-
+    matchType: MatchType | null
 }
 
 export function FinalResultsViewModelFunction(): FinalResultsViewModel {
@@ -30,10 +30,11 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
     const [avatars, setAvatars] = useState<Record<string, string | null  | undefined>>({});
     const { match_id } = useParams();
     const { matchSocket } = useSocket();
-    const { group_id, reset } = useMatchmaking();
+    const { groupId, reset,matchType } = useMatchmaking();
     const results = useResultStore(s => s.results.find(r => r?.match_id === match_id));
     const {token} = useAuth();
     const tokenInv = token ?? "";
+    const { refreshWallet } = useInventory();
 
     const players = useMemo(
         () => [...results?.players ?? []].sort((a, b) => a.position - b.position),
@@ -47,6 +48,7 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
         if (useMatchStore.getState().match_id === match_id) useMatchStore.getState().reset();
     }, [match_id])
     
+    useEffect(() => { if (results) void refreshWallet(); }, [results, refreshWallet]);
 
     useEffect(() => {
         if (!tokenInv || players.length === 0){
@@ -77,7 +79,7 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
     useEffect(() => {
         if (results || !matchSocket || !match_id) return;
 
-        matchSocket.sendResults({ match_id, pair_id: group_id })
+        matchSocket.sendResults({ match_id, pair_id: groupId })
             .then(res => {
                 if (res.ok) {
                     useResultStore.getState().addResult(res.data!)
@@ -126,6 +128,7 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
         players,
         winner,
         losers,
-        avatars
+        avatars,
+        matchType
     };
 }

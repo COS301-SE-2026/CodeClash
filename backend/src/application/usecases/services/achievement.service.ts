@@ -1,10 +1,9 @@
 import { IAchievementRepository } from "src/application/interfaces/repositories/IAchievementRepository";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 import { AchievementDTO } from "src/entities/dtos/achievements/achievement.dto";
-import { MatchPlayer, MatchType } from "src/entities/dtos/matches/match.dto";
+import { MatchMode, MatchPlayer, MatchType } from "src/entities/dtos/matches/match.dto";
 
 // Achievement conditions -- will be extended as needed
-// N.B I haven't implemented "Comeback Kid" because of how life is calculated at the moment, it's too match dependent
 export type AchievementCondition = {
     name: string;
     check: (stats: AchievementStats) => boolean;
@@ -37,8 +36,8 @@ const CONDITIONS: AchievementCondition[] = [
     { name: 'Challenger', check: s => s.league === 'Venus' },
     { name: 'Elite', check: s => s.league === 'Mars' },
     { name: 'Champion', check: s => s.league === 'Saturn' },
-    { name: 'Legend', check: s => s.league === 'Neptune' }
-    //{ name: 'Comeback Kid',   check: s => s.life_lost_before_win >= 60 },
+    { name: 'Legend', check: s => s.league === 'Neptune' },
+    { name: 'Comeback Kid',   check: s => s.life_lost_before_win >= 60 },
 ]
 
 export class AchievementService {
@@ -76,7 +75,22 @@ export class AchievementService {
         return awarded;
     }
 
-    async evaluateForMatch(match_stats: Map<string, { num_correct: number, total_time: number, num_answered: number }>, players: MatchPlayer[], match_type: MatchType, total_questions: number) {
+    async evaluateSocial(user_id: string): Promise<AchievementDTO[]> {
+        const s= await this.user_repo.getTotalStats(user_id);
+        return this.evaluateAndAward(user_id, {
+            total_wins: 0,
+            win_streak: 0,
+            total_matches: 0,
+            perfect_math: false,
+            perfect_code: false,
+            match_duration_ms: null,
+            correct_in_match: 0,
+            friend_count: s.friend_count,
+            life_lost_before_win: 0,
+            league:s.league
+        });
+    }
+    async evaluateForMatch(match_stats: Map<string, { num_correct: number, total_time: number, num_answered: number, min_life: number }>, players: MatchPlayer[], match_type: MatchType, total_questions: number, match_mode?: MatchMode) {
         for (const [user_id, stat] of match_stats) {
             const player = players.find(p => p.id === user_id);
             const is_winner = player?.position === 1;
@@ -90,16 +104,20 @@ export class AchievementService {
 
             const userStats = await this.user_repo.getTotalStats(user_id);
 
+            const streak_counts = is_ranked || is_tournament;
+
+            const is_math = (match_mode as string | undefined) === 'math';
+
             const achievementStats: AchievementStats = {
-                total_wins: is_winner ? userStats.total_wins + 1 : userStats.total_wins,
-                win_streak: is_winner ? userStats.winning_streak + 1 : 0,
+                total_wins: streak_counts && is_winner ? userStats.total_wins + 1 : userStats.total_wins,
+                win_streak: streak_counts? userStats.winning_streak : 0,
                 total_matches: userStats.total_matches + 1,
-                perfect_math: stat.num_correct === total_questions && match_type !== MatchType.ranked,
-                perfect_code: false,
+                perfect_math: is_math && total_questions > 0 && stat.num_correct === total_questions,
+                perfect_code: !is_math && total_questions > 0 && stat.num_correct === total_questions,
                 match_duration_ms: stat.num_answered > 0 ? stat.total_time : null,
                 correct_in_match: stat.num_correct,
-                friend_count: 0,
-                life_lost_before_win: 0,
+                friend_count: userStats.friend_count,
+                life_lost_before_win: is_winner ? Math.round(100 - stat.min_life) : 0,
                 league: userStats.league
             };
             await this.evaluateAndAward(user_id, achievementStats);
