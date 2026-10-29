@@ -3,7 +3,6 @@ import { renderHook, act, waitFor } from "@testing-library/react";
 import { it, expect, beforeEach, afterEach, vi } from "vitest";
 
 import { FriendsProvider, FriendsContextFunc } from '../../../src/context/Friends/FriendsContext';
-import { getEquippedFor } from "src/services/shop.service";
 // import { UserProvider } from "src/context/User/UserContext";
 // import { InventoryProvider } from "src/context/Shop/InventoryContext";
 // import { SocketProvider } from "src/context/Socket/SocketContext";
