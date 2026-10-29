@@ -76,6 +76,7 @@ import { PowerupSystem } from 'src/application/usecases/systems/powerup.system';
 import { RewardService } from 'src/application/usecases/services/match/reward.service';
 import { MarkerRegistry } from 'src/application/usecases/services/marking/maths-marking/marker-registry';
 import { IInventoryRepository } from 'src/application/interfaces/repositories/IInventoryRepository';
+import { QuestionResultBuilder } from 'src/application/usecases/services/skill/question-results';
 
 dotnev.config()
 
@@ -133,14 +134,15 @@ AppDataSource.initialize()
         const equipment_service = new EquipmentService(equipped_repo, inventory_repo, shop_item_repo);
         const purchase_service = new PurchaseService(shop_item_repo, AppDataSource);
         const reward_service = new RewardService();
+        const question_results = new QuestionResultBuilder();
 
         // initialise systems 
         const submission_system = new SubmissionSystem(world);
         const life_system = new LifeSystem(world);
         const match_deletion_system = new DeleteGame(world, match_store, matched_users_service);
-        const match_completion_system = new MatchCompletionSystem(world, match_store);
-        const match_completion_service = new MatchCompletionService(match_repo, match_completion_system, user_repo, achievement_service, reward_service, wallet_repo);
         const powerup_system = new PowerupSystem(world, life_system, submission_system);
+        const match_completion_system = new MatchCompletionSystem(world, match_store, question_results, powerup_system);
+        const match_completion_service = new MatchCompletionService(match_repo, match_completion_system, user_repo, achievement_service, reward_service, wallet_repo, powerup_system);
         // has to be declared here for system
         const powerup_service = new PowerupService(inventory_repo, shop_item_repo, powerup_system);
         const marker_reegistry = new MarkerRegistry();
@@ -218,7 +220,7 @@ AppDataSource.initialize()
 
         // attach socket handlers
         attachSocketModules(io, {
-            match: { marking_service, submission_system, match_completion_service, match_deletion_system, match_store, powerup_service, elimination_service, opponent_progress, life_system },
+            match: { marking_service, submission_system, match_completion_service, match_deletion_system, match_store, powerup_service, powerup_system, elimination_service, opponent_progress, life_system },
             matchmaking: { matchmaking_service, matched_users_service, match_service, match_store, user_repo, match_start },
             friends: { matched_users_service },
             tournament: { tournament_service, elimination_service }

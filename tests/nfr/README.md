@@ -123,19 +123,21 @@ bash tests/nfr/reliability/websocket-disconnect.sh
 ### What it tests
 The jwt security tests test hundreds of forged and/or expired tokens against various endpoints of the system.
 The following error codes should be received as response codes throughout this process, indicating whether 
-these forged/expired tokens were accepted or rejected.
+these forged/expired tokens were accepted or rejected. Additionally, a test was added that exists beyond the testing
+scope of jwt_tool to test the response to requests without a token to our endpoints.
 - Requests without a token return `401` - i.e. they were rejected
 - Requests with an expired token return `401` - i.e. they were rejected
 - Requests with a valid token return `200` - i.e. they were accepted
 
 ### How to run
 
-Sign into the app with a user whose token you want to obtain to use for testing
+Sign into the app with a DEDICATED, LOW-PRIVILEGE TEST USER (N.B. THIS IS VERY IMPORTANT, WE DO NOT WANT TO ACCIDENTALLY EXPOSE A REAL USER'S TOKEN OR OTHER INFORMATION! BECAUSE TOKEN IS AN EXPORTED SHELL VARIABLE, IT'S BRIEFLY VISIBLE TO ANY CHILD PROCESS AND WITH CERTAIN COMMANDS, THE ENTIRE MACHINE! THIS IS A NATURAL, ACCEPTED RISK OF HAVING TO TEST USING USER TOKENS BUT TO MITIAGTE RISK PLEASE ONLY USE A DEDICATED TESTING ACCOUNT FOR THIS STEP) whose token you want to obtain to use for testing
 
 From root run:
 sudo docker compose --env-file .env.dev -f dockerfile/docker-compose.dev.yml up -d --build
 cd judge0-v1.13.1
 docker compose up -d --build
+cd ..
 cd backend/scripts
 npm run seed:math && npm run seed:prog && npm run seed:templates
 
@@ -151,10 +153,12 @@ curl -i http://localhost:3000/health
 <!-- Expected output to indicate you can proceed with testing:
 HTTP/1.1 200 OK
 ...
+...
+...
 {"status":"ok"} -->
 
 
-Then, still from root run:
+Then, from root run:
 
 cd tests/nfr/security
 pip3 install boto3
@@ -163,41 +167,30 @@ pip3 install botocore[crt]
 <!-- or use pip instead of pip3 depending on your setup -->
 
 chmod +x testingReports.sh
-./TestingReports.sh
+./testingReports.sh
 
-(enter signed-in user's details)
+(enter desired user's details)
 
 This will proceed to generate a report detailing rows of different forged/expired tokens tested against each
-endpoint
+endpoint, in the /reports directory
 
 #### Expected output
 
+
+
 Testing https://localhost:3000/api/leaderboard
-Saved to reports/https:__localhost:3000_api_leaderboard.txt
 Testing https://localhost:3000/api/matches
-Saved to reports/https:__localhost:3000_api_matches.txt
 Testing https://localhost:3000/api/friends
-Saved to reports/https:__localhost:3000_api_friends.txt
 Testing https://localhost:3000/api/friends/requests
-Saved to reports/https:__localhost:3000_api_friends_requests.txt
 Testing https://localhost:3000/api/friends/invite
-Saved to reports/https:__localhost:3000_api_friends_invite.txt
 Testing https://localhost:3000/api/friends/request
-Saved to reports/https:__localhost:3000_api_friends_request.txt
 Testing https://localhost:3000/api/achievements
-Saved to reports/https:__localhost:3000_api_achievements.txt
 Testing https://localhost:3000/api/achievements/me
-Saved to reports/https:__localhost:3000_api_achievements_me.txt
 Testing https://localhost:3000/api/create-user
-Saved to reports/https:__localhost:3000_api_create-user.txt
 Testing https://localhost:3000/api/elo/elo-get
-Saved to reports/https:__localhost:3000_api_elo_elo-get.txt
 Testing https://localhost:3000/api/create-user
-Saved to reports/https:__localhost:3000_api_create-user.txt
 Testing https://localhost:3000/api/user/rank
-Saved to reports/https:__localhost:3000_api_user_rank.txt
 Testing https://localhost:3000/api/user/search
-Saved to reports/https:__localhost:3000_api_user_search.txt
 Done. The following are rows that did not provide an expected 200 or correct rejection 401 response code (rows that need to be checked):
 
 
@@ -212,13 +205,30 @@ this row can be skipped
 else:
 
 In the jwt_tool directory:
-curl -s http://localhost:3000/api/<name-of-route> -H "Authorization: Bearer $(cat ../token.txt)" | jq .
+curl -s http://localhost:3000/api/<name-of-route> -H "Authorization: Bearer $TOKEN" | jq .
 
 (Find names of api routes in testingReports.sh in ENDPOINTS)
 
 This should return [] or some form of empty value for every row that needs to be checked, if they return anything else, they have failed a test 
 
 -->
+
+
+Then the following output should also be included as well:
+
+Explicit checking beyond what jwt_tool does, checks that when no authentication token is provided, the request is rejected:
+This test passed correctly for http://localhost:3000/api/leaderboard, the no-token request was rightfully rejected with response code 401
+This test passed correctly for http://localhost:3000/api/matches, the no-token request was rightfully rejected with response code 401
+This test passed correctly for http://localhost:3000/api/friends, the no-token request was rightfully rejected with response code 401
+This test passed correctly for http://localhost:3000/api/friends/requests, the no-token request was rightfully rejected with response code 401
+This test passed correctly for http://localhost:3000/api/friends/invite, the no-token request was rightfully rejected with response code 401
+This test passed correctly for http://localhost:3000/api/friends/request, the no-token request was rightfully rejected with response code 401
+This test passed correctly for http://localhost:3000/api/achievements, the no-token request was rightfully rejected with response code 401
+This test passed correctly for http://localhost:3000/api/achievements/me, the no-token request was rightfully rejected with response code 401
+SKIPPING http://localhost:3000/api/create-user endpoint as it is deliberately exempt from auth as it is a route for signup
+This test passed correctly for http://localhost:3000/api/elo/elo-get, the no-token request was rightfully rejected with response code 401
+This test passed correctly for http://localhost:3000/api/user/rank, the no-token request was rightfully rejected with response code 401
+This test passed correctly for http://localhost:3000/api/user/search, the no-token request was rightfully rejected with response code 401
 
 
 

@@ -1,5 +1,6 @@
 import { UserPlus } from "lucide-react";
 import React, { useEffect, useState } from "react";
+import { playSfx } from "src/utils/audio";
 
 interface FriendREquestToastProps {
     title: string;
@@ -12,6 +13,7 @@ export const  FriendRequestToast: React.FC<FriendREquestToastProps> = ({ title, 
     const [visible, setVisible] = useState(false);
 
     useEffect(() => {
+        playSfx('notification');
         const show = requestAnimationFrame(() => setVisible(true));
         const dismiss = setTimeout(() => {
             setVisible(false);

@@ -229,6 +229,180 @@
   }
 }
 
+@keyframes power {
+  0%, 100% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+}
+
+@keyframes power-badge-in {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.6);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(0) scale(1.08);
+  }
+  35% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px) scale(1);
+  }
+}
+
+@keyframes power-badge-hit{
+  0% {
+    opacity: 0;
+    transform: scale(1.65);
+  }
+  15% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  25%, 45% {
+    transform: translateX(-6px);
+  }
+  35%, 55% {
+    transform: translateX(6px);
+  }
+  65% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+  }
+}
+
+@keyframes power-ring {
+  0% {
+    transform: translate(-50%, -50%) scale(0.3);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2.6);
+    opacity: 0;
+  }
+}
+
+@keyframes power-particle {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--dx), var(--dy)) scale(0.3);
+    opacity: 0;
+  }
+}
+
+@keyframes league-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes league-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes league-planet-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.2) rotate(-25deg);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.2) rotate(4deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes league-text-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes league-glow {
+  0%, 100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0.9;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes league-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes league-planet-in {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0.3);
+  }
+}
+
+@keyframes league-planet-drop {
+  0% {
+    opacity: 0;
+    transform: translateY(-90px) scale(1.3) rotate(14deg);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(8px) scale(0.95) rotate(-3deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+}
+
 @theme inline {
   /* radius */
   --radius-sm: calc(var(--radius) - 4px);
@@ -253,7 +427,6 @@
   --color-warning: var(--warning);
   --color-info: var(--info);
   --color-muted: var(--muted);
-  --color-info: var(--info) --color-muted: var(--muted);
   --colour-secondary-muted: var(--secondary-muted);
 
   /* Pink */
@@ -365,6 +538,7 @@
 
 :root {
   /* fonts */
+  --radius: 20px;
   --font: 'Roboto', sans-serif;
   --font-logo: 'Baloo Bhai 2', sans-serif;
   --heading: 'Roboto', sans-serif;
@@ -409,8 +583,6 @@
 }
 
 :root.dark, [data-theme = 'dark'] {
-
-  --radius: 20px;
 
   /*Backgrounds*/
   --background: #0a0008;
@@ -546,8 +718,8 @@
     --button-text-primary: #FFFFFF;
     --button-text-secondary: #520a23;
     --button-tournament: #FF516A;
-    --button-tournament-secondary: #281e26;
-    --button-tournament-secondary-border: #5B4041;
+    --button-tournament-secondary: #fff0f3;
+    --button-tournament-secondary-border: #e8c5cf;
 
   /*Inputs*/
   --input: rgba(83, 10, 35, 0.05);
@@ -576,14 +748,14 @@
   --life-primary: #C0395A;
 
   /* Match and Tournaments Page */
-  --card-tournaments: #12080F;
-  --progress-bar-symbol: #1B0F1A;
-  --match-card: #241822;
-  --profile-tournaments: #1D0E20;
+  --card-tournaments: #fff0f3;
+  --progress-bar-symbol: #f8dfe5;
+  --match-card: #ffffff;
+  --profile-tournaments: #fff5f7;
   --gradient-tournament: #FE98A8;
-  --match-box: #0D0410;
-  --multiple-choice-box: #170d13;
-  --multiple-choice-letter: #2a2024;
+  --match-box: #fff8f9;
+  --multiple-choice-box: #fff1f4;
+  --multiple-choice-letter: #f7dce3;
 
   /*for the radial gradients*/
   --glow-1: #f6c9d6;
@@ -1081,14 +1253,17 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    :root {
+      scroll-behavior: auto;
+    }
 
     *,
     *::before,
     *::after {
-      animation-duration: 0.001ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.001ms !important;
-      scroll-behavior: auto !important;
+      animation-duration: 0.001ms ;
+      animation-iteration-count: 1 ;
+      transition-duration: 0.001ms ;
+      scroll-behavior: auto ;
     }
 
     .floating-symbols span {
@@ -1122,7 +1297,7 @@
   .btn[aria-disabled="true"] {
     opacity: 0.45;
     cursor: not-allowed;
-    transform: none !important;
+    transform: none ;
   }
 
   .btn-primary {
@@ -1208,7 +1383,7 @@
 
   .input::placeholder,
   .textarea::placeholder {
-    color: rgba(252, 235, 221, 0.35);
+    color: var(--muted-text);
   }
 
   .input:hover,
@@ -1303,7 +1478,7 @@
   .badge-status-pending:hover,
   .badge-status-correct:hover,
   .badge-status-wrong:hover {
-    background: rgba(252, 236, 221, 0.03);
+    background: var(--background-elevated-hover);
     cursor: pointer;
   }
 
@@ -1369,6 +1544,16 @@
     background: rgba(192, 57, 90, 0.35);
   }
 
+  :root.light .eyebrow,
+  [data-theme='light'] .eyebrow {
+    color: var(--primary);
+  }
+
+  :root.light .floating-symbols img,
+  [data-theme='light'] .floating-symbols img {
+    background-color: var(--primary);
+  }
+
   /*Animations for float and glow*/
   .animate-float {
     animation: float 5s ease-in-out infinite;
@@ -1415,6 +1600,18 @@
     animation: danger-pulse 2s ease-in-out infinite;
   }
 
+  @keyframes shield-settle {
+    0% {
+      transform: scale(1.5);
+    }
+    60% {
+      transform: scale(0.9);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
   /*Avatars/Robots*/
   .avatar {
     border-radius: 999px;
@@ -1441,6 +1638,19 @@
 
   .life-shake {
     animation: big-shake 0.4s ease-in-out;
+  }
+
+  @keyframes damage-shake{
+    0% { transform: translateX(0); opacity: 1;}
+    10% { transform: translateX(-4px); opacity: 0.35;}
+    30% { transform: translate(4px); opacity: 0.35;}
+    50% { transofmr: translate(-3px); opacity: 0.35}
+    70% { transform: translateX(1px); opacity: 0.5}
+    100% { transform: translateX(0); opacity: 1;}
+  }
+
+  .damage-shake{
+    animation: damage-shake 0.6s ease-in-out;
   }
 }
 
@@ -1510,7 +1720,6 @@
     animation-name: symbol-float;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
-  
 }
 
 .answer-flash-correct{
@@ -1524,3 +1733,278 @@
 .life-shake {
   animation: big-shake 0.4s ease-in-out;
 }
+
+.power-user {
+  max-width: 18rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--heading);
+  font-weight: 600;
+  font-size: var(--font-size-xsm);
+  letter-spacing: 0.05rem;
+  color: var(--primary-text);
+  opacity: 0.85;
+}
+
+.power-fly {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 4.5rem;
+  height: 4.5rem;
+  opacity: 0;
+  pointer-events: none;
+  color: var(--power-color);
+}
+
+.power-fly svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 12px var(--power-color));
+}
+
+.shield-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  color: var(--success);
+  opacity: 0;
+}
+
+.shield-indicator svg {
+  width: 100%;
+  height: 100%;
+}
+
+.shield-indicator.shield-on {
+  opacity: 1;
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--success) 70%, transparent));
+  animation: shield-settle 0.45s ease-out;
+}
+
+/*power ups and power downs*/
+  .power-effect {
+    --power-duration: 1.4s;
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .power-up {
+    --power-color: var(--success);
+    --dy: -150px;
+  }
+
+  .power-down {
+    --power-color: var(--danger);
+    --dy: 150px;
+  }
+
+  /*soft edge tint when power up is sued - i dont want to distract the match*/
+  .power {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, transparent 45%, color-mix(in srgb, var(--power-color) 28%, transparent) 100%);
+    animation: power var(--power-duration) ease-out forwards;
+  }
+
+  .power-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+  }
+
+  .power-badge {
+    position: absolute;
+    translate: -50% -50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1.5rem 2.5rem;
+    border-radius: var(--radius-lg, 24px);
+    background: color-mix(in srgb, var(--background) 70%, transparent);
+    border: 2px solid var(--power-color);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 0 40px color-mix(in srgb, var(--power-color) 55%, transparent);
+    color: var(--power-color);
+    white-space: nowrap;
+    animation: power-badge-in var(--power-duration) ease-out forwards;
+  }
+
+  .power-down .power-badge {
+    animation-name: power-badge-hit;
+  }
+
+  .power-icon {
+    width: 4.5rem;
+    height: 4.5rem;
+    filter: drop-shadow(0 0 12px var(--power-color));
+  }
+
+  .power-label {
+    font-family: var(--heading);
+    font-weight: 800;
+    font-size: var(--font-size-md);
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    color: var(--power-color);
+  }
+
+  .power-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 14rem;
+    height: 14rem;
+    border-radius: 999px;
+    border: 3px solid var(--power-color);
+    opacity: 0;
+    animation: power-ring var(--power-duration) ease-out forwards;
+  }
+
+  .power-particle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 999px;
+    background: var(--power-color);
+    box-shadow: 0 0 10px var(--power-color);
+    opacity: 0;
+    animation: power-particle var(--power-duration) ease-out forwards;
+  }
+
+  /*league animation*/
+  .league-up {
+    --league-color: var(--primary);
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: color-mix(in srgb, var(--background) 82%, transparent);
+    backdrop-filter: blur(8px);
+    animation: league-fade-in -.4s ease-out forwards;
+  }
+
+  .league-up.leaving {
+    animation: league-fade-out 0.4s ease-in forwards;
+  }
+
+  .league-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .league-planet-wrap {
+    position: relative;
+    width: 18rem;
+    height: 18rem;
+    margin-bottom: 1.5rem;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+
+  .league-glow {
+    position: absolute;
+    inset: -25%;
+    border-radius: 999px;
+    background: radial-gradient(circle, color-mix(in srgb, var(--league-color) 55%, transparent));
+    animation: league-glow 2.4s ease-in-out infinite;
+  }
+
+  .league-orbit {
+    position: absolute;
+    inset: -1.5rem;
+    border-radius: 999px;
+    border: 2px dashed color-mix(in srgb, var(--league-color) 55%, transparent);
+    animation: league-spin 14s linear infinite;
+  }
+
+  .league-orbit::after {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    margin-left: -5px;
+    border-radius: 999px;
+    background: var(--league-color);
+    box-shadow: 0 0 12px var(--league-color);
+  }
+
+  .league-img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 24px color-mix(in srgb, var(--league-color) 60%, transparent));
+    animation: league-planet-in 0.9s cubic-bezier(0.2, 1.2, 0.3, 1) backwards, float 5s ease-in-out 0.9s infinite;
+  }
+
+  .league-spark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 999px;
+    background: var(--league-color);
+    box-shadow: 0 0 10px var(--league-color);
+    opacity: 0;
+    animation: league-spark 1.6s ease-out forwards;
+  }
+
+  .league-title {
+    font-size: var(--font-size-xl);
+    font-weight: 900;
+    font-family: var(--heading);
+    line-height: 1.1;
+    color: var(--primary-text);
+    animation: league-text-in 0.5s ease-out 0.75s backwards;
+  }
+
+  .league-name {
+    font-size: var(--font-size-xsm);
+    color: var(--muted);
+    animation: league-text-in 0.5s ease-out 0.9s backwards;
+  }
+
+  .league-name strong {
+    color: var(--muted);
+    font-weight: 800;
+  }
+
+  .league-hint {
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    color: var(--muted-text);
+    animation: league-tetx-in 0.5s ease-out 1.6s backwards;
+  }
+
+  .league-down .league-img {
+    filter: 
+    grayscale(0.3)
+    brightness(0.85)
+    drop-shadow(0 0 24px color-mix(in srgb, var(--league-color) 60%, transparent));
+    animation: 
+    league-planet-drop 0.9s ease-out backwards, float 5s ease-in-out 0.9s infinite;
+  }
+
+  .league-down .league-orbit {
+    animation-direction: reverse;
+  }
