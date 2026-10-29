@@ -13,6 +13,10 @@ vi.mock('src/ViewModels/Matchmaking/PopUpViewModel', () => ({
     useSelectTopic: () => ({selectTopic: mock_select_topic, cancel: vi.fn()})
 }))
 
+vi.mock('src/context/User/hooks/useUser', () => ({
+    useUser: () => ({ userId: 'u1', username: 'test', avatar: null })
+}))
+
 describe("PopUp", () => {
     it('Checks that popup opens', () => {
         render(<PopUp

@@ -3,6 +3,7 @@ import { renderHook, act, waitFor } from "@testing-library/react";
 import { it, expect, beforeEach, afterEach, vi } from "vitest";
 
 import { FriendsProvider, FriendsContextFunc } from '../../../src/context/Friends/FriendsContext';
+import { getEquippedFor } from "src/services/shop.service";
 // import { UserProvider } from "src/context/User/UserContext";
 // import { InventoryProvider } from "src/context/Shop/InventoryContext";
 // import { SocketProvider } from "src/context/Socket/SocketContext";
@@ -46,7 +47,17 @@ vi.mock("src/Models/FriendsModel", () => ({
     }
 }))
 
+vi.mock("src/context/Shop/InventoryContext", () => ({ 
+    useInventory: () => ({ inventory: null, catalog: [], refetch: vi.fn(), equippedAvatarImage: 'avatar-test.png' })
+}))
 
+vi.mock("src/services/shop.service", () => ({ 
+    getEquippedFor: vi.fn(async () => ({ avatarImage: 'avatar.png' }))
+}))
+
+vi.mock("src/assets/Shop/ResolveShopImages", () => ({
+    resolve: (name: string) => name
+}))
 type routeHandler = (
     url: string,
     init?: RequestInit
@@ -133,13 +144,13 @@ it('loads and maps friends, requests and header profile', async () => {
     await waitFor(() => expect(result.current?.isLoading).toBe(false));
 
     expect(result.current?.friend).toEqual([{
-        id: 'id1', username: 'usersname1', avatar: 2, status: 'offline', elo: 888
+        id: 'id1', username: 'usersname1', avatar: 'avatar.png', status: 'offline', elo: 888   // CHANGED: avatar
     }])
     expect(result.current?.requests).toEqual([{
-        id: 'id2', username: 'friends2', avatar: 5, sentAt: '2024-05-05', fromUser: 'user2'
+        id: 'id2', username: 'friends2', avatar: 'avatar.png', sentAt: '2024-05-05', fromUser: 'user2'   // CHANGED: avatar
     }])
     expect(result.current?.profile).toEqual({
-        id: 'u1', username: 'TestUser', avatar: 3, league: 'Venus', handle: 'TestUser'
+        id: 'u1', username: 'TestUser', avatar: 'avatar-test.png', league: 'Venus', handle: 'TestUser'   // CHANGED: avatar
     })
 })
 
@@ -171,7 +182,7 @@ it('accepts a request into friends and removes it from requests list', async () 
     }));
     expect(result.current?.requests).toEqual([]);
     expect(result.current?.friend).toContainEqual({
-        id: 'friendUserId', username: 'friendUsername', avatar: 7, status: 'offline', elo: 600
+        id: 'friendUserId', username: 'friendUsername', avatar: "avatar.png", status: 'offline', elo: 600
     })
 })
 
