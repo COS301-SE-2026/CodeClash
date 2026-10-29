@@ -20,8 +20,8 @@ const forPlayer = (result: MatchResultDTO, user_id: string): MatchResultDTO => (
     ...result,
     players: result.players.map(p=>{
         if (p.user_id === user_id) return p;
-        const { reward, ...rest } = p;
-        void reward;
+        const rest = {...p };
+        delete rest.reward;
         return rest;
     }),
 });
@@ -129,7 +129,6 @@ export const rejoinMatch = (socket: Socket, match_id: string, match_store: Match
         .sort((a, b) => (b.submitted_at?.getTime() ?? 0) - (a.submitted_at?.getTime() ?? 0))[0];
 
     const mine = powerup_system.getClientState(ecs_id, me.id);
-    const theirs = opponent ? powerup_system.getClientState(ecs_id, opponent.id) : null;
     return {
         players: match.players.map(player => ({ id: player.id, life: life_system.getPlayerLife(ecs_id, player.id) })),
         submissions: submission_system.playerSubmissions(ecs_id, me.id).map(submission => ({

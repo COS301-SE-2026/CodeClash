@@ -2017,7 +2017,7 @@
   }
   .reward-pop { animation: reward-pop 0.7s ease-out both; }
 
-  @keyframe reward-float {
+  @keyframes reward-float {
     0% { transform: translateY(0) scale(1); opacity: 0.9; }
     100% { transform: translateY(-22px) scale(0.6); opacity: 0; }
   }

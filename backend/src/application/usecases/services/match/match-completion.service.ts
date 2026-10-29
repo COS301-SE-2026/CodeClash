@@ -55,7 +55,7 @@ export class MatchCompletionService {
 
         // Reward Loop
         const rewards = new Map<string,number>();
-        for (const player of players) {
+        await Promise.all(players.map(async (player) => {
             const stat = match_stats.get(player.id)!;
             const reward = this.reward_service.calculateReward(match_type, player.position, players.length, stat);
             const existing = await this.wallet_repo.getWallet(player.id);
@@ -64,7 +64,7 @@ export class MatchCompletionService {
             const paid = Math.round(reward * (1+pct/100));
             await this.wallet_repo.updateBalance(player.id, paid);
             rewards.set(player.id, paid);
-        }
+        }));
 
         try {
             await this.achievement_service.evaluateForMatch(match_stats, players, match_type, total_questions, match_mode);
