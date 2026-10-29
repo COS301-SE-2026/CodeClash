@@ -1,0 +1,146 @@
+.github/workflows/deploy-main.yml
+  h_58e143dc25f856 12-40,62-63
+backend/package-lock.json
+  h_58e143dc25f856 31,2574-2576,2693-2695,3353-3355,3856-3858,6123-6125,6133-6136,6763-6765,7196-7198,7215-7218
+backend/package.json
+  h_58e143dc25f856 56
+backend/scripts/question-seeding/math/helpers.ts
+  h_58e143dc25f856 122-129,132,193
+backend/scripts/question-seeding/math/seed-math-questions.ts
+  h_58e143dc25f856 2,13,31,53
+backend/src/application/interfaces/cache/IMatchmakingCache.ts
+  h_58e143dc25f856 5-11
+backend/src/application/interfaces/repositories/IUserRepository.ts
+  h_58e143dc25f856 7
+backend/src/application/usecases/init-db.ts
+  h_58e143dc25f856 25
+backend/src/application/usecases/services/marking/mark-maths.ts
+  h_58e143dc25f856 9
+backend/src/application/usecases/services/marking/mark-prog.ts
+  h_58e143dc25f856 11
+backend/src/application/usecases/services/match/match-completion.service.ts
+  h_58e143dc25f856 27
+backend/src/application/usecases/services/match/match-store.service.ts
+  h_58e143dc25f856 28-29,32,45-46,81-82,84,86-90,106
+backend/src/application/usecases/services/matchmaking.service.ts
+  h_58e143dc25f856 2,15-16,23-24,28-31,33-34,36-37,42,51-61,63-66,69,71,76,79,83
+backend/src/application/usecases/services/user-creation.service.ts
+  h_58e143dc25f856 30
+backend/src/application/usecases/systems/delete-game.ts
+  h_58e143dc25f856 57
+backend/src/entities/dtos/matchmaking/matchmaking.dto.ts
+  h_58e143dc25f856 8
+backend/src/entities/league-mapping.ts
+  h_58e143dc25f856 6-13
+backend/src/frameworks-drivers/socket/modules/register-matchmaking-handlers.ts
+  h_58e143dc25f856 4,14
+backend/src/interface-adapters/cache/matchmaking-cache.ts
+  h_58e143dc25f856 11,19,28,32,36,41-42,46,50
+backend/src/interface-adapters/repositories/friend.repository.ts
+  h_58e143dc25f856 39
+backend/src/interface-adapters/repositories/user.repository.ts
+  h_58e143dc25f856 16
+backend/src/interface-adapters/socket-handlers/matchmaking-handlers.ts
+  h_58e143dc25f856 25,32-40,43-56,58-81,84-90,108-120,133,135,141-151,155-159,164,179-180
+backend/tests/integration/repositories/equipped.repository.test.ts
+  h_58e143dc25f856 31
+backend/tests/integration/repositories/inventory.repository.test.ts
+  h_58e143dc25f856 31
+backend/tests/integration/repositories/user.repository.test.ts
+  h_58e143dc25f856 26
+backend/tests/integration/repositories/wallet.repository.test.ts
+  h_58e143dc25f856 25
+backend/tests/integration/services/marking.service.test.ts
+  h_58e143dc25f856 120
+backend/tests/integration/services/match-creation.service.test.ts
+  h_58e143dc25f856 81-82
+backend/tests/integration/services/matchmaking.service.test.ts
+  h_58e143dc25f856 1-44
+backend/tests/integration/services/purchase.service.test.ts
+  h_58e143dc25f856 35,60,72
+backend/tests/integration/socket-handlers/helper.ts
+  h_58e143dc25f856 66
+backend/tests/integration/socket-handlers/matchmaking-handler.test.ts
+  h_58e143dc25f856 1-99
+backend/tests/mocks/mock-user.ts
+  h_58e143dc25f856 1-5,28,37,47-164
+backend/tests/setup.ts
+  h_58e143dc25f856 3,5
+backend/tests/unit/cache/matchmaking-cache.test.ts
+  h_58e143dc25f856 1-98
+backend/tests/unit/cache/tournament-cache.test.ts
+  h_58e143dc25f856 32,42,80,101
+backend/tests/unit/socket-handlers/game.handler.unit.test.ts
+  h_58e143dc25f856 4
+backend/tests/unit/socket-handlers/matchmaking-handlers.test.ts
+  h_58e143dc25f856 1-134
+backend/tests/unit/usecases/init-db.test.ts
+  h_58e143dc25f856 1-74
+backend/tests/unit/usecases/services/elimination.service.test.ts
+  h_58e143dc25f856 1-15,18-19,21-28,31-38,41-42,44-57,60-65,67-71,74-93,95-98,102-108,111-126,129-141,144-145,148-163
+backend/tests/unit/usecases/services/mark-maths.test.ts
+  h_58e143dc25f856 1-174
+backend/tests/unit/usecases/services/match-completion.service.test.ts
+  h_58e143dc25f856 1-111
+backend/tests/unit/usecases/services/match-confirmation.service.test.ts
+  h_58e143dc25f856 1-63
+backend/tests/unit/usecases/services/match.store.service.test.ts
+  h_58e143dc25f856 1-150
+backend/tests/unit/usecases/services/matchmaking.service.test.ts
+  h_58e143dc25f856 4,10,16-17,48-62,72,96-97
+backend/tests/unit/usecases/services/user-creation.service.test.ts
+  h_58e143dc25f856 1-58
+backend/tsconfig.json
+  h_58e143dc25f856 6
+backend/vitest.config.ts
+  h_58e143dc25f856 25-29
+dockerfile/docker-compose.prod.yml
+  h_58e143dc25f856 5,9,22,32-33,35,49
+dockerfile/docker-compose.test.yml
+  h_58e143dc25f856 81
+frontend/package-lock.json
+  h_58e143dc25f856 14,24,64,840,855,865,896,913,926,943,965,975,989,1003,1021,1034,1044,1062,1076,1086,1096,1106,1120,1136,1152,1168,1182-1185,1205,1235,1250,1269,1470,1501,1511,1521,1545,1558,1568,1584,1597,1610,1620,1633,1651,1658,1668,1684,1881-1884,1890,1973,1984,1995,2005,2012,2044-2047,2088,2105,2149,2163,2173,3955,3958-4002,4007,4660,4845,5309,5323,5333,5402,5420,5437,5444,5454,5521,5559,5602-5616,5642-5680,5707,5743-5746,5769,5794,5811-5814,5827,5837-5840,5857-5861,5882-5885,5901,5921-5938,5969-5972,6013,6078,6094,6113-6116,6129,6179,6189,6214,6231,6249,6256,6263,6273-6276,6290,6300,6320,6365,6401,6434,6467,6487,6509,6519,6536,6545-6561,6566,6588,6636,6650-6652,6664,6706,6710-6713,6720,6727,6824,6851,6913,6923,7082,7162,7168-7176,7181,7194,7204,7238-7241,7245-7247,7263-7264,7270,7282-7285,7301-7314,7319,7329,7339,7362,7369,7386,7410-7413,7469,7479,7497,7523,7536,7610-7624,7645,7692,7699-7702,7741,7744-7752,7757,7764-7767,7813,7839,7894,7916-7927,8190-8193,8240,8274,8284,8327,8376-8379,8389,8419-8445,8461,8477,8483-8501,8506,8529,8542,8561,8574,8584,8613,8616-8633,8638,8651,8660-8674,8679,8704,8726,8778-8786,8791,8807,8865,8885,8899,8912,8960,9267,9284,9307,9417-9419,9740,9754,9767,9774,10412,10426,10460,10470,10493,10509,10525-10527,10532,10561,10587,10604,10615-10618,10628,10645,10667,10680,10704,10717,10727,10743,10750-10753,10792,10813-10816,10829,10877,10912,10938,10948,10980,10990,11008,11015,11028,11038,11051,11064,11078,11094,11107,11113-11121,11126,11155,11176,11214,11230,11244,11261-11264,11272-11275,11318-11321,11334-11342,11347,11445,11459,11646,11803,11813,11830,11846,11891,11908,11921,11950-11966,11971,11974-11979,12003,12013,12040,12050,12067,12089-12105,12110,12114-12117,12125-12126,12128,12139,12141-12142,12149,12165,12175,12188,12198,12218,12235,12254,12281,12294,12301,12390,12405,12412-12415,12449,12466,12479,12494-12497,12510,12540,12558,12571,12584,12594,12670-12673,12731,12802,12815,12884,12895,12934-12946,12951,12970,12984,12994,13011,13058,13074,13202,13212,13219-13222,13259-13274,13318-13330,13335,13355,13903,13915-13935,13967,13992-13995,13999,14033-14054,14074,14094,14110,14123,14133
+frontend/package.json
+  h_58e143dc25f856 21,31,71
+frontend/src/Models/LeaderboardModel.ts
+  h_58e143dc25f856 1-6,9-14
+frontend/src/ViewModels/Match/FinalResultsViewModel.ts
+  h_58e143dc25f856 13,25,34,81,130-131
+frontend/src/ViewModels/Match/LeaderboardViewModel.ts
+  h_58e143dc25f856 45-46
+frontend/src/ViewModels/Matchmaking/MatchFoundViewModel.ts
+  h_58e143dc25f856 24,43,74
+frontend/src/Views/Dashboard/Dashboard.tsx
+  h_58e143dc25f856 55
+frontend/src/Views/Match/FinalResults.tsx
+  h_58e143dc25f856 11,19,119,196-197,234,244
+frontend/src/Views/Match/Leaderboard/components/LeaderboardRow.tsx
+  h_58e143dc25f856 19-21
+frontend/src/Views/Match/Leaderboard/components/LeaderboardTable.tsx
+  h_58e143dc25f856 16-17
+frontend/src/Views/Match/Leaderboard/components/PodiumCard.tsx
+  h_58e143dc25f856 30
+frontend/src/context/Matchmaking/MatchmakingContext.tsx
+  h_58e143dc25f856 11,18,21,40,46
+frontend/src/context/Matchmaking/MatchmakingContextValue.tsx
+  h_58e143dc25f856 9
+frontend/src/dtos/matchmaking/matched-user.dto.ts
+  h_58e143dc25f856 1,6-7
+frontend/test/integration/Contexts/UserContext.integration.test.tsx
+  h_58e143dc25f856 44,92,228
+frontend/test/unit/PopUp.test.tsx
+  h_58e143dc25f856 3,6-8,17,20-31,34-40,46-51,58-65,74-80,88-93,100-105,112-118
+frontend/vitest.config.ts
+  h_58e143dc25f856 29-32
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "28ebaaf887b3b871ae3d7990ca2b1ca033739b3f",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
