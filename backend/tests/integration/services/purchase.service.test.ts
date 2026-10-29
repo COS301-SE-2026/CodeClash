@@ -32,7 +32,7 @@ describe('Tests PurchaseService', () => {
         user_repo = new UserRepository(data_source.getRepository(Users));
         purchase_service = new PurchaseService(shop_item_repo, data_source);
 
-        const user = await user_repo.createUser(username, `${username}@example.com`, cognito_id, 0, 'Mercury');
+        const user = await user_repo.createUser(username, `${username}@example.com`, cognito_id, 'Mercury');
         user_id = user.user_id!;
 
         const saved = await data_source.getRepository(ShopItem).save(mock_shop_items);
@@ -57,7 +57,7 @@ describe('Tests PurchaseService', () => {
         expect(result.item.item.shop_item_id).toBe(item_id);
 
         const wallet = await wallet_repo.getWallet(user_id);
-        expect(wallet!.balance).toBe(1400); 
+        expect(wallet!.balance).toBe(1400);
     });
 
     it('Throws and does not deduct balance when item is already owned', async () => {
@@ -69,7 +69,7 @@ describe('Tests PurchaseService', () => {
         await expect(purchase_service.purchaseItem(user_id, item_id)).rejects.toThrow('Item already owned');
 
         const wallet = await wallet_repo.getWallet(user_id);
-        expect(wallet!.balance).toBe(balance_after_first); 
+        expect(wallet!.balance).toBe(balance_after_first);
     });
 
     it('Increments quantity instead of rejecting when repurchasing a powerup', async () => {

@@ -42,7 +42,8 @@ export function LeaderboardViewModel(league: string) {
         user_id: entry.user_id,
         username: entry.username,
         elo: entry.rating !== undefined ? entry.rating : 0,
-        avatar: ""
+        avatar: "",
+        league: entry.league
       }));
       setUserData(mapped);
       setTotalPages(Math.max(1, Math.ceil(response.total / pageSize)));

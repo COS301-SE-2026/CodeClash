@@ -63,7 +63,7 @@ export const delete_match = new MatchCompletionService(match_repo, completion_sy
 
 export const createTestServer = async (players: PlayerDTO[]) => {
     for (const p of players) {
-        const user = await user_repo.createUser(p.username!, `${p.username}@email.com`, p.id, 0, 'Mercury')
+        const user = await user_repo.createUser(p.username!, `${p.username}@email.com`, p.id, 'Mercury')
         p.id = user.user_id;
     }
 

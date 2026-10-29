@@ -13,7 +13,7 @@ export class UserRepository implements IUserRepository {
         private readonly userRepository: Repository<Users>,
     ) { }
 
-    async createUser(username: string, email: string, cognito_id: string, avatar_id: number, league: string): Promise<UserDTO | null> {
+    async createUser(username: string, email: string, cognito_id: string, league: string): Promise<UserDTO | null> {
 
         const insert = await this.userRepository.createQueryBuilder()
             .insert()
@@ -22,7 +22,6 @@ export class UserRepository implements IUserRepository {
                 username: username,
                 email: email,
                 cognito_id: cognito_id,
-                avatar_id: avatar_id,
                 league: league
             })
             .orIgnore()
@@ -101,7 +100,6 @@ export class UserRepository implements IUserRepository {
         return users.map(u => ({
             user_id: u.user_id,
             username: u.username,
-            avatar_id: u.avatar_id,
             league: u.league
         }));
     }
@@ -216,7 +214,6 @@ export class UserRepository implements IUserRepository {
             data: results.map((user, index) => ({
                 user_id: user.user_id,
                 username: user.username,
-                avatar_id: user.avatar_id,
                 league: user.league,
                 rating: user.elo,
                 rank: offset + index + 1

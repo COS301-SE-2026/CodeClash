@@ -2,11 +2,11 @@ name: codeclash-prod
 
 services:
   backend:
-    build: ../backend
+    image: ${REGISTRY}/codeclash-backend:${TAG}
     restart: unless-stopped
     ports:
       - "3000:3000"
-    environment: 
+    environment:
       - DB_HOST=${DB_HOST}
       - DB_PORT=${DB_PORT}
       - DB_USER=${DB_USER}
@@ -19,7 +19,7 @@ services:
       - AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
       - AWS_SECRET_KEY=${AWS_SECRET_KEY}
       - FRONTEND_URL=${FRONTEND_URL}
-      - COGNITO_JWKS_URI=${COGNITO_JWKS_URI} 
+      - COGNITO_JWKS_URI=${COGNITO_JWKS_URI}
       - PORT=${PORT}
       - NODE_ENV=${NODE_ENV} # production = connect to the database over SSL (needed for RDS)
       - JUDGE_0_URL=${JUDGE_0_URL}
@@ -29,20 +29,14 @@ services:
     networks:
       - pgnetwork
 
-  frontend: # Copied from deployment branch
+  frontend:
+    # Copied from deployment branch
     restart: unless-stopped
-    build:
-      context: ../frontend
-      args:
-      - VITE_COGNITO_USER_POOL_ID=${VITE_COGNITO_USER_POOL_ID}
-      - VITE_COGNITO_CLIENT_ID=${VITE_COGNITO_CLIENT_ID}
-      - VITE_API_URL=${VITE_API_URL}
-      - VITE_WEBSOCKET_URL=${VITE_WEBSOCKET_URL}
+    image: ${REGISTRY}/codeclash-backend:${TAG}
     ports:
       - "8080:8080"
     networks:
       - pgnetwork
-
 
   redis:
     image: redis:8.6.3-alpine
@@ -52,7 +46,7 @@ services:
     volumes:
       - redis-data:/data
       - ./backend/src/frameworks-drivers/config/redis.conf:/etc/redis/redis.conf
-    command: ["redis-server", "/etc/redis/redis.conf"]
+    command: [ "redis-server", "/etc/redis/redis.conf" ]
     restart: unless-stopped
     networks:
       - pgnetwork
