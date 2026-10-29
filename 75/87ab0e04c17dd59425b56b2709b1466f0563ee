@@ -1,0 +1,14 @@
+frontend/src/Views/Match/ProgMatch.tsx
+  h_58e143dc25f856 62,68,74,76,82,85,114,153-154,158,169,244
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7587ab0e04c17dd59425b56b2709b1466f0563ee",
+  "prompts": {},
+  "humans": {
+    "h_58e143dc25f856": {
+      "author": "Ntuuu <apathylely@gmail.com>"
+    }
+  }
+}
