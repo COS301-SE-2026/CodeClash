@@ -10,7 +10,7 @@ import { useMatchStore } from "src/stores/match-store";
 import { useResultStore } from "src/stores/result-store";
 import { useAuth } from "src/context/Auth/hooks/useAuth";
 import { getEquippedFor } from "src/services/shop.service";
-
+import { useInventory } from "src/context/Shop/InventoryContext";
 
 interface FinalResultsViewModel {
     content: FinalResultsContent;
@@ -32,7 +32,7 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
     const results = useResultStore(s => s.results.find(r => r?.match_id === match_id));
     const {token} = useAuth();
     const tokenInv = token ?? "";
-
+    const { refreshWallet } = useInventory();
 
     const players = useMemo(
         () => [...results?.players ?? []].sort((a, b) => a.position - b.position),
@@ -52,6 +52,8 @@ export function FinalResultsViewModelFunction(): FinalResultsViewModel {
             return;
         }
 
+    useEffect(() => { if (results) void refreshWallet(); }, [results, refreshWallet]);
+    
         //the following code block was written by hand just pasted because it was in the wrong place
 
         const loadAvatars = async () => {

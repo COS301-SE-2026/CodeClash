@@ -24,6 +24,8 @@
 
         isOwned: (itemId: string) => boolean;
         isEquipped: (category: 'avatar' | 'theme', itemId: string) => boolean;
+
+        refreshWallet: () => Promise<void>;
     }
 
     const InventoryContext = createContext<InventoryContextValue | undefined>(undefined);
@@ -117,6 +119,22 @@
             }, [inventory]
         )
 
+        const refreshWallet = useCallback(async () => {
+            if (!token) return;
+            try {
+                setWallet(await getWallet(token));
+            } catch {
+                // keep showing last known balance
+            }
+        }, [token]);
+
+        useEffect(() => {
+             if (!token) return;
+             const onFocus = () => { void refreshWallet(); };
+            window.addEventListener('focus', onFocus);
+            return () => window.removeEventListener('focus', onFocus);
+        }, [token, refreshWallet]);
+
         return (
             <InventoryContext.Provider value={{
                 catalog,
@@ -129,11 +147,13 @@
                 equippedAvatarKey,
 
                 refetch: fetchAll,
+                refreshWallet,
                 purchase,
                 equip,
 
                 isOwned,
                 isEquipped,
+                
             }}>
                 {children}
             </InventoryContext.Provider>

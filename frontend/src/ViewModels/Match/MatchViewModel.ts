@@ -205,7 +205,6 @@ export const useMatch = (timeUp?: () => Promise<void>) => {
             void refetchInventory();   // the server consumed one
             if (!res.data.applied) {
                 fxRef.current.fire('block_next_powerdown', false);
-                fxRef.current.consumeShield('opponent');
                 showPowerupError('Blocked by their shield');
                 return;
             }
