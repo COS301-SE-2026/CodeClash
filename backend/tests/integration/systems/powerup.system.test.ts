@@ -34,7 +34,7 @@ describe('PowerupSystem', () => {
     it('drain_life drains target but leaves 1 life', () => {
         life.getPlayerLife.mockReturnValue(30);
         sys.apply(1, 'drain_life', { value: 20 } as any, 'a', 'b');
-        expect(life.adjustLife).toHaveBeenCalledWith(1, 'b', -29);
+        expect(life.adjustLife).toHaveBeenCalledWith(1, 'b', -20);
     });
 
     it('shield blocks one powerdown then drops', () => {

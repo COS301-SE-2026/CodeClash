@@ -4,6 +4,7 @@ import { FriendService } from '../../../src/application/usecases/services/friend
 
 describe('friend controllers', () => {
     let mockService: any;
+    let mockAchievements: any;
     let req: any;
     let res: any;
 
@@ -16,7 +17,7 @@ describe('friend controllers', () => {
             removeFriend: vi.fn(),
             createInvite: vi.fn()
         };
-
+        mockAchievements = { evaluateSocial: vi.fn().mockResolvedValue([])};
         req = { 
             user: { id: 'user-1' },
             params: {},
@@ -190,7 +191,7 @@ describe('friend controllers', () => {
             req.params = { friendship_id: 'f-1' };
             req.body = { status: 'accepted' };
 
-            const handler = respondToFriendRequest(mockService);
+            const handler = respondToFriendRequest(mockService, mockAchievements);
             await handler(req, res);
 
             expect(mockService.respondToRequest).toHaveBeenCalledWith('f-1', 'accepted');
@@ -203,18 +204,19 @@ describe('friend controllers', () => {
             req.params = { friendship_id: 'f-1' };
             req.body = { status: 'declined' };
 
-            const handler = respondToFriendRequest(mockService);
+            const handler = respondToFriendRequest(mockService, mockAchievements);
             await handler(req, res);
 
             expect(res.status).toHaveBeenCalledWith(200);
             expect(res.json).toHaveBeenCalledWith({ message: 'Friend request declined' });
+            expect(mockAchievements.evaluateSocial).not.toHaveBeenCalled();
         });
 
         it('returns 400 if status is invalid', async () => {
             req.params = { friendship_id: 'f-1' };
             req.body = { status: 'blocked' };
 
-            const handler = respondToFriendRequest(mockService);
+            const handler = respondToFriendRequest(mockService, mockAchievements);
             await handler(req, res);
 
             expect(res.status).toHaveBeenCalledWith(400);
@@ -226,7 +228,7 @@ describe('friend controllers', () => {
             req.params = {};
             req.body = { status: 'accepted' };
 
-            const handler = respondToFriendRequest(mockService);
+            const handler = respondToFriendRequest(mockService, mockAchievements);
             await handler(req, res);
 
             expect(res.status).toHaveBeenCalledWith(400);
@@ -239,10 +241,31 @@ describe('friend controllers', () => {
             req.params = { friendship_id: 'f-1' };
             req.body = { status: 'accepted' };
 
-            const handler = respondToFriendRequest(mockService);
+            const handler = respondToFriendRequest(mockService, mockAchievements);
             await handler(req, res);
 
             expect(res.status).toHaveBeenCalledWith(500);
+        });
+
+        it('evaluates social achievements on accept', async () => {
+            mockService.respondToRequest.mockResolvedValueOnce(undefined);
+            req.params = { friendship_id: 'f-1'};
+            req.body = { status: 'accepted' };
+
+            const handler = respondToFriendRequest(mockService, mockAchievements);
+            await handler(req, res);
+            expect(mockAchievements.evaluateSocial).toHaveBeenCalledWith(req.user.id);
+        });
+
+        it('still returns 200 if achievement evaluation fails', async () => {
+            mockService.respondToRequest.mockResolvedValueOnce(undefined);
+            req.params = { friendship_id: 'f-1'};
+            req.body = { status: 'accepted' };
+            mockAchievements.evaluateSocial.mockRejectedValueOnce(new Error('x'));
+            
+            const handler = respondToFriendRequest(mockService, mockAchievements);
+            await handler(req, res);
+            expect(res.status).toHaveBeenCalledWith(200);
         });
     });
 
