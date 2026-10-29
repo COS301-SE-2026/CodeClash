@@ -3,7 +3,7 @@ import { authGet } from "src/services/api.service";
 import { useInventory } from "../Shop/InventoryContext";
 import { useAuth } from "../Auth/hooks/useAuth";
 import LeagueUp, { LeagueDown, LEAGUES } from "@/components/ui/animations/LeagueUp";
-
+import { playSfx } from "src/utils/audio";
 import { UserContext } from "./UserContextValue";
 
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -145,9 +145,14 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             {children}
 
             {leagueEvent.trigger > 0 && (leagueEvent.direction === "up"
-                ? <LeagueUp key={leagueEvent.trigger} league={leagueEvent.league} trigger={leagueEvent.trigger}/> 
-                : <LeagueDown key={leagueEvent.trigger} league={leagueEvent.league} trigger={leagueEvent.trigger}/>
-            )}
+                ? <LeagueUp key={leagueEvent.trigger} league={leagueEvent.league} trigger={leagueEvent.trigger}>
+                    {playSfx(`rank_up`)}
+                </LeagueUp>
+                : <LeagueDown key={leagueEvent.trigger} league={leagueEvent.league} trigger={leagueEvent.trigger}>
+                    {playSfx(`rank_down`)}
+                </LeagueDown>
+            )
+            }
         </UserContext.Provider>
     )
 }

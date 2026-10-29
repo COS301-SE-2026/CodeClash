@@ -78,11 +78,12 @@ const LABELS: Record<Direction, {title: string; line: string}> = {
 type LeagueProps = {
     league: string | null;
     trigger: number;
+    children?: void;
 }
 
 type LeagueBaseProps = LeagueProps & {direction: Direction}
 
-const LeagueBase = ({league, trigger, direction}: LeagueBaseProps) => {
+const LeagueBase = ({league, trigger, children, direction}: LeagueBaseProps) => {
     const [active, setActive] = useState<string | null>(null);
     const [leaving, setLeaving] = useState(false);
 
@@ -133,7 +134,7 @@ const LeagueBase = ({league, trigger, direction}: LeagueBaseProps) => {
     } = LABELS[direction];
 
     return (
-        <div key={trigger} className={`league-up league-${direction} ${leaving ? 'leaving': ''}`} style={{['--league-color' as string]: accent}}
+        <div key={trigger} className={`league-up league-${direction} ${leaving ? 'leaving': ''} ${children}`} style={{['--league-color' as string]: accent}}
             role="status" aria-live="polite">
             <div className="league-stage">
                 <div className="league-planet-wrap">
@@ -148,7 +149,9 @@ const LeagueBase = ({league, trigger, direction}: LeagueBaseProps) => {
                 <h1 className="league-title">{title}</h1>
                 <p className="league-name">{line} <strong>{label}</strong> League</p>
             </div>
+            
         </div>
+        
     )
 }
 const LeagueUp = (props: LeagueProps) => <LeagueBase {...props} direction="up"/>;
