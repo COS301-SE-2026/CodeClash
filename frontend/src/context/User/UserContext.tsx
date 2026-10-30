@@ -51,6 +51,14 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 const prevIndex = order.indexOf(prev.toLowerCase());
                 const nextIndex = order.indexOf(next.toLowerCase());
 
+                if(nextIndex > prevIndex){
+                    playSfx("rank_up")
+                }
+                else if(nextIndex < prevIndex){
+                    playSfx("rank_down")
+                }
+                else{}
+
                 if(prevIndex !== -1 && nextIndex !== -1 && prevIndex !== nextIndex){
                     setLeagueEvent(e => ({
                         league: next,
@@ -146,10 +154,8 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
             {leagueEvent.trigger > 0 && (leagueEvent.direction === "up"
                 ? <LeagueUp key={leagueEvent.trigger} league={leagueEvent.league} trigger={leagueEvent.trigger}>
-                    {playSfx(`rank_up`)}
                 </LeagueUp>
                 : <LeagueDown key={leagueEvent.trigger} league={leagueEvent.league} trigger={leagueEvent.trigger}>
-                    {playSfx(`rank_down`)}
                 </LeagueDown>
             )
             }
