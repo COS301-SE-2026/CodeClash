@@ -1,12 +1,12 @@
 import type { Socket } from "socket.io-client";
 import { emit, on } from "../dispatch";
 import type { SubmissionDTO, MarkingResultDTO } from "src/dtos/match/submission.dto";
-import type { MatchQuestionsDTO, RejoinMatchDTO, RoundDTO } from "src/dtos/match/match.dto";
+import type { MatchMode, MatchQuestionsDTO, RejoinMatchDTO, RoundDTO } from "src/dtos/match/match.dto";
 import type { MatchResultDTO, ResultDTO } from "src/dtos/match/result.dto";
 import type {  MatchType } from "src/dtos/match/match.dto";
 import type { Player } from "src/Models/MatchModel";
 import type { OpponentDTO } from "src/dtos/match/opponent.dto";
-import type { UsePowerupDTO, UsePowerupResultDTO } from "src/dtos/powerup.dto";
+import type { LifeUpdateDTO, UsePowerupResultDTO, UsePowerupSocketDTO } from "src/dtos/powerup.dto";
 
 
 export class MatchSocket {
@@ -77,6 +77,9 @@ export class MatchSocket {
         return on(this.socket, 'corrupt_input', handler)
     }
 
+    lifeUpdate(handler: (data: LifeUpdateDTO) => void ) {
+        return on<LifeUpdateDTO>(this.socket, 'life_update', handler);
+    }
 
     /************************************** EMITTERS ******************************************* */
 
@@ -84,7 +87,7 @@ export class MatchSocket {
         return emit<SubmissionDTO, MarkingResultDTO>(this.socket, `submit_question`, data);
     }
 
-    finishMatch(data: { match_id: string,  match_type: MatchType}) {
+    finishMatch(data: { match_id: string,  match_type: MatchType, match_mode: MatchMode}) {
         return emit<typeof data, MatchResultDTO>(this.socket, 'match_done', data);
     }
 
@@ -100,8 +103,8 @@ export class MatchSocket {
         return emit<typeof data, void>(this.socket, 'clean_up', data);
     }
 
-    usePowerup(data: UsePowerupDTO){
-        return emit<UsePowerupDTO, UsePowerupResultDTO>(this.socket, 'use_powerup', data)
+    usePowerup(data: UsePowerupSocketDTO){
+        return emit<UsePowerupSocketDTO, UsePowerupResultDTO>(this.socket, 'use_powerup', data)
     }
 }
 

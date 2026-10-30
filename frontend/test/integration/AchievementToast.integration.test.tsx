@@ -4,6 +4,9 @@ import { AchievementToastProvider, useAchievementToast } from '../../src/context
 import { AuthContext, type AuthContextValue } from '../../src/context/Auth/AuthContextValue';
 import { afterEach, beforeEach, describe, expect, it, vi, type Mock } from 'vitest';
 
+window.HTMLMediaElement.prototype.play = vi.fn().mockResolvedValue(undefined); 
+window.HTMLMediaElement.prototype.pause = vi.fn(); 
+
 const AUTH_STUB: AuthContextValue = {
   user: { username: 'ntu', userId: 'user-1' },
   isAuthenticated: true,

@@ -28,7 +28,7 @@ describe('Tests InventoryRepository', () =>{
         repo = new InventoryRepository(data_source.getRepository(UserItem), shop_item_mapper);
         user_repo = new UserRepository(data_source.getRepository(Users));
 
-        const user = await user_repo.createUser(username, `${username}@example.com`, cognito_id, 0, 'Mercury');
+        const user = await user_repo.createUser(username, `${username}@example.com`, cognito_id, 'Mercury');
         user_id = user.user_id!;
 
         const saved = await data_source.getRepository(ShopItem).save(mock_shop_items);

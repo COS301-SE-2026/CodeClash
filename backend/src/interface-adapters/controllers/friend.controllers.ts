@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { AchievementService } from "src/application/usecases/services/achievement.service";
 import { FriendService } from "src/application/usecases/services/friend.service";
 
 export const getFriends = (service: FriendService) => 
@@ -44,8 +45,10 @@ export const sendFriendRequest = (service: FriendService) =>
         }
     };
 
-export const respondToFriendRequest = (service: FriendService) => 
+export const respondToFriendRequest = (service: FriendService, achievement_service: AchievementService) => 
     async (req: Request, res: Response): Promise<void> => {
+        const user_id = req.user?.id;
+        if(!user_id ) { res.status(401).json({ message: 'Unauthorized' }); return; }
         const { friendship_id } = req.params;
         const { status } = req.body;
         if(!friendship_id || Array.isArray(friendship_id)) { res.status(400).json({ message: 'friendship_id is required' }); return; }
@@ -56,6 +59,12 @@ export const respondToFriendRequest = (service: FriendService) =>
         }
         try{
             await service.respondToRequest(friendship_id, status);
+
+            if (status === 'accepted'){
+                await achievement_service.evaluateSocial(user_id)
+                    .catch(e => console.error('[achievements] evaluateSocial failed:', e));
+            }
+            
             res.status(200).json({ message: `Friend request ${status}`});
         }catch (error) {
              console.error('Error responding to friend requests:', error);

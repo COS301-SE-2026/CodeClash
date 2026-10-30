@@ -6,7 +6,7 @@
     import { useAuth } from "../Auth/hooks/useAuth";
 
     import { getCatalog,getWallet, getInv, purchaseItm, equipItm, } from "src/services/shop.service.ts"; //to be changed once backedn endpoints implemented 
-
+    import { playSfx } from "src/utils/audio";
 
     interface InventoryContextValue {
         catalog: ShopItem[];
@@ -24,6 +24,8 @@
 
         isOwned: (itemId: string) => boolean;
         isEquipped: (category: 'avatar' | 'theme', itemId: string) => boolean;
+
+        refreshWallet: () => Promise<void>;
     }
 
     const InventoryContext = createContext<InventoryContextValue | undefined>(undefined);
@@ -89,6 +91,7 @@
             const res = await purchaseItm(itemId, token);
             setWallet(res.wallet);
             setInventory(res.inventory);
+            playSfx('purchase');
         }, [token])
 
         const equip = useCallback(async (category: 'avatar' | 'theme', itemId: string) => {
@@ -116,6 +119,22 @@
             }, [inventory]
         )
 
+        const refreshWallet = useCallback(async () => {
+            if (!token) return;
+            try {
+                setWallet(await getWallet(token));
+            } catch {
+                // keep showing last known balance
+            }
+        }, [token]);
+
+        useEffect(() => {
+             if (!token) return;
+             const onFocus = () => { void refreshWallet(); };
+            window.addEventListener('focus', onFocus);
+            return () => window.removeEventListener('focus', onFocus);
+        }, [token, refreshWallet]);
+
         return (
             <InventoryContext.Provider value={{
                 catalog,
@@ -128,11 +147,13 @@
                 equippedAvatarKey,
 
                 refetch: fetchAll,
+                refreshWallet,
                 purchase,
                 equip,
 
                 isOwned,
                 isEquipped,
+                
             }}>
                 {children}
             </InventoryContext.Provider>

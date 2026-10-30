@@ -6,7 +6,7 @@ import { MarkerRegistry } from "./maths-marking/marker-registry";
 export class MarkMaths implements IMarkingStrategy {
 
   constructor(
-    private readonly registry: MarkerRegistry = new MarkerRegistry(),
+    private readonly registry: MarkerRegistry,
     private readonly game_cache: IMatchCache,
   ) { }
   

@@ -9,6 +9,8 @@ import type { QuestionDTO } from 'src/dtos/match/match.dto'
 import PlayerAvatar from 'src/avatar/PlayerAvatar'
 import Shake from '@/components/ui/Shake'
 import { resolve } from 'src/assets/Shop/ResolveShopImages'
+import { ShieldIndicator } from '@/components/ui/animations/PowerEffect'
+import type { MatchPowerup } from 'src/Models/ShopModel'
 
 interface MatchScreenProps {
     player_life: number[],
@@ -25,7 +27,14 @@ interface MatchScreenProps {
     question_results: (boolean | null)[][],
     rounds: QuestionDTO[][],
     current_round: number,
-    current_user: string
+    current_user: string,
+    playerOneDamage: number,
+    playerTwoDamage: number,
+    shields?: {me: boolean; opponent: boolean},
+    powerups?: MatchPowerup[];
+    onUsePowerup?: (shop_item_id: string) => void;
+    powerupBusy?: boolean;
+    powerupError?: string | null;
 }
 
 export const MatchScreen: React.FC<MatchScreenProps> = ({
@@ -42,11 +51,15 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
     question_results,
     rounds,
     current_round,
-    current_user
+    current_user,
+    shields,
+    playerOneDamage,
+    playerTwoDamage
 }) => {
 
     // const questionsAnswered = question_results.flat().filter((qr) => qr === true || qr === false).length;
     // const progressValue = question_number > 0 ? (questionsAnswered / question_number) * 100 : 0;
+    const ownerOf = (i: number) => (usernames[i] === current_user ? 'me' : 'opponent')
 
     return (
         <div className="fixed inset-0 flex flex-col min-w-[64rem] overflow-y-auto">
@@ -57,7 +70,9 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 <div className="flex flex-1 min-w-0 items-center gap-3">
                     <div className="flex items-center gap-2 w-[17rem] shrink-0">
                         <TournamentButton className="shrink-0 w-12.5 h-12 overflow-hidden -ml-2">
-                            <PlayerAvatar assetKey={resolve(playerOneAvatar ?? "") ?? ""} className="w-full h-full m-auto" viewBox="-33 12 320 320" preserveAspectRatio="xMidYMin slice" size={45}/>
+                            <div key={playerOneDamage} className={`w-full h-full ${playerOneDamage > 0 ? "damage-shake" : ""}`}>
+                            <PlayerAvatar assetKey={resolve(playerOneAvatar ?? "") ?? ""} className="w-full h-full m-auto" viewBox="-33 18 330 330" preserveAspectRatio="xMidYMin slice" size={52}/>
+                            </div>
                         </TournamentButton>
 
                         <div className="flex flex-col ml-2 shrink-0">
@@ -69,20 +84,20 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                     </div>
 
                     <div className='flex flex-1 min-w-0 flex'>
-                        <Shake value={player_life[0]} className="w-full flex">
+                        <Shake value={player_life[0]} className="w-full flex items-center justify-end gap-2">
                         <Progress
                             value={player_life[0]}
                             bg="var(--button-tournament-secondary)"
                             border="var(--button-tournament-secondary)"
                             height={3}
-                            className={`w-full max-w-[11rem] min-w-[1rem] h-sm mr-auto shrink-0`}
+                            className={`w-full max-w-[11rem] min-w-[1rem] h-sm my-auto`}
                         />
+                        <ShieldIndicator owner={ownerOf(0)} active={shields?.[ownerOf(0)] ?? false}/>
                         </Shake>
                     </div>
                     
                 </div>
                 
-
                 {/* Clock */}
                 <TimerCard className="shrink-0 -mt-4.5">
                     <span>
@@ -95,16 +110,17 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
 
                 {/* the code below was copied and rearranged from the human-written code above for the sake of time, none of this code is ai-generated */}
                 <div className="flex flex-1 min-w-0 items-center gap-3">
-                    <div className="flex-1 min-w-0 flex">
-                        <Shake value={player_life[1]} className="w-full flex">
+                    <div className="flex flex-1 min-w-0">
+                        <Shake value={player_life[1]} className="w-full flex items-center justify-start gap-2">
+                            <ShieldIndicator owner={ownerOf(1)} active={shields?.[ownerOf(1)] ?? false}/>
                             <Progress
                                 value={player_life[1]}
                                 bg={"var(--button-tournament-secondary)"}
-                                border={"var(--button-tournament-secondary"}
+                                border={"var(--button-tournament-secondary)"}
                                 from={"#8b29b8"}
                                 via={"#BF4DF3"}
                                 height={3}
-                                className='w-full max-w-[11rem] min-w-[1rem] ml-auto rotate-180 my-auto'
+                                className='w-full max-w-[11rem] min-w-[1rem] h-sm my-auto rotate-180'
                             />
                         </Shake>
                     </div>
@@ -119,8 +135,11 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
 
                         <TournamentButton className="shrink-0 w-12.5 h-12 overflow-hidden -mr-2">
                             {/* copied and pasted from above, not generated by ai */}
-                            <PlayerAvatar assetKey={resolve(playerTwoAvatar ?? "") ?? ""} className="w-full h-full m-auto" viewBox="-40 12 320 320" preserveAspectRatio="xMidYMin slice" size={45}/>
+                            <div key={playerTwoDamage} className={`w-full h-full ${playerTwoDamage > 0 ? "damage-shake" : ""}`}>
+                            <PlayerAvatar assetKey={resolve(playerTwoAvatar ?? "") ?? ""} className="w-full h-full m-auto" viewBox="-40 18 330 330" preserveAspectRatio="xMidYMin slice" size={52}/>
+                            </div>
                         </TournamentButton>
+
                     </div>
                 </div>
                 
@@ -140,8 +159,8 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                 {/* Progress bar */}
                 <div className='flex flex-col items-center w-[20%] justify-between -mt-5'>
                     {/* progress  */}
-                    <div className=' ml-[40%] w-[100%] flex'>
-                        <MatchCard className='relative rounded-[20px] flex flex-col-reverse items-center justify-between h-auto w-[7rem] gap-2 p-3 '>
+                    <div className=' ml-[21.5%] w-[100%] flex'>
+                        <MatchCard className='relative rounded-[20px] flex flex-col-reverse items-center justify-between w-[7rem] gap-2 p-3 '>
                             <RoundTree
                                 rounds={rounds}
                                 results={question_results}
@@ -151,7 +170,6 @@ export const MatchScreen: React.FC<MatchScreenProps> = ({
                             />
 
                         </MatchCard>
-
                     </div>
                 </div>
             </div>

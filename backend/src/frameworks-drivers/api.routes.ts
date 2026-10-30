@@ -226,7 +226,7 @@ router.get('/skill-progress', getSkillProgress(match_completion_service));
    *       500:
    *         description: Internal server error
    */
-  router.patch('/friends/request/:friendship_id', respondToFriendRequest(friends_service));
+  router.patch('/friends/request/:friendship_id', respondToFriendRequest(friends_service, achievement_service));
   /**
    * @swagger
    * /api/friends/{friendship_id}:

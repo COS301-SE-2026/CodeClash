@@ -2,14 +2,13 @@ import { IMatchRepository } from "src/application/interfaces/repositories/IMatch
 import { MatchCompletionSystem } from "../../systems/match-completion.system";
 import { IUserRepository } from "src/application/interfaces/repositories/IUserRepository";
 import { AchievementService } from "../achievement.service";
-import { MatchType, MatchStatus } from "src/entities/dtos/matches/match.dto";
+import { MatchType, MatchStatus, MatchMode } from "src/entities/dtos/matches/match.dto";
 import { RewardService } from "./reward.service";
 import { IWalletRepository } from "src/application/interfaces/repositories/IWalletRepository";
+import { PowerupSystem } from "../../systems/powerup.system";
 
 const SKILL_PROGRESS_DAYS = 30;
 const SKILL_PROGRESS_WINDOW = 20;
-
-
 
 
 export class MatchCompletionService {
@@ -19,11 +18,12 @@ export class MatchCompletionService {
         private readonly user_repo: IUserRepository,
         private readonly achievement_service: AchievementService,
         private readonly reward_service: RewardService,
-        private readonly wallet_repo: IWalletRepository
+        private readonly wallet_repo: IWalletRepository,
+        private readonly powerup_system: PowerupSystem
     ) { }
 
 
-    async execute(ecs_match_id: number, db_match_id: string, player_ids: string[], match_type: MatchType, times?: Map<string, number>) {
+    async execute(ecs_match_id: number, db_match_id: string, player_ids: string[], match_type: MatchType, times?: Map<string, number>, match_mode?: MatchMode) {
         const { players, match_stats, total_questions } = await this.completion_system.execute(ecs_match_id, player_ids, times);
 
         switch (match_type) {
@@ -51,20 +51,33 @@ export class MatchCompletionService {
             }
         }
 
-        for (const player of players) {
+        // Reward Loop
+        const rewards = new Map<string,number>();
+        await Promise.all(players.map(async (player) => {
             const stat = match_stats.get(player.id)!;
-          const reward = this.reward_service.calculateReward(match_type, player.position, players.length, stat);
-          const existing = await this.wallet_repo.getWallet(player.id);
-          if (!existing) await this.wallet_repo.createWallet(player.id);
-            await this.wallet_repo.updateBalance(player.id, reward);
+            const reward = this.reward_service.calculateReward(match_type, player.position, players.length, stat);
+            const existing = await this.wallet_repo.getWallet(player.id);
+            if (!existing) await this.wallet_repo.createWallet(player.id);
+            const pct = this.powerup_system.getScoreMultiplierPercent(ecs_match_id, player.id);
+            const paid = Math.round(reward * (1+pct/100));
+            await this.wallet_repo.updateBalance(player.id, paid);
+            rewards.set(player.id, paid);
+        }));
+
+        try {
+            await this.achievement_service.evaluateForMatch(match_stats, players, match_type, total_questions, match_mode);
+        } catch (e) {
+            console.error('[achievements} evaluateForMatch failed:', e);
         }
-
-
-        await this.achievement_service.evaluateForMatch(match_stats, players, match_type, total_questions);
+        
         await this.match_repo.updatePlayers(db_match_id, players);
         await this.match_repo.completeMatch(db_match_id, MatchStatus.Completed);
 
-        return this.match_repo.buildMatchResult(db_match_id);
+        const result = await this.match_repo.buildMatchResult(db_match_id);
+        return {
+            ...result,
+            players: result.players.map(p => ({ ...p, reward: rewards.get(p.user_id) ?? 0 })),
+        };
     }
 
 

@@ -23,7 +23,7 @@ describe("User Repository Quesries", () => {
 
 
     it("Stores a user in the database", async () => {
-        const add = await user_repo.createUser(user.username, user.email, user.cognito_id, user.avatar_id, user.league);
+        const add = await user_repo.createUser(user.username, user.email, user.cognito_id, user.league);
 
         const uuid_regex = /^[0-9a-fA-f]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/
 

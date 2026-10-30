@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { ShopCategory, ShopItem } from "src/Models/ShopModel";
 import { useInventory } from "src/context/Shop/InventoryContext";
 
@@ -19,17 +19,24 @@ export const Tabs: ShopTab[] = [
         label: 'Themes',
         categories: ['theme']
     },
+    {
+        id: 'powerups',
+        label: 'Power-Ups',
+        categories: ['powerup']
+    },
 ]
 
 export const ShopViewModelFunc = () => {
     const {
-        catalog, wallet, inventory, loading, error: inventoryError, purchase: purchaseFromContext, equip: equipFromContext, isOwned, isEquipped
+        catalog, wallet, inventory, loading, error: inventoryError, purchase: purchaseFromContext, equip: equipFromContext, isOwned, isEquipped, refreshWallet
     } = useInventory();
 
     const [activeTabId, setActiveTabId] = useState('avatars');
     const [purchasingId, setPurchasingId] = useState<string | null>(null);
     const [purchaseError, setPurchaseError] = useState<string | null>(null);
     const [equipError, setEquipError] = useState<string | null>(null);
+    
+    useEffect(() => { void refreshWallet(); }, [refreshWallet]);
 
     const activeTab = useMemo(
         () => Tabs.find((t) => t.id === activeTabId) ?? Tabs[0], [activeTabId]
@@ -41,6 +48,10 @@ export const ShopViewModelFunc = () => {
 
     const itemsByCategory = useCallback(
         (category: ShopCategory) => items.filter((i) => i.category === category), [items]
+    )
+
+    const powerupQuantity = useCallback(
+        (itemId: string) => inventory?.consumable.find((c) => c.shop_item_id === itemId)?.quantity ?? 0, [inventory]
     )
 
     const canAfford = useCallback(
@@ -89,6 +100,7 @@ export const ShopViewModelFunc = () => {
         purchasingId,
         isOwned,
         isEquipped,
+        powerupQuantity,
         canAfford,
         purchase,
         equip,

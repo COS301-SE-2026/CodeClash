@@ -78,7 +78,7 @@ services:
   test-redis:
     image: redis:7-alpine
     ports:
-      - "6380:6379"
+      - "6381:6379"
     environment:
       - REDIS_URL=${REDIS_URL}
     command: redis-server
